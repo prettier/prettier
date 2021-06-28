@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-100857.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FieldLayoutWith<
+  T : string,
+  S : unknown = { xxxxxxxx: number; y: string; }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : string,
+  S : unknown,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : string,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : stringgggggggggggggggggg,
+  S : stringgggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+=====================================output=====================================
+type FieldLayoutWith<
+  T: string,
+  S: unknown = { xxxxxxxx: number, y: string }
+> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<T: string, S: unknown> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<T: string> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<
+  T: stringgggggggggggggggggg,
+  S: stringgggggggggggggggggg
+> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+================================================================================
+`;

@@ -1,44 +1,43 @@
 "use strict";
 
-const flat = require("lodash/flatten");
-
-const comments = require("../../main/comments");
+const { printComments } = require("../../main/comments");
 const {
   getLast,
-  isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util");
 const pathNeedsParens = require("../needs-parens");
 const {
-  hasLeadingComment,
-  hasTrailingComment,
-  isCallOrOptionalCallExpression,
+  isCallExpression,
+  isMemberExpression,
   isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
   isMemberish,
   isNumericLiteral,
   isSimpleCallArgument,
+  hasComment,
+  CommentCheckFlags,
+  isNextLineEmpty,
 } = require("../utils");
 const { locEnd } = require("../loc");
 
 const {
   builders: {
-    concat,
     join,
     hardline,
     group,
     indent,
     conditionalGroup,
     breakParent,
+    label,
   },
   utils: { willBreak },
 } = require("../../document");
 const printCallArguments = require("./call-arguments");
+const { printMemberLookup } = require("./member");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
-  printMemberLookup,
   printBindExpressionCallee,
 } = require("./misc");
 
@@ -87,43 +86,40 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    return isNextLineEmpty(originalText, node, locEnd);
+    return isNextLineEmpty(node, options);
   }
 
   function rec(path) {
     const node = path.getValue();
     if (
-      isCallOrOptionalCallExpression(node) &&
-      (isMemberish(node.callee) || isCallOrOptionalCallExpression(node.callee))
+      isCallExpression(node) &&
+      (isMemberish(node.callee) || isCallExpression(node.callee))
     ) {
       printedNodes.unshift({
         node,
-        printed: concat([
-          comments.printComments(
+        printed: [
+          printComments(
             path,
-            () =>
-              concat([
-                printOptionalToken(path),
-                printFunctionTypeParameters(path, options, print),
-                printCallArguments(path, options, print),
-              ]),
+            [
+              printOptionalToken(path),
+              printFunctionTypeParameters(path, options, print),
+              printCallArguments(path, options, print),
+            ],
             options
           ),
           shouldInsertEmptyLineAfter(node) ? hardline : "",
-        ]),
+        ],
       });
       path.call((callee) => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
         needsParens: pathNeedsParens(path, options),
-        printed: comments.printComments(
+        printed: printComments(
           path,
-          () =>
-            node.type === "OptionalMemberExpression" ||
-            node.type === "MemberExpression"
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+          isMemberExpression(node)
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
@@ -131,13 +127,13 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: comments.printComments(path, () => "!", options),
+        printed: printComments(path, "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node,
-        printed: path.call(print),
+        printed: print(),
       });
     }
   }
@@ -147,11 +143,11 @@ function printMemberChain(path, options, print) {
   const node = path.getValue();
   printedNodes.unshift({
     node,
-    printed: concat([
+    printed: [
       printOptionalToken(path),
       printFunctionTypeParameters(path, options, print),
       printCallArguments(path, options, print),
-    ]),
+    ],
   });
 
   if (node.callee) {
@@ -188,9 +184,8 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
-      isCallOrOptionalCallExpression(printedNodes[i].node) ||
-      ((printedNodes[i].node.type === "MemberExpression" ||
-        printedNodes[i].node.type === "OptionalMemberExpression") &&
+      isCallExpression(printedNodes[i].node) ||
+      (isMemberExpression(printedNodes[i].node) &&
         printedNodes[i].node.computed &&
         isNumericLiteral(printedNodes[i].node.property))
     ) {
@@ -199,7 +194,7 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  if (!isCallOrOptionalCallExpression(printedNodes[0].node)) {
+  if (!isCallExpression(printedNodes[0].node)) {
     for (; i + 1 < printedNodes.length; ++i) {
       if (
         isMemberish(printedNodes[i].node) &&
@@ -237,17 +232,14 @@ function printMemberChain(path, options, print) {
     }
 
     if (
-      isCallOrOptionalCallExpression(printedNodes[i].node) ||
+      isCallExpression(printedNodes[i].node) ||
       printedNodes[i].node.type === "ImportExpression"
     ) {
       hasSeenCallExpression = true;
     }
     currentGroup.push(printedNodes[i]);
 
-    if (
-      printedNodes[i].node.comments &&
-      printedNodes[i].node.comments.some((comment) => comment.trailing)
-    ) {
+    if (hasComment(printedNodes[i].node, CommentCheckFlags.Trailing)) {
       groups.push(currentGroup);
       currentGroup = [];
       hasSeenCallExpression = false;
@@ -285,7 +277,7 @@ function printMemberChain(path, options, print) {
   }
 
   function shouldNotWrap(groups) {
-    const hasComputed = groups[1].length && groups[1][0].node.computed;
+    const hasComputed = groups[1].length > 0 && groups[1][0].node.computed;
 
     if (groups[0].length === 1) {
       const firstNode = groups[0][0].node;
@@ -300,27 +292,25 @@ function printMemberChain(path, options, print) {
 
     const lastNode = getLast(groups[0]).node;
     return (
-      (lastNode.type === "MemberExpression" ||
-        lastNode.type === "OptionalMemberExpression") &&
+      isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
       (isFactory(lastNode.property.name) || hasComputed)
     );
   }
 
   const shouldMerge =
-    groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
+    groups.length >= 2 &&
+    !hasComment(groups[1][0].node) &&
+    shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
-    if (
-      printedGroup.length > 0 &&
-      printedGroup[printedGroup.length - 1].needsParens
-    ) {
-      return concat(["(", ...printed, ")"]);
+    if (printedGroup.length > 0 && getLast(printedGroup).needsParens) {
+      return ["(", ...printed, ")"];
     }
-    return concat(printed);
+    return printed;
   }
 
   function printIndentedGroup(groups) {
@@ -328,25 +318,28 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(
-      group(concat([hardline, join(hardline, groups.map(printGroup))]))
-    );
+    return indent(group([hardline, join(hardline, groups.map(printGroup))]));
   }
 
   const printedGroups = groups.map(printGroup);
-  const oneLine = concat(printedGroups);
+  const oneLine = printedGroups;
 
   const cutoff = shouldMerge ? 3 : 2;
-  const flatGroups = flat(groups);
+  const flatGroups = groups.flat();
 
-  const hasComment =
-    flatGroups.slice(1, -1).some((node) => hasLeadingComment(node.node)) ||
-    flatGroups.slice(0, -1).some((node) => hasTrailingComment(node.node)) ||
-    (groups[cutoff] && hasLeadingComment(groups[cutoff][0].node));
+  const nodeHasComment =
+    flatGroups
+      .slice(1, -1)
+      .some((node) => hasComment(node.node, CommentCheckFlags.Leading)) ||
+    flatGroups
+      .slice(0, -1)
+      .some((node) => hasComment(node.node, CommentCheckFlags.Trailing)) ||
+    (groups[cutoff] &&
+      hasComment(groups[cutoff][0].node, CommentCheckFlags.Leading));
 
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
-  if (groups.length <= cutoff && !hasComment) {
+  if (groups.length <= cutoff && !nodeHasComment) {
     if (isLongCurriedCallExpression(path)) {
       return oneLine;
     }
@@ -357,31 +350,33 @@ function printMemberChain(path, options, print) {
   // empty line after
   const lastNodeBeforeIndent = getLast(groups[shouldMerge ? 1 : 0]).node;
   const shouldHaveEmptyLineBeforeIndent =
-    !isCallOrOptionalCallExpression(lastNodeBeforeIndent) &&
+    !isCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
-  const expanded = concat([
+  const expanded = [
     printGroup(groups[0]),
-    shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    shouldMerge ? groups.slice(1, 2).map(printGroup) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
-  ]);
+  ];
 
   const callExpressions = printedNodes
     .map(({ node }) => node)
-    .filter(isCallOrOptionalCallExpression);
+    .filter(isCallExpression);
 
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
     const lastGroupNode = getLast(getLast(groups)).node;
     const lastGroupDoc = getLast(printedGroups);
     return (
-      isCallOrOptionalCallExpression(lastGroupNode) &&
+      isCallExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
-        .some((n) => n.arguments.some(isFunctionOrArrowExpression))
+        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
     );
   }
+
+  let result;
 
   // We don't want to print in one line if at least one of these conditions occurs:
   //  * the chain has comments,
@@ -390,7 +385,7 @@ function printMemberChain(path, options, print) {
   //  * any group but the last one has a hard line,
   //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
   if (
-    hasComment ||
+    nodeHasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
         (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
@@ -398,16 +393,18 @@ function printMemberChain(path, options, print) {
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {
-    return group(expanded);
+    result = group(expanded);
+  } else {
+    result = [
+      // We only need to check `oneLine` because if `expanded` is chosen
+      // that means that the parent group has already been broken
+      // naturally
+      willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
+      conditionalGroup([oneLine, expanded]),
+    ];
   }
 
-  return concat([
-    // We only need to check `oneLine` because if `expanded` is chosen
-    // that means that the parent group has already been broken
-    // naturally
-    willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-    conditionalGroup([oneLine, expanded]),
-  ]);
+  return label("member-chain", result);
 }
 
 module.exports = printMemberChain;

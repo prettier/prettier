@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`d-flag.js [espree] format 1`] = `
+"Invalid regular expression flag (1:2)
+> 1 | /./d;
+    |  ^
+  2 |"
+`;
+
+exports[`d-flag.js [flow] format 1`] = `
+"Invalid flags supplied to RegExp constructor 'd' (1:5)
+> 1 | /./d;
+    |     ^
+  2 |"
+`;
+
+exports[`d-flag.js [meriyah] format 1`] = `
+"[1:3]: Unexpected regular expression flag (1:3)
+> 1 | /./d;
+    |   ^
+  2 |"
+`;
+
+exports[`d-flag.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/./d;
+
+=====================================output=====================================
+/./d;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/[/]\\/\\u0aBc/mgi;
+
+=====================================output=====================================
+/[/]\\/\\u0aBc/gim;
+
+================================================================================
+`;

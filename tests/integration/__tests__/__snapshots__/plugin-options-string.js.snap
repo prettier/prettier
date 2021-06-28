@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;
+
+exports[`show detailed external option with \`--help foo-string\` (stdout) 1`] = `
+"--foo-string <string>
+
+  foo description
+
+Default: bar
+"
+`;
+
+exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `Array []`;
+
+exports[`show external options with \`--help\` 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -20,18 +20,20 @@
+                             Control how Prettier formats quoted code embedded in the file.
+                             Defaults to auto.
+    --end-of-line <lf|crlf|cr|auto>
+                             Which end of line characters to apply.
+                             Defaults to lf.
++   --foo-string <string>    foo description
++                            Defaults to bar.
+    --html-whitespace-sensitivity <css|strict|ignore>
+                             How to handle whitespaces in HTML.
+                             Defaults to css.
+    --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+                             Defaults to false.
+    --jsx-single-quote       Use single quotes in JSX.
+                             Defaults to false.
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+                             Which parser to use.
+    --print-width <int>      The line length where Prettier will try wrap.
+                             Defaults to 80.
+    --prose-wrap <always|never|preserve>
+                             How to wrap prose."
+`;

@@ -1,0 +1,235 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Unexpected token, expected \\"(\\" (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [babel] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = b) = 1
+    | ^"
+`;
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"Unexpected token, expected \\"(\\" (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [babel-flow] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = b) = 1
+    | ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Unexpected token, expected \\"(\\" (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 2`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = b) = 1
+    | ^"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token each (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected identifier, expected the token \`(\` (1:5)
+> 1 | for each (a in b) {}
+    |     ^^^^"
+`;
+
+exports[`snippet: #0 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a = b) = 1
+    |  ^^^^^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"[1:8]: Expected '(' (1:8)
+> 1 | for each (a in b) {}
+    |        ^"
+`;
+
+exports[`snippet: #0 [meriyah] format 2`] = `
+"[1:9]: Invalid left-hand side in assignment (1:9)
+> 1 | (a = b) = 1
+    |         ^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"'(' expected. (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"A class name is required. (1:7)
+> 1 | class switch() {}
+    |       ^"
+`;
+
+exports[`snippet: #1 [babel] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:5)
+> 1 | a = 1 = 2
+    |     ^"
+`;
+
+exports[`snippet: #1 [babel-flow] format 1`] = `
+"A class name is required. (1:7)
+> 1 | class switch() {}
+    |       ^"
+`;
+
+exports[`snippet: #1 [babel-flow] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:5)
+> 1 | a = 1 = 2
+    |     ^"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"A class name is required. (1:7)
+> 1 | class switch() {}
+    |       ^"
+`;
+
+exports[`snippet: #1 [babel-ts] format 2`] = `
+"Invalid left-hand side in assignment expression. (1:5)
+> 1 | a = 1 = 2
+    |     ^"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"Unexpected token switch (1:7)
+> 1 | class switch() {}
+    |       ^"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected token \`switch\` (1:7)
+> 1 | class switch() {}
+    |       ^^^^^^"
+`;
+
+exports[`snippet: #1 [flow] format 2`] = `
+"Invalid left-hand side in assignment (1:5)
+> 1 | a = 1 = 2
+    |     ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"[1:12]: Unexpected strict mode reserved word (1:12)
+> 1 | class switch() {}
+    |            ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 2`] = `
+"[1:7]: Invalid left-hand side in assignment (1:7)
+> 1 | a = 1 = 2
+    |       ^"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"'{' expected. (1:7)
+> 1 | class switch() {}
+    |       ^"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = 1) = 2
+    | ^"
+`;
+
+exports[`snippet: #2 [babel-flow] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = 1) = 2
+    | ^"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a = 1) = 2
+    | ^"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a = 1) = 2
+    |  ^^^^^"
+`;
+
+exports[`snippet: #2 [meriyah] format 1`] = `
+"[1:9]: Invalid left-hand side in assignment (1:9)
+> 1 | (a = 1) = 2
+    |         ^"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a += b) = 1
+    | ^"
+`;
+
+exports[`snippet: #3 [babel-flow] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a += b) = 1
+    | ^"
+`;
+
+exports[`snippet: #3 [babel-ts] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | (a += b) = 1
+    | ^"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a += b) = 1
+    |  ^^^^^^"
+`;
+
+exports[`snippet: #3 [meriyah] format 1`] = `
+"[1:10]: Invalid left-hand side in assignment (1:10)
+> 1 | (a += b) = 1
+    |          ^"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Invalid left-hand side in parenthesized expression. (1:2)
+> 1 | (a = b) += 1
+    |  ^"
+`;
+
+exports[`snippet: #4 [babel-flow] format 1`] = `
+"Invalid left-hand side in parenthesized expression. (1:2)
+> 1 | (a = b) += 1
+    |  ^"
+`;
+
+exports[`snippet: #4 [babel-ts] format 1`] = `
+"Invalid left-hand side in parenthesized expression. (1:2)
+> 1 | (a = b) += 1
+    |  ^"
+`;
+
+exports[`snippet: #4 [flow] format 1`] = `
+"Invalid left-hand side in assignment (1:2)
+> 1 | (a = b) += 1
+    |  ^^^^^"
+`;
+
+exports[`snippet: #4 [meriyah] format 1`] = `
+"[1:10]: Invalid left-hand side in assignment (1:10)
+> 1 | (a = b) += 1
+    |          ^"
+`;

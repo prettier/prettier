@@ -132,6 +132,9 @@ const options = {
   "debug-print-doc": {
     type: "boolean",
   },
+  "debug-print-comments": {
+    type: "boolean",
+  },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
     type: "int",
@@ -144,6 +147,10 @@ const options = {
     oppositeDescription:
       "Don't take .editorconfig into account when parsing configuration.",
     default: true,
+  },
+  "error-on-unmatched-pattern": {
+    type: "boolean",
+    oppositeDescription: "Prevent errors when pattern is unmatched.",
   },
   "find-config-path": {
     type: "path",

@@ -5,6 +5,16 @@
 # See https://git-scm.com/docs/git-blame#Documentation/git-blame.txt---ignore-revs-fileltfilegt
 
 # Prettier bump after release
+# 2.3.2
+0747d9204113ee4bb4e3c2bab113dc3772a5e8d9
+# 2.3.1
+a34b4a711ed9928f8809bed3f4c8572dc3a40efb
+# 2.3.0
+3d8dc612b54cef741a1c31da1011a2d48748a1dd
+# 2.2.1
+80961835a68e3de1b14819a7b77583a54d2b63d7
+# 2.2.0
+cf354c205de9841a2d306387473dac369359ca2b
 # 2.1.2
 c4d3014b95122f4ad19c319a9b3f5f9625d6003f
 # 2.1.1
@@ -23,6 +33,9 @@ c1dd17cf383b78fd8fd43442bb5db59b51900410
 f56d620be529b60c13032681446c1eb76e0fb088
 # 2.0.0
 9dad95b35f935edce4c3d6cfa45c79a0b9c82b9f
+
+# Restructure test files (#10415)
+ece93681f1010796e7d8eb4394196ccaef0cbc9c
 
 # Categorize tests (#8239 #8248 #8249 #8251)
 b585bd6fa4d750a98e277303c428edfc48fea3f4

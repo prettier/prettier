@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parserES5ForOfStatement2.ts [babel-ts] format 1`] = `
+"Missing semicolon. (2:12)
+  1 | //@target: ES5
+> 2 | for (var of X) {
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`parserES5ForOfStatement2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@target: ES5
+for (var of X) {
+}
+
+=====================================output=====================================
+//@target: ES5
+for (var of X) {
+}
+
+================================================================================
+`;
+
+exports[`parserES5ForOfStatement21.ts [babel-ts] format 1`] = `
+"Unexpected token (2:15)
+  1 | //@target: ES5
+> 2 | for (var of of) { }
+    |               ^
+  3 |"
+`;
+
+exports[`parserES5ForOfStatement21.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@target: ES5
+for (var of of) { }
+
+=====================================output=====================================
+//@target: ES5
+for (var of of) {
+}
+
+================================================================================
+`;
+
+exports[`parserForInStatement2.ts [babel-ts] format 1`] = `
+"Missing semicolon. (1:12)
+> 1 | for (var in X) {
+    |            ^
+  2 | }
+  3 |"
+`;
+
+exports[`parserForInStatement2.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (var in X) {
+}
+
+=====================================output=====================================
+for (var in X) {
+}
+
+================================================================================
+`;

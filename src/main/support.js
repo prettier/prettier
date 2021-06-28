@@ -32,7 +32,7 @@ function getSupportInfo({
   const version = currentVersion.split("-", 1)[0];
 
   const languages = plugins
-    .reduce((all, plugin) => all.concat(plugin.languages || []), [])
+    .flatMap((plugin) => plugin.languages || [])
     .filter(filterSince);
 
   const options = arrayify(
@@ -66,16 +66,15 @@ function getSupportInfo({
         }
       }
 
-      const pluginDefaults = plugins
-        .filter(
-          (plugin) =>
-            plugin.defaultOptions &&
-            plugin.defaultOptions[option.name] !== undefined
-        )
-        .reduce((reduced, plugin) => {
-          reduced[plugin.name] = plugin.defaultOptions[option.name];
-          return reduced;
-        }, {});
+      const pluginDefaults = Object.fromEntries(
+        plugins
+          .filter(
+            (plugin) =>
+              plugin.defaultOptions &&
+              plugin.defaultOptions[option.name] !== undefined
+          )
+          .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]])
+      );
 
       return { ...option, pluginDefaults };
     });

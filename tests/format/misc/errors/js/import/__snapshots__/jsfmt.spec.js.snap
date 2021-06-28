@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"\`import()\` requires exactly one or two arguments. (1:1)
+> 1 | import();
+    | ^"
+`;
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"\`import()\` requires exactly one or two arguments. (1:1)
+> 1 | import();
+    | ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"\`import()\` requires exactly one or two arguments. (1:1)
+> 1 | import();
+    | ^"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token ) (1:8)
+> 1 | import();
+    |        ^"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected token \`)\` (1:8)
+> 1 | import();
+    |        ^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"[1:8]: Unexpected token: ')' (1:8)
+> 1 | import();
+    |        ^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"Dynamic import must have one specifier as an argument. (1:8)
+> 1 | import();
+    |        ^"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"\`import()\` requires exactly one or two arguments. (1:1)
+> 1 | import(/* comment */);
+    | ^"
+`;
+
+exports[`snippet: #1 [babel-flow] format 1`] = `
+"\`import()\` requires exactly one or two arguments. (1:1)
+> 1 | import(/* comment */);
+    | ^"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"\`import()\` requires exactly one or two arguments. (1:1)
+> 1 | import(/* comment */);
+    | ^"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"Unexpected token ) (1:21)
+> 1 | import(/* comment */);
+    |                     ^"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected token \`)\` (1:21)
+> 1 | import(/* comment */);
+    |                     ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"[1:21]: Unexpected token: ')' (1:21)
+> 1 | import(/* comment */);
+    |                     ^"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"Dynamic import must have one specifier as an argument. (1:8)
+> 1 | import(/* comment */);
+    |        ^"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Cannot use new with import(...). (1:5)
+> 1 | new import('./a.mjs');
+    |     ^"
+`;
+
+exports[`snippet: #2 [babel-flow] format 1`] = `
+"Cannot use new with import(...). (1:5)
+> 1 | new import('./a.mjs');
+    |     ^"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"Cannot use new with import(...). (1:5)
+> 1 | new import('./a.mjs');
+    |     ^"
+`;
+
+exports[`snippet: #2 [espree] format 1`] = `
+"Cannot use new with import() (1:5)
+> 1 | new import('./a.mjs');
+    |     ^"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Unexpected token \`import\` (1:5)
+> 1 | new import('./a.mjs');
+    |     ^^^^^^"
+`;
+
+exports[`snippet: #2 [meriyah] format 1`] = `
+"[1:11]: Cannot use new with import(...) (1:11)
+> 1 | new import('./a.mjs');
+    |           ^"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"Expression expected. (1:5)
+> 1 | new import('./a.mjs');
+    |     ^"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Cannot use new with import(...). (1:5)
+> 1 | new import();
+    |     ^"
+`;
+
+exports[`snippet: #3 [babel-flow] format 1`] = `
+"Cannot use new with import(...). (1:5)
+> 1 | new import();
+    |     ^"
+`;
+
+exports[`snippet: #3 [babel-ts] format 1`] = `
+"Cannot use new with import(...). (1:5)
+> 1 | new import();
+    |     ^"
+`;
+
+exports[`snippet: #3 [espree] format 1`] = `
+"Unexpected token ) (1:12)
+> 1 | new import();
+    |            ^"
+`;
+
+exports[`snippet: #3 [flow] format 1`] = `
+"Unexpected token \`import\` (1:5)
+> 1 | new import();
+    |     ^^^^^^"
+`;
+
+exports[`snippet: #3 [meriyah] format 1`] = `
+"[1:11]: Cannot use new with import(...) (1:11)
+> 1 | new import();
+    |           ^"
+`;
+
+exports[`snippet: #3 [typescript] format 1`] = `
+"Expression expected. (1:5)
+> 1 | new import();
+    |     ^"
+`;

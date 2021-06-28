@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require("fs");
+const execa = require("execa");
 const chalk = require("chalk");
 const { outdent, string: outdentString } = require("outdent");
 const semver = require("semver");
@@ -18,16 +19,27 @@ function getBlogPostInfo(version) {
   };
 }
 
-function writeChangelog({ version, previousVersion, releaseNotes }) {
+function writeChangelog({ version, previousVersion, body }) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
   const newEntry = outdent`
     # ${version}
 
     [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
 
-    ${releaseNotes}
+    ${body}
   `;
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
+}
+
+async function getChangelogForPatch({ version, previousVersion }) {
+  const { stdout: changelog } = await execa("node", [
+    "scripts/changelog-for-patch.mjs",
+    "--prev-version",
+    previousVersion,
+    "--new-version",
+    version,
+  ]);
+  return changelog;
 }
 
 module.exports = async function ({ version, previousVersion }) {
@@ -38,7 +50,7 @@ module.exports = async function ({ version, previousVersion }) {
     writeChangelog({
       version,
       previousVersion,
-      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
+      body: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
     });
     if (fs.existsSync(blogPost.file)) {
       // Everything is fine, this step is finished
@@ -52,18 +64,16 @@ module.exports = async function ({ version, previousVersion }) {
       `)
     );
   } else {
-    console.log(
-      outdentString(chalk`
-        {yellow.bold A manual step is necessary.}
-
-        You can copy the entries from {bold changelog_unreleased/*/pr-*.md} to {bold CHANGELOG.md}
-        and update it accordingly.
-
-        You don't need to commit the file, the script will take care of that.
-
-        When you're finished, press ENTER to continue.
-      `)
-    );
+    const body = await getChangelogForPatch({
+      version,
+      previousVersion,
+    });
+    writeChangelog({
+      version,
+      previousVersion,
+      body,
+    });
+    console.log("Press ENTER to continue.");
   }
 
   await waitForEnter();

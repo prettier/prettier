@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-9874.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type RequestNextDealAction = BaseAction<DealsActionTypes.REQUEST_NEXT_DEAL>;
+
+=====================================output=====================================
+export type RequestNextDealAction =
+  BaseAction<DealsActionTypes.REQUEST_NEXT_DEAL>;
+
+================================================================================
+`;
+
+exports[`issue-100857.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  T extends stringggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  S = stringggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+=====================================output=====================================
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<T extends string, S extends unknown> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<S extends unknown = { width: string }> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  T extends stringggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  S = stringggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+================================================================================
+`;
+
+exports[`pattern-parameter.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type C = {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+};
+
+=====================================output=====================================
+type C = {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+};
+
+================================================================================
+`;

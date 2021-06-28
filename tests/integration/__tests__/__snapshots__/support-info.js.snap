@@ -1,0 +1,1128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API getSupportInfo() 1`] = `
+Object {
+  "languages": Object {
+    "Angular": Array [
+      "angular",
+    ],
+    "CSS": Array [
+      "css",
+    ],
+    "Flow": Array [
+      "flow",
+      "babel-flow",
+    ],
+    "GraphQL": Array [
+      "graphql",
+    ],
+    "HTML": Array [
+      "html",
+    ],
+    "Handlebars": Array [
+      "glimmer",
+    ],
+    "JSON": Array [
+      "json",
+    ],
+    "JSON with Comments": Array [
+      "json",
+    ],
+    "JSON.stringify": Array [
+      "json-stringify",
+    ],
+    "JSON5": Array [
+      "json5",
+    ],
+    "JSX": Array [
+      "babel",
+      "babel-flow",
+      "babel-ts",
+      "flow",
+      "typescript",
+      "espree",
+      "meriyah",
+    ],
+    "JavaScript": Array [
+      "babel",
+      "espree",
+      "meriyah",
+      "babel-flow",
+      "babel-ts",
+      "flow",
+      "typescript",
+    ],
+    "Less": Array [
+      "less",
+    ],
+    "Lightning Web Components": Array [
+      "lwc",
+    ],
+    "MDX": Array [
+      "mdx",
+    ],
+    "Markdown": Array [
+      "markdown",
+    ],
+    "PostCSS": Array [
+      "css",
+    ],
+    "SCSS": Array [
+      "scss",
+    ],
+    "TSX": Array [
+      "typescript",
+      "babel-ts",
+    ],
+    "TypeScript": Array [
+      "typescript",
+      "babel-ts",
+    ],
+    "Vue": Array [
+      "vue",
+    ],
+    "YAML": Array [
+      "yaml",
+    ],
+  },
+  "options": Object {
+    "arrowParens": Object {
+      "choices": Array [
+        "always",
+        "avoid",
+      ],
+      "default": "always",
+      "type": "choice",
+    },
+    "bracketSpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "cursorOffset": Object {
+      "default": -1,
+      "range": Object {
+        "end": Infinity,
+        "start": -1,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "embeddedLanguageFormatting": Object {
+      "choices": Array [
+        "auto",
+        "off",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
+    "endOfLine": Object {
+      "choices": Array [
+        "lf",
+        "crlf",
+        "cr",
+        "auto",
+      ],
+      "default": "lf",
+      "type": "choice",
+    },
+    "filepath": Object {
+      "default": undefined,
+      "type": "path",
+    },
+    "htmlWhitespaceSensitivity": Object {
+      "choices": Array [
+        "css",
+        "strict",
+        "ignore",
+      ],
+      "default": "css",
+      "type": "choice",
+    },
+    "insertPragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "jsxBracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "jsxSingleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "parser": Object {
+      "choices": Array [
+        "flow",
+        "babel",
+        "babel-flow",
+        "babel-ts",
+        "typescript",
+        "espree",
+        "meriyah",
+        "css",
+        "less",
+        "scss",
+        "json",
+        "json5",
+        "json-stringify",
+        "graphql",
+        "markdown",
+        "mdx",
+        "vue",
+        "yaml",
+        "glimmer",
+        "html",
+        "angular",
+        "lwc",
+      ],
+      "default": undefined,
+      "type": "choice",
+    },
+    "pluginSearchDirs": Object {
+      "default": Array [],
+      "type": "path",
+    },
+    "plugins": Object {
+      "default": Array [],
+      "type": "path",
+    },
+    "printWidth": Object {
+      "default": 80,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "proseWrap": Object {
+      "choices": Array [
+        "always",
+        "never",
+        "preserve",
+      ],
+      "default": "preserve",
+      "type": "choice",
+    },
+    "quoteProps": Object {
+      "choices": Array [
+        "as-needed",
+        "consistent",
+        "preserve",
+      ],
+      "default": "as-needed",
+      "type": "choice",
+    },
+    "rangeEnd": Object {
+      "default": Infinity,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "rangeStart": Object {
+      "default": 0,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "requirePragma": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "semi": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "singleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "tabWidth": Object {
+      "default": 2,
+      "range": Object {
+        "end": Infinity,
+        "start": 0,
+        "step": 1,
+      },
+      "type": "int",
+    },
+    "trailingComma": Object {
+      "choices": Array [
+        "es5",
+        "none",
+        "all",
+      ],
+      "default": "es5",
+      "type": "choice",
+    },
+    "useTabs": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "vueIndentScriptAndStyle": Object {
+      "default": false,
+      "type": "boolean",
+    },
+  },
+}
+`;
+
+exports[`CLI --support-info (stderr) 1`] = `""`;
+
+exports[`CLI --support-info (stdout) 1`] = `
+"{
+  \\"languages\\": [
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"aliases\\": [\\"js\\", \\"node\\"],
+      \\"codemirrorMimeType\\": \\"text/javascript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"color\\": \\"#f1e05a\\",
+      \\"extensions\\": [
+        \\".js\\",
+        \\"._js\\",
+        \\".bones\\",
+        \\".cjs\\",
+        \\".es\\",
+        \\".es6\\",
+        \\".frag\\",
+        \\".gs\\",
+        \\".jake\\",
+        \\".jsb\\",
+        \\".jscad\\",
+        \\".jsfl\\",
+        \\".jsm\\",
+        \\".jss\\",
+        \\".mjs\\",
+        \\".njs\\",
+        \\".pac\\",
+        \\".sjs\\",
+        \\".ssjs\\",
+        \\".xsjs\\",
+        \\".xsjslib\\",
+        \\".wxs\\"
+      ],
+      \\"filenames\\": [\\"Jakefile\\"],
+      \\"interpreters\\": [
+        \\"chakra\\",
+        \\"d8\\",
+        \\"gjs\\",
+        \\"js\\",
+        \\"node\\",
+        \\"nodejs\\",
+        \\"qjs\\",
+        \\"rhino\\",
+        \\"v8\\",
+        \\"v8-shell\\"
+      ],
+      \\"linguistLanguageId\\": 183,
+      \\"name\\": \\"JavaScript\\",
+      \\"parsers\\": [
+        \\"babel\\",
+        \\"espree\\",
+        \\"meriyah\\",
+        \\"babel-flow\\",
+        \\"babel-ts\\",
+        \\"flow\\",
+        \\"typescript\\"
+      ],
+      \\"since\\": \\"0.0.0\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"programming\\",
+      \\"vscodeLanguageIds\\": [\\"javascript\\", \\"mongo\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"aliases\\": [],
+      \\"codemirrorMimeType\\": \\"text/javascript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"color\\": \\"#f1e05a\\",
+      \\"extensions\\": [\\".js.flow\\"],
+      \\"filenames\\": [],
+      \\"interpreters\\": [
+        \\"chakra\\",
+        \\"d8\\",
+        \\"gjs\\",
+        \\"js\\",
+        \\"node\\",
+        \\"nodejs\\",
+        \\"qjs\\",
+        \\"rhino\\",
+        \\"v8\\",
+        \\"v8-shell\\"
+      ],
+      \\"linguistLanguageId\\": 183,
+      \\"name\\": \\"Flow\\",
+      \\"parsers\\": [\\"flow\\", \\"babel-flow\\"],
+      \\"since\\": \\"0.0.0\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"programming\\",
+      \\"vscodeLanguageIds\\": [\\"javascript\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"text/jsx\\",
+      \\"codemirrorMode\\": \\"jsx\\",
+      \\"extensions\\": [\\".jsx\\"],
+      \\"group\\": \\"JavaScript\\",
+      \\"linguistLanguageId\\": 183,
+      \\"name\\": \\"JSX\\",
+      \\"parsers\\": [
+        \\"babel\\",
+        \\"babel-flow\\",
+        \\"babel-ts\\",
+        \\"flow\\",
+        \\"typescript\\",
+        \\"espree\\",
+        \\"meriyah\\"
+      ],
+      \\"since\\": \\"0.0.0\\",
+      \\"tmScope\\": \\"source.js.jsx\\",
+      \\"type\\": \\"programming\\",
+      \\"vscodeLanguageIds\\": [\\"javascriptreact\\"]
+    },
+    {
+      \\"aceMode\\": \\"typescript\\",
+      \\"aliases\\": [\\"ts\\"],
+      \\"codemirrorMimeType\\": \\"application/typescript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"color\\": \\"#2b7489\\",
+      \\"extensions\\": [\\".ts\\"],
+      \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
+      \\"linguistLanguageId\\": 378,
+      \\"name\\": \\"TypeScript\\",
+      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.ts\\",
+      \\"type\\": \\"programming\\",
+      \\"vscodeLanguageIds\\": [\\"typescript\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"text/jsx\\",
+      \\"codemirrorMode\\": \\"jsx\\",
+      \\"extensions\\": [\\".tsx\\"],
+      \\"group\\": \\"TypeScript\\",
+      \\"linguistLanguageId\\": 94901924,
+      \\"name\\": \\"TSX\\",
+      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.tsx\\",
+      \\"type\\": \\"programming\\",
+      \\"vscodeLanguageIds\\": [\\"typescriptreact\\"]
+    },
+    {
+      \\"aceMode\\": \\"json\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [],
+      \\"filenames\\": [\\"package.json\\", \\"package-lock.json\\", \\"composer.json\\"],
+      \\"linguistLanguageId\\": 174,
+      \\"name\\": \\"JSON.stringify\\",
+      \\"parsers\\": [\\"json-stringify\\"],
+      \\"since\\": \\"1.13.0\\",
+      \\"tmScope\\": \\"source.json\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"json\\"]
+    },
+    {
+      \\"aceMode\\": \\"json\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [
+        \\".json\\",
+        \\".avsc\\",
+        \\".geojson\\",
+        \\".gltf\\",
+        \\".har\\",
+        \\".ice\\",
+        \\".JSON-tmLanguage\\",
+        \\".mcmeta\\",
+        \\".tfstate\\",
+        \\".tfstate.backup\\",
+        \\".topojson\\",
+        \\".webapp\\",
+        \\".webmanifest\\",
+        \\".yy\\",
+        \\".yyp\\"
+      ],
+      \\"filenames\\": [
+        \\".arcconfig\\",
+        \\".htmlhintrc\\",
+        \\".imgbotconfig\\",
+        \\".tern-config\\",
+        \\".tern-project\\",
+        \\".watchmanconfig\\",
+        \\"Pipfile.lock\\",
+        \\"composer.lock\\",
+        \\"mcmod.info\\"
+      ],
+      \\"linguistLanguageId\\": 174,
+      \\"name\\": \\"JSON\\",
+      \\"parsers\\": [\\"json\\"],
+      \\"since\\": \\"1.5.0\\",
+      \\"tmScope\\": \\"source.json\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"json\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"aliases\\": [\\"jsonc\\"],
+      \\"codemirrorMimeType\\": \\"text/javascript\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [
+        \\".jsonc\\",
+        \\".sublime-build\\",
+        \\".sublime-commands\\",
+        \\".sublime-completions\\",
+        \\".sublime-keymap\\",
+        \\".sublime-macro\\",
+        \\".sublime-menu\\",
+        \\".sublime-mousemap\\",
+        \\".sublime-project\\",
+        \\".sublime-settings\\",
+        \\".sublime-theme\\",
+        \\".sublime-workspace\\",
+        \\".sublime_metrics\\",
+        \\".sublime_session\\"
+      ],
+      \\"filenames\\": [
+        \\".babelrc\\",
+        \\".eslintrc.json\\",
+        \\".jscsrc\\",
+        \\".jshintrc\\",
+        \\".jslintrc\\",
+        \\"api-extractor.json\\",
+        \\"devcontainer.json\\",
+        \\"jsconfig.json\\",
+        \\"language-configuration.json\\",
+        \\"tsconfig.json\\",
+        \\"tslint.json\\",
+        \\".eslintrc\\"
+      ],
+      \\"group\\": \\"JSON\\",
+      \\"linguistLanguageId\\": 423,
+      \\"name\\": \\"JSON with Comments\\",
+      \\"parsers\\": [\\"json\\"],
+      \\"since\\": \\"1.5.0\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"jsonc\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"application/json\\",
+      \\"codemirrorMode\\": \\"javascript\\",
+      \\"extensions\\": [\\".json5\\"],
+      \\"linguistLanguageId\\": 175,
+      \\"name\\": \\"JSON5\\",
+      \\"parsers\\": [\\"json5\\"],
+      \\"since\\": \\"1.13.0\\",
+      \\"tmScope\\": \\"source.js\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"json5\\"]
+    },
+    {
+      \\"aceMode\\": \\"css\\",
+      \\"codemirrorMimeType\\": \\"text/css\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"color\\": \\"#563d7c\\",
+      \\"extensions\\": [\\".css\\", \\".wxss\\"],
+      \\"linguistLanguageId\\": 50,
+      \\"name\\": \\"CSS\\",
+      \\"parsers\\": [\\"css\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.css\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"css\\"]
+    },
+    {
+      \\"aceMode\\": \\"text\\",
+      \\"extensions\\": [\\".pcss\\", \\".postcss\\"],
+      \\"group\\": \\"CSS\\",
+      \\"linguistLanguageId\\": 262764437,
+      \\"name\\": \\"PostCSS\\",
+      \\"parsers\\": [\\"css\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.postcss\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"postcss\\"]
+    },
+    {
+      \\"aceMode\\": \\"less\\",
+      \\"codemirrorMimeType\\": \\"text/css\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"color\\": \\"#1d365d\\",
+      \\"extensions\\": [\\".less\\"],
+      \\"linguistLanguageId\\": 198,
+      \\"name\\": \\"Less\\",
+      \\"parsers\\": [\\"less\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.css.less\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"less\\"]
+    },
+    {
+      \\"aceMode\\": \\"scss\\",
+      \\"codemirrorMimeType\\": \\"text/x-scss\\",
+      \\"codemirrorMode\\": \\"css\\",
+      \\"color\\": \\"#c6538c\\",
+      \\"extensions\\": [\\".scss\\"],
+      \\"linguistLanguageId\\": 329,
+      \\"name\\": \\"SCSS\\",
+      \\"parsers\\": [\\"scss\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.css.scss\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"scss\\"]
+    },
+    {
+      \\"aceMode\\": \\"handlebars\\",
+      \\"aliases\\": [\\"hbs\\", \\"htmlbars\\"],
+      \\"color\\": \\"#f7931e\\",
+      \\"extensions\\": [\\".handlebars\\", \\".hbs\\"],
+      \\"linguistLanguageId\\": 155,
+      \\"name\\": \\"Handlebars\\",
+      \\"parsers\\": [\\"glimmer\\"],
+      \\"since\\": \\"2.3.0\\",
+      \\"tmScope\\": \\"text.html.handlebars\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"handlebars\\"]
+    },
+    {
+      \\"aceMode\\": \\"text\\",
+      \\"color\\": \\"#e10098\\",
+      \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
+      \\"linguistLanguageId\\": 139,
+      \\"name\\": \\"GraphQL\\",
+      \\"parsers\\": [\\"graphql\\"],
+      \\"since\\": \\"1.5.0\\",
+      \\"tmScope\\": \\"source.graphql\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"graphql\\"]
+    },
+    {
+      \\"aceMode\\": \\"markdown\\",
+      \\"aliases\\": [\\"pandoc\\"],
+      \\"codemirrorMimeType\\": \\"text/x-gfm\\",
+      \\"codemirrorMode\\": \\"gfm\\",
+      \\"color\\": \\"#083fa1\\",
+      \\"extensions\\": [
+        \\".md\\",
+        \\".markdown\\",
+        \\".mdown\\",
+        \\".mdwn\\",
+        \\".mkd\\",
+        \\".mkdn\\",
+        \\".mkdown\\",
+        \\".ronn\\",
+        \\".scd\\",
+        \\".workbook\\"
+      ],
+      \\"filenames\\": [\\"contents.lr\\", \\"README\\"],
+      \\"linguistLanguageId\\": 222,
+      \\"name\\": \\"Markdown\\",
+      \\"parsers\\": [\\"markdown\\"],
+      \\"since\\": \\"1.8.0\\",
+      \\"tmScope\\": \\"source.gfm\\",
+      \\"type\\": \\"prose\\",
+      \\"vscodeLanguageIds\\": [\\"markdown\\"],
+      \\"wrap\\": true
+    },
+    {
+      \\"aceMode\\": \\"markdown\\",
+      \\"aliases\\": [\\"pandoc\\"],
+      \\"codemirrorMimeType\\": \\"text/x-gfm\\",
+      \\"codemirrorMode\\": \\"gfm\\",
+      \\"color\\": \\"#083fa1\\",
+      \\"extensions\\": [\\".mdx\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 222,
+      \\"name\\": \\"MDX\\",
+      \\"parsers\\": [\\"mdx\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"source.gfm\\",
+      \\"type\\": \\"prose\\",
+      \\"vscodeLanguageIds\\": [\\"mdx\\"],
+      \\"wrap\\": true
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [\\".component.html\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Angular\\",
+      \\"parsers\\": [\\"angular\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [
+        \\".html\\",
+        \\".htm\\",
+        \\".html.hl\\",
+        \\".inc\\",
+        \\".xht\\",
+        \\".xhtml\\",
+        \\".mjml\\"
+      ],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"HTML\\",
+      \\"parsers\\": [\\"html\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Lightning Web Components\\",
+      \\"parsers\\": [\\"lwc\\"],
+      \\"since\\": \\"1.17.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"color\\": \\"#41b883\\",
+      \\"extensions\\": [\\".vue\\"],
+      \\"linguistLanguageId\\": 391,
+      \\"name\\": \\"Vue\\",
+      \\"parsers\\": [\\"vue\\"],
+      \\"since\\": \\"1.10.0\\",
+      \\"tmScope\\": \\"text.html.vue\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"vue\\"]
+    },
+    {
+      \\"aceMode\\": \\"yaml\\",
+      \\"aliases\\": [\\"yml\\"],
+      \\"codemirrorMimeType\\": \\"text/x-yaml\\",
+      \\"codemirrorMode\\": \\"yaml\\",
+      \\"color\\": \\"#cb171e\\",
+      \\"extensions\\": [
+        \\".yml\\",
+        \\".mir\\",
+        \\".reek\\",
+        \\".rviz\\",
+        \\".sublime-syntax\\",
+        \\".syntax\\",
+        \\".yaml\\",
+        \\".yaml-tmlanguage\\",
+        \\".yaml.sed\\",
+        \\".yml.mysql\\"
+      ],
+      \\"filenames\\": [
+        \\".clang-format\\",
+        \\".clang-tidy\\",
+        \\".gemrc\\",
+        \\"glide.lock\\",
+        \\".prettierrc\\"
+      ],
+      \\"linguistLanguageId\\": 407,
+      \\"name\\": \\"YAML\\",
+      \\"parsers\\": [\\"yaml\\"],
+      \\"since\\": \\"1.14.0\\",
+      \\"tmScope\\": \\"source.yaml\\",
+      \\"type\\": \\"data\\",
+      \\"vscodeLanguageIds\\": [\\"yaml\\", \\"ansible\\", \\"home-assistant\\"]
+    }
+  ],
+  \\"options\\": [
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
+          \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
+          \\"value\\": \\"avoid\\"
+        }
+      ],
+      \\"default\\": \\"always\\",
+      \\"description\\": \\"Include parentheses around a sole arrow function parameter.\\",
+      \\"name\\": \\"arrowParens\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.9.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": true,
+      \\"description\\": \\"Print spaces between brackets.\\",
+      \\"name\\": \\"bracketSpacing\\",
+      \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Special\\",
+      \\"default\\": -1,
+      \\"description\\": \\"Print (to stderr) where a cursor at the given position would move to after formatting.\\\\nThis option cannot be used with --range-start and --range-end.\\",
+      \\"name\\": \\"cursorOffset\\",
+      \\"pluginDefaults\\": {},
+      \\"range\\": { \\"end\\": null, \\"start\\": -1, \\"step\\": 1 },
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Format embedded code if Prettier can automatically identify it.\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Never automatically format embedded code.\\",
+          \\"value\\": \\"off\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Control how Prettier formats quoted code embedded in the file.\\",
+      \\"name\\": \\"embeddedLanguageFormatting\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
+          \\"value\\": \\"lf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return + Line Feed characters (\\\\\\\\r\\\\\\\\n), common on Windows\\",
+          \\"value\\": \\"crlf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
+          \\"value\\": \\"cr\\"
+        },
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
+        }
+      ],
+      \\"default\\": \\"lf\\",
+      \\"description\\": \\"Which end of line characters to apply.\\",
+      \\"name\\": \\"endOfLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Special\\",
+      \\"description\\": \\"Specify the input filepath. This will be used to do parser inference.\\",
+      \\"name\\": \\"filepath\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Respect the default value of CSS display property.\\",
+          \\"value\\": \\"css\\"
+        },
+        {
+          \\"description\\": \\"Whitespaces are considered sensitive.\\",
+          \\"value\\": \\"strict\\"
+        },
+        {
+          \\"description\\": \\"Whitespaces are considered insensitive.\\",
+          \\"value\\": \\"ignore\\"
+        }
+      ],
+      \\"default\\": \\"css\\",
+      \\"description\\": \\"How to handle whitespaces in HTML.\\",
+      \\"name\\": \\"htmlWhitespaceSensitivity\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Special\\",
+      \\"default\\": false,
+      \\"description\\": \\"Insert @format pragma into file's first docblock comment.\\",
+      \\"name\\": \\"insertPragma\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.8.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put > on the last line instead of at a new line.\\",
+      \\"name\\": \\"jsxBracketSameLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.17.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes in JSX.\\",
+      \\"name\\": \\"jsxSingleQuote\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
+        { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
+        { \\"description\\": \\"TypeScript\\", \\"since\\": \\"2.0.0\\", \\"value\\": \\"babel-ts\\" },
+        {
+          \\"description\\": \\"TypeScript\\",
+          \\"since\\": \\"1.4.0\\",
+          \\"value\\": \\"typescript\\"
+        },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"espree\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"meriyah\\" },
+        { \\"description\\": \\"CSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"css\\" },
+        { \\"description\\": \\"Less\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"less\\" },
+        { \\"description\\": \\"SCSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"scss\\" },
+        { \\"description\\": \\"JSON\\", \\"since\\": \\"1.5.0\\", \\"value\\": \\"json\\" },
+        { \\"description\\": \\"JSON5\\", \\"since\\": \\"1.13.0\\", \\"value\\": \\"json5\\" },
+        {
+          \\"description\\": \\"JSON.stringify\\",
+          \\"since\\": \\"1.13.0\\",
+          \\"value\\": \\"json-stringify\\"
+        },
+        { \\"description\\": \\"GraphQL\\", \\"since\\": \\"1.5.0\\", \\"value\\": \\"graphql\\" },
+        { \\"description\\": \\"Markdown\\", \\"since\\": \\"1.8.0\\", \\"value\\": \\"markdown\\" },
+        { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
+        { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
+        { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
+        {
+          \\"description\\": \\"Ember / Handlebars\\",
+          \\"since\\": \\"2.3.0\\",
+          \\"value\\": \\"glimmer\\"
+        },
+        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
+        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
+        {
+          \\"description\\": \\"Lightning Web Components\\",
+          \\"since\\": \\"1.17.0\\",
+          \\"value\\": \\"lwc\\"
+        }
+      ],
+      \\"description\\": \\"Which parser to use.\\",
+      \\"name\\": \\"parser\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.0.10\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"array\\": true,
+      \\"category\\": \\"Global\\",
+      \\"default\\": [],
+      \\"description\\": \\"Custom directory that contains prettier plugins in node_modules subdirectory.\\\\nOverrides default behavior when plugins are searched relatively to the location of Prettier.\\\\nMultiple values are accepted.\\",
+      \\"name\\": \\"pluginSearchDirs\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.13.0\\",
+      \\"type\\": \\"path\\"
+    },
+    {
+      \\"array\\": true,
+      \\"category\\": \\"Global\\",
+      \\"default\\": [],
+      \\"description\\": \\"Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.\\",
+      \\"name\\": \\"plugins\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.10.0\\",
+      \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"default\\": 80,
+      \\"description\\": \\"The line length where Prettier will try wrap.\\",
+      \\"name\\": \\"printWidth\\",
+      \\"pluginDefaults\\": {},
+      \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Wrap prose if it exceeds the print width.\\",
+          \\"since\\": \\"1.9.0\\",
+          \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Do not wrap prose.\\",
+          \\"since\\": \\"1.9.0\\",
+          \\"value\\": \\"never\\"
+        },
+        {
+          \\"description\\": \\"Wrap prose as-is.\\",
+          \\"since\\": \\"1.9.0\\",
+          \\"value\\": \\"preserve\\"
+        }
+      ],
+      \\"default\\": \\"preserve\\",
+      \\"description\\": \\"How to wrap prose.\\",
+      \\"name\\": \\"proseWrap\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.8.2\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Only add quotes around object properties where required.\\",
+          \\"value\\": \\"as-needed\\"
+        },
+        {
+          \\"description\\": \\"If at least one property in an object requires quotes, quote all properties.\\",
+          \\"value\\": \\"consistent\\"
+        },
+        {
+          \\"description\\": \\"Respect the input use of quotes in object properties.\\",
+          \\"value\\": \\"preserve\\"
+        }
+      ],
+      \\"default\\": \\"as-needed\\",
+      \\"description\\": \\"Change when properties in objects are quoted.\\",
+      \\"name\\": \\"quoteProps\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.17.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Special\\",
+      \\"default\\": null,
+      \\"description\\": \\"Format code ending at a given character offset (exclusive).\\\\nThe range will extend forwards to the end of the selected statement.\\\\nThis option cannot be used with --cursor-offset.\\",
+      \\"name\\": \\"rangeEnd\\",
+      \\"pluginDefaults\\": {},
+      \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Special\\",
+      \\"default\\": 0,
+      \\"description\\": \\"Format code starting at a given character offset.\\\\nThe range will extend backwards to the start of the first line containing the selected statement.\\\\nThis option cannot be used with --cursor-offset.\\",
+      \\"name\\": \\"rangeStart\\",
+      \\"pluginDefaults\\": {},
+      \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
+      \\"since\\": \\"1.4.0\\",
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"Special\\",
+      \\"default\\": false,
+      \\"description\\": \\"Require either '@prettier' or '@format' to be present in the file's first docblock comment\\\\nin order for it to be formatted.\\",
+      \\"name\\": \\"requirePragma\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.7.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Print semicolons.\\",
+      \\"name\\": \\"semi\\",
+      \\"oppositeDescription\\": \\"Do not print semicolons, except at the beginning of lines which may need them.\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes instead of double quotes.\\",
+      \\"name\\": \\"singleQuote\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"default\\": 2,
+      \\"description\\": \\"Number of spaces per indentation level.\\",
+      \\"name\\": \\"tabWidth\\",
+      \\"pluginDefaults\\": {},
+      \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
+      \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Trailing commas where valid in ES5 (objects, arrays, etc.)\\",
+          \\"value\\": \\"es5\\"
+        },
+        { \\"description\\": \\"No trailing commas.\\", \\"value\\": \\"none\\" },
+        {
+          \\"description\\": \\"Trailing commas wherever possible (including function arguments).\\",
+          \\"value\\": \\"all\\"
+        }
+      ],
+      \\"default\\": \\"es5\\",
+      \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
+      \\"name\\": \\"trailingComma\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"default\\": false,
+      \\"description\\": \\"Indent with tabs instead of spaces.\\",
+      \\"name\\": \\"useTabs\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"default\\": false,
+      \\"description\\": \\"Indent script and style tags in Vue files.\\",
+      \\"name\\": \\"vueIndentScriptAndStyle\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.19.0\\",
+      \\"type\\": \\"boolean\\"
+    }
+  ]
+}
+
+"
+`;
+
+exports[`CLI --support-info (write) 1`] = `Array []`;

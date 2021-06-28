@@ -1,0 +1,486 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`schema 1`] = `
+Object {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": Object {
+    "optionsDefinition": Object {
+      "properties": Object {
+        "arrowParens": Object {
+          "default": "always",
+          "description": "Include parentheses around a sole arrow function parameter.",
+          "oneOf": Array [
+            Object {
+              "description": "Always include parens. Example: \`(x) => x\`",
+              "enum": Array [
+                "always",
+              ],
+            },
+            Object {
+              "description": "Omit parens when possible. Example: \`x => x\`",
+              "enum": Array [
+                "avoid",
+              ],
+            },
+          ],
+        },
+        "bracketSpacing": Object {
+          "default": true,
+          "description": "Print spaces between brackets.",
+          "type": "boolean",
+        },
+        "cursorOffset": Object {
+          "default": -1,
+          "description": "Print (to stderr) where a cursor at the given position would move to after formatting.
+This option cannot be used with --range-start and --range-end.",
+          "type": "integer",
+        },
+        "embeddedLanguageFormatting": Object {
+          "default": "auto",
+          "description": "Control how Prettier formats quoted code embedded in the file.",
+          "oneOf": Array [
+            Object {
+              "description": "Format embedded code if Prettier can automatically identify it.",
+              "enum": Array [
+                "auto",
+              ],
+            },
+            Object {
+              "description": "Never automatically format embedded code.",
+              "enum": Array [
+                "off",
+              ],
+            },
+          ],
+        },
+        "endOfLine": Object {
+          "default": "lf",
+          "description": "Which end of line characters to apply.",
+          "oneOf": Array [
+            Object {
+              "description": "Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos",
+              "enum": Array [
+                "lf",
+              ],
+            },
+            Object {
+              "description": "Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows",
+              "enum": Array [
+                "crlf",
+              ],
+            },
+            Object {
+              "description": "Carriage Return character only (\\\\r), used very rarely",
+              "enum": Array [
+                "cr",
+              ],
+            },
+            Object {
+              "description": "Maintain existing
+(mixed values within one file are normalised by looking at what's used after the first line)",
+              "enum": Array [
+                "auto",
+              ],
+            },
+          ],
+        },
+        "filepath": Object {
+          "default": undefined,
+          "description": "Specify the input filepath. This will be used to do parser inference.",
+          "type": "string",
+        },
+        "htmlWhitespaceSensitivity": Object {
+          "default": "css",
+          "description": "How to handle whitespaces in HTML.",
+          "oneOf": Array [
+            Object {
+              "description": "Respect the default value of CSS display property.",
+              "enum": Array [
+                "css",
+              ],
+            },
+            Object {
+              "description": "Whitespaces are considered sensitive.",
+              "enum": Array [
+                "strict",
+              ],
+            },
+            Object {
+              "description": "Whitespaces are considered insensitive.",
+              "enum": Array [
+                "ignore",
+              ],
+            },
+          ],
+        },
+        "insertPragma": Object {
+          "default": false,
+          "description": "Insert @format pragma into file's first docblock comment.",
+          "type": "boolean",
+        },
+        "jsxBracketSameLine": Object {
+          "default": false,
+          "description": "Put > on the last line instead of at a new line.",
+          "type": "boolean",
+        },
+        "jsxSingleQuote": Object {
+          "default": false,
+          "description": "Use single quotes in JSX.",
+          "type": "boolean",
+        },
+        "parser": Object {
+          "anyOf": Array [
+            Object {
+              "description": "Flow",
+              "enum": Array [
+                "flow",
+              ],
+            },
+            Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "babel",
+              ],
+            },
+            Object {
+              "description": "Flow",
+              "enum": Array [
+                "babel-flow",
+              ],
+            },
+            Object {
+              "description": "TypeScript",
+              "enum": Array [
+                "babel-ts",
+              ],
+            },
+            Object {
+              "description": "TypeScript",
+              "enum": Array [
+                "typescript",
+              ],
+            },
+            Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "espree",
+              ],
+            },
+            Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "meriyah",
+              ],
+            },
+            Object {
+              "description": "CSS",
+              "enum": Array [
+                "css",
+              ],
+            },
+            Object {
+              "description": "Less",
+              "enum": Array [
+                "less",
+              ],
+            },
+            Object {
+              "description": "SCSS",
+              "enum": Array [
+                "scss",
+              ],
+            },
+            Object {
+              "description": "JSON",
+              "enum": Array [
+                "json",
+              ],
+            },
+            Object {
+              "description": "JSON5",
+              "enum": Array [
+                "json5",
+              ],
+            },
+            Object {
+              "description": "JSON.stringify",
+              "enum": Array [
+                "json-stringify",
+              ],
+            },
+            Object {
+              "description": "GraphQL",
+              "enum": Array [
+                "graphql",
+              ],
+            },
+            Object {
+              "description": "Markdown",
+              "enum": Array [
+                "markdown",
+              ],
+            },
+            Object {
+              "description": "MDX",
+              "enum": Array [
+                "mdx",
+              ],
+            },
+            Object {
+              "description": "Vue",
+              "enum": Array [
+                "vue",
+              ],
+            },
+            Object {
+              "description": "YAML",
+              "enum": Array [
+                "yaml",
+              ],
+            },
+            Object {
+              "description": "Ember / Handlebars",
+              "enum": Array [
+                "glimmer",
+              ],
+            },
+            Object {
+              "description": "HTML",
+              "enum": Array [
+                "html",
+              ],
+            },
+            Object {
+              "description": "Angular",
+              "enum": Array [
+                "angular",
+              ],
+            },
+            Object {
+              "description": "Lightning Web Components",
+              "enum": Array [
+                "lwc",
+              ],
+            },
+            Object {
+              "description": "Custom parser",
+              "type": "string",
+            },
+          ],
+          "default": undefined,
+          "description": "Which parser to use.",
+        },
+        "pluginSearchDirs": Object {
+          "default": Array [],
+          "description": "Custom directory that contains prettier plugins in node_modules subdirectory.
+Overrides default behavior when plugins are searched relatively to the location of Prettier.
+Multiple values are accepted.",
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "plugins": Object {
+          "default": Array [],
+          "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
+          "items": Object {
+            "type": "string",
+          },
+          "type": "array",
+        },
+        "printWidth": Object {
+          "default": 80,
+          "description": "The line length where Prettier will try wrap.",
+          "type": "integer",
+        },
+        "proseWrap": Object {
+          "default": "preserve",
+          "description": "How to wrap prose.",
+          "oneOf": Array [
+            Object {
+              "description": "Wrap prose if it exceeds the print width.",
+              "enum": Array [
+                "always",
+              ],
+            },
+            Object {
+              "description": "Do not wrap prose.",
+              "enum": Array [
+                "never",
+              ],
+            },
+            Object {
+              "description": "Wrap prose as-is.",
+              "enum": Array [
+                "preserve",
+              ],
+            },
+          ],
+        },
+        "quoteProps": Object {
+          "default": "as-needed",
+          "description": "Change when properties in objects are quoted.",
+          "oneOf": Array [
+            Object {
+              "description": "Only add quotes around object properties where required.",
+              "enum": Array [
+                "as-needed",
+              ],
+            },
+            Object {
+              "description": "If at least one property in an object requires quotes, quote all properties.",
+              "enum": Array [
+                "consistent",
+              ],
+            },
+            Object {
+              "description": "Respect the input use of quotes in object properties.",
+              "enum": Array [
+                "preserve",
+              ],
+            },
+          ],
+        },
+        "rangeEnd": Object {
+          "default": Infinity,
+          "description": "Format code ending at a given character offset (exclusive).
+The range will extend forwards to the end of the selected statement.
+This option cannot be used with --cursor-offset.",
+          "type": "integer",
+        },
+        "rangeStart": Object {
+          "default": 0,
+          "description": "Format code starting at a given character offset.
+The range will extend backwards to the start of the first line containing the selected statement.
+This option cannot be used with --cursor-offset.",
+          "type": "integer",
+        },
+        "requirePragma": Object {
+          "default": false,
+          "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment
+in order for it to be formatted.",
+          "type": "boolean",
+        },
+        "semi": Object {
+          "default": true,
+          "description": "Print semicolons.",
+          "type": "boolean",
+        },
+        "singleQuote": Object {
+          "default": false,
+          "description": "Use single quotes instead of double quotes.",
+          "type": "boolean",
+        },
+        "tabWidth": Object {
+          "default": 2,
+          "description": "Number of spaces per indentation level.",
+          "type": "integer",
+        },
+        "trailingComma": Object {
+          "default": "es5",
+          "description": "Print trailing commas wherever possible when multi-line.",
+          "oneOf": Array [
+            Object {
+              "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
+              "enum": Array [
+                "es5",
+              ],
+            },
+            Object {
+              "description": "No trailing commas.",
+              "enum": Array [
+                "none",
+              ],
+            },
+            Object {
+              "description": "Trailing commas wherever possible (including function arguments).",
+              "enum": Array [
+                "all",
+              ],
+            },
+          ],
+        },
+        "useTabs": Object {
+          "default": false,
+          "description": "Indent with tabs instead of spaces.",
+          "type": "boolean",
+        },
+        "vueIndentScriptAndStyle": Object {
+          "default": false,
+          "description": "Indent script and style tags in Vue files.",
+          "type": "boolean",
+        },
+      },
+      "type": "object",
+    },
+    "overridesDefinition": Object {
+      "properties": Object {
+        "overrides": Object {
+          "description": "Provide a list of patterns to override prettier configuration.",
+          "items": Object {
+            "additionalProperties": false,
+            "properties": Object {
+              "excludeFiles": Object {
+                "description": "Exclude these files from this override.",
+                "oneOf": Array [
+                  Object {
+                    "type": "string",
+                  },
+                  Object {
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "type": "array",
+                  },
+                ],
+              },
+              "files": Object {
+                "description": "Include these files in this override.",
+                "oneOf": Array [
+                  Object {
+                    "type": "string",
+                  },
+                  Object {
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "type": "array",
+                  },
+                ],
+              },
+              "options": Object {
+                "$ref": "#/definitions/optionsDefinition",
+                "description": "The options to apply for this override.",
+                "type": "object",
+              },
+            },
+            "required": Array [
+              "files",
+            ],
+            "type": "object",
+          },
+          "type": "array",
+        },
+      },
+      "type": "object",
+    },
+  },
+  "oneOf": Array [
+    Object {
+      "allOf": Array [
+        Object {
+          "$ref": "#/definitions/optionsDefinition",
+        },
+        Object {
+          "$ref": "#/definitions/overridesDefinition",
+        },
+      ],
+      "type": "object",
+    },
+    Object {
+      "type": "string",
+    },
+  ],
+  "title": "Schema for .prettierrc",
+}
+`;

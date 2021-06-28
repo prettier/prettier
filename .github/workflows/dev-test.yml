@@ -3,7 +3,7 @@ name: Dev
 on:
   push:
     branches:
-      - master
+      - main
       - patch-release
       - next
   pull_request:
@@ -19,24 +19,22 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "16"
           - "14"
           - "12"
-          - "10"
         include:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
-            node: "14"
+            node: "16"
             # [prettierx] NOT ENABLED:
             # ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
-          - os: "ubuntu-latest"
-            node: "15"
         exclude:
           - os: "macos-latest"
-            node: "12"
+            node: "14"
           - os: "windows-latest"
-            node: "12"
+            node: "14"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
@@ -46,9 +44,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
+        # `codecov/codecov-action` require depth to be at least `2`, see #10219
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node }}
 
@@ -64,23 +65,19 @@ jobs:
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.0.14
+        uses: codecov/codecov-action@v1.5.2
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
           fail_ci_if_error: true
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.0.14
+        uses: codecov/codecov-action@v1.5.2
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
           fail_ci_if_error: true

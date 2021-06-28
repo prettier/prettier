@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`'Adjacent JSX' error should not be swallowed by Babel's error recovery 1`] = `
+"Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (2:1)
+  1 | <a></a>
+> 2 | <b></b>
+    | ^"
+`;
+
+exports[`html parser should handle CRLF correctly 1`] = `"\\"<!--\\\\r\\\\n  test\\\\r\\\\n  test\\\\r\\\\n-->\\\\r\\\\n\\""`;
+
+exports[`markdown parser should handle CRLF correctly 1`] = `"\\"\`\`\`\\\\r\\\\n\\\\r\\\\n\\\\r\\\\n\`\`\`\\\\r\\\\n\\""`;
+
+exports[`typescript parser should throw the first error when both JSX and non-JSX mode failed 1`] = `
+"Expression expected. (9:7)
+   7 | );
+   8 |
+>  9 | label:
+     |       ^
+  10 |   "
+`;
+
+exports[`yaml parser should handle CRLF correctly 1`] = `"\\"a: 123\\\\r\\\\n\\""`;

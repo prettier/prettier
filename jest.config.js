@@ -1,18 +1,26 @@
 "use strict";
 
+const path = require("path");
 const installPrettier = require("./scripts/install-prettier");
 
+const PROJECT_ROOT = __dirname;
 const isProduction = process.env.NODE_ENV === "production";
-const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
-if (isProduction || process.env.INSTALL_PACKAGE) {
-  process.env.PRETTIER_DIR = installPrettier();
+const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
+const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
+const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+
+let PRETTIER_DIR = isProduction
+  ? path.join(PROJECT_ROOT, "dist")
+  : PROJECT_ROOT;
+if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
+  PRETTIER_DIR = installPrettier(PRETTIER_DIR);
 }
-const { TEST_STANDALONE } = process.env;
+process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];
-let transform;
+let transform = {};
 if (TEST_STANDALONE) {
-  testPathIgnorePatterns.push("<rootDir>/tests_integration/");
+  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
 }
 if (isProduction) {
   // `esm` bundles need transform
@@ -40,12 +48,12 @@ if (isProduction) {
 } else {
   // Only test bundles for production
   testPathIgnorePatterns.push(
-    "<rootDir>/tests_integration/__tests__/bundle.js"
+    "<rootDir>/tests/integration/__tests__/bundle.js"
   );
 }
 
 module.exports = {
-  setupFiles: ["<rootDir>/tests_config/setup.js"],
+  setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
@@ -60,11 +68,10 @@ module.exports = {
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier-local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier-standalone": "<rootDir>/tests_config/require_standalone.js",
+    "prettier-local": "<rootDir>/tests/config/require-prettier.js",
+    "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
   },
-  modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website/static/lib"],
-  testEnvironment: "node",
+  modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website"],
   transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",

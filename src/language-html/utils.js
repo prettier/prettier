@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * @typedef {import("../common/ast-path")} AstPath
+ */
+
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
 const { inferParserByLanguage, isFrontMatterNode } = require("../common/util");
@@ -26,7 +30,7 @@ const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
 const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
   const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
+    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
   );
   return {
     leadingWhitespace,
@@ -46,8 +50,8 @@ function arrayToMap(array) {
 
 function mapObject(object, fn) {
   const newObject = Object.create(null);
-  for (const key of Object.keys(object)) {
-    newObject[key] = fn(object[key], key);
+  for (const [key, value] of Object.entries(object)) {
+    newObject[key] = fn(value, key);
   }
   return newObject;
 }
@@ -115,7 +119,7 @@ function isPrettierIgnore(node) {
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
+  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+(.+))?$/s);
 
   if (!match) {
     return false;
@@ -281,7 +285,7 @@ function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
     (node.type === "element" &&
-      node.children.length !== 0 &&
+      node.children.length > 0 &&
       (["body", "script", "style"].includes(node.name) ||
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
@@ -297,7 +301,7 @@ function forceBreakContent(node) {
 function forceBreakChildren(node) {
   return (
     node.type === "element" &&
-    node.children.length !== 0 &&
+    node.children.length > 0 &&
     (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
@@ -465,6 +469,10 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
+/**
+ * @param {AstPath} path
+ * @param {(any) => boolean} predicate
+ */
 function countParents(path, predicate) {
   let counter = 0;
   for (let i = path.stack.length - 1; i >= 0; i--) {
@@ -557,7 +565,7 @@ function getNodeCssStyleWhiteSpace(node) {
 }
 
 function getMinIndentation(text) {
-  let minIndentation = Infinity;
+  let minIndentation = Number.POSITIVE_INFINITY;
 
   for (const lineText of text.split("\n")) {
     if (lineText.length === 0) {
@@ -579,7 +587,7 @@ function getMinIndentation(text) {
     }
   }
 
-  return minIndentation === Infinity ? 0 : minIndentation;
+  return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
 }
 
 function dedentString(text, minIndent = getMinIndentation(text)) {
@@ -637,6 +645,32 @@ function isVueNonHtmlBlock(node, options) {
   );
 }
 
+function isVueSlotAttribute(attribute) {
+  const attributeName = attribute.fullName;
+  return (
+    attributeName.charAt(0) === "#" ||
+    attributeName === "slot-scope" ||
+    attributeName === "v-slot" ||
+    attributeName.startsWith("v-slot:")
+  );
+}
+
+function isVueSfcBindingsAttribute(attribute, options) {
+  const element = attribute.parent;
+  if (!isVueSfcBlock(element, options)) {
+    return false;
+  }
+  const tagName = element.fullName;
+  const attributeName = attribute.fullName;
+
+  return (
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-script-setup.md
+    (tagName === "script" && attributeName === "setup") ||
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md
+    (tagName === "style" && attributeName === "vars")
+  );
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -660,6 +694,8 @@ module.exports = {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,

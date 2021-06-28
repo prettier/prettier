@@ -30,28 +30,20 @@ Install it along with [husky](https://github.com/typicode/husky):
 <!--npm-->
 
 ```bash
-npm install --save-dev pretty-quick husky
+npx husky-init
+npm install --save-dev pretty-quick
+npx husky set .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--yarn-->
 
 ```bash
-yarn add --dev pretty-quick husky
+npx husky-init # add --yarn2 for Yarn 2
+yarn add --dev pretty-quick
+yarn husky set .husky/pre-commit "npx pretty-quick --staged"
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
-
-Add this to your `package.json`:
-
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  }
-}
-```
 
 Read more at the [pretty-quick](https://github.com/azz/pretty-quick) repo.
 
@@ -62,13 +54,13 @@ Read more at the [pretty-quick](https://github.com/azz/pretty-quick) repo.
 Copy the following config into your `.pre-commit-config.yaml` file:
 
 ```yaml
-- repo: https://github.com/prettier/prettier
+- repo: https://github.com/pre-commit/mirrors-prettier
   rev: "" # Use the sha or tag you want to point at
   hooks:
     - id: prettier
 ```
 
-Read more at the [pre-commit](https://pre-commit.com) website.
+Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
 ## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
@@ -87,28 +79,20 @@ Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on
 <!--npm-->
 
 ```bash
-npm install --save-dev git-format-staged husky
+npx husky-init
+npm install --save-dev git-format-staged
+npx husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
 
 <!--yarn-->
 
 ```bash
-yarn add --dev git-format-staged husky
+npx husky-init # add --yarn2 for Yarn 2
+yarn add --dev git-format-staged
+yarn husky set .husky/pre-commit "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
-
-and add this config to your `package.json`:
-
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "git-format-staged -f 'prettier --ignore-unknown --stdin --stdin-filepath \"{}\"' ."
-    }
-  }
-}
-```
 
 Add or remove file extensions to suit your project. Note that regardless of which extensions you list formatting will respect any `.prettierignore` files in your project.
 
@@ -120,11 +104,11 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 
 ```sh
 #!/bin/sh
-FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed 's| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files
-echo "$FILES" | xargs ./node_modules/.bin/prettier --write
+echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add

@@ -1,7 +1,8 @@
 "use strict";
 
 const createError = require("../common/parser-create-error");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
+const getLast = require("../utils/get-last");
+const parseFrontMatter = require("../utils/front-matter/parse");
 const { hasPragma } = require("./pragma");
 const {
   hasSCSSInterpolation,
@@ -43,7 +44,7 @@ function parseValueNode(valueNode, options) {
       options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
-      node.value[node.value.length - 1] === "."
+      getLast(node.value) === "."
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
@@ -71,7 +72,7 @@ function parseValueNode(valueNode, options) {
       for (let i = 0; i < groups.length; i++) {
         const group = groups[i];
         if (group.type === "comma_group") {
-          groupList = groupList.concat(group.groups);
+          groupList = [...groupList, ...group.groups];
         } else {
           groupList.push(group);
         }
@@ -104,7 +105,7 @@ function parseValueNode(valueNode, options) {
       };
       commaGroupStack.push(commaGroup);
     } else if (node.type === "paren" && node.value === ")") {
-      if (commaGroup.groups.length) {
+      if (commaGroup.groups.length > 0) {
         parenGroup.groups.push(commaGroup);
       }
       parenGroup.close = node;
@@ -115,11 +116,11 @@ function parseValueNode(valueNode, options) {
       }
 
       commaGroupStack.pop();
-      commaGroup = commaGroupStack[commaGroupStack.length - 1];
+      commaGroup = getLast(commaGroupStack);
       commaGroup.groups.push(parenGroup);
 
       parenGroupStack.pop();
-      parenGroup = parenGroupStack[parenGroupStack.length - 1];
+      parenGroup = getLast(parenGroupStack);
     } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
@@ -212,7 +213,7 @@ function parseValue(value, options) {
 
   try {
     result = valueParser(value, { loose: true }).parse();
-  } catch (e) {
+  } catch {
     return {
       type: "value-unknown",
       value,
@@ -246,7 +247,7 @@ function parseSelector(selector) {
     selectorParser((result_) => {
       result = result_;
     }).process(selector);
-  } catch (e) {
+  } catch {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:
     // none { color: red; }` is parsed as a NestedDeclaration by
@@ -269,7 +270,7 @@ function parseMediaQuery(params) {
 
   try {
     result = mediaParser(params);
-  } catch (e) {
+  } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
     return {
@@ -331,9 +332,10 @@ function parseNestedCSS(node, options) {
           parse = parseCss;
         }
         let ast;
+        // [prettierx merge update from prettier@2.3.2 ...]
         try {
           ast = parse(fakeContent, [], { ...options });
-        } catch (_) {
+        } catch {
           // noop
         }
         if (
@@ -533,7 +535,7 @@ function parseNestedCSS(node, options) {
 
         // `@color :blue;`
         if (
-          !["page", "nest"].includes(node.name) &&
+          !["page", "nest", "keyframes"].includes(node.name) &&
           node.params &&
           node.params[0] === ":"
         ) {
@@ -571,7 +573,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
+        if (/^\(\s*(without|with)\s*:.+\)$/s.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);

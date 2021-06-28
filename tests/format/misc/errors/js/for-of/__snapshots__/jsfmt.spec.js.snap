@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let.foo of []);
+    |      ^"
+`;
+
+exports[`snippet: #0 [babel] format 2`] = `
+"The left-hand side of a for-of loop may not be 'async'. (1:6)
+> 1 | for (async of []);
+    |      ^"
+`;
+
+exports[`snippet: #0 [babel-flow] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let.foo of []);
+    |      ^"
+`;
+
+exports[`snippet: #0 [babel-flow] format 2`] = `
+"The left-hand side of a for-of loop may not be 'async'. (1:6)
+> 1 | for (async of []);
+    |      ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let.foo of []);
+    |      ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 2`] = `
+"The left-hand side of a for-of loop may not be 'async'. (1:6)
+> 1 | for (async of []);
+    |      ^"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Unexpected token [ (1:15)
+> 1 | for (async of []);
+    |               ^"
+`;
+
+exports[`snippet: #0 [flow] format 1`] = `
+"Unexpected token \`.\`, expected an identifier (1:9)
+> 1 | for (let.foo of []);
+    |         ^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"[1:9]: Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:9)
+> 1 | for (let.foo of []);
+    |         ^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"Variable declaration expected. (1:9)
+> 1 | for (let.foo of []);
+    |         ^"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let().bar of []);
+    |      ^"
+`;
+
+exports[`snippet: #1 [babel-flow] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let().bar of []);
+    |      ^"
+`;
+
+exports[`snippet: #1 [babel-ts] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let().bar of []);
+    |      ^"
+`;
+
+exports[`snippet: #1 [flow] format 1`] = `
+"Unexpected token \`(\`, expected an identifier (1:9)
+> 1 | for (let().bar of []);
+    |         ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"[1:9]: Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:9)
+> 1 | for (let().bar of []);
+    |         ^"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"Variable declaration expected. (1:9)
+> 1 | for (let().bar of []);
+    |         ^"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let\`\`.bar of []);
+    |      ^"
+`;
+
+exports[`snippet: #2 [babel-flow] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let\`\`.bar of []);
+    |      ^"
+`;
+
+exports[`snippet: #2 [babel-ts] format 1`] = `
+"The left-hand side of a for-of loop may not start with 'let'. (1:6)
+> 1 | for (let\`\`.bar of []);
+    |      ^"
+`;
+
+exports[`snippet: #2 [flow] format 1`] = `
+"Unexpected template literal part, expected an identifier (1:9)
+> 1 | for (let\`\`.bar of []);
+    |         ^^"
+`;
+
+exports[`snippet: #2 [meriyah] format 1`] = `
+"[1:10]: Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:10)
+> 1 | for (let\`\`.bar of []);
+    |          ^"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"Variable declaration expected. (1:9)
+> 1 | for (let\`\`.bar of []);
+    |         ^"
+`;

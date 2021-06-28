@@ -34,8 +34,6 @@ Pages can be added to the site by putting `.js` files with React components in `
 
 Images and other static assets are placed inside the `static` directory: `static/img/your-image.png` is mapped to `http://prettier.io/img/your-image.png`. Any `.css` files in `static/` are concatenated to the standard styles provided by Docusaurus and used site-wide.
 
-Please run <code>yarn svgo _path/to/image.svg_</code> before committing a new SVG to the repository.
-
 ## Playground
 
 The Playground is not integrated with the Docusaurus infrastructure. Its UI (`website/playground/`) is built separately with webpack configured to put the resulting bundle in Docusaurus’s `static` directory. The `yarn start` command (in `website/`) concurrently starts both Docusaurus’s local server and webpack in the watch mode for the Playground.
@@ -59,7 +57,6 @@ previous: doc0 # previous doc on sidebar for navigation
 next: doc2 # next doc on the sidebar for navigation
 # don’t include next if this is the last doc; don’t include previous if first doc
 ---
-
 ```
 
 The docs from `docs/` are published to `https://prettier.io/docs/en/next/` and are considered to be the docs of the next (not yet released) version of Prettier. When a release happens, the docs from `docs/` are copied to the `website/versioned_docs/version-stable` directory, whose content is published to `https://prettier.io/docs/en`.
@@ -73,7 +70,6 @@ title: Blog Post Title
 author: Author Name
 authorURL: http://github.com/author # (or some other link)
 ---
-
 ```
 
 In the blog post, you should include a line `<!--truncate-->`. This determines under which point text will be ignored when generating the preview of your blog post. Blog posts should have the file name format: `yyyy-mm-dd-your-file-name.md`.

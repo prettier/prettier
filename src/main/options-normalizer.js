@@ -3,7 +3,7 @@
 const vnopts = require("vnopts");
 const leven = require("leven");
 const chalk = require("chalk");
-const flat = require("lodash/flatten");
+const getLast = require("../utils/get-last");
 
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -21,12 +21,12 @@ const cliDescriptor = {
 class FlagSchema extends vnopts.ChoiceSchema {
   constructor({ name, flags }) {
     super({ name, choices: flags });
-    this._flags = flags.slice().sort();
+    this._flags = [...flags].sort();
   }
   preprocess(value, utils) {
     if (
       typeof value === "string" &&
-      value.length !== 0 &&
+      value.length > 0 &&
       !this._flags.includes(value)
     ) {
       const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
@@ -147,14 +147,12 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       break;
     case "flag":
       SchemaConstructor = FlagSchema;
-      parameters.flags = flat(
-        optionInfos.map((optionInfo) =>
-          [
-            optionInfo.alias,
-            optionInfo.description && optionInfo.name,
-            optionInfo.oppositeDescription && `no-${optionInfo.name}`,
-          ].filter(Boolean)
-        )
+      parameters.flags = optionInfos.flatMap((optionInfo) =>
+        [
+          optionInfo.alias,
+          optionInfo.description && optionInfo.name,
+          optionInfo.oppositeDescription && `no-${optionInfo.name}`,
+        ].filter(Boolean)
       );
       break;
     case "path":
@@ -166,13 +164,11 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   if (optionInfo.exception) {
-    parameters.validate = (value, schema, utils) => {
-      return optionInfo.exception(value) || schema.validate(value, utils);
-    };
+    parameters.validate = (value, schema, utils) =>
+      optionInfo.exception(value) || schema.validate(value, utils);
   } else {
-    parameters.validate = (value, schema, utils) => {
-      return value === undefined || schema.validate(value, utils);
-    };
+    parameters.validate = (value, schema, utils) =>
+      value === undefined || schema.validate(value, utils);
   }
 
   /* istanbul ignore next */
@@ -198,16 +194,14 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     const originalPreprocess = parameters.preprocess || ((x) => x);
     parameters.preprocess = (value, schema, utils) =>
       schema.preprocess(
-        originalPreprocess(
-          Array.isArray(value) ? value[value.length - 1] : value
-        ),
+        originalPreprocess(Array.isArray(value) ? getLast(value) : value),
         utils
       );
   }
 
   return optionInfo.array
     ? vnopts.ArraySchema.create({
-        ...(isCLI ? { preprocess: (v) => [].concat(v) } : {}),
+        ...(isCLI ? { preprocess: (v) => (Array.isArray(v) ? v : [v]) } : {}),
         ...handlers,
         valueSchema: SchemaConstructor.create(parameters),
       })

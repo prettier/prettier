@@ -1,6 +1,7 @@
 "use strict";
 
 const { getLast } = require("../common/util");
+const { locStart, locEnd } = require("./loc");
 const {
   cjkPattern,
   kPattern,
@@ -27,11 +28,12 @@ const INLINE_NODE_TYPES = [
   "inlineMath",
 ];
 
-const INLINE_NODE_WRAPPER_TYPES = INLINE_NODE_TYPES.concat([
+const INLINE_NODE_WRAPPER_TYPES = [
+  ...INLINE_NODE_TYPES,
   "tableCell",
   "paragraph",
   "heading",
-]);
+];
 
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
@@ -39,7 +41,6 @@ const punctuationRegex = new RegExp(punctuationPattern);
 /**
  * split text into whitespaces and words
  * @param {string} text
- * @return {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>}
  */
 function splitText(text, options) {
   const KIND_NON_CJK = "non-cjk";
@@ -47,77 +48,76 @@ function splitText(text, options) {
   const KIND_K_LETTER = "k-letter";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
+  /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
   const nodes = [];
 
-  (options.proseWrap === "preserve"
-    ? text
-    : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
-  )
-    .split(/([\t\n ]+)/)
-    .forEach((token, index, tokens) => {
-      // whitespace
-      if (index % 2 === 1) {
-        nodes.push({
-          type: "whitespace",
-          value: /\n/.test(token) ? "\n" : " ",
-        });
-        return;
+  const tokens = (
+    options.proseWrap === "preserve"
+      ? text
+      : text.replace(
+          new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"),
+          "$1$2"
+        )
+  ).split(/([\t\n ]+)/);
+  for (const [index, token] of tokens.entries()) {
+    // whitespace
+    if (index % 2 === 1) {
+      nodes.push({
+        type: "whitespace",
+        value: /\n/.test(token) ? "\n" : " ",
+      });
+      continue;
+    }
+
+    // word separated by whitespace
+
+    if ((index === 0 || index === tokens.length - 1) && token === "") {
+      continue;
+    }
+
+    const innerTokens = token.split(new RegExp(`(${cjkPattern})`));
+    for (const [innerIndex, innerToken] of innerTokens.entries()) {
+      if (
+        (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
+        innerToken === ""
+      ) {
+        continue;
       }
 
-      // word separated by whitespace
-
-      if ((index === 0 || index === tokens.length - 1) && token === "") {
-        return;
+      // non-CJK word
+      if (innerIndex % 2 === 0) {
+        if (innerToken !== "") {
+          appendNode({
+            type: "word",
+            value: innerToken,
+            kind: KIND_NON_CJK,
+            hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
+            hasTrailingPunctuation: punctuationRegex.test(getLast(innerToken)),
+          });
+        }
+        continue;
       }
 
-      token
-        .split(new RegExp(`(${cjkPattern})`))
-        .forEach((innerToken, innerIndex, innerTokens) => {
-          if (
-            (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
-            innerToken === ""
-          ) {
-            return;
-          }
-
-          // non-CJK word
-          if (innerIndex % 2 === 0) {
-            if (innerToken !== "") {
-              appendNode({
-                type: "word",
-                value: innerToken,
-                kind: KIND_NON_CJK,
-                hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-                hasTrailingPunctuation: punctuationRegex.test(
-                  getLast(innerToken)
-                ),
-              });
+      // CJK character
+      appendNode(
+        punctuationRegex.test(innerToken)
+          ? {
+              type: "word",
+              value: innerToken,
+              kind: KIND_CJK_PUNCTUATION,
+              hasLeadingPunctuation: true,
+              hasTrailingPunctuation: true,
             }
-            return;
-          }
-
-          // CJK character
-          appendNode(
-            punctuationRegex.test(innerToken)
-              ? {
-                  type: "word",
-                  value: innerToken,
-                  kind: KIND_CJK_PUNCTUATION,
-                  hasLeadingPunctuation: true,
-                  hasTrailingPunctuation: true,
-                }
-              : {
-                  type: "word",
-                  value: innerToken,
-                  kind: kRegex.test(innerToken)
-                    ? KIND_K_LETTER
-                    : KIND_CJ_LETTER,
-                  hasLeadingPunctuation: false,
-                  hasTrailingPunctuation: false,
-                }
-          );
-        });
-    });
+          : {
+              type: "word",
+              value: innerToken,
+              kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
+              hasLeadingPunctuation: false,
+              hasTrailingPunctuation: false,
+            }
+      );
+    }
+  }
 
   return nodes;
 
@@ -208,28 +208,26 @@ function getFencedCodeBlockValue(node, originalText) {
 
 function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
-    parentStack = parentStack || [];
-
     const newNode = { ...handler(node, index, parentStack) };
     if (newNode.children) {
-      newNode.children = newNode.children.map((child, index) => {
-        return preorder(child, index, [newNode].concat(parentStack));
-      });
+      newNode.children = newNode.children.map((child, index) =>
+        preorder(child, index, [newNode, ...parentStack])
+      );
     }
 
     return newNode;
-  })(ast, null, null);
+  })(ast, null, []);
 }
 
-function isAutolink(node, options) {
+function isAutolink(node) {
   if (!node || node.type !== "link" || node.children.length !== 1) {
     return false;
   }
   const child = node.children[0];
   return (
     child &&
-    options.locStart(node) === options.locStart(child) &&
-    options.locEnd(node) === options.locEnd(child)
+    locStart(node) === locStart(child) &&
+    locEnd(node) === locEnd(child)
   );
 }
 
