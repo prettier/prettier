@@ -37,6 +37,11 @@ module.exports = {
   },
   create(context) {
     const fileName = context.getFilename();
+    // [prettierx]: support npm dev install
+    const parentDir = path.basename(path.resolve(__dirname, ".."));
+    const isLinked = parentDir !== "node_modules";
+    const projectRoot = isLinked ? "../../.." : "../..";
+
     const ignored = new Map(
       context.options.map((option) => {
         if (typeof option === "string") {
@@ -44,7 +49,8 @@ module.exports = {
         }
         const { file, functions } = option;
         return [
-          path.join(__dirname, "../../..", file),
+          // [prettierx]: support npm dev install
+          path.join(__dirname, projectRoot, file),
           functions ? new Set(functions) : true,
         ];
       })

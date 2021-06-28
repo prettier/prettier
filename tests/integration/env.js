@@ -3,10 +3,12 @@
 const path = require("path");
 const isProduction = process.env.NODE_ENV === "production";
 const { PRETTIER_DIR } = process.env;
-const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
+// [prettierx] get fork package name from package.json
+const { bin, name } = require(path.join(PRETTIER_DIR, "package.json"));
 const prettierCli = path.join(
   PRETTIER_DIR,
-  typeof bin === "object" ? bin.prettier : bin
+  // [prettierx] use fork package name from package.json
+  typeof bin === "object" ? bin[name] : bin
 );
 
 const thirdParty = isProduction

@@ -2927,9 +2927,8 @@ eslint-plugin-jest@24.3.6:
   dependencies:
     "@typescript-eslint/experimental-utils" "^4.0.1"
 
-"eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
-  version "0.0.0"
-  uid ""
+"eslint-plugin-prettier-internal-rules@file:./scripts/tools/eslint-plugin-prettier-internal-rules":
+  version "1.0.3"
 
 eslint-plugin-react@7.24.0:
   version "7.24.0"
