@@ -22,8 +22,6 @@ jobs:
         NPM_CLIENT:
           - "yarn"
           - "npm"
-        # [prettierx] skip on pnpm for now (...)
-        SKIP_NPM_CLIENT_TEST:
           - "pnpm"
     env:
       INSTALL_PACKAGE: true
