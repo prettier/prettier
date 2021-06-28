@@ -268,6 +268,25 @@ const { children, ...props } = this.props;
 ================================================================================
 `;
 
+exports[`export-default-named-function.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+export default (function f() { })
+
+=====================================output=====================================
+export default ( function f() {} );
+
+================================================================================
+`;
+
 exports[`expressions.js 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
@@ -470,8 +489,6 @@ export a, { b } from "./baz";
 
 export default () => { };
 
-export default (function f() { })
-
 =====================================output=====================================
 import { fitsIn, oneLine } from ".";
 
@@ -480,8 +497,6 @@ import( "module.js" ).then( ( a ) => a );
 export a, { b } from "./baz";
 
 export default () => {};
-
-export default ( function f() {} );
 
 ================================================================================
 `;
