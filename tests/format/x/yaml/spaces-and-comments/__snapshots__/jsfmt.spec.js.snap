@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`block-scalar-with-spaces-and-comments.yml 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+empty block scalar: >
+ 
+ # comment
+  
+   
+ # comment
+
+=====================================output=====================================
+empty block scalar: >
+
+  # comment
+   
+    
+  # comment
+
+================================================================================
+`;
+
+exports[`block-scalar-with-spaces-and-comments.yml 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+empty block scalar: >
+ 
+ # comment
+  
+   
+ # comment
+
+=====================================output=====================================
+empty block scalar: >
+
+  # comment
+   
+    
+  # comment
+
+================================================================================
+`;

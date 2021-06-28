@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correct.js 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+jsxSingleQuote: true
+parsers: ["babel", "babel-flow", "flow"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "es5"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<T> {
+  getter(value: T): T;
+}
+
+=====================================output=====================================
+interface Foo<T> {
+  getter(value: T): T;
+}
+
+================================================================================
+`;
+
+exports[`incorrect.js 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+jsxSingleQuote: true
+parsers: ["babel", "babel-flow", "flow"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "es5"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+interface Foo <T>{
+  getter(value:T):T
+}
+
+=====================================output=====================================
+interface Foo<T> {
+  getter(value: T): T;
+}
+
+================================================================================
+`;
