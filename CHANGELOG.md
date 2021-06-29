@@ -6,6 +6,8 @@ intended to help rebase some prettierX JavaScript features on updated version of
 
 with some updates including:
 
+- use @brodybits/remark-parse@8, with updated trim sub-dependency, as recommended by:
+  - https://www.npmjs.com/advisories/1700
 - update package name (**not** expected to affect default branch of prettierX)
 - remove author & upstream project URLs from package.json
 - move flow-parser & typescript dependencies to devDependencies
@@ -16,9 +18,6 @@ with some updates including:
 NOTE: This version branch is MISSING package dependency notes & documentation updates.
 
 Some PostCSS dependencies need to be updated, maybe with help from Renovate Bot.
-
-Existing remark-parse dependency has known vulnerability in trim sub-dependency,
-to be resolved by using @brodybits/remark-parse@8 version.
 
 # 2.3.2
 
