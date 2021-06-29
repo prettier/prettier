@@ -1,2 +1,6 @@
-run_spec(__dirname, ["babel", "flow", "typescript"]);
-run_spec(__dirname, ["babel", "flow", "typescript"], { bracketSpacing: false });
+// [prettierx] test with all Babel parsers
+// (babel-ts is normally included with typescript by default)
+run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"]);
+run_spec(__dirname, ["babel", "babel-flow", "flow", "typescript"], {
+  bracketSpacing: false,
+});
