@@ -8,7 +8,8 @@ const sandbox = vm.createContext();
 
 const source = globby
   .sync(["standalone.js", "parser-*.js"], {
-    cwd: process.env.PRETTIER_DIR,
+    // [prettierx]
+    cwd: process.env.PRETTIERX_DIR,
     absolute: true,
   })
   .map((file) => fs.readFileSync(file, "utf8"))
@@ -16,7 +17,8 @@ const source = globby
 
 vm.runInContext(source, sandbox);
 
-const allowedGlobalObjects = new Set(["prettier", "prettierPlugins"]);
+// [prettierx]
+const allowedGlobalObjects = new Set(["prettierx", "prettierPlugins"]);
 const globalObjects = Object.keys(sandbox).filter(
   (property) => !allowedGlobalObjects.has(property)
 );
@@ -38,6 +40,7 @@ if (globalObjects.length > 0) {
 module.exports = {
   formatWithCursor(input, options) {
     return vm.runInNewContext(
+      // [prettierx]
       `
         const options = {
           ...$$$options,
@@ -46,7 +49,7 @@ module.exports = {
             ...($$$options.plugins || []),
           ],
         };
-        prettier.formatWithCursor($$$input, options);
+        prettierx.formatWithCursor($$$input, options);
       `,
       { $$$input: input, $$$options: options, ...sandbox }
     );
@@ -55,6 +58,7 @@ module.exports = {
   __debug: {
     parse(input, options, massage) {
       return vm.runInNewContext(
+        // [prettierx]
         `
           const options = {
             ...$$$options,
@@ -63,7 +67,9 @@ module.exports = {
               ...($$$options.plugins || []),
             ],
           };
-          prettier.__debug.parse($$$input, options, ${JSON.stringify(massage)});
+          prettierx.__debug.parse($$$input, options, ${JSON.stringify(
+            massage
+          )});
         `,
         { $$$input: input, $$$options: options, ...sandbox }
       );

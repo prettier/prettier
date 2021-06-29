@@ -3,7 +3,7 @@
   "version": "0.1.0-dev",
   "prettier-version": "2.4.0",
   "description": "prettierx-rebase-branch-001 version branch",
-  "bin": "./bin/prettier.js",
+  "bin": "./bin/prettierx.js",
   "license": "MIT",
   "main": "./index.js",
   "browser": "./standalone.js",

@@ -130,13 +130,15 @@ const coreBundles = [
     minify: false,
   },
   {
+    // [prettierx]
     input: "src/standalone.js",
-    name: "prettier",
+    name: "prettierx",
     target: "universal",
   },
   {
-    input: "bin/prettier.js",
-    output: "bin-prettier.js",
+    // [prettierx]
+    input: "bin/prettierx.js",
+    output: "bin-prettierx.js",
     external: ["benchmark"],
   },
   {

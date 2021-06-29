@@ -1,7 +1,9 @@
 "use strict";
 
 const path = require("path");
-const installPrettier = require("./scripts/install-prettier");
+
+// [prettierx]
+const installPrettier = require("./scripts/install-prettierx");
 
 const PROJECT_ROOT = __dirname;
 const isProduction = process.env.NODE_ENV === "production";
@@ -9,13 +11,14 @@ const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 
-let PRETTIER_DIR = isProduction
+// [prettierx]
+let PRETTIERX_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
   : PROJECT_ROOT;
 if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
-  PRETTIER_DIR = installPrettier(PRETTIER_DIR);
+  PRETTIERX_DIR = installPrettier(PRETTIERX_DIR);
 }
-process.env.PRETTIER_DIR = PRETTIER_DIR;
+process.env.PRETTIERX_DIR = PRETTIERX_DIR;
 
 const testPathIgnorePatterns = [];
 let transform = {};
@@ -68,7 +71,8 @@ module.exports = {
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier-local": "<rootDir>/tests/config/require-prettier.js",
+    // [prettierx]
+    "prettier-local": "<rootDir>/tests/config/require-prettierx.js",
     "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
   },
   modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website"],

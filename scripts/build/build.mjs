@@ -133,7 +133,8 @@ async function cacheFiles(cache) {
 
 async function preparePackage() {
   const pkg = await utils.readJson("package.json");
-  pkg.bin = "./bin-prettier.js";
+  // [prettierx]
+  pkg.bin = "./bin-prettierx.js";
   pkg.engines.node = ">=10.13.0";
   delete pkg.dependencies;
   delete pkg.devDependencies;
