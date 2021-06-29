@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "scripts": {
-    "build": "webpack && docusaurus-build",
+    "build": "webpack --mode=production && docusaurus-build",
     "start": "concurrently \"docusaurus-start\" \"webpack --mode=development --watch\"",
     "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
