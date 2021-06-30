@@ -26,18 +26,21 @@ const printers = {
   mdast: printer,
 };
 
-const parsers = {
-  /* istanbul ignore next */
-  get remark() {
-    return require("./parser-markdown").parsers.remark;
-  },
-  get markdown() {
-    return require("./parser-markdown").parsers.remark;
-  },
-  get mdx() {
-    return require("./parser-markdown").parsers.mdx;
-  },
-};
+const parsers =
+  process.env.PRETTIER_TARGET === "universal"
+    ? undefined
+    : {
+        /* istanbul ignore next */
+        get remark() {
+          return require("./parser-markdown").parsers.remark;
+        },
+        get markdown() {
+          return require("./parser-markdown").parsers.remark;
+        },
+        get mdx() {
+          return require("./parser-markdown").parsers.mdx;
+        },
+      };
 
 module.exports = {
   languages,

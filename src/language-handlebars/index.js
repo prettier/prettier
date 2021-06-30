@@ -15,11 +15,14 @@ const printers = {
   glimmer: printer,
 };
 
-const parsers = {
-  get glimmer() {
-    return require("./parser-glimmer").parsers.glimmer;
-  },
-};
+const parsers =
+  process.env.PRETTIER_TARGET === "universal"
+    ? undefined
+    : {
+        get glimmer() {
+          return require("./parser-glimmer").parsers.glimmer;
+        },
+      };
 
 module.exports = {
   languages,

@@ -16,11 +16,14 @@ const printers = {
   graphql: printer,
 };
 
-const parsers = {
-  get graphql() {
-    return require("./parser-graphql").parsers.graphql;
-  },
-};
+const parsers =
+  process.env.PRETTIER_TARGET === "universal"
+    ? undefined
+    : {
+        get graphql() {
+          return require("./parser-graphql").parsers.graphql;
+        },
+      };
 
 module.exports = {
   languages,

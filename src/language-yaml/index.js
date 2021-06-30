@@ -17,11 +17,14 @@ const languages = [
   })),
 ];
 
-const parsers = {
-  get yaml() {
-    return require("./parser-yaml").parsers.yaml;
-  },
-};
+const parsers =
+  process.env.PRETTIER_TARGET === "universal"
+    ? undefined
+    : {
+        get yaml() {
+          return require("./parser-yaml").parsers.yaml;
+        },
+      };
 
 module.exports = {
   languages,
