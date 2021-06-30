@@ -117,7 +117,7 @@
     "eslint-plugin-unicorn": "29.0.0",
     "execa": "5.1.1",
     "flow-parser": "0.122.0",
-    "jest": "27.0.5",
+    "jest": "27.0.6",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.2.0",
     "jest-watch-typeahead": "0.6.4",
