@@ -21,8 +21,6 @@ with some updates including:
 
 NOTE: This version branch is MISSING package dependency notes & documentation updates.
 
-Some PostCSS dependencies need to be updated, maybe with help from Renovate Bot.
-
 # 2.3.2
 
 [diff](https://github.com/prettier/prettier/compare/2.3.1...2.3.2)
