@@ -27,6 +27,16 @@ const render = (items) => (
 ================================================================================
 `;
 
+exports[`in-end-tag.js - {"jsxBracketSameLine":true} [__typescript_estree] format 1`] = `
+"Identifier expected. (2:6)
+  1 | /* =========== before slash =========== */
+> 2 | <a><// line
+    |      ^
+  3 | /a>;
+  4 | <a></* block */
+  5 | /a>;"
+`;
+
 exports[`in-end-tag.js - {"jsxBracketSameLine":true} [typescript] format 1`] = `
 "Identifier expected. (2:6)
   1 | /* =========== before slash =========== */

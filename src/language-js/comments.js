@@ -910,6 +910,8 @@ function getCommentChildNodes(node, options) {
   //     }
   if (
     (options.parser === "typescript" ||
+      // [prettierx] support __typescript_estree parser option for testing
+      options.parser === "__typescript_estree" ||
       options.parser === "flow" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||

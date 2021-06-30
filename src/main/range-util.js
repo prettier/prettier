@@ -172,6 +172,7 @@ function isSourceElement(opts, node, parentNode) {
     case "espree":
     case "meriyah":
     case "__babel_estree":
+    case "__typescript_estree": // [prettierx] parser option for testing
       return isJsSourceElement(node.type, parentNode && parentNode.type);
     case "json":
     case "json5":

@@ -75,5 +75,7 @@ function isProbablyJsx(text) {
 module.exports = {
   parsers: {
     typescript: createParser(parse),
+    // [prettierx] support __typescript_estree parser option for testing
+    __typescript_estree: createParser(parse),
   },
 };

@@ -171,6 +171,11 @@ const parsers = {
   get __babel_estree() {
     return require("./parser-babel").parsers.__babel_estree;
   },
+  // [prettierx] support __typescript_estree parser option for testing
+  // JS - TypeScript ESTree
+  get __typescript_estree() {
+    return require("./parser-typescript").parsers.typescript;
+  },
 };
 
 module.exports = {

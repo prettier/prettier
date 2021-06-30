@@ -178,6 +178,14 @@ function runSpec(fixtures, parsers, options) {
       allParsers.push("babel-ts");
     }
 
+    // [prettierx] include __typescript_estree when testing "typescript" parser
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("__typescript_estree")
+    ) {
+      allParsers.push("__typescript_estree");
+    }
+
     if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
       if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
         allParsers.push("espree");

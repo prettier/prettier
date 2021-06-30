@@ -52,6 +52,17 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
+exports[`expression.js [__typescript_estree] format 1`] = `
+"')' expected. (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
 exports[`expression.js [espree] format 1`] = `
 "Unexpected token : (5:4)
   3 | a = () => ({}).x;

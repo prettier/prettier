@@ -700,10 +700,13 @@ function isStringPropSafeToUnquote(node, options) {
     isStringLiteral(node.key) &&
     rawText(node.key).slice(1, -1) === node.key.value &&
     ((isIdentifierName(node.key.value) &&
+      // [prettierx] support __typescript_estree parser option for testing
       // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
       // See https://github.com/microsoft/TypeScript/pull/20075
       !(
-        (options.parser === "typescript" || options.parser === "babel-ts") &&
+        (options.parser === "typescript" ||
+          options.parser === "babel-ts" ||
+          options.parser === "__typescript_estree") &&
         node.type === "ClassProperty"
       )) ||
       (isSimpleNumber(node.key.value) &&

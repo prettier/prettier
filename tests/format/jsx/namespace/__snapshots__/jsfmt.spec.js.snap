@@ -2,7 +2,7 @@
 
 exports[`jsx_namespaced_name.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "__typescript_estree"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

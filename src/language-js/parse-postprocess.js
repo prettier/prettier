@@ -9,9 +9,14 @@ const { locStart, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
+  // [prettierx] support __typescript_estree parser option for testing
   // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
   // https://github.com/typescript-eslint/typescript-eslint/pull/2375
-  if (options.parser === "typescript" && options.originalText.includes("@")) {
+  if (
+    (options.parser === "typescript" ||
+      options.parser === "__typescript_estree") &&
+    options.originalText.includes("@")
+  ) {
     const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
       options.tsParseResult;
     ast = visitNode(ast, (node) => {
@@ -53,6 +58,9 @@ function postprocess(ast, options) {
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (
+    // [prettierx] support __typescript_estree parser option for testing
+    // (seems to be an optimization; removing conditions seems to not trigger any test failures)
+    options.parser !== "__typescript_estree" &&
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
     options.parser !== "espree" &&

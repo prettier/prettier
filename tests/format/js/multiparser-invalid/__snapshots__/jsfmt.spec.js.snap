@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`text.js [__typescript_estree] format 1`] = `
+"Hexadecimal digit expected. (1:14)
+> 1 | foo = foo\`\\\\u{prettier}\\\\u{0065}\`;
+    |              ^
+  2 | foo = html\`\\\\u{prettier}\\\\u{0065}\`;
+  3 | foo = graphql\`\\\\u{prettier}\\\\u{0065}\`;
+  4 | foo = markdown\`\\\\u{prettier}\\\\u{0065}\`;"
+`;
+
 exports[`text.js [espree] format 1`] = `
 "Bad escape sequence in untagged template literal (6:18)
   4 | foo = markdown\`\\\\u{prettier}\\\\u{0065}\`;
