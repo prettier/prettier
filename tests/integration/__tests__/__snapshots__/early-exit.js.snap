@@ -44,7 +44,7 @@ exports[`show detailed usage with plugin options (manual resolution) (write) 1`]
 exports[`show usage with --help (stderr) 1`] = `""`;
 
 exports[`show usage with --help (stdout) 1`] = `
-"Usage: prettier [options] [file/dir/glob ...]
+"Usage: prettierx [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
 Stdin is read if it is piped to Prettier and no files are given.
@@ -209,7 +209,7 @@ exports[`show warning with --help not-found (typo) (write) 1`] = `Array []`;
 exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
 
 exports[`throw error and show usage with something unexpected (stdout) 1`] = `
-"Usage: prettier [options] [file/dir/glob ...]
+"Usage: prettierx [options] [file/dir/glob ...]
 
 By default, output is written to stdout.
 Stdin is read if it is piped to Prettier and no files are given.
