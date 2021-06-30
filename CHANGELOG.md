@@ -1,4 +1,4 @@
-# prettierx-rebase-branch-001
+# prettierx 0.19.0-01-update-branch
 
 intended to help rebase some prettierX JavaScript features on updated version of Prettier
 
@@ -8,12 +8,16 @@ with some updates including:
 
 - use @brodybits/remark-parse@8, with updated trim sub-dependency, as recommended by:
   - https://www.npmjs.com/advisories/1700
-- update package name (**not** expected to affect default branch of prettierX)
-- remove author & upstream project URLs from package.json
+- remove original author from package.json - with rationale:
+  - The code base in both Prettier and prettierX has many authors.
+  - Prettier has a number of committers and likely multiple owners, while prettierX has only one committer & owner at this point.
+  - The primary authors should be in the copyright & license statements, while the all of actual code authors _should_ be in the git commits.
+  - The existing committer & owner of prettierX hence sees no point in keeping the original author entry.
+- remove upstream Prettier project URLs from package.json (planning to keep the prettierX-specific project URLs in the next published version)
 - move flow-parser & typescript dependencies to devDependencies
-- include some Prettier updates from GitHub, with more info in `changelog_unreleased`
+- include Prettier update(s) from GitHub, with more info in `changelog_unreleased`
   ([./changelog_unreleased](./changelog_unreleased)):
-  - an update from Prettier `next` branch to use PostCSS 8
+  - update from Prettier `next` branch to use PostCSS 8
 
 NOTE: This version branch is MISSING package dependency notes & documentation updates.
 

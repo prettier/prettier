@@ -1,8 +1,8 @@
 {
-  "name": "prettierx-rebase-branch-001",
-  "version": "0.1.0-dev",
+  "name": "prettierx",
+  "version": "0.19.0-01-update-branch",
   "prettier-version": "2.4.0",
-  "description": "prettierx-rebase-branch-001 version branch",
+  "description": "prettierx 0.19.0-01-update-branch (...)",
   "bin": "./bin/prettierx.js",
   "license": "MIT",
   "main": "./index.js",
