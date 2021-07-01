@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js 1`] = `
+exports[`single.js - {"spaceInParens":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ const selectorByPath: ( Path ) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - {"spaceInParens":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
