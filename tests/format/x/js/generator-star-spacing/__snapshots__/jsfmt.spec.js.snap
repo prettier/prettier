@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`correct.js 1`] = `
+exports[`correct.js - {"bogus1":true,"generatorStarSpacing":true} format 1`] = `
 ====================================options=====================================
+bogus1: true
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -37,7 +38,7 @@ class Example {
 ================================================================================
 `;
 
-exports[`correct.js 2`] = `
+exports[`correct.js - {"generatorStarSpacing":true,"spaceBeforeFunctionParen":true} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
@@ -75,8 +76,9 @@ class Example {
 ================================================================================
 `;
 
-exports[`incorrect.js 1`] = `
+exports[`incorrect.js - {"bogus1":true,"generatorStarSpacing":true} format 1`] = `
 ====================================options=====================================
+bogus1: true
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -110,7 +112,7 @@ var shorthand = { * generator() {} };
 ================================================================================
 `;
 
-exports[`incorrect.js 2`] = `
+exports[`incorrect.js - {"generatorStarSpacing":true,"spaceBeforeFunctionParen":true} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`eslint.js 1`] = `
+exports[`eslint.js - {"spaceBeforeFunctionParen":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -76,7 +76,7 @@ var foo = async () => 1;
 ================================================================================
 `;
 
-exports[`eslint.js 2`] = `
+exports[`eslint.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80

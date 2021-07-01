@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function-expression.ts 1`] = `
+exports[`function-expression.ts - {"spaceBeforeFunctionParen":false,"generatorStarSpacing":true} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 parsers: ["typescript"]

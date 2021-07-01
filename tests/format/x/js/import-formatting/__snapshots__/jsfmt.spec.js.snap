@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long_import.js 1`] = `
+exports[`long_import.js - {"bogus1":true,"importFormatting":"oneline"} format 1`] = `
 ====================================options=====================================
+bogus1: true
 importFormatting: "oneline"
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -17,7 +18,7 @@ import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiu
 ================================================================================
 `;
 
-exports[`long_import.js 2`] = `
+exports[`long_import.js - {"importFormatting":"auto","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 importFormatting: "auto"
 parsers: ["babel", "babel-flow", "flow", "typescript"]

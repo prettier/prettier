@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`member-chain.js 1`] = `
+exports[`member-chain.js - {"indentChains":false,"spaceInParens":true,"spaceUnaryOps":true,"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 indentChains: false
