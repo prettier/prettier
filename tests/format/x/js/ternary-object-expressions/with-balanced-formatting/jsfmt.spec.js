@@ -5,6 +5,7 @@
 const dirPath = `${__dirname}/..`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
+  bogus1: true, // improve consistency of snapshot with prettierX 0.18.x
   // [prettierx] balanced ternary formatting option,
   // for consistency with "Standard JS":
   offsetTernaryExpressions: true,
@@ -14,6 +15,7 @@ run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
 });
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
+  bogus2: true, // improve consistency of snapshot with prettierX 0.18.x
   // variation from ../jsfmt.spec.js:
   tabWidth: 4,
   // [prettierx] balanced ternary formatting option,
@@ -25,6 +27,7 @@ run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
 });
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
+  bogus3: true, // improve consistency of snapshot with prettierX 0.18.x
   // variation from ../jsfmt.spec.js:
   useTabs: true,
   // [prettierx] balanced ternary formatting option,
