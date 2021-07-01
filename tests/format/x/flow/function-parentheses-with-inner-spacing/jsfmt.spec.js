@@ -2,7 +2,8 @@
 // This test script runs for test files in another directory,
 // **not** on any files in *this* directory.
 
-const dirPath = `${__dirname}/../../../../flow_function_parentheses`;
+// [FUTURE TBD] use Nodejs path function (...)
+const dirPath = `${__dirname}/../../../flow/function-parentheses`;
 
 // [prettierx] test with --paren-spacing, only with defaults
 // including arrowParens: "avoid"

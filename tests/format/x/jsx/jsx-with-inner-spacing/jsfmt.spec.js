@@ -2,7 +2,8 @@
 // This test script runs for test files in another directory,
 // **not** on any files in *this* directory.
 
-const dirPath = `${__dirname}/../../../../jsx`;
+// [FUTURE TBD] use Nodejs path function (...)
+const dirPath = `${__dirname}/../../../jsx/jsx`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
   singleQuote: false,

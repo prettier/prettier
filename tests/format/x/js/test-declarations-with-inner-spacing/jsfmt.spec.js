@@ -2,7 +2,8 @@
 // This test script runs for test files in another directory,
 // **not** on any files in *this* directory.
 
-const dirPath = `${__dirname}/../../../../test_declarations`;
+// [FUTURE TBD] use Nodejs path function (...)
+const dirPath = `${__dirname}/../../../js/test-declarations`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
   // [prettierx] recommended option, especially in combo with --paren-spacing

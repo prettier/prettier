@@ -2,7 +2,8 @@
 // This test script runs for test files in another directory,
 // **not** on any files in *this* directory.
 
-const dirPath = `${__dirname}/../../../../comments_closure_typecast`;
+// [FUTURE TBD] use Nodejs path function (...)
+const dirPath = `${__dirname}/../../../js/comments-closure-typecast`;
 
 run_spec(dirPath, ["babel", "babel-flow"], {
   // [prettierx] test with --paren-spacing
