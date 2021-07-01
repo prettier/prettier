@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`input.html 1`] = `
+exports[`input.html - {"bogus":null} format 1`] = `
 ====================================options=====================================
-parsers: ["html", "angular", "vue"]
+bogus: null
+parsers: ["html", "angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -14,7 +15,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`input.html 2`] = `
+exports[`input.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -29,10 +30,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`input.html 3`] = `
+exports[`input.html - {"htmlVoidTags":true} format 2`] = `
 ====================================options=====================================
 htmlVoidTags: true
-parsers: ["angular", "vue"]
+parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
