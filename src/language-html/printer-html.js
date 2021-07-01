@@ -50,6 +50,8 @@ const {
   shouldPreserveContent,
   unescapeQuoteEntities,
   isPreLikeNode,
+  // [prettierx] support --html-void-tags option:
+  isHtmlVoidTagNeeded,
 } = require("./utils");
 const preprocess = require("./print-preprocess");
 const { insertPragma } = require("./pragma");
@@ -643,7 +645,8 @@ function printAttributes(path, options, print) {
   const node = path.getValue();
 
   if (!isNonEmptyArray(node.attrs)) {
-    return node.isSelfClosing
+    // [prettierx merge update from prettier@2.3.2] --html-void-tags option:
+    return node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
       ? /**
          *     <br />
          *        ^
@@ -708,9 +711,17 @@ function printAttributes(path, options, print) {
       needsToBorrowLastChildClosingTagEndMarker(node.parent)) ||
     forceNotToBreakAttrContent
   ) {
-    parts.push(node.isSelfClosing ? " " : "");
+    // [prettierx merge update from prettier@2.3.2] --html-void-tags option:
+    parts.push(
+      node.isSelfClosing && !isHtmlVoidTagNeeded(node, options) ? " " : ""
+    );
   } else {
-    parts.push(node.isSelfClosing ? line : softline);
+    // [prettierx merge update from prettier@2.3.2] --html-void-tags option:
+    parts.push(
+      node.isSelfClosing && !isHtmlVoidTagNeeded(node, options)
+        ? line
+        : softline
+    );
   }
 
   return parts;
@@ -944,7 +955,8 @@ function printClosingTagEndMarker(node, options) {
       return "}}";
     case "element":
       if (node.isSelfClosing) {
-        return "/>";
+        // [prettierx] support --html-void-tags option:
+        return isHtmlVoidTagNeeded(node, options) ? ">" : "/>";
       }
     // fall through
     default:

@@ -1,0 +1,13 @@
+{
+  "extends": ["config:base"],
+  "ignorePresets": [":prHourlyLimit2"],
+  "ignorePaths": [
+    "scripts/**/package.json",
+    "tests_integration/**/package.json",
+    "website/**/index.html",
+    "website/**/package.json"
+  ],
+  "commitMessageExtra": "-> {{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}} - {{prettyDepType}}",
+  "commitMessagePrefix": "prettierx:",
+  "commitMessageTopic": "{{depName}}"
+}

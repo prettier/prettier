@@ -338,10 +338,20 @@ function genericPrint(path, options, print) {
       return adjustNumbers(adjustStrings(node.value, options));
     }
     case "media-feature-expression": {
+      // prettierx: cssParenSpacing option support (...)
+      const parenSpace = options.cssParenSpacing ? " " : "";
       if (!node.nodes) {
         return node.value;
       }
-      return ["(", ...path.map(print, "nodes"), ")"];
+      // [prettierx merge update from prettier@2.3.2] cssParenSpacing option support (...)
+      return [
+        // [prettierx merge update from prettier@2.3.2] (...)
+        "(",
+        parenSpace,
+        ...path.map(print, "nodes"),
+        parenSpace,
+        ")",
+      ];
     }
     case "media-feature": {
       return maybeToLowerCase(
@@ -466,10 +476,20 @@ function genericPrint(path, options, print) {
       ];
     }
     case "selector-pseudo": {
+      // prettierx: cssParenSpacing option support (...)
+      const parenSpace = options.cssParenSpacing ? " " : "";
       return [
         maybeToLowerCase(node.value),
+        // [prettierx merge update from prettier@2.3.2 ...]
         isNonEmptyArray(node.nodes)
-          ? ["(", join(", ", path.map(print, "nodes")), ")"]
+          ? [
+              // prettierx: cssParenSpacing option support (...)
+              "(",
+              parenSpace,
+              join(", ", path.map(print, "nodes")),
+              parenSpace,
+              ")",
+            ]
           : "",
       ];
     }
@@ -835,6 +855,10 @@ function genericPrint(path, options, print) {
     case "value-paren_group": {
       const parentNode = path.getParentNode();
 
+      // prettierx: cssParenSpacing option support (...)
+      const parenSpace = options.cssParenSpacing ? " " : "";
+      const parenLine = options.cssParenSpacing ? line : softline;
+
       if (
         parentNode &&
         isURLFunctionNode(parentNode) &&
@@ -846,9 +870,10 @@ function genericPrint(path, options, print) {
             node.groups[0].groups[0].value.startsWith("data:")))
       ) {
         return [
-          node.open ? print("open") : "",
+          // [prettierx merge update from prettier@2.3.2] cssParenSpacing option support (...)
+          ...(node.open ? [print("open"), parenSpace] : [""]),
           join(",", path.map(print, "groups")),
-          node.close ? print("close") : "",
+          ...(node.close ? [parenSpace, print("close")] : [""]),
         ];
       }
 
@@ -866,6 +891,15 @@ function genericPrint(path, options, print) {
         return group(indent(fill(res)));
       }
 
+      // prettierx: cssParenSpacing option support (...)
+      if (node.groups.length === 0) {
+        // [prettierx merge update from prettier@2.3.2 ...]
+        return group([
+          node.open ? path.call(print, "open") : "",
+          node.close ? path.call(print, "close") : "",
+        ]);
+      }
+
       const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
       const lastItem = getLast(node.groups);
@@ -876,7 +910,8 @@ function genericPrint(path, options, print) {
         [
           node.open ? print("open") : "",
           indent([
-            softline,
+            // [prettierx merge update from prettier@2.3.2] cssParenSpacing option support (...)
+            parenLine,
             join(
               [",", line],
               path.map((childPath) => {
@@ -910,7 +945,8 @@ function genericPrint(path, options, print) {
               ? ","
               : ""
           ),
-          softline,
+          // prettierx: cssParenSpacing option support (...)
+          parenLine,
           node.close ? print("close") : "",
         ],
         {

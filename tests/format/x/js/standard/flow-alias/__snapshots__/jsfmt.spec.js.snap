@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correct.js 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+jsxSingleQuote: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+type IdentityWrapper = {
+  func<T>(T): T
+}
+
+=====================================output=====================================
+type IdentityWrapper = {
+  func<T>(T): T
+}
+
+================================================================================
+`;
+
+exports[`incorrect.js 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+jsxSingleQuote: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+type IdentityWrapper = {
+  func <T>(T) :T
+}
+
+=====================================output=====================================
+type IdentityWrapper = {
+  func<T>(T): T
+}
+
+================================================================================
+`;

@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`member-chain.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+indentChains: false
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+                                                                                | printWidth
+=====================================input======================================
+foo.doSomething('Hello World').doAnotherThing('Foo', { foo: bar })
+  // App configuration.
+  .doOneMoreThing(config)
+  .run(() => console.log('Bar'));
+
+bigDeal
+  .doSomething('Hello World')
+
+  // Hello world
+  .doAnotherThing('Foo', { foo: bar })
+
+  // App configuration.
+  .doOneMoreThing(config)
+
+  .run(() => console.log('Bar'));
+
+
+bar.baz
+  .doSomething('Hello World')
+
+  // Hello world
+  .foo.bar.doAnotherThing('Foo', { foo: bar })
+
+  .doOneMoreThing(config)
+  .bar.run(() => console.log('Bar'));
+
+(
+  somethingGood ? thisIsIt : maybeNot
+)
+  // Hello world
+  .doSomething('Hello World')
+  .doAnotherThing('Foo', { foo: bar }) // Run this
+  .run(() => console.log('Bar')); // Do this
+
+helloWorld
+  .text()
+  .then(t => t);
+
+(veryLongVeryLongVeryLong ||
+ anotherVeryLongVeryLongVeryLong ||
+ veryVeryVeryLongError
+)
+  .map(tickets => TicketRecord.createFromSomeLongString())
+
+  .filter(obj => !!obj);
+
+const sel = this.connections
+  .concat(this.activities.concat(this.operators))
+  .filter(x => x.selected);
+
+=====================================output=====================================
+foo
+.doSomething( "Hello World" )
+.doAnotherThing( "Foo", { foo: bar } )
+// App configuration.
+.doOneMoreThing( config )
+.run( () => console.log( "Bar" ) );
+
+bigDeal
+.doSomething( "Hello World" )
+
+// Hello world
+.doAnotherThing( "Foo", { foo: bar } )
+
+// App configuration.
+.doOneMoreThing( config )
+
+.run( () => console.log( "Bar" ) );
+
+bar.baz
+.doSomething( "Hello World" )
+
+// Hello world
+.foo.bar.doAnotherThing( "Foo", { foo: bar } )
+
+.doOneMoreThing( config )
+.bar.run( () => console.log( "Bar" ) );
+
+( somethingGood ? thisIsIt : maybeNot )
+// Hello world
+.doSomething( "Hello World" )
+.doAnotherThing( "Foo", { foo: bar } ) // Run this
+.run( () => console.log( "Bar" ) ); // Do this
+
+helloWorld.text().then( t => t );
+
+(
+  veryLongVeryLongVeryLong ||
+  anotherVeryLongVeryLongVeryLong ||
+  veryVeryVeryLongError
+)
+.map( tickets => TicketRecord.createFromSomeLongString() )
+
+.filter( obj => !! obj );
+
+const sel = this.connections
+.concat( this.activities.concat( this.operators ) )
+.filter( x => x.selected );
+
+================================================================================
+`;

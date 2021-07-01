@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`function-expression.ts 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["typescript"]
+printWidth: 80
+spaceBeforeFunctionParen: false
+                                                                                | printWidth
+=====================================input======================================
+const foo = function<T>(bar: T) {
+  return bar
+}
+
+=====================================output=====================================
+const foo = function <T> (bar: T) {
+  return bar;
+};
+
+================================================================================
+`;

@@ -1,11 +1,14 @@
 name: Prod
 
 on:
+  # [prettierx ...]
   push:
     branches:
-      - main
-      - patch-release
-      - next
+      # [prettierx ...]
+      - "@prettier-x/*"
+      - dev
+      - dev-*
+      - prettierx-*
   pull_request:
 
 jobs:
@@ -34,7 +37,7 @@ jobs:
             v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/main-
 
       - name: Build Package
-        run: yarn build
+        run: yarn build-extra-dist
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2

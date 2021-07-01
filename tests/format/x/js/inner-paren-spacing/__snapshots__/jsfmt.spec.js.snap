@@ -1,0 +1,1063 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrays.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+[[]];
+[[], []];
+[[], [], []];
+[[], [0], []];
+[[], [0], [0]];
+[[], [0, 1], [0]];
+[[], [0, 1], [0, 1]];
+[...a, ...b,];
+[...a, ...b];
+
+=====================================output=====================================
+[ [] ];
+[ [], [] ];
+[ [], [], [] ];
+[ [], [ 0 ], [] ];
+[ [], [ 0 ], [ 0 ] ];
+[ [], [ 0, 1 ], [ 0 ] ];
+[ [], [ 0, 1 ], [ 0, 1 ] ];
+[ ...a, ...b ];
+[ ...a, ...b ];
+
+================================================================================
+`;
+
+exports[`bind.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+(a || b):: c;
+a || (b:: c);
+:: obj.prop;
+(void 0):: func();
+(+0):: is(-0);
+a:: (b.c);
+a:: (b.c());
+a:: b.c();
+a:: (b.c()());
+a:: ((b.c())());
+a:: (b.c())();
+a:: (b.c().d);
+a:: (c().d.e);
+a:: (b());
+a:: (b:: c());
+a:: (b():: c);
+a:: (b().c:: d);
+a:: (b.c:: d);
+a:: (b:: c.d);
+a:: (b.c:: d:: e);
+a:: (b:: c:: d);
+a:: (b:: c:: d.e);
+a:: ((b:: c:: d).e);
+a:: (void 0);
+a:: (b.c():: d.e);
+a:: (b.c:: d.e);
+a:: (b.c:: d.e):: f.g;
+b.c:: d.e;
+(b.c:: d).e;
+(b:: c:: d).e;
+new (a:: b) ();
+new f(a:: b);
+f[a:: b];
+f[a:: b()];
+
+a => ({}:: b()\`\`[''].c++ && 0 ? 0 : 0);
+(a => b):: c;
+a:: (b => c);
+
+=====================================output=====================================
+( a || b )::c;
+a || b::c;
+::obj.prop;
+( void 0 )::func();
+( + 0 )::is( - 0 );
+a::b.c;
+a::( b.c() );
+a::b.c();
+a::( b.c()() );
+a::( b.c()() );
+a::( b.c() )();
+a::( b.c().d );
+a::( c().d.e );
+a::( b() );
+a::( b::c() );
+a::( b()::c );
+a::( b().c::d );
+a::( b.c::d );
+a::( b::c.d );
+a::( b.c::d::e );
+a::( b::c::d );
+a::( b::c::d.e );
+a::( b::c::d ).e;
+a::( void 0 );
+a::( b.c()::d.e );
+a::( b.c::d.e );
+a::( b.c::d.e )::f.g;
+b.c::d.e;
+( b.c::d ).e;
+( b::c::d ).e;
+new ( a::b )();
+new f( a::b );
+f[ a::b ];
+f[ a::b() ];
+
+( a ) => ( {}::b()\`\`[ "" ].c++ && 0 ? 0 : 0 );
+( ( a ) => b )::c;
+a::( ( b ) => c );
+
+================================================================================
+`;
+
+exports[`class.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+class c {
+  ["i"]() { }
+}
+
+(class { }) + 1;
+(class a { }) + 1;
+(class extends b { }) + 1;
+(class a extends b { }) + 1;
+
+class X {
+  async * b() {
+    yield* a();
+  }
+}
+
+=====================================output=====================================
+class c {
+  [ "i" ]() {}
+}
+
+( class {} + 1 );
+( class a {} + 1 );
+( class extends b {} + 1 );
+( class a extends b {} + 1 );
+
+class X {
+  async *b() {
+    yield* a();
+  }
+}
+
+================================================================================
+`;
+
+exports[`conditionals.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+if (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD)) { }
+
+const radioSelectedAttr =
+  (isAnyValueSelected &&
+    node.getAttribute(radioAttr.toLowerCase()) === radioValue) ||
+  ((!isAnyValueSelected && values[a].default === true) || a === 0);
+
+function f() {
+  if (position)
+    return { name: pair };
+  else
+    return {
+      name: pair.substring(0, position),
+      value: pair.substring(position + 1)
+    };
+}
+
+
+(foo || bar) || baz;
+foo || (bar || baz);
+foo || ((bar || baz) || qux);
+foo || (bar || (baz || qux));
+foo || (bar || ((baz || qux) || xyz));
+foo || (bar || (baz || (qux || xyz)));
+
+=====================================output=====================================
+if (
+  someVeryLongFunc(
+    someVeryLongArgA,
+    someVeryLongArgB,
+    someVeryLongArgC,
+    someVeryLongArgD
+  )
+) {
+}
+
+const radioSelectedAttr =
+  ( isAnyValueSelected &&
+    node.getAttribute( radioAttr.toLowerCase() ) === radioValue ) ||
+  ( ! isAnyValueSelected && values[ a ].default === true ) ||
+  a === 0;
+
+function f() {
+  if ( position ) return { name: pair };
+  else
+    return {
+      name: pair.substring( 0, position ),
+      value: pair.substring( position + 1 ),
+    };
+}
+
+foo || bar || baz;
+foo || bar || baz;
+foo || bar || baz || qux;
+foo || bar || baz || qux;
+foo || bar || baz || qux || xyz;
+foo || bar || baz || qux || xyz;
+
+================================================================================
+`;
+
+exports[`destructuring.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const [one, two = null, three = null] = arr;
+a = ([s = 1,]) => 1
+const { children, ...props } = this.props
+
+=====================================output=====================================
+const [ one, two = null, three = null ] = arr;
+a = ( [ s = 1 ] ) => 1;
+const { children, ...props } = this.props;
+
+================================================================================
+`;
+
+exports[`export-default-named-function.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+export default (function f() { })
+
+=====================================output=====================================
+export default ( function f() {} );
+
+================================================================================
+`;
+
+exports[`expressions.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+(this.x++).toString()
+
+new (r++);
+
+(x++)();
+
+const uuid = String(this._uuidCounter++);
+
+!(
+  { a: 1, b: 2 } // foo
+)
+
+new (factory())(factory())
+
+object.foo().bar().baz();
+
+=====================================output=====================================
+( this.x++ ).toString();
+
+new ( r++ )();
+
+( x++ )();
+
+const uuid = String( this._uuidCounter++ );
+
+! (
+  { a: 1, b: 2 } // foo
+);
+
+new ( factory() )( factory() );
+
+object.foo().bar().baz();
+
+================================================================================
+`;
+
+exports[`functions.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+function* f() {
+  (yield async (a) => a);
+}
+
+async function f3() {
+  a = (await 1) ? 1 : 1;
+}
+
+(function () { }).length
+typeof (function () { });
+export default (function () { })();
+(function () { })()\`\`;
+(function () { })\`\`;
+new (function () { });
+(function () { });
+a = function f() { } || b;
+(function () { } && a);
+a + function () { };
+new function () { };
+
+=====================================output=====================================
+function* f() {
+  yield async ( a ) => a;
+}
+
+async function f3() {
+  a = ( await 1 ) ? 1 : 1;
+}
+
+( function () {}.length );
+typeof function () {};
+export default ( function () {} )();
+( function () {} )()\`\`;
+( function () {} )\`\`;
+new ( function () {} )();
+( function () {} );
+a = function f() {} || b;
+( function () {} && a );
+a + function () {};
+new ( function () {} )();
+
+================================================================================
+`;
+
+exports[`html-template-literals.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const nestedFun = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+  </script>\`;
+
+const nestedFun2 = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`\\\\n<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\\n\\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+=====================================output=====================================
+const nestedFun = /* HTML */ \`\${ outerExpr( 1 ) }
+  <script>
+    const tpl = html\\\`<div>\\\${ innerExpr( 1 ) } \${ outerExpr( 2 ) }</div>\\\`;
+  </script>\`;
+
+const nestedFun2 = /* HTML */ \`\${ outerExpr( 1 ) }
+  <script>
+    const tpl = html\\\` <div>\\\${ innerExpr( 1 ) } \${ outerExpr( 2 ) }</div> \\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+================================================================================
+`;
+
+exports[`import-export.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+import { fitsIn, oneLine } from '.';
+
+import("module.js").then((a) => a);
+
+export a, { b } from "./baz";
+
+export default () => { };
+
+=====================================output=====================================
+import { fitsIn, oneLine } from ".";
+
+import( "module.js" ).then( ( a ) => a );
+
+export a, { b } from "./baz";
+
+export default () => {};
+
+================================================================================
+`;
+
+exports[`jest-test-each.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+test.each\`
+  a    | b    | expected
+  \${1} | \${1} | \${2}
+  \${1} | \${2} | \${3}
+  \${2} | \${1} | \${3}
+\`('returns $expected when $a is added $b', ({a, b, expected}) => {
+  expect(a + b).toBe(expected);
+});
+
+=====================================output=====================================
+test.each\`
+  a      | b      | expected
+  \${ 1 } | \${ 1 } | \${ 2 }
+  \${ 1 } | \${ 2 } | \${ 3 }
+  \${ 2 } | \${ 1 } | \${ 3 }
+\`( "returns $expected when $a is added $b", ( { a, b, expected } ) => {
+  expect( a + b ).toBe( expected );
+} );
+
+================================================================================
+`;
+
+exports[`loops.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+while (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD)) { }
+
+do { }
+while (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD));
+
+for (var i = 0, len = arr.length; i < len; i++) { }
+
+(async () => {
+  for await (num of asyncIterable) {
+    console.log(num);
+  }
+  for await (const x of delegate_yield()) {
+    x;
+  }
+})();
+
+=====================================output=====================================
+while (
+  someVeryLongFunc(
+    someVeryLongArgA,
+    someVeryLongArgB,
+    someVeryLongArgC,
+    someVeryLongArgD
+  )
+) {}
+
+do {} while (
+  someVeryLongFunc(
+    someVeryLongArgA,
+    someVeryLongArgB,
+    someVeryLongArgC,
+    someVeryLongArgD
+  )
+);
+
+for ( var i = 0, len = arr.length; i < len; i++ ) {}
+
+( async () => {
+  for await ( num of asyncIterable ) {
+    console.log( num );
+  }
+  for await ( const x of delegate_yield() ) {
+    x;
+  }
+} )();
+
+================================================================================
+`;
+
+exports[`nullish.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const x = (foo, bar = foo ?? bar) => { };
+
+foo ? bar ?? foo : baz;
+
+foo ?? (bar ?? baz);
+(foo ?? bar) ?? baz;
+
+=====================================output=====================================
+const x = ( foo, bar = foo ?? bar ) => {};
+
+foo ? bar ?? foo : baz;
+
+foo ?? bar ?? baz;
+foo ?? bar ?? baz;
+
+================================================================================
+`;
+
+exports[`objects.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+() => ({}\`\`);
+({})\`\`;
+a = () => ({}).x;
+({} && a, b);
+({}:: b, 0);
+({}:: b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+({}(), 0);
+({} = 0);
+(({} = 0), 1);
+
+=====================================output=====================================
+() => ( {}\`\` );
+( {}\`\` );
+a = () => ( {}.x );
+( {} && a, b );
+( {}::b, 0 );
+( {}::b()\`\`[ "" ].c++ && 0 ? 0 : 0, 0 );
+( {}(), 0 );
+( {} = 0 );
+( {} = 0 ), 1;
+
+================================================================================
+`;
+
+exports[`return.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+function f() {
+  return (
+    foo
+      // comment
+      .bar()
+  );
+}
+
+=====================================output=====================================
+function f() {
+  return (
+    foo
+      // comment
+      .bar()
+  );
+}
+
+================================================================================
+`;
+
+exports[`sequence.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+(a = b ? c : function () { return 0; }),
+  (a = b ? c : function () { return 0; }),
+  (a = b ? c : function () { return 0; }),
+  (a = b ? c : function () { return 0; }),
+  (a = b ? c : function () { return 0; });
+
+=====================================output=====================================
+( a = b
+  ? c
+  : function () {
+      return 0;
+    } ),
+  ( a = b
+    ? c
+    : function () {
+        return 0;
+      } ),
+  ( a = b
+    ? c
+    : function () {
+        return 0;
+      } ),
+  ( a = b
+    ? c
+    : function () {
+        return 0;
+      } ),
+  ( a = b
+    ? c
+    : function () {
+        return 0;
+      } );
+
+================================================================================
+`;
+
+exports[`spread.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const foo = { ...(a || b) };
+const foo2 = { ...a || b };
+const foo3 = { ...(a ? b : c) };
+
+async () => ({ ...(await foo) });
+
+declare class C { f(...r): void; }
+
+=====================================output=====================================
+const foo = { ...( a || b ) };
+const foo2 = { ...( a || b ) };
+const foo3 = { ...( a ? b : c ) };
+
+async () => ( { ...( await foo ) } );
+
+declare class C {
+  f( ...r ): void;
+}
+
+================================================================================
+`;
+
+exports[`switch.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+switch (a) {
+  case 3:
+    alert('3');
+    break;
+  case 4:
+    alert('4');
+    break;
+  case 5:
+    alert('5');
+    break;
+  default:
+    alert('default');
+}
+
+=====================================output=====================================
+switch ( a ) {
+  case 3:
+    alert( "3" );
+    break;
+  case 4:
+    alert( "4" );
+    break;
+  case 5:
+    alert( "5" );
+    break;
+  default:
+    alert( "default" );
+}
+
+================================================================================
+`;
+
+exports[`template-literals.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+\`\${1 ?? 2}\`;
+
+\`glp-text-\${isImagePresent ? 56 : 64}@M\`
+
+const headerResolve = css.resolve\`
+.top-bar {background:black;
+  margin: 0;
+  position: fixed;
+  top: 0;left:0;
+  width: 100%;
+  text-align: center     ;
+  padding: 15px  0  0  1em;
+  z-index: 9999;
+}
+
+.top-bar .logo {
+  height: 30px;
+  margin: auto;
+  position: absolute;
+	left: 0;right: 0;
+}
+\`;
+
+styled.input\`
+	border: 1px solid
+		\${(props) => (props.isError?props.theme.colors.error:props.theme.colors.borderColor)};
+	:focus {
+		outline: \${(props) =>
+				props.isError
+        ?props.theme.colors.error
+        :props.theme.colors.outline}
+	}
+\`;
+
+const value = \`
+  Hello \${(props) => (props.isError?props.theme.colors.error:props.theme.colors.borderColor)};
+\`;
+
+return (<div css={\`
+  color: blue;
+  font-size: 17 px;
+
+  &:hover {
+    color: green;
+  }
+
+  & .some-class {
+    font-size: 20px;
+  }
+\`}/>)
+
+=====================================output=====================================
+\`\${ 1 ?? 2 }\`;
+
+\`glp-text-\${ isImagePresent ? 56 : 64 }@M\`;
+
+const headerResolve = css.resolve\`
+  .top-bar {
+    background: black;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0 0 1em;
+    z-index: 9999;
+  }
+
+  .top-bar .logo {
+    height: 30px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+\`;
+
+styled.input\`
+  border: 1px solid
+    \${ ( props ) =>
+      props.isError
+        ? props.theme.colors.error
+        : props.theme.colors.borderColor };
+  :focus {
+    outline: \${ ( props ) =>
+      props.isError ? props.theme.colors.error : props.theme.colors.outline };
+  }
+\`;
+
+const value = \`
+  Hello \${ ( props ) =>
+    props.isError ? props.theme.colors.error : props.theme.colors.borderColor };
+\`;
+
+return (
+  <div
+    css={ \`
+      color: blue;
+      font-size: 17 px;
+
+      &:hover {
+        color: green;
+      }
+
+      & .some-class {
+        font-size: 20px;
+      }
+    \` }
+  />
+);
+
+================================================================================
+`;
+
+exports[`ternaries.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+a => a ? () => { a } : () => { a }
+
+const devOnly = (block) => (!!__DEV__?block:null);
+
+f(result => (result ? result : candidate), 'foobar');
+
+const obj = {
+  foo: 'foo',
+  bar: 'bar',
+  text: () => (typeof text === 'function' ? text() : text),
+};
+
+=====================================output=====================================
+( a ) =>
+  a
+    ? () => {
+        a;
+      }
+    : () => {
+        a;
+      };
+
+const devOnly = ( block ) => ( !! __DEV__ ? block : null );
+
+f( ( result ) => ( result ? result : candidate ), "foobar" );
+
+const obj = {
+  foo: "foo",
+  bar: "bar",
+  text: () => ( typeof text === "function" ? text() : text ),
+};
+
+================================================================================
+`;
+
+exports[`throw.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+function f() {
+  throw (foo.bar());
+}
+
+lint(ast, {
+  with: () => throw new Error("avoid using 'with' statements.")
+  });
+
+=====================================output=====================================
+function f() {
+  throw foo.bar();
+}
+
+lint( ast, {
+  with: () => throw new Error( "avoid using 'with' statements." ),
+} );
+
+================================================================================
+`;
+
+exports[`try-catch.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+try { foo() }
+catch (e) { bar() }
+finally { await baz() }
+
+=====================================output=====================================
+try {
+  foo();
+} catch ( e ) {
+  bar();
+} finally {
+  await baz();
+}
+
+================================================================================
+`;
+
+exports[`with.js 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "babel-ts"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+                                                                                | printWidth
+=====================================input======================================
+with (0) { };
+
+=====================================output=====================================
+with ( 0 ) {
+}
+
+================================================================================
+`;

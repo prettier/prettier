@@ -1,0 +1,38 @@
+# This workflow will do a clean install of npm dependencies and
+# run tests across different versions of node
+# For more information see:
+# https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: npm clean dev test
+
+on:
+  push:
+    branches:
+      - "@prettier-x/*"
+      - dev
+      - dev-*
+      - prettierx-*
+  pull_request:
+
+jobs:
+  build:
+    # ref:
+    # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version:
+          - 14.x
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm test
+        env:
+          CI: true

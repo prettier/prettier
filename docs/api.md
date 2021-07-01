@@ -6,7 +6,7 @@ title: API
 If you want to run Prettier programmatically, check this page out.
 
 ```js
-const prettier = require("prettier");
+const prettier = require("prettierx");
 ```
 
 ## `prettier.format(source, options)`

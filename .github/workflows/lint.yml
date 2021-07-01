@@ -1,11 +1,14 @@
 name: Lint
 
 on:
+  # [prettierx ...]
   push:
     branches:
-      - main
-      - patch-release
-      - next
+      # [prettierx ...]
+      - "@prettier-x/*"
+      - dev
+      - dev-*
+      - prettierx-*
   pull_request:
 
 jobs:

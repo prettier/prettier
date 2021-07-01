@@ -3,7 +3,7 @@ id: configuration
 title: Configuration File
 ---
 
-Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure Prettier via (in order of precedence):
+_Prettier(X)_ uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure _Prettier(X)_ via (in order of precedence):
 
 - A `"prettier"` key in your `package.json` file.
 - A `.prettierrc` file written in JSON or YAML.

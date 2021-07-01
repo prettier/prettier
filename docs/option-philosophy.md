@@ -3,6 +3,20 @@ id: option-philosophy
 title: Option Philosophy
 ---
 
+# prettierX
+
+This fork is made to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard).
+
+This fork will attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
+
+Note that changes from [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) will likely need to be largely reworked, due to the divergence between [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) and [`prettier/prettier`](https://github.com/prettier/prettier). Here are some examples of changes reworked by [@brodybits (Christopher J. Brody)](https://github.com/brodybits):
+
+- [brodybits/prettier#3](https://github.com/brodybits/prettier/pull/3) - `--space-before-function-paren` enhancement - take 2 (WIP)
+- [brodybits/prettier#4](https://github.com/brodybits/prettier/pull/4) - `--align-object-properties` option - first take (WIP)
+- [brodybits/prettier#4](https://github.com/brodybits/prettier/pull/5) - `--no-indent-chains` option - first take (WIP)
+
+## Original Prettier option philosophy
+
 > Prettier has a few options because of history. **But we won’t add more of them.**
 >
 > Read on to learn more.

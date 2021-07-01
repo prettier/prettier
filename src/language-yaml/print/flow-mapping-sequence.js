@@ -14,7 +14,8 @@ function printFlowMapping(path, print, options) {
 
   /** @type {softline | line} */
   let bracketSpacing = softline;
-  if (isMapping && node.children.length > 0 && options.bracketSpacing) {
+  // [prettierx merge update from prettier@2.3.2] yamlBracketSpacing option
+  if (isMapping && node.children.length > 0 && options.yamlBracketSpacing) {
     bracketSpacing = line;
   }
   const lastItem = getLast(node.children);

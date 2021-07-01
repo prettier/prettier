@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`long_import.js 1`] = `
+====================================options=====================================
+importFormatting: "oneline"
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+
+=====================================output=====================================
+import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+
+================================================================================
+`;
+
+exports[`long_import.js 2`] = `
+====================================options=====================================
+importFormatting: "auto"
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+import abc, { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+import { Lorem, ipsum, dolor, sit, amet, consectetur, adipiscing, elit, sed, eiusmod, tempor, incididunt, ut, labore, et, magna } from "some-module";
+
+=====================================output=====================================
+import abc, {
+  Lorem,
+  ipsum,
+  dolor,
+  sit,
+  amet,
+  consectetur,
+  adipiscing,
+  elit,
+  sed,
+  eiusmod,
+  tempor,
+  incididunt,
+  ut,
+  labore,
+  et,
+  magna
+} from "some-module";
+import {
+  Lorem,
+  ipsum,
+  dolor,
+  sit,
+  amet,
+  consectetur,
+  adipiscing,
+  elit,
+  sed,
+  eiusmod,
+  tempor,
+  incididunt,
+  ut,
+  labore,
+  et,
+  magna
+} from "some-module";
+
+================================================================================
+`;

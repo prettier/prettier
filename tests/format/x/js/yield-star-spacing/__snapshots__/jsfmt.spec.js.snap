@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correct.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// correct for:
+// * "yield-star-spacing": [ "error", "both" ]
+// but *not* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {
+  yield * other();
+  // ensure this one is *not* affected:
+  yield "done";
+}
+
+=====================================output=====================================
+// correct for:
+// * "yield-star-spacing": [ "error", "both" ]
+// but *not* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {
+  yield * other();
+  // ensure this one is *not* affected:
+  yield "done";
+}
+
+================================================================================
+`;
+
+exports[`correct.js 2`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// correct for:
+// * "yield-star-spacing": [ "error", "both" ]
+// but *not* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {
+  yield * other();
+  // ensure this one is *not* affected:
+  yield "done";
+}
+
+=====================================output=====================================
+// correct for:
+// * "yield-star-spacing": [ "error", "both" ]
+// but *not* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {
+  yield * other();
+  // ensure this one is *not* affected:
+  yield "done";
+}
+
+================================================================================
+`;
+
+exports[`correct.js 3`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceBeforeFunctionParen: true
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// correct for:
+// * "yield-star-spacing": [ "error", "both" ]
+// but *not* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {
+  yield * other();
+  // ensure this one is *not* affected:
+  yield "done";
+}
+
+=====================================output=====================================
+// correct for:
+// * "yield-star-spacing": [ "error", "both" ]
+// but *not* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {
+  yield * other();
+  // ensure this one is *not* affected:
+  yield "done";
+}
+
+================================================================================
+`;
+
+exports[`incorrect.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// *incorrect* for the following standard.js rules:
+// * "yield-star-spacing": [ "error", "both" ]
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+
+function *generator() {
+  yield *other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function* generator() {
+  yield* other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function*generator() {
+  yield*other();
+  // ensure this one remains correct:
+  yield "done"
+}
+
+=====================================output=====================================
+// *incorrect* for the following standard.js rules:
+// * "yield-star-spacing": [ "error", "both" ]
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function* generator() {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function* generator() {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+
+================================================================================
+`;
+
+exports[`incorrect.js 2`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// *incorrect* for the following standard.js rules:
+// * "yield-star-spacing": [ "error", "both" ]
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+
+function *generator() {
+  yield *other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function* generator() {
+  yield* other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function*generator() {
+  yield*other();
+  // ensure this one remains correct:
+  yield "done"
+}
+
+=====================================output=====================================
+// *incorrect* for the following standard.js rules:
+// * "yield-star-spacing": [ "error", "both" ]
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function * generator () {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function * generator () {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+
+================================================================================
+`;
+
+exports[`incorrect.js 3`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceBeforeFunctionParen: true
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// *incorrect* for the following standard.js rules:
+// * "yield-star-spacing": [ "error", "both" ]
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+
+function *generator() {
+  yield *other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function* generator() {
+  yield* other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function*generator() {
+  yield*other();
+  // ensure this one remains correct:
+  yield "done"
+}
+
+=====================================output=====================================
+// *incorrect* for the following standard.js rules:
+// * "yield-star-spacing": [ "error", "both" ]
+// * "generator-star-spacing": [ "error", "both" ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function * generator () {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+function * generator () {
+  yield * other();
+  // ensure this one remains correct:
+  yield "done";
+}
+
+================================================================================
+`;

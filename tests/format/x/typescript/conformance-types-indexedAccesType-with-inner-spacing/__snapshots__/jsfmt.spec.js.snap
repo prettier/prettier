@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`indexedAccesType.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+spaceInParens: true
+typeAngleBracketSpacing: true
+typeBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const a: Foo['bar'] = {
+  baz: 'yawp'
+}
+
+=====================================output=====================================
+const a: Foo[ "bar" ] = {
+  baz: "yawp",
+};
+
+================================================================================
+`;

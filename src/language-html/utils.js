@@ -6,6 +6,10 @@
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
+
+// [prettierx] support --html-void-tags option:
+const htmlVoidElements = require("html-void-elements");
+
 const { inferParserByLanguage, isFrontMatterNode } = require("../common/util");
 const {
   CSS_DISPLAY_TAGS,
@@ -16,6 +20,9 @@ const {
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
+
+// [prettierx] support --html-void-tags option:
+const HTML_VOID_ELEMENT_SET = new Set(htmlVoidElements);
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
@@ -621,6 +628,14 @@ function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
 }
 
+// [prettierx] support --html-void-tags option:
+function isHtmlVoidTagNeeded(node, options) {
+  return (
+    options.htmlVoidTags &&
+    options.parser === "html" &&
+    HTML_VOID_ELEMENT_SET.has(node.fullName)
+  );
+}
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
 // See https://vue-loader.vuejs.org/spec.html for detail
 const vueRootElementsSet = new Set(["template", "style", "script"]);
@@ -710,4 +725,6 @@ module.exports = {
   shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  // [prettierx] support --html-void-tags option:
+  isHtmlVoidTagNeeded,
 };

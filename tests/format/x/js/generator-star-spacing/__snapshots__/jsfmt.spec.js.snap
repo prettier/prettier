@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correct.js 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// correct for:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// but *not* for the following standard.js rules:
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator() {}
+var anonymous = function * () {};
+var shorthand = { * generator() {} };
+class Example {
+  async * foo() {}
+}
+
+=====================================output=====================================
+// correct for:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// but *not* for the following standard.js rules:
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {}
+var anonymous = function * () {};
+var shorthand = { * generator() {} };
+class Example {
+  async * foo() {}
+}
+
+================================================================================
+`;
+
+exports[`correct.js 2`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceBeforeFunctionParen: true
+                                                                                | printWidth
+=====================================input======================================
+// correct for:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// but *not* for the following standard.js rules:
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator() {}
+var anonymous = function * () {};
+var shorthand = { * generator() {} };
+class Example {
+  async * foo() {}
+}
+
+=====================================output=====================================
+// correct for:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// but *not* for the following standard.js rules:
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {}
+var anonymous = function * () {};
+var shorthand = { * generator () {} };
+class Example {
+  async * foo () {}
+}
+
+================================================================================
+`;
+
+exports[`incorrect.js 1`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// *incorrect* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {}
+var anonymous = function* () {};
+var shorthand = { * generator() {} };
+function *generator() {}
+var anonymous = function *() {};
+var shorthand = { *generator() {} };
+
+=====================================output=====================================
+// *incorrect* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {}
+var anonymous = function * () {};
+var shorthand = { * generator() {} };
+function * generator () {}
+var anonymous = function * () {};
+var shorthand = { * generator() {} };
+
+================================================================================
+`;
+
+exports[`incorrect.js 2`] = `
+====================================options=====================================
+generatorStarSpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceBeforeFunctionParen: true
+                                                                                | printWidth
+=====================================input======================================
+// *incorrect* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function* generator() {}
+var anonymous = function* () {};
+var shorthand = { * generator() {} };
+function *generator() {}
+var anonymous = function *() {};
+var shorthand = { *generator() {} };
+
+=====================================output=====================================
+// *incorrect* for the following standard.js rules:
+// * "generator-star-spacing": [ "error", { "before": true, "after": true } ],
+// * "space-before-function-paren": [ "error", "always" ],
+// * "semi": [ "error", "never" ],
+
+function * generator () {}
+var anonymous = function * () {};
+var shorthand = { * generator () {} };
+function * generator () {}
+var anonymous = function * () {};
+var shorthand = { * generator () {} };
+
+================================================================================
+`;

@@ -1,0 +1,2161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correct.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+endOfLine: "lf"
+generatorStarSpacing: true
+jsxSingleQuote: true
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// Needs to be at the top but belongs to object-curly-spacing<LF>
+import { foo } from 'bar'<LF>
+<LF>
+// Needs to be at the top but belongs to indent rule<LF>
+import {<LF>
+  foosjdfhalsjkdhflasjdhfajashdlfjahsdlfjashdlfjaksdsadfaso,<LF>
+  barsjdfhalsjkdhflasjdhfajashdlfjahsdlfjashdlfjaksdsadfaso,<LF>
+  bazsjdfhalsjkdhflasjdhfajashdlfjahsdlfjashdlfjaksdsadfaso<LF>
+} from 'qux'<LF>
+<LF>
+// "arrow-spacing": ["error", { "before": true, "after": true }]<LF>
+a => {}<LF>
+;() => {}<LF>
+a => a<LF>
+;() => {<LF>
+  '\\n'<LF>
+}<LF>
+<LF>
+// "block-spacing": [ "error", "always" ],<LF>
+function foo () {<LF>
+  return true<LF>
+}<LF>
+if (foo) {<LF>
+  bar = 0<LF>
+}<LF>
+<LF>
+// "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
+function foo () {<LF>
+  return true<LF>
+}<LF>
+if (foo) {<LF>
+  bar()<LF>
+}<LF>
+if (foo) {<LF>
+  bar()<LF>
+} else {<LF>
+  baz()<LF>
+}<LF>
+try {<LF>
+  somethingRisky()<LF>
+} catch (e) {<LF>
+  handleError()<LF>
+}<LF>
+<LF>
+// "comma-spacing": [ "error", { "before": false, "after": true } ],<LF>
+var foo = 1<LF>
+var baz = 3<LF>
+var arr = [1, 2]<LF>
+var arr = [1, , 3]<LF>
+var obj = { foo: 'bar', baz: 'qur' }<LF>
+foo(a, b)<LF>
+new Foo(a, b)<LF>
+function foo (a, b) {}<LF>
+a, b<LF>
+<LF>
+// "eol-last": "error",<LF>
+// cannot be tested here, but true (Unix-style new lines)<LF>
+<LF>
+// "func-call-spacing": [ "error", "never" ],<LF>
+fn()<LF>
+<LF>
+// "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
+function * generator () {}<LF>
+var anonymous = function * () {}<LF>
+var shorthand = { * generator () {} }<LF>
+class Example {<LF>
+  async * foo () {}<LF>
+}<LF>
+<LF>
+// "indent": [<LF>
+//   "error",<LF>
+//   2,<LF>
+//   {<LF>
+//     "SwitchCase": 1,<LF>
+//     "VariableDeclarator": 1,<LF>
+//     "outerIIFEBody": 1,<LF>
+//     "MemberExpression": 1,<LF>
+//     "FunctionDeclaration": { "parameters": 1, "body": 1 },<LF>
+//     "FunctionExpression": { "parameters": 1, "body": 1 },<LF>
+//     "CallExpression": { "arguments": 1 },<LF>
+//     "ArrayExpression": 1,<LF>
+//     "ObjectExpression": 1,<LF>
+//     "ImportDeclaration": 1,<LF>
+//     "flatTernaryExpressions": false,<LF>
+//     "ignoreComments": false<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+switch (a) {<LF>
+  case 'a':<LF>
+    break<LF>
+  case 'b':<LF>
+    break<LF>
+}<LF>
+<LF>
+var aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
+let aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
+const a = 1<LF>
+const b = 2<LF>
+const c = 3<LF>
+;(function () {<LF>
+  function foo (x) {<LF>
+    return x + 1<LF>
+  }<LF>
+})()<LF>
+if (y) {<LF>
+  console.log('foo')<LF>
+}<LF>
+function foo (<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+) {<LF>
+  qux()<LF>
+}<LF>
+foo(<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+)<LF>
+var foo = [<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+]<LF>
+var foo = {<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong: 1,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong: 2,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong: 3<LF>
+}<LF>
+var a = barverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+  ? bar<LF>
+  : barverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+<LF>
+// "key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],<LF>
+var obj = { foo: 42 }<LF>
+<LF>
+// "keyword-spacing": [ "error", { "before": true, "after": true } ],<LF>
+if (foo) {<LF>
+  // ...<LF>
+} else if (bar) {<LF>
+  // ...<LF>
+} else {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+// "no-multi-spaces": "error",<LF>
+var a = 1<LF>
+if (foo === 'bar') {<LF>
+}<LF>
+a << b<LF>
+var arr = [1, 2]<LF>
+a ? b : c<LF>
+<LF>
+// "no-multiple-empty-lines": [ "error", { "max": 1, "maxEOF": 0 } ],<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-trailing-spaces": "error",<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-whitespace-before-property": "error",<LF>
+foo.bar<LF>
+foo[bar]<LF>
+foo.bar.baz<LF>
+foo.bar().baz()<LF>
+<LF>
+// "object-curly-spacing": [ "error", "always" ],<LF>
+var obj = {}<LF>
+var obj = { foo: 'bar' }<LF>
+var obj = { foo: { bar: 'baz' }, qux: 'quxx' }<LF>
+var obj = {<LF>
+  foo: 'bar'<LF>
+}<LF>
+var { x } = y<LF>
+<LF>
+// "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
+const obj = { foo: 'foo', bar: 'bar' }<LF>
+const obj2 = {<LF>
+  foo: 'foo',<LF>
+  bar: 'bar',<LF>
+  baz: 'baz'<LF>
+}<LF>
+const user = process.argv[2]<LF>
+const obj3 = {<LF>
+  user,<LF>
+  [process.argv[3] ? 'foo' : 'bar']: 0,<LF>
+  baz: [1, 2, 4, 8]<LF>
+}<LF>
+<LF>
+// "padded-blocks": [ "error", { "blocks": "never", "switches": "never", "classes": "never" } ],<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+class A {<LF>
+  constructor () {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+switch (a) {<LF>
+  case 0:<LF>
+    foo()<LF>
+}<LF>
+<LF>
+// "rest-spread-spacing": [ "error", "never" ],<LF>
+fn(...args)<LF>
+function fn (...args) {<LF>
+  console.log(args)<LF>
+}<LF>
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
+let n = { x, y, ...z }<LF>
+<LF>
+// "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
+for (;;) {}<LF>
+<LF>
+// "space-before-blocks": [ "error", "always" ],<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+if (a) {<LF>
+  b()<LF>
+} else {<LF>
+  c()<LF>
+}<LF>
+function a () {}<LF>
+for (;;) {<LF>
+  b()<LF>
+}<LF>
+try {<LF>
+} catch (a) {}<LF>
+<LF>
+// "space-before-function-paren": [ "error", "always" ],<LF>
+function foo () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+var bar = function () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+var bar = function foo () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+class Foo {<LF>
+  constructor () {<LF>
+    // ...<LF>
+  }<LF>
+<LF>
+  get foo () {<LF>
+    // ...<LF>
+  }<LF>
+<LF>
+  set bar (param) {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+<LF>
+var foo = {<LF>
+  bar () {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+<LF>
+var foo = async () => 1<LF>
+<LF>
+// "space-in-parens": [ "error", "never" ],<LF>
+foo()<LF>
+<LF>
+foo('bar')<LF>
+<LF>
+var foo = (1 + 2) * 3<LF>
+;(function () {<LF>
+  return 'bar'<LF>
+})()<LF>
+<LF>
+// "space-infix-ops": "error",<LF>
+a + b<LF>
+a + b<LF>
+a ? b : c<LF>
+const a = { b: 1 }<LF>
+var { a = 0 } = bar<LF>
+function foo (a = 0) {}<LF>
+<LF>
+// "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
+delete foo.bar<LF>
+new Foo()<LF>
+void 0<LF>
+;-foo<LF>
+;+'3'<LF>
+++foo<LF>
+foo--<LF>
+<LF>
+// "spaced-comment": [<LF>
+//   "error",<LF>
+//   "always",<LF>
+//   {<LF>
+//     "line": { "markers": [ "*package", "!", "/", ",", "=" ] },<LF>
+//     "block": {<LF>
+//       "balanced": true,<LF>
+//       "markers": [ "*package", "!", ",", ":", "::", "flow-include" ],<LF>
+//       "exceptions": [ "*" ]<LF>
+//     }<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+/* eslint spaced-comment: ["error", "always"] */<LF>
+// This is a comment with a whitespace at the beginning<LF>
+/* This is a comment with a whitespace at the beginning */<LF>
+/*<LF>
+ * This is a comment with a whitespace at the beginning<LF>
+ */<LF>
+/*<LF>
+This comment has a newline<LF>
+*/<LF>
+<LF>
+// "template-curly-spacing": [ "error", "never" ],<LF>
+;\`hello, \${people.name}!\`<LF>
+;\`hello, \${<LF>
+  people.name.some.long.property.that.cannot.fit.in[80].characters.limit.for<LF>
+    .prettier<LF>
+}!\`<LF>
+<LF>
+// "template-tag-spacing": [ "error", "never" ],<LF>
+func\`Hello world\`<LF>
+<LF>
+// "unicode-bom": [ "error", "never" ],<LF>
+var abc<LF>
+<LF>
+// "yield-star-spacing": [ "error", "both" ]<LF>
+function * generator () {<LF>
+  yield * other()<LF>
+}<LF>
+<LF>
+// "jsx-quotes": ["error", "prefer-single"],<LF>
+;() => <div foo='bar' /><LF>
+
+=====================================output=====================================
+// Needs to be at the top but belongs to object-curly-spacing<LF>
+import { foo } from 'bar'<LF>
+<LF>
+// Needs to be at the top but belongs to indent rule<LF>
+import {<LF>
+  foosjdfhalsjkdhflasjdhfajashdlfjahsdlfjashdlfjaksdsadfaso,<LF>
+  barsjdfhalsjkdhflasjdhfajashdlfjahsdlfjashdlfjaksdsadfaso,<LF>
+  bazsjdfhalsjkdhflasjdhfajashdlfjahsdlfjashdlfjaksdsadfaso<LF>
+} from 'qux'<LF>
+<LF>
+// "arrow-spacing": ["error", { "before": true, "after": true }]<LF>
+a => {}<LF>
+;() => {}<LF>
+a => a<LF>
+;() => {<LF>
+  '\\n'<LF>
+}<LF>
+<LF>
+// "block-spacing": [ "error", "always" ],<LF>
+function foo () {<LF>
+  return true<LF>
+}<LF>
+if (foo) {<LF>
+  bar = 0<LF>
+}<LF>
+<LF>
+// "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
+function foo () {<LF>
+  return true<LF>
+}<LF>
+if (foo) {<LF>
+  bar()<LF>
+}<LF>
+if (foo) {<LF>
+  bar()<LF>
+} else {<LF>
+  baz()<LF>
+}<LF>
+try {<LF>
+  somethingRisky()<LF>
+} catch (e) {<LF>
+  handleError()<LF>
+}<LF>
+<LF>
+// "comma-spacing": [ "error", { "before": false, "after": true } ],<LF>
+var foo = 1<LF>
+var baz = 3<LF>
+var arr = [1, 2]<LF>
+var arr = [1, , 3]<LF>
+var obj = { foo: 'bar', baz: 'qur' }<LF>
+foo(a, b)<LF>
+new Foo(a, b)<LF>
+function foo (a, b) {}<LF>
+a, b<LF>
+<LF>
+// "eol-last": "error",<LF>
+// cannot be tested here, but true (Unix-style new lines)<LF>
+<LF>
+// "func-call-spacing": [ "error", "never" ],<LF>
+fn()<LF>
+<LF>
+// "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
+function * generator () {}<LF>
+var anonymous = function * () {}<LF>
+var shorthand = { * generator () {} }<LF>
+class Example {<LF>
+  async * foo () {}<LF>
+}<LF>
+<LF>
+// "indent": [<LF>
+//   "error",<LF>
+//   2,<LF>
+//   {<LF>
+//     "SwitchCase": 1,<LF>
+//     "VariableDeclarator": 1,<LF>
+//     "outerIIFEBody": 1,<LF>
+//     "MemberExpression": 1,<LF>
+//     "FunctionDeclaration": { "parameters": 1, "body": 1 },<LF>
+//     "FunctionExpression": { "parameters": 1, "body": 1 },<LF>
+//     "CallExpression": { "arguments": 1 },<LF>
+//     "ArrayExpression": 1,<LF>
+//     "ObjectExpression": 1,<LF>
+//     "ImportDeclaration": 1,<LF>
+//     "flatTernaryExpressions": false,<LF>
+//     "ignoreComments": false<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+switch (a) {<LF>
+  case 'a':<LF>
+    break<LF>
+  case 'b':<LF>
+    break<LF>
+}<LF>
+<LF>
+var aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
+let aajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha,<LF>
+  bajshdfaljskdhflakjshdflkjashdlfjkhasldkjfhlasjkdfhlaskjdhfalsjkdfha<LF>
+const a = 1<LF>
+const b = 2<LF>
+const c = 3<LF>
+;(function () {<LF>
+  function foo (x) {<LF>
+    return x + 1<LF>
+  }<LF>
+})()<LF>
+if (y) {<LF>
+  console.log('foo')<LF>
+}<LF>
+function foo (<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+) {<LF>
+  qux()<LF>
+}<LF>
+foo(<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+)<LF>
+var foo = [<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+]<LF>
+var foo = {<LF>
+  barverylongverylongverylongverylongverylongverylongverylongverylong: 1,<LF>
+  bazverylongverylongverylongverylongverylongverylongverylongverylong: 2,<LF>
+  quxverylongverylongverylongverylongverylongverylongverylongverylong: 3<LF>
+}<LF>
+var a = barverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+  ? bar<LF>
+  : barverylongverylongverylongverylongverylongverylongverylongverylong<LF>
+<LF>
+// "key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],<LF>
+var obj = { foo: 42 }<LF>
+<LF>
+// "keyword-spacing": [ "error", { "before": true, "after": true } ],<LF>
+if (foo) {<LF>
+  // ...<LF>
+} else if (bar) {<LF>
+  // ...<LF>
+} else {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+// "no-multi-spaces": "error",<LF>
+var a = 1<LF>
+if (foo === 'bar') {<LF>
+}<LF>
+a << b<LF>
+var arr = [1, 2]<LF>
+a ? b : c<LF>
+<LF>
+// "no-multiple-empty-lines": [ "error", { "max": 1, "maxEOF": 0 } ],<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-trailing-spaces": "error",<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-whitespace-before-property": "error",<LF>
+foo.bar<LF>
+foo[bar]<LF>
+foo.bar.baz<LF>
+foo.bar().baz()<LF>
+<LF>
+// "object-curly-spacing": [ "error", "always" ],<LF>
+var obj = {}<LF>
+var obj = { foo: 'bar' }<LF>
+var obj = { foo: { bar: 'baz' }, qux: 'quxx' }<LF>
+var obj = {<LF>
+  foo: 'bar'<LF>
+}<LF>
+var { x } = y<LF>
+<LF>
+// "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
+const obj = { foo: 'foo', bar: 'bar' }<LF>
+const obj2 = {<LF>
+  foo: 'foo',<LF>
+  bar: 'bar',<LF>
+  baz: 'baz'<LF>
+}<LF>
+const user = process.argv[2]<LF>
+const obj3 = {<LF>
+  user,<LF>
+  [process.argv[3] ? 'foo' : 'bar']: 0,<LF>
+  baz: [1, 2, 4, 8]<LF>
+}<LF>
+<LF>
+// "padded-blocks": [ "error", { "blocks": "never", "switches": "never", "classes": "never" } ],<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+class A {<LF>
+  constructor () {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+switch (a) {<LF>
+  case 0:<LF>
+    foo()<LF>
+}<LF>
+<LF>
+// "rest-spread-spacing": [ "error", "never" ],<LF>
+fn(...args)<LF>
+function fn (...args) {<LF>
+  console.log(args)<LF>
+}<LF>
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
+let n = { x, y, ...z }<LF>
+<LF>
+// "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
+for (;;) {}<LF>
+<LF>
+// "space-before-blocks": [ "error", "always" ],<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+if (a) {<LF>
+  b()<LF>
+} else {<LF>
+  c()<LF>
+}<LF>
+function a () {}<LF>
+for (;;) {<LF>
+  b()<LF>
+}<LF>
+try {<LF>
+} catch (a) {}<LF>
+<LF>
+// "space-before-function-paren": [ "error", "always" ],<LF>
+function foo () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+var bar = function () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+var bar = function foo () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+class Foo {<LF>
+  constructor () {<LF>
+    // ...<LF>
+  }<LF>
+<LF>
+  get foo () {<LF>
+    // ...<LF>
+  }<LF>
+<LF>
+  set bar (param) {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+<LF>
+var foo = {<LF>
+  bar () {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+<LF>
+var foo = async () => 1<LF>
+<LF>
+// "space-in-parens": [ "error", "never" ],<LF>
+foo()<LF>
+<LF>
+foo('bar')<LF>
+<LF>
+var foo = (1 + 2) * 3<LF>
+;(function () {<LF>
+  return 'bar'<LF>
+})()<LF>
+<LF>
+// "space-infix-ops": "error",<LF>
+a + b<LF>
+a + b<LF>
+a ? b : c<LF>
+const a = { b: 1 }<LF>
+var { a = 0 } = bar<LF>
+function foo (a = 0) {}<LF>
+<LF>
+// "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
+delete foo.bar<LF>
+new Foo()<LF>
+void 0<LF>
+;-foo<LF>
+;+'3'<LF>
+++foo<LF>
+foo--<LF>
+<LF>
+// "spaced-comment": [<LF>
+//   "error",<LF>
+//   "always",<LF>
+//   {<LF>
+//     "line": { "markers": [ "*package", "!", "/", ",", "=" ] },<LF>
+//     "block": {<LF>
+//       "balanced": true,<LF>
+//       "markers": [ "*package", "!", ",", ":", "::", "flow-include" ],<LF>
+//       "exceptions": [ "*" ]<LF>
+//     }<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+/* eslint spaced-comment: ["error", "always"] */<LF>
+// This is a comment with a whitespace at the beginning<LF>
+/* This is a comment with a whitespace at the beginning */<LF>
+/*<LF>
+ * This is a comment with a whitespace at the beginning<LF>
+ */<LF>
+/*<LF>
+This comment has a newline<LF>
+*/<LF>
+<LF>
+// "template-curly-spacing": [ "error", "never" ],<LF>
+;\`hello, \${people.name}!\`<LF>
+;\`hello, \${people.name.some.long.property.that.cannot.fit.in[80].characters.limit.for.prettier}!\`<LF>
+<LF>
+// "template-tag-spacing": [ "error", "never" ],<LF>
+func\`Hello world\`<LF>
+<LF>
+// "unicode-bom": [ "error", "never" ],<LF>
+var abc<LF>
+<LF>
+// "yield-star-spacing": [ "error", "both" ]<LF>
+function * generator () {<LF>
+  yield * other()<LF>
+}<LF>
+<LF>
+// "jsx-quotes": ["error", "prefer-single"],<LF>
+;() => <div foo='bar' /><LF>
+
+================================================================================
+`;
+
+exports[`correct-ternaries.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+endOfLine: "lf"
+generatorStarSpacing: true
+jsxSingleQuote: true
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 =<LF>
+  testingValue[0] === resultValue<LF>
+    ? resultValue<LF>
+    : testingValue[1] === resultValue<LF>
+      ? testingValue<LF>
+        ? 1<LF>
+        : 0<LF>
+      : testingValue[2] === resultValue<LF>
+        ? resultValue<LF>
+        : 0<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1<LF>
+    ? {<LF>
+      foo: 1<LF>
+    }<LF>
+    : resultValue<LF>
+      ? {<LF>
+        bar: 1<LF>
+      }<LF>
+      : 0<LF>
+<LF>
+const tern3 =<LF>
+  testingValue[0] === 1<LF>
+    ? { foo: 1 } === {}<LF>
+      ? {<LF>
+        foo: 1,<LF>
+        bar: 2<LF>
+      }<LF>
+      : 3<LF>
+    : resultValue<LF>
+      ? { bar: 1 }<LF>
+      : tern2<LF>
+        ? resultValue<LF>
+        : {<LF>
+          baz: resultValue<LF>
+        }<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+    anodyneCondosMalateOverateRetinol<LF>
+    ? annularCooeedSplicesWalksWayWay<LF>
+    : kochabCooieGameOnOboleUnweave<LF>
+)<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream =<LF>
+  what == 'cone'<LF>
+    ? (p) => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+    : (p) => \`here's your \${p} \${what}\`<LF>
+<LF>
+a<LF>
+  ? literalline<LF>
+  : {<LF>
+    123: 12<LF>
+  }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+    ? 'fizzbuzz'<LF>
+    : i % 3 === 0<LF>
+      ? 'fizz'<LF>
+      : i % 5 === 0<LF>
+        ? 'buzz'<LF>
+        : String(i)<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? 'partially visible' : 'hidden') : null<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+    ? 'partially visible'<LF>
+    : 'hidden'<LF>
+  : null<LF>
+<LF>
+;(a) =><LF>
+  a<LF>
+    ? () => {<LF>
+      a<LF>
+    }<LF>
+    : () => {<LF>
+      a<LF>
+    }<LF>
+;(a) => a || a<LF>
+;(a) =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1<LF>
+  ? value1<LF>
+  : condition2<LF>
+    ? value2<LF>
+    : condition3<LF>
+      ? value3<LF>
+      : value4<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div<LF>
+    className={<LF>
+      'match-achievement-medal-type type' +<LF>
+      (medals[0].record<LF>
+        ? '-record'<LF>
+        : medals[0].unique<LF>
+          ? '-unique'<LF>
+          : medals[0].type)<LF>
+    }<LF>
+  ><LF>
+    {medals[0].record<LF>
+      ? i18n('Record')<LF>
+      : medals[0].unique<LF>
+        ? i18n('Unique')<LF>
+        : medals[0].type === 0<LF>
+          ? i18n('Silver')<LF>
+          : medals[0].type === 1<LF>
+            ? i18n('Gold')<LF>
+            : medals[0].type === 2<LF>
+              ? i18n('Platinum')<LF>
+              : i18n('Theme')}<LF>
+  </div><LF>
+)<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === 'button' ? (<LF>
+    <ButtonStorybook /><LF>
+  ) : match.params.storyId === 'color' ? (<LF>
+    <ColorBook /><LF>
+  ) : match.params.storyId === 'typography' ? (<LF>
+    <TypographyBook /><LF>
+  ) : match.params.storyId === 'loading' ? (<LF>
+    <LoaderStorybook /><LF>
+  ) : match.params.storyId === 'deal-list' ? (<LF>
+    <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+      <Title>{'Missing story book'}</Title><LF>
+      <Content><LF>
+        <BackButton /><LF>
+      </Content><LF>
+    </Message><LF>
+  )<LF>
+
+=====================================output=====================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 =<LF>
+  testingValue[0] === resultValue<LF>
+    ? resultValue<LF>
+    : testingValue[1] === resultValue<LF>
+      ? testingValue<LF>
+        ? 1<LF>
+        : 0<LF>
+      : testingValue[2] === resultValue<LF>
+        ? resultValue<LF>
+        : 0<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1<LF>
+    ? {<LF>
+      foo: 1<LF>
+    }<LF>
+    : resultValue<LF>
+      ? {<LF>
+        bar: 1<LF>
+      }<LF>
+      : 0<LF>
+<LF>
+const tern3 =<LF>
+  testingValue[0] === 1<LF>
+    ? { foo: 1 } === {}<LF>
+      ? {<LF>
+        foo: 1,<LF>
+        bar: 2<LF>
+      }<LF>
+      : 3<LF>
+    : resultValue<LF>
+      ? { bar: 1 }<LF>
+      : tern2<LF>
+        ? resultValue<LF>
+        : {<LF>
+          baz: resultValue<LF>
+        }<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+    anodyneCondosMalateOverateRetinol<LF>
+    ? annularCooeedSplicesWalksWayWay<LF>
+    : kochabCooieGameOnOboleUnweave<LF>
+)<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream =<LF>
+  what == 'cone'<LF>
+    ? p => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+    : p => \`here's your \${p} \${what}\`<LF>
+<LF>
+a<LF>
+  ? literalline<LF>
+  : {<LF>
+      123: 12<LF>
+    }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+    ? 'fizzbuzz'<LF>
+    : i % 3 === 0<LF>
+      ? 'fizz'<LF>
+      : i % 5 === 0<LF>
+        ? 'buzz'<LF>
+        : String(i)<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? 'partially visible' : 'hidden') : null<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+    ? 'partially visible'<LF>
+    : 'hidden'<LF>
+  : null<LF>
+a =><LF>
+  a<LF>
+    ? () => {<LF>
+      a<LF>
+    }<LF>
+    : () => {<LF>
+      a<LF>
+    }<LF>
+a => a || a<LF>
+a =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1<LF>
+  ? value1<LF>
+  : condition2<LF>
+    ? value2<LF>
+    : condition3<LF>
+      ? value3<LF>
+      : value4<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div<LF>
+    className={<LF>
+      'match-achievement-medal-type type' +<LF>
+      (medals[0].record<LF>
+        ? '-record'<LF>
+        : medals[0].unique<LF>
+          ? '-unique'<LF>
+          : medals[0].type)<LF>
+    }<LF>
+  ><LF>
+    {medals[0].record<LF>
+      ? i18n('Record')<LF>
+      : medals[0].unique<LF>
+        ? i18n('Unique')<LF>
+        : medals[0].type === 0<LF>
+          ? i18n('Silver')<LF>
+          : medals[0].type === 1<LF>
+            ? i18n('Gold')<LF>
+            : medals[0].type === 2<LF>
+              ? i18n('Platinum')<LF>
+              : i18n('Theme')}<LF>
+  </div><LF>
+)<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === 'button' ? (<LF>
+    <ButtonStorybook /><LF>
+  ) : match.params.storyId === 'color' ? (<LF>
+    <ColorBook /><LF>
+  ) : match.params.storyId === 'typography' ? (<LF>
+    <TypographyBook /><LF>
+  ) : match.params.storyId === 'loading' ? (<LF>
+    <LoaderStorybook /><LF>
+  ) : match.params.storyId === 'deal-list' ? (<LF>
+    <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+      <Title>{'Missing story book'}</Title><LF>
+      <Content><LF>
+        <BackButton /><LF>
+      </Content><LF>
+    </Message><LF>
+  )<LF>
+
+================================================================================
+`;
+
+exports[`incorrect.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+endOfLine: "lf"
+generatorStarSpacing: true
+jsxSingleQuote: true
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+// "arrow-spacing": ["error", { "before": true, "after": true }]<LF>
+<LF>
+()=> {};<LF>
+() =>{};<LF>
+(a)=> {};<LF>
+(a) =>{};<LF>
+a =>a;<LF>
+a=> a;<LF>
+()=> {'\\n'};<LF>
+() =>{'\\n'};<LF>
+<LF>
+// "block-spacing": [ "error", "always" ],<LF>
+<LF>
+function foo() {return true;}<LF>
+if (foo) { bar = 0;}<LF>
+function baz() {let i = 0;<LF>
+  return i;<LF>
+}<LF>
+<LF>
+// "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
+<LF>
+function foo()<LF>
+{<LF>
+  return true;<LF>
+}<LF>
+<LF>
+if (foo)<LF>
+{<LF>
+  bar();<LF>
+}<LF>
+<LF>
+try<LF>
+{<LF>
+  somethingRisky();<LF>
+} catch(e)<LF>
+{<LF>
+  handleError();<LF>
+}<LF>
+<LF>
+if (foo) {<LF>
+  bar();<LF>
+}<LF>
+else {<LF>
+  baz();<LF>
+}<LF>
+<LF>
+// "comma-spacing": [ "error", { "before": false, "after": true } ],<LF>
+<LF>
+var foo = 1 ,bar = 2;<LF>
+var arr = [1 , 2];<LF>
+var obj = {"foo": "bar" ,"baz": "qur"};<LF>
+foo(a ,b);<LF>
+new Foo(a ,b);<LF>
+function foo(a ,b){}<LF>
+a ,b<LF>
+<LF>
+// "eol-last": "error",<LF>
+// cannot be tested here, but true (Unix-style new lines)<LF>
+<LF>
+// "func-call-spacing": [ "error", "never" ],<LF>
+fn ();<LF>
+<LF>
+fn<LF>
+();<LF>
+<LF>
+// "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
+<LF>
+function* generator() {}<LF>
+var anonymous = function* () {};<LF>
+var shorthand = { * generator() {} };<LF>
+function *generator() {}<LF>
+var anonymous = function *() {};<LF>
+var shorthand = { *generator() {} };<LF>
+<LF>
+<LF>
+// "indent": [<LF>
+//   "error",<LF>
+//   2,<LF>
+//   {<LF>
+//     "SwitchCase": 1,<LF>
+//     "VariableDeclarator": 1,<LF>
+//     "outerIIFEBody": 1,<LF>
+//     "MemberExpression": 1,<LF>
+//     "FunctionDeclaration": { "parameters": 1, "body": 1 },<LF>
+//     "FunctionExpression": { "parameters": 1, "body": 1 },<LF>
+//     "CallExpression": { "arguments": 1 },<LF>
+//     "ArrayExpression": 1,<LF>
+//     "ObjectExpression": 1,<LF>
+//     "ImportDeclaration": 1,<LF>
+//     "flatTernaryExpressions": false,<LF>
+//     "ignoreComments": false<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+// "key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],<LF>
+<LF>
+var obj = { "foo" : 42 };<LF>
+var obj = { "foo":42 };<LF>
+<LF>
+// "keyword-spacing": [ "error", { "before": true, "after": true } ],<LF>
+<LF>
+if (foo) {<LF>
+  //...<LF>
+}else if (bar) {<LF>
+  //...<LF>
+}else {<LF>
+  //...<LF>
+}<LF>
+<LF>
+// "no-multi-spaces": "error",<LF>
+<LF>
+var a =  1;<LF>
+if(foo   === "bar") {}<LF>
+a <<  b<LF>
+var arr = [1,  2];<LF>
+a ?  b: c<LF>
+<LF>
+// "no-multiple-empty-lines": [ "error", { "max": 1, "maxEOF": 0 } ],<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-trailing-spaces": "error",<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-whitespace-before-property": "error",<LF>
+<LF>
+foo [bar]<LF>
+foo. bar<LF>
+foo .bar<LF>
+foo. bar. baz<LF>
+foo. bar()<LF>
+  .baz()<LF>
+foo<LF>
+  .bar(). baz()<LF>
+<LF>
+// "object-curly-spacing": [ "error", "always" ],<LF>
+<LF>
+var obj = {'foo': 'bar'};<LF>
+var obj = {'foo': 'bar' };<LF>
+var obj = { baz: {'foo': 'qux'}, bar};<LF>
+var obj = {baz: { 'foo': 'qux' }, bar};<LF>
+var obj = {'foo': 'bar'<LF>
+};<LF>
+var obj = {<LF>
+  'foo':'bar'};<LF>
+var {x} = y;<LF>
+import {foo } from 'bar';<LF>
+<LF>
+// "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
+<LF>
+const obj0 = { foo: "foo", bar: "bar", baz: "baz" };<LF>
+const obj1 = {<LF>
+  foo: "foo", bar: "bar", baz: "baz"<LF>
+};<LF>
+const obj2 = {<LF>
+  foo: "foo", bar: "bar",<LF>
+  baz: "baz"<LF>
+};<LF>
+const obj3 = {<LF>
+  [process.argv[3] ? "foo" : "bar"]: 0, baz: [<LF>
+    1,<LF>
+    2,<LF>
+    4,<LF>
+    8<LF>
+  ]<LF>
+};<LF>
+const a = "antidisestablishmentarianistically";<LF>
+const b = "yugoslavyalılaştırabildiklerimizdenmişsiniz";<LF>
+const obj4 = {a, b};<LF>
+const domain = process.argv[4];<LF>
+const obj5 = {<LF>
+  foo: "foo", [<LF>
+    domain.includes(":") ? "complexdomain" : "simpledomain"<LF>
+  ]: true};<LF>
+<LF>
+// "padded-blocks": [ "error", { "blocks": "never", "switches": "never", "classes": "never" } ],<LF>
+<LF>
+<LF>
+if (a) {<LF>
+<LF>
+  b();<LF>
+<LF>
+}<LF>
+<LF>
+if (a)<LF>
+{<LF>
+<LF>
+  b();<LF>
+<LF>
+}<LF>
+<LF>
+if (a) {<LF>
+<LF>
+  b();<LF>
+}<LF>
+<LF>
+if (a) {<LF>
+  b();<LF>
+<LF>
+}<LF>
+<LF>
+class  A {<LF>
+<LF>
+  constructor(){<LF>
+  }<LF>
+<LF>
+}<LF>
+<LF>
+switch (a) {<LF>
+<LF>
+  case 0: foo();<LF>
+<LF>
+}<LF>
+<LF>
+// "rest-spread-spacing": [ "error", "never" ],<LF>
+<LF>
+fn(... args)<LF>
+function fn(... args) { console.log(args); }<LF>
+let { x, y, ... z } = { x: 1, y: 2, a: 3, b: 4 };<LF>
+let n = { x, y, ... z };<LF>
+<LF>
+// "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
+<LF>
+var foo ;<LF>
+var foo;var bar;<LF>
+throw new Error("error") ;<LF>
+while (a) { break ; }<LF>
+for (i = 0 ; i < 10 ; i++) {}<LF>
+for (i = 0;i < 10;i++) {}<LF>
+<LF>
+// "space-before-blocks": [ "error", "always" ],<LF>
+<LF>
+if (a){<LF>
+    b();<LF>
+}<LF>
+<LF>
+function a(){}<LF>
+<LF>
+for (;;){<LF>
+    b();<LF>
+}<LF>
+<LF>
+try {} catch(a){}<LF>
+<LF>
+class Foo{<LF>
+  constructor(){}<LF>
+}<LF>
+<LF>
+// "space-before-function-paren": [ "error", "always" ],<LF>
+<LF>
+function foo() {<LF>
+    // ...<LF>
+}<LF>
+<LF>
+var bar = function() {<LF>
+    // ...<LF>
+};<LF>
+<LF>
+var bar = function foo() {<LF>
+    // ...<LF>
+};<LF>
+<LF>
+class Foo {<LF>
+    constructor() {<LF>
+        // ...<LF>
+    }<LF>
+}<LF>
+<LF>
+var foo = {<LF>
+    bar() {<LF>
+        // ...<LF>
+    }<LF>
+};<LF>
+<LF>
+var foo = async() => 1<LF>
+<LF>
+// "space-in-parens": [ "error", "never" ],<LF>
+<LF>
+foo( 'bar');<LF>
+foo('bar' );<LF>
+foo( 'bar' );<LF>
+<LF>
+var foo = ( 1 + 2 ) * 3;<LF>
+( function () { return 'bar'; }() );<LF>
+<LF>
+// "space-infix-ops": "error",<LF>
+<LF>
+a+b<LF>
+a+ b<LF>
+a +b<LF>
+a?b:c<LF>
+const a={b:1};<LF>
+var {a=0}=bar;<LF>
+function foo(a=0) { }<LF>
+<LF>
+// "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
+<LF>
+typeof!foo;<LF>
+void{foo:0};<LF>
+new[foo][0];<LF>
+delete(foo.bar);<LF>
+++ foo;<LF>
+foo --;<LF>
+- foo;<LF>
++ "3";<LF>
+<LF>
+// "spaced-comment": [<LF>
+//   "error",<LF>
+//   "always",<LF>
+//   {<LF>
+//     "line": { "markers": [ "*package", "!", "/", ",", "=" ] },<LF>
+//     "block": {<LF>
+//       "balanced": true,<LF>
+//       "markers": [ "*package", "!", ",", ":", "::", "flow-include" ],<LF>
+//       "exceptions": [ "*" ]<LF>
+//     }<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+/*eslint spaced-comment: ["error", "always"]*/<LF>
+//This is a comment with no whitespace at the beginning<LF>
+/*This is a comment with no whitespace at the beginning */<LF>
+/* eslint spaced-comment: ["error", "always", { "block": { "balanced": true } }] */<LF>
+/* This is a comment with whitespace at the beginning but not the end*/<LF>
+<LF>
+// "template-curly-spacing": [ "error", "never" ],<LF>
+// (blank line here causes issues with CI for some reason)<LF>
+\`hello, \${ people.name}!\`;<LF>
+\`hello, \${people.name }!\`;<LF>
+\`hello, \${ people.name }!\`;<LF>
+<LF>
+// "template-tag-spacing": [ "error", "never" ],<LF>
+<LF>
+func \`Hello world\`;<LF>
+<LF>
+// "unicode-bom": [ "error", "never" ],<LF>
+<LF>
+U+FEFF<LF>
+var abc;<LF>
+<LF>
+// "yield-star-spacing": [ "error", "both" ]<LF>
+<LF>
+<LF>
+function *generator() {<LF>
+  yield *other();<LF>
+}<LF>
+function* generator() {<LF>
+  yield* other();<LF>
+}<LF>
+function*generator() {<LF>
+  yield*other();<LF>
+}<LF>
+<LF>
+// "jsx-quotes": ["error", "prefer-single"],<LF>
+;() => <div foo="bar" /><LF>
+<LF>
+// "indent": [<LF>
+//   "error",<LF>
+//   2,<LF>
+//   {<LF>
+//     "SwitchCase": 1,<LF>
+//     "VariableDeclarator": 1,<LF>
+//     "outerIIFEBody": 1,<LF>
+//     "MemberExpression": 1,<LF>
+//     "FunctionDeclaration": { "parameters": 1, "body": 1 },<LF>
+//     "FunctionExpression": { "parameters": 1, "body": 1 },<LF>
+//     "CallExpression": { "arguments": 1 },<LF>
+//     "ArrayExpression": 1,<LF>
+//     "ObjectExpression": 1,<LF>
+//     "ImportDeclaration": 1,<LF>
+//     "flatTernaryExpressions": false,<LF>
+//     "ignoreComments": false<LF>
+//   }<LF>
+// ],<LF>
+let isSpace = false<LF>
+const dress = isSpace ? {<LF>
+      spaceSuit: 3,<LF>
+      oxygenCylinders: 6<LF>
+    } : {<LF>
+      shirts: 3,<LF>
+      paints: 3<LF>
+    }<LF>
+
+=====================================output=====================================
+// "arrow-spacing": ["error", { "before": true, "after": true }]<LF>
+<LF>
+;() => {}<LF>
+;() => {}<LF>
+a => {}<LF>
+a => {}<LF>
+a => a<LF>
+a => a<LF>
+;() => {<LF>
+  '\\n'<LF>
+}<LF>
+;() => {<LF>
+  '\\n'<LF>
+}<LF>
+<LF>
+// "block-spacing": [ "error", "always" ],<LF>
+<LF>
+function foo () {<LF>
+  return true<LF>
+}<LF>
+if (foo) {<LF>
+  bar = 0<LF>
+}<LF>
+function baz () {<LF>
+  let i = 0<LF>
+  return i<LF>
+}<LF>
+<LF>
+// "brace-style": [ "error", "1tbs", { "allowSingleLine": true } ],<LF>
+<LF>
+function foo () {<LF>
+  return true<LF>
+}<LF>
+<LF>
+if (foo) {<LF>
+  bar()<LF>
+}<LF>
+<LF>
+try {<LF>
+  somethingRisky()<LF>
+} catch (e) {<LF>
+  handleError()<LF>
+}<LF>
+<LF>
+if (foo) {<LF>
+  bar()<LF>
+} else {<LF>
+  baz()<LF>
+}<LF>
+<LF>
+// "comma-spacing": [ "error", { "before": false, "after": true } ],<LF>
+<LF>
+var foo = 1,<LF>
+  bar = 2<LF>
+var arr = [1, 2]<LF>
+var obj = { foo: 'bar', baz: 'qur' }<LF>
+foo(a, b)<LF>
+new Foo(a, b)<LF>
+function foo (a, b) {}<LF>
+a, b<LF>
+<LF>
+// "eol-last": "error",<LF>
+// cannot be tested here, but true (Unix-style new lines)<LF>
+<LF>
+// "func-call-spacing": [ "error", "never" ],<LF>
+fn()<LF>
+<LF>
+fn()<LF>
+<LF>
+// "generator-star-spacing": [ "error", { "before": true, "after": true } ],<LF>
+<LF>
+function * generator () {}<LF>
+var anonymous = function * () {}<LF>
+var shorthand = { * generator () {} }<LF>
+function * generator () {}<LF>
+var anonymous = function * () {}<LF>
+var shorthand = { * generator () {} }<LF>
+<LF>
+// "indent": [<LF>
+//   "error",<LF>
+//   2,<LF>
+//   {<LF>
+//     "SwitchCase": 1,<LF>
+//     "VariableDeclarator": 1,<LF>
+//     "outerIIFEBody": 1,<LF>
+//     "MemberExpression": 1,<LF>
+//     "FunctionDeclaration": { "parameters": 1, "body": 1 },<LF>
+//     "FunctionExpression": { "parameters": 1, "body": 1 },<LF>
+//     "CallExpression": { "arguments": 1 },<LF>
+//     "ArrayExpression": 1,<LF>
+//     "ObjectExpression": 1,<LF>
+//     "ImportDeclaration": 1,<LF>
+//     "flatTernaryExpressions": false,<LF>
+//     "ignoreComments": false<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+// "key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],<LF>
+<LF>
+var obj = { foo: 42 }<LF>
+var obj = { foo: 42 }<LF>
+<LF>
+// "keyword-spacing": [ "error", { "before": true, "after": true } ],<LF>
+<LF>
+if (foo) {<LF>
+  //...<LF>
+} else if (bar) {<LF>
+  //...<LF>
+} else {<LF>
+  //...<LF>
+}<LF>
+<LF>
+// "no-multi-spaces": "error",<LF>
+<LF>
+var a = 1<LF>
+if (foo === 'bar') {<LF>
+}<LF>
+a << b<LF>
+var arr = [1, 2]<LF>
+a ? b : c<LF>
+<LF>
+// "no-multiple-empty-lines": [ "error", { "max": 1, "maxEOF": 0 } ],<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-trailing-spaces": "error",<LF>
+// cannot be tested here, but true<LF>
+<LF>
+// "no-whitespace-before-property": "error",<LF>
+<LF>
+foo[bar]<LF>
+foo.bar<LF>
+foo.bar<LF>
+foo.bar.baz<LF>
+foo.bar().baz()<LF>
+foo.bar().baz()<LF>
+<LF>
+// "object-curly-spacing": [ "error", "always" ],<LF>
+<LF>
+var obj = { foo: 'bar' }<LF>
+var obj = { foo: 'bar' }<LF>
+var obj = { baz: { foo: 'qux' }, bar }<LF>
+var obj = { baz: { foo: 'qux' }, bar }<LF>
+var obj = { foo: 'bar' }<LF>
+var obj = {<LF>
+  foo: 'bar'<LF>
+}<LF>
+var { x } = y<LF>
+import { foo } from 'bar'<LF>
+<LF>
+// "object-property-newline": [ "error", { "allowMultiplePropertiesPerLine": true } ],<LF>
+<LF>
+const obj0 = { foo: 'foo', bar: 'bar', baz: 'baz' }<LF>
+const obj1 = {<LF>
+  foo: 'foo',<LF>
+  bar: 'bar',<LF>
+  baz: 'baz'<LF>
+}<LF>
+const obj2 = {<LF>
+  foo: 'foo',<LF>
+  bar: 'bar',<LF>
+  baz: 'baz'<LF>
+}<LF>
+const obj3 = {<LF>
+  [process.argv[3] ? 'foo' : 'bar']: 0,<LF>
+  baz: [1, 2, 4, 8]<LF>
+}<LF>
+const a = 'antidisestablishmentarianistically'<LF>
+const b = 'yugoslavyalılaştırabildiklerimizdenmişsiniz'<LF>
+const obj4 = { a, b }<LF>
+const domain = process.argv[4]<LF>
+const obj5 = {<LF>
+  foo: 'foo',<LF>
+  [domain.includes(':') ? 'complexdomain' : 'simpledomain']: true<LF>
+}<LF>
+<LF>
+// "padded-blocks": [ "error", { "blocks": "never", "switches": "never", "classes": "never" } ],<LF>
+<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+<LF>
+class A {<LF>
+  constructor () {}<LF>
+}<LF>
+<LF>
+switch (a) {<LF>
+  case 0:<LF>
+    foo()<LF>
+}<LF>
+<LF>
+// "rest-spread-spacing": [ "error", "never" ],<LF>
+<LF>
+fn(...args)<LF>
+function fn (...args) {<LF>
+  console.log(args)<LF>
+}<LF>
+let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 }<LF>
+let n = { x, y, ...z }<LF>
+<LF>
+// "semi-spacing": [ "error", { "before": false, "after": true } ],<LF>
+<LF>
+var foo<LF>
+var foo<LF>
+var bar<LF>
+throw new Error('error')<LF>
+while (a) {<LF>
+  break<LF>
+}<LF>
+for (i = 0; i < 10; i++) {}<LF>
+for (i = 0; i < 10; i++) {}<LF>
+<LF>
+// "space-before-blocks": [ "error", "always" ],<LF>
+<LF>
+if (a) {<LF>
+  b()<LF>
+}<LF>
+<LF>
+function a () {}<LF>
+<LF>
+for (;;) {<LF>
+  b()<LF>
+}<LF>
+<LF>
+try {<LF>
+} catch (a) {}<LF>
+<LF>
+class Foo {<LF>
+  constructor () {}<LF>
+}<LF>
+<LF>
+// "space-before-function-paren": [ "error", "always" ],<LF>
+<LF>
+function foo () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+var bar = function () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+var bar = function foo () {<LF>
+  // ...<LF>
+}<LF>
+<LF>
+class Foo {<LF>
+  constructor () {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+<LF>
+var foo = {<LF>
+  bar () {<LF>
+    // ...<LF>
+  }<LF>
+}<LF>
+<LF>
+var foo = async () => 1<LF>
+<LF>
+// "space-in-parens": [ "error", "never" ],<LF>
+<LF>
+foo('bar')<LF>
+foo('bar')<LF>
+foo('bar')<LF>
+<LF>
+var foo = (1 + 2) * 3<LF>
+;(function () {<LF>
+  return 'bar'<LF>
+})()<LF>
+<LF>
+// "space-infix-ops": "error",<LF>
+<LF>
+a + b<LF>
+a + b<LF>
+a + b<LF>
+a ? b : c<LF>
+const a = { b: 1 }<LF>
+var { a = 0 } = bar<LF>
+function foo (a = 0) {}<LF>
+<LF>
+// "space-unary-ops": [ "error", { "words": true, "nonwords": false } ],<LF>
+<LF>
+typeof !foo<LF>
+void { foo: 0 }<LF>
+new [foo][0]()<LF>
+delete foo.bar<LF>
+++foo<LF>
+foo--<LF>
+;-foo<LF>
+;+'3'<LF>
+<LF>
+// "spaced-comment": [<LF>
+//   "error",<LF>
+//   "always",<LF>
+//   {<LF>
+//     "line": { "markers": [ "*package", "!", "/", ",", "=" ] },<LF>
+//     "block": {<LF>
+//       "balanced": true,<LF>
+//       "markers": [ "*package", "!", ",", ":", "::", "flow-include" ],<LF>
+//       "exceptions": [ "*" ]<LF>
+//     }<LF>
+//   }<LF>
+// ],<LF>
+<LF>
+/*eslint spaced-comment: ["error", "always"]*/<LF>
+//This is a comment with no whitespace at the beginning<LF>
+/*This is a comment with no whitespace at the beginning */<LF>
+/* eslint spaced-comment: ["error", "always", { "block": { "balanced": true } }] */<LF>
+/* This is a comment with whitespace at the beginning but not the end*/<LF>
+<LF>
+// "template-curly-spacing": [ "error", "never" ],<LF>
+// (blank line here causes issues with CI for some reason)<LF>
+;\`hello, \${people.name}!\`<LF>
+;\`hello, \${people.name}!\`<LF>
+;\`hello, \${people.name}!\`<LF>
+<LF>
+// "template-tag-spacing": [ "error", "never" ],<LF>
+<LF>
+func\`Hello world\`<LF>
+<LF>
+// "unicode-bom": [ "error", "never" ],<LF>
+<LF>
+U + FEFF<LF>
+var abc<LF>
+<LF>
+// "yield-star-spacing": [ "error", "both" ]<LF>
+<LF>
+function * generator () {<LF>
+  yield * other()<LF>
+}<LF>
+function * generator () {<LF>
+  yield * other()<LF>
+}<LF>
+function * generator () {<LF>
+  yield * other()<LF>
+}<LF>
+<LF>
+// "jsx-quotes": ["error", "prefer-single"],<LF>
+;() => <div foo='bar' /><LF>
+<LF>
+// "indent": [<LF>
+//   "error",<LF>
+//   2,<LF>
+//   {<LF>
+//     "SwitchCase": 1,<LF>
+//     "VariableDeclarator": 1,<LF>
+//     "outerIIFEBody": 1,<LF>
+//     "MemberExpression": 1,<LF>
+//     "FunctionDeclaration": { "parameters": 1, "body": 1 },<LF>
+//     "FunctionExpression": { "parameters": 1, "body": 1 },<LF>
+//     "CallExpression": { "arguments": 1 },<LF>
+//     "ArrayExpression": 1,<LF>
+//     "ObjectExpression": 1,<LF>
+//     "ImportDeclaration": 1,<LF>
+//     "flatTernaryExpressions": false,<LF>
+//     "ignoreComments": false<LF>
+//   }<LF>
+// ],<LF>
+let isSpace = false<LF>
+const dress = isSpace<LF>
+  ? {<LF>
+    spaceSuit: 3,<LF>
+    oxygenCylinders: 6<LF>
+  }<LF>
+  : {<LF>
+    shirts: 3,<LF>
+    paints: 3<LF>
+  }<LF>
+
+================================================================================
+`;
+
+exports[`incorrect-ternaries.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+endOfLine: "lf"
+generatorStarSpacing: true
+jsxSingleQuote: true
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+semi: false
+singleQuote: true
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+yieldStarSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 = testingValue[0] === resultValue? resultValue<LF>
+  : testingValue[1] === resultValue ? testingValue<LF>
+  ? 1 : 0<LF>
+      :testingValue[2] === resultValue<LF>
+      ? resultValue : 0;<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1 ? {<LF>
+      foo: 1<LF>
+  }: resultValue ? {<LF>
+        bar: 1}<LF>
+ :0;<LF>
+<LF>
+ const tern3 =<LF>
+testingValue[0] === 1 ? {foo:1} === {}? {<LF>
+  foo: 1, bar: 2} : 3 : resultValue ? {bar:1} : (tern2 ? resultValue : {<LF>
+  baz:resultValue})<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+  anodyneCondosMalateOverateRetinol<LF>
+  ? annularCooeedSplicesWalksWayWay<LF>
+  : kochabCooieGameOnOboleUnweave<LF>
+);<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream = what == "cone"<LF>
+? p => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+: p => \`here's your \${p} \${what}\`;<LF>
+<LF>
+a<LF>
+    ? literalline<LF>
+    : {<LF>
+        123: 12<LF>
+      }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+  ? "fizzbuzz"<LF>
+  : i % 3 === 0<LF>
+  ? "fizz"<LF>
+  : i % 5 === 0<LF>
+  ? "buzz"<LF>
+  : String(i);<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+  ? "partially visible"<LF>
+  : "hidden"<LF>
+  : null;<LF>
+<LF>
+a =><LF>
+    a<LF>
+    ? () => {<LF>
+        a;<LF>
+        }<LF>
+      : () => {<LF>
+          a;<LF>
+      }<LF>
+a => (a||a);<LF>
+a =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4;<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div className={<LF>
+  "match-achievement-medal-type type" +<LF>
+  (medals[0].record<LF>
+    ? "-record"<LF>
+    : medals[0].unique<LF>
+    ? "-unique"<LF>
+    : medals[0].type)<LF>
+  }><LF>
+    {medals[0].record<LF>
+      ? i18n("Record")<LF>
+      : medals[0].unique<LF>
+      ? i18n("Unique")<LF>
+      : medals[0].type === 0<LF>
+      ? i18n("Silver")<LF>
+      : medals[0].type === 1<LF>
+      ? i18n("Gold")<LF>
+      : medals[0].type === 2<LF>
+      ? i18n("Platinum")<LF>
+      : i18n("Theme")}<LF>
+  </div><LF>
+);<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === "button" ? (<LF>
+      <ButtonStorybook /><LF>
+  ) : match.params.storyId === "color" ? (<LF>
+      <ColorBook /><LF>
+  ) : match.params.storyId === "typography" ? (<LF>
+      <TypographyBook /><LF>
+  ) : match.params.storyId === "loading" ? (<LF>
+      <LoaderStorybook /><LF>
+  ) : match.params.storyId === "deal-list" ? (<LF>
+      <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+    <Title>{"Missing story book"}</Title><LF>
+    <Content><LF>
+    <BackButton /><LF>
+    </Content><LF>
+    </Message><LF>
+);<LF>
+
+=====================================output=====================================
+/* eslint-disable no-undef, no-unused-vars, no-redefine, no-unused-expressions,<LF>
+  no-constant-condition, eqeqeq, react/jsx-no-undef */<LF>
+/*<LF>
+  Add other cases for pure SntandardJS style.<LF>
+*/<LF>
+<LF>
+const testingValue = [1, 2, 3, 4, 5]<LF>
+const resultValue = Date.now()<LF>
+<LF>
+const tern1 =<LF>
+  testingValue[0] === resultValue<LF>
+    ? resultValue<LF>
+    : testingValue[1] === resultValue<LF>
+      ? testingValue<LF>
+        ? 1<LF>
+        : 0<LF>
+      : testingValue[2] === resultValue<LF>
+        ? resultValue<LF>
+        : 0<LF>
+<LF>
+const tern2 =<LF>
+  testingValue[0] === 1<LF>
+    ? {<LF>
+      foo: 1<LF>
+    }<LF>
+    : resultValue<LF>
+      ? {<LF>
+        bar: 1<LF>
+      }<LF>
+      : 0<LF>
+<LF>
+const tern3 =<LF>
+  testingValue[0] === 1<LF>
+    ? { foo: 1 } === {}<LF>
+      ? {<LF>
+        foo: 1,<LF>
+        bar: 2<LF>
+      }<LF>
+      : 3<LF>
+    : resultValue<LF>
+      ? { bar: 1 }<LF>
+      : tern2<LF>
+        ? resultValue<LF>
+        : {<LF>
+          baz: resultValue<LF>
+        }<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: func-call.js 5<LF>
+<LF>
+const fn = () => {}<LF>
+fn(<LF>
+  bifornCringerMoshedPerplexSawder,<LF>
+  askTrovenaBeenaDependsRowans,<LF>
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&<LF>
+    anodyneCondosMalateOverateRetinol<LF>
+    ? annularCooeedSplicesWalksWayWay<LF>
+    : kochabCooieGameOnOboleUnweave<LF>
+)<LF>
+<LF>
+// ternaries: nested.js 5<LF>
+let icecream =<LF>
+  what == 'cone'<LF>
+    ? p => (p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)<LF>
+    : p => \`here's your \${p} \${what}\`<LF>
+<LF>
+a<LF>
+  ? literalline<LF>
+  : {<LF>
+      123: 12<LF>
+    }<LF>
+    ? line<LF>
+    : softline<LF>
+<LF>
+const message =<LF>
+  i % 3 === 0 && i % 5 === 0<LF>
+    ? 'fizzbuzz'<LF>
+    : i % 3 === 0<LF>
+      ? 'fizz'<LF>
+      : i % 5 === 0<LF>
+        ? 'buzz'<LF>
+        : String(i)<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: parenthesis.js 5<LF>
+<LF>
+debug ? (this.state.isVisible ? 'partially visible' : 'hidden') : null<LF>
+debug<LF>
+  ? this.state.isVisible && somethingComplex<LF>
+    ? 'partially visible'<LF>
+    : 'hidden'<LF>
+  : null<LF>
+<LF>
+a =><LF>
+  a<LF>
+    ? () => {<LF>
+      a<LF>
+    }<LF>
+    : () => {<LF>
+      a<LF>
+    }<LF>
+a => a || a<LF>
+a =><LF>
+  a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a<LF>
+<LF>
+// =============================================================================<LF>
+// ternaries: nested.js 5<LF>
+<LF>
+const value = condition1<LF>
+  ? value1<LF>
+  : condition2<LF>
+    ? value2<LF>
+    : condition3<LF>
+      ? value3<LF>
+      : value4<LF>
+<LF>
+//<LF>
+/* eslint-disable quotes, semi, no-undef, no-unused-vars */<LF>
+// @ts-nocheck<LF>
+// import React from 'react'<LF>
+<LF>
+const foo = (<LF>
+  <div<LF>
+    className={<LF>
+      'match-achievement-medal-type type' +<LF>
+      (medals[0].record<LF>
+        ? '-record'<LF>
+        : medals[0].unique<LF>
+          ? '-unique'<LF>
+          : medals[0].type)<LF>
+    }<LF>
+  ><LF>
+    {medals[0].record<LF>
+      ? i18n('Record')<LF>
+      : medals[0].unique<LF>
+        ? i18n('Unique')<LF>
+        : medals[0].type === 0<LF>
+          ? i18n('Silver')<LF>
+          : medals[0].type === 1<LF>
+            ? i18n('Gold')<LF>
+            : medals[0].type === 2<LF>
+              ? i18n('Platinum')<LF>
+              : i18n('Theme')}<LF>
+  </div><LF>
+)<LF>
+<LF>
+const StorybookLoader = ({ match }) =><LF>
+  match.params.storyId === 'button' ? (<LF>
+    <ButtonStorybook /><LF>
+  ) : match.params.storyId === 'color' ? (<LF>
+    <ColorBook /><LF>
+  ) : match.params.storyId === 'typography' ? (<LF>
+    <TypographyBook /><LF>
+  ) : match.params.storyId === 'loading' ? (<LF>
+    <LoaderStorybook /><LF>
+  ) : match.params.storyId === 'deal-list' ? (<LF>
+    <DealListStory /><LF>
+  ) : (<LF>
+    <Message><LF>
+      <Title>{'Missing story book'}</Title><LF>
+      <Content><LF>
+        <BackButton /><LF>
+      </Content><LF>
+    </Message><LF>
+  )<LF>
+
+================================================================================
+`;

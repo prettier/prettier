@@ -60,6 +60,19 @@ Valid options:
 | ------- | ------------ | -------------- |
 | `true`  | `--no-semi`  | `semi: <bool>` |
 
+## Indent chains
+
+Put or disable indents at the start of chained calls.
+
+Valid options:
+
+- `true` - Put indents at the start of chained calls.
+- `false` - Disable indents at the start of chained calls.
+
+| Default | CLI Override         | API Override           |
+| ------- | -------------------- | ---------------------- |
+| `true`  | `--no-indent-chains` | `indentChains: <bool>` |
+
 ## Quotes
 
 Use single quotes instead of double quotes.
@@ -122,18 +135,18 @@ Valid options:
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
 | `"es5"` | <code>--trailing-comma <es5&#124;none&#124;all></code> | <code>trailingComma: "<es5&#124;none&#124;all>"</code> |
 
-## Bracket Spacing
+## Object curly spacing
 
-Print spaces between brackets in object literals.
+Put or disable spaces between object curly braces (similar to the corresponding eslint option).
 
 Valid options:
 
 - `true` - Example: `{ foo: bar }`.
 - `false` - Example: `{foo: bar}`.
 
-| Default | CLI Override           | API Override             |
-| ------- | ---------------------- | ------------------------ |
-| `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-object-curly-spacing` | `objectCurlySpacing: <bool>` |
 
 ## JSX Brackets
 
@@ -204,6 +217,187 @@ These options cannot be used with `cursorOffset`.
 | ---------- | --------------------- | ------------------- |
 | `0`        | `--range-start <int>` | `rangeStart: <int>` |
 | `Infinity` | `--range-end <int>`   | `rangeEnd: <int>`   |
+
+## Align object properties
+
+Align colons in multiline object literals (not applied with any of the JSON parsers).
+
+| Default | CLI Override                | API Override                    |
+| ------- | --------------------------- | ------------------------------- |
+| `false` | `--align-object-properties` | `alignObjectProperties: <bool>` |
+
+## break long method chains
+
+Break method chains with more than 3 method calls, like Prettier 1.x.
+
+| Default | CLI Override                 | API Override                    |
+| ------- | ---------------------------- | ------------------------------- |
+| `false` | `--break-long-method-chains` | `breakLongMethodChains: <bool>` |
+
+## Space before function parentheses
+
+Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+
+| Default | CLI Override                    | API Override                       |
+| ------- | ------------------------------- | ---------------------------------- |
+| `false` | `--space-before-function-paren` | `spaceBeforeFunctionParen: <bool>` |
+
+## Generator star spacing
+
+Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+
+| Default | CLI Override               | API Override                   |
+| ------- | -------------------------- | ------------------------------ |
+| `false` | `--generator-star-spacing` | `generatorStarSpacing: <bool>` |
+
+## Yield star spacing
+
+Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
+
+| Default | CLI Override           | API Override               |
+| ------- | ---------------------- | -------------------------- |
+| `false` | `--yield-star-spacing` | `yieldStarSpacing: <bool>` |
+
+## break before else
+
+Always add a line break before else.
+
+| Default | CLI Override          | API Override              |
+| ------- | --------------------- | ------------------------- |
+| `false` | `--break-before-else` | `breakBeforeElse: <bool>` |
+
+## Formatting of import statements
+
+Formatting of import statements, may be `oneline` to avoid conflict with VSCode "Organize Imports" feature.
+
+Valid options:
+
+- `"auto"` - automatic formatting, like Prettier
+- `"oneline"` - keep import statements on one line
+
+| Default  | CLI Override                                         | API Override                                         |
+| -------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `"auto"` | <code>--import-formatting <auto&#124;oneline></code> | <code>importFormatting: "<auto&#124;oneline>"</code> |
+
+## HTML void element tags
+
+Format void HTML elements as void tags.
+
+| Default | CLI Override       | API Override           |
+| ------- | ------------------ | ---------------------- |
+| `false` | `--html-void-tags` | `htmlVoidTags: <bool>` |
+
+## Array bracket spacing
+
+Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override              | API Override                  |
+| ------- | ------------------------- | ----------------------------- |
+| `false` | `--array-bracket-spacing` | `arrayBracketSpacing: <bool>` |
+
+## CSS paren spacing
+
+Put spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.
+
+| Default | CLI Override          | API Override              |
+| ------- | --------------------- | ------------------------- |
+| `false` | `--css-paren-spacing` | `cssParenSpacing: <bool>` |
+
+## Computed property spacing
+
+Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override                  | API Override                      |
+| ------- | ----------------------------- | --------------------------------- |
+| `false` | `--computed-property-spacing` | `computedPropertySpacing: <bool>` |
+
+## Offset ternary expressions
+
+Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).
+
+| Default | CLI Override                   | API Override                       |
+| ------- | ------------------------------ | ---------------------------------- |
+| `false` | `--offset-ternary-expressions` | `offsetTernaryExpressions: <bool>` |
+
+## Space after unary operator symbols
+
+Put spaces after unary operator symbols, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override        | API Override            |
+| ------- | ------------------- | ----------------------- |
+| `false` | `--space-unary-ops` | `spaceUnaryOps: <bool>` |
+
+## Spaces in parens
+
+Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default `arrowParens: "always"` option. Status: experimental, with limited testing.
+
+| Default | CLI Override        | API Override            |
+| ------- | ------------------- | ----------------------- |
+| `false` | `--space-in-parens` | `spaceInParens: <bool>` |
+
+## Template curly spacing
+
+Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+
+| Default | CLI Override               | API Override                   |
+| ------- | -------------------------- | ------------------------------ |
+| `false` | `--template-curly-spacing` | `templateCurlySpacing: <bool>` |
+
+## Type angle bracket spacing
+
+Put spaces between type angle brackets. Status: experimental, with limited testing.
+
+| Default | CLI Override                   | API Override                      |
+| ------- | ------------------------------ | --------------------------------- |
+| `false` | `--type-angle-bracket-spacing` | `typeAngleBracketSpacing: <bool>` |
+
+## Type bracket spacing
+
+Put spaces between type brackets. Status: experimental, with limited testing.
+
+| Default | CLI Override             | API Override                 |
+| ------- | ------------------------ | ---------------------------- |
+| `false` | `--type-bracket-spacing` | `typeBracketSpacing: <bool>` |
+
+## export curly spacing
+
+Put or disable spaces between export curly braces.
+
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-export-curly-spacing` | `exportCurlySpacing: <bool>` |
+
+## import curly spacing
+
+Put or disable spaces between import curly braces.
+
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-import-curly-spacing` | `importCurlySpacing: <bool>` |
+
+## GraphQL curly spacing
+
+Put or disable spaces between curly braces for GraphQL.
+
+| Default | CLI Override                 | API Override                  |
+| ------- | ---------------------------- | ----------------------------- |
+| `true`  | `--no-graphql-curly-spacing` | `graphqlCurlySpacing: <bool>` |
+
+## YAML curly spacing
+
+Put or disable spaces between brackets / curly braces for YAML.
+
+| Default | CLI Override                | API Override                 |
+| ------- | --------------------------- | ---------------------------- |
+| `true`  | `--no-yaml-bracket-spacing` | `yamlBracketSpacing: <bool>` |
+
+## Type curly spacing
+
+Put or disable spaces between type curly braces.
+
+| Default | CLI Override              | API Override               |
+| ------- | ------------------------- | -------------------------- |
+| `true`  | `--no-type-curly-spacing` | `typeCurlySpacing: <bool>` |
 
 ## Parser
 

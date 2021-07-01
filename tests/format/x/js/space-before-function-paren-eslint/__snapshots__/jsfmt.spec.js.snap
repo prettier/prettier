@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`eslint.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceBeforeFunctionParen: true
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+/*eslint space-before-function-paren: "error"*/
+/*eslint-env es6*/
+
+function foo() {
+    // ...
+}
+
+var bar = function() {
+    // ...
+};
+
+var bar = function foo() {
+    // ...
+};
+
+class Foo {
+    constructor() {
+        // ...
+    }
+    bar() {
+        // ...
+    }
+}
+
+var foo = {
+    bar() {
+        // ...
+    }
+};
+
+var foo = async() => 1
+
+=====================================output=====================================
+/*eslint space-before-function-paren: "error"*/
+/*eslint-env es6*/
+
+function foo () {
+  // ...
+}
+
+var bar = function () {
+  // ...
+};
+
+var bar = function foo () {
+  // ...
+};
+
+class Foo {
+  constructor () {
+    // ...
+  }
+  bar () {
+    // ...
+  }
+}
+
+var foo = {
+  bar () {
+    // ...
+  }
+};
+
+var foo = async () => 1;
+
+================================================================================
+`;
+
+exports[`eslint.js 2`] = `
+====================================options=====================================
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+/*eslint space-before-function-paren: "error"*/
+/*eslint-env es6*/
+
+function foo() {
+    // ...
+}
+
+var bar = function() {
+    // ...
+};
+
+var bar = function foo() {
+    // ...
+};
+
+class Foo {
+    constructor() {
+        // ...
+    }
+    bar() {
+        // ...
+    }
+}
+
+var foo = {
+    bar() {
+        // ...
+    }
+};
+
+var foo = async() => 1
+
+=====================================output=====================================
+/*eslint space-before-function-paren: "error"*/
+/*eslint-env es6*/
+
+function foo() {
+  // ...
+}
+
+var bar = function () {
+  // ...
+};
+
+var bar = function foo() {
+  // ...
+};
+
+class Foo {
+  constructor() {
+    // ...
+  }
+  bar() {
+    // ...
+  }
+}
+
+var foo = {
+  bar() {
+    // ...
+  }
+};
+
+var foo = async () => 1;
+
+================================================================================
+`;
