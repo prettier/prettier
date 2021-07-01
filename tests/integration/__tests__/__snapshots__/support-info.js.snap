@@ -102,10 +102,6 @@ Object {
       "default": "always",
       "type": "choice",
     },
-    "bracketSpacing": Object {
-      "default": true,
-      "type": "boolean",
-    },
     "breakBeforeElse": Object {
       "default": false,
       "type": "boolean",
@@ -115,6 +111,10 @@ Object {
       "type": "boolean",
     },
     "computedPropertySpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "cssParenSpacing": Object {
       "default": false,
       "type": "boolean",
     },
@@ -154,6 +154,14 @@ Object {
       "type": "path",
     },
     "generatorStarSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "graphqlCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "htmlVoidTags": Object {
       "default": false,
       "type": "boolean",
     },
@@ -347,6 +355,10 @@ Object {
     },
     "vueIndentScriptAndStyle": Object {
       "default": false,
+      "type": "boolean",
+    },
+    "yamlBracketSpacing": Object {
+      "default": true,
       "type": "boolean",
     },
     "yieldStarSpacing": Object {
@@ -874,16 +886,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"choice\\"
     },
     {
-      \\"category\\": \\"Common\\",
-      \\"default\\": true,
-      \\"description\\": \\"Print spaces between brackets.\\",
-      \\"name\\": \\"bracketSpacing\\",
-      \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\",
-      \\"pluginDefaults\\": {},
-      \\"since\\": \\"0.0.0\\",
-      \\"type\\": \\"boolean\\"
-    },
-    {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
       \\"description\\": \\"Always add a line break before else.\\",
@@ -904,6 +906,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
       \\"name\\": \\"computedPropertySpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"cssParenSpacing\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
@@ -985,6 +995,23 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": false,
       \\"description\\": \\"Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)\\",
       \\"name\\": \\"generatorStarSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between curly braces for GraphQL.\\",
+      \\"name\\": \\"graphqlCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Do not put spaces between curly braces for GraphQL.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"default\\": false,
+      \\"description\\": \\"Format void HTML elements as void tags.\\",
+      \\"name\\": \\"htmlVoidTags\\",
       \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
@@ -1368,6 +1395,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"vueIndentScriptAndStyle\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.19.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Other\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between brackets / curly braces for YAML.\\",
+      \\"name\\": \\"yamlBracketSpacing\\",
+      \\"oppositeDescription\\": \\"Do not put spaces between brackets / curly braces for YAML.\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {

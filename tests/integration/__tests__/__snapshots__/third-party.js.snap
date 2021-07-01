@@ -5,12 +5,12 @@ exports[`cosmiconfig Invalid json file 1`] = `
 
 > 1 | {a':}
     |  ^
-  2 |
+  2 | 
 
-Unexpected token \\"a\\" (0x61) in JSON at position 1 while parsing \\"{a':}/n\\" 
+Unexpected token a in JSON at position 1 while parsing near '{a':}' 
 
 > 1 | {a':}
     |  ^
-  2 |
+  2 | 
 "
 `;

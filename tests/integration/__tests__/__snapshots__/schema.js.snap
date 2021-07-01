@@ -34,11 +34,6 @@ Object {
             },
           ],
         },
-        "bracketSpacing": Object {
-          "default": true,
-          "description": "Print spaces between brackets.",
-          "type": "boolean",
-        },
         "breakBeforeElse": Object {
           "default": false,
           "description": "Always add a line break before else.",
@@ -52,6 +47,11 @@ Object {
         "computedPropertySpacing": Object {
           "default": false,
           "description": "Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "cssParenSpacing": Object {
+          "default": false,
+          "description": "Print spaces between parens in CSS, WordPress style. Status: experimental, with limited testing.",
           "type": "boolean",
         },
         "cursorOffset": Object {
@@ -122,6 +122,16 @@ This option cannot be used with --range-start and --range-end.",
         "generatorStarSpacing": Object {
           "default": false,
           "description": "Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+          "type": "boolean",
+        },
+        "graphqlCurlySpacing": Object {
+          "default": true,
+          "description": "Put spaces between curly braces for GraphQL.",
+          "type": "boolean",
+        },
+        "htmlVoidTags": Object {
+          "default": false,
+          "description": "Format void HTML elements as void tags.",
           "type": "boolean",
         },
         "htmlWhitespaceSensitivity": Object {
@@ -516,6 +526,11 @@ in order for it to be formatted.",
         "vueIndentScriptAndStyle": Object {
           "default": false,
           "description": "Indent script and style tags in Vue files.",
+          "type": "boolean",
+        },
+        "yamlBracketSpacing": Object {
+          "default": true,
+          "description": "Put spaces between brackets / curly braces for YAML.",
           "type": "boolean",
         },
         "yieldStarSpacing": Object {
