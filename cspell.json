@@ -456,11 +456,11 @@
         "!tests/**/jsfmt.spec.js",
         "*.{log,svg,snap,png}",
         "test*.*",
-        "website/data/users.yml",
-        "website/build/**",
-        "website/playground/codeSamples.js",
-        "website/pages/googlefe164a33bda4034b.html",
-        "website/static/lib/**",
-        "website/static/playground.js"
+        "x-unsupported/website/data/users.yml",
+        "x-unsupported/website/build/**",
+        "x-unsupported/website/playground/codeSamples.js",
+        "x-unsupported/website/pages/googlefe164a33bda4034b.html",
+        "x-unsupported/website/static/lib/**",
+        "x-unsupported/website/static/playground.js"
     ]
 }

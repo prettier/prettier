@@ -6,11 +6,11 @@
 /test*.*
 /.vscode
 /dist
-/website/node_modules
-/website/build
-/website/i18n
-/website/static/playground.js
-/website/static/lib
+/x-unsupported/website/node_modules
+/x-unsupported/website/build
+/x-unsupported/website/i18n
+/x-unsupported/website/static/playground.js
+/x-unsupported/website/static/lib
 .DS_Store
 /coverage
 .idea

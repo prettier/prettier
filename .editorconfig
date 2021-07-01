@@ -12,7 +12,7 @@ insert_final_newline = true
 indent_size = 4
 insert_final_newline = false
 
-[website/blog/*.md]
+[x-unsupported/website/blog/*.md]
 trim_trailing_whitespace = false
 
 [tests/{**/__snapshots__/*, tests/format/**/*}]

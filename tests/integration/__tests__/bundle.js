@@ -4,7 +4,9 @@ const path = require("path");
 const globby = require("globby");
 const { projectRoot } = require("../env");
 const coreOptions = require("../../../src/main/core-options");
-const codeSamples = require("../../../website/playground/codeSamples").default;
+// [prettierx] website is now in x-unsupported/subdirectory
+const codeSamples =
+  require("../../../x-unsupported/website/playground/codeSamples").default;
 
 const parserNames = coreOptions.options.parser.choices.map(
   ({ value }) => value

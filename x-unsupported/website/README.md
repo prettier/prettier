@@ -13,10 +13,10 @@ https://prettier.io/
 
    To build for the current branch, use `PULL_REQUEST=true yarn build-docs`. Otherwise, a release version of Prettier from `node_modules` is used.
 
-2. Switch to the `website` directory and start the development server:
+2. Switch to the `x-unsupported/website` directory and start the development server:
 
    ```sh
-   cd website
+   cd x-unsupported/website
    yarn start
    ```
 
@@ -36,7 +36,7 @@ Images and other static assets are placed inside the `static` directory: `static
 
 ## Playground
 
-The Playground is not integrated with the Docusaurus infrastructure. Its UI (`website/playground/`) is built separately with webpack configured to put the resulting bundle in Docusaurus’s `static` directory. The `yarn start` command (in `website/`) concurrently starts both Docusaurus’s local server and webpack in the watch mode for the Playground.
+The Playground is not integrated with the Docusaurus infrastructure. Its UI (`x-unsupported/website/playground/`) is built separately with webpack configured to put the resulting bundle in Docusaurus’s `static` directory. The `yarn start` command (in `x-unsupported/website/`) concurrently starts both Docusaurus’s local server and webpack in the watch mode for the Playground.
 
 Another part of the Playground is a web worker where formatting happens. It’s not managed by webpack and resides directly in `static/worker.js`. It expects to find the [UMD bundles of Prettier](https://prettier.io/docs/en/browser.html) in `static/lib/`. That’s why running `yarn build-docs` or `PULL_REQUEST=true yarn build-docs` in the project root is a required step.
 
@@ -59,11 +59,11 @@ next: doc2 # next doc on the sidebar for navigation
 ---
 ```
 
-The docs from `docs/` are published to `https://prettier.io/docs/en/next/` and are considered to be the docs of the next (not yet released) version of Prettier. When a release happens, the docs from `docs/` are copied to the `website/versioned_docs/version-stable` directory, whose content is published to `https://prettier.io/docs/en`.
+The docs from `docs/` are published to `https://prettier.io/docs/en/next/` and are considered to be the docs of the next (not yet released) version of Prettier. When a release happens, the docs from `docs/` are copied to the `x-unsupported/website/versioned_docs/version-stable` directory, whose content is published to `https://prettier.io/docs/en`.
 
 ## Blog
 
-The `website/blog` directory contains blog posts written in Markdown. Their front matter should follow this example:
+The `x-unsupported/website/blog` directory contains blog posts written in Markdown. Their front matter should follow this example:
 
 ```yaml
 title: Blog Post Title
@@ -76,4 +76,4 @@ In the blog post, you should include a line `<!--truncate-->`. This determines u
 
 ## Static Build
 
-To create a static build of the website, run `yarn build` (in `website/`). The result will be put in `website/build/`.
+To create a static build of the website, run `yarn build` (in `x-unsupported/website/`). The result will be put in `x-unsupported/website/build/`.

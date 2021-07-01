@@ -13,7 +13,8 @@ import {
 } from "./utils/changelog.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
-const blogDir = path.join(__dirname, "../website/blog");
+// [prettierx] website is now in x-unsupported subdirectory
+const blogDir = path.join(__dirname, "../x-unsupported/website/blog");
 const introTemplateFile = path.join(
   changelogUnreleasedDirPath,
   "BLOG_POST_INTRO_TEMPLATE.md"

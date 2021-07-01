@@ -35,7 +35,8 @@ async function update() {
     );
   }
 
-  processFile("website/pages/en/index.js", (content) =>
+  // [prettierx] website is now in x-unsupported/subdirectory
+  processFile("x-unsupported/website/pages/en/index.js", (content) =>
     content
       .replace(
         /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
@@ -49,9 +50,10 @@ async function update() {
 
   const isUpdated = await logPromise(
     "Checking if dependents count has been updated",
+    // [prettierx] website is now in x-unsupported/subdirectory
     async () =>
       (await runGit(["diff", "--name-only"])).stdout ===
-      "website/pages/en/index.js"
+      "x-unsupported/website/pages/en/index.js"
   );
 
   if (isUpdated) {

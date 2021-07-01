@@ -42,6 +42,6 @@
     "docs/",
     "scripts/",
     "tests/",
-    "website/"
+    "x-unsupported/website/"
   ]
 }

@@ -11,7 +11,8 @@ shell.config.fatal = true;
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const rootDir = path.join(__dirname, "..");
-const docs = path.join(rootDir, "website/static/lib");
+// [prettierx] website is now in x-unsupported/subdirectory
+const docs = path.join(rootDir, "x-unsupported/website/static/lib");
 
 function pipe(string) {
   return new shell.ShellString(string);
@@ -61,8 +62,9 @@ fs.writeFileSync(
 );
 
 // --- Site ---
-shell.cd("website");
-shell.echo("Building website...");
+// [prettierx] website is now in x-unsupported/subdirectory
+shell.cd("x-unsupported/website");
+shell.echo("Building x-unsupported/website...");
 shell.exec("yarn install");
 
 shell.exec("yarn build");
