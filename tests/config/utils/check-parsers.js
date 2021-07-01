@@ -59,6 +59,8 @@ const categoryParsers = new Map([
         "babel-flow",
         "typescript",
         "babel-ts",
+        // [prettierx] support __typescript_estree parser option for testing
+        "__typescript_estree",
       ],
       extensions: [".js"],
     },
