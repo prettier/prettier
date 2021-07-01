@@ -31,7 +31,9 @@ const languages = [
   createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({
     name: "Flow",
     since: "0.0.0",
-    parsers: ["flow", "babel-flow"],
+    // [prettierx] must use Babel by default
+    // (since the flow-parser is now an optional dependency in prettierx)
+    parsers: ["babel-flow", "flow"],
     vscodeLanguageIds: ["javascript"],
     aliases: [],
     filenames: [],
@@ -63,12 +65,14 @@ const languages = [
   })),
   createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
     since: "1.4.0",
-    parsers: ["typescript", "babel-ts"],
+    // [prettierx] use babel-ts for TypeScript by default here
+    parsers: ["babel-ts", "typescript"],
     vscodeLanguageIds: ["typescript"],
   })),
   createLanguage(require("linguist-languages/data/TSX.json"), () => ({
     since: "1.4.0",
-    parsers: ["typescript", "babel-ts"],
+    // [prettierx] use babel-ts for TypeScript by default here
+    parsers: ["babel-ts", "typescript"],
     vscodeLanguageIds: ["typescriptreact"],
   })),
   createLanguage(require("linguist-languages/data/JSON.json"), () => ({

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket.js - {"bracketSpacing":false} format 1`] = `
+exports[`bracket.js - {"exportCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+exportCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -109,9 +109,9 @@ export { fitsIn, oneLine };
 ================================================================================
 `;
 
-exports[`empty.js - {"bracketSpacing":false} format 1`] = `
+exports[`empty.js - {"exportCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+exportCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -142,9 +142,9 @@ export {} from ".";
 ================================================================================
 `;
 
-exports[`same-local-and-exported.js - {"bracketSpacing":false} format 1`] = `
+exports[`same-local-and-exported.js - {"exportCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+exportCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

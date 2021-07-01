@@ -6,6 +6,16 @@ Object {
   "definitions": Object {
     "optionsDefinition": Object {
       "properties": Object {
+        "alignObjectProperties": Object {
+          "default": false,
+          "description": "Align colons in multiline object literals.",
+          "type": "boolean",
+        },
+        "arrayBracketSpacing": Object {
+          "default": false,
+          "description": "Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
         "arrowParens": Object {
           "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",
@@ -27,6 +37,21 @@ Object {
         "bracketSpacing": Object {
           "default": true,
           "description": "Print spaces between brackets.",
+          "type": "boolean",
+        },
+        "breakBeforeElse": Object {
+          "default": false,
+          "description": "Always add a line break before else.",
+          "type": "boolean",
+        },
+        "breakLongMethodChains": Object {
+          "default": false,
+          "description": "Break method chains with more than 3 method calls, like Prettier 1.x.",
+          "type": "boolean",
+        },
+        "computedPropertySpacing": Object {
+          "default": false,
+          "description": "Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
           "type": "boolean",
         },
         "cursorOffset": Object {
@@ -84,10 +109,20 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "exportCurlySpacing": Object {
+          "default": true,
+          "description": "Put spaces between export curly braces.",
+          "type": "boolean",
+        },
         "filepath": Object {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
+        },
+        "generatorStarSpacing": Object {
+          "default": false,
+          "description": "Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+          "type": "boolean",
         },
         "htmlWhitespaceSensitivity": Object {
           "default": "css",
@@ -113,6 +148,34 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "importCurlySpacing": Object {
+          "default": true,
+          "description": "Put spaces between import curly braces.",
+          "type": "boolean",
+        },
+        "importFormatting": Object {
+          "default": "auto",
+          "description": "Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.",
+          "oneOf": Array [
+            Object {
+              "description": "automatic formatting, like Prettier",
+              "enum": Array [
+                "auto",
+              ],
+            },
+            Object {
+              "description": "keep import statements on one line",
+              "enum": Array [
+                "oneline",
+              ],
+            },
+          ],
+        },
+        "indentChains": Object {
+          "default": true,
+          "description": "Put indents at the start of chained calls.",
+          "type": "boolean",
+        },
         "insertPragma": Object {
           "default": false,
           "description": "Insert @format pragma into file's first docblock comment.",
@@ -126,6 +189,16 @@ This option cannot be used with --range-start and --range-end.",
         "jsxSingleQuote": Object {
           "default": false,
           "description": "Use single quotes in JSX.",
+          "type": "boolean",
+        },
+        "objectCurlySpacing": Object {
+          "default": true,
+          "description": "Put spaces between object curly braces (similar to the corresponding eslint option).",
+          "type": "boolean",
+        },
+        "offsetTernaryExpressions": Object {
+          "default": false,
+          "description": "Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).",
           "type": "boolean",
         },
         "parser": Object {
@@ -371,10 +444,30 @@ in order for it to be formatted.",
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
+        "spaceBeforeFunctionParen": Object {
+          "default": false,
+          "description": "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
+          "type": "boolean",
+        },
+        "spaceInParens": Object {
+          "default": false,
+          "description": "Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "spaceUnaryOps": Object {
+          "default": false,
+          "description": "Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
         "tabWidth": Object {
           "default": 2,
           "description": "Number of spaces per indentation level.",
           "type": "integer",
+        },
+        "templateCurlySpacing": Object {
+          "default": false,
+          "description": "Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+          "type": "boolean",
         },
         "trailingComma": Object {
           "default": "es5",
@@ -400,6 +493,21 @@ in order for it to be formatted.",
             },
           ],
         },
+        "typeAngleBracketSpacing": Object {
+          "default": false,
+          "description": "Put spaces between type angle brackets. Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "typeBracketSpacing": Object {
+          "default": false,
+          "description": "Print spaces between type brackets. Status: experimental, with limited testing.",
+          "type": "boolean",
+        },
+        "typeCurlySpacing": Object {
+          "default": true,
+          "description": "Put spaces between type curly braces.",
+          "type": "boolean",
+        },
         "useTabs": Object {
           "default": false,
           "description": "Indent with tabs instead of spaces.",
@@ -408,6 +516,11 @@ in order for it to be formatted.",
         "vueIndentScriptAndStyle": Object {
           "default": false,
           "description": "Indent script and style tags in Vue files.",
+          "type": "boolean",
+        },
+        "yieldStarSpacing": Object {
+          "default": false,
+          "description": "Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)",
           "type": "boolean",
         },
       },

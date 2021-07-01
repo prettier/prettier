@@ -26,19 +26,36 @@ const { printHardlineAfterHeritage } = require("./class");
 
 /** @typedef {import("../../document").Doc} Doc */
 
+// [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+/**
+ * Returns the properties field and spacing option for the given node.
+ * @param {{type: string}} node
+ * @param {{typeCurlySpacing?: boolean, objectCurlySpacing?: boolean}} options
+ * @returns {[field: "members" | "body" | "properties", spacing: boolean]}
+ */
+function getFieldAndSpacing(node, options) {
+  switch (node.type) {
+    case "TSTypeLiteral":
+      return ["members", options.typeCurlySpacing];
+    case "TSInterfaceBody":
+      return ["body", options.typeCurlySpacing];
+    // [prettierx]: typeCurlySpacing option support
+    case "ObjectTypeAnnotation":
+      return ["properties", options.typeCurlySpacing];
+    default:
+      return ["properties", options.objectCurlySpacing];
+  }
+}
+
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
 
-  let propertiesField;
-
-  if (node.type === "TSTypeLiteral") {
-    propertiesField = "members";
-  } else if (node.type === "TSInterfaceBody") {
-    propertiesField = "body";
-  } else {
-    propertiesField = "properties";
-  }
+  // [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+  // NOTE: For some reason explicit string type for propertiesField
+  // is needed to avoid typecheck error below.
+  /** @type {[string, boolean]} */
+  const [propertiesField, curlySpacing] = getFieldAndSpacing(node, options);
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const fields = [propertiesField];
@@ -187,14 +204,16 @@ function printObject(path, options, print) {
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
-      indent([options.bracketSpacing ? line : softline, ...props]),
+      // [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+      indent([curlySpacing ? line : softline, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
           (separator !== "," || shouldPrintComma(options))
           ? separator
           : ""
       ),
-      options.bracketSpacing ? line : softline,
+      // [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+      curlySpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
       printTypeAnnotation(path, options, print),

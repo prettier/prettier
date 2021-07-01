@@ -28,7 +28,8 @@ function needsParens(path, options) {
   // to avoid unexpected `}}` in HTML interpolations
   if (
     options.__isInHtmlInterpolation &&
-    !options.bracketSpacing &&
+    // [prettierx]: objectCurlySpacing option support
+    !options.objectCurlySpacing &&
     endsWithRightBracket(node) &&
     isFollowedByRightBracket(path)
   ) {
@@ -255,6 +256,7 @@ function needsParens(path, options) {
         case "CallExpression":
         case "NewExpression":
         case "OptionalCallExpression":
+          // [prettierx] --space-in-parens option support NO LONGER NEEDED HERE
           return name === "callee";
 
         case "ClassExpression":
@@ -271,10 +273,12 @@ function needsParens(path, options) {
         case "AwaitExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
+          // [prettierx] --space-in-parens option support NO LONGER NEEDED HERE
           return true;
 
         case "MemberExpression":
         case "OptionalMemberExpression":
+          // [prettierx] --space-in-parens option support NO LONGER NEEDED HERE
           return name === "object";
 
         case "AssignmentExpression":
@@ -531,6 +535,7 @@ function needsParens(path, options) {
       }
 
       return (
+        // [prettierx] --space-in-parens option support NO LONGER NEEDED HERE
         name === "object" &&
         parent.type === "MemberExpression" &&
         typeof node.value === "number"
@@ -755,6 +760,7 @@ function needsParens(path, options) {
         (isCallExpression(parent) && parent.arguments[name] === node) ||
         (name === "right" && parent.type === "NGPipeExpression") ||
         (name === "property" && parent.type === "MemberExpression") ||
+        // [prettierx] --space-in-parens option support NO LONGER NEEDED HERE
         parent.type === "AssignmentExpression"
       ) {
         return false;

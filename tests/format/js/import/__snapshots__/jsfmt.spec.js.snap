@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.js - {"bracketSpacing":false} format 1`] = `
+exports[`brackets.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -69,9 +69,9 @@ import { fitsIn, oneLine } from ".";
 ================================================================================
 `;
 
-exports[`comments.js - {"bracketSpacing":false} format 1`] = `
+exports[`comments.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -278,9 +278,9 @@ import x, {
 ================================================================================
 `;
 
-exports[`empty-import.js - {"bracketSpacing":false} format 1`] = `
+exports[`empty-import.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -307,9 +307,9 @@ import {} from "@types/googlemaps";
 ================================================================================
 `;
 
-exports[`inline.js - {"bracketSpacing":false} format 1`] = `
+exports[`inline.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -358,9 +358,9 @@ import {
 ================================================================================
 `;
 
-exports[`long-line.js - {"bracketSpacing":false} format 1`] = `
+exports[`long-line.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -387,9 +387,9 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`multiple_standalones.js - {"bracketSpacing":false} format 1`] = `
+exports[`multiple_standalones.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -416,9 +416,9 @@ import a, * as b from "a";
 ================================================================================
 `;
 
-exports[`same-local-and-imported.js - {"bracketSpacing":false} format 1`] = `
+exports[`same-local-and-imported.js - {"importCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+importCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

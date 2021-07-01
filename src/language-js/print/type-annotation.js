@@ -238,8 +238,12 @@ function printFunctionType(path, options, print) {
     needsColon = true;
   }
 
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
+
   if (needsParens) {
-    parts.push("(");
+    // [prettierx] spaceInParens option support (...)
+    parts.push("(", parenSpace);
   }
 
   const parametersDoc = printFunctionParameters(
@@ -274,7 +278,8 @@ function printFunctionType(path, options, print) {
   }
 
   if (needsParens) {
-    parts.push(")");
+    // [prettierx] spaceInParens option support (...)
+    parts.push(parenSpace, ")");
   }
 
   return group(parts);
@@ -302,7 +307,16 @@ function printIndexedAccessType(path, options, print) {
   const node = path.getValue();
   const leftDelimiter =
     node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
-  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
+  return [
+    print("objectType"),
+    leftDelimiter,
+    // [prettierx] typeBracketSpacing option support (...)
+    options.typeBracketSpacing ? " " : "",
+    print("indexType"),
+    // [prettierx] typeBracketSpacing option support (...)
+    options.typeBracketSpacing ? " " : "",
+    "]",
+  ];
 }
 
 module.exports = {

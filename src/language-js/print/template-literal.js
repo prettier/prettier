@@ -7,6 +7,8 @@ const {
     join,
     hardline,
     softline,
+    // [prettierx] templateCurlySpacing option support (...)
+    line,
     group,
     indent,
     align,
@@ -27,6 +29,10 @@ const {
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
   const isTemplateLiteral = node.type === "TemplateLiteral";
+
+  // [prettierx] templateCurlySpacing option support (...)
+  const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+  const templateCurlyLine = options.templateCurlySpacing ? line : softline;
 
   if (
     isTemplateLiteral &&
@@ -93,7 +99,11 @@ function printTemplateLiteral(path, print, options) {
           expression.type === "TSAsExpression" ||
           isBinaryish(expression)
         ) {
-          printed = [indent([softline, printed]), softline];
+          // [prettierx] templateCurlySpacing option support (...)
+          printed = [indent([templateCurlyLine, printed]), templateCurlyLine];
+        } else {
+          // [prettierx] templateCurlySpacing option support (...)
+          printed = [templateCurlySpace, printed, templateCurlySpace];
         }
       }
 
@@ -128,14 +138,21 @@ function printJestEachTemplateLiteral(path, options, print) {
     const expressions = path.map(print, "expressions");
     options.__inJestEach = false;
     const parts = [];
+
+    // [prettierx] templateCurlySpacing option support (...)
+    const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+
     const stringifiedExpressions = expressions.map(
       (doc) =>
+        // [prettierx] templateCurlySpacing option support (...)
         "${" +
+        templateCurlySpace +
         printDocToString(doc, {
           ...options,
           printWidth: Number.POSITIVE_INFINITY,
           endOfLine: "lf",
         }).formatted +
+        templateCurlySpace +
         "}"
     );
 
@@ -200,18 +217,33 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-function printTemplateExpression(path, print) {
+// [prettierx] templateCurlySpacing option support (...)
+function printTemplateExpression(path, print, options) {
   const node = path.getValue();
   let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }
-  return ["${", printed, lineSuffixBoundary, "}"];
+
+  // [prettierx] templateCurlySpacing option support (...)
+  const templateCurlySpace = options.templateCurlySpacing ? " " : "";
+
+  // [prettierx] templateCurlySpacing option support (...)
+  return [
+    "${",
+    templateCurlySpace,
+    printed,
+    lineSuffixBoundary,
+    templateCurlySpace,
+    "}",
+  ];
 }
 
-function printTemplateExpressions(path, print) {
+// [prettierx] templateCurlySpacing option support (...)
+function printTemplateExpressions(path, print, options) {
   return path.map(
-    (path) => printTemplateExpression(path, print),
+    // [prettierx] templateCurlySpacing option support (...)
+    (path) => printTemplateExpression(path, print, options),
     "expressions"
   );
 }

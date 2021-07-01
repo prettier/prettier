@@ -8,7 +8,8 @@ const {
   printTemplateExpressions,
 } = require("../print/template-literal");
 
-function format(path, print, textToDoc) {
+// [prettierx] with --template-curly-spacing option support (...)
+function format(path, print, textToDoc, options) {
   const node = path.getValue();
 
   const numQuasis = node.quasis.length;
@@ -16,7 +17,8 @@ function format(path, print, textToDoc) {
     return "``";
   }
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  // [prettierx] --template-curly-spacing option support (...)
+  const expressionDocs = printTemplateExpressions(path, print, options);
   const parts = [];
 
   for (let i = 0; i < numQuasis; i++) {

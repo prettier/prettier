@@ -26,7 +26,110 @@ module.exports = {
       },
     ],
   },
-  bracketSpacing: commonOptions.bracketSpacing,
+  // [prettierx ...]
+  arrayBracketSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  computedPropertySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  indentChains: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put indents at the start of chained calls.",
+    oppositeDescription: "Disable indents at the start of chained calls.",
+  },
+  importFormatting: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "auto",
+    description:
+      "Formatting of import statements, may be `oneline` to avoid conflict with" +
+      ' VSCode "Organize Imports" feature.',
+    choices: [
+      {
+        value: "auto",
+        description: "automatic formatting, like Prettier",
+      },
+      {
+        value: "oneline",
+        description: "keep import statements on one line",
+      },
+    ],
+  },
+  spaceInParens: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      'Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default `arrowParens: "always"` option. Status: experimental, with limited testing.',
+  },
+  spaceUnaryOps: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces after unary operator symbols, except in the middle of `!!` (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  templateCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.",
+  },
+  typeAngleBracketSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces between type angle brackets. Status: experimental, with limited testing.",
+  },
+  typeBracketSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Print spaces between type brackets. Status: experimental, with limited testing.",
+  },
+  exportCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put spaces between export curly braces.",
+    oppositeDescription: "Disable spaces between export curly braces.",
+  },
+  importCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put spaces between import curly braces.",
+    oppositeDescription: "Disable spaces between import curly braces.",
+  },
+  objectCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description:
+      "Put spaces between object curly braces (similar to the corresponding eslint option).",
+    oppositeDescription: "Disable spaces between object curly braces.",
+  },
+  typeCurlySpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put spaces between type curly braces.",
+    oppositeDescription: "Disable spaces between type curly braces.",
+  },
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
@@ -42,6 +145,54 @@ module.exports = {
     description: "Print semicolons.",
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
+  },
+  // [prettierx ...]
+  alignObjectProperties: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Align colons in multiline object literals.",
+  },
+  offsetTernaryExpressions: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      'Indent and align ternary expression branches more consistently with "Standard JS" (similar to the corresponding eslint option).',
+  },
+  generatorStarSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces around the star (`*`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+  },
+  yieldStarSpacing: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put spaces around the star (`*`) in `yield*` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)",
+  },
+  spaceBeforeFunctionParen: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)",
+  },
+  breakBeforeElse: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Always add a line break before else.",
+  },
+  breakLongMethodChains: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Break method chains with more than 3 method calls, like Prettier 1.x.",
   },
   singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {

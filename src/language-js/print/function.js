@@ -27,6 +27,7 @@ const {
 const { ArgExpansionBailout } = require("../../common/errors");
 const {
   getFunctionParameters,
+  hasAddedLine, // [prettierx] for spaceInParens option support
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
   isJsxNode,
@@ -81,7 +82,8 @@ function printFunction(path, print, options, args) {
   }
 
   if (node.generator) {
-    parts.push("function* ");
+    // [prettierx] support generatorStarSpacing option (...)
+    parts.push("function", options.generatorStarSpacing ? " * " : "* ");
   } else {
     parts.push("function ");
   }
@@ -105,6 +107,12 @@ function printFunction(path, print, options, args) {
   parts.push(
     printFunctionTypeParameters(path, options, print),
     group([
+      // [prettierx] spaceBeforeFunctionParen & generatorStarSpacing
+      // option support (...)
+      (node.id || node.typeParameters) &&
+      (options.spaceBeforeFunctionParen || options.generatorStarSpacing)
+        ? " "
+        : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
@@ -135,9 +143,14 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
+  // [prettierx] with --generator-star-spacing option support (...)
   // A `getter`/`setter` can't be a generator, but it's recoverable
   if (value.generator) {
     parts.push("*");
+    // [prettierx] --generator-star-spacing option support (...)
+    if (options.generatorStarSpacing) {
+      parts.push(" ");
+    }
   }
 
   parts.push(
@@ -158,6 +171,7 @@ function printMethod(path, options, print) {
   return parts;
 }
 
+// [prettierx] with --space-before-function-paren option support (...)
 function printMethodInternal(path, options, print) {
   const node = path.getNode();
   const parametersDoc = printFunctionParameters(path, print, options);
@@ -169,6 +183,8 @@ function printMethodInternal(path, options, print) {
   const parts = [
     printFunctionTypeParameters(path, options, print),
     group([
+      // [prettierx] --space-before-function-paren option support (...)
+      options.spaceBeforeFunctionParen ? " " : "",
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
@@ -283,6 +299,10 @@ function printArrowFunction(path, options, print, args) {
   const body = [];
   let chainShouldBreak = false;
 
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
+  const parenLine = options.spaceInParens ? line : softline;
+
   (function rec() {
     const doc = printArrowFunctionSignature(path, options, print, args);
     if (signatures.length === 0) {
@@ -337,7 +357,10 @@ function printArrowFunction(path, options, print, args) {
       node.body.type === "ArrowFunctionExpression" ||
       node.body.type === "DoExpression")
   ) {
-    return group([...parts, " ", body]);
+    // [prettierx] with spaceInParens option support (...)
+    return group([...parts, " ", body], {
+      addedLine: hasAddedLine(body), // pass the option from a nested => arrow => function
+    });
   }
 
   // We handle sequence expressions as the body of arrows specially,
@@ -345,15 +368,17 @@ function printArrowFunction(path, options, print, args) {
   if (node.body.type === "SequenceExpression") {
     return group([
       ...parts,
-      group([" (", indent([softline, body]), softline, ")"]),
+      // [prettierx] spaceInParens option support (...)
+      group([" (", indent([parenLine, body]), parenLine, ")"]),
     ]);
   }
 
+  // [prettierx] with spaceInParens option support (...)
   // if the arrow function is expanded as last argument, we are adding a
   // level of indentation and need to add a softline to align the closing )
   // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
   // we should align the expression's closing } with the line with the opening {.
-  const shouldAddSoftLine =
+  const shouldAddLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
     !hasComment(node);
@@ -368,20 +393,25 @@ function printArrowFunction(path, options, print, args) {
     node.body.type === "ConditionalExpression" &&
     !startsWithNoLookaheadToken(node.body, /* forbidFunctionAndClass */ false);
 
-  return group([
-    ...parts,
-    group([
-      indent([
-        line,
-        shouldAddParens ? ifBreak("", "(") : "",
-        body,
-        shouldAddParens ? ifBreak("", ")") : "",
+  // [prettierx] with spaceInParens option support (...)
+  return group(
+    [
+      ...parts,
+      group([
+        indent([
+          line,
+          shouldAddParens ? ifBreak("", ["(", parenSpace]) : "",
+          body,
+          shouldAddParens ? ifBreak("", [parenSpace, ")"]) : "",
+        ]),
+        shouldAddLine
+          ? [ifBreak(printTrailingComma ? "," : ""), parenLine]
+          : "",
       ]),
-      shouldAddSoftLine
-        ? [ifBreak(printTrailingComma ? "," : ""), softline]
-        : "",
-    ]),
-  ]);
+    ],
+    // [prettierx] spaceInParens option support (...)
+    { addedLine: shouldAddLine && options.spaceInParens }
+  );
 }
 
 function canPrintParamsWithoutParens(node) {

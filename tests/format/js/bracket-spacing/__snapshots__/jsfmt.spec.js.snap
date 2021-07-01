@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js - {"bracketSpacing":false} format 1`] = `
+exports[`array.js - {"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -33,9 +33,9 @@ const arr2 = [1, 2, 3, 4];
 ================================================================================
 `;
 
-exports[`object.js - {"bracketSpacing":false} format 1`] = `
+exports[`object.js - {"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+objectCurlySpacing: false
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

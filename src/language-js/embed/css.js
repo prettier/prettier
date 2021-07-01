@@ -7,7 +7,8 @@ const {
 } = require("../../document");
 const { printTemplateExpressions } = require("../print/template-literal");
 
-function format(path, print, textToDoc) {
+// [prettierx] --template-curly-spacing option support (...)
+function format(path, print, textToDoc, options) {
   const node = path.getValue();
 
   // Get full template literal with expressions replaced by placeholders
@@ -29,7 +30,8 @@ function format(path, print, textToDoc) {
     { parser: "scss" },
     { stripTrailingHardline: true }
   );
-  const expressionDocs = printTemplateExpressions(path, print);
+  // [prettierx] --template-curly-spacing option support (...)
+  const expressionDocs = printTemplateExpressions(path, print, options);
   return transformCssDoc(doc, node, expressionDocs);
 }
 

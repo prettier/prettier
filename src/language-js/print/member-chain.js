@@ -318,7 +318,9 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(group([hardline, join(hardline, groups.map(printGroup))]));
+    // [prettierx]: --no-indent-chains option support
+    const printed = group([hardline, join(hardline, groups.map(printGroup))]);
+    return options.indentChains ? indent(printed) : printed;
   }
 
   const printedGroups = groups.map(printGroup);
@@ -380,12 +382,16 @@ function printMemberChain(path, options, print) {
 
   // We don't want to print in one line if at least one of these conditions occurs:
   //  * the chain has comments,
+  //  * [prettierx] --break-long-method-chains option if enabled:
+  //    the chain has at least 3 chained method calls,
   //  * the chain is an expression statement and all the arguments are literal-like ("fluent configuration" pattern),
   //  * the chain is longer than 2 calls and has non-trivial arguments or more than 2 arguments in any call but the first one,
   //  * any group but the last one has a hard line,
   //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
   if (
     nodeHasComment ||
+    // [prettierx] breakLongMethodChains option support
+    (options.breakLongMethodChains && callExpressions.length >= 3) ||
     (callExpressions.length > 2 &&
       callExpressions.some(
         (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))

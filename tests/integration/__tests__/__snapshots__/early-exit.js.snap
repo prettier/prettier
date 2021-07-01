@@ -58,22 +58,50 @@ Output options:
 
 Format options:
 
+  --align-object-properties
+                           Align colons in multiline object literals.
+                           Defaults to false.
+  --array-bracket-spacing  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --break-before-else      Always add a line break before else.
+                           Defaults to false.
+  --break-long-method-chains
+                           Break method chains with more than 3 method calls, like Prettier 1.x.
+                           Defaults to false.
+  --computed-property-spacing
+                           Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --embedded-language-formatting <auto|off>
                            Control how Prettier formats quoted code embedded in the file.
                            Defaults to auto.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --no-export-curly-spacing
+                           Disable spaces between export curly braces.
+  --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
+  --no-import-curly-spacing
+                           Disable spaces between import curly braces.
+  --import-formatting <auto|oneline>
+                           Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.
+                           Defaults to auto.
+  --no-indent-chains       Disable indents at the start of chained calls.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
+                           Defaults to false.
+  --no-object-curly-spacing
+                           Disable spaces between object curly braces.
+  --offset-ternary-expressions
+                           Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
                            Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
                            Which parser to use.
@@ -88,15 +116,32 @@ Format options:
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
+  --space-before-function-paren
+                           Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+                           Defaults to false.
+  --space-in-parens        Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.
+                           Defaults to false.
+  --space-unary-ops        Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --template-curly-spacing Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
+  --type-angle-bracket-spacing
+                           Put spaces between type angle brackets. Status: experimental, with limited testing.
+                           Defaults to false.
+  --type-bracket-spacing   Print spaces between type brackets. Status: experimental, with limited testing.
+                           Defaults to false.
+  --no-type-curly-spacing  Disable spaces between type curly braces.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
                            Indent script and style tags in Vue files.
+                           Defaults to false.
+  --yield-star-spacing     Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
                            Defaults to false.
 
 Config options:
@@ -223,22 +268,50 @@ Output options:
 
 Format options:
 
+  --align-object-properties
+                           Align colons in multiline object literals.
+                           Defaults to false.
+  --array-bracket-spacing  Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --break-before-else      Always add a line break before else.
+                           Defaults to false.
+  --break-long-method-chains
+                           Break method chains with more than 3 method calls, like Prettier 1.x.
+                           Defaults to false.
+  --computed-property-spacing
+                           Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --embedded-language-formatting <auto|off>
                            Control how Prettier formats quoted code embedded in the file.
                            Defaults to auto.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --no-export-curly-spacing
+                           Disable spaces between export curly braces.
+  --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
+  --no-import-curly-spacing
+                           Disable spaces between import curly braces.
+  --import-formatting <auto|oneline>
+                           Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\"Organize Imports\\" feature.
+                           Defaults to auto.
+  --no-indent-chains       Disable indents at the start of chained calls.
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
+                           Defaults to false.
+  --no-object-curly-spacing
+                           Disable spaces between object curly braces.
+  --offset-ternary-expressions
+                           Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
                            Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
                            Which parser to use.
@@ -253,15 +326,32 @@ Format options:
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
+  --space-before-function-paren
+                           Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)
+                           Defaults to false.
+  --space-in-parens        Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\"always\\"\` option. Status: experimental, with limited testing.
+                           Defaults to false.
+  --space-unary-ops        Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --template-curly-spacing Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.
+                           Defaults to false.
   --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
+  --type-angle-bracket-spacing
+                           Put spaces between type angle brackets. Status: experimental, with limited testing.
+                           Defaults to false.
+  --type-bracket-spacing   Print spaces between type brackets. Status: experimental, with limited testing.
+                           Defaults to false.
+  --no-type-curly-spacing  Disable spaces between type curly braces.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
                            Indent script and style tags in Vue files.
+                           Defaults to false.
+  --yield-star-spacing     Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)
                            Defaults to false.
 
 Config options:

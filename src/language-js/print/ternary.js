@@ -207,6 +207,10 @@ function printTernary(path, options, print) {
   const alternateNode = node[alternateNodePropertyName];
   const parts = [];
 
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
+  const parenLine = options.spaceInParens ? line : softline;
+
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See tests/jsx/conditional-expression.js for more info.
   let jsxMode = false;
@@ -280,24 +284,42 @@ function printTernary(path, options, print) {
     const part = [
       line,
       "? ",
-      consequentNode.type === node.type ? ifBreak("", "(") : "",
-      align(2, print(consequentNodePropertyName)),
-      consequentNode.type === node.type ? ifBreak("", ")") : "",
+      // [prettierx] spaceInParens option support (...)
+      ...(consequentNode.type === node.type
+        ? [ifBreak("", ["(", parenSpace])]
+        : [""]),
+      // [prettierx] offsetTernaryExpressions option support:
+      !options.offsetTernaryExpressions
+        ? align(2, print(consequentNodePropertyName))
+        : print(consequentNodePropertyName),
+      // [prettierx] spaceInParens option support (...)
+      ...(consequentNode.type === node.type
+        ? [parenSpace, ifBreak("", ")")]
+        : [""]),
       line,
       ": ",
-      alternateNode.type === node.type
+      // [prettierx] offsetTernaryExpressions option support:
+      options.offsetTernaryExpressions || alternateNode.type === node.type
         ? print(alternateNodePropertyName)
         : align(2, print(alternateNodePropertyName)),
     ];
     parts.push(
+      // [prettierx] with offsetTernaryExpressions option support below:
       parent.type !== node.type ||
         parent[alternateNodePropertyName] === node ||
         isParentTest
         ? part
-        : options.useTabs
+        : options.useTabs || options.offsetTernaryExpressions // [prettierx] offsetTernaryExpressions option support (...)
         ? dedent(indent(part))
         : align(Math.max(0, options.tabWidth - 2), part)
     );
+
+    // [prettierx] offsetTernaryExpressions option support:
+    // Indent the whole ternary if offsetTernaryExpressions is enabled
+    // (like ESLint).
+    if (options.offsetTernaryExpressions) {
+      forceNoIndent = false;
+    }
   }
 
   // We want a whole chain of ConditionalExpressions to all
@@ -319,12 +341,9 @@ function printTernary(path, options, print) {
         locEnd(comment)
       )
   );
-  const maybeGroup = (doc) =>
-    parent === firstNonConditionalParent
-      ? group(doc, { shouldBreak })
-      : shouldBreak
-      ? [doc, breakParent]
-      : doc;
+  // [prettierx] moved & updated for --space-in-parens option support (...)
+  // const maybeGroup = (doc) =>
+  //   ...
 
   // Break the closing paren to keep the chain right after it:
   // (a
@@ -337,13 +356,22 @@ function printTernary(path, options, print) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
+  // prettierx: with options for parenSpace support in ternaries (...)
+  const maybeGroup = (doc) =>
+    parent === firstNonConditionalParent
+      ? group(doc, { breakParent, addedLine: breakClosingParen })
+      : shouldBreak
+      ? [doc, breakParent]
+      : doc;
+
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
 
   const result = maybeGroup([
     printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
+    // [prettierx]: spaceInParens option (...)
     isConditionalExpression && breakClosingParen && !shouldExtraIndent
-      ? softline
+      ? parenLine
       : "",
   ]);
 

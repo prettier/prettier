@@ -135,6 +135,17 @@ function expressionNeedsASIProtection(path, options) {
       }
       break;
     }
+    // [prettierx] spaceInParens option support (...)
+    // needsParens is false for binaryish expr inside memberexpr, but is parenthesized nevertheless
+    case "MemberExpression":
+      if (
+        !node.computed &&
+        (node.object.type === "LogicalExpression" ||
+          node.object.type === "BinaryExpression")
+      ) {
+        return true;
+      }
+      break;
     default: {
       if (isJsxNode(node)) {
         return true;

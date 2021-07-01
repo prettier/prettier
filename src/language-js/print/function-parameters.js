@@ -36,6 +36,10 @@ function printFunctionParameters(
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
+  // [prettierx] spaceInParens option support (...)
+  const parenSpace = options.spaceInParens ? " " : "";
+  const parenLine = options.spaceInParens ? line : softline;
+
   if (parameters.length === 0) {
     return [
       typeParams,
@@ -93,7 +97,17 @@ function printFunctionParameters(
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();
     }
-    return group([removeLines(typeParams), "(", removeLines(printed), ")"]);
+    // [prettierx] with spaceInParens option support (...)
+    return group([
+      removeLines(typeParams),
+      "(",
+      // [prettierx] spaceInParens option support (...)
+      parenSpace,
+      removeLines(printed),
+      // [prettierx] spaceInParens option support (...)
+      parenSpace,
+      ")",
+    ]);
   }
 
   // Single object destructuring should hug
@@ -105,12 +119,32 @@ function printFunctionParameters(
   // }) {}
   const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    return [typeParams, "(", ...printed, ")"];
+    // [prettierx] with spaceInParens option support (...)
+    return [
+      typeParams,
+      "(",
+      // [prettierx] spaceInParens option support (...)
+      parenSpace,
+      ...printed,
+      // [prettierx] spaceInParens option support (...)
+      parenSpace,
+      ")",
+    ];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    return [typeParams, "(", ...printed, ")"];
+    // [prettierx] with spaceInParens option support (...)
+    return [
+      typeParams,
+      "(",
+      // [prettierx] spaceInParens option support (...)
+      parenSpace,
+      ...printed,
+      // [prettierx] spaceInParens option support (...)
+      parenSpace,
+      ")",
+    ];
   }
 
   const isFlowShorthandWithOneArg =
@@ -133,21 +167,25 @@ function printFunctionParameters(
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      return ["(", ...printed, ")"];
+      // [prettierx] spaceInParens option support (...)
+      return ["(", parenSpace, ...printed, parenSpace, ")"];
     }
     return printed;
   }
 
+  // [prettierx] with spaceInParens option support (...)
   return [
     typeParams,
     "(",
-    indent([softline, ...printed]),
+    // [prettierx] spaceInParens option support (...)
+    indent([parenLine, ...printed]),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
         : ""
     ),
-    softline,
+    // [prettierx] spaceInParens option support (...)
+    parenLine,
     ")",
   ];
 }

@@ -20,6 +20,12 @@ const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 function printTypeParameters(path, options, print, paramsKey) {
   const node = path.getValue();
 
+  // [prettierx] typeAngleBracketSpacing option support (...)
+  const typeAngleBracketSpace = options.typeAngleBracketSpacing ? " " : "";
+  const typeAngleBracketLine = options.typeAngleBracketSpacing
+    ? line
+    : softline;
+
   if (!node[paramsKey]) {
     return "";
   }
@@ -40,9 +46,14 @@ function printTypeParameters(path, options, print, paramsKey) {
         node[paramsKey][0].type === "NullableTypeAnnotation"));
 
   if (shouldInline) {
+    // [prettierx] typeAngleBracketSpacing option support (...)
     return [
       "<",
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketSpace,
       join(", ", path.map(print, paramsKey)),
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketSpace,
       printDanglingCommentsForInline(path, options),
       ">",
     ];
@@ -64,11 +75,20 @@ function printTypeParameters(path, options, print, paramsKey) {
       : "";
 
   return group(
+    // [prettierx] typeAngleBracketSpacing option support (...)
     [
       "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      indent([
+        // [prettierx] typeAngleBracketSpacing option support (...)
+        typeAngleBracketLine,
+        // [prettierx] keep break after comma here,
+        // regardless of typeAngleBracketSpacing option (...)
+        join([",", line], path.map(print, paramsKey)),
+      ]),
       trailingComma,
-      softline,
+      // [prettierx] typeAngleBracketSpacing option support (...)
+      typeAngleBracketLine,
       ">",
     ],
     { id: getTypeParametersGroupId(node) }
@@ -97,7 +117,11 @@ function printTypeParameter(path, options, print) {
   const parts = [];
   const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
-    parts.push("[", print("name"));
+    // [prettierx] typeBracketSpacing option support (...)
+    const typeBracketSpace = options.typeBracketSpacing ? " " : "";
+
+    // [prettierx] typeBracketSpacing option support (...)
+    parts.push("[", typeBracketSpace, print("name"));
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
     }
@@ -107,7 +131,8 @@ function printTypeParameter(path, options, print) {
         path.callParent(() => print("nameType"))
       );
     }
-    parts.push("]");
+    // [prettierx] typeBracketSpacing option support (...)
+    parts.push(typeBracketSpace, "]");
     return parts;
   }
 

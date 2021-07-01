@@ -60,20 +60,24 @@ exports[`show external options with \`--help\` 1`] = `
 - First value
 + Second value
 
-@@ -20,18 +20,20 @@
-                             Control how Prettier formats quoted code embedded in the file.
-                             Defaults to auto.
+@@ -35,10 +35,12 @@
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
                              Defaults to lf.
+    --no-export-curly-spacing
+                             Disable spaces between export curly braces.
 +   --foo-option <bar|baz>   foo description
 +                            Defaults to bar.
+    --generator-star-spacing Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)
+                             Defaults to false.
     --html-whitespace-sensitivity <css|strict|ignore>
                              How to handle whitespaces in HTML.
                              Defaults to css.
-    --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-                             Defaults to false.
-    --jsx-single-quote       Use single quotes in JSX.
+@@ -55,11 +57,11 @@
+    --no-object-curly-spacing
+                             Disable spaces between object curly braces.
+    --offset-ternary-expressions
+                             Indent and align ternary expression branches more consistently with \\"Standard JS\\" (similar to the corresponding eslint option).
                              Defaults to false.
 -   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
 +   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>

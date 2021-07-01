@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angularjs.html - {"bracketSpacing":false} format 1`] = `
+exports[`angularjs.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -236,9 +237,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`attr-name.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -312,9 +314,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`attributes.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -1995,9 +1998,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`first-lf.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2538,9 +2542,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`ignore-attribute.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2855,9 +2860,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`interpolation.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -3908,9 +3914,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`real-world.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`real-world.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -13688,9 +13695,10 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`tag-name.component.html - {"bracketSpacing":false} format 1`] = `
+exports[`tag-name.component.html - {"bogus":null,"objectCurlySpacing":false} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+bogus: null
+objectCurlySpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth

@@ -160,6 +160,10 @@ function postprocess(ast, options) {
           node.optional = true;
         }
         break;
+      case "IfStatement": // [prettierx] quick workaround breakBeforeElse & AST compare test
+        if (node.consequent.innerComments) {
+          delete node.consequent.innerComments;
+        }
     }
   });
 

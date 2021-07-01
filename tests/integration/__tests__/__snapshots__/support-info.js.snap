@@ -10,8 +10,8 @@ Object {
       "css",
     ],
     "Flow": Array [
-      "flow",
       "babel-flow",
+      "flow",
     ],
     "GraphQL": Array [
       "graphql",
@@ -71,12 +71,12 @@ Object {
       "scss",
     ],
     "TSX": Array [
-      "typescript",
       "babel-ts",
+      "typescript",
     ],
     "TypeScript": Array [
-      "typescript",
       "babel-ts",
+      "typescript",
     ],
     "Vue": Array [
       "vue",
@@ -86,6 +86,14 @@ Object {
     ],
   },
   "options": Object {
+    "alignObjectProperties": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "arrayBracketSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "arrowParens": Object {
       "choices": Array [
         "always",
@@ -96,6 +104,18 @@ Object {
     },
     "bracketSpacing": Object {
       "default": true,
+      "type": "boolean",
+    },
+    "breakBeforeElse": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "breakLongMethodChains": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "computedPropertySpacing": Object {
+      "default": false,
       "type": "boolean",
     },
     "cursorOffset": Object {
@@ -125,9 +145,17 @@ Object {
       "default": "lf",
       "type": "choice",
     },
+    "exportCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "filepath": Object {
       "default": undefined,
       "type": "path",
+    },
+    "generatorStarSpacing": Object {
+      "default": false,
+      "type": "boolean",
     },
     "htmlWhitespaceSensitivity": Object {
       "choices": Array [
@@ -138,6 +166,22 @@ Object {
       "default": "css",
       "type": "choice",
     },
+    "importCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "importFormatting": Object {
+      "choices": Array [
+        "auto",
+        "oneline",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
+    "indentChains": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "insertPragma": Object {
       "default": false,
       "type": "boolean",
@@ -147,6 +191,14 @@ Object {
       "type": "boolean",
     },
     "jsxSingleQuote": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "objectCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
+    "offsetTernaryExpressions": Object {
       "default": false,
       "type": "boolean",
     },
@@ -243,6 +295,18 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "spaceBeforeFunctionParen": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "spaceInParens": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "spaceUnaryOps": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "tabWidth": Object {
       "default": 2,
       "range": Object {
@@ -251,6 +315,10 @@ Object {
         "step": 1,
       },
       "type": "int",
+    },
+    "templateCurlySpacing": Object {
+      "default": false,
+      "type": "boolean",
     },
     "trailingComma": Object {
       "choices": Array [
@@ -261,11 +329,27 @@ Object {
       "default": "es5",
       "type": "choice",
     },
+    "typeAngleBracketSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "typeBracketSpacing": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "typeCurlySpacing": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "useTabs": Object {
       "default": false,
       "type": "boolean",
     },
     "vueIndentScriptAndStyle": Object {
+      "default": false,
+      "type": "boolean",
+    },
+    "yieldStarSpacing": Object {
       "default": false,
       "type": "boolean",
     },
@@ -359,7 +443,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"flow\\", \\"babel-flow\\"],
+      \\"parsers\\": [\\"babel-flow\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -397,7 +481,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
-      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
+      \\"parsers\\": [\\"babel-ts\\", \\"typescript\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.ts\\",
       \\"type\\": \\"programming\\",
@@ -411,7 +495,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"TypeScript\\",
       \\"linguistLanguageId\\": 94901924,
       \\"name\\": \\"TSX\\",
-      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
+      \\"parsers\\": [\\"babel-ts\\", \\"typescript\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.tsx\\",
       \\"type\\": \\"programming\\",
@@ -756,6 +840,22 @@ exports[`CLI --support-info (stdout) 1`] = `
   \\"options\\": [
     {
       \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Align colons in multiline object literals.\\",
+      \\"name\\": \\"alignObjectProperties\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between array brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"arrayBracketSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
         {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
@@ -781,6 +881,30 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Always add a line break before else.\\",
+      \\"name\\": \\"breakBeforeElse\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Break method chains with more than 3 method calls, like Prettier 1.x.\\",
+      \\"name\\": \\"breakLongMethodChains\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between computed property brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"computedPropertySpacing\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {
@@ -840,12 +964,29 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"choice\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between export curly braces.\\",
+      \\"name\\": \\"exportCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between export curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Special\\",
       \\"description\\": \\"Specify the input filepath. This will be used to do parser inference.\\",
       \\"name\\": \\"filepath\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces around the star (\`*\`) in generator functions (before and after - similar to the corresponding eslint option). (Default is after only.)\\",
+      \\"name\\": \\"generatorStarSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"HTML\\",
@@ -869,6 +1010,42 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between import curly braces.\\",
+      \\"name\\": \\"importCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between import curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"automatic formatting, like Prettier\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"keep import statements on one line\\",
+          \\"value\\": \\"oneline\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Formatting of import statements, may be \`oneline\` to avoid conflict with VSCode \\\\\\"Organize Imports\\\\\\" feature.\\",
+      \\"name\\": \\"importFormatting\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put indents at the start of chained calls.\\",
+      \\"name\\": \\"indentChains\\",
+      \\"oppositeDescription\\": \\"Disable indents at the start of chained calls.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Special\\",
@@ -895,6 +1072,23 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"jsxSingleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between object curly braces (similar to the corresponding eslint option).\\",
+      \\"name\\": \\"objectCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between object curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Indent and align ternary expression branches more consistently with \\\\\\"Standard JS\\\\\\" (similar to the corresponding eslint option).\\",
+      \\"name\\": \\"offsetTernaryExpressions\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {
@@ -1073,6 +1267,30 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put a space before function parenthesis in all declarations (similar to the corresponding eslint option). (Default is to put a space before function parenthesis for untyped anonymous functions only.)\\",
+      \\"name\\": \\"spaceBeforeFunctionParen\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces in between parens, WordPress style (similar to the corresponding eslint option). Not recommended in combination with the default \`arrowParens: \\\\\\"always\\\\\\"\` option. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"spaceInParens\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces after unary operator symbols, except in the middle of \`!!\` (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"spaceUnaryOps\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"default\\": 2,
       \\"description\\": \\"Number of spaces per indentation level.\\",
@@ -1080,6 +1298,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between template curly brackets (similar to the corresponding eslint option). Status: experimental, with limited testing.\\",
+      \\"name\\": \\"templateCurlySpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"JavaScript\\",
@@ -1102,6 +1328,31 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"choice\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces between type angle brackets. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"typeAngleBracketSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Print spaces between type brackets. Status: experimental, with limited testing.\\",
+      \\"name\\": \\"typeBracketSpacing\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": true,
+      \\"description\\": \\"Put spaces between type curly braces.\\",
+      \\"name\\": \\"typeCurlySpacing\\",
+      \\"oppositeDescription\\": \\"Disable spaces between type curly braces.\\",
+      \\"pluginDefaults\\": {},
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"default\\": false,
       \\"description\\": \\"Indent with tabs instead of spaces.\\",
@@ -1117,6 +1368,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"vueIndentScriptAndStyle\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.19.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put spaces around the star (\`*\`) in \`yield*\` expressions (before and after - similar to the corresponding eslint option). (Default is after only.)\\",
+      \\"name\\": \\"yieldStarSpacing\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     }
   ]

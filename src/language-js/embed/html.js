@@ -27,7 +27,8 @@ function format(path, print, textToDoc, options, { parser }) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  // [prettierx] --template-curly-spacing option support (...)
+  const expressionDocs = printTemplateExpressions(path, print, options);
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
   }

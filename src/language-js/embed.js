@@ -55,11 +55,13 @@ function embed(path, print, textToDoc, options) {
   }
 
   if (language === "css") {
-    return formatCss(path, print, textToDoc);
+    // [prettierx] --template-curly-spacing option support (...)
+    return formatCss(path, print, textToDoc, options);
   }
 
   if (language === "graphql") {
-    return formatGraphql(path, print, textToDoc);
+    // [prettierx] --template-curly-spacing option support (...)
+    return formatGraphql(path, print, textToDoc, options);
   }
 
   if (language === "html" || language === "angular") {
