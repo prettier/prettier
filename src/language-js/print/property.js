@@ -1,5 +1,8 @@
 "use strict";
 
+// [prettierx] support internal error message below
+const { outdent } = require("outdent");
+
 const { printComments } = require("../../main/comments");
 const { printString, printNumber } = require("../../common/util");
 const {
@@ -17,10 +20,10 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    // [prettierx] computedPropertySpacing option support (...)
+    // [prettierx] --computed-property-spacing option support (...)
     const computedPropertySpace = options.computedPropertySpacing ? " " : "";
 
-    // [prettierx] computedPropertySpacing option support (...)
+    // [prettierx] --computed-property-spacing option support (...)
     return [
       "[",
       computedPropertySpace,
@@ -104,8 +107,7 @@ function printPropertyKey(path, options, print) {
   return print("key");
 }
 
-// [prettierx] for alignObjectProperties option
-// with computedPropertySpacing option support
+// [prettierx] support --align-object-properties & --computed-property-spacing
 function getPropertyPadding(options, path) {
   if (!options.alignObjectProperties) {
     return "";
@@ -132,6 +134,8 @@ function getPropertyPadding(options, path) {
     return "";
   }
 
+  // *should* always resolve to a (whole) number
+  // (unless it throws, which is NOT EXPECTED)
   const nameLength =
     type === "Identifier"
       ? node.name.length
@@ -139,16 +143,18 @@ function getPropertyPadding(options, path) {
       ? node.raw.length
       : node.extra.raw
       ? node.extra.raw.length
-      : undefined;
+      : (() => {
+          // STOP HERE with an internal error
+          // (alternative is to simply assume zero-length)
+          throw new Error(outdent`
+            INTERNAL ERROR NOT EXPECTED: could not find length for a node
+            issue with reproduction would be appreciated in:
+            https://github.com/brodybits/prettierx/issues
+            `);
+        })();
 
-  // [prettierx] computedPropertySpacing option support
+  // [prettierx] --computed-property-spacing option support
   const computedPropertyOverhead = options.computedPropertySpacing ? 4 : 2;
-
-  // FUTURE TBD from arijs/prettier-miscellaneous#10
-  // (does not seem to be needed to pass the tests):
-  // if (nameLength === undefined) {
-  //   return "";
-  // }
 
   const { properties } = parentObject;
   const lengths = properties.map((property) => {
@@ -176,8 +182,7 @@ function printProperty(path, options, print) {
     return print("value");
   }
 
-  // [prettierx] calculate property padding
-  // for alignObjectProperties option
+  // [prettierx] for --align-object-properties option
   const propertyPadding = path.call(
     getPropertyPadding.bind(null, options),
     "key"
@@ -187,31 +192,29 @@ function printProperty(path, options, print) {
   // to use the same printPropertyKey call for both
   // computed & non-computed properties
 
-  // [prettierx] computedPropertySpacing option support
+  // [prettierx] --computed-property-spacing option support
   const computedPropertySpace = options.computedPropertySpacing ? " " : "";
 
   // [prettierx] calculate this overhead in case it is needed,
-  // with computedPropertySpacing option support:
+  // with --computed-property-spacing option support:
   const computedPropertyOverhead = options.computedPropertySpacing ? 4 : 2;
 
-  // [prettierx] compose left part,
-  // for alignObjectProperties option
+  // [prettierx] compose left part, for --align-object-properties option
   const propertyLeftPart = node.computed
     ? [
         // [prettierx] computed property key,
         // with padding as needed for alignment
         "[",
-        // [prettierx] computedPropertySpacing option support (...)
+        // [prettierx] --computed-property-spacing option support (...)
         computedPropertySpace,
         print("key"),
-        // [prettierx] computedPropertySpacing option support (...)
+        // [prettierx] --computed-property-spacing option support (...)
         computedPropertySpace,
         "]",
         propertyPadding.slice(computedPropertyOverhead),
       ]
     : [
-        // [prettierx] normal property key,
-        // for alignObjectProperties option
+        // [prettierx] normal property key, for --align-object-properties option
         printPropertyKey(path, options, print),
         propertyPadding,
       ];
@@ -220,8 +223,7 @@ function printProperty(path, options, print) {
     path,
     options,
     print,
-    // [prettierx] with optional property alignment
-    // for alignObjectProperties option
+    // [prettierx] optional property alignment for --align-object-properties
     propertyLeftPart,
     ":",
     "value"
