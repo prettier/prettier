@@ -185,32 +185,33 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    // [prettierx] for exportCurlySpacing, import CurlySpacing option support
+    // [prettierx] --no-export-curly-spacing & --no-import-curly-spacing support
     let isExport = false;
 
-    // [prettierx] with exportCurlySpacing, import CurlySpacing option support
+    // [prettierx] with --no-export-curly-spacing & --no-import-curly-spacing
+    // option support (...)
     path.each(() => {
       const specifierType = path.getValue().type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
         specifierType === "ExportDefaultSpecifier"
       ) {
-        // [prettierx] exportCurlySpacing option
+        // [prettierx] --no-export-curly-spacing option
         isExport = true;
         standaloneSpecifiers.push(print());
       } else if (
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        // [prettierx] importCurlySpacing option
+        // [prettierx] --no-import-curly-spacing option
         isExport = false;
         standaloneSpecifiers.push(print());
       } else if (specifierType === "ExportSpecifier") {
-        // [prettierx] exportCurlySpacing option
+        // [prettierx] --no-export-curly-spacing option
         isExport = true;
         groupedSpecifiers.push(print());
       } else if (specifierType === "ImportSpecifier") {
-        // [prettierx] importCurlySpacing option
+        // [prettierx] --no-import-curly-spacing option
         isExport = false;
         groupedSpecifiers.push(print());
       } else {
@@ -223,7 +224,7 @@ function printModuleSpecifiers(path, options, print) {
 
     parts.push(join(", ", standaloneSpecifiers));
 
-    // [prettierx] for exportCurlySpacing, import CurlySpacing option support
+    // [prettierx] --no-export-curly-spacing & --no-import-curly-spacing support
     const curlySpacing = isExport
       ? options.exportCurlySpacing
       : options.importCurlySpacing;
@@ -246,12 +247,13 @@ function printModuleSpecifiers(path, options, print) {
           group([
             "{",
             indent([
-              // [prettierx] importCurlySpacing, exportCurlySpacing options
+              // [prettierx] with --no-export-curly-spacing & --no-import-curly-spacing
+              // option support (...)
               curlyLine,
               join([",", line], groupedSpecifiers),
             ]),
             ifBreak(shouldPrintComma(options) ? "," : ""),
-            // [prettierx] importCurlySpacing, exportCurlySpacing options
+            // [prettierx] --no-import-curly-spacing & --no-export-curly-spacing options
             curlyLine,
             "}",
           ])
@@ -260,10 +262,10 @@ function printModuleSpecifiers(path, options, print) {
         parts.push(
           removeLines([
             "{",
-            // [prettierx] importCurlySpacing, exportCurlySpacing options
+            // [prettierx] --no-import-curly-spacing, --no-export-curly-spacing options
             curlyLine,
             join([",", line], groupedSpecifiers),
-            // [prettierx] importCurlySpacing, exportCurlySpacing options
+            // [prettierx] --no-import-curly-spacing, --no-export-curly-spacing options
             curlyLine,
             "}",
           ])
@@ -298,10 +300,10 @@ function printImportAssertions(path, options, print) {
   if (isNonEmptyArray(node.assertions)) {
     return [
       " assert {",
-      // [prettierx] importCurlySpacing option
+      // [prettierx] --no-import-curly-spacing option
       options.importCurlySpacing ? " " : "",
       join(", ", path.map(print, "assertions")),
-      // [prettierx] importCurlySpacing option
+      // [prettierx] --no-import-curly-spacing option
       options.importCurlySpacing ? " " : "",
       "}",
     ];

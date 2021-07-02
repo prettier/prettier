@@ -301,7 +301,7 @@ function printTypescript(path, options, print) {
         [
           "{",
           indent([
-            // [prettierx] typeCurlySpacing option support:
+            // [prettierx] --no-type-curly-spacing option support:
             options.typeCurlySpacing ? line : softline,
             node.readonly
               ? [
@@ -319,7 +319,7 @@ function printTypescript(path, options, print) {
             ifBreak(semi),
           ]),
           printDanglingComments(path, options, /* sameIndent */ true),
-          // [prettierx] typeCurlySpacing option support:
+          // [prettierx] --no-type-curly-spacing option support:
           options.typeCurlySpacing ? line : softline,
           "}",
         ],

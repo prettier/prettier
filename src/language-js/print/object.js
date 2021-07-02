@@ -26,7 +26,7 @@ const { printHardlineAfterHeritage } = require("./class");
 
 /** @typedef {import("../../document").Doc} Doc */
 
-// [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+// [prettierx]: --no-object-curly-spacing, --no-type-curly-spacing option support
 /**
  * Returns the properties field and spacing option for the given node.
  * @param {{type: string}} node
@@ -39,7 +39,7 @@ function getFieldAndSpacing(node, options) {
       return ["members", options.typeCurlySpacing];
     case "TSInterfaceBody":
       return ["body", options.typeCurlySpacing];
-    // [prettierx]: typeCurlySpacing option support
+    // [prettierx]: --no-type-curly-spacing option support
     case "ObjectTypeAnnotation":
       return ["properties", options.typeCurlySpacing];
     default:
@@ -51,7 +51,7 @@ function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
 
-  // [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+  // [prettierx]: --no-object-curly-spacing, --no-type-curly-spacing option support
   // NOTE: For some reason explicit string type for propertiesField
   // is needed to avoid typecheck error below.
   /** @type {[string, boolean]} */
@@ -204,7 +204,7 @@ function printObject(path, options, print) {
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
-      // [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+      // [prettierx]: --no-object-curly-spacing, --no-type-curly-spacing option support
       indent([curlySpacing ? line : softline, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
@@ -212,7 +212,7 @@ function printObject(path, options, print) {
           ? separator
           : ""
       ),
-      // [prettierx]: objectCurlySpacing, typeCurlySpacing option support
+      // [prettierx]: --no-object-curly-spacing, --no-type-curly-spacing option support
       curlySpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),

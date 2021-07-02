@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  // [prettierx] computedPropertySpacing option support
+  // [prettierx] --computed-property-spacing option support
   builders: { softline, line, group, indent, label },
 } = require("../../document");
 const {
@@ -58,7 +58,7 @@ function printMemberLookup(path, options, print) {
   const node = path.getValue();
   const optional = printOptionalToken(path);
 
-  // [prettierx] computedPropertySpacing option support
+  // [prettierx] --computed-property-spacing option support
   const computedPropertySpace = options.computedPropertySpacing ? " " : "";
   const computedPropertyLine = options.computedPropertySpacing
     ? line
@@ -69,7 +69,7 @@ function printMemberLookup(path, options, print) {
   }
 
   if (!node.property || isNumericLiteral(node.property)) {
-    // [prettierx] computedPropertySpacing option support
+    // [prettierx] --computed-property-spacing option support
     return [
       optional,
       "[",
@@ -80,11 +80,11 @@ function printMemberLookup(path, options, print) {
     ];
   }
 
-  // [prettierx] computedPropertySpacing option support
+  // [prettierx] --computed-property-spacing option support
   return group([
     optional,
     "[",
-    // [prettierx] computedPropertySpacing option support
+    // [prettierx] --computed-property-spacing option support
     indent([computedPropertyLine, property]),
     computedPropertyLine,
     "]",

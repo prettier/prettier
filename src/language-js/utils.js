@@ -668,7 +668,7 @@ function hasLeadingOwnLineComment(text, node) {
   );
 }
 
-// [prettierx] for spaceInParens option support (...)
+// [prettierx] for --space-in-parens option support (...)
 function startsWithSpace(arg) {
   const getFirstItem = (item) => {
     if (!item) {
@@ -697,7 +697,7 @@ function startsWithSpace(arg) {
   );
 }
 
-// [prettierx] for spaceInParens option support (...)
+// [prettierx] for --space-in-parens option support (...)
 function hasAddedLine(arg) {
   if (Array.isArray(arg)) {
     if (arg.length > 0) {
@@ -1369,7 +1369,7 @@ module.exports = {
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
-  // [prettierx]: for spaceInParens support
+  // [prettierx]: for --space-in-parens support
   hasAddedLine,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment,
@@ -1420,7 +1420,7 @@ module.exports = {
   isBitwiseOperator,
   shouldFlatten,
   startsWithNoLookaheadToken,
-  // [prettierx]: for spaceInParens support
+  // [prettierx]: for --space-in-parens support
   startsWithSpace,
   getPrecedence,
   hasComment,

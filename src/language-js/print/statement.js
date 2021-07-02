@@ -135,7 +135,7 @@ function expressionNeedsASIProtection(path, options) {
       }
       break;
     }
-    // [prettierx] spaceInParens option support (...)
+    // [prettierx] --space-in-parens option support (...)
     // needsParens is false for binaryish expr inside memberexpr, but is parenthesized nevertheless
     case "MemberExpression":
       if (

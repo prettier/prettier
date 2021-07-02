@@ -207,9 +207,9 @@ function printTernary(path, options, print) {
   const alternateNode = node[alternateNodePropertyName];
   const parts = [];
 
-  // [prettierx] spaceInParens option support (...)
-  const parenSpace = options.spaceInParens ? " " : "";
-  const parenLine = options.spaceInParens ? line : softline;
+  // [prettierx] --space-in-parens option support (...)
+  const insideSpace = options.spaceInParens ? " " : "";
+  const innerLineBreak = options.spaceInParens ? line : softline;
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See tests/jsx/conditional-expression.js for more info.
@@ -284,17 +284,17 @@ function printTernary(path, options, print) {
     const part = [
       line,
       "? ",
-      // [prettierx] spaceInParens option support (...)
+      // [prettierx] --space-in-parens option support (...)
       ...(consequentNode.type === node.type
-        ? [ifBreak("", ["(", parenSpace])]
+        ? [ifBreak("", ["(", insideSpace])]
         : [""]),
       // [prettierx] offsetTernaryExpressions option support:
       !options.offsetTernaryExpressions
         ? align(2, print(consequentNodePropertyName))
         : print(consequentNodePropertyName),
-      // [prettierx] spaceInParens option support (...)
+      // [prettierx] --space-in-parens option support (...)
       ...(consequentNode.type === node.type
-        ? [parenSpace, ifBreak("", ")")]
+        ? [insideSpace, ifBreak("", ")")]
         : [""]),
       line,
       ": ",
@@ -356,7 +356,7 @@ function printTernary(path, options, print) {
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
-  // prettierx: with options for parenSpace support in ternaries (...)
+  // prettierx: with options for insideSpace support in ternaries (...)
   const maybeGroup = (doc) =>
     parent === firstNonConditionalParent
       ? group(doc, { breakParent, addedLine: breakClosingParen })
@@ -369,9 +369,9 @@ function printTernary(path, options, print) {
   const result = maybeGroup([
     printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
-    // [prettierx]: spaceInParens option (...)
+    // [prettierx]: --space-in-parens option (...)
     isConditionalExpression && breakClosingParen && !shouldExtraIndent
-      ? parenLine
+      ? innerLineBreak
       : "",
   ]);
 

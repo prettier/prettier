@@ -41,8 +41,8 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
 
-  // [prettierx] spaceInParens option support (...)
-  const parenLine = options.spaceInParens ? line : softline;
+  // [prettierx] --space-in-parens option support (...)
+  const innerLineBreak = options.spaceInParens ? line : softline;
 
   const parts = printBinaryishExpressions(
     path,
@@ -66,7 +66,7 @@ function printBinaryishExpression(path, options, print) {
     return parts;
   }
 
-  // [prettierx] spaceInParens option support
+  // [prettierx] --space-in-parens option support
   // (...)
   //
   // Break between the parens in
@@ -82,8 +82,8 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "UnaryExpression" ||
     (isMemberExpression(parent) && !parent.computed)
   ) {
-    // [prettierx] spaceInParens option support (...)
-    return group([indent([parenLine, ...parts]), parenLine], {
+    // [prettierx] --space-in-parens option support (...)
+    return group([indent([innerLineBreak, ...parts]), innerLineBreak], {
       addedLine: options.spaceInParens,
     });
   }

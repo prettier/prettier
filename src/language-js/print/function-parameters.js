@@ -36,9 +36,9 @@ function printFunctionParameters(
     ? printFunctionTypeParameters(path, options, print)
     : "";
 
-  // [prettierx] spaceInParens option support (...)
-  const parenSpace = options.spaceInParens ? " " : "";
-  const parenLine = options.spaceInParens ? line : softline;
+  // [prettierx] --space-in-parens option support (...)
+  const insideSpace = options.spaceInParens ? " " : "";
+  const innerLineBreak = options.spaceInParens ? line : softline;
 
   if (parameters.length === 0) {
     return [
@@ -97,15 +97,15 @@ function printFunctionParameters(
       // Removing lines in this case leads to broken or ugly output
       throw new ArgExpansionBailout();
     }
-    // [prettierx] with spaceInParens option support (...)
+    // [prettierx] with --space-in-parens option support (...)
     return group([
       removeLines(typeParams),
       "(",
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       removeLines(printed),
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       ")",
     ]);
   }
@@ -119,30 +119,30 @@ function printFunctionParameters(
   // }) {}
   const hasNotParameterDecorator = parameters.every((node) => !node.decorators);
   if (shouldHugParameters && hasNotParameterDecorator) {
-    // [prettierx] with spaceInParens option support (...)
+    // [prettierx] with --space-in-parens option support (...)
     return [
       typeParams,
       "(",
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       ...printed,
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       ")",
     ];
   }
 
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
   if (isParametersInTestCall) {
-    // [prettierx] with spaceInParens option support (...)
+    // [prettierx] with --space-in-parens option support (...)
     return [
       typeParams,
       "(",
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       ...printed,
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       ")",
     ];
   }
@@ -167,25 +167,25 @@ function printFunctionParameters(
 
   if (isFlowShorthandWithOneArg) {
     if (options.arrowParens === "always") {
-      // [prettierx] spaceInParens option support (...)
-      return ["(", parenSpace, ...printed, parenSpace, ")"];
+      // [prettierx] --space-in-parens option support (...)
+      return ["(", insideSpace, ...printed, insideSpace, ")"];
     }
     return printed;
   }
 
-  // [prettierx] with spaceInParens option support (...)
+  // [prettierx] with --space-in-parens option support (...)
   return [
     typeParams,
     "(",
-    // [prettierx] spaceInParens option support (...)
-    indent([parenLine, ...printed]),
+    // [prettierx] --space-in-parens option support (...)
+    indent([innerLineBreak, ...printed]),
     ifBreak(
       !hasRestParameter(functionNode) && shouldPrintComma(options, "all")
         ? ","
         : ""
     ),
-    // [prettierx] spaceInParens option support (...)
-    parenLine,
+    // [prettierx] --space-in-parens option support (...)
+    innerLineBreak,
     ")",
   ];
 }

@@ -24,8 +24,8 @@ function printCallExpression(path, options, print) {
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
 
-  // [prettierx] spaceInParens option support (...)
-  const parenSpace = options.spaceInParens ? " " : "";
+  // [prettierx] --space-in-parens option support (...)
+  const insideSpace = options.spaceInParens ? " " : "";
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
@@ -53,11 +53,11 @@ function printCallExpression(path, options, print) {
       optional,
       printFunctionTypeParameters(path, options, print),
       "(",
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       join(", ", printed),
-      // [prettierx] spaceInParens option support (...)
-      parenSpace,
+      // [prettierx] --space-in-parens option support (...)
+      insideSpace,
       ")",
     ];
   }

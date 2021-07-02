@@ -238,12 +238,12 @@ function printFunctionType(path, options, print) {
     needsColon = true;
   }
 
-  // [prettierx] spaceInParens option support (...)
-  const parenSpace = options.spaceInParens ? " " : "";
+  // [prettierx] --space-in-parens option support (...)
+  const insideSpace = options.spaceInParens ? " " : "";
 
   if (needsParens) {
-    // [prettierx] spaceInParens option support (...)
-    parts.push("(", parenSpace);
+    // [prettierx] --space-in-parens option support (...)
+    parts.push("(", insideSpace);
   }
 
   const parametersDoc = printFunctionParameters(
@@ -278,8 +278,8 @@ function printFunctionType(path, options, print) {
   }
 
   if (needsParens) {
-    // [prettierx] spaceInParens option support (...)
-    parts.push(parenSpace, ")");
+    // [prettierx] --space-in-parens option support (...)
+    parts.push(insideSpace, ")");
   }
 
   return group(parts);
