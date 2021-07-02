@@ -1,9 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`single.js [__typescript_estree] format 1`] = `
+"Declaration or statement expected. (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js [babel-ts] format 1`] = `
+"Unexpected token (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js [typescript] format 1`] = `
+"Declaration or statement expected. (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js - {"arrowParens":"avoid"} [__typescript_estree] format 1`] = `
+"Declaration or statement expected. (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js - {"arrowParens":"avoid"} [babel-ts] format 1`] = `
+"Unexpected token (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js - {"arrowParens":"avoid"} [typescript] format 1`] = `
+"Declaration or statement expected. (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
 exports[`single.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "babel", "babel-flow"]
+parsers: ["flow", "babel", "babel-flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -25,9 +91,42 @@ const selectorByPath: Path => SomethingSelector<
 ================================================================================
 `;
 
+exports[`single.js - {"trailingComma":"all"} [__typescript_estree] format 1`] = `
+"Declaration or statement expected. (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js - {"trailingComma":"all"} [babel-ts] format 1`] = `
+"Unexpected token (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
+exports[`single.js - {"trailingComma":"all"} [typescript] format 1`] = `
+"Declaration or statement expected. (3:2)
+  1 | const selectorByPath:
+  2 |   Path
+> 3 |  => SomethingSelector<
+    |  ^
+  4 |   SomethingUEditorContextType,
+  5 |   SomethingUEditorContextType,
+  6 |   SomethingBulkValue<string>"
+`;
+
 exports[`single.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "babel-flow"]
+parsers: ["flow", "babel", "babel-flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -52,7 +151,7 @@ const selectorByPath: (Path) => SomethingSelector<
 
 exports[`single.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "babel-flow"]
+parsers: ["flow", "babel", "babel-flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -74,10 +173,70 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
+exports[`test.js [__typescript_estree] format 1`] = `
+"';' expected. (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js - {"arrowParens":"avoid"} [__typescript_estree] format 1`] = `
+"';' expected. (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js - {"arrowParens":"avoid"} [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js - {"arrowParens":"avoid"} [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
 exports[`test.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["flow", "babel", "babel-flow"]
+parsers: ["flow", "babel", "babel-flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -211,9 +370,39 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
+exports[`test.js - {"trailingComma":"all"} [__typescript_estree] format 1`] = `
+"';' expected. (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js - {"trailingComma":"all"} [babel-ts] format 1`] = `
+"Unexpected token, expected \\";\\" (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
+exports[`test.js - {"trailingComma":"all"} [typescript] format 1`] = `
+"';' expected. (2:15)
+  1 | type Banana = {
+> 2 |   eat: string => boolean,
+    |               ^
+  3 | };
+  4 |
+  5 | type Hex = {n: 0x01};"
+`;
+
 exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "babel-flow"]
+parsers: ["flow", "babel", "babel-flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -350,7 +539,7 @@ type T8 = ??(() => A) | B;
 
 exports[`test.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "babel-flow"]
+parsers: ["flow", "babel", "babel-flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
