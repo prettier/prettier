@@ -2,13 +2,17 @@
   "name": "prettierx",
   "version": "0.19.0-01-update-branch",
   "prettier-version": "2.4.0",
-  "description": "prettierx 0.19.0-01-update-branch (...) a less opinionated code formatter fork of Prettier",
+  "description": "prettierX - a less opinionated fork of the Prettier code formatter",
   "bin": "./bin/prettierx.js",
   "repository": "brodybits/prettierx",
   "homepage": "https://github.com/brodybits/prettierx",
   "license": "MIT",
   "main": "./index.js",
-  "// prettierx STANDALONE TODO NOTES": "CURRENTLY NOT SUPPORTED",
+  "// prettierx package notes": [
+    "* ''standalone'' usage with browser & unpkg is currently NOT supported",
+    "  (for future consideration) - now ''commented out'' below",
+    "<!-- -->"
+  ],
   "// browser": "./standalone.js",
   "// unpkg": "./standalone.js",
   "engines": {
@@ -22,7 +26,7 @@
     "src",
     "bin"
   ],
-  "// prettierx dependencies notes": [
+  "// prettierx dependency notes": [
     "* installing dependencies from GitHub is not desired in prettierx",
     "  due to a possible issue with firewalls in certain organizations",
     "  TEMPORARY EXCEPTION: parse-srcset",
@@ -31,8 +35,6 @@
     "  https://www.npmjs.com/advisories/1700",
     "* flow-parser & typescript are moved to devDependencies, and",
     "  they are specified as optional in peerDependenciesMeta",
-    "* N/A: tslib@1 (...)",
-    "* N/A: codecov (...)",
     "<!-- -->"
   ],
   "dependencies": {
