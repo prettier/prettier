@@ -53,7 +53,7 @@ describe("doc builders", () => {
       "group",
       group(concat(["1"])),
       {
-        // [prettierx] for --paren-spacing option support (...)
+        // [prettierx] for --space-in-parens option support (...)
         addedLine: false,
         type: "group",
         id: undefined,
@@ -66,7 +66,7 @@ describe("doc builders", () => {
       "group (array)",
       group(["1"]),
       {
-        // [prettierx] for --paren-spacing option support (...)
+        // [prettierx] for --space-in-parens option support (...)
         addedLine: false,
         type: "group",
         id: undefined,

@@ -6,9 +6,9 @@
 const dirPath = `${__dirname}/../../../js/arrows`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
-  // [prettierx] recommended option, especially in combo with --paren-spacing
+  // [prettierx] recommended option, especially in combo with --space-in-parens
   arrowParens: "avoid",
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   computedPropertySpacing: true,
   templateCurlySpacing: true,

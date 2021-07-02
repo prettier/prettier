@@ -5,7 +5,7 @@
 const dirPath = `${__dirname}/..`;
 
 run_spec(dirPath, ["__ng_interpolation"], {
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   computedPropertySpacing: true,
   trailingComma: "none",

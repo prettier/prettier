@@ -7,7 +7,7 @@ const dirPath = `${__dirname}/..`;
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
   // "Standard JS":
   alignObjectProperties: true,
-  // prettierx: test with --paren-spacing
+  // prettierx: test with --space-in-parens
   computedPropertySpacing: true,
   // "Standard JS":
   trailingComma: "none",

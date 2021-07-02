@@ -6,6 +6,6 @@
 const dirPath = `${__dirname}/../../../typescript/function-type`;
 
 run_spec(dirPath, ["typescript"], {
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
 });

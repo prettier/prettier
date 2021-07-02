@@ -6,7 +6,7 @@
 const dirPath = `${__dirname}/../../../typescript/conformance/types/indexedAccesType`;
 
 run_spec(dirPath, ["typescript"], {
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   typeAngleBracketSpacing: true,
   typeBracketSpacing: true,

@@ -6,7 +6,7 @@
 const dirPath = `${__dirname}/../../../js/comments-closure-typecast`;
 
 run_spec(dirPath, ["babel", "babel-flow"], {
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   arrayBracketSpacing: true,
   computedPropertySpacing: true,

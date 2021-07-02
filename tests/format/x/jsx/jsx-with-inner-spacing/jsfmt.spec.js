@@ -8,7 +8,7 @@ const dirPath = `${__dirname}/../../../jsx/jsx`;
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
   singleQuote: false,
   jsxSingleQuote: false,
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   arrayBracketSpacing: true,
   computedPropertySpacing: true,

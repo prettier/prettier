@@ -6,7 +6,7 @@
 const dirPath = `${__dirname}/../../../js/binary-expressions`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   computedPropertySpacing: true,
   spaceUnaryOps: true,

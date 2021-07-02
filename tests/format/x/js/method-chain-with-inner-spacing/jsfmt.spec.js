@@ -6,9 +6,9 @@
 const dirPath = `${__dirname}/../../../js/method-chain`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
-  // [prettierx] recommended setting with --paren-spacing
+  // [prettierx] recommended setting with --space-in-parens
   arrowParens: "avoid",
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   arrayBracketSpacing: true,
   computedPropertySpacing: true,
