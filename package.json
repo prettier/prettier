@@ -102,7 +102,7 @@
     "babel-loader": "8.2.2",
     "benchmark": "2.1.4",
     "builtin-modules": "3.2.0",
-    "core-js": "3.15.1",
+    "core-js": "3.15.2",
     "cross-env": "7.0.3",
     "cspell": "4.2.8",
     "eslint": "7.29.0",
