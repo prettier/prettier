@@ -1,12 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`d-flag.js [espree] format 1`] = `
-"Invalid regular expression flag (1:2)
-> 1 | /./d;
-    |  ^
-  2 |"
-`;
-
 exports[`d-flag.js [flow] format 1`] = `
 "Invalid flags supplied to RegExp constructor 'd' (1:5)
 > 1 | /./d;

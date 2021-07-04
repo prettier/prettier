@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`class-static-block.js [espree] format 1`] = `
-"Unexpected character '#' (2:10)
-  1 | class C {
-> 2 |   static #x = 42;
-    |          ^
+"Unexpected token { (4:10)
+  2 |   static #x = 42;
   3 |   static y;
-  4 |   static {
-  5 |     try {"
+> 4 |   static {
+    |          ^
+  5 |     try {
+  6 |       this.y = doSomethingWith(this.#x);
+  7 |     } catch {"
 `;
 
 exports[`class-static-block.js [meriyah] format 1`] = `

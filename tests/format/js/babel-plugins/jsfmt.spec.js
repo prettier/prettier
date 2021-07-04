@@ -4,7 +4,6 @@
 run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     espree: [
-      "class-properties.js",
       "decimal.js",
       "decorators.js",
       "do-expressions.js",
