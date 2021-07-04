@@ -18,7 +18,6 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "pipeline-operator-minimal.js",
       "pipeline-operator-smart.js",
       "private-fields-in-in.js",
-      "private-methods.js",
       "record-tuple-record.js",
       "record-tuple-tuple.js",
       "throw-expressions.js",

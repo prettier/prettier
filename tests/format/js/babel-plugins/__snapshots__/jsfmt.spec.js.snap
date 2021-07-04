@@ -1860,17 +1860,6 @@ class C3 {
 ================================================================================
 `;
 
-exports[`private-methods.js [espree] format 1`] = `
-"Private field '#render' must be declared in an enclosing class (12:12)
-  10 |     this.#xValue = value;
-  11 |     window.requestAnimationFrame(
-> 12 |       this.#render.bind(this));
-     |            ^
-  13 |   }
-  14 |
-  15 |   #clicked() {"
-`;
-
 exports[`private-methods.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1883,6 +1872,7 @@ printWidth: 80
 
 class Counter extends HTMLElement {
   #xValue = 0;
+  #render() {}
 
   get #x() { return this.#xValue; }
   set #x(value) {
@@ -1903,6 +1893,7 @@ class Counter extends HTMLElement {
 
 class Counter extends HTMLElement {
   #xValue = 0;
+  #render() {}
 
   get #x() {
     return this.#xValue;
