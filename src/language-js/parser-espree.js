@@ -6,6 +6,7 @@ const createParser = require("./parser/create-parser");
 const replaceHashbang = require("./parser/replace-hashbang");
 
 const parseOptions = {
+  ecmaVersion: "latest",
   range: true,
   loc: true,
   comment: true,
@@ -30,8 +31,7 @@ function createParseError(error) {
 }
 
 function parse(originalText, parsers, options) {
-  const { parse, latestEcmaVersion } = require("espree");
-  parseOptions.ecmaVersion = latestEcmaVersion;
+  const { parse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
