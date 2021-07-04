@@ -105,7 +105,7 @@
     "core-js": "3.15.2",
     "cross-env": "7.0.3",
     "cspell": "4.2.8",
-    "eslint": "7.29.0",
+    "eslint": "7.30.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.23.4",
