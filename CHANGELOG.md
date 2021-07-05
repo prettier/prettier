@@ -16,6 +16,7 @@ intended to help rebase some prettierX JavaScript features on updated version of
 
 with some updates including:
 
+- switch to pure CSS parser using PostCSS 8 (see below)
 - use @brodybits/remark-parse@8, with updated trim sub-dependency, as recommended by:
   - https://www.npmjs.com/advisories/1700
 - remove original author from package.json - with rationale:
@@ -23,9 +24,52 @@ with some updates including:
   - Prettier has a number of committers and likely multiple owners, while prettierX has only one committer & owner at this point.
   - The primary authors should be in the copyright & license statements, while the all of actual code authors _should_ be in the git commits.
   - The existing committer & owner of prettierX hence sees no point in keeping the original author entry.
-- include Prettier update(s) from GitHub, with more info in `changelog_unreleased`
-  ([./changelog_unreleased](./changelog_unreleased)):
-  - update from Prettier `next` branch to use PostCSS 8
+
+### prettierx 0.19.0 update(s) from Prettier next branch
+
+#### [BREAKING] Add the pure `css` parser (prettier/prettier#7933, prettier/prettier#9092, prettier/prettier#9093 by @fisker)
+
+(using PostCSS version 8)
+
+Previously, when `--parser=css` was passed, Prettier tried to parse the content using `postcss-scss` and `postcss-less`. This caused confusion, and made syntax errors difficult to spot. Now `--parser=css` works only with the vanilla CSS syntax.
+
+_If you use `parser="css"` for your `.less`/`.scss` files, update it to the correct parser or remove the `parser` option to let Prettier auto-detect the parser by the file extension._
+
+<!-- prettier-ignore -->
+```less
+/* Input */
+/* Less Syntax with `--parser=css` */
+a {.bordered();}
+
+/* Prettier stable */
+/* Less Syntax with `--parser=css` */
+a {
+  .bordered();
+}
+
+/* Prettier main */
+SyntaxError: (postcss) CssSyntaxError Unknown word (2:4)
+  1 | /* Less Syntax with `--parser=css` */
+> 2 | a {.bordered();}
+```
+
+<!-- prettier-ignore -->
+```scss
+/* Input */
+/* Scss Syntax with `--parser=css` */
+::before {content: #{$foo}}
+
+/* Prettier stable */
+/* Scss Syntax with `--parser=css` */
+::before {
+  content: #{$foo};
+}
+
+/* Prettier main */
+SyntaxError: (postcss) CssSyntaxError Unknown word (2:22)
+  1 | /* Scss Syntax with `--parser=css` */
+> 2 | ::before {content: #{$foo}}
+```
 
 ### prettier 2.3.2
 
