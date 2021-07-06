@@ -31,6 +31,7 @@ function createParseError(error) {
 }
 
 function parse(originalText, parsers, options) {
+  // @ts-ignore
   const { parse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);
