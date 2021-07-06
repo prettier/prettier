@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`correct.js 1`] = `
+exports[`correct.js - {"bogus1":true,"yieldStarSpacing":true} format 1`] = `
 ====================================options=====================================
+bogus1: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 yieldStarSpacing: true
@@ -37,8 +38,9 @@ function* generator() {
 ================================================================================
 `;
 
-exports[`correct.js 2`] = `
+exports[`correct.js - {"bogus2":true,"yieldStarSpacing":true,"generatorStarSpacing":true} format 1`] = `
 ====================================options=====================================
+bogus2: true
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -75,7 +77,7 @@ function * generator () {
 ================================================================================
 `;
 
-exports[`correct.js 3`] = `
+exports[`correct.js - {"yieldStarSpacing":true,"generatorStarSpacing":true,"spaceBeforeFunctionParen":true} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
@@ -114,8 +116,9 @@ function * generator () {
 ================================================================================
 `;
 
-exports[`incorrect.js 1`] = `
+exports[`incorrect.js - {"bogus1":true,"yieldStarSpacing":true} format 1`] = `
 ====================================options=====================================
+bogus1: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 yieldStarSpacing: true
@@ -170,8 +173,9 @@ function* generator() {
 ================================================================================
 `;
 
-exports[`incorrect.js 2`] = `
+exports[`incorrect.js - {"bogus2":true,"yieldStarSpacing":true,"generatorStarSpacing":true} format 1`] = `
 ====================================options=====================================
+bogus2: true
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -227,7 +231,7 @@ function * generator () {
 ================================================================================
 `;
 
-exports[`incorrect.js 3`] = `
+exports[`incorrect.js - {"yieldStarSpacing":true,"generatorStarSpacing":true,"spaceBeforeFunctionParen":true} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]

@@ -1,25 +1,41 @@
 "use strict";
 
 const chalk = require("chalk");
-const dedent = require("dedent");
+const { string: outdentString } = require("outdent");
 const execa = require("execa");
 const { logPromise, waitForEnter } = require("../utils");
+
+/**
+ * Retry "npm publish" when to enter OTP is failed.
+ */
+async function retryNpmPublish() {
+  const runNpmPublish = () =>
+    execa("npm", ["publish"], {
+      cwd: "./dist",
+      stdio: "inherit", // we need to input OTP if 2FA enabled
+    });
+  for (let i = 5; i > 0; i--) {
+    try {
+      return await runNpmPublish();
+    } catch (error) {
+      if (error.code === "EOTP" && i > 0) {
+        console.log(`To enter OTP is failed, you can retry it ${i} times.`);
+        continue;
+      }
+      throw error;
+    }
+  }
+}
 
 module.exports = async function ({ dry, version }) {
   if (dry) {
     return;
   }
 
-  await logPromise(
-    "Publishing to npm",
-    execa("npm", ["publish"], {
-      cwd: "./dist",
-      stdio: "inherit", // we need to input OTP if 2FA enabled
-    })
-  );
+  await logPromise("Publishing to npm", retryNpmPublish());
 
   console.log(
-    dedent(chalk`
+    outdentString(chalk`
       {green.bold Prettier ${version} published!}
 
       {yellow.bold Some manual steps are necessary.}

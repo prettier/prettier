@@ -56,15 +56,26 @@ module.exports = {
     plugins.clearCache();
   },
 
-  getFileInfo: /** @type {typeof getFileInfo} */ (withPlugins(getFileInfo)),
-  getSupportInfo: /** @type {typeof getSupportInfo} */ (withPlugins(
-    getSupportInfo,
-    0
-  )),
+  /** @type {typeof getFileInfo} */
+  getFileInfo: withPlugins(getFileInfo),
+  /** @type {typeof getSupportInfo} */
+  getSupportInfo: withPlugins(getSupportInfo, 0),
 
   version,
 
   util: sharedUtil,
+
+  // Internal shared
+  __internal: {
+    errors: require("./common/errors"),
+    coreOptions: require("./main/core-options"),
+    createIgnorer: require("./common/create-ignorer"),
+    optionsModule: require("./main/options"),
+    optionsNormalizer: require("./main/options-normalizer"),
+    utils: {
+      arrayify: require("./utils/arrayify"),
+    },
+  },
 
   /* istanbul ignore next */
   __debug: {

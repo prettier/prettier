@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module-string-names-export.js [espree] format 1`] = `
+"Unexpected token \\"smile\\" (1:19)
+> 1 | export { smile as \\"smile\\" } from \\"./emojis.js\\";
+    |                   ^
+  2 | export { \\"smile\\" as smile } from \\"./emojis.js\\";
+  3 | export { \\"smile\\" as \\"smile\\" } from \\"./emojis.js\\";
+  4 | export { foo, bar as \\"foo\\" } from \\"./emojis.js\\";"
+`;
+
+exports[`module-string-names-export.js [meriyah] format 1`] = `
+"[1:25]: Only a identifier can be used to indicate alias (1:25)
+> 1 | export { smile as \\"smile\\" } from \\"./emojis.js\\";
+    |                         ^
+  2 | export { \\"smile\\" as smile } from \\"./emojis.js\\";
+  3 | export { \\"smile\\" as \\"smile\\" } from \\"./emojis.js\\";
+  4 | export { foo, bar as \\"foo\\" } from \\"./emojis.js\\";"
+`;
+
+exports[`module-string-names-export.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { smile as "smile" } from "./emojis.js";
+export { "smile" as smile } from "./emojis.js";
+export { "smile" as "smile" } from "./emojis.js";
+export { foo, bar as "foo" } from "./emojis.js";
+export { foo, bar as "foo" };
+export { "學而時習之，不亦說乎？", "吾道一以貫之。" as "忠恕。" } from "Confucius";
+export * as "foo", { default as "quux" } from "module-b";
+export { "smile" } from "./emojis.js";
+
+=====================================output=====================================
+export { smile as "smile" } from "./emojis.js";
+export { "smile" as smile } from "./emojis.js";
+export { "smile" as "smile" } from "./emojis.js";
+export { foo, bar as "foo" } from "./emojis.js";
+export { foo, bar as "foo" };
+export {
+  "學而時習之，不亦說乎？",
+  "吾道一以貫之。" as "忠恕。",
+} from "Confucius";
+export * as "foo", { default as "quux" } from "module-b";
+export { "smile" } from "./emojis.js";
+
+================================================================================
+`;
+
+exports[`module-string-names-import.js [espree] format 1`] = `
+"Unexpected token \\"default\\" (1:10)
+> 1 | import { \\"default\\" as quotation } from \\"Confucius\\";
+    |          ^
+  2 | import { \\"foo\\" as bar, \\"default\\" as qux } from \\"module-a\\";
+  3 | import { \\"學而時習之，不亦說乎？\\" as quotation } from \\"Confucius\\";
+  4 |"
+`;
+
+exports[`module-string-names-import.js [meriyah] format 1`] = `
+"[1:18]: Expected '}' (1:18)
+> 1 | import { \\"default\\" as quotation } from \\"Confucius\\";
+    |                  ^
+  2 | import { \\"foo\\" as bar, \\"default\\" as qux } from \\"module-a\\";
+  3 | import { \\"學而時習之，不亦說乎？\\" as quotation } from \\"Confucius\\";
+  4 |"
+`;
+
+exports[`module-string-names-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import { "default" as quotation } from "Confucius";
+import { "foo" as bar, "default" as qux } from "module-a";
+import { "學而時習之，不亦說乎？" as quotation } from "Confucius";
+
+=====================================output=====================================
+import { "default" as quotation } from "Confucius";
+import { "foo" as bar, "default" as qux } from "module-a";
+import { "學而時習之，不亦說乎？" as quotation } from "Confucius";
+
+================================================================================
+`;

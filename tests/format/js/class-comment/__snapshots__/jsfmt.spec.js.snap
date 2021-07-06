@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class-property.js [espree] format 1`] = `
+"Unexpected token = (2:12)
+  1 | class X {
+> 2 |   TEMPLATE =
+    |            ^
+  3 |     // tab index is needed so we can focus, which is needed for keyboard events
+  4 |     '<div class=\\"ag-large-text\\" tabindex=\\"0\\">' +
+  5 |     '<div class=\\"ag-large-textarea\\"></div>' +"
+`;
+
+exports[`class-property.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  TEMPLATE =
+    // tab index is needed so we can focus, which is needed for keyboard events
+    '<div class="ag-large-text" tabindex="0">' +
+    '<div class="ag-large-textarea"></div>' +
+    '</div>';
+}
+
+=====================================output=====================================
+class X {
+  TEMPLATE =
+    // tab index is needed so we can focus, which is needed for keyboard events
+    '<div class="ag-large-text" tabindex="0">' +
+    '<div class="ag-large-textarea"></div>' +
+    "</div>";
+}
+
+================================================================================
+`;
+
+exports[`misc.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class x {
+  focus() // comment 1
+  {
+    // comment 2
+  }
+}
+
+=====================================output=====================================
+class x {
+  focus() { // comment 1
+    // comment 2
+  }
+}
+
+================================================================================
+`;
+
+exports[`superclass.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A // comment 1
+  // comment 2
+  extends B {}
+
+class A1 extends B // comment1
+// comment2
+// comment3
+{}
+
+class A2 /* a */ extends B {}
+class A3 extends B /* a */ {}
+class A4 extends /* a */ B {}
+
+(class A5 // comment 1
+  // comment 2
+  extends B {});
+
+(class A6 extends B // comment1
+// comment2
+// comment3
+{});
+
+(class A7 /* a */ extends B {});
+(class A8 extends B /* a */ {});
+(class A9 extends /* a */ B {});
+
+class a extends b // comment
+{
+  constructor() {}
+}
+
+class c extends d
+// comment2
+{
+  constructor() {}
+}
+
+class C2  // comment
+extends Base
+{  foo(){} }
+
+=====================================output=====================================
+class A // comment 1
+  // comment 2
+  extends B {}
+
+class A1 extends B {
+  // comment1
+  // comment2
+  // comment3
+}
+
+class A2 /* a */ extends B {}
+class A3 extends B /* a */ {}
+class A4 /* a */ extends B {}
+
+(class A5 // comment 1
+  // comment 2
+  extends B {});
+
+(class A6 extends B {
+  // comment1
+  // comment2
+  // comment3
+});
+
+(class A7 /* a */ extends B {});
+(class A8 extends B /* a */ {});
+(class A9 /* a */ extends B {});
+
+class a extends b {
+  // comment
+  constructor() {}
+}
+
+class c extends d {
+  // comment2
+  constructor() {}
+}
+
+class C2 // comment
+  extends Base
+{
+  foo() {}
+}
+
+================================================================================
+`;

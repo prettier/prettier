@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long-method-chain-test1.js 1`] = `
+exports[`long-method-chain-test1.js - {"bogus1":true} format 1`] = `
 ====================================options=====================================
+bogus1: true
 parsers: ["babel", "babel-flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -14,7 +15,7 @@ obj.first(a).second(b).third(c);
 ================================================================================
 `;
 
-exports[`long-method-chain-test1.js 2`] = `
+exports[`long-method-chain-test1.js - {"breakLongMethodChains":true} format 1`] = `
 ====================================options=====================================
 breakLongMethodChains: true
 parsers: ["babel", "babel-flow", "typescript"]

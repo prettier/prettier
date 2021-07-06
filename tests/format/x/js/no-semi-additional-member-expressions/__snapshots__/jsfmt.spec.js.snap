@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`member-expressions.js 1`] = `
+exports[`member-expressions.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80

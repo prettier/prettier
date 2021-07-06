@@ -1,0 +1,52 @@
+- name: JavaScript
+  showName: true
+  image: /images/languages/tools_js.svg
+  variants:
+    - "[JSX](https://facebook.github.io/jsx/)"
+    - "[Flow](https://flow.org)"
+    - "[TypeScript](https://www.typescriptlang.org)"
+    - "[JSON](https://json.org)"
+- name: HTML
+  showName: true
+  image: /images/languages/tools_html.svg
+  variants:
+    - "[Vue](https://vuejs.org)"
+    - "[Angular](https://angular.io)"
+    - "[Ember / Handlebars](https://emberjs.com)"
+- name: CSS
+  showName: true
+  image: /images/languages/tools_css.svg
+  variants:
+    - "[Less](http://lesscss.org)"
+    - "[SCSS](https://sass-lang.com)"
+    - "[`styled-components`](https://styled-components.com) 💅"
+    - "[`styled-jsx`](https://npmjs.com/styled-jsx)"
+- name: GraphQL
+  nameLink: https://graphql.org
+  showName: true
+  image: /images/languages/tools_gql.svg
+  variants:
+    - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
+- name: Markdown
+  showName: true
+  image: /images/languages/tools_md.svg
+  variants:
+    - "[CommonMark](https://commonmark.org)"
+    - "[GitHub-Flavored Markdown](https://github.github.com/gfm/)"
+    - "[MDX](https://mdxjs.com)"
+- name: YAML
+  nameLink: https://yaml.org
+  showName: true
+  image: /images/languages/tools_yaml.svg
+  variants: []
+- name: Community Plugins
+  showName: true
+  image: /images/languages/tools_wip.svg
+  variants:
+    - "[Apex](https://github.com/dangmai/prettier-plugin-apex)"
+    - "[Elm](https://github.com/gicentre/prettier-plugin-elm) (via [`elm-format`](https://github.com/avh4/elm-format))"
+    - "[Java](https://github.com/jhipster/prettier-java)"
+    - "[PHP](https://github.com/prettier/plugin-php)"
+    - "[Ruby](https://github.com/prettier/plugin-ruby)"
+    - "[TOML](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)"
+    - "[XML](https://github.com/prettier/plugin-xml)"

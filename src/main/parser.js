@@ -13,6 +13,8 @@ const ownDescriptor = Object.getOwnPropertyDescriptor;
 function getParsers(options) {
   const parsers = {};
   for (const plugin of options.plugins) {
+    // TODO: test this with plugins
+    /* istanbul ignore next */
     if (!plugin.parsers) {
       continue;
     }
@@ -25,9 +27,7 @@ function getParsers(options) {
   return parsers;
 }
 
-function resolveParser(opts, parsers) {
-  parsers = parsers || getParsers(opts);
-
+function resolveParser(opts, parsers = getParsers(opts)) {
   if (typeof opts.parser === "function") {
     // Custom parser API always works with JavaScript.
     return {
@@ -48,18 +48,18 @@ function resolveParser(opts, parsers) {
       throw new ConfigError(
         `Couldn't resolve parser "${opts.parser}". Parsers must be explicitly added to the standalone bundle.`
       );
-    } else {
-      try {
-        return {
-          parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
-          astFormat: "estree",
-          locStart,
-          locEnd,
-        };
-      } catch (err) {
-        /* istanbul ignore next */
-        throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
-      }
+    }
+
+    try {
+      return {
+        parse: require(path.resolve(process.cwd(), opts.parser)),
+        astFormat: "estree",
+        locStart,
+        locEnd,
+      };
+    } catch {
+      /* istanbul ignore next */
+      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
     }
   }
 }
@@ -69,15 +69,19 @@ function parse(text, opts) {
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
   // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.keys(parsers).reduce(
-    (object, parserName) =>
-      Object.defineProperty(object, parserName, {
-        enumerable: true,
-        get() {
-          return parsers[parserName].parse;
+  const parsersForCustomParserApi = Object.defineProperties(
+    {},
+    Object.fromEntries(
+      Object.keys(parsers).map((parserName) => [
+        parserName,
+        {
+          enumerable: true,
+          get() {
+            return parsers[parserName].parse;
+          },
         },
-      }),
-    {}
+      ])
+    )
   );
 
   const parser = resolveParser(opts, parsers);
@@ -95,10 +99,8 @@ function parse(text, opts) {
     const { loc } = error;
 
     if (loc) {
-      const codeFrame = require("@babel/code-frame");
-      error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
-        highlightCode: true,
-      });
+      const { codeFrameColumns } = require("@babel/code-frame");
+      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
       error.message += "\n" + error.codeFrame;
       throw error;
     }

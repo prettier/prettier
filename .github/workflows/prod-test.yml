@@ -17,26 +17,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12"
+        uses: actions/setup-node@v2.2.0
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Cache Build Results
+        id: build-cache
+        uses: actions/cache@v2.1.6
+        with:
+          path: .cache
+          key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+          restore-keys: |
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
+            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/main-
 
       - name: Build Package
         run: yarn build-extra-dist
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist
+
+      # This step calls `git reset`
+      # It should be the last step
+      # The cache step might saving the result of main branch, need investigate
+      - name: Check Sizes
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
+        uses: preactjs/compressed-size-action@2.3.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          compression: none
 
   lint:
     name: Lint
@@ -44,20 +61,16 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12"
+        uses: actions/setup-node@v2.2.0
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist
@@ -66,6 +79,7 @@ jobs:
         run: yarn lint:dist
 
   test:
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -74,30 +88,46 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "16"
+          - "14"
           - "12"
           - "10"
+        include:
+          - os: "ubuntu-latest"
+            node: "16"
+            FULL_TEST: true
         exclude:
           - os: "macos-latest"
-            node: "13"
+            node: "14"
+          - os: "macos-latest"
+            node: "12"
+          - os: "windows-latest"
+            node: "14"
+          - os: "windows-latest"
+            node: "12"
+    env:
+      FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: ${{ matrix.node }}
+
+      - name: Config `ignore-engines=true` (Node.js 10)
+        if: matrix.node == '10'
+        run: yarn config set ignore-engines true
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: dist
           path: dist
@@ -120,7 +150,7 @@ jobs:
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true

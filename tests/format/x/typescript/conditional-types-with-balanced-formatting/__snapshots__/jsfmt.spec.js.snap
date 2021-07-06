@@ -1,6 +1,159 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditonal-types.ts 1`] = `
+exports[`comments.ts - {"offsetTernaryExpressions":true} format 1`] = `
+====================================options=====================================
+offsetTernaryExpressions: true
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = B extends T
+  ? // comment
+    foo
+  : bar;
+
+type A = B extends test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+type T = test extends B
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+    foo
+  : bar;
+
+type T = test extends B
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+    foo
+  : test extends B
+  ? /* comment
+  comment
+    comment */
+    foo
+  : bar;
+
+type T = test extends B
+  ? /* comment */
+    foo
+  : bar;
+
+type T = test extends B
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  bar;
+
+type T = test extends B
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test extends B
+  ? foo
+  : /* comment
+  comment
+    comment
+   */
+    bar;
+
+type T = test extends B
+  ? foo
+  : /* comment */
+  bar;
+
+type T = test extends B ? test extends B /* c
+c */? foo : bar : bar;
+
+=====================================output=====================================
+type A = B extends T
+  ? // comment
+  foo
+  : bar;
+
+type A = B extends test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+type T = test extends B
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+  foo
+  : bar;
+
+type T = test extends B
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+  foo
+  : test extends B
+    ? /* comment
+  comment
+    comment */
+    foo
+    : bar;
+
+type T = test extends B ? /* comment */ foo : bar;
+
+type T = test extends B
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  bar;
+
+type T = test extends B
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test extends B
+    ? foo
+    : /* comment
+  comment
+    comment
+   */
+    bar;
+
+type T = test extends B ? foo : /* comment */ bar;
+
+type T = test extends B
+  ? test extends B /* c
+c */
+    ? foo
+    : bar
+  : bar;
+
+================================================================================
+`;
+
+exports[`conditonal-types.ts - {"offsetTernaryExpressions":true} format 1`] = `
 ====================================options=====================================
 offsetTernaryExpressions: true
 parsers: ["typescript"]
@@ -95,7 +248,7 @@ type U2 = (new () => X) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`infer-type.ts 1`] = `
+exports[`infer-type.ts - {"offsetTernaryExpressions":true} format 1`] = `
 ====================================options=====================================
 offsetTernaryExpressions: true
 parsers: ["typescript"]
@@ -128,7 +281,7 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`nested-in-condition.ts 1`] = `
+exports[`nested-in-condition.ts - {"offsetTernaryExpressions":true} format 1`] = `
 ====================================options=====================================
 offsetTernaryExpressions: true
 parsers: ["typescript"]

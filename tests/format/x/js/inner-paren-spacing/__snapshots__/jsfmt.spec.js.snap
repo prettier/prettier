@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrays.js 1`] = `
+exports[`arrays.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -35,7 +35,7 @@ templateCurlySpacing: true
 ================================================================================
 `;
 
-exports[`bind.js 1`] = `
+exports[`bind.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -128,7 +128,7 @@ a::( ( b ) => c );
 ================================================================================
 `;
 
-exports[`class.js 1`] = `
+exports[`class.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -173,7 +173,7 @@ class X {
 ================================================================================
 `;
 
-exports[`conditionals.js 1`] = `
+exports[`conditionals.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -245,7 +245,7 @@ foo || bar || baz || qux || xyz;
 ================================================================================
 `;
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -268,7 +268,7 @@ const { children, ...props } = this.props;
 ================================================================================
 `;
 
-exports[`export-default-named-function.js 1`] = `
+exports[`export-default-named-function.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -287,7 +287,7 @@ export default ( function f() {} );
 ================================================================================
 `;
 
-exports[`expressions.js 1`] = `
+exports[`expressions.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -334,7 +334,7 @@ object.foo().bar().baz();
 ================================================================================
 `;
 
-exports[`functions.js 1`] = `
+exports[`functions.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -389,7 +389,7 @@ new ( function () {} )();
 ================================================================================
 `;
 
-exports[`html-template-literals.js 1`] = `
+exports[`html-template-literals.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -470,7 +470,7 @@ setFoo(
 ================================================================================
 `;
 
-exports[`import-export.js 1`] = `
+exports[`import-export.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -501,7 +501,7 @@ export default () => {};
 ================================================================================
 `;
 
-exports[`jest-test-each.js 1`] = `
+exports[`jest-test-each.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -534,7 +534,7 @@ test.each\`
 ================================================================================
 `;
 
-exports[`loops.js 1`] = `
+exports[`loops.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -594,7 +594,7 @@ for ( var i = 0, len = arr.length; i < len; i++ ) {}
 ================================================================================
 `;
 
-exports[`nullish.js 1`] = `
+exports[`nullish.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -623,7 +623,7 @@ foo ?? bar ?? baz;
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -658,7 +658,7 @@ a = () => ( {}.x );
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -689,7 +689,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`sequence.js 1`] = `
+exports[`sequence.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -736,7 +736,7 @@ templateCurlySpacing: true
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -769,7 +769,7 @@ declare class C {
 ================================================================================
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -812,7 +812,7 @@ switch ( a ) {
 ================================================================================
 `;
 
-exports[`template-literals.js 1`] = `
+exports[`template-literals.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -938,7 +938,7 @@ return (
 ================================================================================
 `;
 
-exports[`ternaries.js 1`] = `
+exports[`ternaries.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -984,7 +984,7 @@ const obj = {
 ================================================================================
 `;
 
-exports[`throw.js 1`] = `
+exports[`throw.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -1015,7 +1015,7 @@ lint( ast, {
 ================================================================================
 `;
 
-exports[`try-catch.js 1`] = `
+exports[`try-catch.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -1042,7 +1042,7 @@ try {
 ================================================================================
 `;
 
-exports[`with.js 1`] = `
+exports[`with.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true

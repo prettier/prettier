@@ -1,21 +1,18 @@
 "use strict";
 
 const fs = require("fs");
+const fsAsync = fs.promises;
 
 /**
  * @param {string} filename
  * @returns {Promise<null | string>}
  */
-function getFileContentOrNull(filename) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filename, "utf8", (error, data) => {
-      if (error && error.code !== "ENOENT") {
-        reject(createError(filename, error));
-      } else {
-        resolve(error ? null : data);
-      }
-    });
-  });
+async function getFileContentOrNull(filename) {
+  try {
+    return await fsAsync.readFile(filename, "utf8");
+  } catch (error) {
+    return handleError(filename, error);
+  }
 }
 
 /**
@@ -26,15 +23,16 @@ getFileContentOrNull.sync = function (filename) {
   try {
     return fs.readFileSync(filename, "utf8");
   } catch (error) {
-    if (error && error.code === "ENOENT") {
-      return null;
-    }
-    throw createError(filename, error);
+    return handleError(filename, error);
   }
 };
 
-function createError(filename, error) {
-  return new Error(`Unable to read ${filename}: ${error.message}`);
+function handleError(filename, error) {
+  if (error && error.code === "ENOENT") {
+    return null;
+  }
+
+  throw new Error(`Unable to read ${filename}: ${error.message}`);
 }
 
 module.exports = getFileContentOrNull;

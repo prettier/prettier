@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single-parameter.ts 1`] = `
+exports[`single-parameter.ts - {"spaceInParens":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ type Y = new ( options: {
 ================================================================================
 `;
 
-exports[`type-annotation.ts 1`] = `
+exports[`type-annotation.ts - {"spaceInParens":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

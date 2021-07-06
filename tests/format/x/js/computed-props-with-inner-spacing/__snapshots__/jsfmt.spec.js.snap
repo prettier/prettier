@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js 1`] = `
+exports[`classes.js - {"computedPropertySpacing":true} format 1`] = `
 ====================================options=====================================
 computedPropertySpacing: true
 parsers: ["babel", "babel-flow"]

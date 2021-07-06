@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js 1`] = `
+exports[`binary.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -44,11 +44,11 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js 2`] = `
+exports[`binary.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -89,11 +89,11 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js 3`] = `
+exports[`binary.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -134,11 +134,11 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js 4`] = `
+exports[`binary.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -180,11 +180,11 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`func-call.js 1`] = `
+exports[`func-call.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -211,11 +211,11 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js 2`] = `
+exports[`func-call.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -243,11 +243,11 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js 3`] = `
+exports[`func-call.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -275,11 +275,11 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js 4`] = `
+exports[`func-call.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -308,11 +308,11 @@ fn(
 ================================================================================
 `;
 
-exports[`indent.js 1`] = `
+exports[`indent.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -640,11 +640,11 @@ a
 ================================================================================
 `;
 
-exports[`indent.js 2`] = `
+exports[`indent.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -973,11 +973,11 @@ a
 ================================================================================
 `;
 
-exports[`indent.js 3`] = `
+exports[`indent.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -1306,11 +1306,11 @@ a
 ================================================================================
 `;
 
-exports[`indent.js 4`] = `
+exports[`indent.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -1640,11 +1640,2627 @@ a
 ================================================================================
 `;
 
-exports[`nested.js 1`] = `
+exports[`indent-after-paren.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+function foo10() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo11() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo12() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+foo13 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+  return new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+  throw new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+  void new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder = (
+  glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder = fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder =
+  fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+  fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn?.[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+=====================================output=====================================
+foo7 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+function foo10() {
+  return (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )[Fooooooooooo];
+}
+
+function foo11() {
+  throw (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )[Fooooooooooo];
+}
+
+function foo12() {
+  void (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )[Fooooooooooo];
+}
+
+foo13 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+  return (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+  throw (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+  void (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+  return (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+  throw (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+  void (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+  return (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+  throw (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+  void (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+  yield (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )?.(Fooooooooooo.Fooooooooooo);
+  yield (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+  yield (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+  yield (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+  return new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+  throw new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+  void new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder = (
+  glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
+  .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+  .annularCooeedSplicesWalksWayWay();
+
+foo = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+bifornCringerMoshedPerplexSawder = fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+bifornCringerMoshedPerplexSawder =
+  fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+  fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn?.[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+================================================================================
+`;
+
+exports[`indent-after-paren.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+function foo10() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo11() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo12() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+foo13 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+  return new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+  throw new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+  void new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder = (
+  glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder = fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder =
+  fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+  fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn?.[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+=====================================output=====================================
+foo7 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+function foo10() {
+    return (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )[Fooooooooooo];
+}
+
+function foo11() {
+    throw (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )[Fooooooooooo];
+}
+
+function foo12() {
+    void (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )[Fooooooooooo];
+}
+
+foo13 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+    return (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+    throw (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+    void (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+    return (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+    throw (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+    void (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+    return (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+    throw (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+    void (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+    yield (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )?.(Fooooooooooo.Fooooooooooo);
+    yield (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+    yield (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ).Fooooooooooo.Fooooooooooo;
+    yield (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+    return new (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+    throw new (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+    void new (
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    (glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    (glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    (glimseGlyphsHazardNoopsTieTie === 0 &&
+        kochabCooieGameOnOboleUnweave === Math.PI
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder = (
+    glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
+
+foo = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+        ? baaaaaaaaaaaaaaaaaaaaar
+        : baaaaaaaaaaaaaaaaaaaaaz
+)()()();
+
+foo =
+    foo.bar.baz[
+        coooooooooooooooooooooooooooooooooooooooooooooooooooond
+            ? baaaaaaaaaaaaaaaaaaaaar
+            : baaaaaaaaaaaaaaaaaaaaaz
+    ];
+
+const decorated = (arg, ignoreRequestError) => {
+    return (
+        typeof arg === "string" ||
+        (arg && arg.valueOf && typeof arg.valueOf() === "string")
+            ? $delegate(arg, ignoreRequestError)
+            : handleAsyncOperations(arg, ignoreRequestError)
+    ).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).prop
+);
+
+fn(
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).prop
+);
+
+bifornCringerMoshedPerplexSawder = fn?.(
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).prop
+);
+
+fn?.(
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).prop
+);
+
+bifornCringerMoshedPerplexSawder =
+    fn[
+        (glimseGlyphsHazardNoopsTieTie === 0
+            ? averredBathersBoxroomBuggyNurl
+            : anodyneCondosMalateOverateRetinol
+        ).prop
+    ];
+
+fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+    fn?.[
+        (glimseGlyphsHazardNoopsTieTie === 0
+            ? averredBathersBoxroomBuggyNurl
+            : anodyneCondosMalateOverateRetinol
+        ).prop
+    ];
+
+fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+        ? averredBathersBoxroomBuggyNurl
+        : anodyneCondosMalateOverateRetinol
+    ).prop
+];
+
+================================================================================
+`;
+
+exports[`indent-after-paren.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
+printWidth: 80
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+function foo10() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo11() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo12() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+foo13 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+  return new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+  throw new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+  void new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder = (
+  glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder = fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder =
+  fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+  fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn?.[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+=====================================output=====================================
+foo7 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+function foo10() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
+}
+
+function foo11() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
+}
+
+function foo12() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
+}
+
+foo13 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+	return new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+	throw new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+	void new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0 &&
+	kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0 &&
+	kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0 &&
+		kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder = (
+	glimseGlyphsHazardNoopsTieTie === 0 &&
+	kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
+	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+	.annularCooeedSplicesWalksWayWay();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)()()();
+
+foo =
+	foo.bar.baz[
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	];
+
+const decorated = (arg, ignoreRequestError) => {
+	return (
+		typeof arg === "string" ||
+		(arg && arg.valueOf && typeof arg.valueOf() === "string")
+			? $delegate(arg, ignoreRequestError)
+			: handleAsyncOperations(arg, ignoreRequestError)
+	).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+fn(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+bifornCringerMoshedPerplexSawder = fn?.(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+fn?.(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+bifornCringerMoshedPerplexSawder =
+	fn[
+		(glimseGlyphsHazardNoopsTieTie === 0
+			? averredBathersBoxroomBuggyNurl
+			: anodyneCondosMalateOverateRetinol
+		).prop
+	];
+
+fn[
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+	fn?.[
+		(glimseGlyphsHazardNoopsTieTie === 0
+			? averredBathersBoxroomBuggyNurl
+			: anodyneCondosMalateOverateRetinol
+		).prop
+	];
+
+fn?.[
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+];
+
+================================================================================
+`;
+
+exports[`indent-after-paren.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
+printWidth: 80
+tabWidth: 4
+trailingComma: "none"
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+foo7 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+
+function foo10() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo11() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+function foo12() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo];
+}
+
+foo13 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  ).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+  void (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)?.(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz)(Fooooooooooo.Fooooooooooo);
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz).Fooooooooooo.Fooooooooooo;
+  yield (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz)[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+  return new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+  throw new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+  void new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+  )(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay]);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol).Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder =
+    askTrovenaBeenaDependsRowans +
+    ((glimseGlyphsHazardNoopsTieTie === 0 &&
+    kochabCooieGameOnOboleUnweave === Math.PI
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo));
+
+bifornCringerMoshedPerplexSawder = (
+  glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).annularCooeedSplicesWalksWayWay
+    .annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+    .annularCooeedSplicesWalksWayWay();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)?.()?.()?.();
+
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz)()()();
+
+foo =
+  foo.bar.baz[
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+  ];
+
+const decorated = (arg, ignoreRequestError) => {
+  return (
+    typeof arg === "string" ||
+    (arg && arg.valueOf && typeof arg.valueOf() === "string")
+      ? $delegate(arg, ignoreRequestError)
+      : handleAsyncOperations(arg, ignoreRequestError)
+  ).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder = fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+);
+
+fn?.(
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+)
+
+bifornCringerMoshedPerplexSawder =
+  fn[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+  fn?.[
+    (glimseGlyphsHazardNoopsTieTie === 0
+      ? averredBathersBoxroomBuggyNurl
+      : anodyneCondosMalateOverateRetinol
+    ).prop
+  ];
+
+fn?.[
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol
+  ).prop
+];
+
+=====================================output=====================================
+foo7 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+foo8 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo9 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)[Fooooooooooo];
+
+function foo10() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
+}
+
+function foo11() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
+}
+
+function foo12() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo];
+}
+
+foo13 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+foo14 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo15 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+).Fooooooooooo.Fooooooooooo;
+
+function foo16() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+}
+
+function foo17() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+}
+
+function foo18() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+}
+
+foo19 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+foo20 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo21 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo22() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo23() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo24() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+foo25 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+foo26 = (condition ? firstValue : secondValue)[SomeType];
+
+const foo27 = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.(Fooooooooooo.Fooooooooooo);
+
+function foo28() {
+	return (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo29() {
+	throw (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function foo30() {
+	void (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+}
+
+function* foo31() {
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)?.(Fooooooooooo.Fooooooooooo);
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	).Fooooooooooo.Fooooooooooo;
+	yield (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)[Fooooooooooo.Fooooooooooo];
+}
+
+const foo32 = new (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+function foo33() {
+	return new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo34() {
+	throw new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+function foo35() {
+	void new (
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	)(Fooooooooooo.Fooooooooooo);
+}
+
+foo36 = new (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0 &&
+	kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)[AnnularCooeedSplicesWalksWayWay];
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0 &&
+	kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).Fooooooooooo.Fooooooooooo;
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder =
+	askTrovenaBeenaDependsRowans +
+	(glimseGlyphsHazardNoopsTieTie === 0 &&
+		kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol)(Fooooooooooo.Fooooooooooo);
+
+bifornCringerMoshedPerplexSawder = (
+	glimseGlyphsHazardNoopsTieTie === 0 &&
+	kochabCooieGameOnOboleUnweave === Math.PI
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+).annularCooeedSplicesWalksWayWay
+	.annularCooeedSplicesWalksWayWay(annularCooeedSplicesWalksWayWay)
+	.annularCooeedSplicesWalksWayWay();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)?.()?.()?.();
+
+foo = (
+	coooooooooooooooooooooooooooooooooooooooooooooooooooond
+		? baaaaaaaaaaaaaaaaaaaaar
+		: baaaaaaaaaaaaaaaaaaaaaz
+)()()();
+
+foo =
+	foo.bar.baz[
+		coooooooooooooooooooooooooooooooooooooooooooooooooooond
+			? baaaaaaaaaaaaaaaaaaaaar
+			: baaaaaaaaaaaaaaaaaaaaaz
+	];
+
+const decorated = (arg, ignoreRequestError) => {
+	return (
+		typeof arg === "string" ||
+		(arg && arg.valueOf && typeof arg.valueOf() === "string")
+			? $delegate(arg, ignoreRequestError)
+			: handleAsyncOperations(arg, ignoreRequestError)
+	).foo();
+};
+
+bifornCringerMoshedPerplexSawder = fn(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+fn(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+bifornCringerMoshedPerplexSawder = fn?.(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+fn?.(
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+);
+
+bifornCringerMoshedPerplexSawder =
+	fn[
+		(glimseGlyphsHazardNoopsTieTie === 0
+			? averredBathersBoxroomBuggyNurl
+			: anodyneCondosMalateOverateRetinol
+		).prop
+	];
+
+fn[
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+];
+
+bifornCringerMoshedPerplexSawder =
+	fn?.[
+		(glimseGlyphsHazardNoopsTieTie === 0
+			? averredBathersBoxroomBuggyNurl
+			: anodyneCondosMalateOverateRetinol
+		).prop
+	];
+
+fn?.[
+	(glimseGlyphsHazardNoopsTieTie === 0
+		? averredBathersBoxroomBuggyNurl
+		: anodyneCondosMalateOverateRetinol
+	).prop
+];
+
+================================================================================
+`;
+
+exports[`nested.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+offsetTernaryExpressions: true
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -1846,11 +4462,11 @@ a
 ================================================================================
 `;
 
-exports[`nested.js 2`] = `
+exports[`nested.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -2053,11 +4669,11 @@ a
 ================================================================================
 `;
 
-exports[`nested.js 3`] = `
+exports[`nested.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -2260,11 +4876,11 @@ a
 ================================================================================
 `;
 
-exports[`nested.js 4`] = `
+exports[`nested.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -2468,11 +5084,11 @@ a
 ================================================================================
 `;
 
-exports[`nested-in-condition.js 1`] = `
+exports[`nested-in-condition.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -2559,11 +5175,11 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js 2`] = `
+exports[`nested-in-condition.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -2651,11 +5267,11 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js 3`] = `
+exports[`nested-in-condition.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -2743,11 +5359,11 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js 4`] = `
+exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -2836,11 +5452,11 @@ const value = (
 ================================================================================
 `;
 
-exports[`parenthesis.js 1`] = `
+exports[`parenthesis.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -2875,11 +5491,11 @@ a =>
 ================================================================================
 `;
 
-exports[`parenthesis.js 2`] = `
+exports[`parenthesis.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -2915,11 +5531,11 @@ a =>
 ================================================================================
 `;
 
-exports[`parenthesis.js 3`] = `
+exports[`parenthesis.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -2955,11 +5571,11 @@ a =>
 ================================================================================
 `;
 
-exports[`parenthesis.js 4`] = `
+exports[`parenthesis.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -2996,11 +5612,11 @@ a =>
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - {"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -3058,11 +5674,11 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js - {"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"
@@ -3121,11 +5737,11 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js 3`] = `
+exports[`test.js - {"useTabs":true,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 trailingComma: "none"
 useTabs: true
@@ -3184,11 +5800,11 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js 4`] = `
+exports[`test.js - {"useTabs":true,"tabWidth":4,"offsetTernaryExpressions":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 tabWidth: 4
 trailingComma: "none"

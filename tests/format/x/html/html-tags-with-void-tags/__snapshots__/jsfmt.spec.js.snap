@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case-sensitive.html 1`] = `
+exports[`case-sensitive.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -15,7 +15,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html 1`] = `
+exports[`closing-at-start.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -58,7 +58,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html 1`] = `
+exports[`custom-element.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -75,7 +75,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html 1`] = `
+exports[`openging-at-end.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -139,7 +139,36 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pre.html 1`] = `
+exports[`option.html - {"htmlVoidTags":true} format 1`] = `
+====================================options=====================================
+htmlVoidTags: true
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
+<input list=colors>
+<datalist id=colors><option>Blue</option><option>Green</option></datalist>
+
+=====================================output=====================================
+<select>
+  <option>Blue</option>
+  <option>Green</option>
+  <optgroup label="Darker">
+    <option>Dark Blue</option>
+    <option>Dark Green</option>
+  </optgroup>
+</select>
+<input list="colors">
+<datalist id="colors">
+  <option>Blue</option>
+  <option>Green</option>
+</datalist>
+
+================================================================================
+`;
+
+exports[`pre.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -238,7 +267,15 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<PRE><HR></PRE>
+<pre><br/></pre>
+<PRE><HR/></PRE>
+<pre><br /></pre>
+<PRE><HR /></PRE>
+<pre><span></span></pre>
+<PRE><DIV></DIV></PRE>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 =====================================output=====================================
 <pre>
@@ -343,12 +380,20 @@ ___________________________
 
 <!-- #6028 -->
 <pre><br></pre>
-<pre><hr></pre>
+<pre><HR></pre>
+<pre><br/></pre>
+<pre><HR/></pre>
+<pre><br /></pre>
+<pre><HR /></pre>
+<pre><span></span></pre>
+<pre><DIV></DIV></pre>
+<pre><br/>long long long text long long long text long long long text long long long text <br></pre>
+<pre><br>long long long text long long long text long long long text long long long text <BR/></pre>
 
 ================================================================================
 `;
 
-exports[`tags.html 1`] = `
+exports[`tags.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -683,7 +728,71 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`textarea.html 1`] = `
+exports[`tags2.html - {"htmlVoidTags":true} format 1`] = `
+====================================options=====================================
+htmlVoidTags: true
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>before<noscript>noscript long long long long long long long long</noscript>after</div>
+
+<div>before<details><summary>summary long long long long </summary>details</details>after</div>
+
+<div>before<dialog open>dialog long long long long  long long long long </dialog>after</div>
+
+<div>before<object data="horse.wav"><param name="autoplay" value="true"/><param name="autoplay" value="true"/></object>after</div>
+
+<div>before<meter min="0" max="1" low=".4" high=".7" optimum=".5" value=".2"></meter>after</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+=====================================output=====================================
+<div>
+  before<noscript>noscript long long long long long long long long</noscript
+  >after
+</div>
+
+<div>
+  before
+  <details>
+    <summary>summary long long long long</summary>
+    details
+  </details>
+  after
+</div>
+
+<div>
+  before
+  <dialog open>dialog long long long long long long long long</dialog>
+  after
+</div>
+
+<div>
+  before<object data="horse.wav">
+    <param name="autoplay" value="true">
+    <param name="autoplay" value="true"></object
+  >after
+</div>
+
+<div>
+  before<meter
+    min="0"
+    max="1"
+    low=".4"
+    high=".7"
+    optimum=".5"
+    value=".2"
+  ></meter
+  >after
+</div>
+
+<div>before<progress value=".5" max="1"></progress>after</div>
+
+================================================================================
+`;
+
+exports[`textarea.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -756,7 +865,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html 1`] = `
+exports[`unsupported.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]

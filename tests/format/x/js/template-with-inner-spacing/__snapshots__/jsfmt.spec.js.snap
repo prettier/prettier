@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -31,7 +31,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -72,7 +72,7 @@ new Error( formatErrorMessage\`
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -116,7 +116,7 @@ g
 ================================================================================
 `;
 
-exports[`faulty-locations.js 1`] = `
+exports[`faulty-locations.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -161,7 +161,7 @@ var x = {
 ================================================================================
 `;
 
-exports[`graphql.js 1`] = `
+exports[`graphql.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -212,7 +212,7 @@ module.exports = Relay.createContainer(
 ================================================================================
 `;
 
-exports[`indent.js 1`] = `
+exports[`indent.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -270,7 +270,7 @@ line n + n
 ================================================================================
 `;
 
-exports[`inline.js 1`] = `
+exports[`inline.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true
@@ -310,35 +310,6 @@ this._pipe.write(\`
     a
   \`;
 
-(): {
-  someLong: boolean,
-  t: boolean
-} => \`
-  a
-\`;
-
-(): {
-  someLong: boolean,
-  t: boolean
-} =>
-  \`
-    a
-  \`;
-
-(
-  someLong: boolean,
-  t: boolean
-) => \`
-    a
-  \`;
-
-(
-  someLong: boolean,
-  t: boolean
-) =>
-  \`
-    a
-  \`;
 
 // https://github.com/prettier/prettier/issues/5529
 editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
@@ -369,37 +340,13 @@ this._pipe.write( \`
     a
   \`;
 
-(): {
-  someLong: boolean,
-  t: boolean
-} => \`
-  a
-\`;
-
-(): {
-  someLong: boolean,
-  t: boolean
-} =>
-  \`
-    a
-  \`;
-
-( someLong: boolean, t: boolean ) => \`
-    a
-  \`;
-
-( someLong: boolean, t: boolean ) =>
-  \`
-    a
-  \`;
-
 // https://github.com/prettier/prettier/issues/5529
 editTitle += \`\${ iconHTML( { class: "reply-to-glyph" } ) }\`;
 
 ================================================================================
 `;
 
-exports[`parenthesis.js 1`] = `
+exports[`parenthesis.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 computedPropertySpacing: true

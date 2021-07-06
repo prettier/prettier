@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`minustoken.ts 1`] = `
+exports[`minustoken.ts - {"typeAngleBracketSpacing":true,"typeBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ type ReadonlyPartial< T > = {
 ================================================================================
 `;
 
-exports[`question.ts 1`] = `
+exports[`question.ts - {"typeAngleBracketSpacing":true,"typeBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -48,7 +48,7 @@ var x: {
 ================================================================================
 `;
 
-exports[`readonly.ts 1`] = `
+exports[`readonly.ts - {"typeAngleBracketSpacing":true,"typeBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

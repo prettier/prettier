@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`correct.js 1`] = `
+exports[`correct.js - {"yieldStarSpacing":true,"generatorStarSpacing":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
@@ -25,7 +25,7 @@ interface Foo<T> {
 ================================================================================
 `;
 
-exports[`incorrect.js 1`] = `
+exports[`incorrect.js - {"yieldStarSpacing":true,"generatorStarSpacing":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true

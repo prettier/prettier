@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--check with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+[warn] foo.js
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
+"
+`;
+
+exports[`--check with unknown path and no parser multiple files (stdout) 1`] = `
+"Checking formatting...
+"
+`;
+
+exports[`--check with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--check with unknown path and no parser specific file (stdout) 1`] = `
+"Checking formatting...
+All matched files use Prettier code style!
+"
+`;
+
+exports[`--list-different with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--list-different with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write and --check with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+[warn] foo.js
+[warn] Code style issues fixed in the above file(s).
+"
+`;
+
+exports[`--write and --check with unknown path and no parser multiple files (stdout) 1`] = `
+"Checking formatting...
+"
+`;
+
+exports[`--write and --check with unknown path and no parser multiple files (write) 1`] = `
+Array [
+  Object {
+    "content": "foo();
+",
+    "filename": "foo.js",
+  },
+]
+`;
+
+exports[`--write and --check with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write and --check with unknown path and no parser specific file (stdout) 1`] = `
+"Checking formatting...
+All matched files use Prettier code style!
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (stdout) 1`] = `
+"foo.js
+"
+`;
+
+exports[`--write and --list-different with unknown path and no parser multiple files (write) 1`] = `
+Array [
+  Object {
+    "content": "foo();
+",
+    "filename": "foo.js",
+  },
+]
+`;
+
+exports[`--write and --list-different with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write with unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`--write with unknown path and no parser multiple files (stdout) 1`] = `
+"foo.js 0ms
+"
+`;
+
+exports[`--write with unknown path and no parser multiple files (write) 1`] = `
+Array [
+  Object {
+    "content": "foo();
+",
+    "filename": "foo.js",
+  },
+]
+`;
+
+exports[`--write with unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`API with no path and no parser prettier.check 1`] = `
+Array [
+  "No parser and no filepath given, using 'babel' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred.",
+]
+`;
+
+exports[`API with no path and no parser prettier.format 1`] = `
+Array [
+  "No parser and no filepath given, using 'babel' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred.",
+]
+`;
+
+exports[`Known/Unknown (stdout) 1`] = `
+"known.js
+"
+`;
+
+exports[`stdin no path and no parser --check logs error but exits with 0 (stderr) 1`] = `
+"[error] No parser and no file path given, couldn't infer a parser.
+"
+`;
+
+exports[`stdin no path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `
+"[error] No parser and no file path given, couldn't infer a parser.
+"
+`;
+
+exports[`stdin no path and no parser logs error and exits with 2 (stderr) 1`] = `
+"[error] No parser and no file path given, couldn't infer a parser.
+"
+`;
+
+exports[`stdin with unknown path and no parser --check logs error but exits with 0 (stderr) 1`] = `
+"[error] No parser could be inferred for file: foo
+"
+`;
+
+exports[`stdin with unknown path and no parser --list-different logs error but exits with 0 (stderr) 1`] = `
+"[error] No parser could be inferred for file: foo
+"
+`;
+
+exports[`stdin with unknown path and no parser logs error and exits with 2 (stderr) 1`] = `
+"[error] No parser could be inferred for file: foo
+"
+`;
+
+exports[`unknown path and no parser multiple files (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;
+
+exports[`unknown path and no parser multiple files (stdout) 1`] = `
+"foo();
+"
+`;
+
+exports[`unknown path and no parser specific file (stderr) 1`] = `
+"[error] No parser could be inferred for file: FOO
+"
+`;

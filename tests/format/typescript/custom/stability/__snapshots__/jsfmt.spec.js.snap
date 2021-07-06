@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`moduleBlock.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module m2 {
+    function fn() {
+        return 1;
+    }
+    export function exports() {
+        return 1;
+    }
+    export function require() {
+        return "require";
+    }
+}
+
+module m2 {
+
+    export function exports() {
+        return 1;
+    }
+
+    export function require() {
+        return "require";
+    }
+}
+
+=====================================output=====================================
+module m2 {
+  function fn() {
+    return 1;
+  }
+  export function exports() {
+    return 1;
+  }
+  export function require() {
+    return "require";
+  }
+}
+
+module m2 {
+  export function exports() {
+    return 1;
+  }
+
+  export function require() {
+    return "require";
+  }
+}
+
+================================================================================
+`;

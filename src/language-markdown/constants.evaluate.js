@@ -4,7 +4,7 @@ const cjkRegex = require("cjk-regex");
 const regexpUtil = require("regexp-util");
 const unicodeRegex = require("unicode-regex");
 
-const cjkPattern = cjkRegex()
+const cjkPattern = `(?:${cjkRegex()
   .union(
     unicodeRegex({
       Script_Extensions: ["Han", "Katakana", "Hiragana", "Hangul", "Bopomofo"],
@@ -18,14 +18,17 @@ const cjkPattern = cjkRegex()
       ],
     })
   )
-  .toString();
+  .toString()})(?:${unicodeRegex({
+  Block: ["Variation_Selectors", "Variation_Selectors_Supplement"],
+}).toString()})?`;
 
 const kPattern = unicodeRegex({ Script: ["Hangul"] })
   .union(unicodeRegex({ Script_Extensions: ["Hangul"] }))
   .toString();
 
 // http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharset = /* prettier-ignore */ regexpUtil.charset(
+const asciiPunctuationCharset =
+  /* prettier-ignore */ regexpUtil.charset(
   "!", '"', "#",  "$", "%", "&", "'", "(", ")", "*",
   "+", ",", "-",  ".", "/", ":", ";", "<", "=", ">",
   "?", "@", "[", "\\", "]", "^", "_", "`", "{", "|",

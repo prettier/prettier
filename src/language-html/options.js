@@ -2,7 +2,7 @@
 
 const CATEGORY_HTML = "HTML";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 module.exports = {
   htmlWhitespaceSensitivity: {
     since: "1.15.0",

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`correct.ts 1`] = `
+exports[`correct.ts - {"yieldStarSpacing":true,"generatorStarSpacing":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
@@ -52,7 +52,7 @@ class Example<T> implements Foo<T> {
 ================================================================================
 `;
 
-exports[`incorrect.ts 1`] = `
+exports[`incorrect.ts - {"yieldStarSpacing":true,"generatorStarSpacing":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false} format 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true

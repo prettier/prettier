@@ -1,6 +1,6 @@
 "use strict";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 module.exports = {
   graphqlCurlySpacing: {
     category: "Other",

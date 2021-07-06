@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`symbolProperty15.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@target: ES6
+class C { }
+interface I {
+    [Symbol.iterator]?: { x };
+}
+
+declare function foo(i: I): I;
+declare function foo(a: any): any;
+
+declare function bar(i: C): C;
+declare function bar(a: any): any;
+
+foo(new C);
+var i: I;
+bar(i);
+=====================================output=====================================
+//@target: ES6
+class C {}
+interface I {
+  [Symbol.iterator]?: { x };
+}
+
+declare function foo(i: I): I;
+declare function foo(a: any): any;
+
+declare function bar(i: C): C;
+declare function bar(a: any): any;
+
+foo(new C());
+var i: I;
+bar(i);
+
+================================================================================
+`;

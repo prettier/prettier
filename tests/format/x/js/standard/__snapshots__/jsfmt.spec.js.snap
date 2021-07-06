@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`correct.js 1`] = `
+exports[`correct.js - {"endOfLine":"lf","yieldStarSpacing":true,"generatorStarSpacing":true,"offsetTernaryExpressions":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"none","arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -703,14 +703,14 @@ function * generator () {<LF>
 ================================================================================
 `;
 
-exports[`correct-ternaries.js 1`] = `
+exports[`correct-ternaries.js - {"endOfLine":"lf","yieldStarSpacing":true,"generatorStarSpacing":true,"offsetTernaryExpressions":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"none","arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -1054,14 +1054,14 @@ const StorybookLoader = ({ match }) =><LF>
 ================================================================================
 `;
 
-exports[`incorrect.js 1`] = `
+exports[`incorrect.js - {"endOfLine":"lf","yieldStarSpacing":true,"generatorStarSpacing":true,"offsetTernaryExpressions":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"none","arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -1836,14 +1836,14 @@ const dress = isSpace<LF>
 ================================================================================
 `;
 
-exports[`incorrect-ternaries.js 1`] = `
+exports[`incorrect-ternaries.js - {"endOfLine":"lf","yieldStarSpacing":true,"generatorStarSpacing":true,"offsetTernaryExpressions":true,"spaceBeforeFunctionParen":true,"singleQuote":true,"jsxSingleQuote":true,"semi":false,"trailingComma":"none","arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
 offsetTernaryExpressions: true
-parsers: ["babel", "babel-flow", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "__typescript_estree"]
 printWidth: 80
 semi: false
 singleQuote: true

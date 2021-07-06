@@ -1,0 +1,13 @@
+? key1
+: value
+? key2
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+: value
+? solongitshouldbreakbutitcannot_longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+: # Comment
+  foo: bar
+? multiline
+  scalar
+  key
+: value

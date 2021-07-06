@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js - {"spaceInParens":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -26,7 +26,7 @@ class x {
 ================================================================================
 `;
 
-exports[`class_property.js 1`] = `
+exports[`class-property.js - {"spaceInParens":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -57,7 +57,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`empty_paren_comment.js 1`] = `
+exports[`empty_paren_comment.js - {"spaceInParens":true} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
@@ -73,16 +73,6 @@ const obj = {
   f: (/* ... */) => {},
   f: function(/* ... */) {},
   f: function f(/* ... */) {}
-}
-
-class Foo {
-  f(/* ... */) {}
-  f() /* ... */ {}
-  f = (/* ... */) => {};
-  static f(/* ... */) {};
-  static f = (/* ... */) => {};
-  static f = function(/* ... */) {};
-  static f = function f(/* ... */) {};
 }
 
 f(/* ... */);
@@ -104,16 +94,6 @@ const obj = {
   f: function (/* ... */) {},
   f: function f(/* ... */) {},
 };
-
-class Foo {
-  f(/* ... */) {}
-  f() /* ... */ {}
-  f = (/* ... */) => {};
-  static f(/* ... */) {}
-  static f = (/* ... */) => {};
-  static f = function (/* ... */) {};
-  static f = function f(/* ... */) {};
-}
 
 f(/* ... */);
 f( a /* ... */ );

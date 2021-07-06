@@ -1,8 +1,9 @@
 "use strict";
 
-const chalk = require("chalk");
-const dedent = require("dedent");
 const fs = require("fs");
+const execa = require("execa");
+const chalk = require("chalk");
+const { outdent, string: outdentString } = require("outdent");
 const semver = require("semver");
 const { waitForEnter, runYarn, logPromise } = require("../utils");
 
@@ -13,21 +14,33 @@ function getBlogPostInfo(version) {
   const day = String(date.getDate()).padStart(2, "0");
 
   return {
-    file: `website/blog/${year}-${month}-${day}-${version}.md`,
+    // [prettierx] website is now in x-unsupported/subdirectory
+    file: `x-unsupported/website/blog/${year}-${month}-${day}-${version}.md`,
     path: `blog/${year}/${month}/${day}/${version}.html`,
   };
 }
 
-function writeChangelog({ version, previousVersion, releaseNotes }) {
+function writeChangelog({ version, previousVersion, body }) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
-  const newEntry = dedent`
+  const newEntry = outdent`
     # ${version}
 
     [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
 
-    ${releaseNotes}
+    ${body}
   `;
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
+}
+
+async function getChangelogForPatch({ version, previousVersion }) {
+  const { stdout: changelog } = await execa("node", [
+    "scripts/changelog-for-patch.mjs",
+    "--prev-version",
+    previousVersion,
+    "--new-version",
+    version,
+  ]);
+  return changelog;
 }
 
 module.exports = async function ({ version, previousVersion }) {
@@ -38,32 +51,30 @@ module.exports = async function ({ version, previousVersion }) {
     writeChangelog({
       version,
       previousVersion,
-      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
+      body: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
     });
     if (fs.existsSync(blogPost.file)) {
       // Everything is fine, this step is finished
       return;
     }
     console.warn(
-      dedent(chalk`
+      outdentString(chalk`
         {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
 
         Press ENTER to continue.
       `)
     );
   } else {
-    console.log(
-      dedent(chalk`
-        {yellow.bold A manual step is necessary.}
-
-        You can copy the entries from {bold changelog_unreleased/*/pr-*.md} to {bold CHANGELOG.md}
-        and update it accordingly.
-
-        You don't need to commit the file, the script will take care of that.
-
-        When you're finished, press ENTER to continue.
-      `)
-    );
+    const body = await getChangelogForPatch({
+      version,
+      previousVersion,
+    });
+    writeChangelog({
+      version,
+      previousVersion,
+      body,
+    });
+    console.log("Press ENTER to continue.");
   }
 
   await waitForEnter();

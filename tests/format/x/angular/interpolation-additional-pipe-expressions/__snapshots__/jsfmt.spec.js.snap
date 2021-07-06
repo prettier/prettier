@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inside-computed-member-expression.ng 1`] = `
+exports[`inside-computed-member-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
@@ -14,7 +14,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`inside-member-expression.ng 1`] = `
+exports[`inside-member-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
@@ -28,7 +28,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`inside-optional-expression.ng 1`] = `
+exports[`inside-optional-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
@@ -42,7 +42,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`inside-unary.ng 1`] = `
+exports[`inside-unary.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80

@@ -3,11 +3,28 @@ id: ignore
 title: Ignoring Code
 ---
 
-Prettier offers an escape hatch to ignore a block of code or prevent entire files from being formatted.
+Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
 
-## Ignoring Files
+Use “prettier-ignore” comments to ignore parts of files.
 
-To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#--ignore-path). `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
+## Ignoring Files: .prettierignore
+
+To exclude files from formatting, create a `.prettierignore` file in the root of your project. `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
+
+Example:
+
+```
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+```
+
+It’s recommended to have a `.prettierignore` in your project! This way you can run `prettier --write .` to make sure that everything is formatted (without mangling files you don’t want, or choking on generated files). And – your editor will know which files _not_ to format!
+
+(See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
 
 ## JavaScript
 
@@ -107,6 +124,16 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
 <!-- prettier-ignore-end -->
 ```
 
+## YAML
+
+To ignore a part of a YAML file, `# prettier-ignore` should be placed on the line immediately above the ignored node:
+
+```yaml
+# prettier-ignore
+key  : value
+hello: world
+```
+
 ## GraphQL
 
 ```graphql
@@ -132,3 +159,13 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
   {{/my-crazy-component}}
 </div>
 ```
+
+## Command Line File Patterns
+
+For one-off commands, when you want to exclude some files without adding them to `.prettierignore`, negative patterns can come in handy:
+
+```bash
+prettier --write . '!**/*.{js,jsx,vue}'
+```
+
+See [fast-glob](https://prettier.io/docs/en/cli.html#file-patterns) to learn more about advanced glob syntax.

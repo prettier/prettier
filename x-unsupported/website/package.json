@@ -1,0 +1,26 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode=production && docusaurus-build",
+    "start": "concurrently \"docusaurus-start\" \"webpack --mode=development --watch\"",
+    "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
+  },
+  "dependencies": {
+    "clipboard": "2.0.8",
+    "codemirror-graphql": "1.0.2",
+    "lz-string": "1.4.4",
+    "prop-types": "15.7.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "7.14.5",
+    "@sandhose/prettier-animated-logo": "1.0.3",
+    "babel-loader": "8.2.2",
+    "concurrently": "6.2.0",
+    "docusaurus": "1.14.7",
+    "js-yaml": "4.1.0",
+    "webpack": "5.42.0",
+    "webpack-cli": "4.7.2"
+  }
+}

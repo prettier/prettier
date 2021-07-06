@@ -1,6 +1,6 @@
 "use strict";
 
-const dedent = require("dedent");
+const { outdent } = require("outdent");
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -54,8 +54,8 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "int",
     default: -1,
-    range: { start: -1, end: Infinity, step: 1 },
-    description: dedent`
+    range: { start: -1, end: Number.POSITIVE_INFINITY, step: 1 },
+    description: outdent`
       Print (to stderr) where a cursor at the given position would move to after formatting.
       This option cannot be used with --range-start and --range-end.
     `,
@@ -87,7 +87,7 @@ const options = {
       },
       {
         value: "auto",
-        description: dedent`
+        description: outdent`
           Maintain existing
           (mixed values within one file are normalised by looking at what's used after the first line)
         `,
@@ -129,6 +129,8 @@ const options = {
       { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
+      { value: "espree", since: "2.2.0", description: "JavaScript" },
+      { value: "meriyah", since: "2.2.0", description: "JavaScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
       { value: "less", since: "1.7.1", description: "Less" },
       { value: "scss", since: "1.7.1", description: "SCSS" },
@@ -144,11 +146,7 @@ const options = {
       { value: "mdx", since: "1.15.0", description: "MDX" },
       { value: "vue", since: "1.10.0", description: "Vue" },
       { value: "yaml", since: "1.14.0", description: "YAML" },
-      {
-        value: "glimmer",
-        since: null,
-        description: "Handlebars",
-      },
+      { value: "glimmer", since: "2.3.0", description: "Ember / Handlebars" },
       { value: "html", since: "1.15.0", description: "HTML" },
       { value: "angular", since: "1.15.0", description: "Angular" },
       {
@@ -177,7 +175,7 @@ const options = {
     array: true,
     default: [{ value: [] }],
     category: CATEGORY_GLOBAL,
-    description: dedent`
+    description: outdent`
       Custom directory that contains prettier plugins in node_modules subdirectory.
       Overrides default behavior when plugins are searched relatively to the location of Prettier.
       Multiple values are accepted.
@@ -193,15 +191,15 @@ const options = {
     type: "int",
     default: 80,
     description: "The line length where Prettier will try wrap.",
-    range: { start: 0, end: Infinity, step: 1 },
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
   },
   rangeEnd: {
     since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
-    default: Infinity,
-    range: { start: 0, end: Infinity, step: 1 },
-    description: dedent`
+    default: Number.POSITIVE_INFINITY,
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
+    description: outdent`
       Format code ending at a given character offset (exclusive).
       The range will extend forwards to the end of the selected statement.
       This option cannot be used with --cursor-offset.
@@ -213,8 +211,8 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "int",
     default: 0,
-    range: { start: 0, end: Infinity, step: 1 },
-    description: dedent`
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
+    description: outdent`
       Format code starting at a given character offset.
       The range will extend backwards to the start of the first line containing the selected statement.
       This option cannot be used with --cursor-offset.
@@ -226,7 +224,7 @@ const options = {
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
-    description: dedent`
+    description: outdent`
       Require either '@prettier' or '@format' to be present in the file's first docblock comment
       in order for it to be formatted.
     `,
@@ -237,7 +235,7 @@ const options = {
     category: CATEGORY_GLOBAL,
     default: 2,
     description: "Number of spaces per indentation level.",
-    range: { start: 0, end: Infinity, step: 1 },
+    range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
   },
   useTabs: {
     since: "1.0.0",
@@ -245,6 +243,25 @@ const options = {
     type: "boolean",
     default: false,
     description: "Indent with tabs instead of spaces.",
+  },
+  embeddedLanguageFormatting: {
+    since: "2.1.0",
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: [{ since: "2.1.0", value: "auto" }],
+    description:
+      "Control how Prettier formats quoted code embedded in the file.",
+    choices: [
+      {
+        value: "auto",
+        description:
+          "Format embedded code if Prettier can automatically identify it.",
+      },
+      {
+        value: "off",
+        description: "Never automatically format embedded code.",
+      },
+    ],
   },
 };
 

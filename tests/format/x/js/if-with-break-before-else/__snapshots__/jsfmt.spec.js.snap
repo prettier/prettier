@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment_before_else.js 1`] = `
+exports[`comment_before_else.js - {"breakBeforeElse":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
@@ -42,7 +42,7 @@ else stuff;
 ================================================================================
 `;
 
-exports[`else.js 1`] = `
+exports[`else.js - {"breakBeforeElse":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
@@ -93,7 +93,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`if_comments.js 1`] = `
+exports[`if_comments.js - {"breakBeforeElse":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]
@@ -218,7 +218,7 @@ async function f5() {
 ================================================================================
 `;
 
-exports[`trailing_comment.js 1`] = `
+exports[`trailing_comment.js - {"breakBeforeElse":true,"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 breakBeforeElse: true
 parsers: ["babel", "babel-flow", "flow", "typescript"]

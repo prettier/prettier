@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-10846.js format 1`] = `
+====================================options=====================================
+parsers: ["babel-flow", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1 =
+  call<{
+    prop1: string;
+    prop2: string;
+    prop3: string;
+  }>();
+
+export const CallRecorderContext1 =
+  createContext<{
+    deleteRecording: (id: string) => void;
+    deleteAll: () => void;
+  } | null>(null);
+
+export const CallRecorderContext2 = createContext<{
+  deleteRecording: (id: string) => void;
+  deleteAll: () => void;
+} | null>(null, "useless");
+
+const foo2 =
+  call<Foooooo, Foooooo, Foooooo, Foooooo, Foooooo, Foooooo, Foooooo>();
+
+const foo3 =
+  call<
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+  >();
+
+const foo4 =
+  call<
+    Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo
+  >();
+
+=====================================output=====================================
+const foo1 = call<{
+  prop1: string,
+  prop2: string,
+  prop3: string,
+}>();
+
+export const CallRecorderContext1 = createContext<{
+  deleteRecording: (id: string) => void,
+  deleteAll: () => void,
+} | null>(null);
+
+export const CallRecorderContext2 = createContext<{
+  deleteRecording: (id: string) => void,
+  deleteAll: () => void,
+} | null>(null, "useless");
+
+const foo2 = call<
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo
+>();
+
+const foo3 = call<
+  Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo
+>();
+
+const foo4 = call<
+  Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo
+>();
+
+================================================================================
+`;
+
+exports[`issue-10850.js format 1`] = `
+====================================options=====================================
+parsers: ["babel-flow", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
+  new Map();
+
+const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
+  new Map();
+
+const map: Map<Function, Foo<S>> = new Map();
+
+=====================================output=====================================
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
+  new Map();
+
+const map: Map<Function, Foo<S>> = new Map();
+
+================================================================================
+`;

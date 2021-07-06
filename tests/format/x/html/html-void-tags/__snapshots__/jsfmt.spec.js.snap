@@ -1,7 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`input.html 1`] = `
+exports[`input-self-closing.html - {"bogus1":true} format 1`] = `
 ====================================options=====================================
+bogus1: true
+parsers: ["html", "angular", "vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<input type='text' />
+
+=====================================output=====================================
+<input type="text" />
+
+================================================================================
+`;
+
+exports[`input-self-closing.html - {"htmlVoidTags":true} format 1`] = `
+====================================options=====================================
+htmlVoidTags: true
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<input type='text' />
+
+=====================================output=====================================
+<input type="text">
+
+================================================================================
+`;
+
+exports[`input-self-closing.html - {"htmlVoidTags":true} format 2`] = `
+====================================options=====================================
+htmlVoidTags: true
+parsers: ["angular", "vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<input type='text' />
+
+=====================================output=====================================
+<input type="text" />
+
+================================================================================
+`;
+
+exports[`input-void-element.html - {"bogus1":true} [vue] format 1`] = `
+"Unexpected character \\"EOF\\" (2:1)
+  1 | <input type='text'>
+> 2 |
+    | ^"
+`;
+
+exports[`input-void-element.html - {"bogus1":true} format 1`] = `
+====================================options=====================================
+bogus1: true
 parsers: ["html", "angular", "vue"]
 printWidth: 80
                                                                                 | printWidth
@@ -14,7 +67,14 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`input.html 2`] = `
+exports[`input-void-element.html - {"htmlVoidTags":true} [vue] format 1`] = `
+"Unexpected character \\"EOF\\" (2:1)
+  1 | <input type='text'>
+> 2 |
+    | ^"
+`;
+
+exports[`input-void-element.html - {"htmlVoidTags":true} format 1`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["html"]
@@ -29,7 +89,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`input.html 3`] = `
+exports[`input-void-element.html - {"htmlVoidTags":true} format 2`] = `
 ====================================options=====================================
 htmlVoidTags: true
 parsers: ["angular", "vue"]

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array-iter.js 1`] = `
+exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -85,7 +85,7 @@ const TodoList = ( { todos } ) => (
 ================================================================================
 `;
 
-exports[`attr-comments.js 1`] = `
+exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -168,7 +168,7 @@ typeAngleBracketSpacing: true
 ================================================================================
 `;
 
-exports[`conditional-expression.js 1`] = `
+exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -271,7 +271,7 @@ jsxModeFromElementBreaking ? (
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
-cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
+cable ? "satellite" : isPublic ? "affairs" : network ? <span id="c" /> : "dun";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
@@ -279,7 +279,7 @@ cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 // wrapped in parens.
 cable ? (
   "satellite"
-) : public ? (
+) : isPublic ? (
   "affairs"
 ) : network ? (
   <div>
@@ -412,7 +412,7 @@ jsxModeFromElementBreaking ? (
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
-cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
+cable ? "satellite" : isPublic ? "affairs" : network ? <span id="c" /> : "dun";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the end). It is
@@ -420,7 +420,7 @@ cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 // wrapped in parens.
 cable ? (
   "satellite"
-) : public ? (
+) : isPublic ? (
   "affairs"
 ) : network ? (
   <div>
@@ -474,7 +474,7 @@ foo ? (
 ================================================================================
 `;
 
-exports[`expression.js 1`] = `
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -769,7 +769,7 @@ typeAngleBracketSpacing: true
 ================================================================================
 `;
 
-exports[`flow_fix_me.js 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -800,7 +800,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`html_escape.js 1`] = `
+exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -827,7 +827,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`hug.js 1`] = `
+exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -916,7 +916,7 @@ typeAngleBracketSpacing: true
 ================================================================================
 `;
 
-exports[`logical-expression.js 1`] = `
+exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1001,7 +1001,7 @@ typeAngleBracketSpacing: true
 ================================================================================
 `;
 
-exports[`object-property.js 1`] = `
+exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1048,7 +1048,7 @@ const tabs = [
 ================================================================================
 `;
 
-exports[`open-break.js 1`] = `
+exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1099,7 +1099,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1158,7 +1158,7 @@ new Foo( <Component /> );
 ================================================================================
 `;
 
-exports[`quotes.js 1`] = `
+exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1255,7 +1255,7 @@ typeAngleBracketSpacing: true
 ================================================================================
 `;
 
-exports[`return-statement.js 1`] = `
+exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1376,7 +1376,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`self-closing.js 1`] = `
+exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1401,7 +1401,7 @@ typeAngleBracketSpacing: true
 ================================================================================
 `;
 
-exports[`spacing.js 1`] = `
+exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1444,6 +1444,68 @@ const Labels = {
 
   label3: <fbt>Label 3</fbt>
 };
+
+================================================================================
+`;
+
+exports[`template-literal-in-attr.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+jsxSingleQuote: false
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+singleQuote: false
+spaceInParens: true
+templateCurlySpacing: true
+trailingComma: "none"
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+  <div>
+    <div>
+    <div
+          className="js-structured-feedback js-trigger-feedback-negative-reasons item-feedback-button"
+          data-feedback-tags-url={\`/xhr/negative-feedback-tags/\${this.props.item.id}\`}
+        >foo</div>
+</div>
+</div>
+
+=====================================output=====================================
+<div>
+  <div>
+    <div
+      className="js-structured-feedback js-trigger-feedback-negative-reasons item-feedback-button"
+      data-feedback-tags-url={ \`/xhr/negative-feedback-tags/\${this.props.item.id}\` }
+    >
+      foo
+    </div>
+  </div>
+</div>;
+
+================================================================================
+`;
+
+exports[`ternary.js - {"singleQuote":false,"jsxSingleQuote":false,"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+jsxSingleQuote: false
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+singleQuote: false
+spaceInParens: true
+templateCurlySpacing: true
+trailingComma: "none"
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+a == 3 ? (a = <h1>123</h1>) : (a = <h1>abc</h1>);
+
+=====================================output=====================================
+a == 3 ? ( a = <h1>123</h1> ) : ( a = <h1>abc</h1> );
 
 ================================================================================
 `;

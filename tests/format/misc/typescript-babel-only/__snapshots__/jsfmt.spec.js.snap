@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare-index-signature.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid, but recoverable
+class C {
+  declare [key: string]: string;
+}
+
+=====================================output=====================================
+// Invalid, but recoverable
+class C {
+  declare [key: string]: string;
+}
+
+================================================================================
+`;
+
+exports[`invalid-modifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+class Bar {
+  declare e() {};
+  readonly g() {};
+}
+
+=====================================output=====================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+class Bar {
+  declare e() {}
+  readonly g() {}
+}
+
+================================================================================
+`;
+
+exports[`tuple-labeled-ts.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid label 1
+type T = [x.y: A];
+
+// Invalid label 2
+type T = [x<y>: A];
+
+=====================================output=====================================
+// Invalid label 1
+type T = [x.y: A];
+
+// Invalid label 2
+type T = [x<y>: A];
+
+================================================================================
+`;

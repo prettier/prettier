@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`throw error with invalid ignore (stderr) 1`] = `
+"[error] Unable to read <cwd>/tests/integration/cli/invalid-ignore/.prettierignore: EISDIR: illegal operation on a directory, read
+"
+`;
+
+exports[`throw error with invalid ignore (stdout) 1`] = `""`;
+
+exports[`throw error with invalid ignore (write) 1`] = `Array []`;

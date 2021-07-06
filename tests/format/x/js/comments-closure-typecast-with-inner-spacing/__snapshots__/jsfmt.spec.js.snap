@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary-expr.js 1`] = `
+exports[`binary-expr.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -20,7 +20,7 @@ var a = b || /** @type {string} */ ( c );
 ================================================================================
 `;
 
-exports[`closure-compiler-type-cast.js 1`] = `
+exports[`closure-compiler-type-cast.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -159,7 +159,7 @@ const style2 = /**
 ================================================================================
 `;
 
-exports[`comment-in-the-middle.js 1`] = `
+exports[`comment-in-the-middle.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -198,7 +198,7 @@ console.log( a.foo() );
 ================================================================================
 `;
 
-exports[`comment-placement.js 1`] = `
+exports[`comment-placement.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -248,7 +248,7 @@ const foo5 = /** @type {string} */ ( value );
 ================================================================================
 `;
 
-exports[`extra-spaces-and-asterisks.js 1`] = `
+exports[`extra-spaces-and-asterisks.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -281,7 +281,7 @@ const foo8 = /** @type {!Foo}    ** *   *   */ ( bar );
 ================================================================================
 `;
 
-exports[`iife.js 1`] = `
+exports[`iife.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -309,18 +309,42 @@ const helpers = /** @type {Helpers} */ ((
 =====================================output=====================================
 const helpers1 = /** @type {Helpers} */ ( ( ( helpers = {} ) => helpers )() );
 
-const helpers2 = /** @type {Helpers} */ ( ( function () {
-  return something;
-} )() );
+const helpers2 = /** @type {Helpers} */ (
+  ( function () {
+    return something;
+  } )()
+);
 
 // TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
-const helpers = /** @type {Helpers} */ ( /** @param {Partial<Helpers>} helpers */
-( ( helpers = {} ) => helpers )() );
+const helpers = /** @type {Helpers} */ (
+  /** @param {Partial<Helpers>} helpers */
+  ( ( helpers = {} ) => helpers )()
+);
 
 ================================================================================
 `;
 
-exports[`issue-4124.js 1`] = `
+exports[`iife-issue-5850-isolated.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow"]
+printWidth: 80
+spaceInParens: true
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+const a = /** @param {*} b */
+((b) => {})();
+
+=====================================output=====================================
+const a = /** @param {*} b */ ( b => {} )();
+
+================================================================================
+`;
+
+exports[`issue-4124.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -358,11 +382,9 @@ const test =
   /** @type (function (*): ?|undefined) */
   ( goog.partial( NewThing.onTemplateChange, rationaleField, typeField ) );
 
-const test = /** @type (function (*): ?|undefined) */ ( goog.partial(
-  NewThing.onTemplateChange,
-  rationaleField,
-  typeField
-) );
+const test = /** @type (function (*): ?|undefined) */ (
+  goog.partial( NewThing.onTemplateChange, rationaleField, typeField )
+);
 
 const model = /** @type {?{getIndex: Function}} */ ( model );
 
@@ -373,7 +395,106 @@ const test = /** @type (function (*): ?|undefined) */ ( foo );
 ================================================================================
 `;
 
-exports[`member.js 1`] = `
+exports[`issue-8045.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow"]
+printWidth: 80
+spaceInParens: true
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (fooBarBaz);
+}
+
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+      (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (/** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz));
+}
+
+const myLongVariableName = /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+      (fooBarBaz);
+
+function jsdocCastInReturn() {
+  return (/** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    (fooBarBaz));
+}
+
+=====================================output=====================================
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ ( fooBarBaz );
+
+function jsdocCastInReturn() {
+  return /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */ (
+    fooBarBaz
+  );
+}
+
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+  ( fooBarBaz );
+
+function jsdocCastInReturn() {
+  return (
+    /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    ( fooBarBaz )
+  );
+}
+
+const myLongVariableName =
+  /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+  ( fooBarBaz );
+
+function jsdocCastInReturn() {
+  return (
+    /** @type {ThisIsAVeryLongTypeThatShouldTriggerLineWrapping} */
+    ( fooBarBaz )
+  );
+}
+
+================================================================================
+`;
+
+exports[`issue-9358.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow"]
+printWidth: 80
+spaceInParens: true
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+const fooooba1 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems || foo);
+const fooooba2 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems + foo);
+const fooooba3 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (fooobaarbazzItems || foo) ? foo : bar;
+
+=====================================output=====================================
+const fooooba1 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
+  fooobaarbazzItems || foo
+);
+const fooooba2 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
+  fooobaarbazzItems + foo
+);
+const fooooba3 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
+  fooobaarbazzItems || foo
+)
+  ? foo
+  : bar;
+
+================================================================================
+`;
+
+exports[`member.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -392,7 +513,7 @@ foo = /** @type {!Baz} */ ( baz ).bar;
 ================================================================================
 `;
 
-exports[`nested.js 1`] = `
+exports[`nested.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -417,15 +538,17 @@ foo = /** @type {!Foo} */ ( /** @type {!Baz} */ ( baz ).bar );
 
 const BarImpl = /** @type {BarConstructor} */ (
   /** @type {unknown} */
-  ( function Bar() {
-    throw new Error( "Internal error: Illegal constructor" );
-  } )
+  (
+    function Bar() {
+      throw new Error( "Internal error: Illegal constructor" );
+    }
+  )
 );
 
 ================================================================================
 `;
 
-exports[`non-casts.js 1`] = `
+exports[`non-casts.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -478,7 +601,7 @@ const w1 = /** @typefoo Foo */ value;
 ================================================================================
 `;
 
-exports[`object-with-comment.js 1`] = `
+exports[`object-with-comment.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -518,7 +641,7 @@ const objectWithComment2 = /** @type MyType */ (
 ================================================================================
 `;
 
-exports[`ways-to-specify-type.js 1`] = `
+exports[`ways-to-specify-type.js - {"spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"arrowParens":"avoid","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"

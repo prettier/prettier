@@ -3,7 +3,6 @@
 const fs = require("fs");
 const path = require("path");
 const readlines = require("n-readlines");
-const fromPairs = require("lodash/fromPairs");
 const { UndefinedParserError } = require("../common/errors");
 const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
@@ -18,9 +17,7 @@ const hiddenDefaults = {
 };
 
 // Copy options and fill in default values.
-function normalize(options, opts) {
-  opts = opts || {};
-
+function normalize(options, opts = {}) {
   const rawOptions = { ...options };
 
   const supportOptions = getSupportInfo({
@@ -31,7 +28,7 @@ function normalize(options, opts) {
 
   const defaults = {
     ...hiddenDefaults,
-    ...fromPairs(
+    ...Object.fromEntries(
       supportOptions
         .filter((optionInfo) => optionInfo.default !== undefined)
         .map((option) => [option.name, option.default])
@@ -70,27 +67,26 @@ function normalize(options, opts) {
   const plugin = getPlugin(rawOptions);
   rawOptions.printer = plugin.printers[rawOptions.astFormat];
 
-  const pluginDefaults = supportOptions
-    .filter(
-      (optionInfo) =>
-        optionInfo.pluginDefaults &&
-        optionInfo.pluginDefaults[plugin.name] !== undefined
-    )
-    .reduce(
-      (reduced, optionInfo) =>
-        Object.assign(reduced, {
-          [optionInfo.name]: optionInfo.pluginDefaults[plugin.name],
-        }),
-      {}
-    );
+  const pluginDefaults = Object.fromEntries(
+    supportOptions
+      .filter(
+        (optionInfo) =>
+          optionInfo.pluginDefaults &&
+          optionInfo.pluginDefaults[plugin.name] !== undefined
+      )
+      .map((optionInfo) => [
+        optionInfo.name,
+        optionInfo.pluginDefaults[plugin.name],
+      ])
+  );
 
   const mixedDefaults = { ...defaults, ...pluginDefaults };
 
-  Object.keys(mixedDefaults).forEach((k) => {
-    if (rawOptions[k] == null) {
-      rawOptions[k] = mixedDefaults[k];
+  for (const [k, value] of Object.entries(mixedDefaults)) {
+    if (rawOptions[k] === null || rawOptions[k] === undefined) {
+      rawOptions[k] = value;
     }
-  });
+  }
 
   if (rawOptions.parser === "json") {
     rawOptions.trailingComma = "none";
@@ -105,12 +101,16 @@ function normalize(options, opts) {
 function getPlugin(options) {
   const { astFormat } = options;
 
+  // TODO: test this with plugins
+  /* istanbul ignore next */
   if (!astFormat) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
   const printerPlugin = options.plugins.find(
     (plugin) => plugin.printers && plugin.printers[astFormat]
   );
+  // TODO: test this with plugins
+  /* istanbul ignore next */
   if (!printerPlugin) {
     throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);
   }
@@ -119,6 +119,7 @@ function getPlugin(options) {
 }
 
 function getInterpreter(filepath) {
+  /* istanbul ignore next */
   if (typeof filepath !== "string") {
     return "";
   }
@@ -126,7 +127,7 @@ function getInterpreter(filepath) {
   let fd;
   try {
     fd = fs.openSync(filepath, "r");
-  } catch (err) {
+  } catch {
     // istanbul ignore next
     return "";
   }
@@ -147,16 +148,17 @@ function getInterpreter(filepath) {
       return m2[1];
     }
     return "";
-  } catch (err) {
+  } catch {
     // There are some weird cases where paths are missing, causing Jest
     // failures. It's unclear what these correspond to in the real world.
+    /* istanbul ignore next */
     return "";
   } finally {
     try {
       // There are some weird cases where paths are missing, causing Jest
       // failures. It's unclear what these correspond to in the real world.
       fs.closeSync(fd);
-    } catch (err) {
+    } catch {
       // nop
     }
   }
@@ -178,7 +180,7 @@ function inferParser(filepath, plugins) {
           filename.endsWith(extension)
         )) ||
       (language.filenames &&
-        language.filenames.find((name) => name.toLowerCase() === filename))
+        language.filenames.some((name) => name.toLowerCase() === filename))
   );
 
   if (!language && !filename.includes(".")) {

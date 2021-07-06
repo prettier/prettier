@@ -2,7 +2,7 @@
 
 const CATEGORY_COMMON = "Common";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 module.exports = {
   singleQuote: {
     since: "0.0.0",

@@ -8,21 +8,32 @@
  * @property {boolean} [hard]
  * @property {boolean} [literal]
  *
- * @typedef {string | DocObject} Doc
+ * @typedef {Doc[]} DocArray
+ *
+ * @typedef {string | DocObject | DocArray} Doc
  */
 
 /**
  * @param {Doc} val
  */
 function assertDoc(val) {
-  /* istanbul ignore if */
-  if (
-    !(typeof val === "string" || (val != null && typeof val.type === "string"))
-  ) {
-    throw new Error(
-      "Value " + JSON.stringify(val) + " is not a valid document"
-    );
+  if (typeof val === "string") {
+    return;
   }
+
+  if (Array.isArray(val)) {
+    for (const doc of val) {
+      assertDoc(doc);
+    }
+    return;
+  }
+
+  if (val && typeof val.type === "string") {
+    return;
+  }
+
+  /* istanbul ignore next */
+  throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
 }
 
 /**
@@ -31,7 +42,9 @@ function assertDoc(val) {
  */
 function concat(parts) {
   if (process.env.NODE_ENV !== "production") {
-    parts.forEach(assertDoc);
+    for (const part of parts) {
+      assertDoc(part);
+    }
   }
 
   // We cannot do this until we change `printJSXElement` to not
@@ -56,16 +69,16 @@ function indent(contents) {
 }
 
 /**
- * @param {number} n
+ * @param {number | string} widthOrString
  * @param {Doc} contents
  * @returns Doc
  */
-function align(n, contents) {
+function align(widthOrString, contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
 
-  return { type: "align", contents, n };
+  return { type: "align", contents, n: widthOrString };
 }
 
 /**
@@ -73,9 +86,7 @@ function align(n, contents) {
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function group(contents, opts) {
-  opts = opts || {};
-
+function group(contents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
@@ -84,9 +95,9 @@ function group(contents, opts) {
     type: "group",
     id: opts.id,
     contents,
-    break: !!opts.shouldBreak,
-    // [prettierx] --paren-spacing option support (...)
-    addedLine: !!opts.addedLine,
+    break: Boolean(opts.shouldBreak),
+    // [prettierx] for --space-in-parens option support (...)
+    addedLine: Boolean(opts.addedLine),
     expandedStates: opts.expandedStates,
   };
 }
@@ -96,7 +107,7 @@ function group(contents, opts) {
  * @returns Doc
  */
 function dedentToRoot(contents) {
-  return align(-Infinity, contents);
+  return align(Number.NEGATIVE_INFINITY, contents);
 }
 
 /**
@@ -131,7 +142,9 @@ function conditionalGroup(states, opts) {
  */
 function fill(parts) {
   if (process.env.NODE_ENV !== "production") {
-    parts.forEach(assertDoc);
+    for (const part of parts) {
+      assertDoc(part);
+    }
   }
 
   return { type: "fill", parts };
@@ -143,9 +156,7 @@ function fill(parts) {
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function ifBreak(breakContents, flatContents, opts) {
-  opts = opts || {};
-
+function ifBreak(breakContents, flatContents, opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     if (breakContents) {
       assertDoc(breakContents);
@@ -164,6 +175,21 @@ function ifBreak(breakContents, flatContents, opts) {
 }
 
 /**
+ * Optimized version of `ifBreak(indent(doc), doc, { groupId: ... })`
+ * @param {Doc} contents
+ * @param {{ groupId: symbol, negate?: boolean }} opts
+ * @returns Doc
+ */
+function indentIfBreak(contents, opts) {
+  return {
+    type: "indent-if-break",
+    contents,
+    groupId: opts.groupId,
+    negate: opts.negate,
+  };
+}
+
+/**
  * @param {Doc} contents
  * @returns Doc
  */
@@ -177,13 +203,21 @@ function lineSuffix(contents) {
 const lineSuffixBoundary = { type: "line-suffix-boundary" };
 const breakParent = { type: "break-parent" };
 const trim = { type: "trim" };
+
+const hardlineWithoutBreakParent = { type: "line", hard: true };
+const literallineWithoutBreakParent = {
+  type: "line",
+  hard: true,
+  literal: true,
+};
+
 const line = { type: "line" };
 const softline = { type: "line", soft: true };
-const hardline = concat([{ type: "line", hard: true }, breakParent]);
-const literalline = concat([
-  { type: "line", hard: true, literal: true },
-  breakParent,
-]);
+// eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
+const hardline = concat([hardlineWithoutBreakParent, breakParent]);
+// eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
+const literalline = concat([literallineWithoutBreakParent, breakParent]);
+
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
 /**
@@ -202,6 +236,7 @@ function join(sep, arr) {
     res.push(arr[i]);
   }
 
+  // eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
   return concat(res);
 }
 
@@ -221,9 +256,13 @@ function addAlignmentToDoc(doc, size, tabWidth) {
     aligned = align(size % tabWidth, aligned);
     // size is absolute from 0 and not relative to the current
     // indentation, so we use -Infinity to reset the indentation to 0
-    aligned = align(-Infinity, aligned);
+    aligned = align(Number.NEGATIVE_INFINITY, aligned);
   }
   return aligned;
+}
+
+function label(label, contents) {
+  return { type: "label", label, contents };
 }
 
 module.exports = {
@@ -243,9 +282,13 @@ module.exports = {
   ifBreak,
   trim,
   indent,
+  indentIfBreak,
   align,
   addAlignmentToDoc,
   markAsRoot,
   dedentToRoot,
   dedent,
+  hardlineWithoutBreakParent,
+  literallineWithoutBreakParent,
+  label,
 };

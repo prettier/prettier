@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket_0.js 1`] = `
+exports[`bracket_0.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -38,7 +38,31 @@ function a() {
 ================================================================================
 `;
 
-exports[`break-last-call.js 1`] = `
+exports[`bracket_0-1.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const thingamabobMetaAlias =
+path.scope.getProgramParent().path.get("body")[0].node;
+
+=====================================output=====================================
+const thingamabobMetaAlias = path.scope
+  .getProgramParent()
+  .path.get( "body" )[ 0 ].node;
+
+================================================================================
+`;
+
+exports[`break-last-call.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -171,7 +195,7 @@ it( "should group messages with same created time", () => {
 ================================================================================
 `;
 
-exports[`break-last-member.js 1`] = `
+exports[`break-last-member.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -196,7 +220,7 @@ expect(
 
 const { course, conflicts = [], index, scheduleId, studentId, something } = a.this.props;
 
-const { course, conflicts = [], index, scheduleId, studentId, something } = this.props;
+const { course2, conflicts2 = [], index2, scheduleId2, studentId2, something2 } = this.props;
 
 const {
   updated,
@@ -230,12 +254,12 @@ const {
 } = a.this.props;
 
 const {
-  course,
-  conflicts = [],
-  index,
-  scheduleId,
-  studentId,
-  something,
+  course2,
+  conflicts2 = [],
+  index2,
+  scheduleId2,
+  studentId2,
+  something2,
 } = this.props;
 
 const {
@@ -248,7 +272,7 @@ const {
 ================================================================================
 `;
 
-exports[`break-multiple.js 1`] = `
+exports[`break-multiple.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -277,7 +301,7 @@ foo().bar.baz();
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -339,15 +363,6 @@ ret = __DEV__ ?
   // $FlowFixMe: this type differs according to the env
 vm.runInContext(source, ctx)
 : a
-
-this.firebase.object(\`/shops/\${shopLocation.shop}\`)
-  // keep distance info
-  .first((shop: ShopQueryResult, index: number, source: Observable<ShopQueryResult>): any => {
-      // add distance to result
-      const s = shop;
-      s.distance = shopLocation.distance;
-      return s;
-  });
 
 angular.module('AngularAppModule')
   // Hello, I am comment.
@@ -412,22 +427,6 @@ ret = __DEV__
     vm.runInContext( source, ctx )
   : a;
 
-this.firebase
-  .object( \`/shops/\${shopLocation.shop}\` )
-  // keep distance info
-  .first(
-    (
-      shop: ShopQueryResult,
-      index: number,
-      source: Observable< ShopQueryResult >
-    ): any => {
-      // add distance to result
-      const s = shop;
-      s.distance = shopLocation.distance;
-      return s;
-    }
-  );
-
 angular
   .module( "AngularAppModule" )
   // Hello, I am comment.
@@ -436,7 +435,34 @@ angular
 ================================================================================
 `;
 
-exports[`computed.js 1`] = `
+exports[`complex-args.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+client.execute(
+  Post.selectAll()
+    .where(Post.id.eq(42))
+    .where(Post.published.eq(true))
+);
+
+=====================================output=====================================
+client.execute(
+  Post.selectAll().where( Post.id.eq( 42 ) ).where( Post.published.eq( true ) )
+);
+
+================================================================================
+`;
+
+exports[`computed.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -467,7 +493,7 @@ nock( /test/ )
 ================================================================================
 `;
 
-exports[`computed-merge.js 1`] = `
+exports[`computed-merge.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -518,7 +544,7 @@ window.Data[ key ]( "foo" )
 ================================================================================
 `;
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -590,7 +616,40 @@ object[
 ================================================================================
 `;
 
-exports[`d3.js 1`] = `
+exports[`cypress.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+cy.get('option:first')
+  .should('be.selected')
+  .and('have.value', 'Metallica')
+
+cy.get(".ready")
+  .should("have.text", "FOO")
+  .should("have.css", "color", "#aaa");
+
+=====================================output=====================================
+cy.get( "option:first" )
+  .should( "be.selected" )
+  .and( "have.value", "Metallica" );
+
+cy.get( ".ready" )
+  .should( "have.text", "FOO" )
+  .should( "have.css", "color", "#aaa" );
+
+================================================================================
+`;
+
+exports[`d3.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -608,7 +667,7 @@ d3.select('body')
   .at({ width: 30, fill: '#f0f' })
   .st({ fontWeight: 600 })
 
-d3.scaleLinear()
+const myScale = d3.scaleLinear()
   .domain([1950, 1980])
   .range([0, width])
 
@@ -627,7 +686,7 @@ d3.select( "body" )
   .at( { width: 30, fill: "#f0f" } )
   .st( { fontWeight: 600 } );
 
-d3.scaleLinear().domain( [ 1950, 1980 ] ).range( [ 0, width ] );
+const myScale = d3.scaleLinear().domain( [ 1950, 1980 ] ).range( [ 0, width ] );
 
 not.d3
   .select( "body" )
@@ -640,7 +699,7 @@ not.d3.scaleLinear().domain( [ 1950, 1980 ] ).range( [ 0, width ] );
 ================================================================================
 `;
 
-exports[`first_long.js 1`] = `
+exports[`first_long.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -726,7 +785,53 @@ function f() {
 ================================================================================
 `;
 
-exports[`inline_merge.js 1`] = `
+exports[`fluent-configuration.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+domain
+    .concept('Page')
+    .val('title', 'string')
+    .vals('widgets', 'Widget')
+domain
+    .concept('Widget')
+    .val('title', 'string')
+    .val('color', 'Color')
+    .val('foo', 'Foo')
+    .val('bar', 'Bar')
+domain
+    .concept('Widget')
+    .val('title', 'string')
+    .val('color', 'Color')
+domain
+    .concept(CONCEPT_NAME)
+    .val('title')
+    .vals()
+
+=====================================output=====================================
+domain.concept( "Page" ).val( "title", "string" ).vals( "widgets", "Widget" );
+domain
+  .concept( "Widget" )
+  .val( "title", "string" )
+  .val( "color", "Color" )
+  .val( "foo", "Foo" )
+  .val( "bar", "Bar" );
+domain.concept( "Widget" ).val( "title", "string" ).val( "color", "Color" );
+domain.concept( CONCEPT_NAME ).val( "title" ).vals();
+
+================================================================================
+`;
+
+exports[`inline_merge.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -778,7 +883,81 @@ var jqxhr = $.ajax( "example.php" ).done( doneFn ).fail( failFn );
 ================================================================================
 `;
 
-exports[`issue-4125.js 1`] = `
+exports[`issue-3594.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const fetched = fetch("/foo");
+fetched
+	.then(response => response.json())
+	.then(json => processThings(json.data.things));
+
+let column = new Column(null, conn)
+    .table(data.table)
+    .json(data.column);
+
+=====================================output=====================================
+const fetched = fetch( "/foo" );
+fetched
+  .then( response => response.json() )
+  .then( json => processThings( json.data.things ) );
+
+let column = new Column( null, conn ).table( data.table ).json( data.column );
+
+================================================================================
+`;
+
+exports[`issue-3621.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const palindrome = str => {
+  const s = str.toLowerCase().replace(/[\\W_]/g, '');
+  return s === s.split('').reverse().join('');
+};
+
+const apiCurrencies = api().currencies().all()
+
+expect(cells.at(1).render().text()).toBe('link text1')
+expect(cells.at(2).render().text()).toBe('link text2')
+expect(cells.at(3).render().text()).toBe('link text3')
+expect(cells.at(4).render().text()).toBe('link text4')
+
+=====================================output=====================================
+const palindrome = str => {
+  const s = str.toLowerCase().replace( /[\\W_]/g, "" );
+  return s === s.split( "" ).reverse().join( "" );
+};
+
+const apiCurrencies = api().currencies().all();
+
+expect( cells.at( 1 ).render().text() ).toBe( "link text1" );
+expect( cells.at( 2 ).render().text() ).toBe( "link text2" );
+expect( cells.at( 3 ).render().text() ).toBe( "link text3" );
+expect( cells.at( 4 ).render().text() ).toBe( "link text4" );
+
+================================================================================
+`;
+
+exports[`issue-4125.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -801,14 +980,14 @@ req.checkBody('name').notEmpty().optional();
 const x = moment().add(1, 'day').valueOf()
 
 // should stay on one line:
-obj.foo(1).foo(2).foo(3);
-obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
+const y = obj.foo(1).foo(2).foo(3);
+const z = obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 
 // better on multiple lines:
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
 
 // you can still force multi-line chaining with a comment:
-const sha256 = (data) =>
+const sha256_2 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)
@@ -856,7 +1035,7 @@ db.branch(
 
 sandbox.stub(config, 'get').withArgs('env').returns('dev')
 
-moment.utc(userInput).hour(0).minute(0).second(0)
+const date = moment.utc(userInput).hour(0).minute(0).second(0)
 
 fetchUser(id)
   .then(fetchAccountForUser)
@@ -918,13 +1097,13 @@ it('gets triggered by mouseenter', () => {
   wrapper.dive().find(Button).prop();
 });
 
-x.a(true).b(null).c(123)
-x.d('').e(\`\`).f(g)
-x.d('').e(\`\${123}\`).f(g)
-x.h(i.j).k(l()).m([n, o])
+const a1 = x.a(true).b(null).c(123)
+const a2 = x.d('').e(\`\`).f(g)
+const a3 = x.d('').e(\`\${123}\`).f(g)
+const a4 = x.h(i.j).k(l()).m([n, o])
 class X {
   y() {
-    x.a(this).b(super.cde()).f(/g/).h(new i()).j()
+    const j = x.a(this).b(super.cde()).f(/g/).h(new i()).j();
   }
 }
 
@@ -953,8 +1132,8 @@ req.checkBody( "name" ).notEmpty().optional();
 const x = moment().add( 1, "day" ).valueOf();
 
 // should stay on one line:
-obj.foo( 1 ).foo( 2 ).foo( 3 );
-obj.foo( - 1 ).foo( import( "2" ) ).foo( ! x ).check( /[A-Z]/ );
+const y = obj.foo( 1 ).foo( 2 ).foo( 3 );
+const z = obj.foo( - 1 ).foo( import( "2" ) ).foo( ! x ).check( /[A-Z]/ );
 
 // better on multiple lines:
 somePromise
@@ -963,7 +1142,7 @@ somePromise
   .catch( err => handleError( err ) );
 
 // you can still force multi-line chaining with a comment:
-const sha256 = data =>
+const sha256_2 = data =>
   crypto // breakme
     .createHash( "sha256" )
     .update( data )
@@ -1019,7 +1198,7 @@ db.branch(
 
 sandbox.stub( config, "get" ).withArgs( "env" ).returns( "dev" );
 
-moment.utc( userInput ).hour( 0 ).minute( 0 ).second( 0 );
+const date = moment.utc( userInput ).hour( 0 ).minute( 0 ).second( 0 );
 
 fetchUser( id ).then( fetchAccountForUser ).catch( handleFetchError );
 
@@ -1080,13 +1259,13 @@ it( "gets triggered by mouseenter", () => {
   wrapper.dive().find( Button ).prop();
 } );
 
-x.a( true ).b( null ).c( 123 );
-x.d( "" ).e( \`\` ).f( g );
-x.d( "" ).e( \`\${ 123 }\` ).f( g );
-x.h( i.j ).k( l() ).m( [ n, o ] );
+const a1 = x.a( true ).b( null ).c( 123 );
+const a2 = x.d( "" ).e( \`\` ).f( g );
+const a3 = x.d( "" ).e( \`\${ 123 }\` ).f( g );
+const a4 = x.h( i.j ).k( l() ).m( [ n, o ] );
 class X {
   y() {
-    x.a( this ).b( super.cde() ).f( /g/ ).h( new i() ).j();
+    const j = x.a( this ).b( super.cde() ).f( /g/ ).h( new i() ).j();
   }
 }
 
@@ -1114,7 +1293,7 @@ var l = base
 ================================================================================
 `;
 
-exports[`logical.js 1`] = `
+exports[`logical.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1175,7 +1354,7 @@ const someLongVariableName = (
 ================================================================================
 `;
 
-exports[`multiple-members.js 1`] = `
+exports[`multiple-members.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1276,7 +1455,7 @@ wrapper
 ================================================================================
 `;
 
-exports[`object-literal.js 1`] = `
+exports[`object-literal.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1325,7 +1504,48 @@ of( "test" )
 ================================================================================
 `;
 
-exports[`short-names.js 1`] = `
+exports[`pr-7889.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const Profile = view.with({ name: (state) => state.name }).as((props) => (
+  <div>
+    <h1>Hello, {props.name}</h1>
+  </div>
+))
+
+const Profile2 = view.with({ name }).as((props) => (
+  <div>
+    <h1>Hello, {props.name}</h1>
+  </div>
+))
+
+=====================================output=====================================
+const Profile = view.with( { name: state => state.name } ).as( props => (
+  <div>
+    <h1>Hello, { props.name }</h1>
+  </div>
+) );
+
+const Profile2 = view.with( { name } ).as( props => (
+  <div>
+    <h1>Hello, { props.name }</h1>
+  </div>
+) );
+
+================================================================================
+`;
+
+exports[`short-names.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1352,7 +1572,32 @@ const svgJsFiles = fs
 ================================================================================
 `;
 
-exports[`square_0.js 1`] = `
+exports[`simple-args.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
+====================================options=====================================
+arrayBracketSpacing: true
+arrowParens: "avoid"
+computedPropertySpacing: true
+parsers: ["babel", "babel-flow", "flow", "typescript"]
+printWidth: 80
+spaceInParens: true
+spaceUnaryOps: true
+templateCurlySpacing: true
+typeAngleBracketSpacing: true
+                                                                                | printWidth
+=====================================input======================================
+const fieldsToSend = _(["id", extra]).without("transition").uniq();
+
+console.log(values.filter(isValid).map(extractId).slice(-5, -1));
+
+=====================================output=====================================
+const fieldsToSend = _( [ "id", extra ] ).without( "transition" ).uniq();
+
+console.log( values.filter( isValid ).map( extractId ).slice( - 5, - 1 ) );
+
+================================================================================
+`;
+
+exports[`square_0.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1389,7 +1634,7 @@ const component = find( ".org-lclp-edit-copy-url-banner__link" )[ 0 ]
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"
@@ -1421,7 +1666,7 @@ method()
 ================================================================================
 `;
 
-exports[`this.js 1`] = `
+exports[`this.js - {"arrowParens":"avoid","spaceInParens":true,"arrayBracketSpacing":true,"computedPropertySpacing":true,"spaceUnaryOps":true,"templateCurlySpacing":true,"typeAngleBracketSpacing":true} format 1`] = `
 ====================================options=====================================
 arrayBracketSpacing: true
 arrowParens: "avoid"

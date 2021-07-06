@@ -1,25 +1,34 @@
 "use strict";
 
+const {
+  ParseSourceSpan,
+} = require("angular-html-parser/lib/compiler/src/parse_util");
+
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
-// <!--[if ... ]> ... <![endif]-->
-const IE_CONDITIONAL_START_END_COMMENT_REGEX = /^(\[if([^\]]*?)\]>)([\s\S]*?)<!\s*\[endif\]$/;
-// <!--[if ... ]><!-->
-const IE_CONDITIONAL_START_COMMENT_REGEX = /^\[if([^\]]*?)\]><!$/;
-// <!--<![endif]-->
-const IE_CONDITIONAL_END_COMMENT_REGEX = /^<!\s*\[endif\]$/;
-
-const REGEX_PARSE_TUPLES = [
-  [IE_CONDITIONAL_START_END_COMMENT_REGEX, parseIeConditionalStartEndComment],
-  [IE_CONDITIONAL_START_COMMENT_REGEX, parseIeConditionalStartComment],
-  [IE_CONDITIONAL_END_COMMENT_REGEX, parseIeConditionalEndComment],
+const parseFunctions = [
+  {
+    // <!--[if ... ]> ... <![endif]-->
+    regex: /^(\[if([^\]]*?)]>)(.*?)<!\s*\[endif]$/s,
+    parse: parseIeConditionalStartEndComment,
+  },
+  {
+    // <!--[if ... ]><!-->
+    regex: /^\[if([^\]]*?)]><!$/,
+    parse: parseIeConditionalStartComment,
+  },
+  {
+    // <!--<![endif]-->
+    regex: /^<!\s*\[endif]$/,
+    parse: parseIeConditionalEndComment,
+  },
 ];
 
 function parseIeConditionalComment(node, parseHtml) {
   if (node.value) {
-    let match;
-    for (const [regex, parse] of REGEX_PARSE_TUPLES) {
-      if ((match = node.value.match(regex))) {
+    for (const { regex, parse } of parseFunctions) {
+      const match = node.value.match(regex);
+      if (match) {
         return parse(node, parseHtml, match);
       }
     }
@@ -32,11 +41,10 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
-  const ParseSourceSpan = node.sourceSpan.constructor;
   const [complete, children] = (() => {
     try {
       return [true, parseHtml(data, contentStartSpan).children];
-    } catch (e) {
+    } catch {
       const text = {
         type: "text",
         value: data,

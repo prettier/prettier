@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-scalar-with-spaces-and-comments.yml 1`] = `
+exports[`block-scalar-with-spaces-and-comments.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -25,7 +25,7 @@ empty block scalar: >
 ================================================================================
 `;
 
-exports[`block-scalar-with-spaces-and-comments.yml 2`] = `
+exports[`block-scalar-with-spaces-and-comments.yml - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

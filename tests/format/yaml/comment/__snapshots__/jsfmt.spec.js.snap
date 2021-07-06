@@ -1,0 +1,633 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collection.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a: # a.trailingComment
+  123
+  # implicitMappingValue
+
+? b
+  # explicitMappingKey
+: c
+  # explicitMappingValue
+
+d:
+  - 123
+  # sequence
+
+e:
+  - 123
+    # sequenceItem
+
+f:
+  - a
+  # b.leadingComments
+  - b
+    # b.endComments
+  - c
+    # c.endComments
+  # sequence.endComments
+# documentBody.children
+
+empty_content:
+  # hello world
+
+=====================================output=====================================
+a: # a.trailingComment
+  123
+  # implicitMappingValue
+
+? b
+  # explicitMappingKey
+: c
+  # explicitMappingValue
+
+d:
+  - 123
+  # sequence
+
+e:
+  - 123
+    # sequenceItem
+
+f:
+  - a
+  # b.leadingComments
+  - b
+    # b.endComments
+  - c
+    # c.endComments
+  # sequence.endComments
+# documentBody.children
+
+empty_content:
+  # hello world
+
+================================================================================
+`;
+
+exports[`end-comment.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+parent:
+  one: 1
+  # two: 2
+
+a:
+  b:
+   #b
+ #a
+
+A:
+  B:
+ #A
+   #A
+
+=====================================output=====================================
+parent:
+  one: 1
+  # two: 2
+
+a:
+  b:
+    #b
+  #a
+
+A:
+  B:
+  #A
+  #A
+
+================================================================================
+`;
+
+exports[`flow-sequence-mapping.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+    a:
+      [
+        check-format, check-lint,
+        check-spelling,
+        # coverage,
+        # install-and-run-from-git,
+      ]
+
+    b:
+      {
+        a: check-format, b: check-lint,
+        c: check-spelling,
+        # d: coverage,
+        # e: install-and-run-from-git,
+      }
+
+    d:
+      # prettier-ignore
+      [
+        check-format, check-lint,
+        check-spelling,
+        # coverage,
+        # install-and-run-from-git,
+      ]
+
+    e:
+      # prettier-ignore
+      {
+        a: check-format, b: check-lint,
+        c: check-spelling,
+        # d: coverage,
+        # e: install-and-run-from-git,
+      }
+
+=====================================output=====================================
+a: [
+    check-format,
+    check-lint,
+    check-spelling,
+    # coverage,
+    # install-and-run-from-git,
+  ]
+
+b: {
+    a: check-format,
+    b: check-lint,
+    c: check-spelling,
+    # d: coverage,
+    # e: install-and-run-from-git,
+  }
+
+d:
+  # prettier-ignore
+  [
+        check-format, check-lint,
+        check-spelling,
+        # coverage,
+        # install-and-run-from-git,
+      ]
+
+e:
+  # prettier-ignore
+  {
+        a: check-format, b: check-lint,
+        c: check-spelling,
+        # d: coverage,
+        # e: install-and-run-from-git,
+      }
+
+================================================================================
+`;
+
+exports[`in-empty-item-without-newlline.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a:
+  #123
+=====================================output=====================================
+a:
+  #123
+
+================================================================================
+`;
+
+exports[`issue-8378.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# --- comments ---
+
+=====================================output=====================================
+# --- comments ---
+
+================================================================================
+`;
+
+exports[`issue-9130.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- foo: 0
+  bar: 1
+
+  # baz: 2
+- quux: 3
+
+- foo: 0
+  bar: 1
+
+  # baz: 2
+
+  # baz: 3
+- quux: 3
+
+=====================================output=====================================
+- foo: 0
+  bar: 1
+
+  # baz: 2
+- quux: 3
+
+- foo: 0
+  bar: 1
+
+  # baz: 2
+
+  # baz: 3
+- quux: 3
+
+================================================================================
+`;
+
+exports[`map.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo1:
+  - foo: item1
+    bar: item1
+
+  # - foo: item2
+  #   bar: item2
+
+  # - foo: item3
+  #   bar: item3
+
+  - foo: item4
+    bar: item4
+
+foo2:
+  - foo: item11
+    bar: item11
+
+  # - foo: item22
+  #   bar: item22
+
+  # - foo: item33
+  #   bar: item33
+
+=====================================output=====================================
+foo1:
+  - foo: item1
+    bar: item1
+
+  # - foo: item2
+  #   bar: item2
+
+  # - foo: item3
+  #   bar: item3
+
+  - foo: item4
+    bar: item4
+
+foo2:
+  - foo: item11
+    bar: item11
+
+  # - foo: item22
+  #   bar: item22
+
+  # - foo: item33
+  #   bar: item33
+
+================================================================================
+`;
+
+exports[`map-2.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # - foo2
+
+
+
+
+  
+
+  # - foo2
+  # - foo2
+
+=====================================output=====================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # - foo2
+
+  # - foo2
+  # - foo2
+
+================================================================================
+`;
+
+exports[`map-3.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # first line
+  # next line
+
+=====================================output=====================================
+foo1:
+  - foo
+
+  # - foo
+
+  # - foo
+
+  - foo
+
+foo2:
+  - foo2
+
+  # first line
+  # next line
+
+================================================================================
+`;
+
+exports[`map-4.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+before:
+
+  # before.comment
+after:
+  # after.comment
+
+before-after:
+
+  # before-after.comment
+
+none:
+  # none.comment
+before(2 line):
+
+
+  # before.comment
+after(2 line):
+  # after.comment
+
+
+before-after(2 line):
+
+
+  # before-after.comment
+
+
+none(2):
+  # none.comment
+=====================================output=====================================
+before:
+
+  # before.comment
+after:
+  # after.comment
+
+before-after:
+
+  # before-after.comment
+
+none:
+  # none.comment
+before(2 line):
+
+  # before.comment
+after(2 line):
+  # after.comment
+
+before-after(2 line):
+
+  # before-after.comment
+
+none(2):
+  # none.comment
+
+================================================================================
+`;
+
+exports[`object.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#6445
+
+obj:
+  # before
+
+
+  # before
+
+
+  key: value
+
+
+  # after
+
+
+  # after
+
+=====================================output=====================================
+#6445
+
+obj:
+  # before
+
+  # before
+
+  key: value
+
+  # after
+
+  # after
+
+================================================================================
+`;
+
+exports[`root.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#hello world
+
+=====================================output=====================================
+#hello world
+
+================================================================================
+`;
+
+exports[`sequence.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+-  - a
+
+   # - b
+
+   # - c
+
+   - e
+
+-  - a
+
+   # - b
+
+   # - c
+
+=====================================output=====================================
+- - a
+
+  # - b
+
+  # - c
+
+  - e
+
+- - a
+
+  # - b
+
+  # - c
+
+================================================================================
+`;
+
+exports[`sequence-2.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- before
+
+  # before.comment
+- after
+  # after.comment
+
+- before-after
+
+  # before-after.comment
+
+- none:
+  # none.comment
+- before(2 line)
+
+
+  # before.comment
+- after(2 line)
+  # after.comment
+
+
+- before-after(2 line)
+
+
+  # before-after.comment
+
+
+- none(2)
+  # none.comment
+=====================================output=====================================
+- before
+
+  # before.comment
+- after
+  # after.comment
+
+- before-after
+
+  # before-after.comment
+
+- none:
+  # none.comment
+- before(2 line)
+
+  # before.comment
+- after(2 line)
+  # after.comment
+
+- before-after(2 line)
+
+  # before-after.comment
+
+- none(2)
+  # none.comment
+
+================================================================================
+`;
+
+exports[`set.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- 123
+  # 456
+
+=====================================output=====================================
+- 123
+  # 456
+
+================================================================================
+`;

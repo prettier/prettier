@@ -1,0 +1,302 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments.js [espree] format 1`] = `
+"Unexpected token { (1:32)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                                ^
+  2 |   /*A4*/
+  3 |   export const foo = \\"foo\\";
+  4 |   export { foo }; /*A5*/"
+`;
+
+exports[`comments.js [meriyah] format 1`] = `
+"[1:32]: Unexpected token: '{' (1:32)
+> 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
+    |                                ^
+  2 |   /*A4*/
+  3 |   export const foo = \\"foo\\";
+  4 |   export { foo }; /*A5*/"
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const m = /*A1*/ module /*A2*/ { /*A3*/
+  /*A4*/
+  export const foo = "foo";
+  export { foo }; /*A5*/
+  /*A6*/
+}/*A7*/;/*A8*/
+
+const m2 = module/* B1 */{
+  /* B2 */
+};
+
+=====================================output=====================================
+const m = /*A1*/ module {
+  /*A2*/ /*A3*/
+  /*A4*/
+  export const foo = "foo";
+  export { foo }; /*A5*/
+  /*A6*/
+}; /*A7*/ /*A8*/
+
+const m2 = module {
+  /* B1 */
+  /* B2 */
+};
+
+================================================================================
+`;
+
+exports[`module-blocks.js [espree] format 1`] = `
+"Unexpected token { (1:8)
+> 1 | module { await 3 };
+    |        ^
+  2 |
+  3 | class B {
+  4 |   #p() {"
+`;
+
+exports[`module-blocks.js [meriyah] format 1`] = `
+"[1:8]: Unexpected token: '{' (1:8)
+> 1 | module { await 3 };
+    |        ^
+  2 |
+  3 | class B {
+  4 |   #p() {"
+`;
+
+exports[`module-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module { await 3 };
+
+class B {
+  #p() {
+    module {
+      class C { [this.#p]; }
+    };
+  }
+}
+
+const m = module {
+  export const foo = "foo";
+  export { foo };
+};
+
+module {
+  export { foo }
+};
+
+const m = module       {};
+
+const worker = new Worker(module {
+  export const foo = "foo";
+});
+
+let m = module {
+  module {
+    export let foo = "foo";
+  };
+};
+
+const m = module { export const foo = "foo" };
+
+let moduleBlock = module { export let y = 1; };
+
+foo(module { export let foo = "foo"; });
+
+let m = module { /* foo */ };
+
+=====================================output=====================================
+module {
+  await 3;
+};
+
+class B {
+  #p() {
+    module {
+      class C {
+        [this.#p];
+      }
+    };
+  }
+}
+
+const m = module {
+  export const foo = "foo";
+  export { foo };
+};
+
+module {
+  export { foo };
+};
+
+const m = module {};
+
+const worker = new Worker(module {
+  export const foo = "foo";
+});
+
+let m = module {
+  module {
+    export let foo = "foo";
+  };
+};
+
+const m = module {
+  export const foo = "foo";
+};
+
+let moduleBlock = module {
+  export let y = 1;
+};
+
+foo(module {
+  export let foo = "foo";
+});
+
+let m = module {
+  /* foo */
+};
+
+================================================================================
+`;
+
+exports[`non-module-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const m = module
+{}
+
+=====================================output=====================================
+const m = module;
+{
+}
+
+================================================================================
+`;
+
+exports[`range.js [espree] format 1`] = `
+"Unexpected token { (1:26)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                          ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = \\"foo\\"; })"
+`;
+
+exports[`range.js [meriyah] format 1`] = `
+"[1:26]: Unexpected token: '{' (1:26)
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                          ^
+  2 | };
+  3 |
+  4 | foo(module { export let foo = \\"foo\\"; })"
+`;
+
+exports[`range.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+rangeEnd: 52
+rangeStart: 28
+     |                                                                                | printWidth
+=====================================input======================================
+> 1 | let moduleBlock = module {  export let y = 1;
+    |                             ^^^^^^^^^^^^^^^^^
+> 2 | };
+    | ^^
+> 3 |
+    | ^^
+> 4 | foo(module { export let foo = "foo"; })
+    | ^^
+  5 |
+=====================================output=====================================
+let moduleBlock = module {
+  export let y = 1;
+};
+
+foo(module {
+  export let foo = "foo";
+});
+
+================================================================================
+`;
+
+exports[`worker.js [espree] format 1`] = `
+"Unexpected token { (1:32)
+> 1 | let worker = new Worker(module {
+    |                                ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());"
+`;
+
+exports[`worker.js [meriyah] format 1`] = `
+"[1:32]: Expected ')' (1:32)
+> 1 | let worker = new Worker(module {
+    |                                ^
+  2 |   onmessage = function({data}) {
+  3 |     let mod = import(data);
+  4 |     postMessage(mod.fn());"
+`;
+
+exports[`worker.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {type: "module"});
+
+let worker = new Worker(module {
+  onmessage = function({data}) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  }
+}, {type: "module", foo: "bar" });
+
+worker.postMessage(module { export function fn() { return "hello!" } });
+
+=====================================output=====================================
+let worker = new Worker(module {
+  onmessage = function ({ data }) {
+    let mod = import(data);
+    postMessage(mod.fn());
+  };
+}, { type: "module" });
+
+let worker = new Worker(
+  module {
+    onmessage = function ({ data }) {
+      let mod = import(data);
+      postMessage(mod.fn());
+    };
+  },
+  { type: "module", foo: "bar" }
+);
+
+worker.postMessage(module {
+  export function fn() {
+    return "hello!";
+  }
+});
+
+================================================================================
+`;

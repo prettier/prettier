@@ -1,7 +1,7 @@
 "use strict";
 
 const jsPragma = require("../language-js/pragma");
-const parseFrontMatter = require("../utils/front-matter");
+const parseFrontMatter = require("../utils/front-matter/parse");
 
 function hasPragma(text) {
   return jsPragma.hasPragma(parseFrontMatter(text).content);

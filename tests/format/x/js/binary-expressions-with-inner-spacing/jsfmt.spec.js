@@ -2,10 +2,11 @@
 // This test script runs for test files in another directory,
 // **not** on any files in *this* directory.
 
-const dirPath = `${__dirname}/../../../../binary-expressions`;
+// [FUTURE TBD] use Nodejs path function (...)
+const dirPath = `${__dirname}/../../../js/binary-expressions`;
 
 run_spec(dirPath, ["babel", "babel-flow", "flow", "typescript"], {
-  // [prettierx] test with --paren-spacing
+  // [prettierx] test with --space-in-parens
   spaceInParens: true,
   computedPropertySpacing: true,
   spaceUnaryOps: true,
