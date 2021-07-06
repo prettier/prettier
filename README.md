@@ -5,6 +5,10 @@
 
 An unofficial fork of the Prettier code formatter, intended to provide some additional options to help improve consistency with ["Standard JS"](https://standardjs.com/) ([`feross/standard`](https://github.com/standard/standard)) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
+## Major THANKS
+
+**Major thanks** is due to **[@adalinesimonian](https://github.com/adalinesimonian)** for contributions in [PR #603](https://github.com/brodybits/prettierx/pull/603) that enabled updates from Prettier 2.3.2.
+
 ## prettierX as a Prettier plugin
 
 [`prettier-plugin-x`](https://www.npmjs.com/package/prettier-plugin-x) - provides the additional formatting options in a prettier plugin
