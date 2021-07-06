@@ -10,13 +10,15 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 # prettierx 0.19.0-01-update-branch
 
-intended to help rebase some prettierX JavaScript features on updated version of Prettier
+Include updates from Prettier 2.3.2
 
-(in a hopefully relatively clean manner)
+(with some prettierX `language-js` updates now based on Prettier 2.3.2)
 
 with some updates including:
 
 - switch to pure CSS parser using PostCSS 8 (see below)
+- apply an optimization to reduce AST copying in HTML preprocessing - [`prettier/prettier#11108`](https://github.com/prettier/prettier/pull/11108)
+- update many dependencies
 - use @brodybits/remark-parse@8, with updated trim sub-dependency, as recommended by:
   - https://www.npmjs.com/advisories/1700
 - remove original author from package.json - with rationale:
