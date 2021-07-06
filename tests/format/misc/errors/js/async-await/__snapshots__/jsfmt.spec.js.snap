@@ -29,17 +29,9 @@ exports[`snippet: #0 [espree] format 1`] = `
 `;
 
 exports[`snippet: #0 [espree] format 2`] = `
-"Cannot use keyword 'await' outside an async function (1:12)
+"Await expression cannot be a default value (1:12)
 > 1 | async (x = await (2)) => {};
     |            ^"
-`;
-
-exports[`snippet: #0 [espree] format 3`] = `
-"Unexpected token = (2:5)
-  1 | export class C {
-> 2 |   p = await 0;
-    |     ^
-  3 | }"
 `;
 
 exports[`snippet: #0 [flow] format 1`] = `
@@ -91,7 +83,7 @@ exports[`snippet: #1 [babel] format 3`] = `
 `;
 
 exports[`snippet: #1 [espree] format 1`] = `
-"Cannot use keyword 'await' outside an async function (1:12)
+"Await expression cannot be a default value (1:12)
 > 1 | async (x = await 2) => {};
     |            ^"
 `;
@@ -100,12 +92,6 @@ exports[`snippet: #1 [espree] format 2`] = `
 "Shorthand property assignments are valid only in destructuring patterns (1:15)
 > 1 | async({ foo33 = 1 });
     |               ^"
-`;
-
-exports[`snippet: #1 [espree] format 3`] = `
-"Cannot use keyword 'await' outside an async function (1:1)
-> 1 | await 0;
-    | ^"
 `;
 
 exports[`snippet: #1 [flow] format 1`] = `
