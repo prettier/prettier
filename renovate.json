@@ -4,8 +4,8 @@
   "ignorePaths": [
     "scripts/**/package.json",
     "tests_integration/**/package.json",
-    "website/**/index.html",
-    "website/**/package.json"
+    "x-unsupported/**/index.html",
+    "x-unsupported/**/package.json"
   ],
   "commitMessageExtra": "-> {{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}} - {{prettyDepType}}",
   "commitMessagePrefix": "prettierx:",
