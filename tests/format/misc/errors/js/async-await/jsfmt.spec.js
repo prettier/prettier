@@ -59,5 +59,5 @@ run_spec(
       "await 0;",
     ],
   },
-  ["espree", "meriyah"]
+  ["meriyah"]
 );

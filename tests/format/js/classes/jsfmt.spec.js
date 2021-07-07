@@ -1,3 +1,1 @@
-run_spec(__dirname, ["babel", "flow", "typescript"], {
-  errors: { espree: ["property.js"] },
-});
+run_spec(__dirname, ["babel", "flow", "typescript"]);
