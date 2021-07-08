@@ -51,6 +51,7 @@ const parsers = [
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
       'require("source-map-support").install()': "",
+      "require(modulePath)": "undefined",
     },
   },
   {
