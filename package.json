@@ -20,13 +20,13 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "12.0.5",
+    "@angular/compiler": "12.1.1",
     "@babel/code-frame": "7.14.5",
     "@babel/parser": "7.14.7",
     "@glimmer/syntax": "0.80.0",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "4.28.1",
-    "angular-estree-parser": "2.4.0",
+    "angular-estree-parser": "2.5.0",
     "angular-html-parser": "1.8.0",
     "camelcase": "6.2.0",
     "chalk": "4.1.1",

@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@12.0.5":
-  version "12.0.5"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-12.0.5.tgz#b69a1927253b18dcaf4bac2c1107b8552ee6649e"
-  integrity sha512-G255aP4hhQ04hSQ1/JgiKNeTzRCuLgK220lJXkHubpu+f67os5LArhFNxZaUC/EVa/sloOT7Fo5tn8C5gy7iLA==
+"@angular/compiler@12.1.1":
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-12.1.1.tgz#ec8ae93fa905f6f71c748ba250be8f4d58e31605"
+  integrity sha512-QV56c+A18vdY8AB/SoWq0UkHhJxYDWY+VUY75RM2dxcsXoNeO5FTCjBRkA7yMiX6Q6cahH2ivC7tmqVU2mYHuA==
   dependencies:
-    tslib "^2.1.0"
+    tslib "^2.2.0"
 
 "@babel/code-frame@7.0.0":
   version "7.0.0"
@@ -1935,10 +1935,10 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-angular-estree-parser@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.4.0.tgz#96c03248633067caa55aff021476056def238b3e"
-  integrity sha512-4IVVXsO4nBFmgb4L+TgwgtWuIlH72wSaKw/ZU+x3LsQSOqvL5W8sE6JPqpwSAgrHZ1lTtWlpnr6j/r98qFqw5A==
+angular-estree-parser@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.5.0.tgz#b2d05b54cc765c8181245c823fb9b4ef75dc5483"
+  integrity sha512-0OLRBYPkdlJHzRKL1PQVWLYnSXvAE7nnOVHhfVlqbdyAMg3rbk8U3Z4vk+5GG4x8ooT88T/89jtsOoGPzjKUbA==
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^2.0.3"
@@ -6226,7 +6226,7 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.3, tslib@^2.1.0:
+tslib@^2.0.3, tslib@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
