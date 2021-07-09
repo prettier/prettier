@@ -322,17 +322,6 @@ const alsoGoodPrecision = 9007199254740993n;
 ================================================================================
 `;
 
-exports[`class-properties.js [espree] format 1`] = `
-"Unexpected token = (5:22)
-  3 | class Bork {
-  4 |     //Property initializer syntax
-> 5 |     instanceProperty = \\"bork\\";
-    |                      ^
-  6 |     boundFunction = () => {
-  7 |       return this.instanceProperty;
-  8 |     };"
-`;
-
 exports[`class-properties.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -398,13 +387,14 @@ console.log(Bork.staticFunction()); // > "babelIsCool"
 `;
 
 exports[`class-static-block.js [espree] format 1`] = `
-"Unexpected character '#' (2:10)
-  1 | class C {
-> 2 |   static #x = 42;
-    |          ^
+"Unexpected token { (4:10)
+  2 |   static #x = 42;
   3 |   static y;
-  4 |   static {
-  5 |     try {"
+> 4 |   static {
+    |          ^
+  5 |     try {
+  6 |       this.y = doSomethingWith(this.#x);
+  7 |     } catch {"
 `;
 
 exports[`class-static-block.js [meriyah] format 1`] = `
@@ -1738,14 +1728,14 @@ value
 `;
 
 exports[`private-fields-in-in.js [espree] format 1`] = `
-"Unexpected character '#' (4:3)
-  2 |
-  3 | class C {
-> 4 |   #brand;
-    |   ^
-  5 |
-  6 |   static isC(obj) {
-  7 |     try {"
+"Unexpected token #brand (44:12)
+  42 |
+  43 |   static isC(obj) {
+> 44 |     return #brand in obj && #method in obj && #getter in obj;
+     |            ^
+  45 |   }
+  46 | }
+  47 |"
 `;
 
 exports[`private-fields-in-in.js format 1`] = `
@@ -1769,7 +1759,7 @@ class C {
   }
 }
 
-class C {
+class C2 {
   #data = null; // populated later
 
   get #getter() {
@@ -1789,7 +1779,7 @@ class C {
   }
 }
 
-class C {
+class C3 {
   #brand;
 
   #method() {}
@@ -1826,7 +1816,7 @@ class C {
   }
 }
 
-class C {
+class C2 {
   #data = null; // populated later
 
   get #getter() {
@@ -1846,7 +1836,7 @@ class C {
   }
 }
 
-class C {
+class C3 {
   #brand;
 
   #method() {}
@@ -1870,17 +1860,6 @@ class C {
 ================================================================================
 `;
 
-exports[`private-methods.js [espree] format 1`] = `
-"Unexpected character '#' (6:3)
-  4 |
-  5 | class Counter extends HTMLElement {
-> 6 |   #xValue = 0;
-    |   ^
-  7 |
-  8 |   get #x() { return this.#xValue; }
-  9 |   set #x(value) {"
-`;
-
 exports[`private-methods.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]
@@ -1893,6 +1872,7 @@ printWidth: 80
 
 class Counter extends HTMLElement {
   #xValue = 0;
+  #render() {}
 
   get #x() { return this.#xValue; }
   set #x(value) {
@@ -1913,6 +1893,7 @@ class Counter extends HTMLElement {
 
 class Counter extends HTMLElement {
   #xValue = 0;
+  #render() {}
 
   get #x() {
     return this.#xValue;
@@ -1931,9 +1912,9 @@ class Counter extends HTMLElement {
 `;
 
 exports[`record-tuple-record.js [espree] format 1`] = `
-"Unexpected character '#' (1:17)
+"Unexpected character '{' (1:18)
 > 1 | const record1 = #{
-    |                 ^
+    |                  ^
   2 |     a: 1,
   3 |     b: 2,
   4 |     c: 3,"
@@ -1975,9 +1956,9 @@ const record2 = #{ ...record1, b: 5 };
 `;
 
 exports[`record-tuple-tuple.js [espree] format 1`] = `
-"Unexpected character '#' (1:16)
+"Unexpected character '[' (1:17)
 > 1 | const tuple1 = #[1, 2, 3];
-    |                ^
+    |                 ^
   2 |"
 `;
 
