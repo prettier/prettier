@@ -133,7 +133,7 @@
     "eslint-plugin-unicorn": "34.0.1",
     "esm-utils": "1.1.0",
     "execa": "5.1.1",
-    "flow-parser": "0.154.0",
+    "flow-parser": "0.155.0",
     "jest": "27.0.6",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.2.0",
