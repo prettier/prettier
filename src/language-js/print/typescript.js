@@ -20,6 +20,8 @@ const {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
+  hasComment,
+  CommentCheckFlags,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -297,11 +299,24 @@ function printTypescript(path, options, print) {
         locStart(node),
         locEnd(node)
       );
+      const printOwnlineCommentBeforeReadonly = () => {
+        if (hasComment(node, CommentCheckFlags.Dangling)) {
+          const printed = printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true,
+            ({ marker }) => marker === "ownlineCommentBeforeReadonly"
+          );
+          return printed ? [printed, hardline] : "";
+        }
+        return "";
+      };
       return group(
         [
           "{",
           indent([
             options.bracketSpacing ? line : softline,
+            printOwnlineCommentBeforeReadonly(),
             node.readonly
               ? [
                   getTypeScriptMappedTypeModifier(node.readonly, "readonly"),
@@ -317,7 +332,12 @@ function printTypescript(path, options, print) {
             print("typeAnnotation"),
             ifBreak(semi),
           ]),
-          printDanglingComments(path, options, /* sameIndent */ true),
+          printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true,
+            ({ marker }) => marker !== "ownlineCommentBeforeReadonly"
+          ),
           options.bracketSpacing ? line : softline,
           "}",
         ],

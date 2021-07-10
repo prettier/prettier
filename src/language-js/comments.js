@@ -65,6 +65,7 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
+    handleOwnlineMappedTypesComments,
   ].some((fn) => fn(context));
 }
 
@@ -328,6 +329,69 @@ function handleMemberExpressionComments({
     return true;
   }
 
+  return false;
+}
+
+/**
+ * Handle comments:
+ *  type Foo = {
+ *    // comment
+ *    readonly [key in Foo]: Bar;
+ *  }
+ * @param {CommentContext} context
+ * @return {boolean}
+ */
+function handleOwnlineMappedTypesComments({ enclosingNode, comment, text }) {
+  if (
+    enclosingNode &&
+    enclosingNode.type === "TSMappedType" &&
+    enclosingNode.readonly
+  ) {
+    const nextIndexOfComment = getNextNonSpaceNonCommentCharacterIndex(
+      text,
+      comment,
+      locEnd
+    );
+    if (!nextIndexOfComment) {
+      return false;
+    }
+    const isReadonlyString =
+      enclosingNode.readonly === "+" || enclosingNode.readonly === "-";
+    const readonlyStartIndex = isReadonlyString
+      ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          text,
+          nextIndexOfComment + 1
+        )
+      : nextIndexOfComment;
+    if (!readonlyStartIndex) {
+      return false;
+    }
+    const READONLY_KEYWORD = "readonly";
+    const readonlyEndIndex = readonlyStartIndex + READONLY_KEYWORD.length;
+    const maybeReadonlyString = text.slice(
+      readonlyStartIndex,
+      readonlyEndIndex
+    );
+    if (maybeReadonlyString !== READONLY_KEYWORD) {
+      return false;
+    }
+    const afterReadonlyIndex =
+      getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        readonlyEndIndex
+      );
+    if (!afterReadonlyIndex) {
+      return false;
+    }
+    if (text[afterReadonlyIndex] === "[") {
+      addDanglingComment(
+        enclosingNode,
+        comment,
+        "ownlineCommentBeforeReadonly"
+      );
+      return true;
+    }
+  }
   return false;
 }
 
