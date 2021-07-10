@@ -22,6 +22,7 @@ const {
   isMemberExpression,
   hasComment,
   CommentCheckFlags,
+  danglingCommentMarkerForReadonlyMappedType,
 } = require("../utils");
 const { locStart, locEnd } = require("../loc");
 
@@ -305,7 +306,8 @@ function printTypescript(path, options, print) {
             path,
             options,
             /* sameIndent */ true,
-            ({ marker }) => marker === "ownlineCommentBeforeReadonly"
+            ({ marker }) =>
+              marker === danglingCommentMarkerForReadonlyMappedType
           );
           return printed ? [printed, hardline] : "";
         }
@@ -316,9 +318,9 @@ function printTypescript(path, options, print) {
           "{",
           indent([
             options.bracketSpacing ? line : softline,
-            printOwnlineCommentBeforeReadonly(),
             node.readonly
               ? [
+                  printOwnlineCommentBeforeReadonly(),
                   getTypeScriptMappedTypeModifier(node.readonly, "readonly"),
                   " ",
                 ]
@@ -336,7 +338,8 @@ function printTypescript(path, options, print) {
             path,
             options,
             /* sameIndent */ true,
-            ({ marker }) => marker !== "ownlineCommentBeforeReadonly"
+            ({ marker }) =>
+              marker !== danglingCommentMarkerForReadonlyMappedType
           ),
           options.bracketSpacing ? line : softline,
           "}",
