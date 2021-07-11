@@ -66,7 +66,7 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
-    handleOwnlineMappedTypesComments,
+    handleOwnLineMappedTypesComments,
   ].some((fn) => fn(context));
 }
 
@@ -337,7 +337,7 @@ function handleMemberExpressionComments({
  * @param {CommentContext} context
  * @return {boolean}
  */
-function handleOwnlineMappedTypesComments({ enclosingNode, comment, text }) {
+function handleOwnLineMappedTypesComments({ enclosingNode, comment, text }) {
   if (
     enclosingNode &&
     enclosingNode.type === "TSMappedType" &&
