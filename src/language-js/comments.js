@@ -334,11 +334,6 @@ function handleMemberExpressionComments({
 }
 
 /**
- * Handle comments:
- *  type Foo = {
- *    // comment
- *    readonly [key in Foo]: Bar;
- *  };
  * @param {CommentContext} context
  * @return {boolean}
  */
@@ -346,7 +341,7 @@ function handleOwnlineMappedTypesComments({ enclosingNode, comment, text }) {
   if (
     enclosingNode &&
     enclosingNode.type === "TSMappedType" &&
-    isCommentOnBeforeMappedTypeReadonly(enclosingNode, text, comment)
+    isCommentBeforeMappedTypeReadonly(enclosingNode, text, comment)
   ) {
     addDanglingComment(
       enclosingNode,
@@ -1008,7 +1003,7 @@ function willPrintOwnComments(path /*, options */) {
  * @param {CommentContext["comment"]} comment
  * @returns {boolean}
  */
-function isCommentOnBeforeMappedTypeReadonly(enclosingNode, text, comment) {
+function isCommentBeforeMappedTypeReadonly(enclosingNode, text, comment) {
   if (!enclosingNode.readonly) {
     return false;
   }
