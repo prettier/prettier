@@ -2984,10 +2984,10 @@ eslint-plugin-react@7.24.0:
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
 
-eslint-plugin-regexp@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.13.0.tgz#50dbf9cd4173fe6df59b7e83286dc608ae953240"
-  integrity sha512-Nl0JuN6BZeTADjlzCcwVUY3b7bXwkJKIUL1r13FL0Up3PqOhzXhdQ7FDjOEu1ZBQPaR+LkJK3LA+1haxVOAXyw==
+eslint-plugin-regexp@0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.13.1.tgz#eaae20774921b36af9181d49457e9610c83fb548"
+  integrity sha512-97kpGlctWIDWlgVbjutIZ7kn98XGsAaUwra/drPr6rbLFArJAo1T5xBUxL4sD7cfmR1+8tJFl2mm4EgFAP4DcA==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
