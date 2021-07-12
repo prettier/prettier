@@ -191,13 +191,13 @@ function getRollupConfig(bundle) {
     };
 
     for (const file of [
-      "./src/language-css/parsers.js",
-      "./src/language-graphql/parsers.js",
-      "./src/language-handlebars/parsers.js",
-      "./src/language-html/parsers.js",
-      "./src/language-js/parsers.js",
-      "./src/language-markdown/parsers.js",
-      "./src/language-yaml/parsers.js",
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-js/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = {
         code: "export default undefined",
