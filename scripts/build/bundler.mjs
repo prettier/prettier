@@ -190,10 +190,10 @@ function getRollupConfig(bundle) {
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
       code: `export default ${JSON.stringify({
         version: require("../../package.json").version,
-      })}`,
+      })};`,
     };
 
-    // Remove `src/language-*/parser.js`
+    // Replace `src/language-*/parsers.js` with `undefined`
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-graphql/parsers.js",
@@ -204,7 +204,7 @@ function getRollupConfig(bundle) {
       "src/language-yaml/parsers.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = {
-        code: "export default undefined",
+        code: "export default undefined;",
       };
     }
   }
