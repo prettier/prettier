@@ -180,8 +180,18 @@ function getRollupConfig(bundle) {
         replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
       }
     }
-    replaceModule[path.join(PROJECT_ROOT, "./package.json")] = "./package.json";
   }
+
+  replaceModule[path.join(PROJECT_ROOT, "./package.json")] =
+    bundle.target === "node"
+      ? "./package.json"
+      : // Universal bundle only use version info from package.json
+        {
+          code: `export default ${JSON.stringify({
+            version: require("../../package.json").version,
+          })}`,
+        };
+
   Object.assign(replaceModule, bundle.replaceModule);
 
   config.plugins = [
@@ -213,7 +223,7 @@ function getRollupConfig(bundle) {
       ignoreTryCatch: bundle.target === "node",
       ...bundle.commonjs,
     }),
-    replaceModule && rollupPluginReplaceModule(replaceModule),
+    rollupPluginReplaceModule(replaceModule),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
     rollupPluginBabel(babelConfig),
   ].filter(Boolean);
@@ -275,11 +285,10 @@ function getWebpackConfig(bundle) {
     throw new Error("Must use rollup for this bundle");
   }
 
-  const root = path.resolve(__dirname, "..", "..");
   const config = {
     mode: "production",
     performance: { hints: false },
-    entry: path.resolve(root, bundle.input),
+    entry: path.resolve(PROJECT_ROOT, bundle.input),
     module: {
       rules: [
         {
@@ -292,7 +301,7 @@ function getWebpackConfig(bundle) {
       ],
     },
     output: {
-      path: path.resolve(root, "dist"),
+      path: path.resolve(PROJECT_ROOT, "dist"),
       filename: bundle.output,
       library: {
         type: "umd",
