@@ -1,7 +1,11 @@
+const errors = {
+  meriyah: ["optional-chaining.js"],
+  espree: ["optional-chaining.js"],
+};
 run_spec(__dirname, ["babel"], {
-  errors: { espree: true, meriyah: ["optional-chaining.js"] },
+  errors,
 });
 run_spec(__dirname, ["babel"], {
   semi: false,
-  errors: { espree: true, meriyah: ["optional-chaining.js"] },
+  errors,
 });
