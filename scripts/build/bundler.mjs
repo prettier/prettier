@@ -193,7 +193,7 @@ function getRollupConfig(bundle) {
       })}`,
     };
 
-    // Remove `src/langage-*/parser.js`
+    // Remove `src/language-*/parser.js`
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-graphql/parsers.js",
