@@ -3,6 +3,7 @@
 const createLanguage = require("../utils/create-language");
 const printer = require("./printer-markdown");
 const options = require("./options");
+const parsers = require("./parsers");
 
 const languages = [
   createLanguage(require("linguist-languages/data/Markdown.json"), (data) => ({
@@ -25,22 +26,6 @@ const languages = [
 const printers = {
   mdast: printer,
 };
-
-const parsers =
-  process.env.PRETTIER_TARGET === "universal"
-    ? undefined
-    : {
-        /* istanbul ignore next */
-        get remark() {
-          return require("./parser-markdown").parsers.remark;
-        },
-        get markdown() {
-          return require("./parser-markdown").parsers.remark;
-        },
-        get mdx() {
-          return require("./parser-markdown").parsers.mdx;
-        },
-      };
 
 module.exports = {
   languages,

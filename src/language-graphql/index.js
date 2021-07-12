@@ -3,6 +3,7 @@
 const createLanguage = require("../utils/create-language");
 const printer = require("./printer-graphql");
 const options = require("./options");
+const parsers = require("./parsers");
 
 const languages = [
   createLanguage(require("linguist-languages/data/GraphQL.json"), () => ({
@@ -15,15 +16,6 @@ const languages = [
 const printers = {
   graphql: printer,
 };
-
-const parsers =
-  process.env.PRETTIER_TARGET === "universal"
-    ? undefined
-    : {
-        get graphql() {
-          return require("./parser-graphql").parsers.graphql;
-        },
-      };
 
 module.exports = {
   languages,
