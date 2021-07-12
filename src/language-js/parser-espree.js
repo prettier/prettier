@@ -1,11 +1,14 @@
 "use strict";
+
 const createError = require("../common/parser-create-error");
 const tryCombinations = require("../utils/try-combinations");
 const postprocess = require("./parse-postprocess");
 const createParser = require("./parser/create-parser");
 const replaceHashbang = require("./parser/replace-hashbang");
 
+/** @type {import("espree").Options} */
 const parseOptions = {
+  ecmaVersion: "latest",
   range: true,
   loc: true,
   comment: true,
@@ -30,8 +33,7 @@ function createParseError(error) {
 }
 
 function parse(originalText, parsers, options) {
-  const { parse, latestEcmaVersion } = require("espree");
-  parseOptions.ecmaVersion = latestEcmaVersion;
+  const { parse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
