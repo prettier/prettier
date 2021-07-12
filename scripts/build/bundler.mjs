@@ -175,8 +175,10 @@ function getRollupConfig(bundle) {
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
-    replaceModule[path.join(PROJECT_ROOT, "./package.json")] = "./package.json";
+    // Replace package.json with dynamic `require("./package.json")`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
 
+    // Dynamic require bundled files
     for (const item of bundles) {
       if (item.input !== bundle.input) {
         replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
@@ -184,12 +186,14 @@ function getRollupConfig(bundle) {
     }
   } else {
     // Universal bundle only use version info from package.json
-    replaceModule[path.join(PROJECT_ROOT, "./package.json")] = {
+    // Replace package.json with `{version: "{VERSION}"}`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
       code: `export default ${JSON.stringify({
         version: require("../../package.json").version,
       })}`,
     };
 
+    // Remove `src/langage-*/parser.js`
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-graphql/parsers.js",
