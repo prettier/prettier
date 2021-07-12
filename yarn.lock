@@ -4808,10 +4808,10 @@ merge2@^1.3.0:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-meriyah@4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/meriyah/-/meriyah-4.1.5.tgz#0352d4ad2ef9c459413d8c9530129edc2569dd85"
-  integrity sha512-ptw5umwiQILhfIGKO99NIY3Y2/jhEyEPIwSFwKLBQdXnN/6606rQoHyF4WK+2WiUmvFbBbTVMo4Q+po30xVjtg==
+meriyah@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/meriyah/-/meriyah-4.2.0.tgz#29d28c37ac7b67f8b9aaa92df0b8ac12469fe98b"
+  integrity sha512-fCVh5GB9YT53Bq14l00HLYE3i9DywrY0JVZxbk0clXWDuMsUKKwluvC5sY0bMBqHbnIbpIjfSSIsnrzbauA8Yw==
 
 micromatch@^4.0.2, micromatch@^4.0.4:
   version "4.0.4"
