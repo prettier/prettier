@@ -43,24 +43,10 @@ exports[`snippet: #0 [flow] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"[2:24]: 'Await' may not be used as an identifier in this context (2:24)
+"[2:24]: Await is only valid in async functions (2:24)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
     |                        ^
-  3 | }"
-`;
-
-exports[`snippet: #0 [meriyah] format 2`] = `
-"[1:16]: 'Await' may not be used as an identifier in this context (1:16)
-> 1 | async (x = await (2)) => {};
-    |                ^"
-`;
-
-exports[`snippet: #0 [meriyah] format 3`] = `
-"[2:11]: 'Await' may not be used as an identifier in this context (2:11)
-  1 | export class C {
-> 2 |   p = await 0;
-    |           ^
   3 | }"
 `;
 
@@ -101,21 +87,9 @@ exports[`snippet: #1 [flow] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"[1:16]: 'Await' may not be used as an identifier in this context (1:16)
+"[1:22]: Await expression not allowed in formal parameter (1:22)
 > 1 | async (x = await 2) => {};
-    |                ^"
-`;
-
-exports[`snippet: #1 [meriyah] format 2`] = `
-"[1:21]: Invalid shorthand property initializer (1:21)
-> 1 | async({ foo33 = 1 });
-    |                     ^"
-`;
-
-exports[`snippet: #1 [meriyah] format 3`] = `
-"[1:5]: 'Await' may not be used as an identifier in this context (1:5)
-> 1 | await 0;
-    |     ^"
+    |                      ^"
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `

@@ -44,20 +44,5 @@ run_spec(
     dirname: __dirname,
     snippets: ["async (x = await (2)) => {};", "async({ foo33 = 1 });"],
   },
-  ["babel", "espree", "meriyah"]
-);
-
-run_spec(
-  {
-    dirname: __dirname,
-    snippets: [
-      outdent`
-        export class C {
-          p = await 0;
-        }
-      `,
-      "await 0;",
-    ],
-  },
-  ["meriyah"]
+  ["babel", "espree"]
 );
