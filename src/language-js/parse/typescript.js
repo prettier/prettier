@@ -1,10 +1,10 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const tryCombinations = require("../utils/try-combinations");
-const postprocess = require("./parse-postprocess");
-const createParser = require("./parser/create-parser");
-const replaceHashbang = require("./parser/replace-hashbang");
+const createError = require("../../common/parser-create-error");
+const tryCombinations = require("../../utils/try-combinations");
+const postprocess = require("./postprocess");
+const createParser = require("./create-parser");
+const replaceHashbang = require("./replace-hashbang");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {

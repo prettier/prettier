@@ -4,7 +4,7 @@ const createLanguage = require("../utils/create-language");
 const estreePrinter = require("./printer-estree");
 const estreeJsonPrinter = require("./printer-estree-json");
 const options = require("./options");
-const parsers = require("./parsers");
+const parsers = require("./parse/parsers");
 
 const languages = [
   createLanguage(
