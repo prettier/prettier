@@ -41,7 +41,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Install Client Package
-        if: matrix.NPM_CLIENT == 'pnpm'
+        if: ${{ matrix.NPM_CLIENT == 'pnpm' }}
         run: npm install --global pnpm@5
 
       - name: Run Tests
