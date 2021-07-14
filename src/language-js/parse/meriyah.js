@@ -2,8 +2,8 @@
 
 const createError = require("../../common/parser-create-error");
 const tryCombinations = require("../../utils/try-combinations");
+const createParser = require("./utils/create-parser");
 const postprocess = require("./postprocess");
-const createParser = require("./create-parser");
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {

@@ -5,9 +5,9 @@ const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getShebang,
 } = require("../../common/util");
+const createParser = require("./utils/create-parser");
+const createBabelParseError = require("./utils/create-babel-parse-error");
 const postprocess = require("./postprocess");
-const createParser = require("./create-parser");
-const createBabelParseError = require("./create-babel-parse-error");
 const jsonParsers = require("./json");
 
 const parseOptions = {
