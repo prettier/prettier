@@ -8,9 +8,6 @@ const sharedUtil = require("./common/util-shared");
 const languages = require("./languages");
 const doc = require("./document");
 
-// Parsers are bundled as separate plugins
-const internalPlugins = languages.map(({ parsers, ...plugin }) => plugin);
-
 function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
@@ -22,7 +19,7 @@ function withPlugins(
     args[optsArgIdx] = {
       ...opts,
       plugins: [
-        ...internalPlugins,
+        ...languages,
         ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
       ],
     };

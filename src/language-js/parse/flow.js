@@ -1,9 +1,9 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const postprocess = require("./parse-postprocess");
-const createParser = require("./parser/create-parser");
-const replaceHashbang = require("./parser/replace-hashbang");
+const createError = require("../../common/parser-create-error");
+const createParser = require("./utils/create-parser");
+const replaceHashbang = require("./utils/replace-hashbang");
+const postprocess = require("./postprocess");
 
 // https://github.com/facebook/flow/tree/master/packages/flow-parser#options
 const parseOptions = {

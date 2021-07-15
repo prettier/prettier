@@ -23,17 +23,17 @@ import path from "node:path";
 /** @type {Bundle[]} */
 const parsers = [
   {
-    input: "src/language-js/parser-babel.js",
+    input: "src/language-js/parse/babel.js",
   },
   {
-    input: "src/language-js/parser-flow.js",
+    input: "src/language-js/parse/flow.js",
     replace: {
       // `flow-parser` use this for `globalThis`, can't work in strictMode
       "(function(){return this}())": '(new Function("return this")())',
     },
   },
   {
-    input: "src/language-js/parser-typescript.js",
+    input: "src/language-js/parse/typescript.js",
     replace: {
       // `typescript/lib/typescript.js` expose extra global objects
       // `TypeScript`, `toolsVersion`, `globalThis`
@@ -55,13 +55,13 @@ const parsers = [
     },
   },
   {
-    input: "src/language-js/parser-espree.js",
+    input: "src/language-js/parse/espree.js",
   },
   {
-    input: "src/language-js/parser-meriyah.js",
+    input: "src/language-js/parse/meriyah.js",
   },
   {
-    input: "src/language-js/parser-angular.js",
+    input: "src/language-js/parse/angular.js",
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -107,15 +107,19 @@ const parsers = [
   {
     input: "src/language-yaml/parser-yaml.js",
   },
-].map((bundle) => ({
-  type: "plugin",
-  target: "universal",
-  name: `prettierPlugins.${
-    bundle.input.match(/parser-(?<name>.*?)\.js$/).groups.name
-  }`,
-  output: path.basename(bundle.input),
-  ...bundle,
-}));
+].map((bundle) => {
+  const { name } = bundle.input.match(
+    /(?:parser-|parse\/)(?<name>.*?)\.js$/
+  ).groups;
+
+  return {
+    type: "plugin",
+    target: "universal",
+    name: `prettierPlugins.${name}`,
+    output: `parser-${name}.js`,
+    ...bundle,
+  };
+});
 
 /** @type {Bundle[]} */
 const coreBundles = [

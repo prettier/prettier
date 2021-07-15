@@ -3,6 +3,7 @@
 const createLanguage = require("../utils/create-language");
 const printer = require("./printer-yaml");
 const options = require("./options");
+const parsers = require("./parsers");
 
 const languages = [
   createLanguage(require("linguist-languages/data/YAML.json"), (data) => ({
@@ -16,12 +17,6 @@ const languages = [
     ],
   })),
 ];
-
-const parsers = {
-  get yaml() {
-    return require("./parser-yaml").parsers.yaml;
-  },
-};
 
 module.exports = {
   languages,

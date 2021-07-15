@@ -3,6 +3,7 @@
 const createLanguage = require("../utils/create-language");
 const printer = require("./printer-html");
 const options = require("./options");
+const parsers = require("./parsers");
 
 const languages = [
   createLanguage(require("linguist-languages/data/HTML.json"), () => ({
@@ -39,25 +40,6 @@ const languages = [
 
 const printers = {
   html: printer,
-};
-
-const parsers = {
-  // HTML
-  get html() {
-    return require("./parser-html").parsers.html;
-  },
-  // Vue
-  get vue() {
-    return require("./parser-html").parsers.vue;
-  },
-  // Angular
-  get angular() {
-    return require("./parser-html").parsers.angular;
-  },
-  // Lightning Web Components
-  get lwc() {
-    return require("./parser-html").parsers.lwc;
-  },
 };
 
 module.exports = {

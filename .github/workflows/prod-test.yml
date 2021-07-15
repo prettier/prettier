@@ -45,7 +45,7 @@ jobs:
       # It should be the last step
       # The cache step might saving the result of main branch, need investigate
       - name: Check Sizes
-        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
+        if: ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/') }}
         uses: preactjs/compressed-size-action@2.3.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
@@ -116,7 +116,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Config `ignore-engines=true` (Node.js 10)
-        if: matrix.node == '10'
+        if: ${{ matrix.node == '10' }}
         run: yarn config set ignore-engines true
 
       - name: Install Dependencies
@@ -129,19 +129,19 @@ jobs:
           path: dist
 
       - name: Run Tests (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist --maxWorkers=4
 
       - name: Run Tests (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist --maxWorkers=2
 
       - name: Run Tests (standalone) (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=4
 
       - name: Run Tests (standalone) (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=2
 
       # #8073 test

@@ -1,7 +1,7 @@
 "use strict";
 
-const { hasPragma } = require("../pragma");
-const { locStart, locEnd } = require("../loc");
+const { hasPragma } = require("../../pragma");
+const { locStart, locEnd } = require("../../loc");
 
 function createParser(options) {
   options = typeof options === "function" ? { parse: options } : options;
