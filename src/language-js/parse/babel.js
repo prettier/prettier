@@ -1,14 +1,14 @@
 "use strict";
 
-const tryCombinations = require("../utils/try-combinations");
+const tryCombinations = require("../../utils/try-combinations");
 const {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getShebang,
-} = require("../common/util");
-const postprocess = require("./parse-postprocess");
-const createParser = require("./parser/create-parser");
-const createBabelParseError = require("./parser/create-babel-parse-error");
-const jsonParsers = require("./parser/json");
+} = require("../../common/util");
+const createParser = require("./utils/create-parser");
+const createBabelParseError = require("./utils/create-babel-parse-error");
+const postprocess = require("./postprocess");
+const jsonParsers = require("./json");
 
 const parseOptions = {
   sourceType: "module",

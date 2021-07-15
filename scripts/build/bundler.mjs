@@ -193,13 +193,13 @@ function getRollupConfig(bundle) {
       })};`,
     };
 
-    // Replace `src/language-*/parsers.js` with `undefined`
+    // Replace parser getters with `undefined`
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-graphql/parsers.js",
       "src/language-handlebars/parsers.js",
       "src/language-html/parsers.js",
-      "src/language-js/parsers.js",
+      "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {

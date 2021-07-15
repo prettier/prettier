@@ -2,8 +2,8 @@
 
 const { isNonEmptyArray } = require("../../common/util");
 const createError = require("../../common/parser-create-error");
-const createParser = require("./create-parser");
-const createBabelParseError = require("./create-babel-parse-error");
+const createParser = require("./utils/create-parser");
+const createBabelParseError = require("./utils/create-babel-parse-error");
 
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
