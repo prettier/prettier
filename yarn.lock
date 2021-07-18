@@ -1428,10 +1428,10 @@
     "@babel/helper-module-imports" "^7.10.4"
     "@rollup/pluginutils" "^3.1.0"
 
-"@rollup/plugin-commonjs@18.1.0":
-  version "18.1.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-18.1.0.tgz#5a760d757af168a50727c0ae080251fbfcc5eb02"
-  integrity sha512-h3e6T9rUxVMAQswpDIobfUHn/doMzM9sgkMrsMWCFLmB84PSoC8mV8tOloAJjSRwdqhXBqstlX2BwBpHJvbhxg==
+"@rollup/plugin-commonjs@19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-19.0.1.tgz#94a2c103d675523d3ab1c60bfbec567b3eb70410"
+  integrity sha512-bRrPTIAsWw2LmEspEMvV9f+7N7CEQgZCj2Zi1F0e0P3+/tbjQaSNNVVRSRWVhuDagp8yjK5kbIut8KTPsseRhg==
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     commondir "^1.0.1"
