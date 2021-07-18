@@ -1413,10 +1413,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rollup/plugin-alias@3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.2.tgz#c585b05be4a7782d269c69d13def56f44e417772"
-  integrity sha512-wzDnQ6v7CcoRzS0qVwFPrFdYA4Qlr+ookA217Y2Z3DPZE1R8jrFNM3jvGgOf6o6DMjbnQIn5lCIJgHPe1Bt3uw==
+"@rollup/plugin-alias@3.1.4":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.4.tgz#47774f4ff0eab5937f7acb392cf2b89921f03b7d"
+  integrity sha512-9YN5h0bWlYFV0zpXwwAWGPUWh/A+kkoCqwrMb43LnuGfhnQqOjsGR+5uh4LGpAZbBBj8qR1Hno6CZadZs7hyCQ==
   dependencies:
     slash "^3.0.0"
 
