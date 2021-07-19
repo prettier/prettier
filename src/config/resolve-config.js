@@ -10,6 +10,14 @@ const loadJson5 = require("../utils/load-json5");
 const resolve = require("../common/resolve");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 
+/**
+ * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
+ * @typedef {{sync: boolean; cache: boolean }} Options
+ */
+
+/**
+ * @type {(opts: Options) => Explorer}
+ */
 const getExplorerMemoized = mem(
   (opts) => {
     const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
@@ -58,7 +66,10 @@ const getExplorerMemoized = mem(
   { cacheKey: JSON.stringify }
 );
 
-/** @param {{ cache: boolean, sync: boolean }} opts */
+/**
+ * @param {Options} opts
+ * @return {Explorer}
+ */
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = { sync: false, cache: false, ...opts };
