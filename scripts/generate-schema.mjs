@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import prettier from "../index.js";
 import generateSchema from "./utils/generate-schema.js";
 
