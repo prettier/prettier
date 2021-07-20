@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const readlines = require("n-readlines.js");
+const readlines = require("n-readlines");
 const { UndefinedParserError } = require("../common/errors.js");
 const { getSupportInfo } = require("../main/support.js");
 const normalizer = require("./options-normalizer.js");
