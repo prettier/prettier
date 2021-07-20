@@ -2,8 +2,8 @@
 
 const {
   builders: { hardline, indent, join },
-} = require("../document");
-const preprocess = require("./print-preprocess");
+} = require("../document.js");
+const preprocess = require("./print-preprocess.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

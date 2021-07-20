@@ -2,8 +2,8 @@
 
 const {
   builders: { hardline },
-} = require("../../document");
-const pathNeedsParens = require("../needs-parens");
+} = require("../../document.js");
+const pathNeedsParens = require("../needs-parens.js");
 const {
   getLeftSidePathName,
   hasNakedLeftSide,
@@ -12,8 +12,8 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils");
-const { shouldPrintParamsWithoutParens } = require("./function");
+} = require("../utils.js");
+const { shouldPrintParamsWithoutParens } = require("./function.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc

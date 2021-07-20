@@ -1,10 +1,10 @@
 "use strict";
 
 const parseSrcset = require("parse-srcset");
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 const {
   builders: { group, ifBreak, indent, join, line, softline },
-} = require("../document");
+} = require("../document.js");
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {

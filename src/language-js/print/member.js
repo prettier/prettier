@@ -2,13 +2,13 @@
 
 const {
   builders: { softline, group, indent, label },
-} = require("../../document");
+} = require("../../document.js");
 const {
   isNumericLiteral,
   isMemberExpression,
   isCallExpression,
-} = require("../utils");
-const { printOptionalToken } = require("./misc");
+} = require("../utils.js");
+const { printOptionalToken } = require("./misc.js");
 
 function printMemberExpression(path, options, print) {
   const node = path.getValue();

@@ -1,7 +1,7 @@
 "use strict";
 
 const chalk = require("chalk");
-const { runYarn, logPromise, readJson } = require("../utils");
+const { runYarn, logPromise, readJson } = require("../utils.js");
 
 module.exports = async function ({ version }) {
   await logPromise("Generating bundles", runYarn(["build", "--purge-cache"]));

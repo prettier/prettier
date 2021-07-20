@@ -1,6 +1,6 @@
 "use strict";
 const fs = require("fs");
-const { prettierCli } = require("../env");
+const { prettierCli } = require("../env.js");
 
 describe("CLI", () => {
   test("CLI should be executable.", () => {

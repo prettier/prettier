@@ -2,11 +2,11 @@
 
 const {
   builders: { indent, join, hardline },
-} = require("../../document");
+} = require("../../document.js");
 const {
   escapeTemplateCharacters,
   printTemplateExpressions,
-} = require("../print/template-literal");
+} = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

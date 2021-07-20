@@ -1,8 +1,8 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("ignores files in version control systems", () => {
   runPrettier("cli/ignore-vcs-files", [

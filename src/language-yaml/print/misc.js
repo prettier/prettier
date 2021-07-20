@@ -2,9 +2,9 @@
 
 const {
   builders: { softline, align },
-} = require("../../document");
+} = require("../../document.js");
 
-const { hasEndComments, isNextLineEmpty, isNode } = require("../utils");
+const { hasEndComments, isNextLineEmpty, isNode } = require("../utils.js");
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {

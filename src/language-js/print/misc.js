@@ -1,10 +1,10 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, join, line },
-} = require("../../document");
-const { isFlowAnnotationComment } = require("../utils");
+} = require("../../document.js");
+const { isFlowAnnotationComment } = require("../utils.js");
 
 function printOptionalToken(path) {
   const node = path.getValue();

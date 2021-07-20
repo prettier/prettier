@@ -1,7 +1,7 @@
 "use strict";
 
-const getLast = require("../../utils/get-last");
-const { getStringWidth, getIndentSize } = require("../../common/util");
+const getLast = require("../../utils/get-last.js");
+const { getStringWidth, getIndentSize } = require("../../common/util.js");
 const {
   builders: {
     join,
@@ -15,14 +15,14 @@ const {
   },
   printer: { printDocToString },
   utils: { mapDoc },
-} = require("../../document");
+} = require("../../document.js");
 const {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
-} = require("../utils");
+} = require("../utils.js");
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();

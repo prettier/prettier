@@ -3,11 +3,11 @@
 const {
   builders: { indent, line, hardline, group },
   utils: { mapDoc },
-} = require("../../document");
+} = require("../../document.js");
 const {
   printTemplateExpressions,
   uncookTemplateElementValue,
-} = require("../print/template-literal");
+} = require("../print/template-literal.js");
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;

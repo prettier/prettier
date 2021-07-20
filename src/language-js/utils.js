@@ -7,8 +7,8 @@ const {
   skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
-} = require("../common/util");
-const { locStart, locEnd, hasSameLocStart } = require("./loc");
+} = require("../common/util.js");
+const { locStart, locEnd, hasSameLocStart } = require("./loc.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node

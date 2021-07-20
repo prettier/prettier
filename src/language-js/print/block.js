@@ -1,14 +1,18 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
-const { isNonEmptyArray } = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments.js");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { hardline, indent },
-} = require("../../document");
-const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
-const { printHardlineAfterHeritage } = require("./class");
+} = require("../../document.js");
+const {
+  hasComment,
+  CommentCheckFlags,
+  isNextLineEmpty,
+} = require("../utils.js");
+const { printHardlineAfterHeritage } = require("./class.js");
 
-const { printBody } = require("./statement");
+const { printBody } = require("./statement.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 

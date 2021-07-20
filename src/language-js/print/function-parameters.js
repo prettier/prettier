@@ -1,11 +1,11 @@
 "use strict";
 
-const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
-const { printDanglingComments } = require("../../main/comments");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util.js");
+const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, hardline, softline, group, indent, ifBreak },
   utils: { removeLines, willBreak },
-} = require("../../document");
+} = require("../../document.js");
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -18,10 +18,10 @@ const {
   shouldPrintComma,
   hasComment,
   isNextLineEmpty,
-} = require("../utils");
-const { locEnd } = require("../loc");
-const { ArgExpansionBailout } = require("../../common/errors");
-const { printFunctionTypeParameters } = require("./misc");
+} = require("../utils.js");
+const { locEnd } = require("../loc.js");
+const { ArgExpansionBailout } = require("../../common/errors.js");
+const { printFunctionTypeParameters } = require("./misc.js");
 
 function printFunctionParameters(
   path,

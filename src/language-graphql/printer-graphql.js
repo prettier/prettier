@@ -2,10 +2,10 @@
 
 const {
   builders: { join, hardline, line, softline, group, indent, ifBreak },
-} = require("../document");
-const { isNextLineEmpty, isNonEmptyArray } = require("../common/util");
-const { insertPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
+} = require("../document.js");
+const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
+const { insertPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

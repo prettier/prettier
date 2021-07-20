@@ -2,9 +2,9 @@
 
 const {
   utils: { stripTrailingHardline },
-} = require("../document");
-const { normalize } = require("./options");
-const comments = require("./comments");
+} = require("../document.js");
+const { normalize } = require("./options.js");
+const comments = require("./comments.js");
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -42,7 +42,7 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = require("./parser").parse(text, nextOptions);
+  const result = require("./parser.js").parse(text, nextOptions);
   const { ast } = result;
   text = result.text;
 

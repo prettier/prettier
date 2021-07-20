@@ -2,8 +2,8 @@
 
 const {
   builders: { indent, softline, literalline, dedentToRoot },
-} = require("../../document");
-const { escapeTemplateCharacters } = require("../print/template-literal");
+} = require("../../document.js");
+const { escapeTemplateCharacters } = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

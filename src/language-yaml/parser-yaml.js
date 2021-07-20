@@ -1,8 +1,8 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
+const createError = require("../common/parser-create-error.js");
+const { hasPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
 
 function parse(text) {
   const { parse } = require("yaml-unist-parser");

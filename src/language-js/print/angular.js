@@ -2,9 +2,9 @@
 
 const {
   builders: { join, line, group },
-} = require("../../document");
-const { hasNode, hasComment, getComments } = require("../utils");
-const { printBinaryishExpression } = require("./binaryish");
+} = require("../../document.js");
+const { hasNode, hasComment, getComments } = require("../utils.js");
+const { printBinaryishExpression } = require("./binaryish.js");
 
 /** @typedef {import("../../common/ast-path")} AstPath */
 

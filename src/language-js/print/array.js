@@ -1,10 +1,10 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
+const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, softline, hardline, group, indent, ifBreak, fill },
-} = require("../../document");
-const { getLast, hasNewline } = require("../../common/util");
+} = require("../../document.js");
+const { getLast, hasNewline } = require("../../common/util.js");
 const {
   shouldPrintComma,
   hasComment,
@@ -12,10 +12,10 @@ const {
   isNextLineEmpty,
   isNumericLiteral,
   isSignedNumericLiteral,
-} = require("../utils");
-const { locStart } = require("../loc");
+} = require("../utils.js");
+const { locStart } = require("../loc.js");
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc");
+const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 

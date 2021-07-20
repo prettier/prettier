@@ -1,7 +1,7 @@
 "use strict";
 
-const { printComments } = require("../../main/comments");
-const { getLast } = require("../../common/util");
+const { printComments } = require("../../main/comments.js");
+const { getLast } = require("../../common/util.js");
 const {
   builders: {
     join,
@@ -14,7 +14,7 @@ const {
     indentIfBreak,
   },
   utils: { cleanDoc, getDocParts, isConcat },
-} = require("../../document");
+} = require("../../document.js");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -25,7 +25,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("../utils");
+} = require("../utils.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 

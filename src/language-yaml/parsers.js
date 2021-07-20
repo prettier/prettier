@@ -2,6 +2,6 @@
 
 module.exports = {
   get yaml() {
-    return require("./parser-yaml").parsers.yaml;
+    return require("./parser-yaml.js").parsers.yaml;
   },
 };

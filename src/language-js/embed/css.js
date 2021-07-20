@@ -1,11 +1,11 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, hardline, softline },
   utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
-} = require("../../document");
-const { printTemplateExpressions } = require("../print/template-literal");
+} = require("../../document.js");
+const { printTemplateExpressions } = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

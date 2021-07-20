@@ -1,28 +1,28 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
+const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, softline, group, indent, ifBreak, hardline },
-} = require("../../document");
+} = require("../../document.js");
 const {
   getLast,
   hasNewlineInRange,
   hasNewline,
   isNonEmptyArray,
-} = require("../../common/util");
+} = require("../../common/util.js");
 const {
   shouldPrintComma,
   hasComment,
   getComments,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils");
-const { locStart, locEnd } = require("../loc");
+} = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc");
-const { shouldHugFunctionParameters } = require("./function-parameters");
-const { shouldHugType } = require("./type-annotation");
-const { printHardlineAfterHeritage } = require("./class");
+const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
+const { shouldHugFunctionParameters } = require("./function-parameters.js");
+const { shouldHugType } = require("./type-annotation.js");
+const { printHardlineAfterHeritage } = require("./class.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 

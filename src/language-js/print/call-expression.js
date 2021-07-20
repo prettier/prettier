@@ -2,8 +2,8 @@
 
 const {
   builders: { join, group },
-} = require("../../document");
-const pathNeedsParens = require("../needs-parens");
+} = require("../../document.js");
+const pathNeedsParens = require("../needs-parens.js");
 const {
   getCallArguments,
   hasFlowAnnotationComment,
@@ -13,10 +13,13 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} = require("../utils");
-const printMemberChain = require("./member-chain");
-const printCallArguments = require("./call-arguments");
-const { printOptionalToken, printFunctionTypeParameters } = require("./misc");
+} = require("../utils.js");
+const printMemberChain = require("./member-chain.js");
+const printCallArguments = require("./call-arguments.js");
+const {
+  printOptionalToken,
+  printFunctionTypeParameters,
+} = require("./misc.js");
 
 function printCallExpression(path, options, print) {
   const node = path.getValue();

@@ -2,10 +2,10 @@
 
 const path = require("path");
 const fs = require("fs");
-const runPrettier = require("../runPrettier");
-const { projectRoot } = require("../env");
+const runPrettier = require("../runPrettier.js");
+const { projectRoot } = require("../env.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 // ESLint-like behavior
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954

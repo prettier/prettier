@@ -2,6 +2,6 @@
 
 module.exports = {
   get graphql() {
-    return require("./parser-graphql").parsers.graphql;
+    return require("./parser-graphql.js").parsers.graphql;
   },
 };

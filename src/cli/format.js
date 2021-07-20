@@ -6,14 +6,14 @@ const path = require("path");
 const chalk = require("chalk");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
+const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party");
+const { getStdin } = require("../common/third-party.js");
 
-const { createIgnorer, errors } = require("./prettier-internal");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
-const { getOptionsForFile } = require("./option");
-const isTTY = require("./is-tty");
+const { createIgnorer, errors } = require("./prettier-internal.js");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
+const { getOptionsForFile } = require("./option.js");
+const isTTY = require("./is-tty.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {

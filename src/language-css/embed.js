@@ -1,8 +1,8 @@
 "use strict";
 const {
   builders: { hardline },
-} = require("../document");
-const printFrontMatter = require("../utils/front-matter/print");
+} = require("../document.js");
+const printFrontMatter = require("../utils/front-matter/print.js");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();

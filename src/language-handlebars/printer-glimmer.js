@@ -14,10 +14,10 @@ const {
     literalline,
   },
   utils: { getDocParts, replaceEndOfLineWith },
-} = require("../document");
-const { isNonEmptyArray } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
-const clean = require("./clean");
+} = require("../document.js");
+const { isNonEmptyArray } = require("../common/util.js");
+const { locStart, locEnd } = require("./loc.js");
+const clean = require("./clean.js");
 const {
   getNextNode,
   getPreviousNode,
@@ -29,7 +29,7 @@ const {
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
-} = require("./utils");
+} = require("./utils.js");
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 

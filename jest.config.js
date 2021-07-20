@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const installPrettier = require("./scripts/install-prettier");
+const installPrettier = require("./scripts/install-prettier.js");
 
 const PROJECT_ROOT = __dirname;
 const isProduction = process.env.NODE_ENV === "production";
