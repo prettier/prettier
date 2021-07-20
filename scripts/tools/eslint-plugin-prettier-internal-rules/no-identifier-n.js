@@ -17,7 +17,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
     },
     messages: {
       [ERROR]: "Please rename variable 'n'.",
@@ -34,7 +34,7 @@ module.exports = {
 
         /* istanbul ignore next */
         if (!variable) {
-          throw new Error("Unexpected case.");
+          return;
         }
 
         if (!variables.has(variable)) {

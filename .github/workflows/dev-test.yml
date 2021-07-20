@@ -47,7 +47,7 @@ jobs:
           fetch-depth: 2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.2.0
         with:
           node-version: ${{ matrix.node }}
 
@@ -55,16 +55,16 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run Tests (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test --maxWorkers=4
 
       - name: Run Tests (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test --maxWorkers=2
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v1.5.0
-        if: matrix.ENABLE_CODE_COVERAGE
+        uses: codecov/codecov-action@v1.5.2
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
 
@@ -75,7 +75,7 @@ jobs:
           PRETTIER_FALLBACK_RESOLVE: true
 
       - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v1.5.0
-        if: matrix.ENABLE_CODE_COVERAGE
+        uses: codecov/codecov-action@v1.5.2
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true

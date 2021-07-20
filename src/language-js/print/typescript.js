@@ -38,7 +38,7 @@ const {
   printTypeParameters,
 } = require("./type-parameters");
 const { printPropertyKey } = require("./property");
-const { printFunctionDeclaration, printMethodInternal } = require("./function");
+const { printFunction, printMethodInternal } = require("./function");
 const { printInterface } = require("./interface");
 const { printBlock } = require("./block");
 const {
@@ -98,7 +98,7 @@ function printTypescript(path, options, print) {
       return group([castGroup, print("expression")]);
     }
     case "TSDeclareFunction":
-      return printFunctionDeclaration(path, print, options);
+      return printFunction(path, print, options);
     case "TSExportAssignment":
       return ["export = ", print("expression"), semi];
     case "TSModuleBlock":
@@ -189,6 +189,9 @@ function printTypescript(path, options, print) {
       }
       if (node.static) {
         parts.push("static ");
+      }
+      if (node.override) {
+        parts.push("override ");
       }
       if (node.readonly) {
         parts.push("readonly ");

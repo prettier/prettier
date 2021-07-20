@@ -12,29 +12,14 @@ import { terser as rollupPluginTerser } from "rollup-plugin-terser";
 import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import WebpackPluginTerser from "terser-webpack-plugin";
 import createEsmUtils from "esm-utils";
+import builtinModules from "builtin-modules";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
-import rollupPluginExternals from "./rollup-plugins/externals.mjs";
+import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
+import bundles from "./config.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
-
-const EXTERNALS = [
-  "assert",
-  "buffer",
-  "constants",
-  "crypto",
-  "events",
-  "fs",
-  "module",
-  "os",
-  "path",
-  "stream",
-  "url",
-  "util",
-  "readline",
-  "tty",
-];
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
@@ -92,11 +77,6 @@ function getBabelConfig(bundle) {
     compact: bundle.type === "plugin" ? false : "auto",
     exclude: [/\/core-js\//],
   };
-  if (bundle.type === "core") {
-    config.plugins.push(
-      require.resolve("./babel-plugins/transform-custom-require")
-    );
-  }
   const targets = { node: "10" };
   if (bundle.target === "universal") {
     targets.browsers = [
@@ -139,12 +119,8 @@ function getBabelConfig(bundle) {
 function getRollupConfig(bundle) {
   const config = {
     input: bundle.input,
-
     onwarn(warning) {
       if (
-        // We use `eval("require")` to enable dynamic requires in the
-        // custom parser API
-        warning.code === "EVAL" ||
         // ignore `MIXED_EXPORTS` warn
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
@@ -168,6 +144,7 @@ function getRollupConfig(bundle) {
 
       console.warn(warning);
     },
+    external: [],
   };
 
   const replaceStrings = {
@@ -195,6 +172,45 @@ function getRollupConfig(bundle) {
   const alias = { ...bundle.alias };
   alias.entries = [...entries, ...(alias.entries || [])];
 
+  const replaceModule = {};
+  // Replace other bundled files
+  if (bundle.target === "node") {
+    // Replace package.json with dynamic `require("./package.json")`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
+
+    // Dynamic require bundled files
+    for (const item of bundles) {
+      if (item.input !== bundle.input) {
+        replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
+      }
+    }
+  } else {
+    // Universal bundle only use version info from package.json
+    // Replace package.json with `{version: "{VERSION}"}`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
+      code: `export default ${JSON.stringify({
+        version: require("../../package.json").version,
+      })};`,
+    };
+
+    // Replace parser getters with `undefined`
+    for (const file of [
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-js/parse/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
+    ]) {
+      replaceModule[path.join(PROJECT_ROOT, file)] = {
+        code: "export default undefined;",
+      };
+    }
+  }
+
+  Object.assign(replaceModule, bundle.replaceModule);
+
   config.plugins = [
     rollupPluginReplace({
       values: replaceStrings,
@@ -203,7 +219,11 @@ function getRollupConfig(bundle) {
     }),
     rollupPluginExecutable(),
     rollupPluginEvaluate(),
-    rollupPluginJson(),
+    rollupPluginJson({
+      exclude: Object.keys(replaceModule)
+        .filter((file) => file.endsWith(".json"))
+        .map((file) => path.relative(PROJECT_ROOT, file)),
+    }),
     rollupPluginAlias(alias),
     rollupPluginNodeResolve({
       extensions: [".js", ".json"],
@@ -211,27 +231,25 @@ function getRollupConfig(bundle) {
     }),
     rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
-      ...bundle.commonjs,
       ignore:
         bundle.type === "plugin"
           ? undefined
           : (id) => /\.\/parser-.*?/.test(id),
       requireReturnsDefault: "preferred",
+      ignoreDynamicRequires: true,
+      ignoreTryCatch: bundle.target === "node",
+      ...bundle.commonjs,
     }),
-    rollupPluginExternals(bundle.externals),
+    rollupPluginReplaceModule(replaceModule),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
     rollupPluginBabel(babelConfig),
-    bundle.minify !== false &&
-      bundle.target === "universal" &&
-      rollupPluginTerser({
-        output: {
-          ascii_only: true,
-        },
-      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
-    config.external = EXTERNALS;
+    config.external.push(...builtinModules);
+  }
+  if (bundle.external) {
+    config.external.push(...bundle.external);
   }
 
   return config;
@@ -242,14 +260,21 @@ function getRollupOutputOptions(bundle, buildOptions) {
     // Avoid warning form #8797
     exports: "auto",
     file: `dist/${bundle.output}`,
+    name: bundle.name,
+    plugins: [
+      bundle.minify !== false &&
+        bundle.target === "universal" &&
+        rollupPluginTerser({
+          output: {
+            ascii_only: true,
+          },
+        }),
+    ],
   };
 
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.name =
-      bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
-
     if (!bundle.format && bundle.bundler !== "webpack") {
       return [
         {
@@ -277,11 +302,10 @@ function getWebpackConfig(bundle) {
     throw new Error("Must use rollup for this bundle");
   }
 
-  const root = path.resolve(__dirname, "..", "..");
   const config = {
     mode: "production",
     performance: { hints: false },
-    entry: path.resolve(root, bundle.input),
+    entry: path.resolve(PROJECT_ROOT, bundle.input),
     module: {
       rules: [
         {
@@ -294,11 +318,11 @@ function getWebpackConfig(bundle) {
       ],
     },
     output: {
-      path: path.resolve(root, "dist"),
+      path: path.resolve(PROJECT_ROOT, "dist"),
       filename: bundle.output,
       library: {
         type: "umd",
-        name: ["prettierPlugins", bundle.name],
+        name: bundle.name.split("."),
       },
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()',

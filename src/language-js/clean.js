@@ -46,6 +46,9 @@ function clean(ast, newObj, parent) {
   if (ast.type === "DecimalLiteral") {
     newObj.value = Number(newObj.value);
   }
+  if (ast.type === "Literal" && newObj.decimal) {
+    newObj.decimal = Number(newObj.decimal);
+  }
 
   // We remove extra `;` and add them when needed
   if (ast.type === "EmptyStatement") {

@@ -129,9 +129,7 @@ This option cannot be used with --range-start and --range-end.",
           "type": "boolean",
         },
         "parser": Object {
-          "default": undefined,
-          "description": "Which parser to use.",
-          "oneOf": Array [
+          "anyOf": Array [
             Object {
               "description": "Flow",
               "enum": Array [
@@ -264,7 +262,13 @@ This option cannot be used with --range-start and --range-end.",
                 "lwc",
               ],
             },
+            Object {
+              "description": "Custom parser",
+              "type": "string",
+            },
           ],
+          "default": undefined,
+          "description": "Which parser to use.",
         },
         "pluginSearchDirs": Object {
           "default": Array [],

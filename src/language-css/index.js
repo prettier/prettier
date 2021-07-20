@@ -3,6 +3,7 @@
 const createLanguage = require("../utils/create-language");
 const printer = require("./printer-postcss");
 const options = require("./options");
+const parsers = require("./parsers");
 
 const languages = [
   createLanguage(require("linguist-languages/data/CSS.json"), (data) => ({
@@ -35,19 +36,6 @@ const languages = [
 
 const printers = {
   postcss: printer,
-};
-
-const parsers = {
-  // TODO: switch these to just `postcss` and use `language` instead.
-  get css() {
-    return require("./parser-postcss").parsers.css;
-  },
-  get less() {
-    return require("./parser-postcss").parsers.less;
-  },
-  get scss() {
-    return require("./parser-postcss").parsers.scss;
-  },
 };
 
 module.exports = {

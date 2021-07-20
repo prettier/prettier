@@ -8,7 +8,7 @@ export default function () {
 
     transform(_text, id) {
       if (!/\.evaluate\.js$/.test(id)) {
-        return null;
+        return;
       }
 
       const json = JSON.stringify(
@@ -22,7 +22,7 @@ export default function () {
       );
 
       return {
-        code: `var json = ${json}; export default json;`,
+        code: `export default ${json};`,
         map: { mappings: "" },
       };
     },

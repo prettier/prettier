@@ -17,7 +17,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-empty-flat-contents-for-if-break.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-empty-flat-contents-for-if-break.js",
     },
     messages: {
       [messageId]:

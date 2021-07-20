@@ -116,7 +116,7 @@ Update your `coc-settings.json` for languages that you want format on save.
 
 ```json
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"]
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown"]
 }
 ```
 

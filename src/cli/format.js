@@ -105,7 +105,7 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-async function format(context, input, opt) {
+function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
       "No parser and no file path given, couldn't infer a parser."
@@ -164,7 +164,8 @@ async function format(context, input, opt) {
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
-      benchmark = eval("require")("benchmark");
+      // eslint-disable-next-line import/no-extraneous-dependencies
+      benchmark = require("benchmark");
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
@@ -261,7 +262,7 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, await format(context, input, options), options);
+    writeOutput(context, format(context, input, options), options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -349,7 +350,7 @@ async function formatFiles(context) {
     let output;
 
     try {
-      result = await format(context, input, options);
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);

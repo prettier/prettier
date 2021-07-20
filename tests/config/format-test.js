@@ -186,6 +186,10 @@ function runSpec(fixtures, parsers, options) {
         allParsers.push("meriyah");
       }
     }
+
+    if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
+      allParsers.push("__babel_estree");
+    }
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
