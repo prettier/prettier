@@ -5,10 +5,12 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 async function run() {
-  const chalk = (await import("chalk")).default;
-  const minimist = (await import("minimist")).default;
-  const semver = (await import("semver")).default;
-  const { string: outdentString } = (await import("outdent")).default;
+  const { default: chalk } = await import("chalk");
+  const { default: minimist } = await import("minimist");
+  const { default: semver } = await import("semver");
+  const {
+    default: { string: outdentString },
+  } = await import("outdent");
   const { runGit, readJson } = await import("./utils.js");
 
   const params = minimist(process.argv.slice(2), {
@@ -33,22 +35,23 @@ async function run() {
   }
 
   const steps = [
-    import("./steps/validate-new-version.js"),
-    import("./steps/check-git-status.js"),
-    import("./steps/install-dependencies.js"),
-    import("./steps/run-tests.js"),
-    import("./steps/update-version.js"),
-    import("./steps/generate-bundles.js"),
-    import("./steps/update-changelog.js"),
-    import("./steps/push-to-git.js"),
-    import("./steps/publish-to-npm.js"),
-    import("./steps/bump-prettier.js"),
-    import("./steps/update-dependents-count.js"),
-    import("./steps/post-publish-steps.js"),
+    "./steps/validate-new-version.js",
+    "./steps/check-git-status.js",
+    "./steps/install-dependencies.js",
+    "./steps/run-tests.js",
+    "./steps/update-version.js",
+    "./steps/generate-bundles.js",
+    "./steps/update-changelog.js",
+    "./steps/push-to-git.js",
+    "./steps/publish-to-npm.js",
+    "./steps/bump-prettier.js",
+    "./steps/update-dependents-count.js",
+    "./steps/post-publish-steps.js",
   ];
 
   try {
-    for await (const { default: step } of steps) {
+    for (const file of steps) {
+      const { default: step } = await import(file);
       await step(params);
     }
   } catch (error) {
