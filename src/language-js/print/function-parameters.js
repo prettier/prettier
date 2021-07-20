@@ -5,7 +5,7 @@ const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, hardline, softline, group, indent, ifBreak },
   utils: { removeLines, willBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,

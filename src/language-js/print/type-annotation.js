@@ -7,7 +7,7 @@ const {
 const { getLast } = require("../../common/util.js");
 const {
   builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const pathNeedsParens = require("../needs-parens.js");
 const { locStart } = require("../loc.js");
 const {

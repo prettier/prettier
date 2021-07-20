@@ -2,7 +2,7 @@
 
 const {
   builders: { join, line, group },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { hasNode, hasComment, getComments } = require("../utils.js");
 const { printBinaryishExpression } = require("./binaryish.js");
 

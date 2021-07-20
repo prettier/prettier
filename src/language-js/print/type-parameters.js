@@ -3,7 +3,7 @@
 const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   isTestCall,
   hasComment,

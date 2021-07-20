@@ -4,7 +4,7 @@ const { hasNewline } = require("../../common/util.js");
 const {
   builders: { join, hardline },
   utils: { replaceNewlinesWithLiterallines },
-} = require("../../document.js");
+} = require("../../document/index.js");
 
 const { isLineComment, isBlockComment } = require("../utils.js");
 const { locStart, locEnd } = require("../loc.js");

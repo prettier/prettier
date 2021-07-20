@@ -2,7 +2,7 @@
 
 const {
   builders: { hardline, indent, join },
-} = require("../document.js");
+} = require("../document/index.js");
 const preprocess = require("./print-preprocess.js");
 
 function genericPrint(path, options, print) {

@@ -13,7 +13,7 @@ const {
     conditionalGroup,
     ifBreak,
   },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   isLiteral,
   getTypeScriptMappedTypeModifier,

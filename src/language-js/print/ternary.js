@@ -20,7 +20,7 @@ const {
     dedent,
     breakParent,
   },
-} = require("../../document.js");
+} = require("../../document/index.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc

@@ -3,7 +3,7 @@
 const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, join, line },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { isFlowAnnotationComment } = require("../utils.js");
 
 function printOptionalToken(path) {

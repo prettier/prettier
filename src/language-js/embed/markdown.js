@@ -2,7 +2,7 @@
 
 const {
   builders: { indent, softline, literalline, dedentToRoot },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { escapeTemplateCharacters } = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {

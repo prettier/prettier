@@ -4,7 +4,7 @@ const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
 const {
   builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc, willBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,

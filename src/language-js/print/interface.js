@@ -3,7 +3,7 @@
 const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { join, line, group, indent, ifBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { hasComment, identity, CommentCheckFlags } = require("../utils.js");
 const { getTypeParametersGroupId } = require("./type-parameters.js");
 const { printTypeScriptModifiers } = require("./misc.js");

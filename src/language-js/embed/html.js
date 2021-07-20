@@ -3,7 +3,7 @@
 const {
   builders: { indent, line, hardline, group },
   utils: { mapDoc },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   printTemplateExpressions,
   uncookTemplateElementValue,

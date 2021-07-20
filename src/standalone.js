@@ -6,7 +6,7 @@ const core = require("./main/core.js");
 const { getSupportInfo } = require("./main/support.js");
 const sharedUtil = require("./common/util-shared.js");
 const languages = require("./languages.js");
-const doc = require("./document.js");
+const doc = require("./document/index.js");
 
 function withPlugins(
   fn,

@@ -2,7 +2,7 @@
 
 const {
   builders: { ifBreak, line, softline, hardline, join },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { isEmptyNode, getLast, hasEndComments } = require("../utils.js");
 const { printNextEmptyLine, alignWithSpaces } = require("./misc.js");
 

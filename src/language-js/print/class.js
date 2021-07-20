@@ -10,7 +10,7 @@ const {
 } = require("../../main/comments.js");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { hasComment, CommentCheckFlags } = require("../utils.js");
 const { getTypeParametersGroupId } = require("./type-parameters.js");
 const { printMethod } = require("./function.js");

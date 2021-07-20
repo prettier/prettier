@@ -2,7 +2,7 @@
 
 const {
   builders: { softline, align },
-} = require("../../document.js");
+} = require("../../document/index.js");
 
 const { hasEndComments, isNextLineEmpty, isNode } = require("../utils.js");
 

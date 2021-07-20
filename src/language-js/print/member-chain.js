@@ -32,7 +32,7 @@ const {
     label,
   },
   utils: { willBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const printCallArguments = require("./call-arguments.js");
 const { printMemberLookup } = require("./member.js");
 const {

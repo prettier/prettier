@@ -14,7 +14,7 @@ const {
     literalline,
   },
   utils: { getDocParts, replaceEndOfLineWith },
-} = require("../document.js");
+} = require("../document/index.js");
 const { isPreviousLineEmpty } = require("../common/util.js");
 const { insertPragma, isPragma } = require("./pragma.js");
 const { locStart } = require("./loc.js");

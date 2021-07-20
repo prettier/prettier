@@ -3,7 +3,7 @@
 const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { softline, group, indent, join, line, ifBreak, hardline },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { printDanglingComments } = require("../../main/comments.js");
 
 const {

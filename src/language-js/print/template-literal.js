@@ -15,7 +15,7 @@ const {
   },
   printer: { printDocToString },
   utils: { mapDoc },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   isBinaryish,
   isJestEachTemplateLiteral,

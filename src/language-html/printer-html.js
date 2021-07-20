@@ -22,7 +22,7 @@ const {
     softline,
   },
   utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceEndOfLineWith },
-} = require("../document.js");
+} = require("../document/index.js");
 const { isNonEmptyArray } = require("../common/util.js");
 const printFrontMatter = require("../utils/front-matter/print.js");
 const clean = require("./clean.js");

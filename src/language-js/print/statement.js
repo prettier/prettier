@@ -2,7 +2,7 @@
 
 const {
   builders: { hardline },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const pathNeedsParens = require("../needs-parens.js");
 const {
   getLeftSidePathName,

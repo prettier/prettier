@@ -3,7 +3,7 @@
 const { isNonEmptyArray, hasNewline } = require("../../common/util.js");
 const {
   builders: { line, hardline, join, breakParent, group },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { locStart, locEnd } = require("../loc.js");
 const { getParentExportDeclaration } = require("../utils.js");
 

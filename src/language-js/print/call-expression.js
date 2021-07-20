@@ -2,7 +2,7 @@
 
 const {
   builders: { join, group },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const pathNeedsParens = require("../needs-parens.js");
 const {
   getCallArguments,

@@ -3,7 +3,7 @@
 const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, softline, group, indent, ifBreak, hardline },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   getLast,
   hasNewlineInRange,

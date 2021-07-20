@@ -30,7 +30,7 @@ const {
     breakParent,
   },
   utils: { willBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 
 const { ArgExpansionBailout } = require("../../common/errors.js");
 const { isConciselyPrintedArray } = require("./array.js");

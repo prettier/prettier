@@ -2,7 +2,7 @@
 
 const {
   builders: { softline, group, indent, label },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   isNumericLiteral,
   isMemberExpression,

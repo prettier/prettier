@@ -5,7 +5,7 @@ const diff = require("diff");
 const {
   printer: { printDocToString },
   debug: { printDocToDebug },
-} = require("../document.js");
+} = require("../document/index.js");
 const { getAlignmentSize } = require("../common/util.js");
 const {
   guessEndOfLine,

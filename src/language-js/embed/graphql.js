@@ -2,7 +2,7 @@
 
 const {
   builders: { indent, join, hardline },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   escapeTemplateCharacters,
   printTemplateExpressions,

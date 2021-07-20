@@ -4,7 +4,7 @@ const { printDanglingComments } = require("../../main/comments.js");
 const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { hardline, indent },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   hasComment,
   CommentCheckFlags,

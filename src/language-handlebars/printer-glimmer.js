@@ -14,7 +14,7 @@ const {
     literalline,
   },
   utils: { getDocParts, replaceEndOfLineWith },
-} = require("../document.js");
+} = require("../document/index.js");
 const { isNonEmptyArray } = require("../common/util.js");
 const { locStart, locEnd } = require("./loc.js");
 const clean = require("./clean.js");

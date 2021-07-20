@@ -14,7 +14,7 @@ const {
     indentIfBreak,
   },
   utils: { cleanDoc, getDocParts, isConcat },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,

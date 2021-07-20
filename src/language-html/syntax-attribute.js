@@ -4,7 +4,7 @@ const parseSrcset = require("parse-srcset");
 const getLast = require("../utils/get-last.js");
 const {
   builders: { group, ifBreak, indent, join, line, softline },
-} = require("../document.js");
+} = require("../document/index.js");
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {

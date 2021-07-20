@@ -25,7 +25,7 @@ const {
   },
   utils: { normalizeDoc, replaceEndOfLineWith },
   printer: { printDocToString },
-} = require("../document.js");
+} = require("../document/index.js");
 const embed = require("./embed.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");

@@ -23,7 +23,7 @@ const {
     breakParent,
   },
   utils: { removeLines, getDocParts },
-} = require("../document.js");
+} = require("../document/index.js");
 const clean = require("./clean.js");
 const embed = require("./embed.js");
 const { insertPragma } = require("./pragma.js");

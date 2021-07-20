@@ -4,7 +4,7 @@ const AstPath = require("../common/ast-path.js");
 const {
   builders: { hardline, addAlignmentToDoc },
   utils: { propagateBreaks },
-} = require("../document.js");
+} = require("../document/index.js");
 const { printComments } = require("./comments.js");
 const multiparser = require("./multiparser.js");
 

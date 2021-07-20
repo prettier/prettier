@@ -3,7 +3,7 @@
 const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, softline, hardline, group, indent, ifBreak, fill },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { getLast, hasNewline } = require("../../common/util.js");
 const {
   shouldPrintComma,

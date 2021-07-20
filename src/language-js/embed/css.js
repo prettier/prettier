@@ -4,7 +4,7 @@ const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, hardline, softline },
   utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { printTemplateExpressions } = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {

@@ -7,7 +7,7 @@ const { printDanglingComments } = require("../../main/comments.js");
 const { printString, printNumber } = require("../../common/util.js");
 const {
   builders: { hardline, softline, group, indent },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   getParentExportDeclaration,
   isFunctionNotation,

@@ -7,7 +7,7 @@ const {
 const {
   builders: { hardline, markAsRoot },
   utils: { replaceNewlinesWithLiterallines },
-} = require("../document.js");
+} = require("../document/index.js");
 const printFrontMatter = require("../utils/front-matter/print.js");
 const { getFencedCodeBlockValue } = require("./utils.js");
 

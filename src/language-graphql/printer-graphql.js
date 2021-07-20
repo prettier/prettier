@@ -2,7 +2,7 @@
 
 const {
   builders: { join, hardline, line, softline, group, indent, ifBreak },
-} = require("../document.js");
+} = require("../document/index.js");
 const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");

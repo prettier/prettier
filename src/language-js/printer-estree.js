@@ -8,7 +8,7 @@ const { hasNewline } = require("../common/util.js");
 const {
   builders: { join, line, hardline, softline, group, indent },
   utils: { replaceNewlinesWithLiterallines },
-} = require("../document.js");
+} = require("../document/index.js");
 const embed = require("./embed.js");
 const clean = require("./clean.js");
 const { insertPragma } = require("./pragma.js");

@@ -23,7 +23,7 @@ const {
     indentIfBreak,
   },
   utils: { removeLines, willBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const { ArgExpansionBailout } = require("../../common/errors.js");
 const {
   getFunctionParameters,

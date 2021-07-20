@@ -14,7 +14,7 @@ const {
     markAsRoot,
   },
   utils: { getDocParts },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   getAncestorCount,
   getBlockValueLineContents,

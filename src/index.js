@@ -8,7 +8,7 @@ const getFileInfo = require("./common/get-file-info.js");
 const sharedUtil = require("./common/util-shared.js");
 const plugins = require("./common/load-plugins.js");
 const config = require("./config/resolve-config.js");
-const doc = require("./document.js");
+const doc = require("./document/index.js");
 
 function _withPlugins(
   fn,

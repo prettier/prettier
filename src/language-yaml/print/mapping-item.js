@@ -4,7 +4,7 @@
 
 const {
   builders: { conditionalGroup, group, hardline, ifBreak, join, line },
-} = require("../../document.js");
+} = require("../../document/index.js");
 const {
   hasLeadingComments,
   hasMiddleComments,

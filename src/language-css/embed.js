@@ -1,7 +1,7 @@
 "use strict";
 const {
   builders: { hardline },
-} = require("../document.js");
+} = require("../document/index.js");
 const printFrontMatter = require("../utils/front-matter/print.js");
 
 function embed(path, print, textToDoc /*, options */) {

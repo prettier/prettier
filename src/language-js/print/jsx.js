@@ -18,7 +18,7 @@ const {
     join,
   },
   utils: { willBreak },
-} = require("../../document.js");
+} = require("../../document/index.js");
 
 const { getLast, getPreferredQuote } = require("../../common/util.js");
 const {
