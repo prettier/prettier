@@ -1,9 +1,5 @@
-import { createRequire } from "node:module";
 import prettier from "../index.js";
-
-const require = createRequire(import.meta.url);
-
-const generateSchema = require("./utils/generate-schema");
+import generateSchema from "./utils/generate-schema.js";
 
 console.log(
   prettier.format(
