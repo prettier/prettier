@@ -1,11 +1,11 @@
-"use strict";
+import fs from "node:fs";
+import execa from "execa";
+import chalk from "chalk";
+import outdent from "outdent";
+import semver from "semver";
+import { waitForEnter, runYarn, logPromise } from "../utils.js";
 
-const fs = require("fs");
-const execa = require("execa");
-const chalk = require("chalk");
-const { outdent, string: outdentString } = require("outdent");
-const semver = require("semver");
-const { waitForEnter, runYarn, logPromise } = require("../utils");
+const outdentString = outdent.string;
 
 function getBlogPostInfo(version) {
   const date = new Date();
@@ -42,7 +42,7 @@ async function getChangelogForPatch({ version, previousVersion }) {
   return changelog;
 }
 
-module.exports = async function ({ version, previousVersion }) {
+export default async function ({ version, previousVersion }) {
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {
@@ -81,4 +81,4 @@ module.exports = async function ({ version, previousVersion }) {
     "Re-running Prettier on docs",
     runYarn(["lint:prettier", "--write"])
   );
-};
+}

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-"use strict";
-
-const { exec } = require("child_process");
+import { exec } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 async function run() {
-  const chalk = require("chalk");
-  const minimist = require("minimist");
-  const semver = require("semver");
-  const { string: outdentString } = require("outdent");
-  const { runGit, readJson } = require("./utils");
+  const chalk = (await import("chalk")).default;
+  const minimist = (await import("minimist")).default;
+  const semver = (await import("semver")).default;
+  const { string: outdentString } = (await import("outdent")).default;
+  const { runGit, readJson } = await import("./utils.js");
 
   const params = minimist(process.argv.slice(2), {
     string: ["version"],
@@ -33,22 +33,22 @@ async function run() {
   }
 
   const steps = [
-    require("./steps/validate-new-version"),
-    require("./steps/check-git-status"),
-    require("./steps/install-dependencies"),
-    require("./steps/run-tests"),
-    require("./steps/update-version"),
-    require("./steps/generate-bundles"),
-    require("./steps/update-changelog"),
-    require("./steps/push-to-git"),
-    require("./steps/publish-to-npm"),
-    require("./steps/bump-prettier"),
-    require("./steps/update-dependents-count"),
-    require("./steps/post-publish-steps"),
+    import("./steps/validate-new-version.js"),
+    import("./steps/check-git-status.js"),
+    import("./steps/install-dependencies.js"),
+    import("./steps/run-tests.js"),
+    import("./steps/update-version.js"),
+    import("./steps/generate-bundles.js"),
+    import("./steps/update-changelog.js"),
+    import("./steps/push-to-git.js"),
+    import("./steps/publish-to-npm.js"),
+    import("./steps/bump-prettier.js"),
+    import("./steps/update-dependents-count.js"),
+    import("./steps/post-publish-steps.js"),
   ];
 
   try {
-    for (const step of steps) {
+    for await (const { default: step } of steps) {
       await step(params);
     }
   } catch (error) {
@@ -64,7 +64,7 @@ exec(
     "git fetch --tags", // Fetch git tags to get the previous version number (i.e. the latest tag)
     "yarn install", // Install script's dependencies before any require
   ].join(" && "),
-  { cwd: __dirname },
+  { cwd: path.dirname(fileURLToPath(import.meta.url)) },
   (error) => {
     if (error) {
       console.error(error);

@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "dependencies": {
     "chalk": "4.1.1",
     "execa": "5.1.1",
