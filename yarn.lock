@@ -2958,8 +2958,10 @@ eslint-plugin-jest@24.3.6:
   dependencies:
     "@typescript-eslint/experimental-utils" "^4.0.1"
 
-"eslint-plugin-prettier-internal-rules@link:scripts/tools/eslint-plugin-prettier-internal-rules":
-  version "0.0.0"
+eslint-plugin-prettier-internal-rules@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier-internal-rules/-/eslint-plugin-prettier-internal-rules-2.0.1.tgz#ee6f5b4d663fd16d406f66a0d52775d05be1bd6e"
+  integrity sha512-6mLlbq4xl86c66Smulq2a/bIpTzXDL3LcoYQd/C+kSbjLl8L7G+3wNJs6lWsZZ5v8fyirundQBH6PP/PSAzDMw==
 
 eslint-plugin-react@7.24.0:
   version "7.24.0"
