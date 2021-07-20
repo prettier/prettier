@@ -3,11 +3,9 @@
 const path = require("path");
 
 const editorconfig = require("editorconfig");
-const mem = require("mem");
+const memoize = require("nano-memoize");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
 const findProjectRoot = require("./find-project-root");
-
-const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
 
 const maybeParse = (filePath, parse) =>
   filePath &&
@@ -17,11 +15,11 @@ const maybeParse = (filePath, parse) =>
 
 const editorconfigAsyncNoCache = async (filePath) =>
   editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
-const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
+const editorconfigAsyncWithCache = memoize(editorconfigAsyncNoCache);
 
 const editorconfigSyncNoCache = (filePath) =>
   editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
-const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
+const editorconfigSyncWithCache = memoize(editorconfigSyncNoCache);
 
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {
@@ -36,8 +34,8 @@ function getLoadFunction(opts) {
 }
 
 function clearCache() {
-  mem.clear(editorconfigSyncWithCache);
-  mem.clear(editorconfigAsyncWithCache);
+  editorconfigSyncWithCache.clear();
+  editorconfigAsyncWithCache.clear();
 }
 
 module.exports = {

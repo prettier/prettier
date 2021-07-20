@@ -5,16 +5,16 @@ const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
 const globby = require("globby");
-const mem = require("mem");
+const memoize = require("nano-memoize");
 const internalPlugins = require("../languages");
 const thirdParty = require("./third-party");
 const resolve = require("./resolve");
 
-const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
-const memoizedSearch = mem(findPluginsInNodeModules);
+const memoizedLoad = memoize(load);
+const memoizedSearch = memoize(findPluginsInNodeModules);
 const clearCache = () => {
-  mem.clear(memoizedLoad);
-  mem.clear(memoizedSearch);
+  memoizedLoad.clear();
+  memoizedSearch.clear();
 };
 
 function load(plugins, pluginSearchDirs) {

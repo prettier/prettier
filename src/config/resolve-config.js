@@ -2,7 +2,7 @@
 
 const path = require("path");
 const minimatch = require("minimatch");
-const mem = require("mem");
+const memoize = require("nano-memoize");
 const thirdParty = require("../common/third-party");
 
 const loadToml = require("../utils/load-toml");
@@ -18,7 +18,7 @@ const resolveEditorConfig = require("./resolve-config-editorconfig");
 /**
  * @type {(opts: Options) => Explorer}
  */
-const getExplorerMemoized = mem(
+const getExplorerMemoized = memoize(
   (opts) => {
     const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
     const explorer = cosmiconfig("prettier", {
@@ -62,8 +62,7 @@ const getExplorerMemoized = mem(
     });
 
     return explorer;
-  },
-  { cacheKey: JSON.stringify }
+  }
 );
 
 /**
@@ -127,7 +126,7 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
-  mem.clear(getExplorerMemoized);
+  getExplorerMemoized.clear();
   resolveEditorConfig.clearCache();
 }
 
