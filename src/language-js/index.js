@@ -7,28 +7,25 @@ const options = require("./options.js");
 const parsers = require("./parse/parsers.js");
 
 const languages = [
-  createLanguage(
-    require("linguist-languages/data/JavaScript.json"),
-    (data) => ({
-      since: "0.0.0",
-      parsers: [
-        "babel",
-        "espree",
-        "meriyah",
-        "babel-flow",
-        "babel-ts",
-        "flow",
-        "typescript",
-      ],
-      vscodeLanguageIds: ["javascript", "mongo"],
-      extensions: [
-        ...data.extensions.filter((extension) => extension !== ".jsx"),
-        // WeiXin Script (Weixin Mini Programs)
-        // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
-        ".wxs",
-      ],
-    })
-  ),
+  createLanguage(require("linguist-languages/data/JavaScript"), (data) => ({
+    since: "0.0.0",
+    parsers: [
+      "babel",
+      "espree",
+      "meriyah",
+      "babel-flow",
+      "babel-ts",
+      "flow",
+      "typescript",
+    ],
+    vscodeLanguageIds: ["javascript", "mongo"],
+    extensions: [
+      ...data.extensions.filter((extension) => extension !== ".jsx"),
+      // WeiXin Script (Weixin Mini Programs)
+      // https://developers.weixin.qq.com/miniprogram/en/dev/framework/view/wxs/
+      ".wxs",
+    ],
+  })),
   createLanguage(require("linguist-languages/data/JavaScript.json"), () => ({
     name: "Flow",
     since: "0.0.0",
