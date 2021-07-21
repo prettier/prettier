@@ -1,8 +1,10 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const generateSchema = require("../../../scripts/utils/generate-schema.js");
 
-test("schema", () => {
+test("schema", async () => {
+  const { default: generateSchema } = await import(
+    "../../../scripts/utils/generate-schema.mjs"
+  );
   expect(generateSchema(prettier.getSupportInfo().options)).toMatchSnapshot();
 });

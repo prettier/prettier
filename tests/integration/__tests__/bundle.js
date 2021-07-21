@@ -18,16 +18,18 @@ describe("standalone", () => {
     .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
-  const esmStandalone = require(path.join(
-    distDirectory,
-    "esm/standalone.mjs"
-  )).default;
-  const esmPlugins = globby
-    .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
-    .map((file) => require(file).default);
-
   for (const parser of parserNames) {
-    test(parser, () => {
+    test(parser, async () => {
+      const { default: esmStandalone } = await import(
+        path.join(distDirectory, "esm/standalone.mjs")
+      );
+
+      const esmPlugins = await Promise.all(
+        globby
+          .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
+          .map(async (file) => (await import(file)).default)
+      );
+
       const input = codeSamples(parser);
       const umdOutput = standalone.format(input, {
         parser,
