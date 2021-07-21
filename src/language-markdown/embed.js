@@ -6,7 +6,7 @@ const {
 } = require("../common/util.js");
 const {
   builders: { hardline, markAsRoot },
-  utils: { replaceNewlinesWithLiterallines },
+  utils: { replaceEndOfLine },
 } = require("../document/index.js");
 const printFrontMatter = require("../utils/front-matter/print.js");
 const { getFencedCodeBlockValue } = require("./utils.js");
@@ -31,7 +31,7 @@ function embed(path, print, textToDoc, options) {
         node.lang,
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceNewlinesWithLiterallines(doc),
+        replaceEndOfLine(doc),
         hardline,
         style,
       ]);

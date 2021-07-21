@@ -11,9 +11,8 @@ const {
     join,
     line,
     softline,
-    literalline,
   },
-  utils: { getDocParts, replaceEndOfLineWith },
+  utils: { getDocParts, replaceTextEndOfLine },
 } = require("../document/index.js");
 const { isNonEmptyArray } = require("../common/util.js");
 const { locStart, locEnd } = require("./loc.js");
@@ -225,7 +224,7 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceEndOfLineWith(text, literalline);
+        return replaceTextEndOfLine(text);
       }
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
