@@ -4,8 +4,6 @@ const path = require("path");
 const globby = require("globby");
 const { projectRoot } = require("../env.js");
 const coreOptions = require("../../../src/main/core-options.js");
-const codeSamples =
-  require("../../../website/playground/codeSamples.js").default;
 
 const parserNames = coreOptions.options.parser.choices.map(
   ({ value }) => value
@@ -23,14 +21,16 @@ describe("standalone", () => {
       const { default: esmStandalone } = await import(
         path.join(distDirectory, "esm/standalone.mjs")
       );
-
       const esmPlugins = await Promise.all(
         globby
           .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
           .map(async (file) => (await import(file)).default)
       );
+      const { default: getCodeSamples } = await import(
+        "../../../website/playground/codeSamples.mjs"
+      );
 
-      const input = codeSamples(parser);
+      const input = getCodeSamples(parser);
       const umdOutput = standalone.format(input, {
         parser,
         plugins,

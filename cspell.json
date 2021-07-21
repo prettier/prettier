@@ -397,7 +397,7 @@
         "test*.*",
         "website/data/users.yml",
         "website/build/**",
-        "website/playground/codeSamples.js",
+        "website/playground/codeSamples.mjs",
         "website/pages/googlefe164a33bda4034b.html",
         "website/static/lib/**",
         "website/static/playground.js"
