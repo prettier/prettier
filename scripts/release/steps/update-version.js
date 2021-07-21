@@ -6,7 +6,7 @@ const {
   readJson,
   writeJson,
   processFile,
-} = require("../utils");
+} = require("../utils.js");
 
 async function bump({ version }) {
   const pkg = await readJson("package.json");

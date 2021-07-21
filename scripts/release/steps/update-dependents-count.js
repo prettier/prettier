@@ -1,7 +1,7 @@
 "use strict";
 
 const chalk = require("chalk");
-const { runGit, fetchText, logPromise, processFile } = require("../utils");
+const { runGit, fetchText, logPromise, processFile } = require("../utils.js");
 
 async function update() {
   const npmPage = await logPromise(

@@ -4,7 +4,7 @@
 
 const {
   builders: { conditionalGroup, group, hardline, ifBreak, join, line },
-} = require("../../document");
+} = require("../../document/index.js");
 const {
   hasLeadingComments,
   hasMiddleComments,
@@ -13,8 +13,8 @@ const {
   isNode,
   isEmptyNode,
   isInlineNode,
-} = require("../utils");
-const { alignWithSpaces } = require("./misc");
+} = require("../utils.js");
+const { alignWithSpaces } = require("./misc.js");
 
 function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;

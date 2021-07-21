@@ -1,6 +1,6 @@
 "use strict";
 
-const { runGit } = require("../utils");
+const { runGit } = require("../utils.js");
 
 module.exports = async function () {
   const { stdout: status } = await runGit(["status", "--porcelain"]);

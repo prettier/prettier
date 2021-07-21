@@ -8,7 +8,7 @@ const {
   logPromise,
   readJson,
   writeJson,
-} = require("../utils");
+} = require("../utils.js");
 
 async function format() {
   await runYarn(["lint:eslint", "--fix"]);

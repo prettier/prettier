@@ -2,6 +2,6 @@
 
 module.exports = {
   get glimmer() {
-    return require("./parser-glimmer").parsers.glimmer;
+    return require("./parser-glimmer.js").parsers.glimmer;
   },
 };

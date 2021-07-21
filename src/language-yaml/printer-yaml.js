@@ -14,11 +14,11 @@ const {
     literalline,
   },
   utils: { getDocParts, replaceEndOfLineWith },
-} = require("../document");
-const { isPreviousLineEmpty } = require("../common/util");
-const { insertPragma, isPragma } = require("./pragma");
-const { locStart } = require("./loc");
-const embed = require("./embed");
+} = require("../document/index.js");
+const { isPreviousLineEmpty } = require("../common/util.js");
+const { insertPragma, isPragma } = require("./pragma.js");
+const { locStart } = require("./loc.js");
+const embed = require("./embed.js");
 const {
   getFlowScalarLineContents,
   getLastDescendantNode,
@@ -30,19 +30,19 @@ const {
   isLastDescendantNode,
   isNode,
   isInlineNode,
-} = require("./utils");
-const preprocess = require("./print-preprocess");
+} = require("./utils.js");
+const preprocess = require("./print-preprocess.js");
 const {
   alignWithSpaces,
   printNextEmptyLine,
   shouldPrintEndComments,
-} = require("./print/misc");
+} = require("./print/misc.js");
 const {
   printFlowMapping,
   printFlowSequence,
-} = require("./print/flow-mapping-sequence");
-const printMappingItem = require("./print/mapping-item");
-const printBlock = require("./print/block");
+} = require("./print/flow-mapping-sequence.js");
+const printMappingItem = require("./print/mapping-item.js");
+const printBlock = require("./print/block.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

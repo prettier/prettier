@@ -7,11 +7,11 @@ const path = require("path");
 const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
-const checkParsers = require("./utils/check-parsers");
-const createSnapshot = require("./utils/create-snapshot");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line");
-const consistentEndOfLine = require("./utils/consistent-end-of-line");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
+const checkParsers = require("./utils/check-parsers.js");
+const createSnapshot = require("./utils/create-snapshot.js");
+const visualizeEndOfLine = require("./utils/visualize-end-of-line.js");
+const consistentEndOfLine = require("./utils/consistent-end-of-line.js");
+const stringifyOptionsForTitle = require("./utils/stringify-options-for-title.js");
 
 const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";

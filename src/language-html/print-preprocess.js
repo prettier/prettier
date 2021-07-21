@@ -3,7 +3,7 @@
 const {
   ParseSourceSpan,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 const {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
@@ -15,7 +15,7 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils");
+} = require("./utils.js");
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,

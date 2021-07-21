@@ -1,6 +1,6 @@
 "use strict";
 
-const { runGit, logPromise } = require("../utils");
+const { runGit, logPromise } = require("../utils.js");
 
 async function pushGit({ version }) {
   await runGit(["commit", "-am", `Release ${version}`]);

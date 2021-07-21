@@ -1,9 +1,9 @@
 "use strict";
 
-const createLanguage = require("../utils/create-language");
-const printer = require("./printer-markdown");
-const options = require("./options");
-const parsers = require("./parsers");
+const createLanguage = require("../utils/create-language.js");
+const printer = require("./printer-markdown.js");
+const options = require("./options.js");
+const parsers = require("./parsers.js");
 
 const languages = [
   createLanguage(require("linguist-languages/data/Markdown.json"), (data) => ({

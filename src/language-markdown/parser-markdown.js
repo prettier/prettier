@@ -4,11 +4,11 @@ const remarkParse = require("remark-parse");
 const unified = require("unified");
 const remarkMath = require("remark-math");
 const footnotes = require("remark-footnotes");
-const parseFrontMatter = require("../utils/front-matter/parse");
-const pragma = require("./pragma");
-const { locStart, locEnd } = require("./loc");
-const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
-const mdx = require("./mdx");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
+const pragma = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
+const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils.js");
+const mdx = require("./mdx.js");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:

@@ -3,7 +3,7 @@
 const chalk = require("chalk");
 const { string: outdentString } = require("outdent");
 const execa = require("execa");
-const { fetchText, logPromise } = require("../utils");
+const { fetchText, logPromise } = require("../utils.js");
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";

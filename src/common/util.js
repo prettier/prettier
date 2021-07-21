@@ -2,8 +2,8 @@
 
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
-const getLast = require("../utils/get-last");
-const { getSupportInfo } = require("../main/support");
+const getLast = require("../utils/get-last.js");
+const { getSupportInfo } = require("../main/support.js");
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 

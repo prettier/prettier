@@ -7,8 +7,8 @@ require("please-upgrade-node")(packageJson);
 // eslint-disable-next-line import/order
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
-const core = require("./core");
+const prettier = require("../index.js");
+const core = require("./core.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing

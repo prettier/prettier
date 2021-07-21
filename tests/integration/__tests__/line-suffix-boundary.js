@@ -6,7 +6,7 @@ const prettier = require("prettier-local");
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;
 
-const printDoc = require("../printDoc");
+const printDoc = require("../printDoc.js");
 
 describe("lineSuffixBoundary", () => {
   test("should be correctly treated as a potential line break in `fits`", () => {
