@@ -21,6 +21,11 @@ const languages = [
         "typescript",
       ],
       vscodeLanguageIds: ["javascript", "mongo"],
+      interpreters: [
+        ...data.interpreters,
+        // https://github.com/google/zx
+        "zx",
+      ],
       extensions: [
         ...data.extensions.filter((extension) => extension !== ".jsx"),
         // WeiXin Script (Weixin Mini Programs)
