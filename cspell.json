@@ -1,9 +1,9 @@
 {
-    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
     "version": "0.2",
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
     "words": [
-        "actionlint",
         "ACMR",
+        "actionlint",
         "Alexa",
         "algolia",
         "Amjad",
@@ -449,15 +449,24 @@
         "\"author\": \".*?\""
     ],
     "files": [
-        "**/*",
+        "*",
+        ".*",
         ".github/**/*",
+        "bin/**/*",
+        "changelog_unreleased/**/*",
+        "docs/**/*",
+        "scripts/**/*",
+        "src/**/*",
+        "types/**/*",
+        "website/**/*",
+        "tests/config/**/*",
+        "tests/integration/**/*",
         "tests/**/jsfmt.spec.js"
     ],
     "ignorePaths": [
         "cspell.json",
         "**/node_modules/**",
         "**/yarn.lock",
-        "{coverage,dist,.cache,.git,.vscode,.DS_Store,tests}/**/*",
         "*.{log,svg,snap,png}",
         "test*.*",
         "website/data/users.yml",
