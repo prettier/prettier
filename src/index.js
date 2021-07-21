@@ -1,6 +1,6 @@
 "use strict";
 
-const { version } = require("../package");
+const { version } = require("../package.json");
 
 const core = require("./main/core.js");
 const { getSupportInfo } = require("./main/support.js");

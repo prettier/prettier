@@ -24,8 +24,8 @@ jobs:
       - name: Check Dependencies
         run: yarn lint:deps
 
-      # - name: Check JSDoc Types
-      #   run: yarn lint:typecheck
+      - name: Check JSDoc Types
+        run: yarn lint:typecheck
 
       - name: Lint ESLint
         run: yarn lint:eslint
