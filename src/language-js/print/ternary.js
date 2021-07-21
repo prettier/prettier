@@ -1,14 +1,14 @@
 "use strict";
 
-const { hasNewlineInRange } = require("../../common/util");
+const { hasNewlineInRange } = require("../../common/util.js");
 const {
   isJsxNode,
   isBlockComment,
   getComments,
   isCallExpression,
   isMemberExpression,
-} = require("../utils");
-const { locStart, locEnd } = require("../loc");
+} = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
 const {
   builders: {
     line,
@@ -20,7 +20,7 @@ const {
     dedent,
     breakParent,
   },
-} = require("../../document");
+} = require("../../document/index.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc

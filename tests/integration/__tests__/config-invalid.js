@@ -1,8 +1,8 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("throw error for unsupported extension", () => {
   runPrettier("cli/config/invalid", [

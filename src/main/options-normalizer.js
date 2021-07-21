@@ -3,7 +3,7 @@
 const vnopts = require("vnopts");
 const leven = require("leven");
 const chalk = require("chalk");
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),

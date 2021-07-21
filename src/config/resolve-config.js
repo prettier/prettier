@@ -3,12 +3,12 @@
 const path = require("path");
 const minimatch = require("minimatch");
 const mem = require("mem");
-const thirdParty = require("../common/third-party");
+const thirdParty = require("../common/third-party.js");
 
-const loadToml = require("../utils/load-toml");
-const loadJson5 = require("../utils/load-json5");
-const resolve = require("../common/resolve");
-const resolveEditorConfig = require("./resolve-config-editorconfig");
+const loadToml = require("../utils/load-toml.js");
+const loadJson5 = require("../utils/load-json5.js");
+const resolve = require("../common/resolve.js");
+const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
 /**
  * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer

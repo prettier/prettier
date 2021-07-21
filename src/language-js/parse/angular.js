@@ -1,6 +1,6 @@
 "use strict";
 
-const { locStart, locEnd } = require("../loc");
+const { locStart, locEnd } = require("../loc.js");
 
 function createParser(_parse) {
   const parse = (text, parsers, options) => {

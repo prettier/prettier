@@ -22,10 +22,10 @@ const {
     softline,
   },
   utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceEndOfLineWith },
-} = require("../document");
-const { isNonEmptyArray } = require("../common/util");
-const printFrontMatter = require("../utils/front-matter/print");
-const clean = require("./clean");
+} = require("../document/index.js");
+const { isNonEmptyArray } = require("../common/util.js");
+const printFrontMatter = require("../utils/front-matter/print.js");
+const clean = require("./clean.js");
 const {
   htmlTrimPreserveIndentation,
   splitByHtmlWhitespace,
@@ -50,16 +50,16 @@ const {
   shouldPreserveContent,
   unescapeQuoteEntities,
   isPreLikeNode,
-} = require("./utils");
-const preprocess = require("./print-preprocess");
-const { insertPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
+} = require("./utils.js");
+const preprocess = require("./print-preprocess.js");
+const { insertPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
 const {
   printVueFor,
   printVueBindings,
   isVueEventBindingExpression,
-} = require("./syntax-vue");
-const { printImgSrcset, printClassNames } = require("./syntax-attribute");
+} = require("./syntax-vue.js");
+const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();

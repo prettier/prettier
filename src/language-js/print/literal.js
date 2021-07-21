@@ -1,5 +1,5 @@
 "use strict";
-const { printString, printNumber } = require("../../common/util");
+const { printString, printNumber } = require("../../common/util.js");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();

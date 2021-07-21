@@ -1,9 +1,9 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
-const createError = require("../../common/parser-create-error");
-const createParser = require("./utils/create-parser");
-const createBabelParseError = require("./utils/create-babel-parse-error");
+const { isNonEmptyArray } = require("../../common/util.js");
+const createError = require("../../common/parser-create-error.js");
+const createParser = require("./utils/create-parser.js");
+const createBabelParseError = require("./utils/create-babel-parse-error.js");
 
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;

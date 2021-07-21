@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("plugin default options should work", () => {
   runPrettier(

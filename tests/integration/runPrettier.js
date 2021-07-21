@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const { prettierCli, thirdParty } = require("./env");
+const { prettierCli, thirdParty } = require("./env.js");
 
 async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
