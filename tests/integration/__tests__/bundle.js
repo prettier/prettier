@@ -10,6 +10,23 @@ const parserNames = coreOptions.options.parser.choices.map(
 );
 const distDirectory = path.join(projectRoot, "dist");
 
+let esmStandalone;
+let esmPlugins;
+let getCodeSamples;
+beforeAll(async () => {
+  ({ default: esmStandalone } = await import(
+    path.join(distDirectory, "esm/standalone.mjs")
+  ));
+  esmPlugins = await Promise.all(
+    globby
+      .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
+      .map(async (file) => (await import(file)).default)
+  );
+  ({ default: getCodeSamples } = await import(
+    "../../../website/playground/codeSamples.mjs"
+  ));
+});
+
 describe("standalone", () => {
   const standalone = require(path.join(distDirectory, "standalone.js"));
   const plugins = globby
@@ -17,19 +34,7 @@ describe("standalone", () => {
     .map((file) => require(file));
 
   for (const parser of parserNames) {
-    test(parser, async () => {
-      const { default: esmStandalone } = await import(
-        path.join(distDirectory, "esm/standalone.mjs")
-      );
-      const esmPlugins = await Promise.all(
-        globby
-          .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
-          .map(async (file) => (await import(file)).default)
-      );
-      const { default: getCodeSamples } = await import(
-        "../../../website/playground/codeSamples.mjs"
-      );
-
+    test(parser, () => {
       const input = getCodeSamples(parser);
       const umdOutput = standalone.format(input, {
         parser,
