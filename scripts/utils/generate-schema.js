@@ -1,18 +1,6 @@
-#!/usr/bin/env node
-
 "use strict";
 
-if (require.main !== module) {
-  module.exports = generateSchema;
-} else {
-  const prettier = require("..");
-  console.log(
-    prettier.format(
-      JSON.stringify(generateSchema(prettier.getSupportInfo().options)),
-      { parser: "json" }
-    )
-  );
-}
+module.exports = generateSchema;
 
 function generateSchema(options) {
   return {

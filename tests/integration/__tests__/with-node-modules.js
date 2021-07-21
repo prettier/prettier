@@ -1,8 +1,8 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("ignores node_modules by default", () => {
   runPrettier("cli/with-node-modules", ["**/*.js", "-l"]).test({

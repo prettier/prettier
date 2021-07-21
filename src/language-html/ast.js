@@ -1,7 +1,7 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util");
-const getLast = require("../utils/get-last");
+const { isNonEmptyArray } = require("../common/util.js");
+const getLast = require("../utils/get-last.js");
 
 const NODES_KEYS = {
   attrs: true,

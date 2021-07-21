@@ -5,7 +5,7 @@ const execa = require("execa");
 const chalk = require("chalk");
 const { outdent, string: outdentString } = require("outdent");
 const semver = require("semver");
-const { waitForEnter, runYarn, logPromise } = require("../utils");
+const { waitForEnter, runYarn, logPromise } = require("../utils.js");
 
 function getBlogPostInfo(version) {
   const date = new Date();

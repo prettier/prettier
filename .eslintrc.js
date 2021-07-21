@@ -17,13 +17,6 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        devDependencies: ["tests*/**", "scripts/**"],
-      },
-    ],
-    "import/order": "error",
     "no-console": isCI ? "error" : "off",
     "no-else-return": [
       "error",
@@ -96,6 +89,16 @@ module.exports = {
         exceptRange: true,
       },
     ],
+
+    "import/extensions": ["error", "always", { ignorePackages: true }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: ["tests*/**", "scripts/**"],
+      },
+    ],
+    "import/order": "error",
+
     "regexp/match-any": [
       "error",
       {
@@ -103,6 +106,7 @@ module.exports = {
       },
     ],
     "regexp/no-useless-flag": "error",
+
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
     "unicorn/new-for-builtins": "error",

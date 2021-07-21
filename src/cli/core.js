@@ -5,16 +5,16 @@ const path = require("path");
 const stringify = require("fast-json-stable-stringify");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
+const prettier = require("../index.js");
 
-const { format, formatStdin, formatFiles } = require("./format");
-const { Context, parseArgvWithoutPlugins } = require("./context");
+const { format, formatStdin, formatFiles } = require("./format.js");
+const { Context, parseArgvWithoutPlugins } = require("./context.js");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
-} = require("./option-map");
-const { createDetailedUsage, createUsage } = require("./usage");
-const { createLogger } = require("./logger");
+} = require("./option-map.js");
+const { createDetailedUsage, createUsage } = require("./usage.js");
+const { createLogger } = require("./logger.js");
 
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv["find-config-path"];

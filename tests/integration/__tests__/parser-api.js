@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 test("allows custom parser provided as object", () => {
   const output = prettier.format("1", {

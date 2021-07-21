@@ -1,7 +1,7 @@
 "use strict";
 
 const execa = require("execa");
-const { runYarn, runGit, logPromise } = require("../utils");
+const { runYarn, runGit, logPromise } = require("../utils.js");
 
 async function install() {
   await execa("rm", ["-rf", "node_modules"]);

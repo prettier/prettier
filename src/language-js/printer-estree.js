@@ -3,18 +3,18 @@
 /** @typedef {import("../document").Doc} Doc */
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-const { printDanglingComments } = require("../main/comments");
-const { hasNewline } = require("../common/util");
+const { printDanglingComments } = require("../main/comments.js");
+const { hasNewline } = require("../common/util.js");
 const {
   builders: { join, line, hardline, softline, group, indent },
   utils: { replaceTextEndOfLine },
-} = require("../document");
-const embed = require("./embed");
-const clean = require("./clean");
-const { insertPragma } = require("./pragma");
-const handleComments = require("./comments");
-const pathNeedsParens = require("./needs-parens");
-const preprocess = require("./print-preprocess");
+} = require("../document/index.js");
+const embed = require("./embed.js");
+const clean = require("./clean.js");
+const { insertPragma } = require("./pragma.js");
+const handleComments = require("./comments.js");
+const pathNeedsParens = require("./needs-parens.js");
+const preprocess = require("./print-preprocess.js");
 const {
   hasFlowShorthandAnnotationComment,
   hasComment,
@@ -28,59 +28,59 @@ const {
   hasIgnoreComment,
   isCallExpression,
   isMemberExpression,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
+} = require("./utils.js");
+const { locStart, locEnd } = require("./loc.js");
 
 const {
   printHtmlBinding,
   isVueEventBindingExpression,
-} = require("./print/html-binding");
-const { printAngular } = require("./print/angular");
-const { printJsx, hasJsxIgnoreComment } = require("./print/jsx");
-const { printFlow } = require("./print/flow");
-const { printTypescript } = require("./print/typescript");
+} = require("./print/html-binding.js");
+const { printAngular } = require("./print/angular.js");
+const { printJsx, hasJsxIgnoreComment } = require("./print/jsx.js");
+const { printFlow } = require("./print/flow.js");
+const { printTypescript } = require("./print/typescript.js");
 const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeAnnotation,
   adjustClause,
   printRestSpread,
-} = require("./print/misc");
+} = require("./print/misc.js");
 const {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
   printModuleSpecifier,
-} = require("./print/module");
-const { printTernary } = require("./print/ternary");
-const { printTemplateLiteral } = require("./print/template-literal");
-const { printArray } = require("./print/array");
-const { printObject } = require("./print/object");
+} = require("./print/module.js");
+const { printTernary } = require("./print/ternary.js");
+const { printTemplateLiteral } = require("./print/template-literal.js");
+const { printArray } = require("./print/array.js");
+const { printObject } = require("./print/object.js");
 const {
   printClass,
   printClassMethod,
   printClassProperty,
-} = require("./print/class");
-const { printProperty } = require("./print/property");
+} = require("./print/class.js");
+const { printProperty } = require("./print/property.js");
 const {
   printFunction,
   printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
-} = require("./print/function");
-const { printCallExpression } = require("./print/call-expression");
+} = require("./print/function.js");
+const { printCallExpression } = require("./print/call-expression.js");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
-} = require("./print/assignment");
-const { printBinaryishExpression } = require("./print/binaryish");
-const { printSwitchCaseConsequent } = require("./print/statement");
-const { printMemberExpression } = require("./print/member");
-const { printBlock, printBlockBody } = require("./print/block");
-const { printComment } = require("./print/comment");
-const { printLiteral } = require("./print/literal");
-const { printDecorators } = require("./print/decorators");
+} = require("./print/assignment.js");
+const { printBinaryishExpression } = require("./print/binaryish.js");
+const { printSwitchCaseConsequent } = require("./print/statement.js");
+const { printMemberExpression } = require("./print/member.js");
+const { printBlock, printBlockBody } = require("./print/block.js");
+const { printComment } = require("./print/comment.js");
+const { printLiteral } = require("./print/literal.js");
+const { printDecorators } = require("./print/decorators.js");
 
 function genericPrint(path, options, print, args) {
   const printed = printPathNoParens(path, options, print, args);

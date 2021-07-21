@@ -1,6 +1,6 @@
 "use strict";
-const getLast = require("../utils/get-last");
-const { literalline, join } = require("./doc-builders");
+const getLast = require("../utils/get-last.js");
+const { literalline, join } = require("./doc-builders.js");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {

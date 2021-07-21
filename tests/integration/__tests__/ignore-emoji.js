@@ -1,8 +1,8 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("ignores file name contains emoji", () => {
   runPrettier("cli/ignore-emoji", ["**/*.js", "-l"]).test({

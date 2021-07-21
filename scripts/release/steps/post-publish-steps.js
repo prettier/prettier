@@ -3,7 +3,7 @@
 const chalk = require("chalk");
 const { string: outdentString } = require("outdent");
 const execa = require("execa");
-const { fetchText, logPromise } = require("../utils");
+const { fetchText, logPromise } = require("../utils.js");
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";
@@ -14,7 +14,7 @@ const EDIT_URL = `https://github.com/${SCHEMA_REPO}/edit/master/${SCHEMA_PATH}`;
 
 async function checkSchema() {
   const { stdout: schema } = await execa("node", [
-    "scripts/generate-schema.js",
+    "scripts/generate-schema.mjs",
   ]);
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
@@ -28,7 +28,7 @@ async function checkSchema() {
   return outdentString(chalk`
     {bold.underline The schema in {yellow SchemaStore} needs an update.}
     - Open {cyan.underline ${EDIT_URL}}
-    - Run {yellow node scripts/generate-schema.js} and copy the new schema
+    - Run {yellow node scripts/generate-schema.mjs} and copy the new schema
     - Paste it on GitHub interface
     - Open a PR
   `);

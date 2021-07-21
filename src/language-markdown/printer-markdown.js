@@ -6,7 +6,7 @@ const {
   getMaxContinuousCount,
   getStringWidth,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   builders: {
     breakParent,
@@ -25,12 +25,12 @@ const {
   },
   utils: { normalizeDoc, replaceTextEndOfLine },
   printer: { printDocToString },
-} = require("../document");
-const embed = require("./embed");
-const { insertPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
-const preprocess = require("./print-preprocess");
-const clean = require("./clean");
+} = require("../document/index.js");
+const embed = require("./embed.js");
+const { insertPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
+const preprocess = require("./print-preprocess.js");
+const clean = require("./clean.js");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -39,7 +39,7 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-} = require("./utils");
+} = require("./utils.js");
 
 /**
  * @typedef {import("../document").Doc} Doc

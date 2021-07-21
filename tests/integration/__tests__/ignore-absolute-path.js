@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("support absolute filename", () => {
   runPrettier("cli/ignore-absolute-path", [

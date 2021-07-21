@@ -3,7 +3,7 @@
 const chalk = require("chalk");
 const { string: outdentString } = require("outdent");
 const execa = require("execa");
-const { logPromise, waitForEnter } = require("../utils");
+const { logPromise, waitForEnter } = require("../utils.js");
 
 /**
  * Retry "npm publish" when to enter OTP is failed.

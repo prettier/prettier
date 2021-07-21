@@ -2,7 +2,7 @@
 
 const {
   builders: { hardline, markAsRoot },
-} = require("../../document");
+} = require("../../document/index.js");
 
 function print(node, textToDoc) {
   if (node.lang === "yaml") {

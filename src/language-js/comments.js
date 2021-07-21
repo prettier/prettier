@@ -11,7 +11,7 @@ const {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   isBlockComment,
   getFunctionParameters,
@@ -25,8 +25,8 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
+} = require("./utils.js");
+const { locStart, locEnd } = require("./loc.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
