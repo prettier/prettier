@@ -1,5 +1,6 @@
 {
-    "version": "0.1",
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
+    "version": "0.2",
     "words": [
         "actionlint",
         "ACMR",
@@ -447,12 +448,16 @@
         "authorURL: \".*?\"",
         "\"author\": \".*?\""
     ],
+    "files": [
+        "**/*",
+        ".github/**/*",
+        "tests/**/jsfmt.spec.js"
+    ],
     "ignorePaths": [
         "cspell.json",
         "**/node_modules/**",
         "**/yarn.lock",
         "{coverage,dist,.cache,.git,.vscode,.DS_Store,tests}/**/*",
-        "!tests/**/jsfmt.spec.js",
         "*.{log,svg,snap,png}",
         "test*.*",
         "website/data/users.yml",
