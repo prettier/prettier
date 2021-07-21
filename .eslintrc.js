@@ -9,6 +9,9 @@ module.exports = {
   },
   extends: ["eslint:recommended", "prettier"],
   plugins: ["prettier-internal-rules", "import", "regexp", "unicorn"],
+  settings: {
+    "import/internal-regex": "^linguist-languages/",
+  },
   rules: {
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
