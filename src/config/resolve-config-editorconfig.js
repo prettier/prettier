@@ -1,13 +1,12 @@
 "use strict";
 
 const path = require("path");
-
 const editorconfig = require("editorconfig");
-const mem = require("mem");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
 const findProjectRoot = require("./find-project-root.js");
 
-const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
+const syncConfigCache = new Map();
+const asyncConfigCache = new Map();
 
 const maybeParse = (filePath, parse) =>
   filePath &&
@@ -17,11 +16,21 @@ const maybeParse = (filePath, parse) =>
 
 const editorconfigAsyncNoCache = async (filePath) =>
   editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
-const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
+const editorconfigAsyncWithCache = (filePath) => {
+  const result =
+    asyncConfigCache.get(filePath) ?? editorconfigAsyncNoCache(filePath);
+  asyncConfigCache.set(filePath, result);
+  return result;
+};
 
 const editorconfigSyncNoCache = (filePath) =>
   editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
-const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
+const editorconfigSyncWithCache = (filePath) => {
+  const result =
+    syncConfigCache.get(filePath) ?? editorconfigSyncNoCache(filePath);
+  syncConfigCache.set(filePath, result);
+  return result;
+};
 
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {
@@ -36,8 +45,8 @@ function getLoadFunction(opts) {
 }
 
 function clearCache() {
-  mem.clear(editorconfigSyncWithCache);
-  mem.clear(editorconfigAsyncWithCache);
+  asyncConfigCache.clear();
+  syncConfigCache.clear();
 }
 
 module.exports = {

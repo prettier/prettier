@@ -5,31 +5,41 @@ const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
 const globby = require("globby");
-const mem = require("mem");
 const internalPlugins = require("../languages.js");
 const thirdParty = require("./third-party.js");
 const resolve = require("./resolve.js");
+const { isNonEmptyArray } = require("./util.js");
 
-const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
-const memoizedSearch = mem(findPluginsInNodeModules);
+const nodeModulesPluginCache = new Map();
+let loadCache = new WeakMap();
+
 const clearCache = () => {
-  mem.clear(memoizedLoad);
-  mem.clear(memoizedSearch);
+  nodeModulesPluginCache.clear();
+  loadCache = new WeakMap();
 };
+const defaultPluginSearchDirs = [];
+const defaultPlugins = [];
 
-function load(plugins, pluginSearchDirs) {
+function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
-    plugins = [];
+    plugins = defaultPlugins;
   }
 
-  if (!pluginSearchDirs) {
-    pluginSearchDirs = [];
+  if (!isNonEmptyArray(pluginSearchDirs)) {
+    pluginSearchDirs = defaultPluginSearchDirs;
   }
+
+  const cachedSearchDir = loadCache.get(pluginSearchDirs) ?? new WeakMap();
+  const cachedPlugins = cachedSearchDir.get(plugins);
+  if (cachedPlugins) {
+    return cachedPlugins;
+  }
+
   // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
   if (pluginSearchDirs.length === 0) {
     const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
     if (autoLoadDir) {
-      pluginSearchDirs = [autoLoadDir];
+      pluginSearchDirs.push(autoLoadDir);
     }
   }
 
@@ -80,7 +90,7 @@ function load(plugins, pluginSearchDirs) {
         );
       }
 
-      return memoizedSearch(nodeModulesDir).map((pluginName) => ({
+      return findPluginsInNodeModules(nodeModulesDir).map((pluginName) => ({
         name: pluginName,
         requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
       }));
@@ -98,10 +108,19 @@ function load(plugins, pluginSearchDirs) {
     ...externalPluginInstances,
   ];
 
-  return [...internalPlugins, ...externalPlugins];
+  const result = [...internalPlugins, ...externalPlugins];
+
+  cachedSearchDir.set(plugins, result);
+  loadCache.set(pluginSearchDirs, cachedSearchDir);
+
+  return result;
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
+  if (nodeModulesPluginCache.has(nodeModulesDir)) {
+    return nodeModulesPluginCache.get(nodeModulesDir);
+  }
+
   const pluginPackageJsonPaths = globby.sync(
     [
       "prettier-plugin-*/package.json",
@@ -113,7 +132,9 @@ function findPluginsInNodeModules(nodeModulesDir) {
       expandDirectories: false,
     }
   );
-  return pluginPackageJsonPaths.map(path.dirname);
+  const result = pluginPackageJsonPaths.map(path.dirname);
+  nodeModulesPluginCache.set(nodeModulesDir, result);
+  return result;
 }
 
 function isDirectory(dir) {
@@ -125,6 +146,6 @@ function isDirectory(dir) {
 }
 
 module.exports = {
-  loadPlugins: memoizedLoad,
+  loadPlugins,
   clearCache,
 };

@@ -2,7 +2,6 @@
 
 const path = require("path");
 const minimatch = require("minimatch");
-const mem = require("mem");
 const thirdParty = require("../common/third-party.js");
 
 const loadToml = require("../utils/load-toml.js");
@@ -15,56 +14,7 @@ const resolveEditorConfig = require("./resolve-config-editorconfig.js");
  * @typedef {{sync: boolean; cache: boolean }} Options
  */
 
-/**
- * @type {(opts: Options) => Explorer}
- */
-const getExplorerMemoized = mem(
-  (opts) => {
-    const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
-    const explorer = cosmiconfig("prettier", {
-      cache: opts.cache,
-      transform: (result) => {
-        if (result && result.config) {
-          if (typeof result.config === "string") {
-            const dir = path.dirname(result.filepath);
-            const modulePath = resolve(result.config, { paths: [dir] });
-            result.config = require(modulePath);
-          }
-
-          if (typeof result.config !== "object") {
-            throw new TypeError(
-              "Config is only allowed to be an object, " +
-                `but received ${typeof result.config} in "${result.filepath}"`
-            );
-          }
-
-          delete result.config.$schema;
-        }
-        return result;
-      },
-      searchPlaces: [
-        "package.json",
-        ".prettierrc",
-        ".prettierrc.json",
-        ".prettierrc.yaml",
-        ".prettierrc.yml",
-        ".prettierrc.json5",
-        ".prettierrc.js",
-        ".prettierrc.cjs",
-        "prettier.config.js",
-        "prettier.config.cjs",
-        ".prettierrc.toml",
-      ],
-      loaders: {
-        ".toml": loadToml,
-        ".json5": loadJson5,
-      },
-    });
-
-    return explorer;
-  },
-  { cacheKey: JSON.stringify }
-);
+let explorerCache = new Map();
 
 /**
  * @param {Options} opts
@@ -73,7 +23,56 @@ const getExplorerMemoized = mem(
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = { sync: false, cache: false, ...opts };
-  return getExplorerMemoized(opts);
+
+  const cacheKey = JSON.stringify(opts);
+  const cachedExplorer = explorerCache.get(cacheKey);
+  if (cachedExplorer) {
+    return cachedExplorer;
+  }
+  const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+  const explorer = cosmiconfig("prettier", {
+    cache: opts.cache,
+    transform: (result) => {
+      if (result && result.config) {
+        if (typeof result.config === "string") {
+          const dir = path.dirname(result.filepath);
+          const modulePath = resolve(result.config, { paths: [dir] });
+          result.config = require(modulePath);
+        }
+
+        if (typeof result.config !== "object") {
+          throw new TypeError(
+            "Config is only allowed to be an object, " +
+              `but received ${typeof result.config} in "${result.filepath}"`
+          );
+        }
+
+        delete result.config.$schema;
+      }
+      return result;
+    },
+    searchPlaces: [
+      "package.json",
+      ".prettierrc",
+      ".prettierrc.json",
+      ".prettierrc.yaml",
+      ".prettierrc.yml",
+      ".prettierrc.json5",
+      ".prettierrc.js",
+      ".prettierrc.cjs",
+      "prettier.config.js",
+      "prettier.config.cjs",
+      ".prettierrc.toml",
+    ],
+    loaders: {
+      ".toml": loadToml,
+      ".json5": loadJson5,
+    },
+  });
+
+  explorerCache.set(cacheKey, explorer);
+
+  return explorer;
 }
 
 function _resolveConfig(filePath, opts, sync) {
@@ -127,7 +126,7 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
-  mem.clear(getExplorerMemoized);
+  explorerCache = new Map();
   resolveEditorConfig.clearCache();
 }
 
