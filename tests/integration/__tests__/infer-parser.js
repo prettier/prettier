@@ -205,3 +205,14 @@ describe("Known/Unknown", () => {
     write: [],
   });
 });
+
+describe("Interpreters", () => {
+  runPrettier("cli/infer-parser/interpreters", [
+    "--file-info",
+    "zx-script",
+  ]).test({
+    status: 0,
+    stderr: "",
+    write: [],
+  });
+});
