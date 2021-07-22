@@ -16,6 +16,5 @@ module.exports = {
     "prefer-ast-path-each": require("./prefer-ast-path-each.js"),
     "prefer-indent-if-break": require("./prefer-indent-if-break.js"),
     "prefer-is-non-empty-array": require("./prefer-is-non-empty-array.js"),
-    "require-json-extensions": require("./require-json-extensions.js"),
   },
 };

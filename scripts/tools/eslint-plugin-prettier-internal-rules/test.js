@@ -417,18 +417,6 @@ test("prefer-is-non-empty-array", {
   ],
 });
 
-test("require-json-extensions", {
-  valid: ['require("./not-exists")', 'require("./index")'],
-  invalid: [
-    {
-      code: 'require("./package")',
-      filename: __filename,
-      output: 'require("./package.json")',
-      errors: [{ message: 'Missing file extension ".json" for "./package".' }],
-    },
-  ],
-});
-
 test("no-empty-flat-contents-for-if-break", {
   valid: [
     "ifBreak('foo', 'bar')",
