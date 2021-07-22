@@ -247,5 +247,11 @@ module.exports = {
         "react/prop-types": "off",
       },
     },
+    {
+      files: ["website/playground/**/*"],
+      parserOptions: {
+        sourceType: "module",
+      },
+    },
   ],
 };
