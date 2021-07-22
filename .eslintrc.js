@@ -228,5 +228,24 @@ module.exports = {
         ],
       },
     },
+    {
+      files: ["website/**/*"],
+      env: {
+        browser: true,
+        worker: true,
+      },
+      extends: ["plugin:react/recommended"],
+      settings: {
+        react: {
+          version: "17",
+        },
+      },
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+        "react/display-name": "off",
+        "react/no-deprecated": "off",
+        "react/prop-types": "off",
+      },
+    },
   ],
 };
