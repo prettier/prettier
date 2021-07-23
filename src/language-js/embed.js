@@ -177,7 +177,10 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const { tag } = parent;
+  const tag =
+    parent.tag.type === "ParenthesizedExpression"
+      ? parent.tag.expression
+      : parent.tag;
 
   switch (tag.type) {
     case "MemberExpression":
