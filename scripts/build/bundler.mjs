@@ -18,8 +18,9 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, require } = createEsmUtils(import.meta);
+const { __dirname, require, json } = createEsmUtils(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
+const packageJson = json.load("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
@@ -79,12 +80,7 @@ function getBabelConfig(bundle) {
   };
   const targets = { node: "10" };
   if (bundle.target === "universal") {
-    targets.browsers = [
-      ">0.5%",
-      "not ie 11",
-      "not safari 5.1",
-      "not op_mini all",
-    ];
+    targets.browsers = packageJson.browserslist;
   }
   config.presets = [
     [
@@ -189,7 +185,7 @@ function getRollupConfig(bundle) {
     // Replace package.json with `{version: "{VERSION}"}`
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
       code: `export default ${JSON.stringify({
-        version: require("../../package.json").version,
+        version: packageJson.version,
       })};`,
     };
 
