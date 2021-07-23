@@ -50,6 +50,7 @@ jobs:
         uses: actions/setup-node@v2.2.0
         with:
           node-version: ${{ matrix.node }}
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
