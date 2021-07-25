@@ -42,10 +42,7 @@ jobs:
         run: yarn lint:changelog
 
       - name: Lint workflow files
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
-        shell: bash
+        run: yarn lint:actionlint
 
       - name: Check Lock File Changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
