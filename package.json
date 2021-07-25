@@ -132,7 +132,7 @@
     "snapshot-diff": "0.9.0",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.1.4",
-    "webpack": "5.45.1"
+    "webpack": "5.46.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
