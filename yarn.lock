@@ -3003,18 +3003,18 @@ eslint-plugin-react@7.24.0:
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
 
-eslint-plugin-regexp@0.13.1:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.13.1.tgz#eaae20774921b36af9181d49457e9610c83fb548"
-  integrity sha512-97kpGlctWIDWlgVbjutIZ7kn98XGsAaUwra/drPr6rbLFArJAo1T5xBUxL4sD7cfmR1+8tJFl2mm4EgFAP4DcA==
+eslint-plugin-regexp@0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.13.2.tgz#5f00697734bffcf07ef66394b249495deb2004e1"
+  integrity sha512-WbvZTnbzN5DYabMwWjig6sTH6mfOs2f6S3cPQwpn0AuD+UVgoJc2+GHi6cSHBYiT/hkwNidA1WHa/L0l5e609A==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
     jsdoctypeparser "^9.0.0"
-    refa "^0.8.0"
-    regexp-ast-analysis "^0.2.2"
+    refa "^0.9.0"
+    regexp-ast-analysis "^0.2.3"
     regexpp "^3.2.0"
-    scslre "^0.1.5"
+    scslre "^0.1.6"
 
 eslint-plugin-unicorn@34.0.1:
   version "34.0.1"
@@ -5503,12 +5503,12 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-refa@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/refa/-/refa-0.8.0.tgz#81813b0ac80fd6e2d79f191e31054f210ef80a53"
-  integrity sha512-qOf9zk1McAuGPtQ16nzuWCUg9zx3Quc48i6oD6nxWJdrFeh3Do0vCpIGYLij/1ysAbh5rxdUNg+YzSVBRycX5g==
+refa@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/refa/-/refa-0.9.0.tgz#4974d4d199bce3e799feed80cf8abc09ae0425ad"
+  integrity sha512-Ll5rwWmr+qBxyhuBDYSLX8pS7N92ecRAWF0CGWuGdIzvEK7v4RFDHmfSZNYQjIG3xcBZw3vAa0pf2i119vUjBQ==
   dependencies:
-    regexpp "^3.1.0"
+    regexpp "^3.2.0"
 
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
@@ -5534,13 +5534,13 @@ regenerator-transform@^0.14.2:
   dependencies:
     "@babel/runtime" "^7.8.4"
 
-regexp-ast-analysis@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.2.tgz#01512911f2e1fdf69d070aff3951bbeb5a5b9ca4"
-  integrity sha512-inLIbwizLLAZkpC9/8zp8CeSkJJPsRaqXGDVpxEbNRZD10E+OP6vRDHt7OS9JjWECQLvOI2EmHx7DgdpyAvdrQ==
+regexp-ast-analysis@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.3.tgz#1a2b12c11cf2ade01671f56d4d8fcea60a64db17"
+  integrity sha512-K/6d90dP1DI68HHdHORj9vVxV5oWkLB8F7LeGs70EdA/h5BIqkrK8SdGy+O9Ii+AVVPprF0Ia6f5UwgI+ahIcw==
   dependencies:
-    refa "^0.8.0"
-    regexpp "^3.1.0"
+    refa "^0.9.0"
+    regexpp "^3.2.0"
 
 regexp-tree@^0.1.23, regexp-tree@~0.1.1:
   version "0.1.23"
@@ -5773,14 +5773,14 @@ schema-utils@^3.0.0, schema-utils@^3.1.0:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
-scslre@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/scslre/-/scslre-0.1.5.tgz#00b3adb2e94bfb8be83c04adc3bb0176a21532a9"
-  integrity sha512-PUWMog0DhV8dYB9zWV/YDDS9AT8pBbR12cWbqqzwRrhFpOGwu0OOFafFpUFD0Iw0+ZY5D4EpU4VWJai0SGwOCQ==
+scslre@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/scslre/-/scslre-0.1.6.tgz#71a2832e4bf3a9254973a04fbed90aec94f75757"
+  integrity sha512-JORxVRlQTfjvlOAaiQKebgFElyAm5/W8b50lgaZ0OkEnKnagJW2ufDh3xRfU75UD9z3FGIu1gL1IyR3Poa6Qmw==
   dependencies:
-    refa "^0.8.0"
-    regexp-ast-analysis "^0.2.2"
-    regexpp "^3.1.0"
+    refa "^0.9.0"
+    regexp-ast-analysis "^0.2.3"
+    regexpp "^3.2.0"
 
 semver-compare@^1.0.0:
   version "1.0.0"
