@@ -268,7 +268,11 @@ function isStringLiteral(node) {
  * @returns {boolean}
  */
 function isObjectType(node) {
-  return node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral";
+  return (
+    node.type === "ObjectTypeAnnotation" ||
+    node.type === "TSTypeLiteral" ||
+    node.type === "TSMappedType"
+  );
 }
 
 /**
