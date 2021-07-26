@@ -52,6 +52,8 @@ const parsers = [
       "require(etwModulePath)": "undefined",
       'require("source-map-support").install()': "",
       "require(modulePath)": "undefined",
+      // Remove useless `ts.sys`
+      "ts.sys = ": "ts.sys = undefined && ",
     },
   },
   {
