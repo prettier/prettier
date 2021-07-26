@@ -134,7 +134,7 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs"],
+      files: ["**/*.mjs", "scripts/release/**/*.js"],
       parserOptions: {
         sourceType: "module",
       },

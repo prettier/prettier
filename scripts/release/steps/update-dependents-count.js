@@ -1,7 +1,5 @@
-"use strict";
-
-const chalk = require("chalk");
-const { runGit, fetchText, logPromise, processFile } = require("../utils.js");
+import chalk from "chalk";
+import { runGit, fetchText, logPromise, processFile } from "../utils.js";
 
 async function update() {
   const npmPage = await logPromise(
@@ -73,10 +71,10 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-module.exports = async function () {
+export default async function () {
   try {
     await update();
   } catch (error) {
     console.log(chalk.red.bold(error.message));
   }
-};
+}

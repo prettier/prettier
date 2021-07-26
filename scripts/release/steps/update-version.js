@@ -1,12 +1,10 @@
-"use strict";
-
-const {
+import {
   runYarn,
   logPromise,
   readJson,
   writeJson,
   processFile,
-} = require("../utils.js");
+} from "../utils.js";
 
 async function bump({ version }) {
   const pkg = await readJson("package.json");
@@ -34,6 +32,6 @@ async function bump({ version }) {
   });
 }
 
-module.exports = async function (params) {
+export default async function (params) {
   await logPromise("Bumping version", bump(params));
-};
+}

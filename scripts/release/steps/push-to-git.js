@@ -1,6 +1,4 @@
-"use strict";
-
-const { runGit, logPromise } = require("../utils.js");
+import { runGit, logPromise } from "../utils.js";
 
 async function pushGit({ version }) {
   await runGit(["commit", "-am", `Release ${version}`]);
@@ -9,10 +7,10 @@ async function pushGit({ version }) {
   await runGit(["push", "--tags"]);
 }
 
-module.exports = function (params) {
+export default function (params) {
   if (params.dry) {
     return;
   }
 
   return logPromise("Committing and pushing to remote", pushGit(params));
-};
+}

@@ -1,9 +1,9 @@
-"use strict";
+import chalk from "chalk";
+import outdent from "outdent";
+import execa from "execa";
+import { logPromise, waitForEnter } from "../utils.js";
 
-const chalk = require("chalk");
-const { string: outdentString } = require("outdent");
-const execa = require("execa");
-const { logPromise, waitForEnter } = require("../utils.js");
+const outdentString = outdent.string;
 
 /**
  * Retry "npm publish" when to enter OTP is failed.
@@ -27,7 +27,7 @@ async function retryNpmPublish() {
   }
 }
 
-module.exports = async function ({ dry, version }) {
+export default async function ({ dry, version }) {
   if (dry) {
     return;
   }
@@ -54,4 +54,4 @@ module.exports = async function ({ dry, version }) {
     `)
   );
   await waitForEnter();
-};
+}

@@ -1,9 +1,9 @@
-"use strict";
+import chalk from "chalk";
+import outdent from "outdent";
+import execa from "execa";
+import { fetchText, logPromise } from "../utils.js";
 
-const chalk = require("chalk");
-const { string: outdentString } = require("outdent");
-const execa = require("execa");
-const { fetchText, logPromise } = require("../utils.js");
+const outdentString = outdent.string;
 
 const SCHEMA_REPO = "SchemaStore/schemastore";
 const SCHEMA_PATH = "src/schemas/json/prettierrc.json";
@@ -43,7 +43,7 @@ function twitterAnnouncement() {
   `);
 }
 
-module.exports = async function () {
+export default async function () {
   const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
 
   console.log(chalk.bold.green("The script has finished!\n"));
@@ -61,4 +61,4 @@ module.exports = async function () {
       ${steps.join("\n\n")}
     `)
   );
-};
+}
