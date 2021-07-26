@@ -48,12 +48,13 @@ const parsers = [
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
       // Dynamic `require()`s
-      "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
       'require("source-map-support").install()': "",
       "require(modulePath)": "undefined",
       // Remove useless `ts.sys`
       "ts.sys = ": "ts.sys = undefined && ",
+      "ts.sys && ts.sys.": "undefined && undefined.",
+      "ts.sys ?": "undefined ?",
     },
   },
   {
