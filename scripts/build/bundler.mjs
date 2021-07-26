@@ -20,7 +20,7 @@ import bundles from "./config.mjs";
 
 const { __dirname, require, json } = createEsmUtils(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
-const packageJson = json.load("../../package.json");
+const packageJson = json.loadSync("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
