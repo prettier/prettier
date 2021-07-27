@@ -26,7 +26,6 @@ const {
   isMemberExpression,
   isObjectProperty,
   getComments,
-  CommentCheckFlags,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
