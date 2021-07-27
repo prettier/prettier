@@ -13,6 +13,11 @@ module.exports = {
   settings: {
     targets,
     lintAllEsApis: true,
+    polyfills: [
+      // These are not really polyfilled, but seems safe to use in target browsers
+      "BigInt",
+      "Symbol.asyncIterator",
+    ],
   },
   plugins: ["compat"],
   rules: {
