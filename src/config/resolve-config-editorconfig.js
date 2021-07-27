@@ -18,7 +18,7 @@ const editorconfigAsyncNoCache = async (filePath) =>
   editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
 const editorconfigAsyncWithCache = (filePath) => {
   const result =
-    asyncConfigCache.get(filePath) ?? editorconfigAsyncNoCache(filePath);
+    asyncConfigCache.get(filePath) || editorconfigAsyncNoCache(filePath);
   asyncConfigCache.set(filePath, result);
   return result;
 };
@@ -27,7 +27,7 @@ const editorconfigSyncNoCache = (filePath) =>
   editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
 const editorconfigSyncWithCache = (filePath) => {
   const result =
-    syncConfigCache.get(filePath) ?? editorconfigSyncNoCache(filePath);
+    syncConfigCache.get(filePath) || editorconfigSyncNoCache(filePath);
   syncConfigCache.set(filePath, result);
   return result;
 };

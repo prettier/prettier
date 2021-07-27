@@ -29,7 +29,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
     pluginSearchDirs = defaultPluginSearchDirs;
   }
 
-  const cachedSearchDir = loadCache.get(pluginSearchDirs) ?? new WeakMap();
+  const cachedSearchDir = loadCache.get(pluginSearchDirs) || new WeakMap();
   const cachedPlugins = cachedSearchDir.get(plugins);
   if (cachedPlugins) {
     return cachedPlugins;
