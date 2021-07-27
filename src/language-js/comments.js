@@ -25,6 +25,8 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  getComments,
+  CommentCheckFlags,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -954,8 +956,7 @@ function willPrintOwnComments(path /*, options */) {
       (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
         (isCallExpression(parent) &&
-          (hasFlowAnnotationComment(node.leadingComments) ||
-            hasFlowAnnotationComment(node.trailingComments))))) ||
+          hasFlowAnnotationComment(getComments(node))))) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
