@@ -444,6 +444,32 @@ const fooooba3 = /** @type {Array.<fooo.barr.baaaaaaz>} */ (
 ================================================================================
 `;
 
+exports[`issue-11279.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @type {import('somemodule').Config} */
+export default ({
+  rollup: config => ({
+    ...config,
+    test: 'me'
+  }),
+});
+
+=====================================output=====================================
+/** @type {import('somemodule').Config} */
+export default ({
+  rollup: (config) => ({
+    ...config,
+    test: "me",
+  }),
+});
+
+================================================================================
+`;
+
 exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
