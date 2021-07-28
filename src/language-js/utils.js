@@ -65,7 +65,7 @@ function hasFlowShorthandAnnotationComment(node) {
  */
 function hasFlowAnnotationComment(comments) {
   return (
-    comments &&
+    isNonEmptyArray(comments) &&
     isBlockComment(comments[0]) &&
     FLOW_ANNOTATION.test(comments[0].value)
   );
