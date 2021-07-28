@@ -69,7 +69,10 @@ function postprocess(ast, options) {
         node.leadingComments &&
         node.leadingComments.some(isTypeCastComment)
       ) {
-        startOffsetsOfTypeCastedNodes.add(locStart(node));
+        // https://github.com/prettier/prettier/issues/11279
+        const castedNode =
+          node.type === "ExportDefaultDeclaration" ? node.declaration : node;
+        startOffsetsOfTypeCastedNodes.add(locStart(castedNode));
       }
     });
 
