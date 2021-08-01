@@ -294,7 +294,12 @@ function ngHtmlParser(
  * @param {ParserOptions} parserOptions
  * @param {boolean} shouldParseFrontMatter
  */
-function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
+function _parse(
+  text,
+  options = { filepath: "test.html", parser: "html" },
+  parserOptions,
+  shouldParseFrontMatter = true
+) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
