@@ -7,6 +7,7 @@ const {
   skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
+  getStringWidth,
 } = require("../common/util.js");
 const { locStart, locEnd, hasSameLocStart } = require("./loc.js");
 
@@ -857,7 +858,7 @@ function isSimpleCallArgument(node, depth) {
     (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
     (node.type === "RegExpLiteral" && node.pattern);
 
-  if (regexpPattern && regexpPattern.length > 5) {
+  if (regexpPattern && getStringWidth(regexpPattern) > 5) {
     return false;
   }
 
