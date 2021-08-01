@@ -6893,11 +6893,6 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-source-list-map@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
-  integrity sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==
-
 source-map-resolve@^0.5.0:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.5.3.tgz#190866bece7553e1f8f267a2ee82c606b5509a1a"
@@ -7674,18 +7669,15 @@ webpack-merge@^5.7.3:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
 
-webpack-sources@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.3.1.tgz#570de0af163949fe272233c2cefe1b56f74511fd"
-  integrity sha512-y9EI9AO42JjEcrTJFOYmVywVZdKVUfOvDUPsJea5GIr1JOEGFVqwlY2K098fFoIjOkDzHn2AjRvM8dsBZu+gCA==
-  dependencies:
-    source-list-map "^2.0.1"
-    source-map "^0.6.1"
+webpack-sources@^3.1.1:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-3.1.2.tgz#614c962ac45dfac7f0f482052db8324a6e0dc274"
+  integrity sha512-//DeuK5SzM6yFRXNOGK+4tX7QB8PghkL8kFBPyqSlN62oJOUkmby8ptV7+IBGH6BkIuIw5Rjd7OvvwZaoiF4ag==
 
-webpack@5.46.0:
-  version "5.46.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.46.0.tgz#105d20d96f79db59b316b0ae54316f0f630314b5"
-  integrity sha512-qxD0t/KTedJbpcXUmvMxY5PUvXDbF8LsThCzqomeGaDlCA6k998D8yYVwZMvO8sSM3BTEOaD4uzFniwpHaTIJw==
+webpack@5.47.1:
+  version "5.47.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.47.1.tgz#20fb7d76f68912a2249a6dd7ff16faa178049ad2"
+  integrity sha512-cW+Mzy9SCDapFV4OrkHuP6EFV2mAsiQd+gOa3PKtHNoKg6qPqQXZzBlHH+CnQG1osplBCqwsJZ8CfGO6XWah0g==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.50"
@@ -7709,7 +7701,7 @@ webpack@5.46.0:
     tapable "^2.1.1"
     terser-webpack-plugin "^5.1.3"
     watchpack "^2.2.0"
-    webpack-sources "^2.3.1"
+    webpack-sources "^3.1.1"
 
 websocket-driver@>=0.5.1:
   version "0.7.4"
