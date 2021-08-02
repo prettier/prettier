@@ -294,12 +294,7 @@ function ngHtmlParser(
  * @param {ParserOptions} parserOptions
  * @param {boolean} shouldParseFrontMatter
  */
-function _parse(
-  text,
-  options = { filepath: "test.html", parser: "html" },
-  parserOptions,
-  shouldParseFrontMatter = true
-) {
+function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
@@ -378,15 +373,19 @@ function createParser({
   getTagContentType,
 } = {}) {
   return {
-    parse: (text, parsers, options) =>
-      _parse(text, options, {
+    parse: (text, parsers, options) => {
+      if (!options) {
+        throw new Error("options are required for parsing HTML.");
+      }
+      return _parse(text, options, {
         recognizeSelfClosing,
         normalizeTagName,
         normalizeAttributeName,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
         getTagContentType,
-      }),
+      });
+    },
     hasPragma,
     astFormat: "html",
     locStart,
