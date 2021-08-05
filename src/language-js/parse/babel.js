@@ -32,7 +32,6 @@ const parseOptions = {
     ["decorators", { decoratorsBeforeExport: false }],
     "privateIn",
     "importAssertions",
-    ["recordAndTuple", { syntaxType: "hash" }],
     "decimal",
     "classStaticBlock",
     "moduleBlocks",
@@ -41,6 +40,7 @@ const parseOptions = {
   tokens: true,
   ranges: true,
 };
+const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
 const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "smart" }],
   ["pipelineOperator", { proposal: "minimal" }],
@@ -104,6 +104,13 @@ function createParse(parseMethod, ...optionsCombinations) {
       combinations = combinations.map((options) => ({
         ...options,
         sourceType: "script",
+      }));
+    }
+
+    if (text.includes("#{") || text.includes("#[")) {
+      combinations = combinations.map((options) => ({
+        ...options,
+        plugins: [...options.plugins, recordAndTuplePlugin],
       }));
     }
 
