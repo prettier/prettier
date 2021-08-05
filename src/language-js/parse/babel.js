@@ -44,9 +44,9 @@ const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
-const appendPlugins = (plugins) => ({
-  ...parseOptions,
-  plugins: [...parseOptions.plugins, ...plugins],
+const appendPlugins = (plugins, options = parseOptions) => ({
+  ...options,
+  plugins: [...options.plugins, ...plugins],
 });
 
 // Similar to babel
@@ -106,18 +106,16 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     if (text.includes("#{") || text.includes("#[")) {
-      combinations = combinations.map((options) => ({
-        ...options,
-        plugins: [...options.plugins, recordAndTuplePlugin],
-      }));
+      combinations = combinations.map((options) =>
+        appendPlugins([recordAndTuplePlugin], options)
+      );
     }
 
     if (text.includes("|>")) {
       combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
-        combinations.map((options) => ({
-          ...options,
-          plugins: [...options.plugins, pipelineOperatorPlugin],
-        }))
+        combinations.map((options) =>
+          appendPlugins([pipelineOperatorPlugin], options)
+        )
       );
     }
 
