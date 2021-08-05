@@ -12,7 +12,6 @@ const jsonParsers = require("./json.js");
 
 const parseOptions = {
   sourceType: "module",
-  allowAwaitOutsideFunction: true,
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
   allowSuperOutsideMethod: true,
