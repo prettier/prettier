@@ -106,14 +106,18 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     if (text.includes("#{") || text.includes("#[")) {
-      combinations = combinations.map(() =>
-        appendPlugins([recordAndTuplePlugin])
-      );
+      combinations = combinations.map((options) => ({
+        ...options,
+        plugins: [...options.plugins, recordAndTuplePlugin],
+      }));
     }
 
     if (text.includes("|>")) {
       combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
-        combinations.map(() => appendPlugins([pipelineOperatorPlugin]))
+        combinations.map((options) => ({
+          ...options,
+          plugins: [...options.plugins, pipelineOperatorPlugin],
+        }))
       );
     }
 
