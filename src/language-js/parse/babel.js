@@ -105,7 +105,13 @@ function createParse(parseMethod, ...optionsCombinations) {
       }));
     }
 
-    if (text.includes("#{") || text.includes("#[")) {
+    if (
+      text.includes("#{") ||
+      text.includes("#[") ||
+      // hanlde bar style record/tuple for better error message
+      text.includes("[|") ||
+      text.includes("{|")
+    ) {
       combinations = combinations.map((options) => ({
         ...options,
         plugins: [...options.plugins, recordAndTuplePlugin],
