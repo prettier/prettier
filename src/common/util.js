@@ -74,12 +74,23 @@ const skipEverythingButNewLine = skip(/[^\n\r]/);
 /**
  * @param {string} text
  * @param {number | false} index
+ * @param {SkipOptions} opts
  * @returns {number | false}
  */
-function skipInlineComment(text, index) {
-  /* istanbul ignore next */
+function skipInlineComment(text, index, opts = { backwards: false }) {
+  const backwards = opts && opts.backwards;
   if (index === false) {
     return false;
+  }
+
+  if (backwards) {
+    if (text.charAt(index) === "/" && text.charAt(index - 1) === "*") {
+      for (let i = index - 2; i > 0; i--) {
+        if (text.charAt(i) === "*" && text.charAt(i - 1) === "/") {
+          return i - 2;
+        }
+      }
+    }
   }
 
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
@@ -89,23 +100,42 @@ function skipInlineComment(text, index) {
       }
     }
   }
+
   return index;
 }
 
 /**
  * @param {string} text
  * @param {number | false} index
+ * @param {SkipOptions} opts
  * @returns {number | false}
  */
-function skipTrailingComment(text, index) {
-  /* istanbul ignore next */
+function skipTrailingComment(text, index, opts = { backwards: false }) {
+  const backwards = opts && opts.backwards;
   if (index === false) {
     return false;
+  }
+
+  if (backwards) {
+    // Check back up to start of line for comment start
+    const initialIndex = index;
+    const newlineRegex = /[^\n\r]/;
+    const isNewlineChar = newlineRegex.test.bind(newlineRegex);
+
+    while (!isNewlineChar(text.charAt(index)) && index >= 0) {
+      if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
+        return index - 1;
+      }
+      index--;
+    }
+
+    return initialIndex;
   }
 
   if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
     return skipEverythingButNewLine(text, index);
   }
+
   return index;
 }
 
@@ -238,19 +268,24 @@ function isNextLineEmpty(text, node, locEnd) {
 /**
  * @param {string} text
  * @param {number} idx
+ * @param {SkipOptions} opts
  * @returns {number | false}
  */
-function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
+function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+  text,
+  idx,
+  opts = { backwards: false }
+) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */
   let nextIdx = idx;
   while (nextIdx !== oldIdx) {
     oldIdx = nextIdx;
-    nextIdx = skipSpaces(text, nextIdx);
-    nextIdx = skipInlineComment(text, nextIdx);
-    nextIdx = skipTrailingComment(text, nextIdx);
-    nextIdx = skipNewline(text, nextIdx);
+    nextIdx = skipSpaces(text, nextIdx, opts);
+    nextIdx = skipInlineComment(text, nextIdx, opts);
+    nextIdx = skipTrailingComment(text, nextIdx, opts);
+    nextIdx = skipNewline(text, nextIdx, opts);
   }
   return nextIdx;
 }
@@ -282,6 +317,46 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
+
+/**
+ * @param {string} text
+ * @param {number} index
+ * @return {string}
+ */
+const getPreviousNoSpaceNonCommentStringOnPreviousLines = (text, index) => {
+  const opts = { backwards: true };
+
+  let prevLineIndex = skipEverythingButNewLine(text, index, opts);
+  prevLineIndex = skipNewline(text, prevLineIndex, opts);
+  if (!prevLineIndex) {
+    return "";
+  }
+
+  const endIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    prevLineIndex,
+    opts
+  );
+  if (!endIndex) {
+    return "";
+  }
+
+  /** @type {number | false} */
+  index = endIndex;
+  /** @type {number | false} */
+  let skipIndex = endIndex;
+  while (index === skipIndex && index !== 0) {
+    // Work backwards until we're not skipping anything
+    index--;
+    skipIndex = index;
+    skipIndex = skipSpaces(text, skipIndex, opts);
+    skipIndex = skipInlineComment(text, skipIndex, opts);
+    skipIndex = skipTrailingComment(text, skipIndex, opts);
+    skipIndex = skipNewline(text, skipIndex, opts);
+  }
+
+  return text.slice(index + 1, endIndex + 1);
+};
 
 // Not using, but it's public utils
 /* istanbul ignore next */
@@ -643,6 +718,7 @@ module.exports = {
   getMinNotPresentContinuousCount,
   getPenultimate,
   getLast,
+  getPreviousNoSpaceNonCommentStringOnPreviousLines,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
