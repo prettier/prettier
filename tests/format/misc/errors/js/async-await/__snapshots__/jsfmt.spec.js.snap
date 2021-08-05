@@ -9,7 +9,7 @@ exports[`snippet: #0 [babel] format 1`] = `
 `;
 
 exports[`snippet: #0 [babel] format 2`] = `
-"'await' is not allowed in async function parameters. (1:12)
+"Can not use 'await' as identifier inside an async function. (1:12)
 > 1 | async (x = await (2)) => {};
     |            ^"
 `;

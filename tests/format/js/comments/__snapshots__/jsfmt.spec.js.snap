@@ -1458,52 +1458,52 @@ else
 =====================================output=====================================
 if (firstTrue())
   // doSomething
-  doSomething();
+  doSomething()
 else
   // comment after else
-  doSomethingElse();
+  doSomethingElse()
 
 if (firstTrue())
   // doSomething
-  doFirstThing();
+  doFirstThing()
 else if (secondTrue())
   // comment
-  doSecondThing();
+  doSecondThing()
 else
   // comment after else
-  doThirdThing();
+  doThirdThing()
 
 if (firstTrue())
   // doSomething
-  doSomething();
+  doSomething()
 // comment before else
-else doSomethingElse();
+else doSomethingElse()
 
 if (firstTrue())
   // doSomething
-  doSomething();
+  doSomething()
 else
   // comment after else
   // another comment after else
-  doSomethingElse();
+  doSomethingElse()
 
 if (firstTrue())
   // doSomething
-  doSomething();
+  doSomething()
 else
   /*
    * block comment after else
    */
   // another comment after else
-  doSomethingElse();
+  doSomethingElse()
 
 if (firstTrue())
   // doSomething
-  doSomething();
+  doSomething()
 else
   /* inline comment after else */
   // another comment after else
-  doSomethingElse();
+  doSomethingElse()
 
 ================================================================================
 `;
