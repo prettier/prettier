@@ -1,6 +1,6 @@
 "use strict";
 
-const commonOptions = require("../common/common-options");
+const commonOptions = require("../common/common-options.js");
 
 const CATEGORY_HTML = "HTML";
 
