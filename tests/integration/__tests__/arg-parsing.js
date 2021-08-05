@@ -88,3 +88,9 @@ describe("number file/dir", () => {
     write: [],
   });
 });
+
+describe("deprecated option values are warned", () => {
+  runPrettier("cli/arg-parsing", ["file.js", "--jsx-bracket-same-line"]).test({
+    status: 0,
+  });
+});
