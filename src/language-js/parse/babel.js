@@ -29,7 +29,6 @@ const parseOptions = {
     "v8intrinsic",
     "partialApplication",
     ["decorators", { decoratorsBeforeExport: false }],
-    "privateIn",
     "importAssertions",
     "decimal",
     "classStaticBlock",
