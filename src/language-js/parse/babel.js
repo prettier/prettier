@@ -112,18 +112,14 @@ function createParse(parseMethod, ...optionsCombinations) {
       text.includes("[|") ||
       text.includes("{|")
     ) {
-      combinations = combinations.map((options) => ({
-        ...options,
-        plugins: [...options.plugins, recordAndTuplePlugin],
-      }));
+      combinations = combinations.map(() =>
+        appendPlugins([recordAndTuplePlugin])
+      );
     }
 
     if (text.includes("|>")) {
       combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
-        combinations.map((options) => ({
-          ...options,
-          plugins: [...options.plugins, pipelineOperatorPlugin],
-        }))
+        combinations.map(() => appendPlugins([pipelineOperatorPlugin]))
       );
     }
 
