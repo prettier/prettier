@@ -105,7 +105,7 @@ function createParse(parseMethod, ...optionsCombinations) {
       }));
     }
 
-    if (text.includes("#{") || text.includes("#[")) {
+    if (/#({|\[)/.test(text)) {
       combinations = combinations.map((options) =>
         appendPlugins([recordAndTuplePlugin], options)
       );
