@@ -37,6 +37,7 @@ const parseOptions = {
   ],
   tokens: true,
   ranges: true,
+  attachComment: false,
 };
 const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
 const pipelineOperatorPlugins = [

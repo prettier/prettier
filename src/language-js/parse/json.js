@@ -15,6 +15,7 @@ function createJsonParse(options = {}) {
       ast = parseExpression(text, {
         tokens: true,
         ranges: true,
+        attachComment: false,
       });
     } catch (error) {
       throw createBabelParseError(error);
