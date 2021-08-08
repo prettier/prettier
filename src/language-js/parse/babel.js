@@ -77,7 +77,6 @@ function parseWithOptions(parseMethod, text, options) {
   /** @type {import("@babel/parser").parse | import("@babel/parser").parseExpression} */
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
-  // @ts-expect-error
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)
   );
