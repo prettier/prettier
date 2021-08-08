@@ -278,7 +278,7 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
  */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
-    // @ts-ignore => TBD: can return false, should we define a fallback?
+    // @ts-expect-error => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
