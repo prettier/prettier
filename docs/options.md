@@ -446,7 +446,7 @@ Valid options:
 
 ## Single Attribute Per Line
 
-_First available in v2.1.0_
+_First available in v2.3.3_
 
 Enforce single attribute per line in HTML, Vue and JSX.
 

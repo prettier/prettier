@@ -606,7 +606,9 @@ function printJsxOpeningElement(path, options, print) {
     );
 
   const attributeLine =
-    options.singleAttributePerLine && node.attributes.length > 1 ? hardline : line;
+    options.singleAttributePerLine && node.attributes.length > 1
+      ? hardline
+      : line;
 
   return group(
     [
