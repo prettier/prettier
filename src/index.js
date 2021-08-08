@@ -27,7 +27,7 @@ function _withPlugins(
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
-    // @ts-ignore
+    // @ts-expect-error
     resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
   }
   return resultingFn;

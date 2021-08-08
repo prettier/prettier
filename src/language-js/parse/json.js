@@ -20,9 +20,9 @@ function createJsonParse(options = {}) {
       throw createBabelParseError(error);
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     if (!allowComments && isNonEmptyArray(ast.comments)) {
-      // @ts-ignore
+      // @ts-expect-error
       throw createJsonError(ast.comments[0], "Comment");
     }
 

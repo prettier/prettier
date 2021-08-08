@@ -278,7 +278,7 @@ function genericPrint(path, options, print) {
 
       return replaceTextEndOfLine(
         value,
-        // @ts-ignore
+        // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }

@@ -119,7 +119,7 @@ function handleRemainingComment(context) {
  * @returns {void}
  */
 function addBlockStatementFirstComment(node, comment) {
-  // @ts-ignore
+  // @ts-expect-error
   const firstNonEmptyNode = (node.body || node.properties).find(
     ({ type }) => type !== "EmptyStatement"
   );
