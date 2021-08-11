@@ -33,7 +33,6 @@ const parseOptions = {
     "functionBind",
     "functionSent",
     "throwExpressions",
-    "v8intrinsic",
     "partialApplication",
     ["decorators", { decoratorsBeforeExport: false }],
     "importAssertions",
@@ -49,9 +48,11 @@ const parseOptions = {
 /** @type {ParserPlugin} */
 const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
 
+const v8intrinsicPlugin = "v8intrinsic";
+
 /** @type {Array<ParserPlugin>} */
 const pipelineOperatorPlugins = [
-  ["pipelineOperator", { proposal: "smart" }],
+  ["pipelineOperator", { proposal: "hack", topicToken: "%" }],
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
@@ -122,10 +123,19 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     if (text.includes("|>")) {
-      combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
+      const conflictsPlugins = pipelineOperatorPlugins;
+      if (text.includes("%")) {
+        // @ts-expect-error
+        conflictsPlugins.push(v8intrinsicPlugin);
+      }
+      combinations = conflictsPlugins.flatMap((pipelineOperatorPlugin) =>
         combinations.map((options) =>
           appendPlugins([pipelineOperatorPlugin], options)
         )
+      );
+    } else if (text.includes("%")) {
+      combinations = combinations.map((options) =>
+        appendPlugins([v8intrinsicPlugin], options)
       );
     }
 
