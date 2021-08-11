@@ -48,6 +48,7 @@ const parseOptions = {
 /** @type {ParserPlugin} */
 const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
 
+/** @type {ParserPlugin} */
 const v8intrinsicPlugin = "v8intrinsic";
 
 /** @type {Array<ParserPlugin>} */
@@ -125,7 +126,6 @@ function createParse(parseMethod, ...optionsCombinations) {
     const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
       if (shouldEnableV8intrinsicPlugin) {
-        // @ts-expect-error
         pipelineOperatorPlugins.push(v8intrinsicPlugin);
       }
       combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
