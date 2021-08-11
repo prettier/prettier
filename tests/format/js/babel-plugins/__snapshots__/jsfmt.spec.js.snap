@@ -1668,25 +1668,25 @@ result; //=> "Hello, hello!"
 `;
 
 exports[`pipeline-operator-smart.js [espree] format 1`] = `
-"Unexpected token > (5:2)
+"Unexpected token > (5:3)
   3 |
-  4 | value
-> 5 | |> await #
-    |  ^
-  6 | |> doubleSay(#, ', ')
-  7 | |> capitalize // This is a function call.
-  8 | |> # + '!'"
+  4 | return list
+> 5 |  |> take(prefix.length, %)
+    |   ^
+  6 |  |> equals(%, prefix);
+  7 |
+  8 | // (The % token isn't final; it might instead be @ or ? or #.)"
 `;
 
 exports[`pipeline-operator-smart.js [meriyah] format 1`] = `
-"[5:2]: Unexpected token: '>' (5:2)
+"[5:3]: Unexpected token: '>' (5:3)
   3 |
-  4 | value
-> 5 | |> await #
-    |  ^
-  6 | |> doubleSay(#, ', ')
-  7 | |> capitalize // This is a function call.
-  8 | |> # + '!'"
+  4 | return list
+> 5 |  |> take(prefix.length, %)
+    |   ^
+  6 |  |> equals(%, prefix);
+  7 |
+  8 | // (The % token isn't final; it might instead be @ or ? or #.)"
 `;
 
 exports[`pipeline-operator-smart.js format 1`] = `
@@ -1696,33 +1696,21 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
-// https://github.com/js-choi/proposal-smart-pipelines
+// https://github.com/js-choi/proposal-hack-pipes
 
-value
-|> await #
-|> doubleSay(#, ', ')
-|> capitalize // This is a function call.
-|> # + '!'
-|> new User.Message(#)
-|> await #
-|> console.log; // This is a method call.
+return list
+ |> take(prefix.length, %)
+ |> equals(%, prefix);
 
-// (The # token isn't final; it might instead be @ or ? or %.)
+// (The % token isn't final; it might instead be @ or ? or #.)
 
 =====================================output=====================================
 // https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
-// https://github.com/js-choi/proposal-smart-pipelines
+// https://github.com/js-choi/proposal-hack-pipes
 
-value
-  |> await #
-  |> doubleSay(#, ", ")
-  |> capitalize // This is a function call.
-  |> # + "!"
-  |> new User.Message(#)
-  |> await #
-  |> console.log; // This is a method call.
+return list |> take(prefix.length, %) |> equals(%, prefix);
 
-// (The # token isn't final; it might instead be @ or ? or %.)
+// (The % token isn't final; it might instead be @ or ? or #.)
 
 ================================================================================
 `;
