@@ -10,6 +10,13 @@ const createBabelParseError = require("./utils/create-babel-parse-error.js");
 const postprocess = require("./postprocess.js");
 const jsonParsers = require("./json.js");
 
+/**
+ * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
+ * @typedef {import("@babel/parser").ParserOptions} ParserOptions
+ * @typedef {import("@babel/parser").ParserPlugin} ParserPlugin
+ */
+
+/** @type {ParserOptions} */
 const parseOptions = {
   sourceType: "module",
   allowImportExportEverywhere: true,
@@ -38,7 +45,11 @@ const parseOptions = {
   tokens: true,
   ranges: true,
 };
+
+/** @type {ParserPlugin} */
 const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
+
+/** @type {Array<ParserPlugin>} */
 const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "smart" }],
   ["pipelineOperator", { proposal: "minimal" }],
@@ -74,7 +85,7 @@ function isFlowFile(text, options) {
 
 function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
-  /** @type {import("@babel/parser").parse | import("@babel/parser").parseExpression} */
+  /** @type {Parse} */
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
   const error = ast.errors.find(
