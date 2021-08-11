@@ -122,18 +122,18 @@ function createParse(parseMethod, ...optionsCombinations) {
       );
     }
 
+    const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
-      const conflictsPlugins = pipelineOperatorPlugins;
-      if (text.includes("%")) {
+      if (shouldEnableV8intrinsicPlugin) {
         // @ts-expect-error
-        conflictsPlugins.push(v8intrinsicPlugin);
+        pipelineOperatorPlugins.push(v8intrinsicPlugin);
       }
-      combinations = conflictsPlugins.flatMap((pipelineOperatorPlugin) =>
+      combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
         combinations.map((options) =>
           appendPlugins([pipelineOperatorPlugin], options)
         )
       );
-    } else if (text.includes("%")) {
+    } else if (shouldEnableV8intrinsicPlugin) {
       combinations = combinations.map((options) =>
         appendPlugins([v8intrinsicPlugin], options)
       );
