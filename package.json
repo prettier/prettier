@@ -152,7 +152,7 @@
     "lint:changelog": "node ./scripts/lint-changelog.mjs",
     "lint:prettier": "prettier . \"!test*\" --check",
     "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --env=es6,browser --parser-options=ecmaVersion:2019 \"dist/!(bin-prettier|index|third-party).js\"",
-    "lint:spellcheck": "cspell",
+    "lint:spellcheck": "cspell --no-progress --relative",
     "lint:deps": "node ./scripts/check-deps.mjs",
     "lint:actionlint": "node-actionlint",
     "fix": "run-s fix:eslint fix:prettier",
