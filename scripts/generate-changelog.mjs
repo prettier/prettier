@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Pass the pull request number and category as arguments.
+ * When you run the script, enter the number and category of the Pull Request at the prompt.
  * Get the PR title and author name via the GitHub API and create a file in ./changelog_unreleased
- *   $ node ./scripts/generate-changelog.mjs 10961 typescript
+ *
+ *   $ node ./scripts/generate-changelog.mjs
+ *   ✔ Input your Pull Request number: · 10961
+ *   ✔ Input category of your Pull Request: · typescript
  */
 
 import fs from "node:fs/promises";
