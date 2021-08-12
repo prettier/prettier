@@ -59,3 +59,10 @@ exports[`snippet: #9 [babel] format 1`] = `
 > 1 | async function * a() { a |> foo(%) |> yield}
     |                                       ^"
 `;
+
+exports[`v8intrinsic.js [babel] format 1`] = `
+"Topic reference is unbound; it must be inside a pipe body. (1:16)
+> 1 | const status = %GetOptimizationStatus(fn) |> console.log(%);
+    |                ^
+  2 |"
+`;
