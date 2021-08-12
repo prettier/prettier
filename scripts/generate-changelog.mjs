@@ -10,12 +10,24 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import fetch from "node-fetch";
 import createEsmUtils from "esm-utils";
+import enquirer from "enquirer";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.mjs";
 
 const { __dirname } = createEsmUtils(import.meta);
 
 (async () => {
-  const [prNumberString, category] = process.argv.slice(2);
+  const prNumberPrompt = new enquirer.NumberPrompt({
+    message: "Input your Pull Request number:",
+  });
+  const prNumberString = Number.parseInt(await prNumberPrompt.run(), 10);
+
+  const categoryPrompt = new enquirer.AutoComplete({
+    message: "Input category of your Pull Request:",
+    limit: CHANGELOG_CATEGORIES.length,
+    choices: [...CHANGELOG_CATEGORIES],
+  });
+  const category = (await categoryPrompt.run()).trim();
+
   if (!prNumberString || !category) {
     throw new Error("Two args are required.");
   }
