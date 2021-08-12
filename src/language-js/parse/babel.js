@@ -125,10 +125,11 @@ function createParse(parseMethod, ...optionsCombinations) {
 
     const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
+      const conflictsPlugins = [...pipelineOperatorPlugins];
       if (shouldEnableV8intrinsicPlugin) {
-        pipelineOperatorPlugins.push(v8intrinsicPlugin);
+        conflictsPlugins.push(v8intrinsicPlugin);
       }
-      combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
+      combinations = conflictsPlugins.flatMap((pipelineOperatorPlugin) =>
         combinations.map((options) =>
           appendPlugins([pipelineOperatorPlugin], options)
         )
