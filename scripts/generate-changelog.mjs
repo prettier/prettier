@@ -14,20 +14,22 @@ import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.mjs";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-const [prNumberString, category] = process.argv.slice(2);
-if (!prNumberString || !category) {
-  throw new Error("Two args are required.");
-}
-const prNumber = convertToNumber(prNumberString);
-assertCategory(category);
+(async () => {
+  const [prNumberString, category] = process.argv.slice(2);
+  if (!prNumberString || !category) {
+    throw new Error("Two args are required.");
+  }
+  const prNumber = convertToNumber(prNumberString);
+  assertCategory(category);
 
-const { title, user } = await getPr(prNumber);
+  const { title, user } = await getPr(prNumber);
 
-const newChangelog = await createChangelog(title, user, prNumber, category);
+  const newChangelog = await createChangelog(title, user, prNumber, category);
 
-await addNewChangelog(prNumber, category, newChangelog);
+  await addNewChangelog(prNumber, category, newChangelog);
 
-console.log("Done");
+  console.log("Done");
+})();
 
 /**
  * @param {number} prNumber
@@ -134,9 +136,9 @@ function getSyntaxFromCategory(category) {
     case "flow":
     case "javascript":
     case "api":
-      "jsx";
+      return "jsx";
     case "typescript":
-      "tsx";
+      return "tsx";
     default:
       return category;
   }
@@ -168,7 +170,7 @@ function getCommentForSyntax(syntax, comment) {
  * @returns {number}
  */
 function convertToNumber(value) {
-  const parsed = parseInt(value, 10);
+  const parsed = Number.parseInt(value, 10);
   if (Number.isNaN(parsed)) {
     throw new Error(`'${value}' is not number.`);
   }
