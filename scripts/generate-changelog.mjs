@@ -24,6 +24,7 @@ const { __dirname } = createEsmUtils(import.meta);
   const categoryPrompt = new enquirer.AutoComplete({
     message: "Input category of your Pull Request:",
     limit: CHANGELOG_CATEGORIES.length,
+    // The array passed to `choices` will be broken, so copy it.
     choices: [...CHANGELOG_CATEGORIES],
   });
   const category = (await categoryPrompt.run()).trim();
