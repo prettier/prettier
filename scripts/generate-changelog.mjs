@@ -19,7 +19,7 @@ const { __dirname } = createEsmUtils(import.meta);
   const prNumberPrompt = new enquirer.NumberPrompt({
     message: "Input your Pull Request number:",
   });
-  const prNumberString = Number.parseInt(await prNumberPrompt.run(), 10);
+  const prNumber = await prNumberPrompt.run();
 
   const categoryPrompt = new enquirer.AutoComplete({
     message: "Input category of your Pull Request:",
@@ -28,10 +28,9 @@ const { __dirname } = createEsmUtils(import.meta);
   });
   const category = (await categoryPrompt.run()).trim();
 
-  if (!prNumberString || !category) {
+  if (!prNumber || !category) {
     throw new Error("Two args are required.");
   }
-  const prNumber = convertToNumber(prNumberString);
   assertCategory(category);
 
   const { title, user } = await getPr(prNumber);
@@ -175,18 +174,6 @@ function getCommentForSyntax(syntax, comment) {
     default:
       return `// ${comment}`;
   }
-}
-
-/**
- * @param {unknown}
- * @returns {number}
- */
-function convertToNumber(value) {
-  const parsed = Number.parseInt(value, 10);
-  if (Number.isNaN(parsed)) {
-    throw new Error(`'${value}' is not number.`);
-  }
-  return parsed;
 }
 
 /**
