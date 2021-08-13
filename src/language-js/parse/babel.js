@@ -10,9 +10,15 @@ const createBabelParseError = require("./utils/create-babel-parse-error.js");
 const postprocess = require("./postprocess.js");
 const jsonParsers = require("./json.js");
 
+/**
+ * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
+ * @typedef {import("@babel/parser").ParserOptions} ParserOptions
+ * @typedef {import("@babel/parser").ParserPlugin} ParserPlugin
+ */
+
+/** @type {ParserOptions} */
 const parseOptions = {
   sourceType: "module",
-  allowAwaitOutsideFunction: true,
   allowImportExportEverywhere: true,
   allowReturnOutsideFunction: true,
   allowSuperOutsideMethod: true,
@@ -30,9 +36,7 @@ const parseOptions = {
     "v8intrinsic",
     "partialApplication",
     ["decorators", { decoratorsBeforeExport: false }],
-    "privateIn",
     "importAssertions",
-    ["recordAndTuple", { syntaxType: "hash" }],
     "decimal",
     "classStaticBlock",
     "moduleBlocks",
@@ -41,14 +45,19 @@ const parseOptions = {
   tokens: true,
   ranges: true,
 };
+
+/** @type {ParserPlugin} */
+const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
+
+/** @type {Array<ParserPlugin>} */
 const pipelineOperatorPlugins = [
   ["pipelineOperator", { proposal: "smart" }],
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
-const appendPlugins = (plugins) => ({
-  ...parseOptions,
-  plugins: [...parseOptions.plugins, ...plugins],
+const appendPlugins = (plugins, options = parseOptions) => ({
+  ...options,
+  plugins: [...options.plugins, ...plugins],
 });
 
 // Similar to babel
@@ -76,10 +85,9 @@ function isFlowFile(text, options) {
 
 function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
-  /** @type {import("@babel/parser").parse | import("@babel/parser").parseExpression} */
+  /** @type {Parse} */
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
-  // @ts-ignore
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)
   );
@@ -107,12 +115,17 @@ function createParse(parseMethod, ...optionsCombinations) {
       }));
     }
 
+    if (/#[[{]/.test(text)) {
+      combinations = combinations.map((options) =>
+        appendPlugins([recordAndTuplePlugin], options)
+      );
+    }
+
     if (text.includes("|>")) {
       combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
-        combinations.map((options) => ({
-          ...options,
-          plugins: [...options.plugins, pipelineOperatorPlugin],
-        }))
+        combinations.map((options) =>
+          appendPlugins([pipelineOperatorPlugin], options)
+        )
       );
     }
 

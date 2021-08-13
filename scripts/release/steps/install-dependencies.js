@@ -1,7 +1,5 @@
-"use strict";
-
-const execa = require("execa");
-const { runYarn, runGit, logPromise } = require("../utils.js");
+import execa from "execa";
+import { runYarn, runGit, logPromise } from "../utils.js";
 
 async function install() {
   await execa("rm", ["-rf", "node_modules"]);
@@ -15,6 +13,6 @@ async function install() {
   }
 }
 
-module.exports = function () {
+export default function () {
   return logPromise("Installing NPM dependencies", install());
-};
+}

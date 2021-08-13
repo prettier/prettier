@@ -1,8 +1,6 @@
-"use strict";
+import { runGit } from "../utils.js";
 
-const { runGit } = require("../utils.js");
-
-module.exports = async function () {
+export default async function () {
   const { stdout: status } = await runGit(["status", "--porcelain"]);
 
   if (status) {
@@ -11,4 +9,4 @@ module.exports = async function () {
         "Please revert or commit all local changes before making a release."
     );
   }
-};
+}

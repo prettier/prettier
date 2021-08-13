@@ -134,7 +134,7 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs"],
+      files: ["**/*.mjs", "scripts/release/**/*.js"],
       parserOptions: {
         sourceType: "module",
       },
@@ -226,6 +226,31 @@ module.exports = {
           "src/language-js/parse/meriyah.js",
           "src/language-js/parse/json.js",
         ],
+      },
+    },
+    {
+      files: ["website/**/*"],
+      env: {
+        browser: true,
+        worker: true,
+      },
+      extends: ["plugin:react/recommended"],
+      settings: {
+        react: {
+          version: "17",
+        },
+      },
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+        "react/display-name": "off",
+        "react/no-deprecated": "off",
+        "react/prop-types": "off",
+      },
+    },
+    {
+      files: ["website/playground/**/*"],
+      parserOptions: {
+        sourceType: "module",
       },
     },
   ],

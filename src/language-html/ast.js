@@ -58,7 +58,7 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      // @ts-ignore
+      // @ts-expect-error
       const { index, siblings, prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
         index,
@@ -99,22 +99,22 @@ class Node {
   }
 
   get firstChild() {
-    // @ts-ignore
+    // @ts-expect-error
     return isNonEmptyArray(this.children) ? this.children[0] : null;
   }
 
   get lastChild() {
-    // @ts-ignore
+    // @ts-expect-error
     return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
   // for element and attribute
   get rawName() {
-    // @ts-ignore
+    // @ts-expect-error
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
   get fullName() {
-    // @ts-ignore
+    // @ts-expect-error
     return this.namespace ? this.namespace + ":" + this.name : this.name;
   }
 }
