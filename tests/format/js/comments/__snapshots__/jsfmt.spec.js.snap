@@ -1399,6 +1399,223 @@ wrap(import(/* Hello */ "something"));
 ================================================================================
 `;
 
+exports[`else_comment.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  // comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doFirstThing();
+else if (secondTrue())
+  // comment
+  doSecondThing();
+else
+  // comment after else
+  doThirdThing();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+// comment before else
+else doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  // comment after else
+  // another comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  /*
+   * block comment after else
+   */
+  // another comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  /* inline comment after else */
+  // another comment after else
+  doSomethingElse();
+
+=====================================output=====================================
+if (firstTrue())
+  // doSomething
+  doSomething()
+else
+  // comment after else
+  doSomethingElse()
+
+if (firstTrue())
+  // doSomething
+  doFirstThing()
+else if (secondTrue())
+  // comment
+  doSecondThing()
+else
+  // comment after else
+  doThirdThing()
+
+if (firstTrue())
+  // doSomething
+  doSomething()
+// comment before else
+else doSomethingElse()
+
+if (firstTrue())
+  // doSomething
+  doSomething()
+else
+  // comment after else
+  // another comment after else
+  doSomethingElse()
+
+if (firstTrue())
+  // doSomething
+  doSomething()
+else
+  /*
+   * block comment after else
+   */
+  // another comment after else
+  doSomethingElse()
+
+if (firstTrue())
+  // doSomething
+  doSomething()
+else
+  /* inline comment after else */
+  // another comment after else
+  doSomethingElse()
+
+================================================================================
+`;
+
+exports[`else_comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  // comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doFirstThing();
+else if (secondTrue())
+  // comment
+  doSecondThing();
+else
+  // comment after else
+  doThirdThing();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+// comment before else
+else doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  // comment after else
+  // another comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  /*
+   * block comment after else
+   */
+  // another comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  /* inline comment after else */
+  // another comment after else
+  doSomethingElse();
+
+=====================================output=====================================
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  // comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doFirstThing();
+else if (secondTrue())
+  // comment
+  doSecondThing();
+else
+  // comment after else
+  doThirdThing();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+// comment before else
+else doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  // comment after else
+  // another comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  /*
+   * block comment after else
+   */
+  // another comment after else
+  doSomethingElse();
+
+if (firstTrue())
+  // doSomething
+  doSomething();
+else
+  /* inline comment after else */
+  // another comment after else
+  doSomethingElse();
+
+================================================================================
+`;
+
 exports[`emoji.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

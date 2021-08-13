@@ -11,6 +11,7 @@ const {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
+  getPreviousNoSpaceNonCommentStringOnPreviousLines,
 } = require("../common/util.js");
 const {
   isBlockComment,
@@ -196,15 +197,42 @@ function handleIfStatementComments({
     return true;
   }
 
-  // Comments before `else`:
-  // - treat as trailing comments of the consequent, if it's a BlockStatement
+  // Comments at `else`:
+  // - treat as trailing comments of the consequent if it's a BlockStatement and before else
+  // - treat as leading comments of the alternative if it's on a new line after else before statement
   // - treat as a dangling comment otherwise
   if (
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
+    const isCommentOnNewLineBetweenElseAndAlternative = (
+      comment,
+      originalText
+    ) => {
+      let start = -1;
+      if (comment.start) {
+        start = comment.start;
+      }
+      if (comment.range && comment.range.length === 2) {
+        start = comment.range[0];
+      }
+
+      if (start !== -1) {
+        return (
+          getPreviousNoSpaceNonCommentStringOnPreviousLines(
+            originalText,
+            start
+          ) === "else"
+        );
+      }
+
+      return false;
+    };
+
     if (precedingNode.type === "BlockStatement") {
       addTrailingComment(precedingNode, comment);
+    } else if (isCommentOnNewLineBetweenElseAndAlternative(comment, text)) {
+      addLeadingComment(followingNode, comment);
     } else {
       addDanglingComment(enclosingNode, comment);
     }

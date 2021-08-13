@@ -55,7 +55,7 @@ exports[`snippet: #8 [babel] format 1`] = `
 `;
 
 exports[`snippet: #9 [babel] format 1`] = `
-"Unexpected yield after pipeline body; any yield expression acting as Hack-style pipe body must be parenthesized due to its loose operator precedence. (1:39)
+"Can not use 'yield' as identifier inside a generator. (1:39)
 > 1 | async function * a() { a |> foo(#) |> yield}
     |                                       ^"
 `;

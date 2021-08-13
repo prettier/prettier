@@ -410,8 +410,8 @@ function skipWhitespace(text: string, index: number | false, opts?: SkipOptions)
 function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
 function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
 function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
-function skipInlineComment(text: string, index: number | false): number | false;
-function skipTrailingComment(text: string, index: number | false): number | false;
+function skipInlineComment(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipTrailingComment(text: string, index: number | false, opts?: SkipOptions): number | false;
 function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
 function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
 function hasNewlineInRange(text: string, start: number, end: number): boolean;

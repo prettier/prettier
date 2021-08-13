@@ -471,11 +471,23 @@ function printPathNoParens(path, options, print, args) {
       parts.push(opening);
 
       if (node.alternate) {
-        const commentOnOwnLine =
+        const consequentHasTrailingComment = (node) =>
           hasComment(
             node.consequent,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line
-          ) || needsHardlineAfterDanglingComment(node);
+            CommentCheckFlags.Line | CommentCheckFlags.Trailing
+          );
+
+        const alternateHasLeadingComment = (node) =>
+          hasComment(
+            node.alternate,
+            CommentCheckFlags.Leading | CommentCheckFlags.Line
+          );
+
+        const commentOnOwnLine =
+          consequentHasTrailingComment(node) ||
+          alternateHasLeadingComment(node) ||
+          needsHardlineAfterDanglingComment(node);
+
         const elseOnSameLine =
           node.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
