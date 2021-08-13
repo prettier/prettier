@@ -17,13 +17,6 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        devDependencies: ["tests*/**", "scripts/**"],
-      },
-    ],
-    "import/order": "error",
     "no-console": isCI ? "error" : "off",
     "no-else-return": [
       "error",
@@ -38,6 +31,7 @@ module.exports = {
       // `!foo === bar` and `!foo !== bar`
       'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]',
     ],
+    "no-return-await": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
     "no-unused-vars": [
@@ -76,7 +70,6 @@ module.exports = {
     "prefer-rest-params": "error",
     "prefer-spread": "error",
     "prettier-internal-rules/jsx-identifier-case": "error",
-    "prettier-internal-rules/require-json-extensions": "error",
     "prettier-internal-rules/no-identifier-n": "error",
     quotes: [
       "error",
@@ -85,6 +78,7 @@ module.exports = {
         avoidEscape: true,
       },
     ],
+    "require-await": "error",
     strict: "error",
     "symbol-description": "error",
     yoda: [
@@ -94,6 +88,16 @@ module.exports = {
         exceptRange: true,
       },
     ],
+
+    "import/extensions": ["error", "always", { ignorePackages: true }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: ["tests*/**", "scripts/**"],
+      },
+    ],
+    "import/order": "error",
+
     "regexp/match-any": [
       "error",
       {
@@ -101,6 +105,7 @@ module.exports = {
       },
     ],
     "regexp/no-useless-flag": "error",
+
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
     "unicorn/new-for-builtins": "error",
@@ -129,7 +134,7 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs"],
+      files: ["**/*.mjs", "scripts/release/**/*.js"],
       parserOptions: {
         sourceType: "module",
       },
@@ -215,12 +220,37 @@ module.exports = {
             file: "src/language-js/utils.js",
             functions: ["hasComment", "getComments"],
           },
-          "src/language-js/parse-postprocess.js",
-          "src/language-js/parser-babel.js",
-          "src/language-js/parser-meriyah.js",
           "src/language-js/pragma.js",
-          "src/language-js/parser/json.js",
+          "src/language-js/parse/postprocess.js",
+          "src/language-js/parse/babel.js",
+          "src/language-js/parse/meriyah.js",
+          "src/language-js/parse/json.js",
         ],
+      },
+    },
+    {
+      files: ["website/**/*"],
+      env: {
+        browser: true,
+        worker: true,
+      },
+      extends: ["plugin:react/recommended"],
+      settings: {
+        react: {
+          version: "17",
+        },
+      },
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+        "react/display-name": "off",
+        "react/no-deprecated": "off",
+        "react/prop-types": "off",
+      },
+    },
+    {
+      files: ["website/playground/**/*"],
+      parserOptions: {
+        sourceType: "module",
       },
     },
   ],

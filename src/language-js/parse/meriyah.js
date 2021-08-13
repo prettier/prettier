@@ -1,9 +1,9 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const tryCombinations = require("../utils/try-combinations");
-const postprocess = require("./parse-postprocess");
-const createParser = require("./parser/create-parser");
+const createError = require("../../common/parser-create-error.js");
+const tryCombinations = require("../../utils/try-combinations.js");
+const createParser = require("./utils/create-parser.js");
+const postprocess = require("./postprocess.js");
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {

@@ -1,14 +1,6 @@
-"use strict";
-
-const fs = require("fs");
-const semver = require("semver");
-const {
-  runYarn,
-  runGit,
-  logPromise,
-  readJson,
-  writeJson,
-} = require("../utils");
+import fs from "node:fs";
+import semver from "semver";
+import { runYarn, runGit, logPromise, readJson, writeJson } from "../utils.js";
 
 async function format() {
   await runYarn(["lint:eslint", "--fix"]);
@@ -44,7 +36,7 @@ async function bump({
   await writeJson("package.json", pkg, { spaces: 2 });
 }
 
-module.exports = async function (params) {
+export default async function (params) {
   const { dry, version } = params;
 
   if (dry) {
@@ -59,4 +51,4 @@ module.exports = async function (params) {
   await logPromise("Updating files", format());
   await logPromise("Bump default branch version", bump(params));
   await logPromise("Committing changed files", commit(version));
-};
+}

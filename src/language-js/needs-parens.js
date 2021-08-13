@@ -1,6 +1,6 @@
 "use strict";
 
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -14,7 +14,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils");
+} = require("./utils.js");
 
 function needsParens(path, options) {
   const parent = path.getParentNode();

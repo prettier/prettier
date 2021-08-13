@@ -1,15 +1,15 @@
 "use strict";
 
-const { printComments } = require("../../main/comments");
-const { printString, printNumber } = require("../../common/util");
+const { printComments } = require("../../main/comments.js");
+const { printString, printNumber } = require("../../common/util.js");
 const {
   isNumericLiteral,
   isSimpleNumber,
   isStringLiteral,
   isStringPropSafeToUnquote,
   rawText,
-} = require("../utils");
-const { printAssignment } = require("./assignment");
+} = require("../utils.js");
+const { printAssignment } = require("./assignment.js");
 
 const needsQuoteProps = new WeakMap();
 

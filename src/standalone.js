@@ -2,14 +2,11 @@
 
 const { version } = require("../package.json");
 
-const core = require("./main/core");
-const { getSupportInfo } = require("./main/support");
-const sharedUtil = require("./common/util-shared");
-const languages = require("./languages");
-const doc = require("./document");
-
-// Parsers are bundled as separate plugins
-const internalPlugins = languages.map(({ parsers, ...plugin }) => plugin);
+const core = require("./main/core.js");
+const { getSupportInfo } = require("./main/support.js");
+const sharedUtil = require("./common/util-shared.js");
+const languages = require("./languages.js");
+const doc = require("./document/index.js");
 
 function withPlugins(
   fn,
@@ -22,7 +19,7 @@ function withPlugins(
     args[optsArgIdx] = {
       ...opts,
       plugins: [
-        ...internalPlugins,
+        ...languages,
         ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
       ],
     };

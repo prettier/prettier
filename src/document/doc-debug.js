@@ -1,6 +1,6 @@
 "use strict";
 
-const { isConcat, getDocParts } = require("./doc-utils");
+const { isConcat, getDocParts } = require("./doc-utils.js");
 
 function flattenDoc(doc) {
   if (!doc) {

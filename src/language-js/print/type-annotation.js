@@ -1,25 +1,28 @@
 "use strict";
 
-const { printComments, printDanglingComments } = require("../../main/comments");
-const { getLast } = require("../../common/util");
+const {
+  printComments,
+  printDanglingComments,
+} = require("../../main/comments.js");
+const { getLast } = require("../../common/util.js");
 const {
   builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document");
-const pathNeedsParens = require("../needs-parens");
-const { locStart } = require("../loc");
+} = require("../../document/index.js");
+const pathNeedsParens = require("../needs-parens.js");
+const { locStart } = require("../loc.js");
 const {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils");
-const { printAssignment } = require("./assignment");
+} = require("../utils.js");
+const { printAssignment } = require("./assignment.js");
 const {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters");
-const { printArrayItems } = require("./array");
+} = require("./function-parameters.js");
+const { printArrayItems } = require("./array.js");
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {

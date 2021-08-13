@@ -11,7 +11,7 @@ const {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   isBlockComment,
   getFunctionParameters,
@@ -25,8 +25,10 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
+  getComments,
+  CommentCheckFlags,
+} = require("./utils.js");
+const { locStart, locEnd } = require("./loc.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -117,7 +119,7 @@ function handleRemainingComment(context) {
  * @returns {void}
  */
 function addBlockStatementFirstComment(node, comment) {
-  // @ts-ignore
+  // @ts-expect-error
   const firstNonEmptyNode = (node.body || node.properties).find(
     ({ type }) => type !== "EmptyStatement"
   );
@@ -949,13 +951,15 @@ function willPrintOwnComments(path /*, options */) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
+  const hasFlowAnnotations = (node) =>
+    hasFlowAnnotationComment(getComments(node, CommentCheckFlags.Leading)) ||
+    hasFlowAnnotationComment(getComments(node, CommentCheckFlags.Trailing));
+
   return (
     ((node &&
       (isJsxNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
-        (isCallExpression(parent) &&
-          (hasFlowAnnotationComment(node.leadingComments) ||
-            hasFlowAnnotationComment(node.trailingComments))))) ||
+        (isCallExpression(parent) && hasFlowAnnotations(node)))) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||

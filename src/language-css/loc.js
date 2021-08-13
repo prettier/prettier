@@ -1,11 +1,11 @@
 "use strict";
 
-const lineColumnToIndex = require("../utils/line-column-to-index");
+const lineColumnToIndex = require("../utils/line-column-to-index.js");
 const {
   getLast,
   skipEverythingButNewLine,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 
 function calculateLocStart(node, text) {
   // `postcss>=8`

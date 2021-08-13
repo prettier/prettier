@@ -1,6 +1,6 @@
 "use strict";
 
-const { getLast, isNonEmptyArray } = require("../common/util");
+const { getLast, isNonEmptyArray } = require("../common/util.js");
 
 function getAncestorCount(path, filter) {
   let counter = 0;

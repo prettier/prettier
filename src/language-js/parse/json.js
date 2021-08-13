@@ -1,9 +1,9 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
-const createError = require("../../common/parser-create-error");
-const createParser = require("./create-parser");
-const createBabelParseError = require("./create-babel-parse-error");
+const { isNonEmptyArray } = require("../../common/util.js");
+const createError = require("../../common/parser-create-error.js");
+const createParser = require("./utils/create-parser.js");
+const createBabelParseError = require("./utils/create-babel-parse-error.js");
 
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
@@ -20,9 +20,9 @@ function createJsonParse(options = {}) {
       throw createBabelParseError(error);
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     if (!allowComments && isNonEmptyArray(ast.comments)) {
-      // @ts-ignore
+      // @ts-expect-error
       throw createJsonError(ast.comments[0], "Comment");
     }
 

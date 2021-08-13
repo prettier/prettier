@@ -1,7 +1,7 @@
 "use strict";
 
-const getLast = require("../utils/get-last");
-const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
+const getLast = require("../utils/get-last.js");
+const { getOrderedListItemInfo, mapAst, splitText } = require("./utils.js");
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^.$/su;

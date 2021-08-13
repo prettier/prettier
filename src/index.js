@@ -2,13 +2,13 @@
 
 const { version } = require("../package.json");
 
-const core = require("./main/core");
-const { getSupportInfo } = require("./main/support");
-const getFileInfo = require("./common/get-file-info");
-const sharedUtil = require("./common/util-shared");
-const plugins = require("./common/load-plugins");
-const config = require("./config/resolve-config");
-const doc = require("./document");
+const core = require("./main/core.js");
+const { getSupportInfo } = require("./main/support.js");
+const getFileInfo = require("./common/get-file-info.js");
+const sharedUtil = require("./common/util-shared.js");
+const plugins = require("./common/load-plugins.js");
+const config = require("./config/resolve-config.js");
+const doc = require("./document/index.js");
 
 function _withPlugins(
   fn,
@@ -27,7 +27,7 @@ function _withPlugins(
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
-    // @ts-ignore
+    // @ts-expect-error
     resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
   }
   return resultingFn;
@@ -67,13 +67,13 @@ module.exports = {
 
   // Internal shared
   __internal: {
-    errors: require("./common/errors"),
-    coreOptions: require("./main/core-options"),
-    createIgnorer: require("./common/create-ignorer"),
-    optionsModule: require("./main/options"),
-    optionsNormalizer: require("./main/options-normalizer"),
+    errors: require("./common/errors.js"),
+    coreOptions: require("./main/core-options.js"),
+    createIgnorer: require("./common/create-ignorer.js"),
+    optionsModule: require("./main/options.js"),
+    optionsNormalizer: require("./main/options-normalizer.js"),
     utils: {
-      arrayify: require("./utils/arrayify"),
+      arrayify: require("./utils/arrayify.js"),
     },
   },
 

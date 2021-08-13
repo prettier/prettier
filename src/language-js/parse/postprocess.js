@@ -3,10 +3,10 @@
 const {
   getLast,
   getNextNonSpaceNonCommentCharacter,
-} = require("../common/util");
-const createError = require("../common/parser-create-error");
-const { locStart, locEnd } = require("./loc");
-const { isTypeCastComment } = require("./comments");
+} = require("../../common/util.js");
+const createError = require("../../common/parser-create-error.js");
+const { locStart, locEnd } = require("../loc.js");
+const { isTypeCastComment } = require("../comments.js");
 
 function postprocess(ast, options) {
   // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4

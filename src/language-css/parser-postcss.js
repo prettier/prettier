@@ -1,18 +1,18 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const getLast = require("../utils/get-last");
-const parseFrontMatter = require("../utils/front-matter/parse");
-const { hasPragma } = require("./pragma");
+const createError = require("../common/parser-create-error.js");
+const getLast = require("../utils/get-last.js");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
+const { hasPragma } = require("./pragma.js");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
-const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
+} = require("./utils.js");
+const { locStart, locEnd } = require("./loc.js");
+const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
 
 const getHighestAncestor = (node) => {
   while (node.parent) {

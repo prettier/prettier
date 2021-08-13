@@ -1,6 +1,6 @@
 "use strict";
 
-const createError = require("../../common/parser-create-error");
+const createError = require("../../../common/parser-create-error.js");
 
 function createBabelParseError(error) {
   // babel error prints (l:c) with cols that are zero indexed

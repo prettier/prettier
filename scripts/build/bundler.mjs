@@ -131,7 +131,7 @@ function getRollupConfig(bundle) {
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           (warning.importer.startsWith("node_modules") ||
-            warning.importer.startsWith("\x00polyfill-node:"))) ||
+            warning.importer.startsWith("\x00polyfill-node."))) ||
         warning.code === "SOURCEMAP_ERROR" ||
         warning.code === "THIS_IS_UNDEFINED"
       ) {
@@ -181,13 +181,40 @@ function getRollupConfig(bundle) {
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
+    // Replace package.json with dynamic `require("./package.json")`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
+
+    // Dynamic require bundled files
     for (const item of bundles) {
       if (item.input !== bundle.input) {
         replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
       }
     }
-    replaceModule[path.join(PROJECT_ROOT, "./package.json")] = "./package.json";
+  } else {
+    // Universal bundle only use version info from package.json
+    // Replace package.json with `{version: "{VERSION}"}`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
+      code: `export default ${JSON.stringify({
+        version: require("../../package.json").version,
+      })};`,
+    };
+
+    // Replace parser getters with `undefined`
+    for (const file of [
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-js/parse/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
+    ]) {
+      replaceModule[path.join(PROJECT_ROOT, file)] = {
+        code: "export default undefined;",
+      };
+    }
   }
+
   Object.assign(replaceModule, bundle.replaceModule);
 
   config.plugins = [
@@ -219,7 +246,7 @@ function getRollupConfig(bundle) {
       ignoreTryCatch: bundle.target === "node",
       ...bundle.commonjs,
     }),
-    replaceModule && rollupPluginReplaceModule(replaceModule),
+    rollupPluginReplaceModule(replaceModule),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
     rollupPluginBabel(babelConfig),
   ].filter(Boolean);
