@@ -66,7 +66,7 @@ To debug Prettier locally, you can either debug it in Node (recommended) or the 
 
 The project uses ESLint for linting and Prettier for formatting. If your editor isn't set up to work with them, you can lint and format all files from the command line using `yarn fix`.
 
-After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR.
+After opening a PR, describe your changes in a file in the `changelog_unreleased` directory following the template [`changelog_unreleased/TEMPLATE.md`](changelog_unreleased/TEMPLATE.md) and commit this file to your PR. You can use `./scripts/generate-changelog.mjs` to create changelog file. Please see comments of the script file for usage.
 
 Take a look at [`commands.md`](commands.md) and, if you know Haskell, check out [Wadler's paper](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf) to understand how Prettier works.
 
