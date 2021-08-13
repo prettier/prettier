@@ -5171,12 +5171,10 @@ pluralize@^8.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
-postcss-less@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/postcss-less/-/postcss-less-4.0.1.tgz#73caf5dac056d4b706f4cc136cefeaf4e79067a4"
-  integrity sha512-C92S4sHlbDpefJ2QQJjrucCcypq3+KZPstjfuvgOCNnGx0tF9h8hXgAlOIATGAxMXZXaF+nVp+/Mi8pCAWdSmw==
-  dependencies:
-    postcss "^8.1.2"
+postcss-less@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-less/-/postcss-less-5.0.0.tgz#3fa361ed8e52a9c3e6e4fdb9bb95fd9032f3c62b"
+  integrity sha512-djK6NlApALJeBnNx7CzLatq64eMF3BCyzBH+faYPxrvNHHM/YCimJ6XQkgWgtim2G89EzdQG4Ed0lGNCXPfD7A==
 
 postcss-media-query-parser@0.2.3:
   version "0.2.3"
@@ -5217,7 +5215,7 @@ postcss@8.2.7:
     nanoid "^3.1.20"
     source-map "^0.6.1"
 
-postcss@^8.1.2, postcss@^8.2.7:
+postcss@^8.2.7:
   version "8.3.6"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.6.tgz#2730dd76a97969f37f53b9a6096197be311cc4ea"
   integrity sha512-wG1cc/JhRgdqB6WHEuyLTedf3KIRuD0hG6ldkFEZNCjRxiC+3i6kkWUUbiJQayP28iwG35cEmAbe98585BYV0A==
