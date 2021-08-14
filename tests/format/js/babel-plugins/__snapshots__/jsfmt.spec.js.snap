@@ -1612,6 +1612,54 @@ let newScore = boundScore(0, 100, add(7, double(person.score)));
 ================================================================================
 `;
 
+exports[`pipeline-operator-hack.js [espree] format 1`] = `
+"Unexpected token > (5:3)
+  3 |
+  4 | return list
+> 5 |  |> take(prefix.length, %)
+    |   ^
+  6 |  |> equals(%, prefix);
+  7 |
+  8 | // (The % token isn't final; it might instead be @ or ? or #.)"
+`;
+
+exports[`pipeline-operator-hack.js [meriyah] format 1`] = `
+"[5:3]: Unexpected token: '>' (5:3)
+  3 |
+  4 | return list
+> 5 |  |> take(prefix.length, %)
+    |   ^
+  6 |  |> equals(%, prefix);
+  7 |
+  8 | // (The % token isn't final; it might instead be @ or ? or #.)"
+`;
+
+exports[`pipeline-operator-hack.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://github.com/js-choi/proposal-hack-pipes
+
+return list
+ |> take(prefix.length, %)
+ |> equals(%, prefix);
+
+// (The % token isn't final; it might instead be @ or ? or #.)
+
+=====================================output=====================================
+// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
+// https://github.com/js-choi/proposal-hack-pipes
+
+return list |> take(prefix.length, %) |> equals(%, prefix);
+
+// (The % token isn't final; it might instead be @ or ? or #.)
+
+================================================================================
+`;
+
 exports[`pipeline-operator-minimal.js [espree] format 1`] = `
 "Identifier 'result' has already been declared (7:5)
    5 | result //=> \\"Hello, hello!\\"
@@ -1663,66 +1711,6 @@ result; //=> "Hello, hello!"
 let result = "hello" |> doubleSay |> capitalize |> exclaim;
 
 result; //=> "Hello, hello!"
-
-================================================================================
-`;
-
-exports[`pipeline-operator-smart.js [espree] format 1`] = `
-"Unexpected token > (5:2)
-  3 |
-  4 | value
-> 5 | |> await #
-    |  ^
-  6 | |> doubleSay(#, ', ')
-  7 | |> capitalize // This is a function call.
-  8 | |> # + '!'"
-`;
-
-exports[`pipeline-operator-smart.js [meriyah] format 1`] = `
-"[5:2]: Unexpected token: '>' (5:2)
-  3 |
-  4 | value
-> 5 | |> await #
-    |  ^
-  6 | |> doubleSay(#, ', ')
-  7 | |> capitalize // This is a function call.
-  8 | |> # + '!'"
-`;
-
-exports[`pipeline-operator-smart.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
-// https://github.com/js-choi/proposal-smart-pipelines
-
-value
-|> await #
-|> doubleSay(#, ', ')
-|> capitalize // This is a function call.
-|> # + '!'
-|> new User.Message(#)
-|> await #
-|> console.log; // This is a method call.
-
-// (The # token isn't final; it might instead be @ or ? or %.)
-
-=====================================output=====================================
-// https://babeljs.io/docs/en/babel-plugin-proposal-pipeline-operator
-// https://github.com/js-choi/proposal-smart-pipelines
-
-value
-  |> await #
-  |> doubleSay(#, ", ")
-  |> capitalize // This is a function call.
-  |> # + "!"
-  |> new User.Message(#)
-  |> await #
-  |> console.log; // This is a method call.
-
-// (The # token isn't final; it might instead be @ or ? or %.)
 
 ================================================================================
 `;
