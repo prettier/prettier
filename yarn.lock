@@ -4960,10 +4960,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-actionlint@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/node-actionlint/-/node-actionlint-1.1.0.tgz#f081d31648ae41a36227ce89f99cbf122b82d819"
-  integrity sha512-himXYj3e9RTPgT+QTiIut3J13LnJcpf8W4KagvZjyojILIojb5UxGMxYrG+aEwXF6Eo3pgmHsBzqWKF+UUxs0A==
+node-actionlint@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/node-actionlint/-/node-actionlint-1.2.0.tgz#2164886043c3d13d55dbbba989a4070ea3a8dc7e"
+  integrity sha512-7YHCrC0Ksd5zeyorJYCw5hYb0yUzBBADvgsq6O5Bz0SVjFuf/eQe3z3HlxSxE3oLg/yaW5o6KUVVZhQiEgDs1g==
   dependencies:
     "@babel/code-frame" "^7.14.5"
     chalk "^4.1.1"
