@@ -3030,16 +3030,16 @@ eslint-plugin-react@7.24.0:
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
 
-eslint-plugin-regexp@0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-0.13.2.tgz#5f00697734bffcf07ef66394b249495deb2004e1"
-  integrity sha512-WbvZTnbzN5DYabMwWjig6sTH6mfOs2f6S3cPQwpn0AuD+UVgoJc2+GHi6cSHBYiT/hkwNidA1WHa/L0l5e609A==
+eslint-plugin-regexp@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.0.0.tgz#ca84acf9764f8768101bdaf2e3a410530b9df187"
+  integrity sha512-TwNkkDS+Q5+gEaUTgEYEJzP5P8Y6c/UGxJkUsg6oc/DBWGT/5VJqCw0xhx/hhFT/HgfdABngTWKBBwtqTbjGuQ==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
     jsdoctypeparser "^9.0.0"
     refa "^0.9.0"
-    regexp-ast-analysis "^0.2.3"
+    regexp-ast-analysis "^0.2.4"
     regexpp "^3.2.0"
     scslre "^0.1.6"
 
@@ -5575,10 +5575,10 @@ regenerator-transform@^0.14.2:
   dependencies:
     "@babel/runtime" "^7.8.4"
 
-regexp-ast-analysis@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.3.tgz#1a2b12c11cf2ade01671f56d4d8fcea60a64db17"
-  integrity sha512-K/6d90dP1DI68HHdHORj9vVxV5oWkLB8F7LeGs70EdA/h5BIqkrK8SdGy+O9Ii+AVVPprF0Ia6f5UwgI+ahIcw==
+regexp-ast-analysis@^0.2.3, regexp-ast-analysis@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.4.tgz#a497a7c8bfbba51438693821e4b0e3ed43e20f1b"
+  integrity sha512-8L7kOZQaKPxKKAwGuUZxTQtlO3WZ+tiXy4s6G6PKL6trbOXcZoumwC3AOHHFtI/xoSbNxt7jgLvCnP1UADLWqg==
   dependencies:
     refa "^0.9.0"
     regexpp "^3.2.0"
