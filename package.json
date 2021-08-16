@@ -69,7 +69,7 @@
     "postcss": "8.2.7",
     "postcss-less": "5.0.0",
     "postcss-media-query-parser": "0.2.3",
-    "postcss-scss": "3.0.5",
+    "postcss-scss": "4.0.0",
     "postcss-selector-parser": "2.2.3",
     "postcss-values-parser": "2.0.1",
     "regexp-util": "1.2.2",
