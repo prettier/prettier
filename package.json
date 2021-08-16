@@ -109,6 +109,7 @@
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-formatter-friendly": "7.0.0",
+    "eslint-plugin-compat": "3.11.1",
     "eslint-plugin-import": "2.24.0",
     "eslint-plugin-jest": "24.4.0",
     "eslint-plugin-prettier-internal-rules": "2.0.1",
@@ -153,7 +154,7 @@
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.mjs",
     "lint:prettier": "prettier . \"!test*\" --check",
-    "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --env=es6,browser --parser-options=ecmaVersion:2019 \"dist/!(bin-prettier|index|third-party).js\"",
+    "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --config=./scripts/bundle-eslint-config.js \"dist/!(bin-prettier|index|third-party).js\"",
     "lint:spellcheck": "cspell --no-progress --relative",
     "lint:deps": "node ./scripts/check-deps.mjs",
     "lint:actionlint": "node-actionlint",
@@ -162,5 +163,11 @@
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.mjs",
     "build-docs": "node ./scripts/build-docs.mjs"
-  }
+  },
+  "browserslist": [
+    ">0.5%",
+    "not ie 11",
+    "not safari 5.1",
+    "not op_mini all"
+  ]
 }
