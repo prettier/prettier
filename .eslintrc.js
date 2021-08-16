@@ -109,7 +109,7 @@ module.exports = {
       {
         strictTypes: false,
       },
-     ],
+    ],
 
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
