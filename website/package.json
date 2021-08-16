@@ -17,10 +17,10 @@
     "@babel/preset-react": "7.14.5",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.2.2",
-    "concurrently": "6.2.0",
+    "concurrently": "6.2.1",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
-    "webpack": "5.49.0",
+    "webpack": "5.50.0",
     "webpack-cli": "4.7.2"
   }
 }
