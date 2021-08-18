@@ -5,3 +5,4 @@
 module.exports = require("../src/cli/index.js").run(process.argv.slice(2));
 // *********************************************
 let a = 5;
+// ****************
