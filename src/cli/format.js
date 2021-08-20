@@ -497,12 +497,12 @@ async function formatFiles(context) {
     } else {
       context.logger.warn(
         context.argv.write
-          ? "Code style issues found in " +
+          ? "Code style issues fixed in " +
               numberOfUnformattedFilesFound +
               " files."
           : "Code style issues found in " +
               numberOfUnformattedFilesFound +
-              " files. Forgot to run Prettier?"
+              " files. Run Prettier to fix."
       );
     }
   }
