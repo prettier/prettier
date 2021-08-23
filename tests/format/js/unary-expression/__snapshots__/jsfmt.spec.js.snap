@@ -309,33 +309,33 @@ async function bar2() {
 );
 
 !(x + y);
-!((x + y) /* foo */);
-!(/* foo */ (x + y));
+!(x + y /* foo */);
+!(/* foo */ x + y);
 !(
   /* foo */
-  (x + y)
+  x + y
 );
 !(
-  (x + y)
+  x + y
   /* foo */
 );
 !(
-  (x + y) // foo
+  x + y // foo
 );
 
 !(x || y);
-!(/* foo */ (x || y));
-!((x || y) /* foo */);
+!(/* foo */ x || y);
+!(x || y /* foo */);
 !(
   /* foo */
-  (x || y)
+  x || y
 );
 !(
-  (x || y)
+  x || y
   /* foo */
 );
 !(
-  (x || y) // foo
+  x || y // foo
 );
 
 ![1, 2, 3];
@@ -439,18 +439,18 @@ async function bar2() {
 );
 
 !(x = y);
-!((x = y) /* foo */);
-!(/* foo */ (x = y));
+!(x = y /* foo */);
+!(/* foo */ x = y);
 !(
   /* foo */
-  (x = y)
+  x = y
 );
 !(
-  (x = y)
+  x = y
   /* foo */
 );
 !(
-  (x = y) // foo
+  x = y // foo
 );
 
 !x.y;
@@ -469,18 +469,18 @@ async function bar2() {
 );
 
 !(x ? y : z);
-!((x ? y : z) /* foo */);
-!(/* foo */ (x ? y : z));
+!(x ? y : z /* foo */);
+!(/* foo */ x ? y : z);
 !(
   /* foo */
-  (x ? y : z)
+  x ? y : z
 );
 !(
-  (x ? y : z)
+  x ? y : z
   /* foo */
 );
 !(
-  (x ? y : z) // foo
+  x ? y : z // foo
 );
 
 !x();
@@ -514,14 +514,14 @@ async function bar2() {
 );
 
 !(x, y);
-!((x, y) /* foo */);
-!(/* foo */ (x, y));
+!(x, y /* foo */);
+!(/* foo */ x, y);
 !(
   /* foo */
-  (x, y)
+  x, y
 );
 !(
-  (x, y)
+  x, y
   /* foo */
 );
 !(
@@ -529,51 +529,51 @@ async function bar2() {
 );
 
 !(() => 3);
-!((() => 3) /* foo */);
-!(/* foo */ (() => 3));
+!(() => 3 /* foo */);
+!(/* foo */ () => 3);
 !(
   /* foo */
-  (() => 3)
+  () => 3
 );
 !(
-  (() => 3)
+  () => 3
   /* foo */
 );
 !(
-  (() => 3) // foo
+  () => 3 // foo
 );
 
 function* bar() {
   !(yield x);
-  !((yield x) /* foo */);
-  !(/* foo */ (yield x));
+  !(yield x /* foo */);
+  !(/* foo */ yield x);
   !(
     /* foo */
-    (yield x)
+    yield x
   );
   !(
-    (yield x)
+    yield x
     /* foo */
   );
   !(
-    (yield x) // foo
+    yield x // foo
   );
 }
 
 async function bar2() {
   !(await x);
-  !((await x) /* foo */);
-  !(/* foo */ (await x));
+  !(await x /* foo */);
+  !(/* foo */ await x);
   !(
     /* foo */
-    (await x)
+    await x
   );
   !(
-    (await x)
+    await x
     /* foo */
   );
   !(
-    (await x) // foo
+    await x // foo
   );
 }
 
