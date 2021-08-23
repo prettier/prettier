@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
 const {
-  builders: { line, group, indent, indentIfBreak },
+  builders: { group, ifBreak, indent, indentIfBreak, line, softline },
   utils: { cleanDoc, willBreak },
 } = require("../../document/index.js");
 const {
@@ -55,8 +55,14 @@ function printAssignment(
       ]);
     }
 
-    case "break-lhs":
-      return group([leftDoc, operator, " ", group(rightDoc)]);
+    case "break-lhs": {
+      return group([
+        makeTypeAnnotationBreakable(leftDoc),
+        operator,
+        " ",
+        group(rightDoc),
+      ]);
+    }
 
     // Parts of assignment chains aren't wrapped in groups.
     // Once one of them breaks, the chain breaks too.
@@ -459,6 +465,32 @@ function getTypeArgumentsFromCallExpression(node) {
     (node.typeParameters && node.typeParameters.params) ||
     (node.typeArguments && node.typeArguments.params)
   );
+}
+
+function makeTypeAnnotationBreakable(leftDoc) {
+  if (!Array.isArray(leftDoc)) {
+    return leftDoc;
+  }
+
+  const [variableName, space, typeAnnotationDoc] = leftDoc;
+
+  if (!typeAnnotationDoc || !Array.isArray(typeAnnotationDoc)) {
+    return leftDoc;
+  }
+
+  return [
+    variableName,
+    space,
+    [
+      typeAnnotationDoc[0],
+      group([
+        ifBreak("("),
+        indent([softline, typeAnnotationDoc[1]]),
+        softline,
+        ifBreak(")"),
+      ]),
+    ],
+  ];
 }
 
 module.exports = {

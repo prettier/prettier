@@ -401,20 +401,9 @@ function replaceTextEndOfLine(text, replacement = literalline) {
   return join(replacement, text.split("\n")).parts;
 }
 
-function canBreakFn(doc) {
-  if (doc.type === "line") {
-    return true;
-  }
-}
-
-function canBreak(doc) {
-  return findInDoc(doc, canBreakFn, false);
-}
-
 module.exports = {
   isConcat,
   getDocParts,
-  canBreak,
   willBreak,
   traverseDoc,
   findInDoc,
