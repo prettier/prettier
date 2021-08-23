@@ -14,7 +14,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  hasComment
+  hasComment,
 } = require("./utils.js");
 
 function needsParens(path, options) {
@@ -185,7 +185,7 @@ function needsParens(path, options) {
           node.type === "AssignmentExpression" ||
           node.type === "TSAsExpression" ||
           node.type === "TSTypeAssertion") &&
-		  hasComment(node)
+        hasComment(node)
       ) {
         return false;
       }
