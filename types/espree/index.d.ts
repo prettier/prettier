@@ -31,7 +31,7 @@ declare module "espree" {
       impliedStrict?: boolean;
     };
   }
-  // https://github.com/eslint/espree#options
+  // https://github.com/eslint/espree#parse
   export function parse(code: string, options?: Options): any;
   // https://github.com/eslint/espree#tokenize
   export function tokenize(code: string, options?: Options): any;
