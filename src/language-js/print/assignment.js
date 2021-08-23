@@ -55,9 +55,8 @@ function printAssignment(
       ]);
     }
 
-    case "break-lhs": {
+    case "break-lhs":
       return group([leftDoc, operator, " ", group(rightDoc)]);
-    }
 
     // Parts of assignment chains aren't wrapped in groups.
     // Once one of them breaks, the chain breaks too.
