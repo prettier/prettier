@@ -22,7 +22,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/prefer-indent-if-break.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-indent-if-break.js",
     },
     messages: {
       [messageId]: "Prefer `indentIfBreak(…)` over `ifBreak(indent(…), …)`.",

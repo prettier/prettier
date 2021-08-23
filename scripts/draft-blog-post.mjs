@@ -3,17 +3,22 @@
 import fs from "node:fs";
 import path from "node:path";
 import rimraf from "rimraf";
-import semver from "semver";
 import createEsmUtils from "esm-utils";
+import {
+  getEntries,
+  replaceVersions,
+  changelogUnreleasedDirPath,
+  changelogUnreleasedDirs,
+  printEntries,
+} from "./utils/changelog.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
-const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
 const introTemplateFile = path.join(
-  changelogUnreleasedDir,
+  changelogUnreleasedDirPath,
   "BLOG_POST_INTRO_TEMPLATE.md"
 );
-const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
+const introFile = path.join(changelogUnreleasedDirPath, "blog-post-intro.md");
 if (!fs.existsSync(introFile)) {
   fs.copyFileSync(introTemplateFile, introFile);
 }
@@ -50,46 +55,15 @@ const categoriesByDir = new Map(
   categories.map((category) => [category.dir, category])
 );
 
-const dirs = fs
-  .readdirSync(changelogUnreleasedDir, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory());
-
-for (const dir of dirs) {
-  const dirPath = path.join(changelogUnreleasedDir, dir.name);
+for (const dir of changelogUnreleasedDirs) {
+  const dirPath = path.join(changelogUnreleasedDirPath, dir.name);
   const category = categoriesByDir.get(dir.name);
 
   if (!category) {
     throw new Error("Unknown category: " + dir.name);
   }
 
-  category.entries = fs
-    .readdirSync(dirPath)
-    .filter((fileName) => /^\d+\.md$/.test(fileName))
-    .map((fileName) => {
-      const [title, ...rest] = fs
-        .readFileSync(path.join(dirPath, fileName), "utf8")
-        .trim()
-        .split("\n");
-
-      const improvement = title.match(/\[IMPROVEMENT(:(\d+))?]/);
-
-      const section = title.includes("[HIGHLIGHT]")
-        ? "highlight"
-        : title.includes("[BREAKING]")
-        ? "breaking"
-        : improvement
-        ? "improvement"
-        : undefined;
-
-      const order =
-        section === "improvement" && improvement[2] !== undefined
-          ? Number(improvement[2])
-          : undefined;
-
-      const content = [processTitle(title), ...rest].join("\n");
-
-      return { fileName, section, order, content };
-    });
+  category.entries = getEntries(dirPath);
 }
 
 rimraf.sync(postGlob);
@@ -100,54 +74,35 @@ fs.writeFileSync(
     [
       fs.readFileSync(introFile, "utf8").trim(),
       "<!--truncate-->",
-      ...printEntries({
+      ...printEntriesWithTitle({
         title: "Highlights",
         filter: (entry) => entry.section === "highlight",
       }),
-      ...printEntries({
+      ...printEntriesWithTitle({
         title: "Breaking Changes",
         filter: (entry) => entry.section === "breaking",
       }),
-      ...printEntries({
+      ...printEntriesWithTitle({
         title: "Formatting Improvements",
         filter: (entry) => entry.section === "improvement",
       }),
-      ...printEntries({
+      ...printEntriesWithTitle({
         title: "Other Changes",
         filter: (entry) => !entry.section,
       }),
-    ].join("\n\n") + "\n"
+    ].join("\n\n") + "\n",
+    previousVersion,
+    version
   )
 );
 
-function processTitle(title) {
-  return title
-    .replace(/\[(BREAKING|HIGHLIGHT|IMPROVEMENT(:\d+)?)]/g, "")
-    .replace(/\s+/g, " ")
-    .replace(/^#{4} [a-z]/, (s) => s.toUpperCase())
-    .replace(/(?<![[`])@([\w-]+)/g, "[@$1](https://github.com/$1)")
-    .replace(
-      /(?<![[`])#(\d{4,})/g,
-      "[#$1](https://github.com/prettier/prettier/pull/$1)"
-    );
-}
-
-function printEntries({ title, filter }) {
+function printEntriesWithTitle({ title, filter }) {
   const result = [];
 
   for (const { entries = [], title } of categories) {
     const filteredEntries = entries.filter(filter);
     if (filteredEntries.length > 0) {
-      filteredEntries.sort((a, b) => {
-        if (a.order !== undefined) {
-          return b.order === undefined ? 1 : a.order - b.order;
-        }
-        return a.fileName.localeCompare(b.fileName, "en", { numeric: true });
-      });
-      result.push(
-        "### " + title,
-        ...filteredEntries.map((entry) => entry.content)
-      );
+      result.push("###" + title, ...printEntries(filteredEntries));
     }
   }
 
@@ -156,14 +111,4 @@ function printEntries({ title, filter }) {
   }
 
   return result;
-}
-
-function formatVersion(version) {
-  return `${semver.major(version)}.${semver.minor(version)}`;
-}
-
-function replaceVersions(data) {
-  return data
-    .replace(/prettier stable/gi, `Prettier ${formatVersion(previousVersion)}`)
-    .replace(/prettier main/gi, `Prettier ${formatVersion(version)}`);
 }

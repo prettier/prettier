@@ -3,13 +3,21 @@
 const path = require("path");
 const minimatch = require("minimatch");
 const mem = require("mem");
-const thirdParty = require("../common/third-party");
+const thirdParty = require("../common/third-party.js");
 
-const loadToml = require("../utils/load-toml");
-const loadJson5 = require("../utils/load-json5");
-const resolve = require("../common/resolve");
-const resolveEditorConfig = require("./resolve-config-editorconfig");
+const loadToml = require("../utils/load-toml.js");
+const loadJson5 = require("../utils/load-json5.js");
+const resolve = require("../common/resolve.js");
+const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
+/**
+ * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
+ * @typedef {{sync: boolean; cache: boolean }} Options
+ */
+
+/**
+ * @type {(opts: Options) => Explorer}
+ */
 const getExplorerMemoized = mem(
   (opts) => {
     const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
@@ -58,7 +66,10 @@ const getExplorerMemoized = mem(
   { cacheKey: JSON.stringify }
 );
 
-/** @param {{ cache: boolean, sync: boolean }} opts */
+/**
+ * @param {Options} opts
+ * @return {Explorer}
+ */
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = { sync: false, cache: false, ...opts };

@@ -17,3 +17,17 @@ exports[`async-arrow-invalid.js [babel-flow] format 1`] = `
     | ^
   4 |"
 `;
+
+exports[`wrong-arrow-no-parens-jsx.js [babel] format 1`] = `
+"Unterminated JSX contents. (1:4)
+> 1 | <T>(a => b);
+    |    ^
+  2 |"
+`;
+
+exports[`wrong-arrow-no-parens-jsx.js [babel-flow] format 1`] = `
+"Unterminated JSX contents. (1:4)
+> 1 | <T>(a => b);
+    |    ^
+  2 |"
+`;

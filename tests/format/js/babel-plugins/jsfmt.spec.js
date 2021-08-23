@@ -4,7 +4,6 @@
 run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     espree: [
-      "class-properties.js",
       "decimal.js",
       "decorators.js",
       "do-expressions.js",
@@ -17,9 +16,8 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "partial-application.js",
       "pipeline-operator-fsharp.js",
       "pipeline-operator-minimal.js",
-      "pipeline-operator-smart.js",
+      "pipeline-operator-hack.js",
       "private-fields-in-in.js",
-      "private-methods.js",
       "record-tuple-record.js",
       "record-tuple-tuple.js",
       "throw-expressions.js",
@@ -42,7 +40,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "partial-application.js",
       "pipeline-operator-fsharp.js",
       "pipeline-operator-minimal.js",
-      "pipeline-operator-smart.js",
+      "pipeline-operator-hack.js",
       "record-tuple-record.js",
       "record-tuple-tuple.js",
       "throw-expressions.js",

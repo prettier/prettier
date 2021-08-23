@@ -11,13 +11,12 @@ const {
     join,
     line,
     softline,
-    literalline,
   },
-  utils: { getDocParts, replaceEndOfLineWith },
-} = require("../document");
-const { isNonEmptyArray } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
-const clean = require("./clean");
+  utils: { getDocParts, replaceTextEndOfLine },
+} = require("../document/index.js");
+const { isNonEmptyArray } = require("../common/util.js");
+const { locStart, locEnd } = require("./loc.js");
+const clean = require("./clean.js");
 const {
   getNextNode,
   getPreviousNode,
@@ -29,7 +28,7 @@ const {
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
-} = require("./utils");
+} = require("./utils.js");
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -225,7 +224,7 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceEndOfLineWith(text, literalline);
+        return replaceTextEndOfLine(text);
       }
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
@@ -418,24 +417,30 @@ function print(path, options, print) {
 
 /* ElementNode print helpers */
 
+function sortByLoc(a, b) {
+  return locStart(a) - locStart(b);
+}
+
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributesLike = ["attributes", "modifiers", "comments", "blockParams"]
-    .filter((property) => isNonEmptyArray(node[property]))
-    .map((property) => [
-      line,
-      property === "blockParams"
-        ? printBlockParams(node)
-        : join(line, path.map(print, property)),
-    ]);
+  const types = ["attributes", "modifiers", "comments"].filter((property) =>
+    isNonEmptyArray(node[property])
+  );
+  const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
-  return [
-    "<",
-    node.tag,
-    indent(attributesLike),
-    printStartingTagEndMarker(node),
-  ];
+  for (const attributeType of types) {
+    path.each((attributePath) => {
+      const index = attributes.indexOf(attributePath.getValue());
+      attributes.splice(index, 1, [line, print()]);
+    }, attributeType);
+  }
+
+  if (isNonEmptyArray(node.blockParams)) {
+    attributes.push(line, printBlockParams(node));
+  }
+
+  return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
 }
 
 function printChildren(path, options, print) {

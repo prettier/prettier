@@ -1,10 +1,10 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
-const constant = require("../../../src/cli/constant");
-const core = require("../../../src/cli/core");
-const arrayify = require("../../../src/utils/arrayify");
+const runPrettier = require("../runPrettier.js");
+const constant = require("../../../src/cli/constant.js");
+const core = require("../../../src/cli/core.js");
+const arrayify = require("../../../src/utils/arrayify.js");
 
 for (const option of arrayify(
   {

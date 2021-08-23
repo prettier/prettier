@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("exits with non-zero code when input has a syntax error", () => {
   runPrettier("cli/with-shebang", ["--parser", "babel"], {

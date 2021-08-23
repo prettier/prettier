@@ -1,8 +1,8 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
-const { isProduction } = require("../env");
+const runPrettier = require("../runPrettier.js");
+const { isProduction } = require("../env.js");
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({

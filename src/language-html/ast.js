@@ -1,7 +1,7 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util");
-const getLast = require("../utils/get-last");
+const { isNonEmptyArray } = require("../common/util.js");
+const getLast = require("../utils/get-last.js");
 
 const NODES_KEYS = {
   attrs: true,
@@ -58,7 +58,7 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      // @ts-ignore
+      // @ts-expect-error
       const { index, siblings, prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
         index,
@@ -72,6 +72,18 @@ class Node {
     return fn(newNode || this);
   }
 
+  walk(fn) {
+    for (const NODES_KEY in NODES_KEYS) {
+      const nodes = this[NODES_KEY];
+      if (nodes) {
+        for (let i = 0; i < nodes.length; i++) {
+          nodes[i].walk(fn);
+        }
+      }
+    }
+    fn(this);
+  }
+
   /**
    * @param {Object} [overrides]
    */
@@ -79,23 +91,30 @@ class Node {
     return new Node(overrides ? { ...this, ...overrides } : this);
   }
 
+  /**
+   * @param {Array} [children]
+   */
+  setChildren(children) {
+    this._setNodes("children", children);
+  }
+
   get firstChild() {
-    // @ts-ignore
+    // @ts-expect-error
     return isNonEmptyArray(this.children) ? this.children[0] : null;
   }
 
   get lastChild() {
-    // @ts-ignore
+    // @ts-expect-error
     return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
   // for element and attribute
   get rawName() {
-    // @ts-ignore
+    // @ts-expect-error
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
   get fullName() {
-    // @ts-ignore
+    // @ts-expect-error
     return this.namespace ? this.namespace + ":" + this.name : this.name;
   }
 }

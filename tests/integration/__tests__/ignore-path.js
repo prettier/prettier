@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 fs.writeFileSync(
   // This file is in `.gitignore`, just copy from `regular-module.js`

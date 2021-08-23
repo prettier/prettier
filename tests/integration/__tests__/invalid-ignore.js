@@ -2,9 +2,9 @@
 
 const path = require("path");
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("throw error with invalid ignore", () => {
   runPrettier("cli/invalid-ignore", ["something.js"]).test({

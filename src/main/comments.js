@@ -1,11 +1,10 @@
 "use strict";
 
-/** @type {import("assert")} */
 const assert = require("assert");
 
 const {
   builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
-} = require("../document");
+} = require("../document/index.js");
 
 const {
   hasNewline,
@@ -15,7 +14,7 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("../common/util");
+} = require("../common/util.js");
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {

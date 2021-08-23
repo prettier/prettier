@@ -1,9 +1,7 @@
-"use strict";
+import chalk from "chalk";
+import semver from "semver";
 
-const chalk = require("chalk");
-const semver = require("semver");
-
-module.exports = async function ({ version, previousVersion }) {
+export default function ({ version, previousVersion }) {
   if (!semver.valid(version)) {
     throw new Error("Invalid version specified");
   }
@@ -13,4 +11,4 @@ module.exports = async function ({ version, previousVersion }) {
       `Version ${chalk.yellow(version)} has already been published`
     );
   }
-};
+}

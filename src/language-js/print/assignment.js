@@ -1,10 +1,10 @@
 "use strict";
 
-const { isNonEmptyArray, getStringWidth } = require("../../common/util");
+const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
 const {
   builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc, willBreak },
-} = require("../../document");
+} = require("../../document/index.js");
 const {
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -19,9 +19,9 @@ const {
   isSignedNumericLiteral,
   isObjectProperty,
   isFunctionOrArrowExpression,
-} = require("../utils");
-const { shouldInlineLogicalExpression } = require("./binaryish");
-const { printCallExpression } = require("./call-expression");
+} = require("../utils.js");
+const { shouldInlineLogicalExpression } = require("./binaryish.js");
+const { printCallExpression } = require("./call-expression.js");
 
 function printAssignment(
   path,

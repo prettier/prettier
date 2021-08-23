@@ -1,7 +1,7 @@
 "use strict";
 
 const { isCI } = require("ci-info");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
   runPrettier(

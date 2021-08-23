@@ -22,7 +22,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-const CACHE_VERSION = "v35"; // This need update when updating build scripts
+const CACHE_VERSION = "v38"; // This need update when updating build scripts
 const statusConfig = [
   { color: "bgYellow", text: "CACHED" },
   { color: "bgGreen", text: "DONE" },
@@ -137,6 +137,7 @@ async function preparePackage() {
   pkg.engines.node = ">=10.13.0";
   delete pkg.dependencies;
   delete pkg.devDependencies;
+  delete pkg.browserslist;
   pkg.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
