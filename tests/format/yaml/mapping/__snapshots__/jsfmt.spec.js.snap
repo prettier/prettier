@@ -116,7 +116,8 @@ key2:
   <<: *default
 
 =====================================output=====================================
-key1: &default # This key ...
+key1: &default
+    # This key ...
     subkey1: value1
 
 key2:
@@ -140,7 +141,8 @@ key2:
   <<: *default
 
 =====================================output=====================================
-key1: &default # This key ...
+key1: &default
+  # This key ...
   subkey1: value1
 
 key2:
@@ -164,7 +166,8 @@ key2:
   <<: *default
 
 =====================================output=====================================
-key1: &default # This key
+key1: &default
+    # This key
     subkey1: value1
 
 key2:
@@ -187,7 +190,8 @@ key2:
   <<: *default
 
 =====================================output=====================================
-key1: &default # This key
+key1: &default
+  # This key
   subkey1: value1
 
 key2:
@@ -637,8 +641,7 @@ tabWidth: 4
 a: 123
 
 =====================================output=====================================
-!!map
-# comment 1
+!!map # comment 1
 # comment 2
 a: 123
 
@@ -656,8 +659,7 @@ printWidth: 80
 a: 123
 
 =====================================output=====================================
-!!map
-# comment 1
+!!map # comment 1
 # comment 2
 a: 123
 

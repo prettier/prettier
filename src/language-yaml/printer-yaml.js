@@ -91,7 +91,12 @@ function genericPrint(path, options, print) {
 
   if (hasMiddleComments(node)) {
     parts.push([
-      node.middleComments.length === 1 ? "" : hardline,
+      !anchor ||
+      (node.middleComments.length === 1 &&
+        node.middleComments[0].position.start.line ===
+          anchor.position.start.line)
+        ? ""
+        : hardline,
       join(hardline, path.map(print, "middleComments")),
       hardline,
     ]);
