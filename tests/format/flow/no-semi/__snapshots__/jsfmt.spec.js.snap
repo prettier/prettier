@@ -78,14 +78,14 @@ semi: false
 =====================================input======================================
 class A {
   +one = val();
-  +two = val()
+  +two = val();
   static +three = val()
 }
 
 =====================================output=====================================
 class A {
-  ;+one = val()
-  ;+two = val()
+  +one = val();
+  +two = val()
   static +three = val()
 }
 
@@ -100,7 +100,7 @@ printWidth: 80
 =====================================input======================================
 class A {
   +one = val();
-  +two = val()
+  +two = val();
   static +three = val()
 }
 

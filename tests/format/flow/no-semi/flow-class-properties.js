@@ -1,5 +1,5 @@
 class A {
   +one = val();
-  +two = val()
+  +two = val();
   static +three = val()
 }

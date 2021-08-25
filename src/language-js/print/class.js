@@ -214,9 +214,6 @@ function printClassProperty(path, options, print) {
     parts.push("readonly ");
   }
   if (node.variance) {
-    if (parts.length === 0 && !options.semi) {
-      parts.push(";");
-    }
     parts.push(print("variance"));
   }
   parts.push(
