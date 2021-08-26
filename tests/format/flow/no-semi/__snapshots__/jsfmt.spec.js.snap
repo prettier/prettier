@@ -2,7 +2,7 @@
 
 exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -37,7 +37,7 @@ x
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -71,7 +71,7 @@ x;
 
 exports[`flow-class-properties.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -94,7 +94,7 @@ class A {
 
 exports[`flow-class-properties.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -116,7 +116,7 @@ class A {
 
 exports[`flow-interfaces.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -202,7 +202,7 @@ interface E {
 
 exports[`flow-interfaces.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -287,7 +287,7 @@ interface E {
 
 exports[`no-semi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -308,7 +308,7 @@ semi: false
 
 exports[`no-semi.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["flow", "babel", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
