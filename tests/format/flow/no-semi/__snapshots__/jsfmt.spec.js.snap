@@ -79,14 +79,18 @@ semi: false
 class A {
   +one = val();
   +two = val();
-  static +three = val()
+  static +three = val();
+  +#privOne = val();
+  static +#privTwo = val();
 }
 
 =====================================output=====================================
 class A {
   +one = val();
   +two = val()
-  static +three = val()
+  static +three = val();
+  +#privOne = val()
+  static +#privTwo = val()
 }
 
 ================================================================================
@@ -101,7 +105,9 @@ printWidth: 80
 class A {
   +one = val();
   +two = val();
-  static +three = val()
+  static +three = val();
+  +#privOne = val();
+  static +#privTwo = val();
 }
 
 =====================================output=====================================
@@ -109,6 +115,8 @@ class A {
   +one = val();
   +two = val();
   static +three = val();
+  +#privOne = val();
+  static +#privTwo = val();
 }
 
 ================================================================================
