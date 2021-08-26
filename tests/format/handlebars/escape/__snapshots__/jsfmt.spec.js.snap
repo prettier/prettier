@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`backslash.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<DateFormat @pathFormat="dateFormat:YYYY-MM-DD hh\:mm\:ss" />
+
+
+=====================================output=====================================
+<DateFormat @pathFormat="dateFormat:YYYY-MM-DD hh\:mm\:ss" />
+================================================================================
+`;
+
 exports[`html-entities.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
