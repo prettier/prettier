@@ -4,6 +4,7 @@ const {
   builders: { hardline, indent, join },
 } = require("../document/index.js");
 const preprocess = require("./print-preprocess.js");
+const { isJsonSourceElement } = require("./utils.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -113,4 +114,5 @@ module.exports = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
+  isSourceElement: (opts, node, parentNode) => isJsonSourceElement(node),
 };

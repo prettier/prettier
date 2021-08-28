@@ -609,6 +609,25 @@ function hasPrettierIgnore(path) {
   );
 }
 
+const graphqlSourceElements = new Set([
+  "OperationDefinition",
+  "FragmentDefinition",
+  "VariableDefinition",
+  "TypeExtensionDefinition",
+  "ObjectTypeDefinition",
+  "FieldDefinition",
+  "DirectiveDefinition",
+  "EnumTypeDefinition",
+  "EnumValueDefinition",
+  "InputValueDefinition",
+  "InputObjectTypeDefinition",
+  "SchemaDefinition",
+  "OperationTypeDefinition",
+  "InterfaceTypeDefinition",
+  "UnionTypeDefinition",
+  "ScalarTypeDefinition",
+]);
+
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
@@ -616,4 +635,7 @@ module.exports = {
   insertPragma,
   printComment,
   canAttachComment,
+  isSourceElement: (opts, node, parentNode) => {
+    return graphqlSourceElements.has(node.kind);
+  },
 };

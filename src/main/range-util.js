@@ -6,7 +6,11 @@ const comments = require("./comments.js");
 const isJsonParser = ({ parser }) =>
   parser === "json" || parser === "json5" || parser === "json-stringify";
 
-function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
+function findCommonAncestor(
+  startNodeAndParents,
+  endNodeAndParents,
+  isSourceElement
+) {
   const startNodeAndAncestors = [
     startNodeAndParents.node,
     ...startNodeAndParents.parentNodes,
@@ -16,7 +20,7 @@ function findCommonAncestor(startNodeAndParents, endNodeAndParents) {
     ...endNodeAndParents.parentNodes,
   ]);
   return startNodeAndAncestors.find(
-    (node) => jsonSourceElements.has(node.type) && endNodeAndAncestors.has(node)
+    (node) => isSourceElement(node) && endNodeAndAncestors.has(node)
   );
 }
 
@@ -115,76 +119,6 @@ function findNodeAtOffset(
   }
 }
 
-// See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
-function isJsSourceElement(type, parentType) {
-  return (
-    parentType !== "DeclareExportDeclaration" &&
-    type !== "TypeParameterDeclaration" &&
-    (type === "Directive" ||
-      type === "TypeAlias" ||
-      type === "TSExportAssignment" ||
-      type.startsWith("Declare") ||
-      type.startsWith("TSDeclare") ||
-      type.endsWith("Statement") ||
-      type.endsWith("Declaration"))
-  );
-}
-
-const jsonSourceElements = new Set([
-  "ObjectExpression",
-  "ArrayExpression",
-  "StringLiteral",
-  "NumericLiteral",
-  "BooleanLiteral",
-  "NullLiteral",
-  "UnaryExpression",
-  "TemplateLiteral",
-]);
-const graphqlSourceElements = new Set([
-  "OperationDefinition",
-  "FragmentDefinition",
-  "VariableDefinition",
-  "TypeExtensionDefinition",
-  "ObjectTypeDefinition",
-  "FieldDefinition",
-  "DirectiveDefinition",
-  "EnumTypeDefinition",
-  "EnumValueDefinition",
-  "InputValueDefinition",
-  "InputObjectTypeDefinition",
-  "SchemaDefinition",
-  "OperationTypeDefinition",
-  "InterfaceTypeDefinition",
-  "UnionTypeDefinition",
-  "ScalarTypeDefinition",
-]);
-function isSourceElement(opts, node, parentNode) {
-  /* istanbul ignore next */
-  if (!node) {
-    return false;
-  }
-  switch (opts.parser) {
-    case "flow":
-    case "babel":
-    case "babel-flow":
-    case "babel-ts":
-    case "typescript":
-    case "espree":
-    case "meriyah":
-    case "__babel_estree":
-      return isJsSourceElement(node.type, parentNode && parentNode.type);
-    case "json":
-    case "json5":
-    case "json-stringify":
-      return jsonSourceElements.has(node.type);
-    case "graphql":
-      return graphqlSourceElements.has(node.kind);
-    case "vue":
-      return node.tag !== "root";
-  }
-  return false;
-}
-
 function calculateRange(text, opts, ast) {
   let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
   assert.ok(end > start);
@@ -200,6 +134,13 @@ function calculateRange(text, opts, ast) {
       }
     }
   }
+
+  const { printer } = opts;
+
+  const isSourceElement =
+    typeof printer.isSourceElement === "function"
+      ? printer.isSourceElement
+      : () => false;
 
   const startNodeAndParents = findNodeAtOffset(
     ast,
@@ -233,7 +174,8 @@ function calculateRange(text, opts, ast) {
   if (isJsonParser(opts)) {
     const commonAncestor = findCommonAncestor(
       startNodeAndParents,
-      endNodeAndParents
+      endNodeAndParents,
+      (node) => isSourceElement(opts, node)
     );
     startNode = commonAncestor;
     endNode = commonAncestor;

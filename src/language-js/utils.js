@@ -1310,6 +1310,20 @@ function isObjectProperty(node) {
   );
 }
 
+const jsonSourceElements = new Set([
+  "ObjectExpression",
+  "ArrayExpression",
+  "StringLiteral",
+  "NumericLiteral",
+  "BooleanLiteral",
+  "NullLiteral",
+  "UnaryExpression",
+  "TemplateLiteral",
+]);
+function isJsonSourceElement(node) {
+  return jsonSourceElements.has(node.type);
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1342,6 +1356,7 @@ module.exports = {
   isFunctionOrArrowExpression,
   isGetterOrSetter,
   isJestEachTemplateLiteral,
+  isJsonSourceElement,
   isJsxNode,
   isLiteral,
   isLongCurriedCallExpression,
