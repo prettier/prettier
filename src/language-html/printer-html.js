@@ -60,6 +60,7 @@ const {
   isVueEventBindingExpression,
 } = require("./syntax-vue.js");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
+const isSourceElement = require("./is-source-element.js");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -1180,10 +1181,5 @@ module.exports = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  isSourceElement: (node, parentNode, opts) => {
-    if (opts.parser === "vue") {
-      return node.tag !== "root";
-    }
-    return false;
-  },
+  isSourceElement,
 };

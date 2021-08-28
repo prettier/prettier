@@ -6,6 +6,7 @@ const {
 const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
+const isSourceElement = require("./is-source-element.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -609,25 +610,6 @@ function hasPrettierIgnore(path) {
   );
 }
 
-const graphqlSourceElements = new Set([
-  "OperationDefinition",
-  "FragmentDefinition",
-  "VariableDefinition",
-  "TypeExtensionDefinition",
-  "ObjectTypeDefinition",
-  "FieldDefinition",
-  "DirectiveDefinition",
-  "EnumTypeDefinition",
-  "EnumValueDefinition",
-  "InputValueDefinition",
-  "InputObjectTypeDefinition",
-  "SchemaDefinition",
-  "OperationTypeDefinition",
-  "InterfaceTypeDefinition",
-  "UnionTypeDefinition",
-  "ScalarTypeDefinition",
-]);
-
 module.exports = {
   print: genericPrint,
   massageAstNode: clean,
@@ -635,5 +617,5 @@ module.exports = {
   insertPragma,
   printComment,
   canAttachComment,
-  isSourceElement: (node) => graphqlSourceElements.has(node.kind),
+  isSourceElement,
 };

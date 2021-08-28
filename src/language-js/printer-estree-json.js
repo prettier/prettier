@@ -110,9 +110,13 @@ function clean(node, newNode /*, parent*/) {
 
 clean.ignoredProperties = ignoredProperties;
 
+function isSourceElement(node) {
+  return isJsonSourceElement(node);
+}
+
 module.exports = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  isSourceElement: (node) => isJsonSourceElement(node),
+  isSourceElement,
 };
