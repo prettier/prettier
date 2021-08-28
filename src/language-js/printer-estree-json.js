@@ -114,5 +114,5 @@ module.exports = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  isSourceElement: (opts, node, parentNode) => isJsonSourceElement(node),
+  isSourceElement: (node) => isJsonSourceElement(node),
 };

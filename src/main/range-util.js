@@ -146,7 +146,7 @@ function calculateRange(text, opts, ast) {
     ast,
     start,
     opts,
-    (node, parentNode) => isSourceElement(opts, node, parentNode),
+    (node, parentNode) => isSourceElement(node, parentNode, opts),
     [],
     "rangeStart"
   );
@@ -158,7 +158,7 @@ function calculateRange(text, opts, ast) {
           ast,
           end,
           opts,
-          (node) => isSourceElement(opts, node),
+          (node) => isSourceElement(node, undefined, opts),
           [],
           "rangeEnd"
         );
@@ -175,7 +175,7 @@ function calculateRange(text, opts, ast) {
     const commonAncestor = findCommonAncestor(
       startNodeAndParents,
       endNodeAndParents,
-      (node) => isSourceElement(opts, node)
+      (node) => isSourceElement(node, undefined, opts)
     );
     startNode = commonAncestor;
     endNode = commonAncestor;

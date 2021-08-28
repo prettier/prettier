@@ -1180,7 +1180,7 @@ module.exports = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  isSourceElement: (opts, node, parentNode) => {
+  isSourceElement: (node, parentNode, opts) => {
     if (opts.parser === "vue") {
       return node.tag !== "root";
     }

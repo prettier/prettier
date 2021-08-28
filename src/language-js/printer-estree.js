@@ -814,7 +814,7 @@ module.exports = {
     remaining: handleComments.handleRemainingComment,
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
-  isSourceElement: (opts, node, parentNode) => {
+  isSourceElement: (node, parentNode, opts) => {
     if (
       opts.parser === "json" ||
       opts.parser === "json5" ||

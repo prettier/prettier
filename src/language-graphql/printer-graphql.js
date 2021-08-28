@@ -635,7 +635,5 @@ module.exports = {
   insertPragma,
   printComment,
   canAttachComment,
-  isSourceElement: (opts, node, parentNode) => {
-    return graphqlSourceElements.has(node.kind);
-  },
+  isSourceElement: (node) => graphqlSourceElements.has(node.kind),
 };
