@@ -319,7 +319,7 @@ Returns whether or not the AST node is a block comment.
 function isSourceElement(node, parentNode, options): boolean;
 ```
 
-Returns whether node is a source element. Required to implement [range formatting](https://prettier.io/docs/en/options.html#range).
+Returns whether node is a source element. Required to implement [range formatting](https://prettier.io/docs/en/options.html#range). See https://github.com/prettier/prettier/issues/7639 for more details.
 
 #### (optional) `handleComments`
 
