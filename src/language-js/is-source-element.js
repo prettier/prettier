@@ -1,6 +1,6 @@
 "use strict";
 
-const { isJsonSourceElement } = require("./utils");
+const { isJsonSourceElement } = require("./utils.js");
 
 function isSourceElement(node, parentNode, opts) {
   if (
