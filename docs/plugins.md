@@ -148,6 +148,7 @@ export const printers = {
       endOfLine,
       remaining,
     },
+    isSourceElement,
   },
 };
 ```
@@ -311,6 +312,14 @@ function isBlockComment(node: AST): boolean;
 ```
 
 Returns whether or not the AST node is a block comment.
+
+### (optional) `isSourceElement`
+
+```ts
+function isSourceElement(node, parentNode, options): boolean;
+```
+
+Returns whether node is a source element. Required to implement [range formatting](https://prettier.io/docs/en/options.html#range).
 
 #### (optional) `handleComments`
 
