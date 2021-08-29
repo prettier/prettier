@@ -98,7 +98,7 @@
     "@rollup/plugin-node-resolve": "13.0.4",
     "@rollup/plugin-replace": "3.0.0",
     "@types/estree": "0.0.50",
-    "babel-jest": "27.0.6",
+    "babel-jest": "27.1.0",
     "babel-loader": "8.2.2",
     "benchmark": "2.1.4",
     "builtin-modules": "3.2.0",
