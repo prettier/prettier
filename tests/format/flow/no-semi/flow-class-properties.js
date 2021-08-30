@@ -1,7 +1,8 @@
 class A {
-  +one = val();
-  +two = val();
+  +one = function() {};
+  -two = val();
   static +three = val();
   +#privOne = val();
   static +#privTwo = val();
+  [computed] = val();
 }
