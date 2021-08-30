@@ -204,8 +204,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   // Flow variance sigil +/- requires semi if there's no
   // "declare" or "static" keyword before it.
   if (
-    (nextNode.type === "ClassProperty" ||
-      nextNode.type === "ClassPrivateProperty") &&
+    isClassProperty(nextNode) &&
     nextNode.variance &&
     !nextNode.static &&
     !nextNode.declare
