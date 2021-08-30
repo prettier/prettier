@@ -236,117 +236,7 @@ function genericPrint(path, options, print) {
       return [group(printChildren(path, options, print)), hardline];
     case "element":
     case "ieConditionalComment": {
-      if (shouldPreserveContent(node, options)) {
-        return [
-          printOpeningTagPrefix(node, options),
-          group(printOpeningTag(path, options, print)),
-          ...replaceTextEndOfLine(getNodeContent(node, options)),
-          ...printClosingTag(node, options),
-          printClosingTagSuffix(node, options),
-        ];
-      }
-      /**
-       * do not break:
-       *
-       *     <div>{{
-       *         ~
-       *       interpolation
-       *     }}</div>
-       *            ~
-       *
-       * exception: break if the opening tag breaks
-       *
-       *     <div
-       *       long
-       *           ~
-       *       >{{
-       *         interpolation
-       *       }}</div
-       *              ~
-       *     >
-       */
-      const shouldHugContent =
-        node.children.length === 1 &&
-        node.firstChild.type === "interpolation" &&
-        node.firstChild.isLeadingSpaceSensitive &&
-        !node.firstChild.hasLeadingSpaces &&
-        node.lastChild.isTrailingSpaceSensitive &&
-        !node.lastChild.hasTrailingSpaces;
-      const attrGroupId = Symbol("element-attr-group-id");
-      if (node.children.length === 0) {
-        return [
-          group([
-            group(printOpeningTag(path, options, print), { id: attrGroupId }),
-            node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : "",
-          ]),
-          printClosingTag(node, options),
-        ];
-      }
-      return [
-        group([
-          group(printOpeningTag(path, options, print), { id: attrGroupId }),
-          forceBreakContent(node) ? breakParent : "",
-          ((childrenDoc) =>
-            shouldHugContent
-              ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
-              : (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
-                node.parent.type === "root" &&
-                options.parser === "vue" &&
-                !options.vueIndentScriptAndStyle
-              ? childrenDoc
-              : indent(childrenDoc))([
-            shouldHugContent
-              ? ifBreak(softline, "", { groupId: attrGroupId })
-              : node.firstChild.hasLeadingSpaces &&
-                node.firstChild.isLeadingSpaceSensitive
-              ? line
-              : node.firstChild.type === "text" &&
-                node.isWhitespaceSensitive &&
-                node.isIndentationSensitive
-              ? dedentToRoot(softline)
-              : softline,
-            printChildren(path, options, print),
-          ]),
-          (
-            node.next
-              ? needsToBorrowPrevClosingTagEndMarker(node.next)
-              : needsToBorrowLastChildClosingTagEndMarker(node.parent)
-          )
-            ? node.lastChild.hasTrailingSpaces &&
-              node.lastChild.isTrailingSpaceSensitive
-              ? " "
-              : ""
-            : shouldHugContent
-            ? ifBreak(softline, "", { groupId: attrGroupId })
-            : node.lastChild.hasTrailingSpaces &&
-              node.lastChild.isTrailingSpaceSensitive
-            ? line
-            : (node.lastChild.type === "comment" ||
-                (node.lastChild.type === "text" &&
-                  node.isWhitespaceSensitive &&
-                  node.isIndentationSensitive)) &&
-              new RegExp(
-                `\\n[\\t ]{${
-                  options.tabWidth *
-                  countParents(
-                    path,
-                    (node) => node.parent && node.parent.type !== "root"
-                  )
-                }}$`
-              ).test(node.lastChild.value)
-            ? /**
-               *     <div>
-               *       <pre>
-               *         something
-               *       </pre>
-               *            ~
-               *     </div>
-               */
-              ""
-            : softline,
-        ]),
-        printClosingTag(node, options),
-      ];
+      return printElement(path, options, print);
     }
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
@@ -427,6 +317,124 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
+}
+
+function printElement(path, options, print) {
+  const node = path.getValue();
+
+  if (shouldPreserveContent(node, options)) {
+    return [
+      printOpeningTagPrefix(node, options),
+      group(printOpeningTag(path, options, print)),
+      ...replaceTextEndOfLine(getNodeContent(node, options)),
+      ...printClosingTag(node, options),
+      printClosingTagSuffix(node, options),
+    ];
+  }
+  /**
+   * do not break:
+   *
+   *     <div>{{
+   *         ~
+   *       interpolation
+   *     }}</div>
+   *            ~
+   *
+   * exception: break if the opening tag breaks
+   *
+   *     <div
+   *       long
+   *           ~
+   *       >{{
+   *         interpolation
+   *       }}</div
+   *              ~
+   *     >
+   */
+  const shouldHugContent =
+    node.children.length === 1 &&
+    node.firstChild.type === "interpolation" &&
+    node.firstChild.isLeadingSpaceSensitive &&
+    !node.firstChild.hasLeadingSpaces &&
+    node.lastChild.isTrailingSpaceSensitive &&
+    !node.lastChild.hasTrailingSpaces;
+
+  const attrGroupId = Symbol("element-attr-group-id");
+
+  const printTag = (doc) =>
+    group([
+      group(printOpeningTag(path, options, print), { id: attrGroupId }),
+      doc,
+      printClosingTag(node, options),
+    ]);
+
+  if (node.children.length === 0) {
+    return printTag(
+      node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
+    );
+  }
+
+  return printTag([
+    forceBreakContent(node) ? breakParent : "",
+    ((childrenDoc) =>
+      shouldHugContent
+        ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
+        : (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
+          node.parent.type === "root" &&
+          options.parser === "vue" &&
+          !options.vueIndentScriptAndStyle
+        ? childrenDoc
+        : indent(childrenDoc))([
+      shouldHugContent
+        ? ifBreak(softline, "", { groupId: attrGroupId })
+        : node.firstChild.hasLeadingSpaces &&
+          node.firstChild.isLeadingSpaceSensitive
+        ? line
+        : node.firstChild.type === "text" &&
+          node.isWhitespaceSensitive &&
+          node.isIndentationSensitive
+        ? dedentToRoot(softline)
+        : softline,
+      printChildren(path, options, print),
+    ]),
+    (
+      node.next
+        ? needsToBorrowPrevClosingTagEndMarker(node.next)
+        : needsToBorrowLastChildClosingTagEndMarker(node.parent)
+    )
+      ? node.lastChild.hasTrailingSpaces &&
+        node.lastChild.isTrailingSpaceSensitive
+        ? " "
+        : ""
+      : shouldHugContent
+      ? ifBreak(softline, "", { groupId: attrGroupId })
+      : node.lastChild.hasTrailingSpaces &&
+        node.lastChild.isTrailingSpaceSensitive
+      ? line
+      : (node.lastChild.type === "comment" ||
+          (node.lastChild.type === "text" &&
+            node.isWhitespaceSensitive &&
+            node.isIndentationSensitive)) &&
+        new RegExp(
+          `\\n[\\t ]{${
+            options.tabWidth *
+            countParents(
+              path,
+              (node) => node.parent && node.parent.type !== "root"
+            )
+          }}$`
+        ).test(node.lastChild.value)
+      ? /**
+         *     <div>
+         *       <pre>
+         *         something
+         *       </pre>
+         *            ~
+         *     </div>
+         */
+        ""
+      : softline,
+  ]);
 }
 
 function printChildren(path, options, print) {
