@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow", "babel"]);
-run_spec(__dirname, ["flow", "babel"], { semi: false });
+run_spec(__dirname, ["flow", "babel", "babel-flow"]);
+run_spec(__dirname, ["flow", "babel", "babel-flow"], { semi: false });
