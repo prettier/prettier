@@ -41,9 +41,10 @@ const { __dirname } = createEsmUtils(import.meta);
 
   const newChangelog = await createChangelog(title, user, prNumber, category);
 
-  await addNewChangelog(prNumber, category, newChangelog);
+  const changelogPath = await addNewChangelog(prNumber, category, newChangelog);
 
-  console.log("Done");
+  const relativePath = path.relative(path.join(__dirname, ".."), changelogPath);
+  console.log("Generated changelog file: " + relativePath);
 })();
 
 /**
@@ -76,7 +77,7 @@ async function getPr(prNumber) {
  * @param {number} prNumber
  * @param {string} category
  * @param {string} newChangelog
- * @returns {Promise<void>}
+ * @returns {Promise<string>}
  */
 async function addNewChangelog(prNumber, category, newChangelog) {
   const newChangelogPath = path.resolve(
@@ -84,6 +85,7 @@ async function addNewChangelog(prNumber, category, newChangelog) {
     `../changelog_unreleased/${category}/${prNumber}.md`
   );
   await fs.writeFile(newChangelogPath, newChangelog);
+  return newChangelogPath;
 }
 
 /**
