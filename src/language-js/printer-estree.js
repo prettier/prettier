@@ -15,7 +15,6 @@ const { insertPragma } = require("./pragma.js");
 const handleComments = require("./comments.js");
 const pathNeedsParens = require("./needs-parens.js");
 const preprocess = require("./print-preprocess.js");
-const isSourceElement = require("./is-source-element.js");
 const {
   hasFlowShorthandAnnotationComment,
   hasComment,
@@ -814,5 +813,4 @@ module.exports = {
     remaining: handleComments.handleRemainingComment,
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
-  isSourceElement,
 };

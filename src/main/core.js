@@ -146,7 +146,12 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
 function formatRange(originalText, opts) {
   const { ast, text } = parser.parse(originalText, opts);
-  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
+  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(
+    text,
+    opts,
+    ast,
+    parser.resolveParser(opts)
+  );
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.

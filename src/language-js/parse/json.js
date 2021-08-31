@@ -2,6 +2,7 @@
 
 const { isNonEmptyArray } = require("../../common/util.js");
 const createError = require("../../common/parser-create-error.js");
+const { isJsonSourceElement, findJsonAncestors } = require("../range-utils.js");
 const createParser = require("./utils/create-parser.js");
 const createBabelParseError = require("./utils/create-babel-parse-error.js");
 
@@ -131,14 +132,23 @@ function assertJsonNode(node) {
 
 const parseJson = createJsonParse();
 
+const rangeUtils = {
+  isSourceElement: isJsonSourceElement,
+  findAncestors: findJsonAncestors,
+};
+
 const jsonParsers = {
   json: createParser({
     parse: parseJson,
     hasPragma() {
       return true;
     },
+    rangeUtils,
   }),
-  json5: createParser(parseJson),
+  json5: createParser({
+    parse: parseJson,
+    rangeUtils,
+  }),
   "json-stringify": createParser({
     parse: createJsonParse({ allowComments: false }),
     astFormat: "estree-json",

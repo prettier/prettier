@@ -23,4 +23,4 @@ function isSourceElement(node) {
   return graphqlSourceElements.has(node.kind);
 }
 
-module.exports = isSourceElement;
+module.exports = { isSourceElement };

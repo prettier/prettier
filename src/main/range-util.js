@@ -3,27 +3,6 @@
 const assert = require("assert");
 const comments = require("./comments.js");
 
-const isJsonParser = ({ parser }) =>
-  parser === "json" || parser === "json5" || parser === "json-stringify";
-
-function findCommonAncestor(
-  startNodeAndParents,
-  endNodeAndParents,
-  isSourceElement
-) {
-  const startNodeAndAncestors = [
-    startNodeAndParents.node,
-    ...startNodeAndParents.parentNodes,
-  ];
-  const endNodeAndAncestors = new Set([
-    endNodeAndParents.node,
-    ...endNodeAndParents.parentNodes,
-  ]);
-  return startNodeAndAncestors.find(
-    (node) => isSourceElement(node) && endNodeAndAncestors.has(node)
-  );
-}
-
 function dropRootParents(parents) {
   let lastParentIndex = parents.length - 1;
   for (;;) {
@@ -119,7 +98,32 @@ function findNodeAtOffset(
   }
 }
 
-function calculateRange(text, opts, ast) {
+/**
+ * @param {any} parser
+ * @returns {{
+ *   isSourceElement: (node: any, parentNode: any, opts: any) => boolean
+ *   findAncestors: (startNodeAndParents: any, endNodeAndParents: any, opts: any) => { startNode: any; endNode: any; }
+ * }}
+ */
+function getParserRangeUtils(parser) {
+  const { rangeUtils } = parser;
+  let isSourceElement = () => false;
+  let findAncestors = findSiblingAncestors;
+  if (rangeUtils) {
+    if (Object.prototype.hasOwnProperty.call(rangeUtils, "isSourceElement")) {
+      isSourceElement = rangeUtils.isSourceElement;
+    }
+    if (Object.prototype.hasOwnProperty.call(rangeUtils, "findAncestors")) {
+      findAncestors = rangeUtils.findAncestors;
+    }
+  }
+  return {
+    isSourceElement,
+    findAncestors,
+  };
+}
+
+function calculateRange(text, opts, ast, selectedParser) {
   let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
   assert.ok(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
@@ -135,12 +139,8 @@ function calculateRange(text, opts, ast) {
     }
   }
 
-  const { printer } = opts;
-
-  const isSourceElement =
-    typeof printer.isSourceElement === "function"
-      ? printer.isSourceElement
-      : () => false;
+  const { isSourceElement, findAncestors } =
+    getParserRangeUtils(selectedParser);
 
   const startNodeAndParents = findNodeAtOffset(
     ast,
@@ -169,23 +169,11 @@ function calculateRange(text, opts, ast) {
     };
   }
 
-  let startNode;
-  let endNode;
-  if (isJsonParser(opts)) {
-    const commonAncestor = findCommonAncestor(
-      startNodeAndParents,
-      endNodeAndParents,
-      (node) => isSourceElement(node, undefined, opts)
-    );
-    startNode = commonAncestor;
-    endNode = commonAncestor;
-  } else {
-    ({ startNode, endNode } = findSiblingAncestors(
-      startNodeAndParents,
-      endNodeAndParents,
-      opts
-    ));
-  }
+  const { startNode, endNode } = findAncestors(
+    startNodeAndParents,
+    endNodeAndParents,
+    opts
+  );
 
   return {
     rangeStart: Math.min(locStart(startNode), locStart(endNode)),

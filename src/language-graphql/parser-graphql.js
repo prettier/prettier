@@ -4,6 +4,7 @@ const createError = require("../common/parser-create-error.js");
 const tryCombinations = require("../utils/try-combinations.js");
 const { hasPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
+const { isSourceElement } = require("./range-utils.js");
 
 function parseComments(ast) {
   const comments = [];
@@ -82,6 +83,9 @@ module.exports = {
       hasPragma,
       locStart,
       locEnd,
+      rangeUtils: {
+        isSourceElement,
+      },
     },
   },
 };

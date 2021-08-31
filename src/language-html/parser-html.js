@@ -18,6 +18,7 @@ const { hasPragma } = require("./pragma.js");
 const { Node } = require("./ast.js");
 const { parseIeConditionalComment } = require("./conditional-comment.js");
 const { locStart, locEnd } = require("./loc.js");
+const { isVueSourceElement } = require("./range-utils.js");
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -28,6 +29,7 @@ const { locStart, locEnd } = require("./loc.js");
  *   recognizeSelfClosing?: boolean;
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
+ *   rangeUtils?: any;
  * }} ParserOptions
  * @typedef {{
  *   parser: 'html' | 'angular' | 'vue' | 'lwc',
@@ -371,6 +373,7 @@ function createParser({
   allowHtmComponentClosingTags = false,
   isTagNameCaseSensitive = false,
   getTagContentType,
+  rangeUtils,
 } = {}) {
   return {
     parse: (text, parsers, options) =>
@@ -386,6 +389,7 @@ function createParser({
     astFormat: "html",
     locStart,
     locEnd,
+    rangeUtils,
   };
 }
 
@@ -412,6 +416,9 @@ module.exports = {
         ) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
+      },
+      rangeUtils: {
+        isSourceElement: isVueSourceElement,
       },
     }),
     lwc: createParser(),

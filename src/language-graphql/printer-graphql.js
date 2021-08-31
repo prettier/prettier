@@ -6,7 +6,6 @@ const {
 const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
-const isSourceElement = require("./is-source-element.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -617,5 +616,4 @@ module.exports = {
   insertPragma,
   printComment,
   canAttachComment,
-  isSourceElement,
 };
