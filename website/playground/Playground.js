@@ -23,6 +23,13 @@ const CATEGORIES_ORDER = [
   "HTML",
   "Special",
 ];
+const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
+const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
+const COPY_MESSAGE =
+  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
+
+const isProduction = location.host === "prettier.io";
+const isPreview = location.host.includes("netlify.app");
 const ENABLED_OPTIONS = [
   "parser",
   "printWidth",
@@ -37,16 +44,19 @@ const ENABLED_OPTIONS = [
   "trailingComma",
   "proseWrap",
   "htmlWhitespaceSensitivity",
-  "bracketSameLine",
   "insertPragma",
   "requirePragma",
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
 ];
-const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
-const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
-const COPY_MESSAGE =
-  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
+// "jsxBracketSameLine" will be deprecated in 2.4
+if (isProduction) {
+  ENABLED_OPTIONS.push("jsxBracketSameLine");
+}
+// "bracketSameLine" will be landed in 2.4
+if (isPreview) {
+  ENABLED_OPTIONS.push("bracketSameLine");
+}
 
 class Playground extends React.Component {
   constructor(props) {
