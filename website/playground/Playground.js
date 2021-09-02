@@ -49,7 +49,7 @@ const ENABLED_OPTIONS = [
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
 ];
-// "jsxBracketSameLine" will be deprected in 2.4
+// "jsxBracketSameLine" will be deprecated in 2.4
 if (isProduction) {
   ENABLED_OPTIONS.push("jsxBracketSameLine");
 }
