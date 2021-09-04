@@ -383,6 +383,26 @@ function printElement(path, options, print) {
     return indent(childrenDoc);
   };
 
+  const printBeforeChildrenLine = () => {
+    if (shouldHugContent) {
+      return ifBreak(softline, "", { groupId: attrGroupId });
+    }
+    if (
+      node.firstChild.hasLeadingSpaces &&
+      node.firstChild.isLeadingSpaceSensitive
+    ) {
+      return line;
+    }
+    if (
+      node.firstChild.type === "text" &&
+      node.isWhitespaceSensitive &&
+      node.isIndentationSensitive
+    ) {
+      return dedentToRoot(softline);
+    }
+    return softline;
+  };
+
   if (node.children.length === 0) {
     return printTag(
       node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
@@ -392,16 +412,7 @@ function printElement(path, options, print) {
   return printTag([
     forceBreakContent(node) ? breakParent : "",
     printChildrenDoc([
-      shouldHugContent
-        ? ifBreak(softline, "", { groupId: attrGroupId })
-        : node.firstChild.hasLeadingSpaces &&
-          node.firstChild.isLeadingSpaceSensitive
-        ? line
-        : node.firstChild.type === "text" &&
-          node.isWhitespaceSensitive &&
-          node.isIndentationSensitive
-        ? dedentToRoot(softline)
-        : softline,
+      printBeforeChildrenLine(),
       printChildren(path, options, print),
     ]),
     (
