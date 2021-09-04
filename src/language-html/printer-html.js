@@ -368,6 +368,21 @@ function printElement(path, options, print) {
       printClosingTag(node, options),
     ]);
 
+  const printChildrenDoc = (childrenDoc) => {
+    if (shouldHugContent) {
+      return indentIfBreak(childrenDoc, { groupId: attrGroupId });
+    }
+    if (
+      (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
+      node.parent.type === "root" &&
+      options.parser === "vue" &&
+      !options.vueIndentScriptAndStyle
+    ) {
+      return childrenDoc;
+    }
+    return indent(childrenDoc);
+  };
+
   if (node.children.length === 0) {
     return printTag(
       node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
@@ -376,15 +391,7 @@ function printElement(path, options, print) {
 
   return printTag([
     forceBreakContent(node) ? breakParent : "",
-    ((childrenDoc) =>
-      shouldHugContent
-        ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
-        : (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
-          node.parent.type === "root" &&
-          options.parser === "vue" &&
-          !options.vueIndentScriptAndStyle
-        ? childrenDoc
-        : indent(childrenDoc))([
+    printChildrenDoc([
       shouldHugContent
         ? ifBreak(softline, "", { groupId: attrGroupId })
         : node.firstChild.hasLeadingSpaces &&
