@@ -166,6 +166,16 @@ const options = {
       * inferredParser (string | null) - name of parser inferred from file path
     `,
   },
+  "file-list": {
+    type: "string",
+    category: coreOptions.CATEGORY_CONFIG,
+    description: outdent`TBD`,
+    array: true,
+  },
+  git: {
+    type: "boolean",
+    description: outdent`TBD`,
+  },
   help: {
     type: "flag",
     alias: "h",

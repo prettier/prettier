@@ -1,6 +1,8 @@
 "use strict";
 
 const { promises: fs } = require("fs");
+const os = require("os");
+const { execSync } = require("child_process");
 const path = require("path");
 
 const chalk = require("chalk");
@@ -268,7 +270,31 @@ async function formatStdin(context) {
   }
 }
 
+function createFileListChecker(context) {
+  const cmds = context.argv["file-list"] || [];
+
+  if (context.argv.git) {
+    cmds.push("git ls-files", "git ls-files --exclude-standard --others");
+  }
+
+  if (cmds.length === 0) {
+    return () => true;
+  }
+
+  const files = new Set();
+
+  for (const cmd of cmds.filter(({ length }) => length > 0)) {
+    for (const file of execSync(cmd, { encoding: "utf-8" }).split(os.EOL)) {
+      files.add(file);
+    }
+  }
+
+  return (filename) => files.has(filename);
+}
+
 async function formatFiles(context) {
+  const isListed = createFileListChecker(context);
+
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
   const ignorer = await createIgnorerFromContextOrDie(context);
@@ -288,6 +314,10 @@ async function formatFiles(context) {
     }
 
     const filename = pathOrError;
+    if (!isListed(filename)) {
+      continue;
+    }
+
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
     const ignoreFilename = context.argv["ignore-path"]
