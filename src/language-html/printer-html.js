@@ -403,6 +403,48 @@ function printElement(path, options, print) {
     return softline;
   };
 
+  const printAfterChildrenLine = () => {
+    const needsToBorrow = node.next
+      ? needsToBorrowPrevClosingTagEndMarker(node.next)
+      : needsToBorrowLastChildClosingTagEndMarker(node.parent);
+    if (needsToBorrow) {
+      if (
+        node.lastChild.hasTrailingSpaces &&
+        node.lastChild.isTrailingSpaceSensitive
+      ) {
+        return " ";
+      }
+      return "";
+    }
+    if (shouldHugContent) {
+      return ifBreak(softline, "", { groupId: attrGroupId });
+    }
+    if (
+      node.lastChild.hasTrailingSpaces &&
+      node.lastChild.isTrailingSpaceSensitive
+    ) {
+      return line;
+    }
+    if (
+      (node.lastChild.type === "comment" ||
+        (node.lastChild.type === "text" &&
+          node.isWhitespaceSensitive &&
+          node.isIndentationSensitive)) &&
+      new RegExp(
+        `\\n[\\t ]{${
+          options.tabWidth *
+          countParents(
+            path,
+            (node) => node.parent && node.parent.type !== "root"
+          )
+        }}$`
+      ).test(node.lastChild.value)
+    ) {
+      return "";
+    }
+    return softline;
+  };
+
   if (node.children.length === 0) {
     return printTag(
       node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
@@ -415,43 +457,7 @@ function printElement(path, options, print) {
       printBeforeChildrenLine(),
       printChildren(path, options, print),
     ]),
-    (
-      node.next
-        ? needsToBorrowPrevClosingTagEndMarker(node.next)
-        : needsToBorrowLastChildClosingTagEndMarker(node.parent)
-    )
-      ? node.lastChild.hasTrailingSpaces &&
-        node.lastChild.isTrailingSpaceSensitive
-        ? " "
-        : ""
-      : shouldHugContent
-      ? ifBreak(softline, "", { groupId: attrGroupId })
-      : node.lastChild.hasTrailingSpaces &&
-        node.lastChild.isTrailingSpaceSensitive
-      ? line
-      : (node.lastChild.type === "comment" ||
-          (node.lastChild.type === "text" &&
-            node.isWhitespaceSensitive &&
-            node.isIndentationSensitive)) &&
-        new RegExp(
-          `\\n[\\t ]{${
-            options.tabWidth *
-            countParents(
-              path,
-              (node) => node.parent && node.parent.type !== "root"
-            )
-          }}$`
-        ).test(node.lastChild.value)
-      ? /**
-         *     <div>
-         *       <pre>
-         *         something
-         *       </pre>
-         *            ~
-         *     </div>
-         */
-        ""
-      : softline,
+    printAfterChildrenLine(),
   ]);
 }
 
