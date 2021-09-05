@@ -3124,10 +3124,10 @@ eslint-plugin-react@7.25.1:
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
 
-eslint-plugin-regexp@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.0.0.tgz#ca84acf9764f8768101bdaf2e3a410530b9df187"
-  integrity sha512-TwNkkDS+Q5+gEaUTgEYEJzP5P8Y6c/UGxJkUsg6oc/DBWGT/5VJqCw0xhx/hhFT/HgfdABngTWKBBwtqTbjGuQ==
+eslint-plugin-regexp@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.1.0.tgz#1a417ddbc07fc1dc459942185e1b24913621bd2a"
+  integrity sha512-mbDJigs9cAzDx7RDiEYXY0muX+BL8EJIG6wskYktGHFMZsuG8vJRBV4Co2wngeYJpB9S914M64T9reDr2bxTCg==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
