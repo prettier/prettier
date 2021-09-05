@@ -24,7 +24,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: cd scripts/release && yarn install --frozen-lockfile
 
       - name: Test
         run: cd scripts/release && yarn test
