@@ -383,7 +383,7 @@ function printElement(path, options, print) {
     return indent(childrenDoc);
   };
 
-  const printBeforeChildrenLine = () => {
+  const printLineBeforeChildren = () => {
     if (shouldHugContent) {
       return ifBreak(softline, "", { groupId: attrGroupId });
     }
@@ -403,7 +403,7 @@ function printElement(path, options, print) {
     return softline;
   };
 
-  const printAfterChildrenLine = () => {
+  const printLineAfterChildren = () => {
     const needsToBorrow = node.next
       ? needsToBorrowPrevClosingTagEndMarker(node.next)
       : needsToBorrowLastChildClosingTagEndMarker(node.parent);
@@ -454,10 +454,10 @@ function printElement(path, options, print) {
   return printTag([
     forceBreakContent(node) ? breakParent : "",
     printChildrenDoc([
-      printBeforeChildrenLine(),
+      printLineBeforeChildren(),
       printChildren(path, options, print),
     ]),
-    printAfterChildrenLine(),
+    printLineAfterChildren(),
   ]);
 }
 
