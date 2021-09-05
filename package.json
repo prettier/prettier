@@ -116,7 +116,7 @@
     "eslint-plugin-react": "7.25.1",
     "eslint-plugin-regexp": "1.0.0",
     "eslint-plugin-unicorn": "35.0.0",
-    "esm-utils": "1.1.0",
+    "esm-utils": "2.0.0",
     "execa": "5.1.1",
     "jest": "27.1.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
