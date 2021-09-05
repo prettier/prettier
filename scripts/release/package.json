@@ -5,7 +5,7 @@
     "chalk": "4.1.2",
     "execa": "5.1.1",
     "minimist": "1.2.5",
-    "node-fetch": "2.6.1",
+    "node-fetch": "3.0.0",
     "outdent": "0.8.0",
     "semver": "7.3.5",
     "string-width": "5.0.0"
