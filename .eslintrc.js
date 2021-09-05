@@ -153,6 +153,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/config/**/*.js",
         "tests/integration/**/*.js",
+        "scripts/release/__tests__/*.spec.js",
       ],
       env: {
         jest: true,
