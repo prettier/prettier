@@ -6,11 +6,12 @@ const {
 } = require("../document/index.js");
 const printFrontMatter = require("../utils/front-matter/print.js");
 const {
-  printClosingTag,
-  printClosingTagSuffix,
-  needsToBorrowPrevClosingTagEndMarker,
-  printOpeningTagPrefix,
-  printOpeningTag,
+  closing: {
+    printClosingTag,
+    printClosingTagSuffix,
+    needsToBorrowPrevClosingTagEndMarker,
+  },
+  opening: { printOpeningTagPrefix, printOpeningTag },
 } = require("./print/tag.js");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
 const {

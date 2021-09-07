@@ -41,18 +41,22 @@ const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 const embed = require("./embed.js");
 const {
-  printClosingTagEndMarker,
-  printClosingTagSuffix,
-  printClosingTag,
-  printClosingTagEnd,
-  needsToBorrowPrevClosingTagEndMarker,
-  needsToBorrowLastChildClosingTagEndMarker,
-  needsToBorrowParentClosingTagStartMarker,
-  printOpeningTagPrefix,
-  printOpeningTag,
-  printOpeningTagStart,
-  printOpeningTagStartMarker,
-  needsToBorrowNextOpeningTagStartMarker,
+  closing: {
+    printClosingTagEndMarker,
+    printClosingTagSuffix,
+    printClosingTag,
+    printClosingTagEnd,
+    needsToBorrowPrevClosingTagEndMarker,
+    needsToBorrowLastChildClosingTagEndMarker,
+    needsToBorrowParentClosingTagStartMarker,
+  },
+  opening: {
+    printOpeningTagPrefix,
+    printOpeningTag,
+    printOpeningTagStart,
+    printOpeningTagStartMarker,
+    needsToBorrowNextOpeningTagStartMarker,
+  },
 } = require("./print/tag.js");
 const getNodeContent = require("./get-node-content.js");
 

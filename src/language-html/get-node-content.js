@@ -1,12 +1,13 @@
 "use strict";
 
 const {
-  needsToBorrowParentClosingTagStartMarker,
-  printClosingTagStartMarker,
-  needsToBorrowLastChildClosingTagEndMarker,
-  printClosingTagEndMarker,
-  needsToBorrowParentOpeningTagEndMarker,
-  printOpeningTagEndMarker,
+  closing: {
+    needsToBorrowParentClosingTagStartMarker,
+    printClosingTagStartMarker,
+    needsToBorrowLastChildClosingTagEndMarker,
+    printClosingTagEndMarker,
+  },
+  opening: { needsToBorrowParentOpeningTagEndMarker, printOpeningTagEndMarker },
 } = require("./print/tag.js");
 
 function getNodeContent(node, options) {
