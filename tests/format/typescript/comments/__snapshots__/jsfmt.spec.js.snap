@@ -656,6 +656,38 @@ export class Point {
 ================================================================================
 `;
 
+exports[`object.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = {    // This is A
+  B: number;
+  C: string;
+}
+  
+type Z = (  /* This is Z */  {
+  // key is foo
+  foo: number;
+  bar: string;
+})
+
+=====================================output=====================================
+type A = { // This is A
+  B: number;
+  C: string;
+};
+
+type Z = { /* This is Z */
+  // key is foo
+  foo: number;
+  bar: string;
+};
+
+================================================================================
+`;
+
 exports[`type-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
