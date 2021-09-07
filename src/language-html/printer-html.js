@@ -53,7 +53,7 @@ const {
   printOpeningTagStart,
   printOpeningTagStartMarker,
   needsToBorrowNextOpeningTagStartMarker,
-} = require("./print/closing-tag.js");
+} = require("./print/tag.js");
 const getNodeContent = require("./get-node-content.js");
 
 function genericPrint(path, options, print) {

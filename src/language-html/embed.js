@@ -11,7 +11,7 @@ const {
   needsToBorrowPrevClosingTagEndMarker,
   printOpeningTagPrefix,
   printOpeningTag,
-} = require("./print/closing-tag.js");
+} = require("./print/tag.js");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
 const {
   printVueFor,

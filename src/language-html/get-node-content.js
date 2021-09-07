@@ -7,7 +7,7 @@ const {
   printClosingTagEndMarker,
   needsToBorrowParentOpeningTagEndMarker,
   printOpeningTagEndMarker,
-} = require("./print/closing-tag.js");
+} = require("./print/tag.js");
 
 function getNodeContent(node, options) {
   let start = node.startSourceSpan.end.offset;
