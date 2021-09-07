@@ -1,5 +1,9 @@
 name: Release_Script_Test
 
+defaults:
+  run:
+    working-directory: scripts/release
+
 on:
   push:
     paths:
@@ -25,7 +29,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: cd scripts/release && yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Test
-        run: cd scripts/release && yarn test
+        run: yarn test
