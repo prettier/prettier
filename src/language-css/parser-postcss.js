@@ -525,7 +525,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (lowercasedName === "import") {
+      if (["import", "use", "forward"].includes(lowercasedName)) {
         node.import = true;
         delete node.filename;
         node.params = parseValue(params, options);
