@@ -24,7 +24,6 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "typescript.js",
       "v8intrinsic.js",
       "module-string-names.js",
-      "class-static-block.js",
       "module-blocks.js",
       "async-do-expressions.js",
     ],

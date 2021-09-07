@@ -386,17 +386,6 @@ console.log(Bork.staticFunction()); // > "babelIsCool"
 ================================================================================
 `;
 
-exports[`class-static-block.js [espree] format 1`] = `
-"Unexpected token { (4:10)
-  2 |   static #x = 42;
-  3 |   static y;
-> 4 |   static {
-    |          ^
-  5 |     try {
-  6 |       this.y = doSomethingWith(this.#x);
-  7 |     } catch {"
-`;
-
 exports[`class-static-block.js [meriyah] format 1`] = `
 "[4:10]: Unexpected token: '{' (4:10)
   2 |   static #x = 42;
