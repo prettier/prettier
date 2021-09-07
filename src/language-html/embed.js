@@ -9,11 +9,9 @@ const {
   printClosingTag,
   printClosingTagSuffix,
   needsToBorrowPrevClosingTagEndMarker,
-} = require("./print/closing-tag.js");
-const {
   printOpeningTagPrefix,
   printOpeningTag,
-} = require("./print/opening-tag.js");
+} = require("./print/closing-tag.js");
 const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
 const {
   printVueFor,
@@ -30,8 +28,8 @@ const {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-  getNodeContent,
 } = require("./utils.js");
+const getNodeContent = require("./get-node-content.js");
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const isKeyMatched = (patterns) =>

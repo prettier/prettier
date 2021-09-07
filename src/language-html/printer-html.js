@@ -35,19 +35,11 @@ const {
   shouldPreserveContent,
   unescapeQuoteEntities,
   getTextValueParts,
-  getNodeContent,
 } = require("./utils.js");
 const preprocess = require("./print-preprocess.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 const embed = require("./embed.js");
-const {
-  printOpeningTagPrefix,
-  printOpeningTag,
-  printOpeningTagStart,
-  printOpeningTagStartMarker,
-  needsToBorrowNextOpeningTagStartMarker,
-} = require("./print/opening-tag.js");
 const {
   printClosingTagEndMarker,
   printClosingTagSuffix,
@@ -56,7 +48,13 @@ const {
   needsToBorrowPrevClosingTagEndMarker,
   needsToBorrowLastChildClosingTagEndMarker,
   needsToBorrowParentClosingTagStartMarker,
+  printOpeningTagPrefix,
+  printOpeningTag,
+  printOpeningTagStart,
+  printOpeningTagStartMarker,
+  needsToBorrowNextOpeningTagStartMarker,
 } = require("./print/closing-tag.js");
+const getNodeContent = require("./get-node-content.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

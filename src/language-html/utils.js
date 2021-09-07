@@ -20,16 +20,6 @@ const {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate.js");
-const {
-  printOpeningTagEndMarker,
-  needsToBorrowParentOpeningTagEndMarker,
-} = require("./print/opening-tag.js");
-const {
-  printClosingTagStartMarker,
-  printClosingTagEndMarker,
-  needsToBorrowParentClosingTagStartMarker,
-  needsToBorrowLastChildClosingTagEndMarker,
-} = require("./print/closing-tag.js");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
@@ -677,28 +667,6 @@ function getTextValueParts(node, value = node.value) {
     : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
-function getNodeContent(node, options) {
-  let start = node.startSourceSpan.end.offset;
-  if (
-    node.firstChild &&
-    needsToBorrowParentOpeningTagEndMarker(node.firstChild)
-  ) {
-    start -= printOpeningTagEndMarker(node).length;
-  }
-
-  let end = node.endSourceSpan.start.offset;
-  if (
-    node.lastChild &&
-    needsToBorrowParentClosingTagStartMarker(node.lastChild)
-  ) {
-    end += printClosingTagStartMarker(node, options).length;
-  } else if (needsToBorrowLastChildClosingTagEndMarker(node)) {
-    end -= printClosingTagEndMarker(node.lastChild, options).length;
-  }
-
-  return options.originalText.slice(start, end);
-}
-
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -736,5 +704,4 @@ module.exports = {
   shouldPreserveContent,
   unescapeQuoteEntities,
   getTextValueParts,
-  getNodeContent,
 };
