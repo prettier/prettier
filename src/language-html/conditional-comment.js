@@ -9,12 +9,12 @@ const {
 const parseFunctions = [
   {
     // <!--[if ... ]> ... <![endif]-->
-    regex: /^(\[if([^\]]*?)]>)(.*?)<!\s*\[endif]$/s,
+    regex: /^(\[if([^\]]*)]>)(.*?)<!\s*\[endif]$/s,
     parse: parseIeConditionalStartEndComment,
   },
   {
     // <!--[if ... ]><!-->
-    regex: /^\[if([^\]]*?)]><!$/,
+    regex: /^\[if([^\]]*)]><!$/,
     parse: parseIeConditionalStartComment,
   },
   {

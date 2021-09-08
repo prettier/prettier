@@ -283,8 +283,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {

@@ -26,7 +26,7 @@ const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
 const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
 const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
 const htmlTrimLeadingBlankLines = (string) =>
-  string.replace(/^[\t\f\r ]*?\n/g, "");
+  string.replace(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
   htmlTrimLeadingBlankLines(htmlTrimEnd(string));
 const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
