@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/shellscape/postcss-less/pull/159
+@{selector}-title{ @{prop}-size: @{color} }
+
+=====================================output=====================================
+// https://github.com/shellscape/postcss-less/pull/159
+@{selector}-title {
+  @{prop}-size: @{color};
+}
+
+================================================================================
+`;
