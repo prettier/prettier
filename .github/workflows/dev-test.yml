@@ -24,7 +24,7 @@ jobs:
         include:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
-            node: "16"
+            node: "16.8.0"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
