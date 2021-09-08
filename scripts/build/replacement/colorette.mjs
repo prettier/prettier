@@ -1,4 +1,4 @@
-// A fake emty module for `colorette`
+// A fake module to replace `colorette`
 // https://github.com/jorgebucaran/colorette
 
 const color = (string) => string;
