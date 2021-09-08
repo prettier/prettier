@@ -1,5 +1,5 @@
 ---
-author: "Sosuke Suzuki"
+author: "Sosuke Suzuki (@sosukesuzuki)"
 authorURL: "https://github.com/sosukesuzuki"
 title: "Prettier 2.4: new bracketSameLine option and TypeScript 4.4 support!"
 ---
