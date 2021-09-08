@@ -7,12 +7,47 @@ printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-@use "module";
-@forward "module";
+@use "library";
+
+@use "library" with (
+  $black: #222,
+  $border-radius: 0.1rem
+  $font-family: "Helvetica, sans-serif"
+);
+
+@use "library" as *;
+
+@use "library" as f;
+
+@use "sass:map";
+
+@forward "library";
+
+@forward "library" show border, $border-color;
+
+@forward "library" hide gradient;
+
+@forward "library" as btn-*;
 
 =====================================output=====================================
-@use 'module';
-@forward 'module';
+@use 'library';
+
+@use 'library' with
+  ($black: #222, $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif');
+
+@use 'library' as *;
+
+@use 'library' as f;
+
+@use 'sass:map';
+
+@forward 'library';
+
+@forward 'library' show border, $border-color;
+
+@forward 'library' hide gradient;
+
+@forward 'library' as btn- *;
 
 ================================================================================
 `;
@@ -23,12 +58,47 @@ parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-@use "module";
-@forward "module";
+@use "library";
+
+@use "library" with (
+  $black: #222,
+  $border-radius: 0.1rem
+  $font-family: "Helvetica, sans-serif"
+);
+
+@use "library" as *;
+
+@use "library" as f;
+
+@use "sass:map";
+
+@forward "library";
+
+@forward "library" show border, $border-color;
+
+@forward "library" hide gradient;
+
+@forward "library" as btn-*;
 
 =====================================output=====================================
-@use "module";
-@forward "module";
+@use "library";
+
+@use "library" with
+  ($black: #222, $border-radius: 0.1rem $font-family: "Helvetica, sans-serif");
+
+@use "library" as *;
+
+@use "library" as f;
+
+@use "sass:map";
+
+@forward "library";
+
+@forward "library" show border, $border-color;
+
+@forward "library" hide gradient;
+
+@forward "library" as btn- *;
 
 ================================================================================
 `;
