@@ -12,7 +12,7 @@ const { require, dirname } = createEsmUtils(import.meta);
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
- * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
+ * @property {Object.<string, string | {code?: string, file?: string | URL}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
