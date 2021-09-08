@@ -1,4 +1,7 @@
 import path from "node:path";
+import createEsmUtils from "esm-utils";
+
+const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -72,9 +75,12 @@ const parsers = [
         keep_classnames: true,
       },
     },
-    replace: {
-      // `colorette`
-      '"NO_COLOR" in process.env': "true",
+    replaceModule: {
+      // `colorette` uses `process` can't run in browser
+      // https://github.com/jorgebucaran/colorette/pull/62
+      [require.resolve("colorette")]: {
+        file: path.join(dirname, "replacement/colorette.mjs"),
+      },
     },
     // TODO[@fisker]: Enable minify
     minify: false,

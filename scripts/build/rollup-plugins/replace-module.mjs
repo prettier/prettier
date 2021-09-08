@@ -1,3 +1,5 @@
+import fs from "node:fs";
+
 export default function (replacements = {}) {
   return {
     name: "replace-module",
@@ -11,6 +13,10 @@ export default function (replacements = {}) {
 
       if (typeof replacement === "string") {
         return `export default require(${JSON.stringify(replacement)});`;
+      }
+
+      if (replacement.file) {
+        return fs.readFileSync(replacement.file, "utf8");
       }
 
       return replacement.code;
