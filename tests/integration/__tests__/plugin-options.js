@@ -1,7 +1,7 @@
 "use strict";
 
 const snapshotDiff = require("snapshot-diff");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 test("show external options with `--help`", async () => {
   const originalStdout = await runPrettier("plugins/options", ["--help"])

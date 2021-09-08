@@ -18,8 +18,9 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, require } = createEsmUtils(import.meta);
+const { __dirname, require, json } = createEsmUtils(import.meta);
 const PROJECT_ROOT = path.join(__dirname, "../..");
+const packageJson = json.loadSync("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
@@ -79,12 +80,7 @@ function getBabelConfig(bundle) {
   };
   const targets = { node: "10" };
   if (bundle.target === "universal") {
-    targets.browsers = [
-      ">0.5%",
-      "not ie 11",
-      "not safari 5.1",
-      "not op_mini all",
-    ];
+    targets.browsers = packageJson.browserslist;
   }
   config.presets = [
     [
@@ -125,7 +121,7 @@ function getRollupConfig(bundle) {
         warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           (warning.importer.startsWith("node_modules") ||
-            warning.importer.startsWith("\x00polyfill-node:"))) ||
+            warning.importer.startsWith("\x00polyfill-node."))) ||
         warning.code === "SOURCEMAP_ERROR" ||
         warning.code === "THIS_IS_UNDEFINED"
       ) {
@@ -175,13 +171,40 @@ function getRollupConfig(bundle) {
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
+    // Replace package.json with dynamic `require("./package.json")`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
+
+    // Dynamic require bundled files
     for (const item of bundles) {
       if (item.input !== bundle.input) {
         replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
       }
     }
-    replaceModule[path.join(PROJECT_ROOT, "./package.json")] = "./package.json";
+  } else {
+    // Universal bundle only use version info from package.json
+    // Replace package.json with `{version: "{VERSION}"}`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
+      code: `export default ${JSON.stringify({
+        version: packageJson.version,
+      })};`,
+    };
+
+    // Replace parser getters with `undefined`
+    for (const file of [
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-js/parse/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
+    ]) {
+      replaceModule[path.join(PROJECT_ROOT, file)] = {
+        code: "export default undefined;",
+      };
+    }
   }
+
   Object.assign(replaceModule, bundle.replaceModule);
 
   config.plugins = [
@@ -213,7 +236,7 @@ function getRollupConfig(bundle) {
       ignoreTryCatch: bundle.target === "node",
       ...bundle.commonjs,
     }),
-    replaceModule && rollupPluginReplaceModule(replaceModule),
+    rollupPluginReplaceModule(replaceModule),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
     rollupPluginBabel(babelConfig),
   ].filter(Boolean);
@@ -275,11 +298,10 @@ function getWebpackConfig(bundle) {
     throw new Error("Must use rollup for this bundle");
   }
 
-  const root = path.resolve(__dirname, "..", "..");
   const config = {
     mode: "production",
     performance: { hints: false },
-    entry: path.resolve(root, bundle.input),
+    entry: path.resolve(PROJECT_ROOT, bundle.input),
     module: {
       rules: [
         {
@@ -292,7 +314,7 @@ function getWebpackConfig(bundle) {
       ],
     },
     output: {
-      path: path.resolve(root, "dist"),
+      path: path.resolve(PROJECT_ROOT, "dist"),
       filename: bundle.output,
       library: {
         type: "umd",

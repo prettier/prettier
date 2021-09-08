@@ -1,12 +1,12 @@
 "use strict";
 
-const AstPath = require("../common/ast-path");
+const AstPath = require("../common/ast-path.js");
 const {
   builders: { hardline, addAlignmentToDoc },
   utils: { propagateBreaks },
-} = require("../document");
-const { printComments } = require("./comments");
-const multiparser = require("./multiparser");
+} = require("../document/index.js");
+const { printComments } = require("./comments.js");
+const multiparser = require("./multiparser.js");
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a

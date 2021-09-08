@@ -7,7 +7,8 @@
     "module": "commonjs",
     "resolveJsonModule": true,
     // TBD it is desired to enabled strict type checking at some point:
-    "strict": false
+    "strict": false,
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "exclude": [
     "coverage/",
@@ -42,6 +43,7 @@
     "docs/",
     "scripts/",
     "tests/",
-    "website/"
+    "website/",
+    "types/"
   ]
 }

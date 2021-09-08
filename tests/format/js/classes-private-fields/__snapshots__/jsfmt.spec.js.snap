@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`optional-chaining.js [espree] format 1`] = `
-"Unexpected character '#' (3:13)
+"Private field '#x' must be declared in an enclosing class (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
 > 3 | delete obj?.#x.a
@@ -19,7 +19,7 @@ exports[`optional-chaining.js [meriyah] format 1`] = `
 `;
 
 exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `
-"Unexpected character '#' (3:13)
+"Private field '#x' must be declared in an enclosing class (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
 > 3 | delete obj?.#x.a
@@ -71,24 +71,6 @@ delete obj?.#x.a
 delete obj?.#x.a;
 
 ================================================================================
-`;
-
-exports[`private_fields.js [espree] format 1`] = `
-"Unexpected character '#' (1:11)
-> 1 | class A { #x; #y; }
-    |           ^
-  2 | class B { #x = 0; #y = 1; }
-  3 |
-  4 | class C {"
-`;
-
-exports[`private_fields.js - {"semi":false} [espree] format 1`] = `
-"Unexpected character '#' (1:11)
-> 1 | class A { #x; #y; }
-    |           ^
-  2 | class B { #x = 0; #y = 1; }
-  3 |
-  4 | class C {"
 `;
 
 exports[`private_fields.js - {"semi":false} format 1`] = `
@@ -346,26 +328,6 @@ class F {
 }
 
 ================================================================================
-`;
-
-exports[`with_comments.js [espree] format 1`] = `
-"Unexpected character '#' (2:3)
-  1 | class A {
-> 2 |   #foobar =
-    |   ^
-  3 |     // comment to break
-  4 |     1 +
-  5 |     // comment to break again"
-`;
-
-exports[`with_comments.js - {"semi":false} [espree] format 1`] = `
-"Unexpected character '#' (2:3)
-  1 | class A {
-> 2 |   #foobar =
-    |   ^
-  3 |     // comment to break
-  4 |     1 +
-  5 |     // comment to break again"
 `;
 
 exports[`with_comments.js - {"semi":false} format 1`] = `

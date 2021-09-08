@@ -2,7 +2,7 @@
 
 const {
   builders: { group },
-} = require("../document");
+} = require("../document/index.js");
 
 /**
  *     v-for="... in ..."

@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`non-octal-eight-and-nine.js [espree] format 1`] = `
+"Invalid escape sequence (3:3)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | \\"\\\\8\\",\\"\\\\9\\";
+    |   ^
+  4 | () => {
+  5 |   \\"use strict\\";
+  6 |   \\"\\\\8\\", \\"\\\\9\\";"
+`;
+
+exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [espree] format 1`] = `
+"Invalid escape sequence (3:3)
+  1 | // https://github.com/babel/babel/pull/11852
+  2 |
+> 3 | \\"\\\\8\\",\\"\\\\9\\";
+    |   ^
+  4 | () => {
+  5 |   \\"use strict\\";
+  6 |   \\"\\\\8\\", \\"\\\\9\\";"
+`;
+
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]

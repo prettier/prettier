@@ -1,8 +1,8 @@
 "use strict";
 
 const path = require("path");
-const { ConfigError } = require("../common/errors");
-const jsLoc = require("../language-js/loc");
+const { ConfigError } = require("../common/errors.js");
+const jsLoc = require("../language-js/loc.js");
 
 const { locStart, locEnd } = jsLoc;
 

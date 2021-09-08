@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
+const comments = require("./comments.js");
 
 const isJsonParser = ({ parser }) =>
   parser === "json" || parser === "json5" || parser === "json-stringify";

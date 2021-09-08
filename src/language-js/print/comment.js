@@ -1,13 +1,13 @@
 "use strict";
 
-const { hasNewline } = require("../../common/util");
+const { hasNewline } = require("../../common/util.js");
 const {
   builders: { join, hardline },
-  utils: { replaceNewlinesWithLiterallines },
-} = require("../../document");
+  utils: { replaceTextEndOfLine },
+} = require("../../document/index.js");
 
-const { isLineComment, isBlockComment } = require("../utils");
-const { locStart, locEnd } = require("../loc");
+const { isLineComment, isBlockComment } = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
@@ -41,7 +41,7 @@ function printComment(commentPath, options) {
       options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
     return [
       "/*",
-      replaceNewlinesWithLiterallines(comment.value),
+      replaceTextEndOfLine(comment.value),
       isInsideFlowComment ? "*-/" : "*/",
     ];
   }

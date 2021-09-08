@@ -1,8 +1,9 @@
 "use strict";
 
-const createLanguage = require("../utils/create-language");
-const printer = require("./printer-graphql");
-const options = require("./options");
+const createLanguage = require("../utils/create-language.js");
+const printer = require("./printer-graphql.js");
+const options = require("./options.js");
+const parsers = require("./parsers.js");
 
 const languages = [
   createLanguage(require("linguist-languages/data/GraphQL.json"), () => ({
@@ -14,12 +15,6 @@ const languages = [
 
 const printers = {
   graphql: printer,
-};
-
-const parsers = {
-  get graphql() {
-    return require("./parser-graphql").parsers.graphql;
-  },
 };
 
 module.exports = {

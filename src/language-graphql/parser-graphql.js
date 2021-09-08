@@ -1,9 +1,9 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const tryCombinations = require("../utils/try-combinations");
-const { hasPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
+const createError = require("../common/parser-create-error.js");
+const tryCombinations = require("../utils/try-combinations.js");
+const { hasPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
 
 function parseComments(ast) {
   const comments = [];

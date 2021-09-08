@@ -1,7 +1,7 @@
 "use strict";
 
-const lineColumnToIndex = require("../utils/line-column-to-index");
-const { getLast, skipEverythingButNewLine } = require("../common/util");
+const lineColumnToIndex = require("../utils/line-column-to-index.js");
+const { getLast, skipEverythingButNewLine } = require("../common/util.js");
 
 function calculateLocStart(node, text) {
   // value-* nodes have this

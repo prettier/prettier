@@ -1,7 +1,7 @@
 "use strict";
 
 const dashify = require("dashify");
-const { coreOptions } = require("./prettier-internal");
+const { coreOptions } = require("./prettier-internal.js");
 
 function normalizeDetailedOption(name, option) {
   return {

@@ -1,12 +1,11 @@
-"use strict";
+import fs from "node:fs";
+import readline from "node:readline";
+import chalk from "chalk";
+import execa from "execa";
+import stringWidth from "string-width";
+import fetch from "node-fetch";
 
-require("readline").emitKeypressEvents(process.stdin);
-
-const fs = require("fs");
-const chalk = require("chalk");
-const execa = require("execa");
-const stringWidth = require("string-width");
-const fetch = require("node-fetch");
+readline.emitKeypressEvents(process.stdin);
 
 const OK = chalk.bgGreen.black(" DONE ");
 const FAIL = chalk.bgRed.black(" FAIL ");
@@ -91,7 +90,7 @@ async function fetchText(url) {
   return response.text();
 }
 
-module.exports = {
+export {
   runYarn,
   runGit,
   fetchText,

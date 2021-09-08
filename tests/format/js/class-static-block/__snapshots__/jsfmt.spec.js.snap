@@ -1,15 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class-static-block.js [espree] format 1`] = `
-"Unexpected character '#' (2:10)
-  1 | class C {
-> 2 |   static #x = 42;
-    |          ^
-  3 |   static y;
-  4 |   static {
-  5 |     try {"
-`;
-
 exports[`class-static-block.js [meriyah] format 1`] = `
 "[4:10]: Unexpected token: '{' (4:10)
   2 |   static #x = 42;
@@ -83,6 +73,40 @@ class A2 {
   static {
     foo;
     bar;
+  }
+}
+
+================================================================================
+`;
+
+exports[`with-line-breaks.js [meriyah] format 1`] = `
+"[3:3]: Unexpected token: '{' (3:3)
+  1 | class Foo {
+  2 |   static
+> 3 |   {
+    |   ^
+  4 |      1 + 1;
+  5 |   }
+  6 | };"
+`;
+
+exports[`with-line-breaks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static
+  {
+     1 + 1;
+  }
+};
+
+=====================================output=====================================
+class Foo {
+  static {
+    1 + 1;
   }
 }
 

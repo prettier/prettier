@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
@@ -201,6 +201,17 @@ describe("Known/Unknown", () => {
     ".",
   ]).test({
     status: 1,
+    stderr: "",
+    write: [],
+  });
+});
+
+describe("Interpreters", () => {
+  runPrettier("cli/infer-parser/interpreters", [
+    "--file-info",
+    "zx-script",
+  ]).test({
+    status: 0,
     stderr: "",
     write: [],
   });

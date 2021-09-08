@@ -1,9 +1,9 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
+const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document");
+} = require("../../document/index.js");
 const {
   isTestCall,
   hasComment,
@@ -11,9 +11,9 @@ const {
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
-} = require("../utils");
-const { createGroupIdMapper } = require("../../common/util");
-const { shouldHugType } = require("./type-annotation");
+} = require("../utils.js");
+const { createGroupIdMapper } = require("../../common/util.js");
+const { shouldHugType } = require("./type-annotation.js");
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 

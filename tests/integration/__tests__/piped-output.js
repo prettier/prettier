@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("output with --check + unformatted differs when piped", () => {
   const result0 = runPrettier(

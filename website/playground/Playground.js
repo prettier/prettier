@@ -1,19 +1,19 @@
 import * as React from "react";
 
-import { Button, ClipboardButton } from "./buttons";
-import EditorState from "./EditorState";
-import { DebugPanel, InputPanel, OutputPanel } from "./panels";
-import PrettierFormat from "./PrettierFormat";
-import { shallowEqual } from "./helpers";
-import * as urlHash from "./urlHash";
-import formatMarkdown from "./markdown";
-import * as util from "./util";
-import getCodeSample from "./codeSamples";
+import { Button, ClipboardButton } from "./buttons.js";
+import EditorState from "./EditorState.js";
+import { DebugPanel, InputPanel, OutputPanel } from "./panels.js";
+import PrettierFormat from "./PrettierFormat.js";
+import { shallowEqual } from "./helpers.js";
+import * as urlHash from "./urlHash.js";
+import formatMarkdown from "./markdown.js";
+import * as util from "./util.js";
+import getCodeSample from "./codeSamples.js";
 
-import { Sidebar, SidebarCategory } from "./sidebar/components";
-import SidebarOptions from "./sidebar/SidebarOptions";
-import Option from "./sidebar/options";
-import { Checkbox } from "./sidebar/inputs";
+import { Sidebar, SidebarCategory } from "./sidebar/components.js";
+import SidebarOptions from "./sidebar/SidebarOptions.js";
+import Option from "./sidebar/options.js";
+import { Checkbox } from "./sidebar/inputs.js";
 
 const CATEGORIES_ORDER = [
   "Global",
@@ -23,6 +23,13 @@ const CATEGORIES_ORDER = [
   "HTML",
   "Special",
 ];
+const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
+const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
+const COPY_MESSAGE =
+  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
+
+const isProduction = location.host === "prettier.io";
+const isPreview = location.host.includes("netlify.app");
 const ENABLED_OPTIONS = [
   "parser",
   "printWidth",
@@ -32,7 +39,6 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
-  "jsxBracketSameLine",
   "quoteProps",
   "arrowParens",
   "trailingComma",
@@ -43,10 +49,14 @@ const ENABLED_OPTIONS = [
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
 ];
-const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
-const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
-const COPY_MESSAGE =
-  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
+// "jsxBracketSameLine" will be deprecated in 2.4
+if (isProduction) {
+  ENABLED_OPTIONS.push("jsxBracketSameLine");
+}
+// "bracketSameLine" will be landed in 2.4
+if (isPreview) {
+  ENABLED_OPTIONS.push("bracketSameLine");
+}
 
 class Playground extends React.Component {
   constructor(props) {

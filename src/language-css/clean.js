@@ -1,7 +1,7 @@
 "use strict";
 
-const { isFrontMatterNode } = require("../common/util");
-const getLast = require("../utils/get-last");
+const { isFrontMatterNode } = require("../common/util.js");
+const getLast = require("../utils/get-last.js");
 
 const ignoredProperties = new Set([
   "raw", // front-matter

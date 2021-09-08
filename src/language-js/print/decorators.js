@@ -1,11 +1,11 @@
 "use strict";
 
-const { isNonEmptyArray, hasNewline } = require("../../common/util");
+const { isNonEmptyArray, hasNewline } = require("../../common/util.js");
 const {
   builders: { line, hardline, join, breakParent, group },
-} = require("../../document");
-const { locStart, locEnd } = require("../loc");
-const { getParentExportDeclaration } = require("../utils");
+} = require("../../document/index.js");
+const { locStart, locEnd } = require("../loc.js");
+const { getParentExportDeclaration } = require("../utils.js");
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
