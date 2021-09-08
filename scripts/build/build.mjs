@@ -151,7 +151,7 @@ async function preparePackage() {
 
 async function run(params) {
   const shouldUseCache = !params.file && !params["purge-cache"];
-  const shouldBuildMetaFiles = !params.playground && !params.file;
+  const shouldPreparePackage = !params.playground && !params.file;
   let configs = bundleConfigs;
   if (params.file) {
     configs = configs.filter(({ output }) => output === params.file);
@@ -183,7 +183,7 @@ async function run(params) {
     await bundleCache.save();
   }
 
-  if (shouldBuildMetaFiles) {
+  if (shouldPreparePackage) {
     await preparePackage();
   }
 }
