@@ -1,8 +1,8 @@
 "use strict";
 
 const raw = require("jest-snapshot-serializer-raw").wrap;
-const visualizeRange = require("./visualize-range");
-const visualizeEndOfLine = require("./visualize-end-of-line");
+const visualizeRange = require("./visualize-range.js");
+const visualizeEndOfLine = require("./visualize-end-of-line.js");
 
 const SEPARATOR_WIDTH = 80;
 function printSeparator(description = "") {

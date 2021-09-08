@@ -1,6 +1,6 @@
 "use strict";
 
-const commonOptions = require("../common/common-options");
+const commonOptions = require("../common/common-options.js");
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
@@ -26,13 +26,14 @@ module.exports = {
       },
     ],
   },
+  bracketSameLine: commonOptions.bracketSameLine,
   bracketSpacing: commonOptions.bracketSpacing,
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
-    default: false,
     description: "Put > on the last line instead of at a new line.",
+    deprecated: "2.4.0",
   },
   semi: {
     since: "1.0.0",

@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`avoid-conflicts-to-pipeline.js [espree] format 1`] = `
+"Unexpected token % (2:16)
+  1 | // |>
+> 2 | const status = %GetOptimizationStatus(fn);
+    |                ^
+  3 |"
+`;
+
+exports[`avoid-conflicts-to-pipeline.js [meriyah] format 1`] = `
+"[2:16]: Unexpected token: '%' (2:16)
+  1 | // |>
+> 2 | const status = %GetOptimizationStatus(fn);
+    |                ^
+  3 |"
+`;
+
+exports[`avoid-conflicts-to-pipeline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// |>
+const status = %GetOptimizationStatus(fn);
+
+=====================================output=====================================
+// |>
+const status = %GetOptimizationStatus(fn);
+
+================================================================================
+`;
+
 exports[`intrinsic_call.js [espree] format 1`] = `
 "Unexpected token % (2:13)
   1 | function doSmth()     {

@@ -6,14 +6,14 @@ const path = require("path");
 const chalk = require("chalk");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
+const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party");
+const { getStdin } = require("../common/third-party.js");
 
-const { createIgnorer, errors } = require("./prettier-internal");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
-const { getOptionsForFile } = require("./option");
-const isTTY = require("./is-tty");
+const { createIgnorer, errors } = require("./prettier-internal.js");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
+const { getOptionsForFile } = require("./option.js");
+const isTTY = require("./is-tty.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -105,7 +105,7 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-async function format(context, input, opt) {
+function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
       "No parser and no file path given, couldn't infer a parser."
@@ -262,7 +262,7 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, await format(context, input, options), options);
+    writeOutput(context, format(context, input, options), options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -350,7 +350,7 @@ async function formatFiles(context) {
     let output;
 
     try {
-      result = await format(context, input, options);
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);

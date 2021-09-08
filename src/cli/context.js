@@ -2,19 +2,19 @@
 const pick = require("lodash/pick");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
+const prettier = require("../index.js");
 const {
   optionsModule,
   optionsNormalizer: { normalizeCliOptions },
   utils: { arrayify },
-} = require("./prettier-internal");
-const minimist = require("./minimist");
-const constant = require("./constant");
+} = require("./prettier-internal.js");
+const minimist = require("./minimist.js");
+const constant = require("./constant.js");
 const {
   createDetailedOptionMap,
   normalizeDetailedOptionMap,
-} = require("./option-map");
-const createMinimistOptions = require("./create-minimist-options");
+} = require("./option-map.js");
+const createMinimistOptions = require("./create-minimist-options.js");
 
 /**
  * @typedef {Object} Context

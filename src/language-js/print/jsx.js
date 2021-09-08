@@ -1,6 +1,9 @@
 "use strict";
 
-const { printComments, printDanglingComments } = require("../../main/comments");
+const {
+  printComments,
+  printDanglingComments,
+} = require("../../main/comments.js");
 const {
   builders: {
     line,
@@ -15,9 +18,9 @@ const {
     join,
   },
   utils: { willBreak },
-} = require("../../document");
+} = require("../../document/index.js");
 
-const { getLast, getPreferredQuote } = require("../../common/util");
+const { getLast, getPreferredQuote } = require("../../common/util.js");
 const {
   isJsxNode,
   rawText,
@@ -28,9 +31,9 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils");
-const pathNeedsParens = require("../needs-parens");
-const { willPrintOwnComments } = require("../comments");
+} = require("../utils.js");
+const pathNeedsParens = require("../needs-parens.js");
+const { willPrintOwnComments } = require("../comments.js");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -573,9 +576,11 @@ function printJsxOpeningElement(path, options, print) {
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
-    // kept unbroken regardless of `jsxBracketSameLine`
+    // kept unbroken regardless of `bracketSameLine`.
+    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
+    // but is still needed for backwards compatibility.
     (node.attributes.length === 0 && !nameHasComments) ||
-    (options.jsxBracketSameLine &&
+    ((options.bracketSameLine || options.jsxBracketSameLine) &&
       // We should print the bracket in a new line for the following cases:
       // <div
       //   // comment

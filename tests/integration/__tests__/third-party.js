@@ -1,10 +1,10 @@
 "use strict";
 
 const path = require("path");
-const { thirdParty } = require("../env");
+const { thirdParty } = require("../env.js");
 const { cosmiconfig, cosmiconfigSync, isCI } = require(thirdParty);
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`

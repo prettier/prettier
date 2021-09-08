@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("write cursorOffset to stderr with --cursor-offset <int>", () => {
   runPrettier("cli", ["--cursor-offset", "2", "--parser", "babel"], {

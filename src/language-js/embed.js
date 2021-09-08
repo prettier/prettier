@@ -1,10 +1,14 @@
 "use strict";
 
-const { hasComment, CommentCheckFlags, isObjectProperty } = require("./utils");
-const formatMarkdown = require("./embed/markdown");
-const formatCss = require("./embed/css");
-const formatGraphql = require("./embed/graphql");
-const formatHtml = require("./embed/html");
+const {
+  hasComment,
+  CommentCheckFlags,
+  isObjectProperty,
+} = require("./utils.js");
+const formatMarkdown = require("./embed/markdown.js");
+const formatCss = require("./embed/css.js");
+const formatGraphql = require("./embed/graphql.js");
+const formatHtml = require("./embed/html.js");
 
 function getLanguage(path) {
   if (
@@ -173,7 +177,10 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const { tag } = parent;
+  const tag =
+    parent.tag.type === "ParenthesizedExpression"
+      ? parent.tag.expression
+      : parent.tag;
 
   switch (tag.type) {
     case "MemberExpression":

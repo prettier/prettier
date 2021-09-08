@@ -1,6 +1,6 @@
 "use strict";
 
-const parseFrontMatter = require("../utils/front-matter/parse");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
 
 const pragmas = ["format", "prettier"];
 

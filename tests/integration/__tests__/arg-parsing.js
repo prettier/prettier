@@ -1,7 +1,7 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
-expect.addSnapshotSerializer(require("../path-serializer"));
+const runPrettier = require("../runPrettier.js");
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("boolean flags do not swallow the next argument", () => {
   runPrettier("cli/arg-parsing", [
@@ -86,5 +86,11 @@ describe("number file/dir", () => {
     stderr: "",
     status: 1,
     write: [],
+  });
+});
+
+describe("deprecated option values are warned", () => {
+  runPrettier("cli/arg-parsing", ["file.js", "--jsx-bracket-same-line"]).test({
+    status: 0,
   });
 });

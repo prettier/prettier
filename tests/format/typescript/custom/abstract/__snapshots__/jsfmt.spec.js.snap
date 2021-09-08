@@ -87,6 +87,16 @@ abstract class Foo {
 ================================================================================
 `;
 
+exports[`abstractPropertiesWithBreaks.ts [babel-ts] format 1`] = `
+"Property 'foobar' cannot have an initializer because it is marked abstract. (2:29)
+  1 | abstract class Foo {
+> 2 |     abstract private foobar =
+    |                             ^
+  3 |       // comment to break
+  4 |       1 +
+  5 |       // another comment to break"
+`;
+
 exports[`abstractPropertiesWithBreaks.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

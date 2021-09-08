@@ -1,9 +1,9 @@
 "use strict";
 
-const { getStringWidth, getLast } = require("../common/util");
-const { convertEndOfLineToChars } = require("../common/end-of-line");
-const { fill, cursor, indent } = require("./doc-builders");
-const { isConcat, getDocParts } = require("./doc-utils");
+const { getStringWidth, getLast } = require("../common/util.js");
+const { convertEndOfLineToChars } = require("../common/end-of-line.js");
+const { fill, cursor, indent } = require("./doc-builders.js");
+const { isConcat, getDocParts } = require("./doc-utils.js");
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;

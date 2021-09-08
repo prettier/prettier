@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
 describe("infers postcss parser", () => {
   runPrettier("cli/with-parser-inference", ["--end-of-line", "lf", "*"]).test({
@@ -26,6 +26,18 @@ describe("infers parser from filename", () => {
     expect(
       prettier.format("  {   }  ", { filepath: "x/y/.prettierrc" })
     ).toEqual("{}\n");
+  });
+
+  test("json from .stylelintrc", () => {
+    expect(
+      prettier.format("  {   }  ", { filepath: "x/y/.stylelintrc" })
+    ).toEqual("{}\n");
+  });
+
+  test("yaml from .stylelintrc", () => {
+    expect(
+      prettier.format("  extends:    ''  ", { filepath: "x/y/.stylelintrc" })
+    ).toEqual('extends: ""\n');
   });
 
   test("babel from Jakefile", () => {

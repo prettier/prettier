@@ -3,9 +3,9 @@
 const path = require("path");
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../runPrettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("resolves configuration from external files", () => {
   runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({

@@ -112,6 +112,50 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`class-fields-features.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static epoch = new CustomDate(0);
+  #xValue = 0;
+  get #x() { return this.#xValue; }
+  set #x(value) {
+    this.#xValue = value;
+    window.requestAnimationFrame(this.#render.bind(this));
+  }
+  #clicked() {
+    this.#x++;
+  }
+  #render() {
+    this.textContent = this.#x.toString();
+  }
+}
+
+=====================================output=====================================
+class Foo {
+  static epoch = new CustomDate(0);
+  #xValue = 0;
+  get #x() {
+    return this.#xValue;
+  }
+  set #x(value) {
+    this.#xValue = value;
+    window.requestAnimationFrame(this.#render.bind(this));
+  }
+  #clicked() {
+    this.#x++;
+  }
+  #render() {
+    this.textContent = this.#x.toString();
+  }
+}
+
+================================================================================
+`;
+
 exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -210,16 +254,6 @@ new (class {})();
 new Ctor(class {});
 
 ================================================================================
-`;
-
-exports[`property.js [espree] format 1`] = `
-"Unexpected token = (2:10)
-  1 | class A {
-> 2 |   foobar =
-    |          ^
-  3 |     // comment to break
-  4 |     1 +
-  5 |     // comment to break again"
 `;
 
 exports[`property.js format 1`] = `

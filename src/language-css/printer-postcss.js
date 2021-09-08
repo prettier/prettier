@@ -1,6 +1,6 @@
 "use strict";
 
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 const {
   printNumber,
   printString,
@@ -8,7 +8,7 @@ const {
   isFrontMatterNode,
   isNextLineEmpty,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   builders: {
     join,
@@ -23,10 +23,10 @@ const {
     breakParent,
   },
   utils: { removeLines, getDocParts },
-} = require("../document");
-const clean = require("./clean");
-const embed = require("./embed");
-const { insertPragma } = require("./pragma");
+} = require("../document/index.js");
+const clean = require("./clean.js");
+const embed = require("./embed.js");
+const { insertPragma } = require("./pragma.js");
 
 const {
   getAncestorNode,
@@ -74,8 +74,8 @@ const {
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
+} = require("./utils.js");
+const { locStart, locEnd } = require("./loc.js");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";

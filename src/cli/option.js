@@ -2,10 +2,10 @@
 
 const dashify = require("dashify");
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
-const minimist = require("./minimist");
-const { optionsNormalizer } = require("./prettier-internal");
-const createMinimistOptions = require("./create-minimist-options");
+const prettier = require("../index.js");
+const minimist = require("./minimist.js");
+const { optionsNormalizer } = require("./prettier-internal.js");
+const createMinimistOptions = require("./create-minimist-options.js");
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(

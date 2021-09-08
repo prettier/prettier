@@ -5,19 +5,19 @@ const {
   ParseLocation,
   ParseSourceFile,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const parseFrontMatter = require("../utils/front-matter/parse");
-const getLast = require("../utils/get-last");
-const createError = require("../common/parser-create-error");
-const { inferParserByLanguage } = require("../common/util");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
+const getLast = require("../utils/get-last.js");
+const createError = require("../common/parser-create-error.js");
+const { inferParserByLanguage } = require("../common/util.js");
 const {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   isUnknownNamespace,
-} = require("./utils");
-const { hasPragma } = require("./pragma");
-const { Node } = require("./ast");
-const { parseIeConditionalComment } = require("./conditional-comment");
-const { locStart, locEnd } = require("./loc");
+} = require("./utils.js");
+const { hasPragma } = require("./pragma.js");
+const { Node } = require("./ast.js");
+const { parseIeConditionalComment } = require("./conditional-comment.js");
+const { locStart, locEnd } = require("./loc.js");
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -312,7 +312,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
-    // @ts-ignore
+    // @ts-expect-error
     rawAst.children.unshift(frontMatter);
   }
 

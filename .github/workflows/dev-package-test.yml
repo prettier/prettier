@@ -7,6 +7,7 @@ on:
     paths:
       - "package.json"
       - ".github/workflows/dev-package-test.yml"
+      - "yarn.lock"
 
 jobs:
   test:
@@ -33,15 +34,16 @@ jobs:
         uses: actions/checkout@v2.3.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.4.0
         with:
           node-version: ${{ matrix.node }}
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Install Client Package
-        if: matrix.NPM_CLIENT == 'pnpm'
+        if: ${{ matrix.NPM_CLIENT == 'pnpm' }}
         run: npm install --global pnpm@5
 
       - name: Run Tests

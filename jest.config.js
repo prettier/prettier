@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const installPrettier = require("./scripts/install-prettier");
+const installPrettier = require("./scripts/install-prettier.js");
 
 const PROJECT_ROOT = __dirname;
 const isProduction = process.env.NODE_ENV === "production";
@@ -71,7 +71,11 @@ module.exports = {
     "prettier-local": "<rootDir>/tests/config/require-prettier.js",
     "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
   },
-  modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/website"],
+  modulePathIgnorePatterns: [
+    "<rootDir>/dist",
+    "<rootDir>/website",
+    "<rootDir>/scripts/release",
+  ],
   transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",

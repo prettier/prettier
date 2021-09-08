@@ -21,11 +21,11 @@ const {
     literalline,
     softline,
   },
-  utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceEndOfLineWith },
-} = require("../document");
-const { isNonEmptyArray } = require("../common/util");
-const printFrontMatter = require("../utils/front-matter/print");
-const clean = require("./clean");
+  utils: { mapDoc, cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
+} = require("../document/index.js");
+const { isNonEmptyArray } = require("../common/util.js");
+const printFrontMatter = require("../utils/front-matter/print.js");
+const clean = require("./clean.js");
 const {
   htmlTrimPreserveIndentation,
   splitByHtmlWhitespace,
@@ -50,16 +50,16 @@ const {
   shouldPreserveContent,
   unescapeQuoteEntities,
   isPreLikeNode,
-} = require("./utils");
-const preprocess = require("./print-preprocess");
-const { insertPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
+} = require("./utils.js");
+const preprocess = require("./print-preprocess.js");
+const { insertPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
 const {
   printVueFor,
   printVueBindings,
   isVueEventBindingExpression,
-} = require("./syntax-vue");
-const { printImgSrcset, printClassNames } = require("./syntax-attribute");
+} = require("./syntax-vue.js");
+const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -227,7 +227,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return replaceEndOfLineWith(node.raw, literalline);
+      return replaceTextEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -236,115 +236,7 @@ function genericPrint(path, options, print) {
       return [group(printChildren(path, options, print)), hardline];
     case "element":
     case "ieConditionalComment": {
-      if (shouldPreserveContent(node, options)) {
-        return [
-          printOpeningTagPrefix(node, options),
-          group(printOpeningTag(path, options, print)),
-          ...replaceEndOfLineWith(getNodeContent(node, options), literalline),
-          ...printClosingTag(node, options),
-          printClosingTagSuffix(node, options),
-        ];
-      }
-      /**
-       * do not break:
-       *
-       *     <div>{{
-       *         ~
-       *       interpolation
-       *     }}</div>
-       *            ~
-       *
-       * exception: break if the opening tag breaks
-       *
-       *     <div
-       *       long
-       *           ~
-       *       >{{
-       *         interpolation
-       *       }}</div
-       *              ~
-       *     >
-       */
-      const shouldHugContent =
-        node.children.length === 1 &&
-        node.firstChild.type === "interpolation" &&
-        node.firstChild.isLeadingSpaceSensitive &&
-        !node.firstChild.hasLeadingSpaces &&
-        node.lastChild.isTrailingSpaceSensitive &&
-        !node.lastChild.hasTrailingSpaces;
-      const attrGroupId = Symbol("element-attr-group-id");
-      return [
-        group([
-          group(printOpeningTag(path, options, print), { id: attrGroupId }),
-          node.children.length === 0
-            ? node.hasDanglingSpaces && node.isDanglingSpaceSensitive
-              ? line
-              : ""
-            : [
-                forceBreakContent(node) ? breakParent : "",
-                ((childrenDoc) =>
-                  shouldHugContent
-                    ? indentIfBreak(childrenDoc, { groupId: attrGroupId })
-                    : (isScriptLikeTag(node) ||
-                        isVueCustomBlock(node, options)) &&
-                      node.parent.type === "root" &&
-                      options.parser === "vue" &&
-                      !options.vueIndentScriptAndStyle
-                    ? childrenDoc
-                    : indent(childrenDoc))([
-                  shouldHugContent
-                    ? ifBreak(softline, "", { groupId: attrGroupId })
-                    : node.firstChild.hasLeadingSpaces &&
-                      node.firstChild.isLeadingSpaceSensitive
-                    ? line
-                    : node.firstChild.type === "text" &&
-                      node.isWhitespaceSensitive &&
-                      node.isIndentationSensitive
-                    ? dedentToRoot(softline)
-                    : softline,
-                  printChildren(path, options, print),
-                ]),
-                (
-                  node.next
-                    ? needsToBorrowPrevClosingTagEndMarker(node.next)
-                    : needsToBorrowLastChildClosingTagEndMarker(node.parent)
-                )
-                  ? node.lastChild.hasTrailingSpaces &&
-                    node.lastChild.isTrailingSpaceSensitive
-                    ? " "
-                    : ""
-                  : shouldHugContent
-                  ? ifBreak(softline, "", { groupId: attrGroupId })
-                  : node.lastChild.hasTrailingSpaces &&
-                    node.lastChild.isTrailingSpaceSensitive
-                  ? line
-                  : (node.lastChild.type === "comment" ||
-                      (node.lastChild.type === "text" &&
-                        node.isWhitespaceSensitive &&
-                        node.isIndentationSensitive)) &&
-                    new RegExp(
-                      `\\n[\\t ]{${
-                        options.tabWidth *
-                        countParents(
-                          path,
-                          (node) => node.parent && node.parent.type !== "root"
-                        )
-                      }}$`
-                    ).test(node.lastChild.value)
-                  ? /**
-                     *     <div>
-                     *       <pre>
-                     *         something
-                     *       </pre>
-                     *            ~
-                     *     </div>
-                     */
-                    ""
-                  : softline,
-              ],
-        ]),
-        printClosingTag(node, options),
-      ];
+      return printElement(path, options, print);
     }
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
@@ -364,7 +256,7 @@ function genericPrint(path, options, print) {
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
         return [
-          ...replaceEndOfLineWith(value, literalline),
+          ...replaceTextEndOfLine(value),
           hasTrailingNewline ? hardline : "",
         ];
       }
@@ -392,8 +284,7 @@ function genericPrint(path, options, print) {
     case "comment": {
       return [
         printOpeningTagPrefix(node, options),
-
-        ...replaceEndOfLineWith(
+        ...replaceTextEndOfLine(
           options.originalText.slice(locStart(node), locEnd(node)),
           literalline
         ),
@@ -414,11 +305,10 @@ function genericPrint(path, options, print) {
         "=",
         quote,
 
-        ...replaceEndOfLineWith(
+        ...replaceTextEndOfLine(
           quote === '"'
             ? value.replace(/"/g, "&quot;")
-            : value.replace(/'/g, "&apos;"),
-          literalline
+            : value.replace(/'/g, "&apos;")
         ),
         quote,
       ];
@@ -427,6 +317,148 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
   }
+}
+
+function printElement(path, options, print) {
+  const node = path.getValue();
+
+  if (shouldPreserveContent(node, options)) {
+    return [
+      printOpeningTagPrefix(node, options),
+      group(printOpeningTag(path, options, print)),
+      ...replaceTextEndOfLine(getNodeContent(node, options)),
+      ...printClosingTag(node, options),
+      printClosingTagSuffix(node, options),
+    ];
+  }
+  /**
+   * do not break:
+   *
+   *     <div>{{
+   *         ~
+   *       interpolation
+   *     }}</div>
+   *            ~
+   *
+   * exception: break if the opening tag breaks
+   *
+   *     <div
+   *       long
+   *           ~
+   *       >{{
+   *         interpolation
+   *       }}</div
+   *              ~
+   *     >
+   */
+  const shouldHugContent =
+    node.children.length === 1 &&
+    node.firstChild.type === "interpolation" &&
+    node.firstChild.isLeadingSpaceSensitive &&
+    !node.firstChild.hasLeadingSpaces &&
+    node.lastChild.isTrailingSpaceSensitive &&
+    !node.lastChild.hasTrailingSpaces;
+
+  const attrGroupId = Symbol("element-attr-group-id");
+
+  const printTag = (doc) =>
+    group([
+      group(printOpeningTag(path, options, print), { id: attrGroupId }),
+      doc,
+      printClosingTag(node, options),
+    ]);
+
+  const printChildrenDoc = (childrenDoc) => {
+    if (shouldHugContent) {
+      return indentIfBreak(childrenDoc, { groupId: attrGroupId });
+    }
+    if (
+      (isScriptLikeTag(node) || isVueCustomBlock(node, options)) &&
+      node.parent.type === "root" &&
+      options.parser === "vue" &&
+      !options.vueIndentScriptAndStyle
+    ) {
+      return childrenDoc;
+    }
+    return indent(childrenDoc);
+  };
+
+  const printLineBeforeChildren = () => {
+    if (shouldHugContent) {
+      return ifBreak(softline, "", { groupId: attrGroupId });
+    }
+    if (
+      node.firstChild.hasLeadingSpaces &&
+      node.firstChild.isLeadingSpaceSensitive
+    ) {
+      return line;
+    }
+    if (
+      node.firstChild.type === "text" &&
+      node.isWhitespaceSensitive &&
+      node.isIndentationSensitive
+    ) {
+      return dedentToRoot(softline);
+    }
+    return softline;
+  };
+
+  const printLineAfterChildren = () => {
+    const needsToBorrow = node.next
+      ? needsToBorrowPrevClosingTagEndMarker(node.next)
+      : needsToBorrowLastChildClosingTagEndMarker(node.parent);
+    if (needsToBorrow) {
+      if (
+        node.lastChild.hasTrailingSpaces &&
+        node.lastChild.isTrailingSpaceSensitive
+      ) {
+        return " ";
+      }
+      return "";
+    }
+    if (shouldHugContent) {
+      return ifBreak(softline, "", { groupId: attrGroupId });
+    }
+    if (
+      node.lastChild.hasTrailingSpaces &&
+      node.lastChild.isTrailingSpaceSensitive
+    ) {
+      return line;
+    }
+    if (
+      (node.lastChild.type === "comment" ||
+        (node.lastChild.type === "text" &&
+          node.isWhitespaceSensitive &&
+          node.isIndentationSensitive)) &&
+      new RegExp(
+        `\\n[\\t ]{${
+          options.tabWidth *
+          countParents(
+            path,
+            (node) => node.parent && node.parent.type !== "root"
+          )
+        }}$`
+      ).test(node.lastChild.value)
+    ) {
+      return "";
+    }
+    return softline;
+  };
+
+  if (node.children.length === 0) {
+    return printTag(
+      node.hasDanglingSpaces && node.isDanglingSpaceSensitive ? line : ""
+    );
+  }
+
+  return printTag([
+    forceBreakContent(node) ? breakParent : "",
+    printChildrenDoc([
+      printLineBeforeChildren(),
+      printChildren(path, options, print),
+    ]),
+    printLineAfterChildren(),
+  ]);
 }
 
 function printChildren(path, options, print) {
@@ -534,7 +566,7 @@ function printChildren(path, options, print) {
     if (hasPrettierIgnore(child)) {
       return [
         printOpeningTagPrefix(child, options),
-        ...replaceEndOfLineWith(
+        ...replaceTextEndOfLine(
           options.originalText.slice(
             locStart(child) +
               (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -544,8 +576,7 @@ function printChildren(path, options, print) {
               (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
                 ? printClosingTagEndMarker(child, options).length
                 : 0)
-          ),
-          literalline
+          )
         ),
         printClosingTagSuffix(child, options),
       ];
@@ -667,9 +698,8 @@ function printAttributes(path, options, print) {
   const printedAttributes = path.map((attributePath) => {
     const attribute = attributePath.getValue();
     return hasPrettierIgnoreAttribute(attribute)
-      ? replaceEndOfLineWith(
-          options.originalText.slice(locStart(attribute), locEnd(attribute)),
-          literalline
+      ? replaceTextEndOfLine(
+          options.originalText.slice(locStart(attribute), locEnd(attribute))
         )
       : print();
   }, "attrs");
@@ -710,7 +740,15 @@ function printAttributes(path, options, print) {
   ) {
     parts.push(node.isSelfClosing ? " " : "");
   } else {
-    parts.push(node.isSelfClosing ? line : softline);
+    parts.push(
+      options.bracketSameLine
+        ? node.isSelfClosing
+          ? " "
+          : ""
+        : node.isSelfClosing
+        ? line
+        : softline
+    );
   }
 
   return parts;
@@ -955,8 +993,8 @@ function printClosingTagEndMarker(node, options) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceEndOfLineWith(value, literalline)
-      : replaceEndOfLineWith(
+      ? replaceTextEndOfLine(value)
+      : replaceTextEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
@@ -1135,13 +1173,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       );
     }
 
-    const interpolationRegex = /{{(.+?)}}/gs;
+    const interpolationRegex = /{{(.+?)}}/s;
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];
       for (const [index, part] of value.split(interpolationRegex).entries()) {
         if (index % 2 === 0) {
-          parts.push(replaceEndOfLineWith(part, literalline));
+          parts.push(replaceTextEndOfLine(part));
         } else {
           try {
             parts.push(
@@ -1159,7 +1197,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
               ])
             );
           } catch {
-            parts.push("{{", replaceEndOfLineWith(part, literalline), "}}");
+            parts.push("{{", replaceTextEndOfLine(part), "}}");
           }
         }
       }

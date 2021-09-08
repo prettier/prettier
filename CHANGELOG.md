@@ -1,8 +1,85 @@
+# 2.3.2
+
+[diff](https://github.com/prettier/prettier/compare/2.3.1...2.3.2)
+
+#### Fix failure on dir with trailing slash ([#11000](https://github.com/prettier/prettier/pull/11000) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```console
+$ ls
+1.js  1.unknown
+
+# Prettier 2.3.1
+$ prettier . -l
+1.js
+$ prettier ./ -l
+[error] No supported files were found in the directory: "./".
+
+# Prettier 2.3.2
+$ prettier ./ -l
+1.js
+```
+
+#### Fix handling of parenthesis with Flow's {Optional}IndexedAccess ([#11051](https://github.com/prettier/prettier/pull/11051) by [@gkz](https://github.com/gkz))
+
+Add parens when required.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type A = (T & S)['bar'];
+type B = (T | S)['bar'];
+type C = (?T)['bar'];
+type D = (typeof x)['bar'];
+type E = (string => void)['bar'];
+
+// Prettier 2.3.1
+type A = T & S["bar"];
+type B = T | S["bar"];
+type C = ?T["bar"];
+type D = typeof x["bar"];
+type E = (string) => void["bar"];
+
+// Prettier 2.3.2
+type A = (T & S)["bar"];
+type B = (T | S)["bar"];
+type C = (?T)["bar"];
+type D = (typeof x)["bar"];
+type E = ((string) => void)["bar"];
+```
+
+#### Print override modifiers for parameter property ([#11074](https://github.com/prettier/prettier/pull/11074) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class D extends B {
+  constructor(override foo: string) {
+    super();
+  }
+}
+
+// Prettier 2.3.1
+class D extends B {
+  constructor(foo: string) {
+    super();
+  }
+}
+
+// Prettier 2.3.2
+class D extends B {
+  constructor(override foo: string) {
+    super();
+  }
+}
+
+```
+
 # 2.3.1
 
 [diff](https://github.com/prettier/prettier/compare/2.3.0...2.3.1)
 
-#### Support TypeScript 4.3 (#10945 by @sosukesuzuki)
+#### Support TypeScript 4.3 ([#10945](https://github.com/prettier/prettier/pull/10945) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
 ##### [`override` modifiers in class elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#override)
 
@@ -29,7 +106,7 @@ interface Foo {
 }
 ```
 
-#### Preserve attributes order for element node (#10958 by @dcyriller)
+#### Preserve attributes order for element node ([#10958](https://github.com/prettier/prettier/pull/10958) by [@dcyriller](https://github.comdcyriller))
 
 <!-- prettier-ignore -->
 ```handlebars
@@ -74,7 +151,7 @@ interface Foo {
 />
 ```
 
-#### Track cursor position properly when it’s at the end of the range to format (#10938 by @j-f1)
+#### Track cursor position properly when it’s at the end of the range to format ([#10938](https://github.com/prettier/prettier/pull/10938) by [@j-f1](https://github.com/j-f1))
 
 Previously, if the cursor was at the end of the range to format, it would simply be placed back at the end of the updated range.
 Now, it will be repositioned if Prettier decides to add additional code to the end of the range (such as a semicolon).
@@ -94,7 +171,7 @@ const someVariable = myOtherVariable<|>;
 // range to format:  ^^^^^^^^^^^^^^^
 ```
 
-#### Break the LHS of type alias that has complex type parameters (#10901 by @sosukesusuzki)
+#### Break the LHS of type alias that has complex type parameters ([#10901](https://github.com/prettier/prettier/pull/10901) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
 <!-- prettier-ignore -->
 ```ts
@@ -128,7 +205,7 @@ type FieldLayoutWith<
 
 ```
 
-#### Break the LHS of assignments that has complex type parameters (#10916 by @sosukesuzuki)
+#### Break the LHS of assignments that has complex type parameters ([#10916](https://github.com/prettier/prettier/pull/10916) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
 <!-- prettier-ignore -->
 ```ts
@@ -150,7 +227,7 @@ const map: Map<
 
 ```
 
-#### Fix incorrectly wrapped arrow functions with return types (#10940 by @thorn0)
+#### Fix incorrectly wrapped arrow functions with return types ([#10940](https://github.com/prettier/prettier/pull/10940) by [@thorn0](https://github.com/thorn0))
 
 <!-- prettier-ignore -->
 ```ts
@@ -176,7 +253,7 @@ longfunctionWithCall12(
 );
 ```
 
-#### Avoid breaking call expressions after assignments with complex type arguments (#10949 by @sosukesuzuki)
+#### Avoid breaking call expressions after assignments with complex type arguments ([#10949](https://github.com/prettier/prettier/pull/10949) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
 <!-- prettier-ignore -->
 ```ts
@@ -204,7 +281,7 @@ const foo = call<{
 
 ```
 
-#### Fix order of `override` modifiers (#10961 by @sosukesuzuki)
+#### Fix order of `override` modifiers ([#10961](https://github.com/prettier/prettier/pull/10961) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
 ```ts
 // Input

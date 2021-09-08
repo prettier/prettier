@@ -6,9 +6,9 @@ const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
 const globby = require("globby");
 const mem = require("mem");
-const internalPlugins = require("../languages");
-const thirdParty = require("./third-party");
-const resolve = require("./resolve");
+const internalPlugins = require("../languages.js");
+const thirdParty = require("./third-party.js");
+const resolve = require("./resolve.js");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);

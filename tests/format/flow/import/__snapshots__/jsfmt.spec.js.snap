@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import-as-as.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+import { foo as as } from "foo";
+import { as as as } from "foo";
+import { as as foo } from "foo";
+
+=====================================output=====================================
+// @flow
+import { foo as as } from "foo";
+import { as as as } from "foo";
+import { as as foo } from "foo";
+
+================================================================================
+`;
+
+exports[`type-import-as-as.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {type foo as as} from "foo";
+
+=====================================output=====================================
+import { type foo as as } from "foo";
+
+================================================================================
+`;

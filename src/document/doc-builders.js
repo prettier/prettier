@@ -113,7 +113,7 @@ function dedentToRoot(contents) {
  * @returns Doc
  */
 function markAsRoot(contents) {
-  // @ts-ignore - TBD ???:
+  // @ts-expect-error - TBD ???:
   return align({ type: "root" }, contents);
 }
 

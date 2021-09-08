@@ -1,6 +1,6 @@
 "use strict";
 
-const createPlugin = require("../../utils/create-plugin");
+const createPlugin = require("../../utils/create-plugin.js");
 
 module.exports = createPlugin({
   name: "uppercase-rocks",

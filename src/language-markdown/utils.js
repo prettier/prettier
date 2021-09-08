@@ -1,12 +1,12 @@
 "use strict";
 
-const { getLast } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
+const { getLast } = require("../common/util.js");
+const { locStart, locEnd } = require("./loc.js");
 const {
   cjkPattern,
   kPattern,
   punctuationPattern,
-} = require("./constants.evaluate");
+} = require("./constants.evaluate.js");
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
