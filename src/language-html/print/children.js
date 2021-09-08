@@ -22,6 +22,91 @@ const {
   needsToBorrowParentClosingTagStartMarker,
 } = require("./tag.js");
 
+function printChild(childPath, options, print) {
+  const child = childPath.getValue();
+
+  if (hasPrettierIgnore(child)) {
+    return [
+      printOpeningTagPrefix(child, options),
+      ...replaceTextEndOfLine(
+        options.originalText.slice(
+          locStart(child) +
+            (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
+              ? printOpeningTagStartMarker(child).length
+              : 0),
+          locEnd(child) -
+            (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
+              ? printClosingTagEndMarker(child, options).length
+              : 0)
+        )
+      ),
+      printClosingTagSuffix(child, options),
+    ];
+  }
+
+  return print();
+}
+
+function printBetweenLine(prevNode, nextNode) {
+  return isTextLikeNode(prevNode) && isTextLikeNode(nextNode)
+    ? prevNode.isTrailingSpaceSensitive
+      ? prevNode.hasTrailingSpaces
+        ? preferHardlineAsLeadingSpaces(nextNode)
+          ? hardline
+          : line
+        : ""
+      : preferHardlineAsLeadingSpaces(nextNode)
+      ? hardline
+      : softline
+    : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
+        (hasPrettierIgnore(nextNode) ||
+          /**
+           *     123<a
+           *          ~
+           *       ><b>
+           */
+          nextNode.firstChild ||
+          /**
+           *     123<!--
+           *            ~
+           *     -->
+           */
+          nextNode.isSelfClosing ||
+          /**
+           *     123<span
+           *             ~
+           *       attr
+           */
+          (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
+      /**
+       *     <img
+       *       src="long"
+       *                 ~
+       *     />123
+       */
+      (prevNode.type === "element" &&
+        prevNode.isSelfClosing &&
+        needsToBorrowPrevClosingTagEndMarker(nextNode))
+    ? ""
+    : !nextNode.isLeadingSpaceSensitive ||
+      preferHardlineAsLeadingSpaces(nextNode) ||
+      /**
+       *       Want to write us a letter? Use our<a
+       *         ><b><a>mailing address</a></b></a
+       *                                          ~
+       *       >.
+       */
+      (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
+        prevNode.lastChild &&
+        needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
+        prevNode.lastChild.lastChild &&
+        needsToBorrowParentClosingTagStartMarker(prevNode.lastChild.lastChild))
+    ? hardline
+    : nextNode.hasLeadingSpaces
+    ? line
+    : softline;
+}
+
 function printChildren(path, options, print) {
   const node = path.getValue();
 
@@ -41,7 +126,7 @@ function printChildren(path, options, print) {
                 prevBetweenLine,
                 forceNextEmptyLine(childNode.prev) ? hardline : "",
               ],
-          printChild(childPath),
+          printChild(childPath, options, print),
         ];
       }, "children"),
     ];
@@ -56,12 +141,12 @@ function printChildren(path, options, print) {
         const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
         if (prevBetweenLine) {
           if (forceNextEmptyLine(childNode.prev)) {
-            return [hardline, hardline, printChild(childPath)];
+            return [hardline, hardline, printChild(childPath, options, print)];
           }
-          return [prevBetweenLine, printChild(childPath)];
+          return [prevBetweenLine, printChild(childPath, options, print)];
         }
       }
-      return printChild(childPath);
+      return printChild(childPath, options, print);
     }
 
     const prevParts = [];
@@ -113,100 +198,13 @@ function printChildren(path, options, print) {
       ...prevParts,
       group([
         ...leadingParts,
-        group([printChild(childPath), ...trailingParts], {
+        group([printChild(childPath, options, print), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),
       ...nextParts,
     ];
   }, "children");
-
-  function printChild(childPath) {
-    const child = childPath.getValue();
-
-    if (hasPrettierIgnore(child)) {
-      return [
-        printOpeningTagPrefix(child, options),
-        ...replaceTextEndOfLine(
-          options.originalText.slice(
-            locStart(child) +
-              (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
-                ? printOpeningTagStartMarker(child).length
-                : 0),
-            locEnd(child) -
-              (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-                ? printClosingTagEndMarker(child, options).length
-                : 0)
-          )
-        ),
-        printClosingTagSuffix(child, options),
-      ];
-    }
-
-    return print();
-  }
-
-  function printBetweenLine(prevNode, nextNode) {
-    return isTextLikeNode(prevNode) && isTextLikeNode(nextNode)
-      ? prevNode.isTrailingSpaceSensitive
-        ? prevNode.hasTrailingSpaces
-          ? preferHardlineAsLeadingSpaces(nextNode)
-            ? hardline
-            : line
-          : ""
-        : preferHardlineAsLeadingSpaces(nextNode)
-        ? hardline
-        : softline
-      : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-          (hasPrettierIgnore(nextNode) ||
-            /**
-             *     123<a
-             *          ~
-             *       ><b>
-             */
-            nextNode.firstChild ||
-            /**
-             *     123<!--
-             *            ~
-             *     -->
-             */
-            nextNode.isSelfClosing ||
-            /**
-             *     123<span
-             *             ~
-             *       attr
-             */
-            (nextNode.type === "element" && nextNode.attrs.length > 0))) ||
-        /**
-         *     <img
-         *       src="long"
-         *                 ~
-         *     />123
-         */
-        (prevNode.type === "element" &&
-          prevNode.isSelfClosing &&
-          needsToBorrowPrevClosingTagEndMarker(nextNode))
-      ? ""
-      : !nextNode.isLeadingSpaceSensitive ||
-        preferHardlineAsLeadingSpaces(nextNode) ||
-        /**
-         *       Want to write us a letter? Use our<a
-         *         ><b><a>mailing address</a></b></a
-         *                                          ~
-         *       >.
-         */
-        (needsToBorrowPrevClosingTagEndMarker(nextNode) &&
-          prevNode.lastChild &&
-          needsToBorrowParentClosingTagStartMarker(prevNode.lastChild) &&
-          prevNode.lastChild.lastChild &&
-          needsToBorrowParentClosingTagStartMarker(
-            prevNode.lastChild.lastChild
-          ))
-      ? hardline
-      : nextNode.hasLeadingSpaces
-      ? line
-      : softline;
-  }
 }
 
 module.exports = { printChildren };
