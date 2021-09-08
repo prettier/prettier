@@ -12,7 +12,7 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
-  isModuleRuleName
+  isModuleRuleName,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");

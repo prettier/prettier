@@ -538,5 +538,5 @@ module.exports = {
   lastLineHasInlineComment,
   stringifyNode,
   isAtWordPlaceholderNode,
-  isModuleRuleName
+  isModuleRuleName,
 };
