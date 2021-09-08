@@ -376,7 +376,7 @@ async function createBundle(bundle, cache, options) {
   }
 
   if (
-    !options["purge-cache"] &&
+    cache &&
     (
       await Promise.all(
         outputOptions.map((outputOption) =>
