@@ -261,5 +261,11 @@ module.exports = {
         sourceType: "module",
       },
     },
+    {
+      files: ["scripts/build/shims/*.mjs"],
+      rules: {
+        "import/no-anonymous-default-export": "off",
+      },
+    },
   ],
 };
