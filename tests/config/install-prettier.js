@@ -9,9 +9,11 @@ const client = process.env.NPM_CLIENT || "yarn";
 
 module.exports = (packageDir) => {
   const tmpDir = tempy.directory();
-  let file = execa.sync("npm", ["pack"], { cwd: packageDir }).stdout.trim();
-  file = path.join(packageDir, file);
-  const tarPath = path.join(tmpDir, file);
+  const fileName = execa
+    .sync("npm", ["pack"], { cwd: packageDir })
+    .stdout.trim();
+  const file = path.join(packageDir, fileName);
+  const tarPath = path.join(tmpDir, fileName);
   fs.copyFileSync(file, tarPath);
   fs.unlinkSync(file);
 
