@@ -1,18 +1,15 @@
-import { strict as assert } from "node:assert";
+import assert from "node:assert/strict";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import execa from "execa";
 import { rollup } from "rollup";
-import createEsmUtils from "esm-utils";
-
-const { __dirname } = createEsmUtils(import.meta);
-const ROOT = path.join(__dirname, "..", "..");
+import { PROJECT_ROOT, readJson, writeJson, copyFile } from "./utils.mjs";
 
 class Cache {
-  constructor(cacheDir, version) {
-    this.cacheDir = path.resolve(cacheDir || required("cacheDir"));
-    this.manifest = path.join(this.cacheDir, "manifest.json");
+  constructor({ cacheDir, distDir, version }) {
+    this.cacheDir = cacheDir || required("cacheDir");
+    this.distDir = distDir || required("distDir");
+    this.manifest = path.join(cacheDir, "manifest.json");
     this.version = version || required("version");
     this.checksums = {};
     this.files = {};
@@ -26,13 +23,15 @@ class Cache {
   // Loads the manifest.json file with the information from the last build
   async load() {
     // This should never throw, if it does, let it fail the build
-    const lockfile = await fs.readFile("yarn.lock", "utf-8");
+    const lockfile = await fs.readFile(
+      path.join(PROJECT_ROOT, "yarn.lock"),
+      "utf8"
+    );
     const lockfileHash = hashString(lockfile);
     this.updated.checksums["yarn.lock"] = lockfileHash;
 
     try {
-      const manifest = await fs.readFile(this.manifest, "utf-8");
-      const { version, checksums, files } = JSON.parse(manifest);
+      const { version, checksums, files } = await readJson(this.manifest);
 
       // Ignore the cache if the version changed
       assert.strictEqual(this.version, version);
@@ -40,17 +39,17 @@ class Cache {
       assert.ok(typeof checksums === "object");
       // If yarn.lock changed, rebuild everything
       assert.strictEqual(lockfileHash, checksums["yarn.lock"]);
-      this.checksums = checksums;
 
       assert.ok(typeof files === "object");
-      this.files = files;
 
-      for (const files of Object.values(this.files)) {
-        assert.ok(Array.isArray(files));
+      for (const modules of Object.values(files)) {
+        assert.ok(Array.isArray(modules));
       }
+
+      this.checksums = checksums;
+      this.files = files;
     } catch {
-      this.checksums = {};
-      this.files = {};
+      // noop
     }
   }
 
@@ -69,7 +68,10 @@ class Cache {
 
     const modules = output
       .filter((mod) => !/\0/.test(mod.facadeModuleId))
-      .map((mod) => [path.relative(ROOT, mod.facadeModuleId), mod.code]);
+      .map((mod) => [
+        path.relative(PROJECT_ROOT, mod.facadeModuleId),
+        mod.code,
+      ]);
 
     for (const [id, code] of modules) {
       newFiles.push(id);
@@ -95,28 +97,32 @@ class Cache {
   }
 
   async save() {
-    try {
-      await fs.writeFile(this.manifest, JSON.stringify(this.updated, null, 2));
-    } catch {
-      // Don't fail the build
+    const { manifest, updated } = this;
+
+    await writeJson(manifest, updated);
+
+    const files = Object.keys(updated.files);
+    for (const file of files) {
+      await copyFile(
+        path.join(this.distDir, file),
+        path.join(this.cacheDir, "files", file)
+      );
     }
   }
 
   async isCached(inputOptions, outputOption) {
-    const useCache = await this.checkBundle(
-      outputOption.file,
-      inputOptions,
-      outputOption
-    );
+    const file = path.relative(this.distDir, outputOption.file);
+    const useCache = await this.checkBundle(file, inputOptions, outputOption);
+
     if (useCache) {
       try {
-        await execa("cp", [
-          path.join(this.cacheDir, outputOption.file.replace("dist", "files")),
-          outputOption.file,
-        ]);
+        await copyFile(
+          path.join(this.cacheDir, "files", file),
+          path.join(this.distDir, file)
+        );
+
         return true;
-      } catch (err) {
-        console.log(err);
+      } catch {
         // Proceed to build
       }
     }

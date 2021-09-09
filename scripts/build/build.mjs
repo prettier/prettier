@@ -4,12 +4,19 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import readline from "node:readline";
 import chalk from "chalk";
-import execa from "execa";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
+import del from "del";
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
-import * as utils from "./utils.mjs";
+import {
+  PROJECT_ROOT,
+  CACHE_DIR,
+  DIST_DIR,
+  readJson,
+  writeJson,
+  copyFile,
+} from "./utils.mjs";
 import Cache from "./cache.mjs";
 
 // Errors in promises should be fatal.
@@ -67,7 +74,7 @@ async function createBundle(bundleConfig, cache, options) {
       return;
     }
 
-    const file = path.join("dist", output);
+    const file = path.join(DIST_DIR, output);
 
     // Files including U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
@@ -93,7 +100,11 @@ async function createBundle(bundleConfig, cache, options) {
         bundleConfig.bundler !== "webpack" &&
         target === "universal"
       ) {
-        const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
+        const esmFile = path.join(
+          DIST_DIR,
+          "esm",
+          output.replace(".js", ".mjs")
+        );
         sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
       }
       process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
@@ -112,41 +123,23 @@ function handleError(error) {
   throw error;
 }
 
-async function cacheFiles(cache) {
-  // Copy built files to .cache
-  try {
-    await execa("rm", ["-rf", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
-    const manifest = cache.updated;
-
-    for (const file of Object.keys(manifest.files)) {
-      await execa("cp", [
-        file,
-        path.join(".cache", file.replace("dist", "files")),
-      ]);
-    }
-  } catch {
-    // Don't fail the build
-  }
-}
-
 async function preparePackage() {
-  const pkg = await utils.readJson("package.json");
-  pkg.bin = "./bin-prettier.js";
-  pkg.engines.node = ">=10.13.0";
-  delete pkg.dependencies;
-  delete pkg.devDependencies;
-  delete pkg.browserslist;
-  pkg.scripts = {
+  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+  packageJson.bin = "./bin-prettier.js";
+  packageJson.engines.node = ">=10.13.0";
+  delete packageJson.dependencies;
+  delete packageJson.devDependencies;
+  delete packageJson.browserslist;
+  packageJson.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
-  pkg.files = ["*.js", "esm/*.mjs"];
-  await utils.writeJson("dist/package.json", pkg);
+  packageJson.files = ["*.js", "esm/*.mjs"];
+  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
 
-  await utils.copyFile("./README.md", "./dist/README.md");
-  await utils.copyFile("./LICENSE", "./dist/LICENSE");
+  for (const file of ["README.md", "LICENSE"]) {
+    await copyFile(path.join(PROJECT_ROOT, file), path.join(DIST_DIR, file));
+  }
 }
 
 async function run(params) {
@@ -156,19 +149,20 @@ async function run(params) {
   if (params.file) {
     configs = configs.filter(({ output }) => output === params.file);
   } else {
-    await execa("rm", ["-rf", "dist"]);
+    await del(DIST_DIR, { cwd: PROJECT_ROOT });
   }
 
-  await execa("mkdir", ["-p", "dist"]);
-  await execa("mkdir", ["-p", "dist/esm"]);
-
   if (params["purge-cache"]) {
-    await execa("rm", ["-rf", ".cache"]);
+    await del(CACHE_DIR, { cwd: PROJECT_ROOT });
   }
 
   let bundleCache;
   if (shouldUseCache) {
-    bundleCache = new Cache(".cache/", CACHE_VERSION);
+    bundleCache = new Cache({
+      cacheDir: CACHE_DIR,
+      distDir: DIST_DIR,
+      version: CACHE_VERSION,
+    });
     await bundleCache.load();
   }
 
@@ -179,7 +173,6 @@ async function run(params) {
   }
 
   if (shouldUseCache) {
-    await cacheFiles(bundleCache);
     await bundleCache.save();
   }
 
