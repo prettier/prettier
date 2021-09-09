@@ -17,10 +17,10 @@ import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
-import { PROJECT_ROOT, DIST_DIR, readJson } from "./utils.mjs";
+import { PROJECT_ROOT, DIST_DIR } from "./utils.mjs";
 
-const { __dirname, require } = createEsmUtils(import.meta);
-const packageJson = readJson(path.join(PROJECT_ROOT, "package.json"));
+const { __dirname, require, json } = createEsmUtils(import.meta);
+const packageJson = json.loadSync("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
