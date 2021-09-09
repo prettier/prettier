@@ -13,8 +13,8 @@ module.exports = (packageDir) => {
     .sync("npm", ["pack"], { cwd: packageDir })
     .stdout.trim();
   const file = path.join(packageDir, fileName);
-  const tarPath = path.join(tmpDir, fileName);
-  fs.copyFileSync(file, tarPath);
+  const packed = path.join(tmpDir, fileName);
+  fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
   execa.sync(client, ["init", "-y"], { cwd: tmpDir });
@@ -23,18 +23,19 @@ module.exports = (packageDir) => {
   switch (client) {
     case "npm":
       // npm fails when engine requirement only with `--engine-strict`
-      installArguments = ["install", tarPath, "--engine-strict"];
+      installArguments = ["install", packed, "--engine-strict"];
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
-      installArguments = ["add", tarPath, "--engine-strict"];
+      installArguments = ["add", packed, "--engine-strict"];
       break;
     default:
       // yarn fails when engine requirement not compatible by default
-      installArguments = ["add", tarPath];
+      installArguments = ["add", packed];
   }
 
   execa.sync(client, installArguments, { cwd: tmpDir });
+  fs.unlinkSync(packed);
 
   return path.join(tmpDir, "node_modules/prettier");
 };
