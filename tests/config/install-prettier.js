@@ -5,7 +5,12 @@ const fs = require("fs");
 const execa = require("execa");
 const tempy = require("tempy");
 
-const client = process.env.NPM_CLIENT || "yarn";
+const allowedClients = new Set(["yarn", "npm", "pnpm"]);
+
+let client = process.env.NPM_CLIENT;
+if (!allowedClients.has(client)) {
+  client = "yarn";
+}
 
 module.exports = (packageDir) => {
   const tmpDir = tempy.directory();
