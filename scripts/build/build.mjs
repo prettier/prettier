@@ -150,28 +150,40 @@ async function preparePackage() {
 }
 
 async function run(params) {
-  await execa("rm", ["-rf", "dist"]);
-  await execa("mkdir", ["-p", "dist"]);
-  if (!params.playground) {
-    await execa("mkdir", ["-p", "dist/esm"]);
+  const shouldUseCache = !params.file && !params["purge-cache"];
+  const shouldPreparePackage = !params.playground && !params.file;
+  let configs = bundleConfigs;
+  if (params.file) {
+    configs = configs.filter(({ output }) => output === params.file);
+  } else {
+    await execa("rm", ["-rf", "dist"]);
   }
+
+  await execa("mkdir", ["-p", "dist"]);
+  await execa("mkdir", ["-p", "dist/esm"]);
 
   if (params["purge-cache"]) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", CACHE_VERSION);
-  await bundleCache.load();
+  let bundleCache;
+  if (shouldUseCache) {
+    bundleCache = new Cache(".cache/", CACHE_VERSION);
+    await bundleCache.load();
+  }
 
   console.log(chalk.inverse(" Building packages "));
-  for (const bundleConfig of bundleConfigs) {
+
+  for (const bundleConfig of configs) {
     await createBundle(bundleConfig, bundleCache, params);
   }
 
-  await cacheFiles(bundleCache);
-  await bundleCache.save();
+  if (shouldUseCache) {
+    await cacheFiles(bundleCache);
+    await bundleCache.save();
+  }
 
-  if (!params.playground) {
+  if (shouldPreparePackage) {
     await preparePackage();
   }
 }
@@ -179,5 +191,6 @@ async function run(params) {
 run(
   minimist(process.argv.slice(2), {
     boolean: ["purge-cache", "playground", "print-size"],
+    string: ["file"],
   })
 );

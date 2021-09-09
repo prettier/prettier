@@ -28,6 +28,7 @@ const colorAdjusterFunctions = new Set([
   "hwb",
   "hwba",
 ]);
+const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
@@ -480,6 +481,10 @@ function isAtWordPlaceholderNode(node) {
   );
 }
 
+function isModuleRuleName(name) {
+  return moduleRuleNames.has(name);
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -532,4 +537,5 @@ module.exports = {
   lastLineHasInlineComment,
   stringifyNode,
   isAtWordPlaceholderNode,
+  isModuleRuleName,
 };
