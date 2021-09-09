@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export default function () {
+export default function rollupPluginExecutable() {
   let banner;
   let entry;
   let file;
