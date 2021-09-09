@@ -162,4 +162,5 @@ const coreBundles = [
   ...bundle,
 }));
 
-export default [...coreBundles, ...parsers];
+const config = [...coreBundles, ...parsers];
+export default config;

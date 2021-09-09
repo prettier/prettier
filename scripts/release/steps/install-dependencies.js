@@ -13,6 +13,6 @@ async function install() {
   }
 }
 
-export default function () {
+export default function installDependencies() {
   return logPromise("Installing NPM dependencies", install());
 }

@@ -27,7 +27,7 @@ async function retryNpmPublish() {
   }
 }
 
-export default async function ({ dry, version }) {
+export default async function publishToNpm({ dry, version }) {
   if (dry) {
     return;
   }
