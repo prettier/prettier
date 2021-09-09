@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+import { strict as assert } from "node:assert";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
