@@ -1,4 +1,7 @@
 import path from "node:path";
+import createEsmUtils from "esm-utils";
+
+const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -9,7 +12,7 @@ import path from "node:path";
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
- * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
+ * @property {Object.<string, string | {code?: string, file?: string | URL}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
@@ -72,9 +75,12 @@ const parsers = [
         keep_classnames: true,
       },
     },
-    replace: {
-      // `colorette`
-      '"NO_COLOR" in process.env': "true",
+    replaceModule: {
+      // `colorette` uses `process` can't run in browser
+      // https://github.com/jorgebucaran/colorette/pull/62
+      [require.resolve("colorette")]: {
+        file: path.join(dirname, "replacement/colorette.mjs"),
+      },
     },
     // TODO[@fisker]: Enable minify
     minify: false,
