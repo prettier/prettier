@@ -6,7 +6,7 @@ import readline from "node:readline";
 import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
-import del from "del";
+import rimraf from "rimraf";
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
 import {
@@ -149,11 +149,11 @@ async function run(params) {
   if (params.file) {
     configs = configs.filter(({ output }) => output === params.file);
   } else {
-    await del(DIST_DIR, { cwd: PROJECT_ROOT });
+    rimraf.sync(DIST_DIR);
   }
 
   if (params["purge-cache"]) {
-    await del(CACHE_DIR, { cwd: PROJECT_ROOT });
+    rimraf.sync(CACHE_DIR);
   }
 
   let bundleCache;

@@ -106,7 +106,6 @@
     "core-js": "3.17.2",
     "cross-env": "7.0.3",
     "cspell": "5.6.6",
-    "del": "6.0.0",
     "enquirer": "2.3.6",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
