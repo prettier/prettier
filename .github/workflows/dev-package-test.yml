@@ -44,7 +44,7 @@ jobs:
 
       - name: Install Client Package
         if: ${{ matrix.NPM_CLIENT == 'pnpm' }}
-        run: npm install --global pnpm@5
+        run: npm install --global pnpm
 
       - name: Run Tests
         run: yarn test:dev-package --maxWorkers=2
