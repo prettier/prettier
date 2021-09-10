@@ -82,8 +82,6 @@ const parsers = [
         file: path.join(dirname, "replacement/colorette.mjs"),
       },
     },
-    // TODO[@fisker]: Enable minify
-    minify: false,
   },
   {
     input: "src/language-graphql/parser-graphql.js",
