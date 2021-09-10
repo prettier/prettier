@@ -9,7 +9,7 @@ import prettyBytes from "pretty-bytes";
 import rimraf from "rimraf";
 import {
   PROJECT_ROOT,
-  CACHE_DIR,
+  BUILD_CACHE_DIR,
   DIST_DIR,
   readJson,
   writeJson,
@@ -153,13 +153,13 @@ async function run(params) {
   }
 
   if (params["purge-cache"]) {
-    rimraf.sync(CACHE_DIR);
+    rimraf.sync(BUILD_CACHE_DIR);
   }
 
   let bundleCache;
   if (shouldUseCache) {
     bundleCache = new Cache({
-      cacheDir: CACHE_DIR,
+      cacheDir: BUILD_CACHE_DIR,
       distDir: DIST_DIR,
       version: CACHE_VERSION,
     });
