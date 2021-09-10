@@ -13,11 +13,11 @@ import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import WebpackPluginTerser from "terser-webpack-plugin";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
+import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
-import { PROJECT_ROOT, DIST_DIR } from "./utils.mjs";
 
 const { __dirname, require, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");

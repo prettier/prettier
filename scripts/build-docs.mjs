@@ -1,70 +1,94 @@
 #!/usr/bin/env node
 
 import path from "node:path";
-import fs from "node:fs";
-import shell from "shelljs";
+import fs from "node:fs/promises";
 import globby from "globby";
 import prettier from "prettier";
 import createEsmUtils from "esm-utils";
+import shell from "shelljs";
+import {
+  PROJECT_ROOT,
+  DIST_DIR,
+  WEBSITE_DIR,
+  readJson,
+  writeJson,
+  copyFile,
+  writeFile,
+} from "./utils/index.mjs";
 
 shell.config.fatal = true;
+const { require } = createEsmUtils(import.meta);
+const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
+const PRETTIER_PATH = IS_PULL_REQUEST
+  ? DIST_DIR
+  : path.dirname(require.resolve("prettier"));
+const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 
-const { __dirname, require } = createEsmUtils(import.meta);
-const rootDir = path.join(__dirname, "..");
-const docs = path.join(rootDir, "website/static/lib");
-
-function pipe(string) {
-  return new shell.ShellString(string);
-}
-
-const isPullRequest = process.env.PULL_REQUEST === "true";
-const prettierPath = path.join(
-  rootDir,
-  isPullRequest ? "dist" : "node_modules/prettier"
-);
-
-shell.mkdir("-p", docs);
-
-if (isPullRequest) {
+async function buildPrettier() {
   // --- Build prettier for PR ---
-  const pkg = require("../package.json");
-  const newPkg = { ...pkg, version: `999.999.999-pr.${process.env.REVIEW_ID}` };
-  pipe(JSON.stringify(newPkg, null, 2)).to("package.json");
+  const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
+  const content = await fs.readFile(packageJsonFile);
+  const packageJson = await readJson(packageJsonFile);
+  await writeJson(packageJsonFile, {
+    ...packageJson,
+    version: `999.999.999-pr.${process.env.REVIEW_ID}`,
+  });
+
   shell.exec("yarn build --playground");
-  pipe(JSON.stringify(pkg, null, 2) + "\n").to("package.json"); // restore
+
+  // restore
+  await writeFile(packageJsonFile, content);
 }
 
-shell.cp(`${prettierPath}/standalone.js`, `${docs}/`);
-shell.cp(`${prettierPath}/parser-*.js`, `${docs}/`);
+async function buildPlaygroundFiles() {
+  const files = globby.sync(["standalone.js", "parser-*.js"], {
+    cwd: PRETTIER_PATH,
+  });
+  const parsers = {};
+  for (const fileName of files) {
+    const file = path.join(PRETTIER_PATH, fileName);
+    await copyFile(file, path.join(PLAYGROUND_PRETTIER_DIR, fileName));
 
-const parserModules = globby.sync(["parser-*.js"], { cwd: prettierPath });
-const parsers = {};
-for (const file of parserModules) {
-  const plugin = require(path.join(prettierPath, file));
-  const property = file.replace(/\.js$/, "").split("-")[1];
-  parsers[file] = {
-    parsers: Object.keys(plugin.parsers),
-    property,
-  };
-}
+    if (fileName === "standalone.js") {
+      continue;
+    }
 
-fs.writeFileSync(
-  `${docs}/parsers-location.js`,
-  prettier.format(
-    `
+    const plugin = require(file);
+    const property = fileName.replace(/\.js$/, "").split("-")[1];
+    parsers[fileName] = {
+      property,
+      parsers: Object.keys(plugin.parsers),
+    };
+  }
+
+  await writeFile(
+    path.join(PLAYGROUND_PRETTIER_DIR, "parsers-location.js"),
+    prettier.format(
+      `
       "use strict";
 
       const parsersLocation = ${JSON.stringify(parsers)};
     `,
-    { parser: "babel" }
-  )
-);
+      { parser: "babel" }
+    )
+  );
+}
 
-// --- Site ---
-shell.cd("website");
-shell.echo("Building website...");
-shell.exec("yarn install");
+(async () => {
+  if (IS_PULL_REQUEST) {
+    console.log("Building prettier...");
+    await buildPrettier();
+  }
 
-shell.exec("yarn build");
+  console.log("Preparing files for playground...");
+  await buildPlaygroundFiles();
 
-shell.echo();
+  // --- Site ---
+  shell.cd(WEBSITE_DIR);
+
+  console.log("Installing website dependencies...");
+  shell.exec("yarn install");
+
+  console.log("Building website...");
+  shell.exec("yarn build");
+})();
