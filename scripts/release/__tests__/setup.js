@@ -7,3 +7,9 @@ jest.unstable_mockModule("../get-formatted-date", () => ({
     day: "01",
   }),
 }));
+
+jest.unstable_mockModule("execa", () => ({
+  default: jest.fn((command, args) =>
+    Promise.resolve(`${command} ${args.join(" ")}`)
+  ),
+}));
