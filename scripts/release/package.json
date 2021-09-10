@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@jest/globals": "27.1.1",
-    "jest": "27.1.1"
+    "jest": "27.1.1",
+    "lodash.merge": "4.6.2"
   }
 }

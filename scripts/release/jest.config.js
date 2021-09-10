@@ -1,5 +1,5 @@
 const jestConfig = {
-  testMatch: ["**/__tests__/**/*.spec.js"],
-  setupFiles: ["./__tests__/setup.js"],
+  testMatch: ["<rootDir>/__tests__/**/*.spec.js"],
+  setupFilesAfterEnv: ["<rootDir>/__tests__/setup.js"],
 };
 export default jestConfig;
