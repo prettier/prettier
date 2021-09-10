@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import globby from "globby";
 import prettier from "prettier";
 import createEsmUtils from "esm-utils";
-import shell from "shelljs";
+import execa from "execa";
 import {
   PROJECT_ROOT,
   DIST_DIR,
@@ -16,8 +16,13 @@ import {
   writeFile,
 } from "./utils/index.mjs";
 
-shell.config.fatal = true;
 const { require } = createEsmUtils(import.meta);
+const runYarn = (command, args, options) =>
+  execa("yarn", [command, ...args], {
+    stdout: "inherit",
+    stderr: "inherit",
+    ...options,
+  });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const PRETTIER_PATH = IS_PULL_REQUEST
   ? DIST_DIR
@@ -34,7 +39,7 @@ async function buildPrettier() {
     version: `999.999.999-pr.${process.env.REVIEW_ID}`,
   });
 
-  shell.exec("yarn build --playground");
+  await runYarn("build", ["--playground"], { cwd: PROJECT_ROOT });
 
   // restore
   await writeFile(packageJsonFile, content);
@@ -84,11 +89,9 @@ async function buildPlaygroundFiles() {
   await buildPlaygroundFiles();
 
   // --- Site ---
-  shell.cd(WEBSITE_DIR);
-
   console.log("Installing website dependencies...");
-  shell.exec("yarn install");
+  await runYarn("install", [], { cwd: WEBSITE_DIR });
 
   console.log("Building website...");
-  shell.exec("yarn build");
+  await runYarn("build", [], { cwd: WEBSITE_DIR });
 })();

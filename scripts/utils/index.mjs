@@ -39,7 +39,6 @@ export {
   WEBSITE_DIR,
   readJson,
   writeJson,
-  readFile,
   writeFile,
   copyFile,
 };
