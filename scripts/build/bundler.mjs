@@ -17,9 +17,9 @@ import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
+import { PROJECT_ROOT, DIST_DIR } from "./utils.mjs";
 
 const { __dirname, require, json } = createEsmUtils(import.meta);
-const PROJECT_ROOT = path.join(__dirname, "../..");
 const packageJson = json.loadSync("../../package.json");
 
 const entries = [
@@ -114,7 +114,7 @@ function getBabelConfig(bundle) {
 
 function getRollupConfig(bundle) {
   const config = {
-    input: bundle.input,
+    input: path.join(PROJECT_ROOT, bundle.input),
     onwarn(warning) {
       if (
         // ignore `MIXED_EXPORTS` warn
@@ -255,7 +255,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   const options = {
     // Avoid warning form #8797
     exports: "auto",
-    file: `dist/${bundle.output}`,
+    file: path.join(DIST_DIR, bundle.output),
     name: bundle.name,
     plugins: [
       bundle.minify !== false &&
@@ -280,7 +280,10 @@ function getRollupOutputOptions(bundle, buildOptions) {
         !buildOptions.playground && {
           ...options,
           format: "esm",
-          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+          file: path.join(
+            DIST_DIR,
+            `esm/${bundle.output.replace(".js", ".mjs")}`
+          ),
         },
       ].filter(Boolean);
     }
@@ -290,6 +293,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   if (buildOptions.playground && bundle.bundler !== "webpack") {
     return { skipped: true };
   }
+
   return [options];
 }
 
@@ -314,7 +318,7 @@ function getWebpackConfig(bundle) {
       ],
     },
     output: {
-      path: path.resolve(PROJECT_ROOT, "dist"),
+      path: DIST_DIR,
       filename: bundle.output,
       library: {
         type: "umd",
