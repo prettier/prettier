@@ -54,20 +54,18 @@ module.exports = {
     description:
       "Put > of opening tags on the last line instead of on a new line.",
   },
-<<<<<<< HEAD
   singleAttributePerLine: {
     since: "2.6.0",
     category: CATEGORY_COMMON,
     type: "boolean",
     default: false,
     description: "Enforce single attribute per line in HTML, Vue and JSX.",
-=======
+  },
   alignColumns: {
-    since: "2.5.0",
+    since: "2.6.0",
     category: CATEGORY_COMMON,
     type: "boolean",
     default: true,
     description: "Align markdown table columns.",
->>>>>>> cf4debf0c (Add alignColumns)
   },
 };

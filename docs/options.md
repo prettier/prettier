@@ -466,6 +466,7 @@ Valid options:
 | Default | CLI Override                  | API Override                     |
 | ------- | ----------------------------- | -------------------------------- |
 | `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |
+
 ## Align Columns
 
 _First available in v2.6.0_
@@ -478,6 +479,6 @@ Valid options:
 - `"true"` - Align columns to the same width.
 - `"false"` - Don't align columns.
 
-| Default  | CLI Override                                  | API Override                                  |
-| -------- | --------------------------------------------- | --------------------------------------------- |
+| Default  | CLI Override                                   | API Override                                  |
+| -------- | ---------------------------------------------- | --------------------------------------------- |
 | `"true"` | <code>--align-columns <true&#124;false></code> | <code>alignColumns: "<rue&#124;false>"</code> |
