@@ -3,7 +3,7 @@ import step from "../../steps/check-git-status.js";
 import { updateInjectedValues } from "../helpers.js";
 
 describe("check-git-status", () => {
-  it("does noting when there are no local changes", async () => {
+  it("calls git status with --porcelain", async () => {
     await expect(step()).resolves.toBe();
     expect(execa.mock.calls.length).toBe(1);
     expect(execa.mock.calls[0]).toEqual([
