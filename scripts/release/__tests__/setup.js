@@ -30,6 +30,8 @@ jest.unstable_mockModule("execa", () => ({
   }),
 }));
 
+jest.spyOn(process.stdout, "write").mockImplementation((buffer) => buffer);
+
 beforeEach(() => {
   jest.clearAllMocks();
   initializeInjectedValues();
