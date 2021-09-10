@@ -2,5 +2,5 @@
   command = "yarn build:website"
 
 [build.environment]
-  NODE_VERSION = "14"
+  NODE_VERSION = "16"
   YARN_VERSION = "1.22.10"
