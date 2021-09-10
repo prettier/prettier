@@ -39,13 +39,13 @@ function getReleaseUrl(version, previousVersion, isPatch) {
     const urlToChangelog =
       "https://github.com/prettier/prettier/blob/main/CHANGELOG.md#" +
       version.split(".").join("");
-    body = `[Changelog](${urlToChangelog})`;
+    body = `🔗 [Changelog](${urlToChangelog})`;
   } else {
     const blogPostInfo = getBlogPostInfo(version);
     body = getChangelogContent({
       version,
       previousVersion,
-      body: `[Release note](https://prettier.io/${blogPostInfo.path})`,
+      body: `🔗 [Release note](https://prettier.io/${blogPostInfo.path})`,
     });
   }
   body = encodeURIComponent(body);
