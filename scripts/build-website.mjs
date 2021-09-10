@@ -72,10 +72,10 @@ async function buildPlaygroundFiles() {
     path.join(PLAYGROUND_PRETTIER_DIR, "parsers-location.js"),
     prettier.format(
       `
-      "use strict";
+        "use strict";
 
-      const parsersLocation = ${JSON.stringify(parsers)};
-    `,
+        const parsersLocation = ${JSON.stringify(parsers)};
+      `,
       { parser: "babel" }
     )
   );
