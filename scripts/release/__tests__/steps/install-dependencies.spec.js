@@ -13,6 +13,8 @@ describe("install-dependencies", () => {
       undefined,
     ]);
     expect(execa.mock.calls[2]).toEqual(["git", ["ls-files", "-m"], undefined]);
+    // via logPromise
+    expect(process.stdout.write.mock.calls.length).toBe(2);
   });
 
   it("throws an error when lockfile needs to be updated", async () => {
@@ -28,5 +30,7 @@ describe("install-dependencies", () => {
       undefined,
     ]);
     expect(execa.mock.calls[2]).toEqual(["git", ["ls-files", "-m"], undefined]);
+    // via logPromise
+    expect(process.stdout.write.mock.calls.length).toBe(2);
   });
 });
