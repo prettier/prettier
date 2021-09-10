@@ -39,10 +39,12 @@ async function buildPrettier() {
     version: `999.999.999-pr.${process.env.REVIEW_ID}`,
   });
 
-  await runYarn("build", ["--playground"], { cwd: PROJECT_ROOT });
-
-  // restore
-  await writeFile(packageJsonFile, content);
+  try {
+    await runYarn("build", ["--playground"], { cwd: PROJECT_ROOT });
+  } finally {
+    // restore
+    await writeFile(packageJsonFile, content);
+  }
 }
 
 async function buildPlaygroundFiles() {
