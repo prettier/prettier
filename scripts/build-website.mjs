@@ -61,6 +61,9 @@ async function buildPlaygroundFiles() {
     }
 
     const plugin = require(file);
+    // We add plugins to the global `prettierPlugins` object
+    // the file name after `parser-` is used ad property
+    // See `scripts/build/config.mjs`
     const property = fileName.replace(/\.js$/, "").split("-")[1];
     parsers[fileName] = {
       property,
