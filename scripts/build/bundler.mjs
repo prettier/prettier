@@ -16,7 +16,7 @@ import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 import { PROJECT_ROOT, DIST_DIR } from "./utils.mjs";
 
-const { __dirname, require, json } = createEsmUtils(import.meta);
+const { require, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const entries = [
