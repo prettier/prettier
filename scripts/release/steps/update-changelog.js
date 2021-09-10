@@ -42,7 +42,7 @@ async function getChangelogForPatch({ version, previousVersion }) {
   return changelog;
 }
 
-export default async function ({ version, previousVersion }) {
+export default async function updateChangelog({ version, previousVersion }) {
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {

@@ -121,6 +121,8 @@ For example, you can do the following to have Prettier run before each commit:
 
    <!--END_DOCUSAURUS_CODE_TABS-->
 
+> Note: npm **set-script** command requires at least **npm v7.x**. See https://docs.npmjs.com/cli/v7/commands/npm-set-script.
+
 2. Add the following to your `package.json`:
 
 ```json

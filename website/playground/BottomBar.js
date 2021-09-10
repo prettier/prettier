@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 const root = document.getElementById("bottom-bar");
 
-export default function ({ left, right }) {
+export default function BottomBar({ left, right }) {
   return ReactDOM.createPortal(
     <React.Fragment>
       <div className="bottom-bar-buttons">{left}</div>

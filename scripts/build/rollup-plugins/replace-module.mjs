@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-export default function (replacements = {}) {
+export default function rollupPluginReplaceModule(replacements = {}) {
   return {
     name: "replace-module",
 

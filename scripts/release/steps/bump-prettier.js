@@ -36,7 +36,7 @@ async function bump({
   await writeJson("package.json", pkg, { spaces: 2 });
 }
 
-export default async function (params) {
+export default async function bumpPrettier(params) {
   const { dry, version } = params;
 
   if (dry) {
