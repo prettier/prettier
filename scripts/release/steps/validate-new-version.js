@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import semver from "semver";
 
-export default function ({ version, previousVersion }) {
+export default function validateNewVersion({ version, previousVersion }) {
   if (!semver.valid(version)) {
     throw new Error("Invalid version specified");
   }

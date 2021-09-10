@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { runYarn, logPromise, readJson } from "../utils.js";
 
-export default async function ({ version }) {
+export default async function generateBundles({ version }) {
   await logPromise("Generating bundles", runYarn(["build", "--purge-cache"]));
 
   const builtPkg = await readJson("dist/package.json");

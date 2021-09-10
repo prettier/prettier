@@ -97,6 +97,7 @@ module.exports = {
       },
     ],
     "import/order": "error",
+    "import/no-anonymous-default-export": "error",
 
     "regexp/match-any": [
       "error",
