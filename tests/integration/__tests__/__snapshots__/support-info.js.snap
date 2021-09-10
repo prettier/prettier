@@ -86,6 +86,10 @@ Object {
     ],
   },
   "options": Object {
+    "alignColumns": Object {
+      "default": true,
+      "type": "boolean",
+    },
     "arrowParens": Object {
       "choices": Array [
         "always",
@@ -760,6 +764,15 @@ exports[`CLI --support-info (stdout) 1`] = `
     }
   ],
   \\"options\\": [
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": true,
+      \\"description\\": \\"Align markdown table columns.\\",
+      \\"name\\": \\"alignColumns\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.5.0\\",
+      \\"type\\": \\"boolean\\"
+    },
     {
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
