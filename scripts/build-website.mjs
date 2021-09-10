@@ -48,7 +48,7 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const files = globby.sync(["standalone.js", "parser-*.js"], {
+  const files = await globby(["standalone.js", "parser-*.js"], {
     cwd: PRETTIER_PATH,
   });
   const parsers = {};
