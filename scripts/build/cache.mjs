@@ -3,7 +3,12 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { rollup } from "rollup";
-import { PROJECT_ROOT, readJson, writeJson, copyFile } from "./utils.mjs";
+import {
+  PROJECT_ROOT,
+  readJson,
+  writeJson,
+  copyFile,
+} from "../utils/index.mjs";
 
 class Cache {
   constructor({ cacheDir, distDir, version }) {
