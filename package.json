@@ -162,7 +162,7 @@
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.mjs",
-    "build-docs": "node ./scripts/build-docs.mjs"
+    "build:website": "node ./scripts/build-website.mjs"
   },
   "browserslist": [
     ">0.5%",
