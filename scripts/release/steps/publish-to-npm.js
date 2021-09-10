@@ -27,12 +27,18 @@ async function retryNpmPublish() {
   }
 }
 
+function getReleaseUrl(version) {
+  return `https://github.com/prettier/prettier/releases/new?tag=${version}}`;
+}
+
 export default async function publishToNpm({ dry, version }) {
   if (dry) {
     return;
   }
 
   await logPromise("Publishing to npm", retryNpmPublish());
+
+  const releaseUrl = getReleaseUrl(version);
 
   console.log(
     outdentString(chalk`
@@ -41,7 +47,7 @@ export default async function publishToNpm({ dry, version }) {
       {yellow.bold Some manual steps are necessary.}
 
       {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline https://github.com/prettier/prettier/releases/new?tag=${version}}
+      - Go to {cyan.underline ${releaseUrl}}
       - Copy release notes from {yellow CHANGELOG.md}
       - Press {bgGreen.black  Publish release }
 
