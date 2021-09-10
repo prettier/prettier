@@ -1,4 +1,4 @@
-import { jest as jestGlobals } from "@jest/globals";
+import { jest } from "@jest/globals";
 import { getInjectedValues, initializeInjectedValues } from "./helpers.js";
 
 jest.unstable_mockModule("../get-formatted-date", () => ({
@@ -9,8 +9,8 @@ jest.unstable_mockModule("../get-formatted-date", () => ({
   }),
 }));
 
-jestGlobals.unstable_mockModule("execa", () => ({
-  default: jestGlobals.fn((command, args) => {
+jest.unstable_mockModule("execa", () => ({
+  default: jest.fn((command, args) => {
     const receivedCommand = `${command} ${args.join(" ")}`;
     const {
       execa: { stdout, stderr },
@@ -31,5 +31,6 @@ jestGlobals.unstable_mockModule("execa", () => ({
 }));
 
 beforeEach(() => {
+  jest.clearAllMocks();
   initializeInjectedValues();
 });
