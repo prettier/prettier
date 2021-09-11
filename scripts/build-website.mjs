@@ -24,7 +24,7 @@ const runYarn = (command, args, options) =>
     ...options,
   });
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
-const PRETTIER_PATH = IS_PULL_REQUEST
+const PRETTIER_DIR = IS_PULL_REQUEST
   ? DIST_DIR
   : path.dirname(require.resolve("prettier"));
 const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
@@ -49,11 +49,11 @@ async function buildPrettier() {
 
 async function buildPlaygroundFiles() {
   const files = await globby(["standalone.js", "parser-*.js"], {
-    cwd: PRETTIER_PATH,
+    cwd: PRETTIER_DIR,
   });
   const parsers = {};
   for (const fileName of files) {
-    const file = path.join(PRETTIER_PATH, fileName);
+    const file = path.join(PRETTIER_DIR, fileName);
     await copyFile(file, path.join(PLAYGROUND_PRETTIER_DIR, fileName));
 
     if (fileName === "standalone.js") {
