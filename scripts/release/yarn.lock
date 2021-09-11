@@ -387,7 +387,7 @@
     jest-mock "^27.1.1"
     jest-util "^27.1.1"
 
-"@jest/globals@^27.1.1":
+"@jest/globals@27.1.1", "@jest/globals@^27.1.1":
   version "27.1.1"
   resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-27.1.1.tgz#cfe5f4d5b37483cef62b79612128ccc7e3c951d8"
   integrity sha512-Q3JcTPmY+DAEHnr4MpnBV3mwy50EGrTC6oSDTNnW7FNGGacTJAfpWNk02D7xv422T1OzK2A2BKx+26xJOvHkyw==

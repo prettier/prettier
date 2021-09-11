@@ -5,6 +5,7 @@ import execa from "execa";
 import stringWidth from "string-width";
 import fetch from "node-fetch";
 import outdent from "outdent";
+import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);
 
@@ -92,10 +93,7 @@ async function fetchText(url) {
 }
 
 function getBlogPostInfo(version) {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const { year, month, day } = getFormattedDate();
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
