@@ -7,16 +7,16 @@ import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
 import rimraf from "rimraf";
-import bundler from "./bundler.mjs";
-import bundleConfigs from "./config.mjs";
 import {
   PROJECT_ROOT,
-  CACHE_DIR,
+  BUILD_CACHE_DIR,
   DIST_DIR,
   readJson,
   writeJson,
   copyFile,
-} from "./utils.mjs";
+} from "../utils/index.mjs";
+import bundler from "./bundler.mjs";
+import bundleConfigs from "./config.mjs";
 import Cache from "./cache.mjs";
 
 // Errors in promises should be fatal.
@@ -153,13 +153,13 @@ async function run(params) {
   }
 
   if (params["purge-cache"]) {
-    rimraf.sync(CACHE_DIR);
+    rimraf.sync(BUILD_CACHE_DIR);
   }
 
   let bundleCache;
   if (shouldUseCache) {
     bundleCache = new Cache({
-      cacheDir: CACHE_DIR,
+      cacheDir: BUILD_CACHE_DIR,
       distDir: DIST_DIR,
       version: CACHE_VERSION,
     });

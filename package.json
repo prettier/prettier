@@ -133,7 +133,6 @@
     "rollup": "2.53.3",
     "rollup-plugin-polyfill-node": "0.7.0",
     "rollup-plugin-terser": "7.0.2",
-    "shelljs": "0.8.4",
     "snapshot-diff": "0.9.0",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.2.3",
@@ -163,7 +162,7 @@
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.mjs",
-    "build-docs": "node ./scripts/build-docs.mjs"
+    "build:website": "node ./scripts/build-website.mjs"
   },
   "browserslist": [
     ">0.5%",
