@@ -263,16 +263,21 @@ function getRollupOutputOptions(bundle, buildOptions) {
     exports: "auto",
     file: path.join(DIST_DIR, bundle.output),
     name: bundle.name,
-    plugins: [
-      bundle.minify !== false &&
-        bundle.target === "universal" &&
-        rollupPluginTerser({
-          output: {
-            ascii_only: true,
-          },
-        }),
-    ],
+    plugins: [],
   };
+
+  if (bundle.minify !== false && bundle.target === "universal") {
+    let { terserOptions = {} } = bundle;
+    terserOptions = {
+      ...terserOptions,
+      output: {
+        ...terserOptions.output,
+        ascii_only: true,
+      },
+    };
+
+    options.plugins.push(rollupPluginTerser(terserOptions));
+  }
 
   if (bundle.target === "node") {
     options.format = "cjs";
