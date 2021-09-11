@@ -1,3 +1,4 @@
+// TODO: Implement this in `utils.js` when jest.importActual is landed.
 export default function getFormattedDate() {
   const date = new Date();
   const year = date.getFullYear();
