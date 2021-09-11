@@ -1,7 +1,13 @@
 import chalk from "chalk";
 import outdent from "outdent";
 import execa from "execa";
-import { logPromise, waitForEnter } from "../utils.js";
+import semver from "semver";
+import {
+  getBlogPostInfo,
+  getChangelogContent,
+  logPromise,
+  waitForEnter,
+} from "../utils.js";
 
 const outdentString = outdent.string;
 
@@ -27,12 +33,35 @@ async function retryNpmPublish() {
   }
 }
 
-export default async function publishToNpm({ dry, version }) {
+export function getReleaseUrl(version, previousVersion) {
+  const semverDiff = semver.diff(version, previousVersion);
+  const isPatch = semverDiff === "patch";
+  let body;
+  if (isPatch) {
+    const urlToChangelog =
+      "https://github.com/prettier/prettier/blob/main/CHANGELOG.md#" +
+      version.split(".").join("");
+    body = `🔗 [Changelog](${urlToChangelog})`;
+  } else {
+    const blogPostInfo = getBlogPostInfo(version);
+    body = getChangelogContent({
+      version,
+      previousVersion,
+      body: `🔗 [Release note](https://prettier.io/${blogPostInfo.path})`,
+    });
+  }
+  body = encodeURIComponent(body);
+  return `https://github.com/prettier/prettier/releases/new?tag=${version}&title=${version}&body=${body}`;
+}
+
+export default async function publishToNpm({ dry, version, previousVersion }) {
   if (dry) {
     return;
   }
 
   await logPromise("Publishing to npm", retryNpmPublish());
+
+  const releaseUrl = getReleaseUrl(version, previousVersion);
 
   console.log(
     outdentString(chalk`
@@ -41,7 +70,7 @@ export default async function publishToNpm({ dry, version }) {
       {yellow.bold Some manual steps are necessary.}
 
       {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline https://github.com/prettier/prettier/releases/new?tag=${version}}
+      - Go to {cyan.underline ${releaseUrl}}
       - Copy release notes from {yellow CHANGELOG.md}
       - Press {bgGreen.black  Publish release }
 

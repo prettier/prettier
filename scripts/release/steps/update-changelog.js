@@ -3,31 +3,19 @@ import execa from "execa";
 import chalk from "chalk";
 import outdent from "outdent";
 import semver from "semver";
-import { waitForEnter, runYarn, logPromise } from "../utils.js";
+import {
+  waitForEnter,
+  runYarn,
+  logPromise,
+  getBlogPostInfo,
+  getChangelogContent,
+} from "../utils.js";
 
 const outdentString = outdent.string;
 
-function getBlogPostInfo(version) {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return {
-    file: `website/blog/${year}-${month}-${day}-${version}.md`,
-    path: `blog/${year}/${month}/${day}/${version}.html`,
-  };
-}
-
-function writeChangelog({ version, previousVersion, body }) {
+function writeChangelog(params) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
-  const newEntry = outdent`
-    # ${version}
-
-    [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
-
-    ${body}
-  `;
+  const newEntry = `# ${params.version}\n\n` + getChangelogContent(params);
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }
 
