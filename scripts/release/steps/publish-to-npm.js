@@ -33,7 +33,9 @@ async function retryNpmPublish() {
   }
 }
 
-function getReleaseUrl(version, previousVersion, isPatch) {
+export function getReleaseUrl(version, previousVersion) {
+  const semverDiff = semver.diff(version, previousVersion);
+  const isPatch = semverDiff === "patch";
   let body;
   if (isPatch) {
     const urlToChangelog =
@@ -49,7 +51,7 @@ function getReleaseUrl(version, previousVersion, isPatch) {
     });
   }
   body = encodeURIComponent(body);
-  return `https://github.com/prettier/prettier/releases/new?tag=${version}&title=${version}&body=${body}}`;
+  return `https://github.com/prettier/prettier/releases/new?tag=${version}&title=${version}&body=${body}`;
 }
 
 export default async function publishToNpm({ dry, version, previousVersion }) {
@@ -57,15 +59,9 @@ export default async function publishToNpm({ dry, version, previousVersion }) {
     return;
   }
 
-  const semverDiff = semver.diff(version, previousVersion);
-
   await logPromise("Publishing to npm", retryNpmPublish());
 
-  const releaseUrl = getReleaseUrl(
-    version,
-    previousVersion,
-    /* isPatch */ semverDiff === "patch"
-  );
+  const releaseUrl = getReleaseUrl(version, previousVersion);
 
   console.log(
     outdentString(chalk`
