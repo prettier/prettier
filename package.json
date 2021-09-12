@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.15.5",
-    "@babel/preset-env": "7.15.4",
+    "@babel/preset-env": "7.15.6",
     "@babel/types": "7.15.6",
     "@glimmer/reference": "0.80.0",
     "@rollup/plugin-alias": "3.1.5",
