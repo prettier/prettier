@@ -109,14 +109,14 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
     // diff old and new cursor node texts, with a special cursor
     // symbol inserted to find out where it moves to
 
-    const oldCursorNodeCharArray = oldCursorNodeText.split("");
+    const oldCursorNodeCharArray = [...oldCursorNodeText];
     oldCursorNodeCharArray.splice(
       cursorOffsetRelativeToOldCursorNode,
       0,
       CURSOR
     );
 
-    const newCursorNodeCharArray = newCursorNodeText.split("");
+    const newCursorNodeCharArray = [...newCursorNodeText];
 
     const cursorNodeDiff = diff.diffArrays(
       oldCursorNodeCharArray,
