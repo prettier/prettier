@@ -72,6 +72,7 @@ const {
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
+  isSCSSModuleConfigurationProvided,
   isConfigurationNode,
   isParenGroupNode,
 } = require("./utils/index.js");
@@ -847,6 +848,10 @@ function genericPrint(path, options, print) {
       // example @import url("verylongurl") projection,tv
       if (insideURLFunctionInImportAtRuleNode(path)) {
         return group(fill(parts));
+      }
+
+      if (isSCSSModuleConfigurationProvided(path)) {
+        return group(indent(fill(parts)));
       }
 
       return group(indent(fill(parts)));
