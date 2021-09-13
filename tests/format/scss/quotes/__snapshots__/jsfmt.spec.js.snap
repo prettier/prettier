@@ -29,6 +29,8 @@ singleQuote: true
 
 @forward "library" as btn-*;
 
+@forward "library" as btn*;
+
 =====================================output=====================================
 @use 'library';
 
@@ -48,6 +50,8 @@ singleQuote: true
 @forward 'library' hide gradient;
 
 @forward 'library' as btn-*;
+
+@forward 'library' as btn*;
 
 ================================================================================
 `;
@@ -80,6 +84,8 @@ printWidth: 80
 
 @forward "library" as btn-*;
 
+@forward "library" as btn*;
+
 =====================================output=====================================
 @use "library";
 
@@ -99,6 +105,8 @@ printWidth: 80
 @forward "library" hide gradient;
 
 @forward "library" as btn-*;
+
+@forward "library" as btn*;
 
 ================================================================================
 `;

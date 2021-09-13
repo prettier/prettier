@@ -555,7 +555,6 @@ function genericPrint(path, options, print) {
           insideAtRuleNode(path, "forward") &&
           iNode.type === "value-word" &&
           iNode.value &&
-          iNode.value.endsWith("-") &&
           iPrevNode.type === "value-word" &&
           iPrevNode.value &&
           iPrevNode.value === "as" &&
