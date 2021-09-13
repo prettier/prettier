@@ -1,8 +1,10 @@
 "use strict";
 
+const { ArgExpansionBailout } = require("../../common/errors.js");
 const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
+const { removeLines } = require("../../document/doc-utils.js");
 const {
-  builders: { line, group, indent, indentIfBreak },
+  builders: { line, group, indent, indentIfBreak, conditionalGroup },
   utils: { cleanDoc, willBreak },
 } = require("../../document/index.js");
 const {
@@ -54,6 +56,33 @@ function printAssignment(
       ]);
     }
 
+    case "arrow-variable":
+      if (!willBreak(leftDoc)) {
+        let expandedRightDoc;
+        try {
+          path.try(() => {
+            expandedRightDoc = print(rightPropertyName, {
+              assignmentLayout: layout,
+              expandFirstArg: true,
+            });
+          });
+        } catch (caught) {
+          if (!(caught instanceof ArgExpansionBailout)) {
+            /* istanbul ignore next */
+            throw caught;
+          }
+        }
+        if (expandedRightDoc) {
+          return [
+            conditionalGroup([
+              group([removeLines(leftDoc), operator, " ", expandedRightDoc]),
+              group([leftDoc, operator, " ", group(rightDoc)]),
+            ]),
+          ];
+        }
+      }
+
+    // fall through
     case "break-lhs":
       return group([leftDoc, operator, " ", group(rightDoc)]);
 
@@ -143,6 +172,10 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     hasComplexTypeAnnotation(node)
   ) {
     return "break-lhs";
+  }
+
+  if (isArrowFunctionVariable(node)) {
+    return "arrow-variable";
   }
 
   // wrapping object properties with very short keys usually doesn't add much value
@@ -273,17 +306,19 @@ function isTypeAlias(node) {
   return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
-function hasComplexTypeAnnotation(node) {
+function getTypeParams(node) {
   if (node.type !== "VariableDeclarator") {
-    return false;
+    return;
   }
   const { typeAnnotation } = node.id;
   if (!typeAnnotation || !typeAnnotation.typeAnnotation) {
-    return false;
+    return;
   }
-  const typeParams = getTypeParametersFromTypeReference(
-    typeAnnotation.typeAnnotation
-  );
+  return getTypeParametersFromTypeReference(typeAnnotation.typeAnnotation);
+}
+
+function hasComplexTypeAnnotation(node) {
+  const typeParams = getTypeParams(node);
   return (
     isNonEmptyArray(typeParams) &&
     typeParams.length > 1 &&
@@ -292,6 +327,15 @@ function hasComplexTypeAnnotation(node) {
         isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
         param.type === "TSConditionalType"
     )
+  );
+}
+
+function isArrowFunctionVariable(node) {
+  const typeParams = getTypeParams(node);
+  return (
+    isNonEmptyArray(typeParams) &&
+    node.init &&
+    node.init.type === "ArrowFunctionExpression"
   );
 }
 

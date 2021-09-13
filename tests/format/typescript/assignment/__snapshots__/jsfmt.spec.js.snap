@@ -78,20 +78,20 @@ export const findByDate: Resolver<void, Recipe[], { date: Date }> =
   (_, { date }, { req } ) => Recipe.find({ createDate: date });
 
 =====================================output=====================================
-export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
-  _,
-  { date },
-  { req }
-) => {
+export const findByDate: Resolver<
+  void,
+  Recipe[],
+  { date: Date }
+> = (_, { date }, { req }) => {
   const repo = req.getRepository(Recipe);
   return repo.find({ createDate: date });
 };
 
-export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
-  _,
-  { date },
-  { req }
-) => Recipe.find({ createDate: date });
+export const findByDate: Resolver<
+  void,
+  Recipe[],
+  { date: Date }
+> = (_, { date }, { req }) => Recipe.find({ createDate: date });
 
 ================================================================================
 `;
@@ -259,6 +259,101 @@ const foo = call<
 const foo = call<
   Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo
 >();
+
+================================================================================
+`;
+
+exports[`issue-10848.tsx format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const MyComponent: React.VoidFunctionComponent<MyComponentProps> = ({ x }) => {
+  const a = useA()
+  return <div>x = {x}; a = {a}</div>
+}
+
+const MyComponent2: React.VoidFunctionComponent<MyComponent2Props> = ({ x, y }) => {
+  const a = useA()
+  return <div>x = {x}; y = {y}; a = {a}</div>
+}
+
+const MyComponentWithLongName1: React.VoidFunctionComponent<MyComponentWithLongNameProps> = ({ x, y }) => {
+  const a = useA()
+  return <div>x = {x}; y = {y}; a = {a}</div>
+}
+
+const MyComponentWithLongName2: React.VoidFunctionComponent<MyComponentWithLongNameProps> = ({ x, y, anotherPropWithLongName1, anotherPropWithLongName2, anotherPropWithLongName3, anotherPropWithLongName4 }) => {
+  const a = useA()
+  return <div>x = {x}; y = {y}; a = {a}</div>
+}
+
+const MyGenericComponent: React.VoidFunctionComponent<MyGenericComponentProps<number>> = ({ x, y }) => {
+  const a = useA()
+  return <div>x = {x}; y = {y}; a = {a}</div>
+}
+
+=====================================output=====================================
+const MyComponent: React.VoidFunctionComponent<MyComponentProps> = ({ x }) => {
+  const a = useA();
+  return (
+    <div>
+      x = {x}; a = {a}
+    </div>
+  );
+};
+
+const MyComponent2: React.VoidFunctionComponent<
+  MyComponent2Props
+> = ({ x, y }) => {
+  const a = useA();
+  return (
+    <div>
+      x = {x}; y = {y}; a = {a}
+    </div>
+  );
+};
+
+const MyComponentWithLongName1: React.VoidFunctionComponent<
+  MyComponentWithLongNameProps
+> = ({ x, y }) => {
+  const a = useA();
+  return (
+    <div>
+      x = {x}; y = {y}; a = {a}
+    </div>
+  );
+};
+
+const MyComponentWithLongName2: React.VoidFunctionComponent<
+  MyComponentWithLongNameProps
+> = ({
+  x,
+  y,
+  anotherPropWithLongName1,
+  anotherPropWithLongName2,
+  anotherPropWithLongName3,
+  anotherPropWithLongName4,
+}) => {
+  const a = useA();
+  return (
+    <div>
+      x = {x}; y = {y}; a = {a}
+    </div>
+  );
+};
+
+const MyGenericComponent: React.VoidFunctionComponent<
+  MyGenericComponentProps<number>
+> = ({ x, y }) => {
+  const a = useA();
+  return (
+    <div>
+      x = {x}; y = {y}; a = {a}
+    </div>
+  );
+};
 
 ================================================================================
 `;

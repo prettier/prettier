@@ -32,12 +32,24 @@ function printTypeParameters(path, options, print, paramsKey) {
   const grandparent = path.getNode(2);
   const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
+  const isArrowVariable = path.match(
+    undefined,
+    undefined,
+    (node, name) => name === "typeAnnotation",
+    (node) => node.type === "Identifier",
+    (node) =>
+      node.type === "VariableDeclarator" &&
+      node.init &&
+      node.init.type === "ArrowFunctionExpression"
+  );
+
   const shouldInline =
-    isParameterInTestCall ||
-    node[paramsKey].length === 0 ||
-    (node[paramsKey].length === 1 &&
-      (shouldHugType(node[paramsKey][0]) ||
-        node[paramsKey][0].type === "NullableTypeAnnotation"));
+    !isArrowVariable &&
+    (isParameterInTestCall ||
+      node[paramsKey].length === 0 ||
+      (node[paramsKey].length === 1 &&
+        (node[paramsKey][0].type === "NullableTypeAnnotation" ||
+          shouldHugType(node[paramsKey][0]))));
 
   if (shouldInline) {
     return [
@@ -63,16 +75,19 @@ function printTypeParameters(path, options, print, paramsKey) {
       ? ifBreak(",")
       : "";
 
-  return group(
-    [
-      "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
-      trailingComma,
-      softline,
-      ">",
-    ],
-    { id: getTypeParametersGroupId(node) }
-  );
+  const doc = [
+    "<",
+    indent([softline, join([",", line], path.map(print, paramsKey))]),
+    trailingComma,
+    softline,
+    ">",
+  ];
+
+  if (isArrowVariable) {
+    return doc;
+  }
+
+  return group(doc, { id: getTypeParametersGroupId(node) });
 }
 
 function printDanglingCommentsForInline(path, options) {
