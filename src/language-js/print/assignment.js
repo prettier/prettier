@@ -1,10 +1,8 @@
 "use strict";
 
-const { ArgExpansionBailout } = require("../../common/errors.js");
 const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
-const { removeLines } = require("../../document/doc-utils.js");
 const {
-  builders: { line, group, indent, indentIfBreak, conditionalGroup },
+  builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc, willBreak },
 } = require("../../document/index.js");
 const {
@@ -56,33 +54,6 @@ function printAssignment(
       ]);
     }
 
-    case "arrow-variable":
-      if (!willBreak(leftDoc)) {
-        let expandedRightDoc;
-        try {
-          path.try(() => {
-            expandedRightDoc = print(rightPropertyName, {
-              assignmentLayout: layout,
-              expandFirstArg: true,
-            });
-          });
-        } catch (caught) {
-          if (!(caught instanceof ArgExpansionBailout)) {
-            /* istanbul ignore next */
-            throw caught;
-          }
-        }
-        if (expandedRightDoc) {
-          return [
-            conditionalGroup([
-              group([removeLines(leftDoc), operator, " ", expandedRightDoc]),
-              group([leftDoc, operator, " ", group(rightDoc)]),
-            ]),
-          ];
-        }
-      }
-
-    // fall through
     case "break-lhs":
       return group([leftDoc, operator, " ", group(rightDoc)]);
 
@@ -169,13 +140,10 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
-    hasComplexTypeAnnotation(node)
+    hasComplexTypeAnnotation(node) ||
+    isArrowFunctionVariable(node)
   ) {
     return "break-lhs";
-  }
-
-  if (isArrowFunctionVariable(node)) {
-    return "arrow-variable";
   }
 
   // wrapping object properties with very short keys usually doesn't add much value

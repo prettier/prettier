@@ -78,20 +78,20 @@ export const findByDate: Resolver<void, Recipe[], { date: Date }> =
   (_, { date }, { req } ) => Recipe.find({ createDate: date });
 
 =====================================output=====================================
-export const findByDate: Resolver<
-  void,
-  Recipe[],
-  { date: Date }
-> = (_, { date }, { req }) => {
+export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
+  _,
+  { date },
+  { req }
+) => {
   const repo = req.getRepository(Recipe);
   return repo.find({ createDate: date });
 };
 
-export const findByDate: Resolver<
-  void,
-  Recipe[],
-  { date: Date }
-> = (_, { date }, { req }) => Recipe.find({ createDate: date });
+export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
+  _,
+  { date },
+  { req }
+) => Recipe.find({ createDate: date });
 
 ================================================================================
 `;
@@ -302,6 +302,22 @@ export const ExportToExcalidrawPlus: React.FC<{
   return null;
 }
 
+const Query: FunctionComponent<QueryProps> = ({
+    children,
+    type,
+    resource,
+    payload,
+    // Provides an undefined onSuccess just so the key \`onSuccess\` is defined
+    // This is used to detect options in useDataProvider
+    options = { onSuccess: undefined },
+}) =>
+    children(
+        useQuery(
+            { type, resource, payload },
+            { ...options, withDeclarativeSideEffectsSupport: true }
+        )
+    );
+
 =====================================output=====================================
 const MyComponent: React.VoidFunctionComponent<MyComponentProps> = ({ x }) => {
   const a = useA();
@@ -312,9 +328,10 @@ const MyComponent: React.VoidFunctionComponent<MyComponentProps> = ({ x }) => {
   );
 };
 
-const MyComponent2: React.VoidFunctionComponent<
-  MyComponent2Props
-> = ({ x, y }) => {
+const MyComponent2: React.VoidFunctionComponent<MyComponent2Props> = ({
+  x,
+  y,
+}) => {
   const a = useA();
   return (
     <div>
@@ -370,6 +387,22 @@ export const ExportToExcalidrawPlus: React.FC<{
 }> = ({ elements, appState, onError }) => {
   return null;
 };
+
+const Query: FunctionComponent<QueryProps> = ({
+  children,
+  type,
+  resource,
+  payload,
+  // Provides an undefined onSuccess just so the key \`onSuccess\` is defined
+  // This is used to detect options in useDataProvider
+  options = { onSuccess: undefined },
+}) =>
+  children(
+    useQuery(
+      { type, resource, payload },
+      { ...options, withDeclarativeSideEffectsSupport: true }
+    )
+  );
 
 ================================================================================
 `;

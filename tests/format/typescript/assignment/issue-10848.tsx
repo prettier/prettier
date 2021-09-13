@@ -30,3 +30,19 @@ export const ExportToExcalidrawPlus: React.FC<{
 }> = ({ elements, appState, onError }) => {
   return null;
 }
+
+const Query: FunctionComponent<QueryProps> = ({
+    children,
+    type,
+    resource,
+    payload,
+    // Provides an undefined onSuccess just so the key `onSuccess` is defined
+    // This is used to detect options in useDataProvider
+    options = { onSuccess: undefined },
+}) =>
+    children(
+        useQuery(
+            { type, resource, payload },
+            { ...options, withDeclarativeSideEffectsSupport: true }
+        )
+    );

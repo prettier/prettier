@@ -77,19 +77,16 @@ function printTypeParameters(path, options, print, paramsKey) {
       ? ifBreak(",")
       : "";
 
-  const doc = [
-    "<",
-    indent([softline, join([",", line], path.map(print, paramsKey))]),
-    trailingComma,
-    softline,
-    ">",
-  ];
-
-  if (isArrowFunctionVariable) {
-    return doc;
-  }
-
-  return group(doc, { id: getTypeParametersGroupId(node) });
+  return group(
+    [
+      "<",
+      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      trailingComma,
+      softline,
+      ">",
+    ],
+    { id: getTypeParametersGroupId(node) }
+  );
 }
 
 function printDanglingCommentsForInline(path, options) {
