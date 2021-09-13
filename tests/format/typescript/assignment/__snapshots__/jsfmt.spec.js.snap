@@ -294,6 +294,14 @@ const MyGenericComponent: React.VoidFunctionComponent<MyGenericComponentProps<nu
   return <div>x = {x}; y = {y}; a = {a}</div>
 }
 
+export const ExportToExcalidrawPlus: React.FC<{
+  elements: readonly NonDeletedExcalidrawElement[];
+  appState: AppState;
+  onError: (error: Error) => void;
+}> = ({ elements, appState, onError }) => {
+  return null;
+}
+
 =====================================output=====================================
 const MyComponent: React.VoidFunctionComponent<MyComponentProps> = ({ x }) => {
   const a = useA();
@@ -353,6 +361,14 @@ const MyGenericComponent: React.VoidFunctionComponent<
       x = {x}; y = {y}; a = {a}
     </div>
   );
+};
+
+export const ExportToExcalidrawPlus: React.FC<{
+  elements: readonly NonDeletedExcalidrawElement[];
+  appState: AppState;
+  onError: (error: Error) => void;
+}> = ({ elements, appState, onError }) => {
+  return null;
 };
 
 ================================================================================

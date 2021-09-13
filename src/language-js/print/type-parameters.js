@@ -11,6 +11,7 @@ const {
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
+  isObjectType,
 } = require("../utils.js");
 const { createGroupIdMapper } = require("../../common/util.js");
 const { shouldHugType } = require("./type-annotation.js");
@@ -33,7 +34,8 @@ function printTypeParameters(path, options, print, paramsKey) {
   const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
   const isArrowFunctionVariable = path.match(
-    undefined,
+    (node) =>
+      !(node[paramsKey].length === 1 && isObjectType(node[paramsKey][0])),
     undefined,
     (node, name) => name === "typeAnnotation",
     (node) => node.type === "Identifier",
@@ -44,11 +46,12 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 
   const shouldInline =
-    isParameterInTestCall ||
-    node[paramsKey].length === 0 ||
-    (node[paramsKey].length === 1 &&
-      (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-        shouldHugType(node[paramsKey][0], isArrowFunctionVariable)));
+    !isArrowFunctionVariable &&
+    (isParameterInTestCall ||
+      node[paramsKey].length === 0 ||
+      (node[paramsKey].length === 1 &&
+        (node[paramsKey][0].type === "NullableTypeAnnotation" ||
+          shouldHugType(node[paramsKey][0]))));
 
   if (shouldInline) {
     return [
