@@ -32,7 +32,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   const grandparent = path.getNode(2);
   const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
-  const isArrowVariable = path.match(
+  const isArrowFunctionVariable = path.match(
     undefined,
     undefined,
     (node, name) => name === "typeAnnotation",
@@ -44,7 +44,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 
   const shouldInline =
-    !isArrowVariable &&
+    !isArrowFunctionVariable &&
     (isParameterInTestCall ||
       node[paramsKey].length === 0 ||
       (node[paramsKey].length === 1 &&
@@ -83,7 +83,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     ">",
   ];
 
-  if (isArrowVariable) {
+  if (isArrowFunctionVariable) {
     return doc;
   }
 
