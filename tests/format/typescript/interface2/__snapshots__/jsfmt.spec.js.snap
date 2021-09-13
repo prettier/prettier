@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.ts format 1`] = `
+exports[`break.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 export interface Environment1 extends GenericEnvironment<
@@ -180,10 +181,11 @@ export interface ExtendsLongOneWithGenerics
 ================================================================================
 `;
 
-exports[`comments.ts format 1`] = `
+exports[`comments.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 interface A1  // comment
@@ -258,10 +260,11 @@ interface A6 // comment1
 ================================================================================
 `;
 
-exports[`comments-declare.ts format 1`] = `
+exports[`comments-declare.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 declare interface a // 1
@@ -278,10 +281,11 @@ declare interface a // 1
 ================================================================================
 `;
 
-exports[`module.ts format 1`] = `
+exports[`module.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 declare module X {
