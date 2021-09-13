@@ -24,8 +24,8 @@ const {
 } = require("./function-parameters.js");
 const { printArrayItems } = require("./array.js");
 
-function shouldHugType(node) {
-  if (isSimpleType(node) || isObjectType(node)) {
+function shouldHugType(node, isArrowFunctionVariable = false) {
+  if ((isSimpleType(node) && !isArrowFunctionVariable) || isObjectType(node)) {
     return true;
   }
 

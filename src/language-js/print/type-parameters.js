@@ -44,12 +44,11 @@ function printTypeParameters(path, options, print, paramsKey) {
   );
 
   const shouldInline =
-    !isArrowFunctionVariable &&
-    (isParameterInTestCall ||
-      node[paramsKey].length === 0 ||
-      (node[paramsKey].length === 1 &&
-        (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-          shouldHugType(node[paramsKey][0]))));
+    isParameterInTestCall ||
+    node[paramsKey].length === 0 ||
+    (node[paramsKey].length === 1 &&
+      (node[paramsKey][0].type === "NullableTypeAnnotation" ||
+        shouldHugType(node[paramsKey][0], isArrowFunctionVariable)));
 
   if (shouldInline) {
     return [
