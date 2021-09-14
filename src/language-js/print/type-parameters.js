@@ -15,6 +15,7 @@ const {
 } = require("../utils.js");
 const { createGroupIdMapper } = require("../../common/util.js");
 const { shouldHugType } = require("./type-annotation.js");
+const { isArrowFunctionVariableDeclarator } = require("./assignment.js");
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
@@ -39,10 +40,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     undefined,
     (node, name) => name === "typeAnnotation",
     (node) => node.type === "Identifier",
-    (node) =>
-      node.type === "VariableDeclarator" &&
-      node.init &&
-      node.init.type === "ArrowFunctionExpression"
+    isArrowFunctionVariableDeclarator
   );
 
   const shouldInline =

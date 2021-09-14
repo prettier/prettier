@@ -141,7 +141,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
     hasComplexTypeAnnotation(node) ||
-    (isArrowFunctionVariable(node) && canBreak(leftDoc))
+    (isArrowFunctionVariableDeclarator(node) && canBreak(leftDoc))
   ) {
     return "break-lhs";
   }
@@ -296,7 +296,7 @@ function hasComplexTypeAnnotation(node) {
   );
 }
 
-function isArrowFunctionVariable(node) {
+function isArrowFunctionVariableDeclarator(node) {
   return (
     node.type === "VariableDeclarator" &&
     node.init &&
@@ -466,4 +466,5 @@ module.exports = {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,
+  isArrowFunctionVariableDeclarator,
 };
