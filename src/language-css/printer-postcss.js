@@ -556,10 +556,8 @@ function genericPrint(path, options, print) {
           iNode.type === "value-word" &&
           iNode.value &&
           iPrevNode.type === "value-word" &&
-          iPrevNode.value &&
           iPrevNode.value === "as" &&
           iNextNode.type === "value-operator" &&
-          iNextNode.value &&
           iNextNode.value === "*"
         ) {
           continue;
