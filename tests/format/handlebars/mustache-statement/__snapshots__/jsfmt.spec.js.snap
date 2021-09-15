@@ -110,11 +110,11 @@ singleQuote: true
 
 <div
   class='a-first-class
-    {{if this.optionOne 'optionOne'}}
-    {{if this.optionTwo 'optionTwo'}}
-    {{if this.optionThree 'optionThree'}}
-    {{if this.optionFour 'optionFour'}}
-    {{if this.optionFive 'optionFive'}}
+    {{if this.optionOne "optionOne"}}
+    {{if this.optionTwo "optionTwo"}}
+    {{if this.optionThree "optionThree"}}
+    {{if this.optionFour "optionFour"}}
+    {{if this.optionFive "optionFive"}}
     {{this.class}}'
   ...attributes
 >
@@ -122,11 +122,11 @@ singleQuote: true
 
 <div
   class='a-first-class
-    {{if this.optionOne 'optionOne'}}
-    {{if this.optionTwo 'optionTwo'}}
-    {{if this.optionThree 'optionThree'}}
-    {{if this.optionFour 'optionFour'}}
-    {{if this.optionFive 'optionFive'}}
+    {{if this.optionOne "optionOne"}}
+    {{if this.optionTwo "optionTwo"}}
+    {{if this.optionThree "optionThree"}}
+    {{if this.optionFour "optionFour"}}
+    {{if this.optionFive "optionFive"}}
     {{this.class}}'
   ...attributes
 >
@@ -271,11 +271,11 @@ printWidth: 80
 
 <div
   class="a-first-class
-    {{if this.optionOne "optionOne"}}
-    {{if this.optionTwo "optionTwo"}}
-    {{if this.optionThree "optionThree"}}
-    {{if this.optionFour "optionFour"}}
-    {{if this.optionFive "optionFive"}}
+    {{if this.optionOne 'optionOne'}}
+    {{if this.optionTwo 'optionTwo'}}
+    {{if this.optionThree 'optionThree'}}
+    {{if this.optionFour 'optionFour'}}
+    {{if this.optionFive 'optionFive'}}
     {{this.class}}"
   ...attributes
 >
@@ -283,11 +283,11 @@ printWidth: 80
 
 <div
   class="a-first-class
-    {{if this.optionOne "optionOne"}}
-    {{if this.optionTwo "optionTwo"}}
-    {{if this.optionThree "optionThree"}}
-    {{if this.optionFour "optionFour"}}
-    {{if this.optionFive "optionFive"}}
+    {{if this.optionOne 'optionOne'}}
+    {{if this.optionTwo 'optionTwo'}}
+    {{if this.optionThree 'optionThree'}}
+    {{if this.optionFour 'optionFour'}}
+    {{if this.optionFive 'optionFive'}}
     {{this.class}}"
   ...attributes
 >
@@ -562,8 +562,8 @@ foo{{/if}}
 <li
   class='{{if
       showAsCarousel
-      'career-interests__pill--slide-item'
-      'career-interests__pill'
+      "career-interests__pill--slide-item"
+      "career-interests__pill"
     }}
     '
 ></li>
@@ -650,8 +650,8 @@ foo{{/if}}
 <li
   class="{{if
       showAsCarousel
-      "career-interests__pill--slide-item"
-      "career-interests__pill"
+      'career-interests__pill--slide-item'
+      'career-interests__pill'
     }}
     "
 ></li>

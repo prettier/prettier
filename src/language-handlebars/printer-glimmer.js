@@ -25,6 +25,7 @@ const {
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
+  findParentOfSomeType,
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
@@ -397,6 +398,17 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
+      const mustacheIndex = findParentOfSomeType(path, ["MustacheStatement"]);
+      if (
+        mustacheIndex >= 0 &&
+        isNodeOfSomeType(path.getParentNode(mustacheIndex + 1), [
+          "ConcatStatement",
+        ]) &&
+        isNodeOfSomeType(path.getParentNode(mustacheIndex + 2), ["AttrNode"])
+      ) {
+        const printOptions = { singleQuote: !options.singleQuote };
+        return printStringLiteral(node.value, printOptions);
+      }
       return printStringLiteral(node.value, options);
     }
     case "NumberLiteral": {

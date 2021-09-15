@@ -78,7 +78,11 @@ singleQuote: false
 <div title='My title'></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
+<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
+
+<div title="{{t 'my.title'}}" />
+<div title='{{t "my.title"}}' />
 
 <a href="/{{url}}/{{url}}"></a>
 <a href='/{{url}}/{{url}}'></a>
@@ -92,26 +96,30 @@ singleQuote: false
 <div title="My title"></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
+<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
 
+<div title="{{t 'my.title'}}"></div>
+<div title="{{t 'my.title'}}"></div>
+
 <a href="/{{url}}/{{url}}"></a>
 <a href="/{{url}}/{{url}}"></a>
 
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 ================================================================================
 `;
@@ -126,7 +134,11 @@ singleQuote: true
 <div title='My title'></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
+<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
+
+<div title="{{t 'my.title'}}" />
+<div title='{{t "my.title"}}' />
 
 <a href="/{{url}}/{{url}}"></a>
 <a href='/{{url}}/{{url}}'></a>
@@ -140,26 +152,30 @@ singleQuote: true
 <div title='My title'></div>
 <div title='My title'></div>
 <div title='My "title"'></div>
+<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
 
+<div title='{{t "my.title"}}'></div>
+<div title='{{t "my.title"}}'></div>
+
 <a href='/{{url}}/{{url}}'></a>
 <a href='/{{url}}/{{url}}'></a>
 
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 ================================================================================
 `;
