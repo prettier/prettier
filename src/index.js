@@ -63,7 +63,10 @@ module.exports = {
 
   version,
 
-  util: sharedUtil,
+  util: {
+    ...sharedUtil,
+    attachComments: core.attachComments,
+  },
 
   // Internal shared
   __internal: {

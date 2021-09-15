@@ -46,6 +46,31 @@ test("allows add empty `trailingComments` array", () => {
   expect(output).toEqual("foo(/* comment */);\n");
 });
 
+test("allows early comment attachment", () => {
+  const output = prettier.format("/* comment */\nfoo(); 1", {
+    parser(text, parsers, opts) {
+      // Use parser that does not attach comments.
+      const ast = parsers.flow(text);
+      expect(Array.isArray(ast.comments)).toBe(true);
+      expect(ast.comments.length).toBe(1);
+
+      const callStmt = ast.body[0];
+      expect(Array.isArray(callStmt.comments)).toBe(false);
+
+      prettier.util.attachComments(text, ast, opts);
+
+      expect(Array.isArray(callStmt.comments)).toBe(true);
+      expect(callStmt.comments.length).toBe(1);
+
+      // Mutate AST
+      ast.body.reverse();
+
+      return ast;
+    },
+  });
+  expect(output).toEqual("1;\n/* comment */\nfoo();\n");
+});
+
 describe("allows passing a string to resolve a parser", () => {
   runPrettier("./custom-parsers/", [
     "--end-of-line",

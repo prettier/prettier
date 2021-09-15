@@ -5,6 +5,7 @@ const {
 } = require("../document/index.js");
 const { normalize } = require("./options.js");
 const comments = require("./comments.js");
+const attachComments = require("./attach-comments.js");
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -46,12 +47,7 @@ function textToDoc(
   const { ast } = result;
   text = result.text;
 
-  const astComments = ast.comments;
-  delete ast.comments;
-  comments.attach(astComments, ast, text, nextOptions);
-  nextOptions[Symbol.for("comments")] = astComments || [];
-  nextOptions[Symbol.for("tokens")] = ast.tokens || [];
-
+  const astComments = attachComments(text, ast, nextOptions);
   const doc = printAstToDoc(ast, nextOptions);
   comments.ensureAllCommentsPrinted(astComments);
 
