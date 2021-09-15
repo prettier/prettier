@@ -135,6 +135,9 @@ const options = {
   "debug-print-comments": {
     type: "boolean",
   },
+  "debug-print-ast": {
+    type: "boolean",
+  },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
     type: "int",
