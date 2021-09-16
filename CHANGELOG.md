@@ -289,6 +289,7 @@ const foo = call<{
 
 #### Fix order of `override` modifiers ([#10961](https://github.com/prettier/prettier/pull/10961) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
+<!-- prettier-ignore -->
 ```ts
 // Input
 class Foo extends Bar {
@@ -297,7 +298,7 @@ class Foo extends Bar {
 
 // Prettier stable
 class Foo extends Bar {
-  abstract override foo: string;
+  override abstract foo: string;
 }
 
 // Prettier main
