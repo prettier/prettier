@@ -1,3 +1,25 @@
+# 2.4.1
+
+[diff](https://github.com/prettier/prettier/compare/2.4.0...2.4.1)
+
+#### Fix wildcard syntax in `@forward` ([#11482](https://github.com/prettier/prettier/pull/11482)) ([#11487](https://github.com/prettier/prettier/pull/11487) by [@niksy](https://github.com/niksy))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+@forward "library" as btn-*;
+
+// Prettier 2.4.0
+@forward "library" as btn- *;
+
+// Prettier 2.4.1
+@forward "library" as btn-*;
+```
+
+#### Add new CLI option `debug-print-ast` ([#11514](https://github.com/prettier/prettier/pull/11514) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+A new `--debug-print-ast` CLI flag for debugging.
+
 # 2.4.0
 
 [diff](https://github.com/prettier/prettier/compare/2.3.2...2.4.0)
