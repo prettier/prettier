@@ -71,7 +71,6 @@ export default async function publishToNpm({ dry, version, previousVersion }) {
 
       {bold.underline Create a GitHub Release}
       - Go to {cyan.underline ${releaseUrl}}
-      - Copy release notes from {yellow CHANGELOG.md}
       - Press {bgGreen.black  Publish release }
 
       {bold.underline Test the new release}
