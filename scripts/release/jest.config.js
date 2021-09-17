@@ -1,6 +1,5 @@
-const config = {
+const jestConfig = {
   testMatch: ["<rootDir>/__tests__/**/*.spec.js"],
-  setupFiles: ["<rootDir>/__tests__/setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/__tests__/setup.js"],
 };
-
-export default config;
+export default jestConfig;
