@@ -14,6 +14,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isEnabledHackPipeline,
 } = require("./utils.js");
 
 function needsParens(path, options) {
@@ -227,6 +228,18 @@ function needsParens(path, options) {
       if (node.operator === "in" && isPathInForStatementInitializer(path)) {
         return true;
       }
+
+      // Hack-style pipeline operators are right-associative
+      if (
+        name === "right" &&
+        node.operator === "|>" &&
+        parent.type === "BinaryExpression" &&
+        parent.operator === "|>" &&
+        isEnabledHackPipeline(options)
+      ) {
+        return false;
+      }
+
       if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
         const grandParent = path.getParentNode(1);
         if (
@@ -307,7 +320,7 @@ function needsParens(path, options) {
 
           if (
             parentPrecedence === precedence &&
-            !shouldFlatten(parentOperator, operator)
+            !shouldFlatten(parentOperator, operator, options)
           ) {
             return true;
           }
