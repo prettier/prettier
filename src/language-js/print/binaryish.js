@@ -25,6 +25,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isEnabledHackPipeline,
 } = require("../utils.js");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -40,6 +41,8 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
+  const isHackPipeline =
+    isEnabledHackPipeline(options) && node.operator === "|>";
 
   const parts = printBinaryishExpressions(
     path,
@@ -61,6 +64,10 @@ function printBinaryishExpression(path, options, print) {
   //   ) {
   if (isInsideParenthesis) {
     return parts;
+  }
+
+  if (isHackPipeline) {
+    // return something
   }
 
   // Break between the parens in
