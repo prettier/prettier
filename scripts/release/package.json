@@ -14,7 +14,7 @@
     "string-width": "5.0.0"
   },
   "devDependencies": {
-    "@jest/globals": "27.1.1",
+    "@jest/globals": "27.2.0",
     "jest": "27.1.1"
   }
 }
