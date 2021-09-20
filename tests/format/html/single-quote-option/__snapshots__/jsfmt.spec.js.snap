@@ -40,8 +40,8 @@ singleQuote: true
 <div title="My 'title'"></div>
 
 =====================================output=====================================
-<div title="My title"></div>
-<div title="My title"></div>
+<div title='My title'></div>
+<div title='My title'></div>
 <div title='My "title'></div>
 <div title="My 'title"></div>
 <div title='My "title"'></div>
@@ -90,7 +90,7 @@ singleQuote: true
 <div
   smart-quotes='123 " 456'
   smart-quotes="123 ' 456"
-  smart-quotes="123 '&quot; 456"
+  smart-quotes='123 &apos;" 456'
 ></div>
 
 ================================================================================

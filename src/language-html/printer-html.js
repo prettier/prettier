@@ -10,7 +10,7 @@ const {
 } = require("../document/index.js");
 const clean = require("./clean.js");
 const {
-  countChars,
+  chooseEnclosingQuote,
   unescapeQuoteEntities,
   getTextValueParts,
 } = require("./utils.js");
@@ -101,20 +101,14 @@ function genericPrint(path, options, print) {
         return node.rawName;
       }
       const value = unescapeQuoteEntities(node.value);
-      const singleQuoteCount = countChars(value, "'");
-      const doubleQuoteCount = countChars(value, '"');
-      const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
+      const { quote, reference, regex } = chooseEnclosingQuote(options, value);
       return [
         node.rawName,
 
         "=",
         quote,
 
-        ...replaceTextEndOfLine(
-          quote === '"'
-            ? value.replace(/"/g, "&quot;")
-            : value.replace(/'/g, "&apos;")
-        ),
+        ...replaceTextEndOfLine(value.replace(regex, reference)),
         quote,
       ];
     }
