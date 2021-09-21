@@ -52,6 +52,16 @@ function embed(path, print, textToDoc, options) {
         ),
         hardline,
       ];
+    case "esComment":
+      return (
+        "{" +
+        textToDoc(
+          "/* " + node.value + " */",
+          { parser: "babel" },
+          { stripTrailingHardline: true }
+        ) +
+        "}"
+      );
     case "jsx":
       return textToDoc(
         `<$>${node.value}</$>`,

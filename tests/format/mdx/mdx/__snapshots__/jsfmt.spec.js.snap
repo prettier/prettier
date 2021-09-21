@@ -276,6 +276,14 @@ semi: false
 |---|---|
 | Text | <Hello>Text</Hello> |
 
+---
+
+A {/* JS-style comment */} comment.
+
+{
+  /* Another JS-style comment */
+}
+
 =====================================output=====================================
 <Heading hi="there">Hello, world!</Heading>
 
@@ -315,6 +323,14 @@ semi: false
 | Column 1 | Column 2            |
 | -------- | ------------------- |
 | Text     | <Hello>Text</Hello> |
+
+---
+
+A
+
+{/* JS-style comment */} comment.
+
+{/* Another JS-style comment */}
 
 ================================================================================
 `;
@@ -364,6 +380,14 @@ printWidth: 80
 |---|---|
 | Text | <Hello>Text</Hello> |
 
+---
+
+A {/* JS-style comment */} comment.
+
+{
+  /* Another JS-style comment */
+}
+
 =====================================output=====================================
 <Heading hi="there">Hello, world!</Heading>
 
@@ -403,6 +427,14 @@ printWidth: 80
 | Column 1 | Column 2            |
 | -------- | ------------------- |
 | Text     | <Hello>Text</Hello> |
+
+---
+
+A
+
+{/* JS-style comment */} comment.
+
+{/* Another JS-style comment */}
 
 ================================================================================
 `;

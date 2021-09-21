@@ -758,13 +758,15 @@ function getLastDescendantNode(node) {
 
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  if (node.type !== "html") {
-    return false;
+  let match;
+
+  if (node.type === "html") {
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
+  } else if (node.type === "esComment") {
+    match = node.value.match(/^prettier-ignore(?:-(start|end))?$/);
   }
-  const match = node.value.match(
-    /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/
-  );
-  return match === null ? false : match[1] ? match[1] : "next";
+
+  return match ? (match[1] ? match[1] : "next") : false;
 }
 
 function shouldPrePrintHardline(node, data) {
