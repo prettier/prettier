@@ -1,5 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ignore.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+=====================================output=====================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+)
+\`\`\`
+
+================================================================================
+`;
+
+exports[`ignore.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+=====================================output=====================================
+An ignore comment (HTML):
+
+<!-- prettier-ignore -->
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+An ignore comment (ES):
+
+{/* prettier-ignore */}
+\`\`\`js
+foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+\`\`\`
+
+No comment:
+
+\`\`\`js
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne()
+);
+\`\`\`
+
+================================================================================
+`;
+
 exports[`import-export.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
