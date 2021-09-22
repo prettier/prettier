@@ -435,6 +435,8 @@ function genericPrint(path, options, print) {
     // or `embeddedLanguageFormatting: "off"`
     case "importExport":
       return [node.value, hardline];
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "jsx":
       return node.value;
     case "math":
