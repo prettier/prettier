@@ -480,14 +480,15 @@ function printJsxAttribute(path, options, print) {
     if (isStringLiteral(node.value)) {
       const raw = rawText(node.value);
       // Unescape all quotes so we get an accurate preferred quote
-      let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-
-      const quote = getPreferredQuote(
-        final.slice(1, -1), // remove enclosing quotes
+      let final = raw
+        .replace(/&apos;/g, "'")
+        .replace(/&quot;/g, '"')
+        .slice(1, -1); // remove enclosing quotes
+      const { escaped, quote, regex } = getPreferredQuote(
+        final,
         options.jsxSingleQuote ? "'" : '"'
       );
-      const escape = quote === "'" ? "&apos;" : "&quot;";
-      final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
+      final = final.replace(regex, escaped);
       res = [quote, final, quote];
     } else {
       res = print("value");

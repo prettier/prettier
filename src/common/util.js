@@ -345,18 +345,19 @@ function getIndentSize(value, tabWidth) {
  *
  * @param {string} raw
  * @param {Quote} preferredQuote
- * @returns {Quote}
+ * @returns {{ quote: Quote, regex: RegExp, escaped: string }}
  */
+
 function getPreferredQuote(rawContent, preferredQuote) {
-  /** @type {{ quote: '"', regex: RegExp }} */
-  const double = { quote: '"', regex: /"/g };
-  /** @type {{ quote: "'", regex: RegExp }} */
-  const single = { quote: "'", regex: /'/g };
+  /** @type {{ quote: '"', regex: RegExp, escaped: "&quot;" }} */
+  const double = { quote: '"', regex: /"/g, escaped: "&quot;" };
+  /** @type {{ quote: "'", regex: RegExp, escaped: "&apos;" }} */
+  const single = { quote: "'", regex: /'/g, escaped: "&apos;" };
 
   const preferred = preferredQuote === "'" ? single : double;
   const alternate = preferred === single ? double : single;
 
-  let result = preferred.quote;
+  let result = preferred;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -368,10 +369,7 @@ function getPreferredQuote(rawContent, preferredQuote) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
-    result =
-      numPreferredQuotes > numAlternateQuotes
-        ? alternate.quote
-        : preferred.quote;
+    result = numPreferredQuotes > numAlternateQuotes ? alternate : preferred;
   }
 
   return result;
@@ -391,7 +389,7 @@ function printString(raw, options) {
       ? '"'
       : options.__isInHtmlAttribute
       ? "'"
-      : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"');
+      : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"').quote;
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
