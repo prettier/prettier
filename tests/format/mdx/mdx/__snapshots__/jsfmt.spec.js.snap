@@ -326,9 +326,7 @@ A {/* JS-style comment */} comment.
 
 ---
 
-A
-
-{/* JS-style comment */} comment.
+A {/* JS-style comment */} comment.
 
 {/* Another JS-style comment */}
 
@@ -430,9 +428,7 @@ A {/* JS-style comment */} comment.
 
 ---
 
-A
-
-{/* JS-style comment */} comment.
+A {/* JS-style comment */} comment.
 
 {/* Another JS-style comment */}
 
