@@ -14,7 +14,7 @@ const {
   },
   utils: { getDocParts, replaceTextEndOfLine },
 } = require("../document/index.js");
-const { isNonEmptyArray } = require("../common/util.js");
+const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
 const { locStart, locEnd } = require("./loc.js");
 const clean = require("./clean.js");
 const {
@@ -150,17 +150,18 @@ function print(path, options, print) {
         return node.name;
       }
 
+      const favoriteQuote = options.singleQuote ? "'" : '"';
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? chooseEnclosingQuote(options, node.value.chars).quote
+        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
         : node.value.type === "ConcatStatement"
-        ? chooseEnclosingQuote(
-            options,
+        ? getPreferredQuote(
             node.value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
-              .join("")
+              .join(""),
+            favoriteQuote
           ).quote
         : "";
 
@@ -701,35 +702,9 @@ function generateHardlines(number = 0) {
  * @param {object} options - the prettier options object
  */
 function printStringLiteral(stringLiteral, options) {
-  const { quote, regex } = chooseEnclosingQuote(options, stringLiteral);
+  const favoriteQuote = options.singleQuote ? "'" : '"';
+  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
-}
-
-function chooseEnclosingQuote(options, stringLiteral) {
-  const double = { quote: '"', regex: /"/g };
-  const single = { quote: "'", regex: /'/g };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = preferred === single ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  // If `stringLiteral` contains at least one of the quote preferred for
-  // enclosing the string, we might want to enclose with the alternate quote
-  // instead, to minimize the number of escaped quotes.
-  if (
-    stringLiteral.includes(preferred.quote) ||
-    stringLiteral.includes(alternate.quote)
-  ) {
-    const numPreferredQuotes = (stringLiteral.match(preferred.regex) || [])
-      .length;
-    const numAlternateQuotes = (stringLiteral.match(alternate.regex) || [])
-      .length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  }
-
-  return shouldUseAlternateQuote ? alternate : preferred;
 }
 
 /* SubExpression print helpers */
