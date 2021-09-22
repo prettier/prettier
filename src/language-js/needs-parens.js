@@ -14,7 +14,6 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-  isEnabledHackPipeline,
 } = require("./utils.js");
 
 function needsParens(path, options) {
