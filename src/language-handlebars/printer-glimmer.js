@@ -47,6 +47,8 @@ function print(path, options, print) {
     return options.originalText.slice(locStart(node), locEnd(node));
   }
 
+  const favoriteQuote = options.singleQuote ? "'" : '"';
+
   switch (node.type) {
     case "Block":
     case "Program":
@@ -150,7 +152,6 @@ function print(path, options, print) {
         return node.name;
       }
 
-      const favoriteQuote = options.singleQuote ? "'" : '"';
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
@@ -398,7 +399,7 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
-      return printStringLiteral(node.value, options);
+      return printStringLiteral(node.value, favoriteQuote);
     }
     case "NumberLiteral": {
       return String(node.value);
@@ -699,10 +700,9 @@ function generateHardlines(number = 0) {
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
  * @param {string} stringLiteral - the string literal value
- * @param {object} options - the prettier options object
+ * @param {string} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, options) {
-  const favoriteQuote = options.singleQuote ? "'" : '"';
+function printStringLiteral(stringLiteral, favoriteQuote) {
   const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
 }
