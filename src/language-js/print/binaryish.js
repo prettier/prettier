@@ -188,7 +188,7 @@ function printBinaryishExpressions(
 
   // Simply print the node normally.
   if (!isBinaryish(node)) {
-    return group(print());
+    return [group(print())];
   }
 
   /** @type{Doc[]} */
