@@ -1040,7 +1040,7 @@ const bitshiftOperators = {
   "<<": true,
 };
 
-function shouldFlatten(parentOp, nodeOp, options) {
+function shouldFlatten(parentOp, nodeOp) {
   if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
     return false;
   }
@@ -1076,11 +1076,6 @@ function shouldFlatten(parentOp, nodeOp, options) {
 
   // x << y << z --> (x << y) << z
   if (bitshiftOperators[parentOp] && bitshiftOperators[nodeOp]) {
-    return false;
-  }
-
-  // Hack-style pipeline operators are right-associative
-  if (isEnabledHackPipeline(options) && parentOp === "|>" && nodeOp === "|>") {
     return false;
   }
 

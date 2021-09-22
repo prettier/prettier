@@ -117,8 +117,7 @@ function printBinaryishExpression(path, options, print) {
     isObjectProperty(parent);
 
   const samePrecedenceSubExpression =
-    isBinaryish(node.left) &&
-    shouldFlatten(node.operator, node.left.operator, options);
+    isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
 
   if (
     shouldNotIndent ||
@@ -213,7 +212,7 @@ function printBinaryishExpressions(
   // precedence level and should be treated as a separate group, so
   // print them normally. (This doesn't hold for the `**` operator,
   // which is unique in that it is right-associative.)
-  if (shouldFlatten(node.operator, node.left.operator, options)) {
+  if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
     parts = path.call(
       (left) =>

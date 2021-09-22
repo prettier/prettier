@@ -320,7 +320,7 @@ function needsParens(path, options) {
 
           if (
             parentPrecedence === precedence &&
-            !shouldFlatten(parentOperator, operator, options)
+            !shouldFlatten(parentOperator, operator)
           ) {
             return true;
           }
