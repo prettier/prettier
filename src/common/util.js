@@ -347,11 +347,7 @@ function getIndentSize(value, tabWidth) {
  * @param {Quote} preferredQuote
  * @returns {Quote}
  */
-function getPreferredQuote(raw, preferredQuote) {
-  // `rawContent` is the string exactly like it appeared in the input source
-  // code, without its enclosing quotes.
-  const rawContent = raw.slice(1, -1);
-
+function getPreferredQuote(rawContent, preferredQuote) {
   /** @type {{ quote: '"', regex: RegExp }} */
   const double = { quote: '"', regex: /"/g };
   /** @type {{ quote: "'", regex: RegExp }} */
@@ -395,7 +391,7 @@ function printString(raw, options) {
       ? '"'
       : options.__isInHtmlAttribute
       ? "'"
-      : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
+      : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"');
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain

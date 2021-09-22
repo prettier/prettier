@@ -481,8 +481,9 @@ function printJsxAttribute(path, options, print) {
       const raw = rawText(node.value);
       // Unescape all quotes so we get an accurate preferred quote
       let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+
       const quote = getPreferredQuote(
-        final,
+        final.slice(1, -1), // remove enclosing quotes
         options.jsxSingleQuote ? "'" : '"'
       );
       const escape = quote === "'" ? "&apos;" : "&quot;";
