@@ -693,6 +693,8 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
+/** @typedef {import("../common/util").Quote} Quote */
+
 /**
  * Prints a string literal with the correct surrounding quotes based on
  * `options.singleQuote` and the number of escaped quotes contained in
@@ -700,7 +702,7 @@ function generateHardlines(number = 0) {
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
  * @param {string} stringLiteral - the string literal value
- * @param {string} favoriteQuote - the user's preferred quote: `'` or `"`
+ * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
 function printStringLiteral(stringLiteral, favoriteQuote) {
   const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);

@@ -343,7 +343,7 @@ function getIndentSize(value, tabWidth) {
 
 /**
  *
- * @param {string} raw
+ * @param {string} rawContent
  * @param {Quote} preferredQuote
  * @returns {{ quote: Quote, regex: RegExp, escaped: string }}
  */
