@@ -228,7 +228,6 @@ function needsParens(path, options) {
       if (node.operator === "in" && isPathInForStatementInitializer(path)) {
         return true;
       }
-
       if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
         const grandParent = path.getParentNode(1);
         if (
