@@ -67,7 +67,7 @@ function printBinaryishExpression(path, options, print) {
   }
 
   if (isHackPipeline) {
-    // return something
+    return parts;
   }
 
   // Break between the parens in
