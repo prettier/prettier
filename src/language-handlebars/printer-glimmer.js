@@ -14,7 +14,7 @@ const {
   },
   utils: { getDocParts, replaceTextEndOfLine },
 } = require("../document/index.js");
-const { isNonEmptyArray } = require("../common/util.js");
+const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
 const { locStart, locEnd } = require("./loc.js");
 const clean = require("./clean.js");
 const {
@@ -46,6 +46,8 @@ function print(path, options, print) {
   if (hasPrettierIgnore(path)) {
     return options.originalText.slice(locStart(node), locEnd(node));
   }
+
+  const favoriteQuote = options.singleQuote ? "'" : '"';
 
   switch (node.type) {
     case "Block":
@@ -153,14 +155,14 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? chooseEnclosingQuote(options, node.value.chars).quote
+        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
         : node.value.type === "ConcatStatement"
-        ? chooseEnclosingQuote(
-            options,
+        ? getPreferredQuote(
             node.value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
-              .join("")
+              .join(""),
+            favoriteQuote
           ).quote
         : "";
 
@@ -397,7 +399,7 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
-      return printStringLiteral(node.value, options);
+      return printStringLiteral(node.value, favoriteQuote);
     }
     case "NumberLiteral": {
       return String(node.value);
@@ -691,6 +693,8 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
+/** @typedef {import("../common/util").Quote} Quote */
+
 /**
  * Prints a string literal with the correct surrounding quotes based on
  * `options.singleQuote` and the number of escaped quotes contained in
@@ -698,38 +702,11 @@ function generateHardlines(number = 0) {
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
  * @param {string} stringLiteral - the string literal value
- * @param {object} options - the prettier options object
+ * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, options) {
-  const { quote, regex } = chooseEnclosingQuote(options, stringLiteral);
+function printStringLiteral(stringLiteral, favoriteQuote) {
+  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
-}
-
-function chooseEnclosingQuote(options, stringLiteral) {
-  const double = { quote: '"', regex: /"/g };
-  const single = { quote: "'", regex: /'/g };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = preferred === single ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  // If `stringLiteral` contains at least one of the quote preferred for
-  // enclosing the string, we might want to enclose with the alternate quote
-  // instead, to minimize the number of escaped quotes.
-  if (
-    stringLiteral.includes(preferred.quote) ||
-    stringLiteral.includes(alternate.quote)
-  ) {
-    const numPreferredQuotes = (stringLiteral.match(preferred.regex) || [])
-      .length;
-    const numAlternateQuotes = (stringLiteral.match(alternate.regex) || [])
-      .length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  }
-
-  return shouldUseAlternateQuote ? alternate : preferred;
 }
 
 /* SubExpression print helpers */
