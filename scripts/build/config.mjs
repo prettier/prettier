@@ -52,6 +52,11 @@ const parsers = [
       "require(etwModulePath)": "undefined",
       'require("source-map-support").install()': "",
       "require(modulePath)": "undefined",
+      // `node-semver` can't work with `@rollup/plugin-commonjs>=19.0.0`
+      // https://github.com/rollup/plugins/issues/879
+      // https://github.com/npm/node-semver/issues/381
+      "typescriptVersionIsAtLeast[version] = semverCheck(version);":
+        "typescriptVersionIsAtLeast[version] = true;",
     },
   },
   {
