@@ -479,11 +479,12 @@ function printJsxAttribute(path, options, print) {
     let res;
     if (isStringLiteral(node.value)) {
       const raw = rawText(node.value);
-      // Unescape all quotes so we get an accurate preferred quote
+      // Remove enclosing quotes and unescape
+      // all quotes so we get an accurate preferred quote
       let final = raw
+        .slice(1, -1)
         .replace(/&apos;/g, "'")
-        .replace(/&quot;/g, '"')
-        .slice(1, -1); // remove enclosing quotes
+        .replace(/&quot;/g, '"');
       const { escaped, quote, regex } = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'
