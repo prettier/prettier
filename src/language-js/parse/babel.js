@@ -140,17 +140,17 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     const { result: ast, error } = tryCombinations(
-      ...combinations.map((options) => () => {
-        opts[Symbol.for("babelParserPlugins")] = options.plugins;
-        return parseWithOptions(parseMethod, text, options);
-      })
+      ...combinations.map(
+        (options) => () => parseWithOptions(parseMethod, text, options)
+      )
     );
 
     if (!ast) {
       throw createBabelParseError(error);
     }
 
-    return postprocess(ast, { ...opts, originalText: text });
+    opts.originalText = text;
+    return postprocess(ast, opts);
   };
 }
 

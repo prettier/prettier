@@ -1311,14 +1311,7 @@ function isObjectProperty(node) {
 }
 
 function isEnabledHackPipeline(options) {
-  const babelParserPlugins = options[Symbol.for("babelParserPlugins")];
-  const lastPlugin =
-    Array.isArray(babelParserPlugins) && getLast(babelParserPlugins);
-  const enabledHackPipeline =
-    Array.isArray(lastPlugin) &&
-    lastPlugin[0] === "pipelineOperator" &&
-    lastPlugin[1].proposal === "hack";
-  return enabledHackPipeline;
+  return Boolean(options.__isUsingHackPipeline);
 }
 
 module.exports = {

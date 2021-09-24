@@ -152,6 +152,10 @@ function postprocess(ast, options) {
           node.optional = true;
         }
         break;
+      // For hack-style pipeline
+      case "TopicReference":
+        options.__isUsingHackPipeline = true;
+        break;
     }
   });
 
