@@ -1,5 +1,6 @@
 "use strict";
 
+const { getPreferredQuote } = require("../common/util.js");
 const {
   builders: { breakParent, group, hardline, indent, line, fill, softline },
   utils: { mapDoc, replaceTextEndOfLine },
@@ -381,16 +382,21 @@ function embed(path, print, textToDoc, options) {
         options
       );
       if (embeddedAttributeValueDoc) {
-        return [
-          node.rawName,
-          '="',
-          group(
-            mapDoc(embeddedAttributeValueDoc, (doc) =>
-              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
-            )
-          ),
-          '"',
-        ];
+        const favoriteQuote = options.singleQuote ? "'" : '"';
+        let quote = favoriteQuote;
+        const content = mapDoc(embeddedAttributeValueDoc, (doc) => {
+          if (typeof doc !== "string") {
+            return doc;
+          }
+
+          const { escaped, quote: preferred, regex } = getPreferredQuote(
+            doc,
+            favoriteQuote
+          );
+          quote = preferred;
+          return doc.replace(regex, escaped);
+        });
+        return [node.rawName, "=", quote, group(content), quote];
       }
       break;
     }

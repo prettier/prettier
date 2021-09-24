@@ -67,9 +67,9 @@ singleQuote: false
 =====================================output=====================================
 <div class="foo"></div>
 <div class="foo"></div>
-<div class="foo &quot;bar"></div>
+<div class='foo "bar'></div>
 <div class="foo 'bar"></div>
-<div class="foo &quot;bar&quot;"></div>
+<div class='foo "bar"'></div>
 <div class="foo 'bar'"></div>
 
 ================================================================================
@@ -90,11 +90,11 @@ singleQuote: true
 <div class="foo 'bar'"></div>
 
 =====================================output=====================================
-<div class="foo"></div>
-<div class="foo"></div>
-<div class="foo &quot;bar"></div>
+<div class='foo'></div>
+<div class='foo'></div>
+<div class='foo "bar'></div>
 <div class="foo 'bar"></div>
-<div class="foo &quot;bar&quot;"></div>
+<div class='foo "bar"'></div>
 <div class="foo 'bar'"></div>
 
 ================================================================================
@@ -182,7 +182,7 @@ sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
 =====================================output=====================================
 <img
   src='/assets/visual.png'
-  srcset="/assets/visual@0.5.png 400w, /assets/visual.png 805w"
+  srcset='/assets/visual@0.5.png 400w, /assets/visual.png 805w'
   sizes='(max-width: 66rem) 100vw, 66rem'
   alt=''
 />
