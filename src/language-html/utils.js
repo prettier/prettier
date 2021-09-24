@@ -592,25 +592,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function chooseEnclosingQuote(options, value) {
-  const double = { quote: '"', regex: /"/g, reference: "&quot;" };
-  const single = { quote: "'", regex: /'/g, reference: "&apos;" };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = options.singleQuote ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  if (value.includes(preferred.quote) || value.includes(alternate.quote)) {
-    const numPreferredQuotes = (value.match(preferred.regex) || []).length;
-    const numAlternateQuotes = (value.match(alternate.regex) || []).length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  }
-
-  return shouldUseAlternateQuote ? alternate : preferred;
-}
-
 function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
 }
@@ -684,7 +665,6 @@ module.exports = {
   hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
-  chooseEnclosingQuote,
   countParents,
   dedentString,
   forceBreakChildren,

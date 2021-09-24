@@ -4,16 +4,13 @@
  * @typedef {import("../document").Doc} Doc
  */
 
+const { getPreferredQuote } = require("../common/util.js");
 const {
   builders: { fill, group, hardline, literalline },
   utils: { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
 } = require("../document/index.js");
 const clean = require("./clean.js");
-const {
-  chooseEnclosingQuote,
-  unescapeQuoteEntities,
-  getTextValueParts,
-} = require("./utils.js");
+const { unescapeQuoteEntities, getTextValueParts } = require("./utils.js");
 const preprocess = require("./print-preprocess.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
@@ -101,14 +98,17 @@ function genericPrint(path, options, print) {
         return node.rawName;
       }
       const value = unescapeQuoteEntities(node.value);
-      const { quote, reference, regex } = chooseEnclosingQuote(options, value);
+      const { escaped, quote, regex } = getPreferredQuote(
+        value,
+        options.singleQuote ? "'" : '"'
+      );
       return [
         node.rawName,
 
         "=",
         quote,
 
-        ...replaceTextEndOfLine(value.replace(regex, reference)),
+        ...replaceTextEndOfLine(value.replace(regex, escaped)),
         quote,
       ];
     }
