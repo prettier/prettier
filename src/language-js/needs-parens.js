@@ -218,10 +218,7 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (
-        parent.type === "UpdateExpression" ||
-        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
-      ) {
+      if (parent.type === "UpdateExpression") {
         return true;
       }
 
@@ -367,16 +364,6 @@ function needsParens(path, options) {
       ) {
         return true;
       }
-
-      if (
-        name === "expression" &&
-        node.argument &&
-        node.argument.type === "PipelinePrimaryTopicReference" &&
-        parent.type === "PipelineTopicExpression"
-      ) {
-        return true;
-      }
-
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -646,9 +633,6 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
-        case "PipelineTopicExpression":
-          return Boolean(node.extra && node.extra.parenthesized);
-
         case "BinaryExpression":
           return (
             parent.operator !== "|>" || (node.extra && node.extra.parenthesized)

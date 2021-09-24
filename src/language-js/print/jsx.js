@@ -479,14 +479,17 @@ function printJsxAttribute(path, options, print) {
     let res;
     if (isStringLiteral(node.value)) {
       const raw = rawText(node.value);
-      // Unescape all quotes so we get an accurate preferred quote
-      let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-      const quote = getPreferredQuote(
+      // Remove enclosing quotes and unescape
+      // all quotes so we get an accurate preferred quote
+      let final = raw
+        .slice(1, -1)
+        .replace(/&apos;/g, "'")
+        .replace(/&quot;/g, '"');
+      const { escaped, quote, regex } = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'
       );
-      const escape = quote === "'" ? "&apos;" : "&quot;";
-      final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
+      final = final.replace(regex, escaped);
       res = [quote, final, quote];
     } else {
       res = print("value");
@@ -576,9 +579,11 @@ function printJsxOpeningElement(path, options, print) {
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
-    // kept unbroken regardless of `jsxBracketSameLine`
+    // kept unbroken regardless of `bracketSameLine`.
+    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
+    // but is still needed for backwards compatibility.
     (node.attributes.length === 0 && !nameHasComments) ||
-    (options.jsxBracketSameLine &&
+    ((options.bracketSameLine || options.jsxBracketSameLine) &&
       // We should print the bracket in a new line for the following cases:
       // <div
       //   // comment

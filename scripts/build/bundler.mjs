@@ -13,13 +13,14 @@ import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import WebpackPluginTerser from "terser-webpack-plugin";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
+import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, require } = createEsmUtils(import.meta);
-const PROJECT_ROOT = path.join(__dirname, "../..");
+const { __dirname, require, json } = createEsmUtils(import.meta);
+const packageJson = json.loadSync("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
@@ -79,12 +80,7 @@ function getBabelConfig(bundle) {
   };
   const targets = { node: "10" };
   if (bundle.target === "universal") {
-    targets.browsers = [
-      ">0.5%",
-      "not ie 11",
-      "not safari 5.1",
-      "not op_mini all",
-    ];
+    targets.browsers = packageJson.browserslist;
   }
   config.presets = [
     [
@@ -118,7 +114,7 @@ function getBabelConfig(bundle) {
 
 function getRollupConfig(bundle) {
   const config = {
-    input: bundle.input,
+    input: path.join(PROJECT_ROOT, bundle.input),
     onwarn(warning) {
       if (
         // ignore `MIXED_EXPORTS` warn
@@ -189,7 +185,7 @@ function getRollupConfig(bundle) {
     // Replace package.json with `{version: "{VERSION}"}`
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
       code: `export default ${JSON.stringify({
-        version: require("../../package.json").version,
+        version: packageJson.version,
       })};`,
     };
 
@@ -259,7 +255,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   const options = {
     // Avoid warning form #8797
     exports: "auto",
-    file: `dist/${bundle.output}`,
+    file: path.join(DIST_DIR, bundle.output),
     name: bundle.name,
     plugins: [
       bundle.minify !== false &&
@@ -284,7 +280,10 @@ function getRollupOutputOptions(bundle, buildOptions) {
         !buildOptions.playground && {
           ...options,
           format: "esm",
-          file: `dist/esm/${bundle.output.replace(".js", ".mjs")}`,
+          file: path.join(
+            DIST_DIR,
+            `esm/${bundle.output.replace(".js", ".mjs")}`
+          ),
         },
       ].filter(Boolean);
     }
@@ -294,6 +293,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   if (buildOptions.playground && bundle.bundler !== "webpack") {
     return { skipped: true };
   }
+
   return [options];
 }
 
@@ -318,7 +318,7 @@ function getWebpackConfig(bundle) {
       ],
     },
     output: {
-      path: path.resolve(PROJECT_ROOT, "dist"),
+      path: DIST_DIR,
       filename: bundle.output,
       library: {
         type: "umd",
@@ -380,7 +380,7 @@ async function createBundle(bundle, cache, options) {
   }
 
   if (
-    !options["purge-cache"] &&
+    cache &&
     (
       await Promise.all(
         outputOptions.map((outputOption) =>

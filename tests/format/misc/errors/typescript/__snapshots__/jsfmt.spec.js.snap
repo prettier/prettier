@@ -47,9 +47,9 @@ exports[`module-attributes-static.ts [typescript] format 1`] = `
 `;
 
 exports[`newline-before-arrow.ts [typescript] format 1`] = `
-"';' expected. (1:7)
+"Unexpected keyword or identifier. (1:1)
 > 1 | async x
-    |       ^
+    | ^
   2 | => x
   3 |"
 `;

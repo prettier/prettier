@@ -32,6 +32,6 @@ async function bump({ version }) {
   });
 }
 
-export default async function (params) {
+export default async function updateVersion(params) {
   await logPromise("Bumping version", bump(params));
 }

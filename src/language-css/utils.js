@@ -28,6 +28,7 @@ const colorAdjusterFunctions = new Set([
   "hwb",
   "hwba",
 ]);
+const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
@@ -89,7 +90,7 @@ function hasStringOrFunction(groupList) {
 
 function isSCSS(parser, text) {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
+  const IS_POSSIBLY_SCSS = /(?:\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
@@ -479,6 +480,10 @@ function isAtWordPlaceholderNode(node) {
   );
 }
 
+function isModuleRuleName(name) {
+  return moduleRuleNames.has(name);
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -533,4 +538,5 @@ module.exports = {
   lastLineHasInlineComment,
   stringifyNode,
   isAtWordPlaceholderNode,
+  isModuleRuleName,
 };

@@ -2,7 +2,7 @@ import createEsmUtils from "esm-utils";
 
 const { require } = createEsmUtils(import.meta);
 
-export default function () {
+export default function rollupPluginEvaluate() {
   return {
     name: "evaluate",
 

@@ -230,7 +230,7 @@ function extractInterpolation(ast, options) {
     return;
   }
 
-  const interpolationRegex = /{{(.+?)}}/gs;
+  const interpolationRegex = /{{(.+?)}}/s;
   ast.walk((node) => {
     if (!canHaveInterpolation(node)) {
       return;

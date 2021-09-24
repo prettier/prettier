@@ -4,7 +4,7 @@ import groupBy from "lodash/groupBy";
 import { SidebarCategory } from "./components.js";
 import Option from "./options.js";
 
-export default function ({
+export default function SidebarOptions({
   categories,
   availableOptions,
   optionValues,

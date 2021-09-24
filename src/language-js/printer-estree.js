@@ -737,12 +737,9 @@ function printPathNoParens(path, options, print, args) {
 
       return parts;
 
-    case "PipelineBareFunction":
-      return print("callee");
-    case "PipelineTopicExpression":
-      return print("expression");
-    case "PipelinePrimaryTopicReference":
-      return "#";
+    // For hack-style pipeline
+    case "TopicReference":
+      return "%";
 
     case "ArgumentPlaceholder":
       return "?";

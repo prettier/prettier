@@ -10,6 +10,13 @@ const createBabelParseError = require("./utils/create-babel-parse-error.js");
 const postprocess = require("./postprocess.js");
 const jsonParsers = require("./json.js");
 
+/**
+ * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
+ * @typedef {import("@babel/parser").ParserOptions} ParserOptions
+ * @typedef {import("@babel/parser").ParserPlugin} ParserPlugin
+ */
+
+/** @type {ParserOptions} */
 const parseOptions = {
   sourceType: "module",
   allowImportExportEverywhere: true,
@@ -19,14 +26,13 @@ const parseOptions = {
   errorRecovery: true,
   createParenthesizedExpressions: true,
   plugins: [
-    // When adding a plugin, please add a test in `tests/js/babel-plugins`,
-    // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+    // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
+    // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
     "doExpressions",
     "exportDefaultFrom",
     "functionBind",
     "functionSent",
     "throwExpressions",
-    "v8intrinsic",
     "partialApplication",
     ["decorators", { decoratorsBeforeExport: false }],
     "importAssertions",
@@ -38,9 +44,16 @@ const parseOptions = {
   tokens: true,
   ranges: true,
 };
+
+/** @type {ParserPlugin} */
 const recordAndTuplePlugin = ["recordAndTuple", { syntaxType: "hash" }];
+
+/** @type {ParserPlugin} */
+const v8intrinsicPlugin = "v8intrinsic";
+
+/** @type {Array<ParserPlugin>} */
 const pipelineOperatorPlugins = [
-  ["pipelineOperator", { proposal: "smart" }],
+  ["pipelineOperator", { proposal: "hack", topicToken: "%" }],
   ["pipelineOperator", { proposal: "minimal" }],
   ["pipelineOperator", { proposal: "fsharp" }],
 ];
@@ -74,7 +87,7 @@ function isFlowFile(text, options) {
 
 function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
-  /** @type {import("@babel/parser").parse | import("@babel/parser").parseExpression} */
+  /** @type {Parse} */
   const parse = require("@babel/parser")[parseMethod];
   const ast = parse(text, options);
   const error = ast.errors.find(
@@ -110,11 +123,19 @@ function createParse(parseMethod, ...optionsCombinations) {
       );
     }
 
+    const shouldEnableV8intrinsicPlugin = /%[A-Z]/.test(text);
     if (text.includes("|>")) {
-      combinations = pipelineOperatorPlugins.flatMap((pipelineOperatorPlugin) =>
+      const conflictsPlugins = shouldEnableV8intrinsicPlugin
+        ? [...pipelineOperatorPlugins, v8intrinsicPlugin]
+        : pipelineOperatorPlugins;
+      combinations = conflictsPlugins.flatMap((pipelineOperatorPlugin) =>
         combinations.map((options) =>
           appendPlugins([pipelineOperatorPlugin], options)
         )
+      );
+    } else if (shouldEnableV8intrinsicPlugin) {
+      combinations = combinations.map((options) =>
+        appendPlugins([v8intrinsicPlugin], options)
       );
     }
 

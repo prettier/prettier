@@ -97,6 +97,7 @@ module.exports = {
       },
     ],
     "import/order": "error",
+    "import/no-anonymous-default-export": "error",
 
     "regexp/match-any": [
       "error",
@@ -104,7 +105,13 @@ module.exports = {
         allows: ["dotAll"],
       },
     ],
-    "regexp/no-useless-flag": "error",
+    "regexp/no-unused-capturing-group": "error",
+    "regexp/no-useless-flag": [
+      "error",
+      {
+        strictTypes: false,
+      },
+    ],
 
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
@@ -148,6 +155,7 @@ module.exports = {
         "tests/format/**/jsfmt.spec.js",
         "tests/config/**/*.js",
         "tests/integration/**/*.js",
+        "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {
         jest: true,

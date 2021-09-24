@@ -23,6 +23,11 @@ const CATEGORIES_ORDER = [
   "HTML",
   "Special",
 ];
+const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
+const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
+const COPY_MESSAGE =
+  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
+
 const ENABLED_OPTIONS = [
   "parser",
   "printWidth",
@@ -32,7 +37,6 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
-  "jsxBracketSameLine",
   "quoteProps",
   "arrowParens",
   "trailingComma",
@@ -42,11 +46,8 @@ const ENABLED_OPTIONS = [
   "requirePragma",
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
+  "bracketSameLine",
 ];
-const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
-const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
-const COPY_MESSAGE =
-  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
 
 class Playground extends React.Component {
   constructor(props) {

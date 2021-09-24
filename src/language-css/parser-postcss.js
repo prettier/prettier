@@ -12,6 +12,7 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
+  isModuleRuleName,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
@@ -515,7 +516,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:.+\)$/s.test(params)) {
+        if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -525,7 +526,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (lowercasedName === "import") {
+      if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
         node.params = parseValue(params, options);

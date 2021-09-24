@@ -53,7 +53,7 @@ function printBigInt(raw) {
 }
 
 function printRegex({ pattern, flags }) {
-  flags = flags.split("").sort().join("");
+  flags = [...flags].sort().join("");
   return `/${pattern}/${flags}`;
 }
 

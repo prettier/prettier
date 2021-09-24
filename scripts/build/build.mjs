@@ -4,12 +4,19 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import readline from "node:readline";
 import chalk from "chalk";
-import execa from "execa";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
+import rimraf from "rimraf";
+import {
+  PROJECT_ROOT,
+  BUILD_CACHE_DIR,
+  DIST_DIR,
+  readJson,
+  writeJson,
+  copyFile,
+} from "../utils/index.mjs";
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
-import * as utils from "./utils.mjs";
 import Cache from "./cache.mjs";
 
 // Errors in promises should be fatal.
@@ -67,7 +74,7 @@ async function createBundle(bundleConfig, cache, options) {
       return;
     }
 
-    const file = path.join("dist", output);
+    const file = path.join(DIST_DIR, output);
 
     // Files including U+FFEE can't load in Chrome Extension
     // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
@@ -93,7 +100,11 @@ async function createBundle(bundleConfig, cache, options) {
         bundleConfig.bundler !== "webpack" &&
         target === "universal"
       ) {
-        const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
+        const esmFile = path.join(
+          DIST_DIR,
+          "esm",
+          output.replace(".js", ".mjs")
+        );
         sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
       }
       process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
@@ -112,65 +123,60 @@ function handleError(error) {
   throw error;
 }
 
-async function cacheFiles(cache) {
-  // Copy built files to .cache
-  try {
-    await execa("rm", ["-rf", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
-    const manifest = cache.updated;
-
-    for (const file of Object.keys(manifest.files)) {
-      await execa("cp", [
-        file,
-        path.join(".cache", file.replace("dist", "files")),
-      ]);
-    }
-  } catch {
-    // Don't fail the build
-  }
-}
-
 async function preparePackage() {
-  const pkg = await utils.readJson("package.json");
-  pkg.bin = "./bin-prettier.js";
-  pkg.engines.node = ">=10.13.0";
-  delete pkg.dependencies;
-  delete pkg.devDependencies;
-  pkg.scripts = {
+  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+  packageJson.bin = "./bin-prettier.js";
+  packageJson.engines.node = ">=10.13.0";
+  delete packageJson.dependencies;
+  delete packageJson.devDependencies;
+  delete packageJson.browserslist;
+  packageJson.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
-  pkg.files = ["*.js", "esm/*.mjs"];
-  await utils.writeJson("dist/package.json", pkg);
+  packageJson.files = ["*.js", "esm/*.mjs"];
+  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
 
-  await utils.copyFile("./README.md", "./dist/README.md");
-  await utils.copyFile("./LICENSE", "./dist/LICENSE");
+  for (const file of ["README.md", "LICENSE"]) {
+    await copyFile(path.join(PROJECT_ROOT, file), path.join(DIST_DIR, file));
+  }
 }
 
 async function run(params) {
-  await execa("rm", ["-rf", "dist"]);
-  await execa("mkdir", ["-p", "dist"]);
-  if (!params.playground) {
-    await execa("mkdir", ["-p", "dist/esm"]);
+  const shouldUseCache = !params.file && !params["purge-cache"];
+  const shouldPreparePackage = !params.playground && !params.file;
+  let configs = bundleConfigs;
+  if (params.file) {
+    configs = configs.filter(({ output }) => output === params.file);
+  } else {
+    rimraf.sync(DIST_DIR);
   }
 
   if (params["purge-cache"]) {
-    await execa("rm", ["-rf", ".cache"]);
+    rimraf.sync(BUILD_CACHE_DIR);
   }
 
-  const bundleCache = new Cache(".cache/", CACHE_VERSION);
-  await bundleCache.load();
+  let bundleCache;
+  if (shouldUseCache) {
+    bundleCache = new Cache({
+      cacheDir: BUILD_CACHE_DIR,
+      distDir: DIST_DIR,
+      version: CACHE_VERSION,
+    });
+    await bundleCache.load();
+  }
 
   console.log(chalk.inverse(" Building packages "));
-  for (const bundleConfig of bundleConfigs) {
+
+  for (const bundleConfig of configs) {
     await createBundle(bundleConfig, bundleCache, params);
   }
 
-  await cacheFiles(bundleCache);
-  await bundleCache.save();
+  if (shouldUseCache) {
+    await bundleCache.save();
+  }
 
-  if (!params.playground) {
+  if (shouldPreparePackage) {
     await preparePackage();
   }
 }
@@ -178,5 +184,6 @@ async function run(params) {
 run(
   minimist(process.argv.slice(2), {
     boolean: ["purge-cache", "playground", "print-size"],
+    string: ["file"],
   })
 );

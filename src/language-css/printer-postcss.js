@@ -550,6 +550,19 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Ignore SCSS @forward wildcard suffix
+        if (
+          insideAtRuleNode(path, "forward") &&
+          iNode.type === "value-word" &&
+          iNode.value &&
+          iPrevNode.type === "value-word" &&
+          iPrevNode.value === "as" &&
+          iNextNode.type === "value-operator" &&
+          iNextNode.value === "*"
+        ) {
+          continue;
+        }
+
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
           continue;

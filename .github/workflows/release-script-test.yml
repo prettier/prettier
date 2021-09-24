@@ -1,0 +1,35 @@
+name: Release_Script_Test
+
+defaults:
+  run:
+    working-directory: scripts/release
+
+on:
+  push:
+    paths:
+      - "scripts/release/**"
+      - ".github/workflows/release-script-test.yml"
+  pull_request:
+    paths:
+      - "scripts/release/**"
+      - ".github/workflows/release-script-test.yml"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.4.0
+        with:
+          version: "14"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Test
+        run: yarn test
