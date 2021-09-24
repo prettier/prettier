@@ -78,7 +78,6 @@ singleQuote: false
 <div title='My title'></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
-<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
 
 <div title="{{t 'my.title'}}" />
@@ -92,11 +91,12 @@ singleQuote: false
 <button class='padding width-{{locales.length}} {{if (has locale) "uk-button-primary"}}'></button>
 <button class='padding width-{{locales.length}} {{if (has locale) 'uk-button-primary'}}'></button>
 
+<div class="padding {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}} baz" />
+
 =====================================output=====================================
 <div title="My title"></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
-<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
 
 <div title="{{t 'my.title'}}"></div>
@@ -121,6 +121,12 @@ singleQuote: false
   class="padding width-{{locales.length}}
     {{if (has locale) 'uk-button-primary'}}"
 ></button>
+
+<div
+  class="padding
+    {{if foo (if fooAgain 'bar' (if fooAgainAgain 'bar' 'foo'))}}
+    baz"
+></div>
 ================================================================================
 `;
 
@@ -134,7 +140,6 @@ singleQuote: true
 <div title='My title'></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
-<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
 
 <div title="{{t 'my.title'}}" />
@@ -148,11 +153,12 @@ singleQuote: true
 <button class='padding width-{{locales.length}} {{if (has locale) "uk-button-primary"}}'></button>
 <button class='padding width-{{locales.length}} {{if (has locale) 'uk-button-primary'}}'></button>
 
+<div class="padding {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}} baz" />
+
 =====================================output=====================================
 <div title='My title'></div>
 <div title='My title'></div>
 <div title='My "title"'></div>
-<div title="My 'title'"></div>
 <div title="My other 'title'"></div>
 
 <div title='{{t "my.title"}}'></div>
@@ -177,6 +183,12 @@ singleQuote: true
   class='padding width-{{locales.length}}
     {{if (has locale) "uk-button-primary"}}'
 ></button>
+
+<div
+  class='padding
+    {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}}
+    baz'
+></div>
 ================================================================================
 `;
 
