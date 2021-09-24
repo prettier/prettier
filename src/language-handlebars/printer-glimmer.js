@@ -25,7 +25,6 @@ const {
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
-  findParentOfSomeType,
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
@@ -398,14 +397,7 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
-      const mustacheIndex = findParentOfSomeType(path, ["MustacheStatement"]);
-      if (
-        mustacheIndex >= 0 &&
-        isNodeOfSomeType(path.getParentNode(mustacheIndex + 1), [
-          "ConcatStatement",
-        ]) &&
-        isNodeOfSomeType(path.getParentNode(mustacheIndex + 2), ["AttrNode"])
-      ) {
+      if (needsOppositeQuote(path)) {
         const printOptions = { singleQuote: !options.singleQuote };
         return printStringLiteral(node.value, printOptions);
       }
@@ -742,6 +734,23 @@ function chooseEnclosingQuote(options, stringLiteral) {
   }
 
   return shouldUseAlternateQuote ? alternate : preferred;
+}
+
+function needsOppositeQuote(path) {
+  let index = 0;
+  let parentNode = path.getParentNode(index);
+  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
+    index++;
+    parentNode = path.getParentNode(index);
+  }
+  if (
+    parentNode &&
+    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
+    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /* SubExpression print helpers */

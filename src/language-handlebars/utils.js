@@ -58,18 +58,6 @@ function isParentOfSomeType(path, types) {
   return isNodeOfSomeType(parentNode, types);
 }
 
-function findParentOfSomeType(path, types) {
-  let index = 0;
-  let parentNode = path.getParentNode(index);
-  while (parentNode && !isNodeOfSomeType(parentNode, types)) {
-    parentNode = path.getParentNode(++index);
-  }
-  if (parentNode) {
-    return index;
-  }
-  return -1;
-}
-
 function isPreviousNodeOfSomeType(path, types) {
   const previousNode = getPreviousNode(path);
   return isNodeOfSomeType(previousNode, types);
@@ -121,7 +109,6 @@ module.exports = {
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
-  findParentOfSomeType,
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
