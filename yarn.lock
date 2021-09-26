@@ -3055,16 +3055,17 @@ eslint-plugin-react@7.25.2:
     resolve "^2.0.0-next.3"
     string.prototype.matchall "^4.0.5"
 
-eslint-plugin-regexp@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.1.0.tgz#1a417ddbc07fc1dc459942185e1b24913621bd2a"
-  integrity sha512-mbDJigs9cAzDx7RDiEYXY0muX+BL8EJIG6wskYktGHFMZsuG8vJRBV4Co2wngeYJpB9S914M64T9reDr2bxTCg==
+eslint-plugin-regexp@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.3.0.tgz#1bb092a2264ef650896b07d3baf52436690dbe6c"
+  integrity sha512-KM+gdhi71S2IEPFb9djfzqYTl5sCwi+OsFVxgupbn+l0uxOLqgGME00R3/tUDO5w9QAcnHvtRsIMf1Tiu+bpYA==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
+    grapheme-splitter "^1.0.4"
     jsdoctypeparser "^9.0.0"
     refa "^0.9.0"
-    regexp-ast-analysis "^0.2.4"
+    regexp-ast-analysis "^0.3.0"
     regexpp "^3.2.0"
     scslre "^0.1.6"
 
@@ -3558,6 +3559,11 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"
   integrity sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==
+
+grapheme-splitter@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
+  integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
 
 graphql@15.5.3:
   version "15.5.3"
@@ -5624,10 +5630,18 @@ regenerator-transform@^0.14.2:
   dependencies:
     "@babel/runtime" "^7.8.4"
 
-regexp-ast-analysis@^0.2.3, regexp-ast-analysis@^0.2.4:
+regexp-ast-analysis@^0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.2.4.tgz#a497a7c8bfbba51438693821e4b0e3ed43e20f1b"
   integrity sha512-8L7kOZQaKPxKKAwGuUZxTQtlO3WZ+tiXy4s6G6PKL6trbOXcZoumwC3AOHHFtI/xoSbNxt7jgLvCnP1UADLWqg==
+  dependencies:
+    refa "^0.9.0"
+    regexpp "^3.2.0"
+
+regexp-ast-analysis@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.3.0.tgz#386f177dfe5abc5ac58b51eb5962beac64e898ce"
+  integrity sha512-11PlbBSUxwWpdj6BdZUKfhDdV9g+cveqHB+BqBQDBD7ZermDBVgtyowUaXTvT0dO3tZYo2bDIr/GoED6X1aYSA==
   dependencies:
     refa "^0.9.0"
     regexpp "^3.2.0"
