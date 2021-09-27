@@ -389,13 +389,9 @@ function embed(path, print, textToDoc, options) {
             return doc;
           }
 
-          const {
-            escaped,
-            quote: preferred,
-            regex,
-          } = getPreferredQuote(doc, favoriteQuote);
-          quote = preferred;
-          return doc.replace(regex, escaped);
+          const preferred = getPreferredQuote(doc, favoriteQuote);
+          quote = preferred.quote;
+          return doc.replace(preferred.regex, preferred.escaped);
         });
         return [node.rawName, "=", quote, group(content), quote];
       }
