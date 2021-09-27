@@ -13,6 +13,10 @@ singleQuote: false
 <div title="My 'title"></div>
 <div title='My "title"'></div>
 <div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title="My\\&quot; title"></div>
+<div title="My\\' title"></div>
+<div title="My\\&apos; title"></div>
 
 =====================================output=====================================
 <div title="My title"></div>
@@ -21,6 +25,10 @@ singleQuote: false
 <div title="My 'title"></div>
 <div title='My "title"'></div>
 <div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title='My\\" title'></div>
+<div title="My\\' title"></div>
+<div title="My\\' title"></div>
 
 ================================================================================
 `;
@@ -38,6 +46,10 @@ singleQuote: true
 <div title="My 'title"></div>
 <div title='My "title"'></div>
 <div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title="My\\&quot; title"></div>
+<div title="My\\' title"></div>
+<div title="My\\&apos; title"></div>
 
 =====================================output=====================================
 <div title='My title'></div>
@@ -46,6 +58,10 @@ singleQuote: true
 <div title="My 'title"></div>
 <div title='My "title"'></div>
 <div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title='My\\" title'></div>
+<div title="My\\' title"></div>
+<div title="My\\' title"></div>
 
 ================================================================================
 `;
