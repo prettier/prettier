@@ -98,7 +98,7 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = node.children.filter(isJsxNode).length > 0;
+  const containsTag = node.children.some(isJsxNode);
   const containsMultipleExpressions =
     node.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
