@@ -252,12 +252,19 @@ function printArrowChain(
   const isAssignmentRhs = Boolean(args && args.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
-    tailNode.body.type !== "ObjectExpression";
+    tailNode.body.type !== "ObjectExpression" &&
+    tailNode.body.type !== "SequenceExpression";
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
     (args && args.assignmentLayout === "chain-tail-arrow-chain");
 
   const groupId = Symbol("arrow-chain");
+
+  // We handle sequence expressions as the body of arrows specially,
+  // so that the required parentheses end up on their own lines.
+  if (tailNode.body.type === "SequenceExpression") {
+    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  }
 
   return group([
     group(
