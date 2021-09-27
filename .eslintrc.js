@@ -86,7 +86,14 @@ module.exports = {
       },
     ],
 
-    "import/extensions": ["error", "always", { ignorePackages: true }],
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        js: "ignorePackages",
+        mjs: "ignorePackages",
+      },
+    ],
     "import/no-extraneous-dependencies": [
       "error",
       {
