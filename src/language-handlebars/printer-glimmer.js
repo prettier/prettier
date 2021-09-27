@@ -399,6 +399,10 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
+      if (needsOppositeQuote(path)) {
+        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
+        return printStringLiteral(node.value, printFavoriteQuote);
+      }
       return printStringLiteral(node.value, favoriteQuote);
     }
     case "NumberLiteral": {
@@ -707,6 +711,23 @@ function generateHardlines(number = 0) {
 function printStringLiteral(stringLiteral, favoriteQuote) {
   const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
+}
+
+function needsOppositeQuote(path) {
+  let index = 0;
+  let parentNode = path.getParentNode(index);
+  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
+    index++;
+    parentNode = path.getParentNode(index);
+  }
+  if (
+    parentNode &&
+    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
+    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /* SubExpression print helpers */
