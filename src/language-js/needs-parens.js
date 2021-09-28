@@ -436,7 +436,7 @@ function needsParens(path, options) {
         (name === "objectType" && parent.type === "TSIndexedAccessType") ||
         parent.type === "TSTypeOperator" ||
         (parent.type === "TSTypeAnnotation" &&
-          /^TSJSDoc/.test(path.getParentNode(1).type))
+          path.getParentNode(1).type.startsWith("TSJSDoc"))
       );
 
     case "ArrayTypeAnnotation":

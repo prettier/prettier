@@ -271,7 +271,7 @@ function stripTrailingHardline(doc) {
 function cleanDocFn(doc) {
   switch (doc.type) {
     case "fill":
-      if (doc.parts.length === 0 || doc.parts.every((part) => part === "")) {
+      if (doc.parts.every((part) => part === "")) {
         return "";
       }
       break;
