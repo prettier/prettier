@@ -25,6 +25,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isEnabledHackPipeline,
 } = require("../utils.js");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -40,6 +41,8 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
+  const isHackPipeline =
+    isEnabledHackPipeline(options) && node.operator === "|>";
 
   const parts = printBinaryishExpressions(
     path,
@@ -61,6 +64,10 @@ function printBinaryishExpression(path, options, print) {
   //   ) {
   if (isInsideParenthesis) {
     return parts;
+  }
+
+  if (isHackPipeline) {
+    return group(parts);
   }
 
   // Break between the parens in
@@ -244,15 +251,33 @@ function printBinaryishExpressions(
         )
       : "";
 
-  const right = shouldInline
-    ? [operator, " ", print("right"), rightSuffix]
-    : [
-        lineBeforeOperator ? line : "",
-        operator,
-        lineBeforeOperator ? " " : line,
-        print("right"),
-        rightSuffix,
-      ];
+  /** @type {Doc} */
+  let right;
+  if (shouldInline) {
+    right = [operator, " ", print("right"), rightSuffix];
+  } else {
+    const isHackPipeline = isEnabledHackPipeline(options) && operator === "|>";
+    const rightContent = isHackPipeline
+      ? path.call(
+          (left) =>
+            printBinaryishExpressions(
+              left,
+              print,
+              options,
+              /* isNested */ true,
+              isInsideParenthesis
+            ),
+          "right"
+        )
+      : print("right");
+    right = [
+      lineBeforeOperator ? line : "",
+      operator,
+      lineBeforeOperator ? " " : line,
+      rightContent,
+      rightSuffix,
+    ];
+  }
 
   // If there's only a single binary expression, we want to create a group
   // in order to avoid having a small right part like -1 be on its own line.

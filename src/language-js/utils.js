@@ -1310,6 +1310,10 @@ function isObjectProperty(node) {
   );
 }
 
+function isEnabledHackPipeline(options) {
+  return Boolean(options.__isUsingHackPipeline);
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1331,6 +1335,7 @@ module.exports = {
   isBinaryish,
   isBlockComment,
   isCallLikeExpression,
+  isEnabledHackPipeline,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,
