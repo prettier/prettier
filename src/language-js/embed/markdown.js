@@ -2,27 +2,44 @@
 
 const {
   builders: { indent, softline, literalline, dedentToRoot },
+  utils: { mapDoc },
 } = require("../../document/index.js");
-const { escapeTemplateCharacters } = require("../print/template-literal.js");
+const { printTemplateExpressions } = require("../print/template-literal.js");
 
+// The counter is needed to distinguish nested embeds.
+let counter = 0;
 function format(path, print, textToDoc) {
   const node = path.getValue();
-  let text = node.quasis[0].value.raw.replace(
-    /((?:\\\\)*)\\`/g,
-    (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
-  );
+  const placeholder = `PRETTIER_MARKDOWN_PLACEHOLDER_${counter}_IN_JS`;
+  counter = (counter + 1) >>> 0;
+  let text = node.quasis
+    .map((quasi) => quasi.value.raw)
+    .join(placeholder)
+    .replace(
+      /((?:\\\\)*)\\`/g,
+      (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
+    );
   const indentation = getIndentation(text);
   const hasIndent = indentation !== "";
   if (hasIndent) {
     text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
   }
-  const doc = escapeTemplateCharacters(
+  const expressionDocs = printTemplateExpressions(path, print);
+  const doc = mapDoc(
     textToDoc(
       text,
       { parser: "markdown", __inJsTemplate: true },
       { stripTrailingHardline: true }
     ),
-    true
+    (currentDoc) =>
+      typeof currentDoc !== "string"
+        ? currentDoc
+        : currentDoc.split(placeholder).flatMap((unescaped, index, splits) => {
+            const escaped = unescaped.replace(/(\\*)`/g, "$1$1\\`");
+            return index === splits.length - 1
+              ? escaped
+              : [escaped, expressionDocs.shift()];
+          })
   );
   return [
     "`",
