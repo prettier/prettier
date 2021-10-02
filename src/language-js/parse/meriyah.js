@@ -82,7 +82,8 @@ function parse(text, parsers, options) {
     throw createParseError(moduleParseError);
   }
 
-  return postprocess(ast, { ...options, originalText: text });
+  options.originalText = text;
+  return postprocess(ast, options);
 }
 
 module.exports = {
