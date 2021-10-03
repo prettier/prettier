@@ -12,9 +12,9 @@ jobs:
         with:
           # https://github.com/dessant/lock-threads
           github-token: ${{ github.token }}
-          issue-lock-inactive-days: "90"
-          issue-exclude-created-before: ""
-          issue-exclude-labels: "keep-unlocked, status:awaiting response"
-          issue-lock-labels: "locked-due-to-inactivity"
-          issue-lock-comment: ""
+          issue-inactive-days: "90"
+          exclude-issue-created-before: ""
+          exclude-any-issue-labels: "keep-unlocked, status:awaiting response"
+          add-issue-labels: "locked-due-to-inactivity"
+          issue-comment: ""
           issue-lock-reason: "resolved"
