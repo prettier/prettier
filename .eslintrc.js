@@ -173,6 +173,7 @@ module.exports = {
             alwaysAwait: true,
           },
         ],
+        "jest/prefer-to-be": "error",
       },
     },
     {

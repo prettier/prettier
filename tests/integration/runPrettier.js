@@ -188,7 +188,7 @@ function runPrettier(dir, args = [], options = {}) {
             : result[name];
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {
-            expect(value).not.toEqual(0);
+            expect(value).not.toBe(0);
           } else {
             expect(value).toEqual(testOptions[name]);
           }
