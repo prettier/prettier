@@ -181,7 +181,7 @@ describe("API with no path and no parser", () => {
   });
 
   test("prettier.format", () => {
-    expect(prettier.format(" foo  (  )")).toEqual("foo();\n");
+    expect(prettier.format(" foo  (  )")).toBe("foo();\n");
     expect(global.console.warn).toHaveBeenCalledTimes(1);
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
