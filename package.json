@@ -112,7 +112,7 @@
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-compat": "3.13.0",
     "eslint-plugin-import": "2.24.2",
-    "eslint-plugin-jest": "24.4.2",
+    "eslint-plugin-jest": "24.5.0",
     "eslint-plugin-prettier-internal-rules": "2.0.1",
     "eslint-plugin-react": "7.26.1",
     "eslint-plugin-regexp": "1.3.1",
