@@ -8,7 +8,7 @@ jobs:
   lock:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v2
+      - uses: dessant/lock-threads@v3
         with:
           # https://github.com/dessant/lock-threads
           github-token: ${{ github.token }}
