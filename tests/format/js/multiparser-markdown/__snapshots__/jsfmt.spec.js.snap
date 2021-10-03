@@ -28,9 +28,7 @@ text3
 }
 
 =====================================output=====================================
-md\`
-This line shouldn't be indented at all in the resulting output.
-\`;
+md\`This line shouldn't be indented at all in the resulting output.\`;
 
 if (true) {
   md\`
@@ -279,9 +277,7 @@ proseWrap: "always"
 markdown\`# hello\`
 
 =====================================output=====================================
-markdown\`
-# hello
-\`;
+markdown\`# hello\`;
 
 ================================================================================
 `;
