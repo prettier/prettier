@@ -106,9 +106,7 @@ markdown\`
 \`
 
 =====================================output=====================================
-markdown\`
-  const cssString = css\\\` background-color: \\$\\{color('base')\\}\\\`;
-\`;
+markdown\`const cssString = css\\\` background-color: \\$\\{color('base')\\}\\\`;\`;
 
 markdown\`
   - \\\`
@@ -274,10 +272,30 @@ printWidth: 80
 proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
-markdown\`# hello\`
+md\`# block\`;
+
+md\`
+# block
+\`;
+
+md\`*inline*\`;
+
+md\`
+*inline*
+\`;
 
 =====================================output=====================================
-markdown\`# hello\`;
+md\`
+# block
+\`;
+
+md\`
+# block
+\`;
+
+md\`_inline_\`;
+
+md\`_inline_\`;
 
 ================================================================================
 `;

@@ -83,6 +83,11 @@ function genericPrint(path, options, print) {
         return "";
       }
       return [
+        !options.__inJsTemplate
+          ? ""
+          : isInlineContent(node)
+          ? softline
+          : hardline,
         normalizeDoc(printRoot(path, options, print)),
         !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
@@ -746,6 +751,12 @@ function printChildren(path, options, print, events = {}) {
   }, "children");
 
   return postprocessor ? postprocessor(parts) : parts;
+}
+
+// The parser wraps inline content (*emphasis*, etc.) in a paragraph, so
+// a solitary paragraph is inline content.
+function isInlineContent(node) {
+  return node.children.length === 1 && node.children[0].type === "paragraph";
 }
 
 function getLastDescendantNode(node) {
