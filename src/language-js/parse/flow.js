@@ -54,7 +54,8 @@ function parse(text, parsers, opts) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { ...opts, originalText: text });
+  opts.originalText = text;
+  return postprocess(ast, opts);
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
