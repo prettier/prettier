@@ -14,7 +14,6 @@ const {
     addAlignmentToDoc,
   },
   printer: { printDocToString },
-  utils: { mapDoc },
 } = require("../../document/index.js");
 const {
   isBinaryish,
@@ -216,18 +215,6 @@ function printTemplateExpressions(path, print) {
   );
 }
 
-function escapeTemplateCharacters(doc, raw) {
-  return mapDoc(doc, (currentDoc) => {
-    if (typeof currentDoc === "string") {
-      return raw
-        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
-        : uncookTemplateElementValue(currentDoc);
-    }
-
-    return currentDoc;
-  });
-}
-
 function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
@@ -235,6 +222,5 @@ function uncookTemplateElementValue(cookedValue) {
 module.exports = {
   printTemplateLiteral,
   printTemplateExpressions,
-  escapeTemplateCharacters,
   uncookTemplateElementValue,
 };
