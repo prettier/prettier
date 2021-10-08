@@ -74,6 +74,7 @@ const {
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
+  isConfigurationNode,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -555,7 +556,6 @@ function genericPrint(path, options, print) {
           insideAtRuleNode(path, "forward") &&
           iNode.type === "value-word" &&
           iNode.value &&
-          iPrevNode &&
           iPrevNode.type === "value-word" &&
           iPrevNode.value === "as" &&
           iNextNode.type === "value-operator" &&
@@ -808,6 +808,19 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          iNode.value === "with" &&
+          iNextNode &&
+          iNextNode.type === "value-paren_group" &&
+          iNextNode.open &&
+          iNextNode.open.value === "(" &&
+          iNextNode.close &&
+          iNextNode.close.value === ")"
+        ) {
+          parts.push(" ");
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
@@ -873,6 +886,10 @@ function genericPrint(path, options, print) {
       const lastItem = getLast(node.groups);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
+      const isConfiguration = isConfigurationNode(node, parentNode);
+
+      const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
+      const shouldDedent = isConfiguration || isKey;
 
       const printed = group(
         [
@@ -916,11 +933,11 @@ function genericPrint(path, options, print) {
           node.close ? print("close") : "",
         ],
         {
-          shouldBreak: isSCSSMapItem && !isKey,
+          shouldBreak,
         }
       );
 
-      return isKey ? dedent(printed) : printed;
+      return shouldDedent ? dedent(printed) : printed;
     }
     case "value-func": {
       return [
