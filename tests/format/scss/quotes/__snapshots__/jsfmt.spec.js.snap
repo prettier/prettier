@@ -34,8 +34,10 @@ singleQuote: true
 =====================================output=====================================
 @use 'library';
 
-@use 'library' with
-  ($black: #222, $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif');
+@use 'library' with (
+  $black: #222,
+  $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif'
+);
 
 @use 'library' as *;
 
@@ -89,8 +91,10 @@ printWidth: 80
 =====================================output=====================================
 @use "library";
 
-@use "library" with
-  ($black: #222, $border-radius: 0.1rem $font-family: "Helvetica, sans-serif");
+@use "library" with (
+  $black: #222,
+  $border-radius: 0.1rem $font-family: "Helvetica, sans-serif"
+);
 
 @use "library" as *;
 
