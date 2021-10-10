@@ -979,6 +979,12 @@ function genericPrint(path, options, print) {
     case "value-unicode-range": {
       return node.value;
     }
+    case "value-numeric": {
+      return [node.value, node.unit];
+    }
+    case "value-quoted": {
+      return node.value;
+    }
     case "value-unknown": {
       return node.value;
     }
