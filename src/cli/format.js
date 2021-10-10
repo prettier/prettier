@@ -126,6 +126,13 @@ function format(context, input, opt) {
     };
   }
 
+  if (context.argv["debug-print-ast"]) {
+    const { ast } = prettier.__debug.parse(input, opt);
+    return {
+      formatted: JSON.stringify(ast),
+    };
+  }
+
   if (context.argv["debug-check"]) {
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);

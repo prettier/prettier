@@ -10,11 +10,11 @@ import { terser as rollupPluginTerser } from "rollup-plugin-terser";
 import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
+import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
-import { PROJECT_ROOT, DIST_DIR } from "./utils.mjs";
 
 const { require, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");

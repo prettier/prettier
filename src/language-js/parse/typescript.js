@@ -50,11 +50,9 @@ function parse(text, parsers, opts) {
     throw createParseError(firstError);
   }
 
-  return postprocess(result.ast, {
-    ...opts,
-    originalText: text,
-    tsParseResult: result,
-  });
+  opts.originalText = text;
+  opts.tsParseResult = result;
+  return postprocess(result.ast, opts);
 }
 
 /**

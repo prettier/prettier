@@ -80,6 +80,9 @@ singleQuote: false
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
+<div title="{{t 'my.title'}}" />
+<div title='{{t "my.title"}}' />
+
 <a href="/{{url}}/{{url}}"></a>
 <a href='/{{url}}/{{url}}'></a>
 
@@ -88,31 +91,42 @@ singleQuote: false
 <button class='padding width-{{locales.length}} {{if (has locale) "uk-button-primary"}}'></button>
 <button class='padding width-{{locales.length}} {{if (has locale) 'uk-button-primary'}}'></button>
 
+<div class="padding {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}} baz" />
+
 =====================================output=====================================
 <div title="My title"></div>
 <div title="My title"></div>
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
+<div title="{{t 'my.title'}}"></div>
+<div title="{{t 'my.title'}}"></div>
+
 <a href="/{{url}}/{{url}}"></a>
 <a href="/{{url}}/{{url}}"></a>
 
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
 <button
   class="padding width-{{locales.length}}
-    {{if (has locale) "uk-button-primary"}}"
+    {{if (has locale) 'uk-button-primary'}}"
 ></button>
+
+<div
+  class="padding
+    {{if foo (if fooAgain 'bar' (if fooAgainAgain 'bar' 'foo'))}}
+    baz"
+></div>
 ================================================================================
 `;
 
@@ -128,6 +142,9 @@ singleQuote: true
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
+<div title="{{t 'my.title'}}" />
+<div title='{{t "my.title"}}' />
+
 <a href="/{{url}}/{{url}}"></a>
 <a href='/{{url}}/{{url}}'></a>
 
@@ -136,31 +153,42 @@ singleQuote: true
 <button class='padding width-{{locales.length}} {{if (has locale) "uk-button-primary"}}'></button>
 <button class='padding width-{{locales.length}} {{if (has locale) 'uk-button-primary'}}'></button>
 
+<div class="padding {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}} baz" />
+
 =====================================output=====================================
 <div title='My title'></div>
 <div title='My title'></div>
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
+<div title='{{t "my.title"}}'></div>
+<div title='{{t "my.title"}}'></div>
+
 <a href='/{{url}}/{{url}}'></a>
 <a href='/{{url}}/{{url}}'></a>
 
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
 <button
   class='padding width-{{locales.length}}
-    {{if (has locale) 'uk-button-primary'}}'
+    {{if (has locale) "uk-button-primary"}}'
 ></button>
+
+<div
+  class='padding
+    {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}}
+    baz'
+></div>
 ================================================================================
 `;
 

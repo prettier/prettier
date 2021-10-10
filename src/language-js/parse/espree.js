@@ -46,7 +46,8 @@ function parse(originalText, parsers, options) {
     throw createParseError(moduleParseError);
   }
 
-  return postprocess(ast, { ...options, originalText });
+  options.originalText = originalText;
+  return postprocess(ast, options);
 }
 
 module.exports = {

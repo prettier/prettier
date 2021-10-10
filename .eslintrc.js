@@ -4,7 +4,7 @@ const { isCI } = require("ci-info");
 module.exports = {
   root: true,
   env: {
-    es2020: true,
+    es2021: true,
     node: true,
   },
   extends: ["eslint:recommended", "prettier"],
@@ -89,7 +89,7 @@ module.exports = {
       },
     ],
 
-    "import/extensions": ["error", "always", { ignorePackages: true }],
+    "import/extensions": ["error", "ignorePackages"],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -118,6 +118,8 @@ module.exports = {
     "unicorn/new-for-builtins": "error",
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
+    "unicorn/no-new-array": "error",
+    "unicorn/no-useless-length-check": "error",
     "unicorn/no-useless-undefined": "error",
     "unicorn/prefer-array-flat": [
       "error",
@@ -126,12 +128,15 @@ module.exports = {
       },
     ],
     "unicorn/prefer-array-flat-map": "error",
+    "unicorn/prefer-array-some": "error",
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-slice": "error",
+    "unicorn/prefer-string-starts-ends-with": "error",
+    "unicorn/prefer-type-error": "error",
   },
   overrides: [
     {
@@ -168,6 +173,7 @@ module.exports = {
             alwaysAwait: true,
           },
         ],
+        "jest/prefer-to-be": "error",
       },
     },
     {

@@ -141,7 +141,7 @@ singleQuote: true
 >Link</a>
 <button
   class='uk-padding-remove uk-button uk-button-default uk-button-small uk-width-1-{{intl.locales.length}}
-    {{if (contains locale intl.locale) 'uk-button-primary'}}'
+    {{if (contains locale intl.locale) "uk-button-primary"}}'
 >
   test
 </button>
@@ -173,7 +173,7 @@ printWidth: 80
 >Link</a>
 <button
   class="uk-padding-remove uk-button uk-button-default uk-button-small uk-width-1-{{intl.locales.length}}
-    {{if (contains locale intl.locale) "uk-button-primary"}}"
+    {{if (contains locale intl.locale) 'uk-button-primary'}}"
 >
   test
 </button>

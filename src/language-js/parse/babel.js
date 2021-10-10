@@ -149,7 +149,8 @@ function createParse(parseMethod, ...optionsCombinations) {
       throw createBabelParseError(error);
     }
 
-    return postprocess(ast, { ...opts, originalText: text });
+    opts.originalText = text;
+    return postprocess(ast, opts);
   };
 }
 
