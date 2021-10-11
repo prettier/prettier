@@ -549,12 +549,17 @@ function genericPrint(path, options, print) {
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
-        parts.push(printed[i]);
-
         const iPrevNode = node.groups[i - 1];
         const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
+
+        if (iNode.type === "value-punctuation" && iNode.value === ",") {
+          parts.push([printed[i], line]);
+          continue;
+        } else {
+          parts.push(printed[i]);
+        }
 
         if (insideURLFunction) {
           if (
