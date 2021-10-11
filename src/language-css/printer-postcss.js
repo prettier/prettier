@@ -832,6 +832,15 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // url(http://example.com)
+        if (
+          iNode.type === "value-punctuation" &&
+          iNode.value === ":" &&
+          isURLFunctionNode(parentNode)
+        ) {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
