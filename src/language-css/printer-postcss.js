@@ -526,6 +526,22 @@ function genericPrint(path, options, print) {
         isInlineValueCommentNode(node)
       );
 
+      let open = "";
+      let close = "";
+      const firstItem = node.groups[0];
+      const lastItem = getLast(node.groups);
+      if (
+        firstItem.type === "value-punctuation" &&
+        firstItem.value === "(" &&
+        lastItem.type === "value-punctuation" &&
+        lastItem.value === ")"
+      ) {
+        node.groups.shift();
+        node.groups.pop();
+        open = "(";
+        close = ")";
+      }
+
       const printed = path.map(print, "groups");
       const parts = [];
       const insideURLFunction = insideValueFunctionNode(path, "url");
@@ -533,12 +549,17 @@ function genericPrint(path, options, print) {
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
       for (let i = 0; i < node.groups.length; ++i) {
-        parts.push(printed[i]);
-
         const iPrevNode = node.groups[i - 1];
         const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
+
+        if (iNode.type === "value-punctuation" && iNode.value === ",") {
+          parts.push([printed[i], line]);
+          continue;
+        } else {
+          parts.push(printed[i]);
+        }
 
         if (insideURLFunction) {
           if (
@@ -807,6 +828,19 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (iNextNode.type === "value-punctuation") {
+          continue;
+        }
+
+        // url(http://example.com)
+        if (
+          iNode.type === "value-punctuation" &&
+          iNode.value === ":" &&
+          isURLFunctionNode(parentNode)
+        ) {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
@@ -820,7 +854,7 @@ function genericPrint(path, options, print) {
       }
 
       if (isControlDirective) {
-        return group(indent(parts));
+        return [open, group(indent(parts)), close];
       }
 
       // Indent is not needed for import url when url is very long
@@ -828,10 +862,10 @@ function genericPrint(path, options, print) {
       // when type is value-comma_group
       // example @import url("verylongurl") projection,tv
       if (insideURLFunctionInImportAtRuleNode(path)) {
-        return group(fill(parts));
+        return [open, group(fill(parts)), close];
       }
 
-      return group(indent(fill(parts)));
+      return [open, group(indent(fill(parts))), close];
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
@@ -923,11 +957,13 @@ function genericPrint(path, options, print) {
     }
     case "value-func": {
       return [
-        node.value,
+        node.name,
         insideAtRuleNode(path, "supports") && isMediaAndSupportsKeywords(node)
           ? " "
           : "",
+        "(",
         print("group"),
+        ")",
       ];
     }
     case "value-paren": {
@@ -974,9 +1010,18 @@ function genericPrint(path, options, print) {
       );
     }
     case "value-atword": {
-      return ["@", node.value];
+      return ["@", node.name];
     }
     case "value-unicode-range": {
+      return node.value;
+    }
+    case "value-numeric": {
+      return [printCssNumber(node.value), maybeToLowerCase(node.unit)];
+    }
+    case "value-quoted": {
+      return printString(node.quote + node.contents + node.quote, options);
+    }
+    case "value-punctuation": {
       return node.value;
     }
     case "value-unknown": {

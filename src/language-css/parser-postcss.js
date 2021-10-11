@@ -209,12 +209,12 @@ function parseNestedValue(node, options) {
 }
 
 function parseValue(value, options) {
-  const valueParser = require("postcss-values-parser");
+  const { parse } = require("postcss-values-parser");
 
   let result = null;
 
   try {
-    result = valueParser(value, { loose: true }).parse();
+    result = parse(value, { ignoreUnknownWords: true });
   } catch {
     return {
       type: "value-unknown",
@@ -222,6 +222,7 @@ function parseValue(value, options) {
     };
   }
 
+  // @ts-ignore
   result.text = value;
 
   const parsedResult = parseNestedValue(result, options);

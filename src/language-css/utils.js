@@ -174,7 +174,7 @@ function insideURLFunctionInImportAtRuleNode(path) {
 }
 
 function isURLFunctionNode(node) {
-  return node.type === "value-func" && node.value.toLowerCase() === "url";
+  return node.type === "value-func" && node.name.toLowerCase() === "url";
 }
 
 function isLastNode(path, node) {
