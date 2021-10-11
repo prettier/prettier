@@ -985,7 +985,7 @@ function genericPrint(path, options, print) {
       return [node.value, node.unit];
     }
     case "value-quoted": {
-      return node.value;
+      return printString(node.quote + node.contents + node.quote, options);
     }
     case "value-punctuation": {
       return node.value;
