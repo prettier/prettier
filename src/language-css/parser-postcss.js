@@ -214,7 +214,7 @@ function parseValue(value, options) {
   let result = null;
 
   try {
-    result = parse(value);
+    result = parse(value, { ignoreUnknownWords: true });
   } catch {
     return {
       type: "value-unknown",

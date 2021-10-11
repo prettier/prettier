@@ -526,6 +526,22 @@ function genericPrint(path, options, print) {
         isInlineValueCommentNode(node)
       );
 
+      let open = "";
+      let close = "";
+      const firstItem = node.groups[0];
+      const lastItem = getLast(node.groups);
+      if (
+        firstItem.type === "value-punctuation" &&
+        firstItem.value === "(" &&
+        lastItem.type === "value-punctuation" &&
+        lastItem.value === ")"
+      ) {
+        node.groups.shift();
+        node.groups.pop();
+        open = "(";
+        close = ")";
+      }
+
       const printed = path.map(print, "groups");
       const parts = [];
       const insideURLFunction = insideValueFunctionNode(path, "url");
@@ -824,7 +840,7 @@ function genericPrint(path, options, print) {
       }
 
       if (isControlDirective) {
-        return group(indent(parts));
+        return [open, group(indent(parts)), close];
       }
 
       // Indent is not needed for import url when url is very long
@@ -832,10 +848,10 @@ function genericPrint(path, options, print) {
       // when type is value-comma_group
       // example @import url("verylongurl") projection,tv
       if (insideURLFunctionInImportAtRuleNode(path)) {
-        return group(fill(parts));
+        return [open, group(fill(parts)), close];
       }
 
-      return group(indent(fill(parts)));
+      return [open, group(indent(fill(parts))), close];
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
