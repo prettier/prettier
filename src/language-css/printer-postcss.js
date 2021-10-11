@@ -976,7 +976,7 @@ function genericPrint(path, options, print) {
       );
     }
     case "value-atword": {
-      return ["@", node.value];
+      return ["@", node.name];
     }
     case "value-unicode-range": {
       return node.value;
@@ -985,6 +985,9 @@ function genericPrint(path, options, print) {
       return [node.value, node.unit];
     }
     case "value-quoted": {
+      return node.value;
+    }
+    case "value-punctuation": {
       return node.value;
     }
     case "value-unknown": {
