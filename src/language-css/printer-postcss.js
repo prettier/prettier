@@ -923,11 +923,13 @@ function genericPrint(path, options, print) {
     }
     case "value-func": {
       return [
-        node.value,
+        node.name,
         insideAtRuleNode(path, "supports") && isMediaAndSupportsKeywords(node)
           ? " "
           : "",
+        "(",
         print("group"),
+        ")",
       ];
     }
     case "value-paren": {

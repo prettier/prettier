@@ -222,8 +222,6 @@ function parseValue(value, options) {
     };
   }
 
-  console.log(result);
-
   // @ts-ignore
   result.text = value;
 
