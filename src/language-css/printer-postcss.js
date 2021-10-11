@@ -986,7 +986,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-numeric": {
-      return [node.value, node.unit];
+      return [printCssNumber(node.value), maybeToLowerCase(node.unit)];
     }
     case "value-quoted": {
       return printString(node.quote + node.contents + node.quote, options);
