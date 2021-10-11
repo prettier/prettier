@@ -807,6 +807,10 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (iNextNode.type === "value-punctuation") {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
