@@ -79,7 +79,7 @@ const parsers = [
       },
     },
     replace: {
-      // `postcss-value-parser` uses constructor.name, it will be broken
+      // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
       "node.constructor.name === 'Word'": "node.type === 'word'",
     },
