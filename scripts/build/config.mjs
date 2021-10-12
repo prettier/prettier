@@ -87,6 +87,9 @@ const parsers = [
         file: path.join(dirname, "replacement/colorette.mjs"),
       },
     },
+    replace: {
+      "node.constructor.name === 'Word'": "node.type === 'word'",
+    },
   },
   {
     input: "src/language-graphql/parser-graphql.js",
