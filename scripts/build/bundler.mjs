@@ -267,16 +267,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   };
 
   if (bundle.minify !== false && bundle.target === "universal") {
-    let { terserOptions = {} } = bundle;
-    terserOptions = {
-      ...terserOptions,
-      output: {
-        ...terserOptions.output,
-        ascii_only: true,
-      },
-    };
-
-    options.plugins.push(rollupPluginTerser(terserOptions));
+    options.plugins.push(rollupPluginTerser({ output: { ascii_only: true } }));
   }
 
   if (bundle.target === "node") {
