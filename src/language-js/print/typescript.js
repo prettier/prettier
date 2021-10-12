@@ -113,7 +113,7 @@ function printTypescript(path, options, print) {
     case "TSAbstractMethodDefinition":
     case "TSDeclareMethod":
       return printClassMethod(path, options, print);
-    case "TSAbstractClassProperty":
+    case "TSAbstractPropertyDefinition":
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
     case "TSExpressionWithTypeArguments": // Babel AST
