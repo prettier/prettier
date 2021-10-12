@@ -13,7 +13,6 @@ const parseOptions = {
   loc: true,
   range: true,
   comment: true,
-  useJSXTextNode: true,
   jsx: true,
   tokens: true,
   loggerFn: false,
