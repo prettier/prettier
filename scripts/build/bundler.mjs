@@ -335,11 +335,18 @@ function getWebpackConfig(bundle) {
     },
   };
 
-  if (bundle.terserOptions) {
-    config.optimization.minimizer = [
-      new WebpackPluginTerser(bundle.terserOptions),
-    ];
-  }
+  config.optimization.minimizer = [
+    new WebpackPluginTerser({
+      // prevent terser generate extra .LICENSE file
+      extractComments: false,
+      terserOptions: {
+        // prevent U+FFFE in the output
+        output: {
+          ascii_only: true,
+        },
+      },
+    }),
+  ];
   // config.optimization.minimize = false;
 
   return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
