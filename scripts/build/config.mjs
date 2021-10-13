@@ -15,7 +15,6 @@ const { require, dirname } = createEsmUtils(import.meta);
  * @property {Object.<string, string | {code?: string, file?: string | URL}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
- * @property {Object?} terserOptions - options for `terser`
  * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
@@ -72,20 +71,17 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    terserOptions: {
-      mangle: {
-        // postcss need keep_fnames when minify
-        keep_fnames: true,
-        // we don't transform class anymore, so we need keep_classnames too
-        keep_classnames: true,
-      },
-    },
     replaceModule: {
       // `colorette` uses `process` can't run in browser
       // https://github.com/jorgebucaran/colorette/pull/62
       [require.resolve("colorette")]: {
         file: path.join(dirname, "replacement/colorette.mjs"),
       },
+    },
+    replace: {
+      // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
+      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
+      "node.constructor.name === 'Word'": "node.type === 'word'",
     },
   },
   {
