@@ -11,6 +11,7 @@ import rollupPluginReplace from "@rollup/plugin-replace";
 import { terser as rollupPluginTerser } from "rollup-plugin-terser";
 import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import WebpackPluginTerser from "terser-webpack-plugin";
+import WebpackStringReplaceLoader from "string-replace-loader";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
@@ -313,6 +314,17 @@ function getWebpackConfig(bundle) {
           use: {
             loader: "babel-loader",
             options: getBabelConfig(bundle),
+          },
+        },
+        {
+          test: /\.js$/,
+          use: {
+            loader: "string-replace-loader",
+            options: {
+              multiple: Object.entries(bundle.replace).map(
+                ([search, replace]) => ({ search, replace })
+              ),
+            },
           },
         },
       ],

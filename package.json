@@ -134,6 +134,7 @@
     "rollup-plugin-polyfill-node": "0.7.0",
     "rollup-plugin-terser": "7.0.2",
     "snapshot-diff": "0.9.0",
+    "string-replace-loader": "3.0.3",
     "tempy": "1.0.1",
     "terser-webpack-plugin": "5.2.4",
     "webpack": "5.49.0"
