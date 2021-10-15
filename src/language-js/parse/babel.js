@@ -7,7 +7,7 @@ const {
 } = require("../../common/util.js");
 const createParser = require("./utils/create-parser.js");
 const createBabelParseError = require("./utils/create-babel-parse-error.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/postprocess.js");
 const jsonParsers = require("./json.js");
 
 /**
