@@ -8,7 +8,7 @@ const {
   isTestCall,
   hasComment,
   CommentCheckFlags,
-  isTSXFile,
+  isTSX,
   shouldPrintComma,
   getFunctionParameters,
 } = require("../utils.js");
@@ -55,7 +55,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     node.type === "TSTypeParameterInstantiation" // https://github.com/microsoft/TypeScript/issues/21984
       ? ""
       : getFunctionParameters(node).length === 1 &&
-        isTSXFile(options) &&
+        isTSX(options) &&
         !node[paramsKey][0].constraint &&
         path.getParentNode().type === "ArrowFunctionExpression"
       ? ","

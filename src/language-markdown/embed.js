@@ -21,9 +21,13 @@ function embed(path, print, textToDoc, options) {
       const style = styleUnit.repeat(
         Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
       );
+      const newOptions = { parser };
+      if (node.lang === "tsx") {
+        newOptions.__isTSX = true;
+      }
       const doc = textToDoc(
         getFencedCodeBlockValue(node, options.originalText),
-        { parser },
+        newOptions,
         { stripTrailingHardline: true }
       );
       return markAsRoot([
