@@ -938,7 +938,7 @@ function identity(x) {
 
 function isTSX(options) {
   return (
-    (options.filepath && /\.tsx$/i.test(options.filepath)) || options.__isTSX
+    options.__isTSX || (options.filepath && /\.tsx$/i.test(options.filepath))
   );
 }
 
