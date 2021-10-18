@@ -22,10 +22,10 @@ yarn add --dev --exact prettier
 
 Then, create an empty config file to let editors and other tools know you are using Prettier:
 
-<!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
+<!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows cmd. The below version works in cmd.exe, powershell.exe, bash, zsh, fish. -->
 
 ```bash
-echo {}> .prettierrc.json
+echo "{}"> .prettierrc.json
 ```
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
