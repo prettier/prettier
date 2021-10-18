@@ -90,6 +90,7 @@ const languages = [
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
     extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
+    filenames: [...data.filenames, ".parcelrc"],
   })),
   createLanguage(
     require("linguist-languages/data/JSON with Comments.json"),

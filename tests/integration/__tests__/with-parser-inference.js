@@ -40,6 +40,56 @@ describe("infers parser from filename", () => {
     ).toBe('extends: ""\n');
   });
 
+  test("json from .parcelrc", () => {
+    expect(
+      prettier.format('  { "extends": "@parcel/config-default" }  ', {
+        filepath: "x/y/.parcelrc",
+      })
+    ).toBe('{ "extends": "@parcel/config-default" }\n');
+  });
+
+  test("json from .postcssrc", () => {
+    expect(
+      prettier.format('  { "extends": "@parcel/config-default" }  ', {
+        filepath: "x/y/.postcssrc",
+      })
+    ).toBe('{ "extends": "@parcel/config-default" }\n');
+  });
+
+  test("yaml from .postcssrc", () => {
+    expect(
+      prettier.format("  plugins:     { }  ", { filepath: "x/y/.postcssrc" })
+    ).toBe("plugins: {}\n");
+  });
+
+  test("json from .posthtmlrc", () => {
+    expect(
+      prettier.format('  { "extends": "@parcel/config-default" }  ', {
+        filepath: "x/y/.posthtmlrc",
+      })
+    ).toBe('{ "extends": "@parcel/config-default" }\n');
+  });
+
+  test("yaml from .posthtmlrc", () => {
+    expect(
+      prettier.format("  plugins:     { }  ", { filepath: "x/y/.posthtmlrc" })
+    ).toBe("plugins: {}\n");
+  });
+
+  test("json from .commitlintrc", () => {
+    expect(
+      prettier.format('  { "extends": [] }  ', {
+        filepath: "x/y/.commitlintrc",
+      })
+    ).toBe('{ "extends": [] }\n');
+  });
+
+  test("yaml from .commitlintrc", () => {
+    expect(
+      prettier.format("  extends:     [ ]  ", { filepath: "x/y/.commitlintrc" })
+    ).toBe("extends: []\n");
+  });
+
   test("babel from Jakefile", () => {
     expect(
       prettier.format("let foo = ( x = 1 ) => x", { filepath: "x/y/Jakefile" })
