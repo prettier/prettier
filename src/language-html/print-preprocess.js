@@ -73,47 +73,32 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
   ast.walk((node) => {
     if (node.children) {
-      const isTargetResults = node.children.map(isTarget);
-      if (isTargetResults.some(Boolean)) {
-        const newChildren = [];
-
-        for (let i = 0; i < node.children.length; i++) {
-          const child = node.children[i];
-
-          if (isTargetResults[i + 1]) {
-            // ieConditionalStartComment
-            continue;
-          }
-
-          if (isTargetResults[i]) {
-            const ieConditionalStartComment = child.prev;
-            const ieConditionalEndComment = child.firstChild;
-
-            const startSourceSpan = new ParseSourceSpan(
-              ieConditionalStartComment.sourceSpan.start,
-              ieConditionalEndComment.sourceSpan.end
-            );
-            const sourceSpan = new ParseSourceSpan(
-              startSourceSpan.start,
-              child.sourceSpan.end
-            );
-
-            newChildren.push(
-              child.clone({
-                condition: ieConditionalStartComment.condition,
-                sourceSpan,
-                startSourceSpan,
-                children: child.children.slice(1),
-              })
-            );
-
-            continue;
-          }
-
-          newChildren.push(child);
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
+        if (!isTarget(child)) {
+          continue;
         }
 
-        node.setChildren(newChildren);
+        const ieConditionalStartComment = node.children[i - 1];
+        const ieConditionalEndComment = child.firstChild;
+
+        // ieConditionalStartComment
+        node.removeChild(ieConditionalStartComment);
+        i--; // because a node was removed
+
+        const startSourceSpan = new ParseSourceSpan(
+          ieConditionalStartComment.sourceSpan.start,
+          ieConditionalEndComment.sourceSpan.end
+        );
+        const sourceSpan = new ParseSourceSpan(
+          startSourceSpan.start,
+          child.sourceSpan.end
+        );
+
+        child.condition = ieConditionalStartComment.condition;
+        child.sourceSpan = sourceSpan;
+        child.startSourceSpan = startSourceSpan;
+        child.removeChild(ieConditionalEndComment);
       }
     }
   });
