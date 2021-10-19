@@ -374,39 +374,37 @@ function extractWhitespaces(ast /*, options*/) {
 }
 
 function addIsSelfClosing(ast /*, options */) {
-  ast.walk((node) =>
-    Object.assign(node, {
-      isSelfClosing:
-        !node.children ||
-        (node.type === "element" &&
-          (node.tagDefinition.isVoid ||
-            // self-closing
-            node.startSourceSpan === node.endSourceSpan)),
-    })
-  );
+  ast.walk((node) => {
+    node.isSelfClosing =
+      !node.children ||
+      (node.type === "element" &&
+        (node.tagDefinition.isVoid ||
+          // self-closing
+          node.startSourceSpan === node.endSourceSpan));
+  });
 }
 
 function addHasHtmComponentClosingTag(ast, options) {
-  ast.walk((node) =>
-    node.type !== "element"
-      ? node
-      : Object.assign(node, {
-          hasHtmComponentClosingTag:
-            node.endSourceSpan &&
-            /^<\s*\/\s*\/\s*>$/.test(
-              options.originalText.slice(
-                node.endSourceSpan.start.offset,
-                node.endSourceSpan.end.offset
-              )
-            ),
-        })
-  );
+  ast.walk((node) => {
+    if (node.type !== "element") {
+      return;
+    }
+
+    node.hasHtmComponentClosingTag =
+      node.endSourceSpan &&
+      /^<\s*\/\s*\/\s*>$/.test(
+        options.originalText.slice(
+          node.endSourceSpan.start.offset,
+          node.endSourceSpan.end.offset
+        )
+      );
+  });
 }
 
 function addCssDisplay(ast, options) {
-  ast.walk((node) =>
-    Object.assign(node, { cssDisplay: getNodeCssStyleDisplay(node, options) })
-  );
+  ast.walk((node) => {
+    node.cssDisplay = getNodeCssStyleDisplay(node, options);
+  });
 }
 
 /**
