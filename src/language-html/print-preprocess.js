@@ -414,39 +414,37 @@ function addCssDisplay(ast, options) {
  */
 function addIsSpaceSensitive(ast, options) {
   ast.walk((node) => {
-    if (!node.children) {
+    const { children } = node;
+    if (!children) {
       return;
     }
-
-    if (node.children.length === 0) {
+    if (children.length === 0) {
       node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(node);
       return;
     }
-
-    node.setChildren(
-      node.children
-        .map((child) => ({
-          ...child,
-          isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, options),
-          isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
-            child,
-            options
-          ),
-        }))
-        .map((child, index, children) => ({
-          ...child,
-          isLeadingSpaceSensitive:
-            index === 0
-              ? child.isLeadingSpaceSensitive
-              : children[index - 1].isTrailingSpaceSensitive &&
-                child.isLeadingSpaceSensitive,
-          isTrailingSpaceSensitive:
-            index === children.length - 1
-              ? child.isTrailingSpaceSensitive
-              : children[index + 1].isLeadingSpaceSensitive &&
-                child.isTrailingSpaceSensitive,
-        }))
-    );
+    for (const child of children) {
+      child.isLeadingSpaceSensitive = isLeadingSpaceSensitiveNode(
+        child,
+        options
+      );
+      child.isTrailingSpaceSensitive = isTrailingSpaceSensitiveNode(
+        child,
+        options
+      );
+    }
+    for (let index = 0; index < children.length; index++) {
+      const child = children[index];
+      child.isLeadingSpaceSensitive =
+        index === 0
+          ? child.isLeadingSpaceSensitive
+          : children[index - 1].isTrailingSpaceSensitive &&
+            child.isLeadingSpaceSensitive;
+      child.isTrailingSpaceSensitive =
+        index === children.length - 1
+          ? child.isTrailingSpaceSensitive
+          : children[index + 1].isLeadingSpaceSensitive &&
+            child.isTrailingSpaceSensitive;
+    }
   });
 }
 
