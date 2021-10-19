@@ -163,36 +163,30 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.next.type === "text";
   ast.walk((node) => {
     if (node.children) {
-      const isSimpleElementResults = node.children.map(isSimpleElement);
-      if (isSimpleElementResults.some(Boolean)) {
-        const newChildren = [];
-        for (let i = 0; i < node.children.length; i++) {
-          const child = node.children[i];
-          if (isSimpleElementResults[i]) {
-            const lastChild = newChildren.pop();
-            const nextChild = node.children[++i];
-            const { isTrailingSpaceSensitive, hasTrailingSpaces } = nextChild;
-            newChildren.push(
-              lastChild.clone({
-                value:
-                  lastChild.value +
-                  `<${child.rawName}>` +
-                  child.firstChild.value +
-                  `</${child.rawName}>` +
-                  nextChild.value,
-                sourceSpan: new ParseSourceSpan(
-                  lastChild.sourceSpan.start,
-                  nextChild.sourceSpan.end
-                ),
-                isTrailingSpaceSensitive,
-                hasTrailingSpaces,
-              })
-            );
-          } else {
-            newChildren.push(child);
-          }
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
+        if (!isSimpleElement(child)) {
+          continue;
         }
-        node.setChildren(newChildren);
+
+        const prevChild = node.children[i - 1];
+        const nextChild = node.children[++i];
+        prevChild.value +=
+          `<${child.rawName}>` +
+          child.firstChild.value +
+          `</${child.rawName}>` +
+          nextChild.value;
+        prevChild.sourceSpan = new ParseSourceSpan(
+          prevChild.sourceSpan.start,
+          nextChild.sourceSpan.end
+        );
+        prevChild.isTrailingSpaceSensitive = nextChild.isTrailingSpaceSensitive;
+        prevChild.hasTrailingSpaces = nextChild.hasTrailingSpaces;
+
+        node.removeChild(child);
+        i--; // because a node was removed
+        node.removeChild(nextChild);
+        i--; // because a node was removed
       }
     }
   });
