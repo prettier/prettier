@@ -3,7 +3,6 @@
 const {
   ParseSourceSpan,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const getLast = require("../utils/get-last.js");
 const {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
@@ -107,42 +106,31 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
 function mergeNodeIntoText(ast, shouldMerge, getValue) {
   ast.walk((node) => {
     if (node.children) {
-      const shouldMergeResults = node.children.map(shouldMerge);
-      if (shouldMergeResults.some(Boolean)) {
-        const newChildren = [];
-        for (let i = 0; i < node.children.length; i++) {
-          const child = node.children[i];
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
 
-          if (child.type !== "text" && !shouldMergeResults[i]) {
-            newChildren.push(child);
-            continue;
-          }
-
-          const newChild =
-            child.type === "text"
-              ? child
-              : child.clone({ type: "text", value: getValue(child) });
-
-          if (
-            newChildren.length === 0 ||
-            getLast(newChildren).type !== "text"
-          ) {
-            newChildren.push(newChild);
-            continue;
-          }
-
-          const lastChild = newChildren.pop();
-          newChildren.push(
-            lastChild.clone({
-              value: lastChild.value + newChild.value,
-              sourceSpan: new ParseSourceSpan(
-                lastChild.sourceSpan.start,
-                newChild.sourceSpan.end
-              ),
-            })
-          );
+        if (child.type !== "text" && !shouldMerge(child)) {
+          continue;
         }
-        node.setChildren(newChildren);
+
+        if (child.type !== "text") {
+          child.type = "text";
+          child.value = getValue(child);
+        }
+
+        const prevChild = node.children[i - 1];
+        if (!prevChild || prevChild.type !== "text") {
+          continue;
+        }
+
+        prevChild.value += child.value;
+        prevChild.sourceSpan = new ParseSourceSpan(
+          prevChild.sourceSpan.start,
+          child.sourceSpan.end
+        );
+
+        node.removeChild(child);
+        i--; // because a node was removed
       }
     }
   });
