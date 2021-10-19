@@ -23,7 +23,7 @@ function embed(path, print, textToDoc, options) {
       );
       const newOptions = { parser };
       if (node.lang === "tsx") {
-        newOptions.__isTSX = true;
+        newOptions.filepath = "dummy.tsx";
       }
       const doc = textToDoc(
         getFencedCodeBlockValue(node, options.originalText),
