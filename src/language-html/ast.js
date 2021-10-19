@@ -85,6 +85,33 @@ class Node {
   }
 
   /**
+   * @param {Node} [child]
+   */
+  removeChild(child) {
+    // @ts-expect-error
+    if (child.next) {
+      // @ts-expect-error
+      child.next.prev = child.prev
+    }
+
+    // @ts-expect-error
+    if (child.prev) {
+      // @ts-expect-error
+      child.prev.next = child.next
+    }
+
+    // @ts-expect-error
+    let {next} = child
+    while (next) {
+      next.index--
+      next = next.next
+    }
+
+    // @ts-expect-error
+    this.children.splice(this.children.indexOf(child), 1)
+  }
+
+  /**
    * @param {Object} [overrides]
    */
   clone(overrides) {
@@ -138,7 +165,6 @@ function cloneAndUpdateNodes(nodes, parent) {
   for (let index = 0; index < siblings.length; index++) {
     setNonEnumerableProperties(current, {
       index,
-      siblings,
       prev,
       next,
       parent,
@@ -155,7 +181,7 @@ function setNonEnumerableProperties(obj, props) {
   const descriptors = Object.fromEntries(
     Object.entries(props).map(([key, value]) => [
       key,
-      { value, enumerable: false },
+      { value, enumerable: false, writable: true },
     ])
   );
 

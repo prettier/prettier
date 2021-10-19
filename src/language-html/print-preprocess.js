@@ -298,7 +298,6 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
-const WHITESPACE_NODE = { type: "whitespace" };
 function extractWhitespaces(ast /*, options*/) {
   ast.walk((node) => {
     if (!node.children) {
@@ -319,55 +318,54 @@ function extractWhitespaces(ast /*, options*/) {
     const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
-    node.setChildren(
-      node.children
-        // extract whitespace nodes
-        .flatMap((child) => {
-          if (child.type !== "text" || isWhitespaceSensitive) {
-            return child;
+    if (!isWhitespaceSensitive) {
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
+        if (child.type !== "text") {
+          continue;
+        }
+
+        const { leadingWhitespace, text, trailingWhitespace } =
+          getLeadingAndTrailingHtmlWhitespace(child.value);
+
+        const prevChild = node.children[i - 1];
+        const nextChild = node.children[i + 1];
+
+        if (!text) {
+          node.removeChild(child);
+          i--; // because a node was removed
+
+          if (leadingWhitespace || trailingWhitespace) {
+            if (prevChild) {
+              prevChild.hasTrailingSpaces = true;
+            }
+            if (nextChild) {
+              nextChild.hasLeadingSpaces = true;
+            }
           }
-
-          const localChildren = [];
-
-          const { leadingWhitespace, text, trailingWhitespace } =
-            getLeadingAndTrailingHtmlWhitespace(child.value);
+        } else {
+          child.value = text;
+          child.sourceSpan = new ParseSourceSpan(
+            child.sourceSpan.start.moveBy(leadingWhitespace.length),
+            child.sourceSpan.end.moveBy(-trailingWhitespace.length)
+          );
 
           if (leadingWhitespace) {
-            localChildren.push(WHITESPACE_NODE);
+            if (prevChild) {
+              prevChild.hasTrailingSpaces = true;
+            }
+            child.hasLeadingSpaces = true;
           }
-
-          if (text) {
-            localChildren.push({
-              type: "text",
-              value: text,
-              sourceSpan: new ParseSourceSpan(
-                child.sourceSpan.start.moveBy(leadingWhitespace.length),
-                child.sourceSpan.end.moveBy(-trailingWhitespace.length)
-              ),
-            });
-          }
-
           if (trailingWhitespace) {
-            localChildren.push(WHITESPACE_NODE);
+            child.hasTrailingSpaces = true;
+            if (nextChild) {
+              nextChild.hasLeadingSpaces = true;
+            }
           }
+        }
+      }
+    }
 
-          return localChildren;
-        })
-        // set hasLeadingSpaces/hasTrailingSpaces
-        .map((child, index, children) => {
-          if (child === WHITESPACE_NODE) {
-            return;
-          }
-
-          return {
-            ...child,
-            hasLeadingSpaces: children[index - 1] === WHITESPACE_NODE,
-            hasTrailingSpaces: children[index + 1] === WHITESPACE_NODE,
-          };
-        })
-        // filter whitespace nodes
-        .filter(Boolean)
-    );
     node.isWhitespaceSensitive = isWhitespaceSensitive;
     node.isIndentationSensitive = isIndentationSensitive;
   });
