@@ -30,11 +30,10 @@ const PREPROCESS_PIPELINE = [
 ];
 
 function preprocess(ast, options) {
-  const res = ast.map((node) => node);
   for (const fn of PREPROCESS_PIPELINE) {
-    fn(res, options);
+    fn(ast, options);
   }
-  return res;
+  return ast;
 }
 
 function removeIgnorableFirstLf(ast /*, options */) {
