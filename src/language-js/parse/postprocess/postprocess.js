@@ -105,20 +105,6 @@ function postprocess(ast, options) {
         ];
         break;
       }
-      case "ClassProperty":
-        // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
-        if (
-          node.key &&
-          node.key.type === "TSPrivateIdentifier" &&
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            node.key,
-            locEnd
-          ) === "?"
-        ) {
-          node.optional = true;
-        }
-        break;
       // For hack-style pipeline
       case "TopicReference":
         options.__isUsingHackPipeline = true;
