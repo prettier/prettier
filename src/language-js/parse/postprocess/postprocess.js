@@ -1,9 +1,6 @@
 "use strict";
 
-const {
-  getLast,
-  getNextNonSpaceNonCommentCharacter,
-} = require("../../../common/util.js");
+const { getLast } = require("../../../common/util.js");
 const { locStart, locEnd } = require("../../loc.js");
 const { isTypeCastComment } = require("../../comments.js");
 const visitNode = require("./visitNode.js");
