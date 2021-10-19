@@ -203,11 +203,8 @@ function extractInterpolation(ast, options) {
       return;
     }
 
-    const newChildren = [];
-
     for (const child of node.children) {
       if (child.type !== "text") {
-        newChildren.push(child);
         continue;
       }
 
@@ -224,7 +221,7 @@ function extractInterpolation(ast, options) {
         if (i % 2 === 0) {
           endSourceSpan = startSourceSpan.moveBy(value.length);
           if (value.length > 0) {
-            newChildren.push({
+            node.insertChildBefore(child, {
               type: "text",
               value,
               sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
@@ -234,7 +231,7 @@ function extractInterpolation(ast, options) {
         }
 
         endSourceSpan = startSourceSpan.moveBy(value.length + 4); // `{{` + `}}`
-        newChildren.push({
+        node.insertChildBefore(child, {
           type: "interpolation",
           sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
           children:
@@ -252,9 +249,9 @@ function extractInterpolation(ast, options) {
                 ],
         });
       }
-    }
 
-    node.setChildren(newChildren);
+      node.removeChild(child);
+    }
   });
 }
 

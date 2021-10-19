@@ -85,6 +85,41 @@ class Node {
   }
 
   /**
+   * @param {Node} [target]
+   * @param {Object} [node]
+   */
+  insertChildBefore(target, node) {
+    const newNode = new Node(node)
+    setNonEnumerableProperties(newNode, {
+      // @ts-expect-error
+      index: target.index,
+      // @ts-expect-error
+      prev: target.prev,
+      next: target,
+      parent: this
+    })
+
+    let next = target
+    while (next) {
+      // @ts-expect-error
+      next.index++
+      // @ts-expect-error
+      next = next.next
+    }
+
+    // @ts-expect-error
+    newNode.next.prev = newNode
+    // @ts-expect-error
+    if (newNode.prev) {
+      // @ts-expect-error
+      newNode.prev.next = newNode
+    }
+
+    // @ts-expect-error
+    this.children.splice(this.children.indexOf(target), 0, newNode)
+  }
+
+  /**
    * @param {Node} [child]
    */
   removeChild(child) {
