@@ -47,12 +47,12 @@ function removeIgnorableFirstLf(ast /*, options */) {
       node.children[0].type === "text" &&
       node.children[0].value[0] === "\n"
     ) {
-      const [text, ...rest] = node.children;
-      node.setChildren(
-        text.value.length === 1
-          ? rest
-          : [text.clone({ value: text.value.slice(1) }), ...rest]
-      );
+      const text = node.children[0];
+      if (text.value.length === 1) {
+        node.removeChild(text);
+      } else {
+        text.value = text.value.slice(1);
+      }
     }
   });
 }
