@@ -18,6 +18,7 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "17"
           - "16.10.0"
           - "14"
           - "12"
@@ -30,7 +31,11 @@ jobs:
             CHECK_TEST_PARSERS: true
         exclude:
           - os: "macos-latest"
+            node: "16.10.0"
+          - os: "macos-latest"
             node: "14"
+          - os: "windows-latest"
+            node: "16.10.0"
           - os: "windows-latest"
             node: "14"
     env:
