@@ -4,7 +4,7 @@ const createError = require("../../common/parser-create-error.js");
 const tryCombinations = require("../../utils/try-combinations.js");
 const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/postprocess.js");
+const postprocess = require("./postprocess/index.js");
 
 /** @type {import("espree").Options} */
 const parseOptions = {
