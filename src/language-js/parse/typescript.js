@@ -4,7 +4,7 @@ const createError = require("../../common/parser-create-error.js");
 const tryCombinations = require("../../utils/try-combinations.js");
 const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -13,7 +13,6 @@ const parseOptions = {
   loc: true,
   range: true,
   comment: true,
-  useJSXTextNode: true,
   jsx: true,
   tokens: true,
   loggerFn: false,

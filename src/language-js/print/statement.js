@@ -215,7 +215,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   switch (nextNode.type) {
     case "ClassProperty":
     case "PropertyDefinition":
-    case "TSAbstractClassProperty":
+    case "TSAbstractPropertyDefinition":
       return nextNode.computed;
     case "MethodDefinition": // Flow
     case "TSAbstractMethodDefinition": // TypeScript
