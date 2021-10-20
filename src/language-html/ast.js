@@ -89,34 +89,34 @@ class Node {
    * @param {Object} [node]
    */
   insertChildBefore(target, node) {
-    const newNode = new Node(node)
+    const newNode = new Node(node);
     setNonEnumerableProperties(newNode, {
       // @ts-expect-error
       index: target.index,
       // @ts-expect-error
       prev: target.prev,
       next: target,
-      parent: this
-    })
+      parent: this,
+    });
 
-    let next = target
+    let next = target;
     while (next) {
       // @ts-expect-error
-      next.index++
+      next.index++;
       // @ts-expect-error
-      next = next.next
+      next = next.next;
     }
 
     // @ts-expect-error
-    newNode.next.prev = newNode
+    newNode.next.prev = newNode;
     // @ts-expect-error
     if (newNode.prev) {
       // @ts-expect-error
-      newNode.prev.next = newNode
+      newNode.prev.next = newNode;
     }
 
     // @ts-expect-error
-    this.children.splice(this.children.indexOf(target), 0, newNode)
+    this.children.splice(this.children.indexOf(target), 0, newNode);
   }
 
   /**
@@ -126,24 +126,24 @@ class Node {
     // @ts-expect-error
     if (child.next) {
       // @ts-expect-error
-      child.next.prev = child.prev
+      child.next.prev = child.prev;
     }
 
     // @ts-expect-error
     if (child.prev) {
       // @ts-expect-error
-      child.prev.next = child.next
+      child.prev.next = child.next;
     }
 
     // @ts-expect-error
-    let {next} = child
+    let { next } = child;
     while (next) {
-      next.index--
-      next = next.next
+      next.index--;
+      next = next.next;
     }
 
     // @ts-expect-error
-    this.children.splice(this.children.indexOf(child), 1)
+    this.children.splice(this.children.indexOf(child), 1);
   }
 
   /**
