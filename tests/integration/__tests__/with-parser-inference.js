@@ -40,12 +40,12 @@ describe("infers parser from filename", () => {
     ).toBe('extends: ""\n');
   });
 
-  test("json from .parcelrc", () => {
+  test("json5 from .parcelrc", () => {
     expect(
       prettier.format('  { "extends": "@parcel/config-default" }  ', {
         filepath: "x/y/.parcelrc",
       })
-    ).toBe('{ "extends": "@parcel/config-default" }\n');
+    ).toBe('{ extends: "@parcel/config-default" }\n');
   });
 
   test("json from .postcssrc", () => {

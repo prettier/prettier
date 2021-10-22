@@ -90,7 +90,6 @@ const languages = [
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
     extensions: data.extensions.filter((extension) => extension !== ".jsonl"),
-    filenames: [...data.filenames, ".parcelrc"],
   })),
   createLanguage(
     require("linguist-languages/data/JSON with Comments.json"),
@@ -105,6 +104,7 @@ const languages = [
     since: "1.13.0",
     parsers: ["json5"],
     vscodeLanguageIds: ["json5"],
+    filenames: [".parcelrc"],
   })),
 ];
 
