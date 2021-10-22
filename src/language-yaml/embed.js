@@ -7,7 +7,7 @@ function embed(path, print, textToDoc, options) {
   if (
     node.type === "root" &&
     options.filepath &&
-    /(?:[/\\]|^)\.(?:commitlintrc|postcssrc|posthtmlrc|prettier|stylelint)rc$/.test(
+    /(?:[/\\]|^)\.(?:commitlint|postcss|posthtml|prettier|stylelint)rc$/.test(
       options.filepath
     )
   ) {
