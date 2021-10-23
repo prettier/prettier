@@ -100,11 +100,11 @@ const languages = [
       filenames: [...data.filenames, ".eslintrc"],
     })
   ),
-  createLanguage(require("linguist-languages/data/JSON5.json"), () => ({
+  createLanguage(require("linguist-languages/data/JSON5.json"), (data) => ({
     since: "1.13.0",
     parsers: ["json5"],
     vscodeLanguageIds: ["json5"],
-    filenames: [".parcelrc"],
+    filenames: [...(data.filenames || []), ".parcelrc"],
   })),
 ];
 
