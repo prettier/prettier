@@ -11,11 +11,8 @@ function format(path, print, textToDoc) {
   const placeholder = createPlaceholder();
   let text = unescapeBackticks(
     node.quasis
-      .map((quasi, index, quasis) =>
-        index === quasis.length - 1
-          ? quasi.value.raw
-          : quasi.value.raw + placeholder(index)
-      )
+      .flatMap((quasi, index) => [quasi.value.raw, placeholder(index)])
+      .slice(0, -1)
       .join("")
   );
   const indentation = getIndentation(text);
@@ -30,17 +27,18 @@ function format(path, print, textToDoc) {
       { parser: "markdown", __inJsTemplate: true },
       { stripTrailingHardline: true }
     ),
-    (currentDoc) =>
-      typeof currentDoc !== "string"
-        ? currentDoc
-        : currentDoc
-            .split(new RegExp(placeholder(".*?"), "g"))
-            .flatMap((unescaped, index, splits) => {
-              const escaped = escapeBackticks(unescaped);
-              return index === splits.length - 1
-                ? escaped
-                : [escaped, expressionDocs.shift()];
-            })
+    (currentDoc) => {
+      if (typeof currentDoc === "string") {
+        currentDoc = currentDoc
+          .split(new RegExp(placeholder(".*?"), "g"))
+          .flatMap((string) => [
+            escapeBackticks(string),
+            expressionDocs.shift(),
+          ]);
+        expressionDocs.unshift(currentDoc.pop());
+      }
+      return currentDoc;
+    }
   );
   return [
     "`",
