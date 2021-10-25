@@ -41,6 +41,16 @@ exports[`multiline-declaration-type.ts [babel-ts] format 1`] = `
   3 |"
 `;
 
+exports[`parenthesized-decorators-tagged-template.ts [babel-ts] format 1`] = `
+"Unexpected token (2:7)
+  1 | class Test {
+> 2 |   @foo\`bar\`
+    |       ^
+  3 |   text: string = \\"text\\"
+  4 | }
+  5 |"
+`;
+
 exports[`type-annotation-expr-statement.ts [babel-ts] format 1`] = `
 "Did not expect a type annotation here. (1:3)
 > 1 | (a: T);
