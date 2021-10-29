@@ -556,7 +556,7 @@ function genericPrint(path, options, print) {
           insideAtRuleNode(path, "forward") &&
           iNode.type === "value-word" &&
           iNode.value &&
-          iPrevNode !== null &&
+          iPrevNode !== undefined &&
           iPrevNode.type === "value-word" &&
           iPrevNode.value === "as" &&
           iNextNode.type === "value-operator" &&
