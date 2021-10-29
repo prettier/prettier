@@ -10,7 +10,9 @@ singleQuote: true
 @forward 'foo.scss' with ($components: red);
 
 =====================================output=====================================
-@forward 'foo.scss' with ($components: red);
+@forward 'foo.scss' with (
+  $components: red
+);
 
 ================================================================================
 `;
@@ -24,7 +26,9 @@ printWidth: 80
 @forward 'foo.scss' with ($components: red);
 
 =====================================output=====================================
-@forward "foo.scss" with ($components: red);
+@forward "foo.scss" with (
+  $components: red
+);
 
 ================================================================================
 `;
