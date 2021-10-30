@@ -282,7 +282,7 @@ function printModuleSpecifier(path, options, print) {
   const { type, importKind } = node;
   /** @type{Doc[]} */
   const parts = [];
-  if (type === "ImportSpecifier" && importKind) {
+  if (type === "ImportSpecifier" && importKind && importKind !== "value") {
     parts.push(importKind, " ");
   }
 

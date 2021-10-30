@@ -37,7 +37,6 @@ const parseOptions = {
     ["decorators", { decoratorsBeforeExport: false }],
     "importAssertions",
     "decimal",
-    "classStaticBlock",
     "moduleBlocks",
     "asyncDoExpressions",
   ],
