@@ -279,11 +279,16 @@ function printImportAssertions(path, options, print) {
 function printModuleSpecifier(path, options, print) {
   const node = path.getNode();
 
-  const { type, importKind } = node;
-  /** @type{Doc[]} */
+  const { type } = node;
+
+  /** @type {Doc[]} */
   const parts = [];
-  if (type === "ImportSpecifier" && importKind && importKind !== "value") {
-    parts.push(importKind, " ");
+
+  /** @type {"type" | "typeof" | "value"} */
+  const kind = type === "ImportSpecifier" ? node.importKind : node.exportKind;
+
+  if (kind && kind !== "value") {
+    parts.push(kind, " ");
   }
 
   const isImport = type.startsWith("Import");
