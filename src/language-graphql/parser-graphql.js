@@ -1,7 +1,6 @@
 "use strict";
 
 const createError = require("../common/parser-create-error.js");
-const tryCombinations = require("../utils/try-combinations.js");
 const { hasPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -51,15 +50,16 @@ function createParseError(error) {
   return error;
 }
 
+const parseOptions = { allowLegacyFragmentVariables: true };
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const { parse } = require("graphql/language/parser");
-  const { result: ast, error } = tryCombinations(
-    () => parse(text, { allowLegacyFragmentVariables: false }),
-    () => parse(text, { allowLegacyFragmentVariables: true })
-  );
 
-  if (!ast) {
+  /** @type {any} */
+  let ast;
+  try {
+    ast = parse(text, parseOptions);
+  } catch (error) {
     throw createParseError(error);
   }
 
