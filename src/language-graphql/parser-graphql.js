@@ -36,6 +36,10 @@ function removeTokens(node) {
   return node;
 }
 
+const parseOptions = {
+  allowLegacyFragmentVariables: true,
+};
+
 function createParseError(error) {
   const { GraphQLError } = require("graphql/error/GraphQLError");
   if (error instanceof GraphQLError) {
@@ -50,7 +54,6 @@ function createParseError(error) {
   return error;
 }
 
-const parseOptions = { allowLegacyFragmentVariables: true };
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const { parse } = require("graphql/language/parser");
