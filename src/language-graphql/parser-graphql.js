@@ -37,11 +37,6 @@ function removeTokens(node) {
   return node;
 }
 
-const parseOptions = {
-  allowLegacySDLImplementsInterfaces: false,
-  experimentalFragmentVariables: true,
-};
-
 function createParseError(error) {
   const { GraphQLError } = require("graphql/error/GraphQLError");
   if (error instanceof GraphQLError) {
@@ -60,9 +55,8 @@ function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const { parse } = require("graphql/language/parser");
   const { result: ast, error } = tryCombinations(
-    () => parse(text, { ...parseOptions }),
-    () =>
-      parse(text, { ...parseOptions, allowLegacySDLImplementsInterfaces: true })
+    () => parse(text, { allowLegacyFragmentVariables: false }),
+    () => parse(text, { allowLegacyFragmentVariables: true })
   );
 
   if (!ast) {
