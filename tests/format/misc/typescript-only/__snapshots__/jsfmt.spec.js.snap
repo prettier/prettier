@@ -93,6 +93,26 @@ class Bar {
 ================================================================================
 `;
 
+exports[`parenthesized-decorators-tagged-template.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Test {
+  @foo\`bar\`
+  text: string = "text"
+}
+
+=====================================output=====================================
+class Test {
+  @foo\`bar\`
+  text: string = "text";
+}
+
+================================================================================
+`;
+
 exports[`prettier-ignore-parenthesized-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

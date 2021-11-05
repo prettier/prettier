@@ -394,7 +394,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"application/typescript\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"color\\": \\"#2b7489\\",
-      \\"extensions\\": [\\".ts\\"],
+      \\"extensions\\": [\\".ts\\", \\".mts\\", \\".cts\\"],
       \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",

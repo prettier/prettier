@@ -7,6 +7,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
   plugins: ["prettier-internal-rules", "import", "regexp", "unicorn"],
   settings: {
