@@ -178,6 +178,7 @@ const allowedMessageCodes = new Set([
   "StrictNumericEscape",
   "StrictWith",
   "StrictOctalLiteral",
+  "StrictDelete",
 
   "EmptyTypeArguments",
   "EmptyTypeParameters",

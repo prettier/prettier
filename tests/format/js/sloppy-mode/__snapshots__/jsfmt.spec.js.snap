@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`delete-variable.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function foo() {
+  var bar = 1;
+  delete bar;}
+
+=====================================output=====================================
+function foo() {
+  var bar = 1;
+  delete bar;
+}
+
+================================================================================
+`;
