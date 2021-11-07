@@ -26,11 +26,13 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function myfunc() {
+  eval = 1
   arguments = arguments;
 }
 
 =====================================output=====================================
 function myfunc() {
+  eval = 1;
   arguments = arguments;
 }
 
