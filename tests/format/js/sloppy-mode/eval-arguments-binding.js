@@ -1,0 +1,3 @@
+function myfunc() {
+  var arguments;
+}
