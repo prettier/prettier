@@ -24,6 +24,7 @@ module.exports = {
       [SUGGESTION]: "Rename to `node`.",
     },
     fixable: "code",
+    hasSuggestions: true,
   },
   create(context) {
     const variables = new Map();
@@ -66,8 +67,7 @@ module.exports = {
               if (
                 parent &&
                 parent.type === "Property" &&
-                parent.shorthand &&
-                parent.key === identifier
+                parent.shorthand
               ) {
                 yield fixer.replaceText(identifier, "n: node");
               } else {
