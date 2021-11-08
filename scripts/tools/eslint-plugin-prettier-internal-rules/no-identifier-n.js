@@ -64,11 +64,7 @@ module.exports = {
 
             for (const identifier of identifiers) {
               const { parent } = identifier;
-              if (
-                parent &&
-                parent.type === "Property" &&
-                parent.shorthand
-              ) {
+              if (parent && parent.type === "Property" && parent.shorthand) {
                 yield fixer.replaceText(identifier, "n: node");
               } else {
                 yield fixer.replaceText(identifier, "node");
