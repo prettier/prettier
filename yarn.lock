@@ -3127,10 +3127,10 @@ eslint-plugin-import@2.25.2:
     resolve "^1.20.0"
     tsconfig-paths "^3.11.0"
 
-eslint-plugin-jest@25.2.2:
-  version "25.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-25.2.2.tgz#aada85113268e79d4e7423f8ad4e1b740f112e71"
-  integrity sha512-frn5yhOF60U4kcqozO3zKTNZQUk+mfx037XOy2iiYL8FhorEkuCuL3/flzKcY1ECDP2WYT9ydmvlO3fRW9o4mg==
+eslint-plugin-jest@25.2.4:
+  version "25.2.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-25.2.4.tgz#bb9f6a0bd1fd524ffb0b8b7a159cd70a58a1a793"
+  integrity sha512-HRyinpgmEdkVr7pNPaYPHCoGqEzpgk79X8pg/xCeoAdurbyQjntJQ4pTzHl7BiVEBlam/F1Qsn+Dk0HtJO7Aaw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^5.0.0"
 
@@ -3173,10 +3173,10 @@ eslint-plugin-regexp@1.5.0:
     regexpp "^3.2.0"
     scslre "^0.1.6"
 
-eslint-plugin-unicorn@38.0.0:
-  version "38.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-38.0.0.tgz#10b2a1a9d1ec6b168a9e70ca2235b1124a8a2dcc"
-  integrity sha512-8Ut3S0RTkk+9T90RmIi1NqiJ4AVCreaMjHaIXxO/IgYCNp+zxixj8Q3eXikf8RZi4vwytxefVqx6mU5LSEEx2w==
+eslint-plugin-unicorn@38.0.1:
+  version "38.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-38.0.1.tgz#f95a7fa6e8c92617cdcb4b1ddbc15d877477e73d"
+  integrity sha512-eu4HCg7Bv43nk/hYZoWpLzRo668Nb7swQySn94aohn0heh9KLJ1GOFgVxJndLS8BploMGaClxgsyTNGJrP69yw==
   dependencies:
     "@babel/helper-validator-identifier" "^7.14.9"
     ci-info "^3.2.0"
