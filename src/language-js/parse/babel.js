@@ -179,6 +179,9 @@ const allowedMessageCodes = new Set([
   "StrictWith",
   "StrictOctalLiteral",
   "StrictDelete",
+  "StrictEvalArguments",
+  "StrictEvalArgumentsBinding",
+  "StrictFunction",
 
   "EmptyTypeArguments",
   "EmptyTypeParameters",
