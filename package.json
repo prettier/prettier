@@ -103,7 +103,7 @@
     "babel-loader": "8.2.3",
     "benchmark": "2.1.4",
     "builtin-modules": "3.2.0",
-    "core-js": "3.19.0",
+    "core-js": "3.19.1",
     "cross-env": "7.0.3",
     "cspell": "5.12.6",
     "enquirer": "2.3.6",
