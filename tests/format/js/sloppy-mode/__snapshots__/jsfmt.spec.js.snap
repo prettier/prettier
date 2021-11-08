@@ -59,7 +59,7 @@ function myfunc() {
 ================================================================================
 `;
 
-exports[`function.js format 1`] = `
+exports[`labeled-function-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
