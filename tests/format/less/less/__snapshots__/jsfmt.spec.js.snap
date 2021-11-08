@@ -3317,20 +3317,14 @@ a:hover {
   background-image: url("images/button-background.png");
 }
 
-p,
-a,
-ul,
-li {
+p, a, ul, li {
   border-top: 2px dotted #366;
   & + & {
     border-top: 0;
   }
 }
 
-p,
-a,
-ul,
-li {
+p, a, ul, li {
   border-top: 2px dotted #366;
 }
 p + p,
