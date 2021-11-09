@@ -414,8 +414,7 @@ a {
   order: 9;
 }
 
-a,
-b {
+a, b {
   order: 1;
   & c,
   & d {
@@ -428,8 +427,7 @@ b {
   }
   order: 5;
 }
-a,
-b {
+a, b {
   order: 1;
   @nest & c, & d {
     order: 2;
@@ -480,11 +478,9 @@ f {
   order: 5;
 }
 
-a,
-b {
+a, b {
   order: 1;
-  c,
-  d {
+  c, d {
     order: 2;
   }
 }
@@ -499,8 +495,7 @@ f {
     order: 5;
   }
 }
-a,
-b {
+a, b {
   order: 1;
   @nest c, d {
     order: 2;

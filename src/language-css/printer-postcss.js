@@ -75,6 +75,7 @@ const {
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
   isConfigurationNode,
+  isSimpleRootSelector,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -365,7 +366,8 @@ function genericPrint(path, options, print) {
         join(
           [
             ",",
-            insideAtRuleNode(path, ["extend", "custom-selector", "nest"])
+            insideAtRuleNode(path, ["extend", "custom-selector", "nest"]) ||
+            isSimpleRootSelector(node)
               ? line
               : hardline,
           ],
