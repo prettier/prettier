@@ -13,7 +13,7 @@ jobs:
       - name: Create comment
         uses: actions-ecosystem/action-create-comment@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
             If you created this PR for a purpose other than adding users, please ping a maintainer.
