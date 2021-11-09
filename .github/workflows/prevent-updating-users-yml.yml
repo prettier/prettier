@@ -11,9 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create comment
-        uses: peter-evans/create-or-update-comment@v1
+        uses: actions-cool/issues-helper@v2
         with:
-          issue-number: ${{ github.event.number }}
+          actions: "create-comment"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
           body: |
             Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
             If you created this PR for a purpose other than adding users, please ping a maintainer.
