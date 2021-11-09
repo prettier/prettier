@@ -59,7 +59,7 @@ function myfunc() {
 ================================================================================
 `;
 
-exports[`function-declaration-in-lf.js format 1`] = `
+exports[`function-declaration-in-if.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
