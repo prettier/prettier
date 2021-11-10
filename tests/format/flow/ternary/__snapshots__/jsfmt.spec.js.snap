@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrows.js [babel-flow] format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Test cases from babel
+//   ref: https://github.com/babel/babel/blob/614b48678095746b83bbe517c4d6b30ba8cd5c04/packages/babel-parser/test/fixtures/flow/arrows-in-ternaries/issue-13644/input.js
+// \`flow\` cannot parse below codes
+//   ref: https://github.com/facebook/flow/issues/8731
+
+(a ? (b = c) : d => e); // a ? (b = c) : (d => e)
+(a ? (b += c) : d => e); // a ? (b += c) : (d => e)
+
+(a ? (b = c) : d => e : f); // a ? ((b = c): d => e) : f
+(a ? (b += c) : d => e : f); // ((a ? (b += c) : (d => e)) : f)
+
+(a ? b => (c = d) : e => f); // a ? (b => (c = d)) : (e => f)
+(a ? b => (c += d) : e => f); // a ? (b => (c += d)) : (e => f)
+
+(a ? b => (c = d) : e => f : g); // a ? (b => ((c = d): e => f)) : g
+(a ? b => (c += d) : e => f : g); // ((a ? (b => (c += d)) : (e => f)) : g)
+
+=====================================output=====================================
+// Test cases from babel
+//   ref: https://github.com/babel/babel/blob/614b48678095746b83bbe517c4d6b30ba8cd5c04/packages/babel-parser/test/fixtures/flow/arrows-in-ternaries/issue-13644/input.js
+// \`flow\` cannot parse below codes
+//   ref: https://github.com/facebook/flow/issues/8731
+
+a ? (b = c) : (d) => e; // a ? (b = c) : (d => e)
+a ? (b += c) : (d) => e; // a ? (b += c) : (d => e)
+
+a ? (b = c): d => e : f; // a ? ((b = c): d => e) : f
+((a ? (b += c) : (d) => e): f); // ((a ? (b += c) : (d => e)) : f)
+
+a ? (b) => (c = d) : (e) => f; // a ? (b => (c = d)) : (e => f)
+a ? (b) => (c += d) : (e) => f; // a ? (b => (c += d)) : (e => f)
+
+a
+  ? (b) =>
+      (c = d): e =>
+        f
+  : g; // a ? (b => ((c = d): e => f)) : g
+((a ? (b) => (c += d) : (e) => f): g); // ((a ? (b => (c += d)) : (e => f)) : g)
+
+================================================================================
+`;
+
+exports[`arrows.js [flow] format 1`] = `
+"Unexpected token \`)\`, expected the token \`:\` (6:22)
+  4 | //   ref: https://github.com/facebook/flow/issues/8731
+  5 |
+> 6 | (a ? (b = c) : d => e); // a ? (b = c) : (d => e)
+    |                      ^
+  7 | (a ? (b += c) : d => e); // a ? (b += c) : (d => e)
+  8 |
+  9 | (a ? (b = c) : d => e : f); // a ? ((b = c): d => e) : f"
+`;

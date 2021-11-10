@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Checkbox, Select, NumberInput } from "./inputs";
+import { Checkbox, Select, NumberInput } from "./inputs.js";
 
 export function BooleanOption({ option, value, onChange }) {
   function maybeInvert(value) {

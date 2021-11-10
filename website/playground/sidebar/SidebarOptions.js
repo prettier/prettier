@@ -1,8 +1,8 @@
 import * as React from "react";
 import groupBy from "lodash/groupBy";
 
-import { SidebarCategory } from "./components";
-import Option from "./options";
+import { SidebarCategory } from "./components.js";
+import Option from "./options.js";
 
 export default function ({
   categories,

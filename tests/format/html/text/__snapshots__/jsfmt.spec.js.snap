@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tag-should-in-fill.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<a-long-long-long-element>foo bar foo bar
+  foo bar foo bar foo bar foo bar foo bar
+  foo bar foo bar</a-long-long-long-element>
+<!-- The end tag should stay in 80 print width -->
+
+=====================================output=====================================
+<a-long-long-long-element
+  >foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo bar foo
+  bar</a-long-long-long-element
+>
+<!-- The end tag should stay in 80 print width -->
+
+================================================================================
+`;

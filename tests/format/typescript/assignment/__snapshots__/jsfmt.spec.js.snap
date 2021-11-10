@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-2322.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const listAuthorizedSitesForDefaultHandler: ListAuthorizedSitesForHandler = aListAuthorizedSitesForResponse;
+
+=====================================output=====================================
+export const listAuthorizedSitesForDefaultHandler: ListAuthorizedSitesForHandler =
+  aListAuthorizedSitesForResponse;
+
+================================================================================
+`;
+
+exports[`issue-2482.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export function countriesReceived(countries: Array<Country>): CountryActionType {
+  return {
+    type: ActionTypes.COUNTRIES_RECEIVED,
+    countries: countries,
+  };
+}
+
+=====================================output=====================================
+export function countriesReceived(
+  countries: Array<Country>
+): CountryActionType {
+  return {
+    type: ActionTypes.COUNTRIES_RECEIVED,
+    countries: countries,
+  };
+}
+
+================================================================================
+`;
+
+exports[`issue-2485.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class x {
+  private readonly rawConfigFromFile$: BehaviorSubject<
+    any
+  > = new BehaviorSubject(notRead);
+}
+
+=====================================output=====================================
+class x {
+  private readonly rawConfigFromFile$: BehaviorSubject<any> =
+    new BehaviorSubject(notRead);
+}
+
+================================================================================
+`;
+
+exports[`issue-3122.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const findByDate: Resolver<void, Recipe[], { date: Date }> =
+  (_, { date }, { req } ) => {
+    const repo = req.getRepository(Recipe);
+    return repo.find({ createDate: date });
+  }
+
+export const findByDate: Resolver<void, Recipe[], { date: Date }> =
+  (_, { date }, { req } ) => Recipe.find({ createDate: date });
+
+=====================================output=====================================
+export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
+  _,
+  { date },
+  { req }
+) => {
+  const repo = req.getRepository(Recipe);
+  return repo.find({ createDate: date });
+};
+
+export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
+  _,
+  { date },
+  { req }
+) => Recipe.find({ createDate: date });
+
+================================================================================
+`;
+
+exports[`issue-5370.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const durabilityMetricsSelectable: Immutable.OrderedSet<
+  SomeReportingMetric,
+> = myExperienceSelectable.concat(otherDurabilityMetricsSelectable);
+
+=====================================output=====================================
+const durabilityMetricsSelectable: Immutable.OrderedSet<SomeReportingMetric> =
+  myExperienceSelectable.concat(otherDurabilityMetricsSelectable);
+
+================================================================================
+`;
+
+exports[`issue-6783.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const enviromentProdValues: EnvironmentValues = assign<EnvironmentValues>(
+  {
+    apiURL: '/api',
+  },
+  enviromentBaseValues
+);
+
+=====================================output=====================================
+export const enviromentProdValues: EnvironmentValues =
+  assign<EnvironmentValues>(
+    {
+      apiURL: "/api",
+    },
+    enviromentBaseValues
+  );
+
+================================================================================
+`;
+
+exports[`issue-8619.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{
+    {
+        {
+            const myLongVariableName: MyLongTypeName | null = myLongFunctionCallHere();
+        }
+    }
+}
+
+=====================================output=====================================
+{
+  {
+    {
+      const myLongVariableName: MyLongTypeName | null =
+        myLongFunctionCallHere();
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`issue-9172.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> = somefunc();
+
+=====================================output=====================================
+const firestorePersonallyIdentifiablePaths: Array<Collections.Users.Entity> =
+  somefunc();
+
+================================================================================
+`;
+
+exports[`issue-10846.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+export const CallRecorderContext =
+  createContext<{
+    deleteRecording: (id: string) => void;
+    deleteAll: () => void;
+  } | null>(null);
+
+export const CallRecorderContext =
+  createContext<{
+    deleteRecording: (id: string) => void;
+    deleteAll: () => void;
+  } | null>(null, "useless");
+
+const foo =
+  call<Foooooo, Foooooo, Foooooo, Foooooo, Foooooo, Foooooo, Foooooo>();
+
+const foo =
+  call<
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+    | Foooooooooooo
+  >();
+
+const foo =
+  call<
+    Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo &
+      Foooooooooooo
+  >();
+
+=====================================output=====================================
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+export const CallRecorderContext = createContext<{
+  deleteRecording: (id: string) => void;
+  deleteAll: () => void;
+} | null>(null);
+
+export const CallRecorderContext = createContext<{
+  deleteRecording: (id: string) => void;
+  deleteAll: () => void;
+} | null>(null, "useless");
+
+const foo = call<
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo,
+  Foooooo
+>();
+
+const foo = call<
+  Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo
+>();
+
+const foo = call<
+  Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo
+>();
+
+================================================================================
+`;
+
+exports[`issue-10850.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
+  new Map();
+
+const map: Map<Function, Condition extends Foo ? FooFooFoo : BarBarBar> =
+  new Map();
+
+const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
+  new Map();
+
+const map: Map<Function, Foo<S>> = new Map();
+
+=====================================output=====================================
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+const map: Map<
+  Function,
+  Condition extends Foo ? FooFooFoo : BarBarBar
+> = new Map();
+
+const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =
+  new Map();
+
+const map: Map<Function, Foo<S>> = new Map();
+
+================================================================================
+`;
+
+exports[`lone-arg.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (true) {
+  if (condition) {
+    const secondType = sourceCode.getNodeByRangeIndex1234(second.range[0])!
+      .type;
+  }
+}
+
+=====================================output=====================================
+if (true) {
+  if (condition) {
+    const secondType = sourceCode.getNodeByRangeIndex1234(
+      second.range[0]
+    )!.type;
+  }
+}
+
+================================================================================
+`;
+
+exports[`parenthesized.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/12933/files
+(<number>x) = null;
+(x!) = null;
+(a as any) = null;
+(a as number) = 42;
+((a as any) as string) = null;
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/12933/files
+(<number>x) = null;
+x! = null;
+(a as any) = null;
+(a as number) = 42;
+(a as any as string) = null;
+
+================================================================================
+`;

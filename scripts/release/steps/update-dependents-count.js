@@ -1,20 +1,15 @@
-"use strict";
-
-const chalk = require("chalk");
-const fetch = require("node-fetch");
-const { logPromise, processFile } = require("../utils");
+import chalk from "chalk";
+import { runGit, fetchText, logPromise, processFile } from "../utils.js";
 
 async function update() {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
-    fetch("https://www.npmjs.com/package/prettier").then((response) =>
-      response.text()
-    )
+    fetchText("https://www.npmjs.com/package/prettier")
   );
   const dependentsCountNpm = Number(
     npmPage.match(/"dependentsCount":(\d+),/)[1]
   );
-  if (isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
       "Invalid data from https://www.npmjs.com/package/prettier"
     );
@@ -22,9 +17,7 @@ async function update() {
 
   const githubPage = await logPromise(
     "Fetching github dependents count",
-    fetch(
-      "https://github.com/prettier/prettier/network/dependents"
-    ).then((response) => response.text())
+    fetchText("https://github.com/prettier/prettier/network/dependents")
   );
   const dependentsCountGithub = Number(
     githubPage
@@ -34,7 +27,7 @@ async function update() {
       )[1]
       .replace(/,/g, "")
   );
-  if (isNaN(dependentsCountNpm)) {
+  if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(
       "Invalid data from https://github.com/prettier/prettier/network/dependents"
     );
@@ -51,6 +44,21 @@ async function update() {
         `$1${formatNumber(dependentsCountGithub)}$3`
       )
   );
+
+  const isUpdated = await logPromise(
+    "Checking if dependents count has been updated",
+    async () =>
+      (await runGit(["diff", "--name-only"])).stdout ===
+      "website/pages/en/index.js"
+  );
+
+  if (isUpdated) {
+    await logPromise("Committing and pushing to remote", async () => {
+      await runGit(["add", "."]);
+      await runGit(["commit", "-m", "Update dependents count"]);
+      await runGit(["push"]);
+    });
+  }
 }
 
 function formatNumber(value) {
@@ -63,10 +71,10 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-module.exports = async function () {
+export default async function () {
   try {
     await update();
   } catch (error) {
     console.log(chalk.red.bold(error.message));
   }
-};
+}

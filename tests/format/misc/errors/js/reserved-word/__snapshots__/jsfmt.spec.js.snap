@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [espree] format 1`] = `
+"The keyword 'interface' is reserved (1:7)
+> 1 | class interface {}
+    |       ^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"[1:15]: Unexpected strict mode reserved word (1:15)
+> 1 | class interface {}
+    |               ^"
+`;
+
+exports[`snippet: #1 [espree] format 1`] = `
+"The keyword 'interface' is reserved (1:8)
+> 1 | import interface from \\"foo\\";
+    |        ^"
+`;
+
+exports[`snippet: #1 [meriyah] format 1`] = `
+"[1:16]: Unexpected strict mode reserved word (1:16)
+> 1 | import interface from \\"foo\\";
+    |                ^"
+`;

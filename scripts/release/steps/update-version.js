@@ -1,7 +1,10 @@
-"use strict";
-
-const execa = require("execa");
-const { logPromise, readJson, writeJson, processFile } = require("../utils");
+import {
+  runYarn,
+  logPromise,
+  readJson,
+  writeJson,
+  processFile,
+} from "../utils.js";
 
 async function bump({ version }) {
   const pkg = await readJson("package.json");
@@ -24,11 +27,11 @@ async function bump({ version }) {
     content.replace(/(\/\/unpkg\.com\/prettier@).*?\//g, `$1${version}/`)
   );
 
-  await execa("yarn", ["update-stable-docs"], {
+  await runYarn(["update-stable-docs"], {
     cwd: "./website",
   });
 }
 
-module.exports = async function (params) {
+export default async function (params) {
   await logPromise("Bumping version", bump(params));
-};
+}

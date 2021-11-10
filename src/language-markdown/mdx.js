@@ -27,7 +27,7 @@
 const IMPORT_REGEX = /^import\s/;
 const EXPORT_REGEX = /^export\s/;
 const BLOCKS_REGEX = "[a-z][a-z0-9]*(\\.[a-z][a-z0-9]*)*|";
-const COMMENT_REGEX = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
+const COMMENT_REGEX = /<!---->|<!---?[^>-](?:-?[^-])*-->/;
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = (text) => IMPORT_REGEX.test(text);
@@ -45,9 +45,9 @@ const tokenizeEsSyntax = (eat, value) => {
   }
 };
 
-tokenizeEsSyntax.locator = (value /*, fromIndex*/) => {
-  return isExport(value) || isImport(value) ? -1 : 1;
-};
+/* istanbul ignore next */
+tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
+  isExport(value) || isImport(value) ? -1 : 1;
 
 function esSyntax() {
   const { Parser } = this;

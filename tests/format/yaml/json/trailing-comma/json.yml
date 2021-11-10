@@ -1,0 +1,26 @@
+[
+  {
+    "object-does-not-fit-within-print-width": "------",
+    "TEST": "comma IS added here"
+  },
+  {
+    "object-fits-within-print-width": "",
+    "TEST": "comma NOT here"
+  },
+  {
+    "object-does-not-fit-within-print-width": "------",
+    "TEST": "comma NOT here — but object's now a string due to '>'"
+  },
+  [
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma IS added here"
+  ],
+  [
+    "object-fits-within-print-width", "",
+    "TEST", "comma NOT here"
+  ],
+  [
+    "object-does-not-fit-within-print-width", "------",
+    "TEST", "comma NOT here — but object's now a string due to '>'"
+  ]
+]

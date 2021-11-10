@@ -20,7 +20,7 @@ yarn add --dev --exact prettier
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Then, create an empty config file to let editors and other tooling know you are using Prettier:
+Then, create an empty config file to let editors and other tools know you are using Prettier:
 
 <!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
 
@@ -68,7 +68,7 @@ yarn prettier --write .
 If you have a CI setup, run the following as part of it to make sure that everyone runs Prettier. This avoids merge conflicts and other collaboration issues!
 
 ```bash
-prettier --check .
+npx prettier --check .
 ```
 
 `--check` is like `--write`, but only checks that files are already formatted, rather than overwriting them. `prettier --write` and `prettier --check` are the most common ways to run Prettier.
@@ -93,20 +93,46 @@ If you use ESLint, install [eslint-config-prettier](https://github.com/prettier/
 
 In addition to running Prettier from the command line (`prettier --write`), checking formatting in CI, and running Prettier from your editor, many people like to run Prettier as a pre-commit hook as well. This makes sure all your commits are formatted, without having to wait for your CI build to finish.
 
-For example, you can add the following to your `package.json` to have ESLint and Prettier run before each commit, via [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky).
+For example, you can do the following to have Prettier run before each commit:
+
+1. Install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged):
+
+   <!--DOCUSAURUS_CODE_TABS-->
+   <!--npm-->
+
+   ```bash
+   npm install --save-dev husky lint-staged
+   npx husky install
+   npm set-script prepare "husky install"
+   npx husky add .husky/pre-commit "npx lint-staged"
+   ```
+
+   <!--yarn-->
+
+   ```bash
+   yarn add --dev husky lint-staged
+   npx husky install
+   npm set-script prepare "husky install"
+   npx husky add .husky/pre-commit "npx lint-staged"
+   ```
+
+   > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
+
+   <!--END_DOCUSAURUS_CODE_TABS-->
+
+> Note: npm **set-script** command requires at least **npm v7.x**. See https://docs.npmjs.com/cli/v7/commands/npm-set-script.
+
+2. Add the following to your `package.json`:
 
 ```json
 {
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "**/*": ["eslint --fix", "prettier --write"]
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
 ```
+
+> Note: If you use ESLint, make sure lint-staged runs it before Prettier, not after.
 
 See [Pre-commit Hook](precommit.md) for more information.
 

@@ -18,7 +18,7 @@ If you’d like to toggle the formatter on and off, install [`vscode-status-bar-
 
 ## Emacs
 
-Check out the [prettier-emacs](https://github.com/prettier/prettier-emacs) repo, or [prettier.el](https://github.com/jscheid/prettier.el).
+Check out the [prettier-emacs](https://github.com/prettier/prettier-emacs) repo, or [prettier.el](https://github.com/jscheid/prettier.el). The package [Apheleia](https://github.com/raxod502/apheleia) supports multiple code formatters, including Prettier.
 
 ## Vim
 

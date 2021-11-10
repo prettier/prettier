@@ -1,3 +1,567 @@
+# 2.3.2
+
+[diff](https://github.com/prettier/prettier/compare/2.3.1...2.3.2)
+
+#### Fix failure on dir with trailing slash ([#11000](https://github.com/prettier/prettier/pull/11000) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```console
+$ ls
+1.js  1.unknown
+
+# Prettier 2.3.1
+$ prettier . -l
+1.js
+$ prettier ./ -l
+[error] No supported files were found in the directory: "./".
+
+# Prettier 2.3.2
+$ prettier ./ -l
+1.js
+```
+
+#### Fix handling of parenthesis with Flow's {Optional}IndexedAccess ([#11051](https://github.com/prettier/prettier/pull/11051) by [@gkz](https://github.com/gkz))
+
+Add parens when required.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+type A = (T & S)['bar'];
+type B = (T | S)['bar'];
+type C = (?T)['bar'];
+type D = (typeof x)['bar'];
+type E = (string => void)['bar'];
+
+// Prettier 2.3.1
+type A = T & S["bar"];
+type B = T | S["bar"];
+type C = ?T["bar"];
+type D = typeof x["bar"];
+type E = (string) => void["bar"];
+
+// Prettier 2.3.2
+type A = (T & S)["bar"];
+type B = (T | S)["bar"];
+type C = (?T)["bar"];
+type D = (typeof x)["bar"];
+type E = ((string) => void)["bar"];
+```
+
+#### Print override modifiers for parameter property ([#11074](https://github.com/prettier/prettier/pull/11074) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class D extends B {
+  constructor(override foo: string) {
+    super();
+  }
+}
+
+// Prettier 2.3.1
+class D extends B {
+  constructor(foo: string) {
+    super();
+  }
+}
+
+// Prettier 2.3.2
+class D extends B {
+  constructor(override foo: string) {
+    super();
+  }
+}
+
+```
+
+# 2.3.1
+
+[diff](https://github.com/prettier/prettier/compare/2.3.0...2.3.1)
+
+#### Support TypeScript 4.3 ([#10945](https://github.com/prettier/prettier/pull/10945) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+##### [`override` modifiers in class elements](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#override)
+
+```ts
+class Foo extends  {
+  override method() {}
+}
+```
+
+##### [static index signatures (`[key: KeyType]: ValueType`) in classes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#static-index-signatures)
+
+```ts
+class Foo {
+  static [key: string]: Bar;
+}
+```
+
+##### [`get` / `set` in type declarations](https://devblogs.microsoft.com/typescript/announcing-typescript-4-3/#separate-write-types)
+
+```ts
+interface Foo {
+  set foo(value);
+  get foo(): string;
+}
+```
+
+#### Preserve attributes order for element node ([#10958](https://github.com/prettier/prettier/pull/10958) by [@dcyriller](https://github.comdcyriller))
+
+<!-- prettier-ignore -->
+```handlebars
+{{!-- Input --}}
+<MyComponent
+  {{! this is a comment for arg 1}}
+  @arg1="hello"
+  {{on "clik" this.modify}}
+  @arg2="hello"
+  {{! this is a comment for arg 3}}
+  @arg3="hello"
+  @arg4="hello"
+  {{! this is a comment for arg 5}}
+  @arg5="hello"
+  ...arguments
+/>
+{{!-- Prettier stable --}}
+<MyComponent
+  @arg1="hello"
+  @arg2="hello"
+  @arg3="hello"
+  @arg4="hello"
+  @arg5="hello"
+  ...arguments
+  {{on "clik" this.modify}}
+  {{! this is a comment for arg 1}}
+  {{! this is a comment for arg 3}}
+  {{! this is a comment for arg 5}}
+/>
+{{!-- Prettier main --}}
+<MyComponent
+  {{! this is a comment for arg 1}}
+  @arg1="hello"
+  {{on "clik" this.modify}}
+  @arg2="hello"
+  {{! this is a comment for arg 3}}
+  @arg3="hello"
+  @arg4="hello"
+  {{! this is a comment for arg 5}}
+  @arg5="hello"
+  ...arguments
+/>
+```
+
+#### Track cursor position properly when it’s at the end of the range to format ([#10938](https://github.com/prettier/prettier/pull/10938) by [@j-f1](https://github.com/j-f1))
+
+Previously, if the cursor was at the end of the range to format, it would simply be placed back at the end of the updated range.
+Now, it will be repositioned if Prettier decides to add additional code to the end of the range (such as a semicolon).
+
+<!-- prettier-ignore -->
+```jsx
+// Input (<|> represents the cursor)
+const someVariable = myOtherVariable<|>
+// range to format:  ^^^^^^^^^^^^^^^
+
+// Prettier stable
+const someVariable = myOtherVariable;<|>
+// range to format:  ^^^^^^^^^^^^^^^
+
+// Prettier main
+const someVariable = myOtherVariable<|>;
+// range to format:  ^^^^^^^^^^^^^^^
+```
+
+#### Break the LHS of type alias that has complex type parameters ([#10901](https://github.com/prettier/prettier/pull/10901) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+// Prettier stable
+type FieldLayoutWith<T extends string, S extends unknown = { width: string }> =
+  {
+    type: T;
+    code: string;
+    size: S;
+  };
+
+// Prettier main
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+```
+
+#### Break the LHS of assignments that has complex type parameters ([#10916](https://github.com/prettier/prettier/pull/10916) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+// Prettier stable
+const map: Map<Function, Map<string | void, { value: UnloadedDescriptor }>> =
+  new Map();
+
+// Prettier main
+const map: Map<
+  Function,
+  Map<string | void, { value: UnloadedDescriptor }>
+> = new Map();
+
+```
+
+#### Fix incorrectly wrapped arrow functions with return types ([#10940](https://github.com/prettier/prettier/pull/10940) by [@thorn0](https://github.com/thorn0))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+longfunctionWithCall12("bla", foo, (thing: string): complex<type<something>> => {
+  code();
+});
+
+// Prettier stable
+longfunctionWithCall12("bla", foo, (thing: string): complex<
+  type<something>
+> => {
+  code();
+});
+
+// Prettier main
+longfunctionWithCall12(
+  "bla",
+  foo,
+  (thing: string): complex<type<something>> => {
+    code();
+  }
+);
+```
+
+#### Avoid breaking call expressions after assignments with complex type arguments ([#10949](https://github.com/prettier/prettier/pull/10949) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+// Prettier stable
+const foo =
+  call<{
+    prop1: string;
+    prop2: string;
+    prop3: string;
+  }>();
+
+// Prettier main
+const foo = call<{
+  prop1: string;
+  prop2: string;
+  prop3: string;
+}>();
+
+```
+
+#### Fix order of `override` modifiers ([#10961](https://github.com/prettier/prettier/pull/10961) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+```ts
+// Input
+class Foo extends Bar {
+  abstract override foo: string;
+}
+
+// Prettier stable
+class Foo extends Bar {
+  abstract override foo: string;
+}
+
+// Prettier main
+class Foo extends Bar {
+  abstract override foo: string;
+}
+```
+
+# 2.3.0
+
+[diff](https://github.com/prettier/prettier/compare/2.2.1...2.3.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/05/09/2.3.0.html)
+
+# 2.2.1
+
+[diff](https://github.com/prettier/prettier/compare/2.2.0...2.2.1)
+
+#### Fix formatting for AssignmentExpression with ClassExpression ([#9741](https://github.com/prettier/prettier/pull/9741) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```js
+// Input
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+
+// Prettier 2.2.0
+module.exports = class A extends (
+  B
+) {
+  method() {
+    console.log("foo");
+  }
+};
+
+// Prettier 2.2.1
+module.exports = class A extends B {
+  method() {
+    console.log("foo");
+  }
+};
+```
+
+# 2.2.0
+
+[diff](https://github.com/prettier/prettier/compare/2.1.2...2.2.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/11/20/2.2.0.html)
+
+# 2.1.2
+
+[diff](https://github.com/prettier/prettier/compare/2.1.1...2.1.2)
+
+#### Fix formatting for directives in fields ([#9116](https://github.com/prettier/prettier/pull/9116) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```graphql
+# Input
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String! @deprecated @isAuthenticated
+  versions: Versions!
+}
+
+
+# Prettier stable
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String!
+  @deprecated
+  @isAuthenticated
+  versions: Versions!
+}
+
+# Prettier master
+type Query {
+  someQuery(id: ID!, someOtherData: String!): String!
+    @deprecated
+    @isAuthenticated
+  versions: Versions!
+}
+
+```
+
+#### Fix line breaks for CSS in JS ([#9136](https://github.com/prettier/prettier/pull/9136) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```js
+// Input
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) => (props.isComplete ? '1' : '0')};
+  }
+`;
+styled.div`
+  ${props => getSize(props.$size.xs)}
+  ${props => getSize(props.$size.sm, 'sm')}
+  ${props => getSize(props.$size.md, 'md')}
+`;
+
+// Prettier stable
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+	z-index: ${(props) =>
+    props.isComplete ? "1" : "0"};
+  }
+`;
+styled.div`
+  ${(props) => getSize(props.$size.xs)}
+  ${(props) => getSize(props.$size.sm, "sm")}
+  ${(props) =>
+    getSize(props.$size.md, "md")}
+`;
+
+// Prettier master
+styled.div`
+  // prettier-ignore
+  @media (aaaaaaaaaaaaa) {
+        z-index: ${(props) => (props.isComplete ? "1" : "0")};
+  }
+`;
+styled.div`
+  ${(props) => getSize(props.$size.xs)}
+  ${(props) => getSize(props.$size.sm, "sm")}
+  ${(props) => getSize(props.$size.md, "md")}
+`;
+
+```
+
+#### Fix comment printing in mapping and sequence ([#9143](https://github.com/prettier/prettier/pull/9143), [#9169](https://github.com/prettier/prettier/pull/9169) by [@sosukesuzuki](https://github.com/sosukesuzuki), [@fisker](https://github.com/fisker), fix in `yaml-unist-parser` by [@ikatyang](https://github.com/ikatyang))
+
+<!-- prettier-ignore -->
+```yaml
+# Input
+- a
+  # Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+  # Should print one empty line before
+- another
+
+# Prettier stable
+- a
+# Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+
+  # Should print one empty line before
+- another
+
+# Prettier master
+- a
+  # Should indent
+- bb
+
+---
+- a: a
+  b: b
+
+  # Should print one empty line before
+- another
+```
+
+# 2.1.1
+
+[diff](https://github.com/prettier/prettier/compare/2.1.0...2.1.1)
+
+#### Fix format on html with frontMatter ([#9043](https://github.com/prettier/prettier/pull/9043) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+---
+layout: foo
+---
+
+Test <a
+href="https://prettier.io">abc</a>.
+
+<!-- Prettier stable -->
+TypeError: Cannot read property 'end' of undefined
+  ...
+
+<!-- Prettier master -->
+---
+layout: foo
+---
+
+Test <a href="https://prettier.io">abc</a>.
+```
+
+#### Fix broken format for `...infer T` ([#9044](https://github.com/prettier/prettier/pull/9044) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```typescript
+// Input
+type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
+
+// Prettier stable
+type Tail<T extends any[]> = T extends [infer U, ...(infer R)] ? R : never;
+
+// Prettier master
+type Tail<T extends any[]> = T extends [infer U, ...infer R] ? R : never;
+```
+
+#### Fix format on `style[lang="sass"]` ([#9051](https://github.com/prettier/prettier/pull/9051) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+<!-- Input -->
+<style lang="sass">
+.hero
+  @include background-centered
+</style>
+
+<!-- Prettier stable -->
+<style lang="sass">
+.hero @include background-centered;
+</style>
+
+<!-- Prettier master -->
+<style lang="sass">
+  .hero
+    @include background-centered
+</style>
+```
+
+#### Fix self-closing blocks and blocks with `src` attribute format ([#9052](https://github.com/prettier/prettier/pull/9052), [#9055](https://github.com/prettier/prettier/pull/9055) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```vue
+<!-- Input -->
+<custom lang="markdown" src="./foo.md"></custom>
+<custom lang="markdown" src="./foo.md" />
+<custom lang="markdown" />
+
+<!-- Prettier stable -->
+<custom lang="markdown" src="./foo.md">
+
+</custom>
+<custom lang="markdown" src="./foo.md"
+
+/>
+<custom lang="markdown"
+
+/>
+
+<!-- Prettier master -->
+<custom lang="markdown" src="./foo.md"></custom>
+<custom lang="markdown" src="./foo.md" />
+<custom lang="markdown" />
+```
+
+# 2.1.0
+
+[diff](https://github.com/prettier/prettier/compare/2.0.5...2.1.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2020/08/24/2.1.0.html)
+
 # 2.0.5
 
 [diff](https://github.com/prettier/prettier/compare/2.0.4...2.0.5)

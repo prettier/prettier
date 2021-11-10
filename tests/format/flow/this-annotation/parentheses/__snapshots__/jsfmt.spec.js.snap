@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`only-parameter.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type q = (this: string) => void;
+
+=====================================output=====================================
+// @flow
+
+type q = (this: string) => void;
+
+================================================================================
+`;
+
+exports[`only-parameter.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type q = (this: string) => void;
+
+=====================================output=====================================
+// @flow
+
+type q = (this: string) => void;
+
+================================================================================
+`;

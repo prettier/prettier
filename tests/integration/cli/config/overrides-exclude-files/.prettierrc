@@ -1,0 +1,19 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "options": {
+        "trailingComma": "es5"
+      }
+    },
+    {
+      "files": ["*.js"],
+      "excludeFiles": ["single-quote.js"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}

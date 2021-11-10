@@ -6,12 +6,9 @@ const tempy = require("tempy");
 
 shell.config.fatal = true;
 
-const rootDir = path.join(__dirname, "..");
 const client = process.env.NPM_CLIENT || "yarn";
-const packageDir =
-  process.env.NODE_ENV === "production" ? path.join(rootDir, "dist") : rootDir;
 
-module.exports = () => {
+module.exports = (packageDir) => {
   const tmpDir = tempy.directory();
   const file = shell.exec("npm pack", { cwd: packageDir }).stdout.trim();
   shell.mv(path.join(packageDir, file), tmpDir);

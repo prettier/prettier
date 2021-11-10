@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`type-extendsion-syntax.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type User {
+  name: String
+  birthday: Int
+}
+
+extend type User {
+  age: Int
+}
+
+=====================================output=====================================
+type User {
+  name: String
+  birthday: Int
+}
+
+extend type User {
+  age: Int
+}
+
+================================================================================
+`;

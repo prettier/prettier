@@ -513,6 +513,10 @@ a {
   margin-top: 10px;
 }
 
+.mainContainer .wrapper .post h5 {
+  font-size: 1.125em;
+}
+
 .hljs {
   padding: 16px;
   overflow: auto;

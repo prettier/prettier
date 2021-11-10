@@ -1,0 +1,697 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basics.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aLProp (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aVeryLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<div class="a long list of classes more than 80 chars with a complex mustache statement {{if (or this.a this.b) this.c this.d}}">
+</div>
+
+<div class="a multi line list of classes with a complex mustache statement
+           {{if (or this.a this.b) this.c this.d}}">
+</div>
+
+<div class="a-first-class {{if this.optionOne "optionOne"}} {{if this.optionTwo "optionTwo"}} {{if this.optionThree "optionThree"}} {{if this.optionFour "optionFour"}} {{if this.optionFive "optionFive"}} {{this.class}}" ...attributes >
+</div>
+
+<div
+  class="a-first-class
+    {{if this.optionOne "optionOne"}}
+    
+    {{if this.optionTwo "optionTwo"}}
+    
+    {{if this.optionThree "optionThree"}}
+    
+    {{if this.optionFour "optionFour"}}
+    
+    {{if this.optionFive "optionFive"}}
+    
+    {{this.class}}"
+  ...attributes >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
+</div>
+
+=====================================output=====================================
+<GlimmerComponent
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+<GlimmerComponent
+  class='medium'
+  @autocomplete='off'
+  @errors={{or
+    this.aLProp
+    (and this.aProperty (v-get bike 'number' 'message'))
+  }}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class='medium'
+  @autocomplete='off'
+  @errors={{or
+    this.aVeryLongProperty
+    (and this.aProperty (v-get bike 'number' 'message'))
+  }}
+  data-test-beneficiary-account-number
+/>
+
+<div
+  class='a long list of classes more than 80 chars with a complex mustache statement
+    {{if (or this.a this.b) this.c this.d}}'
+>
+</div>
+
+<div
+  class='a multi line list of classes with a complex mustache statement
+    {{if (or this.a this.b) this.c this.d}}'
+>
+</div>
+
+<div
+  class='a-first-class
+    {{if this.optionOne 'optionOne'}}
+    {{if this.optionTwo 'optionTwo'}}
+    {{if this.optionThree 'optionThree'}}
+    {{if this.optionFour 'optionFour'}}
+    {{if this.optionFive 'optionFive'}}
+    {{this.class}}'
+  ...attributes
+>
+</div>
+
+<div
+  class='a-first-class
+    {{if this.optionOne 'optionOne'}}
+    {{if this.optionTwo 'optionTwo'}}
+    {{if this.optionThree 'optionThree'}}
+    {{if this.optionFour 'optionFour'}}
+    {{if this.optionFive 'optionFive'}}
+    {{this.class}}'
+  ...attributes
+>
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class='hello'
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    'that takes some arguments'
+    this.anotherOne
+    'why not'
+    @aLastOneLongEnoughToBreak
+  }}
+</div>
+================================================================================
+`;
+
+exports[`basics.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aLProp (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aVeryLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<div class="a long list of classes more than 80 chars with a complex mustache statement {{if (or this.a this.b) this.c this.d}}">
+</div>
+
+<div class="a multi line list of classes with a complex mustache statement
+           {{if (or this.a this.b) this.c this.d}}">
+</div>
+
+<div class="a-first-class {{if this.optionOne "optionOne"}} {{if this.optionTwo "optionTwo"}} {{if this.optionThree "optionThree"}} {{if this.optionFour "optionFour"}} {{if this.optionFive "optionFive"}} {{this.class}}" ...attributes >
+</div>
+
+<div
+  class="a-first-class
+    {{if this.optionOne "optionOne"}}
+    
+    {{if this.optionTwo "optionTwo"}}
+    
+    {{if this.optionThree "optionThree"}}
+    
+    {{if this.optionFour "optionFour"}}
+    
+    {{if this.optionFive "optionFive"}}
+    
+    {{this.class}}"
+  ...attributes >
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield (hash
+    title=(component title)
+    header=(component header)
+    language=(component language)
+  )}}
+</div>
+
+<div>
+  {{a-helper "that takes some arguments" this.anotherOne "why not" @aLastOneLongEnoughToBreak}}
+</div>
+
+=====================================output=====================================
+<GlimmerComponent
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or
+    this.aLProp
+    (and this.aProperty (v-get bike "number" "message"))
+  }}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or
+    this.aVeryLongProperty
+    (and this.aProperty (v-get bike "number" "message"))
+  }}
+  data-test-beneficiary-account-number
+/>
+
+<div
+  class="a long list of classes more than 80 chars with a complex mustache statement
+    {{if (or this.a this.b) this.c this.d}}"
+>
+</div>
+
+<div
+  class="a multi line list of classes with a complex mustache statement
+    {{if (or this.a this.b) this.c this.d}}"
+>
+</div>
+
+<div
+  class="a-first-class
+    {{if this.optionOne "optionOne"}}
+    {{if this.optionTwo "optionTwo"}}
+    {{if this.optionThree "optionThree"}}
+    {{if this.optionFour "optionFour"}}
+    {{if this.optionFive "optionFive"}}
+    {{this.class}}"
+  ...attributes
+>
+</div>
+
+<div
+  class="a-first-class
+    {{if this.optionOne "optionOne"}}
+    {{if this.optionTwo "optionTwo"}}
+    {{if this.optionThree "optionThree"}}
+    {{if this.optionFour "optionFour"}}
+    {{if this.optionFive "optionFive"}}
+    {{this.class}}"
+  ...attributes
+>
+</div>
+
+<div>
+  {{classic-component-with-many-properties
+    class="hello"
+    param=this.someValue
+    secondParam=this.someValue
+    thirdParam=this.someValue
+  }}
+</div>
+
+<div>
+  {{yield
+    (hash
+      title=(component title)
+      header=(component header)
+      language=(component language)
+    )
+  }}
+</div>
+
+<div>
+  {{a-helper
+    "that takes some arguments"
+    this.anotherOne
+    "why not"
+    @aLastOneLongEnoughToBreak
+  }}
+</div>
+================================================================================
+`;
+
+exports[`element-modifier-statement.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
+
+<div {{hello param param param param param param param param param param param param}}>
+  Hello
+</div>
+
+<div {{hello hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
+  Hello
+</div>
+
+<div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
+  Hello
+</div>
+
+=====================================output=====================================
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
+
+<div
+  {{hello
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+  }}
+>
+  Hello
+</div>
+
+<div
+  {{hello
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+  }}
+>
+  Hello
+</div>
+
+<div
+  {{hello
+    param
+    param
+    param
+    param
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+  }}
+>
+  Hello
+</div>
+================================================================================
+`;
+
+exports[`element-modifier-statement.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
+
+<div {{hello param param param param param param param param param param param param}}>
+  Hello
+</div>
+
+<div {{hello hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
+  Hello
+</div>
+
+<div {{hello param param param param hashPair=value hashPair=value hashPair=value hashPair=value hashPair=value}}>
+  Hello
+</div>
+
+=====================================output=====================================
+<div {{hello param hash=key}} {{goodbye param}}>
+  Hello
+</div>
+
+<div
+  {{hello
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+    param
+  }}
+>
+  Hello
+</div>
+
+<div
+  {{hello
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+  }}
+>
+  Hello
+</div>
+
+<div
+  {{hello
+    param
+    param
+    param
+    param
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+    hashPair=value
+  }}
+>
+  Hello
+</div>
+================================================================================
+`;
+
+exports[`escaped.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+
+=====================================output=====================================
+an escaped mustache:
+\\{{my-component}} a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache: \\\\\\{{my-component}}
+================================================================================
+`;
+
+exports[`escaped.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+
+=====================================output=====================================
+an escaped mustache:
+\\{{my-component}} a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache: \\\\\\{{my-component}}
+================================================================================
+`;
+
+exports[`issue-8691.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<li class="
+{{if showAsCarousel "career-interests__pill--slide-item" "career-interests__pill"}}
+"></li>
+
+{{
+  yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute this.computeFilterWithEmail this.filter campaignPic.userEmail)
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)}}
+foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl}}
+
+=====================================output=====================================
+<li
+  class='{{if
+      showAsCarousel
+      'career-interests__pill--slide-item'
+      'career-interests__pill'
+    }}
+    '
+></li>
+
+{{yield
+  (hash
+    header=(component 'fluid-table/thead')
+    body=(component 'fluid-table/tbody')
+    th=(component 'fluid-table/th')
+    td=(component 'fluid-table/td')
+  )
+}}
+
+<LinkTo
+  @query={{hash
+    filter=(compute
+      this.computeFilterWithEmail this.filter campaignPic.userEmail
+    )
+  }}
+  class='text-xs hover:underline'
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if
+  abcdefghijklmnopqrstuvwxyz
+  (t 'abcdefghijklmnopq')
+  (t 'abcdefghijklmnopq')
+}}
+
+{{#if
+  (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
+}}
+  foo{{/if}}
+
+{{some-helper
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijkl
+}}
+================================================================================
+`;
+
+exports[`issue-8691.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<li class="
+{{if showAsCarousel "career-interests__pill--slide-item" "career-interests__pill"}}
+"></li>
+
+{{
+  yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{
+    hash
+    filter=(compute this.computeFilterWithEmail this.filter campaignPic.userEmail)
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if abcdefghijklmnopqrstuvwxyz (t 'abcdefghijklmnopq') (t 'abcdefghijklmnopq')}}
+
+{{#if (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)}}
+foo{{/if}}
+
+{{some-helper abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijkl}}
+
+=====================================output=====================================
+<li
+  class="{{if
+      showAsCarousel
+      "career-interests__pill--slide-item"
+      "career-interests__pill"
+    }}
+    "
+></li>
+
+{{yield
+  (hash
+    header=(component "fluid-table/thead")
+    body=(component "fluid-table/tbody")
+    th=(component "fluid-table/th")
+    td=(component "fluid-table/td")
+  )
+}}
+
+<LinkTo
+  @query={{hash
+    filter=(compute
+      this.computeFilterWithEmail this.filter campaignPic.userEmail
+    )
+  }}
+  class="text-xs hover:underline"
+  data-test-user-email
+>
+  {{campaignPic.userEmail}}
+</LinkTo>
+
+{{if
+  abcdefghijklmnopqrstuvwxyz
+  (t "abcdefghijklmnopq")
+  (t "abcdefghijklmnopq")
+}}
+
+{{#if
+  (eq abcdefghijklmnopqrstuvwxyzabcdefgh abcdefghijklmnopqrstuvwxyzabcdefgh)
+}}
+  foo{{/if}}
+
+{{some-helper
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijklmnopqrstuvwxyz
+  abcdefghijkl
+}}
+================================================================================
+`;

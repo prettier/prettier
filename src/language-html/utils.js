@@ -1,14 +1,25 @@
 "use strict";
 
+/**
+ * @typedef {import("../common/ast-path")} AstPath
+ */
+
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
-const { getParserName, isFrontMatterNode } = require("../common/util");
+const {
+  inferParserByLanguage,
+  isFrontMatterNode,
+} = require("../common/util.js");
+const {
+  builders: { line, hardline, join },
+  utils: { getDocParts, replaceTextEndOfLine },
+} = require("../document/index.js");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
-} = require("./constants.evaluate");
+} = require("./constants.evaluate.js");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
@@ -26,7 +37,7 @@ const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
 const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
   const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
+    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
   );
   return {
     leadingWhitespace,
@@ -46,8 +57,8 @@ function arrayToMap(array) {
 
 function mapObject(object, fn) {
   const newObject = Object.create(null);
-  for (const key of Object.keys(object)) {
-    newObject[key] = fn(object[key], key);
+  for (const [key, value] of Object.entries(object)) {
+    newObject[key] = fn(value, key);
   }
   return newObject;
 }
@@ -92,10 +103,12 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
+  /* istanbul ignore next */
   if (node.type === "attribute") {
     return false;
   }
 
+  /* istanbul ignore next */
   if (!node.parent) {
     return false;
   }
@@ -110,20 +123,6 @@ function hasPrettierIgnore(node) {
 
 function isPrettierIgnore(node) {
   return node.type === "comment" && node.value.trim() === "prettier-ignore";
-}
-
-function getPrettierIgnoreAttributeCommentData(value) {
-  const match = value.trim().match(/^prettier-ignore-attribute(?:\s+([^]+))?$/);
-
-  if (!match) {
-    return false;
-  }
-
-  if (!match[1]) {
-    return true;
-  }
-
-  return match[1].split(/\s+/);
 }
 
 /** there's no opening/closing tag or it's considered not breakable */
@@ -279,7 +278,7 @@ function forceBreakContent(node) {
   return (
     forceBreakChildren(node) ||
     (node.type === "element" &&
-      node.children.length !== 0 &&
+      node.children.length > 0 &&
       (["body", "script", "style"].includes(node.name) ||
         node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
@@ -295,7 +294,7 @@ function forceBreakContent(node) {
 function forceBreakChildren(node) {
   return (
     node.type === "element" &&
-    node.children.length !== 0 &&
+    node.children.length > 0 &&
     (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
@@ -397,7 +396,7 @@ function _inferScriptParser(node) {
 
 function inferStyleParser(node) {
   const { lang } = node.attrMap;
-  if (lang === "postcss" || lang === "css") {
+  if (!lang || lang === "postcss" || lang === "css") {
     return "css";
   }
 
@@ -419,18 +418,16 @@ function inferScriptParser(node, options) {
   }
 
   if (node.name === "style") {
-    return inferStyleParser(node) || "css";
+    return inferStyleParser(node);
   }
 
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
       _inferScriptParser(node) ||
-      inferStyleParser(node) ||
-      getParserName(node.attrMap.lang, options)
+      (!("src" in node.attrMap) &&
+        inferParserByLanguage(node.attrMap.lang, options))
     );
   }
-
-  return null;
 }
 
 function isBlockLikeCssDisplay(cssDisplay) {
@@ -465,7 +462,11 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function countParents(path, predicate = () => true) {
+/**
+ * @param {AstPath} path
+ * @param {(any) => boolean} predicate
+ */
+function countParents(path, predicate) {
   let counter = 0;
   for (let i = path.stack.length - 1; i >= 0; i--) {
     const value = path.stack[i];
@@ -557,7 +558,7 @@ function getNodeCssStyleWhiteSpace(node) {
 }
 
 function getMinIndentation(text) {
-  let minIndentation = Infinity;
+  let minIndentation = Number.POSITIVE_INFINITY;
 
   for (const lineText of text.split("\n")) {
     if (lineText.length === 0) {
@@ -579,7 +580,7 @@ function getMinIndentation(text) {
     }
   }
 
-  return minIndentation === Infinity ? 0 : minIndentation;
+  return minIndentation === Number.POSITIVE_INFINITY ? 0 : minIndentation;
 }
 
 function dedentString(text, minIndent = getMinIndentation(text)) {
@@ -589,18 +590,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .split("\n")
         .map((lineText) => lineText.slice(minIndent))
         .join("\n");
-}
-
-function identity(x) {
-  return x;
-}
-
-function shouldNotPrintClosingTag(node, options) {
-  return (
-    !node.isSelfClosing &&
-    !node.endSourceSpan &&
-    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
-  );
 }
 
 function countChars(text, char) {
@@ -641,12 +630,48 @@ function isVueNonHtmlBlock(node, options) {
   );
 }
 
+function isVueSlotAttribute(attribute) {
+  const attributeName = attribute.fullName;
+  return (
+    attributeName.charAt(0) === "#" ||
+    attributeName === "slot-scope" ||
+    attributeName === "v-slot" ||
+    attributeName.startsWith("v-slot:")
+  );
+}
+
+function isVueSfcBindingsAttribute(attribute, options) {
+  const element = attribute.parent;
+  if (!isVueSfcBlock(element, options)) {
+    return false;
+  }
+  const tagName = element.fullName;
+  const attributeName = attribute.fullName;
+
+  return (
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-script-setup.md
+    (tagName === "script" && attributeName === "setup") ||
+    // https://github.com/vuejs/rfcs/blob/sfc-improvements/active-rfcs/0000-sfc-style-variables.md
+    (tagName === "style" && attributeName === "vars")
+  );
+}
+
+function getTextValueParts(node, value = node.value) {
+  return node.parent.isWhitespaceSensitive
+    ? node.parent.isIndentationSensitive
+      ? replaceTextEndOfLine(value)
+      : replaceTextEndOfLine(
+          dedentString(htmlTrimPreserveIndentation(value)),
+          hardline
+        )
+    : getDocParts(join(line, splitByHtmlWhitespace(value)));
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   htmlTrim,
   htmlTrimPreserveIndentation,
-  splitByHtmlWhitespace,
   hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
@@ -659,12 +684,12 @@ module.exports = {
   getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
-  getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
-  identity,
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueSlotAttribute,
+  isVueSfcBindingsAttribute,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
@@ -676,7 +701,7 @@ module.exports = {
   isUnknownNamespace,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
-  shouldNotPrintClosingTag,
   shouldPreserveContent,
   unescapeQuoteEntities,
+  getTextValueParts,
 };
