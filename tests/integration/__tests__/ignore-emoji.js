@@ -11,6 +11,16 @@ describe("ignores file name contains emoji", () => {
   });
 });
 
+describe("stdin", () => {
+  runPrettier(
+    "cli/ignore-emoji",
+    ["--stdin-filepath", "ignored/我的样式.css"],
+    { input: ".name {                         display: none; }" }
+  ).test({
+    status: 0,
+  });
+});
+
 test("API getFileInfo should ignore files contains emoji", async () => {
   await expect(
     prettier.getFileInfo(
