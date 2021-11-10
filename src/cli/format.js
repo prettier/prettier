@@ -2,7 +2,7 @@
 
 const { promises: fs } = require("fs");
 const path = require("path");
-
+const { isPathValid } = require("ignore");
 const chalk = require("chalk");
 
 // eslint-disable-next-line no-restricted-modules
@@ -250,7 +250,7 @@ async function formatStdin(context) {
 
     if (
       relativeFilepath &&
-      ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+      isIgnored(ignorer, fixWindowsSlashes(relativeFilepath))
     ) {
       writeOutput(context, { formatted: input });
       return;
@@ -294,7 +294,7 @@ async function formatFiles(context) {
       ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
       : filename;
 
-    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
+    const fileIgnored = isIgnored(ignorer, fixWindowsSlashes(ignoreFilename));
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
@@ -430,6 +430,10 @@ async function formatFiles(context) {
   ) {
     process.exitCode = 1;
   }
+}
+
+function isIgnored(ignorer, file) {
+  return isPathValid(file) && ignorer.ignores(file);
 }
 
 module.exports = { format, formatStdin, formatFiles };
