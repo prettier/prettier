@@ -508,6 +508,16 @@ function isConfigurationNode(node, parentNode) {
   return false;
 }
 
+function isParenGroupNode(node) {
+  return (
+    node.type === "value-paren_group" &&
+    node.open &&
+    node.open.value === "(" &&
+    node.close &&
+    node.close.value === ")"
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -564,4 +574,5 @@ module.exports = {
   isAtWordPlaceholderNode,
   isModuleRuleName,
   isConfigurationNode,
+  isParenGroupNode,
 };
