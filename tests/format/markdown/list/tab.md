@@ -8,6 +8,8 @@
  	- foo
  	- bar
 
+1.0 Text
+
 * Text
 
  	# foo
