@@ -1,7 +1,7 @@
 "use strict";
 
-const remarkParse = require("remark-parse");
-const unified = require("unified");
+const { default: remarkParse } = require("remark-parse");
+const { unified } = require("unified");
 const remarkMath = require("remark-math");
 const footnotes = require("remark-footnotes");
 const pragma = require("./pragma.js");
@@ -29,19 +29,15 @@ const looseItems = require("./unified-plugins/loose-items.js");
  */
 function createParse({ isMDX }) {
   return (text) => {
-    const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
-      })
-      .use(footnotes)
-      .use(frontMatter)
-      .use(remarkMath)
-      .use(isMDX ? mdx.esSyntax : identity)
-      .use(liquid)
-      .use(isMDX ? htmlToJsx : identity)
-      .use(wikiLink)
-      .use(looseItems);
+    const processor = unified().use(remarkParse);
+    // .use(footnotes)
+    // .use(frontMatter)
+    // .use(remarkMath)
+    // .use(isMDX ? mdx.esSyntax : identity)
+    // .use(liquid)
+    // .use(isMDX ? htmlToJsx : identity)
+    // .use(wikiLink)
+    // .use(looseItems);
     return processor.runSync(processor.parse(text));
   };
 }
