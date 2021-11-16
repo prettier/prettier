@@ -189,33 +189,3 @@ type T = [x<y>: A];
 
 ================================================================================
 `;
-
-exports[`type-only-module-specifiers.ts format 1`] = `
-====================================options=====================================
-parsers: ["babel-ts"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import { type A } from "foo";
-import { type B, C } from "foo";
-import { type D, type E } from "foo";
-import { type E as F } from "foo";
-
-export { type A } from "foo";
-export { type B, C } from "foo";
-export { type D, type E } from "foo";
-export { type E as F } from "foo";
-
-=====================================output=====================================
-import { type A } from "foo";
-import { type B, C } from "foo";
-import { type D, type E } from "foo";
-import { type E as F } from "foo";
-
-export { type A } from "foo";
-export { type B, C } from "foo";
-export { type D, type E } from "foo";
-export { type E as F } from "foo";
-
-================================================================================
-`;
