@@ -3,8 +3,8 @@
 const parseSrcset = require("parse-srcset");
 const getLast = require("../utils/get-last.js");
 const {
-  builders: { group, ifBreak, indent, join, line, softline },
-} = require("../document/index.js");
+  builders: { ifBreak, join, line },
+} = require("../document");
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {
@@ -60,50 +60,8 @@ function printImgSrcset(value) {
   );
 }
 
-const prefixDelimiters = [":", "__", "--", "_", "-"];
-
-function getClassPrefix(className) {
-  const startIndex = className.search(/[^_-]/);
-  if (startIndex !== -1) {
-    for (const delimiter of prefixDelimiters) {
-      const delimiterIndex = className.indexOf(delimiter, startIndex);
-      if (delimiterIndex !== -1) {
-        return className.slice(0, delimiterIndex);
-      }
-    }
-  }
-  return className;
-}
-
 function printClassNames(value) {
-  const classNames = value.trim().split(/\s+/);
-
-  // Try keeping consecutive classes with the same prefix on one line.
-  const groupedByPrefix = [];
-  let previousPrefix;
-  for (let i = 0; i < classNames.length; i++) {
-    const prefix = getClassPrefix(classNames[i]);
-    if (
-      prefix !== previousPrefix &&
-      // "home-link" and "home-link_blue_yes" should be considered same-prefix
-      prefix !== classNames[i - 1]
-    ) {
-      groupedByPrefix.push([]);
-    }
-    getLast(groupedByPrefix).push(classNames[i]);
-    previousPrefix = prefix;
-  }
-
-  return [
-    indent([
-      softline,
-      join(
-        line,
-        groupedByPrefix.map((classNames) => group(join(line, classNames)))
-      ),
-    ]),
-    softline,
-  ];
+  return value.trim().split(/\s+/).join(" ");
 }
 
 module.exports = {
