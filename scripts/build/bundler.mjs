@@ -315,6 +315,17 @@ function getWebpackConfig(bundle) {
             options: getBabelConfig(bundle),
           },
         },
+        {
+          test: /\.js$/,
+          use: {
+            loader: "string-replace-loader",
+            options: {
+              multiple: Object.entries(bundle.replace).map(
+                ([search, replace]) => ({ search, replace })
+              ),
+            },
+          },
+        },
       ],
     },
     output: {
@@ -335,11 +346,18 @@ function getWebpackConfig(bundle) {
     },
   };
 
-  if (bundle.terserOptions) {
-    config.optimization.minimizer = [
-      new WebpackPluginTerser(bundle.terserOptions),
-    ];
-  }
+  config.optimization.minimizer = [
+    new WebpackPluginTerser({
+      // prevent terser generate extra .LICENSE file
+      extractComments: false,
+      terserOptions: {
+        // prevent U+FFFE in the output
+        output: {
+          ascii_only: true,
+        },
+      },
+    }),
+  ];
   // config.optimization.minimize = false;
 
   return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);

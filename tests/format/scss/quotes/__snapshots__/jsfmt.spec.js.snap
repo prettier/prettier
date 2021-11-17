@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`forward-with.scss - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+@forward 'foo.scss' with ($components: red);
+
+=====================================output=====================================
+@forward 'foo.scss' with (
+  $components: red
+);
+
+================================================================================
+`;
+
+exports[`forward-with.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@forward 'foo.scss' with ($components: red);
+
+=====================================output=====================================
+@forward "foo.scss" with (
+  $components: red
+);
+
+================================================================================
+`;
+
 exports[`quotes.scss - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
@@ -29,11 +62,15 @@ singleQuote: true
 
 @forward "library" as btn-*;
 
+@forward "library" as btn*;
+
 =====================================output=====================================
 @use 'library';
 
-@use 'library' with
-  ($black: #222, $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif');
+@use 'library' with (
+  $black: #222,
+  $border-radius: 0.1rem $font-family: 'Helvetica, sans-serif'
+);
 
 @use 'library' as *;
 
@@ -47,7 +84,9 @@ singleQuote: true
 
 @forward 'library' hide gradient;
 
-@forward 'library' as btn- *;
+@forward 'library' as btn-*;
+
+@forward 'library' as btn*;
 
 ================================================================================
 `;
@@ -80,11 +119,15 @@ printWidth: 80
 
 @forward "library" as btn-*;
 
+@forward "library" as btn*;
+
 =====================================output=====================================
 @use "library";
 
-@use "library" with
-  ($black: #222, $border-radius: 0.1rem $font-family: "Helvetica, sans-serif");
+@use "library" with (
+  $black: #222,
+  $border-radius: 0.1rem $font-family: "Helvetica, sans-serif"
+);
 
 @use "library" as *;
 
@@ -98,7 +141,9 @@ printWidth: 80
 
 @forward "library" hide gradient;
 
-@forward "library" as btn- *;
+@forward "library" as btn-*;
+
+@forward "library" as btn*;
 
 ================================================================================
 `;

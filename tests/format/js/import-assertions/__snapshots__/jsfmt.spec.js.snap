@@ -16,7 +16,7 @@ exports[`dynamic-import.js [meriyah] format 1`] = `
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -50,7 +50,7 @@ exports[`empty.js [meriyah] format 1`] = `
 
 exports[`empty.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -89,7 +89,7 @@ exports[`multi-types.js [meriyah] format 1`] = `
 
 exports[`multi-types.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -117,7 +117,7 @@ exports[`non-type.js [meriyah] format 1`] = `
 
 exports[`non-type.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -131,7 +131,7 @@ import foo from "foo.json" assert { lazy: "true" };
 
 exports[`not-import-assertions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -165,7 +165,7 @@ exports[`re-export.js [meriyah] format 1`] = `
 
 exports[`re-export.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -197,7 +197,7 @@ exports[`static-import.js [meriyah] format 1`] = `
 
 exports[`static-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -225,7 +225,7 @@ exports[`without-from.js [meriyah] format 1`] = `
 
 exports[`without-from.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

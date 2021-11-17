@@ -204,7 +204,7 @@ function printClassProperty(path, options, print) {
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractClassProperty" || node.abstract) {
+  if (node.type === "TSAbstractPropertyDefinition" || node.abstract) {
     parts.push("abstract ");
   }
   if (node.override) {

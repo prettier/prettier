@@ -1,54 +1,18 @@
 "use strict";
 
-const {
-  getLast,
-  getNextNonSpaceNonCommentCharacter,
-} = require("../../common/util.js");
-const createError = require("../../common/parser-create-error.js");
-const { locStart, locEnd } = require("../loc.js");
-const { isTypeCastComment } = require("../comments.js");
+const { getLast } = require("../../../common/util.js");
+const { locStart, locEnd } = require("../../loc.js");
+const { isTypeCastComment } = require("../../comments.js");
+const visitNode = require("./visitNode.js");
+const { throwErrorForInvalidNodes } = require("./typescript.js");
 
 function postprocess(ast, options) {
-  // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
-  // https://github.com/typescript-eslint/typescript-eslint/pull/2375
-  if (options.parser === "typescript" && options.originalText.includes("@")) {
-    const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
-      options.tsParseResult;
-    ast = visitNode(ast, (node) => {
-      const tsNode = esTreeNodeToTSNodeMap.get(node);
-      if (!tsNode) {
-        return;
-      }
-      const tsDecorators = tsNode.decorators;
-      if (!Array.isArray(tsDecorators)) {
-        return;
-      }
-      // `esTreeNodeToTSNodeMap.get(ClassBody)` and `esTreeNodeToTSNodeMap.get(ClassDeclaration)` has the same tsNode
-      const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
-      if (esTreeNode !== node) {
-        return;
-      }
-      const esTreeDecorators = esTreeNode.decorators;
-      if (
-        !Array.isArray(esTreeDecorators) ||
-        esTreeDecorators.length !== tsDecorators.length ||
-        tsDecorators.some((tsDecorator) => {
-          const esTreeDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
-          return (
-            !esTreeDecorator || !esTreeDecorators.includes(esTreeDecorator)
-          );
-        })
-      ) {
-        const { start, end } = esTreeNode.loc;
-        throw createError(
-          "Leading decorators must be attached to a class declaration",
-          {
-            start: { line: start.line, column: start.column + 1 },
-            end: { line: end.line, column: end.column + 1 },
-          }
-        );
-      }
-    });
+  if (
+    options.parser === "typescript" &&
+    // decorators or abstract properties
+    /@|abstract/.test(options.originalText)
+  ) {
+    throwErrorForInvalidNodes(ast, options);
   }
 
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
@@ -138,19 +102,9 @@ function postprocess(ast, options) {
         ];
         break;
       }
-      case "ClassProperty":
-        // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
-        if (
-          node.key &&
-          node.key.type === "TSPrivateIdentifier" &&
-          getNextNonSpaceNonCommentCharacter(
-            options.originalText,
-            node.key,
-            locEnd
-          ) === "?"
-        ) {
-          node.optional = true;
-        }
+      // For hack-style pipeline
+      case "TopicReference":
+        options.__isUsingHackPipeline = true;
         break;
     }
   });
@@ -189,32 +143,6 @@ function transformChainExpression(node) {
     node.expression = transformChainExpression(node.expression);
   }
   return node;
-}
-
-function visitNode(node, fn) {
-  let entries;
-
-  if (Array.isArray(node)) {
-    entries = node.entries();
-  } else if (
-    node &&
-    typeof node === "object" &&
-    typeof node.type === "string"
-  ) {
-    entries = Object.entries(node);
-  } else {
-    return node;
-  }
-
-  for (const [key, child] of entries) {
-    node[key] = visitNode(child, fn);
-  }
-
-  if (Array.isArray(node)) {
-    return node;
-  }
-
-  return fn(node) || node;
 }
 
 function isUnbalancedLogicalTree(node) {

@@ -3,7 +3,7 @@
 const createError = require("../../common/parser-create-error.js");
 const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 
 // https://github.com/facebook/flow/tree/master/packages/flow-parser#options
 const parseOptions = {
@@ -54,7 +54,8 @@ function parse(text, parsers, opts) {
     throw createParseError(error);
   }
 
-  return postprocess(ast, { ...opts, originalText: text });
+  opts.originalText = text;
+  return postprocess(ast, opts);
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
