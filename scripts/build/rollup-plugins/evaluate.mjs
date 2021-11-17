@@ -15,7 +15,7 @@ export default function rollupPluginEvaluate() {
         require(id.replace(/^\0commonjs-proxy:/, "")),
         (_, v) => {
           if (typeof v === "function") {
-            throw new Error("Cannot evaluate functions.");
+            throw new TypeError("Cannot evaluate functions.");
           }
           return v;
         }
