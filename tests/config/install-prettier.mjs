@@ -1,9 +1,7 @@
-"use strict";
-
-const path = require("path");
-const fs = require("fs");
-const execa = require("execa");
-const tempy = require("tempy");
+import path from "node:path";
+import fs from "node:fs";
+import { execaSync } from "execa";
+import tempy from "tempy";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
@@ -12,17 +10,17 @@ if (!allowedClients.has(client)) {
   client = "yarn";
 }
 
-module.exports = (packageDir) => {
+function installPrettier(packageDir) {
   const tmpDir = tempy.directory();
-  const fileName = execa
-    .sync("npm", ["pack"], { cwd: packageDir })
-    .stdout.trim();
+  const fileName = execaSync("npm", ["pack"], {
+    cwd: packageDir,
+  }).stdout.trim();
   const file = path.join(packageDir, fileName);
   const packed = path.join(tmpDir, fileName);
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  execa.sync(client, ["init", "-y"], { cwd: tmpDir });
+  execaSync(client, ["init", "-y"], { cwd: tmpDir });
 
   let installArguments = [];
   switch (client) {
@@ -39,8 +37,10 @@ module.exports = (packageDir) => {
       installArguments = ["add", packed];
   }
 
-  execa.sync(client, installArguments, { cwd: tmpDir });
+  execaSync(client, installArguments, { cwd: tmpDir });
   fs.unlinkSync(packed);
 
   return path.join(tmpDir, "node_modules/prettier");
-};
+}
+
+export default installPrettier;

@@ -1,9 +1,8 @@
-"use strict";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import installPrettier from "./tests/config/install-prettier.mjs";
 
-const path = require("path");
-const installPrettier = require("./tests/config/install-prettier.js");
-
-const PROJECT_ROOT = __dirname;
+const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
 const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
@@ -52,7 +51,7 @@ if (isProduction) {
   );
 }
 
-module.exports = {
+const config = {
   setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
@@ -82,3 +81,5 @@ module.exports = {
     "jest-watch-typeahead/testname",
   ],
 };
+
+export default config;
