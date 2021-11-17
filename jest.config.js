@@ -8,6 +8,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+const SUPPORT_MODULE = !process.version.startsWith("v10.");
 
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
@@ -17,14 +18,21 @@ if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
 }
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
-const testPathIgnorePatterns = new Set();
-let transform = { "\\.mjs$": "babel-jest" };
+const testPathIgnorePatterns = [];
 if (TEST_STANDALONE) {
-  testPathIgnorePatterns.add("<rootDir>/tests/integration/");
+  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
 }
 if (!isProduction) {
   // Only test bundles for production
-  testPathIgnorePatterns.add("<rootDir>/tests/integration/__tests__/bundle.js");
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests/integration/__tests__/bundle.js"
+  );
+}
+if (!SUPPORT_MODULE) {
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests/integration/__tests__/bundle.js",
+    "<rootDir>/tests/integration/__tests__/schema.js"
+  );
 }
 
 module.exports = {
@@ -34,7 +42,7 @@ module.exports = {
     "jest-snapshot-serializer-ansi",
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: [...testPathIgnorePatterns],
+  testPathIgnorePatterns: [...new Set(testPathIgnorePatterns)],
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
@@ -51,7 +59,7 @@ module.exports = {
     "<rootDir>/website",
     "<rootDir>/scripts/release",
   ],
-  transform,
+  transform: {},
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
