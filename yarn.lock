@@ -2368,10 +2368,15 @@ camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-caniuse-lite@^1.0.30001251, caniuse-lite@^1.0.30001254:
+caniuse-lite@^1.0.30001254:
   version "1.0.30001255"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001255.tgz#f3b09b59ab52e39e751a569523618f47c4298ca0"
   integrity sha512-F+A3N9jTZL882f/fg/WWVnKSu6IOo3ueLz4zwaOPbPYHNmM/ZaDUyzyJwS1mZhX7Ex5jqTyW599Gdelh5PDYLQ==
+
+caniuse-lite@^1.0.30001267:
+  version "1.0.30001280"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001280.tgz#066a506046ba4be34cde5f74a08db7a396718fb7"
+  integrity sha512-kFXwYvHe5rix25uwueBxC569o53J6TpnGu0BEEn+6Lhl2vsnAumRFWEBhDft1fwyo6m1r4i+RqA4+163FpeFcA==
 
 caniuse-lite@^1.0.30001271:
   version "1.0.30001274"
@@ -3069,15 +3074,15 @@ eslint-module-utils@^2.7.1:
     find-up "^2.1.0"
     pkg-dir "^2.0.0"
 
-eslint-plugin-compat@3.13.0:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-3.13.0.tgz#fade6f2ad25263cf93f8d23c988533551ced8663"
-  integrity sha512-cv8IYMuTXm7PIjMVDN2y4k/KVnKZmoNGHNq27/9dLstOLydKblieIv+oe2BN2WthuXnFNhaNvv3N1Bvl4dbIGA==
+eslint-plugin-compat@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-4.0.0.tgz#4ecfb8b6b04ad24439cae3b5937ae9eda0826c47"
+  integrity sha512-lg9CPq0bsGxNXcLZgxqVAYsUUELIKZPRiwnJJQOHH910zCHEiscO00Sp+w9wflKEa/OtVaYfNhI2jOViRPZtjw==
   dependencies:
     "@mdn/browser-compat-data" "^3.3.14"
     ast-metadata-inferer "^0.7.0"
     browserslist "^4.16.8"
-    caniuse-lite "^1.0.30001251"
+    caniuse-lite "^1.0.30001267"
     core-js "^3.16.2"
     find-up "^5.0.0"
     lodash.memoize "4.1.2"
