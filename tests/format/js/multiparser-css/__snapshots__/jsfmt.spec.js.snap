@@ -401,6 +401,43 @@ const style3 = css\`
 ================================================================================
 `;
 
+exports[`issue-11797.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const paragraph1 = css\`
+  font-size: 12px;
+  transform: \${vert ? 'translateY' : 'translateX'}(\${translation + handleOffset}px);
+\`;
+
+const paragraph2 = css\`
+  transform: \${expr}(30px);
+\`;
+
+const paragraph3 = css\`
+  transform: \${expr} (30px);
+\`;
+
+=====================================output=====================================
+const paragraph1 = css\`
+  font-size: 12px;
+  transform: \${vert ? "translateY" : "translateX"}
+    (\${translation + handleOffset}px);
+\`;
+
+const paragraph2 = css\`
+  transform: \${expr}(30px);
+\`;
+
+const paragraph3 = css\`
+  transform: \${expr} (30px);
+\`;
+
+================================================================================
+`;
+
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]

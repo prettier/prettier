@@ -3,7 +3,7 @@
 const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
 const {
   builders: { line, group, indent, indentIfBreak },
-  utils: { cleanDoc, willBreak },
+  utils: { cleanDoc, willBreak, canBreak },
 } = require("../../document/index.js");
 const {
   hasLeadingOwnLineComment,
@@ -140,7 +140,8 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   if (
     isComplexDestructuring(node) ||
     isComplexTypeAliasParams(node) ||
-    hasComplexTypeAnnotation(node)
+    hasComplexTypeAnnotation(node) ||
+    (isArrowFunctionVariableDeclarator(node) && canBreak(leftDoc))
   ) {
     return "break-lhs";
   }
@@ -292,6 +293,14 @@ function hasComplexTypeAnnotation(node) {
         isNonEmptyArray(getTypeParametersFromTypeReference(param)) ||
         param.type === "TSConditionalType"
     )
+  );
+}
+
+function isArrowFunctionVariableDeclarator(node) {
+  return (
+    node.type === "VariableDeclarator" &&
+    node.init &&
+    node.init.type === "ArrowFunctionExpression"
   );
 }
 
@@ -457,4 +466,5 @@ module.exports = {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,
+  isArrowFunctionVariableDeclarator,
 };

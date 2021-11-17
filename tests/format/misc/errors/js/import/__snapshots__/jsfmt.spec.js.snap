@@ -37,7 +37,7 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
+"Dynamic import requires exactly one or two arguments. (1:8)
 > 1 | import();
     |        ^"
 `;
@@ -79,7 +79,7 @@ exports[`snippet: #1 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
+"Dynamic import requires exactly one or two arguments. (1:8)
 > 1 | import(/* comment */);
     |        ^"
 `;

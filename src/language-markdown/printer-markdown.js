@@ -435,6 +435,8 @@ function genericPrint(path, options, print) {
     // or `embeddedLanguageFormatting: "off"`
     case "importExport":
       return [node.value, hardline];
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "jsx":
       return node.value;
     case "math":
@@ -758,13 +760,29 @@ function getLastDescendantNode(node) {
 
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  if (node.type !== "html") {
-    return false;
+  let match;
+
+  if (node.type === "html") {
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
+  } else {
+    let comment;
+
+    if (node.type === "esComment") {
+      comment = node;
+    } else if (
+      node.type === "paragraph" &&
+      node.children.length === 1 &&
+      node.children[0].type === "esComment"
+    ) {
+      comment = node.children[0];
+    }
+
+    if (comment) {
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
+    }
   }
-  const match = node.value.match(
-    /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/
-  );
-  return match === null ? false : match[1] ? match[1] : "next";
+
+  return match ? (match[1] ? match[1] : "next") : false;
 }
 
 function shouldPrePrintHardline(node, data) {

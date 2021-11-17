@@ -75,6 +75,7 @@ const {
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
   isConfigurationNode,
+  isParenGroupNode,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -810,14 +811,15 @@ function genericPrint(path, options, print) {
         }
 
         if (
-          iNode.value === "with" &&
-          iNextNode &&
-          iNextNode.type === "value-paren_group" &&
-          iNextNode.open &&
-          iNextNode.open.value === "(" &&
-          iNextNode.close &&
-          iNextNode.close.value === ")"
+          isAtWordPlaceholderNode(iNode) &&
+          isParenGroupNode(iNextNode) &&
+          locEnd(iNode) === locStart(iNextNode.open)
         ) {
+          parts.push(softline);
+          continue;
+        }
+
+        if (iNode.value === "with" && isParenGroupNode(iNextNode)) {
           parts.push(" ");
           continue;
         }
