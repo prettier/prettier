@@ -12,6 +12,7 @@ const INLINE_NODE_TYPES = [
   "liquidNode",
   "inlineCode",
   "emphasis",
+  "esComment",
   "strong",
   "delete",
   "wikiLink",
