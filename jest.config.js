@@ -18,18 +18,18 @@ if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
 }
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
-const testPathIgnorePatterns = [];
+const testPathIgnorePatterns = new Set();
 if (TEST_STANDALONE) {
-  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
+  testPathIgnorePatterns.add("<rootDir>/tests/integration/");
 }
 if (!isProduction) {
   // Only test bundles for production
-  testPathIgnorePatterns.push(
+  testPathIgnorePatterns.add(
     "<rootDir>/tests/integration/__tests__/bundle.js"
   );
 }
 if (!SUPPORT_MODULE) {
-  testPathIgnorePatterns.push(
+  testPathIgnorePatterns.add(
     "<rootDir>/tests/integration/__tests__/bundle.js",
     "<rootDir>/tests/integration/__tests__/schema.js"
   );
@@ -42,7 +42,7 @@ module.exports = {
     "jest-snapshot-serializer-ansi",
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: [...new Set(testPathIgnorePatterns)],
+  testPathIgnorePatterns: [...testPathIgnorePatterns],
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
