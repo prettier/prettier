@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import execa from "execa";
+import { execa } from "execa";
 import chalk from "chalk";
 import outdent from "outdent";
 import semver from "semver";

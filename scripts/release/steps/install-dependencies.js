@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execa } from "execa";
 import { runYarn, runGit, logPromise } from "../utils.js";
 
 async function install() {
