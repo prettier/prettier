@@ -24,15 +24,11 @@ if (TEST_STANDALONE) {
 }
 if (!isProduction) {
   // Only test bundles for production
-  testPathIgnorePatterns.add(
-    "<rootDir>/tests/integration/__tests__/bundle.js"
-  );
+  testPathIgnorePatterns.add("<rootDir>/tests/integration/__tests__/bundle.js");
 }
 if (!SUPPORT_MODULE) {
-  testPathIgnorePatterns.add(
-    "<rootDir>/tests/integration/__tests__/bundle.js",
-    "<rootDir>/tests/integration/__tests__/schema.js"
-  );
+  testPathIgnorePatterns.add("<rootDir>/tests/integration/__tests__/bundle.js");
+  testPathIgnorePatterns.add("<rootDir>/tests/integration/__tests__/schema.js");
 }
 
 module.exports = {
