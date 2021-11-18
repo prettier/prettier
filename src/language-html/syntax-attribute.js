@@ -3,7 +3,7 @@
 const parseSrcset = require("parse-srcset");
 const {
   builders: { ifBreak, join, line },
-} = require("../document.js");
+} = require("../document/index.js");
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {
