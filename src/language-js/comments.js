@@ -460,7 +460,7 @@ function handleMethodNameComments({
     (enclosingNode.type === "ClassMethod" ||
       enclosingNode.type === "ClassProperty" ||
       enclosingNode.type === "PropertyDefinition" ||
-      enclosingNode.type === "TSAbstractClassProperty" ||
+      enclosingNode.type === "TSAbstractPropertyDefinition" ||
       enclosingNode.type === "TSAbstractMethodDefinition" ||
       enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "MethodDefinition")

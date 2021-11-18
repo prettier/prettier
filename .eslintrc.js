@@ -7,6 +7,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
   plugins: ["prettier-internal-rules", "import", "regexp", "unicorn"],
   settings: {
@@ -235,7 +236,7 @@ module.exports = {
             functions: ["hasComment", "getComments"],
           },
           "src/language-js/pragma.js",
-          "src/language-js/parse/postprocess.js",
+          "src/language-js/parse/postprocess/*.js",
           "src/language-js/parse/babel.js",
           "src/language-js/parse/meriyah.js",
           "src/language-js/parse/json.js",

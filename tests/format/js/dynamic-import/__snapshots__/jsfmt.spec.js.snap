@@ -21,13 +21,6 @@ exports[`assertions.js [meriyah] format 1`] = `
   2 |"
 `;
 
-exports[`assertions.js [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
-    |        ^
-  2 |"
-`;
-
 exports[`assertions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

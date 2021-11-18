@@ -7,7 +7,7 @@ const {
 } = require("../../common/util.js");
 const createParser = require("./utils/create-parser.js");
 const createBabelParseError = require("./utils/create-babel-parse-error.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 const jsonParsers = require("./json.js");
 
 /**
@@ -37,7 +37,6 @@ const parseOptions = {
     ["decorators", { decoratorsBeforeExport: false }],
     "importAssertions",
     "decimal",
-    "classStaticBlock",
     "moduleBlocks",
     "asyncDoExpressions",
   ],
@@ -179,6 +178,10 @@ const allowedMessageCodes = new Set([
   "StrictNumericEscape",
   "StrictWith",
   "StrictOctalLiteral",
+  "StrictDelete",
+  "StrictEvalArguments",
+  "StrictEvalArgumentsBinding",
+  "StrictFunction",
 
   "EmptyTypeArguments",
   "EmptyTypeParameters",

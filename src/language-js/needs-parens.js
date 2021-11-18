@@ -140,6 +140,10 @@ function needsParens(path, options) {
               break;
             case "Identifier":
               return false;
+            case "TaggedTemplateExpression":
+              // babel-parser cannot parse
+              //   @foo`bar`
+              return options.parser !== "typescript";
             default:
               return true;
           }

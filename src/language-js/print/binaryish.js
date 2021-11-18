@@ -112,7 +112,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
     parent.type === "PropertyDefinition" ||
-    parent.type === "TSAbstractClassProperty" ||
+    parent.type === "TSAbstractPropertyDefinition" ||
     parent.type === "ClassPrivateProperty" ||
     isObjectProperty(parent);
 

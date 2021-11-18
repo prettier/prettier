@@ -8,6 +8,7 @@ function htmlToJsx() {
     mapAst(ast, (node, _index, [parent]) => {
       if (
         node.type !== "html" ||
+        // Keep HTML-style comments (legacy MDX)
         mdx.COMMENT_REGEX.test(node.value) ||
         INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
       ) {
