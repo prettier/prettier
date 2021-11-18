@@ -1,23 +1,23 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
-  builders: { concat, join, line, group, indent, ifBreak },
-} = require("../../document");
-const { hasComment, identity, CommentCheckFlags } = require("../utils");
-const { getTypeParametersGroupId } = require("./type-parameters");
-const { printTypeScriptModifiers } = require("./misc");
+  builders: { join, line, group, indent, ifBreak },
+} = require("../../document/index.js");
+const { hasComment, identity, CommentCheckFlags } = require("../utils.js");
+const { getTypeParametersGroupId } = require("./type-parameters.js");
+const { printTypeScriptModifiers } = require("./misc.js");
 
 function printInterface(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
-  if (n.declare) {
+  if (node.declare) {
     parts.push("declare ");
   }
 
-  if (n.type === "TSInterfaceDeclaration") {
+  if (node.type === "TSInterfaceDeclaration") {
     parts.push(
-      n.abstract ? "abstract " : "",
+      node.abstract ? "abstract " : "",
       printTypeScriptModifiers(path, options, print)
     );
   }
@@ -27,58 +27,47 @@ function printInterface(path, options, print) {
   const partsGroup = [];
   const extendsParts = [];
 
-  if (n.type !== "InterfaceTypeAnnotation") {
-    partsGroup.push(
-      " ",
-      path.call(print, "id"),
-      path.call(print, "typeParameters")
-    );
+  if (node.type !== "InterfaceTypeAnnotation") {
+    partsGroup.push(" ", print("id"), print("typeParameters"));
   }
 
   const shouldIndentOnlyHeritageClauses =
-    n.typeParameters &&
+    node.typeParameters &&
     !hasComment(
-      n.typeParameters,
+      node.typeParameters,
       CommentCheckFlags.Trailing | CommentCheckFlags.Line
     );
 
-  if (isNonEmptyArray(n.extends)) {
+  if (isNonEmptyArray(node.extends)) {
     extendsParts.push(
       shouldIndentOnlyHeritageClauses
         ? ifBreak(" ", line, {
-            groupId: getTypeParametersGroupId(n.typeParameters),
+            groupId: getTypeParametersGroupId(node.typeParameters),
           })
         : line,
       "extends ",
-      (n.extends.length === 1 ? identity : indent)(
-        join(concat([",", line]), path.map(print, "extends"))
+      (node.extends.length === 1 ? identity : indent)(
+        join([",", line], path.map(print, "extends"))
       )
     );
   }
 
   if (
-    (n.id && hasComment(n.id, CommentCheckFlags.Trailing)) ||
-    isNonEmptyArray(n.extends)
+    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
+    isNonEmptyArray(node.extends)
   ) {
-    const printedExtends = concat(extendsParts);
     if (shouldIndentOnlyHeritageClauses) {
-      parts.push(
-        group(
-          concat(
-            partsGroup.concat(ifBreak(indent(printedExtends), printedExtends))
-          )
-        )
-      );
+      parts.push(group([...partsGroup, indent(extendsParts)]));
     } else {
-      parts.push(group(indent(concat(partsGroup.concat(printedExtends)))));
+      parts.push(group(indent([...partsGroup, ...extendsParts])));
     }
   } else {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", path.call(print, "body"));
+  parts.push(" ", print("body"));
 
-  return group(concat(parts));
+  return group(parts);
 }
 
 module.exports = { printInterface };

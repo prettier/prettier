@@ -1,13 +1,13 @@
 "use strict";
 
 const {
-  builders: { indent, line, hardline, concat, group },
+  builders: { indent, line, hardline, group },
   utils: { mapDoc },
-} = require("../../document");
+} = require("../../document/index.js");
 const {
   printTemplateExpressions,
   uncookTemplateElementValue,
-} = require("../print/template-literal");
+} = require("../print/template-literal.js");
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
@@ -59,7 +59,7 @@ function format(path, print, textToDoc, options, { parser }) {
       if (i % 2 === 0) {
         if (component) {
           component = uncookTemplateElementValue(component);
-          if (options.embeddedInHtml) {
+          if (options.__embeddedInHtml) {
             component = component.replace(/<\/(script)\b/gi, "<\\/$1");
           }
           parts.push(component);
@@ -67,11 +67,11 @@ function format(path, print, textToDoc, options, { parser }) {
         continue;
       }
 
-      const placeholderIndex = +component;
+      const placeholderIndex = Number(component);
       parts.push(expressionDocs[placeholderIndex]);
     }
 
-    return concat(parts);
+    return parts;
   });
 
   const leadingWhitespace = /^\s/.test(text) ? " " : "";
@@ -85,25 +85,16 @@ function format(path, print, textToDoc, options, { parser }) {
       : null;
 
   if (linebreak) {
-    return group(
-      concat([
-        "`",
-        indent(concat([linebreak, group(contentDoc)])),
-        linebreak,
-        "`",
-      ])
-    );
+    return group(["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]);
   }
 
-  return group(
-    concat([
-      "`",
-      leadingWhitespace,
-      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
-      trailingWhitespace,
-      "`",
-    ])
-  );
+  return group([
+    "`",
+    leadingWhitespace,
+    topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+    trailingWhitespace,
+    "`",
+  ]);
 }
 
 module.exports = format;

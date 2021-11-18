@@ -1,12 +1,13 @@
 "use strict";
 
-const { hasNewline } = require("../../common/util");
+const { hasNewline } = require("../../common/util.js");
 const {
-  builders: { concat, join, hardline },
-} = require("../../document");
+  builders: { join, hardline },
+  utils: { replaceTextEndOfLine },
+} = require("../../document/index.js");
 
-const { isLineComment, isBlockComment } = require("../utils");
-const { locStart, locEnd } = require("../loc");
+const { isLineComment, isBlockComment } = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
@@ -30,7 +31,7 @@ function printComment(commentPath, options) {
           backwards: true,
         })
       ) {
-        return concat([hardline, printed]);
+        return [hardline, printed];
       }
       return printed;
     }
@@ -38,7 +39,11 @@ function printComment(commentPath, options) {
     const commentEnd = locEnd(comment);
     const isInsideFlowComment =
       options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-    return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
+    return [
+      "/*",
+      replaceTextEndOfLine(comment.value),
+      isInsideFlowComment ? "*-/" : "*/",
+    ];
   }
 
   /* istanbul ignore next */
@@ -57,7 +62,7 @@ function isIndentableBlockComment(comment) {
 function printIndentableBlockComment(comment) {
   const lines = comment.value.split("\n");
 
-  return concat([
+  return [
     "/*",
     join(
       hardline,
@@ -68,7 +73,7 @@ function printIndentableBlockComment(comment) {
       )
     ),
     "*/",
-  ]);
+  ];
 }
 
 module.exports = { printComment };

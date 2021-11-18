@@ -1,9 +1,9 @@
 "use strict";
 
-const { getStringWidth, getIndentSize } = require("../../common/util");
+const getLast = require("../../utils/get-last.js");
+const { getStringWidth, getIndentSize } = require("../../common/util.js");
 const {
   builders: {
-    concat,
     join,
     hardline,
     softline,
@@ -15,13 +15,14 @@ const {
   },
   printer: { printDocToString },
   utils: { mapDoc },
-} = require("../../document");
+} = require("../../document/index.js");
 const {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
-} = require("../utils");
+  isMemberExpression,
+} = require("../utils.js");
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
@@ -60,7 +61,7 @@ function printTemplateLiteral(path, print, options) {
   path.each((childPath) => {
     const i = childPath.getName();
 
-    parts.push(print(childPath));
+    parts.push(print());
 
     if (i < expressions.length) {
       // For a template literal of the following form:
@@ -86,14 +87,13 @@ function printTemplateLiteral(path, print, options) {
         // in the middle of a MemberExpression
         if (
           hasComment(expression) ||
-          expression.type === "MemberExpression" ||
-          expression.type === "OptionalMemberExpression" ||
+          isMemberExpression(expression) ||
           expression.type === "ConditionalExpression" ||
           expression.type === "SequenceExpression" ||
           expression.type === "TSAsExpression" ||
           isBinaryish(expression)
         ) {
-          printed = concat([indent(concat([softline, printed])), softline]);
+          printed = [indent([softline, printed]), softline];
         }
       }
 
@@ -102,13 +102,13 @@ function printTemplateLiteral(path, print, options) {
           ? align(Number.NEGATIVE_INFINITY, printed)
           : addAlignmentToDoc(printed, indentSize, tabWidth);
 
-      parts.push(group(concat(["${", aligned, lineSuffixBoundary, "}"])));
+      parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
     }
   }, "quasis");
 
   parts.push("`");
 
-  return concat(parts);
+  return parts;
 }
 
 function printJestEachTemplateLiteral(path, options, print) {
@@ -122,7 +122,7 @@ function printJestEachTemplateLiteral(path, options, print) {
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
-    headerNames.some((headerName) => headerName.length !== 0)
+    headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
     const expressions = path.map(print, "expressions");
@@ -141,7 +141,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = tableBody[tableBody.length - 1];
+      const row = getLast(tableBody);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
@@ -162,53 +162,51 @@ function printJestEachTemplateLiteral(path, options, print) {
     const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
     const table = [
       { cells: headerNames },
-      ...tableBody.filter((row) => row.cells.length !== 0),
+      ...tableBody.filter((row) => row.cells.length > 0),
     ];
     for (const { cells } of table.filter((row) => !row.hasLineBreak)) {
-      cells.forEach((cell, index) => {
+      for (const [index, cell] of cells.entries()) {
         maxColumnWidths[index] = Math.max(
           maxColumnWidths[index],
           getStringWidth(cell)
         );
-      });
+      }
     }
 
     parts.push(
       lineSuffixBoundary,
       "`",
-      indent(
-        concat([
+      indent([
+        hardline,
+        join(
           hardline,
-          join(
-            hardline,
-            table.map((row) =>
-              join(
-                " | ",
-                row.cells.map((cell, index) =>
-                  row.hasLineBreak
-                    ? cell
-                    : cell +
-                      " ".repeat(maxColumnWidths[index] - getStringWidth(cell))
-                )
+          table.map((row) =>
+            join(
+              " | ",
+              row.cells.map((cell, index) =>
+                row.hasLineBreak
+                  ? cell
+                  : cell +
+                    " ".repeat(maxColumnWidths[index] - getStringWidth(cell))
               )
             )
-          ),
-        ])
-      ),
+          )
+        ),
+      ]),
       hardline,
       "`"
     );
-    return concat(parts);
+    return parts;
   }
 }
 
 function printTemplateExpression(path, print) {
   const node = path.getValue();
-  let printed = print(path);
+  let printed = print();
   if (hasComment(node)) {
-    printed = group(concat([indent(concat([softline, printed])), softline]));
+    printed = group([indent([softline, printed]), softline]);
   }
-  return concat(["${", printed, lineSuffixBoundary, "}"]);
+  return ["${", printed, lineSuffixBoundary, "}"];
 }
 
 function printTemplateExpressions(path, print) {

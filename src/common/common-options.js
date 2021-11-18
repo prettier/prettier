@@ -2,7 +2,7 @@
 
 const CATEGORY_COMMON = "Common";
 
-// format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 module.exports = {
   bracketSpacing: {
     since: "0.0.0",
@@ -45,5 +45,13 @@ module.exports = {
         description: "Wrap prose as-is.",
       },
     ],
+  },
+  bracketSameLine: {
+    since: "2.4.0",
+    category: CATEGORY_COMMON,
+    type: "boolean",
+    default: false,
+    description:
+      "Put > of opening tags on the last line instead of on a new line.",
   },
 };

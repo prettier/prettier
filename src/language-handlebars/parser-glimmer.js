@@ -1,8 +1,8 @@
 "use strict";
 
 const LinesAndColumns = require("lines-and-columns").default;
-const createError = require("../common/parser-create-error");
-const { locStart, locEnd } = require("./loc");
+const createError = require("../common/parser-create-error.js");
+const { locStart, locEnd } = require("./loc.js");
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash

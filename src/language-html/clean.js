@@ -1,6 +1,6 @@
 "use strict";
 
-const { isFrontMatterNode } = require("../common/util");
+const { isFrontMatterNode } = require("../common/util.js");
 
 const ignoredProperties = new Set([
   "sourceSpan",

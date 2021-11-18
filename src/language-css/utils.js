@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util.js");
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -28,9 +28,10 @@ const colorAdjusterFunctions = new Set([
   "hwb",
   "hwba",
 ]);
+const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function getAncestorCounter(path, typeOrTypes) {
-  const types = [].concat(typeOrTypes);
+  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
 
   let counter = -1;
   let ancestorNode;
@@ -89,14 +90,14 @@ function hasStringOrFunction(groupList) {
 
 function isSCSS(parser, text) {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
+  const IS_POSSIBLY_SCSS = /(?:\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
 }
 
 function isSCSSVariable(node) {
-  return !!(node && node.type === "word" && node.value.startsWith("$"));
+  return Boolean(node && node.type === "word" && node.value.startsWith("$"));
 }
 
 function isWideKeywords(value) {
@@ -149,7 +150,9 @@ function insideICSSRuleNode(path) {
 }
 
 function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
-  const atRuleNames = [].concat(atRuleNameOrAtRuleNames);
+  const atRuleNames = Array.isArray(atRuleNameOrAtRuleNames)
+    ? atRuleNameOrAtRuleNames
+    : [atRuleNameOrAtRuleNames];
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
@@ -401,7 +404,22 @@ function isWordNode(node) {
 }
 
 function isColonNode(node) {
-  return node.type === "value-colon";
+  return node && node.type === "value-colon";
+}
+
+function isKeyInValuePairNode(node, parentNode) {
+  if (!isKeyValuePairNode(parentNode)) {
+    return false;
+  }
+
+  const { groups } = parentNode;
+  const index = groups.indexOf(node);
+
+  if (index === -1) {
+    return false;
+  }
+
+  return isColonNode(groups[index + 1]);
 }
 
 function isMediaAndSupportsKeywords(node) {
@@ -462,6 +480,44 @@ function isAtWordPlaceholderNode(node) {
   );
 }
 
+function isModuleRuleName(name) {
+  return moduleRuleNames.has(name);
+}
+
+function isConfigurationNode(node, parentNode) {
+  if (
+    !node.open ||
+    node.open.value !== "(" ||
+    !node.close ||
+    node.close.value !== ")" ||
+    node.groups.some((group) => group.type !== "value-comma_group")
+  ) {
+    return false;
+  }
+  if (parentNode.type === "value-comma_group") {
+    const prevIdx = parentNode.groups.indexOf(node) - 1;
+    const maybeWithNode = parentNode.groups[prevIdx];
+    if (
+      maybeWithNode &&
+      maybeWithNode.type === "value-word" &&
+      maybeWithNode.value === "with"
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isParenGroupNode(node) {
+  return (
+    node.type === "value-paren_group" &&
+    node.open &&
+    node.open.value === "(" &&
+    node.close &&
+    node.close.value === ")"
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -503,6 +559,7 @@ module.exports = {
   isPostcssSimpleVarNode,
   isKeyValuePairNode,
   isKeyValuePairInParenGroupNode,
+  isKeyInValuePairNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
   isHashNode,
@@ -515,4 +572,7 @@ module.exports = {
   lastLineHasInlineComment,
   stringifyNode,
   isAtWordPlaceholderNode,
+  isModuleRuleName,
+  isConfigurationNode,
+  isParenGroupNode,
 };

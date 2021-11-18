@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`front-matter-json.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---json
+{
+    "a": 1 }
+...
+
+The above should be reformatted because it isn't parsed as json front matter.
+
+=====================================output=====================================
+---json
+{
+"a": 1 }
+...
+
+The above should be reformatted because it isn't parsed as json front matter.
+
+================================================================================
+`;
+
+exports[`front-matter-json.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---json
+{
+    "a": 1 }
+...
+
+The above should be reformatted because it isn't parsed as json front matter.
+
+=====================================output=====================================
+---json
+{
+"a": 1 }
+...
+
+The above should be reformatted because it isn't parsed as json front matter.
+
+================================================================================
+`;
+
+exports[`front-matter-pandoc.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---yaml
+  
+title: Hello
+slug: home
+
+...
+
+Hello world!
+
+
+=====================================output=====================================
+---yaml
+  
+title: Hello
+slug: home
+
+...
+
+Hello world!
+
+================================================================================
+`;
+
+exports[`front-matter-pandoc.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---yaml
+  
+title: Hello
+slug: home
+
+...
+
+Hello world!
+
+
+=====================================output=====================================
+---
+title: Hello
+slug: home
+...
+
+Hello world!
+
+================================================================================
+`;
+
+exports[`test.md - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`js
+1 +  2
+\`\`\`
+
+=====================================output=====================================
+\`\`\`js
+1 +  2
+\`\`\`
+
+================================================================================
+`;
+
+exports[`test.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+\`\`\`js
+1 +  2
+\`\`\`
+
+=====================================output=====================================
+\`\`\`js
+1 + 2;
+\`\`\`
+
+================================================================================
+`;

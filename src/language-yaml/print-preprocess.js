@@ -1,5 +1,5 @@
 "use strict";
-const { defineShortcut, mapNode } = require("./utils");
+const { defineShortcut, mapNode } = require("./utils.js");
 
 function preprocess(ast) {
   return mapNode(ast, defineShortcuts);

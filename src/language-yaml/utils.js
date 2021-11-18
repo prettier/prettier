@@ -1,6 +1,6 @@
 "use strict";
 
-const { getLast, isNonEmptyArray } = require("../common/util");
+const { getLast, isNonEmptyArray } = require("../common/util.js");
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -164,7 +164,7 @@ function splitWithSingleSpace(text) {
   const parts = [];
 
   let lastPart;
-  for (const part of text.split(/( +)/g)) {
+  for (const part of text.split(/( +)/)) {
     /* istanbul ignore else */
     if (part !== " ") {
       if (lastPart === " ") {
@@ -218,8 +218,8 @@ function getFlowScalarLineContents(nodeType, content, options) {
     .reduce(
       (reduced, lineContentWords, index) =>
         index !== 0 &&
-        rawLineContents[index - 1].length !== 0 &&
-        lineContentWords.length !== 0 &&
+        rawLineContents[index - 1].length > 0 &&
+        lineContentWords.length > 0 &&
         !(
           // trailing backslash in quoteDouble should be preserved
           (
@@ -227,8 +227,11 @@ function getFlowScalarLineContents(nodeType, content, options) {
             getLast(getLast(reduced)).endsWith("\\")
           )
         )
-          ? reduced.concat([reduced.pop().concat(lineContentWords)])
-          : reduced.concat([lineContentWords]),
+          ? [
+              ...reduced.slice(0, -1),
+              [...getLast(reduced), ...lineContentWords],
+            ]
+          : [...reduced, lineContentWords],
       []
     )
     .map((lineContentWords) =>
@@ -248,7 +251,7 @@ function getBlockValueLineContents(
       : options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           // exclude open line `>` or `|`
-          .match(/^[^\n]*?\n([\S\s]*)$/)[1];
+          .match(/^[^\n]*?\n(.*)$/s)[1];
 
   const leadingSpaceCount =
     node.indent === null
@@ -277,21 +280,24 @@ function getBlockValueLineContents(
       .reduce(
         (reduced, lineContentWords, index) =>
           index !== 0 &&
-          rawLineContents[index - 1].length !== 0 &&
-          lineContentWords.length !== 0 &&
+          rawLineContents[index - 1].length > 0 &&
+          lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
           !/^\s|\s$/.test(getLast(reduced))
-            ? reduced.concat([reduced.pop().concat(lineContentWords)])
-            : reduced.concat([lineContentWords]),
+            ? [
+                ...reduced.slice(0, -1),
+                [...getLast(reduced), ...lineContentWords],
+              ]
+            : [...reduced, lineContentWords],
         []
       )
       .map((lineContentWords) =>
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
-            reduced.length !== 0 && /\s$/.test(getLast(reduced))
-              ? reduced.concat(reduced.pop() + " " + word)
-              : reduced.concat(word),
+            reduced.length > 0 && /\s$/.test(getLast(reduced))
+              ? [...reduced.slice(0, -1), getLast(reduced) + " " + word]
+              : [...reduced, word],
           []
         )
       )

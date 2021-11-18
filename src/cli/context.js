@@ -1,27 +1,25 @@
 "use strict";
-const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
-const { createLogger } = require("./logger");
+const prettier = require("../index.js");
 const {
   optionsModule,
-  optionsNormalizer,
+  optionsNormalizer: { normalizeCliOptions },
   utils: { arrayify },
-} = require("./prettier-internal");
-const minimist = require("./minimist");
-const constant = require("./constant");
+} = require("./prettier-internal.js");
+const minimist = require("./minimist.js");
+const constant = require("./constant.js");
 const {
   createDetailedOptionMap,
   normalizeDetailedOptionMap,
-} = require("./option-map");
-const createMinimistOptions = require("./create-minimist-options");
+} = require("./option-map.js");
+const createMinimistOptions = require("./create-minimist-options.js");
 
 /**
  * @typedef {Object} Context
  * @property logger
- * @property {string[]} args
+ * @property {string[]} rawArguments
  * @property argv
  * @property {string[]} filePatterns
  * @property {any[]} supportOptions
@@ -30,38 +28,53 @@ const createMinimistOptions = require("./create-minimist-options");
  * @property apiDefaultOptions
  * @property languages
  * @property {Partial<Context>[]} stack
+ * @property pushContextPlugins
+ * @property popContextPlugins
  */
 
-/** @returns {Context} */
-function createContext(args) {
-  /** @type {Context} */
-  const context = { args, stack: [] };
+class Context {
+  constructor({ rawArguments, logger }) {
+    this.rawArguments = rawArguments;
+    this.logger = logger;
+    this.stack = [];
 
-  updateContextArgv(context);
-  normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
+    const { plugin: plugins, "plugin-search-dir": pluginSearchDirs } =
+      parseArgvWithoutPlugins(rawArguments, logger, [
+        "plugin",
+        "plugin-search-dir",
+      ]);
 
-  context.logger = createLogger(context.argv.loglevel);
+    this.pushContextPlugins(plugins, pluginSearchDirs);
 
-  updateContextArgv(
-    context,
-    context.argv.plugin,
-    context.argv["plugin-search-dir"]
-  );
+    const argv = parseArgv(rawArguments, this.detailedOptions, logger);
+    this.argv = argv;
+    this.filePatterns = argv._.map((file) => String(file));
+  }
 
-  return context;
+  /**
+   * @param {string[]} plugins
+   * @param {string[]=} pluginSearchDirs
+   */
+  pushContextPlugins(plugins, pluginSearchDirs) {
+    this.stack.push(
+      pick(this, [
+        "supportOptions",
+        "detailedOptions",
+        "detailedOptionMap",
+        "apiDefaultOptions",
+        "languages",
+      ])
+    );
+
+    Object.assign(this, getContextOptions(plugins, pluginSearchDirs));
+  }
+
+  popContextPlugins() {
+    Object.assign(this, this.stack.pop());
+  }
 }
 
-function initContext(context) {
-  // split into 2 step so that we could wrap this in a `try..catch` in cli/index.js
-  normalizeContextArgv(context);
-}
-
-/**
- * @param {Context} context
- * @param {string[]} plugins
- * @param {string[]=} pluginSearchDirs
- */
-function updateContextOptions(context, plugins, pluginSearchDirs) {
+function getContextOptions(plugins, pluginSearchDirs) {
   const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
@@ -69,7 +82,6 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     plugins,
     pluginSearchDirs,
   });
-
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
     ...constant.options,
@@ -79,71 +91,44 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
 
   const apiDefaultOptions = {
     ...optionsModule.hiddenDefaults,
-    ...fromPairs(
+    ...Object.fromEntries(
       supportOptions
         .filter(({ deprecated }) => !deprecated)
         .map((option) => [option.name, option.default])
     ),
   };
 
-  Object.assign(context, {
+  return {
     supportOptions,
     detailedOptions,
     detailedOptionMap,
     apiDefaultOptions,
     languages,
-  });
+  };
 }
 
-/**
- * @param {Context} context
- * @param {string[]} plugins
- * @param {string[]=} pluginSearchDirs
- */
-function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context.stack.push(
-    pick(context, [
-      "supportOptions",
-      "detailedOptions",
-      "detailedOptionMap",
-      "apiDefaultOptions",
-      "languages",
-    ])
+function parseArgv(rawArguments, detailedOptions, logger, keys) {
+  const minimistOptions = createMinimistOptions(detailedOptions);
+  let argv = minimist(rawArguments, minimistOptions);
+
+  if (keys) {
+    detailedOptions = detailedOptions.filter((option) =>
+      keys.includes(option.name)
+    );
+    argv = pick(argv, keys);
+  }
+
+  return normalizeCliOptions(argv, detailedOptions, { logger });
+}
+
+const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
+function parseArgvWithoutPlugins(rawArguments, logger, keys) {
+  return parseArgv(
+    rawArguments,
+    detailedOptionsWithoutPlugins,
+    logger,
+    typeof keys === "string" ? [keys] : keys
   );
-  updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
-/**
- * @param {Context} context
- */
-function popContextPlugins(context) {
-  Object.assign(context, context.stack.pop());
-}
-
-function updateContextArgv(context, plugins, pluginSearchDirs) {
-  pushContextPlugins(context, plugins, pluginSearchDirs);
-
-  const minimistOptions = createMinimistOptions(context.detailedOptions);
-  const argv = minimist(context.args, minimistOptions);
-
-  context.argv = argv;
-  context.filePatterns = argv._.map((file) => String(file));
-}
-
-function normalizeContextArgv(context, keys) {
-  const detailedOptions = !keys
-    ? context.detailedOptions
-    : context.detailedOptions.filter((option) => keys.includes(option.name));
-  const argv = !keys ? context.argv : pick(context.argv, keys);
-
-  context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-    logger: context.logger,
-  });
-}
-
-module.exports = {
-  createContext,
-  initContext,
-  popContextPlugins,
-  pushContextPlugins,
-};
+module.exports = { Context, parseArgvWithoutPlugins };

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`issue-9260.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# title
+
+<Parenthesis>
+
+CR: Carriage Return, \\r
+LF: Line Feed, \\n
+
+</Parenthesis>
+
+=====================================output=====================================
+# title
+
+<Parenthesis>
+
+CR: Carriage Return, \\r
+LF: Line Feed, \\n
+
+</Parenthesis>
+
+================================================================================
+`;
+
+exports[`pull-11563.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# title
+
+{ /* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. */ }
+
+{/* Some more. */}
+
+=====================================output=====================================
+# title
+
+{/* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
+
+{/* Some more. */}
+
+================================================================================
+`;

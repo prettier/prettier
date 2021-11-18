@@ -1,14 +1,30 @@
 "use strict";
 
-/** @type {import("assert")} */
+/** @typedef {import("../../document/doc-builders").Doc} Doc */
+
 const assert = require("assert");
-const { printDanglingComments } = require("../../main/comments");
+const {
+  printDanglingComments,
+  printCommentsSeparately,
+} = require("../../main/comments.js");
+const getLast = require("../../utils/get-last.js");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util");
+} = require("../../common/util.js");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak, hardline },
-} = require("../../document");
+  builders: {
+    line,
+    softline,
+    group,
+    indent,
+    ifBreak,
+    hardline,
+    join,
+    indentIfBreak,
+  },
+  utils: { removeLines, willBreak },
+} = require("../../document/index.js");
+const { ArgExpansionBailout } = require("../../common/errors.js");
 const {
   getFunctionParameters,
   hasLeadingOwnLineComment,
@@ -17,59 +33,90 @@ const {
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
   hasComment,
   getComments,
   CommentCheckFlags,
-} = require("../utils");
-const { locEnd } = require("../loc");
-const { printFunctionParameters } = require("./function-parameters");
-const { printPropertyKey } = require("./property");
-const { printFunctionTypeParameters } = require("./misc");
+  isCallLikeExpression,
+  isCallExpression,
+  getCallArguments,
+  hasNakedLeftSide,
+  getLeftSide,
+} = require("../utils.js");
+const { locEnd } = require("../loc.js");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters.js");
+const { printPropertyKey } = require("./property.js");
+const { printFunctionTypeParameters } = require("./misc.js");
 
-function printFunctionDeclaration(path, print, options, expandArg) {
-  const n = path.getValue();
+function printFunction(path, print, options, args) {
+  const node = path.getValue();
+
+  let expandArg = false;
+  if (
+    (node.type === "FunctionDeclaration" ||
+      node.type === "FunctionExpression") &&
+    args &&
+    args.expandLastArg
+  ) {
+    const parent = path.getParentNode();
+    if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+      expandArg = true;
+    }
+  }
+
   const parts = [];
 
   // For TypeScript the TSDeclareFunction node shares the AST
   // structure with FunctionDeclaration
-  if (n.type === "TSDeclareFunction" && n.declare) {
+  if (node.type === "TSDeclareFunction" && node.declare) {
     parts.push("declare ");
   }
 
-  if (n.async) {
+  if (node.async) {
     parts.push("async ");
   }
 
-  if (n.generator) {
+  if (node.generator) {
     parts.push("function* ");
   } else {
     parts.push("function ");
   }
 
-  if (n.id) {
-    parts.push(path.call(print, "id"));
+  if (node.id) {
+    parts.push(print("id"));
   }
+
+  const parametersDoc = printFunctionParameters(
+    path,
+    print,
+    options,
+    expandArg
+  );
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc
+  );
 
   parts.push(
     printFunctionTypeParameters(path, options, print),
-    group(
-      concat([
-        printFunctionParameters(path, print, options, expandArg),
-        printReturnType(path, print, options),
-      ])
-    ),
-    n.body ? " " : "",
-    path.call(print, "body")
+    group([
+      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      returnTypeDoc,
+    ]),
+    node.body ? " " : "",
+    print("body")
   );
 
-  if (options.semi && (n.declare || !n.body)) {
+  if (options.semi && (node.declare || !node.body)) {
     parts.push(";");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printMethod(path, options, print) {
@@ -105,57 +152,67 @@ function printMethod(path, options, print) {
       path.call((path) => printMethodInternal(path, options, print), "value")
     );
   } else {
-    parts.push(path.call(print, "value"));
+    parts.push(print("value"));
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printMethodInternal(path, options, print) {
+  const node = path.getNode();
+  const parametersDoc = printFunctionParameters(path, print, options);
+  const returnTypeDoc = printReturnType(path, print, options);
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc
+  );
   const parts = [
     printFunctionTypeParameters(path, options, print),
-    group(
-      concat([
-        printFunctionParameters(path, print, options),
-        printReturnType(path, print, options),
-      ])
-    ),
+    group([
+      shouldGroupParameters ? group(parametersDoc) : parametersDoc,
+      returnTypeDoc,
+    ]),
   ];
 
-  if (path.getNode().body) {
-    parts.push(" ", path.call(print, "body"));
+  if (node.body) {
+    parts.push(" ", print("body"));
   } else {
     parts.push(options.semi ? ";" : "");
   }
 
-  return concat(parts);
+  return parts;
 }
 
-function printArrowFunctionExpression(path, options, print, args) {
-  const n = path.getValue();
+function printArrowFunctionSignature(path, options, print, args) {
+  const node = path.getValue();
   const parts = [];
 
-  if (n.async) {
+  if (node.async) {
     parts.push("async ");
   }
 
   if (shouldPrintParamsWithoutParens(path, options)) {
-    parts.push(path.call(print, "params", 0));
+    parts.push(print(["params", 0]));
   } else {
+    const expandArg = args && (args.expandLastArg || args.expandFirstArg);
+    let returnTypeDoc = printReturnType(path, print, options);
+    if (expandArg) {
+      if (willBreak(returnTypeDoc)) {
+        throw new ArgExpansionBailout();
+      }
+      returnTypeDoc = group(removeLines(returnTypeDoc));
+    }
     parts.push(
-      group(
-        concat([
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandLast */ args &&
-              (args.expandLastArg || args.expandFirstArg),
-            /* printTypeParams */ true
-          ),
-          printReturnType(path, print, options),
-        ])
-      )
+      group([
+        printFunctionParameters(
+          path,
+          print,
+          options,
+          expandArg,
+          /* printTypeParams */ true
+        ),
+        returnTypeDoc,
+      ])
     );
   }
 
@@ -178,35 +235,125 @@ function printArrowFunctionExpression(path, options, print, args) {
   if (dangling) {
     parts.push(" ", dangling);
   }
+  return parts;
+}
 
+function printArrowChain(
+  path,
+  args,
+  signatures,
+  shouldBreak,
+  bodyDoc,
+  tailNode
+) {
+  const name = path.getName();
+  const parent = path.getParentNode();
+  const isCallee = isCallLikeExpression(parent) && name === "callee";
+  const isAssignmentRhs = Boolean(args && args.assignmentLayout);
+  const shouldPutBodyOnSeparateLine =
+    tailNode.body.type !== "BlockStatement" &&
+    tailNode.body.type !== "ObjectExpression" &&
+    tailNode.body.type !== "SequenceExpression";
+  const shouldBreakBeforeChain =
+    (isCallee && shouldPutBodyOnSeparateLine) ||
+    (args && args.assignmentLayout === "chain-tail-arrow-chain");
+
+  const groupId = Symbol("arrow-chain");
+
+  // We handle sequence expressions as the body of arrows specially,
+  // so that the required parentheses end up on their own lines.
+  if (tailNode.body.type === "SequenceExpression") {
+    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  }
+
+  return group([
+    group(
+      indent([
+        isCallee || isAssignmentRhs ? softline : "",
+        group(join([" =>", line], signatures), { shouldBreak }),
+      ]),
+      { id: groupId, shouldBreak: shouldBreakBeforeChain }
+    ),
+    " =>",
+    indentIfBreak(
+      shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
+      { groupId }
+    ),
+    isCallee ? ifBreak(softline, "", { groupId }) : "",
+  ]);
+}
+
+function printArrowFunction(path, options, print, args) {
+  let node = path.getValue();
+  /** @type {Doc[]} */
+  const signatures = [];
+  const body = [];
+  let chainShouldBreak = false;
+
+  (function rec() {
+    const doc = printArrowFunctionSignature(path, options, print, args);
+    if (signatures.length === 0) {
+      signatures.push(doc);
+    } else {
+      const { leading, trailing } = printCommentsSeparately(path, options);
+      signatures.push([leading, doc]);
+      body.unshift(trailing);
+    }
+
+    chainShouldBreak =
+      chainShouldBreak ||
+      // Always break the chain if:
+      (node.returnType && getFunctionParameters(node).length > 0) ||
+      node.typeParameters ||
+      getFunctionParameters(node).some((param) => param.type !== "Identifier");
+
+    if (
+      node.body.type !== "ArrowFunctionExpression" ||
+      (args && args.expandLastArg)
+    ) {
+      body.unshift(print("body", args));
+    } else {
+      node = node.body;
+      path.call(rec, "body");
+    }
+  })();
+
+  if (signatures.length > 1) {
+    return printArrowChain(
+      path,
+      args,
+      signatures,
+      chainShouldBreak,
+      body,
+      node
+    );
+  }
+
+  const parts = signatures;
   parts.push(" =>");
-
-  const body = path.call((bodyPath) => print(bodyPath, args), "body");
 
   // We want to always keep these types of nodes on the same line
   // as the arrow.
   if (
-    !hasLeadingOwnLineComment(options.originalText, n.body) &&
-    (n.body.type === "ArrayExpression" ||
-      n.body.type === "ObjectExpression" ||
-      n.body.type === "BlockStatement" ||
-      isJsxNode(n.body) ||
-      isTemplateOnItsOwnLine(n.body, options.originalText) ||
-      n.body.type === "ArrowFunctionExpression" ||
-      n.body.type === "DoExpression")
+    !hasLeadingOwnLineComment(options.originalText, node.body) &&
+    (node.body.type === "ArrayExpression" ||
+      node.body.type === "ObjectExpression" ||
+      node.body.type === "BlockStatement" ||
+      isJsxNode(node.body) ||
+      isTemplateOnItsOwnLine(node.body, options.originalText) ||
+      node.body.type === "ArrowFunctionExpression" ||
+      node.body.type === "DoExpression")
   ) {
-    return group(concat([concat(parts), " ", body]));
+    return group([...parts, " ", body]);
   }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
-  if (n.body.type === "SequenceExpression") {
-    return group(
-      concat([
-        concat(parts),
-        group(concat([" (", indent(concat([softline, body])), softline, ")"])),
-      ])
-    );
+  if (node.body.type === "SequenceExpression") {
+    return group([
+      ...parts,
+      group([" (", indent([softline, body]), softline, ")"]),
+    ]);
   }
 
   // if the arrow function is expanded as last argument, we are adding a
@@ -216,7 +363,7 @@ function printArrowFunctionExpression(path, options, print, args) {
   const shouldAddSoftLine =
     ((args && args.expandLastArg) ||
       path.getParentNode().type === "JSXExpressionContainer") &&
-    !hasComment(n);
+    !hasComment(node);
 
   const printTrailingComma =
     args && args.expandLastArg && shouldPrintComma(options, "all");
@@ -225,29 +372,23 @@ function printArrowFunctionExpression(path, options, print, args) {
   // a => a ? a : a
   // a <= a ? a : a
   const shouldAddParens =
-    n.body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(n.body, /* forbidFunctionAndClass */ false);
+    node.body.type === "ConditionalExpression" &&
+    !startsWithNoLookaheadToken(node.body, /* forbidFunctionAndClass */ false);
 
-  return group(
-    concat([
-      concat(parts),
-      group(
-        concat([
-          indent(
-            concat([
-              line,
-              shouldAddParens ? ifBreak("", "(") : "",
-              body,
-              shouldAddParens ? ifBreak("", ")") : "",
-            ])
-          ),
-          shouldAddSoftLine
-            ? concat([ifBreak(printTrailingComma ? "," : ""), softline])
-            : "",
-        ])
-      ),
-    ])
-  );
+  return group([
+    ...parts,
+    group([
+      indent([
+        line,
+        shouldAddParens ? ifBreak("", "(") : "",
+        body,
+        shouldAddParens ? ifBreak("", ")") : "",
+      ]),
+      shouldAddSoftLine
+        ? [ifBreak(printTrailingComma ? "," : ""), softline]
+        : "",
+    ]),
+  ]);
 }
 
 function canPrintParamsWithoutParens(node) {
@@ -280,70 +421,62 @@ function shouldPrintParamsWithoutParens(path, options) {
   return false;
 }
 
+/** @returns {Doc} */
 function printReturnType(path, print, options) {
-  const n = path.getValue();
-  const returnType = path.call(print, "returnType");
+  const node = path.getValue();
+  const returnType = print("returnType");
 
   if (
-    n.returnType &&
-    isFlowAnnotationComment(options.originalText, n.returnType)
+    node.returnType &&
+    isFlowAnnotationComment(options.originalText, node.returnType)
   ) {
-    return concat([" /*: ", returnType, " */"]);
+    return [" /*: ", returnType, " */"];
   }
 
   const parts = [returnType];
 
   // prepend colon to TypeScript type annotation
-  if (n.returnType && n.returnType.typeAnnotation) {
+  if (node.returnType && node.returnType.typeAnnotation) {
     parts.unshift(": ");
   }
 
-  if (n.predicate) {
+  if (node.predicate) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
-    parts.push(n.returnType ? " " : ": ", path.call(print, "predicate"));
+    parts.push(node.returnType ? " " : ": ", print("predicate"));
   }
 
-  return concat(parts);
+  return parts;
 }
 
 // `ReturnStatement` and `ThrowStatement`
-function printReturnAndThrowArgument(path, options, print) {
+function printReturnOrThrowArgument(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   const parts = [];
 
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push(
-        concat([
-          " (",
-          indent(concat([hardline, path.call(print, "argument")])),
-          hardline,
-          ")",
-        ])
-      );
+      parts.push([" (", indent([hardline, print("argument")]), hardline, ")"]);
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
     ) {
       parts.push(
-        group(
-          concat([
-            ifBreak(" (", " "),
-            indent(concat([softline, path.call(print, "argument")])),
-            softline,
-            ifBreak(")"),
-          ])
-        )
+        group([
+          ifBreak(" (", " "),
+          indent([softline, print("argument")]),
+          softline,
+          ifBreak(")"),
+        ])
       );
     } else {
-      parts.push(" ", path.call(print, "argument"));
+      parts.push(" ", print("argument"));
     }
   }
 
   const comments = getComments(node);
-  const lastComment = comments[comments.length - 1];
+  const lastComment = getLast(comments);
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {
@@ -361,20 +494,43 @@ function printReturnAndThrowArgument(path, options, print) {
     parts.push(semi);
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printReturnStatement(path, options, print) {
-  return concat(["return", printReturnAndThrowArgument(path, options, print)]);
+  return ["return", printReturnOrThrowArgument(path, options, print)];
 }
 
 function printThrowStatement(path, options, print) {
-  return concat(["throw", printReturnAndThrowArgument(path, options, print)]);
+  return ["throw", printReturnOrThrowArgument(path, options, print)];
+}
+
+// This recurses the return argument, looking for the first token
+// (the leftmost leaf node) and, if it (or its parents) has any
+// leadingComments, returns true (so it can be wrapped in parens).
+function returnArgumentHasLeadingComment(options, argument) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+    return true;
+  }
+
+  if (hasNakedLeftSide(argument)) {
+    let leftMost = argument;
+    let newLeftMost;
+    while ((newLeftMost = getLeftSide(leftMost))) {
+      leftMost = newLeftMost;
+
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 module.exports = {
-  printFunctionDeclaration,
-  printArrowFunctionExpression,
+  printFunction,
+  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`url.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+div {
+  background: url(/images/bg.png);
+  background: -fb-url(/images/bg.png);
+}
+
+=====================================output=====================================
+div {
+  background: url(/images/bg.png);
+  background: -fb-url(/images/bg.png);
+}
+
+================================================================================
+`;

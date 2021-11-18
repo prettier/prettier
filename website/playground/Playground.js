@@ -1,19 +1,19 @@
 import * as React from "react";
 
-import { Button, ClipboardButton } from "./buttons";
-import EditorState from "./EditorState";
-import { DebugPanel, InputPanel, OutputPanel } from "./panels";
-import PrettierFormat from "./PrettierFormat";
-import { shallowEqual } from "./helpers";
-import * as urlHash from "./urlHash";
-import formatMarkdown from "./markdown";
-import * as util from "./util";
-import getCodeSample from "./codeSamples";
+import { Button, ClipboardButton } from "./buttons.js";
+import EditorState from "./EditorState.js";
+import { DebugPanel, InputPanel, OutputPanel } from "./panels.js";
+import PrettierFormat from "./PrettierFormat.js";
+import { shallowEqual } from "./helpers.js";
+import * as urlHash from "./urlHash.js";
+import formatMarkdown from "./markdown.js";
+import * as util from "./util.js";
+import getCodeSample from "./codeSamples.js";
 
-import { Sidebar, SidebarCategory } from "./sidebar/components";
-import SidebarOptions from "./sidebar/SidebarOptions";
-import Option from "./sidebar/options";
-import { Checkbox } from "./sidebar/inputs";
+import { Sidebar, SidebarCategory } from "./sidebar/components.js";
+import SidebarOptions from "./sidebar/SidebarOptions.js";
+import Option from "./sidebar/options.js";
+import { Checkbox } from "./sidebar/inputs.js";
 
 const CATEGORIES_ORDER = [
   "Global",
@@ -23,6 +23,11 @@ const CATEGORIES_ORDER = [
   "HTML",
   "Special",
 ];
+const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
+const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
+const COPY_MESSAGE =
+  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
+
 const ENABLED_OPTIONS = [
   "parser",
   "printWidth",
@@ -32,7 +37,6 @@ const ENABLED_OPTIONS = [
   "singleQuote",
   "bracketSpacing",
   "jsxSingleQuote",
-  "jsxBracketSameLine",
   "quoteProps",
   "arrowParens",
   "trailingComma",
@@ -42,11 +46,8 @@ const ENABLED_OPTIONS = [
   "requirePragma",
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
+  "bracketSameLine",
 ];
-const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
-const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
-const COPY_MESSAGE =
-  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
 
 class Playground extends React.Component {
   constructor(props) {
@@ -134,25 +135,37 @@ class Playground extends React.Component {
     });
   }
 
-  getMarkdown(formatted, reformatted, full) {
+  getMarkdown({ formatted, reformatted, full, doc }) {
     const { content, options } = this.state;
     const { availableOptions, version } = this.props;
+    const orderedOptions = orderOptions(availableOptions, [
+      ...ENABLED_OPTIONS,
+      "rangeStart",
+      "rangeEnd",
+    ]);
+    const cliOptions = util.buildCliArgs(orderedOptions, options);
 
-    return formatMarkdown(
-      content,
-      formatted,
-      reformatted || "",
+    return formatMarkdown({
+      input: content,
+      output: formatted,
+      output2: reformatted,
+      doc,
       version,
-      window.location.href,
+      url: window.location.href,
       options,
-      util.buildCliArgs(availableOptions, options),
-      full
-    );
+      cliOptions,
+      full,
+    });
   }
 
   render() {
-    const { worker } = this.props;
+    const { worker, version } = this.props;
     const { content, options } = this.state;
+
+    // TODO: remove this when v2.3.0 is released
+    const [major, minor] = version.split(".", 2).map(Number);
+    const showShowComments =
+      Number.isNaN(major) || (major === 2 && minor >= 3) || major > 2;
 
     return (
       <EditorState>
@@ -163,14 +176,15 @@ class Playground extends React.Component {
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
+            debugComments={showShowComments && editorState.showComments}
             reformat={editorState.showSecondFormat}
           >
             {({ formatted, debug }) => {
-              const fullReport = this.getMarkdown(
+              const fullReport = this.getMarkdown({
                 formatted,
-                debug.reformatted,
-                true
-              );
+                reformatted: debug.reformatted,
+                full: true,
+              });
               const showFullReport =
                 encodeURIComponent(fullReport).length < MAX_LENGTH;
               return (
@@ -214,6 +228,11 @@ class Playground extends React.Component {
                       </SidebarCategory>
                       <SidebarCategory title="Debug">
                         <Checkbox
+                          label="show input"
+                          checked={editorState.showInput}
+                          onChange={editorState.toggleInput}
+                        />
+                        <Checkbox
                           label="show AST"
                           checked={editorState.showAst}
                           onChange={editorState.toggleAst}
@@ -223,11 +242,30 @@ class Playground extends React.Component {
                           checked={editorState.showDoc}
                           onChange={editorState.toggleDoc}
                         />
+                        {showShowComments && (
+                          <Checkbox
+                            label="show comments"
+                            checked={editorState.showComments}
+                            onChange={editorState.toggleComments}
+                          />
+                        )}
+                        <Checkbox
+                          label="show output"
+                          checked={editorState.showOutput}
+                          onChange={editorState.toggleOutput}
+                        />
                         <Checkbox
                           label="show second format"
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
                         />
+                        {editorState.showDoc && debug.doc && (
+                          <ClipboardButton
+                            copy={() => this.getMarkdown({ doc: debug.doc })}
+                          >
+                            Copy doc
+                          </ClipboardButton>
+                        )}
                       </SidebarCategory>
                       <div className="sub-options">
                         <Button onClick={this.resetOptions}>
@@ -236,16 +274,18 @@ class Playground extends React.Component {
                       </div>
                     </Sidebar>
                     <div className="editors">
-                      <InputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        ruler={options.printWidth}
-                        value={content}
-                        codeSample={getCodeSample(options.parser)}
-                        overlayStart={options.rangeStart}
-                        overlayEnd={options.rangeEnd}
-                        onChange={this.setContent}
-                        onSelectionChange={this.setSelection}
-                      />
+                      {editorState.showInput ? (
+                        <InputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          ruler={options.printWidth}
+                          value={content}
+                          codeSample={getCodeSample(options.parser)}
+                          overlayStart={options.rangeStart}
+                          overlayEnd={options.rangeEnd}
+                          onChange={this.setContent}
+                          onSelectionChange={this.setSelection}
+                        />
+                      ) : null}
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
@@ -255,11 +295,19 @@ class Playground extends React.Component {
                       {editorState.showDoc ? (
                         <DebugPanel value={debug.doc || ""} />
                       ) : null}
-                      <OutputPanel
-                        mode={util.getCodemirrorMode(options.parser)}
-                        value={formatted}
-                        ruler={options.printWidth}
-                      />
+                      {showShowComments && editorState.showComments ? (
+                        <DebugPanel
+                          value={debug.comments || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
+                      ) : null}
+                      {editorState.showOutput ? (
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={formatted}
+                          ruler={options.printWidth}
+                        />
+                      ) : null}
                       {editorState.showSecondFormat ? (
                         <OutputPanel
                           mode={util.getCodemirrorMode(options.parser)}
@@ -296,7 +344,10 @@ class Playground extends React.Component {
                       </ClipboardButton>
                       <ClipboardButton
                         copy={() =>
-                          this.getMarkdown(formatted, debug.reformatted)
+                          this.getMarkdown({
+                            formatted,
+                            reformatted: debug.reformatted,
+                          })
                         }
                       >
                         Copy markdown

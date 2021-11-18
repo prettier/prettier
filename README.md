@@ -37,11 +37,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/prettier/prettier/actions?query=workflow%3AProd+branch%3Amaster">
+  <a href="https://github.com/prettier/prettier/actions?query=workflow%3AProd+branch%3Amain">
     <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/prettier/prettier/Prod?label=Prod&style=flat-square"></a>
-  <a href="https://github.com/prettier/prettier/actions?query=workflow%3ADev+branch%3Amaster">
+  <a href="https://github.com/prettier/prettier/actions?query=workflow%3ADev+branch%3Amain">
     <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/prettier/prettier/Dev?label=Dev&style=flat-square"></a>
-  <a href="https://github.com/prettier/prettier/actions?query=workflow%3ALint+branch%3Amaster">
+  <a href="https://github.com/prettier/prettier/actions?query=workflow%3ALint+branch%3Amain">
     <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/prettier/prettier/Lint?label=Lint&style=flat-square"></a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square"></a>
@@ -82,7 +82,7 @@ foo(
 );
 ```
 
-Prettier can be run [in your editor](http://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit-picky comment on a code review ever again!
+Prettier can be run [in your editor](https://prettier.io/docs/en/editors.html) on-save, in a [pre-commit hook](https://prettier.io/docs/en/precommit.html), or in [CI environments](https://prettier.io/docs/en/cli.html#list-different) to ensure your codebase has a consistent style without devs ever having to post a nit-picky comment on a code review ever again!
 
 ---
 

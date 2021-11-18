@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exits with non-zero code when input has a syntax error (stderr) 1`] = `
+"[error] stdin: SyntaxError: Missing semicolon. (1:2)
+[error] > 1 | a.2
+[error]     |  ^
+"
+`;
+
+exports[`exits with non-zero code when input has a syntax error (stdout) 1`] = `""`;
+
+exports[`exits with non-zero code when input has a syntax error (write) 1`] = `Array []`;

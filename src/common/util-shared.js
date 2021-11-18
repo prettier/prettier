@@ -24,7 +24,7 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("./util");
+} = require("./util.js");
 
 module.exports = {
   getMaxContinuousCount,
