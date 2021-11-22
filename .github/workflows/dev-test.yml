@@ -56,13 +56,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run Tests (macOS)
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test --maxWorkers=4
-
-      - name: Run Tests (Linux and Windows)
-        if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn test --maxWorkers=2
+      - name: Run Tests
+        run: yarn test --runInBand
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v2.1.0
