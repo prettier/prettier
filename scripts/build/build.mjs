@@ -126,7 +126,7 @@ function handleError(error) {
 async function preparePackage() {
   const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
   packageJson.bin = "./bin-prettier.js";
-  packageJson.engines.node = ">=10.13.0";
+  // packageJson.engines.node = ">=10.13.0";
   delete packageJson.dependencies;
   delete packageJson.devDependencies;
   delete packageJson.browserslist;

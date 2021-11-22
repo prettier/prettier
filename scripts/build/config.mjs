@@ -1,4 +1,7 @@
 import path from "node:path";
+import createEsmUtils from "esm-utils";
+
+const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -7,10 +10,9 @@ import path from "node:path";
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
  * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
- * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
- * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
+ * @property {Object.<string, string | {code?: string, file?: string | URL}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
@@ -69,18 +71,18 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack",
+    replaceModule: {
+      // `colorette` uses `process` can't run in browser
+      // https://github.com/jorgebucaran/colorette/pull/62
+      [require.resolve("colorette")]: {
+        file: path.join(dirname, "replacement/colorette.mjs"),
+      },
+    },
     replace: {
       // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
       "node.constructor.name === 'Word'": "node.type === 'word'",
     },
-  },
-  {
-    input: "dist/parser-postcss.js",
-    output: "esm/parser-postcss.mjs",
-    format: "esm",
   },
   {
     input: "src/language-graphql/parser-graphql.js",
