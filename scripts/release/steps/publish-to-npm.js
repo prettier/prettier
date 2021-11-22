@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import outdent from "outdent";
-import execa from "execa";
+import { execa } from "execa";
 import semver from "semver";
 import {
   getBlogPostInfo,

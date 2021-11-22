@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import outdent from "outdent";
-import execa from "execa";
+import { execa } from "execa";
 import { fetchText, logPromise } from "../utils.js";
 
 const outdentString = outdent.string;
