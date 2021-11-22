@@ -20,7 +20,7 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "12.2.13",
+    "@angular/compiler": "13.0.2",
     "@babel/code-frame": "7.16.0",
     "@babel/parser": "7.16.4",
     "@glimmer/syntax": "0.83.1",
