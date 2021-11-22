@@ -84,7 +84,7 @@ function getBabelConfig(bundle) {
     compact: bundle.type === "plugin" ? false : "auto",
     exclude: [/\/core-js\//],
   };
-  const targets = { node: "10" };
+  const targets = { node: "12" };
   if (bundle.target === "universal") {
     targets.browsers = packageJson.browserslist;
   }
