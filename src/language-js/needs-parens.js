@@ -133,7 +133,7 @@ function needsParens(path, options) {
                 /** @(x().y) */ hasMemberExpression ||
                 /** @(x().y()) */ hasCallExpression
               ) {
-                return true;
+                return options.parser !== "typescript";
               }
               hasCallExpression = true;
               current = current.callee;

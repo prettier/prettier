@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import readline from "node:readline";
 import chalk from "chalk";
-import execa from "execa";
+import { execa } from "execa";
 import stringWidth from "string-width";
 import fetch from "node-fetch";
 import outdent from "outdent";
