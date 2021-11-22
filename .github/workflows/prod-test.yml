@@ -80,6 +80,7 @@ jobs:
         run: yarn lint:dist
 
   test:
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
