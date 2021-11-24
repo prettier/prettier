@@ -257,16 +257,23 @@ function getRollupOutputOptions(bundle, buildOptions) {
     exports: "auto",
     file: path.join(DIST_DIR, bundle.output),
     name: bundle.name,
-    plugins: [
-      bundle.minify !== false &&
-        bundle.target === "universal" &&
-        rollupPluginTerser({
-          output: {
-            ascii_only: true,
-          },
-        }),
-    ],
+    plugins: [],
   };
+
+  let shouldMinify = buildOptions.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = bundle.minify !== false && bundle.target === "universal";
+  }
+
+  if (shouldMinify) {
+    options.plugins.push(
+      rollupPluginTerser({
+        output: {
+          ascii_only: true,
+        },
+      })
+    );
+  }
 
   if (bundle.target === "node") {
     options.format = "cjs";
