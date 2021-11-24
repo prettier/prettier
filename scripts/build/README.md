@@ -26,7 +26,7 @@ yarn build --playground
 
 ### `--print-size` flag
 
-To print the bundled file sizes,
+To print the bundled file sizes:
 
 ```sh
 yarn build --print-size
@@ -34,13 +34,13 @@ yarn build --print-size
 
 ### `--minify` and `--no-minify` flags
 
-Force minify files, use:
+Force minify files:
 
 ```sh
 yarn build --minify
 ```
 
-Disable minify files,
+Disable minify files:
 
 ```sh
 yarn build --no-minify
@@ -48,7 +48,7 @@ yarn build --no-minify
 
 ### `--file` flag
 
-To build a single file,
+To build a single file:
 
 ```sh
 yarn build --file=parser-babel.js
