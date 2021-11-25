@@ -59,15 +59,17 @@ if (isProduction) {
 
 const esmPackagePatterns = [
   "bail",
+  "ccount",
   "character-entities",
   "decode-named-character-reference",
   "is-plain-obj",
+  "markdown-table",
   "mdast.*",
   "micromark.*",
-  "remark-parse",
+  "remark.*",
   "trough",
   "unified",
-  "unist-util-stringify-position",
+  "unist.*",
   "vfile.*",
 ];
 

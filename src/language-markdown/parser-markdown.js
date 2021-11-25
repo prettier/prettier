@@ -3,7 +3,7 @@
 const { default: remarkParse } = require("remark-parse");
 const { unified } = require("unified");
 const remarkMath = require("remark-math");
-const footnotes = require("remark-footnotes");
+const remarkGfm = require("remark-gfm");
 const pragma = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 const mdx = require("./mdx.js");
@@ -29,8 +29,7 @@ const looseItems = require("./unified-plugins/loose-items.js");
  */
 function createParse({ isMDX }) {
   return (text) => {
-    const processor = unified().use(remarkParse);
-    // .use(footnotes)
+    const processor = unified().use(remarkParse).use(remarkGfm);
     // .use(frontMatter)
     // .use(remarkMath)
     // .use(isMDX ? mdx.esSyntax : identity)
