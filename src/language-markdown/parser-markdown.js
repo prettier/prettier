@@ -6,10 +6,10 @@ const remarkMath = require("remark-math");
 const remarkGfm = require("remark-gfm");
 const remarkMdx = require("remark-mdx");
 const remarkFrontmatter = require("remark-frontmatter");
+const remarkWikiLink = require("remark-wiki-link");
 const pragma = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 const liquid = require("./unified-plugins/liquid.js");
-const wikiLink = require("./unified-plugins/wiki-link.js");
 const looseItems = require("./unified-plugins/loose-items.js");
 
 /**
@@ -32,9 +32,9 @@ function createParse({ isMDX }) {
       .use(remarkParse)
       .use(remarkGfm)
       .use(remarkMath)
-      .use(remarkFrontmatter);
+      .use(remarkFrontmatter)
+      .use(remarkWikiLink);
     // .use(liquid)
-    // .use(wikiLink)
     // .use(looseItems);
     if (isMDX) {
       processor.use(remarkMdx);
