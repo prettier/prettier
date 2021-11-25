@@ -29,9 +29,8 @@ const looseItems = require("./unified-plugins/loose-items.js");
  */
 function createParse({ isMDX }) {
   return (text) => {
-    const processor = unified().use(remarkParse).use(remarkGfm);
+    const processor = unified().use(remarkParse).use(remarkGfm).use(remarkMath);
     // .use(frontMatter)
-    // .use(remarkMath)
     // .use(isMDX ? mdx.esSyntax : identity)
     // .use(liquid)
     // .use(isMDX ? htmlToJsx : identity)

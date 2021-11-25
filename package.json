@@ -73,7 +73,7 @@
     "postcss-values-parser": "2.0.1",
     "regexp-util": "1.2.2",
     "remark-gfm": "3.0.1",
-    "remark-math": "3.0.1",
+    "remark-math": "5.1.1",
     "remark-parse": "10.0.1",
     "resolve": "1.20.0",
     "semver": "7.3.5",

@@ -63,6 +63,7 @@ const esmPackagePatterns = [
   "character-entities",
   "decode-named-character-reference",
   "is-plain-obj",
+  "longest-streak",
   "markdown-table",
   "mdast.*",
   "micromark.*",
