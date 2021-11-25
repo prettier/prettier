@@ -4,10 +4,9 @@ const { default: remarkParse } = require("remark-parse");
 const { unified } = require("unified");
 const remarkMath = require("remark-math");
 const remarkGfm = require("remark-gfm");
+const remarkMdx = require("remark-mdx");
 const pragma = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
-const mdx = require("./mdx.js");
-const htmlToJsx = require("./unified-plugins/html-to-jsx.js");
 const frontMatter = require("./unified-plugins/front-matter.js");
 const liquid = require("./unified-plugins/liquid.js");
 const wikiLink = require("./unified-plugins/wiki-link.js");
@@ -31,17 +30,14 @@ function createParse({ isMDX }) {
   return (text) => {
     const processor = unified().use(remarkParse).use(remarkGfm).use(remarkMath);
     // .use(frontMatter)
-    // .use(isMDX ? mdx.esSyntax : identity)
     // .use(liquid)
-    // .use(isMDX ? htmlToJsx : identity)
     // .use(wikiLink)
     // .use(looseItems);
+    if (isMDX) {
+      processor.use(remarkMdx);
+    }
     return processor.runSync(processor.parse(text));
   };
-}
-
-function identity(x) {
-  return x;
 }
 
 const baseParser = {
