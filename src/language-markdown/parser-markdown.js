@@ -5,9 +5,9 @@ const { unified } = require("unified");
 const remarkMath = require("remark-math");
 const remarkGfm = require("remark-gfm");
 const remarkMdx = require("remark-mdx");
+const remarkFrontmatter = require("remark-frontmatter");
 const pragma = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
-const frontMatter = require("./unified-plugins/front-matter.js");
 const liquid = require("./unified-plugins/liquid.js");
 const wikiLink = require("./unified-plugins/wiki-link.js");
 const looseItems = require("./unified-plugins/loose-items.js");
@@ -28,8 +28,11 @@ const looseItems = require("./unified-plugins/loose-items.js");
  */
 function createParse({ isMDX }) {
   return (text) => {
-    const processor = unified().use(remarkParse).use(remarkGfm).use(remarkMath);
-    // .use(frontMatter)
+    const processor = unified()
+      .use(remarkParse)
+      .use(remarkGfm)
+      .use(remarkMath)
+      .use(remarkFrontmatter);
     // .use(liquid)
     // .use(wikiLink)
     // .use(looseItems);

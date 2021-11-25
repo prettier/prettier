@@ -62,6 +62,7 @@ const esmPackagePatterns = [
   "ccount",
   "character-entities",
   "decode-named-character-reference",
+  "fault",
   "is-plain-obj",
   "longest-streak",
   "markdown-table",
