@@ -3020,10 +3020,10 @@ eslint-plugin-react@7.27.1:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
 
-eslint-plugin-regexp@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.5.0.tgz#fb639b2c5aa84e5b0afe09a406b3e5ed2154536c"
-  integrity sha512-OuYlOF6z2VyurEmELUjY58Wqi4TzsWwgF8+XnToItLwSzNHpDuThy/CxWZ6szIcgQ/02plg7/ZAXQ/RPl7uRxQ==
+eslint-plugin-regexp@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.5.1.tgz#982ea8936283035897d6bb1ba32c0ea5d9a4dee0"
+  integrity sha512-5v0rQIi54m2KycQHqmOAHrZhvI56GHmI2acr6zEffAqfeifTtobAEapv9Uf4o8//lGvwVkHKyjLoSbBNEFcfOA==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
