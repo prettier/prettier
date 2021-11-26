@@ -1,6 +1,6 @@
 "use strict";
 
-const LinesAndColumns = require("lines-and-columns").default;
+const { LinesAndColumns } = require("lines-and-columns");
 const { codeFrameColumns } = require("@babel/code-frame");
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
