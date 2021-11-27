@@ -3,7 +3,6 @@ import fs from "node:fs";
 import { rollup } from "rollup";
 import webpack from "webpack";
 import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
-import rollupPluginAlias from "@rollup/plugin-alias";
 import rollupPluginCommonjs from "@rollup/plugin-commonjs";
 import rollupPluginPolyfillNode from "rollup-plugin-polyfill-node";
 import rollupPluginJson from "@rollup/plugin-json";
@@ -19,10 +18,8 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, require, json } = createEsmUtils(import.meta);
+const { __dirname, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
-
-const entries = [];
 
 function webpackNativeShims(config, modules) {
   if (!config.resolve) {
@@ -143,9 +140,6 @@ function getRollupConfig(bundle) {
 
   const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
 
-  const alias = { ...bundle.alias };
-  alias.entries = [...entries, ...(alias.entries || [])];
-
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
@@ -198,7 +192,6 @@ function getRollupConfig(bundle) {
         .filter((file) => file.endsWith(".json"))
         .map((file) => path.relative(PROJECT_ROOT, file)),
     }),
-    rollupPluginAlias(alias),
     rollupPluginNodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
