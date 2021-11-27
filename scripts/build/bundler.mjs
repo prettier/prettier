@@ -257,16 +257,23 @@ function getRollupOutputOptions(bundle, buildOptions) {
     exports: "auto",
     file: path.join(DIST_DIR, bundle.output),
     name: bundle.name,
-    plugins: [
-      bundle.minify !== false &&
-        bundle.target === "universal" &&
-        rollupPluginTerser({
-          output: {
-            ascii_only: true,
-          },
-        }),
-    ],
+    plugins: [],
   };
+
+  let shouldMinify = buildOptions.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = bundle.minify !== false && bundle.target === "universal";
+  }
+
+  if (shouldMinify) {
+    options.plugins.push(
+      rollupPluginTerser({
+        output: {
+          ascii_only: true,
+        },
+      })
+    );
+  }
 
   if (bundle.target === "node") {
     options.format = "cjs";
@@ -297,7 +304,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   return [options];
 }
 
-function getWebpackConfig(bundle) {
+function getWebpackConfig(bundle, buildOptions) {
   if (bundle.type !== "plugin" || bundle.target !== "universal") {
     throw new Error("Must use rollup for this bundle");
   }
@@ -346,19 +353,27 @@ function getWebpackConfig(bundle) {
     },
   };
 
-  config.optimization.minimizer = [
-    new WebpackPluginTerser({
-      // prevent terser generate extra .LICENSE file
-      extractComments: false,
-      terserOptions: {
-        // prevent U+FFFE in the output
-        output: {
-          ascii_only: true,
+  let shouldMinify = buildOptions.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = true;
+  }
+
+  if (shouldMinify) {
+    config.optimization.minimizer = [
+      new WebpackPluginTerser({
+        // prevent terser generate extra .LICENSE file
+        extractComments: false,
+        terserOptions: {
+          // prevent U+FFFE in the output
+          output: {
+            ascii_only: true,
+          },
         },
-      },
-    }),
-  ];
-  // config.optimization.minimize = false;
+      }),
+    ];
+  } else {
+    config.optimization.minimize = false;
+  }
 
   return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
@@ -411,7 +426,7 @@ async function createBundle(bundle, cache, options) {
   }
 
   if (bundle.bundler === "webpack") {
-    await runWebpack(getWebpackConfig(bundle));
+    await runWebpack(getWebpackConfig(bundle, options));
   } else {
     const result = await rollup(inputOptions);
     await Promise.all(outputOptions.map((option) => result.write(option)));
