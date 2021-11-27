@@ -32,6 +32,14 @@ To print the bundled file sizes:
 yarn build --print-size
 ```
 
+### `--file` flag
+
+To build a single file:
+
+```sh
+yarn build --file=parser-babel.js
+```
+
 ### `--minify` and `--no-minify` flags
 
 By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override that behavior.
@@ -48,12 +56,4 @@ Disable minify files:
 
 ```sh
 yarn build --file=parser-babel.js --no-minify
-```
-
-### `--file` flag
-
-To build a single file:
-
-```sh
-yarn build --file=parser-babel.js
 ```
