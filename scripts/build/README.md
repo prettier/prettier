@@ -41,13 +41,13 @@ These should only be used for debugging purposes, suggest to use them together w
 Force minify files:
 
 ```sh
-yarn build --minify
+yarn build --file=index.js --minify
 ```
 
 Disable minify files:
 
 ```sh
-yarn build --no-minify
+yarn build --file=parser-babel.js --no-minify
 ```
 
 ### `--file` flag
