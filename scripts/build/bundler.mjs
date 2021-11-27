@@ -26,10 +26,6 @@ const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
   // from `"main"` instead of `"module"` (rollup default) of package.json
   {
-    find: "outdent",
-    replacement: require.resolve("outdent"),
-  },
-  {
     find: "lines-and-columns",
     replacement: require.resolve("lines-and-columns"),
   },
