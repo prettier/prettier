@@ -16,7 +16,7 @@ Run script with `--no-cache` flag will clean up the cache directory (`.cache` in
 yarn build --no-cache
 ```
 
-### `--playground` flag
+### `--playground`
 
 Run script with `--playground` flag will only build files needed for the website.
 
@@ -24,7 +24,7 @@ Run script with `--playground` flag will only build files needed for the website
 yarn build --playground
 ```
 
-### `--print-size` flag
+### `--print-size`
 
 To print the bundled file sizes:
 
@@ -32,7 +32,7 @@ To print the bundled file sizes:
 yarn build --print-size
 ```
 
-### `--file` flag
+### `--file`
 
 To build a single file:
 
@@ -40,7 +40,7 @@ To build a single file:
 yarn build --file=parser-babel.js
 ```
 
-### `--minify` and `--no-minify` flags
+### `--minify` and `--no-minify`
 
 By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override that behavior.
 
