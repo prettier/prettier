@@ -22,16 +22,7 @@ import bundles from "./config.mjs";
 const { __dirname, require, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
-const entries = [
-  // Force using the CJS file, instead of ESM; i.e. get the file
-  // from `"main"` instead of `"module"` (rollup default) of package.json
-  {
-    find: "@angular/compiler/src",
-    replacement: path.resolve(
-      `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-    ),
-  },
-];
+const entries = [];
 
 function webpackNativeShims(config, modules) {
   if (!config.resolve) {
