@@ -215,6 +215,7 @@ function getRollupConfig(bundle) {
     rollupPluginNodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
+      mainFields: ["main"],
     }),
     rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
