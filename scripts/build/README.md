@@ -34,6 +34,10 @@ yarn build --print-size
 
 ### `--minify` and `--no-minify` flags
 
+By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override the behavior.
+
+This should only used for debugging purposes, it should be used together with the `--file` flag.
+
 Force minify files:
 
 ```sh
