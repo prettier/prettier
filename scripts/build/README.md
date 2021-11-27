@@ -36,7 +36,7 @@ yarn build --print-size
 
 By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override the behavior.
 
-This should only used for debugging purposes, it should be used together with the `--file` flag.
+These should only be used for debugging purposes, suggest to use them together with the `--file` flag.
 
 Force minify files:
 
