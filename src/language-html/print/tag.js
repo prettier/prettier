@@ -252,9 +252,7 @@ function printAttributes(path, options, print) {
     node.children.length === 0;
 
   const attributeLine =
-    options.singleAttributePerLine && node.attrs.length > 1
-      ? hardline
-      : line;
+    options.singleAttributePerLine && node.attrs.length > 1 ? hardline : line;
 
   /** @type {Doc[]} */
   const parts = [

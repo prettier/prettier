@@ -1075,7 +1075,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\": \\"Enforce single attribute per line in HTML, Vue and JSX.\\",
       \\"name\\": \\"singleAttributePerLine\\",
       \\"pluginDefaults\\": {},
-      \\"since\\": \\"2.1.0\\",
+      \\"since\\": \\"2.3.3\\",
       \\"type\\": \\"boolean\\"
     },
     {
