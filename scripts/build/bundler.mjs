@@ -30,10 +30,6 @@ const entries = [
     replacement: require.resolve("outdent"),
   },
   {
-    find: "lines-and-columns",
-    replacement: require.resolve("lines-and-columns"),
-  },
-  {
     find: "@angular/compiler/src",
     replacement: path.resolve(
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`

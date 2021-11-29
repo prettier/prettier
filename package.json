@@ -55,7 +55,7 @@
     "jest-docblock": "27.0.6",
     "json5": "2.2.0",
     "leven": "3.1.0",
-    "lines-and-columns": "1.1.6",
+    "lines-and-columns": "2.0.3",
     "linguist-languages": "7.15.0",
     "lodash": "4.17.21",
     "mem": "8.1.1",
