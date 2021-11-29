@@ -25,7 +25,7 @@ jobs:
 
       - name: Cache Build Results
         id: build-cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v2.1.7
         with:
           path: .cache
           key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-

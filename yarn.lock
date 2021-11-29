@@ -4569,10 +4569,10 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lines-and-columns@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
-  integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
+lines-and-columns@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-2.0.3.tgz#b2f0badedb556b747020ab8ea7f0373e22efac1b"
+  integrity sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==
 
 lines-and-columns@^1.1.6:
   version "1.2.4"
@@ -5883,10 +5883,10 @@ string-length@^5.0.1:
     char-regex "^2.0.0"
     strip-ansi "^7.0.1"
 
-string-replace-loader@3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/string-replace-loader/-/string-replace-loader-3.0.3.tgz#bdbb4c9879ebb1d88185acd34afc4fb62334b433"
-  integrity sha512-8c26Dl6H9XmKNj3mFBvaUYR7ImOxQ4YRBFuUju78wXpa1cDpyDYvKmqGg8mfkxdYexQ/BBogB7PELlLnmR08nw==
+string-replace-loader@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/string-replace-loader/-/string-replace-loader-3.1.0.tgz#11ac6ee76bab80316a86af358ab773193dd57a4f"
+  integrity sha512-5AOMUZeX5HE/ylKDnEa/KKBqvlnFmRZudSOjVJHxhoJg9QYTwl1rECx7SLR8BBH7tfxb4Rp7EM2XVfQFxIhsbQ==
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
