@@ -94,7 +94,7 @@ module.exports = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        devDependencies: ["tests*/**", "scripts/**"],
+        devDependencies: ["jest.config.mjs", "tests*/**", "scripts/**"],
       },
     ],
     "import/order": "error",
