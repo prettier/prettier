@@ -19,26 +19,17 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, require, json } = createEsmUtils(import.meta);
+const { __dirname, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
   // from `"main"` instead of `"module"` (rollup default) of package.json
   {
-    find: "outdent",
-    replacement: require.resolve("outdent"),
-  },
-  {
     find: "@angular/compiler/src",
     replacement: path.resolve(
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
     ),
-  },
-  // Avoid rollup `SOURCEMAP_ERROR` and `THIS_IS_UNDEFINED` error
-  {
-    find: "@glimmer/syntax",
-    replacement: require.resolve("@glimmer/syntax"),
   },
 ];
 
@@ -220,6 +211,7 @@ function getRollupConfig(bundle) {
     rollupPluginNodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
+      mainFields: ["main"],
     }),
     rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
