@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
+import runPrettier from "../runPrettier.js";
 
 describe("checks stdin with --check", () => {
   runPrettier("cli/with-shebang", ["--check", "--parser", "babel"], {

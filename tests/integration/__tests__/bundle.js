@@ -1,11 +1,14 @@
-"use strict";
+import path from "node:path";
+import globby from "globby";
+import createEsmUtils from "esm-utils";
+import { projectRoot } from "../env.js";
+import coreOptions from "../../../src/main/core-options.js";
+import codeSamples from "../../../website/playground/codeSamples.mjs";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
-const globby = require("globby");
-const { projectRoot } = require("../env.js");
-const coreOptions = require("../../../src/main/core-options.js");
-const codeSamples =
-  require("../../../website/playground/codeSamples.js").default;
+const { require } = createEsmUtils(import.meta);
+
+expect.addSnapshotSerializer(jestPathSerializer);
 
 const parserNames = coreOptions.options.parser.choices.map(
   ({ value }) => value

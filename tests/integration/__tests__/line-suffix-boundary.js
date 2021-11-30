@@ -1,12 +1,9 @@
-"use strict";
-
 /** @type {import('prettier')} */
-const prettier = require("prettier-local");
+import prettier from "prettier-local";
+import printDoc from "../printDoc.js";
 
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;
-
-const printDoc = require("../printDoc.js");
 
 describe("lineSuffixBoundary", () => {
   test("should be correctly treated as a potential line break in `fits`", () => {

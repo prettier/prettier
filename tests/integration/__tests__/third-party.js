@@ -1,10 +1,12 @@
-"use strict";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import { thirdParty } from "../env.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
-const { thirdParty } = require("../env.js");
+const { require, __dirname } = createEsmUtils(import.meta);
 const { cosmiconfig, cosmiconfigSync, isCI } = require(thirdParty);
 
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`

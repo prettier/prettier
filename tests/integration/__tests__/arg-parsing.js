@@ -1,7 +1,7 @@
-"use strict";
+import runPrettier from "../runPrettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const runPrettier = require("../runPrettier.js");
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("boolean flags do not swallow the next argument", () => {
   runPrettier("cli/arg-parsing", [

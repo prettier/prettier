@@ -23,27 +23,7 @@ if (TEST_STANDALONE) {
 }
 if (isProduction) {
   // `esm` bundles need transform
-  transform = {
-    "(?:\\.mjs|codeSamples\\.js)$": [
-      "babel-jest",
-      {
-        presets: [
-          [
-            "@babel/env",
-            {
-              targets: { node: "current" },
-              exclude: [
-                "transform-async-to-generator",
-                "transform-classes",
-                "proposal-async-generator-functions",
-                "transform-regenerator",
-              ],
-            },
-          ],
-        ],
-      },
-    ],
-  };
+  transform = {};
 } else {
   // Only test bundles for production
   testPathIgnorePatterns.push(

@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
+import runPrettier from "../runPrettier.js";
 
 describe("CLI overrides take precedence without --config-precedence", () => {
   runPrettier("cli/config/", [
