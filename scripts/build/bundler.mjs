@@ -16,7 +16,7 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { require, json } = createEsmUtils(import.meta);
+const { json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const entries = [
@@ -27,36 +27,6 @@ const entries = [
     replacement: path.resolve(
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
     ),
-  },
-  // https://github.com/rollup/plugins/issues/670
-  {
-    find: "is-core-module",
-    replacement: require.resolve("is-core-module"),
-  },
-  {
-    find: "yaml/util",
-    replacement: require.resolve("yaml/util"),
-  },
-  // `postcss-less`
-  {
-    find: "postcss/lib/input",
-    replacement: require.resolve("postcss/lib/input"),
-  },
-  {
-    find: "postcss/lib/parser",
-    replacement: require.resolve("postcss/lib/parser"),
-  },
-  {
-    find: "postcss/lib/comment",
-    replacement: require.resolve("postcss/lib/comment"),
-  },
-  {
-    find: "postcss/lib/stringifier",
-    replacement: require.resolve("postcss/lib/stringifier"),
-  },
-  {
-    find: "postcss/lib/tokenize",
-    replacement: require.resolve("postcss/lib/tokenize"),
   },
 ];
 
