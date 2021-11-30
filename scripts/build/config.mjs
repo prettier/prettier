@@ -1,7 +1,4 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
-
-const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
