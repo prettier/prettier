@@ -208,6 +208,56 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [
+
+];
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [
+
+];
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [
+
+];
+
+================================================================================
+`;
+
 exports[`tuple.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
