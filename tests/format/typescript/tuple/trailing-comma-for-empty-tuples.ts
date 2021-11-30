@@ -1,3 +1,3 @@
 type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
 
-type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3 : Foo4;
