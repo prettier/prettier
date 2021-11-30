@@ -4,7 +4,7 @@ const {
   printComments,
   printDanglingComments,
 } = require("../../main/comments.js");
-const { getLast } = require("../../common/util.js");
+const { getLast, isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { group, join, line, softline, indent, align, ifBreak },
 } = require("../../document/index.js");
@@ -287,13 +287,15 @@ function printFunctionType(path, options, print) {
 function printTupleType(path, options, print) {
   const node = path.getValue();
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const hasRest =
-    node[typesField].length > 0 &&
-    getLast(node[typesField]).type === "TSRestType";
+  const types = node[typesField];
+  const isNotEmptyTuple = isNonEmptyArray(types);
+  const hasRest = isNotEmptyTuple && getLast(types).type === "TSRestType";
   return group([
     "[",
     indent([softline, printArrayItems(path, options, typesField, print)]),
-    ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
+    ifBreak(
+      isNotEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
+    ),
     printDanglingComments(path, options, /* sameIndent */ true),
     softline,
     "]",
