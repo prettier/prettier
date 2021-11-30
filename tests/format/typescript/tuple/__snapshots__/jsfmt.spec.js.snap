@@ -1,11 +1,97 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`no-trailing-comma-after-rest.ts - {"printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+                                                                                                                        | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[]
+];
+
+================================================================================
+`;
+
+exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"all","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "all"
+                                                                                                                        | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[]
+];
+
+================================================================================
+`;
+
 exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[]
+];
+
+================================================================================
+`;
+
+exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"none","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "none"
+                                                                                                                        | printWidth
 =====================================input======================================
 type ValidateArgs = [
 	{
@@ -86,6 +172,87 @@ type ValidateArgs = [
 ================================================================================
 `;
 
+exports[`trailing-comma.ts - {"printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+                                                                                                                        | printWidth
+=====================================input======================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string,
+      to: string,
+    }, // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+=====================================output=====================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string;
+      to: string;
+    } // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+================================================================================
+`;
+
+exports[`trailing-comma.ts - {"trailingComma":"all","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "all"
+                                                                                                                        | printWidth
+=====================================input======================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string,
+      to: string,
+    }, // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+=====================================output=====================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string;
+      to: string;
+    }, // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+================================================================================
+`;
+
 exports[`trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -119,6 +286,47 @@ export interface ShopQueryResult {
       from: string;
       to: string;
     }, // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+================================================================================
+`;
+
+exports[`trailing-comma.ts - {"trailingComma":"none","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "none"
+                                                                                                                        | printWidth
+=====================================input======================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string,
+      to: string,
+    }, // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+=====================================output=====================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string;
+      to: string;
+    } // <== this one
   ];
   shop: string;
   distance: number;
@@ -208,6 +416,49 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
+exports[`trailing-comma-for-empty-tuples.ts - {"printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+                                                                                                                        | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
+
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [];
+
+type kjhudifkalmcnf<
+  obj extends Record<string, unknown>,
+  aaddffgg extends string[] = aabbccdd<obj>
+> = aaddffgg extends [] ? never : never;
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "all"
+                                                                                                                        | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
+
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [];
+
+type kjhudifkalmcnf<
+  obj extends Record<string, unknown>,
+  aaddffgg extends string[] = aabbccdd<obj>,
+> = aaddffgg extends [] ? never : never;
+
+================================================================================
+`;
+
 exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -217,10 +468,38 @@ trailingComma: "all"
 =====================================input======================================
 type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
 
-=====================================output=====================================
-type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [
+type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
 
-];
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type kjhudifkalmcnf<
+  obj extends Record<string, unknown>,
+  aaddffgg extends string[] = aabbccdd<obj>,
+> = aaddffgg extends [] ? never : never;
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"none","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "none"
+                                                                                                                        | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
+
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [];
+
+type kjhudifkalmcnf<
+  obj extends Record<string, unknown>,
+  aaddffgg extends string[] = aabbccdd<obj>
+> = aaddffgg extends [] ? never : never;
 
 ================================================================================
 `;
@@ -234,10 +513,16 @@ trailingComma: "none"
 =====================================input======================================
 type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
 
-=====================================output=====================================
-type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [
+type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
 
-];
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type kjhudifkalmcnf<
+  obj extends Record<string, unknown>,
+  aaddffgg extends string[] = aabbccdd<obj>
+> = aaddffgg extends [] ? never : never;
 
 ================================================================================
 `;
@@ -250,9 +535,74 @@ printWidth: 80
 =====================================input======================================
 type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
 
-=====================================output=====================================
-type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = [
+type kjhudifkalmcnf<obj extends Record<string, unknown>, aaddffgg extends string[] = aabbccdd<obj>> = aaddffgg extends []? never: never
 
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type kjhudifkalmcnf<
+  obj extends Record<string, unknown>,
+  aaddffgg extends string[] = aabbccdd<obj>
+> = aaddffgg extends [] ? never : never;
+
+================================================================================
+`;
+
+exports[`tuple.ts - {"printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+                                                                                                                        | printWidth
+=====================================input======================================
+
+export type SCMRawResource = [
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/
+];
+
+=====================================output=====================================
+export type SCMRawResource = [
+  number /*handle*/,
+  string /*resourceUri*/,
+  modes.Command /*command*/,
+  string[] /*icons: light, dark*/,
+  boolean /*strike through*/,
+  boolean /*faded*/
+];
+
+================================================================================
+`;
+
+exports[`tuple.ts - {"trailingComma":"all","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "all"
+                                                                                                                        | printWidth
+=====================================input======================================
+
+export type SCMRawResource = [
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/
+];
+
+=====================================output=====================================
+export type SCMRawResource = [
+  number /*handle*/,
+  string /*resourceUri*/,
+  modes.Command /*command*/,
+  string[] /*icons: light, dark*/,
+  boolean /*strike through*/,
+  boolean /*faded*/,
 ];
 
 ================================================================================
@@ -283,6 +633,36 @@ export type SCMRawResource = [
   string[] /*icons: light, dark*/,
   boolean /*strike through*/,
   boolean /*faded*/,
+];
+
+================================================================================
+`;
+
+exports[`tuple.ts - {"trailingComma":"none","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "none"
+                                                                                                                        | printWidth
+=====================================input======================================
+
+export type SCMRawResource = [
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/
+];
+
+=====================================output=====================================
+export type SCMRawResource = [
+  number /*handle*/,
+  string /*resourceUri*/,
+  modes.Command /*command*/,
+  string[] /*icons: light, dark*/,
+  boolean /*strike through*/,
+  boolean /*faded*/
 ];
 
 ================================================================================
@@ -347,12 +727,140 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
+exports[`tuple-labeled.ts - {"printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+                                                                                                                        | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
+exports[`tuple-labeled.ts - {"trailingComma":"all","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "all"
+                                                                                                                        | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
 exports[`tuple-labeled.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
+exports[`tuple-labeled.ts - {"trailingComma":"none","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "none"
+                                                                                                                        | printWidth
 =====================================input======================================
 // https://github.com/babel/babel/pull/11754
 
@@ -475,12 +983,68 @@ type T = [...B, x: A];
 ================================================================================
 `;
 
+exports[`tuple-rest-not-last.ts - {"printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+                                                                                                                        | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"all","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "all"
+                                                                                                                        | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
 exports[`tuple-rest-not-last.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"none","printWidth":120} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 120
+trailingComma: "none"
+                                                                                                                        | printWidth
 =====================================input======================================
 // https://github.com/babel/babel/pull/11753
 
