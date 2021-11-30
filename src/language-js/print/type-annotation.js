@@ -288,9 +288,9 @@ function printTupleType(path, options, print) {
   const node = path.getValue();
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
-  const isNotEmptyTuple = isNonEmptyArray(types);
-  const hasRest = isNotEmptyTuple && getLast(types).type === "TSRestType";
-  const bracketsDelimiterLine = isNotEmptyTuple ? softline : "";
+  const isNonEmptyTuple = isNonEmptyArray(types);
+  const hasRest = isNonEmptyTuple && getLast(types).type === "TSRestType";
+  const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
   return group([
     "[",
     indent([
@@ -298,7 +298,7 @@ function printTupleType(path, options, print) {
       printArrayItems(path, options, typesField, print),
     ]),
     ifBreak(
-      isNotEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
+      isNonEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
     ),
     printDanglingComments(path, options, /* sameIndent */ true),
     bracketsDelimiterLine,
