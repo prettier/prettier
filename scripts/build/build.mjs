@@ -143,8 +143,9 @@ async function preparePackage() {
 }
 
 async function run(params) {
-  const shouldUseCache = !params.file && !params["purge-cache"];
-  const shouldPreparePackage = !params.playground && !params.file;
+  const shouldUseCache = params.cache && !params.file && params.minify === null;
+  const shouldPreparePackage =
+    !params.playground && !params.file && params.minify === null;
   let configs = bundleConfigs;
   if (params.file) {
     configs = configs.filter(({ output }) => output === params.file);
@@ -152,7 +153,7 @@ async function run(params) {
     rimraf.sync(DIST_DIR);
   }
 
-  if (params["purge-cache"]) {
+  if (!params.cache) {
     rimraf.sync(BUILD_CACHE_DIR);
   }
 
@@ -183,7 +184,8 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["purge-cache", "playground", "print-size"],
+    boolean: ["cache", "playground", "print-size", "minify"],
     string: ["file"],
+    default: { cache: true, playground: false, printSize: false, minify: null },
   })
 );

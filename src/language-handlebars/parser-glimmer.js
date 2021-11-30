@@ -1,6 +1,6 @@
 "use strict";
 
-const LinesAndColumns = require("lines-and-columns").default;
+const { LinesAndColumns } = require("lines-and-columns");
 const createError = require("../common/parser-create-error.js");
 const { locStart, locEnd } = require("./loc.js");
 
