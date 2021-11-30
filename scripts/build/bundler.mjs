@@ -254,10 +254,6 @@ function getRollupOutputOptions(bundle, buildOptions) {
     plugins: [],
   };
 
-<<<<<<< HEAD
-  if (bundle.minify !== false && bundle.target === "universal") {
-    options.plugins.push(rollupPluginTerser({ output: { ascii_only: true } }));
-=======
   let shouldMinify = buildOptions.minify;
   if (typeof shouldMinify !== "boolean") {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
@@ -271,7 +267,6 @@ function getRollupOutputOptions(bundle, buildOptions) {
         },
       })
     );
->>>>>>> remotes/upstream/main
   }
 
   if (bundle.target === "node") {
@@ -303,109 +298,6 @@ function getRollupOutputOptions(bundle, buildOptions) {
   return [options];
 }
 
-<<<<<<< HEAD
-=======
-function getWebpackConfig(bundle, buildOptions) {
-  if (bundle.type !== "plugin" || bundle.target !== "universal") {
-    throw new Error("Must use rollup for this bundle");
-  }
-
-  const config = {
-    mode: "production",
-    performance: { hints: false },
-    entry: path.resolve(PROJECT_ROOT, bundle.input),
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          use: {
-            loader: "babel-loader",
-            options: getBabelConfig(bundle),
-          },
-        },
-        {
-          test: /\.js$/,
-          use: {
-            loader: "string-replace-loader",
-            options: {
-              multiple: Object.entries(bundle.replace).map(
-                ([search, replace]) => ({ search, replace })
-              ),
-            },
-          },
-        },
-      ],
-    },
-    output: {
-      path: DIST_DIR,
-      filename: bundle.output,
-      library: {
-        type: "umd",
-        name: bundle.name.split("."),
-      },
-      // https://github.com/webpack/webpack/issues/6642
-      globalObject: 'new Function("return this")()',
-    },
-    optimization: {},
-    resolve: {
-      // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
-      // Ignore `exports` field to fix bundle script
-      exportsFields: [],
-    },
-  };
-
-  let shouldMinify = buildOptions.minify;
-  if (typeof shouldMinify !== "boolean") {
-    shouldMinify = true;
-  }
-
-  if (shouldMinify) {
-    config.optimization.minimizer = [
-      new WebpackPluginTerser({
-        // prevent terser generate extra .LICENSE file
-        extractComments: false,
-        terserOptions: {
-          // prevent U+FFFE in the output
-          output: {
-            ascii_only: true,
-          },
-        },
-      }),
-    ];
-  } else {
-    config.optimization.minimize = false;
-  }
-
-  return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
-}
-
-function runWebpack(config) {
-  return new Promise((resolve, reject) => {
-    webpack(config, (error, stats) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-
-      if (stats.hasErrors()) {
-        const { errors } = stats.toJson();
-        const error = new Error(errors[0].message);
-        error.errors = errors;
-        reject(error);
-        return;
-      }
-
-      if (stats.hasWarnings()) {
-        const { warnings } = stats.toJson();
-        console.warn(warnings);
-      }
-
-      resolve();
-    });
-  });
-}
-
->>>>>>> remotes/upstream/main
 async function createBundle(bundle, cache, options) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle, options);
@@ -427,17 +319,8 @@ async function createBundle(bundle, cache, options) {
     return { cached: true };
   }
 
-<<<<<<< HEAD
   const result = await rollup(inputOptions);
   await Promise.all(outputOptions.map((option) => result.write(option)));
-=======
-  if (bundle.bundler === "webpack") {
-    await runWebpack(getWebpackConfig(bundle, options));
-  } else {
-    const result = await rollup(inputOptions);
-    await Promise.all(outputOptions.map((option) => result.write(option)));
-  }
->>>>>>> remotes/upstream/main
 
   return { bundled: true };
 }
