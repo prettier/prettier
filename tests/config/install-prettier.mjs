@@ -1,7 +1,8 @@
 import path from "node:path";
-import fs from "node:fs";
-import { execaSync } from "execa";
+import { promises as fs } from "node:fs";
+import { execa } from "execa";
 import tempy from "tempy";
+import { PROJECT_ROOT } from "../../scripts/utils/index.mjs";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
@@ -10,17 +11,17 @@ if (!allowedClients.has(client)) {
   client = "yarn";
 }
 
-function installPrettier(packageDir) {
+async function installPrettierPackage(packageDir) {
   const tmpDir = tempy.directory();
-  const fileName = execaSync("npm", ["pack"], {
+  const { stdout: fileName } = await execa("npm", ["pack"], {
     cwd: packageDir,
-  }).stdout.trim();
+  });
   const file = path.join(packageDir, fileName);
   const packed = path.join(tmpDir, fileName);
-  fs.copyFileSync(file, packed);
-  fs.unlinkSync(file);
+  await fs.copyFile(file, packed);
+  await fs.unlink(file);
 
-  execaSync(client, ["init", "-y"], { cwd: tmpDir });
+  await execa(client, ["init", "-y"], { cwd: tmpDir });
 
   let installArguments = [];
   switch (client) {
@@ -37,10 +38,25 @@ function installPrettier(packageDir) {
       installArguments = ["add", packed];
   }
 
-  execaSync(client, installArguments, { cwd: tmpDir });
-  fs.unlinkSync(packed);
+  await execa(client, installArguments, { cwd: tmpDir });
+  await fs.unlink(packed);
 
   return path.join(tmpDir, "node_modules/prettier");
 }
 
-export default installPrettier;
+async function installPrettier() {
+  const isProduction = process.env.NODE_ENV === "production";
+  const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
+  const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+
+  let PRETTIER_DIR = isProduction
+    ? path.join(PROJECT_ROOT, "dist")
+    : PROJECT_ROOT;
+  if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
+    PRETTIER_DIR = await installPrettierPackage(PRETTIER_DIR);
+  }
+
+  process.env.PRETTIER_DIR = PRETTIER_DIR;
+}
+
+export default installPrettier();

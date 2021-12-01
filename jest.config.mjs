@@ -1,20 +1,6 @@
-import path from "node:path";
-import createEsmUtils from "esm-utils";
-import installPrettier from "./tests/config/install-prettier.mjs";
-
-const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
 const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
-const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
-
-let PRETTIER_DIR = isProduction
-  ? path.join(PROJECT_ROOT, "dist")
-  : PROJECT_ROOT;
-if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
-  PRETTIER_DIR = installPrettier(PRETTIER_DIR);
-}
-process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];
 let transform = {};
@@ -52,6 +38,7 @@ if (isProduction) {
 }
 
 const config = {
+  setupFilesAfterEnv: ["<rootDir>/tests/config/install-prettier.mjs"],
   setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
