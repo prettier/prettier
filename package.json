@@ -74,7 +74,7 @@
     "regexp-util": "1.2.2",
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
-    "remark-parse": "8.0.3",
+    "remark-parse": "10.0.1",
     "resolve": "1.20.0",
     "semver": "7.3.5",
     "string-width": "4.2.3",
