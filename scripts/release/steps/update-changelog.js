@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { execa } from "execa";
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import outdent from "outdent";
 import semver from "semver";
 import {
@@ -45,7 +45,7 @@ export default async function updateChangelog({ version, previousVersion }) {
       return;
     }
     console.warn(
-      outdentString(chalk`
+      outdentString(chalkTemplate`
         {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
 
         Press ENTER to continue.

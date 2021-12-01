@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import outdent from "outdent";
 import { execa } from "execa";
 import { fetchText, logPromise } from "../utils.js";
@@ -25,7 +26,7 @@ async function checkSchema() {
     return;
   }
 
-  return outdentString(chalk`
+  return outdentString(chalkTemplate`
     {bold.underline The schema in {yellow SchemaStore} needs an update.}
     - Open {cyan.underline ${EDIT_URL}}
     - Run {yellow node scripts/generate-schema.mjs} and copy the new schema
@@ -35,7 +36,7 @@ async function checkSchema() {
 }
 
 function twitterAnnouncement() {
-  return outdentString(chalk`
+  return outdentString(chalkTemplate`
     {bold.underline Announce on Twitter}
     - Open {cyan.underline https://tweetdeck.twitter.com}
     - Make sure you are tweeting from the {yellow @PrettierCode} account.
@@ -53,7 +54,7 @@ export default async function postPublishSteps() {
   }
 
   console.log(
-    outdentString(chalk`
+    outdentString(chalkTemplate`
       {yellow.bold The following ${
         steps.length === 1 ? "step is" : "steps are"
       } optional.}

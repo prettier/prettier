@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import chalkTemplate from "chalk-template";
 import outdent from "outdent";
 import { execa } from "execa";
 import semver from "semver";
@@ -64,7 +64,7 @@ export default async function publishToNpm({ dry, version, previousVersion }) {
   const releaseUrl = getReleaseUrl(version, previousVersion);
 
   console.log(
-    outdentString(chalk`
+    outdentString(chalkTemplate`
       {green.bold Prettier ${version} published!}
 
       {yellow.bold Some manual steps are necessary.}
