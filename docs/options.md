@@ -27,6 +27,8 @@ Specify the line length that the printer will wrap on.
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
+Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
+
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width
@@ -37,6 +39,8 @@ Specify the number of spaces per indentation-level.
 | ------- | ------------------- | ----------------- |
 | `2`     | `--tab-width <int>` | `tabWidth: <int>` |
 
+Setting `indent_size` or `tab_width` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab width, unless overridden.
+
 ## Tabs
 
 Indent lines with tabs instead of spaces.
@@ -44,6 +48,8 @@ Indent lines with tabs instead of spaces.
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
+
+Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
@@ -424,6 +430,8 @@ Valid options:
 | Default | CLI Override                                                | API Override                                               |
 | ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+
+Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
 
 ## Embedded Language Formatting
 

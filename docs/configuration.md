@@ -173,3 +173,12 @@ You can also switch to the `flow` parser instead of the default `babel` for .js 
 ## Configuration Schema
 
 If you’d like a JSON schema to validate your configuration, one is available here: http://json.schemastore.org/prettierrc.
+
+## EditorConfig
+
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+
+- `end_of_line`
+- `indent_style`
+- `indent_size`/`tab_width`
+- `max_line_length`
