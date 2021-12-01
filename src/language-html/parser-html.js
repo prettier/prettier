@@ -373,7 +373,7 @@ function createParser({
   getTagContentType,
 } = {}) {
   return {
-    parse: (text, parsers, options) =>
+    parse: (text, parsers, options = {}) =>
       _parse(text, options, {
         recognizeSelfClosing,
         normalizeTagName,
