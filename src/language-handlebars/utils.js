@@ -25,6 +25,7 @@ function isLastNodeOfSiblings(path) {
 }
 
 function isUppercase(string) {
+  return /^[A-Z]+$/.test(string);
   return string.toUpperCase() === string;
 }
 
