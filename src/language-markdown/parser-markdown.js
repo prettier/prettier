@@ -1,16 +1,15 @@
 "use strict";
 
-const remarkParse = require("remark-parse");
-const unified = require("unified");
+const { default: remarkParse } = require("remark-parse");
+const { unified } = require("unified");
 const remarkMath = require("remark-math");
-const footnotes = require("remark-footnotes");
+const remarkGfm = require("remark-gfm");
+const remarkMdx = require("remark-mdx");
+const remarkFrontmatter = require("remark-frontmatter");
+const remarkWikiLink = require("remark-wiki-link");
 const pragma = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
-const mdx = require("./mdx.js");
-const htmlToJsx = require("./unified-plugins/html-to-jsx.js");
-const frontMatter = require("./unified-plugins/front-matter.js");
 const liquid = require("./unified-plugins/liquid.js");
-const wikiLink = require("./unified-plugins/wiki-link.js");
 const looseItems = require("./unified-plugins/loose-items.js");
 
 /**
@@ -30,24 +29,18 @@ const looseItems = require("./unified-plugins/loose-items.js");
 function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
-      .use(remarkParse, {
-        commonmark: true,
-        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
-      })
-      .use(footnotes)
-      .use(frontMatter)
+      .use(remarkParse)
+      .use(remarkGfm)
       .use(remarkMath)
-      .use(isMDX ? mdx.esSyntax : identity)
-      .use(liquid)
-      .use(isMDX ? htmlToJsx : identity)
-      .use(wikiLink)
-      .use(looseItems);
+      .use(remarkFrontmatter)
+      .use(remarkWikiLink);
+    // .use(liquid)
+    // .use(looseItems);
+    if (isMDX) {
+      processor.use(remarkMdx);
+    }
     return processor.runSync(processor.parse(text));
   };
-}
-
-function identity(x) {
-  return x;
 }
 
 const baseParser = {

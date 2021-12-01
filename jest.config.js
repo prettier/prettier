@@ -17,6 +17,26 @@ if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
 }
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
+const babelJestTransform = [
+  "babel-jest",
+  {
+    presets: [
+      [
+        "@babel/env",
+        {
+          targets: { node: "current" },
+          exclude: [
+            "transform-async-to-generator",
+            "transform-classes",
+            "proposal-async-generator-functions",
+            "transform-regenerator",
+          ],
+        },
+      ],
+    ],
+  },
+];
+
 const testPathIgnorePatterns = [];
 let transform = {};
 if (TEST_STANDALONE) {
@@ -25,32 +45,35 @@ if (TEST_STANDALONE) {
 if (isProduction) {
   // `esm` bundles need transform
   transform = {
-    "(?:\\.mjs|codeSamples\\.js)$": [
-      "babel-jest",
-      {
-        presets: [
-          [
-            "@babel/env",
-            {
-              targets: { node: "current" },
-              exclude: [
-                "transform-async-to-generator",
-                "transform-classes",
-                "proposal-async-generator-functions",
-                "transform-regenerator",
-              ],
-            },
-          ],
-        ],
-      },
-    ],
+    "(?:\\.mjs|codeSamples\\.js)$": babelJestTransform,
   };
 } else {
+  transform = {
+    ".js$": babelJestTransform,
+  };
   // Only test bundles for production
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/bundle.js"
   );
 }
+
+const esmPackagePatterns = [
+  "bail",
+  "ccount",
+  "character-entities",
+  "decode-named-character-reference",
+  "fault",
+  "is-plain-obj",
+  "longest-streak",
+  "markdown-table",
+  "mdast.*",
+  "micromark.*",
+  "remark.*",
+  "trough",
+  "unified",
+  "unist.*",
+  "vfile.*",
+];
 
 module.exports = {
   setupFiles: ["<rootDir>/tests/config/setup.js"],
@@ -77,6 +100,9 @@ module.exports = {
     "<rootDir>/scripts/release",
   ],
   transform,
+  transformIgnorePatterns: [
+    `<rootDir>/node_modules/(?!(${esmPackagePatterns.join("|")})/)`,
+  ],
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",

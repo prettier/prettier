@@ -4120,6 +4120,8 @@ tabWidth: 0
  	- foo
  	- bar
 
+1.0 Text
+
 * Text
 
  	# foo
@@ -4144,6 +4146,8 @@ tabWidth: 0
   - foo
   - foo
   - bar
+
+  1.0 Text
 
 - Text
 
@@ -4180,6 +4184,8 @@ tabWidth: 4
  	- foo
  	- bar
 
+1.0 Text
+
 * Text
 
  	# foo
@@ -4204,6 +4210,8 @@ tabWidth: 4
     -   foo
     -   foo
     -   bar
+
+    1.0 Text
 
 -   Text
 
@@ -4240,6 +4248,8 @@ tabWidth: 999
  	- foo
  	- bar
 
+1.0 Text
+
 * Text
 
  	# foo
@@ -4264,6 +4274,8 @@ tabWidth: 999
      - foo
      - foo
      - bar
+
+     1.0 Text
 
 - Text
 
@@ -4299,6 +4311,8 @@ proseWrap: "always"
  	- foo
  	- bar
 
+1.0 Text
+
 * Text
 
  	# foo
@@ -4323,6 +4337,8 @@ proseWrap: "always"
   - foo
   - foo
   - bar
+
+  1.0 Text
 
 - Text
 
