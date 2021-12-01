@@ -25,13 +25,14 @@ function isLastNodeOfSiblings(path) {
 }
 
 function isUppercase(string) {
-  return /^[A-Z]+$/.test(string);
+  return string.toUpperCase() === string;
 }
 
 function isGlimmerComponent(node) {
   return (
     isNodeOfSomeType(node, ["ElementNode"]) &&
     typeof node.tag === "string" &&
+    node.tag[0] !== ":" &&
     (isUppercase(node.tag[0]) || node.tag.includes("."))
   );
 }
