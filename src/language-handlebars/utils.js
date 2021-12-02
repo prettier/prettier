@@ -32,6 +32,7 @@ function isGlimmerComponent(node) {
   return (
     isNodeOfSomeType(node, ["ElementNode"]) &&
     typeof node.tag === "string" &&
+    node.tag[0] !== ":" &&
     (isUppercase(node.tag[0]) || node.tag.includes("."))
   );
 }
