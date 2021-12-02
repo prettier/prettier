@@ -1,10 +1,7 @@
 "use strict";
 
 const dashify = require("dashify");
-
-const fromPairs = require("lodash/fromPairs");
-
-const { coreOptions } = require("./prettier-internal");
+const { coreOptions } = require("./prettier-internal.js");
 
 function normalizeDetailedOption(name, option) {
   return {
@@ -28,7 +25,7 @@ function normalizeDetailedOption(name, option) {
 }
 
 function normalizeDetailedOptionMap(detailedOptionMap) {
-  return fromPairs(
+  return Object.fromEntries(
     Object.entries(detailedOptionMap)
       .sort(([leftName], [rightName]) => leftName.localeCompare(rightName))
       .map(([name, option]) => [name, normalizeDetailedOption(name, option)])
@@ -36,7 +33,7 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 }
 
 function createDetailedOptionMap(supportOptions) {
-  return fromPairs(
+  return Object.fromEntries(
     supportOptions.map((option) => {
       const newOption = {
         ...option,

@@ -229,7 +229,7 @@ const EditorSupportSection = () => (
     <div style={{ float: "right" }}>
       <span>Got more? </span>
       <a
-        href={`${siteConfig.githubUrl}/edit/master/website/data/editors.yml`}
+        href={`${siteConfig.githubUrl}/edit/main/website/data/editors.yml`}
         className="button"
       >
         Send a PR
@@ -283,6 +283,27 @@ const UsersSection = ({ language }) => {
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
+              href="https://2020.stateofjs.com/en-US/other-tools/utilities"
+              className="growOnHover"
+            >
+              <img
+                src="/images/state_of_js_grey.svg"
+                style={{ height: "100px" }}
+              />
+            </a>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
+              <p>
+                Regularly used by more than <strong>70%</strong> of respondents
+                to State of JS 2020
+              </p>
+              <Button href="https://2020.stateofjs.com/en-US/other-tools/utilities">
+                Go to Survey Results
+              </Button>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", marginTop: "22px" }}>
+            <a
               href="https://github.com/prettier/prettier"
               className="growOnHover"
             >
@@ -291,7 +312,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">2.3 million</strong>{" "}
+                <strong data-placeholder="dependent-github">3.4 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
@@ -309,7 +330,7 @@ const UsersSection = ({ language }) => {
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                More than <strong data-placeholder="dependent-npm">6000</strong>{" "}
+                More than <strong data-placeholder="dependent-npm">10k</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">

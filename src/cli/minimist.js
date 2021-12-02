@@ -1,7 +1,6 @@
 "use strict";
 
 const minimist = require("minimist");
-const fromPairs = require("lodash/fromPairs");
 
 const PLACEHOLDER = null;
 
@@ -15,12 +14,14 @@ module.exports = function (args, options) {
   const booleanWithoutDefault = boolean.filter((key) => !(key in defaults));
   const newDefaults = {
     ...defaults,
-    ...fromPairs(booleanWithoutDefault.map((key) => [key, PLACEHOLDER])),
+    ...Object.fromEntries(
+      booleanWithoutDefault.map((key) => [key, PLACEHOLDER])
+    ),
   };
 
   const parsed = minimist(args, { ...options, default: newDefaults });
 
-  return fromPairs(
+  return Object.fromEntries(
     Object.entries(parsed).filter(([, value]) => value !== PLACEHOLDER)
   );
 };

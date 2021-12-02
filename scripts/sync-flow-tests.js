@@ -50,13 +50,13 @@ function syncTests(syncDir) {
 
   rimraf.sync(FLOW_TESTS_DIR);
 
-  filesToCopy.forEach((file) => {
+  for (const file of filesToCopy) {
     const content = fs.readFileSync(file, "utf8");
     const parseError = tryParse(file, content);
 
     if (parseError) {
       skipped.push(parseError);
-      return;
+      continue;
     }
 
     const newFile = path.join(FLOW_TESTS_DIR, path.relative(syncDir, file));
@@ -67,7 +67,7 @@ function syncTests(syncDir) {
     fs.mkdirSync(dirname, { recursive: true });
     fs.writeFileSync(newFile, content);
     fs.writeFileSync(specFile, specContent);
-  });
+  }
 
   return skipped;
 }
@@ -101,9 +101,9 @@ function run(argv) {
         "but that's not interesting for Prettier's tests.",
         "This is the skipped stuff:",
         "",
-      ]
-        .concat(skipped, "")
-        .join("\n")
+        ...skipped,
+        "",
+      ].join("\n")
     );
   }
 

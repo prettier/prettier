@@ -1,11 +1,22 @@
 "use strict";
 
+/** @typedef {import("../../document").Doc} Doc */
+
 const assert = require("assert");
+const { printDanglingComments } = require("../../main/comments.js");
+const { printString, printNumber } = require("../../common/util.js");
 const {
-  builders: { concat },
-} = require("../../document");
-const { getParentExportDeclaration } = require("../utils");
-const { printClass } = require("./class");
+  builders: { hardline, softline, group, indent },
+} = require("../../document/index.js");
+const {
+  getParentExportDeclaration,
+  isFunctionNotation,
+  isGetterOrSetter,
+  rawText,
+  shouldPrintComma,
+} = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
+const { printClass } = require("./class.js");
 const {
   printOpaqueType,
   printTypeAlias,
@@ -13,56 +24,58 @@ const {
   printUnionType,
   printFunctionType,
   printTupleType,
-} = require("./type-annotation");
-const { printInterface } = require("./interface");
-const { printTypeParameters } = require("./type-parameters");
+  printIndexedAccessType,
+} = require("./type-annotation.js");
+const { printInterface } = require("./interface.js");
+const {
+  printTypeParameter,
+  printTypeParameters,
+} = require("./type-parameters.js");
 const {
   printExportDeclaration,
   printExportAllDeclaration,
-} = require("./module");
+} = require("./module.js");
+const { printArrayItems } = require("./array.js");
+const { printObject } = require("./object.js");
+const { printPropertyKey } = require("./property.js");
+const {
+  printOptionalToken,
+  printTypeAnnotation,
+  printRestSpread,
+} = require("./misc.js");
 
 function printFlow(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const semi = options.semi ? ";" : "";
-  switch (n.type) {
+  /** @type{Doc[]} */
+  const parts = [];
+  switch (node.type) {
     case "DeclareClass":
       return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "function ",
-          path.call(print, "id"),
-          n.predicate ? " " : "",
-          path.call(print, "predicate"),
-          semi,
-        ])
-      );
+      return printFlowDeclaration(path, [
+        "function ",
+        print("id"),
+        node.predicate ? " " : "",
+        print("predicate"),
+        semi,
+      ]);
     case "DeclareModule":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module ",
-          path.call(print, "id"),
-          " ",
-          path.call(print, "body"),
-        ])
-      );
+      return printFlowDeclaration(path, [
+        "module ",
+        print("id"),
+        " ",
+        print("body"),
+      ]);
     case "DeclareModuleExports":
-      return printFlowDeclaration(
-        path,
-        concat([
-          "module.exports",
-          ": ",
-          path.call(print, "typeAnnotation"),
-          semi,
-        ])
-      );
+      return printFlowDeclaration(path, [
+        "module.exports",
+        ": ",
+        print("typeAnnotation"),
+        semi,
+      ]);
     case "DeclareVariable":
-      return printFlowDeclaration(
-        path,
-        concat(["var ", path.call(print, "id"), semi])
-      );
+      return printFlowDeclaration(path, ["var ", print("id"), semi]);
     case "DeclareOpaqueType":
       return printFlowDeclaration(path, printOpaqueType(path, options, print));
     case "DeclareInterface":
@@ -92,14 +105,264 @@ function printFlow(path, options, print) {
     case "TupleTypeAnnotation":
       return printTupleType(path, options, print);
     case "GenericTypeAnnotation":
-      return concat([
-        path.call(print, "id"),
+      return [
+        print("id"),
         printTypeParameters(path, options, print, "typeParameters"),
-      ]);
+      ];
+    case "IndexedAccessType":
+    case "OptionalIndexedAccessType":
+      return printIndexedAccessType(path, options, print);
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
-      return path.call(print, "typeAnnotation");
+      return print("typeAnnotation");
+    case "TypeParameter":
+      return printTypeParameter(path, options, print);
+    case "TypeofTypeAnnotation":
+      return ["typeof ", print("argument")];
+    case "ExistsTypeAnnotation":
+      return "*";
+    case "EmptyTypeAnnotation":
+      return "empty";
+    case "MixedTypeAnnotation":
+      return "mixed";
+    case "ArrayTypeAnnotation":
+      return [print("elementType"), "[]"];
+    case "BooleanLiteralTypeAnnotation":
+      return String(node.value);
+    case "EnumDeclaration":
+      return ["enum ", print("id"), " ", print("body")];
+    case "EnumBooleanBody":
+    case "EnumNumberBody":
+    case "EnumStringBody":
+    case "EnumSymbolBody": {
+      if (node.type === "EnumSymbolBody" || node.explicitType) {
+        let type = null;
+        switch (node.type) {
+          case "EnumBooleanBody":
+            type = "boolean";
+            break;
+          case "EnumNumberBody":
+            type = "number";
+            break;
+          case "EnumStringBody":
+            type = "string";
+            break;
+          case "EnumSymbolBody":
+            type = "symbol";
+            break;
+        }
+        parts.push("of ", type, " ");
+      }
+      if (node.members.length === 0 && !node.hasUnknownMembers) {
+        parts.push(
+          group(["{", printDanglingComments(path, options), softline, "}"])
+        );
+      } else {
+        const members =
+          node.members.length > 0
+            ? [
+                hardline,
+                printArrayItems(path, options, "members", print),
+                node.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
+              ]
+            : [];
+
+        parts.push(
+          group([
+            "{",
+            indent([
+              ...members,
+              ...(node.hasUnknownMembers ? [hardline, "..."] : []),
+            ]),
+            printDanglingComments(path, options, /* sameIndent */ true),
+            hardline,
+            "}",
+          ])
+        );
+      }
+      return parts;
+    }
+    case "EnumBooleanMember":
+    case "EnumNumberMember":
+    case "EnumStringMember":
+      return [
+        print("id"),
+        " = ",
+        typeof node.init === "object" ? print("init") : String(node.init),
+      ];
+    case "EnumDefaultedMember":
+      return print("id");
+    case "FunctionTypeParam": {
+      const name = node.name
+        ? print("name")
+        : path.getParentNode().this === node
+        ? "this"
+        : "";
+      return [
+        name,
+        printOptionalToken(path),
+        name ? ": " : "",
+        print("typeAnnotation"),
+      ];
+    }
+
+    case "InterfaceDeclaration":
+    case "InterfaceTypeAnnotation":
+      return printInterface(path, options, print);
+    case "ClassImplements":
+    case "InterfaceExtends":
+      return [print("id"), print("typeParameters")];
+    case "NullableTypeAnnotation":
+      return ["?", print("typeAnnotation")];
+    case "Variance": {
+      const { kind } = node;
+      assert.ok(kind === "plus" || kind === "minus");
+      return kind === "plus" ? "+" : "-";
+    }
+    case "ObjectTypeCallProperty":
+      if (node.static) {
+        parts.push("static ");
+      }
+
+      parts.push(print("value"));
+
+      return parts;
+    case "ObjectTypeIndexer": {
+      return [
+        node.variance ? print("variance") : "",
+        "[",
+        print("id"),
+        node.id ? ": " : "",
+        print("key"),
+        "]: ",
+        print("value"),
+      ];
+    }
+    case "ObjectTypeProperty": {
+      let modifier = "";
+
+      if (node.proto) {
+        modifier = "proto ";
+      } else if (node.static) {
+        modifier = "static ";
+      }
+
+      return [
+        modifier,
+        isGetterOrSetter(node) ? node.kind + " " : "",
+        node.variance ? print("variance") : "",
+        printPropertyKey(path, options, print),
+        printOptionalToken(path),
+        isFunctionNotation(node) ? "" : ": ",
+        print("value"),
+      ];
+    }
+    case "ObjectTypeAnnotation":
+      return printObject(path, options, print);
+    case "ObjectTypeInternalSlot":
+      return [
+        node.static ? "static " : "",
+        "[[",
+        print("id"),
+        "]]",
+        printOptionalToken(path),
+        node.method ? "" : ": ",
+        print("value"),
+      ];
+    // Same as `RestElement`
+    case "ObjectTypeSpreadProperty":
+      return printRestSpread(path, options, print);
+    case "QualifiedTypeIdentifier":
+      return [print("qualification"), ".", print("id")];
+    case "StringLiteralTypeAnnotation":
+      return printString(rawText(node), options);
+    case "NumberLiteralTypeAnnotation":
+      assert.strictEqual(typeof node.value, "number");
+    // fall through
+    case "BigIntLiteralTypeAnnotation":
+      if (node.extra) {
+        return printNumber(node.extra.raw);
+      }
+      return printNumber(node.raw);
+    case "TypeCastExpression": {
+      return [
+        "(",
+        print("expression"),
+        printTypeAnnotation(path, options, print),
+        ")",
+      ];
+    }
+
+    case "TypeParameterDeclaration":
+    case "TypeParameterInstantiation": {
+      const printed = printTypeParameters(path, options, print, "params");
+
+      if (options.parser === "flow") {
+        const start = locStart(node);
+        const end = locEnd(node);
+        const commentStartIndex = options.originalText.lastIndexOf("/*", start);
+        const commentEndIndex = options.originalText.indexOf("*/", end);
+        if (commentStartIndex !== -1 && commentEndIndex !== -1) {
+          const comment = options.originalText
+            .slice(commentStartIndex + 2, commentEndIndex)
+            .trim();
+          if (
+            comment.startsWith("::") &&
+            !comment.includes("/*") &&
+            !comment.includes("*/")
+          ) {
+            return ["/*:: ", printed, " */"];
+          }
+        }
+      }
+
+      return printed;
+    }
+
+    case "InferredPredicate":
+      return "%checks";
+    // Unhandled types below. If encountered, nodes of these types should
+    // be either left alone or desugared into AST types that are fully
+    // supported by the pretty-printer.
+    case "DeclaredPredicate":
+      return ["%checks(", print("value"), ")"];
+    case "AnyTypeAnnotation":
+      return "any";
+    case "BooleanTypeAnnotation":
+      return "boolean";
+    case "BigIntTypeAnnotation":
+      return "bigint";
+    case "NullLiteralTypeAnnotation":
+      return "null";
+    case "NumberTypeAnnotation":
+      return "number";
+    case "SymbolTypeAnnotation":
+      return "symbol";
+    case "StringTypeAnnotation":
+      return "string";
+    case "VoidTypeAnnotation":
+      return "void";
+    case "ThisTypeAnnotation":
+      return "this";
+    // These types are unprintable because they serve as abstract
+    // supertypes for other (printable) types.
+    case "Node":
+    case "Printable":
+    case "SourceLocation":
+    case "Position":
+    case "Statement":
+    case "Function":
+    case "Pattern":
+    case "Expression":
+    case "Declaration":
+    case "Specifier":
+    case "NamedSpecifier":
+    case "Comment":
+    case "MemberTypeAnnotation": // Flow
+    case "Type":
+      /* istanbul ignore next */
+      throw new Error("unprintable type: " + JSON.stringify(node.type));
   }
 }
 
@@ -114,7 +377,7 @@ function printFlowDeclaration(path, printed) {
   // If the parent node has type DeclareExportDeclaration, then it
   // will be responsible for printing the "declare" token. Otherwise
   // it needs to be printed with this non-exported declaration node.
-  return concat(["declare ", printed]);
+  return ["declare ", printed];
 }
 
 module.exports = { printFlow };

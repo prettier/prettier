@@ -1,20 +1,19 @@
 "use strict";
 
-const fs = require("fs");
-const readline = require("readline");
+const { promises: fs } = require("fs");
 const path = require("path");
 
 const chalk = require("chalk");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
+const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party");
+const { getStdin } = require("../common/third-party.js");
 
-const { createIgnorer, errors } = require("./prettier-internal");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
-const { getOptionsForFile } = require("./option");
-const isTTY = require("./is-tty");
+const { createIgnorer, errors } = require("./prettier-internal.js");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
+const { getOptionsForFile } = require("./option.js");
+const isTTY = require("./is-tty.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -22,13 +21,15 @@ function diff(a, b) {
   });
 }
 
-function handleError(context, filename, error) {
+function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* istanbul ignore next */
-    if ((context.argv.write || context.argv["ignore-unknown"]) && isTTY()) {
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+    if (
+      (context.argv.write || context.argv["ignore-unknown"]) &&
+      printedFilename
+    ) {
+      printedFilename.clear();
     }
     if (context.argv["ignore-unknown"]) {
       return;
@@ -113,7 +114,23 @@ function format(context, input, opt) {
 
   if (context.argv["debug-print-doc"]) {
     const doc = prettier.__debug.printToDoc(input, opt);
-    return { formatted: prettier.__debug.formatDoc(doc) };
+    return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
+  }
+
+  if (context.argv["debug-print-comments"]) {
+    return {
+      formatted: prettier.format(
+        JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
+        { parser: "json" }
+      ),
+    };
+  }
+
+  if (context.argv["debug-print-ast"]) {
+    const { ast } = prettier.__debug.parse(input, opt);
+    return {
+      formatted: JSON.stringify(ast),
+    };
   }
 
   if (context.argv["debug-check"]) {
@@ -154,8 +171,9 @@ function format(context, input, opt) {
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
-      benchmark = eval("require")("benchmark");
-    } catch (err) {
+      // eslint-disable-next-line import/no-extraneous-dependencies
+      benchmark = require("benchmark");
+    } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
       );
@@ -188,13 +206,12 @@ function format(context, input, opt) {
         repeat +
         " times."
     );
-    // should be using `performance.now()`, but only `Date` is cross-platform enough
-    const now = Date.now ? () => Date.now() : () => +new Date();
     let totalMs = 0;
     for (let i = 0; i < repeat; ++i) {
-      const startMs = now();
+      // should be using `performance.now()`, but only `Date` is cross-platform enough
+      const startMs = Date.now();
       prettier.formatWithCursor(input, opt);
-      totalMs += now() - startMs;
+      totalMs += Date.now() - startMs;
     }
     const averageMs = totalMs / repeat;
     const results = {
@@ -211,9 +228,9 @@ function format(context, input, opt) {
   return prettier.formatWithCursor(input, opt);
 }
 
-function createIgnorerFromContextOrDie(context) {
+async function createIgnorerFromContextOrDie(context) {
   try {
-    return createIgnorer.sync(
+    return await createIgnorer(
       context.argv["ignore-path"],
       context.argv["with-node-modules"]
     );
@@ -223,45 +240,45 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function formatStdin(context) {
+async function formatStdin(context) {
   const filepath = context.argv["stdin-filepath"]
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
 
-  const ignorer = createIgnorerFromContextOrDie(context);
+  const ignorer = await createIgnorerFromContextOrDie(context);
   // If there's an ignore-path set, the filename must be relative to the
   // ignore path, not the current working directory.
   const relativeFilepath = context.argv["ignore-path"]
     ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
     : path.relative(process.cwd(), filepath);
 
-  getStdin()
-    .then((input) => {
-      if (
-        relativeFilepath &&
-        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
-      ) {
-        writeOutput(context, { formatted: input });
-        return;
-      }
+  try {
+    const input = await getStdin();
 
-      const options = getOptionsForFile(context, filepath);
+    if (
+      relativeFilepath &&
+      ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+    ) {
+      writeOutput(context, { formatted: input });
+      return;
+    }
 
-      if (listDifferent(context, input, options, "(stdin)")) {
-        return;
-      }
+    const options = await getOptionsForFile(context, filepath);
 
-      writeOutput(context, format(context, input, options), options);
-    })
-    .catch((error) => {
-      handleError(context, relativeFilepath || "stdin", error);
-    });
+    if (listDifferent(context, input, options, "(stdin)")) {
+      return;
+    }
+
+    writeOutput(context, format(context, input, options), options);
+  } catch (error) {
+    handleError(context, relativeFilepath || "stdin", error);
+  }
 }
 
-function formatFiles(context) {
+async function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorerFromContextOrDie(context);
+  const ignorer = await createIgnorerFromContextOrDie(context);
 
   let numberOfUnformattedFilesFound = 0;
 
@@ -269,7 +286,7 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  for (const pathOrError of expandPatterns(context)) {
+  for await (const pathOrError of expandPatterns(context)) {
     if (typeof pathOrError === "object") {
       context.logger.error(pathOrError.error);
       // Don't exit, but set the exit code to 2
@@ -296,17 +313,21 @@ function formatFiles(context) {
     }
 
     const options = {
-      ...getOptionsForFile(context, filename),
+      ...(await getOptionsForFile(context, filename)),
       filepath: filename,
     };
 
+    let printedFilename;
     if (isTTY()) {
-      context.logger.log(filename, { newline: false });
+      printedFilename = context.logger.log(filename, {
+        newline: false,
+        clearable: true,
+      });
     }
 
     let input;
     try {
-      input = fs.readFileSync(filename, "utf8");
+      input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
       /* istanbul ignore next */
@@ -339,16 +360,15 @@ function formatFiles(context) {
       result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
-      handleError(context, filename, error);
+      handleError(context, filename, error, printedFilename);
       continue;
     }
 
     const isDifferent = output !== input;
 
-    if (isTTY()) {
+    if (printedFilename) {
       // Remove previously printed filename to log it with duration.
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      printedFilename.clear();
     }
 
     if (context.argv.write) {
@@ -360,7 +380,7 @@ function formatFiles(context) {
         }
 
         try {
-          fs.writeFileSync(filename, output, "utf8");
+          await fs.writeFile(filename, output, "utf8");
         } catch (error) {
           /* istanbul ignore next */
           context.logger.error(

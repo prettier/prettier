@@ -2,9 +2,9 @@
 
 const {
   builders: { softline, align },
-} = require("../../document");
+} = require("../../document/index.js");
 
-const { hasEndComments, isNextLineEmpty, isNode } = require("../utils");
+const { hasEndComments, isNextLineEmpty, isNode } = require("../utils.js");
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
@@ -44,8 +44,8 @@ function shouldPrintEndComments(node) {
   );
 }
 
-function alignWithSpaces(n, doc) {
-  return align(" ".repeat(n), doc);
+function alignWithSpaces(width, doc) {
+  return align(" ".repeat(width), doc);
 }
 
 module.exports = {

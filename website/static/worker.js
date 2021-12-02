@@ -41,7 +41,11 @@ function serializeAst(ast) {
   return JSON.stringify(
     ast,
     (_, value) =>
-      typeof value === "bigint" ? `BigInt('${String(value)}')` : value,
+      value instanceof Error
+        ? { name: value.name, message: value.message, ...value }
+        : typeof value === "bigint"
+        ? `BigInt('${String(value)}')`
+        : value,
     2
   );
 }
@@ -71,11 +75,14 @@ function handleMessage(message) {
     const plugins = [{ parsers }];
     options.plugins = plugins;
 
+    const formatResult = formatCode(message.code, options);
+
     const response = {
-      formatted: formatCode(message.code, options),
+      formatted: formatResult.formatted,
       debug: {
         ast: null,
         doc: null,
+        comments: null,
         reformatted: null,
       },
     };
@@ -92,8 +99,8 @@ function handleMessage(message) {
 
       if (!errored) {
         try {
-          ast = formatCode(ast, { parser: "json", plugins });
-        } catch (e) {
+          ast = formatCode(ast, { parser: "json", plugins }).formatted;
+        } catch {
           ast = serializeAst(ast);
         }
       }
@@ -111,8 +118,18 @@ function handleMessage(message) {
       }
     }
 
+    if (message.debug.comments) {
+      response.debug.comments = formatCode(
+        JSON.stringify(formatResult.comments || []),
+        { parser: "json", plugins }
+      ).formatted;
+    }
+
     if (message.debug.reformat) {
-      response.debug.reformatted = formatCode(response.formatted, options);
+      response.debug.reformatted = formatCode(
+        response.formatted,
+        options
+      ).formatted;
     }
 
     return response;
@@ -121,14 +138,14 @@ function handleMessage(message) {
 
 function formatCode(text, options) {
   try {
-    return prettier.format(text, options);
+    return prettier.formatWithCursor(text, options);
   } catch (e) {
     if (e.constructor && e.constructor.name === "SyntaxError") {
       // Likely something wrong with the user's code
-      return String(e);
+      return { formatted: String(e) };
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return e.stack || String(e);
+    return { formatted: e.stack || String(e) };
   }
 }

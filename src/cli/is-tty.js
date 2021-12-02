@@ -1,7 +1,7 @@
 "use strict";
 
 // eslint-disable-next-line no-restricted-modules
-const { isCI } = require("../common/third-party");
+const { isCI } = require("../common/third-party.js");
 
 // Some CI pipelines incorrectly report process.stdout.isTTY status,
 // which causes unwanted lines in the output. An additional check for isCI() helps.

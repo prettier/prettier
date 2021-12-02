@@ -1,22 +1,28 @@
 "use strict";
 
-const { printComments, printDanglingComments } = require("../../main/comments");
-const { getLast } = require("../../common/util");
 const {
-  builders: { concat, group, join, line, softline, indent, align, ifBreak },
-} = require("../../document");
-const pathNeedsParens = require("../needs-parens");
-const { locStart } = require("../loc");
+  printComments,
+  printDanglingComments,
+} = require("../../main/comments.js");
+const { getLast, isNonEmptyArray } = require("../../common/util.js");
+const {
+  builders: { group, join, line, softline, indent, align, ifBreak },
+} = require("../../document/index.js");
+const pathNeedsParens = require("../needs-parens.js");
+const { locStart } = require("../loc.js");
 const {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils");
-const { printAssignmentRight } = require("./assignment");
-const { printFunctionParameters } = require("./function-parameters");
-const { printArrayItems } = require("./array");
+} = require("../utils.js");
+const { printAssignment } = require("./assignment.js");
+const {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} = require("./function-parameters.js");
+const { printArrayItems } = require("./array.js");
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -25,20 +31,20 @@ function shouldHugType(node) {
 
   if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
     const voidCount = node.types.filter(
-      (n) =>
-        n.type === "VoidTypeAnnotation" ||
-        n.type === "TSVoidKeyword" ||
-        n.type === "NullLiteralTypeAnnotation" ||
-        n.type === "TSNullKeyword"
+      (node) =>
+        node.type === "VoidTypeAnnotation" ||
+        node.type === "TSVoidKeyword" ||
+        node.type === "NullLiteralTypeAnnotation" ||
+        node.type === "TSNullKeyword"
     ).length;
 
     const hasObject = node.types.some(
-      (n) =>
-        n.type === "ObjectTypeAnnotation" ||
-        n.type === "TSTypeLiteral" ||
+      (node) =>
+        node.type === "ObjectTypeAnnotation" ||
+        node.type === "TSTypeLiteral" ||
         // This is a bit aggressive but captures Array<{x}>
-        n.type === "GenericTypeAnnotation" ||
-        n.type === "TSTypeReference"
+        node.type === "GenericTypeAnnotation" ||
+        node.type === "TSTypeReference"
     );
 
     if (node.types.length - 1 === voidCount && hasObject) {
@@ -51,69 +57,57 @@ function shouldHugType(node) {
 
 function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
-  parts.push(
-    "opaque type ",
-    path.call(print, "id"),
-    path.call(print, "typeParameters")
-  );
+  parts.push("opaque type ", print("id"), print("typeParameters"));
 
-  if (n.supertype) {
-    parts.push(": ", path.call(print, "supertype"));
+  if (node.supertype) {
+    parts.push(": ", print("supertype"));
   }
 
-  if (n.impltype) {
-    parts.push(" = ", path.call(print, "impltype"));
+  if (node.impltype) {
+    parts.push(" = ", print("impltype"));
   }
 
   parts.push(semi);
 
-  return concat(parts);
+  return parts;
 }
 
 function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
-  if (n.declare) {
+  if (node.declare) {
     parts.push("declare ");
   }
-
-  const printed = printAssignmentRight(
-    n.id,
-    n.right,
-    path.call(print, "right"),
-    options
-  );
-
-  parts.push(
-    "type ",
-    path.call(print, "id"),
-    path.call(print, "typeParameters"),
-    " =",
-    printed,
-    semi
-  );
-
-  return group(concat(parts));
+  parts.push("type ", print("id"), print("typeParameters"));
+  const rightPropertyName =
+    node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
+  return [
+    printAssignment(path, options, print, parts, " =", rightPropertyName),
+    semi,
+  ];
 }
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const types = path.map(print, "types");
   const result = [];
   let wasIndented = false;
   for (let i = 0; i < types.length; ++i) {
     if (i === 0) {
       result.push(types[i]);
-    } else if (isObjectType(n.types[i - 1]) && isObjectType(n.types[i])) {
+    } else if (isObjectType(node.types[i - 1]) && isObjectType(node.types[i])) {
       // If both are objects, don't indent
-      result.push(concat([" & ", wasIndented ? indent(types[i]) : types[i]]));
-    } else if (!isObjectType(n.types[i - 1]) && !isObjectType(n.types[i])) {
+      result.push([" & ", wasIndented ? indent(types[i]) : types[i]]);
+    } else if (
+      !isObjectType(node.types[i - 1]) &&
+      !isObjectType(node.types[i])
+    ) {
       // If no object is involved, go to the next line if it breaks
-      result.push(indent(concat([" &", line, types[i]])));
+      result.push(indent([" &", line, types[i]]));
     } else {
       // If you go from object to non-object or vis-versa, then inline it
       if (i > 1) {
@@ -122,12 +116,12 @@ function printIntersectionType(path, options, print) {
       result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
     }
   }
-  return group(concat(result));
+  return group(result);
 }
 
 // `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   // single-line variation
   // A | B | C
 
@@ -156,25 +150,25 @@ function printUnionType(path, options, print) {
       (parent.type === "TypeAlias" ||
         parent.type === "VariableDeclarator" ||
         parent.type === "TSTypeAliasDeclaration") &&
-      hasLeadingOwnLineComment(options.originalText, n)
+      hasLeadingOwnLineComment(options.originalText, node)
     );
 
   // {
   //   a: string
   // } | null | void
   // should be inlined and not be printed in the multi-line variant
-  const shouldHug = shouldHugType(n);
+  const shouldHug = shouldHugType(node);
 
   // We want to align the children but without its comment, so it looks like
   // | child1
   // // comment
   // | child2
   const printed = path.map((typePath) => {
-    let printedType = typePath.call(print);
+    let printedType = print();
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
-    return printComments(typePath, () => printedType, options);
+    return printComments(typePath, printedType, options);
   }, "types");
 
   if (shouldHug) {
@@ -182,28 +176,26 @@ function printUnionType(path, options, print) {
   }
 
   const shouldAddStartLine =
-    shouldIndent && !hasLeadingOwnLineComment(options.originalText, n);
+    shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
-  const code = concat([
-    ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
-    join(concat([line, "| "]), printed),
-  ]);
+  const code = [
+    ifBreak([shouldAddStartLine ? line : "", "| "]),
+    join([line, "| "], printed),
+  ];
 
   if (pathNeedsParens(path, options)) {
-    return group(concat([indent(code), softline]));
+    return group([indent(code), softline]);
   }
 
   if (
     (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
     (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
   ) {
-    return group(
-      concat([
-        indent(concat([ifBreak(concat(["(", softline])), code])),
-        softline,
-        ifBreak(")"),
-      ])
-    );
+    return group([
+      indent([ifBreak(["(", softline]), code]),
+      softline,
+      ifBreak(")"),
+    ]);
   }
 
   return group(shouldIndent ? indent(code) : code);
@@ -211,7 +203,7 @@ function printUnionType(path, options, print) {
 
 // `TSFunctionType` and `FunctionTypeAnnotation`
 function printFunctionType(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
   // FunctionTypeAnnotation is ambiguous:
   // declare function foo(a: B): void; OR
@@ -220,13 +212,13 @@ function printFunctionType(path, options, print) {
   const parentParent = path.getParentNode(1);
   const parentParentParent = path.getParentNode(2);
   let isArrowFunctionTypeAnnotation =
-    n.type === "TSFunctionType" ||
+    node.type === "TSFunctionType" ||
     !(
       ((parent.type === "ObjectTypeProperty" ||
         parent.type === "ObjectTypeInternalSlot") &&
         !parent.variance &&
         !parent.optional &&
-        locStart(parent) === locStart(n)) ||
+        locStart(parent) === locStart(node)) ||
       parent.type === "ObjectTypeCallProperty" ||
       (parentParentParent && parentParentParent.type === "DeclareFunction")
     );
@@ -235,7 +227,7 @@ function printFunctionType(path, options, print) {
     isArrowFunctionTypeAnnotation &&
     (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation");
 
-  // Sadly we can't put it inside of FastPath::needsColon because we are
+  // Sadly we can't put it inside of AstPath::needsColon because we are
   // printing ":" as part of the expression and it would put parenthesis
   // around :(
   const needsParens =
@@ -253,51 +245,73 @@ function printFunctionType(path, options, print) {
     parts.push("(");
   }
 
-  parts.push(
-    printFunctionParameters(
-      path,
-      print,
-      options,
-      /* expandArg */ false,
-      /* printTypeParams */ true
-    )
+  const parametersDoc = printFunctionParameters(
+    path,
+    print,
+    options,
+    /* expandArg */ false,
+    /* printTypeParams */ true
   );
 
   // The returnType is not wrapped in a TypeAnnotation, so the colon
   // needs to be added separately.
-  if (n.returnType || n.predicate || n.typeAnnotation) {
-    parts.push(
-      isArrowFunctionTypeAnnotation ? " => " : ": ",
-      path.call(print, "returnType"),
-      path.call(print, "predicate"),
-      path.call(print, "typeAnnotation")
-    );
+  const returnTypeDoc =
+    node.returnType || node.predicate || node.typeAnnotation
+      ? [
+          isArrowFunctionTypeAnnotation ? " => " : ": ",
+          print("returnType"),
+          print("predicate"),
+          print("typeAnnotation"),
+        ]
+      : "";
+
+  const shouldGroupParameters = shouldGroupFunctionParameters(
+    node,
+    returnTypeDoc
+  );
+
+  parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
+
+  if (returnTypeDoc) {
+    parts.push(returnTypeDoc);
   }
+
   if (needsParens) {
     parts.push(")");
   }
 
-  return group(concat(parts));
+  return group(parts);
 }
 
 // `TSTupleType` and `TupleTypeAnnotation`
 function printTupleType(path, options, print) {
-  const n = path.getValue();
-  const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
-  const hasRest =
-    n[typesField].length > 0 && getLast(n[typesField]).type === "TSRestType";
-  return group(
-    concat([
-      "[",
-      indent(
-        concat([softline, printArrayItems(path, options, typesField, print)])
-      ),
-      ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
-      printDanglingComments(path, options, /* sameIndent */ true),
-      softline,
-      "]",
-    ])
-  );
+  const node = path.getValue();
+  const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
+  const types = node[typesField];
+  const isNonEmptyTuple = isNonEmptyArray(types);
+  const hasRest = isNonEmptyTuple && getLast(types).type === "TSRestType";
+  const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
+  return group([
+    "[",
+    indent([
+      bracketsDelimiterLine,
+      printArrayItems(path, options, typesField, print),
+    ]),
+    ifBreak(
+      isNonEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
+    ),
+    printDanglingComments(path, options, /* sameIndent */ true),
+    bracketsDelimiterLine,
+    "]",
+  ]);
+}
+
+// `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
+function printIndexedAccessType(path, options, print) {
+  const node = path.getValue();
+  const leftDelimiter =
+    node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
+  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
 module.exports = {
@@ -307,5 +321,6 @@ module.exports = {
   printUnionType,
   printFunctionType,
   printTupleType,
+  printIndexedAccessType,
   shouldHugType,
 };

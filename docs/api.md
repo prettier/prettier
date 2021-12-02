@@ -9,9 +9,9 @@ If you want to run Prettier programmatically, check this page out.
 const prettier = require("prettier");
 ```
 
-## `prettier.format(source [, options])`
+## `prettier.format(source, options)`
 
-`format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults. Set `options.parser` according to the language you are formatting (see the [list of available parsers](options.md#parser)).
+`format` is used to format text using Prettier. `options.parser` must be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.
 
 ```js
 prettier.format("foo ( );", { semi: false, parser: "babel" });

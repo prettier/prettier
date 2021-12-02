@@ -13,17 +13,18 @@ BEFORE SUBMITTING AN ISSUE:
     you do not need to open a new issue — please add a 👍 reaction to the
     existing issue instead.
 
-2.  If your issue is with a prettier editor extension or add-on, please open the
+2.  If your issue is with a Prettier editor extension or add-on, please open the
     issue in the repo for that extension or add-on, instead of this repo.
 
 -->
 
 **Environments:**
 
-- Prettier Version: 2.2.1
+- Prettier Version: 2.5.0
 - Running Prettier via: <!-- CLI, Node.js API, Browser API, etc. -->
 - Runtime: <!-- Node.js v14, Chrome v83, etc. -->
 - Operating System: <!-- Windows, Linux, macOS, etc. -->
+- Prettier plugins (if any): <!-- e.g. @prettier/plugin-php -->
 
 **Steps to reproduce:**
 

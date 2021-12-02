@@ -1,11 +1,11 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
-  builders: { indent, hardline, softline, concat },
-  utils: { mapDoc, replaceNewlinesWithLiterallines, cleanDoc },
-} = require("../../document");
-const { printTemplateExpressions } = require("../print/template-literal");
+  builders: { indent, hardline, softline },
+  utils: { mapDoc, replaceEndOfLine, cleanDoc },
+} = require("../../document/index.js");
+const { printTemplateExpressions } = require("../print/template-literal.js");
 
 function format(path, print, textToDoc) {
   const node = path.getValue();
@@ -45,7 +45,7 @@ function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }
-  return concat(["`", indent(concat([hardline, newDoc])), softline, "`"]);
+  return ["`", indent([hardline, newDoc]), softline, "`"];
 }
 
 // Search all the placeholders in the quasisDoc tree
@@ -63,18 +63,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     }
     // When we have multiple placeholders in one line, like:
     // ${Child}${Child2}:not(:first-child)
-    return concat(
-      doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
-        // The placeholder is always at odd indices
-        if (idx % 2 === 0) {
-          return replaceNewlinesWithLiterallines(component);
-        }
+    return doc.split(/@prettier-placeholder-(\d+)-id/).map((component, idx) => {
+      // The placeholder is always at odd indices
+      if (idx % 2 === 0) {
+        return replaceEndOfLine(component);
+      }
 
-        // The component will always be a number at odd index
-        replaceCounter++;
-        return expressionDocs[component];
-      })
-    );
+      // The component will always be a number at odd index
+      replaceCounter++;
+      return expressionDocs[component];
+    });
   });
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }

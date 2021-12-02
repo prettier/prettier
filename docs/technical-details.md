@@ -9,4 +9,4 @@ The basic idea is that the printer takes an AST and returns an intermediate repr
 
 This means that most of the logic of printing an AST involves generating an abstract representation of the output involving certain commands. For example, `["(", line, arg, line, ")"]` would represent a concatenation of opening parens, an argument, and closing parens. But if that doesn’t fit on one line, the printer can break where `line` is specified.
 
-More (rough) details can be found in [commands.md](https://github.com/prettier/prettier/blob/master/commands.md).
+More (rough) details can be found in [commands.md](https://github.com/prettier/prettier/blob/main/commands.md).

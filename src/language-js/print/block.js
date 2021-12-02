@@ -1,13 +1,18 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
-const { isNonEmptyArray } = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments.js");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
-  builders: { concat, hardline, indent },
-} = require("../../document");
-const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
+  builders: { hardline, indent },
+} = require("../../document/index.js");
+const {
+  hasComment,
+  CommentCheckFlags,
+  isNextLineEmpty,
+} = require("../utils.js");
+const { printHardlineAfterHeritage } = require("./class.js");
 
-const { printBody } = require("./statement");
+const { printBody } = require("./statement.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -19,10 +24,15 @@ function printBlock(path, options, print) {
     parts.push("static ");
   }
 
+  if (node.type === "ClassBody" && isNonEmptyArray(node.body)) {
+    const parent = path.getParentNode();
+    parts.push(printHardlineAfterHeritage(parent));
+  }
+
   parts.push("{");
   const printed = printBlockBody(path, options, print);
   if (printed) {
-    parts.push(indent(concat([hardline, printed])), hardline);
+    parts.push(indent([hardline, printed]), hardline);
   } else {
     const parent = path.getParentNode();
     const parentParent = path.getParentNode(1);
@@ -51,7 +61,7 @@ function printBlock(path, options, print) {
 
   parts.push("}");
 
-  return concat(parts);
+  return parts;
 }
 
 function printBlockBody(path, options, print) {
@@ -69,7 +79,7 @@ function printBlockBody(path, options, print) {
   // Babel 6
   if (nodeHasDirectives) {
     path.each((childPath, index, directives) => {
-      parts.push(print(childPath));
+      parts.push(print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
         if (isNextLineEmpty(childPath.getValue(), options)) {
@@ -88,10 +98,13 @@ function printBlockBody(path, options, print) {
   }
 
   if (node.type === "Program") {
-    parts.push(hardline);
+    const parent = path.getParentNode();
+    if (!parent || parent.type !== "ModuleExpression") {
+      parts.push(hardline);
+    }
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = { printBlock, printBlockBody };

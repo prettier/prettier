@@ -1,18 +1,15 @@
 "use strict";
 
-const { printComments } = require("../../main/comments");
-const { printString, printNumber } = require("../../common/util");
-const {
-  builders: { concat },
-} = require("../../document");
+const { printComments } = require("../../main/comments.js");
+const { printString, printNumber } = require("../../common/util.js");
 const {
   isNumericLiteral,
   isSimpleNumber,
   isStringLiteral,
   isStringPropSafeToUnquote,
   rawText,
-} = require("../utils");
-const { printAssignment } = require("./assignment");
+} = require("../utils.js");
+const { printAssignment } = require("./assignment.js");
 
 const needsQuoteProps = new WeakMap();
 
@@ -20,18 +17,15 @@ function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    return concat(["[", path.call(print, "key"), "]"]);
+    return ["[", print("key"), "]"];
   }
 
   const parent = path.getParentNode();
   const { key } = node;
 
-  if (
-    node.type === "ClassPrivateProperty" &&
-    // flow has `Identifier` key, and babel has `PrivateName` key
-    key.type === "Identifier"
-  ) {
-    return concat(["#", path.call(print, "key")]);
+  // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `PrivateName`
+  if (node.type === "ClassPrivateProperty" && key.type === "Identifier") {
+    return ["#", print("key")];
   }
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
@@ -70,10 +64,7 @@ function printPropertyKey(path, options, print) {
       ),
       options
     );
-    return path.call(
-      (keyPath) => printComments(keyPath, () => prop, options),
-      "key"
-    );
+    return path.call((keyPath) => printComments(keyPath, prop, options), "key");
   }
 
   if (
@@ -88,29 +79,29 @@ function printPropertyKey(path, options, print) {
       (keyPath) =>
         printComments(
           keyPath,
-          () => (/^\d/.test(key.value) ? printNumber(key.value) : key.value),
+          /^\d/.test(key.value) ? printNumber(key.value) : key.value,
           options
         ),
       "key"
     );
   }
 
-  return path.call(print, "key");
+  return print("key");
 }
 
 function printProperty(path, options, print) {
-  const n = path.getValue();
-  if (n.shorthand) {
-    return path.call(print, "value");
+  const node = path.getValue();
+  if (node.shorthand) {
+    return print("value");
   }
 
   return printAssignment(
-    n.key,
+    path,
+    options,
+    print,
     printPropertyKey(path, options, print),
     ":",
-    n.value,
-    path.call(print, "value"),
-    options
+    "value"
   );
 }
 

@@ -1,45 +1,46 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
+const { printDanglingComments } = require("../../main/comments.js");
 const {
-  builders: { concat, line, softline, group, indent, ifBreak },
-} = require("../../document");
-const { getLast } = require("../../common/util");
+  builders: { line, softline, hardline, group, indent, ifBreak, fill },
+} = require("../../document/index.js");
+const { getLast, hasNewline } = require("../../common/util.js");
 const {
   shouldPrintComma,
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils");
+  isNumericLiteral,
+  isSignedNumericLiteral,
+} = require("../utils.js");
+const { locStart } = require("../loc.js");
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc");
+const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 
 function printArray(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   /** @type{Doc[]} */
   const parts = [];
 
-  const openBracket = n.type === "TupleExpression" ? "#[" : "[";
+  const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
-  if (n.elements.length === 0) {
-    if (!hasComment(n, CommentCheckFlags.Dangling)) {
+  if (node.elements.length === 0) {
+    if (!hasComment(node, CommentCheckFlags.Dangling)) {
       parts.push(openBracket, closeBracket);
     } else {
       parts.push(
-        group(
-          concat([
-            openBracket,
-            printDanglingComments(path, options),
-            softline,
-            closeBracket,
-          ])
-        )
+        group([
+          openBracket,
+          printDanglingComments(path, options),
+          softline,
+          closeBracket,
+        ])
       );
     }
   } else {
-    const lastElem = getLast(n.elements);
+    const lastElem = getLast(node.elements);
     const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
 
     // JavaScript allows you to have empty elements in an array which
@@ -52,12 +53,14 @@ function printArray(path, options, print) {
     //
     // Note that getLast returns null if the array is empty, but
     // we already check for an empty array just above so we are safe
-    const needsForcedTrailingComma = canHaveTrailingComma && lastElem === null;
+    const needsForcedTrailingComma = lastElem === null;
+
+    const groupId = Symbol("array");
 
     const shouldBreak =
       !options.__inJestEach &&
-      n.elements.length > 1 &&
-      n.elements.every((element, i, elements) => {
+      node.elements.length > 1 &&
+      node.elements.every((element, i, elements) => {
         const elementType = element && element.type;
         if (
           elementType !== "ArrayExpression" &&
@@ -77,29 +80,36 @@ function printArray(path, options, print) {
         return element[itemsKey] && element[itemsKey].length > 1;
       });
 
+    const shouldUseConciseFormatting = isConciselyPrintedArray(node, options);
+
+    const trailingComma = !canHaveTrailingComma
+      ? ""
+      : needsForcedTrailingComma
+      ? ","
+      : !shouldPrintComma(options)
+      ? ""
+      : shouldUseConciseFormatting
+      ? ifBreak(",", "", { groupId })
+      : ifBreak(",");
+
     parts.push(
       group(
-        concat([
+        [
           openBracket,
-          indent(
-            concat([
-              softline,
-              printArrayItems(path, options, "elements", print),
-            ])
-          ),
-          needsForcedTrailingComma ? "," : "",
-          ifBreak(
-            canHaveTrailingComma &&
-              !needsForcedTrailingComma &&
-              shouldPrintComma(options)
-              ? ","
-              : ""
-          ),
-          printDanglingComments(path, options, /* sameIndent */ true),
+          indent([
+            softline,
+            shouldUseConciseFormatting
+              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              : [
+                  printArrayItems(path, options, "elements", print),
+                  trailingComma,
+                ],
+            printDanglingComments(path, options, /* sameIndent */ true),
+          ]),
           softline,
           closeBracket,
-        ]),
-        { shouldBreak }
+        ],
+        { shouldBreak, id: groupId }
       )
     );
   }
@@ -109,7 +119,27 @@ function printArray(path, options, print) {
     printTypeAnnotation(path, options, print)
   );
 
-  return concat(parts);
+  return parts;
+}
+
+function isConciselyPrintedArray(node, options) {
+  return (
+    node.elements.length > 1 &&
+    node.elements.every(
+      (element) =>
+        element &&
+        (isNumericLiteral(element) ||
+          (isSignedNumericLiteral(element) && !hasComment(element.argument))) &&
+        !hasComment(
+          element,
+          CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+          (comment) =>
+            !hasNewline(options.originalText, locStart(comment), {
+              backwards: true,
+            })
+        )
+    )
+  );
 }
 
 function printArrayItems(path, options, printPath, print) {
@@ -117,8 +147,7 @@ function printArrayItems(path, options, printPath, print) {
   let separatorParts = [];
 
   path.each((childPath) => {
-    printedElements.push(concat(separatorParts));
-    printedElements.push(group(print(childPath)));
+    printedElements.push(separatorParts, group(print()));
 
     separatorParts = [",", line];
     if (
@@ -129,7 +158,32 @@ function printArrayItems(path, options, printPath, print) {
     }
   }, printPath);
 
-  return concat(printedElements);
+  return printedElements;
 }
 
-module.exports = { printArray, printArrayItems };
+function printArrayItemsConcisely(path, options, print, trailingComma) {
+  const parts = [];
+
+  path.each((childPath, i, elements) => {
+    const isLast = i === elements.length - 1;
+
+    parts.push([print(), isLast ? trailingComma : ","]);
+
+    if (!isLast) {
+      parts.push(
+        isNextLineEmpty(childPath.getValue(), options)
+          ? [hardline, hardline]
+          : hasComment(
+              elements[i + 1],
+              CommentCheckFlags.Leading | CommentCheckFlags.Line
+            )
+          ? hardline
+          : line
+      );
+    }
+  }, "elements");
+
+  return fill(parts);
+}
+
+module.exports = { printArray, printArrayItems, isConciselyPrintedArray };

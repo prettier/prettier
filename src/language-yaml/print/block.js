@@ -4,7 +4,6 @@
 
 const {
   builders: {
-    concat,
     dedent,
     dedentToRoot,
     fill,
@@ -15,15 +14,15 @@ const {
     markAsRoot,
   },
   utils: { getDocParts },
-} = require("../../document");
+} = require("../../document/index.js");
 const {
   getAncestorCount,
   getBlockValueLineContents,
   hasIndicatorComment,
   isLastDescendantNode,
   isNode,
-} = require("../utils");
-const { alignWithSpaces } = require("./misc");
+} = require("../utils.js");
+const { alignWithSpaces } = require("./misc.js");
 
 function printBlock(path, print, options) {
   const node = path.getValue();
@@ -42,7 +41,7 @@ function printBlock(path, print, options) {
   }
 
   if (hasIndicatorComment(node)) {
-    parts.push(" ", path.call(print, "indicatorComment"));
+    parts.push(" ", print("indicatorComment"));
   }
 
   const lineContents = getBlockValueLineContents(node, {
@@ -68,18 +67,16 @@ function printBlock(path, print, options) {
     }
   }
   if (node.indent === null) {
-    parts.push(
-      dedent(alignWithSpaces(options.tabWidth, concat(contentsParts)))
-    );
+    parts.push(dedent(alignWithSpaces(options.tabWidth, contentsParts)));
   } else {
     parts.push(
       dedentToRoot(
-        alignWithSpaces(node.indent - 1 + parentIndent, concat(contentsParts))
+        alignWithSpaces(node.indent - 1 + parentIndent, contentsParts)
       )
     );
   }
 
-  return concat(parts);
+  return parts;
 }
 
 module.exports = printBlock;

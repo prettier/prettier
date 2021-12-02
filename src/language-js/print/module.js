@@ -1,18 +1,22 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
-  builders: { concat, softline, group, indent, join, line, ifBreak, hardline },
-} = require("../../document");
-const { printDanglingComments } = require("../../main/comments");
+  builders: { softline, group, indent, join, line, ifBreak, hardline },
+} = require("../../document/index.js");
+const { printDanglingComments } = require("../../main/comments.js");
 
 const {
   hasComment,
   CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
-} = require("../utils");
-const { locStart, hasSameLoc } = require("../loc");
+} = require("../utils.js");
+const { locStart, hasSameLoc } = require("../loc.js");
+const {
+  hasDecoratorsBeforeExport,
+  printDecoratorsBeforeExport,
+} = require("./decorators.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -35,18 +39,23 @@ function printImportDeclaration(path, options, print) {
   parts.push(
     printModuleSpecifiers(path, options, print),
     printModuleSource(path, options, print),
-    printImportAssertions(path, options, print)
+    printImportAssertions(path, options, print),
+    semi
   );
 
-  parts.push(semi);
-
-  return concat(parts);
+  return parts;
 }
 
 function printExportDeclaration(path, options, print) {
   const node = path.getValue();
   /** @type{Doc[]} */
   const parts = [];
+
+  // Only print decorators here if they were written before the export,
+  // otherwise they are printed by the node.declaration
+  if (hasDecoratorsBeforeExport(node)) {
+    parts.push(printDecoratorsBeforeExport(path, options, print));
+  }
 
   const { type, exportKind, declaration } = node;
 
@@ -69,7 +78,7 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (declaration) {
-    parts.push(" ", path.call(print, "declaration"));
+    parts.push(" ", print("declaration"));
   } else {
     parts.push(
       exportKind === "type" ? " type" : "",
@@ -83,7 +92,7 @@ function printExportDeclaration(path, options, print) {
     parts.push(";");
   }
 
-  return concat(parts);
+  return parts;
 }
 
 function printExportAllDeclaration(path, options, print) {
@@ -103,7 +112,7 @@ function printExportAllDeclaration(path, options, print) {
   parts.push(" *");
 
   if (exported) {
-    parts.push(" as ", path.call(print, "exported"));
+    parts.push(" as ", print("exported"));
   }
 
   parts.push(
@@ -112,7 +121,7 @@ function printExportAllDeclaration(path, options, print) {
     semi
   );
 
-  return concat(parts);
+  return parts;
 }
 
 function shouldExportDeclarationPrintSemi(node, options) {
@@ -154,9 +163,9 @@ function printModuleSource(path, options, print) {
   if (!shouldNotPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
-  parts.push(" ", path.call(print, "source"));
+  parts.push(" ", print("source"));
 
-  return concat(parts);
+  return parts;
 }
 
 function printModuleSpecifiers(path, options, print) {
@@ -173,7 +182,7 @@ function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    path.each((specifierPath) => {
+    path.each(() => {
       const specifierType = path.getValue().type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
@@ -181,12 +190,12 @@ function printModuleSpecifiers(path, options, print) {
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standaloneSpecifiers.push(print(specifierPath));
+        standaloneSpecifiers.push(print());
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
       ) {
-        groupedSpecifiers.push(print(specifierPath));
+        groupedSpecifiers.push(print());
       } else {
         /* istanbul ignore next */
         throw new Error(
@@ -209,37 +218,31 @@ function printModuleSpecifiers(path, options, print) {
 
       if (canBreak) {
         parts.push(
-          group(
-            concat([
-              "{",
-              indent(
-                concat([
-                  options.bracketSpacing ? line : softline,
-                  join(concat([",", line]), groupedSpecifiers),
-                ])
-              ),
-              ifBreak(shouldPrintComma(options) ? "," : ""),
-              options.bracketSpacing ? line : softline,
-              "}",
-            ])
-          )
-        );
-      } else {
-        parts.push(
-          concat([
+          group([
             "{",
-            options.bracketSpacing ? " " : "",
-            ...groupedSpecifiers,
-            options.bracketSpacing ? " " : "",
+            indent([
+              options.bracketSpacing ? line : softline,
+              join([",", line], groupedSpecifiers),
+            ]),
+            ifBreak(shouldPrintComma(options) ? "," : ""),
+            options.bracketSpacing ? line : softline,
             "}",
           ])
         );
+      } else {
+        parts.push([
+          "{",
+          options.bracketSpacing ? " " : "",
+          ...groupedSpecifiers,
+          options.bracketSpacing ? " " : "",
+          "}",
+        ]);
       }
     }
   } else {
     parts.push("{}");
   }
-  return concat(parts);
+  return parts;
 }
 
 function shouldNotPrintSpecifiers(node, options) {
@@ -262,13 +265,13 @@ function shouldNotPrintSpecifiers(node, options) {
 function printImportAssertions(path, options, print) {
   const node = path.getNode();
   if (isNonEmptyArray(node.assertions)) {
-    return concat([
+    return [
       " assert {",
       options.bracketSpacing ? " " : "",
       join(", ", path.map(print, "assertions")),
       options.bracketSpacing ? " " : "",
       "}",
-    ]);
+    ];
   }
   return "";
 }
@@ -276,11 +279,16 @@ function printImportAssertions(path, options, print) {
 function printModuleSpecifier(path, options, print) {
   const node = path.getNode();
 
-  const { type, importKind } = node;
-  /** @type{Doc[]} */
+  const { type } = node;
+
+  /** @type {Doc[]} */
   const parts = [];
-  if (type === "ImportSpecifier" && importKind) {
-    parts.push(importKind, " ");
+
+  /** @type {"type" | "typeof" | "value"} */
+  const kind = type === "ImportSpecifier" ? node.importKind : node.exportKind;
+
+  if (kind && kind !== "value") {
+    parts.push(kind, " ");
   }
 
   const isImport = type.startsWith("Import");
@@ -294,7 +302,7 @@ function printModuleSpecifier(path, options, print) {
   ) {
     left = "*";
   } else if (node[leftSideProperty]) {
-    left = path.call(print, leftSideProperty);
+    left = print(leftSideProperty);
   }
 
   if (
@@ -303,11 +311,11 @@ function printModuleSpecifier(path, options, print) {
       // import {a as a} from '.'
       !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
   ) {
-    right = path.call(print, rightSideProperty);
+    right = print(rightSideProperty);
   }
 
   parts.push(left, left && right ? " as " : "", right);
-  return concat(parts);
+  return parts;
 }
 
 module.exports = {

@@ -3,6 +3,7 @@
 const {
   ParseSourceSpan,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
+const getLast = require("../utils/get-last.js");
 const {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
@@ -14,7 +15,7 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils");
+} = require("./utils.js");
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
@@ -30,14 +31,15 @@ const PREPROCESS_PIPELINE = [
 ];
 
 function preprocess(ast, options) {
+  const res = ast.map((node) => node);
   for (const fn of PREPROCESS_PIPELINE) {
-    ast = fn(ast, options);
+    fn(res, options);
   }
-  return ast;
+  return res;
 }
 
 function removeIgnorableFirstLf(ast /*, options */) {
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (
       node.type === "element" &&
       node.tagDefinition.ignoreFirstLf &&
@@ -46,14 +48,12 @@ function removeIgnorableFirstLf(ast /*, options */) {
       node.children[0].value[0] === "\n"
     ) {
       const [text, ...rest] = node.children;
-      return node.clone({
-        children:
-          text.value.length === 1
-            ? rest
-            : [text.clone({ value: text.value.slice(1) }), ...rest],
-      });
+      node.setChildren(
+        text.value.length === 1
+          ? rest
+          : [text.clone({ value: text.value.slice(1) }), ...rest]
+      );
     }
-    return node;
   });
 }
 
@@ -71,7 +71,7 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
     node.firstChild &&
     node.firstChild.type === "ieConditionalEndComment" &&
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.children) {
       const isTargetResults = node.children.map(isTarget);
       if (isTargetResults.some(Boolean)) {
@@ -113,15 +113,14 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
           newChildren.push(child);
         }
 
-        return node.clone({ children: newChildren });
+        node.setChildren(newChildren);
       }
     }
-    return node;
   });
 }
 
 function mergeNodeIntoText(ast, shouldMerge, getValue) {
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.children) {
       const shouldMergeResults = node.children.map(shouldMerge);
       if (shouldMergeResults.some(Boolean)) {
@@ -141,7 +140,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
 
           if (
             newChildren.length === 0 ||
-            newChildren[newChildren.length - 1].type !== "text"
+            getLast(newChildren).type !== "text"
           ) {
             newChildren.push(newChild);
             continue;
@@ -158,11 +157,9 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
             })
           );
         }
-        return node.clone({ children: newChildren });
+        node.setChildren(newChildren);
       }
     }
-
-    return node;
   });
 }
 
@@ -191,7 +188,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.prev.type === "text" &&
     node.next &&
     node.next.type === "text";
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.children) {
       const isSimpleElementResults = node.children.map(isSimpleElement);
       if (isSimpleElementResults.some(Boolean)) {
@@ -222,22 +219,21 @@ function mergeSimpleElementIntoText(ast /*, options */) {
             newChildren.push(child);
           }
         }
-        return node.clone({ children: newChildren });
+        node.setChildren(newChildren);
       }
     }
-    return node;
   });
 }
 
 function extractInterpolation(ast, options) {
   if (options.parser === "html") {
-    return ast;
+    return;
   }
 
-  const interpolationRegex = /{{([\S\s]+?)}}/g;
-  return ast.map((node) => {
+  const interpolationRegex = /{{(.+?)}}/s;
+  ast.walk((node) => {
     if (!canHaveInterpolation(node)) {
-      return node;
+      return;
     }
 
     const newChildren = [];
@@ -291,7 +287,7 @@ function extractInterpolation(ast, options) {
       }
     }
 
-    return node.clone({ children: newChildren });
+    node.setChildren(newChildren);
   });
 }
 
@@ -302,11 +298,11 @@ function extractInterpolation(ast, options) {
  * - add `isWhitespaceSensitive`, `isIndentationSensitive` field for text nodes
  * - remove insensitive whitespaces
  */
+const WHITESPACE_NODE = { type: "whitespace" };
 function extractWhitespaces(ast /*, options*/) {
-  const TYPE_WHITESPACE = "whitespace";
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (!node.children) {
-      return node;
+      return;
     }
 
     if (
@@ -315,35 +311,29 @@ function extractWhitespaces(ast /*, options*/) {
         node.children[0].type === "text" &&
         htmlTrim(node.children[0].value).length === 0)
     ) {
-      return node.clone({
-        children: [],
-        hasDanglingSpaces: node.children.length > 0,
-      });
+      node.hasDanglingSpaces = node.children.length > 0;
+      node.children = [];
+      return;
     }
 
     const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
-    return node.clone({
-      isWhitespaceSensitive,
-      isIndentationSensitive,
-      children: node.children
+    node.setChildren(
+      node.children
         // extract whitespace nodes
-        .reduce((newChildren, child) => {
+        .flatMap((child) => {
           if (child.type !== "text" || isWhitespaceSensitive) {
-            return newChildren.concat(child);
+            return child;
           }
 
           const localChildren = [];
 
-          const {
-            leadingWhitespace,
-            text,
-            trailingWhitespace,
-          } = getLeadingAndTrailingHtmlWhitespace(child.value);
+          const { leadingWhitespace, text, trailingWhitespace } =
+            getLeadingAndTrailingHtmlWhitespace(child.value);
 
           if (leadingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            localChildren.push(WHITESPACE_NODE);
           }
 
           if (text) {
@@ -358,35 +348,33 @@ function extractWhitespaces(ast /*, options*/) {
           }
 
           if (trailingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            localChildren.push(WHITESPACE_NODE);
           }
 
-          return newChildren.concat(localChildren);
-        }, [])
-        // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
-        .reduce((newChildren, child, i, children) => {
-          if (child.type === TYPE_WHITESPACE) {
-            return newChildren;
+          return localChildren;
+        })
+        // set hasLeadingSpaces/hasTrailingSpaces
+        .map((child, index, children) => {
+          if (child === WHITESPACE_NODE) {
+            return;
           }
 
-          const hasLeadingSpaces =
-            i !== 0 && children[i - 1].type === TYPE_WHITESPACE;
-          const hasTrailingSpaces =
-            i !== children.length - 1 &&
-            children[i + 1].type === TYPE_WHITESPACE;
-
-          return newChildren.concat({
+          return {
             ...child,
-            hasLeadingSpaces,
-            hasTrailingSpaces,
-          });
-        }, []),
-    });
+            hasLeadingSpaces: children[index - 1] === WHITESPACE_NODE,
+            hasTrailingSpaces: children[index + 1] === WHITESPACE_NODE,
+          };
+        })
+        // filter whitespace nodes
+        .filter(Boolean)
+    );
+    node.isWhitespaceSensitive = isWhitespaceSensitive;
+    node.isIndentationSensitive = isIndentationSensitive;
   });
 }
 
 function addIsSelfClosing(ast /*, options */) {
-  return ast.map((node) =>
+  ast.walk((node) =>
     Object.assign(node, {
       isSelfClosing:
         !node.children ||
@@ -399,7 +387,7 @@ function addIsSelfClosing(ast /*, options */) {
 }
 
 function addHasHtmComponentClosingTag(ast, options) {
-  return ast.map((node) =>
+  ast.walk((node) =>
     node.type !== "element"
       ? node
       : Object.assign(node, {
@@ -416,7 +404,7 @@ function addHasHtmComponentClosingTag(ast, options) {
 }
 
 function addCssDisplay(ast, options) {
-  return ast.map((node) =>
+  ast.walk((node) =>
     Object.assign(node, { cssDisplay: getNodeCssStyleDisplay(node, options) })
   );
 }
@@ -427,19 +415,18 @@ function addCssDisplay(ast, options) {
  * - add `isDanglingSpaceSensitive` field for parent nodes
  */
 function addIsSpaceSensitive(ast, options) {
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (!node.children) {
-      return node;
+      return;
     }
 
     if (node.children.length === 0) {
-      return node.clone({
-        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node),
-      });
+      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(node);
+      return;
     }
 
-    return node.clone({
-      children: node.children
+    node.setChildren(
+      node.children
         .map((child) => ({
           ...child,
           isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, options),
@@ -460,8 +447,8 @@ function addIsSpaceSensitive(ast, options) {
               ? child.isTrailingSpaceSensitive
               : children[index + 1].isLeadingSpaceSensitive &&
                 child.isTrailingSpaceSensitive,
-        })),
-    });
+        }))
+    );
   });
 }
 

@@ -1,8 +1,9 @@
 "use strict";
 
-const createLanguage = require("../utils/create-language");
-const printer = require("./printer-html");
-const options = require("./options");
+const createLanguage = require("../utils/create-language.js");
+const printer = require("./printer-html.js");
+const options = require("./options.js");
+const parsers = require("./parsers.js");
 
 const languages = [
   createLanguage(require("linguist-languages/data/HTML.json"), () => ({
@@ -17,9 +18,10 @@ const languages = [
     since: "1.15.0",
     parsers: ["html"],
     vscodeLanguageIds: ["html"],
-    extensions: data.extensions.concat([
+    extensions: [
+      ...data.extensions,
       ".mjml", // MJML is considered XML in Linguist but it should be formatted as HTML
-    ]),
+    ],
   })),
   createLanguage(require("linguist-languages/data/HTML.json"), () => ({
     name: "Lightning Web Components",
@@ -38,25 +40,6 @@ const languages = [
 
 const printers = {
   html: printer,
-};
-
-const parsers = {
-  // HTML
-  get html() {
-    return require("./parser-html").parsers.html;
-  },
-  // Vue
-  get vue() {
-    return require("./parser-html").parsers.vue;
-  },
-  // Angular
-  get angular() {
-    return require("./parser-html").parsers.angular;
-  },
-  // Lightning Web Components
-  get lwc() {
-    return require("./parser-html").parsers.lwc;
-  },
 };
 
 module.exports = {

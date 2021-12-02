@@ -1,4 +1,4 @@
-export default function (source) {
+export default function WorkerApi(source) {
   const worker = new Worker(source);
   let counter = 0;
   const handlers = {};

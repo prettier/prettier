@@ -3,8 +3,8 @@
 /** @typedef {import("../../document").Doc} Doc */
 
 const {
-  builders: { conditionalGroup, concat, group, hardline, ifBreak, join, line },
-} = require("../../document");
+  builders: { conditionalGroup, group, hardline, ifBreak, join, line },
+} = require("../../document/index.js");
 const {
   hasLeadingComments,
   hasMiddleComments,
@@ -13,8 +13,8 @@ const {
   isNode,
   isEmptyNode,
   isInlineNode,
-} = require("../utils");
-const { alignWithSpaces } = require("./misc");
+} = require("../utils.js");
+const { alignWithSpaces } = require("./misc.js");
 
 function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;
@@ -26,7 +26,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ": ";
   }
 
-  const printedKey = path.call(print, "key");
+  const printedKey = print("key");
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
@@ -40,20 +40,20 @@ function printMappingItem(node, parentNode, path, print, options) {
       !hasTrailingComment(key.content) &&
       (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
     ) {
-      return concat([printedKey, spaceBeforeColon, ":"]);
+      return [printedKey, spaceBeforeColon, ":"];
     }
 
-    return concat(["? ", alignWithSpaces(2, printedKey)]);
+    return ["? ", alignWithSpaces(2, printedKey)];
   }
 
-  const printedValue = path.call(print, "value");
+  const printedValue = print("value");
   if (isEmptyMappingKey) {
-    return concat([": ", alignWithSpaces(2, printedValue)]);
+    return [": ", alignWithSpaces(2, printedValue)];
   }
 
   // force explicit Key
   if (hasLeadingComments(value) || !isInlineNode(key.content)) {
-    return concat([
+    return [
       "? ",
       alignWithSpaces(2, printedKey),
       hardline,
@@ -61,11 +61,11 @@ function printMappingItem(node, parentNode, path, print, options) {
         "",
         path
           .map(print, "value", "leadingComments")
-          .map((comment) => concat([comment, hardline]))
+          .map((comment) => [comment, hardline])
       ),
       ": ",
       alignWithSpaces(2, printedValue),
-    ]);
+    ];
   }
 
   // force singleline
@@ -80,19 +80,25 @@ function printMappingItem(node, parentNode, path, print, options) {
     !hasEndComments(value) &&
     isAbsolutelyPrintedAsSingleLineNode(value.content, options)
   ) {
-    return concat([printedKey, spaceBeforeColon, ": ", printedValue]);
+    return [printedKey, spaceBeforeColon, ": ", printedValue];
   }
 
   const groupId = Symbol("mappingKey");
-  const groupedKey = group(
-    concat([
-      ifBreak("? "),
-      group(alignWithSpaces(2, printedKey), { id: groupId }),
-    ])
-  );
-  const breakValue = concat([hardline, ": ", alignWithSpaces(2, printedValue)]);
+  const groupedKey = group([
+    ifBreak("? "),
+    group(alignWithSpaces(2, printedKey), { id: groupId }),
+  ]);
+
+  // Construct both explicit and implicit mapping values.
+  const explicitMappingValue = [
+    hardline,
+    ": ",
+    alignWithSpaces(2, printedValue),
+  ];
   /** @type {Doc[]} */
-  const flatValueParts = [spaceBeforeColon, ":"];
+  // In the implicit case, it's convenient to treat everything from the key's colon
+  // as part of the mapping value
+  const implicitMappingValueParts = [spaceBeforeColon, ":"];
   if (
     hasLeadingComments(value.content) ||
     (hasEndComments(value) &&
@@ -105,15 +111,34 @@ function printMappingItem(node, parentNode, path, print, options) {
       value.content.tag === null &&
       value.content.anchor === null)
   ) {
-    flatValueParts.push(hardline);
+    implicitMappingValueParts.push(hardline);
   } else if (value.content) {
-    flatValueParts.push(line);
+    implicitMappingValueParts.push(line);
   }
-  flatValueParts.push(printedValue);
-  const flatValue = alignWithSpaces(options.tabWidth, concat(flatValueParts));
+  implicitMappingValueParts.push(printedValue);
+  const implicitMappingValue = alignWithSpaces(
+    options.tabWidth,
+    implicitMappingValueParts
+  );
 
+  // If a key is definitely single-line, forcibly use implicit style to avoid edge cases (very long
+  // keys) that would otherwise trigger explicit style as if it was multiline.
+  // In those cases, explicit style makes the line even longer and causes confusion.
+  if (
+    isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
+    !hasLeadingComments(key.content) &&
+    !hasMiddleComments(key.content) &&
+    !hasEndComments(key)
+  ) {
+    return conditionalGroup([[printedKey, implicitMappingValue]]);
+  }
+
+  // Use explicit mapping syntax if the key breaks, implicit otherwise
   return conditionalGroup([
-    concat([groupedKey, ifBreak(breakValue, flatValue, { groupId })]),
+    [
+      groupedKey,
+      ifBreak(explicitMappingValue, implicitMappingValue, { groupId }),
+    ],
   ]);
 }
 
@@ -129,6 +154,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
       break;
     case "alias":
       return true;
+
     default:
       return false;
   }

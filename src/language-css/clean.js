@@ -1,7 +1,7 @@
 "use strict";
 
-const { isFrontMatterNode } = require("../common/util");
-const getLast = require("../utils/get-last");
+const { isFrontMatterNode } = require("../common/util.js");
+const getLast = require("../utils/get-last.js");
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -37,7 +37,7 @@ function clean(ast, newObj, parent) {
       delete newObj.text;
 
       // standalone pragma
-      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+      if (/^\*\s*@(?:format|prettier)\s*$/.test(ast.text)) {
         return null;
       }
     }
@@ -92,6 +92,9 @@ function clean(ast, newObj, parent) {
   }
   if (ast.type === "value-number") {
     newObj.unit = newObj.unit.toLowerCase();
+  }
+  if (ast.type === "value-unknown") {
+    newObj.value = newObj.value.replace(/;$/g, "");
   }
 
   if (

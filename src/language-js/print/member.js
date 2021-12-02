@@ -1,13 +1,17 @@
 "use strict";
 
 const {
-  builders: { concat, softline, group, indent },
-} = require("../../document");
-const { isNumericLiteral } = require("../utils");
-const { printOptionalToken } = require("./misc");
+  builders: { softline, group, indent, label },
+} = require("../../document/index.js");
+const {
+  isNumericLiteral,
+  isMemberExpression,
+  isCallExpression,
+} = require("../utils.js");
+const { printOptionalToken } = require("./misc.js");
 
 function printMemberExpression(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
 
   const parent = path.getParentNode();
   let firstNonMemberParent;
@@ -17,51 +21,51 @@ function printMemberExpression(path, options, print) {
     i++;
   } while (
     firstNonMemberParent &&
-    (firstNonMemberParent.type === "MemberExpression" ||
-      firstNonMemberParent.type === "OptionalMemberExpression" ||
+    (isMemberExpression(firstNonMemberParent) ||
       firstNonMemberParent.type === "TSNonNullExpression")
   );
+
+  const objectDoc = print("object");
+  const lookupDoc = printMemberLookup(path, options, print);
 
   const shouldInline =
     (firstNonMemberParent &&
       (firstNonMemberParent.type === "NewExpression" ||
         firstNonMemberParent.type === "BindExpression" ||
-        (firstNonMemberParent.type === "VariableDeclarator" &&
-          firstNonMemberParent.id.type !== "Identifier") ||
         (firstNonMemberParent.type === "AssignmentExpression" &&
           firstNonMemberParent.left.type !== "Identifier"))) ||
-    n.computed ||
-    (n.object.type === "Identifier" &&
-      n.property.type === "Identifier" &&
-      parent.type !== "MemberExpression" &&
-      parent.type !== "OptionalMemberExpression");
+    node.computed ||
+    (node.object.type === "Identifier" &&
+      node.property.type === "Identifier" &&
+      !isMemberExpression(parent)) ||
+    ((parent.type === "AssignmentExpression" ||
+      parent.type === "VariableDeclarator") &&
+      ((isCallExpression(node.object) && node.object.arguments.length > 0) ||
+        (node.object.type === "TSNonNullExpression" &&
+          isCallExpression(node.object.expression) &&
+          node.object.expression.arguments.length > 0) ||
+        objectDoc.label === "member-chain"));
 
-  return concat([
-    path.call(print, "object"),
-    shouldInline
-      ? printMemberLookup(path, options, print)
-      : group(
-          indent(concat([softline, printMemberLookup(path, options, print)]))
-        ),
+  return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
+    objectDoc,
+    shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
   ]);
 }
 
 function printMemberLookup(path, options, print) {
-  const property = path.call(print, "property");
-  const n = path.getValue();
+  const property = print("property");
+  const node = path.getValue();
   const optional = printOptionalToken(path);
 
-  if (!n.computed) {
-    return concat([optional, ".", property]);
+  if (!node.computed) {
+    return [optional, ".", property];
   }
 
-  if (!n.property || isNumericLiteral(n.property)) {
-    return concat([optional, "[", property, "]"]);
+  if (!node.property || isNumericLiteral(node.property)) {
+    return [optional, "[", property, "]"];
   }
 
-  return group(
-    concat([optional, "[", indent(concat([softline, property])), softline, "]"])
-  );
+  return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
 module.exports = { printMemberExpression, printMemberLookup };
