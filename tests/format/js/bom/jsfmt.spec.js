@@ -1,6 +1,5 @@
 import fs from "node:fs";
-import path from "node:path";
-const fixtureDirectory = new URL("../eol", import.meta.url);
+const fixtureDirectory = new URL("../eol/", import.meta.url);
 
 const snippets = fs
   .readdirSync(fixtureDirectory)
@@ -8,7 +7,7 @@ const snippets = fs
     (fileName) => fileName !== "__snapshots__" && fileName !== "jsfmt.spec.js"
   )
   .map((fileName) => {
-    const file = path.join(fixtureDirectory, fileName);
+    const file = new URL(fileName, fixtureDirectory);
     const code = "\uFEFF" + fs.readFileSync(file, "utf8");
     return {
       name: fileName,
