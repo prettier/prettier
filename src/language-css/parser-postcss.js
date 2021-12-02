@@ -679,12 +679,12 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
-function parseCss(text, parsers, options) {
+function parseCss(text, parsers, options = {}) {
   const { parse } = require("postcss");
   return parseWithParser(parse, text, options);
 }
 
-function parseLess(text, parsers, options) {
+function parseLess(text, parsers, options = {}) {
   const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
@@ -695,7 +695,7 @@ function parseLess(text, parsers, options) {
   );
 }
 
-function parseScss(text, parsers, options) {
+function parseScss(text, parsers, options = {}) {
   const { parse } = require("postcss-scss");
   return parseWithParser(parse, text, options);
 }
