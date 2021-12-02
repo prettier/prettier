@@ -1,4 +1,6 @@
-const parsers = require("prettier-local")
+import prettier from "prettier-local";
+
+const parsers = prettier
   .getSupportInfo()
   .options.find((option) => option.name === "parser")
   .choices.filter((choice) => !choice.deprecated)

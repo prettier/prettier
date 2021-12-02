@@ -1,4 +1,4 @@
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 run_spec(
   {

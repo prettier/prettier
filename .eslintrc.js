@@ -151,6 +151,8 @@ module.exports = {
         "**/*.mjs",
         "scripts/release/**/*.js",
         "tests/integration/**/*.js",
+        "tests/format/**/*.js",
+        "tests/config/**/*.js",
       ],
       excludedFiles: [
         "tests/integration/plugins/automatic/prettier-plugin-bar.js",
@@ -163,9 +165,13 @@ module.exports = {
         "unicorn/prefer-node-protocol": "error",
       },
     },
-    // There is a empty package.json in that directory
+    // There are empty package.json in these directories
     {
-      files: ["tests/integration/**/*.js"],
+      files: [
+        "tests/integration/**/*.js",
+        "tests/format/**/*.js",
+        "tests/config/**/*.js",
+      ],
       rules: {
         "import/no-extraneous-dependencies": "off",
       },

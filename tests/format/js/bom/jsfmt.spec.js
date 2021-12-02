@@ -1,5 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import fs from "node:fs";
+import path from "node:path";
 const fixtureDirectory = new URL("../eol", import.meta.url);
 
 const snippets = fs

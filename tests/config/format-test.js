@@ -99,8 +99,10 @@ const isTestDirectory = (dirname, name) =>
   );
 
 function runSpec(fixtures, parsers, options) {
-  let { importMeta, snippets = [] } = fixtures.importMeta ? fixtures : {importMeta: fixtures};
-  const dirname = path.dirname(url.fileURLToPath(importMeta.url))
+  let { importMeta, snippets = [] } = fixtures.importMeta
+    ? fixtures
+    : { importMeta: fixtures };
+  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
