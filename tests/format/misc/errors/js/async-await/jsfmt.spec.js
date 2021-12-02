@@ -2,7 +2,7 @@ const { outdent } = require("outdent");
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       outdent`
         async function foo() {
@@ -24,7 +24,7 @@ run_spec(
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       // `flow` and `meriyah` didn't throw
       "async (x = await (2)) => {};",

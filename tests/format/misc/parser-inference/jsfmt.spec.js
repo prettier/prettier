@@ -1,7 +1,7 @@
 const { outdent } = require("outdent");
 
 run_spec({
-  dirname: __dirname,
+  importMeta: import.meta,
   snippets: [
     {
       name: ".prettierrc in json(empty)",

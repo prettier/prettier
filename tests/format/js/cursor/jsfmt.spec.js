@@ -1,4 +1,4 @@
-run_spec(__dirname, ["babel", "typescript", "flow"]);
+run_spec(import.meta, ["babel", "typescript", "flow"]);
 
 const prettier = require("prettier-local");
 

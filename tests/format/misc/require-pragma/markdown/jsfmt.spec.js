@@ -1,1 +1,1 @@
-run_spec(__dirname, ["markdown"], { requirePragma: true });
+run_spec(import.meta, ["markdown"], { requirePragma: true });

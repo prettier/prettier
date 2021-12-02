@@ -6,7 +6,7 @@ const parsers = require("prettier-local")
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       // empty
       "",

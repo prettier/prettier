@@ -2,7 +2,7 @@ const { outdent } = require("outdent");
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "const baz3 = new obj?.foo?.bar?.baz(); // baz instance",
       "const safe5 = new obj?.qux?.baz(); // undefined",

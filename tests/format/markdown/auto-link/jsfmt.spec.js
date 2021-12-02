@@ -72,7 +72,7 @@ const cases = flat(urls.map((url) => wrappers.map((fn) => fn(url))));
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: cases.map((code) => ({ code, name: code })),
   },
   ["markdown"]

@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "for (let.foo of []);",
       "for (let().bar of []);",
@@ -21,7 +21,7 @@ run_spec(
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: ["for (async of []);"],
   },
   [

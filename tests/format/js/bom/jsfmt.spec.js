@@ -16,4 +16,4 @@ const snippets = fs
     };
   });
 
-run_spec({ dirname: __dirname, snippets }, ["babel"]);
+run_spec({ importMeta: import.meta, snippets }, ["babel"]);

@@ -1,4 +1,4 @@
-run_spec(__dirname, ["babel", "flow", "typescript"], {
+run_spec(import.meta, ["babel", "flow", "typescript"], {
   errors: {
     flow: ["function-declaration-in-while.js"],
     espree: ["function-declaration-in-while.js"],

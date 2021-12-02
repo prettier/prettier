@@ -1,7 +1,7 @@
 // Only testing babel parsing
 // Do not add extra parsers here
 
-run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
+run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
   errors: {
     espree: [
       "decimal.js",

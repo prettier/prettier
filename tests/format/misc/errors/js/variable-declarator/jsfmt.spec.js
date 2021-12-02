@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babel", "espree", "meriyah"]);
+run_spec(import.meta, ["babel", "espree", "meriyah"]);

@@ -1,5 +1,5 @@
-run_spec(__dirname, ["angular"], { trailingComma: "none" });
-run_spec(__dirname, ["angular"]);
-run_spec(__dirname, ["angular"], { printWidth: 1 });
-run_spec(__dirname, ["angular"], { htmlWhitespaceSensitivity: "ignore" });
-run_spec(__dirname, ["angular"], { bracketSpacing: false });
+run_spec(import.meta, ["angular"], { trailingComma: "none" });
+run_spec(import.meta, ["angular"]);
+run_spec(import.meta, ["angular"], { printWidth: 1 });
+run_spec(import.meta, ["angular"], { htmlWhitespaceSensitivity: "ignore" });
+run_spec(import.meta, ["angular"], { bracketSpacing: false });

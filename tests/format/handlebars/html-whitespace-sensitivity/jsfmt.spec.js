@@ -1,12 +1,12 @@
 const { outdent } = require("outdent");
 
-run_spec(__dirname, ["glimmer"], {
+run_spec(import.meta, ["glimmer"], {
   htmlWhitespaceSensitivity: "ignore",
   printWidth: 40,
 });
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       // single
       // https://developer.mozilla.org/en-US/docs/Glossary/Whitespace#In_HTML

@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow"]);
-run_spec(__dirname, ["flow"], { trailingComma: "all" });
+run_spec(import.meta, ["flow"]);
+run_spec(import.meta, ["flow"], { trailingComma: "all" });

@@ -1,3 +1,3 @@
-run_spec(__dirname, ["typescript"], { trailingComma: "none" });
-run_spec(__dirname, ["typescript"]);
-run_spec(__dirname, ["typescript"], { trailingComma: "all" });
+run_spec(import.meta, ["typescript"], { trailingComma: "none" });
+run_spec(import.meta, ["typescript"]);
+run_spec(import.meta, ["typescript"], { trailingComma: "all" });

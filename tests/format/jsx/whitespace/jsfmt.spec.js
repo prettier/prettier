@@ -3,7 +3,7 @@ const { outdent } = require("outdent");
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       {
         code: "spaces = <div>]   [</div>",

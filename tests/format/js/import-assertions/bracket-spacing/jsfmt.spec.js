@@ -1,4 +1,4 @@
-run_spec(__dirname, ["babel"], {
+run_spec(import.meta, ["babel"], {
   bracketSpacing: false,
   errors: {
     espree: [

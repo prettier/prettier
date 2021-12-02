@@ -1,4 +1,4 @@
-run_spec(__dirname, ["typescript"], {});
-run_spec(__dirname, ["typescript"], {
+run_spec(import.meta, ["typescript"], {});
+run_spec(import.meta, ["typescript"], {
   semi: false,
 });

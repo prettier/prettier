@@ -1,3 +1,3 @@
-run_spec(__dirname, ["babel", "typescript"], {
+run_spec(import.meta, ["babel", "typescript"], {
   errors: { espree: true, meriyah: true },
 });
