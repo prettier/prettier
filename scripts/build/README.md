@@ -1,5 +1,9 @@
 # Prettier Build Script
 
+## Requirements
+
+- Node.js version `>= 14.18`.
+
 ## Usage
 
 ```sh
