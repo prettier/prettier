@@ -8,6 +8,7 @@ import rollupPluginJson from "@rollup/plugin-json";
 import rollupPluginReplace from "@rollup/plugin-replace";
 import { terser as rollupPluginTerser } from "rollup-plugin-terser";
 import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
+import rollupPluginLicense from "rollup-plugin-license";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
@@ -75,7 +76,7 @@ function getBabelConfig(bundle) {
   return config;
 }
 
-function getRollupConfig(bundle) {
+function getRollupConfig(bundle, options) {
   const config = {
     input: path.join(PROJECT_ROOT, bundle.input),
     onwarn(warning) {
@@ -203,6 +204,14 @@ function getRollupConfig(bundle) {
     rollupPluginReplaceModule(replaceModule),
     bundle.target === "universal" && rollupPluginPolyfillNode(),
     rollupPluginBabel(babelConfig),
+    options.onLicenseFound &&
+      rollupPluginLicense({
+        cwd: PROJECT_ROOT,
+        thirdParty: {
+          includePrivate: true,
+          output: options.onLicenseFound,
+        },
+      }),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -269,7 +278,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
 }
 
 async function createBundle(bundle, cache, options) {
-  const inputOptions = getRollupConfig(bundle);
+  const inputOptions = getRollupConfig(bundle, options);
   const outputOptions = getRollupOutputOptions(bundle, options);
 
   if (!Array.isArray(outputOptions) && outputOptions.skipped) {
