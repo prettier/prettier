@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
+import runPrettier from "../runPrettier.js";
 
 describe("flush all line-suffix content", () => {
   runPrettier("plugins/flushLineSuffix", ["*.foo", "--plugin=./plugin"], {

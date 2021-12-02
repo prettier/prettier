@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
+import runPrettier from "../runPrettier.js";
 
 describe("preserves shebang", () => {
   runPrettier("cli/with-shebang", ["--end-of-line", "lf", "issue1890.js"]).test(
