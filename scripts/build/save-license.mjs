@@ -56,10 +56,10 @@ async function saveLicense(dependencies) {
       if (dependency.license) {
         meta.push(`License: ${dependency.license}`);
       }
-      if (dependency.author && dependency.author.name) {
+      if (dependency.author?.name) {
         meta.push(`By: ${dependency.author.name}`);
       }
-      if (dependency.repository && dependency.repository.url) {
+      if (dependency.repository?.url) {
         meta.push(`Repository: <${dependency.repository.url}>`);
       }
 
