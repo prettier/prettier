@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
+import runPrettier from "../runPrettier.js";
 const EOL = "\n";
 
 describe("uses 'extensions' from languages to determine parser", () => {
