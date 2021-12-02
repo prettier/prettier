@@ -18,7 +18,7 @@ import {
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
 import Cache from "./cache.mjs";
-import saveLicense from "./save-license.mjs";
+import saveLicenses from "./save-licenses.mjs";
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -194,7 +194,7 @@ async function run(params) {
   }
 
   if (shouldSaveBundledPackagesLicenses) {
-    await saveLicense(licenses);
+    await saveLicenses(licenses);
   } else {
     console.warn(
       chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")

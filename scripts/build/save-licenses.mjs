@@ -6,7 +6,7 @@ import { DIST_DIR } from "../utils/index.mjs";
 const file = path.join(DIST_DIR, "LICENSE");
 const separator = `\n${"-".repeat(40)}\n\n`;
 
-async function saveLicense(dependencies) {
+async function saveLicenses(dependencies) {
   // Unique by `name` and `version`
   dependencies = dependencies.filter(
     (dependency, index) =>
@@ -84,4 +84,4 @@ async function saveLicense(dependencies) {
   await fs.writeFile(file, text + "\n\n" + content);
 }
 
-export default saveLicense;
+export default saveLicenses;
