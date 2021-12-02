@@ -1,8 +1,7 @@
-"use strict";
+import runPrettier from "../runPrettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const runPrettier = require("../runPrettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("ignores files when executing in a subdirectory", () => {
   runPrettier("cli/ignore-in-subdirectories/web1", [

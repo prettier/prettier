@@ -208,6 +208,71 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3 : Foo4;
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3 : Foo4;
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3 : Foo4;
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+================================================================================
+`;
+
 exports[`tuple.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

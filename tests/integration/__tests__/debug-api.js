@@ -1,4 +1,5 @@
-"use strict";
+import prettier from "prettier-local";
+import { outdent } from "outdent";
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
@@ -6,8 +7,7 @@ const {
     builders,
     utils: { cleanDoc },
   },
-} = require("prettier-local");
-const { outdent } = require("outdent");
+} = prettier;
 
 const code = outdent`
   const foo =              'bar'

@@ -1,11 +1,13 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import runPrettier from "../runPrettier.js";
+import jestPathSerializer from "../path-serializer.js";
+import { projectRoot } from "../env.js";
 
-const path = require("path");
-const fs = require("fs");
-const runPrettier = require("../runPrettier.js");
-const { projectRoot } = require("../env.js");
+const { __dirname } = createEsmUtils(import.meta);
 
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 // ESLint-like behavior
 // https://github.com/prettier/prettier/pull/6639#issuecomment-548949954

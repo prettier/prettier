@@ -1,11 +1,12 @@
-"use strict";
+import path from "node:path";
+import prettier from "prettier-local";
+import createEsmUtils from "esm-utils";
+import runPrettier from "../runPrettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
+const { __dirname } = createEsmUtils(import.meta);
 
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("resolves configuration from external files", () => {
   runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({
