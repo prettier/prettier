@@ -14,7 +14,7 @@ The tests use [Jest snapshots](https://facebook.github.io/jest/docs/en/snapshot-
 Each test directory in `tests/format` has a `jsfmt.spec.js` file that controls how exactly the rest of the files in the directory are used for tests. This file must contain one or more calls to the `run_spec` global function. For example, in directories with JavaScript formatting tests, `jsfmt.spec.js` generally looks like this:
 
 ```js
-run_spec(__dirname, ["babel", "flow", "typescript"]);
+run_spec(import.meta, ["babel", "flow", "typescript"]);
 ```
 
 This verifies that for each file in the directory, the output matches the snapshot and is the same for each listed parser.
@@ -22,7 +22,7 @@ This verifies that for each file in the directory, the output matches the snapsh
 You can also pass options as the third argument:
 
 ```js
-run_spec(__dirname, ["babel"], { trailingComma: "es5" });
+run_spec(import.meta, ["babel"], { trailingComma: "es5" });
 ```
 
 Signature:
@@ -30,9 +30,9 @@ Signature:
 ```ts
 function run_spec(
   fixtures:
-    | string
+    | ImportMeta
     | {
-        dirname: string;
+        importMeta: ImportMeta;
         snippets?: Array<
           | string
           | { code: string; name?: string; filename?: string; output?: string }
@@ -47,7 +47,7 @@ function run_spec(
 
 Parameters:
 
-- **`fixtures`**: Must be set to `__dirname` or to an object of the shape `{ dirname: __dirname, ... }`. The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory. For each input entry (a file or a snippet), `run_spec` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot (for snippets, the expected output can also be specified directly). [Additional checks](#deeper-testing) are controlled by options and environment variables.
+- **`fixtures`**: Must be set to `import.meta` or to an object of the shape `{ importMeta: import.meta, ... }`. The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory. For each input entry (a file or a snippet), `run_spec` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot (for snippets, the expected output can also be specified directly). [Additional checks](#deeper-testing) are controlled by options and environment variables.
 - **`parsers`**: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/format/js`, then `espree` and `meriyah` are included implicitly.
 - **`options`**: In addition to Prettier's formatting options, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
 
