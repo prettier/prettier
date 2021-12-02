@@ -1,7 +1,4 @@
 import path from "node:path";
-import createEsmUtils from "esm-utils";
-
-const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -71,13 +68,6 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    replaceModule: {
-      // `colorette` uses `process` can't run in browser
-      // https://github.com/jorgebucaran/colorette/pull/62
-      [require.resolve("colorette")]: {
-        file: path.join(dirname, "replacement/colorette.mjs"),
-      },
-    },
     replace: {
       // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
