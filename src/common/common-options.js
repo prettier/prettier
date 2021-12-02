@@ -54,11 +54,4 @@ module.exports = {
     description:
       "Put > of opening tags on the last line instead of on a new line.",
   },
-  singleAttributePerLine: {
-    since: "2.3.3",
-    category: CATEGORY_COMMON,
-    type: "boolean",
-    default: false,
-    description: "Enforce single attribute per line in HTML, Vue and JSX.",
-  },
 };

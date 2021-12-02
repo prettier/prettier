@@ -98,5 +98,4 @@ module.exports = {
       },
     ],
   },
-  singleAttributePerLine: commonOptions.singleAttributePerLine,
 };
