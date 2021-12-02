@@ -4,6 +4,7 @@ const { TEST_STANDALONE } = process.env;
 
 const fs = require("fs");
 const path = require("path");
+const url = require("url");
 const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
@@ -98,8 +99,8 @@ const isTestDirectory = (dirname, name) =>
   );
 
 function runSpec(fixtures, parsers, options) {
-  let { dirname, snippets = [] } =
-    typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  let { importMeta, snippets = [] } = fixtures.importMeta ? fixtures : {importMeta: fixtures};
+  const dirname = path.dirname(url.fileURLToPath(importMeta.url))
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(

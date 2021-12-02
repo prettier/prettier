@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const fixtureDirectory = path.join(__dirname, "../eol");
+import fs from 'node:fs';
+import path from 'node:path';
+const fixtureDirectory = new URL("../eol", import.meta.url);
 
 const snippets = fs
   .readdirSync(fixtureDirectory)
