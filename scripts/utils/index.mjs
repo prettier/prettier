@@ -1,4 +1,4 @@
-import {promises as fs} from "node:fs";
+import { promises as fs } from "node:fs";
 import url from "node:url";
 import path from "node:path";
 
