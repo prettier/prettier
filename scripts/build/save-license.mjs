@@ -1,20 +1,29 @@
-
 import path from "node:path";
-import fs from "node:fs";
+import { promises as fs } from "node:fs";
 import { outdent } from "outdent";
-import {DIST_DIR} from "../utils/index.mjs"
+import { DIST_DIR } from "../utils/index.mjs";
 
 const file = path.join(DIST_DIR, "LICENSE");
-const separator = `\n${"-".repeat(40)}\n`;
+const separator = `\n${"-".repeat(40)}\n\n`;
 
 async function saveLicense(dependencies) {
+  // Unique by `name` and `version`
+  dependencies = dependencies.filter(
+    (dependency, index) =>
+      index ===
+      dependencies.findIndex(
+        ({ name, version }) =>
+          dependency.name === name && dependency.version === version
+      )
+  );
+
   dependencies.sort(
     (dependencyA, dependencyB) =>
       dependencyA.name.localeCompare(dependencyB.name) ||
       dependencyA.version.localeCompare(dependencyB.version)
   );
 
-  const prettierLicense = await fs.readFile(file, "utf8").trim();
+  const prettierLicense = await fs.readFile(file, "utf8");
 
   const licenses = [
     ...new Set(
@@ -28,19 +37,19 @@ async function saveLicense(dependencies) {
 
     Prettier is released under the MIT license:
 
-    ${prettierLicense}
+    ${prettierLicense.trim()}
 
-    # Licenses of bundled dependencies
+    ## Licenses of bundled dependencies
 
     The published Prettier artifact additionally contains code with the following licenses:
     ${licenses.join(", ")}
 
-    # Bundled dependencies
+    ## Bundled dependencies
   `;
 
   const content = dependencies
     .map((dependency) => {
-      let text = `## ${dependency.name}@v${dependency.version}\n`;
+      let text = `### ${dependency.name}@v${dependency.version}\n`;
 
       const meta = [];
 
@@ -51,7 +60,7 @@ async function saveLicense(dependencies) {
         meta.push(`By: ${dependency.author.name}`);
       }
       if (dependency.repository && dependency.repository.url) {
-        meta.push(`Repository: ${dependency.repository.url}`);
+        meta.push(`Repository: <${dependency.repository.url}>`);
       }
 
       if (meta.length > 0) {
@@ -72,7 +81,7 @@ async function saveLicense(dependencies) {
     })
     .join(separator);
 
-  await fs.writeFile(file, text + "\n\n" + content + "\n");
+  await fs.writeFile(file, text + "\n\n" + content);
 }
 
 export default saveLicense;

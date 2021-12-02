@@ -18,7 +18,7 @@ import {
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
 import Cache from "./cache.mjs";
-import saveLicense from "./save-license.mjs"
+import saveLicense from "./save-license.mjs";
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -147,7 +147,12 @@ async function run(params) {
   const shouldUseCache = params.cache && !params.file && params.minify === null;
   const shouldPreparePackage =
     !params.playground && !params.file && params.minify === null;
-  const shouldSaveBundledPackagesLicense = !params.cache && !params.playground && !params.file && params.minify === null;
+  const shouldSaveBundledPackagesLicenses =
+    !params.cache &&
+    !params.playground &&
+    !params.file &&
+    params.minify === null;
+
   let configs = bundleConfigs;
   if (params.file) {
     configs = configs.filter(({ output }) => output === params.file);
@@ -159,21 +164,9 @@ async function run(params) {
     rimraf.sync(BUILD_CACHE_DIR);
   }
 
-  const licenses = []
-  if (shouldSaveBundledPackagesLicense) {
-    params.onLicenseFound =    (dependencies) => {
-      for (const dependency of dependencies) {
-        if (
-          !licenses.some(
-            (item) =>
-              item.name === dependency.name &&
-              item.version === dependency.version
-          )
-        ) {
-          licenses.push(dependency);
-        }
-      }
-    };
+  const licenses = [];
+  if (shouldSaveBundledPackagesLicenses) {
+    params.onLicenseFound = (dependencies) => licenses.push(...dependencies);
   }
 
   let bundleCache;
@@ -200,15 +193,13 @@ async function run(params) {
     await preparePackage();
   }
 
-  if (shouldSaveBundledPackagesLicense) {
+  if (shouldSaveBundledPackagesLicenses) {
     await saveLicense(licenses);
   } else {
-      console.warn(
-        chalk.red(
-          "Bundled dependencies licenses not included in `dist/LICENSE`."
-        )
-      );
-    }
+    console.warn(
+      chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")
+    );
+  }
 }
 
 run(
