@@ -1,18 +1,19 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+import createEsmUtils from "esm-utils";
+import checkParsers from "./utils/check-parsers.js";
+import createSnapshot from "./utils/create-snapshot.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
+
+const { require, __dirname } = createEsmUtils(import.meta);
 
 const { TEST_STANDALONE } = process.env;
-
-const fs = require("fs");
-const path = require("path");
-const url = require("url");
 const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
-const checkParsers = require("./utils/check-parsers.js");
-const createSnapshot = require("./utils/create-snapshot.js");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line.js");
-const consistentEndOfLine = require("./utils/consistent-end-of-line.js");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title.js");
 
 const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";
@@ -448,4 +449,4 @@ function format(originalText, originalOptions) {
   };
 }
 
-module.exports = runSpec;
+export default runSpec;
