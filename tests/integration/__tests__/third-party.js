@@ -13,9 +13,9 @@ expect.addSnapshotSerializer(jestPathSerializer);
 describe("cosmiconfig", () => {
   const configs = [
     {
-      title: "prettier.config.js",
+      title: "prettier.config.cjs",
       dirname: path.join(__dirname, "../cli/config/js/"),
-      file: path.join(__dirname, "../cli/config/js/prettier.config.js"),
+      file: path.join(__dirname, "../cli/config/js/prettier.config.cjs"),
       value: {
         endOfLine: "auto",
         tabWidth: 8,

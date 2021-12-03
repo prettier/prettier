@@ -33,7 +33,7 @@ testPatterns("1", ["dir1", "dir2"]);
 testPatterns("1a - with *.foo plugin", [
   "dir1",
   "dir2",
-  "--plugin=../../plugins/extensions/plugin",
+  "--plugin=../../plugins/extensions/plugin.cjs",
 ]);
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
   stdout: expect.stringMatching(/!dir[/\\]a\.js/),

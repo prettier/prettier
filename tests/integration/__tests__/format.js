@@ -1,5 +1,5 @@
 import prettier from "prettier-local";
-import fooPlugin from "../plugins/defaultOptions/plugin.js";
+import fooPlugin from "../plugins/defaultOptions/plugin.cjs";
 
 test("yaml parser should handle CRLF correctly", () => {
   const input = "a:\r\n  123\r\n";

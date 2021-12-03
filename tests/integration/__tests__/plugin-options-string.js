@@ -6,14 +6,14 @@ test("show external options with `--help`", async () => {
     .stdout;
   const pluggedStdout = await runPrettier("plugins/options-string", [
     "--help",
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
   ]).stdout;
   expect(snapshotDiff(originalStdout, pluggedStdout)).toMatchSnapshot();
 });
 
 describe("show detailed external option with `--help foo-string`", () => {
   runPrettier("plugins/options-string", [
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
     "--help",
     "foo-string",
   ]).test({
@@ -25,7 +25,7 @@ describe("external options from CLI should work", () => {
   runPrettier(
     "plugins/options-string",
     [
-      "--plugin=./plugin",
+      "--plugin=./plugin.cjs",
       "--stdin-filepath",
       "example.foo",
       "--foo-string",
