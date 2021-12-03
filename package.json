@@ -4,6 +4,7 @@
   "description": "Prettier is an opinionated code formatter",
   "bin": "./bin/prettier.js",
   "repository": "prettier/prettier",
+  "funding": "https://github.com/prettier/prettier?sponsor=1",
   "homepage": "https://prettier.io",
   "author": "James Long",
   "license": "MIT",
