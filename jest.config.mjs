@@ -14,8 +14,10 @@ if (!isProduction) {
 }
 
 const config = {
-  setupFilesAfterEnv: ["<rootDir>/tests/config/install-prettier.mjs"],
-  setupFiles: ["<rootDir>/tests/config/setup.js"],
+  setupFiles: [
+    "<rootDir>/tests/config/install-prettier.mjs",
+    "<rootDir>/tests/config/setup.js",
+  ],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
