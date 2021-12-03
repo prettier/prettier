@@ -25,7 +25,7 @@ describe("show diff for 2+ error files with --debug-check", () => {
     "*.debug-check",
     "--debug-check",
     "--plugin",
-    "./plugin-for-testing-debug-check",
+    "./plugin-for-testing-debug-check.cjs",
   ]).test({
     status: "non-zero",
   });

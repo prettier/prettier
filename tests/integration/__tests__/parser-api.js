@@ -77,7 +77,7 @@ describe("allows passing a string to resolve a parser", () => {
     "lf",
     "./custom-rename-input.js",
     "--parser",
-    "./custom-rename-parser",
+    "./custom-rename-parser.cjs",
   ]).test({
     status: 0,
   });

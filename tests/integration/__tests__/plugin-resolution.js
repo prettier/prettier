@@ -100,7 +100,7 @@ describe("does not crash when --plugin-search-dir does not contain node_modules"
       "file.foo",
       "--end-of-line",
       "lf",
-      "--plugin=./plugin",
+      "--plugin=./plugin.cjs",
       "--plugin-search-dir=.",
     ],
     { ignoreLineEndings: true }

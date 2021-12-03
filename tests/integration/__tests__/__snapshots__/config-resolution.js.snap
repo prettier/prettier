@@ -43,13 +43,6 @@ function js() {
                 \\"js/file.js should have tab width 8 (1 if CLI)\\"
         );
 }
-\\"use strict\\";
-
-module.exports =
-        {
-                endOfLine: \\"auto\\",
-                tabWidth: 8,
-        };
 function noConfigJs() {
   console.log(
     \\"no-config/file.js should have no semicolons\\"
@@ -147,12 +140,6 @@ console.log(\\"jest/Component.test.js should have semi\\");
 function js() {
         console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
-\\"use strict\\";
-
-module.exports = {
-        endOfLine: \\"auto\\",
-        tabWidth: 8,
-};
 function noConfigJs() {
   console.log(\\"no-config/file.js should have no semicolons\\")
 }

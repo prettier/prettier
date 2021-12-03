@@ -1,9 +1,11 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import { jest } from "@jest/globals";
+import stripAnsi from "strip-ansi";
+import createEsmUtils from "esm-utils";
+import { prettierCli, thirdParty } from "./env.js";
 
-const fs = require("fs");
-const path = require("path");
-const stripAnsi = require("strip-ansi");
-const { prettierCli, thirdParty } = require("./env.js");
+const { __dirname, require, __filename } = createEsmUtils(import.meta);
 
 async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
@@ -207,4 +209,4 @@ function normalizeDir(dir) {
   return isRelative ? path.resolve(__dirname, dir) : dir;
 }
 
-module.exports = runPrettier;
+export default runPrettier;
