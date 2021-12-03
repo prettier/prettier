@@ -1,5 +1,3 @@
-"use strict";
-
 const replaceCWD = (text) => {
   const cwd = process.cwd();
 
@@ -19,10 +17,12 @@ const replaceCWD = (text) => {
   return text;
 };
 
-module.exports = {
+const pathSerializer = {
   test: (value) =>
     typeof value === "string" &&
     (value.includes("\\") || value.includes(process.cwd())),
   print: (value, serializer) =>
     serializer(replaceCWD(value).replace(/\\/g, "/")),
 };
+
+export default pathSerializer

@@ -1,6 +1,8 @@
-"use strict";
+import path from "node:path";
+import createEsmUtils from "esm-utils"
 
-const path = require("path");
+const {__dirname, require} = createEsmUtils(import.meta)
+
 const isProduction = process.env.NODE_ENV === "production";
 const { PRETTIER_DIR } = process.env;
 const { bin } = require(path.join(PRETTIER_DIR, "package.json"));
@@ -15,7 +17,7 @@ const thirdParty = isProduction
 
 const projectRoot = path.join(__dirname, "../..");
 
-module.exports = {
+export {
   isProduction,
   thirdParty,
   prettierCli,
