@@ -20,12 +20,12 @@
     "bin"
   ],
   "dependencies": {
-    "@angular/compiler": "12.2.13",
+    "@angular/compiler": "12.2.14",
     "@babel/code-frame": "7.16.0",
     "@babel/parser": "7.16.4",
     "@glimmer/syntax": "0.83.1",
     "@iarna/toml": "2.2.5",
-    "@typescript-eslint/typescript-estree": "5.4.0",
+    "@typescript-eslint/typescript-estree": "5.5.0",
     "angular-estree-parser": "2.5.0",
     "angular-html-parser": "1.8.0",
     "camelcase": "6.2.1",
@@ -141,7 +141,6 @@
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
-    "prepare-release": "yarn && yarn build && yarn test:dist",
     "test": "jest",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 jest",
     "test:dist": "cross-env NODE_ENV=production jest",
