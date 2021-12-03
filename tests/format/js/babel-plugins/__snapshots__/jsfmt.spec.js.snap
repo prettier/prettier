@@ -1704,17 +1704,6 @@ result; //=> "Hello, hello!"
 ================================================================================
 `;
 
-exports[`private-fields-in-in.js [espree] format 1`] = `
-"Unexpected token #brand (44:12)
-  42 |
-  43 |   static isC(obj) {
-> 44 |     return #brand in obj && #method in obj && #getter in obj;
-     |            ^
-  45 |   }
-  46 | }
-  47 |"
-`;
-
 exports[`private-fields-in-in.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "babel-ts", "babel-flow"]

@@ -7,13 +7,6 @@ exports[`default-escaped.ts [typescript] format 1`] = `
   2 |"
 `;
 
-exports[`dynamic-import.ts [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
-> 1 | import('./prettier.mjs', {})
-    |        ^
-  2 |"
-`;
-
 exports[`export-declare.ts [typescript] format 1`] = `
 "Declaration or statement expected. (1:1)
 > 1 | export declare foo;
@@ -31,13 +24,6 @@ exports[`invalid-jsx-1.ts [typescript] format 1`] = `
 `;
 
 exports[`issue-8773.ts [typescript] format 1`] = `"Comment \\"comment\\" was not printed. Please report this error!"`;
-
-exports[`module-attributes-dynamic.ts [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
-> 1 | import(\\"foo.json\\", { with: { type: \\"json\\" } })
-    |        ^
-  2 |"
-`;
 
 exports[`module-attributes-static.ts [typescript] format 1`] = `
 "';' expected. (1:28)

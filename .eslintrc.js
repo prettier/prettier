@@ -18,7 +18,7 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
-    "no-console": isCI ? "error" : "off",
+    "no-console": isCI ? "error" : "warn",
     "no-else-return": [
       "error",
       {
@@ -94,7 +94,7 @@ module.exports = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        devDependencies: ["tests*/**", "scripts/**"],
+        devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
       },
     ],
     "import/order": "error",
@@ -147,13 +147,24 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs", "scripts/release/**/*.js"],
+      files: [
+        "**/*.mjs",
+        "scripts/release/**/*.js",
+        "tests/integration/__tests__/*.js",
+      ],
       parserOptions: {
         sourceType: "module",
       },
       rules: {
         "unicorn/prefer-module": "error",
         "unicorn/prefer-node-protocol": "error",
+      },
+    },
+    // There is a empty package.json in that directory
+    {
+      files: ["tests/integration/__tests__/*.js"],
+      rules: {
+        "import/no-extraneous-dependencies": "off",
       },
     },
     {

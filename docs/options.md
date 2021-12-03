@@ -27,6 +27,8 @@ Specify the line length that the printer will wrap on.
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
+Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
+
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width
@@ -37,6 +39,8 @@ Specify the number of spaces per indentation-level.
 | ------- | ------------------- | ----------------- |
 | `2`     | `--tab-width <int>` | `tabWidth: <int>` |
 
+Setting `indent_size` or `tab_width` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab width, unless overridden.
+
 ## Tabs
 
 Indent lines with tabs instead of spaces.
@@ -44,6 +48,8 @@ Indent lines with tabs instead of spaces.
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
+
+Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
@@ -259,9 +265,9 @@ Valid options:
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
 - `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
 - `"meriyah"` (via [meriyah](https://github.com/meriyah/meriyah)) _First available in v2.2.0_
-- `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
-- `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
-- `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
+- `"css"` (via [postcss](https://github.com/postcss/postcss)) _First available in v1.7.1_
+- `"scss"` (via [postcss-scss](https://github.com/postcss/postcss-scss)) _First available in v1.7.1_
+- `"less"` (via [postcss-less](https://github.com/shellscape/postcss-less) _First available in v1.7.1_
 - `"json"` (via [@babel/parser parseExpression](https://babeljs.io/docs/en/next/babel-parser.html#babelparserparseexpressioncode-options)) _First available in v1.5.0_
 - `"json5"` (same parser as `"json"`, but outputs as [json5](https://json5.org/)) _First available in v1.13.0_
 - `"json-stringify"` (same parser as `"json"`, but outputs like `JSON.stringify`) _First available in v1.13.0_
@@ -424,6 +430,8 @@ Valid options:
 | Default | CLI Override                                                | API Override                                               |
 | ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
+
+Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
 
 ## Embedded Language Formatting
 

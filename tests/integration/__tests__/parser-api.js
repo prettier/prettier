@@ -1,7 +1,5 @@
-"use strict";
-
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+import prettier from "prettier-local";
+import runPrettier from "../runPrettier.js";
 
 test("allows custom parser provided as object", () => {
   const output = prettier.format("1", {
@@ -27,6 +25,33 @@ test("allows usage of prettier's supported parsers", () => {
     },
   });
   expect(output).toBe("bar();\n");
+});
+
+test("parsers should allow omit optional arguments", () => {
+  let parsers;
+  try {
+    prettier.format("{}", {
+      parser(text, builtinParsers) {
+        parsers = builtinParsers;
+      },
+    });
+  } catch {
+    // noop
+  }
+
+  expect(typeof parsers.babel).toBe("function");
+  const code = {
+    graphql: "type A {hero: Character}",
+    default: "{}",
+  };
+  for (const [name, parse] of Object.entries(parsers)) {
+    // Private parser should not be used by users
+    if (name.startsWith("__")) {
+      continue;
+    }
+
+    expect(() => parse(code[name] || code.default)).not.toThrow();
+  }
 });
 
 test("allows add empty `trailingComments` array", () => {

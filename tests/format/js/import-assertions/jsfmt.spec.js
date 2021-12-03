@@ -1,4 +1,4 @@
-run_spec(__dirname, ["babel"], {
+run_spec(__dirname, ["babel", "typescript"], {
   errors: {
     espree: [
       "dynamic-import.js",

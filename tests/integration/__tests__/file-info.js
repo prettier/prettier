@@ -1,14 +1,14 @@
-"use strict";
+import path from "node:path";
+import fs from "node:fs";
+import tempy from "tempy";
+import prettier from "prettier-local";
+import createEsmUtils from "esm-utils";
+import runPrettier from "../runPrettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
-const fs = require("fs");
-const tempy = require("tempy");
-const fromPairs = require("lodash/fromPairs");
+const { __dirname } = createEsmUtils(import.meta);
 
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("extracts file-info for a js file", () => {
   runPrettier("cli/", ["--file-info", "something.js"]).test({
@@ -161,7 +161,7 @@ test("API getFileInfo.sync with filepath only", () => {
 });
 
 describe("API getFileInfo resolveConfig", () => {
-  const files = fromPairs(
+  const files = Object.fromEntries(
     ["foo", "js", "bar", "css"].map((ext) => [
       ext,
       path.resolve(
@@ -268,7 +268,7 @@ describe("API getFileInfo resolveConfig", () => {
 });
 
 describe("API getFileInfo resolveConfig when no config is present", () => {
-  const files = fromPairs(
+  const files = Object.fromEntries(
     ["foo", "js"].map((ext) => [
       ext,
       path.resolve(path.join(__dirname, `../cli/non-exists-dir/file.${ext}`)),

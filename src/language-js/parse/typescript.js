@@ -32,7 +32,7 @@ function createParseError(error) {
   });
 }
 
-function parse(text, parsers, opts) {
+function parse(text, parsers, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
@@ -49,9 +49,9 @@ function parse(text, parsers, opts) {
     throw createParseError(firstError);
   }
 
-  opts.originalText = text;
-  opts.tsParseResult = result;
-  return postprocess(result.ast, opts);
+  options.originalText = text;
+  options.tsParseResult = result;
+  return postprocess(result.ast, options);
 }
 
 /**

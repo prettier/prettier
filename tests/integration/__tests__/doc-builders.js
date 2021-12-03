@@ -1,6 +1,4 @@
-"use strict";
-
-const prettier = require("prettier-local");
+import prettier from "prettier-local";
 const {
   concat,
   join,

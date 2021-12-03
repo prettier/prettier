@@ -1,8 +1,5 @@
-"use strict";
-
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
-const { isProduction } = require("../env.js");
+import prettier from "prettier-local";
+import runPrettier from "../runPrettier.js";
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
@@ -102,9 +99,7 @@ test("node version error", async () => {
     const result = runPrettier("cli", ["--help"]);
     expect(await result.status).toBe(1);
     expect(await result.stderr).toBe(
-      `prettier requires at least version ${
-        isProduction ? "10.13.0" : "12.17.0"
-      } of Node, please upgrade\n`
+      "prettier requires at least version 12.17.0 of Node, please upgrade\n"
     );
     expect(await result.stdout).toBe("");
     expect(await result.write).toEqual([]);
