@@ -150,8 +150,7 @@ module.exports = {
       files: [
         "**/*.mjs",
         "scripts/release/**/*.js",
-        "tests/integration/*.js",
-        "tests/integration/__tests__/*.js",
+        "tests/integration/**/*.js",
       ],
       parserOptions: {
         sourceType: "module",
@@ -163,8 +162,7 @@ module.exports = {
     },
     // There is a empty package.json in that directory
     {
-      files: [
-        "tests/integration/*.js","tests/integration/__tests__/*.js"],
+      files: ["tests/integration/**/*.js"],
       rules: {
         "import/no-extraneous-dependencies": "off",
       },

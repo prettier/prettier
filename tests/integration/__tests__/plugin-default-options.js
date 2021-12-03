@@ -24,7 +24,12 @@ describe("plugin default options should work", () => {
 describe("overriding plugin default options should work", () => {
   runPrettier(
     "plugins/defaultOptions",
-    ["--stdin-filepath", "example.foo", "--plugin=./plugin.cjs", "--tab-width=4"],
+    [
+      "--stdin-filepath",
+      "example.foo",
+      "--plugin=./plugin.cjs",
+      "--tab-width=4",
+    ],
     { input: "hello-world" }
   ).test({
     stdout: JSON.stringify({

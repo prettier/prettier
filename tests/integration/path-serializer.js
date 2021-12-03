@@ -25,4 +25,4 @@ const pathSerializer = {
     serializer(replaceCWD(value).replace(/\\/g, "/")),
 };
 
-export default pathSerializer
+export default pathSerializer;
