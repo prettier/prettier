@@ -346,6 +346,8 @@ function printFlow(path, options, print) {
       return "void";
     case "ThisTypeAnnotation":
       return "this";
+    // These types are unprintable because they serve as abstract
+    // supertypes for other (printable) types.
     case "Node":
     case "Printable":
     case "SourceLocation":
