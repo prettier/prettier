@@ -147,11 +147,7 @@ module.exports = {
       },
     },
     {
-      files: [
-        "**/*.mjs",
-        "scripts/release/**/*.js",
-        "tests/**/*.js",
-      ],
+      files: ["**/*.mjs", "scripts/release/**/*.js", "tests/**/*.js"],
       excludedFiles: [
         "tests/integration/plugins/automatic/prettier-plugin-bar.js",
       ],

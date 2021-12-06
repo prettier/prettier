@@ -64,6 +64,12 @@ jobs:
         if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:integration --maxWorkers=2
 
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v2.1.0
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        with:
+          fail_ci_if_error: true
+
       - name: Run Format Tests (macOS)
         if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:format --maxWorkers=4
