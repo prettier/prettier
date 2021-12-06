@@ -3148,16 +3148,7 @@ esm-utils@2.0.0:
   resolved "https://registry.yarnpkg.com/esm-utils/-/esm-utils-2.0.0.tgz#94c18662cb50ab52f8a8c87125c0e7c43c8ac28b"
   integrity sha512-FM1aYzy+6rfTR4XHE5CwGAEliEvKCpCgDpnjqtk2eYEcLuTHK5SzypGQrkyaFB21utY8EePOrZhQvk3ayZhQjQ==
 
-espree@9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/espree/-/espree-9.1.0.tgz#ba9d3c9b34eeae205724124e31de4543d59fbf74"
-  integrity sha512-ZgYLvCS1wxOczBYGcQT9DDWgicXwJ4dbocr9uYN+/eresBAUuBu+O4WzB21ufQ/JqQT8gyp7hJ3z8SHii32mTQ==
-  dependencies:
-    acorn "^8.6.0"
-    acorn-jsx "^5.3.1"
-    eslint-visitor-keys "^3.1.0"
-
-espree@^9.2.0:
+espree@9.2.0, espree@^9.2.0:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-9.2.0.tgz#c50814e01611c2d0f8bd4daa83c369eabba80dbc"
   integrity sha512-oP3utRkynpZWF/F2x/HZJ+AGtnIclaR7z1pYPxy7NYM2fSO6LgK/Rkny8anRSPK/VwEA1eqm2squui0T7ZMOBg==
