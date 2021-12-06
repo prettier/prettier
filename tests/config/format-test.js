@@ -200,10 +200,11 @@ function runSpec(fixtures, parsers, options) {
 
   // https://github.com/facebook/jest/issues/7874
   afterAll(() => {
+    console.log({ gc: globalThis.gc });
     if (globalThis.gc) {
-      globalThis.gc()
+      globalThis.gc();
     }
-  })
+  });
 
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     const title = `${name}${

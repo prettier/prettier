@@ -141,7 +141,7 @@
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "prepare-release": "yarn && yarn build && yarn test:dist",
-    "test": "node --experimental-vm-modules --expose-gc ./node_modules/jest/bin/jest.js",
+    "test": "node --experimental-vm-modules --expose-gc --max-old-space-size=4096 ./node_modules/jest/bin/jest.js",
     "test:integration": "yarn test tests/integration",
     "test:format": "yarn test tests/format",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
