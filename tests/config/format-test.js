@@ -198,6 +198,13 @@ function runSpec(fixtures, parsers, options) {
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
 
+  // https://github.com/facebook/jest/issues/7874
+  afterAll(() => {
+    if (globalThis.gc) {
+      globalThis.gc()
+    }
+  })
+
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     const title = `${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
