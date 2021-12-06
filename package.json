@@ -136,7 +136,7 @@
     "rollup-plugin-polyfill-node": "0.7.0",
     "rollup-plugin-terser": "7.0.2",
     "snapshot-diff": "0.9.0",
-    "tempy": "1.0.1"
+    "tempy": "2.0.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
