@@ -29,14 +29,15 @@ const looseItems = require("./unified-plugins/loose-items.js");
  */
 function createParse({ isMDX }) {
   return (text) => {
-    const processor = unified().use(remarkParse);
-    // .use(footnotes)
-    // .use(frontMatter)
-    // .use(remarkMath)
-    // .use(isMDX ? mdx.esSyntax : identity)
-    // .use(liquid)
-    // .use(isMDX ? htmlToJsx : identity)
-    // .use(wikiLink)
+    const processor = unified()
+      .use(remarkParse)
+      // .use(footnotes)
+      // .use(frontMatter)
+      // .use(remarkMath)
+      // .use(isMDX ? mdx.esSyntax : identity)
+      // .use(liquid)
+      // .use(isMDX ? htmlToJsx : identity)
+      .use(wikiLink);
     // .use(looseItems);
     return processor.runSync(processor.parse(text));
   };

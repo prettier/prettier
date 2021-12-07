@@ -86,6 +86,7 @@
     "typescript": "4.6.3",
     "unicode-regex": "3.0.0",
     "unified": "9.2.1",
+    "unist-util-visit": "2.0.3",
     "vnopts": "1.0.2",
     "wcwidth": "1.0.1",
     "yaml-unist-parser": "1.3.1"
