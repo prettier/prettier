@@ -113,6 +113,7 @@ module.exports = {
         strictTypes: false,
       },
     ],
+    "regexp/no-useless-lazy": "error",
 
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",

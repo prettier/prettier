@@ -55,7 +55,7 @@ function genericPrint(path, options, print) {
     case "text": {
       if (node.parent.type === "interpolation") {
         // replace the trailing literalline with hardline for better readability
-        const trailingNewlineRegex = /\n[^\S\n]*?$/;
+        const trailingNewlineRegex = /\n[^\S\n]*$/;
         const hasTrailingNewline = trailingNewlineRegex.test(node.value);
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
