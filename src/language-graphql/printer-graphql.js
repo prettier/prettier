@@ -404,6 +404,8 @@ function genericPrint(path, options, print) {
 
     case "SchemaDefinition": {
       return [
+        print("description"),
+        node.description ? hardline : "",
         "schema",
         printDirectives(path, print, node),
         " {",

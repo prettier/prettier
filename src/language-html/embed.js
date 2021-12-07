@@ -284,7 +284,7 @@ function embed(path, print, textToDoc, options) {
         if (parser) {
           const value =
             parser === "markdown"
-              ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
+              ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
               : node.value;
           const textToDocOptions = { parser, __embeddedInHtml: true };
           if (options.parser === "html" && parser === "babel") {
