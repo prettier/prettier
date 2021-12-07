@@ -39,8 +39,8 @@ function createParse({ isMDX }) {
       // .use(isMDX ? mdx.esSyntax : identity)
       // .use(liquid)
       // .use(isMDX ? htmlToJsx : identity)
-      .use(wikiLink);
-    // .use(looseItems);
+      .use(wikiLink)
+      .use(looseItems);
     return processor.runSync(processor.parse(text));
   };
 }
