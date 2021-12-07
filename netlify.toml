@@ -3,3 +3,4 @@
 
 [build.environment]
   NODE_VERSION = "14"
+  YARN_VERSION = "1"
