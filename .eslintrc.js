@@ -137,6 +137,7 @@ module.exports = {
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-slice": "error",
     "unicorn/prefer-string-starts-ends-with": "error",
+    "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
   },
   overrides: [

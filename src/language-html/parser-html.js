@@ -187,7 +187,8 @@ function ngHtmlParser(
    * @param {AstNode} node
    */
   const restoreNameAndValue = (node) => {
-    if (node.type === "element") {
+    switch (node.type) {
+    case "element": {
       restoreName(node);
       for (const attr of node.attrs) {
         restoreName(attr);
@@ -200,12 +201,22 @@ function ngHtmlParser(
           }
         }
       }
-    } else if (node.type === "comment") {
+    
+    break;
+    }
+    case "comment": {
       node.value = node.sourceSpan
         .toString()
         .slice("<!--".length, -"-->".length);
-    } else if (node.type === "text") {
+    
+    break;
+    }
+    case "text": {
       node.value = node.sourceSpan.toString();
+    
+    break;
+    }
+    // No default
     }
   };
 

@@ -23,14 +23,25 @@ function countEndOfLineChars(text, eol) {
   let regex;
 
   /* istanbul ignore else */
-  if (eol === "\n") {
+  switch (eol) {
+  case "\n": {
     regex = /\n/g;
-  } else if (eol === "\r") {
+  
+  break;
+  }
+  case "\r": {
     regex = /\r/g;
-  } else if (eol === "\r\n") {
+  
+  break;
+  }
+  case "\r\n": {
     regex = /\r\n/g;
-  } else {
+  
+  break;
+  }
+  default: {
     throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
+  }
   }
 
   const endOfLines = text.match(regex);
