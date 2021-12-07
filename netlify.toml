@@ -1,2 +1,5 @@
 [build]
   command = "yarn build:website"
+
+[build.environment]
+  NODE_VERSION = "14"
