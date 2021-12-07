@@ -132,24 +132,18 @@ function postprocess(ast, options) {
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {
   switch (node.type) {
-  case "CallExpression": {
-    node.type = "OptionalCallExpression";
-    node.callee = transformChainExpression(node.callee);
-  
-  break;
-  }
-  case "MemberExpression": {
-    node.type = "OptionalMemberExpression";
-    node.object = transformChainExpression(node.object);
-  
-  break;
-  }
-  case "TSNonNullExpression": {
-    node.expression = transformChainExpression(node.expression);
-  
-  break;
-  }
-  // No default
+    case "CallExpression":
+      node.type = "OptionalCallExpression";
+      node.callee = transformChainExpression(node.callee);
+      break;
+    case "MemberExpression":
+      node.type = "OptionalMemberExpression";
+      node.object = transformChainExpression(node.object);
+      break;
+    case "TSNonNullExpression":
+      node.expression = transformChainExpression(node.expression);
+      break;
+    // No default
   }
   return node;
 }
