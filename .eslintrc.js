@@ -4,9 +4,10 @@ const { isCI } = require("ci-info");
 module.exports = {
   root: true,
   env: {
-    es2020: true,
+    es2021: true,
     node: true,
   },
+  reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
   plugins: ["prettier-internal-rules", "import", "regexp", "unicorn"],
   settings: {
@@ -89,7 +90,7 @@ module.exports = {
       },
     ],
 
-    "import/extensions": ["error", "always", { ignorePackages: true }],
+    "import/extensions": ["error", "ignorePackages"],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -97,6 +98,7 @@ module.exports = {
       },
     ],
     "import/order": "error",
+    "import/no-anonymous-default-export": "error",
 
     "regexp/match-any": [
       "error",
@@ -118,6 +120,8 @@ module.exports = {
     "unicorn/new-for-builtins": "error",
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
+    "unicorn/no-new-array": "error",
+    "unicorn/no-useless-length-check": "error",
     "unicorn/no-useless-undefined": "error",
     "unicorn/prefer-array-flat": [
       "error",
@@ -126,12 +130,15 @@ module.exports = {
       },
     ],
     "unicorn/prefer-array-flat-map": "error",
+    "unicorn/prefer-array-some": "error",
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-slice": "error",
+    "unicorn/prefer-string-starts-ends-with": "error",
+    "unicorn/prefer-type-error": "error",
   },
   overrides: [
     {
@@ -168,6 +175,7 @@ module.exports = {
             alwaysAwait: true,
           },
         ],
+        "jest/prefer-to-be": "error",
       },
     },
     {
@@ -229,7 +237,7 @@ module.exports = {
             functions: ["hasComment", "getComments"],
           },
           "src/language-js/pragma.js",
-          "src/language-js/parse/postprocess.js",
+          "src/language-js/parse/postprocess/*.js",
           "src/language-js/parse/babel.js",
           "src/language-js/parse/meriyah.js",
           "src/language-js/parse/json.js",

@@ -7,7 +7,7 @@ const {
 } = require("../../common/util.js");
 const createParser = require("./utils/create-parser.js");
 const createBabelParseError = require("./utils/create-babel-parse-error.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 const jsonParsers = require("./json.js");
 
 /**
@@ -26,8 +26,8 @@ const parseOptions = {
   errorRecovery: true,
   createParenthesizedExpressions: true,
   plugins: [
-    // When adding a plugin, please add a test in `tests/js/babel-plugins`,
-    // To remove plugins, remove it here and run `yarn test tests/js/babel-plugins` to verify
+    // When adding a plugin, please add a test in `tests/format/js/babel-plugins`,
+    // To remove plugins, remove it here and run `yarn test tests/format/js/babel-plugins` to verify
     "doExpressions",
     "exportDefaultFrom",
     "functionBind",
@@ -37,7 +37,6 @@ const parseOptions = {
     ["decorators", { decoratorsBeforeExport: false }],
     "importAssertions",
     "decimal",
-    "classStaticBlock",
     "moduleBlocks",
     "asyncDoExpressions",
   ],
@@ -149,7 +148,8 @@ function createParse(parseMethod, ...optionsCombinations) {
       throw createBabelParseError(error);
     }
 
-    return postprocess(ast, { ...opts, originalText: text });
+    opts.originalText = text;
+    return postprocess(ast, opts);
   };
 }
 
@@ -178,6 +178,10 @@ const allowedMessageCodes = new Set([
   "StrictNumericEscape",
   "StrictWith",
   "StrictOctalLiteral",
+  "StrictDelete",
+  "StrictEvalArguments",
+  "StrictEvalArgumentsBinding",
+  "StrictFunction",
 
   "EmptyTypeArguments",
   "EmptyTypeParameters",

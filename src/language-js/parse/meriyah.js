@@ -3,7 +3,7 @@
 const createError = require("../../common/parser-create-error.js");
 const tryCombinations = require("../../utils/try-combinations.js");
 const createParser = require("./utils/create-parser.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -71,7 +71,7 @@ function createParseError(error) {
   return createError(message, { start: { line, column } });
 }
 
-function parse(text, parsers, options) {
+function parse(text, parsers, options = {}) {
   const { result: ast, error: moduleParseError } = tryCombinations(
     () => parseWithOptions(text, /* module */ true),
     () => parseWithOptions(text, /* module */ false)
@@ -82,7 +82,8 @@ function parse(text, parsers, options) {
     throw createParseError(moduleParseError);
   }
 
-  return postprocess(ast, { ...options, originalText: text });
+  options.originalText = text;
+  return postprocess(ast, options);
 }
 
 module.exports = {

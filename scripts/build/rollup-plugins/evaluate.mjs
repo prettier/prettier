@@ -2,7 +2,7 @@ import createEsmUtils from "esm-utils";
 
 const { require } = createEsmUtils(import.meta);
 
-export default function () {
+export default function rollupPluginEvaluate() {
   return {
     name: "evaluate",
 
@@ -15,7 +15,7 @@ export default function () {
         require(id.replace(/^\0commonjs-proxy:/, "")),
         (_, v) => {
           if (typeof v === "function") {
-            throw new Error("Cannot evaluate functions.");
+            throw new TypeError("Cannot evaluate functions.");
           }
           return v;
         }

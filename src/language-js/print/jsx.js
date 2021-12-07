@@ -98,7 +98,7 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = node.children.filter(isJsxNode).length > 0;
+  const containsTag = node.children.some(isJsxNode);
   const containsMultipleExpressions =
     node.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
@@ -479,14 +479,17 @@ function printJsxAttribute(path, options, print) {
     let res;
     if (isStringLiteral(node.value)) {
       const raw = rawText(node.value);
-      // Unescape all quotes so we get an accurate preferred quote
-      let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-      const quote = getPreferredQuote(
+      // Remove enclosing quotes and unescape
+      // all quotes so we get an accurate preferred quote
+      let final = raw
+        .slice(1, -1)
+        .replace(/&apos;/g, "'")
+        .replace(/&quot;/g, '"');
+      const { escaped, quote, regex } = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'
       );
-      const escape = quote === "'" ? "&apos;" : "&quot;";
-      final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
+      final = final.replace(regex, escaped);
       res = [quote, final, quote];
     } else {
       res = print("value");
@@ -602,12 +605,17 @@ function printJsxOpeningElement(path, options, print) {
         attr.value.value.includes("\n")
     );
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attributes.length > 1
+      ? hardline
+      : line;
+
   return group(
     [
       "<",
       print("name"),
       print("typeParameters"),
-      indent(path.map(() => [line, print()], "attributes")),
+      indent(path.map(() => [attributeLine, print()], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
       node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],

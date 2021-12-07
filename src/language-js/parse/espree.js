@@ -4,7 +4,7 @@ const createError = require("../../common/parser-create-error.js");
 const tryCombinations = require("../../utils/try-combinations.js");
 const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 
 /** @type {import("espree").Options} */
 const parseOptions = {
@@ -32,7 +32,7 @@ function createParseError(error) {
   return createError(message, { start: { line: lineNumber, column } });
 }
 
-function parse(originalText, parsers, options) {
+function parse(originalText, parsers, options = {}) {
   const { parse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);
@@ -46,7 +46,8 @@ function parse(originalText, parsers, options) {
     throw createParseError(moduleParseError);
   }
 
-  return postprocess(ast, { ...options, originalText });
+  options.originalText = originalText;
+  return postprocess(ast, options);
 }
 
 module.exports = {

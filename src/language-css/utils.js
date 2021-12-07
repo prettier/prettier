@@ -28,6 +28,7 @@ const colorAdjusterFunctions = new Set([
   "hwb",
   "hwba",
 ]);
+const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
@@ -479,6 +480,44 @@ function isAtWordPlaceholderNode(node) {
   );
 }
 
+function isModuleRuleName(name) {
+  return moduleRuleNames.has(name);
+}
+
+function isConfigurationNode(node, parentNode) {
+  if (
+    !node.open ||
+    node.open.value !== "(" ||
+    !node.close ||
+    node.close.value !== ")" ||
+    node.groups.some((group) => group.type !== "value-comma_group")
+  ) {
+    return false;
+  }
+  if (parentNode.type === "value-comma_group") {
+    const prevIdx = parentNode.groups.indexOf(node) - 1;
+    const maybeWithNode = parentNode.groups[prevIdx];
+    if (
+      maybeWithNode &&
+      maybeWithNode.type === "value-word" &&
+      maybeWithNode.value === "with"
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isParenGroupNode(node) {
+  return (
+    node.type === "value-paren_group" &&
+    node.open &&
+    node.open.value === "(" &&
+    node.close &&
+    node.close.value === ")"
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -533,4 +572,7 @@ module.exports = {
   lastLineHasInlineComment,
   stringifyNode,
   isAtWordPlaceholderNode,
+  isModuleRuleName,
+  isConfigurationNode,
+  isParenGroupNode,
 };

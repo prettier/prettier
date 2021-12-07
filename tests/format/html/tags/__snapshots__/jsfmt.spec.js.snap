@@ -3316,18 +3316,14 @@ printWidth: 1
 <ul>
   123
   <li
-    class="
-      foo
-    "
+    class="foo"
     id="bar"
   >
     First
   </li>
   456
   <li
-    class="
-      baz
-    "
+    class="baz"
   >
     Second
   </li>
@@ -3469,25 +3465,13 @@ printWidth: 1
 </div>
 <span>
   <i
-    class="
-      fa
-      fa-refresh
-      fa-spin
-    "
+    class="fa fa-refresh fa-spin"
   />
   <i
-    class="
-      fa
-      fa-refresh
-      fa-spin
-    "
+    class="fa fa-refresh fa-spin"
   />
   <i
-    class="
-      fa
-      fa-refresh
-      fa-spin
-    "
+    class="fa fa-refresh fa-spin"
   />
 </span>
 

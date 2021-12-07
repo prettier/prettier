@@ -708,8 +708,8 @@ function isStringPropSafeToUnquote(node, options) {
       // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
       // See https://github.com/microsoft/TypeScript/pull/20075
       !(
-        (options.parser === "typescript" || options.parser === "babel-ts") &&
-        node.type === "ClassProperty"
+        (options.parser === "babel-ts" && node.type === "ClassProperty") ||
+        (options.parser === "typescript" && node.type === "PropertyDefinition")
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
@@ -1310,6 +1310,10 @@ function isObjectProperty(node) {
   );
 }
 
+function isEnabledHackPipeline(options) {
+  return Boolean(options.__isUsingHackPipeline);
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1331,6 +1335,7 @@ module.exports = {
   isBinaryish,
   isBlockComment,
   isCallLikeExpression,
+  isEnabledHackPipeline,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,

@@ -12,6 +12,7 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
+  isModuleRuleName,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
@@ -525,7 +526,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (lowercasedName === "import") {
+      if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
         node.params = parseValue(params, options);
@@ -551,9 +552,11 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+)\s+\.{3}/, "$1...");
+        // Move spaces after the `...`, so we can keep the range correct
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        // Move spaces after the `(`, so we can keep the range correct
+        params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -618,7 +621,7 @@ function parseWithParser(parse, text, options) {
 }
 
 // TODO: make this only work on css
-function parseCss(text, parsers, options) {
+function parseCss(text, parsers, options = {}) {
   const isSCSSParser = isSCSS(options.parser, text);
   const parseFunctions = isSCSSParser
     ? [parseScss, parseLess]
@@ -639,7 +642,7 @@ function parseCss(text, parsers, options) {
   }
 }
 
-function parseLess(text, parsers, options) {
+function parseLess(text, parsers, options = {}) {
   const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
@@ -650,7 +653,7 @@ function parseLess(text, parsers, options) {
   );
 }
 
-function parseScss(text, parsers, options) {
+function parseScss(text, parsers, options = {}) {
   const { parse } = require("postcss-scss");
   return parseWithParser(parse, text, options);
 }

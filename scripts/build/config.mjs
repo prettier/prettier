@@ -13,7 +13,6 @@ import path from "node:path";
  * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
- * @property {Object?} terserOptions - options for `terser`
  * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
@@ -52,6 +51,11 @@ const parsers = [
       "require(etwModulePath)": "undefined",
       'require("source-map-support").install()': "",
       "require(modulePath)": "undefined",
+      // `node-semver` can't work with `@rollup/plugin-commonjs>=19.0.0`
+      // https://github.com/rollup/plugins/issues/879
+      // https://github.com/npm/node-semver/issues/381
+      "typescriptVersionIsAtLeast[version] = semverCheck(version);":
+        "typescriptVersionIsAtLeast[version] = true;",
     },
   },
   {
@@ -67,21 +71,10 @@ const parsers = [
     input: "src/language-css/parser-postcss.js",
     // postcss has dependency cycles that don't work with rollup
     bundler: "webpack",
-    terserOptions: {
-      // prevent terser generate extra .LICENSE file
-      extractComments: false,
-      terserOptions: {
-        // prevent U+FFFE in the output
-        output: {
-          ascii_only: true,
-        },
-        mangle: {
-          // postcss need keep_fnames when minify
-          keep_fnames: true,
-          // we don't transform class anymore, so we need keep_classnames too
-          keep_classnames: true,
-        },
-      },
+    replace: {
+      // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
+      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
+      "node.constructor.name === 'Word'": "node.type === 'word'",
     },
   },
   {
@@ -162,4 +155,5 @@ const coreBundles = [
   ...bundle,
 }));
 
-export default [...coreBundles, ...parsers];
+const configs = [...coreBundles, ...parsers];
+export default configs;

@@ -42,7 +42,7 @@ export function NumberOption({ option, value, onChange }) {
   );
 }
 
-export default function (props) {
+export default function Option(props) {
   switch (props.option.type) {
     case "boolean":
       return <BooleanOption {...props} />;

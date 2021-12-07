@@ -133,13 +133,17 @@ function needsParens(path, options) {
                 /** @(x().y) */ hasMemberExpression ||
                 /** @(x().y()) */ hasCallExpression
               ) {
-                return true;
+                return options.parser !== "typescript";
               }
               hasCallExpression = true;
               current = current.callee;
               break;
             case "Identifier":
               return false;
+            case "TaggedTemplateExpression":
+              // babel-parser cannot parse
+              //   @foo`bar`
+              return options.parser !== "typescript";
             default:
               return true;
           }
@@ -218,10 +222,7 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (
-        parent.type === "UpdateExpression" ||
-        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
-      ) {
+      if (parent.type === "UpdateExpression") {
         return true;
       }
 
@@ -367,16 +368,6 @@ function needsParens(path, options) {
       ) {
         return true;
       }
-
-      if (
-        name === "expression" &&
-        node.argument &&
-        node.argument.type === "PipelinePrimaryTopicReference" &&
-        parent.type === "PipelineTopicExpression"
-      ) {
-        return true;
-      }
-
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -449,7 +440,7 @@ function needsParens(path, options) {
         (name === "objectType" && parent.type === "TSIndexedAccessType") ||
         parent.type === "TSTypeOperator" ||
         (parent.type === "TSTypeAnnotation" &&
-          /^TSJSDoc/.test(path.getParentNode(1).type))
+          path.getParentNode(1).type.startsWith("TSJSDoc"))
       );
 
     case "ArrayTypeAnnotation":
@@ -646,9 +637,6 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
-        case "PipelineTopicExpression":
-          return Boolean(node.extra && node.extra.parenthesized);
-
         case "BinaryExpression":
           return (
             parent.operator !== "|>" || (node.extra && node.extra.parenthesized)

@@ -7,7 +7,7 @@ async function pushGit({ version }) {
   await runGit(["push", "--tags"]);
 }
 
-export default function (params) {
+export default function pushToGit(params) {
   if (params.dry) {
     return;
   }

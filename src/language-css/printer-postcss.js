@@ -74,6 +74,8 @@ const {
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
   isAtWordPlaceholderNode,
+  isConfigurationNode,
+  isParenGroupNode,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -550,6 +552,20 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Ignore SCSS @forward wildcard suffix
+        if (
+          insideAtRuleNode(path, "forward") &&
+          iNode.type === "value-word" &&
+          iNode.value &&
+          iPrevNode !== undefined &&
+          iPrevNode.type === "value-word" &&
+          iPrevNode.value === "as" &&
+          iNextNode.type === "value-operator" &&
+          iNextNode.value === "*"
+        ) {
+          continue;
+        }
+
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
           continue;
@@ -794,6 +810,20 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          isAtWordPlaceholderNode(iNode) &&
+          isParenGroupNode(iNextNode) &&
+          locEnd(iNode) === locStart(iNextNode.open)
+        ) {
+          parts.push(softline);
+          continue;
+        }
+
+        if (iNode.value === "with" && isParenGroupNode(iNextNode)) {
+          parts.push(" ");
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
@@ -859,6 +889,10 @@ function genericPrint(path, options, print) {
       const lastItem = getLast(node.groups);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
+      const isConfiguration = isConfigurationNode(node, parentNode);
+
+      const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
+      const shouldDedent = isConfiguration || isKey;
 
       const printed = group(
         [
@@ -902,11 +936,11 @@ function genericPrint(path, options, print) {
           node.close ? print("close") : "",
         ],
         {
-          shouldBreak: isSCSSMapItem && !isKey,
+          shouldBreak,
         }
       );
 
-      return isKey ? dedent(printed) : printed;
+      return shouldDedent ? dedent(printed) : printed;
     }
     case "value-func": {
       return [

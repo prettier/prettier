@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execa } from "execa";
 import { runYarn, runGit, logPromise } from "../utils.js";
 
 async function install() {
@@ -13,6 +13,6 @@ async function install() {
   }
 }
 
-export default function () {
+export default function installDependencies() {
   return logPromise("Installing NPM dependencies", install());
 }

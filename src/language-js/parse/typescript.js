@@ -4,7 +4,7 @@ const createError = require("../../common/parser-create-error.js");
 const tryCombinations = require("../../utils/try-combinations.js");
 const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess.js");
+const postprocess = require("./postprocess/index.js");
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -13,7 +13,6 @@ const parseOptions = {
   loc: true,
   range: true,
   comment: true,
-  useJSXTextNode: true,
   jsx: true,
   tokens: true,
   loggerFn: false,
@@ -33,7 +32,7 @@ function createParseError(error) {
   });
 }
 
-function parse(text, parsers, opts) {
+function parse(text, parsers, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
@@ -50,11 +49,9 @@ function parse(text, parsers, opts) {
     throw createParseError(firstError);
   }
 
-  return postprocess(result.ast, {
-    ...opts,
-    originalText: text,
-    tsParseResult: result,
-  });
+  options.originalText = text;
+  options.tsParseResult = result;
+  return postprocess(result.ast, options);
 }
 
 /**
