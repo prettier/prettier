@@ -2,6 +2,41 @@
 
 const visit = require("unist-util-visit");
 
+function calculatePositions({ position, leadingContents, trailingContents }) {
+  const leadingPosition = leadingContents
+    ? {
+        start: position.start,
+        end: {
+          line: 0,
+          column: 0,
+          offset: position.start.offset + leadingContents.length,
+        },
+      }
+    : undefined;
+
+  const trailingPosition = trailingContents
+    ? {
+        start: {
+          line: 0,
+          column: 0,
+          offset: position.end.offset - trailingContents.length,
+        },
+        end: position.end,
+      }
+    : undefined;
+
+  const linkPosition = {
+    start: leadingPosition
+      ? { line: 0, column: 0, offset: leadingPosition.end.offset + 1 }
+      : position.start,
+    end: trailingPosition
+      ? { line: 0, column: 0, offset: trailingPosition.start.offset - 1 }
+      : position.end,
+  };
+
+  return { leadingPosition, trailingPosition, linkPosition };
+}
+
 function wikiLink() {
   const wikiLinkRegex =
     /(?<leadingContents>.*)\[\[(?<linkContents>.+?)]](?<trailingContents>.*)/s;
@@ -18,40 +53,32 @@ function wikiLink() {
         if (linkContents) {
           const children = [];
 
+          const { leadingPosition, trailingPosition, linkPosition } =
+            calculatePositions({
+              position: node.position,
+              leadingContents,
+              trailingContents,
+            });
+
           if (leadingContents) {
             children.push({
               type: "text",
               value: leadingContents,
-              position: {
-                start: node.position.start,
-                end: {
-                  line: 0,
-                  column: 0,
-                  offset: node.position.start.offset + leadingContents.length,
-                },
-              },
+              position: leadingPosition,
             });
           }
 
           children.push({
             type: "wikiLink",
             value: linkContents.trim(),
-            // TODO: calculate
-            position: node.position,
+            position: linkPosition,
           });
 
           if (trailingContents) {
             children.push({
               type: "text",
               value: trailingContents,
-              position: {
-                start: {
-                  line: 0,
-                  column: 0,
-                  offset: node.position.end.offset - trailingContents.length,
-                },
-                end: node.position.end,
-              },
+              position: trailingPosition,
             });
           }
 
@@ -60,7 +87,6 @@ function wikiLink() {
       }
     });
   }
-
   return transformer;
 }
 
