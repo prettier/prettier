@@ -2,6 +2,7 @@
 
 const remarkParse = require("remark-parse");
 const unified = require("unified");
+const remarkGfm = require("remark-gfm");
 const remarkMath = require("remark-math");
 const footnotes = require("remark-footnotes");
 const pragma = require("./pragma.js");
@@ -31,6 +32,7 @@ function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
       .use(remarkParse)
+      .use(remarkGfm)
       // .use(footnotes)
       // .use(frontMatter)
       // .use(remarkMath)
