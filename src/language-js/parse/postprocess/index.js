@@ -140,6 +140,7 @@ function transformChainExpression(node) {
       node.type = "OptionalMemberExpression";
       node.object = transformChainExpression(node.object);
       break;
+    // typescript
     case "TSNonNullExpression":
       node.expression = transformChainExpression(node.expression);
       break;
