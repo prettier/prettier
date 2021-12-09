@@ -309,7 +309,10 @@ function printModuleSpecifier(path, options, print) {
     left = print(leftSideProperty);
   }
 
-  if (rightSideNode && !isShorthandSpecifier(leftSideNode, rightSideNode)) {
+  if (
+    rightSideNode &&
+    !isShorthandSpecifier(node, leftSideNode, rightSideNode)
+  ) {
     right = print(rightSideProperty);
   }
 
@@ -317,7 +320,14 @@ function printModuleSpecifier(path, options, print) {
   return parts;
 }
 
-function isShorthandSpecifier(leftSideNode, rightSideNode) {
+function isShorthandSpecifier(specifier, leftSideNode, rightSideNode) {
+  if (
+    specifier.type !== "ImportSpecifier" &&
+    specifier.type !== "ExportSpecifier"
+  ) {
+    return false;
+  }
+
   if (!rightSideNode || !leftSideNode) {
     return true;
   }

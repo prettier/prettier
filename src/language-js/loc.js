@@ -43,7 +43,7 @@ function hasSameLocStart(nodeA, nodeB) {
  */
 function hasSameLocEnd(nodeA, nodeB) {
   const nodeAEnd = locEnd(nodeA);
-  return Number.isInteger(nodeAEnd) && nodeAEnd === locStart(nodeB);
+  return Number.isInteger(nodeAEnd) && nodeAEnd === locEnd(nodeB);
 }
 
 /**
