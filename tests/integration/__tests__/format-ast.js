@@ -62,4 +62,67 @@ describe("formatAST", () => {
     );
     expect(formatResultFromAST).toMatchSnapshot();
   });
+
+  test("Shorthand specifier 3", () => {
+    const { formatted: formatResultFromAST } = formatAST(
+      {
+        type: "Program",
+        body: [
+          {
+            type: "ExportNamedDeclaration",
+            specifiers: [
+              {
+                type: "ExportSpecifier",
+                local: {
+                  type: "Literal",
+                  value: "specifier",
+                  raw: '"specifier"',
+                  range: [0, 0],
+                },
+                exported: {
+                  type: "Identifier",
+                  name: "specifier",
+                  range: [0, 0],
+                },
+              },
+            ],
+          },
+        ],
+      },
+      { parser: "meriyah" }
+    );
+    expect(formatResultFromAST).toMatchSnapshot();
+  });
+
+  test("Shorthand specifier 4", () => {
+    const { formatted: formatResultFromAST } = formatAST(
+      {
+        type: "Program",
+        body: [
+          {
+            type: "ExportNamedDeclaration",
+            specifiers: [
+              {
+                type: "ExportSpecifier",
+                local: {
+                  type: "Literal",
+                  value: "specifier",
+                  raw: '"specifier"',
+                  range: [0, 0],
+                },
+                exported: {
+                  type: "Literal",
+                  value: "specifier",
+                  raw: "'specifier'",
+                  range: [0, 0],
+                },
+              },
+            ],
+          },
+        ],
+      },
+      { parser: "meriyah" }
+    );
+    expect(formatResultFromAST).toMatchSnapshot();
+  });
 });

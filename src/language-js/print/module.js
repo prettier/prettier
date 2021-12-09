@@ -11,6 +11,8 @@ const {
   CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
+  isStringLiteral,
+  rawText,
 } = require("../utils.js");
 const { locStart, hasSameLoc } = require("../loc.js");
 const {
@@ -325,6 +327,13 @@ function isShorthandSpecifier(leftSideNode, rightSideNode) {
     !hasSameLoc(leftSideNode, rightSideNode)
   ) {
     return false;
+  }
+
+  if (isStringLiteral(leftSideNode)) {
+    return (
+      leftSideNode.value === rightSideNode.value &&
+      rawText(leftSideNode) === rawText(rightSideNode)
+    );
   }
 
   switch (leftSideNode.type) {
