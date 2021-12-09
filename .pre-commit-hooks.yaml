@@ -1,7 +1,0 @@
-# Remove this file after year 2020
-
-- id: prettier
-  name: prettier
-  entry: Prettier support for pre-commit has been moved to https://github.com/pre-commit/mirrors-prettier, please use the new repository.
-  language: fail
-  pass_filenames: false
