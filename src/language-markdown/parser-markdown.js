@@ -11,6 +11,7 @@ const mdx = require("./mdx.js");
 const htmlToJsx = require("./unified-plugins/html-to-jsx.js");
 const frontMatter = require("./unified-plugins/front-matter.js");
 const liquid = require("./unified-plugins/liquid.js");
+const preserveReferenceCharaceters = require("./unified-plugins/preserve-reference-characters/index.js");
 const wikiLink = require("./unified-plugins/wiki-link.js");
 const looseItems = require("./unified-plugins/loose-items.js");
 
@@ -32,6 +33,7 @@ function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
       .use(remarkParse)
+      .use(preserveReferenceCharaceters)
       .use(remarkGfm)
       // .use(footnotes)
       // .use(frontMatter)
