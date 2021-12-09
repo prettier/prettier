@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`formatAST Shorthand specifier 1`] = `
-"export { specifier1 };
+"export { specifier1 as specifier2 };
 "
 `;
