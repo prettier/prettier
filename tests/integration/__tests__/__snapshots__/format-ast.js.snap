@@ -4,3 +4,8 @@ exports[`formatAST Shorthand specifier 1`] = `
 "export { specifier1 as specifier2 };
 "
 `;
+
+exports[`formatAST Shorthand specifier2 1`] = `
+"export { specifier1 };
+"
+`;
