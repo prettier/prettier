@@ -294,6 +294,8 @@ function printModuleSpecifier(path, options, print) {
   const isImport = type.startsWith("Import");
   const leftSideProperty = isImport ? "imported" : "local";
   const rightSideProperty = isImport ? "local" : "exported";
+  const leftSideNode = node[leftSideProperty];
+  const rightSideNode = node[rightSideProperty];
   let left = "";
   let right = "";
   if (
@@ -301,21 +303,36 @@ function printModuleSpecifier(path, options, print) {
     type === "ImportNamespaceSpecifier"
   ) {
     left = "*";
-  } else if (node[leftSideProperty]) {
+  } else if (leftSideNode) {
     left = print(leftSideProperty);
   }
 
-  if (
-    node[rightSideProperty] &&
-    (!node[leftSideProperty] ||
-      // import {a as a} from '.'
-      !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
-  ) {
+  if (rightSideNode && !isShorthandSpecifier(leftSideNode, rightSideNode)) {
     right = print(rightSideProperty);
   }
 
   parts.push(left, left && right ? " as " : "", right);
   return parts;
+}
+
+function isShorthandSpecifier(leftSideNode, rightSideNode) {
+  if (!rightSideNode || !leftSideNode) {
+    return true;
+  }
+
+  if (
+    leftSideNode.type !== rightSideNode.type ||
+    !hasSameLoc(leftSideNode, rightSideNode)
+  ) {
+    return false;
+  }
+
+  switch (leftSideNode.type) {
+    case "Identifier":
+      return leftSideNode.name === rightSideNode.name;
+    default:
+      return false;
+  }
 }
 
 module.exports = {
