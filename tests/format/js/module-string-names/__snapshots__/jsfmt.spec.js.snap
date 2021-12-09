@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`module-string-names-export.js [__babel_estree] format 1`] = `"Cannot read properties of undefined (reading 'raw')"`;
+
 exports[`module-string-names-export.js [espree] format 1`] = `
 "Unexpected token \\"smile\\" (1:19)
 > 1 | export { smile as \\"smile\\" } from \\"./emojis.js\\";
