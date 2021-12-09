@@ -5,124 +5,93 @@ const {
 } = require("prettier-local");
 
 describe("formatAST", () => {
-  test("Shorthand specifier", () => {
-    const { formatted: formatResultFromAST } = formatAST(
+  const formatExportSpecifier = (specifier) => {
+    const { formatted } = formatAST(
       {
         type: "Program",
         body: [
           {
             type: "ExportNamedDeclaration",
-            specifiers: [
-              {
-                type: "ExportSpecifier",
-                local: {
-                  type: "Identifier",
-                  name: "specifier1",
-                },
-                exported: {
-                  type: "Identifier",
-                  name: "specifier2",
-                },
-              },
-            ],
+            specifiers: [specifier],
           },
         ],
       },
       { parser: "meriyah" }
     );
-    expect(formatResultFromAST).toMatchSnapshot();
+
+    return formatted;
+  };
+
+  test("Shorthand specifier", () => {
+    expect(
+      formatExportSpecifier({
+        type: "ExportSpecifier",
+        local: {
+          type: "Identifier",
+          name: "specifier1",
+        },
+        exported: {
+          type: "Identifier",
+          name: "specifier2",
+        },
+      })
+    ).toMatchSnapshot();
   });
 
   test("Shorthand specifier 2", () => {
-    const { formatted: formatResultFromAST } = formatAST(
-      {
-        type: "Program",
-        body: [
-          {
-            type: "ExportNamedDeclaration",
-            specifiers: [
-              {
-                type: "ExportSpecifier",
-                local: {
-                  type: "Identifier",
-                  name: "specifier1",
-                  range: [0, 0],
-                },
-                exported: {
-                  type: "Identifier",
-                  name: "specifier2",
-                  range: [0, 0],
-                },
-              },
-            ],
-          },
-        ],
-      },
-      { parser: "meriyah" }
-    );
-    expect(formatResultFromAST).toMatchSnapshot();
+    expect(
+      formatExportSpecifier({
+        type: "ExportSpecifier",
+        local: {
+          type: "Identifier",
+          name: "specifier1",
+          range: [0, 0],
+        },
+        exported: {
+          type: "Identifier",
+          name: "specifier2",
+          range: [0, 0],
+        },
+      })
+    ).toMatchSnapshot();
   });
 
   test("Shorthand specifier 3", () => {
-    const { formatted: formatResultFromAST } = formatAST(
-      {
-        type: "Program",
-        body: [
-          {
-            type: "ExportNamedDeclaration",
-            specifiers: [
-              {
-                type: "ExportSpecifier",
-                local: {
-                  type: "Literal",
-                  value: "specifier",
-                  raw: '"specifier"',
-                  range: [0, 0],
-                },
-                exported: {
-                  type: "Identifier",
-                  name: "specifier",
-                  range: [0, 0],
-                },
-              },
-            ],
-          },
-        ],
-      },
-      { parser: "meriyah" }
-    );
-    expect(formatResultFromAST).toMatchSnapshot();
+    expect(
+      formatExportSpecifier({
+        type: "ExportSpecifier",
+        local: {
+          type: "Literal",
+          value: "specifier",
+          raw: '"specifier"',
+          range: [0, 0],
+        },
+        exported: {
+          type: "Identifier",
+          name: "specifier",
+          range: [0, 0],
+        },
+      })
+    ).toMatchSnapshot();
   });
 
   test("Shorthand specifier 4", () => {
-    const { formatted: formatResultFromAST } = formatAST(
-      {
-        type: "Program",
-        body: [
-          {
-            type: "ExportNamedDeclaration",
-            specifiers: [
-              {
-                type: "ExportSpecifier",
-                local: {
-                  type: "Literal",
-                  value: "specifier",
-                  raw: '"specifier"',
-                  range: [0, 0],
-                },
-                exported: {
-                  type: "Literal",
-                  value: "specifier",
-                  raw: "'specifier'",
-                  range: [0, 0],
-                },
-              },
-            ],
-          },
-        ],
-      },
-      { parser: "meriyah" }
-    );
-    expect(formatResultFromAST).toMatchSnapshot();
+    expect(
+      formatExportSpecifier({
+        type: "ExportSpecifier",
+        local: {
+          type: "Literal",
+          value: "specifier",
+          raw: '"specifier"',
+          range: [0, 0],
+        },
+        exported: {
+          type: "Literal",
+          value: "specifier",
+          raw: "'specifier'",
+          range: [0, 0],
+        },
+      })
+    ).toMatchSnapshot();
   });
 });
