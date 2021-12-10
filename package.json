@@ -29,6 +29,7 @@
     "@typescript-eslint/typescript-estree": "5.5.0",
     "angular-estree-parser": "2.5.0",
     "angular-html-parser": "1.8.0",
+    "c8": "7.10.0",
     "camelcase": "6.2.1",
     "chalk": "4.1.2",
     "ci-info": "3.3.0",
