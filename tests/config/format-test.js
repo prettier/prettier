@@ -12,8 +12,8 @@ const { require, __dirname } = createEsmUtils(import.meta);
 
 const { TEST_STANDALONE } = process.env;
 const prettier = !TEST_STANDALONE
-  ? require("prettier-local")
-  : require("prettier-standalone");
+  ? require("./require-prettier.cjs")
+  : require("./require-standalone.cjs");
 
 const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";
@@ -197,13 +197,6 @@ function runSpec(fixtures, parsers, options) {
   }
 
   const stringifiedOptions = stringifyOptionsForTitle(options);
-
-  // https://github.com/facebook/jest/issues/7874
-  afterAll(() => {
-    if (globalThis.gc) {
-      globalThis.gc();
-    }
-  });
 
   for (const { name, filename, code, output } of [...files, ...snippets]) {
     const title = `${name}${

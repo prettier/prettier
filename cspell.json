@@ -397,6 +397,7 @@
         "**/yarn.lock",
         "*.{log,svg,snap,png}",
         "test*.*",
+        "tests/config/jest-light-runner/**/*",
         "website/data/users.yml",
         "website/build/**",
         "website/playground/codeSamples.mjs",

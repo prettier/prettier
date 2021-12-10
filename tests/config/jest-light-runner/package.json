@@ -1,0 +1,19 @@
+{
+  "name": "@babel/jest-light-runner",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "dependencies": {
+    "expect": "^27.4.0",
+    "jest-circus": "^27.4.0",
+    "jest-each": "^27.4.0",
+    "jest-mock": "^27.4.0",
+    "jest-snapshot": "^27.4.0",
+    "piscina": "^3.1.0",
+    "supports-color": "^9.0.2"
+  }
+}
