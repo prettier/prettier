@@ -17,9 +17,3 @@ jobs:
           body: |
             Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
             If you created this PR for a purpose other than adding users, please ping a maintainer.
-      - name: Close PR
-        uses: actions-cool/issues-helper@v2
-        with:
-          actions: "close-issue"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.number }}
