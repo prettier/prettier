@@ -11,16 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create comment
-        uses: actions/github-script@v5
+        uses: actions-cool/issues-helper@v2.5.0
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `
-                Thank you for using Prettier! But we don't accept updating \`users.yml\` anymore.
-                If you created this PR for a purpose other than adding users, please ping a maintainer.
-              `,
-            });
+          actions: 'create-comment'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: 
+            Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
+            If you created this PR for a purpose other than adding users, please ping a maintainer.
