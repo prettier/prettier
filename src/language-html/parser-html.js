@@ -187,25 +187,30 @@ function ngHtmlParser(
    * @param {AstNode} node
    */
   const restoreNameAndValue = (node) => {
-    if (node.type === "element") {
-      restoreName(node);
-      for (const attr of node.attrs) {
-        restoreName(attr);
-        if (!attr.valueSpan) {
-          attr.value = null;
-        } else {
-          attr.value = attr.valueSpan.toString();
-          if (/["']/.test(attr.value[0])) {
-            attr.value = attr.value.slice(1, -1);
+    switch (node.type) {
+      case "element":
+        restoreName(node);
+        for (const attr of node.attrs) {
+          restoreName(attr);
+          if (!attr.valueSpan) {
+            attr.value = null;
+          } else {
+            attr.value = attr.valueSpan.toString();
+            if (/["']/.test(attr.value[0])) {
+              attr.value = attr.value.slice(1, -1);
+            }
           }
         }
-      }
-    } else if (node.type === "comment") {
-      node.value = node.sourceSpan
-        .toString()
-        .slice("<!--".length, -"-->".length);
-    } else if (node.type === "text") {
-      node.value = node.sourceSpan.toString();
+        break;
+      case "comment":
+        node.value = node.sourceSpan
+          .toString()
+          .slice("<!--".length, -"-->".length);
+        break;
+      case "text":
+        node.value = node.sourceSpan.toString();
+        break;
+      // No default
     }
   };
 

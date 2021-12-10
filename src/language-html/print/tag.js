@@ -7,7 +7,7 @@
 const assert = require("assert");
 const { isNonEmptyArray } = require("../../common/util.js");
 const {
-  builders: { indent, join, line, softline },
+  builders: { indent, join, line, softline, hardline },
   utils: { replaceTextEndOfLine },
 } = require("../../document/index.js");
 const { locStart, locEnd } = require("../loc.js");
@@ -251,11 +251,14 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attrs.length > 1 ? hardline : line;
+
   /** @type {Doc[]} */
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
-      join(line, printedAttributes),
+      join(attributeLine, printedAttributes),
     ]),
   ];
 

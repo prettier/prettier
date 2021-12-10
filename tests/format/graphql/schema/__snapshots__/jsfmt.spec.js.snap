@@ -6,6 +6,7 @@ parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+"""Schema definition description"""
 schema {
   query: Root
   mutation: Mutation
@@ -13,6 +14,9 @@ schema {
 }
 
 =====================================output=====================================
+"""
+Schema definition description
+"""
 schema {
   query: Root
   mutation: Mutation
