@@ -143,7 +143,7 @@
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "prepare-release": "yarn && yarn build && yarn test:dist",
-    "test:integration": "cross-env NODE_OPTIONS=--experimental-vm-modules jest tests/integration",
+    "test:integration": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --config=jest-integration-test.config.mjs",
     "test:format": "jest --config=jest-format-test.config.mjs",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
     "test:dist:lint": "eslint --no-eslintrc --no-ignore --no-inline-config --config=./scripts/bundle-eslint-config.js \"dist/!(bin-prettier|index|third-party).js\"",
