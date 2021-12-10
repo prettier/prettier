@@ -1,8 +1,8 @@
-import baseConfig from "./jest.config.mjs"
+import baseConfig from "./jest.config.mjs";
 
 const config = {
   testRegex: "tests/integration/__tests__/.*\\.js$",
-  ...baseConfig
+  ...baseConfig,
 };
 
 export default config;
