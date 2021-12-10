@@ -20,7 +20,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-                Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
+                Thank you for using Prettier! But we don't accept updating \`users.yml\` anymore.
                 If you created this PR for a purpose other than adding users, please ping a maintainer.
               `
             })
