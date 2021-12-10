@@ -33,7 +33,6 @@ const config = {
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
