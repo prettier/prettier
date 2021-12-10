@@ -11,9 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create comment
-        uses: actions-ecosystem/action-create-comment@v1
+        uses: actions/github-script@v5
         with:
-          github_token: ${{ github.token }}
-          body: |
-            Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
-            If you created this PR for a purpose other than adding users, please ping a maintainer.
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+                Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
+                If you created this PR for a purpose other than adding users, please ping a maintainer.
+              `
+            })
