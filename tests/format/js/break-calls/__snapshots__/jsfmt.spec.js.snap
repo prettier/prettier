@@ -314,6 +314,31 @@ function Comp5() {
 ================================================================================
 `;
 
+exports[`react-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const closePortal = useCallback((e) => {
+    if (isServer) return;
+    const event = createCustomEvent(e);
+    if (isOpenRef.current && typeof onClose === "function") onClose(event);
+    if (isOpenRef.current) open(false);
+  }, [createCustomEvent, isServer, onClose, open]
+);
+
+=====================================output=====================================
+const closePortal = useCallback((e) => {
+  if (isServer) return;
+  const event = createCustomEvent(e);
+  if (isOpenRef.current && typeof onClose === "function") onClose(event);
+  if (isOpenRef.current) open(false);
+}, [createCustomEvent, isServer, onClose, open]);
+
+================================================================================
+`;
+
 exports[`reduce.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

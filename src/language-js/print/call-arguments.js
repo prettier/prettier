@@ -269,17 +269,37 @@ function shouldGroupFirstArg(args) {
   );
 }
 
+/**
+ * Gets `"foo"` from `foo()`.
+ * Gets `"foo"` from `bar.foo()`
+ * Gets `"foo"` from `bar.baz.foo()`
+ * @param {any} callExpression
+ * @returns {(string | undefined)}
+ */
+function getCallName(callExpression) {
+  const { callee } = callExpression;
+  switch (callee.type) {
+    case "Identifier":
+      return callee.name;
+    case "MemberExpression": {
+      const { property } = callee;
+      if (callee.property.type === "Identifier") {
+        return property.name;
+      }
+    }
+  }
+}
+
 // useEffect(() => { ... }, [foo, bar, baz])
 function isReactHookCallWithDepsArray(node, args) {
-  // useEffect(() => { ... }, [foo, bar, baz])
-  // or
-  // React.useEffect(() => { ... }, [foo, bar, baz])
-  const isSimplyCall =
-    node.callee.type === "Identifier" ||
-    (node.callee.type === "MemberExpression" &&
-      node.callee.object.type === "Identifier");
+  const callName = node.type === "CallExpression" && getCallName(node);
+  // The name of React Hooks is starts with "use"
+  // https://reactjs.org/docs/hooks-custom.html#extracting-a-custom-hook
+  //   > A custom Hook is a JavaScript function whose name starts with
+  //   > ”use” and that may call other Hooks.
+  const isHookCall = Boolean(callName && callName.startsWith("use"));
   return (
-    isSimplyCall &&
+    isHookCall &&
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
     args[0].body.type === "BlockStatement" &&
