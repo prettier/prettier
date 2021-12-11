@@ -48,7 +48,6 @@ function printCallArguments(path, options, print) {
     ];
   }
 
-  // useEffect(() => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
     return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
@@ -271,6 +270,7 @@ function shouldGroupFirstArg(args) {
   );
 }
 
+// useEffect(() => { ... }, [foo, bar, baz])
 function isReactHookCallWithDepsArray(args) {
   return (
     args.length === 2 &&
