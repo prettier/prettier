@@ -3,7 +3,6 @@
 const { printDanglingComments } = require("../../main/comments.js");
 const { getLast, getPenultimate } = require("../../common/util.js");
 const {
-  getFunctionParameters,
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
@@ -48,7 +47,7 @@ function printCallArguments(path, options, print) {
     ];
   }
 
-  if (isReactHookCallWithDepsArray(args)) {
+  if (isReactHookCallWithDepsArray(node, args)) {
     return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
 
@@ -271,11 +270,18 @@ function shouldGroupFirstArg(args) {
 }
 
 // useEffect(() => { ... }, [foo, bar, baz])
-function isReactHookCallWithDepsArray(args) {
+function isReactHookCallWithDepsArray(node, args) {
+  // useEffect(() => { ... }, [foo, bar, baz])
+  // or
+  // React.useEffect(() => { ... }, [foo, bar, baz])
+  const isSimplyCall =
+    node.callee.type === "Identifier" ||
+    (node.callee.type === "MemberExpression" &&
+      node.callee.object.type === "Identifier");
   return (
+    isSimplyCall &&
     args.length === 2 &&
     args[0].type === "ArrowFunctionExpression" &&
-    getFunctionParameters(args[0]).length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
     !args.some((arg) => hasComment(arg))
