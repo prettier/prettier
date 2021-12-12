@@ -364,10 +364,10 @@
     slash "^3.0.0"
     strip-ansi "^6.0.0"
 
-"@jest/environment@^27.4.2":
-  version "27.4.2"
-  resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-27.4.2.tgz#03efabce528dbb09bffd3ec7e39bb0f3f7475cc2"
-  integrity sha512-uSljKxh/rGlHlmhyeG4ZoVK9hOec+EPBkwTHkHKQ2EqDu5K+MaG9uJZ8o1CbRsSdZqSuhXvJCYhBWsORPPg6qw==
+"@jest/environment@^27.4.2", "@jest/environment@^27.4.4":
+  version "27.4.4"
+  resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-27.4.4.tgz#66ebebc79673d84aad29d2bb70a8c51e6c29bb4d"
+  integrity sha512-q+niMx7cJgt/t/b6dzLOh4W8Ef/8VyKG7hxASK39jakijJzbFBGpptx3RXz13FFV7OishQ9lTbv+dQ5K3EhfDQ==
   dependencies:
     "@jest/fake-timers" "^27.4.2"
     "@jest/types" "^27.4.2"
@@ -386,12 +386,12 @@
     jest-mock "^27.4.2"
     jest-util "^27.4.2"
 
-"@jest/globals@27.4.2", "@jest/globals@^27.4.2":
-  version "27.4.2"
-  resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-27.4.2.tgz#56a402c5ebf22eba1d34e900772147f5126ea2d8"
-  integrity sha512-KkfaHEttlGpXYAQTZHgrESiEPx2q/DKAFLGLFda1uGVrqc17snd3YVPhOxlXOHIzVPs+lQ/SDB2EIvxyGzb3Ew==
+"@jest/globals@27.4.4", "@jest/globals@^27.4.2":
+  version "27.4.4"
+  resolved "https://registry.yarnpkg.com/@jest/globals/-/globals-27.4.4.tgz#fe501a80c23ea2dab585c42be2a519bb5e38530d"
+  integrity sha512-bqpqQhW30BOreXM8bA8t8JbOQzsq/WnPTnBl+It3UxAD9J8yxEAaBEylHx1dtBapAr/UBk8GidXbzmqnee8tYQ==
   dependencies:
-    "@jest/environment" "^27.4.2"
+    "@jest/environment" "^27.4.4"
     "@jest/types" "^27.4.2"
     expect "^27.4.2"
 
