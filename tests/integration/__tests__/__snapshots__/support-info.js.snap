@@ -770,7 +770,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\": \\"Align markdown table columns.\\",
       \\"name\\": \\"alignColumns\\",
       \\"pluginDefaults\\": {},
-      \\"since\\": \\"2.5.0\\",
+      \\"since\\": \\"2.6.0\\",
       \\"type\\": \\"boolean\\"
     },
     {
