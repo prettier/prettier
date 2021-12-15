@@ -191,12 +191,23 @@ module.exports = {
       },
     },
     {
-      files: ["src/cli/**/*.js"],
+      files: ["src/cli/*.js"],
       rules: {
         "no-restricted-modules": [
           "error",
           {
-            patterns: [".."],
+            patterns: ["../"],
+          },
+        ],
+      },
+    },
+    {
+      files: ["src/cli/*/*.js"],
+      rules: {
+        "no-restricted-modules": [
+          "error",
+          {
+            patterns: ["../../"],
           },
         ],
       },

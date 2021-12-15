@@ -1,6 +1,7 @@
 "use strict";
 
 const stringify = require("fast-json-stable-stringify");
+// eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
 
 async function logFileInfoOrDie(context) {

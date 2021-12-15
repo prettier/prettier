@@ -1,4 +1,5 @@
 "use strict";
+// eslint-disable-next-line no-restricted-modules
 const prettier = require("../../index.js");
 const {
   optionsModule,
