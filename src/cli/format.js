@@ -439,4 +439,4 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { format, formatStdin, formatFiles };
+module.exports = { formatStdin, formatFiles };

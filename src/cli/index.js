@@ -12,6 +12,7 @@ const createLogger = require("./logger.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
+const { formatStdin, formatFiles } = require("./format.js");
 const core = require("./core.js");
 
 async function run(rawArguments) {
@@ -89,9 +90,9 @@ async function main(rawArguments, logger) {
   } else if (context.argv["file-info"]) {
     await core.logFileInfoOrDie(context);
   } else if (useStdin) {
-    await core.formatStdin(context);
+    await formatStdin(context);
   } else if (hasFilePatterns) {
-    await core.formatFiles(context);
+    await formatFiles(context);
   } else {
     logger.log(createUsage(context));
     process.exitCode = 1;

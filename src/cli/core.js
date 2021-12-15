@@ -7,8 +7,6 @@ const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
 
-const { format, formatStdin, formatFiles } = require("./format.js");
-
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv["find-config-path"];
   const configFile = await prettier.resolveConfigFile(file);
@@ -37,9 +35,6 @@ async function logFileInfoOrDie(context) {
 }
 
 module.exports = {
-  format,
-  formatFiles,
-  formatStdin,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
 };
