@@ -11,7 +11,7 @@ const prettier = require("../index.js");
 const createLogger = require("./logger.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
-const { createDetailedUsage } = require("./usage.js");
+const { createDetailedUsage, createUsage } = require("./usage.js");
 const core = require("./core.js");
 
 async function run(rawArguments) {
@@ -65,7 +65,7 @@ async function main(rawArguments, logger) {
     logger.log(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
-        : core.createUsage(context)
+        : createUsage(context)
     );
     return;
   }
@@ -93,7 +93,7 @@ async function main(rawArguments, logger) {
   } else if (hasFilePatterns) {
     await core.formatFiles(context);
   } else {
-    logger.log(core.createUsage(context));
+    logger.log(createUsage(context));
     process.exitCode = 1;
   }
 }
