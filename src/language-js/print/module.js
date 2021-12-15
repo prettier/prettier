@@ -320,7 +320,7 @@ function printModuleSpecifier(path, options, print) {
   return parts;
 }
 
-function isShorthandSpecifier(specifier, leftSideNode, rightSideNode) {
+function isShorthandSpecifier(specifier) {
   if (
     specifier.type !== "ImportSpecifier" &&
     specifier.type !== "ExportSpecifier"
@@ -328,28 +328,29 @@ function isShorthandSpecifier(specifier, leftSideNode, rightSideNode) {
     return false;
   }
 
-  /* istanbul ignore next */
-  if (!rightSideNode || !leftSideNode) {
-    return true;
-  }
+  const {
+    local,
+    [specifier.type === "ImportSpecifier" ? "imported" : "exported"]:
+      importedOrExported,
+  } = specifier;
 
   if (
-    leftSideNode.type !== rightSideNode.type ||
-    !hasSameLoc(leftSideNode, rightSideNode)
+    local.type !== importedOrExported.type ||
+    !hasSameLoc(local, importedOrExported)
   ) {
     return false;
   }
 
-  if (isStringLiteral(leftSideNode)) {
+  if (isStringLiteral(local)) {
     return (
-      leftSideNode.value === rightSideNode.value &&
-      rawText(leftSideNode) === rawText(rightSideNode)
+      local.value === importedOrExported.value &&
+      rawText(local) === rawText(importedOrExported)
     );
   }
 
-  switch (leftSideNode.type) {
+  switch (local.type) {
     case "Identifier":
-      return leftSideNode.name === rightSideNode.name;
+      return local.name === importedOrExported.name;
     default:
       /* istanbul ignore next */
       return false;
