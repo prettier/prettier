@@ -328,6 +328,7 @@ function isShorthandSpecifier(specifier, leftSideNode, rightSideNode) {
     return false;
   }
 
+  /* istanbul ignore next */
   if (!rightSideNode || !leftSideNode) {
     return true;
   }
@@ -350,6 +351,7 @@ function isShorthandSpecifier(specifier, leftSideNode, rightSideNode) {
     case "Identifier":
       return leftSideNode.name === rightSideNode.name;
     default:
+      /* istanbul ignore next */
       return false;
   }
 }
