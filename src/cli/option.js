@@ -3,7 +3,7 @@
 const dashify = require("dashify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
-const minimist = require("./minimist.js");
+const minimist = require("./options/minimist.js");
 const { optionsNormalizer } = require("./prettier-internal.js");
 const createMinimistOptions = require("./options/create-minimist-options.js");
 

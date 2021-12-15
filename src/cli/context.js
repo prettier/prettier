@@ -8,7 +8,7 @@ const {
   optionsNormalizer: { normalizeCliOptions },
   utils: { arrayify },
 } = require("./prettier-internal.js");
-const minimist = require("./minimist.js");
+const minimist = require("./options/minimist.js");
 const constant = require("./constant.js");
 const {
   createDetailedOptionMap,
