@@ -8,7 +8,8 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index.js");
 
 const { format, formatStdin, formatFiles } = require("./format.js");
-const { Context, parseArgvWithoutPlugins } = require("./context.js");
+const Context = require("./context.js");
+const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
 const { createLogger } = require("./logger.js");
 

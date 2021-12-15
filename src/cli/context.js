@@ -1,20 +1,10 @@
 "use strict";
 const pick = require("lodash/pick");
-
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
+const getContextOptions = require("./options/get-context-options.js");
 const {
-  optionsModule,
-  optionsNormalizer: { normalizeCliOptions },
-  utils: { arrayify },
-} = require("./prettier-internal.js");
-const minimist = require("./options/minimist.js");
-const constant = require("./constant.js");
-const {
-  createDetailedOptionMap,
-  normalizeDetailedOptionMap,
-} = require("./options/option-map.js");
-const createMinimistOptions = require("./options/create-minimist-options.js");
+  parseArgv,
+  parseArgvWithoutPlugins,
+} = require("./options/parse-cli-arguments.js");
 
 /**
  * @typedef {Object} Context
@@ -74,61 +64,4 @@ class Context {
   }
 }
 
-function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = prettier.getSupportInfo({
-    showDeprecated: true,
-    showUnreleased: true,
-    showInternal: true,
-    plugins,
-    pluginSearchDirs,
-  });
-  const detailedOptionMap = normalizeDetailedOptionMap({
-    ...createDetailedOptionMap(supportOptions),
-    ...constant.options,
-  });
-
-  const detailedOptions = arrayify(detailedOptionMap, "name");
-
-  const apiDefaultOptions = {
-    ...optionsModule.hiddenDefaults,
-    ...Object.fromEntries(
-      supportOptions
-        .filter(({ deprecated }) => !deprecated)
-        .map((option) => [option.name, option.default])
-    ),
-  };
-
-  return {
-    supportOptions,
-    detailedOptions,
-    detailedOptionMap,
-    apiDefaultOptions,
-    languages,
-  };
-}
-
-function parseArgv(rawArguments, detailedOptions, logger, keys) {
-  const minimistOptions = createMinimistOptions(detailedOptions);
-  let argv = minimist(rawArguments, minimistOptions);
-
-  if (keys) {
-    detailedOptions = detailedOptions.filter((option) =>
-      keys.includes(option.name)
-    );
-    argv = pick(argv, keys);
-  }
-
-  return normalizeCliOptions(argv, detailedOptions, { logger });
-}
-
-const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
-function parseArgvWithoutPlugins(rawArguments, logger, keys) {
-  return parseArgv(
-    rawArguments,
-    detailedOptionsWithoutPlugins,
-    logger,
-    typeof keys === "string" ? [keys] : keys
-  );
-}
-
-module.exports = { Context, parseArgvWithoutPlugins };
+module.exports = Context;
