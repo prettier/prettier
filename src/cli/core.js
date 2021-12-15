@@ -12,7 +12,7 @@ const { Context, parseArgvWithoutPlugins } = require("./context.js");
 const {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
-} = require("./option-map.js");
+} = require("./options/option-map.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
 const { createLogger } = require("./logger.js");
 

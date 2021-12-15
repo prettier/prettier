@@ -13,7 +13,7 @@ const constant = require("./constant.js");
 const {
   createDetailedOptionMap,
   normalizeDetailedOptionMap,
-} = require("./option-map.js");
+} = require("./options/option-map.js");
 const createMinimistOptions = require("./create-minimist-options.js");
 
 /**
