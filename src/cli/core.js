@@ -8,7 +8,7 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index.js");
 
 const { format, formatStdin, formatFiles } = require("./format.js");
-const { createDetailedUsage, createUsage } = require("./usage.js");
+const { createUsage } = require("./usage.js");
 
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv["find-config-path"];
@@ -38,7 +38,6 @@ async function logFileInfoOrDie(context) {
 }
 
 module.exports = {
-  createDetailedUsage,
   createUsage,
   format,
   formatFiles,

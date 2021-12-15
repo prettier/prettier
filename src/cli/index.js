@@ -11,6 +11,7 @@ const prettier = require("../index.js");
 const createLogger = require("./logger.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
+const { createDetailedUsage } = require("./usage.js");
 const core = require("./core.js");
 
 async function run(rawArguments) {
@@ -63,7 +64,7 @@ async function main(rawArguments, logger) {
   if (context.argv.help !== undefined) {
     logger.log(
       typeof context.argv.help === "string" && context.argv.help !== ""
-        ? core.createDetailedUsage(context, context.argv.help)
+        ? createDetailedUsage(context, context.argv.help)
         : core.createUsage(context)
     );
     return;
