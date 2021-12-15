@@ -9,6 +9,7 @@ const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
 const createLogger = require("./logger.js");
+const Context = require("./context.js");
 const core = require("./core.js");
 
 async function run(rawArguments) {
@@ -33,7 +34,7 @@ async function run(rawArguments) {
 }
 
 async function main(rawArguments, logger) {
-  const context = new core.Context({ rawArguments, logger });
+  const context = new Context({ rawArguments, logger });
 
   logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
