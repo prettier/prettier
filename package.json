@@ -23,7 +23,7 @@
   "dependencies": {
     "@angular/compiler": "12.2.14",
     "@babel/code-frame": "7.16.0",
-    "@babel/parser": "7.16.4",
+    "@babel/parser": "7.16.6",
     "@glimmer/syntax": "0.83.1",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "5.6.0",
