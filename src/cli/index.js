@@ -13,7 +13,8 @@ const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
 const { formatStdin, formatFiles } = require("./format.js");
-const core = require("./core.js");
+const logFileInfoOrDie = require("./file-info.js");
+const logResolvedConfigPathOrDie = require("./find-config-path.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -86,9 +87,9 @@ async function main(rawArguments, logger) {
     (!process.stdin.isTTY || context.argv["stdin-filepath"]);
 
   if (context.argv["find-config-path"]) {
-    await core.logResolvedConfigPathOrDie(context);
+    await logResolvedConfigPathOrDie(context);
   } else if (context.argv["file-info"]) {
-    await core.logFileInfoOrDie(context);
+    await logFileInfoOrDie(context);
   } else if (useStdin) {
     await formatStdin(context);
   } else if (hasFilePatterns) {

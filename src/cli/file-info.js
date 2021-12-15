@@ -1,21 +1,7 @@
 "use strict";
 
-const path = require("path");
-
 const stringify = require("fast-json-stable-stringify");
-
-// eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
-
-async function logResolvedConfigPathOrDie(context) {
-  const file = context.argv["find-config-path"];
-  const configFile = await prettier.resolveConfigFile(file);
-  if (configFile) {
-    context.logger.log(path.relative(process.cwd(), configFile));
-  } else {
-    throw new Error(`Can not find configure file for "${file}"`);
-  }
-}
 
 async function logFileInfoOrDie(context) {
   const options = {
@@ -34,7 +20,4 @@ async function logFileInfoOrDie(context) {
   );
 }
 
-module.exports = {
-  logResolvedConfigPathOrDie,
-  logFileInfoOrDie,
-};
+module.exports = logFileInfoOrDie;
