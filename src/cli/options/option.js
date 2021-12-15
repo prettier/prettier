@@ -137,5 +137,4 @@ async function getOptionsForFile(context, filepath) {
 
 module.exports = {
   getOptionsForFile,
-  createMinimistOptions,
 };
