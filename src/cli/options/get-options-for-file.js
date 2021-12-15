@@ -135,6 +135,4 @@ async function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
-module.exports = {
-  getOptionsForFile,
-};
+module.exports = getOptionsForFile;
