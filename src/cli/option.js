@@ -5,7 +5,7 @@ const dashify = require("dashify");
 const prettier = require("../index.js");
 const minimist = require("./minimist.js");
 const { optionsNormalizer } = require("./prettier-internal.js");
-const createMinimistOptions = require("./create-minimist-options.js");
+const createMinimistOptions = require("./options/create-minimist-options.js");
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(

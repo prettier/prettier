@@ -14,7 +14,7 @@ const {
   createDetailedOptionMap,
   normalizeDetailedOptionMap,
 } = require("./options/option-map.js");
-const createMinimistOptions = require("./create-minimist-options.js");
+const createMinimistOptions = require("./options/create-minimist-options.js");
 
 /**
  * @typedef {Object} Context
