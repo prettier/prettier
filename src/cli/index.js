@@ -10,6 +10,7 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index.js");
 const createLogger = require("./logger.js");
 const Context = require("./context.js");
+const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const core = require("./core.js");
 
 async function run(rawArguments) {
@@ -17,7 +18,7 @@ async function run(rawArguments) {
   let logger = createLogger();
 
   try {
-    const logLevel = core.parseArgvWithoutPlugins(
+    const logLevel = parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"

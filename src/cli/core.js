@@ -8,7 +8,6 @@ const stringify = require("fast-json-stable-stringify");
 const prettier = require("../index.js");
 
 const { format, formatStdin, formatFiles } = require("./format.js");
-const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
 
 async function logResolvedConfigPathOrDie(context) {
@@ -46,5 +45,4 @@ module.exports = {
   formatStdin,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
-  parseArgvWithoutPlugins,
 };
