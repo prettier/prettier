@@ -284,8 +284,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -455,7 +455,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim()

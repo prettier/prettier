@@ -131,16 +131,20 @@ function postprocess(ast, options) {
 // since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {
-  if (node.type === "CallExpression") {
-    node.type = "OptionalCallExpression";
-    node.callee = transformChainExpression(node.callee);
-  } else if (node.type === "MemberExpression") {
-    node.type = "OptionalMemberExpression";
-    node.object = transformChainExpression(node.object);
-  }
-  // typescript
-  else if (node.type === "TSNonNullExpression") {
-    node.expression = transformChainExpression(node.expression);
+  switch (node.type) {
+    case "CallExpression":
+      node.type = "OptionalCallExpression";
+      node.callee = transformChainExpression(node.callee);
+      break;
+    case "MemberExpression":
+      node.type = "OptionalMemberExpression";
+      node.object = transformChainExpression(node.object);
+      break;
+    // typescript
+    case "TSNonNullExpression":
+      node.expression = transformChainExpression(node.expression);
+      break;
+    // No default
   }
   return node;
 }
