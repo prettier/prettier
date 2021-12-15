@@ -24,7 +24,7 @@ async function run(rawArguments) {
       "loglevel"
     ).loglevel;
     if (logLevel !== logger.logLevel) {
-      logger = core.createLogger(logLevel);
+      logger = createLogger(logLevel);
     }
 
     await main(rawArguments, logger);
