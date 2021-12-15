@@ -309,10 +309,7 @@ function printModuleSpecifier(path, options, print) {
     left = print(leftSideProperty);
   }
 
-  if (
-    rightSideNode &&
-    !isShorthandSpecifier(node, leftSideNode, rightSideNode)
-  ) {
+  if (rightSideNode && !isShorthandSpecifier(node)) {
     right = print(rightSideProperty);
   }
 
