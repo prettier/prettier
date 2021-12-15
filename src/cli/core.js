@@ -11,7 +11,6 @@ const { format, formatStdin, formatFiles } = require("./format.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
-const { createLogger } = require("./logger.js");
 
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv["find-config-path"];
@@ -50,5 +49,4 @@ module.exports = {
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
   parseArgvWithoutPlugins,
-  createLogger,
 };
