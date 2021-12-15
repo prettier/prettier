@@ -9,10 +9,6 @@ const prettier = require("../index.js");
 
 const { format, formatStdin, formatFiles } = require("./format.js");
 const { Context, parseArgvWithoutPlugins } = require("./context.js");
-const {
-  normalizeDetailedOptionMap,
-  createDetailedOptionMap,
-} = require("./options/option-map.js");
 const { createDetailedUsage, createUsage } = require("./usage.js");
 const { createLogger } = require("./logger.js");
 
@@ -45,7 +41,6 @@ async function logFileInfoOrDie(context) {
 
 module.exports = {
   Context,
-  createDetailedOptionMap,
   createDetailedUsage,
   createUsage,
   format,
@@ -53,7 +48,6 @@ module.exports = {
   formatStdin,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
-  normalizeDetailedOptionMap,
   parseArgvWithoutPlugins,
   createLogger,
 };
