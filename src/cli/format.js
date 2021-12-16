@@ -238,8 +238,8 @@ async function createIgnorerFromContextOrDie(context) {
 }
 
 async function formatStdin(context) {
-  const filepath = context.argv.stdinFilepath
-    ? path.resolve(process.cwd(), context.argv.stdinFilepath)
+  const filepath = context.argv.filepath
+    ? path.resolve(process.cwd(), context.argv.filepath)
     : process.cwd();
 
   const ignorer = await createIgnorerFromContextOrDie(context);

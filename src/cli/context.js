@@ -28,11 +28,11 @@ class Context {
     this.logger = logger;
     this.stack = [];
 
-    const { plugin: plugins, pluginSearchDir: pluginSearchDirs } =
-      parseArgvWithoutPlugins(rawArguments, logger, [
-        "plugin",
-        "plugin-search-dir",
-      ]);
+    const { plugins, pluginSearchDirs } = parseArgvWithoutPlugins(
+      rawArguments,
+      logger,
+      ["plugin", "plugin-search-dir"]
+    );
 
     this.pushContextPlugins(plugins, pluginSearchDirs);
 

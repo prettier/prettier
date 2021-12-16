@@ -22,7 +22,10 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const normalized = normalizeCliOptions(argv, detailedOptions, { logger });
 
   return Object.fromEntries(
-    Object.entries(normalized).map(([key, value]) => [camelCase(key), value])
+    Object.entries(normalized).map(([key, value]) => {
+      const option = detailedOptions.find(({ name }) => name === key) || {};
+      return [option.forwardToApi || camelCase(key), value];
+    })
   );
 }
 

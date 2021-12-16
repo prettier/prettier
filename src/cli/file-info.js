@@ -8,8 +8,8 @@ async function logFileInfoOrDie(context) {
   const options = {
     ignorePath: context.argv.ignorePath,
     withNodeModules: context.argv.withNodeModules,
-    plugins: context.argv.plugin,
-    pluginSearchDirs: context.argv.pluginSearchDir,
+    plugins: context.argv.plugins,
+    pluginSearchDirs: context.argv.pluginSearchDirs,
     resolveConfig: context.argv.config !== false,
   };
 
