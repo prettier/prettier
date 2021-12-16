@@ -9,7 +9,7 @@ async function logFileInfoOrDie(context) {
     ignorePath: context.argv.ignorePath,
     withNodeModules: context.argv.withNodeModules,
     plugins: context.argv.plugin,
-    pluginSearchDirs: context.argv.pluginSearchDirs,
+    pluginSearchDirs: context.argv.pluginSearchDir,
     resolveConfig: context.argv.config !== false,
   };
 
