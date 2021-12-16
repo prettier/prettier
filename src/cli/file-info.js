@@ -6,16 +6,16 @@ const prettier = require("../index.js");
 
 async function logFileInfoOrDie(context) {
   const options = {
-    ignorePath: context.argv["ignore-path"],
-    withNodeModules: context.argv["with-node-modules"],
+    ignorePath: context.argv.ignorePath,
+    withNodeModules: context.argv.withNodeModules,
     plugins: context.argv.plugin,
-    pluginSearchDirs: context.argv["plugin-search-dir"],
+    pluginSearchDirs: context.argv.pluginSearchDirs,
     resolveConfig: context.argv.config !== false,
   };
 
   context.logger.log(
     prettier.format(
-      stringify(await prettier.getFileInfo(context.argv["file-info"], options)),
+      stringify(await prettier.getFileInfo(context.argv.fileInfo, options)),
       { parser: "json" }
     )
   );

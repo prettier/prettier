@@ -87,7 +87,7 @@ async function getOptionsOrDie(context, filePath) {
 
 function applyConfigPrecedence(context, options) {
   try {
-    switch (context.argv["config-precedence"]) {
+    switch (context.argv.configPrecedence) {
       case "cli-override":
         return parseArgsToOptions(context, options);
       case "file-override":
@@ -124,7 +124,7 @@ async function getOptionsForFile(context, filepath) {
   };
 
   context.logger.debug(
-    `applied config-precedence (${context.argv["config-precedence"]}): ` +
+    `applied config-precedence (${context.argv.configPrecedence}): ` +
       `${JSON.stringify(appliedOptions)}`
   );
 

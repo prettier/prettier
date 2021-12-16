@@ -1,5 +1,6 @@
 "use strict";
 const pick = require("lodash/pick");
+const camelCase = require("camelcase");
 const {
   optionsNormalizer: { normalizeCliOptions },
 } = require("../prettier-internal.js");
@@ -18,7 +19,11 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
     argv = pick(argv, keys);
   }
 
-  return normalizeCliOptions(argv, detailedOptions, { logger });
+  const normalized = normalizeCliOptions(argv, detailedOptions, { logger });
+
+  return Object.fromEntries(
+    Object.entries(normalized).map(([key, value]) => [camelCase(key), value])
+  );
 }
 
 const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
