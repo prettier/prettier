@@ -24,6 +24,9 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   return Object.fromEntries(
     Object.entries(normalized).map(([key, value]) => {
       const option = detailedOptions.find(({ name }) => name === key) || {};
+      // If the flag is an prettier option, use the option name
+      // `--plugin-search-dir` -> `pluginSearchDirs`
+      // Otherwise use camel case for readability
       return [option.forwardToApi || camelCase(key), value];
     })
   );
