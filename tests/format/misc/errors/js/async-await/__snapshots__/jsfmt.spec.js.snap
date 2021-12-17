@@ -213,7 +213,7 @@ exports[`snippet: #7 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #8 [babel] format 1`] = `
-"Unexpected token (1:15)
+"Invalid shorthand property initializer. (1:15)
 > 1 | async({ foo33 = 1 });
     |               ^"
 `;

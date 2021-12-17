@@ -8,20 +8,26 @@ require("please-upgrade-node")(packageJson);
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
-const core = require("./core.js");
+const createLogger = require("./logger.js");
+const Context = require("./context.js");
+const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
+const { createDetailedUsage, createUsage } = require("./usage.js");
+const { formatStdin, formatFiles } = require("./format.js");
+const logFileInfoOrDie = require("./file-info.js");
+const logResolvedConfigPathOrDie = require("./find-config-path.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
-  let logger = core.createLogger();
+  let logger = createLogger();
 
   try {
-    const logLevel = core.parseArgvWithoutPlugins(
+    const logLevel = parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"
     ).loglevel;
     if (logLevel !== logger.logLevel) {
-      logger = core.createLogger(logLevel);
+      logger = createLogger(logLevel);
     }
 
     await main(rawArguments, logger);
@@ -32,7 +38,7 @@ async function run(rawArguments) {
 }
 
 async function main(rawArguments, logger) {
-  const context = new core.Context({ rawArguments, logger });
+  const context = new Context({ rawArguments, logger });
 
   logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
@@ -60,8 +66,8 @@ async function main(rawArguments, logger) {
   if (context.argv.help !== undefined) {
     logger.log(
       typeof context.argv.help === "string" && context.argv.help !== ""
-        ? core.createDetailedUsage(context, context.argv.help)
-        : core.createUsage(context)
+        ? createDetailedUsage(context, context.argv.help)
+        : createUsage(context)
     );
     return;
   }
@@ -81,15 +87,15 @@ async function main(rawArguments, logger) {
     (!process.stdin.isTTY || context.argv["stdin-filepath"]);
 
   if (context.argv["find-config-path"]) {
-    await core.logResolvedConfigPathOrDie(context);
+    await logResolvedConfigPathOrDie(context);
   } else if (context.argv["file-info"]) {
-    await core.logFileInfoOrDie(context);
+    await logFileInfoOrDie(context);
   } else if (useStdin) {
-    await core.formatStdin(context);
+    await formatStdin(context);
   } else if (hasFilePatterns) {
-    await core.formatFiles(context);
+    await formatFiles(context);
   } else {
-    logger.log(core.createUsage(context));
+    logger.log(createUsage(context));
     process.exitCode = 1;
   }
 }
