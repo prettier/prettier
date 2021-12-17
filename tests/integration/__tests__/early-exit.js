@@ -93,16 +93,20 @@ describe("throw error and show usage with something unexpected", () => {
 
 test("node version error", async () => {
   const originalProcessVersion = process.version;
+  let result;
 
-  Object.defineProperty(process, "version", {
-    value: "v8.0.0",
-    writable: false,
-  });
-  const result = await runPrettier("cli", ["--help"]);
-  Object.defineProperty(process, "version", {
-    value: originalProcessVersion,
-    writable: false,
-  });
+  try {
+    Object.defineProperty(process, "version", {
+      value: "v8.0.0",
+      writable: false,
+    });
+    result = await runPrettier("cli", ["--help"]);
+  } finally {
+    Object.defineProperty(process, "version", {
+      value: originalProcessVersion,
+      writable: false,
+    });
+  }
 
   expect(result.status).toBe(1);
   expect(result.stderr).toBe(
