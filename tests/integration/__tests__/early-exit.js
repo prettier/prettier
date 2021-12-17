@@ -95,11 +95,11 @@ test("node version error", async () => {
   const originalProcessVersion = process.version;
   let result;
 
+  Object.defineProperty(process, "version", {
+    value: "v8.0.0",
+    writable: false,
+  });
   try {
-    Object.defineProperty(process, "version", {
-      value: "v8.0.0",
-      writable: false,
-    });
     result = await runPrettier("cli", ["--help"]);
   } finally {
     Object.defineProperty(process, "version", {
