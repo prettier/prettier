@@ -2,10 +2,10 @@ import prettier from "prettier-local";
 import runPrettier from "../runPrettier.js";
 import constant from "../../../src/cli/constant.js";
 import arrayify from "../../../src/utils/arrayify.js";
-const {
+import {
   createDetailedOptionMap,
   normalizeDetailedOptionMap,
-} = require("../../../src/cli/options/option-map.js");
+} from "../../../src/cli/options/option-map.js";
 
 for (const option of arrayify(
   {
