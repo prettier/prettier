@@ -38,7 +38,7 @@ describe("Should use default level logger to log `--loglevel` error", () => {
 });
 
 async function runPrettierWithLogLevel(logLevel, patterns) {
-  const result = runPrettier("cli/loglevel", [
+  const result = await runPrettier("cli/loglevel", [
     "--loglevel",
     logLevel,
     "--unknown-option",
@@ -47,9 +47,9 @@ async function runPrettierWithLogLevel(logLevel, patterns) {
     "not-found.js",
   ]);
 
-  expect(await result.status).toBe(2);
+  expect(result.status).toBe(2);
 
-  const stderr = stripAnsi(await result.stderr);
+  const stderr = stripAnsi(result.stderr);
 
   if (patterns) {
     for (const pattern of patterns) {
