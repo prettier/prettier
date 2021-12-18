@@ -42,19 +42,19 @@ async function main(rawArguments, logger) {
 
   logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-  if (context.argv.check && context.argv["list-different"]) {
+  if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
   }
 
-  if (context.argv.write && context.argv["debug-check"]) {
+  if (context.argv.write && context.argv.debugCheck) {
     throw new Error("Cannot use --write and --debug-check together.");
   }
 
-  if (context.argv["find-config-path"] && context.filePatterns.length > 0) {
+  if (context.argv.findConfigPath && context.filePatterns.length > 0) {
     throw new Error("Cannot use --find-config-path with multiple files");
   }
 
-  if (context.argv["file-info"] && context.filePatterns.length > 0) {
+  if (context.argv.fileInfo && context.filePatterns.length > 0) {
     throw new Error("Cannot use --file-info with multiple files");
   }
 
@@ -72,7 +72,7 @@ async function main(rawArguments, logger) {
     return;
   }
 
-  if (context.argv["support-info"]) {
+  if (context.argv.supportInfo) {
     logger.log(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
@@ -83,12 +83,11 @@ async function main(rawArguments, logger) {
 
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns &&
-    (!process.stdin.isTTY || context.argv["stdin-filepath"]);
+    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filePath);
 
-  if (context.argv["find-config-path"]) {
+  if (context.argv.findConfigPath) {
     await logResolvedConfigPathOrDie(context);
-  } else if (context.argv["file-info"]) {
+  } else if (context.argv.fileInfo) {
     await logFileInfoOrDie(context);
   } else if (useStdin) {
     await formatStdin(context);
