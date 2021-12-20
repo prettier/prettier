@@ -284,8 +284,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -455,7 +455,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim()
@@ -552,9 +552,11 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
+        // Move spaces after the `...`, so we can keep the range correct
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        // Move spaces after the `(`, so we can keep the range correct
+        params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -619,7 +621,7 @@ function parseWithParser(parse, text, options) {
 }
 
 // TODO: make this only work on css
-function parseCss(text, parsers, options) {
+function parseCss(text, parsers, options = {}) {
   const isSCSSParser = isSCSS(options.parser, text);
   const parseFunctions = isSCSSParser
     ? [parseScss, parseLess]
@@ -640,7 +642,7 @@ function parseCss(text, parsers, options) {
   }
 }
 
-function parseLess(text, parsers, options) {
+function parseLess(text, parsers, options = {}) {
   const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
@@ -651,7 +653,7 @@ function parseLess(text, parsers, options) {
   );
 }
 
-function parseScss(text, parsers, options) {
+function parseScss(text, parsers, options = {}) {
   const { parse } = require("postcss-scss");
   return parseWithParser(parse, text, options);
 }

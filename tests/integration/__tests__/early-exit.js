@@ -93,25 +93,27 @@ describe("throw error and show usage with something unexpected", () => {
 
 test("node version error", async () => {
   const originalProcessVersion = process.version;
+  let result;
 
+  Object.defineProperty(process, "version", {
+    value: "v8.0.0",
+    writable: false,
+  });
   try {
-    Object.defineProperty(process, "version", {
-      value: "v8.0.0",
-      writable: false,
-    });
-    const result = runPrettier("cli", ["--help"]);
-    expect(await result.status).toBe(1);
-    expect(await result.stderr).toBe(
-      `prettier requires at least version ${
-        isProduction ? "10.13.0" : "12.17.0"
-      } of Node, please upgrade\n`
-    );
-    expect(await result.stdout).toBe("");
-    expect(await result.write).toEqual([]);
+    result = await runPrettier("cli", ["--help"]);
   } finally {
     Object.defineProperty(process, "version", {
       value: originalProcessVersion,
       writable: false,
     });
   }
+
+  expect(result.status).toBe(1);
+  expect(result.stderr).toBe(
+    `prettier requires at least version ${
+      isProduction ? "10.13.0" : "12.17.0"
+    } of Node, please upgrade\n`
+  );
+  expect(result.stdout).toBe("");
+  expect(result.write).toEqual([]);
 });

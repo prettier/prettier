@@ -19,30 +19,17 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, require, json } = createEsmUtils(import.meta);
+const { __dirname, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const entries = [
   // Force using the CJS file, instead of ESM; i.e. get the file
   // from `"main"` instead of `"module"` (rollup default) of package.json
   {
-    find: "outdent",
-    replacement: require.resolve("outdent"),
-  },
-  {
-    find: "lines-and-columns",
-    replacement: require.resolve("lines-and-columns"),
-  },
-  {
     find: "@angular/compiler/src",
     replacement: path.resolve(
       `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
     ),
-  },
-  // Avoid rollup `SOURCEMAP_ERROR` and `THIS_IS_UNDEFINED` error
-  {
-    find: "@glimmer/syntax",
-    replacement: require.resolve("@glimmer/syntax"),
   },
 ];
 
@@ -224,6 +211,7 @@ function getRollupConfig(bundle) {
     rollupPluginNodeResolve({
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node",
+      mainFields: ["main"],
     }),
     rollupPluginCommonjs({
       ignoreGlobal: bundle.target === "node",
@@ -257,16 +245,23 @@ function getRollupOutputOptions(bundle, buildOptions) {
     exports: "auto",
     file: path.join(DIST_DIR, bundle.output),
     name: bundle.name,
-    plugins: [
-      bundle.minify !== false &&
-        bundle.target === "universal" &&
-        rollupPluginTerser({
-          output: {
-            ascii_only: true,
-          },
-        }),
-    ],
+    plugins: [],
   };
+
+  let shouldMinify = buildOptions.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = bundle.minify !== false && bundle.target === "universal";
+  }
+
+  if (shouldMinify) {
+    options.plugins.push(
+      rollupPluginTerser({
+        output: {
+          ascii_only: true,
+        },
+      })
+    );
+  }
 
   if (bundle.target === "node") {
     options.format = "cjs";
@@ -297,7 +292,7 @@ function getRollupOutputOptions(bundle, buildOptions) {
   return [options];
 }
 
-function getWebpackConfig(bundle) {
+function getWebpackConfig(bundle, buildOptions) {
   if (bundle.type !== "plugin" || bundle.target !== "universal") {
     throw new Error("Must use rollup for this bundle");
   }
@@ -346,19 +341,27 @@ function getWebpackConfig(bundle) {
     },
   };
 
-  config.optimization.minimizer = [
-    new WebpackPluginTerser({
-      // prevent terser generate extra .LICENSE file
-      extractComments: false,
-      terserOptions: {
-        // prevent U+FFFE in the output
-        output: {
-          ascii_only: true,
+  let shouldMinify = buildOptions.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = true;
+  }
+
+  if (shouldMinify) {
+    config.optimization.minimizer = [
+      new WebpackPluginTerser({
+        // prevent terser generate extra .LICENSE file
+        extractComments: false,
+        terserOptions: {
+          // prevent U+FFFE in the output
+          output: {
+            ascii_only: true,
+          },
         },
-      },
-    }),
-  ];
-  // config.optimization.minimize = false;
+      }),
+    ];
+  } else {
+    config.optimization.minimize = false;
+  }
 
   return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
 }
@@ -411,7 +414,7 @@ async function createBundle(bundle, cache, options) {
   }
 
   if (bundle.bundler === "webpack") {
-    await runWebpack(getWebpackConfig(bundle));
+    await runWebpack(getWebpackConfig(bundle, options));
   } else {
     const result = await rollup(inputOptions);
     await Promise.all(outputOptions.map((option) => result.write(option)));

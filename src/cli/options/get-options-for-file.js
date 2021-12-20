@@ -2,9 +2,9 @@
 
 const dashify = require("dashify");
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
+const prettier = require("../../index.js");
+const { optionsNormalizer } = require("../prettier-internal.js");
 const minimist = require("./minimist.js");
-const { optionsNormalizer } = require("./prettier-internal.js");
 const createMinimistOptions = require("./create-minimist-options.js");
 
 function getOptions(argv, detailedOptions) {
@@ -87,7 +87,7 @@ async function getOptionsOrDie(context, filePath) {
 
 function applyConfigPrecedence(context, options) {
   try {
-    switch (context.argv["config-precedence"]) {
+    switch (context.argv.configPrecedence) {
       case "cli-override":
         return parseArgsToOptions(context, options);
       case "file-override":
@@ -124,7 +124,7 @@ async function getOptionsForFile(context, filepath) {
   };
 
   context.logger.debug(
-    `applied config-precedence (${context.argv["config-precedence"]}): ` +
+    `applied config-precedence (${context.argv.configPrecedence}): ` +
       `${JSON.stringify(appliedOptions)}`
   );
 
@@ -135,7 +135,4 @@ async function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
-module.exports = {
-  getOptionsForFile,
-  createMinimistOptions,
-};
+module.exports = getOptionsForFile;

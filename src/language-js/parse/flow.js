@@ -45,7 +45,7 @@ function createParseError(error) {
   });
 }
 
-function parse(text, parsers, opts) {
+function parse(text, parsers, options = {}) {
   // Inline the require to avoid loading all the JS if we don't use it
   const { parse } = require("flow-parser");
   const ast = parse(replaceHashbang(text), parseOptions);
@@ -54,8 +54,8 @@ function parse(text, parsers, opts) {
     throw createParseError(error);
   }
 
-  opts.originalText = text;
-  return postprocess(ast, opts);
+  options.originalText = text;
+  return postprocess(ast, options);
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
