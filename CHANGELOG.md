@@ -1,3 +1,74 @@
+# 2.5.1
+
+[diff](https://github.com/prettier/prettier/compare/2.5.0...2.5.1)
+
+#### Improve formatting for empty tuple types ([#11884](https://github.com/prettier/prettier/pull/11884) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+// Prettier 2.5.0
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [
+
+]
+  ? Foo3
+  : Foo4;
+
+// Prettier 2.5.0 (tailingCommma = all)
+// Invalid TypeScript code
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [
+  ,
+]
+  ? Foo3
+  : Foo4;
+
+// Prettier 2.5.1
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+```
+
+#### Fix compatibility with Jest inline snapshot test ([#11892](https://github.com/prettier/prettier/pull/11892) by [@fisker](https://github.com/fisker))
+
+A internal change in Prettier@v2.5.0 accidentally breaks the Jest inline snapshot test.
+
+#### Support Glimmer's named blocks ([#11899](https://github.com/prettier/prettier/pull/11899) by [@duailibe](https://github.com/duailibe))
+
+Prettier already supported this feature, but it converted empty named blocks to self-closing, which is not supported by the Glimmer compiler.
+
+See: [Glimmer's named blocks](https://emberjs.github.io/rfcs/0460-yieldable-named-blocks.html).
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<Component>
+  <:named></:named>
+</Component>
+
+// Prettier 2.5.0
+<Component>
+  <:named />
+</Component>
+
+// Prettier 2.5.1
+<Component>
+  <:named></:named>
+</Component>
+```
+
+# 2.5.0
+
+[diff](https://github.com/prettier/prettier/compare/2.4.1...2.5.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/11/25/2.5.0.html)
+
 # 2.4.1
 
 [diff](https://github.com/prettier/prettier/compare/2.4.0...2.4.1)

@@ -3,19 +3,22 @@
 const prettier = require("prettier-local");
 const runPrettier = require("../runPrettier.js");
 const constant = require("../../../src/cli/constant.js");
-const core = require("../../../src/cli/core.js");
+const {
+  createDetailedOptionMap,
+  normalizeDetailedOptionMap,
+} = require("../../../src/cli/options/option-map.js");
 const arrayify = require("../../../src/utils/arrayify.js");
 
 for (const option of arrayify(
   {
-    ...core.createDetailedOptionMap(
+    ...createDetailedOptionMap(
       prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
         showInternal: true,
       }).options
     ),
-    ...core.normalizeDetailedOptionMap(constant.options),
+    ...normalizeDetailedOptionMap(constant.options),
   },
   "name"
 )) {

@@ -605,12 +605,17 @@ function printJsxOpeningElement(path, options, print) {
         attr.value.value.includes("\n")
     );
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attributes.length > 1
+      ? hardline
+      : line;
+
   return group(
     [
       "<",
       print("name"),
       print("typeParameters"),
-      indent(path.map(() => [line, print()], "attributes")),
+      indent(path.map(() => [attributeLine, print()], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
       node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],

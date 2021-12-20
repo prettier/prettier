@@ -1,29 +1,27 @@
 "use strict";
 
 function visitNode(node, fn) {
-  let entries;
-
   if (Array.isArray(node)) {
-    entries = node.entries();
-  } else if (
-    node &&
-    typeof node === "object" &&
-    typeof node.type === "string"
-  ) {
-    entries = Object.entries(node);
-  } else {
+    // As of Node.js 16 using raw for loop over Array.entries provides a
+    // measurable difference in performance. Array.entries returns an iterator
+    // of arrays.
+    for (let i = 0; i < node.length; i++) {
+      node[i] = visitNode(node[i], fn);
+    }
     return node;
   }
-
-  for (const [key, child] of entries) {
-    node[key] = visitNode(child, fn);
+  if (node && typeof node === "object" && typeof node.type === "string") {
+    // As of Node.js 16 this is benchmarked to be faster over Object.entries.
+    // Object.entries returns an array of arrays. There are multiple ways to
+    // iterate over objects but the Object.keys combined with a for loop
+    // benchmarks well.
+    const keys = Object.keys(node);
+    for (let i = 0; i < keys.length; i++) {
+      node[keys[i]] = visitNode(node[keys[i]], fn);
+    }
+    return fn(node) || node;
   }
-
-  if (Array.isArray(node)) {
-    return node;
-  }
-
-  return fn(node) || node;
+  return node;
 }
 
 module.exports = visitNode;

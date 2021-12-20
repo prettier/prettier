@@ -28,6 +28,7 @@ module.exports = {
       },
     ],
   },
+  singleAttributePerLine: commonOptions.singleAttributePerLine,
   vueIndentScriptAndStyle: {
     since: "1.19.0",
     category: CATEGORY_HTML,
