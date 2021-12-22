@@ -1,14 +1,12 @@
 "use strict";
 
-const flat = require("lodash/flatten");
-
-const { printComments } = require("../../main/comments");
+const { printComments } = require("../../main/comments.js");
 const {
   getLast,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util");
-const pathNeedsParens = require("../needs-parens");
+} = require("../../common/util.js");
+const pathNeedsParens = require("../needs-parens.js");
 const {
   isCallExpression,
   isMemberExpression,
@@ -20,20 +18,28 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils");
-const { locEnd } = require("../loc");
+} = require("../utils.js");
+const { locEnd } = require("../loc.js");
 
 const {
-  builders: { join, hardline, group, indent, conditionalGroup, breakParent },
+  builders: {
+    join,
+    hardline,
+    group,
+    indent,
+    conditionalGroup,
+    breakParent,
+    label,
+  },
   utils: { willBreak },
-} = require("../../document");
-const printCallArguments = require("./call-arguments");
-const { printMemberLookup } = require("./member");
+} = require("../../document/index.js");
+const printCallArguments = require("./call-arguments.js");
+const { printMemberLookup } = require("./member.js");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
-} = require("./misc");
+} = require("./misc.js");
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -94,7 +100,7 @@ function printMemberChain(path, options, print) {
         printed: [
           printComments(
             path,
-            () => [
+            [
               printOptionalToken(path),
               printFunctionTypeParameters(path, options, print),
               printCallArguments(path, options, print),
@@ -111,10 +117,9 @@ function printMemberChain(path, options, print) {
         needsParens: pathNeedsParens(path, options),
         printed: printComments(
           path,
-          () =>
-            isMemberExpression(node)
-              ? printMemberLookup(path, options, print)
-              : printBindExpressionCallee(path, options, print),
+          isMemberExpression(node)
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
@@ -122,13 +127,13 @@ function printMemberChain(path, options, print) {
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
-        printed: printComments(path, () => "!", options),
+        printed: printComments(path, "!", options),
       });
       path.call((expression) => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node,
-        printed: path.call(print),
+        printed: print(),
       });
     }
   }
@@ -302,10 +307,7 @@ function printMemberChain(path, options, print) {
     const printed = printedGroup.map((tuple) => tuple.printed);
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
-    if (
-      printedGroup.length > 0 &&
-      printedGroup[printedGroup.length - 1].needsParens
-    ) {
+    if (printedGroup.length > 0 && getLast(printedGroup).needsParens) {
       return ["(", ...printed, ")"];
     }
     return printed;
@@ -323,7 +325,7 @@ function printMemberChain(path, options, print) {
   const oneLine = printedGroups;
 
   const cutoff = shouldMerge ? 3 : 2;
-  const flatGroups = flat(groups);
+  const flatGroups = groups.flat();
 
   const nodeHasComment =
     flatGroups
@@ -370,9 +372,11 @@ function printMemberChain(path, options, print) {
       willBreak(lastGroupDoc) &&
       callExpressions
         .slice(0, -1)
-        .some((n) => n.arguments.some(isFunctionOrArrowExpression))
+        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
     );
   }
+
+  let result;
 
   // We don't want to print in one line if at least one of these conditions occurs:
   //  * the chain has comments,
@@ -389,16 +393,18 @@ function printMemberChain(path, options, print) {
     printedGroups.slice(0, -1).some(willBreak) ||
     lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
   ) {
-    return group(expanded);
+    result = group(expanded);
+  } else {
+    result = [
+      // We only need to check `oneLine` because if `expanded` is chosen
+      // that means that the parent group has already been broken
+      // naturally
+      willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
+      conditionalGroup([oneLine, expanded]),
+    ];
   }
 
-  return [
-    // We only need to check `oneLine` because if `expanded` is chosen
-    // that means that the parent group has already been broken
-    // naturally
-    willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
-    conditionalGroup([oneLine, expanded]),
-  ];
+  return label("member-chain", result);
 }
 
 module.exports = printMemberChain;

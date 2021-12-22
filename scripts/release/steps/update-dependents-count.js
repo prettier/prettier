@@ -1,16 +1,10 @@
-"use strict";
-
-const chalk = require("chalk");
-const fetch = require("node-fetch");
-const execa = require("execa");
-const { logPromise, processFile } = require("../utils");
+import chalk from "chalk";
+import { runGit, fetchText, logPromise, processFile } from "../utils.js";
 
 async function update() {
   const npmPage = await logPromise(
     "Fetching npm dependents count",
-    fetch("https://www.npmjs.com/package/prettier").then((response) =>
-      response.text()
-    )
+    fetchText("https://www.npmjs.com/package/prettier")
   );
   const dependentsCountNpm = Number(
     npmPage.match(/"dependentsCount":(\d+),/)[1]
@@ -23,15 +17,13 @@ async function update() {
 
   const githubPage = await logPromise(
     "Fetching github dependents count",
-    fetch(
-      "https://github.com/prettier/prettier/network/dependents"
-    ).then((response) => response.text())
+    fetchText("https://github.com/prettier/prettier/network/dependents")
   );
   const dependentsCountGithub = Number(
     githubPage
       .replace(/\n/g, "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/
       )[1]
       .replace(/,/g, "")
   );
@@ -55,20 +47,17 @@ async function update() {
 
   const isUpdated = await logPromise(
     "Checking if dependents count has been updated",
-    execa("git", ["diff", "--name-only"]).then(
-      ({ stdout }) => stdout === "website/pages/en/index.js"
-    )
+    async () =>
+      (await runGit(["diff", "--name-only"])).stdout ===
+      "website/pages/en/index.js"
   );
 
   if (isUpdated) {
-    logPromise(
-      "Committing and pushing to remote",
-      (async () => {
-        await execa("git", ["add", "."]);
-        await execa("git", ["commit", "-m", "Update dependents count"]);
-        await execa("git", ["push"]);
-      })()
-    );
+    await logPromise("Committing and pushing to remote", async () => {
+      await runGit(["add", "."]);
+      await runGit(["commit", "-m", "Update dependents count"]);
+      await runGit(["push"]);
+    });
   }
 }
 
@@ -82,10 +71,10 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-module.exports = async function () {
+export default async function updateDependentsCount() {
   try {
     await update();
   } catch (error) {
     console.log(chalk.red.bold(error.message));
   }
-};
+}

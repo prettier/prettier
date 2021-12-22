@@ -56,8 +56,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/prefer-is-non-empty-array.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-is-non-empty-array.js",
     },
     messages: {
       [MESSAGE_ID]: "Please use `isNonEmptyArray()`.",
@@ -112,7 +111,7 @@ module.exports = {
           left = left.right;
         }
 
-        if (!left.type === "UnaryExpression" || left.operator !== "!") {
+        if (left.type !== "UnaryExpression" || left.operator !== "!") {
           return;
         }
 

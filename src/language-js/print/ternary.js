@@ -1,16 +1,14 @@
 "use strict";
 
-const flat = require("lodash/flatten");
-const { hasNewlineInRange } = require("../../common/util");
+const { hasNewlineInRange } = require("../../common/util.js");
 const {
   isJsxNode,
   isBlockComment,
   getComments,
-  isChainElement,
   isCallExpression,
   isMemberExpression,
-} = require("../utils");
-const { locStart, locEnd } = require("../loc");
+} = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
 const {
   builders: {
     line,
@@ -22,11 +20,11 @@ const {
     dedent,
     breakParent,
   },
-} = require("../../document");
+} = require("../../document/index.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../../common/ast-path")} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
@@ -59,10 +57,7 @@ const {
 //     }
 //   }
 // }
-//
-// We want to traverse over that shape and convert it into a flat structure so
-// that we can find if there's a JSXElement somewhere inside.
-function getConditionalChainContents(node) {
+function conditionalExpressionChainContainsJsx(node) {
   // Given this code:
   //
   // // Using a ConditionalExpression as the consequent is uncommon, but should
@@ -89,41 +84,25 @@ function getConditionalChainContents(node) {
   //   }
   // }
   //
-  // we should return this Array:
-  //
-  // [
-  //   Identifier(A),
-  //   Identifier(B),
-  //   Identifier(C),
-  //   Identifier(D),
-  //   Identifier(E),
-  //   Identifier(F),
-  //   Identifier(G),
-  //   Identifier(H),
-  //   Identifier(I)
-  // ];
-  //
-  // This loses the information about whether each node was the test,
-  // consequent, or alternate, but we don't care about that here- we are only
-  // flattening this structure to find if there's any JSXElements inside.
-  const nonConditionalExpressions = [];
+  // We don't care about whether each node was the test, consequent, or alternate
+  // We are only checking if there's any JSXElements inside.
+  const conditionalExpressions = [node];
+  for (let index = 0; index < conditionalExpressions.length; index++) {
+    const conditionalExpression = conditionalExpressions[index];
+    for (const property of ["test", "consequent", "alternate"]) {
+      const node = conditionalExpression[property];
 
-  function recurse(node) {
-    if (node.type === "ConditionalExpression") {
-      recurse(node.test);
-      recurse(node.consequent);
-      recurse(node.alternate);
-    } else {
-      nonConditionalExpressions.push(node);
+      if (isJsxNode(node)) {
+        return true;
+      }
+
+      if (node.type === "ConditionalExpression") {
+        conditionalExpressions.push(node);
+      }
     }
   }
-  recurse(node);
 
-  return nonConditionalExpressions;
-}
-
-function conditionalExpressionChainContainsJsx(node) {
-  return getConditionalChainContents(node).some(isJsxNode);
+  return false;
 }
 
 function printTernaryTest(path, options, print) {
@@ -136,14 +115,8 @@ function printTernaryTest(path, options, print) {
   const parent = path.getParentNode();
 
   const printed = isConditionalExpression
-    ? path.call(print, "test")
-    : [
-        path.call(print, "checkType"),
-        " ",
-        "extends",
-        " ",
-        path.call(print, "extendsType"),
-      ];
+    ? print("test")
+    : [print("checkType"), " ", "extends", " ", print("extendsType")];
   /**
    *     a
    *       ? b
@@ -174,47 +147,46 @@ function shouldExtraIndentForConditionalExpression(path) {
     return false;
   }
 
-  let ancestorCount = 1;
-  let ancestor = path.getParentNode(ancestorCount);
-  if (!ancestor) {
+  let parent;
+  let child = node;
+  for (let ancestorCount = 0; !parent; ancestorCount++) {
+    const node = path.getParentNode(ancestorCount);
+
+    if (
+      (isCallExpression(node) && node.callee === child) ||
+      (isMemberExpression(node) && node.object === child) ||
+      (node.type === "TSNonNullExpression" && node.expression === child)
+    ) {
+      child = node;
+      continue;
+    }
+
+    // Reached chain root
+
+    if (
+      (node.type === "NewExpression" && node.callee === child) ||
+      (node.type === "TSAsExpression" && node.expression === child)
+    ) {
+      parent = path.getParentNode(ancestorCount + 1);
+      child = node;
+    } else {
+      parent = node;
+    }
+  }
+
+  // Do not add indent to direct `ConditionalExpression`
+  if (child === node) {
     return false;
   }
-  while (isChainElement(ancestor)) {
-    ancestor = path.getParentNode(++ancestorCount);
-  }
-  const checkAncestor = (node) => {
-    const name = ancestorNameMap.get(ancestor.type);
-    return ancestor[name] === node;
-  };
 
-  const parent = path.getParentNode();
-  const name = path.getName();
-
-  if (
-    ((name === "callee" && parent.type === "NewExpression") ||
-      (name === "expression" && parent.type === "TSAsExpression")) &&
-    checkAncestor(parent)
-  ) {
-    return true;
-  }
-
-  if (
-    ((name === "callee" && isCallExpression(parent)) ||
-      (name === "object" && isMemberExpression(parent)) ||
-      (name === "expression" && parent.type === "TSNonNullExpression")) &&
-    checkAncestor(path.getParentNode(ancestorCount - 1))
-  ) {
-    return true;
-  }
-
-  return false;
+  return parent[ancestorNameMap.get(parent.type)] === child;
 }
 
 /**
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression
  * and TSConditionalType
- * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
+ * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
  * @returns {Doc}
@@ -236,7 +208,7 @@ function printTernary(path, options, print) {
   const parts = [];
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
-  // See tests/jsx/conditional-expression.js for more info.
+  // See `tests/format/jsx/conditional-expression.js` for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
   const isParentTest =
@@ -296,12 +268,12 @@ function printTernary(path, options, print) {
     parts.push(
       " ? ",
       isNil(consequentNode)
-        ? path.call(print, consequentNodePropertyName)
-        : wrap(path.call(print, consequentNodePropertyName)),
+        ? print(consequentNodePropertyName)
+        : wrap(print(consequentNodePropertyName)),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
-        ? path.call(print, alternateNodePropertyName)
-        : wrap(path.call(print, alternateNodePropertyName))
+        ? print(alternateNodePropertyName)
+        : wrap(print(alternateNodePropertyName))
     );
   } else {
     // normal mode
@@ -309,13 +281,13 @@ function printTernary(path, options, print) {
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      align(2, path.call(print, consequentNodePropertyName)),
+      align(2, print(consequentNodePropertyName)),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
       alternateNode.type === node.type
-        ? path.call(print, alternateNodePropertyName)
-        : align(2, path.call(print, alternateNodePropertyName)),
+        ? print(alternateNodePropertyName)
+        : align(2, print(alternateNodePropertyName)),
     ];
     parts.push(
       parent.type !== node.type ||
@@ -331,13 +303,13 @@ function printTernary(path, options, print) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
-  const comments = flat([
+  const comments = [
     ...testNodePropertyNames.map((propertyName) =>
       getComments(node[propertyName])
     ),
     getComments(consequentNode),
     getComments(alternateNode),
-  ]);
+  ].flat();
   const shouldBreak = comments.some(
     (comment) =>
       isBlockComment(comment) &&

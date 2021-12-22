@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -23,8 +23,7 @@ function locStart(node, opts) {
 }
 
 function locEnd(node) {
-  const end = node.range ? node.range[1] : node.end;
-  return node.typeAnnotation ? Math.max(end, locEnd(node.typeAnnotation)) : end;
+  return node.range ? node.range[1] : node.end;
 }
 
 /**
@@ -33,7 +32,8 @@ function locEnd(node) {
  * @returns {boolean}
  */
 function hasSameLocStart(nodeA, nodeB) {
-  return locStart(nodeA) === locStart(nodeB);
+  const nodeAStart = locStart(nodeA);
+  return Number.isInteger(nodeAStart) && nodeAStart === locStart(nodeB);
 }
 
 /**
@@ -42,7 +42,8 @@ function hasSameLocStart(nodeA, nodeB) {
  * @returns {boolean}
  */
 function hasSameLocEnd(nodeA, nodeB) {
-  return locEnd(nodeA) === locEnd(nodeB);
+  const nodeAEnd = locEnd(nodeA);
+  return Number.isInteger(nodeAEnd) && nodeAEnd === locEnd(nodeB);
 }
 
 /**

@@ -1,0 +1,6 @@
+"""Schema definition description"""
+schema {
+  query: Root
+  mutation: Mutation
+  subscription: Subscription
+}

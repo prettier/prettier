@@ -2,8 +2,8 @@
 
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
-const getLast = require("../utils/get-last");
-const { getSupportInfo } = require("../main/support");
+const getLast = require("../utils/get-last.js");
+const { getSupportInfo } = require("../main/support.js");
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -278,7 +278,7 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
  */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
-    // @ts-ignore => TBD: can return false, should we define a fallback?
+    // @ts-expect-error => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
@@ -343,24 +343,21 @@ function getIndentSize(value, tabWidth) {
 
 /**
  *
- * @param {string} raw
+ * @param {string} rawContent
  * @param {Quote} preferredQuote
- * @returns {Quote}
+ * @returns {{ quote: Quote, regex: RegExp, escaped: string }}
  */
-function getPreferredQuote(raw, preferredQuote) {
-  // `rawContent` is the string exactly like it appeared in the input source
-  // code, without its enclosing quotes.
-  const rawContent = raw.slice(1, -1);
 
-  /** @type {{ quote: '"', regex: RegExp }} */
-  const double = { quote: '"', regex: /"/g };
-  /** @type {{ quote: "'", regex: RegExp }} */
-  const single = { quote: "'", regex: /'/g };
+function getPreferredQuote(rawContent, preferredQuote) {
+  /** @type {{ quote: '"', regex: RegExp, escaped: "&quot;" }} */
+  const double = { quote: '"', regex: /"/g, escaped: "&quot;" };
+  /** @type {{ quote: "'", regex: RegExp, escaped: "&apos;" }} */
+  const single = { quote: "'", regex: /'/g, escaped: "&apos;" };
 
   const preferred = preferredQuote === "'" ? single : double;
   const alternate = preferred === single ? double : single;
 
-  let result = preferred.quote;
+  let result = preferred;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -372,43 +369,27 @@ function getPreferredQuote(raw, preferredQuote) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
-    result =
-      numPreferredQuotes > numAlternateQuotes
-        ? alternate.quote
-        : preferred.quote;
+    result = numPreferredQuotes > numAlternateQuotes ? alternate : preferred;
   }
 
   return result;
 }
 
-function printString(raw, options, isDirectiveLiteral) {
+function printString(raw, options) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
 
-  // Check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
-  const canChangeDirectiveQuotes =
-    !rawContent.includes('"') && !rawContent.includes("'");
-
   /** @type {Quote} */
   const enclosingQuote =
-    options.parser === "json"
+    options.parser === "json" ||
+    (options.parser === "json5" &&
+      options.quoteProps === "preserve" &&
+      !options.singleQuote)
       ? '"'
       : options.__isInHtmlAttribute
       ? "'"
-      : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  if (isDirectiveLiteral) {
-    if (canChangeDirectiveQuotes) {
-      return enclosingQuote + rawContent + enclosingQuote;
-    }
-    return raw;
-  }
+      : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"').quote;
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
@@ -421,7 +402,7 @@ function printString(raw, options, isDirectiveLiteral) {
       options.parser === "css" ||
       options.parser === "less" ||
       options.parser === "scss" ||
-      options.embeddedInHtml
+      options.__embeddedInHtml
     )
   );
 }
@@ -436,7 +417,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
-  const regex = /\\([\S\s])|(["'])/g;
+  const regex = /\\(.)|(["'])/gs;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
@@ -581,17 +562,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function replaceEndOfLineWith(text, replacement) {
-  const parts = [];
-  for (const part of text.split("\n")) {
-    if (parts.length > 0) {
-      parts.push(replacement);
-    }
-    parts.push(part);
-  }
-  return parts;
-}
-
 function inferParserByLanguage(language, options) {
   const { languages } = getSupportInfo({ plugins: options.plugins });
   const matched =
@@ -621,6 +591,10 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
+/**
+ * @param {any} object
+ * @returns {object is Array<any>}
+ */
 function isNonEmptyArray(object) {
   return Array.isArray(object) && object.length > 0;
 }
@@ -658,7 +632,6 @@ function describeNodeForDebugging(node) {
 
 module.exports = {
   inferParserByLanguage,
-  replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,

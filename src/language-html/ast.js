@@ -1,11 +1,15 @@
 "use strict";
 
-const fromPairs = require("lodash/fromPairs");
-const { isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util.js");
+const getLast = require("../utils/get-last.js");
+
 const NODES_KEYS = {
   attrs: true,
   children: true,
 };
+
+// TODO: typechecking is problematic for this class because of this issue:
+// https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
   constructor(props = {}) {
@@ -23,7 +27,7 @@ class Node {
       this[key] = cloneAndUpdateNodes(nodes, this);
       if (key === "attrs") {
         setNonEnumerableProperties(this, {
-          attrMap: fromPairs(
+          attrMap: Object.fromEntries(
             this[key].map((attr) => [attr.fullName, attr.value])
           ),
         });
@@ -32,6 +36,7 @@ class Node {
   }
 
   map(fn) {
+    /** @type{any} */
     let newNode = null;
 
     for (const NODES_KEY in NODES_KEYS) {
@@ -53,6 +58,7 @@ class Node {
           newNode[key] = this[key];
         }
       }
+      // @ts-expect-error
       const { index, siblings, prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
         index,
@@ -66,25 +72,49 @@ class Node {
     return fn(newNode || this);
   }
 
+  walk(fn) {
+    for (const NODES_KEY in NODES_KEYS) {
+      const nodes = this[NODES_KEY];
+      if (nodes) {
+        for (let i = 0; i < nodes.length; i++) {
+          nodes[i].walk(fn);
+        }
+      }
+    }
+    fn(this);
+  }
+
+  /**
+   * @param {Object} [overrides]
+   */
   clone(overrides) {
     return new Node(overrides ? { ...this, ...overrides } : this);
   }
 
+  /**
+   * @param {Array} [children]
+   */
+  setChildren(children) {
+    this._setNodes("children", children);
+  }
+
   get firstChild() {
+    // @ts-expect-error
     return isNonEmptyArray(this.children) ? this.children[0] : null;
   }
 
   get lastChild() {
-    return isNonEmptyArray(this.children)
-      ? this.children[this.children.length - 1]
-      : null;
+    // @ts-expect-error
+    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
   // for element and attribute
   get rawName() {
+    // @ts-expect-error
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
   get fullName() {
+    // @ts-expect-error
     return this.namespace ? this.namespace + ":" + this.name : this.name;
   }
 }
@@ -122,7 +152,7 @@ function cloneAndUpdateNodes(nodes, parent) {
 }
 
 function setNonEnumerableProperties(obj, props) {
-  const descriptors = fromPairs(
+  const descriptors = Object.fromEntries(
     Object.entries(props).map(([key, value]) => [
       key,
       { value, enumerable: false },

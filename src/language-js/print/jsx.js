@@ -1,6 +1,9 @@
 "use strict";
 
-const { printComments, printDanglingComments } = require("../../main/comments");
+const {
+  printComments,
+  printDanglingComments,
+} = require("../../main/comments.js");
 const {
   builders: {
     line,
@@ -14,10 +17,10 @@ const {
     lineSuffixBoundary,
     join,
   },
-  utils: { willBreak, isLineNext, isEmpty },
-} = require("../../document");
+  utils: { willBreak },
+} = require("../../document/index.js");
 
-const { getLast, getPreferredQuote } = require("../../common/util");
+const { getLast, getPreferredQuote } = require("../../common/util.js");
 const {
   isJsxNode,
   rawText,
@@ -28,12 +31,15 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils");
-const pathNeedsParens = require("../needs-parens");
-const { willPrintOwnComments } = require("../comments");
+} = require("../utils.js");
+const pathNeedsParens = require("../needs-parens.js");
+const { willPrintOwnComments } = require("../comments.js");
+
+const isEmptyStringOrAnyLine = (doc) =>
+  doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/fast-path")} FastPath
+ * @typedef {import("../../common/ast-path")} AstPath
  * @typedef {import("../types/estree").Node} Node
  * @typedef {import("../types/estree").JSXElement} JSXElement
  */
@@ -54,29 +60,26 @@ const { willPrintOwnComments } = require("../comments");
 // To support that case properly, all leading and trailing spaces
 // are stripped from the list of children, and replaced with a single hardline.
 function printJsxElementInternal(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
 
-  if (n.type === "JSXElement" && isEmptyJsxElement(n)) {
-    return [
-      path.call(print, "openingElement"),
-      path.call(print, "closingElement"),
-    ];
+  if (node.type === "JSXElement" && isEmptyJsxElement(node)) {
+    return [print("openingElement"), print("closingElement")];
   }
 
   const openingLines =
-    n.type === "JSXElement"
-      ? path.call(print, "openingElement")
-      : path.call(print, "openingFragment");
+    node.type === "JSXElement"
+      ? print("openingElement")
+      : print("openingFragment");
   const closingLines =
-    n.type === "JSXElement"
-      ? path.call(print, "closingElement")
-      : path.call(print, "closingFragment");
+    node.type === "JSXElement"
+      ? print("closingElement")
+      : print("closingFragment");
 
   if (
-    n.children.length === 1 &&
-    n.children[0].type === "JSXExpressionContainer" &&
-    (n.children[0].expression.type === "TemplateLiteral" ||
-      n.children[0].expression.type === "TaggedTemplateExpression")
+    node.children.length === 1 &&
+    node.children[0].type === "JSXExpressionContainer" &&
+    (node.children[0].expression.type === "TemplateLiteral" ||
+      node.children[0].expression.type === "TaggedTemplateExpression")
   ) {
     return [openingLines, ...path.map(print, "children"), closingLines];
   }
@@ -84,7 +87,7 @@ function printJsxElementInternal(path, options, print) {
   // Convert `{" "}` to text nodes containing a space.
   // This makes it easy to turn them into `jsxWhitespace` which
   // can then print as either a space or `{" "}` when breaking.
-  n.children = n.children.map((child) => {
+  node.children = node.children.map((child) => {
     if (isJsxWhitespaceExpression(child)) {
       return {
         type: "JSXText",
@@ -95,12 +98,12 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = n.children.filter(isJsxNode).length > 0;
+  const containsTag = node.children.some(isJsxNode);
   const containsMultipleExpressions =
-    n.children.filter((child) => child.type === "JSXExpressionContainer")
+    node.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
   const containsMultipleAttributes =
-    n.type === "JSXElement" && n.openingElement.attributes.length > 1;
+    node.type === "JSXElement" && node.openingElement.attributes.length > 1;
 
   // Record any breaks. Should never go from true to false, only false to true.
   let forcedBreak =
@@ -117,9 +120,9 @@ function printJsxElementInternal(path, options, print) {
     : ifBreak([rawJsxWhitespace, softline], " ");
 
   const isFacebookTranslationTag =
-    n.openingElement &&
-    n.openingElement.name &&
-    n.openingElement.name.name === "fbt";
+    node.openingElement &&
+    node.openingElement.name &&
+    node.openingElement.name.name === "fbt";
 
   const children = printJsxChildren(
     path,
@@ -129,7 +132,9 @@ function printJsxElementInternal(path, options, print) {
     isFacebookTranslationTag
   );
 
-  const containsText = n.children.some((child) => isMeaningfulJsxText(child));
+  const containsText = node.children.some((child) =>
+    isMeaningfulJsxText(child)
+  );
 
   // We can end up we multiple whitespace elements with empty string
   // content between them.
@@ -175,18 +180,15 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (
-    children.length > 0 &&
-    (isLineNext(getLast(children)) || isEmpty(getLast(children)))
-  ) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
     children.pop();
   }
 
   // Trim leading lines (or empty strings)
   while (
-    children.length > 0 &&
-    (isLineNext(children[0]) || isEmpty(children[0])) &&
-    (isLineNext(children[1]) || isEmpty(children[1]))
+    children.length > 1 &&
+    isEmptyStringOrAnyLine(children[0]) &&
+    isEmptyStringOrAnyLine(children[1])
   ) {
     children.shift();
     children.shift();
@@ -358,7 +360,7 @@ function printJsxChildren(
         parts.push("", jsxWhitespace);
       }
     } else {
-      const printedChild = print(childPath);
+      const printedChild = print();
       parts.push(printedChild);
 
       const next = children[i + 1];
@@ -469,25 +471,28 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 }
 
 function printJsxAttribute(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
-  parts.push(path.call(print, "name"));
+  parts.push(print("name"));
 
-  if (n.value) {
+  if (node.value) {
     let res;
-    if (isStringLiteral(n.value)) {
-      const raw = rawText(n.value);
-      // Unescape all quotes so we get an accurate preferred quote
-      let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-      const quote = getPreferredQuote(
+    if (isStringLiteral(node.value)) {
+      const raw = rawText(node.value);
+      // Remove enclosing quotes and unescape
+      // all quotes so we get an accurate preferred quote
+      let final = raw
+        .slice(1, -1)
+        .replace(/&apos;/g, "'")
+        .replace(/&quot;/g, '"');
+      const { escaped, quote, regex } = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'
       );
-      const escape = quote === "'" ? "&apos;" : "&quot;";
-      final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
+      final = final.replace(regex, escaped);
       res = [quote, final, quote];
     } else {
-      res = path.call(print, "value");
+      res = print("value");
     }
     parts.push("=", res);
   }
@@ -496,36 +501,31 @@ function printJsxAttribute(path, options, print) {
 }
 
 function printJsxExpressionContainer(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parent = path.getParentNode(0);
 
   const shouldInline =
-    n.expression.type === "JSXEmptyExpression" ||
-    (!hasComment(n.expression) &&
-      (n.expression.type === "ArrayExpression" ||
-        n.expression.type === "ObjectExpression" ||
-        n.expression.type === "ArrowFunctionExpression" ||
-        isCallExpression(n.expression) ||
-        n.expression.type === "FunctionExpression" ||
-        n.expression.type === "TemplateLiteral" ||
-        n.expression.type === "TaggedTemplateExpression" ||
-        n.expression.type === "DoExpression" ||
+    node.expression.type === "JSXEmptyExpression" ||
+    (!hasComment(node.expression) &&
+      (node.expression.type === "ArrayExpression" ||
+        node.expression.type === "ObjectExpression" ||
+        node.expression.type === "ArrowFunctionExpression" ||
+        isCallExpression(node.expression) ||
+        node.expression.type === "FunctionExpression" ||
+        node.expression.type === "TemplateLiteral" ||
+        node.expression.type === "TaggedTemplateExpression" ||
+        node.expression.type === "DoExpression" ||
         (isJsxNode(parent) &&
-          (n.expression.type === "ConditionalExpression" ||
-            isBinaryish(n.expression)))));
+          (node.expression.type === "ConditionalExpression" ||
+            isBinaryish(node.expression)))));
 
   if (shouldInline) {
-    return group([
-      "{",
-      path.call(print, "expression"),
-      lineSuffixBoundary,
-      "}",
-    ]);
+    return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 
   return group([
     "{",
-    indent([softline, path.call(print, "expression")]),
+    indent([softline, print("expression")]),
     softline,
     lineSuffixBoundary,
     "}",
@@ -533,29 +533,24 @@ function printJsxExpressionContainer(path, options, print) {
 }
 
 function printJsxOpeningElement(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
 
   const nameHasComments =
-    (n.name && hasComment(n.name)) ||
-    (n.typeParameters && hasComment(n.typeParameters));
+    (node.name && hasComment(node.name)) ||
+    (node.typeParameters && hasComment(node.typeParameters));
 
   // Don't break self-closing elements with no attributes and no comments
-  if (n.selfClosing && n.attributes.length === 0 && !nameHasComments) {
-    return [
-      "<",
-      path.call(print, "name"),
-      path.call(print, "typeParameters"),
-      " />",
-    ];
+  if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
+    return ["<", print("name"), print("typeParameters"), " />"];
   }
 
   // don't break up opening elements with a single long text attribute
   if (
-    n.attributes &&
-    n.attributes.length === 1 &&
-    n.attributes[0].value &&
-    isStringLiteral(n.attributes[0].value) &&
-    !n.attributes[0].value.value.includes("\n") &&
+    node.attributes &&
+    node.attributes.length === 1 &&
+    node.attributes[0].value &&
+    isStringLiteral(node.attributes[0].value) &&
+    !node.attributes[0].value.value.includes("\n") &&
     // We should break for the following cases:
     // <div
     //   // comment
@@ -566,27 +561,29 @@ function printJsxOpeningElement(path, options, print) {
     //   // comment
     // >
     !nameHasComments &&
-    !hasComment(n.attributes[0])
+    !hasComment(node.attributes[0])
   ) {
     return group([
       "<",
-      path.call(print, "name"),
-      path.call(print, "typeParameters"),
+      print("name"),
+      print("typeParameters"),
       " ",
       ...path.map(print, "attributes"),
-      n.selfClosing ? " />" : ">",
+      node.selfClosing ? " />" : ">",
     ]);
   }
 
   const lastAttrHasTrailingComments =
-    n.attributes.length > 0 &&
-    hasComment(getLast(n.attributes), CommentCheckFlags.Trailing);
+    node.attributes.length > 0 &&
+    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
-    // kept unbroken regardless of `jsxBracketSameLine`
-    (n.attributes.length === 0 && !nameHasComments) ||
-    (options.jsxBracketSameLine &&
+    // kept unbroken regardless of `bracketSameLine`.
+    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
+    // but is still needed for backwards compatibility.
+    (node.attributes.length === 0 && !nameHasComments) ||
+    ((options.bracketSameLine || options.jsxBracketSameLine) &&
       // We should print the bracket in a new line for the following cases:
       // <div
       //   // comment
@@ -594,45 +591,51 @@ function printJsxOpeningElement(path, options, print) {
       // <div
       //   attr // comment
       // >
-      (!nameHasComments || n.attributes.length > 0) &&
+      (!nameHasComments || node.attributes.length > 0) &&
       !lastAttrHasTrailingComments);
 
   // We should print the opening element expanded if any prop value is a
   // string literal with newlines
   const shouldBreak =
-    n.attributes &&
-    n.attributes.some(
+    node.attributes &&
+    node.attributes.some(
       (attr) =>
         attr.value &&
         isStringLiteral(attr.value) &&
         attr.value.value.includes("\n")
     );
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attributes.length > 1
+      ? hardline
+      : line;
+
   return group(
     [
       "<",
-      path.call(print, "name"),
-      path.call(print, "typeParameters"),
-
-      indent(path.map((attr) => [line, print(attr)], "attributes")),
-      n.selfClosing ? line : bracketSameLine ? ">" : softline,
-      n.selfClosing ? "/>" : bracketSameLine ? "" : ">",
+      print("name"),
+      print("typeParameters"),
+      indent(path.map(() => [attributeLine, print()], "attributes")),
+      node.selfClosing ? line : bracketSameLine ? ">" : softline,
+      node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],
     { shouldBreak }
   );
 }
 
 function printJsxClosingElement(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   const parts = [];
 
   parts.push("</");
 
-  const printed = path.call(print, "name");
-  if (hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)) {
+  const printed = print("name");
+  if (
+    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)
+  ) {
     parts.push(indent([hardline, printed]), hardline);
   } else if (
-    hasComment(n.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
+    hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Block)
   ) {
     parts.push(" ", printed);
   } else {
@@ -645,10 +648,10 @@ function printJsxClosingElement(path, options, print) {
 }
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
-  const n = path.getValue();
-  const nodeHasComment = hasComment(n);
-  const hasOwnLineComment = hasComment(n, CommentCheckFlags.Line);
-  const isOpeningFragment = n.type === "JSXOpeningFragment";
+  const node = path.getValue();
+  const nodeHasComment = hasComment(node);
+  const hasOwnLineComment = hasComment(node, CommentCheckFlags.Line);
+  const isOpeningFragment = node.type === "JSXOpeningFragment";
   return [
     isOpeningFragment ? "<" : "</",
     indent([
@@ -667,15 +670,15 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
 function printJsxElement(path, options, print) {
   const elem = printComments(
     path,
-    () => printJsxElementInternal(path, options, print),
+    printJsxElementInternal(path, options, print),
     options
   );
   return maybeWrapJsxElementInParens(path, elem, options);
 }
 
 function printJsxEmptyExpression(path, options /*, print*/) {
-  const n = path.getValue();
-  const requiresHardline = hasComment(n, CommentCheckFlags.Line);
+  const node = path.getValue();
+  const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
   return [
     printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
@@ -685,44 +688,44 @@ function printJsxEmptyExpression(path, options /*, print*/) {
 
 // `JSXSpreadAttribute` and `JSXSpreadChild`
 function printJsxSpreadAttribute(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
   return [
     "{",
     path.call(
       (p) => {
-        const printed = ["...", print(p)];
-        const n = p.getValue();
-        if (!hasComment(n) || !willPrintOwnComments(p)) {
+        const printed = ["...", print()];
+        const node = p.getValue();
+        if (!hasComment(node) || !willPrintOwnComments(p)) {
           return printed;
         }
         return [
-          indent([softline, printComments(p, () => printed, options)]),
+          indent([softline, printComments(p, printed, options)]),
           softline,
         ];
       },
-      n.type === "JSXSpreadAttribute" ? "argument" : "expression"
+      node.type === "JSXSpreadAttribute" ? "argument" : "expression"
     ),
     "}",
   ];
 }
 
 function printJsx(path, options, print) {
-  const n = path.getValue();
-  switch (n.type) {
+  const node = path.getValue();
+
+  // JSX nodes always starts with `JSX`
+  if (!node.type.startsWith("JSX")) {
+    return;
+  }
+
+  switch (node.type) {
     case "JSXAttribute":
       return printJsxAttribute(path, options, print);
     case "JSXIdentifier":
-      return String(n.name);
+      return String(node.name);
     case "JSXNamespacedName":
-      return join(":", [
-        path.call(print, "namespace"),
-        path.call(print, "name"),
-      ]);
+      return join(":", [print("namespace"), print("name")]);
     case "JSXMemberExpression":
-      return join(".", [
-        path.call(print, "object"),
-        path.call(print, "property"),
-      ]);
+      return join(".", [print("object"), print("property")]);
     case "JSXSpreadAttribute":
       return printJsxSpreadAttribute(path, options, print);
     case "JSXSpreadChild": {
@@ -747,6 +750,9 @@ function printJsx(path, options, print) {
     case "JSXText":
       /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
+    default:
+      /* istanbul ignore next */
+      throw new Error(`Unknown JSX node type: ${JSON.stringify(node.type)}.`);
   }
 }
 
@@ -812,7 +818,7 @@ function isJsxWhitespaceExpression(node) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function hasJsxIgnoreComment(path) {

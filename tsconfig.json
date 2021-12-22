@@ -7,7 +7,8 @@
     "module": "commonjs",
     "resolveJsonModule": true,
     // TBD it is desired to enabled strict type checking at some point:
-    "strict": false
+    "strict": false,
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "exclude": [
     "coverage/",
@@ -21,21 +22,19 @@
     "src/common/get-file-info.js",
     "src/main/multiparser.js",
     "src/main/options.js",
-    // [TBD] src/language-* source directory trees with known JSDoc type issues:
-    "src/language-html",
-    // [TBD] JavaScript sources affected by JSDoc issues in src/language-*:
-    "src/common/load-plugins.js",
     "src/cli/index.js",
     "src/cli/expand-patterns.js",
-    "src/cli/core.js",
+    "src/cli/file-info.js",
+    "src/cli/find-config-path.js",
     "src/cli/context.js",
     "src/cli/format.js",
-    "src/cli/option-map.js",
-    "src/cli/option.js",
+    "src/cli/options/get-context-options.js",
+    "src/cli/options/get-options-for-file.js",
+    "src/cli/options/option-map.js",
+    "src/cli/options/parse-cli-arguments.js",
     "src/cli/usage.js",
     "src/cli/constant.js",
     "src/cli/prettier-internal.js",
-    "src/languages.js",
     // [TBD] top-level JavaScript sources affected by JSDoc issues
     // in other sources:
     "src/index.js",
@@ -47,8 +46,7 @@
     "docs/",
     "scripts/",
     "tests/",
-    "tests_config/",
-    "tests_integration/",
-    "website/"
+    "website/",
+    "types/"
   ]
 }

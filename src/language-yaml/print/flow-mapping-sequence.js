@@ -2,9 +2,9 @@
 
 const {
   builders: { ifBreak, line, softline, hardline, join },
-} = require("../../document");
-const { isEmptyNode, getLast, hasEndComments } = require("../utils");
-const { printNextEmptyLine, alignWithSpaces } = require("./misc");
+} = require("../../document/index.js");
+const { isEmptyNode, getLast, hasEndComments } = require("../utils.js");
+const { printNextEmptyLine, alignWithSpaces } = require("./misc.js");
 
 function printFlowMapping(path, print, options) {
   const node = path.getValue();
@@ -43,7 +43,7 @@ function printChildren(path, print, options) {
   const node = path.getValue();
   const parts = path.map(
     (childPath, index) => [
-      print(childPath),
+      print(),
       index === node.children.length - 1
         ? ""
         : [

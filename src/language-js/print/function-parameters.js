@@ -1,11 +1,11 @@
 "use strict";
 
-const { getNextNonSpaceNonCommentCharacter } = require("../../common/util");
-const { printDanglingComments } = require("../../main/comments");
+const { getNextNonSpaceNonCommentCharacter } = require("../../common/util.js");
+const { printDanglingComments } = require("../../main/comments.js");
 const {
   builders: { line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines },
-} = require("../../document");
+  utils: { removeLines, willBreak },
+} = require("../../document/index.js");
 const {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -18,9 +18,10 @@ const {
   shouldPrintComma,
   hasComment,
   isNextLineEmpty,
-} = require("../utils");
-const { locEnd } = require("../loc");
-const { printFunctionTypeParameters } = require("./misc");
+} = require("../utils.js");
+const { locEnd } = require("../loc.js");
+const { ArgExpansionBailout } = require("../../common/errors.js");
+const { printFunctionTypeParameters } = require("./misc.js");
 
 function printFunctionParameters(
   path,
@@ -57,24 +58,18 @@ function printFunctionParameters(
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugFunctionParameters(functionNode);
-  const shouldExpandParameters =
-    expandArg && !parameters.some((node) => hasComment(node));
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
     if (isLastParameter && functionNode.rest) {
       printed.push("...");
     }
-    printed.push(parameterPath.call(print));
+    printed.push(print());
     if (isLastParameter) {
       return;
     }
     printed.push(",");
-    if (
-      isParametersInTestCall ||
-      shouldHugParameters ||
-      shouldExpandParameters
-    ) {
+    if (isParametersInTestCall || shouldHugParameters) {
       printed.push(" ");
     } else if (isNextLineEmpty(parameters[index], options)) {
       printed.push(hardline, hardline);
@@ -91,15 +86,14 @@ function printFunctionParameters(
   //   verylongcall(         verylongcall((
   //     (a, b) => {           a,
   //     }                     b,
-  //   })                    ) => {
+  //   )                     ) => {
   //                         })
-  if (shouldExpandParameters) {
-    return group([
-      removeLines(typeParams),
-      "(",
-      ...printed.map(removeLines),
-      ")",
-    ]);
+  if (expandArg) {
+    if (willBreak(typeParams) || willBreak(printed)) {
+      // Removing lines in this case leads to broken or ugly output
+      throw new ArgExpansionBailout();
+    }
+    return group([removeLines(typeParams), "(", removeLines(printed), ")"]);
   }
 
   // Single object destructuring should hug
@@ -189,4 +183,48 @@ function shouldHugFunctionParameters(node) {
   );
 }
 
-module.exports = { printFunctionParameters, shouldHugFunctionParameters };
+function getReturnTypeNode(functionNode) {
+  let returnTypeNode;
+  if (functionNode.returnType) {
+    returnTypeNode = functionNode.returnType;
+    if (returnTypeNode.typeAnnotation) {
+      returnTypeNode = returnTypeNode.typeAnnotation;
+    }
+  } else if (functionNode.typeAnnotation) {
+    returnTypeNode = functionNode.typeAnnotation;
+  }
+  return returnTypeNode;
+}
+
+// When parameters are grouped, the return type annotation breaks first.
+function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
+  const returnTypeNode = getReturnTypeNode(functionNode);
+  if (!returnTypeNode) {
+    return false;
+  }
+
+  const typeParameters =
+    functionNode.typeParameters && functionNode.typeParameters.params;
+  if (typeParameters) {
+    if (typeParameters.length > 1) {
+      return false;
+    }
+    if (typeParameters.length === 1) {
+      const typeParameter = typeParameters[0];
+      if (typeParameter.constraint || typeParameter.default) {
+        return false;
+      }
+    }
+  }
+
+  return (
+    getFunctionParameters(functionNode).length === 1 &&
+    (isObjectType(returnTypeNode) || willBreak(returnTypeDoc))
+  );
+}
+
+module.exports = {
+  printFunctionParameters,
+  shouldHugFunctionParameters,
+  shouldGroupFunctionParameters,
+};

@@ -1,8 +1,9 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const { parse: parseFrontMatter } = require("../utils/front-matter");
-const { hasPragma } = require("./pragma");
+const createError = require("../common/parser-create-error.js");
+const getLast = require("../utils/get-last.js");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
+const { hasPragma } = require("./pragma.js");
 const {
   hasSCSSInterpolation,
   hasStringOrFunction,
@@ -11,9 +12,10 @@ const {
   isSCSSNestedPropertyNode,
   isSCSSVariable,
   stringifyNode,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
-const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
+  isModuleRuleName,
+} = require("./utils.js");
+const { locStart, locEnd } = require("./loc.js");
+const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -45,7 +47,7 @@ function parseValueNode(valueNode, options) {
       isSCSS(options.parser, node.value) &&
       node.type === "number" &&
       node.unit === ".." &&
-      node.value[node.value.length - 1] === "."
+      getLast(node.value) === "."
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
@@ -116,11 +118,11 @@ function parseValueNode(valueNode, options) {
       }
 
       commaGroupStack.pop();
-      commaGroup = commaGroupStack[commaGroupStack.length - 1];
+      commaGroup = getLast(commaGroupStack);
       commaGroup.groups.push(parenGroup);
 
       parenGroupStack.pop();
-      parenGroup = parenGroupStack[parenGroupStack.length - 1];
+      parenGroup = getLast(parenGroupStack);
     } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
@@ -213,7 +215,7 @@ function parseValue(value, options) {
 
   try {
     result = valueParser(value, { loose: true }).parse();
-  } catch (e) {
+  } catch {
     return {
       type: "value-unknown",
       value,
@@ -247,7 +249,7 @@ function parseSelector(selector) {
     selectorParser((result_) => {
       result = result_;
     }).process(selector);
-  } catch (e) {
+  } catch {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:
     // none { color: red; }` is parsed as a NestedDeclaration by
@@ -270,7 +272,7 @@ function parseMediaQuery(params) {
 
   try {
     result = mediaParser(params);
-  } catch (e) {
+  } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
     return {
@@ -282,8 +284,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -453,7 +455,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim()
@@ -476,7 +478,7 @@ function parseNestedCSS(node, options) {
 
         // `@color :blue;`
         if (
-          !["page", "nest"].includes(node.name) &&
+          !["page", "nest", "keyframes"].includes(node.name) &&
           node.params &&
           node.params[0] === ":"
         ) {
@@ -514,7 +516,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
+        if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -524,7 +526,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (lowercasedName === "import") {
+      if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
         node.params = parseValue(params, options);
@@ -550,9 +552,11 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
+        // Move spaces after the `...`, so we can keep the range correct
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        // Move spaces after the `(`, so we can keep the range correct
+        params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -617,7 +621,7 @@ function parseWithParser(parse, text, options) {
 }
 
 // TODO: make this only work on css
-function parseCss(text, parsers, options) {
+function parseCss(text, parsers, options = {}) {
   const isSCSSParser = isSCSS(options.parser, text);
   const parseFunctions = isSCSSParser
     ? [parseScss, parseLess]
@@ -638,7 +642,7 @@ function parseCss(text, parsers, options) {
   }
 }
 
-function parseLess(text, parsers, options) {
+function parseLess(text, parsers, options = {}) {
   const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
@@ -649,7 +653,7 @@ function parseLess(text, parsers, options) {
   );
 }
 
-function parseScss(text, parsers, options) {
+function parseScss(text, parsers, options = {}) {
   const { parse } = require("postcss-scss");
   return parseWithParser(parse, text, options);
 }

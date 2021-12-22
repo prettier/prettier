@@ -1,7 +1,7 @@
 "use strict";
 
 const { outdent } = require("outdent");
-const { coreOptions } = require("./prettier-internal");
+const { coreOptions } = require("./prettier-internal.js");
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,
@@ -133,6 +133,9 @@ const options = {
     type: "boolean",
   },
   "debug-print-comments": {
+    type: "boolean",
+  },
+  "debug-print-ast": {
     type: "boolean",
   },
   "debug-repeat": {

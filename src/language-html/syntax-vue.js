@@ -2,7 +2,7 @@
 
 const {
   builders: { group },
-} = require("../document");
+} = require("../document/index.js");
 
 /**
  *     v-for="... in ..."
@@ -32,7 +32,7 @@ function printVueFor(value, textToDoc) {
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueFor(value) {
-  const forAliasRE = /([^]*?)\s+(in|of)\s+([^]*)/;
+  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
   const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
   const stripParensRE = /^\(|\)$/g;
 
@@ -64,22 +64,19 @@ function parseVueFor(value) {
 }
 
 function printVueBindings(value, textToDoc) {
-  return textToDoc(
-    `function _(${value}) {}`,
-    {
-      parser: "babel",
-      __isVueBindings: true,
-    },
-    { stripTrailingHardline: true }
-  );
+  return textToDoc(`function _(${value}) {}`, {
+    parser: "babel",
+    __isVueBindings: true,
+  });
 }
 
 function isVueEventBindingExpression(eventBindingValue) {
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
   // arrow function or anonymous function
-  const fnExpRE = /^([\w$]+|\([^)]*?\))\s*=>|^function\s*\(/;
+  const fnExpRE = /^(?:[\w$]+|\([^)]*\))\s*=>|^function\s*\(/;
   // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
-  const simplePathRE = /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
+  const simplePathRE =
+    /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*']|\["[^"]*"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
 
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
   const value = eventBindingValue.trim();

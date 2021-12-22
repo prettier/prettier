@@ -13,8 +13,7 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url:
-        "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/directly-loc-start-end.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/directly-loc-start-end.js",
     },
     messages: {
       [MESSAGE_ID]:

@@ -4,12 +4,12 @@ const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const {
   getLast,
   hasNewline,
-  hasNewlineInRange,
   skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
-} = require("../common/util");
-const { locStart, locEnd, hasSameLocStart } = require("./loc");
+  getStringWidth,
+} = require("../common/util.js");
+const { locStart, locEnd, hasSameLocStart } = require("./loc.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -25,7 +25,7 @@ const { locStart, locEnd, hasSameLocStart } = require("./loc");
  * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
  * @typedef {import("./types/estree").Literal} Literal
  *
- * @typedef {import("../common/fast-path")} FastPath
+ * @typedef {import("../common/ast-path")} AstPath
  */
 
 // We match any whitespace except line terminators because
@@ -54,7 +54,7 @@ function hasFlowShorthandAnnotationComment(node) {
   return (
     node.extra &&
     node.extra.parenthesized &&
-    node.trailingComments &&
+    isNonEmptyArray(node.trailingComments) &&
     isBlockComment(node.trailingComments[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
@@ -66,7 +66,7 @@ function hasFlowShorthandAnnotationComment(node) {
  */
 function hasFlowAnnotationComment(comments) {
   return (
-    comments &&
+    isNonEmptyArray(comments) &&
     isBlockComment(comments[0]) &&
     FLOW_ANNOTATION.test(comments[0].value)
   );
@@ -201,7 +201,7 @@ function isExportDeclaration(node) {
 }
 
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {Node | null}
  */
 function getParentExportDeclaration(path) {
@@ -269,7 +269,11 @@ function isStringLiteral(node) {
  * @returns {boolean}
  */
 function isObjectType(node) {
-  return node.type === "ObjectTypeAnnotation" || node.type === "TSTypeLiteral";
+  return (
+    node.type === "ObjectTypeAnnotation" ||
+    node.type === "TSTypeLiteral" ||
+    node.type === "TSMappedType"
+  );
 }
 
 /**
@@ -304,7 +308,10 @@ function isTemplateLiteral(node) {
 }
 
 /**
- * Note: `inject` is used in AngularJS 1.x, `async` in Angular 2+
+ * Note: `inject` is used in AngularJS 1.x, `async` and `fakeAsync` in
+ * Angular 2+, although `async` is deprecated and replaced by `waitForAsync`
+ * since Angular 12.
+ *
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
  * @param {CallExpression} node
@@ -314,9 +321,7 @@ function isAngularTestWrapper(node) {
   return (
     isCallExpression(node) &&
     node.callee.type === "Identifier" &&
-    (node.callee.name === "async" ||
-      node.callee.name === "inject" ||
-      node.callee.name === "fakeAsync")
+    ["async", "inject", "fakeAsync", "waitForAsync"].includes(node.callee.name)
   );
 }
 
@@ -342,22 +347,6 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
   const parent = path.getParentNode();
 
   return parent.type === "Program" && parent.body.length === 1;
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isMemberExpressionChain(node) {
-  if (!isMemberExpression(node)) {
-    return false;
-  }
-  // @ts-ignore
-  if (node.object.type === "Identifier") {
-    return true;
-  }
-  // @ts-ignore
-  return isMemberExpressionChain(node.object);
 }
 
 function isGetterOrSetter(node) {
@@ -492,7 +481,7 @@ function isSimpleType(node) {
   return false;
 }
 
-const unitTestRe = /^(skip|[fx]?(it|describe|test))$/;
+const unitTestRe = /^(?:skip|[fx]?(?:it|describe|test))$/;
 
 /**
  * @param {{callee: MemberExpression | OptionalMemberExpression}} node
@@ -514,7 +503,7 @@ function isSkipOrOnlyBlock(node) {
  * @returns {boolean}
  */
 function isUnitTestSetUp(node) {
-  const unitTestSetUpRe = /^(before|after)(Each|All)$/;
+  const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
     unitTestSetUpRe.test(node.callee.name) &&
@@ -523,34 +512,36 @@ function isUnitTestSetUp(node) {
 }
 
 // eg; `describe("some string", (done) => {})`
-function isTestCall(n, parent) {
-  if (n.type !== "CallExpression") {
+function isTestCall(node, parent) {
+  if (node.type !== "CallExpression") {
     return false;
   }
-  if (n.arguments.length === 1) {
-    if (isAngularTestWrapper(n) && parent && isTestCall(parent)) {
-      return isFunctionOrArrowExpression(n.arguments[0]);
+  if (node.arguments.length === 1) {
+    if (isAngularTestWrapper(node) && parent && isTestCall(parent)) {
+      return isFunctionOrArrowExpression(node.arguments[0]);
     }
 
-    if (isUnitTestSetUp(n)) {
-      return isAngularTestWrapper(n.arguments[0]);
+    if (isUnitTestSetUp(node)) {
+      return isAngularTestWrapper(node.arguments[0]);
     }
-  } else if (n.arguments.length === 2 || n.arguments.length === 3) {
+  } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      ((n.callee.type === "Identifier" && unitTestRe.test(n.callee.name)) ||
-        isSkipOrOnlyBlock(n)) &&
-      (isTemplateLiteral(n.arguments[0]) || isStringLiteral(n.arguments[0]))
+      ((node.callee.type === "Identifier" &&
+        unitTestRe.test(node.callee.name)) ||
+        isSkipOrOnlyBlock(node)) &&
+      (isTemplateLiteral(node.arguments[0]) ||
+        isStringLiteral(node.arguments[0]))
     ) {
       // it("name", () => { ... }, 2500)
-      if (n.arguments[2] && !isNumericLiteral(n.arguments[2])) {
+      if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
         return false;
       }
       return (
-        (n.arguments.length === 2
-          ? isFunctionOrArrowExpression(n.arguments[1])
-          : isFunctionOrArrowExpressionWithBody(n.arguments[1]) &&
-            getFunctionParameters(n.arguments[1]).length <= 1) ||
-        isAngularTestWrapper(n.arguments[1])
+        (node.arguments.length === 2
+          ? isFunctionOrArrowExpression(node.arguments[1])
+          : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
+            getFunctionParameters(node.arguments[1]).length <= 1) ||
+        isAngularTestWrapper(node.arguments[1])
       );
     }
   }
@@ -644,20 +635,13 @@ function isSimpleTemplateLiteral(node) {
 function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
   if (tokenNode === "+") {
     return "+" + keyword;
-  } else if (tokenNode === "-") {
+  }
+
+  if (tokenNode === "-") {
     return "-" + keyword;
   }
-  return keyword;
-}
 
-function hasNewlineBetweenOrAfterDecorators(node, options) {
-  return (
-    hasNewlineInRange(
-      options.originalText,
-      locStart(node.decorators[0]),
-      locEnd(getLast(node.decorators))
-    ) || hasNewline(options.originalText, locEnd(getLast(node.decorators)))
-  );
+  return keyword;
 }
 
 /**
@@ -688,29 +672,6 @@ function hasLeadingOwnLineComment(text, node) {
   return hasComment(node, CommentCheckFlags.Leading, (comment) =>
     hasNewline(text, locEnd(comment))
   );
-}
-
-// This recurses the return argument, looking for the first token
-// (the leftmost leaf node) and, if it (or its parents) has any
-// leadingComments, returns true (so it can be wrapped in parens).
-function returnArgumentHasLeadingComment(options, argument) {
-  if (hasLeadingOwnLineComment(options.originalText, argument)) {
-    return true;
-  }
-
-  if (hasNakedLeftSide(argument)) {
-    let leftMost = argument;
-    let newLeftMost;
-    while ((newLeftMost = getLeftSide(leftMost))) {
-      leftMost = newLeftMost;
-
-      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
-        return true;
-      }
-    }
-  }
-
-  return false;
 }
 
 // Note: Quoting/unquoting numbers in TypeScript is not safe.
@@ -748,20 +709,21 @@ function isStringPropSafeToUnquote(node, options) {
       // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
       // See https://github.com/microsoft/TypeScript/pull/20075
       !(
-        (options.parser === "typescript" || options.parser === "babel-ts") &&
-        node.type === "ClassProperty"
+        (options.parser === "babel-ts" && node.type === "ClassProperty") ||
+        (options.parser === "typescript" && node.type === "PropertyDefinition")
       )) ||
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
         (options.parser === "babel" ||
           options.parser === "espree" ||
-          options.parser === "meriyah")))
+          options.parser === "meriyah" ||
+          options.parser === "__babel_estree")))
   );
 }
 
 // Matches “simple” numbers like `123` and `2.5` but not `1_000`, `1e+100` or `0b10`.
 function isSimpleNumber(numberString) {
-  return /^(\d+|\d+\.\d+)$/.test(numberString);
+  return /^(?:\d+|\d+\.\d+)$/.test(numberString);
 }
 
 /**
@@ -780,7 +742,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[fx]?(describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&
@@ -807,16 +769,16 @@ function templateLiteralHasNewLines(template) {
 }
 
 /**
- * @param {TemplateLiteral | TaggedTemplateExpression} n
+ * @param {TemplateLiteral | TaggedTemplateExpression} node
  * @param {string} text
  * @returns {boolean}
  */
-function isTemplateOnItsOwnLine(n, text) {
+function isTemplateOnItsOwnLine(node, text) {
   return (
-    ((n.type === "TemplateLiteral" && templateLiteralHasNewLines(n)) ||
-      (n.type === "TaggedTemplateExpression" &&
-        templateLiteralHasNewLines(n.quasi))) &&
-    !hasNewline(text, locStart(n), { backwards: true })
+    ((node.type === "TemplateLiteral" && templateLiteralHasNewLines(node)) ||
+      (node.type === "TaggedTemplateExpression" &&
+        templateLiteralHasNewLines(node.quasi))) &&
+    !hasNewline(text, locStart(node), { backwards: true })
   );
 }
 
@@ -866,7 +828,7 @@ function isFunctionCompositionArgs(args) {
 // In the above call expression, the second call is the parent node and the
 // first call is the current node.
 /**
- * @param {FastPath} path
+ * @param {AstPath} path
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
@@ -897,7 +859,7 @@ function isSimpleCallArgument(node, depth) {
     (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
     (node.type === "RegExpLiteral" && node.pattern);
 
-  if (regexpPattern && regexpPattern.length > 5) {
+  if (regexpPattern && getStringWidth(regexpPattern) > 5) {
     return false;
   }
 
@@ -922,7 +884,10 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return (
+      node.quasis.every((element) => !element.value.raw.includes("\n")) &&
+      node.expressions.every(isChildSimple)
+    );
   }
 
   if (node.type === "ObjectExpression") {
@@ -935,14 +900,11 @@ function isSimpleCallArgument(node, depth) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
-  if (node.type === "ImportExpression") {
-    return isChildSimple(node.source);
-  }
-
-  if (isCallExpression(node) || node.type === "NewExpression") {
+  if (isCallLikeExpression(node)) {
     return (
-      isSimpleCallArgument(node.callee, depth) &&
-      node.arguments.every(isChildSimple)
+      (node.type === "ImportExpression" ||
+        isSimpleCallArgument(node.callee, depth)) &&
+      getCallArguments(node).every(isChildSimple)
     );
   }
 
@@ -1052,6 +1014,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
         forbidFunctionClassAndDoExpr
       );
     case "TSAsExpression":
+    case "TSNonNullExpression":
       return startsWithNoLookaheadToken(
         node.expression,
         forbidFunctionClassAndDoExpr
@@ -1213,13 +1176,15 @@ function getCallArguments(node) {
   if (callArgumentsCache.has(node)) {
     return callArgumentsCache.get(node);
   }
-  const args =
-    node.type === "ImportExpression"
-      ? // No parser except `babel` supports `import("./foo.json", { assert: { type: "json" } })` yet,
-        // And `babel` parser it as `CallExpression`
-        // We need add the second argument here
-        [node.source]
-      : node.arguments;
+
+  let args = node.arguments;
+  if (node.type === "ImportExpression") {
+    args = [node.source];
+
+    if (node.attributes) {
+      args.push(node.attributes);
+    }
+  }
 
   callArgumentsCache.set(node, args);
   return args;
@@ -1227,9 +1192,12 @@ function getCallArguments(node) {
 
 function iterateCallArgumentsPath(path, iteratee) {
   const node = path.getValue();
-  // See comment in `getCallArguments`
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+
+    if (node.attributes) {
+      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
+    }
   } else {
     path.each(iteratee, "arguments");
   }
@@ -1327,14 +1295,24 @@ function getComments(node, flags, fn) {
 const isNextLineEmpty = (node, { originalText }) =>
   isNextLineEmptyAfterIndex(originalText, locEnd(node));
 
-function isChainElement(node) {
+function isCallLikeExpression(node) {
   return (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "TSNonNullExpression"
+    isCallExpression(node) ||
+    node.type === "NewExpression" ||
+    node.type === "ImportExpression"
   );
+}
+
+function isObjectProperty(node) {
+  return (
+    node &&
+    (node.type === "ObjectProperty" ||
+      (node.type === "Property" && !node.method && node.kind === "init"))
+  );
+}
+
+function isEnabledHackPipeline(options) {
+  return Boolean(options.__isUsingHackPipeline);
 }
 
 module.exports = {
@@ -1343,6 +1321,7 @@ module.exports = {
   getCallArguments,
   iterateCallArgumentsPath,
   hasRestParameter,
+  getLeftSide,
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
@@ -1350,14 +1329,14 @@ module.exports = {
   hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
-  hasNewlineBetweenOrAfterDecorators,
   hasNode,
   hasIgnoreComment,
   hasNodeIgnoreComment,
   identity,
   isBinaryish,
   isBlockComment,
-  isChainElement,
+  isCallLikeExpression,
+  isEnabledHackPipeline,
   isLineComment,
   isPrettierIgnoreComment,
   isCallExpression,
@@ -1373,10 +1352,10 @@ module.exports = {
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
-  isMemberExpressionChain,
   isMemberish,
   isNumericLiteral,
   isSignedNumericLiteral,
+  isObjectProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
   isSimpleType,
@@ -1392,7 +1371,6 @@ module.exports = {
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment,
   shouldPrintComma,
   isBitwiseOperator,
   shouldFlatten,

@@ -5,20 +5,20 @@ const diff = require("diff");
 const {
   printer: { printDocToString },
   debug: { printDocToDebug },
-} = require("../document");
-const { getAlignmentSize } = require("../common/util");
+} = require("../document/index.js");
+const { getAlignmentSize } = require("../common/util.js");
 const {
   guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
   normalizeEndOfLine,
-} = require("../common/end-of-line");
-const normalizeOptions = require("./options").normalize;
-const massageAST = require("./massage-ast");
-const comments = require("./comments");
-const parser = require("./parser");
-const printAstToDoc = require("./ast-to-doc");
-const rangeUtil = require("./range-util");
+} = require("../common/end-of-line.js");
+const normalizeOptions = require("./options.js").normalize;
+const massageAST = require("./massage-ast.js");
+const comments = require("./comments.js");
+const parser = require("./parser.js");
+const printAstToDoc = require("./ast-to-doc.js");
+const rangeUtil = require("./range-util.js");
 
 const BOM = "\uFEFF";
 
@@ -109,14 +109,14 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
     // diff old and new cursor node texts, with a special cursor
     // symbol inserted to find out where it moves to
 
-    const oldCursorNodeCharArray = oldCursorNodeText.split("");
+    const oldCursorNodeCharArray = [...oldCursorNodeText];
     oldCursorNodeCharArray.splice(
       cursorOffsetRelativeToOldCursorNode,
       0,
       CURSOR
     );
 
-    const newCursorNodeCharArray = newCursorNodeText.split("");
+    const newCursorNodeCharArray = [...newCursorNodeText];
 
     const cursorNodeDiff = diff.diffArrays(
       oldCursorNodeCharArray,
@@ -168,7 +168,7 @@ function formatRange(originalText, opts) {
       rangeEnd: Number.POSITIVE_INFINITY,
       // Track the cursor offset only if it's within our range
       cursorOffset:
-        opts.cursorOffset > rangeStart && opts.cursorOffset < rangeEnd
+        opts.cursorOffset > rangeStart && opts.cursorOffset <= rangeEnd
           ? opts.cursorOffset - rangeStart
           : -1,
       // Always use `lf` to format, we'll replace it later
@@ -182,7 +182,7 @@ function formatRange(originalText, opts) {
   const rangeTrimmed = rangeResult.formatted.trimEnd();
 
   let { cursorOffset } = opts;
-  if (cursorOffset >= rangeEnd) {
+  if (cursorOffset > rangeEnd) {
     // handle the case where the cursor was past the end of the range
     cursorOffset += rangeTrimmed.length - rangeString.length;
   } else if (rangeResult.cursorOffset >= 0) {

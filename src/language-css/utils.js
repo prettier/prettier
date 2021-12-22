@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util");
+const { isNonEmptyArray } = require("../common/util.js");
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -28,6 +28,7 @@ const colorAdjusterFunctions = new Set([
   "hwb",
   "hwba",
 ]);
+const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
@@ -89,7 +90,7 @@ function hasStringOrFunction(groupList) {
 
 function isSCSS(parser, text) {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
+  const IS_POSSIBLY_SCSS = /(?:\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
@@ -274,7 +275,7 @@ function isSCSSNestedPropertyNode(node) {
 
   return node.selector
     .replace(/\/\*.*?\*\//, "")
-    .replace(/\/\/.*?\n/, "")
+    .replace(/\/\/.*\n/, "")
     .trim()
     .endsWith(":");
 }
@@ -479,6 +480,44 @@ function isAtWordPlaceholderNode(node) {
   );
 }
 
+function isModuleRuleName(name) {
+  return moduleRuleNames.has(name);
+}
+
+function isConfigurationNode(node, parentNode) {
+  if (
+    !node.open ||
+    node.open.value !== "(" ||
+    !node.close ||
+    node.close.value !== ")" ||
+    node.groups.some((group) => group.type !== "value-comma_group")
+  ) {
+    return false;
+  }
+  if (parentNode.type === "value-comma_group") {
+    const prevIdx = parentNode.groups.indexOf(node) - 1;
+    const maybeWithNode = parentNode.groups[prevIdx];
+    if (
+      maybeWithNode &&
+      maybeWithNode.type === "value-word" &&
+      maybeWithNode.value === "with"
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isParenGroupNode(node) {
+  return (
+    node.type === "value-paren_group" &&
+    node.open &&
+    node.open.value === "(" &&
+    node.close &&
+    node.close.value === ")"
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -533,4 +572,7 @@ module.exports = {
   lastLineHasInlineComment,
   stringifyNode,
   isAtWordPlaceholderNode,
+  isModuleRuleName,
+  isConfigurationNode,
+  isParenGroupNode,
 };

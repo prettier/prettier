@@ -27,6 +27,8 @@ Specify the line length that the printer will wrap on.
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
+Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
+
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width
@@ -37,6 +39,8 @@ Specify the number of spaces per indentation-level.
 | ------- | ------------------- | ----------------- |
 | `2`     | `--tab-width <int>` | `tabWidth: <int>` |
 
+Setting `indent_size` or `tab_width` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab width, unless overridden.
+
 ## Tabs
 
 Indent lines with tabs instead of spaces.
@@ -44,6 +48,8 @@ Indent lines with tabs instead of spaces.
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
+
+Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
@@ -96,6 +102,8 @@ Note that Prettier never unquotes numeric property names in Angular expressions,
 [quote-props-flow]: https://flow.org/try/#0PQKgBAAgZgNg9gdzCYAoVBjOA7AzgFzAA8wBeMAb1TDAAYAuMARlQF8g
 [quote-props-vue]: https://github.com/prettier/prettier/issues/10127
 
+If this option is set to `preserve`, `singleQuote` to `false` (default value), and `parser` to `json5`, double quotes are always used for strings. This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.
@@ -108,13 +116,13 @@ Use single quotes instead of double quotes in JSX.
 
 _Default value changed from `none` to `es5` in v2.0.0_
 
-Print trailing commas wherever possible when multi-line. (A single-line array, for example, never gets trailing commas.)
+Print trailing commas wherever possible in multi-line comma-separated syntactic structures. (A single-line array, for example, never gets trailing commas.)
 
 Valid options:
 
-- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
+- `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.). No trailing commas in type parameters in TypeScript.
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including [trailing commas in function parameter lists and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). This requires node 8 or a modern browser that supports ES2017 or transform with [babel](https://babeljs.io/docs/en/index).
+- `"all"` - Trailing commas wherever possible (including [function parameters and calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Trailing_commas#Trailing_commas_in_functions)). To run, JavaScript code formatted this way needs an engine that supports ES2017 (Node.js 8+ or a modern browser) or [downlevel compilation](https://babeljs.io/docs/en/index). This also enables trailing commas in type parameters in TypeScript (supported since TypeScript 2.7 released in January 2018).
 
 | Default | CLI Override                                           | API Override                                           |
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
@@ -133,7 +141,44 @@ Valid options:
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 
-## JSX Brackets
+## Bracket Line
+
+Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
+
+Valid options:
+
+- `true` - Example:
+
+<!-- prettier-ignore -->
+```html
+<button
+  className="prettier-class"
+  id="prettier-id"
+  onClick={this.handleClick}>
+  Click Here
+</button>
+```
+
+- `false` - Example:
+
+<!-- prettier-ignore -->
+```html
+<button
+  className="prettier-class"
+  id="prettier-id"
+  onClick={this.handleClick}
+>
+  Click Here
+</button>
+```
+
+| Default | CLI Override          | API Override              |
+| ------- | --------------------- | ------------------------- |
+| `false` | `--bracket-same-line` | `bracketSameLine: <bool>` |
+
+## [Deprecated] JSX Brackets
+
+_This option has been deprecated in v2.4.0, use --bracket-same-line instead_
 
 Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
@@ -265,9 +310,9 @@ This option is only useful in the CLI and API. It doesn’t make sense to use it
 
 _First available in v1.7.0_
 
-Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to prettier.
+Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file. This is very useful when gradually transitioning large, unformatted codebases to Prettier.
 
-For example, a file with the following as its first comment will be formatted when `--require-pragma` is supplied:
+A file with the following as its first comment will be formatted when `--require-pragma` is supplied:
 
 ```js
 /**
@@ -291,11 +336,15 @@ or
 
 _First available in v1.8.0_
 
-Prettier can insert a special @format marker at the top of files specifying that the file has been formatted with prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the @format marker.
+Prettier can insert a special `@format` marker at the top of files specifying that the file has been formatted with Prettier. This works well when used in tandem with the `--require-pragma` option. If there is already a docblock at the top of the file then this option will add a newline to it with the `@format` marker.
+
+Note that “in tandem” doesn’t mean “at the same time”. When the two options are used simultaneously, `--require-pragma` has priority, so `--insert-pragma` is ignored. The idea is that during an incremental adoption of Prettier in a big codebase, the developers participating in the transition process use `--insert-pragma` whereas `--require-pragma` is used by the rest of the team and automated tooling to process only files already transitioned. The feature has been inspired by Facebook’s [adoption strategy].
 
 | Default | CLI Override      | API Override           |
 | ------- | ----------------- | ---------------------- |
 | `false` | `--insert-pragma` | `insertPragma: <bool>` |
+
+[adoption strategy]: https://prettier.io/blog/2017/05/03/1.3.0.html#facebook-adoption-update
 
 ## Prose Wrap
 
@@ -323,7 +372,7 @@ Specify the global whitespace sensitivity for HTML, Vue, Angular, and Handlebars
 
 Valid options:
 
-- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `ignore`.
+- `"css"` - Respect the default value of CSS `display` property. For Handlebars treated same as `strict`.
 - `"strict"` - Whitespace (or the lack of it) around all tags is considered significant.
 - `"ignore"` - Whitespace (or the lack of it) around all tags is considered insignificant.
 
@@ -339,8 +388,8 @@ Whether or not to indent the code inside `<script>` and `<style>` tags in Vue fi
 
 Valid options:
 
-- `"false"` - Do not indent script and style tags in Vue files.
-- `"true"` - Indent script and style tags in Vue files.
+- `false` - Do not indent script and style tags in Vue files.
+- `true` - Indent script and style tags in Vue files.
 
 | Default | CLI Override                    | API Override                      |
 | ------- | ------------------------------- | --------------------------------- |
@@ -382,6 +431,8 @@ Valid options:
 | ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
 
+Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
+
 ## Embedded Language Formatting
 
 _First available in v2.1.0_
@@ -400,3 +451,18 @@ Valid options:
 | Default  | CLI Override                         | API Override                        |
 | -------- | ------------------------------------ | ----------------------------------- |
 | `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
+
+## Single Attribute Per Line
+
+_First available in v2.6.0_
+
+Enforce single attribute per line in HTML, Vue and JSX.
+
+Valid options:
+
+- `false` - Do not enforce single attribute per line.
+- `true` - Enforce single attribute per line.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |

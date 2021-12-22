@@ -59,7 +59,7 @@ declare function conditionalGroup(
 ): Doc;
 ```
 
-This will try to print the first argument, if it fit use it, otherwise go to the next one and so on.
+This will try to print the first alternative, if it fit use it, otherwise go to the next one and so on. The alternatives is an array of documents going from the least expanded (most flattened) representation first to the most expanded.
 
 ```js
 conditionalGroup([a, b, c]);
@@ -213,7 +213,7 @@ Decrease the level of indentation. (Each `align` is considered one level of inde
 ### `align`
 
 ```ts
-declare function align(n: number | string, doc: Doc): Doc;
+declare function align(widthOrString: number | string, doc: Doc): Doc;
 ```
 
 Increase the indentation by a fixed number of spaces or a string. A variant of [`indent`](#indent).
@@ -271,6 +271,18 @@ With `negate: true`, corresponds to `ifBreak(doc, indent(doc), { groupId })`
 
 It doesn't make sense to apply `indentIfBreak` to the current group because "indent if the current group is broken" is the normal behavior of `indent`. That's why `groupId` is required.
 
+### `label`
+
+_Added in v2.3.0_
+
+```ts
+declare function label(label: string, doc: Doc): Doc;
+```
+
+Mark a doc with a string label. This doesn't affect how the doc is printed, but can be useful for heuristics based on doc introspection.
+
+E.g., to decide how to print an assignment expression, we might want to know whether its right-hand side has been printed as a method call chain, not as a plain function call. If the method chain printing code uses `label` to mark its result, checking that condition can be as easy as `rightHandSideDoc.label === 'method-chain'`.
+
 ### `hardlineWithoutBreakParent` and `literallineWithoutBreakParent`
 
 _Added in v2.3.0_
@@ -280,7 +292,7 @@ declare const hardlineWithoutBreakParent: Doc;
 declare const literallineWithoutBreakParent: Doc;
 ```
 
-These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit (`breakParent`)[#breakParent].
+These are used very rarely, for advanced formatting tricks. Unlike their "normal" counterparts, they don't include an implicit [`breakParent`](#breakParent).
 
 Examples:
 

@@ -1,14 +1,18 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
-const { isNonEmptyArray } = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments.js");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { hardline, indent },
-} = require("../../document");
-const { hasComment, CommentCheckFlags, isNextLineEmpty } = require("../utils");
-const { printHardlineAfterHeritage } = require("./class");
+} = require("../../document/index.js");
+const {
+  hasComment,
+  CommentCheckFlags,
+  isNextLineEmpty,
+} = require("../utils.js");
+const { printHardlineAfterHeritage } = require("./class.js");
 
-const { printBody } = require("./statement");
+const { printBody } = require("./statement.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -75,7 +79,7 @@ function printBlockBody(path, options, print) {
   // Babel 6
   if (nodeHasDirectives) {
     path.each((childPath, index, directives) => {
-      parts.push(print(childPath));
+      parts.push(print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
         if (isNextLineEmpty(childPath.getValue(), options)) {
@@ -94,7 +98,10 @@ function printBlockBody(path, options, print) {
   }
 
   if (node.type === "Program") {
-    parts.push(hardline);
+    const parent = path.getParentNode();
+    if (!parent || parent.type !== "ModuleExpression") {
+      parts.push(hardline);
+    }
   }
 
   return parts;

@@ -1,12 +1,13 @@
 "use strict";
 
-const { hasNewline } = require("../../common/util");
+const { hasNewline } = require("../../common/util.js");
 const {
   builders: { join, hardline },
-} = require("../../document");
+  utils: { replaceTextEndOfLine },
+} = require("../../document/index.js");
 
-const { isLineComment, isBlockComment } = require("../utils");
-const { locStart, locEnd } = require("../loc");
+const { isLineComment, isBlockComment } = require("../utils.js");
+const { locStart, locEnd } = require("../loc.js");
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
@@ -38,7 +39,11 @@ function printComment(commentPath, options) {
     const commentEnd = locEnd(comment);
     const isInsideFlowComment =
       options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-    return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
+    return [
+      "/*",
+      replaceTextEndOfLine(comment.value),
+      isInsideFlowComment ? "*-/" : "*/",
+    ];
   }
 
   /* istanbul ignore next */

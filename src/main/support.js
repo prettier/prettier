@@ -1,14 +1,13 @@
 "use strict";
 
-const fromPairs = require("lodash/fromPairs");
 const semver = {
   compare: require("semver/functions/compare"),
   lt: require("semver/functions/lt"),
   gte: require("semver/functions/gte"),
 };
-const arrayify = require("../utils/arrayify");
+const arrayify = require("../utils/arrayify.js");
 const currentVersion = require("../../package.json").version;
-const coreOptions = require("./core-options").options;
+const coreOptions = require("./core-options.js").options;
 
 /**
  * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
@@ -31,7 +30,7 @@ function getSupportInfo({
   const version = currentVersion.split("-", 1)[0];
 
   const languages = plugins
-    .reduce((all, plugin) => [...all, ...(plugin.languages || [])], [])
+    .flatMap((plugin) => plugin.languages || [])
     .filter(filterSince);
 
   const options = arrayify(
@@ -65,7 +64,7 @@ function getSupportInfo({
         }
       }
 
-      const pluginDefaults = fromPairs(
+      const pluginDefaults = Object.fromEntries(
         plugins
           .filter(
             (plugin) =>

@@ -27,21 +27,4 @@ window.addEventListener("load", () => {
       logo.classList.remove("rolling");
     }
   });
-
-  const yarnButton = document.querySelector(".showYarnButton");
-  const npmButton = document.querySelector(".showNpmButton");
-  const getStartedSection = document.querySelector(".getStartedSection");
-
-  npmButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    npmButton.classList.add("active");
-    yarnButton.classList.remove("active");
-    getStartedSection.classList.add("getStartedSection--npm");
-  });
-  yarnButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    yarnButton.classList.add("active");
-    npmButton.classList.remove("active");
-    getStartedSection.classList.remove("getStartedSection--npm");
-  });
 });

@@ -1,19 +1,19 @@
 "use strict";
 
-const fs = require("fs");
+const { promises: fs } = require("fs");
 const path = require("path");
 
 const chalk = require("chalk");
 
 // eslint-disable-next-line no-restricted-modules
-const prettier = require("../index");
+const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party");
+const { getStdin } = require("../common/third-party.js");
 
-const { createIgnorer, errors } = require("./prettier-internal");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
-const { getOptionsForFile } = require("./option");
-const isTTY = require("./is-tty");
+const { createIgnorer, errors } = require("./prettier-internal.js");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
+const getOptionsForFile = require("./options/get-options-for-file.js");
+const isTTY = require("./is-tty.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -25,16 +25,13 @@ function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
     /* istanbul ignore next */
-    if (
-      (context.argv.write || context.argv["ignore-unknown"]) &&
-      printedFilename
-    ) {
+    if ((context.argv.write || context.argv.ignoreUnknown) && printedFilename) {
       printedFilename.clear();
     }
-    if (context.argv["ignore-unknown"]) {
+    if (context.argv.ignoreUnknown) {
       return;
     }
-    if (!context.argv.check && !context.argv["list-different"]) {
+    if (!context.argv.check && !context.argv.listDifferent) {
       process.exitCode = 2;
     }
     context.logger.error(error.message);
@@ -73,7 +70,7 @@ function handleError(context, filename, error, printedFilename) {
 function writeOutput(context, result, options) {
   // Don't use `console.log` here since it adds an extra newline at the end.
   process.stdout.write(
-    context.argv["debug-check"] ? result.filepath : result.formatted
+    context.argv.debugCheck ? result.filepath : result.formatted
   );
 
   if (options && options.cursorOffset >= 0) {
@@ -82,7 +79,7 @@ function writeOutput(context, result, options) {
 }
 
 function listDifferent(context, input, options, filename) {
-  if (!context.argv.check && !context.argv["list-different"]) {
+  if (!context.argv.check && !context.argv.listDifferent) {
     return;
   }
 
@@ -112,12 +109,12 @@ function format(context, input, opt) {
     );
   }
 
-  if (context.argv["debug-print-doc"]) {
+  if (context.argv.debugPrintDoc) {
     const doc = prettier.__debug.printToDoc(input, opt);
     return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
   }
 
-  if (context.argv["debug-print-comments"]) {
+  if (context.argv.debugPrintComments) {
     return {
       formatted: prettier.format(
         JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
@@ -126,7 +123,14 @@ function format(context, input, opt) {
     };
   }
 
-  if (context.argv["debug-check"]) {
+  if (context.argv.debugPrintAst) {
+    const { ast } = prettier.__debug.parse(input, opt);
+    return {
+      formatted: JSON.stringify(ast),
+    };
+  }
+
+  if (context.argv.debugCheck) {
     const pp = prettier.format(input, opt);
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
@@ -161,11 +165,12 @@ function format(context, input, opt) {
   }
 
   /* istanbul ignore next */
-  if (context.argv["debug-benchmark"]) {
+  if (context.argv.debugBenchmark) {
     let benchmark;
     try {
-      benchmark = eval("require")("benchmark");
-    } catch (err) {
+      // eslint-disable-next-line import/no-extraneous-dependencies
+      benchmark = require("benchmark");
+    } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
       );
@@ -191,8 +196,8 @@ function format(context, input, opt) {
         );
       })
       .run({ async: false });
-  } else if (context.argv["debug-repeat"] > 0) {
-    const repeat = context.argv["debug-repeat"];
+  } else if (context.argv.debugRepeat > 0) {
+    const repeat = context.argv.debugRepeat;
     context.logger.debug(
       "'--debug-repeat' option found, running formatWithCursor " +
         repeat +
@@ -220,11 +225,11 @@ function format(context, input, opt) {
   return prettier.formatWithCursor(input, opt);
 }
 
-function createIgnorerFromContextOrDie(context) {
+async function createIgnorerFromContextOrDie(context) {
   try {
-    return createIgnorer.sync(
-      context.argv["ignore-path"],
-      context.argv["with-node-modules"]
+    return await createIgnorer(
+      context.argv.ignorePath,
+      context.argv.withNodeModules
     );
   } catch (e) {
     context.logger.error(e.message);
@@ -232,45 +237,45 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function formatStdin(context) {
-  const filepath = context.argv["stdin-filepath"]
-    ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
+async function formatStdin(context) {
+  const filepath = context.argv.filepath
+    ? path.resolve(process.cwd(), context.argv.filepath)
     : process.cwd();
 
-  const ignorer = createIgnorerFromContextOrDie(context);
+  const ignorer = await createIgnorerFromContextOrDie(context);
   // If there's an ignore-path set, the filename must be relative to the
   // ignore path, not the current working directory.
-  const relativeFilepath = context.argv["ignore-path"]
-    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+  const relativeFilepath = context.argv.ignorePath
+    ? path.relative(path.dirname(context.argv.ignorePath), filepath)
     : path.relative(process.cwd(), filepath);
 
-  getStdin()
-    .then((input) => {
-      if (
-        relativeFilepath &&
-        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
-      ) {
-        writeOutput(context, { formatted: input });
-        return;
-      }
+  try {
+    const input = await getStdin();
 
-      const options = getOptionsForFile(context, filepath);
+    if (
+      relativeFilepath &&
+      ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+    ) {
+      writeOutput(context, { formatted: input });
+      return;
+    }
 
-      if (listDifferent(context, input, options, "(stdin)")) {
-        return;
-      }
+    const options = await getOptionsForFile(context, filepath);
 
-      writeOutput(context, format(context, input, options), options);
-    })
-    .catch((error) => {
-      handleError(context, relativeFilepath || "stdin", error);
-    });
+    if (listDifferent(context, input, options, "(stdin)")) {
+      return;
+    }
+
+    writeOutput(context, format(context, input, options), options);
+  } catch (error) {
+    handleError(context, relativeFilepath || "stdin", error);
+  }
 }
 
-function formatFiles(context) {
+async function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
-  const ignorer = createIgnorerFromContextOrDie(context);
+  const ignorer = await createIgnorerFromContextOrDie(context);
 
   let numberOfUnformattedFilesFound = 0;
 
@@ -278,7 +283,7 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  for (const pathOrError of expandPatterns(context)) {
+  for await (const pathOrError of expandPatterns(context)) {
     if (typeof pathOrError === "object") {
       context.logger.error(pathOrError.error);
       // Don't exit, but set the exit code to 2
@@ -289,23 +294,23 @@ function formatFiles(context) {
     const filename = pathOrError;
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
-    const ignoreFilename = context.argv["ignore-path"]
-      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+    const ignoreFilename = context.argv.ignorePath
+      ? path.relative(path.dirname(context.argv.ignorePath), filename)
       : filename;
 
     const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
     if (
       fileIgnored &&
-      (context.argv["debug-check"] ||
+      (context.argv.debugCheck ||
         context.argv.write ||
         context.argv.check ||
-        context.argv["list-different"])
+        context.argv.listDifferent)
     ) {
       continue;
     }
 
     const options = {
-      ...getOptionsForFile(context, filename),
+      ...(await getOptionsForFile(context, filename)),
       filepath: filename,
     };
 
@@ -319,7 +324,7 @@ function formatFiles(context) {
 
     let input;
     try {
-      input = fs.readFileSync(filename, "utf8");
+      input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
       /* istanbul ignore next */
@@ -367,12 +372,12 @@ function formatFiles(context) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
-        if (!context.argv.check && !context.argv["list-different"]) {
+        if (!context.argv.check && !context.argv.listDifferent) {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
         try {
-          fs.writeFileSync(filename, output, "utf8");
+          await fs.writeFile(filename, output, "utf8");
         } catch (error) {
           /* istanbul ignore next */
           context.logger.error(
@@ -383,24 +388,24 @@ function formatFiles(context) {
           /* istanbul ignore next */
           process.exitCode = 2;
         }
-      } else if (!context.argv.check && !context.argv["list-different"]) {
+      } else if (!context.argv.check && !context.argv.listDifferent) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
-    } else if (context.argv["debug-check"]) {
+    } else if (context.argv.debugCheck) {
       /* istanbul ignore else */
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
         process.exitCode = 2;
       }
-    } else if (!context.argv.check && !context.argv["list-different"]) {
+    } else if (!context.argv.check && !context.argv.listDifferent) {
       writeOutput(context, result, options);
     }
 
     if (isDifferent) {
       if (context.argv.check) {
         context.logger.warn(filename);
-      } else if (context.argv["list-different"]) {
+      } else if (context.argv.listDifferent) {
         context.logger.log(filename);
       }
       numberOfUnformattedFilesFound += 1;
@@ -422,7 +427,7 @@ function formatFiles(context) {
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
   if (
-    (context.argv.check || context.argv["list-different"]) &&
+    (context.argv.check || context.argv.listDifferent) &&
     numberOfUnformattedFilesFound > 0 &&
     !process.exitCode &&
     !context.argv.write
@@ -431,4 +436,4 @@ function formatFiles(context) {
   }
 }
 
-module.exports = { format, formatStdin, formatFiles };
+module.exports = { formatStdin, formatFiles };

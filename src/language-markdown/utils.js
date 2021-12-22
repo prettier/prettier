@@ -1,17 +1,18 @@
 "use strict";
 
-const { getLast } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
+const { getLast } = require("../common/util.js");
+const { locStart, locEnd } = require("./loc.js");
 const {
   cjkPattern,
   kPattern,
   punctuationPattern,
-} = require("./constants.evaluate");
+} = require("./constants.evaluate.js");
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
   "inlineCode",
   "emphasis",
+  "esComment",
   "strong",
   "delete",
   "wikiLink",
@@ -51,9 +52,13 @@ function splitText(text, options) {
   /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
   const nodes = [];
 
-  const tokens = (options.proseWrap === "preserve"
-    ? text
-    : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
+  const tokens = (
+    options.proseWrap === "preserve"
+      ? text
+      : text.replace(
+          new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"),
+          "$1$2"
+        )
   ).split(/([\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace

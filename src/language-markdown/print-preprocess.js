@@ -1,10 +1,10 @@
 "use strict";
 
-const { getOrderedListItemInfo, mapAst, splitText } = require("./utils");
+const getLast = require("../utils/get-last.js");
+const { getOrderedListItemInfo, mapAst, splitText } = require("./utils.js");
 
 // 0x0 ~ 0x10ffff
-// eslint-disable-next-line no-control-regex
-const isSingleCharRegex = /^([\u0000-\uffff]|[\ud800-\udbff][\udc00-\udfff])$/;
+const isSingleCharRegex = /^.$/su;
 
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
@@ -78,7 +78,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       return node;
     }
     const children = node.children.reduce((current, child) => {
-      const lastChild = current[current.length - 1];
+      const lastChild = getLast(current);
       if (lastChild && shouldMerge(lastChild, child)) {
         current.splice(-1, 1, mergeNode(lastChild, child));
       } else {
@@ -134,7 +134,7 @@ function transformIndentedCodeblockAndMarkItsParentList(ast, options) {
   return mapAst(ast, (node, index, parentStack) => {
     if (node.type === "code") {
       // the first char may point to `\n`, e.g. `\n\t\tbar`, just ignore it
-      const isIndented = /^\n?( {4,}|\t)/.test(
+      const isIndented = /^\n?(?: {4,}|\t)/.test(
         options.originalText.slice(
           node.position.start.offset,
           node.position.end.offset

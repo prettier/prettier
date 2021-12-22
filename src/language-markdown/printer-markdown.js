@@ -6,7 +6,7 @@ const {
   getMaxContinuousCount,
   getStringWidth,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   builders: {
     breakParent,
@@ -23,15 +23,14 @@ const {
     group,
     hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc },
+  utils: { normalizeDoc, replaceTextEndOfLine },
   printer: { printDocToString },
-} = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
-const embed = require("./embed");
-const { insertPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
-const preprocess = require("./print-preprocess");
-const clean = require("./clean");
+} = require("../document/index.js");
+const embed = require("./embed.js");
+const { insertPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
+const preprocess = require("./print-preprocess.js");
+const clean = require("./clean.js");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -40,7 +39,7 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-} = require("./utils");
+} = require("./utils.js");
 
 /**
  * @typedef {import("../document").Doc} Doc
@@ -143,7 +142,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
+        nextNode && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
@@ -246,7 +245,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          ...replaceEndOfLineWith(node.value, hardline),
+          ...replaceTextEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -261,7 +260,7 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
 
-        ...replaceEndOfLineWith(
+        ...replaceTextEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -275,9 +274,11 @@ function genericPrint(path, options, print) {
         parentNode.type === "root" && getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
-      return replaceEndOfLineWith(
+      const isHtmlComment = /^<!--.*-->$/s.test(value);
+
+      return replaceTextEndOfLine(
         value,
+        // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
@@ -410,9 +411,7 @@ function genericPrint(path, options, print) {
                 " ".repeat(4),
                 printChildren(path, options, print, {
                   processor: (childPath, index) =>
-                    index === 0
-                      ? group([softline, childPath.call(print)])
-                      : childPath.call(print),
+                    index === 0 ? group([softline, print()]) : print(),
                 })
               ),
               nextNode && nextNode.type === "footnoteDefinition"
@@ -430,12 +429,14 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceEndOfLineWith(node.value, hardline);
+      return replaceTextEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
     case "importExport":
       return [node.value, hardline];
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "jsx":
       return node.value;
     case "math":
@@ -443,7 +444,7 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? [...replaceEndOfLineWith(node.value, hardline), hardline]
+          ? [...replaceTextEndOfLine(node.value, hardline), hardline]
           : "",
         "$$",
       ];
@@ -469,13 +470,13 @@ function printListItem(path, options, print, listPrefix) {
     printChildren(path, options, print, {
       processor: (childPath, index) => {
         if (index === 0 && childPath.getValue().type !== "list") {
-          return align(" ".repeat(prefix.length), childPath.call(print));
+          return align(" ".repeat(prefix.length), print());
         }
 
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-        return [alignment, align(alignment, childPath.call(print))];
+        return [alignment, align(alignment, print())];
       },
     }),
   ];
@@ -565,7 +566,7 @@ function printTable(path, options, print) {
   const contents = path.map(
     (rowPath) =>
       rowPath.map((cellPath, columnIndex) => {
-        const text = printDocToString(cellPath.call(print), options).formatted;
+        const text = printDocToString(print(), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
           columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
@@ -691,14 +692,14 @@ function printRoot(path, options, print) {
         }
       }
 
-      return childPath.call(print);
+      return print();
     },
   });
 }
 
 function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
-  const processor = events.processor || ((childPath) => childPath.call(print));
+  const processor = events.processor || (() => print());
 
   const node = path.getValue();
   const parts = [];
@@ -752,20 +753,36 @@ function printChildren(path, options, print, events = {}) {
 function getLastDescendantNode(node) {
   let current = node;
   while (isNonEmptyArray(current.children)) {
-    current = current.children[current.children.length - 1];
+    current = getLast(current.children);
   }
   return current;
 }
 
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  if (node.type !== "html") {
-    return false;
+  let match;
+
+  if (node.type === "html") {
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
+  } else {
+    let comment;
+
+    if (node.type === "esComment") {
+      comment = node;
+    } else if (
+      node.type === "paragraph" &&
+      node.children.length === 1 &&
+      node.children[0].type === "esComment"
+    ) {
+      comment = node.children[0];
+    }
+
+    if (comment) {
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
+    }
   }
-  const match = node.value.match(
-    /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/
-  );
-  return match === null ? false : match[1] ? match[1] : "next";
+
+  return match ? (match[1] ? match[1] : "next") : false;
 }
 
 function shouldPrePrintHardline(node, data) {
@@ -853,11 +870,7 @@ function printUrl(url, dangerousCharOrChars = []) {
     : url;
 }
 
-function printTitle(title, options, printSpace) {
-  if (printSpace == null) {
-    printSpace = true;
-  }
-
+function printTitle(title, options, printSpace = true) {
   if (!title) {
     return "";
   }

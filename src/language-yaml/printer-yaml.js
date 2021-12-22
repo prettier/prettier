@@ -5,7 +5,6 @@
 const {
   builders: {
     breakParent,
-
     fill,
     group,
     hardline,
@@ -14,12 +13,12 @@ const {
     lineSuffix,
     literalline,
   },
-  utils: { getDocParts },
-} = require("../document");
-const { replaceEndOfLineWith, isPreviousLineEmpty } = require("../common/util");
-const { insertPragma, isPragma } = require("./pragma");
-const { locStart } = require("./loc");
-const embed = require("./embed");
+  utils: { getDocParts, replaceTextEndOfLine },
+} = require("../document/index.js");
+const { isPreviousLineEmpty } = require("../common/util.js");
+const { insertPragma, isPragma } = require("./pragma.js");
+const { locStart } = require("./loc.js");
+const embed = require("./embed.js");
 const {
   getFlowScalarLineContents,
   getLastDescendantNode,
@@ -31,19 +30,19 @@ const {
   isLastDescendantNode,
   isNode,
   isInlineNode,
-} = require("./utils");
-const preprocess = require("./print-preprocess");
+} = require("./utils.js");
+const preprocess = require("./print-preprocess.js");
 const {
   alignWithSpaces,
   printNextEmptyLine,
   shouldPrintEndComments,
-} = require("./print/misc");
+} = require("./print/misc.js");
 const {
   printFlowMapping,
   printFlowSequence,
-} = require("./print/flow-mapping-sequence");
-const printMappingItem = require("./print/mapping-item");
-const printBlock = require("./print/block");
+} = require("./print/flow-mapping-sequence.js");
+const printMappingItem = require("./print/mapping-item.js");
+const printBlock = require("./print/block.js");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -56,13 +55,13 @@ function genericPrint(path, options, print) {
 
   const { tag, anchor } = node;
   if (tag) {
-    parts.push(path.call(print, "tag"));
+    parts.push(print("tag"));
   }
   if (tag && anchor) {
     parts.push(" ");
   }
   if (anchor) {
-    parts.push(path.call(print, "anchor"));
+    parts.push(print("anchor"));
   }
 
   /** @type {Doc} */
@@ -101,7 +100,7 @@ function genericPrint(path, options, print) {
   const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
-      replaceEndOfLineWith(
+      replaceTextEndOfLine(
         options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           .trimEnd(),
@@ -121,7 +120,7 @@ function genericPrint(path, options, print) {
         isInlineNode(node)
           ? ""
           : breakParent,
-        path.call(print, "trailingComment"),
+        print("trailingComment"),
       ])
     );
   }
@@ -141,7 +140,7 @@ function genericPrint(path, options, print) {
               )
                 ? hardline
                 : "",
-              print(path),
+              print(),
             ],
             "endComments"
           )
@@ -164,11 +163,11 @@ function printNode(node, parentNode, path, options, print) {
         if (index !== 0) {
           parts.push(hardline);
         }
-        parts.push(print(childPath));
+        parts.push(print());
         if (shouldPrintDocumentEndMarker(document, nextDocument)) {
           parts.push(hardline, "...");
           if (hasTrailingComment(document)) {
-            parts.push(" ", path.call(print, "trailingComment"));
+            parts.push(" ", print("trailingComment"));
           }
         } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
           parts.push(hardline, "---");
@@ -196,18 +195,18 @@ function printNode(node, parentNode, path, options, print) {
         ) === "head"
       ) {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
-          parts.push(path.call(print, "head"));
+          parts.push(print("head"));
         }
 
         if (hasTrailingComment(node.head)) {
-          parts.push(["---", " ", path.call(print, "head", "trailingComment")]);
+          parts.push(["---", " ", print(["head", "trailingComment"])]);
         } else {
           parts.push("---");
         }
       }
 
       if (shouldPrintDocumentBody(node)) {
-        parts.push(path.call(print, "body"));
+        parts.push(print("body"));
       }
 
       return join(hardline, parts);
@@ -285,7 +284,9 @@ function printNode(node, parentNode, path, options, print) {
           printFlowScalarContent(node.type, raw, options),
           originalQuote,
         ];
-      } else if (raw.includes(doubleQuote)) {
+      }
+
+      if (raw.includes(doubleQuote)) {
         return [
           singleQuote,
           printFlowScalarContent(
@@ -324,19 +325,14 @@ function printNode(node, parentNode, path, options, print) {
     case "blockLiteral": {
       return printBlock(path, print, options);
     }
+    case "mapping":
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return [
-        "- ",
-        alignWithSpaces(2, !node.content ? "" : path.call(print, "content")),
-      ];
+      return ["- ", alignWithSpaces(2, !node.content ? "" : print("content"))];
     case "mappingKey":
-      return !node.content ? "" : path.call(print, "content");
     case "mappingValue":
-      return !node.content ? "" : path.call(print, "content");
-    case "mapping":
-      return join(hardline, path.map(print, "children"));
+      return !node.content ? "" : print("content");
     case "mappingItem":
     case "flowMappingItem": {
       return printMappingItem(node, parentNode, path, print, options);
@@ -346,7 +342,7 @@ function printNode(node, parentNode, path, options, print) {
     case "flowSequence":
       return printFlowSequence(path, print, options);
     case "flowSequenceItem":
-      return path.call(print, "content");
+      return print("content");
     // istanbul ignore next
     default:
       throw new Error(`Unexpected node type ${node.type}`);
@@ -391,7 +387,7 @@ function shouldPrintDocumentHeadEndMarker(
      * preserve the first document head end marker
      */
     (root.children[0] === document &&
-      /---(\s|$)/.test(
+      /---(?:\s|$)/.test(
         options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
     /**

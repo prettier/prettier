@@ -69,16 +69,16 @@ function indent(contents) {
 }
 
 /**
- * @param {number | string} n
+ * @param {number | string} widthOrString
  * @param {Doc} contents
  * @returns Doc
  */
-function align(n, contents) {
+function align(widthOrString, contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
 
-  return { type: "align", contents, n };
+  return { type: "align", contents, n: widthOrString };
 }
 
 /**
@@ -113,7 +113,7 @@ function dedentToRoot(contents) {
  * @returns Doc
  */
 function markAsRoot(contents) {
-  // @ts-ignore - TBD ???:
+  // @ts-expect-error - TBD ???:
   return align({ type: "root" }, contents);
 }
 
@@ -259,6 +259,10 @@ function addAlignmentToDoc(doc, size, tabWidth) {
   return aligned;
 }
 
+function label(label, contents) {
+  return { type: "label", label, contents };
+}
+
 module.exports = {
   concat,
   join,
@@ -284,4 +288,5 @@ module.exports = {
   dedent,
   hardlineWithoutBreakParent,
   literallineWithoutBreakParent,
+  label,
 };

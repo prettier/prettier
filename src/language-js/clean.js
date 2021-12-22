@@ -1,6 +1,6 @@
 "use strict";
 
-const { isBlockComment } = require("./utils");
+const { isBlockComment } = require("./utils.js");
 
 const ignoredProperties = new Set([
   "range",
@@ -46,6 +46,9 @@ function clean(ast, newObj, parent) {
   if (ast.type === "DecimalLiteral") {
     newObj.value = Number(newObj.value);
   }
+  if (ast.type === "Literal" && newObj.decimal) {
+    newObj.decimal = Number(newObj.decimal);
+  }
 
   // We remove extra `;` and add them when needed
   if (ast.type === "EmptyStatement") {
@@ -86,11 +89,6 @@ function clean(ast, newObj, parent) {
       ast.key.type === "Identifier")
   ) {
     delete newObj.key;
-  }
-
-  if (ast.type === "OptionalMemberExpression" && ast.optional === false) {
-    newObj.type = "MemberExpression";
-    delete newObj.optional;
   }
 
   // Remove raw and cooked values from TemplateElement when it's CSS
@@ -203,10 +201,12 @@ function clean(ast, newObj, parent) {
     newObj.value = newObj.value.trimEnd();
   }
 
-  // TODO: Remove this when fixing #9760
-  if (ast.type === "ClassMethod") {
-    delete newObj.declare;
-    delete newObj.readonly;
+  // Prettier removes degenerate union and intersection types with only one member.
+  if (
+    (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
+    ast.types.length === 1
+  ) {
+    return newObj.types[0];
   }
 }
 

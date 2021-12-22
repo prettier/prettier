@@ -12,13 +12,11 @@ const {
     line,
     softline,
   },
-  utils: { getDocParts },
-} = require("../document");
-const { isNonEmptyArray, replaceEndOfLineWith } = require("../common/util");
-
-const { literalline } = require("../document/doc-builders");
-const { locStart, locEnd } = require("./loc");
-const clean = require("./clean");
+  utils: { getDocParts, replaceTextEndOfLine },
+} = require("../document/index.js");
+const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
+const { locStart, locEnd } = require("./loc.js");
+const clean = require("./clean.js");
 const {
   getNextNode,
   getPreviousNode,
@@ -30,24 +28,28 @@ const {
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
-} = require("./utils");
+} = require("./utils.js");
+
+const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function print(path, options, print) {
-  const n = path.getValue();
+  const node = path.getValue();
 
   /* istanbul ignore if*/
-  if (!n) {
+  if (!node) {
     return "";
   }
 
   if (hasPrettierIgnore(path)) {
-    return options.originalText.slice(locStart(n), locEnd(n));
+    return options.originalText.slice(locStart(node), locEnd(node));
   }
 
-  switch (n.type) {
+  const favoriteQuote = options.singleQuote ? "'" : '"';
+
+  switch (node.type) {
     case "Block":
     case "Program":
     case "Template": {
@@ -58,22 +60,22 @@ function print(path, options, print) {
       const startingTag = group(printStartingTag(path, print));
 
       const escapeNextElementNode =
-        options.htmlWhitespaceSensitivity !== "strict" &&
+        options.htmlWhitespaceSensitivity === "ignore" &&
         isNextNodeOfSomeType(path, ["ElementNode"])
           ? softline
           : "";
 
-      if (isVoid(n)) {
+      if (isVoid(node)) {
         return [startingTag, escapeNextElementNode];
       }
 
-      const endingTag = ["</", n.tag, ">"];
+      const endingTag = ["</", node.tag, ">"];
 
-      if (n.children.length === 0) {
+      if (node.children.length === 0) {
         return [startingTag, indent(endingTag), escapeNextElementNode];
       }
 
-      if (options.htmlWhitespaceSensitivity !== "strict") {
+      if (options.htmlWhitespaceSensitivity === "ignore") {
         return [
           startingTag,
           indent(printChildren(path, options, print)),
@@ -98,7 +100,7 @@ function print(path, options, print) {
         pp &&
         pp.inverse &&
         pp.inverse.body.length === 1 &&
-        pp.inverse.body[0] === n &&
+        pp.inverse.body[0] === node &&
         pp.inverse.body[0].path.parts[0] === "if";
 
       if (isElseIf) {
@@ -120,28 +122,14 @@ function print(path, options, print) {
     }
 
     case "ElementModifierStatement": {
-      return group(["{{", printPathAndParams(path, print), softline, "}}"]);
+      return group(["{{", printPathAndParams(path, print), "}}"]);
     }
+
     case "MustacheStatement": {
-      const isParentOfSpecifiedTypes = isParentOfSomeType(path, [
-        "AttrNode",
-        "ConcatStatement",
-      ]);
-
-      const isChildOfElementNodeAndDoesNotHaveParams =
-        isParentOfSomeType(path, ["ElementNode"]) &&
-        doesNotHaveHashParams(n) &&
-        doesNotHavePositionalParams(n);
-
-      const shouldBreakOpeningMustache =
-        isParentOfSpecifiedTypes || isChildOfElementNodeAndDoesNotHaveParams;
-
       return group([
-        printOpeningMustache(n),
-        shouldBreakOpeningMustache ? indent(softline) : "",
+        printOpeningMustache(node),
         printPathAndParams(path, print),
-        softline,
-        printClosingMustache(n),
+        printClosingMustache(node),
       ]);
     }
 
@@ -154,37 +142,37 @@ function print(path, options, print) {
       ]);
     }
     case "AttrNode": {
-      const isText = n.value.type === "TextNode";
-      const isEmptyText = isText && n.value.chars === "";
+      const isText = node.value.type === "TextNode";
+      const isEmptyText = isText && node.value.chars === "";
 
       // If the text is empty and the value's loc start and end offsets are the
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      if (isEmptyText && locStart(n.value) === locEnd(n.value)) {
-        return n.name;
+      if (isEmptyText && locStart(node.value) === locEnd(node.value)) {
+        return node.name;
       }
 
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? chooseEnclosingQuote(options, n.value.chars).quote
-        : n.value.type === "ConcatStatement"
-        ? chooseEnclosingQuote(
-            options,
-            n.value.parts
+        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
+        : node.value.type === "ConcatStatement"
+        ? getPreferredQuote(
+            node.value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
-              .join("")
+              .join(""),
+            favoriteQuote
           ).quote
         : "";
 
-      const valueDoc = path.call(print, "value");
+      const valueDoc = print("value");
 
       return [
-        n.name,
+        node.name,
         "=",
         quote,
-        n.name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
+        node.name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
         quote,
       ];
     }
@@ -197,13 +185,13 @@ function print(path, options, print) {
       return join(line, path.map(print, "pairs"));
     }
     case "HashPair": {
-      return [n.key, "=", path.call(print, "value")];
+      return [node.key, "=", print("value")];
     }
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = n.chars.replace(/{{/g, "\\{{");
+      let text = node.chars.replace(/{{/g, "\\{{");
 
       const attrName = getCurrentAttributeName(path);
 
@@ -238,21 +226,36 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceEndOfLineWith(text, literalline);
+        return replaceTextEndOfLine(text);
       }
 
-      if (options.htmlWhitespaceSensitivity === "strict") {
+      const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
+      const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+      const isFirstElement = !getPreviousNode(path);
+      const isLastElement = !getNextNode(path);
+
+      if (options.htmlWhitespaceSensitivity !== "ignore") {
         // https://infra.spec.whatwg.org/#ascii-whitespace
         const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
         const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
-        const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
 
-        if (whitespacesOnlyRE.test(text)) {
+        // let's remove the file's final newline
+        // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
+        const shouldTrimTrailingNewlines =
+          isLastElement && isParentOfSomeType(path, ["Template"]);
+        const shouldTrimLeadingNewlines =
+          isFirstElement && isParentOfSomeType(path, ["Template"]);
+
+        if (isWhitespaceOnly) {
+          if (shouldTrimLeadingNewlines || shouldTrimTrailingNewlines) {
+            return "";
+          }
+
           let breaks = [line];
 
           const newlines = countNewLines(text);
           if (newlines) {
-            breaks = generateHardlines(newlines, 2);
+            breaks = generateHardlines(newlines);
           }
 
           if (isLastNodeOfSiblings(path)) {
@@ -271,7 +274,7 @@ function print(path, options, print) {
 
           const leadingNewlines = countNewLines(lead);
           if (leadingNewlines) {
-            leadBreaks = generateHardlines(countNewLines(lead) || 1, 2);
+            leadBreaks = generateHardlines(leadingNewlines);
           }
 
           text = text.replace(leadingWhitespacesRE, "");
@@ -279,11 +282,13 @@ function print(path, options, print) {
 
         let trailBreaks = [];
         if (tail) {
-          trailBreaks = [line];
+          if (!shouldTrimTrailingNewlines) {
+            trailBreaks = [line];
 
-          const trailingNewlines = countNewLines(tail);
-          if (trailingNewlines) {
-            trailBreaks = generateHardlines(trailingNewlines || 1, 2);
+            const trailingNewlines = countNewLines(tail);
+            if (trailingNewlines) {
+              trailBreaks = generateHardlines(trailingNewlines);
+            }
 
             if (isLastNodeOfSiblings(path)) {
               trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
@@ -296,10 +301,6 @@ function print(path, options, print) {
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
       }
 
-      const maxLineBreaksToPreserve = 2;
-      const isFirstElement = !getPreviousNode(path);
-      const isLastElement = !getNextNode(path);
-      const isWhitespaceOnly = !/\S/.test(text);
       const lineBreaksCount = countNewLines(text);
 
       let leadingLineBreaksCount = countLeadingNewLines(text);
@@ -316,7 +317,7 @@ function print(path, options, print) {
       if (isWhitespaceOnly && lineBreaksCount) {
         leadingLineBreaksCount = Math.min(
           lineBreaksCount,
-          maxLineBreaksToPreserve
+          NEWLINES_TO_PRESERVE_MAX
         );
         trailingLineBreaksCount = 0;
       } else {
@@ -361,14 +362,14 @@ function print(path, options, print) {
         .replace(/[\t\n\f\r ]+$/, trailingSpace);
 
       return [
-        ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+        ...generateHardlines(leadingLineBreaksCount),
         fill(getTextValueParts(text)),
-        ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
+        ...generateHardlines(trailingLineBreaksCount),
       ];
     }
     case "MustacheCommentStatement": {
-      const start = locStart(n);
-      const end = locEnd(n);
+      const start = locStart(node);
+      const end = locEnd(node);
       // Starts with `{{~`
       const isLeftWhiteSpaceSensitive =
         options.originalText.charAt(start + 2) === "~";
@@ -376,32 +377,36 @@ function print(path, options, print) {
       const isRightWhitespaceSensitive =
         options.originalText.charAt(end - 3) === "~";
 
-      const dashes = n.value.includes("}}") ? "--" : "";
+      const dashes = node.value.includes("}}") ? "--" : "";
       return [
         "{{",
         isLeftWhiteSpaceSensitive ? "~" : "",
         "!",
         dashes,
-        n.value,
+        node.value,
         dashes,
         isRightWhitespaceSensitive ? "~" : "",
         "}}",
       ];
     }
     case "PathExpression": {
-      return n.original;
+      return node.original;
     }
     case "BooleanLiteral": {
-      return String(n.value);
+      return String(node.value);
     }
     case "CommentStatement": {
-      return ["<!--", n.value, "-->"];
+      return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
-      return printStringLiteral(n.value, options);
+      if (needsOppositeQuote(path)) {
+        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
+        return printStringLiteral(node.value, printFavoriteQuote);
+      }
+      return printStringLiteral(node.value, favoriteQuote);
     }
     case "NumberLiteral": {
-      return String(n.value);
+      return String(node.value);
     }
     case "UndefinedLiteral": {
       return "undefined";
@@ -412,43 +417,49 @@ function print(path, options, print) {
 
     /* istanbul ignore next */
     default:
-      throw new Error("unknown glimmer type: " + JSON.stringify(n.type));
+      throw new Error("unknown glimmer type: " + JSON.stringify(node.type));
   }
 }
 
 /* ElementNode print helpers */
 
+function sortByLoc(a, b) {
+  return locStart(a) - locStart(b);
+}
+
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributesLike = ["attributes", "modifiers", "comments", "blockParams"]
-    .filter((property) => isNonEmptyArray(node[property]))
-    .map((property) => [
-      line,
-      property === "blockParams"
-        ? printBlockParams(node)
-        : join(line, path.map(print, property)),
-    ]);
+  const types = ["attributes", "modifiers", "comments"].filter((property) =>
+    isNonEmptyArray(node[property])
+  );
+  const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
-  return [
-    "<",
-    node.tag,
-    indent(attributesLike),
-    printStartingTagEndMarker(node),
-  ];
+  for (const attributeType of types) {
+    path.each((attributePath) => {
+      const index = attributes.indexOf(attributePath.getValue());
+      attributes.splice(index, 1, [line, print()]);
+    }, attributeType);
+  }
+
+  if (isNonEmptyArray(node.blockParams)) {
+    attributes.push(line, printBlockParams(node));
+  }
+
+  return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
 }
 
 function printChildren(path, options, print) {
   const node = path.getValue();
-  const isEmpty = node.children.every((n) => isWhitespaceNode(n));
-  if (options.htmlWhitespaceSensitivity !== "strict" && isEmpty) {
+  const isEmpty = node.children.every((node) => isWhitespaceNode(node));
+  if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
     return "";
   }
 
   return path.map((childPath, childIndex) => {
-    const printedChild = print(childPath, options, print);
+    const printedChild = print();
 
-    if (childIndex === 0 && options.htmlWhitespaceSensitivity !== "strict") {
+    if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
     }
 
@@ -536,7 +547,7 @@ function printOpenBlock(path, print) {
 
   return group([
     openingMustache,
-    indent(group(attributes)),
+    indent(attributes),
     softline,
     closingMustache,
   ]);
@@ -544,7 +555,7 @@ function printOpenBlock(path, print) {
 
 function printElseBlock(node, options) {
   return [
-    options.htmlWhitespaceSensitivity !== "strict" ? hardline : "",
+    options.htmlWhitespaceSensitivity === "ignore" ? hardline : "",
     printInverseBlockOpeningMustache(node),
     "else",
     printInverseBlockClosingMustache(node),
@@ -556,8 +567,8 @@ function printElseIfBlock(path, print) {
 
   return [
     printInverseBlockOpeningMustache(parentNode),
-    "else ",
-    printPathAndParams(path, print),
+    "else if ",
+    printParams(path, print),
     printInverseBlockClosingMustache(parentNode),
   ];
 }
@@ -565,7 +576,7 @@ function printElseIfBlock(path, print) {
 function printCloseBlock(path, print, options) {
   const node = path.getValue();
 
-  if (options.htmlWhitespaceSensitivity !== "strict") {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
     const escape = blockStatementHasOnlyWhitespaceInProgram(node)
       ? softline
       : hardline;
@@ -573,14 +584,14 @@ function printCloseBlock(path, print, options) {
     return [
       escape,
       printClosingBlockOpeningMustache(node),
-      path.call(print, "path"),
+      print("path"),
       printClosingBlockClosingMustache(node),
     ];
   }
 
   return [
     printClosingBlockOpeningMustache(node),
-    path.call(print, "path"),
+    print("path"),
     printClosingBlockClosingMustache(node),
   ];
 }
@@ -588,7 +599,7 @@ function printCloseBlock(path, print, options) {
 function blockStatementHasOnlyWhitespaceInProgram(node) {
   return (
     isNodeOfSomeType(node, ["BlockStatement"]) &&
-    node.program.body.every((n) => isWhitespaceNode(n))
+    node.program.body.every((node) => isWhitespaceNode(node))
   );
 }
 
@@ -612,9 +623,9 @@ function printProgram(path, print, options) {
     return "";
   }
 
-  const program = path.call(print, "program");
+  const program = print("program");
 
-  if (options.htmlWhitespaceSensitivity !== "strict") {
+  if (options.htmlWhitespaceSensitivity === "ignore") {
     return indent([hardline, program]);
   }
 
@@ -624,9 +635,9 @@ function printProgram(path, print, options) {
 function printInverse(path, print, options) {
   const node = path.getValue();
 
-  const inverse = path.call(print, "inverse");
+  const inverse = print("inverse");
   const printed =
-    options.htmlWhitespaceSensitivity !== "strict"
+    options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
       : inverse;
 
@@ -680,11 +691,15 @@ function countTrailingNewLines(string) {
   return countNewLines(newLines);
 }
 
-function generateHardlines(number = 0, max = 0) {
-  return new Array(Math.min(number, max)).fill(hardline);
+function generateHardlines(number = 0) {
+  return Array.from({
+    length: Math.min(number, NEWLINES_TO_PRESERVE_MAX),
+  }).fill(hardline);
 }
 
 /* StringLiteral print helpers */
+
+/** @typedef {import("../common/util").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on
@@ -693,38 +708,28 @@ function generateHardlines(number = 0, max = 0) {
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
  * @param {string} stringLiteral - the string literal value
- * @param {object} options - the prettier options object
+ * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, options) {
-  const { quote, regex } = chooseEnclosingQuote(options, stringLiteral);
+function printStringLiteral(stringLiteral, favoriteQuote) {
+  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
 }
 
-function chooseEnclosingQuote(options, stringLiteral) {
-  const double = { quote: '"', regex: /"/g };
-  const single = { quote: "'", regex: /'/g };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = preferred === single ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  // If `stringLiteral` contains at least one of the quote preferred for
-  // enclosing the string, we might want to enclose with the alternate quote
-  // instead, to minimize the number of escaped quotes.
-  if (
-    stringLiteral.includes(preferred.quote) ||
-    stringLiteral.includes(alternate.quote)
-  ) {
-    const numPreferredQuotes = (stringLiteral.match(preferred.regex) || [])
-      .length;
-    const numAlternateQuotes = (stringLiteral.match(alternate.regex) || [])
-      .length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+function needsOppositeQuote(path) {
+  let index = 0;
+  let parentNode = path.getParentNode(index);
+  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
+    index++;
+    parentNode = path.getParentNode(index);
   }
-
-  return shouldUseAlternateQuote ? alternate : preferred;
+  if (
+    parentNode &&
+    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
+    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /* SubExpression print helpers */
@@ -750,11 +755,11 @@ function printPathAndParams(path, print) {
     return p;
   }
 
-  return indent(group([p, line, params]));
+  return [indent([p, line, params]), softline];
 }
 
 function printPath(path, print) {
-  return path.call(print, "path");
+  return print("path");
 }
 
 function printParams(path, print) {
@@ -767,7 +772,7 @@ function printParams(path, print) {
   }
 
   if (node.hash && node.hash.pairs.length > 0) {
-    const hash = path.call(print, "hash");
+    const hash = print("hash");
     parts.push(hash);
   }
 
@@ -780,14 +785,6 @@ function printParams(path, print) {
 
 function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
-}
-
-function doesNotHaveHashParams(node) {
-  return node.hash.pairs.length === 0;
-}
-
-function doesNotHavePositionalParams(node) {
-  return node.params.length === 0;
 }
 
 module.exports = {

@@ -4,12 +4,11 @@ const fs = require("fs");
 const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
-const flatten = require("lodash/flatten");
 const globby = require("globby");
 const mem = require("mem");
-const internalPlugins = require("../languages");
-const thirdParty = require("./third-party");
-const resolve = require("./resolve");
+const internalPlugins = require("../languages.js");
+const thirdParty = require("./third-party.js");
+const resolve = require("./resolve.js");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -48,7 +47,7 @@ function load(plugins, pluginSearchDirs) {
       try {
         // try local files
         requirePath = resolve(path.resolve(process.cwd(), pluginName));
-      } catch (_) {
+      } catch {
         // try node modules
         requirePath = resolve(pluginName, { paths: [process.cwd()] });
       }
@@ -60,8 +59,8 @@ function load(plugins, pluginSearchDirs) {
     }
   );
 
-  const externalAutoLoadPluginInfos = flatten(
-    pluginSearchDirs.map((pluginSearchDir) => {
+  const externalAutoLoadPluginInfos = pluginSearchDirs.flatMap(
+    (pluginSearchDir) => {
       const resolvedPluginSearchDir = path.resolve(
         process.cwd(),
         pluginSearchDir
@@ -88,7 +87,7 @@ function load(plugins, pluginSearchDirs) {
         name: pluginName,
         requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
       }));
-    })
+    }
   );
 
   const externalPlugins = [
@@ -97,7 +96,7 @@ function load(plugins, pluginSearchDirs) {
       "requirePath"
     ).map((externalPluginInfo) => ({
       name: externalPluginInfo.name,
-      ...eval("require")(externalPluginInfo.requirePath),
+      ...require(externalPluginInfo.requirePath),
     })),
     ...externalPluginInstances,
   ];
@@ -123,7 +122,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
 function isDirectory(dir) {
   try {
     return fs.statSync(dir).isDirectory();
-  } catch (e) {
+  } catch {
     return false;
   }
 }
