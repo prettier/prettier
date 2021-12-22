@@ -205,3 +205,30 @@ describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd
     write: [],
   });
 });
+
+describe("help info", () => {
+  runPrettier("plugins/options", ["--help", "plugin-search-dir"]).test({
+    status: 0,
+    write: [],
+    stderr: "",
+  });
+  runPrettier("plugins/options", ["--help", "no-plugin-search-dir"]).test({
+    status: 0,
+    write: [],
+    stderr: "",
+  });
+});
+
+test("--no-plugin-search-dir", async () => {
+  async function getParser(args = []) {
+    const { stdout } = await runPrettier("plugins/automatic", [
+      "--file-info=file.foo",
+      ...args,
+    ]);
+    return JSON.parse(stdout).inferredParser;
+  }
+
+  expect(await getParser()).toBe("foo");
+  expect(await getParser(["--plugin-search-dir=."])).toBe("foo");
+  expect(await getParser(["--no-plugin-search-dir"])).toBeNull();
+});

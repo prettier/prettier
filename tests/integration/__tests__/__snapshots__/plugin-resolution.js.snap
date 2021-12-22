@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cli (stdout) 1`] = `
-"{ \\"ignored\\": false, \\"inferredParser\\": \\"foo\\" }
-
-"
-`;
-
-exports[`cli (stdout) 2`] = `
-"{ \\"ignored\\": false, \\"inferredParser\\": null }
-
-"
-`;
-
 exports[`help info (stdout) 1`] = `
 "--plugin-search-dir <path>
 

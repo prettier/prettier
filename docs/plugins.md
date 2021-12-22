@@ -21,6 +21,8 @@ When plugins cannot be found automatically, you can load them with:
 
   > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
 
+  > Tip: You can use `--no-plugin-search-dir` to turn off plugin autoloading.
+
 - Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
 
   ```js
@@ -33,7 +35,7 @@ When plugins cannot be found automatically, you can load them with:
 
 Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*`, `@*/prettier-plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
 
-Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
+To turns off plugin autoloading, use `{pluginSearchDirs: false}`.
 
 ## Official Plugins
 

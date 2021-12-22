@@ -19,6 +19,7 @@ const CATEGORY_SPECIAL = "Special";
  * @property {OptionValueInfo} [default]
  * @property {OptionRangeInfo} [range] - for type int
  * @property {string} description
+ * @property {string} [oppositeDescription]
  * @property {string} [deprecated] - deprecated since version
  * @property {OptionRedirectInfo} [redirect] - redirect deprecated option
  * @property {(value: any) => boolean} [exception]
