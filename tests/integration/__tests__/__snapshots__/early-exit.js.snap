@@ -121,6 +121,7 @@ Config options:
                            Overrides default behavior when plugins are searched relatively to the location of Prettier.
                            Multiple values are accepted.
                            Defaults to [].
+  --no-plugin-search-dir   Disable plugin autoloading.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -289,6 +290,7 @@ Config options:
                            Overrides default behavior when plugins are searched relatively to the location of Prettier.
                            Multiple values are accepted.
                            Defaults to [].
+  --no-plugin-search-dir   Disable plugin autoloading.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:

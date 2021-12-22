@@ -957,6 +957,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"default\\": [],
       \\"description\\": \\"Custom directory that contains prettier plugins in node_modules subdirectory.\\\\nOverrides default behavior when plugins are searched relatively to the location of Prettier.\\\\nMultiple values are accepted.\\",
       \\"name\\": \\"pluginSearchDirs\\",
+      \\"oppositeDescription\\": \\"Disable plugin autoloading.\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.13.0\\",
       \\"type\\": \\"path\\"

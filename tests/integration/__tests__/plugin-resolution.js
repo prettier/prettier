@@ -206,19 +206,6 @@ describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd
   });
 });
 
-describe("help info", () => {
-  runPrettier("plugins/options", ["--help", "plugin-search-dir"]).test({
-    status: 0,
-    write: [],
-    stderr: "",
-  });
-  runPrettier("plugins/options", ["--help", "no-plugin-search-dir"]).test({
-    status: 0,
-    write: [],
-    stderr: "",
-  });
-});
-
 test("--no-plugin-search-dir", async () => {
   async function getParser(args = []) {
     const { stdout } = await runPrettier("plugins/automatic", [
