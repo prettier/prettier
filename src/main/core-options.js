@@ -180,6 +180,7 @@ const options = {
       Overrides default behavior when plugins are searched relatively to the location of Prettier.
       Multiple values are accepted.
     `,
+    oppositeDescription: "Do not search plugins.",
     cliName: "plugin-search-dir",
     cliCategory: CATEGORY_CONFIG,
   },

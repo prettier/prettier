@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli (stdout) 1`] = `
+"{ \\"ignored\\": false, \\"inferredParser\\": \\"foo\\" }
+
+"
+`;
+
+exports[`cli (stdout) 2`] = `
+"{ \\"ignored\\": false, \\"inferredParser\\": null }
+
+"
+`;
+
+exports[`help info (stdout) 1`] = `
+"--plugin-search-dir <path>
+
+  Custom directory that contains prettier plugins in node_modules subdirectory.
+  Overrides default behavior when plugins are searched relatively to the location of Prettier.
+  Multiple values are accepted.
+
+Default: []
+"
+`;
+
+exports[`help info (stdout) 2`] = `
+"--no-plugin-search-dir
+
+  Do not search plugins.
+"
+`;
