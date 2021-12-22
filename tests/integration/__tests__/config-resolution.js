@@ -304,6 +304,14 @@ test("API resolveConfig resolves relative path values based on config filepath",
     plugins: [path.join(parentDir, "path-to-plugin")],
     pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")],
   });
+
+  expect(
+    prettier.resolveConfig.sync(
+      path.join(__dirname, "../cli/config/plugin-search-dirs/index.js")
+    )
+  ).toMatchObject({
+    pluginSearchDirs: false,
+  });
 });
 
 test("API resolveConfig de-references to an external module", () => {
