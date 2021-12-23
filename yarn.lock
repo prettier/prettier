@@ -2547,10 +2547,10 @@ core-js-compat@^3.18.0, core-js-compat@^3.19.1:
     browserslist "^4.18.1"
     semver "7.0.0"
 
-core-js@3.20.0, core-js@^3.16.2:
-  version "3.20.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.0.tgz#1c5ac07986b8d15473ab192e45a2e115a4a95b79"
-  integrity sha512-KjbKU7UEfg4YPpskMtMXPhUKn7m/1OdTHTVjy09ScR2LVaoUXe8Jh0UdvN2EKUR6iKTJph52SJP95mAB0MnVLQ==
+core-js@3.20.1, core-js@^3.16.2:
+  version "3.20.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.1.tgz#eb1598047b7813572f1dc24b7c6a95528c99eef3"
+  integrity sha512-btdpStYFQScnNVQ5slVcr858KP0YWYjV16eGJQw8Gg7CWtu/2qNvIM3qVRIR3n1pK2R9NNOrTevbvAYxajwEjg==
 
 core-util-is@^1.0.2:
   version "1.0.3"
@@ -3038,10 +3038,10 @@ eslint-plugin-prettier-internal-rules@2.0.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier-internal-rules/-/eslint-plugin-prettier-internal-rules-2.0.1.tgz#ee6f5b4d663fd16d406f66a0d52775d05be1bd6e"
   integrity sha512-6mLlbq4xl86c66Smulq2a/bIpTzXDL3LcoYQd/C+kSbjLl8L7G+3wNJs6lWsZZ5v8fyirundQBH6PP/PSAzDMw==
 
-eslint-plugin-react@7.27.1:
-  version "7.27.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.27.1.tgz#469202442506616f77a854d91babaae1ec174b45"
-  integrity sha512-meyunDjMMYeWr/4EBLTV1op3iSG3mjT/pz5gti38UzfM4OPpNc2m0t2xvKCOMU5D6FSdd34BIMFOvQbW+i8GAA==
+eslint-plugin-react@7.28.0:
+  version "7.28.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.28.0.tgz#8f3ff450677571a659ce76efc6d80b6a525adbdf"
+  integrity sha512-IOlFIRHzWfEQQKcAD4iyYDndHwTQiCMcJVJjxempf203jnNLUnW34AXLrV33+nEXoifJE2ZEGmcjKPL8957eSw==
   dependencies:
     array-includes "^3.1.4"
     array.prototype.flatmap "^1.2.5"
