@@ -273,6 +273,7 @@ function printFlow(path, options, print) {
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
       return printRestSpread(path, options, print);
+    case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
