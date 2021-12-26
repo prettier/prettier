@@ -4934,10 +4934,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-node-actionlint@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/node-actionlint/-/node-actionlint-1.2.1.tgz#bba9c13e10a7af97029b0dd19aa82337c116989a"
-  integrity sha512-X7fvwzx5dQx2/ElgLiAfdn+5f9UadpyeQt6Mwsct/UQ3Ysk4vQ91AVNXFQOu5c12ob7kD5VpZx8AM86xGsFHvg==
+node-actionlint@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/node-actionlint/-/node-actionlint-1.2.2.tgz#0bca592fd28274c368feed8da52a9e2e5db1587d"
+  integrity sha512-BUPYscLEoeKiLrWb7uFLsgDECtSgBMFOUTSL2N0EfMaVohty5DnubPDpQJnuVw7Rt11h2s+QIzg9rnNJSUCLmQ==
   dependencies:
     "@babel/code-frame" "^7.14.5"
     chalk "^4.1.1"
