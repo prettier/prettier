@@ -2421,10 +2421,10 @@ concat-with-sourcemaps@*:
   dependencies:
     source-map "^0.6.1"
 
-concurrently@6.5.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.5.0.tgz#57082bfe797f93cf4a437ce54742c56823a8ea05"
-  integrity sha512-BjC0KYxXtO6EiWa46gfWYzcLULPBCb+5+VZFtzCemR/co0QSHU4mysEvmT6cnedPpQ9dtJzb+2G694o3V7TgLg==
+concurrently@6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-6.5.1.tgz#4518c67f7ac680cf5c34d5adf399a2a2047edc8c"
+  integrity sha512-FlSwNpGjWQfRwPLXvJ/OgysbBxPkWpiVjy1042b0U7on7S7qwwMIILRj7WTN1mTgqa582bG6NFuScOoh6Zgdag==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
