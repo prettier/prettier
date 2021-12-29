@@ -230,6 +230,7 @@ function printFlow(path, options, print) {
       return parts;
     case "ObjectTypeIndexer": {
       return [
+        node.static ? "static " : "",
         node.variance ? print("variance") : "",
         "[",
         print("id"),
