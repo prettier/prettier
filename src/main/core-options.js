@@ -19,7 +19,6 @@ const CATEGORY_SPECIAL = "Special";
  * @property {OptionValueInfo} [default]
  * @property {OptionRangeInfo} [range] - for type int
  * @property {string} description
- * @property {string} [oppositeDescription]
  * @property {string} [deprecated] - deprecated since version
  * @property {OptionRedirectInfo} [redirect] - redirect deprecated option
  * @property {(value: any) => boolean} [exception]
@@ -181,7 +180,6 @@ const options = {
       Overrides default behavior when plugins are searched relatively to the location of Prettier.
       Multiple values are accepted.
     `,
-    oppositeDescription: "Disable plugin autoloading.",
     cliName: "plugin-search-dir",
     cliCategory: CATEGORY_CONFIG,
   },

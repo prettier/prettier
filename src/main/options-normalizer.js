@@ -88,6 +88,10 @@ function normalizeOptions(
     hasDeprecationWarned = normalizer._hasDeprecationWarned;
   }
 
+  if (isCLI && normalized["plugin-search"] === false) {
+    normalized["plugin-search-dir"] = false;
+  }
+
   return normalized;
 }
 

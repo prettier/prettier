@@ -21,7 +21,7 @@ When plugins cannot be found automatically, you can load them with:
 
   > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
 
-  > Tip: You can use `--no-plugin-search-dir` to turn off plugin autoloading.
+  > Tip: You can use `--no-plugin-search` to turn off plugin autoloading.
 
 - Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
 

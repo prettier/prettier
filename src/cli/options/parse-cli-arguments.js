@@ -33,7 +33,10 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   );
 }
 
-const detailedOptionsWithoutPlugins = getContextOptions().detailedOptions;
+const detailedOptionsWithoutPlugins = getContextOptions(
+  [],
+  false
+).detailedOptions;
 function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   return parseArgv(
     rawArguments,

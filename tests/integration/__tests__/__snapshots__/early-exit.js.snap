@@ -121,7 +121,6 @@ Config options:
                            Overrides default behavior when plugins are searched relatively to the location of Prettier.
                            Multiple values are accepted.
                            Defaults to [].
-  --no-plugin-search-dir   Disable plugin autoloading.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -154,6 +153,7 @@ Other options:
   --loglevel <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
+  --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -290,7 +290,6 @@ Config options:
                            Overrides default behavior when plugins are searched relatively to the location of Prettier.
                            Multiple values are accepted.
                            Defaults to [].
-  --no-plugin-search-dir   Disable plugin autoloading.
   --with-node-modules      Process files inside 'node_modules' directory.
 
 Editor options:
@@ -323,6 +322,7 @@ Other options:
   --loglevel <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
+  --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
