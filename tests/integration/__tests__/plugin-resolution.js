@@ -222,11 +222,23 @@ test("--no-plugin-search-dir", async () => {
 
 test("--no-plugin-search-dir still allow use --plugin", async () => {
   const args = ["file.txt", "--parser=bar"];
-  const {stdout: stdoutWithoutPlugin} = await runPrettier("plugins/automatic", args);
+  const { stdout: stdoutWithoutPlugin } = await runPrettier(
+    "plugins/automatic",
+    args
+  );
   const argsWithPlugin = [...args, "--plugin=./prettier-plugin-bar.js"];
-  const {stdout: stdoutWithPlugin} = await runPrettier("plugins/automatic", argsWithPlugin);
-  const {stdout: stdoutWithoutPluginAndNoPluginSearch} = await runPrettier("plugins/automatic", [...args, "--no-plugin-search-dir"]);
-  const {stdout: stdoutWithPluginButNoPluginSearch} = await runPrettier("plugins/automatic", [...argsWithPlugin, "--no-plugin-search-dir"]);
+  const { stdout: stdoutWithPlugin } = await runPrettier(
+    "plugins/automatic",
+    argsWithPlugin
+  );
+  const { stdout: stdoutWithoutPluginAndNoPluginSearch } = await runPrettier(
+    "plugins/automatic",
+    [...args, "--no-plugin-search-dir"]
+  );
+  const { stdout: stdoutWithPluginButNoPluginSearch } = await runPrettier(
+    "plugins/automatic",
+    [...argsWithPlugin, "--no-plugin-search-dir"]
+  );
 
   expect(stdoutWithoutPlugin).not.toBe(stdoutWithPlugin);
   expect(stdoutWithoutPluginAndNoPluginSearch).toBe("");
