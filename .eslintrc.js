@@ -182,7 +182,7 @@ module.exports = {
     {
       files: ["tests/integration/**/*.js"],
       rules: {
-        "prettier-internal-rules/no-multiple-cli-tests": "error",
+        "prettier-internal-rules/await-cli-tests": "error",
       },
     },
     {

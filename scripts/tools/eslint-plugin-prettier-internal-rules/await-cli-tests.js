@@ -6,14 +6,14 @@ const selector = [
   '[callee.name="runPrettier"]',
 ].join("");
 
-const MESSAGE_ID_CALL = "no-multiple-cli-tests/call";
-const MESSAGE_ID_GETTER = "no-multiple-cli-tests/getter";
+const MESSAGE_ID_CALL = "await-cli-tests/call";
+const MESSAGE_ID_GETTER = "await-cli-tests/getter";
 
 module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-multiple-cli-tests.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/await-cli-tests.js",
     },
     messages: {
       [MESSAGE_ID_CALL]:

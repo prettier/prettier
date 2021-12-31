@@ -14,6 +14,32 @@ const test = (ruleId, tests) => {
   );
 };
 
+test("await-cli-tests", {
+  valid: [
+    "async () => await runPrettier()",
+    "runPrettier().test()",
+    "notRunPrettier()",
+    "async () => await runPrettier().stderr",
+    outdent`
+      async () => {
+        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+      }
+    `,
+  ],
+  invalid: [
+    {
+      code: "runPrettier()",
+      errors: [
+        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+      ],
+    },
+    {
+      code: "runPrettier().stderr",
+      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+    },
+  ],
+});
+
 test("better-parent-property-check-in-needs-parens", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
@@ -301,32 +327,6 @@ test("no-identifier-n", {
       code: "const n = 1;const node = 2;",
       output: "const n = 1;const node = 2;",
       errors: [{ suggestions: [{ output: "const node = 1;const node = 2;" }] }],
-    },
-  ],
-});
-
-test("no-multiple-cli-tests", {
-  valid: [
-    "async () => await runPrettier()",
-    "runPrettier().test()",
-    "notRunPrettier()",
-    "async () => await runPrettier().stderr",
-    outdent`
-      async () => {
-        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
-      }
-    `,
-  ],
-  invalid: [
-    {
-      code: "runPrettier()",
-      errors: [
-        { message: "'runPrettier()' should be awaited or calling `.test()`." },
-      ],
-    },
-    {
-      code: "runPrettier().stderr",
-      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
     },
   ],
 });
