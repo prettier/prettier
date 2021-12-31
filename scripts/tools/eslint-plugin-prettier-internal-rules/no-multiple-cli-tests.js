@@ -56,11 +56,13 @@ module.exports = {
           ) {
             return;
           }
+
           context.report({
             node: memberExpression.property,
             messageId: MESSAGE_ID_GETTER,
             data: { property: memberExpression.property.name },
           });
+          return;
         }
 
         context.report({ node: callExpression, messageId: MESSAGE_ID_CALL });
