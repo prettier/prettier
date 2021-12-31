@@ -75,6 +75,7 @@ module.exports = {
     utils: {
       arrayify: require("./utils/arrayify.js"),
       getLast: require("./utils/get-last.js"),
+      isNonEmptyArray: require("./common/util.js").isNonEmptyArray,
     },
   },
 
