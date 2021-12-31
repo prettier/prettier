@@ -28,7 +28,7 @@ const runSpellcheck = (options) => {
     execaOptions: { reject: false },
   });
 
-  const cleaned = stdout
+  const words = stdout
     .split("\n")
     // Remove upper case word, if lower case one already exists
     .filter((word, _, words) => {
@@ -37,9 +37,9 @@ const runSpellcheck = (options) => {
     })
     // Compare function from https://github.com/streetsidesoftware/vscode-spell-checker/blob/2fde3bc5c658ee51da5a56580aa1370bf8174070/packages/client/src/settings/CSpellSettings.ts#L78
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-  config.words = cleaned;
+  config.words = words;
 
-  const removed = original.filter((word) => !cleaned.includes(word));
+  const removed = original.filter((word) => !words.includes(word));
   if (removed.length > 0) {
     console.log(
       `${removed.length} words removed: \n${removed
@@ -47,7 +47,7 @@ const runSpellcheck = (options) => {
         .join("\n")}`
     );
   }
-  const added = cleaned.filter((word) => !original.includes(word));
+  const added = words.filter((word) => !original.includes(word));
   if (added.length > 0) {
     console.log(
       `${added.length} words added: \n${added
