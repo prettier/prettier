@@ -1,5 +1,7 @@
 "use strict";
-const pick = require("lodash/pick");
+const {
+  utils: { getLast },
+} = require("./prettier-internal.js");
 const getContextOptions = require("./options/get-context-options.js");
 const {
   parseArgv,
@@ -46,21 +48,14 @@ class Context {
    * @param {string[]=} pluginSearchDirs
    */
   pushContextPlugins(plugins, pluginSearchDirs) {
-    this.stack.push(
-      pick(this, [
-        "supportOptions",
-        "detailedOptions",
-        "detailedOptionMap",
-        "apiDefaultOptions",
-        "languages",
-      ])
-    );
-
-    Object.assign(this, getContextOptions(plugins, pluginSearchDirs));
+    const options = getContextOptions(plugins, pluginSearchDirs);
+    this.stack.push(options);
+    Object.assign(this, options);
   }
 
   popContextPlugins() {
-    Object.assign(this, this.stack.pop());
+    this.stack.pop();
+    Object.assign(this, getLast(this.stack));
   }
 }
 

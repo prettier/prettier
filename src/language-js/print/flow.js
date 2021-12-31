@@ -230,6 +230,7 @@ function printFlow(path, options, print) {
       return parts;
     case "ObjectTypeIndexer": {
       return [
+        node.static ? "static " : "",
         node.variance ? print("variance") : "",
         "[",
         print("id"),
@@ -273,6 +274,7 @@ function printFlow(path, options, print) {
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
       return printRestSpread(path, options, print);
+    case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
