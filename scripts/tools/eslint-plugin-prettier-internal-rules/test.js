@@ -310,7 +310,7 @@ test("no-multiple-cli-tests", {
     "async () => await runPrettier()",
     "runPrettier().test()",
     "notRunPrettier()",
-    // "async () => await runPrettier().stderr",
+    "async () => await runPrettier().stderr",
   ],
   invalid: [
     {
