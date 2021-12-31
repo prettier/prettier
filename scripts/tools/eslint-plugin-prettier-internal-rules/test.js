@@ -305,6 +305,15 @@ test("no-identifier-n", {
   ],
 });
 
+test("no-multiple-cli-tests", {
+  valid: [
+    "async () => await runPrettier()",
+    "runPrettier().test()",
+    "notRunPrettier()",
+  ],
+  invalid: [{ code: "runPrettier()", errors: 1 }],
+});
+
 test("no-node-comments", {
   valid: [
     "const comments = node.notComments",
