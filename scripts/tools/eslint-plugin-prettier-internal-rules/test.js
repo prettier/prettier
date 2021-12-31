@@ -310,8 +310,20 @@ test("no-multiple-cli-tests", {
     "async () => await runPrettier()",
     "runPrettier().test()",
     "notRunPrettier()",
+    // "async () => await runPrettier().stderr",
   ],
-  invalid: [{ code: "runPrettier()", errors: 1 }],
+  invalid: [
+    {
+      code: "runPrettier()",
+      errors: [
+        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+      ],
+    },
+    {
+      code: "runPrettier().stderr",
+      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+    },
+  ],
 });
 
 test("no-node-comments", {
