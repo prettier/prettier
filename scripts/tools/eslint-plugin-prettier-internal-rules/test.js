@@ -307,22 +307,27 @@ test("no-identifier-n", {
 
 test("no-multiple-cli-tests", {
   valid: [
-    "async () => await runPrettier()",
-    "runPrettier().test()",
-    "notRunPrettier()",
-    "async () => await runPrettier().stderr",
+    // "async () => await runPrettier()",
+    // "runPrettier().test()",
+    // "notRunPrettier()",
+    // "async () => await runPrettier().stderr",
+    outdent`
+      async () => {
+        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+      }
+    `,
   ],
   invalid: [
-    {
-      code: "runPrettier()",
-      errors: [
-        { message: "'runPrettier()' should be awaited or calling `.test()`." },
-      ],
-    },
-    {
-      code: "runPrettier().stderr",
-      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
-    },
+    // {
+    //   code: "runPrettier()",
+    //   errors: [
+    //     { message: "'runPrettier()' should be awaited or calling `.test()`." },
+    //   ],
+    // },
+    // {
+    //   code: "runPrettier().stderr",
+    //   errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+    // },
   ],
 });
 
