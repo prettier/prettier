@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+test: string
+value: 123
+---
+
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+  <li>{{speaker}}</li>
+  {{/each}}
+</ul>
+
+=====================================output=====================================
+---
+test: string
+value: 123
+---
+
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+    <li>{{speaker}}</li>
+  {{/each}}
+</ul>
+================================================================================
+`;
+
+exports[`tight.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+---
+test: string
+value: 123
+---
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+  <li>{{speaker}}</li>
+  {{/each}}
+</ul>
+
+=====================================output=====================================
+---
+test: string
+value: 123
+---
+
+<ul>
+  {{#each speakers key="@index" as |speaker|}}
+    <li>{{speaker}}</li>
+  {{/each}}
+</ul>
+================================================================================
+`;

@@ -2,6 +2,7 @@
 
 const { LinesAndColumns } = require("lines-and-columns");
 const createError = require("../common/parser-create-error.js");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
 const { locStart, locEnd } = require("./loc.js");
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
@@ -37,6 +38,10 @@ function addOffset(text) {
 }
 
 function parse(text) {
+  const parsed = parseFrontMatter(text);
+  const { frontMatter } = parsed;
+  text = parsed.content;
+
   const { preprocess: glimmer } = require("@glimmer/syntax");
   let ast;
   try {
@@ -53,6 +58,14 @@ function parse(text) {
 
     /* istanbul ignore next */
     throw error;
+  }
+
+  if (frontMatter) {
+    frontMatter.source = {
+      startOffset: 0,
+      endOffset: frontMatter.raw.length,
+    };
+    ast.body.unshift(frontMatter);
   }
 
   return ast;

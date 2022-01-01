@@ -50,6 +50,8 @@ function print(path, options, print) {
   const favoriteQuote = options.singleQuote ? "'" : '"';
 
   switch (node.type) {
+    case "front-matter":
+      return [node.raw];
     case "Block":
     case "Program":
     case "Template": {
