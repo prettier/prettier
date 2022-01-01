@@ -9,7 +9,7 @@ printWidth: 80
 Dudes: {{#dudes  }}{{>   dude}}{{/dudes}}
 
 =====================================output=====================================
-Dudes: {{#dudes}}{{>dude}}{{/dudes}}
+Dudes: {{#dudes}}{{> dude}}{{/dudes}}
 ================================================================================
 `;
 
@@ -37,9 +37,9 @@ printWidth: 80
 <p>Dudes: {{>dude "dudes"}}</p>
 
 =====================================output=====================================
-<p>Dudes: {{>dude dudes}}</p>
-<p>Dudes: {{#dudes}}{{>dude name="foo"}}{{/dudes}}</p>
-<p>Dudes: {{>dude "dudes"}}</p>
+<p>Dudes: {{> dude dudes}}</p>
+<p>Dudes: {{#dudes}}{{> dude name="foo"}}{{/dudes}}</p>
+<p>Dudes: {{> dude "dudes"}}</p>
 ================================================================================
 `;
 
@@ -103,10 +103,10 @@ printWidth: 80
 <p>Dudes: {{> '+404/asdf?.bar'}}</p>
 
 =====================================output=====================================
-<p>Dudes: {{>shared/dude}}</p>
-<p>Dudes: {{>shared/dude.thing}}</p>
-<p>Dudes: {{>404}}</p>
-<p>Dudes: {{>404/asdf?.bar}}</p>
-<p>Dudes: {{>"+404/asdf?.bar"}}</p>
+<p>Dudes: {{> shared/dude}}</p>
+<p>Dudes: {{> shared/dude.thing}}</p>
+<p>Dudes: {{> 404}}</p>
+<p>Dudes: {{> 404/asdf?.bar}}</p>
+<p>Dudes: {{> "+404/asdf?.bar"}}</p>
 ================================================================================
 `;

@@ -145,13 +145,11 @@ function print(path, options, print) {
     }
 
     case "PartialStatement": {
-      const simple = node.name.type !== "SubExpression";
       return group([
         printOpeningMustache(node),
-        ">",
-        simple ? "" : " ",
+        "> ",
         printPathAndParams(path, print),
-        simple ? "" : " ",
+        node.name.type === "SubExpression" ? " " : "",
         printClosingMustache(node),
       ]);
     }

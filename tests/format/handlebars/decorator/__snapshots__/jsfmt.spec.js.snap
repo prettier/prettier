@@ -39,7 +39,7 @@ printWidth: 80
   My Content
 {{/inline}}
 {{#each people}}
-  {{>myPartial}}
+  {{> myPartial}}
 {{/each}}
 ================================================================================
 `;
