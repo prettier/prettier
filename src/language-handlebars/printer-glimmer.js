@@ -94,7 +94,8 @@ function print(path, options, print) {
     }
 
     case "BlockStatement":
-    case "PartialBlockStatement": {
+    case "PartialBlockStatement":
+    case "DecoratorBlock": {
       const pp = path.getParentNode(1);
 
       const isElseIf =
@@ -516,7 +517,16 @@ function printClosingMustache(node) {
 function printOpeningBlockOpeningMustache(node) {
   const opening = printOpeningMustache(node);
   const strip = node.openStrip.open ? "~" : "";
-  return [opening, strip, "#"];
+  return [
+    opening,
+    strip,
+    "#",
+    node.type === "PartialBlockStatement"
+      ? "> "
+      : node.type === "DecoratorBlock"
+      ? "*"
+      : "",
+  ];
 }
 
 function printOpeningBlockClosingMustache(node) {
@@ -570,7 +580,6 @@ function printOpenBlock(path, print) {
 
   return group([
     openingMustache,
-    node.type === "PartialBlockStatement" ? "> " : "",
     indent(attributes),
     softline,
     closingMustache,
