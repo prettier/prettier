@@ -133,6 +133,15 @@ function print(path, options, print) {
       ]);
     }
 
+    case "DecoratorStatement": {
+      return group([
+        printOpeningMustache(node),
+        "*",
+        printPathAndParams(path, print),
+        printClosingMustache(node),
+      ]);
+    }
+
     case "PartialStatement": {
       const simple = node.name.type !== "SubExpression";
       return group([
