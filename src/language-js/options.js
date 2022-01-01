@@ -99,4 +99,11 @@ module.exports = {
     ],
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
+  jsxSpaceBeforeSelfClosingTag: {
+    since: "2.7.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description: "Put a space before /> in self-closing tags.",
+  },
 };
