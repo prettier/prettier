@@ -93,7 +93,8 @@ function print(path, options, print) {
       ];
     }
 
-    case "BlockStatement": {
+    case "BlockStatement":
+    case "PartialBlockStatement": {
       const pp = path.getParentNode(1);
 
       const isElseIf =
@@ -148,7 +149,7 @@ function print(path, options, print) {
         printOpeningMustache(node),
         ">",
         simple ? "" : " ",
-        printPathAndParams(path, print, print("name")),
+        printPathAndParams(path, print),
         simple ? "" : " ",
         printClosingMustache(node),
       ]);
@@ -561,13 +562,15 @@ function printOpenBlock(path, print) {
     attributes.push(line, params);
   }
 
-  if (isNonEmptyArray(node.program.blockParams)) {
-    const block = printBlockParams(node.program);
+  const content = node.program || node.content;
+  if (isNonEmptyArray(content.blockParams)) {
+    const block = printBlockParams(content);
     attributes.push(line, block);
   }
 
   return group([
     openingMustache,
+    node.type === "PartialBlockStatement" ? "> " : "",
     indent(attributes),
     softline,
     closingMustache,
@@ -596,6 +599,7 @@ function printElseIfBlock(path, print) {
 
 function printCloseBlock(path, print, options) {
   const node = path.getValue();
+  const name = node.path ? print("path") : print("name");
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     const escape = blockStatementHasOnlyWhitespaceInProgram(node)
@@ -605,14 +609,14 @@ function printCloseBlock(path, print, options) {
     return [
       escape,
       printClosingBlockOpeningMustache(node),
-      print("path"),
+      name,
       printClosingBlockClosingMustache(node),
     ];
   }
 
   return [
     printClosingBlockOpeningMustache(node),
-    print("path"),
+    name,
     printClosingBlockClosingMustache(node),
   ];
 }
@@ -768,7 +772,8 @@ function printSubExpressionPathAndParams(path, print) {
 
 /* misc. print helpers */
 
-function printPathAndParams(path, print, p = printPath(path, print)) {
+function printPathAndParams(path, print) {
+  const p = printPath(path, print);
   const params = printParams(path, print);
 
   if (!params) {
@@ -779,7 +784,7 @@ function printPathAndParams(path, print, p = printPath(path, print)) {
 }
 
 function printPath(path, print) {
-  return print("path");
+  return path.getValue().path ? print("path") : print("name");
 }
 
 function printParams(path, print) {
