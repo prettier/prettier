@@ -133,6 +133,18 @@ function print(path, options, print) {
       ]);
     }
 
+    case "PartialStatement": {
+      const simple = node.name.type !== "SubExpression";
+      return group([
+        printOpeningMustache(node),
+        ">",
+        simple ? "" : " ",
+        printPathAndParams(path, print, print("name")),
+        simple ? "" : " ",
+        printClosingMustache(node),
+      ]);
+    }
+
     case "SubExpression": {
       return group([
         "(",
@@ -747,8 +759,7 @@ function printSubExpressionPathAndParams(path, print) {
 
 /* misc. print helpers */
 
-function printPathAndParams(path, print) {
-  const p = printPath(path, print);
+function printPathAndParams(path, print, p = printPath(path, print)) {
   const params = printParams(path, print);
 
   if (!params) {
