@@ -125,10 +125,6 @@ function print(path, options, print) {
       ];
     }
 
-    case "ElementModifierStatement": {
-      return group(["{{", printPathAndParams(path, print), "}}"]);
-    }
-
     case "MustacheStatement": {
       return group([
         printOpeningMustache(node),
