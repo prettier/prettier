@@ -1213,10 +1213,10 @@
     "@glimmer/util" "0.83.1"
     "@glimmer/validator" "0.83.1"
 
-"@glimmer/syntax@0.83.1":
-  version "0.83.1"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.83.1.tgz#7e18dd445871c157ba0281f12a4fbf316fa49b41"
-  integrity sha512-n3vEd0GtjtgkOsd2gqkSimp8ecqq5KrHyana/s1XJZvVAPD5rMWT9WvAVWG8XAktns8BxjwLIUoj/vkOfA+eHg==
+"@glimmer/syntax@npm:@j-f/glimmer-syntax@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@j-f/glimmer-syntax/-/glimmer-syntax-0.0.1.tgz#ac1e5efb218646c5962dca770b6557285164d86c"
+  integrity sha512-fS/NwD4jbr04+qlmIFe6zUrPhvuY/7xtVvTKil2CA72P7CMlxYX/fpabDsyJZVRTbWTR6VTD/ViEcc3ija1jYQ==
   dependencies:
     "@glimmer/interfaces" "0.83.1"
     "@glimmer/util" "0.83.1"
