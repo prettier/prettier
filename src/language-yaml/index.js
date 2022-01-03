@@ -13,6 +13,9 @@ const languages = [
     // yarn.lock is not YAML: https://github.com/yarnpkg/yarn/issues/5629
     filenames: [
       ...data.filenames.filter((filename) => filename !== "yarn.lock"),
+      ".commitlintrc",
+      ".postcssrc",
+      ".posthtmlrc",
       ".prettierrc",
       ".stylelintrc",
     ],
