@@ -180,6 +180,12 @@ module.exports = {
       },
     },
     {
+      files: ["tests/integration/**/*.js"],
+      rules: {
+        "prettier-internal-rules/await-cli-tests": "error",
+      },
+    },
+    {
       files: ["tests/**/*.js"],
       rules: {
         strict: "off",
