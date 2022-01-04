@@ -12,7 +12,7 @@ const { getStdin } = require("../common/third-party.js");
 
 const { createIgnorer, errors } = require("./prettier-internal.js");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
-const { getOptionsForFile } = require("./option.js");
+const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
 
 function diff(a, b) {
@@ -439,4 +439,4 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { format, formatStdin, formatFiles };
+module.exports = { formatStdin, formatFiles };

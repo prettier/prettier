@@ -87,4 +87,4 @@ function createLogger(logLevel = "log") {
   }
 }
 
-module.exports = { createLogger };
+module.exports = createLogger;

@@ -1,19 +1,22 @@
 import prettier from "prettier-local";
 import runPrettier from "../runPrettier.js";
 import constant from "../../../src/cli/constant.js";
-import core from "../../../src/cli/core.js";
 import arrayify from "../../../src/utils/arrayify.js";
+import {
+  createDetailedOptionMap,
+  normalizeDetailedOptionMap,
+} from "../../../src/cli/options/option-map.js";
 
 for (const option of arrayify(
   {
-    ...core.createDetailedOptionMap(
+    ...createDetailedOptionMap(
       prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
         showInternal: true,
       }).options
     ),
-    ...core.normalizeDetailedOptionMap(constant.options),
+    ...normalizeDetailedOptionMap(constant.options),
   },
   "name"
 )) {
