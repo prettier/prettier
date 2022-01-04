@@ -1,1 +1,1 @@
-run_spec(__dirname, ["markdown"]);
+run_spec(import.meta, ["markdown"]);

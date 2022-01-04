@@ -1,1 +1,1 @@
-run_spec(__dirname, ["json5"], { quoteProps: "preserve" });
+run_spec(import.meta, ["json5"], { quoteProps: "preserve" });

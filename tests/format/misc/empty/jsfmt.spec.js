@@ -1,4 +1,6 @@
-const parsers = require("prettier-local")
+import prettier from "../../../config/require-prettier.cjs";
+
+const parsers = prettier
   .getSupportInfo()
   .options.find((option) => option.name === "parser")
   .choices.filter((choice) => !choice.deprecated)
@@ -6,7 +8,7 @@ const parsers = require("prettier-local")
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       // empty
       "",

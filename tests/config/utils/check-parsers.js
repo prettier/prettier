@@ -1,7 +1,8 @@
-"use strict";
+import path from "node:path";
+import { outdent } from "outdent";
+import createEsmUtils from "esm-utils";
 
-const path = require("path");
-const { outdent } = require("outdent");
+const { __dirname, __filename } = createEsmUtils(import.meta);
 
 const TESTS_ROOT = path.join(__dirname, "../../format");
 
@@ -204,4 +205,4 @@ const checkParser = ({ dirname, files }, parsers = []) => {
   }
 };
 
-module.exports = checkParser;
+export default checkParser;

@@ -1,7 +1,8 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import installPrettier from "./tests/config/install-prettier.mjs";
+import installPrettier from "./tests/config/install-prettier.js";
 
+// @ts-expect-error
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
 const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
@@ -33,7 +34,6 @@ const config = {
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
@@ -43,8 +43,8 @@ const config = {
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier-local": "<rootDir>/tests/config/require-prettier.js",
-    "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
+    "prettier-local": "<rootDir>/tests/config/require-prettier.cjs",
+    "prettier-standalone": "<rootDir>/tests/config/require-standalone.cjs",
   },
   modulePathIgnorePatterns: [
     "<rootDir>/dist",

@@ -6,6 +6,7 @@
     "target": "es2015",
     "module": "commonjs",
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     // TBD it is desired to enabled strict type checking at some point:
     "strict": false,
     "typeRoots": ["./types", "./node_modules/@types"]

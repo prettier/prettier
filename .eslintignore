@@ -2,6 +2,7 @@
 /tests/format/**/*.js
 /tests/integration/cli/
 !/tests/format/**/jsfmt.spec.js
+/tests/config/jest-light-runner/**/*
 !/**/.eslintrc.js
 /test*.*
 /scripts/release/node_modules

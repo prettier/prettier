@@ -1,2 +1,2 @@
-run_spec(__dirname, ["vue"]);
-run_spec(__dirname, ["vue"], { singleAttributePerLine: true });
+run_spec(import.meta, ["vue"]);
+run_spec(import.meta, ["vue"], { singleAttributePerLine: true });

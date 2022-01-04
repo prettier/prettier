@@ -1,6 +1,6 @@
-run_spec(__dirname, ["babel", "typescript", "flow"]);
+import prettier from "../../../config/require-prettier.cjs";
 
-const prettier = require("prettier-local");
+run_spec(import.meta, ["babel", "typescript", "flow"]);
 
 test("translates cursor correctly in basic case", () => {
   expect(

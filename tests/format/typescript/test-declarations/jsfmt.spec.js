@@ -1,4 +1,4 @@
-run_spec(__dirname, ["typescript", "babel", "flow"]);
-run_spec(__dirname, ["typescript", "babel", "flow"], {
+run_spec(import.meta, ["typescript", "babel", "flow"]);
+run_spec(import.meta, ["typescript", "babel", "flow"], {
   arrowParens: "avoid",
 });
