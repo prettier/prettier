@@ -1,5 +1,5 @@
 {
-  "name": "@babel/jest-light-runner",
+  "name": "@prettier/jest-light-runner",
   "version": "0.0.1",
   "private": true,
   "type": "module",

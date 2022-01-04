@@ -286,17 +286,6 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/jest-light-runner@file:./tests/config/jest-light-runner":
-  version "0.0.1"
-  dependencies:
-    expect "^27.4.0"
-    jest-circus "^27.4.0"
-    jest-each "^27.4.0"
-    jest-mock "^27.4.0"
-    jest-snapshot "^27.4.0"
-    piscina "^3.1.0"
-    supports-color "^9.0.2"
-
 "@babel/parser@7.16.6":
   version "7.16.6"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.16.6.tgz#8f194828193e8fa79166f34a4b4e52f3e769a314"
@@ -1504,6 +1493,17 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
+
+"@prettier/jest-light-runner@file:./tests/config/jest-light-runner":
+  version "0.0.1"
+  dependencies:
+    expect "^27.4.0"
+    jest-circus "^27.4.0"
+    jest-each "^27.4.0"
+    jest-mock "^27.4.0"
+    jest-snapshot "^27.4.0"
+    piscina "^3.1.0"
+    supports-color "^9.0.2"
 
 "@rollup/plugin-alias@3.1.9":
   version "3.1.9"
