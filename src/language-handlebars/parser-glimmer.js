@@ -39,7 +39,8 @@ function addOffset(text) {
 
 function parse(text) {
   const parsed = parseFrontMatter(text);
-  const { frontMatter } = parsed;
+  // silence type checking error
+  /** @type {any} */ const { frontMatter } = parsed;
   text = parsed.content;
 
   const { preprocess: glimmer } = require("@glimmer/syntax");
