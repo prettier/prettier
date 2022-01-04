@@ -68,6 +68,37 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`doctype.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{{content}}}
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{{content}}}
+  </body>
+</html>
+================================================================================
+`;
+
 exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]

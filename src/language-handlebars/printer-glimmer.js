@@ -414,6 +414,9 @@ function print(path, options, print) {
     case "BooleanLiteral": {
       return String(node.value);
     }
+    case "DoctypeStatement": {
+      return ["<!DOCTYPE ", node.value, ">"];
+    }
     case "CommentStatement": {
       return ["<!--", node.value, "-->"];
     }
