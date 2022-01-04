@@ -339,7 +339,7 @@ test("no-legacy-format-test-fixtures", {
   invalid: [
     {
       code: "run_spec(__dirname, ['babel'])",
-      errors: [{ message: "Use `import.meta` insteadof `__dirname`." }],
+      errors: [{ message: "Use `import.meta` instead of `__dirname`." }],
       output: "run_spec(import.meta, ['babel'])",
     },
     {
@@ -347,7 +347,7 @@ test("no-legacy-format-test-fixtures", {
       errors: [
         {
           message:
-            "Use `importMeta: import.meta` insteadof `dirname: __dirname`.",
+            "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
         },
       ],
       output: "run_spec({snippets: ['x'], importMeta: import.meta}, ['babel'])",

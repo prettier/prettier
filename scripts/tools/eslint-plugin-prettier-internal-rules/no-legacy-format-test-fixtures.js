@@ -33,9 +33,9 @@ module.exports = {
       url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-legacy-format-test-fixtures.js",
     },
     messages: {
-      [MESSAGE_ID_ARGUMENT]: "Use `import.meta` insteadof `__dirname`.",
+      [MESSAGE_ID_ARGUMENT]: "Use `import.meta` instead of `__dirname`.",
       [MESSAGE_ID_PROPERTY]:
-        "Use `importMeta: import.meta` insteadof `dirname: __dirname`.",
+        "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
     },
     fixable: "code",
     hasSuggestions: true,
