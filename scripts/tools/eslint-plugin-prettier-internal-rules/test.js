@@ -331,6 +331,30 @@ test("no-identifier-n", {
   ],
 });
 
+test("no-legacy-format-test-fixtures", {
+  valid: [
+    "run_spec(import.meta, ['babel'])",
+    "run_spec({importMeta: import.meta}, ['babel'])",
+  ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
+  invalid: [
+    {
+      code: "run_spec(__dirname, ['babel'])",
+      errors: [{ message: "Use `import.meta` insteadof `__dirname`." }],
+      output: "run_spec(import.meta, ['babel'])",
+    },
+    {
+      code: "run_spec({snippets: ['x'], dirname: __dirname}, ['babel'])",
+      errors: [
+        {
+          message:
+            "Use `importMeta: import.meta` insteadof `dirname: __dirname`.",
+        },
+      ],
+      output: "run_spec({snippets: ['x'], importMeta: import.meta}, ['babel'])",
+    },
+  ].map((test) => ({ ...test, parserOptions: { sourceType: "module" } })),
+});
+
 test("no-node-comments", {
   valid: [
     "const comments = node.notComments",
