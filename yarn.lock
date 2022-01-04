@@ -5412,8 +5412,7 @@ parse-json@^5.0.0:
 
 parse-srcset@ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee:
   version "1.0.2"
-  resolved "https://github.com/ikatyang/parse-srcset.git#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
-  integrity sha512-7RR3c7TDON1e25Rp6etjWchMoHOxvnfnMB2dio4JMy4nQMxihcPzTyDaQ5aVia+a1St7sk5G80PmHxwfWDDSww==
+  resolved "https://codeload.github.com/ikatyang/parse-srcset/tar.gz/54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
 
 parse5@6.0.1:
   version "6.0.1"
