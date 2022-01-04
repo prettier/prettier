@@ -12,6 +12,7 @@ module.exports = {
     "no-doc-builder-concat": require("./no-doc-builder-concat.js"),
     "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break.js"),
     "no-identifier-n": require("./no-identifier-n.js"),
+    "no-legacy-format-test-fixtures": require("./no-legacy-format-test-fixtures.js"),
     "no-node-comments": require("./no-node-comments.js"),
     "no-unnecessary-ast-path-call": require("./no-unnecessary-ast-path-call.js"),
     "prefer-ast-path-each": require("./prefer-ast-path-each.js"),

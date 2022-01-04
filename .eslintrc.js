@@ -185,6 +185,12 @@ module.exports = {
       },
     },
     {
+      files: ["tests/format/**/*.js"],
+      rules: {
+        "prettier-internal-rules/no-legacy-format-test-fixtures": "error",
+      },
+    },
+    {
       files: ["tests/integration/**/*.js"],
       rules: {
         "prettier-internal-rules/await-cli-tests": "error",
