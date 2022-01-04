@@ -1087,14 +1087,6 @@ let m = module {
 ================================================================================
 `;
 
-exports[`module-string-names.js [espree] format 1`] = `
-"Unexpected token \\"😄\\" (1:10)
-> 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";
-    |          ^
-  2 | export { smile as \\"😄\\" } from \\"./emojis.js\\";
-  3 |"
-`;
-
 exports[`module-string-names.js [meriyah] format 1`] = `
 "[1:13]: Expected '}' (1:13)
 > 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";

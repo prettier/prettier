@@ -122,6 +122,7 @@ module.exports = {
     "unicorn/no-array-push-push": "error",
     "unicorn/no-new-array": "error",
     "unicorn/no-useless-length-check": "error",
+    "unicorn/no-useless-promise-resolve-reject": "error",
     "unicorn/no-useless-undefined": "error",
     "unicorn/prefer-array-flat": [
       "error",
@@ -132,6 +133,7 @@ module.exports = {
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
     "unicorn/prefer-includes": "error",
+    "unicorn/prefer-json-parse-buffer": "error",
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
@@ -180,6 +182,12 @@ module.exports = {
           },
         ],
         "jest/prefer-to-be": "error",
+      },
+    },
+    {
+      files: ["tests/integration/**/*.js"],
+      rules: {
+        "prettier-internal-rules/await-cli-tests": "error",
       },
     },
     {

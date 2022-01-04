@@ -75,7 +75,7 @@ function waitForEnter() {
 }
 
 function readJson(filename) {
-  return JSON.parse(fs.readFileSync(filename, "utf-8"));
+  return JSON.parse(fs.readFileSync(filename));
 }
 
 function writeJson(filename, content) {

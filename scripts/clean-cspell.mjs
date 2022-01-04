@@ -6,37 +6,40 @@ import { execa } from "execa";
 const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);
 const updateConfig = (config) =>
   fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
-const runSpellcheck = () => execa("yarn", ["lint:spellcheck"]);
+const runSpellcheck = (options) => {
+  const { yarnArgs, args, execaOptions } = {
+    yarnArgs: [],
+    args: [],
+    ...options,
+  };
+  return execa("yarn", [...yarnArgs, "lint:spellcheck", ...args], execaOptions);
+};
 
 (async () => {
   console.log("Empty words ...");
-  const config = JSON.parse(await fs.readFile(CSPELL_CONFIG_FILE, "utf8"));
-  const oldWords = config.words;
+  const config = JSON.parse(await fs.readFile(CSPELL_CONFIG_FILE));
+  const original = config.words;
   await updateConfig({ ...config, words: [] });
 
   console.log("Running spellcheck with empty words ...");
-  try {
-    await runSpellcheck();
-  } catch ({ stdout }) {
-    let words = [...stdout.matchAll(/ - Unknown word \((.*?)\)/g)].map(
-      ([, word]) => word
-    );
-    // Unique
-    words = [...new Set(words)];
+  const { stdout } = await runSpellcheck({
+    yarnArgs: ["--silent"],
+    args: ["--words-only", "--unique"],
+    execaOptions: { reject: false },
+  });
+
+  const words = stdout
+    .split("\n")
     // Remove upper case word, if lower case one already exists
-    words = words.filter((word) => {
+    .filter((word, _, words) => {
       const lowerCased = word.toLowerCase();
       return lowerCased === word || !words.includes(lowerCased);
-    });
+    })
     // Compare function from https://github.com/streetsidesoftware/vscode-spell-checker/blob/2fde3bc5c658ee51da5a56580aa1370bf8174070/packages/client/src/settings/CSpellSettings.ts#L78
-    words = words.sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
-    );
-    config.words = words;
-  }
+    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  config.words = words;
 
-  const newWords = config.words;
-  const removed = oldWords.filter((word) => !newWords.includes(word));
+  const removed = original.filter((word) => !words.includes(word));
   if (removed.length > 0) {
     console.log(
       `${removed.length} words removed: \n${removed
@@ -44,7 +47,7 @@ const runSpellcheck = () => execa("yarn", ["lint:spellcheck"]);
         .join("\n")}`
     );
   }
-  const added = newWords.filter((word) => !oldWords.includes(word));
+  const added = words.filter((word) => !original.includes(word));
   if (added.length > 0) {
     console.log(
       `${added.length} words added: \n${added
@@ -57,9 +60,7 @@ const runSpellcheck = () => execa("yarn", ["lint:spellcheck"]);
   await updateConfig(config);
 
   console.log("Running spellcheck with new words ...");
-  const subprocess = runSpellcheck();
-  subprocess.stdout.pipe(process.stdout);
-  await subprocess;
+  await runSpellcheck({ execaOptions: { stdout: "inherit" } });
 
   console.log("CSpell config file updated.");
 })().catch((error) => {

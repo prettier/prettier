@@ -22,7 +22,6 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
-      "module-string-names.js",
       "module-blocks.js",
       "async-do-expressions.js",
     ],

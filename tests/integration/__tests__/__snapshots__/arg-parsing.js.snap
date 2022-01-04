@@ -62,6 +62,19 @@ exports[`number file/dir (stdout) 5`] = `
 "
 `;
 
+exports[`options with \`cliName\` should not allow to pass directly (stderr) 1`] = `
+"[warn] Ignored unknown option --filepath=file.js.
+[error] No parser and no file path given, couldn't infer a parser.
+"
+`;
+
+exports[`options with \`cliName\` should not allow to pass directly (stdout) 1`] = `
+"prettier();
+"
+`;
+
+exports[`options with \`cliName\` should not allow to pass directly (stdout) 2`] = `""`;
+
 exports[`unknown negated options are warned (stderr) 1`] = `
 "[warn] Ignored unknown option --no-unknown.
 "

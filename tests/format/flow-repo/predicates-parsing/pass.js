@@ -17,7 +17,7 @@ var a1 = (x: mixed): %checks => x !== null;
 const insert_a_really_big_predicated_arrow_function_name_here = (x)
   : %checks => x !== null;
 
-declare var x;
+declare var x: empty;
 (x)
 checks => 123;
 

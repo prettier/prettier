@@ -308,7 +308,10 @@ function isTemplateLiteral(node) {
 }
 
 /**
- * Note: `inject` is used in AngularJS 1.x, `async` in Angular 2+
+ * Note: `inject` is used in AngularJS 1.x, `async` and `fakeAsync` in
+ * Angular 2+, although `async` is deprecated and replaced by `waitForAsync`
+ * since Angular 12.
+ *
  * example: https://docs.angularjs.org/guide/unit-testing#using-beforeall-
  *
  * @param {CallExpression} node
@@ -318,9 +321,7 @@ function isAngularTestWrapper(node) {
   return (
     isCallExpression(node) &&
     node.callee.type === "Identifier" &&
-    (node.callee.name === "async" ||
-      node.callee.name === "inject" ||
-      node.callee.name === "fakeAsync")
+    ["async", "inject", "fakeAsync", "waitForAsync"].includes(node.callee.name)
   );
 }
 

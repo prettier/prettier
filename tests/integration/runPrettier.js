@@ -157,6 +157,9 @@ function runPrettier(dir, args = [], options = {}) {
       return runCli().then(({ write }) => write);
     },
     test: testResult,
+    then(onFulfilled, onRejected) {
+      return runCli().then(onFulfilled, onRejected);
+    },
   };
 
   return getters;
