@@ -11,6 +11,8 @@ const {
   CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
+  isStringLiteral,
+  rawText,
 } = require("../utils.js");
 const { locStart, hasSameLoc } = require("../loc.js");
 const {
@@ -294,6 +296,8 @@ function printModuleSpecifier(path, options, print) {
   const isImport = type.startsWith("Import");
   const leftSideProperty = isImport ? "imported" : "local";
   const rightSideProperty = isImport ? "local" : "exported";
+  const leftSideNode = node[leftSideProperty];
+  const rightSideNode = node[rightSideProperty];
   let left = "";
   let right = "";
   if (
@@ -301,21 +305,53 @@ function printModuleSpecifier(path, options, print) {
     type === "ImportNamespaceSpecifier"
   ) {
     left = "*";
-  } else if (node[leftSideProperty]) {
+  } else if (leftSideNode) {
     left = print(leftSideProperty);
   }
 
-  if (
-    node[rightSideProperty] &&
-    (!node[leftSideProperty] ||
-      // import {a as a} from '.'
-      !hasSameLoc(node[leftSideProperty], node[rightSideProperty]))
-  ) {
+  if (rightSideNode && !isShorthandSpecifier(node)) {
     right = print(rightSideProperty);
   }
 
   parts.push(left, left && right ? " as " : "", right);
   return parts;
+}
+
+function isShorthandSpecifier(specifier) {
+  if (
+    specifier.type !== "ImportSpecifier" &&
+    specifier.type !== "ExportSpecifier"
+  ) {
+    return false;
+  }
+
+  const {
+    local,
+    [specifier.type === "ImportSpecifier" ? "imported" : "exported"]:
+      importedOrExported,
+  } = specifier;
+
+  if (
+    local.type !== importedOrExported.type ||
+    !hasSameLoc(local, importedOrExported)
+  ) {
+    return false;
+  }
+
+  if (isStringLiteral(local)) {
+    return (
+      local.value === importedOrExported.value &&
+      rawText(local) === rawText(importedOrExported)
+    );
+  }
+
+  switch (local.type) {
+    case "Identifier":
+      return local.name === importedOrExported.name;
+    default:
+      /* istanbul ignore next */
+      return false;
+  }
 }
 
 module.exports = {

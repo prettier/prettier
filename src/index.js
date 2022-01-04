@@ -74,6 +74,7 @@ module.exports = {
     optionsNormalizer: require("./main/options-normalizer.js"),
     utils: {
       arrayify: require("./utils/arrayify.js"),
+      getLast: require("./utils/get-last.js"),
     },
   },
 

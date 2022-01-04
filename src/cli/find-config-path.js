@@ -6,7 +6,7 @@ const path = require("path");
 const prettier = require("../index.js");
 
 async function logResolvedConfigPathOrDie(context) {
-  const file = context.argv["find-config-path"];
+  const file = context.argv.findConfigPath;
   const configFile = await prettier.resolveConfigFile(file);
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
