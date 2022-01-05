@@ -1318,8 +1318,9 @@ function isEnabledHackPipeline(options) {
 /**
  * This is used as a marker for dangling comments.
  */
-const markerForIfWithoutBlockAndSameLineComment =
-  "ifWithoutBlockAndSameLineComment";
+const markerForIfWithoutBlockAndSameLineComment = Symbol(
+  "ifWithoutBlockAndSameLineComment"
+);
 
 module.exports = {
   getFunctionParameters,
