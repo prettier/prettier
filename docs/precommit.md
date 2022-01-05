@@ -75,9 +75,9 @@ after installation you can add prettier task to the `task-runner.json`.
 
 ```json
 {
-   "command": "npx",
-   "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
-   "pathMode": "absolute"
+  "command": "npx",
+  "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
+  "pathMode": "absolute"
 }
 ```
 
