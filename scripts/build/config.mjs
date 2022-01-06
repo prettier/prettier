@@ -30,7 +30,7 @@ const parsers = [
       // `flow-parser` use this for `globalThis`, can't work in strictMode
       "(function(){return this}())": '(new Function("return this")())',
     },
-    bundler: "esbuild",
+    bundler: "ebuild",
   },
   {
     input: "src/language-js/parse/typescript.js",
@@ -48,7 +48,7 @@ const parsers = [
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
-      '_fs.realpathSync.native': '_fs.realpathSync && _fs.realpathSync.native',
+      "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
@@ -63,15 +63,19 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/espree.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-js/parse/meriyah.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-js/parse/angular.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-css/parser-postcss.js",
+    bundler: "esbuild",
     replace: {
       // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
@@ -80,21 +84,26 @@ const parsers = [
   },
   {
     input: "src/language-graphql/parser-graphql.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-markdown/parser-markdown.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
+    bundler: "esbuild",
     commonjs: {
       ignore: ["source-map"],
     },
   },
   {
     input: "src/language-html/parser-html.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-yaml/parser-yaml.js",
+    bundler: "esbuild",
   },
 ].map((bundle) => {
   const { name } = bundle.input.match(
