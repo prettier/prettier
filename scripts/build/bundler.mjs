@@ -405,7 +405,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
 
   Object.assign(replaceModule, bundle.replaceModule);
 
-  let esbuildOptions = {
+  const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
     plugins: [
@@ -425,37 +425,34 @@ async function createBundleByEsbuild(bundle, cache, options) {
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
-    external: [],
+    external: [...(bundle.external || [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
   };
 
-  if (bundle.target === "node") {
-    esbuildOptions.format = "cjs";
-    esbuildOptions.external.push(
-      ...builtinModules,
-      "./package.json*",
-      ...bundles
-        .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}*`)
-    );
-  }
-  if (bundle.external) {
-    esbuildOptions.external.push(...bundle.external);
-  }
-
   if (bundle.target === "universal") {
-    esbuildOptions = getEsbuildUmdOptions({
+    await esbuild.build(
+      getEsbuildUmdOptions({
+        ...esbuildOptions,
+        globalName: bundle.name,
+        outfile: path.join(DIST_DIR, bundle.output),
+      })
+    );
+  } else {
+    await esbuild.build({
       ...esbuildOptions,
-      globalName: bundle.name,
+      outfile: path.join(DIST_DIR, bundle.output),
+      format: "cjs",
+      external: [
+        ...esbuildOptions.external,
+        ...builtinModules,
+        "./package.json*",
+        ...bundles
+          .filter((item) => item.input !== bundle.input)
+          .map((item) => `./${item.output}*`),
+      ],
     });
   }
-
-  await esbuild.build({
-    ...esbuildOptions,
-
-    outfile: path.join(DIST_DIR, bundle.output),
-  });
 
   if (bundle.target === "universal" && !bundle.format && !options.playground) {
     await esbuild.build({
