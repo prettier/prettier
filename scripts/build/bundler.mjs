@@ -418,10 +418,10 @@ async function createBundleByEsbuild(bundle, cache, options) {
         // TODO[@fisker]: Use RegExp when possible
         pattern: Object.entries(replaceStrings),
       }),
-      // esbuildPluginBabel({
-      //   filter: /\.js$/,
-      //   config: getBabelConfig(bundle),
-      // }),
+      esbuildPluginBabel({
+        filter: /\.[cm]?js$/,
+        config: getBabelConfig(bundle),
+      }),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
