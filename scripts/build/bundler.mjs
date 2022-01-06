@@ -1,5 +1,5 @@
 import path from "node:path";
-import outdent from "outdent"
+import camelCase from "camelcase";
 import { rollup } from "rollup";
 import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
 import rollupPluginAlias from "@rollup/plugin-alias";
@@ -13,8 +13,8 @@ import rollupPluginLicense from "rollup-plugin-license";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import esbuild from "esbuild";
-import {NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills} from "@esbuild-plugins/node-modules-polyfill"
-import esbuildPluginBabel from "esbuild-plugin-babel"
+import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import esbuildPluginBabel from "esbuild-plugin-babel";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
@@ -283,20 +283,21 @@ function getRollupOutputOptions(bundle, buildOptions) {
 
 function getUmdWrapper(name) {
   const path = name.split(".");
+  const temporaryName = camelCase(name);
+  const placeholder = "/*! bundled code !*/";
 
   let globalObjectText = [];
-  for (let index = 0; index < path.length; index ++) {
+  for (let index = 0; index < path.length; index++) {
     const object = ["root", ...path.slice(0, index + 1)].join(".");
     if (index === path.length - 1) {
       globalObjectText.push(`${object} = factory();`);
     } else {
-      globalObjectText.push(`${object} = ${object} || {};`)
+      globalObjectText.push(`${object} = ${object} || {};`);
     }
   }
-  globalObjectText = globalObjectText.map(text => `    ${text}`).join("\n")
+  globalObjectText = globalObjectText.map((text) => `    ${text}`).join("\n");
 
-
-  const intro = outdent`
+  let wrapper = `
     (function (factory) {
       if (typeof exports === 'object' && typeof module !== 'undefined') {
         module.exports = factory();
@@ -307,55 +308,66 @@ function getUmdWrapper(name) {
         ${globalObjectText}
       }
     })(function() {
-      var mod =
+      ${placeholder}
+      return ${temporaryName};
+    });
   `;
 
-  const outro = "return mod;});";
+  wrapper = esbuild
+    .buildSync({
+      stdin: { contents: wrapper },
+      minify: true,
+      write: false,
+    })
+    .outputFiles[0].text.trim();
 
-  return {intro, outro};
+  const [intro, outro] = wrapper.split(placeholder);
+
+  return { name: temporaryName, intro, outro };
+}
+
+function getEsbuildUmdOptions(options) {
+  const umdWrapper = getUmdWrapper(options.globalName);
+  options.banner = options.banner || {};
+  options.footer = options.footer || {};
+  options.banner.js = umdWrapper.intro;
+  options.footer.js = umdWrapper.outro;
+  options.globalName = umdWrapper.name;
+  return options;
 }
 
 async function createBundleByEsbuild(bundle, cache, options) {
   const esbuildOptions = {
-    entryPoints: [path.join(PROJECT_ROOT, bundle.input, )],
+    entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
     plugins: [
       esbuildPluginNodeModulePolyfills(),
       esbuildPluginBabel({
         filter: /\.js$/,
-        config: getBabelConfig(bundle)
-      })
+        config: getBabelConfig(bundle),
+      }),
     ],
-  }
+  };
 
-const umdWrapper = getUmdWrapper(bundle.name);
-console.log(umdWrapper)
+  await esbuild.build(
+    getEsbuildUmdOptions({
+      ...esbuildOptions,
+      outfile: path.join(DIST_DIR, bundle.output),
+      globalName: bundle.name,
+    })
+  );
 
-
-  await esbuild.build({
-...esbuildOptions,
-    outfile: path.join(DIST_DIR, bundle.output, ),
-banner: {
-js: umdWrapper.intro
-},
-footer: {
-js: umdWrapper.outro
-}
-});
-
-if (bundle.target === "universal" && !bundle.format && !options.playground) {
-  await esbuild.build({
-    ...esbuildOptions,
-outfile: path.join(
-            DIST_DIR,
-            `esm/${bundle.output.replace(".js", ".mjs")}`
-          ),
-  format: "esm"
-  });
-
+  if (bundle.target === "universal" && !bundle.format && !options.playground) {
+    await esbuild.build({
+      ...esbuildOptions,
+      outfile: path.join(
+        DIST_DIR,
+        `esm/${bundle.output.replace(".js", ".mjs")}`
+      ),
+      format: "esm",
+    });
   }
   return { bundled: true };
-
 }
 
 async function createBundle(bundle, cache, options) {
