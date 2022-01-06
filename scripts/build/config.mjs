@@ -34,6 +34,7 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/typescript.js",
+    bundler: "esbuild",
     replace: {
       // `typescript/lib/typescript.js` expose extra global objects
       // `TypeScript`, `toolsVersion`, `globalThis`
@@ -47,6 +48,7 @@ const parsers = [
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
+      '_fs.realpathSync.native': '_fs.realpathSync && _fs.realpathSync.native',
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
