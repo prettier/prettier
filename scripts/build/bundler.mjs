@@ -14,6 +14,7 @@ import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginBabel from "esbuild-plugin-babel";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
@@ -358,6 +359,11 @@ async function createBundleByEsbuild(bundle, cache, options) {
   }
   Object.assign(replaceStrings, bundle.replace);
 
+  let shouldMinify = options.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = bundle.minify !== false && bundle.target === "universal";
+  }
+
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
@@ -368,11 +374,14 @@ async function createBundleByEsbuild(bundle, cache, options) {
         pattern: Object.entries(replaceStrings),
       }),
       esbuildPluginNodeModulePolyfills(),
+      esbuildPluginNodeGlobalsPolyfills(),
       // esbuildPluginBabel({
       //   filter: /\.js$/,
       //   config: getBabelConfig(bundle),
       // }),
     ],
+    minify: shouldMinify,
+    legalComments: "none",
   };
 
   await esbuild.build(
