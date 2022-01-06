@@ -72,6 +72,9 @@ const parsers = [
   {
     input: "src/language-js/parse/angular.js",
     bundler: "esbuild",
+    replace: {
+      "@angular/compiler/src": "@angular/compiler/esm2015/src"
+    }
   },
   {
     input: "src/language-css/parser-postcss.js",
