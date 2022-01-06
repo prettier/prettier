@@ -434,7 +434,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
     esbuildOptions.format = "cjs";
     esbuildOptions.external.push(
       ...builtinModules,
-      "./package.json",
+      "./package.json*",
       ...bundles
         .filter((item) => item.input !== bundle.input)
         .map((item) => `./${item.output}*`)
