@@ -20,7 +20,11 @@ function getParsers(options) {
     }
 
     for (const name of ownNames(plugin.parsers)) {
-      Object.defineProperty(parsers, name, ownDescriptor(plugin.parsers, name));
+      const descriptor = ownDescriptor(plugin.parsers, name);
+      if (!descriptor.configurable) {
+        continue;
+      }
+      Object.defineProperty(parsers, name, descriptor);
     }
   }
 
