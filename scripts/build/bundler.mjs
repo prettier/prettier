@@ -19,6 +19,7 @@ import esbuildPluginBabel from "esbuild-plugin-babel";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
+import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
@@ -365,6 +366,45 @@ async function createBundleByEsbuild(bundle, cache, options) {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
 
+  const replaceModule = {};
+  // Replace other bundled files
+  if (bundle.target === "node") {
+    // Replace package.json with dynamic `require("./package.json")`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
+
+    // Dynamic require bundled files
+    for (const item of bundles) {
+      if (item.input !== bundle.input) {
+        replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
+      }
+    }
+  } else {
+    // Universal bundle only use version info from package.json
+    // Replace package.json with `{version: "{VERSION}"}`
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
+      code: `module.exports = ${JSON.stringify({
+        version: packageJson.version,
+      })};`,
+    };
+
+    // Replace parser getters with `undefined`
+    for (const file of [
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-js/parse/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
+    ]) {
+      replaceModule[path.join(PROJECT_ROOT, file)] = {
+        code: "export default undefined;",
+      };
+    }
+  }
+
+  Object.assign(replaceModule, bundle.replaceModule);
+
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
@@ -372,6 +412,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
       esbuildPluginNodeGlobalsPolyfills(),
       esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
+      esbuildPluginReplaceModule(replaceModule),
       esbuildPluginTextReplace({
         include: /\.js$/,
         // TODO[@fisker]: Use RegExp when possible
