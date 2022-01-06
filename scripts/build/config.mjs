@@ -22,6 +22,7 @@ import path from "node:path";
 const parsers = [
   {
     input: "src/language-js/parse/babel.js",
+    bundler: "esbuild",
   },
   {
     input: "src/language-js/parse/flow.js",

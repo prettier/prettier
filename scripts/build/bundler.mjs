@@ -1,4 +1,5 @@
 import path from "node:path";
+import outdent from "outdent"
 import { rollup } from "rollup";
 import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
 import rollupPluginAlias from "@rollup/plugin-alias";
@@ -11,6 +12,9 @@ import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
 import rollupPluginLicense from "rollup-plugin-license";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
+import esbuild from "esbuild";
+import {NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills} from "@esbuild-plugins/node-modules-polyfill"
+import esbuildPluginBabel from "esbuild-plugin-babel"
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
@@ -277,7 +281,88 @@ function getRollupOutputOptions(bundle, buildOptions) {
   return [options];
 }
 
+function getUmdWrapper(name) {
+  const path = name.split(".");
+
+  let globalObjectText = [];
+  for (let index = 0; index < path.length; index ++) {
+    const object = ["root", ...path.slice(0, index + 1)].join(".");
+    if (index === path.length - 1) {
+      globalObjectText.push(`${object} = factory();`);
+    } else {
+      globalObjectText.push(`${object} = ${object} || {};`)
+    }
+  }
+  globalObjectText = globalObjectText.map(text => `    ${text}`).join("\n")
+
+
+  const intro = outdent`
+    (function (factory) {
+      if (typeof exports === 'object' && typeof module !== 'undefined') {
+        module.exports = factory();
+      } else if (typeof define === 'function' && define.amd) {
+        define(factory);
+      } else {
+        var root = typeof globalThis !== 'undefined' ? globalThis : global || self;
+        ${globalObjectText}
+      }
+    })(function() {
+      var mod =
+  `;
+
+  const outro = "return mod;});";
+
+  return {intro, outro};
+}
+
+async function createBundleByEsbuild(bundle, cache, options) {
+  const esbuildOptions = {
+    entryPoints: [path.join(PROJECT_ROOT, bundle.input, )],
+    bundle: true,
+    plugins: [
+      esbuildPluginNodeModulePolyfills(),
+      esbuildPluginBabel({
+        filter: /\.js$/,
+        config: getBabelConfig(bundle)
+      })
+    ],
+  }
+
+const umdWrapper = getUmdWrapper(bundle.name);
+console.log(umdWrapper)
+
+
+  await esbuild.build({
+...esbuildOptions,
+    outfile: path.join(DIST_DIR, bundle.output, ),
+banner: {
+js: umdWrapper.intro
+},
+footer: {
+js: umdWrapper.outro
+}
+});
+
+if (bundle.target === "universal" && !bundle.format && !options.playground) {
+  await esbuild.build({
+    ...esbuildOptions,
+outfile: path.join(
+            DIST_DIR,
+            `esm/${bundle.output.replace(".js", ".mjs")}`
+          ),
+  format: "esm"
+  });
+
+  }
+  return { bundled: true };
+
+}
+
 async function createBundle(bundle, cache, options) {
+  if (bundle.bundler === "esbuild") {
+    return createBundleByEsbuild(bundle, cache, options);
+  }
+
   const inputOptions = getRollupConfig(bundle, options);
   const outputOptions = getRollupOutputOptions(bundle, options);
 
