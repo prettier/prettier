@@ -4,7 +4,7 @@ authorURL: "https://github.com/vjeux"
 title: "Prettier begins paying maintainers"
 ---
 
-Prettier, an opiniated code formatter for JavaScript and many web languages, has been accepting donations at [OpenCollective](https://opencollective.com/prettier) since 2019 and thanks to many generous donations we now have \$50,000 in the bank! As a result, we are now able to pay the two active maintainers \$1,500/month each. This funding will ensure that they will be able to continue consistent maintenance of Prettier into the future.
+Prettier, an opinionated code formatter for JavaScript and many web languages, has been accepting donations at [OpenCollective](https://opencollective.com/prettier) since 2019 and thanks to many generous donations we now have \$50,000 in the bank! As a result, we are now able to pay the two active maintainers \$1,500/month each. This funding will ensure that they will be able to continue consistent maintenance of Prettier into the future.
 
 <!--truncate-->
 
