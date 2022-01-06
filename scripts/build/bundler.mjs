@@ -25,7 +25,7 @@ import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
 import bundles from "./config.mjs";
 
-const { json } = createEsmUtils(import.meta);
+const { json, __dirname } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const entries = [
@@ -405,12 +405,12 @@ async function createBundleByEsbuild(bundle, cache, options) {
 
   Object.assign(replaceModule, bundle.replaceModule);
 
-  const esbuildOptions = {
+  let esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
     plugins: [
-      esbuildPluginNodeGlobalsPolyfills(),
-      esbuildPluginNodeModulePolyfills(),
+      bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule(replaceModule),
       esbuildPluginTextReplace({
@@ -422,18 +422,40 @@ async function createBundleByEsbuild(bundle, cache, options) {
       //   filter: /\.js$/,
       //   config: getBabelConfig(bundle),
       // }),
-    ],
+    ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
+    external: [],
+    // Disable esbuild auto discover `tsconfig.json` file
+    tsconfig: path.join(__dirname, "empty-tsconfig.json"),
   };
 
-  await esbuild.build(
-    getEsbuildUmdOptions({
+  if (bundle.target === "node") {
+    esbuildOptions.format = "cjs";
+    esbuildOptions.external.push(
+      ...builtinModules,
+      "./package.json",
+      ...bundles
+        .filter((item) => item.input !== bundle.input)
+        .map((item) => `./${item.output}*`)
+    );
+  }
+  if (bundle.external) {
+    esbuildOptions.external.push(...bundle.external);
+  }
+
+  if (bundle.target === "universal") {
+    esbuildOptions = getEsbuildUmdOptions({
       ...esbuildOptions,
-      outfile: path.join(DIST_DIR, bundle.output),
       globalName: bundle.name,
-    })
-  );
+    });
+  }
+
+  await esbuild.build({
+    ...esbuildOptions,
+
+    outfile: path.join(DIST_DIR, bundle.output),
+  });
 
   if (bundle.target === "universal" && !bundle.format && !options.playground) {
     await esbuild.build({

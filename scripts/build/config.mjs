@@ -125,6 +125,7 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    bundler: "esbuild",
     replace: {
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect",
@@ -132,25 +133,28 @@ const coreBundles = [
   },
   {
     input: "src/document/index.js",
+    bundler: "esbuild",
     name: "doc",
     output: "doc.js",
     target: "universal",
     format: "umd",
     minify: false,
-    bundler: "esbuild",
   },
   {
     input: "src/standalone.js",
+    bundler: "esbuild",
     name: "prettier",
     target: "universal",
   },
   {
     input: "bin/prettier.js",
+    bundler: "esbuild",
     output: "bin-prettier.js",
     external: ["benchmark"],
   },
   {
     input: "src/common/third-party.js",
+    bundler: "esbuild",
     replace: {
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       "parentModule(__filename)": "__filename",

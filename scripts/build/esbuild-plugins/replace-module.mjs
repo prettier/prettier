@@ -13,7 +13,9 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
 
         if (typeof replacement === "string") {
           return {
-            contents: `module.exports = require(${JSON.stringify(replacement)});`,
+            contents: `module.exports = require(${JSON.stringify(
+              replacement
+            )});`,
           };
         }
 
