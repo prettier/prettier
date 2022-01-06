@@ -28,6 +28,7 @@ const {
   hasIgnoreComment,
   isCallExpression,
   isMemberExpression,
+  markerForIfWithoutBlockAndSameLineComment,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -180,7 +181,7 @@ function printPathNoParens(path, options, print, args) {
     // Babel extension.
     case "EmptyStatement":
       return "";
-    case "ExpressionStatement":
+    case "ExpressionStatement": {
       // Detect Flow and TypeScript directives
       if (node.directive) {
         return [printDirective(node.expression, options), semi];
@@ -200,11 +201,20 @@ function printPathNoParens(path, options, print, args) {
         }
       }
 
+      const danglingComment = printDanglingComments(
+        path,
+        options,
+        /** sameIndent */ true,
+        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
+      );
+
       // Do not append semicolon after the only JSX element in a program
       return [
         print("expression"),
         isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
+        danglingComment ? [" ", danglingComment] : "",
       ];
+    }
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug =
