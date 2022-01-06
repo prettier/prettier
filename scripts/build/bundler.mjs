@@ -368,13 +368,13 @@ async function createBundleByEsbuild(bundle, cache, options) {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
     plugins: [
+      esbuildPluginNodeGlobalsPolyfills(),
+      esbuildPluginNodeModulePolyfills(),
       esbuildPluginTextReplace({
         include: /\.js$/,
         // TODO[@fisker]: Use RegExp when possible
         pattern: Object.entries(replaceStrings),
       }),
-      esbuildPluginNodeModulePolyfills(),
-      esbuildPluginNodeGlobalsPolyfills(),
       // esbuildPluginBabel({
       //   filter: /\.js$/,
       //   config: getBabelConfig(bundle),
