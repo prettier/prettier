@@ -1,4 +1,7 @@
 import path from "node:path";
+import createEsmUtils from "esm-utils";
+
+const { require } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -73,8 +76,8 @@ const parsers = [
     input: "src/language-js/parse/angular.js",
     bundler: "esbuild",
     replace: {
-      "@angular/compiler/src": "@angular/compiler/esm2015/src"
-    }
+      "@angular/compiler/src": "@angular/compiler/esm2015/src",
+    },
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -92,6 +95,9 @@ const parsers = [
   {
     input: "src/language-markdown/parser-markdown.js",
     bundler: "esbuild",
+    replaceModule: {
+      [require.resolve("parse-entities")]: require.resolve("parse-entities/decode-entity.js"),
+    },
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
