@@ -30,6 +30,7 @@ const parsers = [
       // `flow-parser` use this for `globalThis`, can't work in strictMode
       "(function(){return this}())": '(new Function("return this")())',
     },
+    bundler: "esbuild",
   },
   {
     input: "src/language-js/parse/typescript.js",

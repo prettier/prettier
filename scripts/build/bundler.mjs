@@ -15,6 +15,7 @@ import builtinModules from "builtin-modules";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import esbuildPluginBabel from "esbuild-plugin-babel";
+import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
@@ -337,15 +338,40 @@ function getEsbuildUmdOptions(options) {
 }
 
 async function createBundleByEsbuild(bundle, cache, options) {
+  const replaceStrings = {
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  };
+  if (bundle.target === "universal") {
+    // We can't reference `process` in UMD bundles and this is
+    // an undocumented "feature"
+    replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
+    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
+    // `parser-typescript.js` will contain a path of working directory
+    // See #8268
+    replaceStrings.__filename = JSON.stringify(
+      "/prettier-security-filename-placeholder.js"
+    );
+    replaceStrings.__dirname = JSON.stringify(
+      "/prettier-security-dirname-placeholder"
+    );
+  }
+  Object.assign(replaceStrings, bundle.replace);
+
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
     plugins: [
-      esbuildPluginNodeModulePolyfills(),
-      esbuildPluginBabel({
-        filter: /\.js$/,
-        config: getBabelConfig(bundle),
+      esbuildPluginTextReplace({
+        include: /\.js$/,
+        // TODO[@fisker]: Use RegExp when possible
+        pattern: Object.entries(replaceStrings),
       }),
+      esbuildPluginNodeModulePolyfills(),
+      // esbuildPluginBabel({
+      //   filter: /\.js$/,
+      //   config: getBabelConfig(bundle),
+      // }),
     ],
   };
 
