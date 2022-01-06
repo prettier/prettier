@@ -137,6 +137,7 @@ const coreBundles = [
     target: "universal",
     format: "umd",
     minify: false,
+    bundler: "esbuild",
   },
   {
     input: "src/standalone.js",
