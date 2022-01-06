@@ -18,6 +18,7 @@ import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "
 import esbuildPluginBabel from "esbuild-plugin-babel";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
+import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
@@ -370,6 +371,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
     plugins: [
       esbuildPluginNodeGlobalsPolyfills(),
       esbuildPluginNodeModulePolyfills(),
+      esbuildPluginEvaluate(),
       esbuildPluginTextReplace({
         include: /\.js$/,
         // TODO[@fisker]: Use RegExp when possible
