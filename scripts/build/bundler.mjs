@@ -425,7 +425,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
         config: getBabelConfig(bundle),
       }),
     ].filter(Boolean),
-    // minify: shouldMinify,
+    minify: shouldMinify,
     legalComments: "none",
     external: [...(bundle.external || [])],
     // Disable esbuild auto discover `tsconfig.json` file
