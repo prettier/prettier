@@ -59,10 +59,8 @@ class Node {
         }
       }
       // @ts-expect-error
-      const { index, siblings, prev, next, parent } = this;
+      const { prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
-        index,
-        siblings,
         prev,
         next,
         parent,
@@ -110,7 +108,6 @@ class Node {
     for (let i = 0; i < this.children.length; i++) {
       // @ts-expect-error
       setNonEnumerableProperties(this.children[i], {
-        index: i,
         // @ts-expect-error
         prev: this.children[i - 1],
         // @ts-expect-error
@@ -173,7 +170,6 @@ function cloneAndUpdateNodes(nodes, parent) {
 
   for (let index = 0; index < siblings.length; index++) {
     setNonEnumerableProperties(current, {
-      index,
       prev,
       next,
       parent,
