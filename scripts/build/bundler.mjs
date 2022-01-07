@@ -1,11 +1,11 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
+import browserslist from "browserslist";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
-import browserslist from "browserslist";
 import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
@@ -45,11 +45,6 @@ function* getEsbuildOptions(bundle, options) {
   }
   Object.assign(replaceStrings, bundle.replace);
 
-  let shouldMinify = options.minify;
-  if (typeof shouldMinify !== "boolean") {
-    shouldMinify = bundle.minify !== false && bundle.target === "universal";
-  }
-
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
@@ -85,7 +80,10 @@ function* getEsbuildOptions(bundle, options) {
     }
   }
 
-  Object.assign(replaceModule, bundle.replaceModule);
+  let shouldMinify = options.minify;
+  if (typeof shouldMinify !== "boolean") {
+    shouldMinify = bundle.minify !== false && bundle.target === "universal";
+  }
 
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
@@ -95,7 +93,7 @@ function* getEsbuildOptions(bundle, options) {
       bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
-      esbuildPluginReplaceModule(replaceModule),
+      esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
       esbuildPluginTextReplace({
         include: /\.js$/,
         // TODO[@fisker]: Use RegExp when possible
