@@ -103,6 +103,18 @@ class Node {
     this._updateChildrenWithoutClone();
   }
 
+  /**
+   * @param {Node} [target]
+   * @param {Object} [node]
+   */
+  replaceChild(target, node) {
+    const newNode = new Node(node);
+
+    // @ts-expect-error
+    this.children.splice(this.children.indexOf(target), 1, newNode);
+    this._updateChildrenWithoutClone();
+  }
+
   _updateChildrenWithoutClone() {
     // @ts-expect-error
     for (let i = 0; i < this.children.length; i++) {

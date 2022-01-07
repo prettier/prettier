@@ -356,8 +356,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
         parseSubHtml
       );
       if (ieConditionalComment) {
-        node.parent.insertChildBefore(node, ieConditionalComment);
-        node.parent.removeChild(node);
+        node.parent.replaceChild(node, ieConditionalComment);
       }
     }
   });
