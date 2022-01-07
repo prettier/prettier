@@ -1,5 +1,4 @@
 import path from "node:path";
-import camelCase from "camelcase";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import esbuild from "esbuild";
@@ -12,6 +11,7 @@ import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
+import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import bundles from "./config.mjs";
 
 const { json, __dirname } = createEsmUtils(import.meta);
@@ -119,11 +119,12 @@ function* getEsbuildOptions(bundle, options) {
   if (bundle.target === "universal") {
     esbuildOptions.target = umdTarget;
 
-    yield getEsbuildUmdOptions({
+    yield {
       ...esbuildOptions,
       globalName: bundle.name,
       outfile: path.join(DIST_DIR, bundle.output),
-    });
+      plugins: [esbuildPluginUmd(), ...esbuildOptions.plugins],
+    };
 
     if (!bundle.format && !options.playground) {
       yield {
@@ -151,61 +152,6 @@ function* getEsbuildOptions(bundle, options) {
       target: ["node12"],
     };
   }
-}
-
-function getUmdWrapper(name) {
-  const path = name.split(".");
-  const temporaryName = camelCase(name);
-  const placeholder = "/*! bundled code !*/";
-
-  let globalObjectText = [];
-  for (let index = 0; index < path.length; index++) {
-    const object = ["root", ...path.slice(0, index + 1)].join(".");
-    if (index === path.length - 1) {
-      globalObjectText.push(`${object} = factory();`);
-    } else {
-      globalObjectText.push(`${object} = ${object} || {};`);
-    }
-  }
-  globalObjectText = globalObjectText.map((text) => `    ${text}`).join("\n");
-
-  let wrapper = `
-    (function (factory) {
-      if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = factory();
-      } else if (typeof define === 'function' && define.amd) {
-        define(factory);
-      } else {
-        var root = typeof globalThis !== 'undefined' ? globalThis : global || self;
-        ${globalObjectText}
-      }
-    })(function() {
-      ${placeholder}
-      return ${temporaryName};
-    });
-  `;
-
-  wrapper = esbuild
-    .buildSync({
-      stdin: { contents: wrapper },
-      minify: true,
-      write: false,
-    })
-    .outputFiles[0].text.trim();
-
-  const [intro, outro] = wrapper.split(placeholder);
-
-  return { name: temporaryName, intro, outro };
-}
-
-function getEsbuildUmdOptions(options) {
-  const umdWrapper = getUmdWrapper(options.globalName);
-  options.banner = options.banner || {};
-  options.footer = options.footer || {};
-  options.banner.js = umdWrapper.intro;
-  options.footer.js = umdWrapper.outro;
-  options.globalName = umdWrapper.name;
-  return options;
 }
 
 const umdTarget = [
