@@ -85,10 +85,12 @@ class Node {
    */
   insertChildBefore(target, node) {
     const newNode = new Node(node);
+    setNonEnumerableProperties(newNode, {
+      parent: this,
+    });
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 0, newNode);
-    this._updateChildrenWithoutClone();
   }
 
   /**
@@ -97,7 +99,6 @@ class Node {
   removeChild(child) {
     // @ts-expect-error
     this.children.splice(this.children.indexOf(child), 1);
-    this._updateChildrenWithoutClone();
   }
 
   /**
@@ -106,20 +107,12 @@ class Node {
    */
   replaceChild(target, node) {
     const newNode = new Node(node);
+    setNonEnumerableProperties(newNode, {
+      parent: this,
+    });
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 1, newNode);
-    this._updateChildrenWithoutClone();
-  }
-
-  _updateChildrenWithoutClone() {
-    // @ts-expect-error
-    for (let i = 0; i < this.children.length; i++) {
-      // @ts-expect-error
-      setNonEnumerableProperties(this.children[i], {
-        parent: this,
-      });
-    }
   }
 
   /**
@@ -200,7 +193,7 @@ function setNonEnumerableProperties(obj, props) {
   const descriptors = Object.fromEntries(
     Object.entries(props).map(([key, value]) => [
       key,
-      { value, enumerable: false, writable: true },
+      { value, enumerable: false },
     ])
   );
 
