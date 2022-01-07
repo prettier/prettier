@@ -17,6 +17,8 @@ import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@
 import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginBabel from "esbuild-plugin-babel";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
+import browserslist from "browserslist";
+import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
@@ -340,6 +342,10 @@ function getEsbuildUmdOptions(options) {
   return options;
 }
 
+const umdTarget = [
+  "node12",
+  ...resolveToEsbuildTarget(browserslist(packageJson.browserslist), {printUnknownTargets: false}),
+];
 async function createBundleByEsbuild(bundle, cache, options) {
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
@@ -420,16 +426,17 @@ async function createBundleByEsbuild(bundle, cache, options) {
         // TODO[@fisker]: Use RegExp when possible
         pattern: Object.entries(replaceStrings),
       }),
-      esbuildPluginBabel({
-        filter: /\.[cm]?js$/,
-        config: getBabelConfig(bundle),
-      }),
+      // esbuildPluginBabel({
+      //   filter: /\.[cm]?js$/,
+      //   config: getBabelConfig(bundle),
+      // }),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
     external: [...(bundle.external || [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+    target: bundle.target === "node" ? ["node12"] : umdTarget,
   };
 
   if (bundle.target === "universal") {
