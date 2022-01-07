@@ -26,11 +26,13 @@ class Node {
     if (nodes !== this[key]) {
       this[key] = cloneAndUpdateNodes(nodes, this);
       if (key === "attrs") {
-        setNonEnumerableProperties(this, {
-          attrMap: Object.fromEntries(
+        setNonEnumerableProperty(
+          this,
+          "attrMap",
+          Object.fromEntries(
             this[key].map((attr) => [attr.fullName, attr.value])
-          ),
-        });
+          )
+        );
       }
     }
   }
@@ -58,10 +60,8 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      setNonEnumerableProperties(newNode, {
-        // @ts-expect-error
-        parent: this.parent,
-      });
+      // @ts-expect-error
+      setNonEnumerableProperty(newNode, "parent", this.parent);
     }
 
     return fn(newNode || this);
@@ -85,9 +85,7 @@ class Node {
    */
   insertChildBefore(target, node) {
     const newNode = new Node(node);
-    setNonEnumerableProperties(newNode, {
-      parent: this,
-    });
+    setNonEnumerableProperty(newNode, "parent", this);
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 0, newNode);
@@ -107,9 +105,7 @@ class Node {
    */
   replaceChild(target, node) {
     const newNode = new Node(node);
-    setNonEnumerableProperties(newNode, {
-      parent: this,
-    });
+    setNonEnumerableProperty(newNode, "parent", this);
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 1, newNode);
@@ -180,24 +176,15 @@ function cloneAndUpdateNodes(nodes, parent) {
     node instanceof Node ? node.clone() : new Node(node)
   );
 
-  for (let index = 0; index < siblings.length; index++) {
-    setNonEnumerableProperties(siblings[index], {
-      parent,
-    });
+  for (const sibling of siblings) {
+    setNonEnumerableProperty(sibling, "parent", parent);
   }
 
   return siblings;
 }
 
-function setNonEnumerableProperties(obj, props) {
-  const descriptors = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [
-      key,
-      { value, enumerable: false },
-    ])
-  );
-
-  Object.defineProperties(obj, descriptors);
+function setNonEnumerableProperty(obj, key, value) {
+  Object.defineProperty(obj, key, { value, enumerable: false });
 }
 
 module.exports = {
