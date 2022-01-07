@@ -90,33 +90,10 @@ class Node {
    */
   insertChildBefore(target, node) {
     const newNode = new Node(node);
-    setNonEnumerableProperties(newNode, {
-      // @ts-expect-error
-      index: target.index,
-      // @ts-expect-error
-      prev: target.prev,
-      next: target,
-      parent: this,
-    });
-
-    let next = target;
-    while (next) {
-      // @ts-expect-error
-      next.index++;
-      // @ts-expect-error
-      next = next.next;
-    }
-
-    // @ts-expect-error
-    newNode.next.prev = newNode;
-    // @ts-expect-error
-    if (newNode.prev) {
-      // @ts-expect-error
-      newNode.prev.next = newNode;
-    }
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 0, newNode);
+    this._updateChildrenWithoutClone();
   }
 
   /**
@@ -124,26 +101,23 @@ class Node {
    */
   removeChild(child) {
     // @ts-expect-error
-    if (child.next) {
-      // @ts-expect-error
-      child.next.prev = child.prev;
-    }
-
-    // @ts-expect-error
-    if (child.prev) {
-      // @ts-expect-error
-      child.prev.next = child.next;
-    }
-
-    // @ts-expect-error
-    let { next } = child;
-    while (next) {
-      next.index--;
-      next = next.next;
-    }
-
-    // @ts-expect-error
     this.children.splice(this.children.indexOf(child), 1);
+    this._updateChildrenWithoutClone();
+  }
+
+  _updateChildrenWithoutClone() {
+    // @ts-expect-error
+    for (let i = 0; i < this.children.length; i++) {
+      // @ts-expect-error
+      setNonEnumerableProperties(this.children[i], {
+        index: i,
+        // @ts-expect-error
+        prev: i > 0 ? this.children[i-1] : undefined,
+        // @ts-expect-error
+        next: i < this.children.length - 1 ? this.children[i+1] : undefined,
+        parent: this,
+      });
+    }
   }
 
   /**
