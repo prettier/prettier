@@ -344,7 +344,9 @@ function getEsbuildUmdOptions(options) {
 
 const umdTarget = [
   "node12",
-  ...resolveToEsbuildTarget(browserslist(packageJson.browserslist), {printUnknownTargets: false}),
+  ...resolveToEsbuildTarget(browserslist(packageJson.browserslist), {
+    printUnknownTargets: false,
+  }),
 ];
 async function createBundleByEsbuild(bundle, cache, options) {
   const replaceStrings = {
@@ -437,6 +439,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     target: bundle.target === "node" ? ["node12"] : umdTarget,
+    mainFields: ["main"],
   };
 
   if (bundle.target === "universal") {
