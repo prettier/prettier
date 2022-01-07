@@ -344,6 +344,8 @@ async function createBundleByEsbuild(bundle, cache, options) {
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production"),
+    // `tslib` exports global variables
+    "createExporter(root": "createExporter({}",
   };
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
