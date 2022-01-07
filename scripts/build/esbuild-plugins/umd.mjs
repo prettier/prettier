@@ -4,7 +4,8 @@ import { outdent } from "outdent";
 
 function getUmdWrapper(name, build) {
   const path = name.split(".");
-  const temporaryName = camelCase(name);
+  const { minify } = build.initialOptions;
+  const temporaryName = minify ? "m" : camelCase(name);
   const placeholder = "/*! bundled code !*/";
 
   let globalObjectText = [];
@@ -38,20 +39,27 @@ function getUmdWrapper(name, build) {
         ${globalObjectText.trimStart()}
       }
     })(function() {
-      ${placeholder}
-      return ${temporaryName};
+    ${placeholder}
+    return ${temporaryName};
     });
   `;
 
-  if (build.initialOptions.minify) {
+  if (minify) {
     wrapper = build.esbuild
-      .buildSync({ stdin: { contents: wrapper }, minify: true, write: false })
+      .buildSync({ stdin: { contents: wrapper }, minify, write: false })
       .outputFiles[0].text.trim();
   }
 
   const [intro, outro] = wrapper.split(placeholder);
 
-  return { name: temporaryName, intro, outro };
+  return {
+    name: temporaryName,
+    intro,
+    outro,
+    expectedOutput: `"use strict";${minify ? "" : "\n"}var ${temporaryName}${
+      minify ? "=" : " = "
+    }`,
+  };
 }
 
 export default function esbuildPluginUmd({ name }) {
@@ -73,8 +81,13 @@ export default function esbuildPluginUmd({ name }) {
         throw new Error("'outfile' options is required.");
       }
 
-      const umdWrapper = getUmdWrapper(name, build);
-      options.globalName = umdWrapper.name;
+      const {
+        name: temporaryName,
+        intro,
+        outro,
+        expectedOutput,
+      } = getUmdWrapper(name, build);
+      options.globalName = temporaryName;
       options.format = "iife";
 
       build.onEnd(() => {
@@ -82,10 +95,20 @@ export default function esbuildPluginUmd({ name }) {
           throw new Error(`${outfile} not exists`);
         }
         const text = fs.readFileSync(outfile, "utf8");
-        fs.writeFileSync(
-          outfile,
-          umdWrapper.intro + text.trim() + umdWrapper.outro
-        );
+        const actualOutput = text.slice(0, expectedOutput.length);
+        if (actualOutput !== expectedOutput) {
+          console.log();
+          console.error(outdent`
+            Expected output starts with:
+            ${expectedOutput}
+
+            Got:
+            ${actualOutput}
+          `);
+          throw new Error("Unexpected output");
+        }
+
+        fs.writeFileSync(outfile, intro + text.trim() + outro);
       });
     },
   };
