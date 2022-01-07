@@ -58,12 +58,9 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      // @ts-expect-error
-      const { prev, next, parent } = this;
       setNonEnumerableProperties(newNode, {
-        prev,
-        next,
-        parent,
+        // @ts-expect-error
+        parent: this.parent,
       });
     }
 
@@ -120,10 +117,6 @@ class Node {
     for (let i = 0; i < this.children.length; i++) {
       // @ts-expect-error
       setNonEnumerableProperties(this.children[i], {
-        // @ts-expect-error
-        prev: this.children[i - 1],
-        // @ts-expect-error
-        next: this.children[i + 1],
         parent: this,
       });
     }
@@ -153,6 +146,24 @@ class Node {
     return isNonEmptyArray(this.children) ? getLast(this.children) : null;
   }
 
+  get prev() {
+    // @ts-expect-error
+    if (!this.parent) {
+      return null;
+    }
+    // @ts-expect-error
+    return this.parent.children[this.parent.children.indexOf(this) - 1];
+  }
+
+  get next() {
+    // @ts-expect-error
+    if (!this.parent) {
+      return null;
+    }
+    // @ts-expect-error
+    return this.parent.children[this.parent.children.indexOf(this) + 1];
+  }
+
   // for element and attribute
   get rawName() {
     // @ts-expect-error
@@ -176,19 +187,10 @@ function cloneAndUpdateNodes(nodes, parent) {
     node instanceof Node ? node.clone() : new Node(node)
   );
 
-  let prev = null;
-  let current = siblings[0];
-  let next = siblings[1] || null;
-
   for (let index = 0; index < siblings.length; index++) {
-    setNonEnumerableProperties(current, {
-      prev,
-      next,
+    setNonEnumerableProperties(siblings[index], {
       parent,
     });
-    prev = current;
-    current = next;
-    next = siblings[index + 2] || null;
   }
 
   return siblings;
