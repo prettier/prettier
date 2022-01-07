@@ -81,9 +81,7 @@ function* getEsbuildOptions(bundle, options) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] = {
-        code: "export default undefined;",
-      };
+      replaceModule[path.join(PROJECT_ROOT, file)] = { code: "" };
     }
   }
 

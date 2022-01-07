@@ -20,9 +20,6 @@ function getParsers(options) {
     }
 
     for (const name of ownNames(plugin.parsers)) {
-      if (name === "__esModule" || name === "default") {
-        continue;
-      }
       Object.defineProperty(parsers, name, ownDescriptor(plugin.parsers, name));
     }
   }
