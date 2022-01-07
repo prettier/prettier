@@ -121,9 +121,12 @@ function* getEsbuildOptions(bundle, options) {
 
     yield {
       ...esbuildOptions,
-      globalName: bundle.name,
       outfile: path.join(DIST_DIR, bundle.output),
-      plugins: [esbuildPluginUmd(), ...esbuildOptions.plugins],
+      plugins: [
+        esbuildPluginUmd({ name: bundle.name }),
+        ...esbuildOptions.plugins,
+      ],
+      format: "umd",
     };
 
     if (!bundle.format && !options.playground) {

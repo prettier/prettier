@@ -1,9 +1,8 @@
 import fs from "node:fs";
-import esbuild from "esbuild";
 import camelCase from "camelcase";
 import { outdent } from "outdent";
 
-function getUmdWrapper(name, minify) {
+function getUmdWrapper(name, build) {
   const path = name.split(".");
   const temporaryName = camelCase(name);
   const placeholder = "/*! bundled code !*/";
@@ -44,8 +43,8 @@ function getUmdWrapper(name, minify) {
     });
   `;
 
-  if (minify) {
-    wrapper = esbuild
+  if (build.initialOptions.minify) {
+    wrapper = build.esbuild
       .buildSync({ stdin: { contents: wrapper }, minify: true, write: false })
       .outputFiles[0].text.trim();
   }
@@ -55,27 +54,28 @@ function getUmdWrapper(name, minify) {
   return { name: temporaryName, intro, outro };
 }
 
-export default function esbuildPluginUmd() {
+export default function esbuildPluginUmd({ name }) {
   return {
     name: "umd",
     setup(build) {
       const options = build.initialOptions;
-      const { globalName, format, minify, outfile } = options;
+      const { globalName, format, outfile } = options;
 
-      if (!globalName) {
-        throw new Error("'globalName' is required");
+      if (globalName) {
+        throw new Error("'globalName' in options cannot be set.");
       }
 
-      if (format && format !== "iife") {
-        throw new Error(`Unexpected 'format' option value '${format}'`);
+      if (format !== "umd") {
+        throw new Error("'format' options must be 'umd'.");
       }
 
       if (!outfile) {
-        throw new Error("'outfile' is required");
+        throw new Error("'outfile' options is required.");
       }
 
-      const umdWrapper = getUmdWrapper(globalName, minify);
+      const umdWrapper = getUmdWrapper(name, build);
       options.globalName = umdWrapper.name;
+      options.format = "iife";
 
       build.onEnd(() => {
         if (!fs.existsSync(outfile)) {
