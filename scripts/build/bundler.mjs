@@ -22,6 +22,7 @@ import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
+import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
 import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
 import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
@@ -418,6 +419,7 @@ async function createBundleByEsbuild(bundle, cache, options) {
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     bundle: true,
+    metafile: true,
     plugins: [
       bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
@@ -432,6 +434,14 @@ async function createBundleByEsbuild(bundle, cache, options) {
       //   filter: /\.[cm]?js$/,
       //   config: getBabelConfig(bundle),
       // }),
+      options.onLicenseFound &&
+        esbuildPluginLicense({
+          cwd: PROJECT_ROOT,
+          thirdParty: {
+            includePrivate: true,
+            output: options.onLicenseFound,
+          },
+        }),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
