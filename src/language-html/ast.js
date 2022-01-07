@@ -12,13 +12,17 @@ const NODES_KEYS = {
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
-  constructor(props = {}) {
+  constructor(props = {}, parent) {
     for (const [key, value] of Object.entries(props)) {
       if (key in NODES_KEYS) {
         this._setNodes(key, value);
       } else {
         this[key] = value;
       }
+    }
+
+    if (parent) {
+      setNonEnumerableProperty(this, "parent", parent);
     }
   }
 
@@ -47,7 +51,8 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            newNode = new Node();
+            // @ts-expect-error
+            newNode = new Node(undefined, this.parent);
           }
           newNode._setNodes(NODES_KEY, mappedNodes);
         }
@@ -60,8 +65,6 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      // @ts-expect-error
-      setNonEnumerableProperty(newNode, "parent", this.parent);
     }
 
     return fn(newNode || this);
@@ -84,8 +87,7 @@ class Node {
    * @param {Object} [node]
    */
   insertChildBefore(target, node) {
-    const newNode = new Node(node);
-    setNonEnumerableProperty(newNode, "parent", this);
+    const newNode = new Node(node, this);
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 0, newNode);
@@ -104,18 +106,17 @@ class Node {
    * @param {Object} [node]
    */
   replaceChild(target, node) {
-    const newNode = new Node(node);
-    setNonEnumerableProperty(newNode, "parent", this);
+    const newNode = new Node(node, this);
 
     // @ts-expect-error
     this.children.splice(this.children.indexOf(target), 1, newNode);
   }
 
   /**
-   * @param {Object} [overrides]
+   * @param {Node} [parent]
    */
-  clone(overrides) {
-    return new Node(overrides ? { ...this, ...overrides } : this);
+  clone(parent) {
+    return new Node(this, parent);
   }
 
   /**
@@ -173,12 +174,8 @@ function mapNodesIfChanged(nodes, fn) {
 
 function cloneAndUpdateNodes(nodes, parent) {
   const siblings = nodes.map((node) =>
-    node instanceof Node ? node.clone() : new Node(node)
+    node instanceof Node ? node.clone(parent) : new Node(node, parent)
   );
-
-  for (const sibling of siblings) {
-    setNonEnumerableProperty(sibling, "parent", parent);
-  }
 
   return siblings;
 }
