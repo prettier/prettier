@@ -43,7 +43,6 @@ function* getEsbuildOptions(bundle, options) {
       "/prettier-security-dirname-placeholder"
     );
   }
-  Object.assign(replaceStrings, bundle.replace);
 
   const replaceModule = {};
   // Replace other bundled files
@@ -97,7 +96,7 @@ function* getEsbuildOptions(bundle, options) {
       esbuildPluginTextReplace({
         include: /\.js$/,
         // TODO[@fisker]: Use RegExp when possible
-        pattern: Object.entries(replaceStrings),
+        pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
       }),
       options.onLicenseFound &&
         esbuildPluginLicense({
