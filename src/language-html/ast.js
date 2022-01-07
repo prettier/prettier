@@ -112,9 +112,9 @@ class Node {
       setNonEnumerableProperties(this.children[i], {
         index: i,
         // @ts-expect-error
-        prev: i > 0 ? this.children[i-1] : undefined,
+        prev: this.children[i - 1],
         // @ts-expect-error
-        next: i < this.children.length - 1 ? this.children[i+1] : undefined,
+        next: this.children[i + 1],
         parent: this,
       });
     }
