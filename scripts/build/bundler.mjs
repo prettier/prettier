@@ -17,6 +17,11 @@ import bundles from "./config.mjs";
 const { json, __dirname } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
+const umdTarget = resolveToEsbuildTarget(
+  browserslist(packageJson.browserslist),
+  { printUnknownTargets: false }
+);
+
 function* getEsbuildOptions(bundle, options) {
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
@@ -112,12 +117,12 @@ function* getEsbuildOptions(bundle, options) {
     external: [...(bundle.external || [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
-    target: bundle.target === "node" ? ["node12"] : umdTarget,
     mainFields: ["main"],
+    target: ["node12"],
   };
 
   if (bundle.target === "universal") {
-    esbuildOptions.target = umdTarget;
+    esbuildOptions.target.push(...umdTarget);
 
     yield {
       ...esbuildOptions,
@@ -140,29 +145,21 @@ function* getEsbuildOptions(bundle, options) {
       };
     }
   } else {
+    esbuildOptions.external.push(
+      ...builtinModules,
+      "./package.json*",
+      ...bundles
+        .filter((item) => item.input !== bundle.input)
+        .map((item) => `./${item.output}*`)
+    );
+
     yield {
       ...esbuildOptions,
       outfile: path.join(DIST_DIR, bundle.output),
       format: "cjs",
-      external: [
-        ...esbuildOptions.external,
-        ...builtinModules,
-        "./package.json*",
-        ...bundles
-          .filter((item) => item.input !== bundle.input)
-          .map((item) => `./${item.output}*`),
-      ],
-      target: ["node12"],
     };
   }
 }
-
-const umdTarget = [
-  "node12",
-  ...resolveToEsbuildTarget(browserslist(packageJson.browserslist), {
-    printUnknownTargets: false,
-  }),
-];
 
 async function createBundle(bundle, cache, options) {
   if (
