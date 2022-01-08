@@ -5,7 +5,7 @@ import { execa } from "execa";
 
 const CSPELL_CONFIG_FILE = new URL("../cspell.json", import.meta.url);
 const updateConfig = (config) =>
-  fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4));
+  fs.writeFile(CSPELL_CONFIG_FILE, JSON.stringify(config, undefined, 4) + "\n");
 const runSpellcheck = (options) => {
   const { yarnArgs, args, execaOptions } = {
     yarnArgs: [],

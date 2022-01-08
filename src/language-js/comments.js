@@ -27,6 +27,7 @@ const {
   isObjectProperty,
   getComments,
   CommentCheckFlags,
+  markerForIfWithoutBlockAndSameLineComment,
 } = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -206,7 +207,24 @@ function handleIfStatementComments({
     if (precedingNode.type === "BlockStatement") {
       addTrailingComment(precedingNode, comment);
     } else {
-      addDanglingComment(enclosingNode, comment);
+      const isSingleLineComment =
+        comment.type === "SingleLine" ||
+        comment.loc.start.line === comment.loc.end.line;
+      const isSameLineComment =
+        comment.loc.start.line === precedingNode.loc.start.line;
+      if (isSingleLineComment && isSameLineComment) {
+        // example:
+        //   if (cond1) expr1; // comment A
+        //   else if (cond2) expr2; // comment A
+        //   else expr3;
+        addDanglingComment(
+          precedingNode,
+          comment,
+          markerForIfWithoutBlockAndSameLineComment
+        );
+      } else {
+        addDanglingComment(enclosingNode, comment);
+      }
     }
     return true;
   }
