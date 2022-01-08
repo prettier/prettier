@@ -12,7 +12,7 @@ function getUmdWrapper(name, build) {
   for (let index = 0; index < path.length; index++) {
     const object = ["root", ...path.slice(0, index + 1)].join(".");
     if (index === path.length - 1) {
-      globalObjectText.push(`${object} = factory(root);`);
+      globalObjectText.push(`${object} = factory();`);
     } else {
       globalObjectText.push(`${object} = ${object} || {};`);
     }
@@ -21,31 +21,24 @@ function getUmdWrapper(name, build) {
     .map((text) => `${" ".repeat(4)}${text}`)
     .join("\n");
 
-  /*
-  `globalThis` is passed to factory is because `@esbuild-plugins/node-globals-polyfill`
-  and `@esbuild-plugins/node-modules-polyfill` uses it.
-  This is a temporary solution, need fix.
-  */
   let wrapper = outdent`
     (function (factory) {
-      var root =
-        typeof globalThis !== "undefined"
-          ? globalThis
-          : typeof global !== "undefined"
-          ? global
-          : typeof self !== "undefined"
-          ? self
-          : this || {};
       if (typeof exports === "object" && typeof module === "object") {
-        module.exports = factory(root);
+        module.exports = factory();
       } else if (typeof define === "function" && define.amd) {
-        define(function() {
-          return factory(root);
-        });
+        define(factory);
       } else {
+        var root =
+          typeof globalThis !== "undefined"
+            ? globalThis
+            : typeof global !== "undefined"
+            ? global
+            : typeof self !== "undefined"
+            ? self
+            : this || {};
         ${globalObjectText.trimStart()}
       }
-    })(function(globalThis) {
+    })(function() {
     ${placeholder}
     return ${temporaryName};
     });
