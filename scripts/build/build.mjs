@@ -9,7 +9,6 @@ import prettyBytes from "pretty-bytes";
 import rimraf from "rimraf";
 import {
   PROJECT_ROOT,
-  BUILD_CACHE_DIR,
   DIST_DIR,
   readJson,
   writeJson,
@@ -17,7 +16,7 @@ import {
 } from "../utils/index.mjs";
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
-import Cache from "./cache.mjs";
+import saveLicenses from "./save-licenses.mjs";
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -29,9 +28,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-const CACHE_VERSION = "v38"; // This need update when updating build scripts
 const statusConfig = [
-  { color: "bgYellow", text: "CACHED" },
   { color: "bgGreen", text: "DONE" },
   { color: "bgRed", text: "FAIL" },
   { color: "bgGray", text: "SKIPPED" },
@@ -58,19 +55,14 @@ function fitTerminal(input, suffix = "") {
   return input;
 }
 
-async function createBundle(bundleConfig, cache, options) {
+async function createBundle(bundleConfig, options) {
   const { output, target, format, type } = bundleConfig;
   process.stdout.write(fitTerminal(output));
   try {
-    const { cached, skipped } = await bundler(bundleConfig, cache, options);
+    const { skipped } = await bundler(bundleConfig, options);
 
     if (skipped) {
       console.log(status.SKIPPED);
-      return;
-    }
-
-    if (cached) {
-      console.log(status.CACHED);
       return;
     }
 
@@ -143,9 +135,11 @@ async function preparePackage() {
 }
 
 async function run(params) {
-  const shouldUseCache = params.cache && !params.file && params.minify === null;
   const shouldPreparePackage =
     !params.playground && !params.file && params.minify === null;
+  const shouldSaveBundledPackagesLicenses =
+    !params.playground && !params.file && params.minify === null;
+
   let configs = bundleConfigs;
   if (params.file) {
     configs = configs.filter(({ output }) => output === params.file);
@@ -153,39 +147,34 @@ async function run(params) {
     rimraf.sync(DIST_DIR);
   }
 
-  if (!params.cache) {
-    rimraf.sync(BUILD_CACHE_DIR);
-  }
-
-  let bundleCache;
-  if (shouldUseCache) {
-    bundleCache = new Cache({
-      cacheDir: BUILD_CACHE_DIR,
-      distDir: DIST_DIR,
-      version: CACHE_VERSION,
-    });
-    await bundleCache.load();
+  const licenses = [];
+  if (shouldSaveBundledPackagesLicenses) {
+    params.onLicenseFound = (dependencies) => licenses.push(...dependencies);
   }
 
   console.log(chalk.inverse(" Building packages "));
 
   for (const bundleConfig of configs) {
-    await createBundle(bundleConfig, bundleCache, params);
-  }
-
-  if (shouldUseCache) {
-    await bundleCache.save();
+    await createBundle(bundleConfig, params);
   }
 
   if (shouldPreparePackage) {
     await preparePackage();
   }
+
+  if (shouldSaveBundledPackagesLicenses) {
+    await saveLicenses(licenses);
+  } else {
+    console.warn(
+      chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")
+    );
+  }
 }
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["cache", "playground", "print-size", "minify"],
+    boolean: ["playground", "print-size", "minify"],
     string: ["file"],
-    default: { cache: true, playground: false, printSize: false, minify: null },
+    default: { playground: false, printSize: false, minify: null },
   })
 );
