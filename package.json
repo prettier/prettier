@@ -97,7 +97,6 @@
     "@prettier/jest-light-runner": "file:./tests/config/jest-light-runner",
     "@types/estree": "0.0.50",
     "@types/jest": "27.4.0",
-    "babel-loader": "8.2.3",
     "benchmark": "2.1.4",
     "browserslist": "4.19.1",
     "builtin-modules": "3.2.0",
@@ -158,7 +157,7 @@
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
-    "build": "node --max-old-space-size=4096 ./scripts/build/build.mjs",
+    "build": "node ./scripts/build/build.mjs",
     "build:website": "node ./scripts/build-website.mjs"
   },
   "c8": {
