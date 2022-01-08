@@ -12,14 +12,6 @@ yarn build
 
 ## Flags
 
-### `--no-cache` flag
-
-Run script with `--no-cache` flag will clean up the cache directory (`.cache` in project root) before bundling files.
-
-```sh
-yarn build --no-cache
-```
-
 ### `--playground`
 
 Run script with `--playground` flag will only build files needed for the website.

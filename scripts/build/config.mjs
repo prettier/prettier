@@ -1,4 +1,7 @@
 import path from "node:path";
+import createEsmUtils from "esm-utils";
+
+const { require } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -7,7 +10,6 @@ import path from "node:path";
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
  * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
- * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string | {code?: string, file?: string | URL}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
@@ -45,6 +47,7 @@ const parsers = [
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
+      "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
@@ -65,6 +68,9 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/angular.js",
+    replace: {
+      "@angular/compiler/src": "@angular/compiler/esm2015/src",
+    },
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -79,12 +85,13 @@ const parsers = [
   },
   {
     input: "src/language-markdown/parser-markdown.js",
+    replaceModule: {
+      [require.resolve("parse-entities/decode-entity.browser.js")]:
+        require.resolve("parse-entities/decode-entity.js"),
+    },
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    commonjs: {
-      ignore: ["source-map"],
-    },
   },
   {
     input: "src/language-html/parser-html.js",

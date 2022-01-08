@@ -1,115 +1,33 @@
 import path from "node:path";
-import { rollup } from "rollup";
-import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
-import rollupPluginAlias from "@rollup/plugin-alias";
-import rollupPluginCommonjs from "@rollup/plugin-commonjs";
-import rollupPluginPolyfillNode from "rollup-plugin-polyfill-node";
-import rollupPluginJson from "@rollup/plugin-json";
-import rollupPluginReplace from "@rollup/plugin-replace";
-import { terser as rollupPluginTerser } from "rollup-plugin-terser";
-import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
-import rollupPluginLicense from "rollup-plugin-license";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
+import browserslist from "browserslist";
+import esbuild from "esbuild";
+import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
+import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
+import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
-import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
-import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
-import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
+import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
+import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
+import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
+import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import bundles from "./config.mjs";
 
-const { json } = createEsmUtils(import.meta);
+const { json, __dirname } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
-const entries = [
-  // Force using the CJS file, instead of ESM; i.e. get the file
-  // from `"main"` instead of `"module"` (rollup default) of package.json
-  {
-    find: "@angular/compiler/src",
-    replacement: path.resolve(
-      `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-    ),
-  },
-];
+const umdTarget = resolveToEsbuildTarget(
+  browserslist(packageJson.browserslist),
+  { printUnknownTargets: false }
+);
 
-function getBabelConfig(bundle) {
-  const config = {
-    babelrc: false,
-    assumptions: {
-      setSpreadProperties: true,
-    },
-    sourceType: "unambiguous",
-    plugins: bundle.babelPlugins || [],
-    compact: bundle.type === "plugin" ? false : "auto",
-    exclude: [/\/core-js\//],
-  };
-  const targets = { node: "12" };
-  if (bundle.target === "universal") {
-    targets.browsers = packageJson.browserslist;
-  }
-  config.presets = [
-    [
-      "@babel/preset-env",
-      {
-        targets,
-        exclude: [
-          "es.array.unscopables.flat-map",
-          "es.promise",
-          "es.promise.finally",
-          "es.string.replace",
-          "es.symbol.description",
-          "es.typed-array.*",
-          "web.*",
-        ],
-        modules: false,
-        useBuiltIns: "usage",
-        corejs: {
-          version: 3,
-        },
-        debug: false,
-      },
-    ],
-  ];
-  config.plugins.push([
-    "@babel/plugin-proposal-object-rest-spread",
-    { useBuiltIns: true },
-  ]);
-  return config;
-}
-
-function getRollupConfig(bundle, options) {
-  const config = {
-    input: path.join(PROJECT_ROOT, bundle.input),
-    onwarn(warning) {
-      if (
-        // ignore `MIXED_EXPORTS` warn
-        warning.code === "MIXED_EXPORTS" ||
-        (warning.code === "CIRCULAR_DEPENDENCY" &&
-          (warning.importer.startsWith("node_modules") ||
-            warning.importer.startsWith("\x00polyfill-node."))) ||
-        warning.code === "SOURCEMAP_ERROR" ||
-        warning.code === "THIS_IS_UNDEFINED"
-      ) {
-        return;
-      }
-
-      // web bundle can't have external requires
-      if (
-        warning.code === "UNRESOLVED_IMPORT" &&
-        bundle.target === "universal"
-      ) {
-        throw new Error(
-          `Unresolved dependency in universal bundle: ${warning.source}`
-        );
-      }
-
-      console.warn(warning);
-    },
-    external: [],
-  };
-
+function* getEsbuildOptions(bundle, options) {
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production"),
+    // `tslib` exports global variables
+    "createExporter(root": "createExporter({}",
   };
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
@@ -125,12 +43,6 @@ function getRollupConfig(bundle, options) {
       "/prettier-security-dirname-placeholder"
     );
   }
-  Object.assign(replaceStrings, bundle.replace);
-
-  const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
-
-  const alias = { ...bundle.alias };
-  alias.entries = [...entries, ...(alias.entries || [])];
 
   const replaceModule = {};
   // Replace other bundled files
@@ -148,7 +60,7 @@ function getRollupConfig(bundle, options) {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      code: `export default ${JSON.stringify({
+      code: `module.exports = ${JSON.stringify({
         version: packageJson.version,
       })};`,
     };
@@ -163,143 +75,99 @@ function getRollupConfig(bundle, options) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] = {
-        code: "export default undefined;",
-      };
+      replaceModule[path.join(PROJECT_ROOT, file)] = { code: "" };
     }
   }
 
-  Object.assign(replaceModule, bundle.replaceModule);
-
-  config.plugins = [
-    rollupPluginReplace({
-      values: replaceStrings,
-      delimiters: ["", ""],
-      preventAssignment: true,
-    }),
-    rollupPluginExecutable(),
-    rollupPluginEvaluate(),
-    rollupPluginJson({
-      exclude: Object.keys(replaceModule)
-        .filter((file) => file.endsWith(".json"))
-        .map((file) => path.relative(PROJECT_ROOT, file)),
-    }),
-    rollupPluginAlias(alias),
-    rollupPluginNodeResolve({
-      extensions: [".js", ".json"],
-      preferBuiltins: bundle.target === "node",
-      mainFields: ["main"],
-    }),
-    rollupPluginCommonjs({
-      ignoreGlobal: bundle.target === "node",
-      ignore:
-        bundle.type === "plugin"
-          ? undefined
-          : (id) => /\.\/parser-.*?/.test(id),
-      requireReturnsDefault: "preferred",
-      ignoreDynamicRequires: true,
-      ignoreTryCatch: bundle.target === "node",
-      ...bundle.commonjs,
-    }),
-    rollupPluginReplaceModule(replaceModule),
-    bundle.target === "universal" && rollupPluginPolyfillNode(),
-    rollupPluginBabel(babelConfig),
-    options.onLicenseFound &&
-      rollupPluginLicense({
-        cwd: PROJECT_ROOT,
-        thirdParty: {
-          includePrivate: true,
-          output: options.onLicenseFound,
-        },
-      }),
-  ].filter(Boolean);
-
-  if (bundle.target === "node") {
-    config.external.push(...builtinModules);
-  }
-  if (bundle.external) {
-    config.external.push(...bundle.external);
-  }
-
-  return config;
-}
-
-function getRollupOutputOptions(bundle, buildOptions) {
-  const options = {
-    // Avoid warning form #8797
-    exports: "auto",
-    file: path.join(DIST_DIR, bundle.output),
-    name: bundle.name,
-    plugins: [],
-  };
-
-  let shouldMinify = buildOptions.minify;
+  let shouldMinify = options.minify;
   if (typeof shouldMinify !== "boolean") {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
 
-  if (shouldMinify) {
-    options.plugins.push(
-      rollupPluginTerser({
-        output: {
-          ascii_only: true,
-        },
-      })
-    );
-  }
+  const esbuildOptions = {
+    entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
+    bundle: true,
+    metafile: true,
+    plugins: [
+      bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
+      esbuildPluginEvaluate(),
+      esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
+      esbuildPluginTextReplace({
+        include: /\.js$/,
+        // TODO[@fisker]: Use RegExp when possible
+        pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
+      }),
+      options.onLicenseFound &&
+        esbuildPluginLicense({
+          cwd: PROJECT_ROOT,
+          thirdParty: {
+            includePrivate: true,
+            output: options.onLicenseFound,
+          },
+        }),
+    ].filter(Boolean),
+    minify: shouldMinify,
+    legalComments: "none",
+    external: [...(bundle.external || [])],
+    // Disable esbuild auto discover `tsconfig.json` file
+    tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+    mainFields: ["main"],
+    target: ["node12"],
+  };
 
-  if (bundle.target === "node") {
-    options.format = "cjs";
-  } else if (bundle.target === "universal") {
-    if (!bundle.format) {
-      return [
-        {
-          ...options,
-          format: "umd",
-        },
-        !buildOptions.playground && {
-          ...options,
-          format: "esm",
-          file: path.join(
-            DIST_DIR,
-            `esm/${bundle.output.replace(".js", ".mjs")}`
-          ),
-        },
-      ].filter(Boolean);
+  if (bundle.target === "universal") {
+    esbuildOptions.target.push(...umdTarget);
+
+    yield {
+      ...esbuildOptions,
+      outfile: path.join(DIST_DIR, bundle.output),
+      plugins: [
+        esbuildPluginUmd({ name: bundle.name }),
+        ...esbuildOptions.plugins,
+      ],
+      format: "umd",
+    };
+
+    if (!bundle.format && !options.playground) {
+      yield {
+        ...esbuildOptions,
+        outfile: path.join(
+          DIST_DIR,
+          `esm/${bundle.output.replace(".js", ".mjs")}`
+        ),
+        format: "esm",
+      };
     }
-    options.format = bundle.format;
-  }
+  } else {
+    esbuildOptions.external.push(
+      ...builtinModules,
+      "./package.json*",
+      ...bundles
+        .filter((item) => item.input !== bundle.input)
+        .map((item) => `./${item.output}*`)
+    );
 
-  if (buildOptions.playground) {
-    return { skipped: true };
+    yield {
+      ...esbuildOptions,
+      outfile: path.join(DIST_DIR, bundle.output),
+      format: "cjs",
+    };
   }
-
-  return [options];
 }
 
-async function createBundle(bundle, cache, options) {
-  const inputOptions = getRollupConfig(bundle, options);
-  const outputOptions = getRollupOutputOptions(bundle, options);
-
-  if (!Array.isArray(outputOptions) && outputOptions.skipped) {
+async function createBundle(bundle, options) {
+  if (
+    options.playground &&
+    (bundle.target !== "universal" || bundle.output === "doc.js")
+  ) {
     return { skipped: true };
   }
 
-  if (
-    cache &&
-    (
-      await Promise.all(
-        outputOptions.map((outputOption) =>
-          cache.isCached(inputOptions, outputOption)
-        )
-      )
-    ).every((cached) => cached)
-  ) {
-    return { cached: true };
+  const esbuildOptions = getEsbuildOptions(bundle, options);
+  for (const options of esbuildOptions) {
+    await esbuild.build(options);
   }
-
-  const result = await rollup(inputOptions);
-  await Promise.all(outputOptions.map((option) => result.write(option)));
 
   return { bundled: true };
 }
