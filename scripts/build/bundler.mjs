@@ -156,27 +156,13 @@ function* getEsbuildOptions(bundle, options) {
   }
 }
 
-async function createBundle(bundle, cache, options) {
+async function createBundle(bundle, options) {
   if (
     options.playground &&
     (bundle.target !== "universal" || bundle.output === "doc.js")
   ) {
     return { skipped: true };
   }
-
-  // TODO[@fisker]: Fix cache
-  // if (
-  //   cache &&
-  //   (
-  //     await Promise.all(
-  //       outputOptions.map((outputOption) =>
-  //         cache.isCached(inputOptions, outputOption)
-  //       )
-  //     )
-  //   ).every((cached) => cached)
-  // ) {
-  //   return { cached: true };
-  // }
 
   const esbuildOptions = getEsbuildOptions(bundle, options);
   for (const options of esbuildOptions) {

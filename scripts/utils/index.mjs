@@ -28,14 +28,12 @@ async function writeFile(file, content) {
 }
 
 const PROJECT_ROOT = url.fileURLToPath(new URL("../../", import.meta.url));
-const BUILD_CACHE_DIR = path.join(PROJECT_ROOT, ".cache");
 const DIST_DIR = path.join(PROJECT_ROOT, "dist");
 const WEBSITE_DIR = path.join(PROJECT_ROOT, "website");
 
 export {
   PROJECT_ROOT,
   DIST_DIR,
-  BUILD_CACHE_DIR,
   WEBSITE_DIR,
   readJson,
   writeJson,
