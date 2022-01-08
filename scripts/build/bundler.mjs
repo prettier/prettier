@@ -1,5 +1,4 @@
 import path from "node:path";
-import fs from "node:fs";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import browserslist from "browserslist";
