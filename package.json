@@ -100,7 +100,7 @@
     "@rollup/plugin-replace": "3.0.1",
     "@types/estree": "0.0.50",
     "@types/jest": "27.4.0",
-    "babel-jest": "27.4.5",
+    "babel-jest": "27.4.6",
     "babel-loader": "8.2.3",
     "benchmark": "2.1.4",
     "builtin-modules": "3.2.0",
