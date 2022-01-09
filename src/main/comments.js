@@ -79,7 +79,7 @@ function getSortedChildNodes(node, options, resultArray) {
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
 function decorateComment(node, comment, options, enclosingNode) {
-  const { locStart, locEnd, parser } = options;
+  const { locStart, locEnd } = options;
   const commentStart = locStart(comment);
   const commentEnd = locEnd(comment);
 
@@ -92,8 +92,8 @@ function decorateComment(node, comment, options, enclosingNode) {
   while (left < right) {
     const middle = (left + right) >> 1;
     const child = childNodes[middle];
-    const start = locStart(child, { parser });
-    const end = locEnd(child, { parser });
+    const start = locStart(child);
+    const end = locEnd(child);
 
     // The comment is completely contained by this child node.
     if (start <= commentStart && commentEnd <= end) {

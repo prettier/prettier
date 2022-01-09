@@ -6,24 +6,8 @@ const { isNonEmptyArray } = require("../common/util.js");
  * @typedef {import("./types/estree").Node} Node
  */
 
-const tsKeywordTypes = new Set([
-  "TSAnyKeyword",
-  "TSNullKeyword",
-  "TSThisType",
-  "TSNumberKeyword",
-  "TSVoidKeyword",
-  "TSBooleanKeyword",
-  "TSBigIntKeyword",
-  "TSSymbolKeyword",
-  "TSStringKeyword",
-  "TSNeverKeyword",
-  "TSObjectKeyword",
-  "TSUndefinedKeyword",
-  "TSUnknownKeyword",
-]);
-
 function locStart(node, opts) {
-  const { ignoreDecorators, parser } = opts || {};
+  const { ignoreDecorators } = opts || {};
 
   // Handle nodes with decorators. They should start at the first decorator
   if (!ignoreDecorators) {
@@ -35,20 +19,10 @@ function locStart(node, opts) {
     }
   }
 
-  if (parser === "babel-ts" && tsKeywordTypes.has(node.type)) {
-    return node.start;
-  }
-
   return node.range ? node.range[0] : node.start;
 }
 
-function locEnd(node, opts) {
-  const { parser } = opts || {};
-
-  if (parser === "babel-ts" && tsKeywordTypes.has(node.type)) {
-    return node.end;
-  }
-
+function locEnd(node) {
   return node.range ? node.range[1] : node.end;
 }
 

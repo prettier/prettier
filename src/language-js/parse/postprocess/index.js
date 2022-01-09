@@ -6,6 +6,22 @@ const { isTypeCastComment } = require("../../comments.js");
 const visitNode = require("./visitNode.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");
 
+const tsKeywordTypes = new Set([
+  "TSAnyKeyword",
+  "TSNullKeyword",
+  "TSThisType",
+  "TSNumberKeyword",
+  "TSVoidKeyword",
+  "TSBooleanKeyword",
+  "TSBigIntKeyword",
+  "TSSymbolKeyword",
+  "TSStringKeyword",
+  "TSNeverKeyword",
+  "TSObjectKeyword",
+  "TSUndefinedKeyword",
+  "TSUnknownKeyword",
+]);
+
 function postprocess(ast, options) {
   if (
     options.parser === "typescript" &&
@@ -79,7 +95,9 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        node.typeAnnotation.range = [locStart(node), locEnd(node)];
+        if (!tsKeywordTypes.has(node.typeAnnotation.type)) {
+          node.typeAnnotation.range = [locStart(node), locEnd(node)];
+        }
         return node.typeAnnotation;
       }
       case "TSTypeParameter":
