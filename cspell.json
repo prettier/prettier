@@ -361,7 +361,8 @@
         "\\(https?://.*?\\)",
         "author: \".*?\"",
         "authorURL: \".*?\"",
-        "\"author\": \".*?\""
+        "\"author\": \".*?\"",
+        "(long|after){3,}"
     ],
     "files": [
         "*",
