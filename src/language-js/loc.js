@@ -16,8 +16,6 @@ const tsKeywordTypes = new Set([
   "TSBigIntKeyword",
   "TSSymbolKeyword",
   "TSStringKeyword",
-  "TSLiteralType",
-  "TSTemplateLiteralType",
   "TSNeverKeyword",
   "TSObjectKeyword",
   "TSUndefinedKeyword",
