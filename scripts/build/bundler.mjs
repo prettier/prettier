@@ -227,7 +227,7 @@ async function runBuild(bundle, esbuildOptions) {
     filename: outfile,
     ...getBabelConfig(bundle),
   });
-  fs.writeFile(outfile, code);
+  await fs.writeFile(outfile, code);
 
   await esbuild.build({
     ...esbuildOptions,
