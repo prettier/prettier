@@ -4,7 +4,8 @@ import { outdent } from "outdent";
 
 function getUmdWrapper(name, build) {
   const path = name.split(".");
-  const { minify } = build.initialOptions;
+  // const { minify } = build.initialOptions;
+  let minify = false;
   const temporaryName = minify ? "m" : camelCase(name);
   const placeholder = "/*! bundled code !*/";
 
