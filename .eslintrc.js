@@ -20,6 +20,7 @@ module.exports = {
     "import/internal-regex": "^linguist-languages/",
   },
   rules: {
+    "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     "dot-notation": "error",
@@ -148,7 +149,6 @@ module.exports = {
     "unicorn/prefer-string-starts-ends-with": "error",
     "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
-    "@typescript-eslint/prefer-ts-expect-error": "error",
   },
   overrides: [
     {
