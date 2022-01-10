@@ -29,7 +29,6 @@
     "@typescript-eslint/typescript-estree": "5.9.0",
     "angular-estree-parser": "2.5.0",
     "angular-html-parser": "1.8.0",
-    "c8": "7.10.0",
     "camelcase": "6.3.0",
     "chalk": "4.1.2",
     "ci-info": "3.3.0",
@@ -161,12 +160,6 @@
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.mjs",
     "build:website": "node ./scripts/build-website.mjs"
-  },
-  "c8": {
-    "reporter": [
-      "lcov",
-      "text"
-    ]
   },
   "browserslist": [
     ">0.5%",
