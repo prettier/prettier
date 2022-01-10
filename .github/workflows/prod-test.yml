@@ -65,7 +65,7 @@ jobs:
           path: dist
 
       - name: Lint Code
-        run: yarn test:dist:lint
+        run: yarn test:dist-lint
 
   test:
     timeout-minutes: 90
@@ -123,15 +123,15 @@ jobs:
 
       - name: Run Format Tests (standalone) (macOS)
         if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test:dist:standalone:format --maxWorkers=4
+        run: yarn test:dist-standalone --maxWorkers=4
 
       - name: Run Format Tests (standalone) (Linux and Windows)
         if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn test:dist:standalone:format --maxWorkers=2
+        run: yarn test:dist-standalone --maxWorkers=2
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test:dist:integration "tests/integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true
