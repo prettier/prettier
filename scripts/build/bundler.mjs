@@ -24,6 +24,51 @@ const umdTarget = resolveToEsbuildTarget(
   { printUnknownTargets: false }
 );
 
+function getBabelConfig(bundle) {
+  const config = {
+    babelrc: false,
+    assumptions: {
+      setSpreadProperties: true,
+    },
+    sourceType: "unambiguous",
+    plugins: bundle.babelPlugins || [],
+    compact: true,
+    exclude: [/\/core-js\//],
+  };
+  const targets = { node: "10" };
+  if (bundle.target === "universal") {
+    targets.browsers = packageJson.browserslist;
+  }
+  config.presets = [
+    [
+      "@babel/preset-env",
+      {
+        targets,
+        exclude: [
+          "es.array.unscopables.flat-map",
+          "es.promise",
+          "es.promise.finally",
+          "es.string.replace",
+          "es.symbol.description",
+          "es.typed-array.*",
+          "web.*",
+        ],
+        modules: false,
+        useBuiltIns: "usage",
+        corejs: {
+          version: 3,
+        },
+        debug: false,
+      },
+    ],
+  ];
+  config.plugins.push([
+    "@babel/plugin-proposal-object-rest-spread",
+    { useBuiltIns: true },
+  ]);
+  return config;
+}
+
 function* getEsbuildOptions(bundle, options) {
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
@@ -157,51 +202,6 @@ function* getEsbuildOptions(bundle, options) {
       format: "cjs",
     };
   }
-}
-
-function getBabelConfig(bundle) {
-  const config = {
-    babelrc: false,
-    assumptions: {
-      setSpreadProperties: true,
-    },
-    sourceType: "unambiguous",
-    plugins: bundle.babelPlugins || [],
-    compact: true,
-    exclude: [/\/core-js\//],
-  };
-  const targets = { node: "10" };
-  if (bundle.target === "universal") {
-    targets.browsers = packageJson.browserslist;
-  }
-  config.presets = [
-    [
-      "@babel/preset-env",
-      {
-        targets,
-        exclude: [
-          "es.array.unscopables.flat-map",
-          "es.promise",
-          "es.promise.finally",
-          "es.string.replace",
-          "es.symbol.description",
-          "es.typed-array.*",
-          "web.*",
-        ],
-        modules: false,
-        useBuiltIns: "usage",
-        corejs: {
-          version: 3,
-        },
-        debug: false,
-      },
-    ],
-  ];
-  config.plugins.push([
-    "@babel/plugin-proposal-object-rest-spread",
-    { useBuiltIns: true },
-  ]);
-  return config;
 }
 
 async function runBuild(bundle, esbuildOptions) {
