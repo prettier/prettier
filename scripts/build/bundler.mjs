@@ -9,7 +9,6 @@ import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@
 import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
-import esbuildPluginBabel from "esbuild-plugin-babel";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
