@@ -210,15 +210,10 @@ function getBabelConfig(bundle) {
 async function runBuild(bundle, esbuildOptions) {
   let { format, plugins, outfile } = esbuildOptions;
 
-  if (format === "umd") {
-    plugins = plugins.filter(({ name }) => name !== "umd");
-    format = "cjs";
-  }
-
   await esbuild.build({
     ...esbuildOptions,
-    plugins,
-    format,
+    plugins: esbuildOptions.plugins.filter(({ name }) => name !== "umd"),
+    format: format === "umd" ? "cjs" : format,
     minify: false,
   });
 
@@ -231,6 +226,7 @@ async function runBuild(bundle, esbuildOptions) {
 
   await esbuild.build({
     ...esbuildOptions,
+    plugins: esbuildOptions.plugins.filter(({ name }) => name === "umd"),
     entryPoints: [outfile],
     allowOverwrite: true,
   });
