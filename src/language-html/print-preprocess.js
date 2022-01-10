@@ -19,7 +19,7 @@ const {
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
-  mergeIeConditonalStartEndCommentIntoElementOpeningTag,
+  mergeIfConditionalStartEndCommentIntoElementOpeningTag,
   mergeCdataIntoText,
   extractInterpolation,
   extractWhitespaces,
@@ -57,7 +57,7 @@ function removeIgnorableFirstLf(ast /*, options */) {
   });
 }
 
-function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
+function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
   ast /*, options */
 ) {
   /**

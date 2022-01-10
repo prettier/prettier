@@ -198,6 +198,7 @@
         "miniprettier",
         "mitermayer",
         "mjml",
+        "Modifer",
         "Moeller",
         "Monteiro",
         "Morrell",
@@ -363,7 +364,8 @@
         "\\(https?://.*?\\)",
         "author: \".*?\"",
         "authorURL: \".*?\"",
-        "\"author\": \".*?\""
+        "\"author\": \".*?\"",
+        "(long|after){3,}"
     ],
     "files": [
         "*",
