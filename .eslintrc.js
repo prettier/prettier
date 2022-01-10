@@ -9,7 +9,13 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
-  plugins: ["prettier-internal-rules", "import", "regexp", "unicorn"],
+  plugins: [
+    "prettier-internal-rules",
+    "import",
+    "regexp",
+    "unicorn",
+    "@typescript-eslint",
+  ],
   settings: {
     "import/internal-regex": "^linguist-languages/",
   },
@@ -142,6 +148,7 @@ module.exports = {
     "unicorn/prefer-string-starts-ends-with": "error",
     "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
+    "@typescript-eslint/prefer-ts-expect-error": "error",
   },
   overrides: [
     {
