@@ -3,9 +3,9 @@
 const { getLast } = require("../../../common/util.js");
 const { locStart, locEnd } = require("../../loc.js");
 const { isTypeCastComment } = require("../../comments.js");
+const { isTsKeywordType } = require("../../utils.js");
 const visitNode = require("./visitNode.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");
-const { isTsKeywordType } = require("../../utils.js");
 
 function postprocess(ast, options) {
   if (
