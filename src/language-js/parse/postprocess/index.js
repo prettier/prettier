@@ -5,22 +5,7 @@ const { locStart, locEnd } = require("../../loc.js");
 const { isTypeCastComment } = require("../../comments.js");
 const visitNode = require("./visitNode.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");
-
-const tsKeywordTypes = new Set([
-  "TSAnyKeyword",
-  "TSNullKeyword",
-  "TSThisType",
-  "TSNumberKeyword",
-  "TSVoidKeyword",
-  "TSBooleanKeyword",
-  "TSBigIntKeyword",
-  "TSSymbolKeyword",
-  "TSStringKeyword",
-  "TSNeverKeyword",
-  "TSObjectKeyword",
-  "TSUndefinedKeyword",
-  "TSUnknownKeyword",
-]);
+const { isTsKeywordType } = require("../../utils.js");
 
 function postprocess(ast, options) {
   if (
@@ -95,7 +80,12 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        if (!tsKeywordTypes.has(node.typeAnnotation.type)) {
+        if (
+          !(
+            isTsKeywordType(node.typeAnnotation) ||
+            node.typeAnnotation.type === "TSThisType"
+          )
+        ) {
           node.typeAnnotation.range = [locStart(node), locEnd(node)];
         }
         return node.typeAnnotation;
