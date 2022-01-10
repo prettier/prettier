@@ -95,10 +95,6 @@ function* getEsbuildOptions(bundle, options) {
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
-      // esbuildPluginBabel({
-      //   filter: /\.[cm]?js$/,
-      //   config: getBabelConfig(bundle),
-      // }),
       esbuildPluginTextReplace({
         include: /\.[cm]?js$/,
         // TODO[@fisker]: Use RegExp when possible
@@ -120,6 +116,7 @@ function* getEsbuildOptions(bundle, options) {
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     mainFields: ["main"],
     target: ["node10"],
+    logLevel: "error",
   };
 
   if (bundle.target === "universal") {
@@ -170,7 +167,7 @@ function getBabelConfig(bundle) {
     },
     sourceType: "unambiguous",
     plugins: bundle.babelPlugins || [],
-    compact: bundle.type === "plugin" ? false : "auto",
+    compact: true,
     exclude: [/\/core-js\//],
   };
   const targets = { node: "10" };

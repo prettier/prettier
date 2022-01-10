@@ -137,8 +137,7 @@ async function preparePackage() {
 async function run(params) {
   const shouldPreparePackage =
     !params.playground && !params.file && params.minify === null;
-  const shouldSaveBundledPackagesLicenses =
-    !params.playground && !params.file && params.minify === null;
+  const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
 
   let configs = bundleConfigs;
   if (params.file) {
