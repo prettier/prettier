@@ -62,7 +62,7 @@ jobs:
 
       - name: Run Integration Tests (Linux and Windows)
         if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn c8 yarn test:integration --maxWorkers=2
+        run: yarn test:integration --maxWorkers=2
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v2.1.0
