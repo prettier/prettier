@@ -9,11 +9,18 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
-  plugins: ["prettier-internal-rules", "import", "regexp", "unicorn"],
+  plugins: [
+    "prettier-internal-rules",
+    "import",
+    "regexp",
+    "unicorn",
+    "@typescript-eslint",
+  ],
   settings: {
     "import/internal-regex": "^linguist-languages/",
   },
   rules: {
+    "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     "dot-notation": "error",
