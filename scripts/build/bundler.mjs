@@ -1,7 +1,9 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
 import browserslist from "browserslist";
+import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
@@ -94,10 +96,10 @@ function* getEsbuildOptions(bundle, options) {
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
-      esbuildPluginBabel({
-        filter: /\.[cm]?js$/,
-        config: getBabelConfig(bundle),
-      }),
+      // esbuildPluginBabel({
+      //   filter: /\.[cm]?js$/,
+      //   config: getBabelConfig(bundle),
+      // }),
       esbuildPluginTextReplace({
         include: /\.[cm]?js$/,
         // TODO[@fisker]: Use RegExp when possible
@@ -206,6 +208,35 @@ function getBabelConfig(bundle) {
   return config;
 }
 
+async function runBuild(bundle, esbuildOptions) {
+  let { format, plugins, outfile } = esbuildOptions;
+
+  if (format === "umd") {
+    plugins = plugins.filter(({ name }) => name !== "umd");
+    format = "cjs";
+  }
+
+  await esbuild.build({
+    ...esbuildOptions,
+    plugins,
+    format,
+    minify: false,
+  });
+
+  const text = await fs.readFile(outfile);
+  const { code } = await babel.transformAsync(text, {
+    filename: outfile,
+    ...getBabelConfig(bundle),
+  });
+  fs.writeFile(outfile, code);
+
+  await esbuild.build({
+    ...esbuildOptions,
+    entryPoints: [outfile],
+    allowOverwrite: true,
+  });
+}
+
 async function createBundle(bundle, options) {
   if (
     options.playground &&
@@ -216,7 +247,7 @@ async function createBundle(bundle, options) {
 
   const esbuildOptions = getEsbuildOptions(bundle, options);
   for (const options of esbuildOptions) {
-    await esbuild.build(options);
+    await runBuild(bundle, options);
   }
 
   return { bundled: true };
