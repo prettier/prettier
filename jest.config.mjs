@@ -29,7 +29,10 @@ if (!isProduction) {
 }
 
 const config = {
-  setupFiles: ["<rootDir>/tests/config/setup.js"],
+  projects: [
+    "<rootDir>/jest-format-test.config.mjs",
+    "<rootDir>/jest-integration-test.config.mjs",
+  ],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
