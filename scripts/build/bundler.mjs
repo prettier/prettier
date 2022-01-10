@@ -46,6 +46,7 @@ function getBabelConfig(bundle) {
         targets,
         exclude: [
           "es.array.unscopables.flat-map",
+          "es.array.sort",
           "es.promise",
           "es.promise.finally",
           "es.string.replace",
