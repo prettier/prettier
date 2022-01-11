@@ -74,6 +74,43 @@ for (x of y);
 ================================================================================
 `;
 
+exports[`continue-and-break-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(;;) continue // comment1
+;
+
+for (;;) break // comment2
+;
+
+label1: for (;;) continue label1 // comment3
+;
+
+label2: {
+    break label2 // comment4
+    ;
+};
+
+=====================================output=====================================
+for (;;)
+  continue; // comment1
+
+for (;;)
+  break; // comment2
+
+label1: for (;;)
+  continue label1; // comment3
+
+label2: {
+  break label2; // comment4
+}
+
+================================================================================
+`;
+
 exports[`for.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
