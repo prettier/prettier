@@ -108,7 +108,7 @@ class Node {
     const newNode = new Node(node, this);
 
     // @ts-expect-error
-    this.children.splice(this.children.indexOf(target), 1, newNode);
+    this.children[this.children.indexOf(target)] = newNode;
   }
 
   /**

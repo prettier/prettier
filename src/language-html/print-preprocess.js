@@ -77,7 +77,7 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
           continue;
         }
 
-        const ieConditionalStartComment = node.children[i - 1];
+        const ieConditionalStartComment = child.prev;
         const ieConditionalEndComment = child.firstChild;
 
         // ieConditionalStartComment
@@ -117,7 +117,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
           child.value = getValue(child);
         }
 
-        const prevChild = node.children[i - 1];
+        const prevChild = child.prev;
         if (!prevChild || prevChild.type !== "text") {
           continue;
         }
@@ -168,8 +168,8 @@ function mergeSimpleElementIntoText(ast /*, options */) {
           continue;
         }
 
-        const prevChild = node.children[i - 1];
-        const nextChild = node.children[++i];
+        const prevChild = child.prev;
+        const nextChild = child.next;
         prevChild.value +=
           `<${child.rawName}>` +
           child.firstChild.value +
@@ -185,7 +185,6 @@ function mergeSimpleElementIntoText(ast /*, options */) {
         node.removeChild(child);
         i--; // because a node was removed
         node.removeChild(nextChild);
-        i--; // because a node was removed
       }
     }
   });
@@ -291,8 +290,8 @@ function extractWhitespaces(ast /*, options*/) {
         const { leadingWhitespace, text, trailingWhitespace } =
           getLeadingAndTrailingHtmlWhitespace(child.value);
 
-        const prevChild = node.children[i - 1];
-        const nextChild = node.children[i + 1];
+        const prevChild = child.prev;
+        const nextChild = child.next;
 
         if (!text) {
           node.removeChild(child);
@@ -398,12 +397,12 @@ function addIsSpaceSensitive(ast, options) {
       child.isLeadingSpaceSensitive =
         index === 0
           ? child.isLeadingSpaceSensitive
-          : children[index - 1].isTrailingSpaceSensitive &&
+          : child.prev.isTrailingSpaceSensitive &&
             child.isLeadingSpaceSensitive;
       child.isTrailingSpaceSensitive =
         index === children.length - 1
           ? child.isTrailingSpaceSensitive
-          : children[index + 1].isLeadingSpaceSensitive &&
+          : child.next.isLeadingSpaceSensitive &&
             child.isTrailingSpaceSensitive;
     }
   });
