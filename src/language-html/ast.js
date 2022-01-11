@@ -22,7 +22,7 @@ class Node {
     }
 
     if (parent) {
-      setNonEnumerableProperty(this, "parent", parent);
+      this.parent = parent;
     }
   }
 
@@ -51,7 +51,6 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            // @ts-expect-error
             newNode = new Node(undefined, this.parent);
           }
           newNode._setNodes(NODES_KEY, mappedNodes);
@@ -137,20 +136,16 @@ class Node {
   }
 
   get prev() {
-    // @ts-expect-error
     if (!this.parent) {
       return null;
     }
-    // @ts-expect-error
     return this.parent.children[this.parent.children.indexOf(this) - 1];
   }
 
   get next() {
-    // @ts-expect-error
     if (!this.parent) {
       return null;
     }
-    // @ts-expect-error
     return this.parent.children[this.parent.children.indexOf(this) + 1];
   }
 
