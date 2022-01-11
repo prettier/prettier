@@ -91,6 +91,7 @@ function handleEndOfLineComment(context) {
     handleOnlyComments,
     handleTypeAliasComments,
     handleVariableDeclaratorComments,
+    handleBreakAndContinueStatementComments,
   ].some((fn) => fn(context));
 }
 
