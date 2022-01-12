@@ -1,8 +1,9 @@
 import baseConfig from "./jest.config.mjs";
 
 const config = {
-  testRegex: "tests/integration/__tests__/.*\\.js$",
   ...baseConfig,
+  testRegex: "tests/integration/__tests__/.*\\.js$",
+  projects: [],
 };
 
 export default config;
