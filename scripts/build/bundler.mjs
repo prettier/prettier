@@ -53,7 +53,6 @@ function getBabelConfig(bundle) {
           "es.string.replace",
           "es.symbol.description",
           "es.typed-array.*",
-          "esnext.global-this", // `esbuildPluginUmd` will pass `globalThis`
           "web.*",
         ],
         modules: false,
