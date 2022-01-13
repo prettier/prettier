@@ -217,11 +217,16 @@ async function runBuild(bundle, esbuildOptions) {
 
   let text = await fs.readFile(outfile, "utf8");
 
-  // `@esbuild-plugins/node-globals-polyfill` injects code using `globalThis`
-  text = text.replace(
-    /globalThis\.(setTimeout|clearTimeout|performance|location|navigator)/g,
-    "$1"
-  );
+  // `@esbuild-plugins/node-globals-polyfill` injects code uses `globalThis`
+  if (
+    bundle.format === "universal" &&
+    bundle.output !== "standalone.js" // This file needs polyfill `globalThis`
+  ) {
+    text = text.replace(
+      /globalThis\.(setTimeout|clearTimeout|performance|location|navigator)/g,
+      "$1"
+    );
+  }
 
   const { code } = await babel.transformAsync(text, {
     filename: outfile,
