@@ -219,7 +219,7 @@ async function runBuild(bundle, esbuildOptions) {
 
   // `@esbuild-plugins/node-globals-polyfill` injects code uses `globalThis`
   if (
-    bundle.format === "universal" &&
+    bundle.target === "universal" &&
     bundle.output !== "standalone.js" // This file needs polyfill `globalThis`
   ) {
     text = text.replace(
