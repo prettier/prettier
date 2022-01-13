@@ -224,7 +224,7 @@ async function runBuild(bundle, esbuildOptions) {
   ) {
     text = text.replace(
       /globalThis\.(setTimeout|clearTimeout|performance|location|navigator)/g,
-      "$1"
+      "global.$1"
     );
   }
 
