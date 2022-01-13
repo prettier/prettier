@@ -12,7 +12,7 @@ function getUmdWrapper(name, build) {
   for (let index = 0; index < path.length; index++) {
     const object = ["root", ...path.slice(0, index + 1)].join(".");
     if (index === path.length - 1) {
-      globalObjectText.push(`${object} = factory();`);
+      globalObjectText.push(`${object} = factory(root);`);
     } else {
       globalObjectText.push(`${object} = ${object} || {};`);
     }
@@ -23,22 +23,24 @@ function getUmdWrapper(name, build) {
 
   let wrapper = outdent`
     (function (factory) {
+      var root =
+        typeof globalThis !== "undefined"
+          ? globalThis
+          : typeof global !== "undefined"
+          ? global
+          : typeof self !== "undefined"
+          ? self
+          : this || {};
       if (typeof exports === "object" && typeof module === "object") {
-        module.exports = factory();
+        module.exports = factory(root);
       } else if (typeof define === "function" && define.amd) {
-        define(factory);
+        define(function() {
+          return factory(root);
+        });
       } else {
-        var root =
-          typeof globalThis !== "undefined"
-            ? globalThis
-            : typeof global !== "undefined"
-            ? global
-            : typeof self !== "undefined"
-            ? self
-            : this || {};
         ${globalObjectText.trimStart()}
       }
-    })(function() {
+    })(function(globalThis) {
     ${placeholder}
     return ${temporaryName};
     });

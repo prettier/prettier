@@ -52,6 +52,7 @@ function getBabelConfig(bundle) {
           "es.string.replace",
           "es.symbol.description",
           "es.typed-array.*",
+          "esnext.global-this", // `esbuildPluginUmd` will pass `globalThis`
           "web.*",
         ],
         modules: false,
@@ -59,7 +60,7 @@ function getBabelConfig(bundle) {
         corejs: {
           version: 3,
         },
-        debug: false,
+        debug: !false,
       },
     ],
   ];
@@ -215,18 +216,7 @@ async function runBuild(bundle, esbuildOptions) {
     minify: false,
   });
 
-  let text = await fs.readFile(outfile, "utf8");
-
-  // `@esbuild-plugins/node-globals-polyfill` injects code uses `globalThis`
-  if (
-    bundle.target === "universal" &&
-    bundle.output !== "standalone.js" // This file needs polyfill `globalThis`
-  ) {
-    text = text.replace(
-      /globalThis\.(setTimeout|clearTimeout|performance|location|navigator)/g,
-      "global.$1"
-    );
-  }
+  const text = await fs.readFile(outfile);
 
   const { code } = await babel.transformAsync(text, {
     filename: outfile,
