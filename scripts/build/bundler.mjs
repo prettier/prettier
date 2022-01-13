@@ -32,7 +32,7 @@ function getBabelConfig(bundle) {
     },
     sourceType: "unambiguous",
     plugins: bundle.babelPlugins || [],
-    compact: true,
+    compact: false,
     exclude: [/\/core-js\//],
   };
   const targets = { node: "10" };
@@ -215,7 +215,14 @@ async function runBuild(bundle, esbuildOptions) {
     minify: false,
   });
 
-  const text = await fs.readFile(outfile);
+  let text = await fs.readFile(outfile, "utf8");
+
+  // `@esbuild-plugins/node-globals-polyfill` injects code using `globalThis`
+  text = text.replace(
+    /globalThis\.(setTimeout|clearTimeout|performance|location|navigator)/g,
+    "$1"
+  );
+
   const { code } = await babel.transformAsync(text, {
     filename: outfile,
     ...getBabelConfig(bundle),
