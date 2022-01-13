@@ -21,6 +21,11 @@ function getUmdWrapper(name, build) {
     .map((text) => `${" ".repeat(4)}${text}`)
     .join("\n");
 
+  /*
+  `globalThis` is passed to factory is because `@esbuild-plugins/node-globals-polyfill`
+  and `@esbuild-plugins/node-modules-polyfill` uses it.
+  This is a temporary solution, need fix.
+  */
   let wrapper = outdent`
     (function (factory) {
       var root =
