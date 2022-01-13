@@ -45,6 +45,7 @@ function getBabelConfig(bundle) {
       {
         targets,
         exclude: [
+          "es.array.unscopables.flat",
           "es.array.unscopables.flat-map",
           "es.array.sort",
           "es.promise",
@@ -60,7 +61,7 @@ function getBabelConfig(bundle) {
         corejs: {
           version: 3,
         },
-        debug: !false,
+        debug: false,
       },
     ],
   ];
