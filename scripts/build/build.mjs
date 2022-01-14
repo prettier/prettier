@@ -162,7 +162,7 @@ async function run(params) {
   }
 
   if (shouldSaveBundledPackagesLicenses) {
-    await saveLicenses(licenses);
+    await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
   } else {
     console.warn(
       chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")
