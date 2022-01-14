@@ -334,13 +334,16 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
+    // @ts-expect-error
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
+      // @ts-expect-error
       getLast(subAst.children).sourceSpan.end
     );
+    // @ts-expect-error
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
-      /* istanbul ignore next */
+      /* istanbul ignore next */ // @ts-expect-error
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(
@@ -352,19 +355,19 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     return subAst;
   };
 
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.type === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
         node,
         parseSubHtml
       );
       if (ieConditionalComment) {
-        return ieConditionalComment;
+        node.parent.replaceChild(node, ieConditionalComment);
       }
     }
-
-    return node;
   });
+
+  return ast;
 }
 
 /**

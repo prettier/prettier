@@ -20,6 +20,7 @@ const {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
+  isTsKeywordType,
 } = require("../utils.js");
 const { locStart, locEnd } = require("../loc.js");
 
@@ -58,7 +59,7 @@ function printTypescript(path, options, print) {
     return;
   }
 
-  if (node.type.endsWith("Keyword")) {
+  if (isTsKeywordType(node)) {
     return node.type.slice(2, -7).toLowerCase();
   }
 

@@ -113,12 +113,11 @@ function hasPrettierIgnore(node) {
     return false;
   }
 
-  if (typeof node.index !== "number" || node.index === 0) {
+  if (!node.prev) {
     return false;
   }
 
-  const prevNode = node.parent.children[node.index - 1];
-  return isPrettierIgnore(prevNode);
+  return isPrettierIgnore(node.prev);
 }
 
 function isPrettierIgnore(node) {
