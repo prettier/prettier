@@ -9,7 +9,7 @@ import {
 async function bump({ version }) {
   const pkg = await readJson("package.json");
   pkg.version = version;
-  await writeJson("package.json", pkg, { spaces: 2 });
+  await writeJson("package.json", pkg);
 
   // Update github issue templates
   processFile(".github/ISSUE_TEMPLATE/formatting.md", (content) =>

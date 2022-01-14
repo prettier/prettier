@@ -31,7 +31,7 @@ const {
 } = require("./utils.js");
 const getNodeContent = require("./get-node-content.js");
 
-function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
+function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -67,11 +67,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const attributeTextToDoc = (code, opts) =>
-    originalTextToDoc(
-      code,
-      { __onHtmlBindingRoot, __embeddedInHtml: true, ...opts },
-      { stripTrailingHardline: true }
-    );
+    htmlTextToDoc(code, {
+      __onHtmlBindingRoot,
+      __embeddedInHtml: true,
+      ...opts,
+    });
 
   if (
     node.fullName === "srcset" &&
