@@ -1,3 +1,4 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
@@ -94,7 +95,7 @@ function* getEsbuildOptions(bundle, options) {
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
       esbuildPluginTextReplace({
-        include: /\.js$/,
+        include: /\.[cm]?js$/,
         // TODO[@fisker]: Use RegExp when possible
         pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
       }),
@@ -114,6 +115,7 @@ function* getEsbuildOptions(bundle, options) {
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     mainFields: ["main"],
     target: ["node12"],
+    logLevel: "error",
   };
 
   if (bundle.target === "universal") {
@@ -156,6 +158,10 @@ function* getEsbuildOptions(bundle, options) {
   }
 }
 
+async function runBuild(bundle, esbuildOptions) {
+  await esbuild.build(esbuildOptions);
+}
+
 async function createBundle(bundle, options) {
   if (
     options.playground &&
@@ -166,7 +172,7 @@ async function createBundle(bundle, options) {
 
   const esbuildOptions = getEsbuildOptions(bundle, options);
   for (const options of esbuildOptions) {
-    await esbuild.build(options);
+    await runBuild(bundle, options);
   }
 
   return { bundled: true };
