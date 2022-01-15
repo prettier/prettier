@@ -1,5 +1,296 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    })
+  : // node > 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, { colors: colors });
+    });
+
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    })
+  : // node > 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, { colors: colors });
+    });
+
+const extractTextPluginOptions = shouldUseRelativeAssetPaths
+  // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split('/').length).join('../') } :
+  {};
+
+const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
+  ? // Making sure that the publicPath goes back to to build folder.
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
+
+const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
+
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
+
+test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+test
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+    foo
+  : bar;
+
+test
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+    foo
+  : test
+  ? /* comment
+  comment
+    comment */
+    foo
+  : bar;
+
+test
+  ? /* comment */
+    foo
+  : bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test
+  ? foo
+  : /* comment
+  comment
+    comment
+   */
+    bar;
+
+test
+  ? foo
+  : /* comment */
+  bar;
+
+test ? test /* c
+c */? foo : bar : bar;
+
+=====================================output=====================================
+var inspect =
+  4 ===
+  util.inspect.length
+    ? // node <= 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          void 0,
+          void 0,
+          colors
+        );
+      }
+    : // node > 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          {
+            colors:
+              colors,
+          }
+        );
+      };
+
+var inspect =
+  4 ===
+  util.inspect.length
+    ? // node <= 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          void 0,
+          void 0,
+          colors
+        );
+      }
+    : // node > 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          {
+            colors:
+              colors,
+          }
+        );
+      };
+
+const extractTextPluginOptions =
+  shouldUseRelativeAssetPaths
+    ? // Making sure that the publicPath goes back to to build folder.
+      {
+        publicPath:
+          Array(
+            cssFilename.split(
+              "/"
+            ).length
+          ).join("../"),
+      }
+    : {};
+
+const extractTextPluginOptions2 =
+  shouldUseRelativeAssetPaths
+    ? // Making sure that the publicPath goes back to to build folder.
+      {
+        publicPath:
+          Array(
+            cssFilename.split(
+              "/"
+            ).length
+          ).join("../"),
+      }
+    : {};
+
+const extractTextPluginOptions3 =
+  shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+    ? {
+        publicPath:
+          Array(
+            cssFilename.split(
+              "/"
+            ).length
+          ).join("../"),
+      }
+    : {};
+
+const {
+  configureStore,
+} =
+  process.env
+    .NODE_ENV ===
+  "production"
+    ? require("./configureProdStore") // a
+    : require("./configureDevStore"); // b
+
+test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+test
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+    foo
+  : bar;
+
+test
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+    foo
+  : test
+  ? /* comment
+  comment
+    comment */
+    foo
+  : bar;
+
+test
+  ? /* comment */
+    foo
+  : bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+    bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test
+  ? foo
+  : /* comment
+  comment
+    comment
+   */
+    bar;
+
+test
+  ? foo
+  : /* comment */
+    bar;
+
+test
+  ? test /* c
+c */
+    ? foo
+    : bar
+  : bar;
+
+================================================================================
+`;
+
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -221,6 +512,27 @@ c */
 ================================================================================
 `;
 
+exports[`new-expression.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const testConsole = new TestConsole(
+  config.useStderr ? process.stderr : process.stdout
+);
+
+=====================================output=====================================
+const testConsole =
+  new TestConsole(
+    config.useStderr
+      ? process.stderr
+      : process.stdout
+  );
+
+================================================================================
+`;
+
 exports[`new-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -239,6 +551,25 @@ const testConsole = new TestConsole(
 ================================================================================
 `;
 
+exports[`no-confusing-arrow.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+// no-confusing-arrow
+var x = a => 1 ? 2 : 3;
+var x = a <= 1 ? 2 : 3;
+
+=====================================output=====================================
+// no-confusing-arrow
+var x = (a) =>
+  1 ? 2 : 3;
+var x = a <= 1 ? 2 : 3;
+
+================================================================================
+`;
+
 exports[`no-confusing-arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -253,6 +584,68 @@ var x = a <= 1 ? 2 : 3;
 // no-confusing-arrow
 var x = (a) => (1 ? 2 : 3);
 var x = a <= 1 ? 2 : 3;
+
+================================================================================
+`;
+
+exports[`unary-expression.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const a = foo == null ? bar: baz;
+const b = !fooooooooo ? bar: baz;
+const x = {
+  prop1: foo == null ? bar : baz,
+  prop1: !fooooooooo ? bar : baz,
+};
+
+
+=====================================output=====================================
+const a =
+  foo == null
+    ? bar
+    : baz;
+const b =
+  !fooooooooo
+    ? bar
+    : baz;
+const x = {
+  prop1:
+    foo == null
+      ? bar
+      : baz,
+  prop1:
+    !fooooooooo
+      ? bar
+      : baz,
+};
+
+================================================================================
+`;
+
+exports[`unary-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = foo == null ? bar: baz;
+const b = !fooooooooo ? bar: baz;
+const x = {
+  prop1: foo == null ? bar : baz,
+  prop1: !fooooooooo ? bar : baz,
+};
+
+
+=====================================output=====================================
+const a = foo == null ? bar : baz;
+const b = !fooooooooo ? bar : baz;
+const x = {
+  prop1: foo == null ? bar : baz,
+  prop1: !fooooooooo ? bar : baz,
+};
 
 ================================================================================
 `;

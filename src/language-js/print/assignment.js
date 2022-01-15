@@ -185,7 +185,10 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
       return true;
     case "ConditionalExpression": {
       const { test } = rightNode;
-      return isBinaryish(test) && !shouldInlineLogicalExpression(test);
+      return (
+        (test.type === "UnaryExpression" || isBinaryish(test)) &&
+        !shouldInlineLogicalExpression(test)
+      );
     }
     case "ClassExpression":
       return isNonEmptyArray(rightNode.decorators);
