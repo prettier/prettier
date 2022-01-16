@@ -26,4 +26,10 @@ async function testFunction() {
     {hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
     {hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
   </>
+
+  const jsx = <>
+    {await (<IncongruousCooperate>
+      material education original articulate parameter
+    </IncongruousCooperate>)}
+  </>
 }

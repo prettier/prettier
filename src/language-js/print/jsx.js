@@ -510,7 +510,8 @@ function printJsxExpressionContainer(path, options, print) {
         node.type === "ObjectExpression" ||
         node.type === "ArrowFunctionExpression" ||
         (node.type === "AwaitExpression" &&
-          shouldInline(node.argument, node)) ||
+          (shouldInline(node.argument, node) ||
+            node.argument.type === "JSXElement")) ||
         isCallExpression(node) ||
         node.type === "FunctionExpression" ||
         node.type === "TemplateLiteral" ||
