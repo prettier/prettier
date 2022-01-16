@@ -102,7 +102,7 @@
     "benchmark": "2.1.4",
     "browserslist": "4.19.1",
     "builtin-modules": "3.2.0",
-    "core-js": "3.20.2",
+    "core-js": "3.20.3",
     "cross-env": "7.0.3",
     "cspell": "5.15.1",
     "enquirer": "2.3.6",
