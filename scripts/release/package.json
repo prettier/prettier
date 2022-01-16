@@ -11,7 +11,7 @@
     "node-fetch": "3.1.0",
     "outdent": "0.8.0",
     "semver": "7.3.5",
-    "string-width": "5.0.1"
+    "string-width": "5.1.0"
   },
   "devDependencies": {
     "@jest/globals": "27.4.6",
