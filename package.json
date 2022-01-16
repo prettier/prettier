@@ -90,7 +90,7 @@
   "devDependencies": {
     "@babel/core": "7.16.7",
     "@babel/preset-env": "7.16.7",
-    "@babel/types": "7.16.7",
+    "@babel/types": "7.16.8",
     "@esbuild-plugins/node-globals-polyfill": "0.1.1",
     "@esbuild-plugins/node-modules-polyfill": "0.1.4",
     "@glimmer/reference": "0.83.1",
