@@ -4762,10 +4762,10 @@ pluralize@^8.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
-postcss-less@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-less/-/postcss-less-5.0.0.tgz#3fa361ed8e52a9c3e6e4fdb9bb95fd9032f3c62b"
-  integrity sha512-djK6NlApALJeBnNx7CzLatq64eMF3BCyzBH+faYPxrvNHHM/YCimJ6XQkgWgtim2G89EzdQG4Ed0lGNCXPfD7A==
+postcss-less@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-less/-/postcss-less-6.0.0.tgz#463b34c60f53b648c237f569aeb2e09149d85af4"
+  integrity sha512-FPX16mQLyEjLzEuuJtxA8X3ejDLNGGEG503d2YGZR5Ask1SpDN8KmZUMpzCvyalWRywAn1n1VOA5dcqfCLo5rg==
 
 postcss-media-query-parser@0.2.3:
   version "0.2.3"
