@@ -66,10 +66,16 @@ function parseVueFor(value) {
     res.alias = alias;
   }
 
+  const left = `${[res.alias, res.iterator1, res.iterator2]
+    .filter(Boolean)
+    .join(",")}`;
+
+  if (!left) {
+    return;
+  }
+
   return {
-    left: `${[res.alias, res.iterator1, res.iterator2]
-      .filter(Boolean)
-      .join(",")}`,
+    left,
     operator: inMatch[2],
     right: res.for,
   };
