@@ -80,23 +80,35 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-for(;;) continue // comment
-;
+for(;;) {
+    continue // comment
+    ;
+}
 
-for (;;) break // comment
-;
+for (;;) {
+    break // comment
+    ;
+}
 
-for (const f of []) continue // comment
-;
+for (const f of []) {
+    continue // comment
+    ;
+}
 
-for (const f of []) break // comment
-;
+for (const f of []) {
+    break // comment
+    ;
+}
 
-for (const f in {}) continue // comment
-;
+for (const f in {}) {
+    continue // comment
+    ;
+}
 
-for (const f in {}) break // comment
-;
+for (const f in {}) {
+    break // comment
+    ;
+}
 
 while(true) {
     continue // comment
@@ -175,23 +187,29 @@ label2: {
 };
 
 =====================================output=====================================
-for (;;)
+for (;;) {
   continue; // comment
+}
 
-for (;;)
+for (;;) {
   break; // comment
+}
 
-for (const f of [])
+for (const f of []) {
   continue; // comment
+}
 
-for (const f of [])
+for (const f of []) {
   break; // comment
+}
 
-for (const f in {})
+for (const f in {}) {
   continue; // comment
+}
 
-for (const f in {})
+for (const f in {}) {
   break; // comment
+}
 
 while (true) {
   continue; // comment
@@ -259,29 +277,41 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-for(;;) continue
-// comment
-;
+for(;;) {
+    continue
+    // comment
+    ;
+}
 
-for (;;) break
-// comment
-;
+for (;;) {
+    break
+    // comment
+    ;
+}
 
-for (const f of []) continue
-// comment
-;
+for (const f of []) {
+    continue
+    // comment
+    ;
+}
 
-for (const f of []) break
-// comment
-;
+for (const f of []) {
+    break
+    // comment
+    ;
+}
 
-for (const f in {}) continue
-// comment
-;
+for (const f in {}) {
+    continue
+    // comment
+    ;
+}
 
-for (const f in {}) break
-// comment
-;
+for (const f in {}) {
+    break
+    // comment
+    ;
+}
 
 while(true) {
     continue
@@ -378,29 +408,35 @@ label2: {
 };
 
 =====================================output=====================================
-for (;;)
+for (;;) {
   continue;
   // comment
+}
 
-for (;;)
+for (;;) {
   break;
   // comment
+}
 
-for (const f of [])
+for (const f of []) {
   continue;
   // comment
+}
 
-for (const f of [])
+for (const f of []) {
   break;
   // comment
+}
 
-for (const f in {})
+for (const f in {}) {
   continue;
   // comment
+}
 
-for (const f in {})
+for (const f in {}) {
   break;
   // comment
+}
 
 while (true) {
   continue;
