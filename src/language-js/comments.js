@@ -68,6 +68,7 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
+    handleBreakAndContinueStatementComments,
   ].some((fn) => fn(context));
 }
 
