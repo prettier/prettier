@@ -40,8 +40,13 @@ function parseVueFor(value) {
   if (!inMatch) {
     return;
   }
+
   const res = {};
   res.for = inMatch[3].trim();
+  if (!res.for) {
+    return;
+  }
+
   const alias = inMatch[1].trim().replace(stripParensRE, "");
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
@@ -49,6 +54,13 @@ function parseVueFor(value) {
     res.iterator1 = iteratorMatch[1].trim();
     if (iteratorMatch[2]) {
       res.iterator2 = iteratorMatch[2].trim();
+    }
+
+    if (
+      (res.iterator2 && (!res.iterator1 || !res.alias)) ||
+      (res.iterator1 && !res.alias)
+    ) {
+      return;
     }
   } else {
     res.alias = alias;
