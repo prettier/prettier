@@ -425,19 +425,22 @@ var inspect =
         return util.inspect(v, { colors: colors });
       };
 
-const extractTextPluginOptions = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split("/").length).join("../") }
-  : {};
+const extractTextPluginOptions =
+  shouldUseRelativeAssetPaths
+    ? // Making sure that the publicPath goes back to to build folder.
+      { publicPath: Array(cssFilename.split("/").length).join("../") }
+    : {};
 
-const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
-    { publicPath: Array(cssFilename.split("/").length).join("../") }
-  : {};
+const extractTextPluginOptions2 =
+  shouldUseRelativeAssetPaths
+    ? // Making sure that the publicPath goes back to to build folder.
+      { publicPath: Array(cssFilename.split("/").length).join("../") }
+    : {};
 
-const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
-  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
-  : {};
+const extractTextPluginOptions3 =
+  shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+    ? { publicPath: Array(cssFilename.split("/").length).join("../") }
+    : {};
 
 const { configureStore } =
   process.env.NODE_ENV === "production"
@@ -508,6 +511,161 @@ c */
     ? foo
     : bar
   : bar;
+
+================================================================================
+`;
+
+exports[`constant-line-breaks.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const a = foo === null ? bar: baz;
+const b = !foooooooooo ? bar: baz;
+const c = fooooooooooo ? bar: baz;
+const d = foooo.oooooo ? bar: baz;
+const e = foooooo.oo() ? bar: baz;
+const f = fooooooooo++ ? bar: baz;
+
+const func = async () => {
+  const a = await oo() ? bar: baz;
+  const x = {
+    prop1: await oo() ? bar : baz,
+  }
+}
+
+const x = {
+  prop1: foo === null ? bar : baz,
+  prop2: !foooooooooo ? bar : baz,
+  prop3: fooooooooooo ? bar : baz,
+  prop4: foooo.oooooo ? bar : baz,
+  prop5: foooooo.oo() ? bar : baz,
+  prop6: fooooooooo++ ? bar : baz,
+};
+
+=====================================output=====================================
+const a =
+  foo === null
+    ? bar
+    : baz;
+const b =
+  !foooooooooo
+    ? bar
+    : baz;
+const c =
+  fooooooooooo
+    ? bar
+    : baz;
+const d =
+  foooo.oooooo
+    ? bar
+    : baz;
+const e =
+  foooooo.oo()
+    ? bar
+    : baz;
+const f =
+  fooooooooo++
+    ? bar
+    : baz;
+
+const func =
+  async () => {
+    const a =
+      (await oo())
+        ? bar
+        : baz;
+    const x = {
+      prop1:
+        (await oo())
+          ? bar
+          : baz,
+    };
+  };
+
+const x = {
+  prop1:
+    foo === null
+      ? bar
+      : baz,
+  prop2:
+    !foooooooooo
+      ? bar
+      : baz,
+  prop3:
+    fooooooooooo
+      ? bar
+      : baz,
+  prop4:
+    foooo.oooooo
+      ? bar
+      : baz,
+  prop5:
+    foooooo.oo()
+      ? bar
+      : baz,
+  prop6:
+    fooooooooo++
+      ? bar
+      : baz,
+};
+
+================================================================================
+`;
+
+exports[`constant-line-breaks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = foo === null ? bar: baz;
+const b = !foooooooooo ? bar: baz;
+const c = fooooooooooo ? bar: baz;
+const d = foooo.oooooo ? bar: baz;
+const e = foooooo.oo() ? bar: baz;
+const f = fooooooooo++ ? bar: baz;
+
+const func = async () => {
+  const a = await oo() ? bar: baz;
+  const x = {
+    prop1: await oo() ? bar : baz,
+  }
+}
+
+const x = {
+  prop1: foo === null ? bar : baz,
+  prop2: !foooooooooo ? bar : baz,
+  prop3: fooooooooooo ? bar : baz,
+  prop4: foooo.oooooo ? bar : baz,
+  prop5: foooooo.oo() ? bar : baz,
+  prop6: fooooooooo++ ? bar : baz,
+};
+
+=====================================output=====================================
+const a = foo === null ? bar : baz;
+const b = !foooooooooo ? bar : baz;
+const c = fooooooooooo ? bar : baz;
+const d = foooo.oooooo ? bar : baz;
+const e = foooooo.oo() ? bar : baz;
+const f = fooooooooo++ ? bar : baz;
+
+const func = async () => {
+  const a = (await oo()) ? bar : baz;
+  const x = {
+    prop1: (await oo()) ? bar : baz,
+  };
+};
+
+const x = {
+  prop1: foo === null ? bar : baz,
+  prop2: !foooooooooo ? bar : baz,
+  prop3: fooooooooooo ? bar : baz,
+  prop4: foooo.oooooo ? bar : baz,
+  prop5: foooooo.oo() ? bar : baz,
+  prop6: fooooooooo++ ? bar : baz,
+};
 
 ================================================================================
 `;
@@ -584,68 +742,6 @@ var x = a <= 1 ? 2 : 3;
 // no-confusing-arrow
 var x = (a) => (1 ? 2 : 3);
 var x = a <= 1 ? 2 : 3;
-
-================================================================================
-`;
-
-exports[`unary-expression.js - {"printWidth":25} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 25
-                         | printWidth
-=====================================input======================================
-const a = foo == null ? bar: baz;
-const b = !fooooooooo ? bar: baz;
-const x = {
-  prop1: foo == null ? bar : baz,
-  prop1: !fooooooooo ? bar : baz,
-};
-
-
-=====================================output=====================================
-const a =
-  foo == null
-    ? bar
-    : baz;
-const b =
-  !fooooooooo
-    ? bar
-    : baz;
-const x = {
-  prop1:
-    foo == null
-      ? bar
-      : baz,
-  prop1:
-    !fooooooooo
-      ? bar
-      : baz,
-};
-
-================================================================================
-`;
-
-exports[`unary-expression.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const a = foo == null ? bar: baz;
-const b = !fooooooooo ? bar: baz;
-const x = {
-  prop1: foo == null ? bar : baz,
-  prop1: !fooooooooo ? bar : baz,
-};
-
-
-=====================================output=====================================
-const a = foo == null ? bar : baz;
-const b = !fooooooooo ? bar : baz;
-const x = {
-  prop1: foo == null ? bar : baz,
-  prop1: !fooooooooo ? bar : baz,
-};
 
 ================================================================================
 `;
