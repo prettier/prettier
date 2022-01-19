@@ -131,8 +131,10 @@ do {
     ;
 } while(true);
 
-label1: for (;;) continue label1 // comment
-;
+label1: for (;;) {
+    continue label1 // comment
+    ;
+}
 
 label2: {
     break label2 // comment
@@ -241,8 +243,9 @@ do {
   break; // comment
 } while (true);
 
-label1: for (;;)
+label1: for (;;) {
   continue label1; // comment
+}
 
 label2: {
   break label2; // comment
@@ -366,9 +369,11 @@ do {
     ;
 } while(true);
 
-label1: for (;;) continue label1
-// comment
-;
+label1: for (;;) {
+    continue label1
+    // comment
+    ;
+}
 
 label2: {
     break label2
@@ -500,9 +505,10 @@ do {
   // comment
 } while (true);
 
-label1: for (;;)
+label1: for (;;) {
   continue label1;
   // comment
+}
 
 label2: {
   break label2;

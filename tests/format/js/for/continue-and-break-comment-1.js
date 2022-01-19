@@ -49,8 +49,10 @@ do {
     ;
 } while(true);
 
-label1: for (;;) continue label1 // comment
-;
+label1: for (;;) {
+    continue label1 // comment
+    ;
+}
 
 label2: {
     break label2 // comment
