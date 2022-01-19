@@ -66,9 +66,9 @@ function parseVueFor(value) {
     res.alias = alias;
   }
 
-  const left = `${[res.alias, res.iterator1, res.iterator2]
+  const left = [res.alias, res.iterator1, res.iterator2]
     .filter(Boolean)
-    .join(",")}`;
+    .join(",");
 
   if (!left) {
     return;
