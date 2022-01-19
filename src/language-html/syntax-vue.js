@@ -62,7 +62,8 @@ function parseVueFor(value) {
   const left = [res.alias, res.iterator1, res.iterator2];
   if (
     left.some(
-      (part, index) => !part && (index === 0 || left.slice(index).some(Boolean))
+      (part, index) =>
+        !part && (index === 0 || left.slice(index + 1).some(Boolean))
     )
   ) {
     return;
