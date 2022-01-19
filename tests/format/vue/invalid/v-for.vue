@@ -15,6 +15,7 @@
 
       v-for="     , b, c     in a        "
       v-for="    a,  , c     in a        "
+      v-for="    (,a,b) of 'abcd'        "
     ></div>
   </div>
 </template>
