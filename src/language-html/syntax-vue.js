@@ -55,27 +55,21 @@ function parseVueFor(value) {
     if (iteratorMatch[2]) {
       res.iterator2 = iteratorMatch[2].trim();
     }
-
-    if (
-      (res.iterator2 && (!res.iterator1 || !res.alias)) ||
-      (res.iterator1 && !res.alias)
-    ) {
-      return;
-    }
   } else {
     res.alias = alias;
   }
 
-  const left = [res.alias, res.iterator1, res.iterator2]
-    .filter(Boolean)
-    .join(",");
-
-  if (!left) {
+  const left = [res.alias, res.iterator1, res.iterator2];
+  if (
+    left.some(
+      (part, index) => !part && (index === 0 || left.slice(index).some(Boolean))
+    )
+  ) {
     return;
   }
 
   return {
-    left,
+    left: left.filter(Boolean).join(","),
     operator: inMatch[2],
     right: res.for,
   };
