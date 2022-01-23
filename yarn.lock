@@ -2859,10 +2859,10 @@ esbuild-openbsd-64@0.14.11:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.14.11.tgz#caeff5f946f79a60ce7bcf88871ca4c71d3476e8"
   integrity sha512-l18TZDjmvwW6cDeR4fmizNoxndyDHamGOOAenwI4SOJbzlJmwfr0jUgjbaXCUuYVOA964siw+Ix+A+bhALWg8Q==
 
-esbuild-plugin-browserslist@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/esbuild-plugin-browserslist/-/esbuild-plugin-browserslist-0.4.1.tgz#05ab5ea99f4d15ff7eacc306dce9c84b32e3757a"
-  integrity sha512-+LyFG83Ij1lueFt2ary1aore1kFCB+NMR6+P/lqTixUM/ifu8a5d8+4KxaI2QYksQ8PaJEYh9pfYw7eY1Xabug==
+esbuild-plugin-browserslist@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-browserslist/-/esbuild-plugin-browserslist-0.4.2.tgz#d623e0d4eda99e6f360eb2e5e6302dc7cbbfcff0"
+  integrity sha512-uMZ5bnxfm3/UMjbhJZf3wYUC+3CRWIqvqApJFMqpGQTBnm8KVywClfdFHZFEMLhbSGkDBXTgCnaYbBHVTBFVcw==
   dependencies:
     debug "^4.3.3"
     zod "^3.11.6"
