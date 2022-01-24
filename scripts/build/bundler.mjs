@@ -192,10 +192,10 @@ function* getEsbuildOptions(bundle, options) {
   } else {
     esbuildOptions.external.push(
       ...builtinModules,
-      "./package.json*",
+      "./package.json",
       ...bundles
         .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}*`)
+        .map((item) => `./${item.output}`)
     );
 
     yield {
