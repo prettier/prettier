@@ -6,10 +6,14 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-() => [] in x
+const x = () => [].includes(true) || "ontouchend" in document
+
+const y = () => [] in x
 
 =====================================output=====================================
-() => [] in x;
+const x = () => [].includes(true) || "ontouchend" in document;
+
+const y = () => [] in x;
 
 ================================================================================
 `;
