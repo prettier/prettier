@@ -1,5 +1,3 @@
-import fs from "node:fs";
-
 export default function esbuildPluginReplaceModule(replacements = {}) {
   return {
     name: "replace-module",
@@ -9,25 +7,34 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           return;
         }
 
-        const replacement = replacements[path];
+        let replacement = replacements[path];
 
         if (typeof replacement === "string") {
+          replacement = { path: replacement };
+        }
+
+        if (replacement.external) {
+          // Prevent `esbuild` to resolve
           return {
-            contents: `module.exports = require(${JSON.stringify(
-              replacement
-            )});`,
+            contents: `
+              module.exports = require.call(undefined, ${JSON.stringify(
+                `${replacement.path}`
+              )});
+            `,
           };
         }
 
-        if (replacement.file) {
-          return {
-            contents: fs.readFileSync(replacement.file, "utf8"),
+        if (replacement.path) {
+          replacement = {
+            contents: `
+              module.exports = require(${JSON.stringify(
+                `${replacement.path}`
+              )});
+            `,
           };
         }
 
-        return {
-          contents: replacement.code,
-        };
+        return replacement;
       });
     },
   };
