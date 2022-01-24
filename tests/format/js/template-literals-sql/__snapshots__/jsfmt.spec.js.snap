@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sql.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const table1Query = sql\`SELECT * FROM table1\`;
+
+const table2Query = sql\`
+  SELECT
+    id
+  FROM table2\`;
+
+=====================================output=====================================
+const table1Query = sql\`sql+SELECT * FROM table1\`;
+
+const table2Query = sql\`sql+
+  SELECT
+    id
+  FROM table2\`;
+
+================================================================================
+`;

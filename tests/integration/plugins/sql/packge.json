@@ -1,0 +1,4 @@
+{
+  "name": "prettier-plugin-sql",
+  "main": "./main.js"
+}

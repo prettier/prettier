@@ -9,6 +9,7 @@ const formatMarkdown = require("./embed/markdown.js");
 const formatCss = require("./embed/css.js");
 const formatGraphql = require("./embed/graphql.js");
 const formatHtml = require("./embed/html.js");
+const formatSql = require("./embed/sql.js");
 
 function getLanguage(path) {
   if (
@@ -34,6 +35,10 @@ function getLanguage(path) {
 
   if (isMarkdown(path)) {
     return "markdown";
+  }
+
+  if (isSql(path)) {
+    return "sql";
   }
 }
 
@@ -69,6 +74,10 @@ function embed(path, print, textToDoc, options) {
   if (language === "html" || language === "angular") {
     return formatHtml(path, print, textToDoc, options, { parser: language });
   }
+
+  if (language === "sql") {
+    return formatSql(path, print, textToDoc, options)
+  }
 }
 
 /**
@@ -84,6 +93,19 @@ function isMarkdown(path) {
     node.quasis.length === 1 &&
     parent.tag.type === "Identifier" &&
     (parent.tag.name === "md" || parent.tag.name === "markdown")
+  );
+}
+
+/**
+ * sql`...`
+ */
+function isSql(path) {
+  const parent = path.getParentNode();
+  return (
+    parent &&
+    parent.type === "TaggedTemplateExpression" &&
+    parent.tag.type === "Identifier" &&
+    parent.tag.name === "sql"
   );
 }
 
