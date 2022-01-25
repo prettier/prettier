@@ -345,13 +345,13 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 _First available in v1.8.2_
 
-By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer, e.g. GitHub comment and BitBucket. In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out with `"never"`.
+By default, Prettier will not change wrapping in markdown text since some services use a linebreak-sensitive renderer, e.g. GitHub comments and BitBucket. To have Prettier wrap prose to the print width, change this option to "always". If you want Prettier to force all prose blocks to be on a single line and rely on editor/viewer soft wrapping instead, you can use `"never"`.
 
 Valid options:
 
 - `"always"` - Wrap prose if it exceeds the print width.
-- `"never"` - Do not wrap prose.
-- `"preserve"` - Wrap prose as-is. _First available in v1.9.0_
+- `"never"` - Un-wrap each block of prose into one line.
+- `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
 
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
