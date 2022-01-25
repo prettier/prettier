@@ -10,6 +10,15 @@ const notAsciiRegex = /[^\x20-\x7F]/;
 const getPenultimate = (arr) => arr[arr.length - 2];
 
 /**
+ * @param {boolean} condition Condition that needs to be truthy
+ */
+function assert(condition) {
+  if (!condition) {
+    throw new Error("Assertion error");
+  }
+}
+
+/**
  * @typedef {{backwards?: boolean}} SkipOptions
  */
 
@@ -631,6 +640,7 @@ function describeNodeForDebugging(node) {
 }
 
 module.exports = {
+  assert,
   inferParserByLanguage,
   getStringWidth,
   getMaxContinuousCount,

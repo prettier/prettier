@@ -1,6 +1,6 @@
 "use strict";
 
-const assert = require("assert");
+const { assert } = require("../common/util.js");
 const comments = require("./comments.js");
 
 const isJsonParser = ({ parser }) =>
@@ -187,7 +187,7 @@ function isSourceElement(opts, node, parentNode) {
 
 function calculateRange(text, opts, ast) {
   let { rangeStart: start, rangeEnd: end, locStart, locEnd } = opts;
-  assert.ok(end > start);
+  assert(end > start);
   // Contract the range so that it has non-whitespace characters at its endpoints.
   // This ensures we can format a range that doesn't end on a node.
   const firstNonWhitespaceCharacterIndex = text.slice(start, end).search(/\S/);

@@ -2,13 +2,13 @@
 
 /** @typedef {import("../../document/doc-builders").Doc} Doc */
 
-const assert = require("assert");
 const {
   printDanglingComments,
   printCommentsSeparately,
 } = require("../../main/comments.js");
 const getLast = require("../../utils/get-last.js");
 const {
+  assert,
   getNextNonSpaceNonCommentCharacterIndex,
 } = require("../../common/util.js");
 const {
@@ -130,7 +130,7 @@ function printMethod(path, options, print) {
       parts.push("async ");
     }
   } else {
-    assert.ok(kind === "get" || kind === "set");
+    assert(kind === "get" || kind === "set");
 
     parts.push(kind, " ");
   }

@@ -4,8 +4,7 @@
  * @typedef {import("../../document").Doc} Doc
  */
 
-const assert = require("assert");
-const { isNonEmptyArray } = require("../../common/util.js");
+const { assert, isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, join, line, softline, hardline },
   utils: { replaceTextEndOfLine },

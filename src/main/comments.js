@@ -1,12 +1,11 @@
 "use strict";
 
-const assert = require("assert");
-
 const {
   builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
 } = require("../document/index.js");
 
 const {
+  assert,
   hasNewline,
   skipNewline,
   skipSpaces,
@@ -384,8 +383,8 @@ function breakTies(tiesToBreak, text, options) {
       precedingNode: currentCommentPrecedingNode,
       followingNode: currentCommentFollowingNode,
     } = tiesToBreak[indexOfFirstLeadingComment - 1];
-    assert.strictEqual(currentCommentPrecedingNode, precedingNode);
-    assert.strictEqual(currentCommentFollowingNode, followingNode);
+    assert(currentCommentPrecedingNode === precedingNode);
+    assert(currentCommentFollowingNode === followingNode);
 
     const gap = text.slice(options.locEnd(comment), gapEndPos);
 

@@ -2,9 +2,8 @@
 
 /** @typedef {import("../../document").Doc} Doc */
 
-const assert = require("assert");
 const { printDanglingComments } = require("../../main/comments.js");
-const { printString, printNumber } = require("../../common/util.js");
+const { assert, printString, printNumber } = require("../../common/util.js");
 const {
   builders: { hardline, softline, group, indent },
 } = require("../../document/index.js");
@@ -217,7 +216,7 @@ function printFlow(path, options, print) {
       return ["?", print("typeAnnotation")];
     case "Variance": {
       const { kind } = node;
-      assert.ok(kind === "plus" || kind === "minus");
+      assert(kind === "plus" || kind === "minus");
       return kind === "plus" ? "+" : "-";
     }
     case "ObjectTypeCallProperty":
@@ -280,7 +279,7 @@ function printFlow(path, options, print) {
     case "StringLiteralTypeAnnotation":
       return printString(rawText(node), options);
     case "NumberLiteralTypeAnnotation":
-      assert.strictEqual(typeof node.value, "number");
+      assert(typeof node.value === "number");
     // fall through
     case "BigIntLiteralTypeAnnotation":
       if (node.extra) {
@@ -372,7 +371,7 @@ function printFlowDeclaration(path, printed) {
   const parentExportDecl = getParentExportDeclaration(path);
 
   if (parentExportDecl) {
-    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
+    assert(parentExportDecl.type === "DeclareExportDeclaration");
     return printed;
   }
 
