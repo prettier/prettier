@@ -1,3 +1,4 @@
-const noop = () => {};
-
-module.exports = { ok: noop, strictEqual: noop };
+const assert = () => {};
+assert.ok = noop;
+assert.strictEqual = assert;
+module.exports = assert;
