@@ -2,7 +2,6 @@
 
 const vnopts = require("vnopts");
 const leven = require("leven");
-const chalk = require("chalk");
 const getLast = require("../utils/get-last.js");
 
 const cliDescriptor = {
@@ -33,8 +32,8 @@ class FlagSchema extends vnopts.ChoiceSchema {
       if (suggestion) {
         utils.logger.warn(
           [
-            `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
-            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
+            `Unknown flag ${utils.descriptor.value(value)},`,
+            `did you mean ${utils.descriptor.value(suggestion)}?`,
           ].join(" ")
         );
         return suggestion;
