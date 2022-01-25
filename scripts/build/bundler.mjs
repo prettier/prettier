@@ -16,7 +16,7 @@ import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, json } = createEsmUtils(import.meta);
+const { __dirname, json, require } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const umdTarget = resolveToEsbuildTarget(
@@ -71,7 +71,7 @@ function getBabelConfig(bundle) {
   return config;
 }
 
-function* getEsbuildOptions(bundle, options) {
+async function* getEsbuildOptions(bundle, options) {
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production"),
@@ -129,6 +129,11 @@ function* getEsbuildOptions(bundle, options) {
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = { contents: "" };
     }
+
+    // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+    replaceModule["assert"] = {
+      contents: await fs.readFile(require.resolve("./shims/assert.cjs")),
+    };
   }
 
   let shouldMinify = options.minify;
@@ -141,10 +146,10 @@ function* getEsbuildOptions(bundle, options) {
     bundle: true,
     metafile: true,
     plugins: [
-      bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
-      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
+      bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginTextReplace({
         include: /\.[cm]?js$/,
         // TODO[@fisker]: Use RegExp when possible
@@ -243,7 +248,7 @@ async function createBundle(bundle, options) {
   }
 
   const esbuildOptions = getEsbuildOptions(bundle, options);
-  for (const options of esbuildOptions) {
+  for await (const options of esbuildOptions) {
     await runBuild(bundle, options);
   }
 
