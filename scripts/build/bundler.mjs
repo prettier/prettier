@@ -16,7 +16,7 @@ import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, json, require } = createEsmUtils(import.meta);
+const { __dirname, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
 const umdTarget = resolveToEsbuildTarget(
@@ -132,7 +132,7 @@ async function* getEsbuildOptions(bundle, options) {
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
     replaceModule["assert"] = {
-      contents: await fs.readFile(require.resolve("./shims/assert.cjs")),
+      contents: await fs.readFile("./shims/assert.cjs"),
     };
   }
 
