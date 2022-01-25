@@ -1,4 +1,4 @@
 const assert = () => {};
-assert.ok = noop;
+assert.ok = assert;
 assert.strictEqual = assert;
 module.exports = assert;
