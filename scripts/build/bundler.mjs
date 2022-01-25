@@ -97,7 +97,10 @@ function* getEsbuildOptions(bundle, options) {
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace package.json with dynamic `require("./package.json")`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
+    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
+      path: "./package.json",
+      external: true,
+    };
 
     // Dynamic require bundled files
     for (const item of bundles) {
@@ -109,7 +112,7 @@ function* getEsbuildOptions(bundle, options) {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      code: `module.exports = ${JSON.stringify({
+      contents: `module.exports = ${JSON.stringify({
         version: packageJson.version,
       })};`,
     };
@@ -124,7 +127,7 @@ function* getEsbuildOptions(bundle, options) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] = { code: "" };
+      replaceModule[path.join(PROJECT_ROOT, file)] = { contents: "" };
     }
   }
 
@@ -192,10 +195,9 @@ function* getEsbuildOptions(bundle, options) {
   } else {
     esbuildOptions.external.push(
       ...builtinModules,
-      "./package.json*",
       ...bundles
         .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}*`)
+        .map((item) => `./${item.output}`)
     );
 
     yield {
