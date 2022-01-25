@@ -131,7 +131,7 @@ async function* getEsbuildOptions(bundle, options) {
     }
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule["assert"] = {
+    replaceModule.assert = {
       contents: await fs.readFile(path.join(__dirname, "./shims/assert.cjs")),
     };
   }
