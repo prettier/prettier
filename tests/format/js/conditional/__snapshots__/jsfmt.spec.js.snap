@@ -1,5 +1,673 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`binary.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a =
+  foooo === foo
+    ? bar
+    : baz;
+
+a.b =
+  foooooooo ===
+  foo
+    ? bar
+    : baz;
+
+const c =
+  a === foo
+    ? bar
+    : baz
+    ? bar
+    : baz;
+
+const d = foo
+  ? bar
+  : a === foo;
+
+const e = foo
+  ? foo
+    ? bar
+    : baz
+  : baz;
+
+const f = foo
+  ? foo === bar
+  : baz;
+
+const g =
+  foooo && fooo
+    ? bar
+    : baz;
+
+const h =
+  foooo ?? fooo
+    ? bar
+    : baz;
+
+const i =
+  foooo || fooo
+    ? bar
+    : baz;
+
+const j =
+  fooooo > fooo
+    ? bar
+    : baz;
+
+const k =
+  fooooo < fooo
+    ? bar
+    : baz;
+
+const l =
+  foooo >= fooo
+    ? bar
+    : baz;
+
+const m =
+  foooo <= fooo
+    ? bar
+    : baz;
+
+const n =
+  foooo != fooo
+    ? bar
+    : baz;
+
+const o =
+  foooo != fooo &&
+  fooo != fooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    fooooo === foo
+      ? foo
+      : foo,
+};
+
+class X {
+  prop1 =
+    foooo === foo
+      ? foo
+      : foo;
+  #prop2 =
+    fooo === foo
+      ? foo
+      : foo;
+}
+
+================================================================================
+`;
+
+exports[`binary.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a = foooo === foo
+  ? bar
+  : baz;
+
+a.b = foooooooo === foo
+  ? bar
+  : baz;
+
+const c = a === foo
+  ? bar
+  : baz
+  ? bar
+  : baz;
+
+const d = foo
+  ? bar
+  : a === foo;
+
+const e = foo
+  ? foo
+    ? bar
+    : baz
+  : baz;
+
+const f = foo
+  ? foo === bar
+  : baz;
+
+const g = foooo && fooo
+  ? bar
+  : baz;
+
+const h = foooo ?? fooo
+  ? bar
+  : baz;
+
+const i = foooo || fooo
+  ? bar
+  : baz;
+
+const j = fooooo > fooo
+  ? bar
+  : baz;
+
+const k = fooooo < fooo
+  ? bar
+  : baz;
+
+const l = foooo >= fooo
+  ? bar
+  : baz;
+
+const m = foooo <= fooo
+  ? bar
+  : baz;
+
+const n = foooo != fooo
+  ? bar
+  : baz;
+
+const o =
+  foooo != fooo &&
+  fooo != fooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1: fooooo === foo
+    ? foo
+    : foo,
+};
+
+class X {
+  prop1 = foooo === foo
+    ? foo
+    : foo;
+  #prop2 = fooo === foo
+    ? foo
+    : foo;
+}
+
+================================================================================
+`;
+
+exports[`binary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a = foooo === foo ? bar : baz;
+
+a.b = foooooooo === foo ? bar : baz;
+
+const c = a === foo ? bar : baz ? bar : baz;
+
+const d = foo ? bar : a === foo;
+
+const e = foo ? (foo ? bar : baz) : baz;
+
+const f = foo ? foo === bar : baz;
+
+const g = foooo && fooo ? bar : baz;
+
+const h = foooo ?? fooo ? bar : baz;
+
+const i = foooo || fooo ? bar : baz;
+
+const j = fooooo > fooo ? bar : baz;
+
+const k = fooooo < fooo ? bar : baz;
+
+const l = foooo >= fooo ? bar : baz;
+
+const m = foooo <= fooo ? bar : baz;
+
+const n = foooo != fooo ? bar : baz;
+
+const o = foooo != fooo && fooo != fooo ? bar : baz;
+
+const x = {
+  prop1: fooooo === foo ? foo : foo,
+};
+
+class X {
+  prop1 = foooo === foo ? foo : foo;
+  #prop2 = fooo === foo ? foo : foo;
+}
+
+================================================================================
+`;
+
+exports[`comments.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    })
+  : // node > 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, { colors: colors });
+    });
+
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    })
+  : // node > 0.8.x
+    (function(v, colors) {
+      return util.inspect(v, { colors: colors });
+    });
+
+const extractTextPluginOptions = shouldUseRelativeAssetPaths
+  // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split('/').length).join('../') } :
+  {};
+
+const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
+  ? // Making sure that the publicPath goes back to to build folder.
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
+
+const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
+
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
+
+test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+test
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+    foo
+  : bar;
+
+test
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+    foo
+  : test
+  ? /* comment
+  comment
+    comment */
+    foo
+  : bar;
+
+test
+  ? /* comment */
+    foo
+  : bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test
+  ? foo
+  : /* comment
+  comment
+    comment
+   */
+    bar;
+
+test
+  ? foo
+  : /* comment */
+  bar;
+
+test ? test /* c
+c */? foo : bar : bar;
+
+=====================================output=====================================
+var inspect =
+  4 ===
+  util.inspect
+    .length
+    ? // node <= 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          void 0,
+          void 0,
+          colors
+        );
+      }
+    : // node > 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          {
+            colors:
+              colors,
+          }
+        );
+      };
+
+var inspect =
+  4 ===
+  util.inspect
+    .length
+    ? // node <= 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          void 0,
+          void 0,
+          colors
+        );
+      }
+    : // node > 0.8.x
+      function (
+        v,
+        colors
+      ) {
+        return util.inspect(
+          v,
+          {
+            colors:
+              colors,
+          }
+        );
+      };
+
+const extractTextPluginOptions =
+  shouldUseRelativeAssetPaths
+    ? // Making sure that the publicPath goes back to to build folder.
+      {
+        publicPath:
+          Array(
+            cssFilename.split(
+              "/"
+            )
+              .length
+          ).join(
+            "../"
+          ),
+      }
+    : {};
+
+const extractTextPluginOptions2 =
+  shouldUseRelativeAssetPaths
+    ? // Making sure that the publicPath goes back to to build folder.
+      {
+        publicPath:
+          Array(
+            cssFilename.split(
+              "/"
+            )
+              .length
+          ).join(
+            "../"
+          ),
+      }
+    : {};
+
+const extractTextPluginOptions3 =
+  shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+    ? {
+        publicPath:
+          Array(
+            cssFilename.split(
+              "/"
+            )
+              .length
+          ).join(
+            "../"
+          ),
+      }
+    : {};
+
+const {
+  configureStore,
+} =
+  process.env
+    .NODE_ENV ===
+  "production"
+    ? require("./configureProdStore") // a
+    : require("./configureDevStore"); // b
+
+test /* comment
+  comment
+      comment
+*/
+  ? foo
+  : bar;
+
+test
+  ? /* comment
+          comment
+    comment
+          comment
+  */
+    foo
+  : bar;
+
+test
+  ? /* comment
+       comment
+       comment
+       comment
+    */
+    foo
+  : test
+  ? /* comment
+  comment
+    comment */
+    foo
+  : bar;
+
+test
+  ? /* comment */
+    foo
+  : bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+    bar;
+
+test
+  ? foo
+  : /* comment
+         comment
+     comment
+           comment
+    */
+  test
+  ? foo
+  : /* comment
+  comment
+    comment
+   */
+    bar;
+
+test
+  ? foo
+  : /* comment */
+    bar;
+
+test
+  ? test /* c
+c */
+    ? foo
+    : bar
+  : bar;
+
+================================================================================
+`;
+
 exports[`comments.js - {"printWidth":25} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -403,49 +1071,43 @@ test ? test /* c
 c */? foo : bar : bar;
 
 =====================================output=====================================
-var inspect =
-  4 === util.inspect.length
-    ? // node <= 0.8.x
-      function (v, colors) {
-        return util.inspect(v, void 0, void 0, colors);
-      }
-    : // node > 0.8.x
-      function (v, colors) {
-        return util.inspect(v, { colors: colors });
-      };
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    function (v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    }
+  : // node > 0.8.x
+    function (v, colors) {
+      return util.inspect(v, { colors: colors });
+    };
 
-var inspect =
-  4 === util.inspect.length
-    ? // node <= 0.8.x
-      function (v, colors) {
-        return util.inspect(v, void 0, void 0, colors);
-      }
-    : // node > 0.8.x
-      function (v, colors) {
-        return util.inspect(v, { colors: colors });
-      };
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    function (v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    }
+  : // node > 0.8.x
+    function (v, colors) {
+      return util.inspect(v, { colors: colors });
+    };
 
-const extractTextPluginOptions =
-  shouldUseRelativeAssetPaths
-    ? // Making sure that the publicPath goes back to to build folder.
-      { publicPath: Array(cssFilename.split("/").length).join("../") }
-    : {};
+const extractTextPluginOptions = shouldUseRelativeAssetPaths
+  ? // Making sure that the publicPath goes back to to build folder.
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
 
-const extractTextPluginOptions2 =
-  shouldUseRelativeAssetPaths
-    ? // Making sure that the publicPath goes back to to build folder.
-      { publicPath: Array(cssFilename.split("/").length).join("../") }
-    : {};
+const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
+  ? // Making sure that the publicPath goes back to to build folder.
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
 
-const extractTextPluginOptions3 =
-  shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
-    ? { publicPath: Array(cssFilename.split("/").length).join("../") }
-    : {};
+const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
+  : {};
 
-const { configureStore } =
-  process.env.NODE_ENV === "production"
-    ? require("./configureProdStore") // a
-    : require("./configureDevStore"); // b
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
 
 test /* comment
   comment
@@ -515,11 +1177,185 @@ c */
 ================================================================================
 `;
 
-exports[`constant-line-breaks.js - {"printWidth":25} format 1`] = `
+exports[`constant.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+const a = !fooooooooo
+    ? bar
+    : baz;
+const b = fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oo()
+    ? bar
+    : baz,
+};
+
+
+
+=====================================output=====================================
+const a =
+  !fooooooooo
+    ? bar
+    : baz;
+const b =
+  fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+      ? bar
+      : baz,
+  prop1:
+    fooooooooo
+      ? bar
+      : baz,
+  prop1:
+    foooo.oooo
+      ? bar
+      : baz,
+  prop1:
+    foooo.oo()
+      ? bar
+      : baz,
+};
+
+================================================================================
+`;
+
+exports[`constant.js - {"printWidth":25} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 25
                          | printWidth
+=====================================input======================================
+const a = !fooooooooo
+    ? bar
+    : baz;
+const b = fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oo()
+    ? bar
+    : baz,
+};
+
+
+
+=====================================output=====================================
+const a = !fooooooooo
+  ? bar
+  : baz;
+const b = fooooooooo
+  ? bar
+  : baz;
+
+const x = {
+  prop1: !fooooooooo
+    ? bar
+    : baz,
+  prop1: fooooooooo
+    ? bar
+    : baz,
+  prop1: foooo.oooo
+    ? bar
+    : baz,
+  prop1: foooo.oo()
+    ? bar
+    : baz,
+};
+
+================================================================================
+`;
+
+exports[`constant.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = !fooooooooo
+    ? bar
+    : baz;
+const b = fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oo()
+    ? bar
+    : baz,
+};
+
+
+
+=====================================output=====================================
+const a = !fooooooooo ? bar : baz;
+const b = fooooooooo ? bar : baz;
+
+const x = {
+  prop1: !fooooooooo ? bar : baz,
+  prop1: fooooooooo ? bar : baz,
+  prop1: foooo.oooo ? bar : baz,
+  prop1: foooo.oo() ? bar : baz,
+};
+
+================================================================================
+`;
+
+exports[`constant-line-breaks.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
 =====================================input======================================
 const a = foo === null ? bar: baz;
 const b = !foooooooooo ? bar: baz;
@@ -614,6 +1450,92 @@ const x = {
 ================================================================================
 `;
 
+exports[`constant-line-breaks.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const a = foo === null ? bar: baz;
+const b = !foooooooooo ? bar: baz;
+const c = fooooooooooo ? bar: baz;
+const d = foooo.oooooo ? bar: baz;
+const e = foooooo.oo() ? bar: baz;
+const f = fooooooooo++ ? bar: baz;
+
+const func = async () => {
+  const a = await oo() ? bar: baz;
+  const x = {
+    prop1: await oo() ? bar : baz,
+  }
+}
+
+const x = {
+  prop1: foo === null ? bar : baz,
+  prop2: !foooooooooo ? bar : baz,
+  prop3: fooooooooooo ? bar : baz,
+  prop4: foooo.oooooo ? bar : baz,
+  prop5: foooooo.oo() ? bar : baz,
+  prop6: fooooooooo++ ? bar : baz,
+};
+
+=====================================output=====================================
+const a = foo === null
+  ? bar
+  : baz;
+const b = !foooooooooo
+  ? bar
+  : baz;
+const c = fooooooooooo
+  ? bar
+  : baz;
+const d = foooo.oooooo
+  ? bar
+  : baz;
+const e = foooooo.oo()
+  ? bar
+  : baz;
+const f = fooooooooo++
+  ? bar
+  : baz;
+
+const func =
+  async () => {
+    const a =
+      (await oo())
+        ? bar
+        : baz;
+    const x = {
+      prop1: (await oo())
+        ? bar
+        : baz,
+    };
+  };
+
+const x = {
+  prop1: foo === null
+    ? bar
+    : baz,
+  prop2: !foooooooooo
+    ? bar
+    : baz,
+  prop3: fooooooooooo
+    ? bar
+    : baz,
+  prop4: foooo.oooooo
+    ? bar
+    : baz,
+  prop5: foooooo.oo()
+    ? bar
+    : baz,
+  prop6: fooooooooo++
+    ? bar
+    : baz,
+};
+
+================================================================================
+`;
+
 exports[`constant-line-breaks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -670,6 +1592,27 @@ const x = {
 ================================================================================
 `;
 
+exports[`new-expression.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+const testConsole = new TestConsole(
+  config.useStderr ? process.stderr : process.stdout
+);
+
+=====================================output=====================================
+const testConsole =
+  new TestConsole(
+    config.useStderr
+      ? process.stderr
+      : process.stdout
+  );
+
+================================================================================
+`;
+
 exports[`new-expression.js - {"printWidth":25} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -705,6 +1648,27 @@ const testConsole = new TestConsole(
 const testConsole = new TestConsole(
   config.useStderr ? process.stderr : process.stdout
 );
+
+================================================================================
+`;
+
+exports[`no-confusing-arrow.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+// no-confusing-arrow
+var x = a => 1 ? 2 : 3;
+var x = a <= 1 ? 2 : 3;
+
+=====================================output=====================================
+// no-confusing-arrow
+var x = (a) =>
+  1 ? 2 : 3;
+var x = a <= 1
+  ? 2
+  : 3;
 
 ================================================================================
 `;

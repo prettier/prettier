@@ -184,7 +184,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     case "SequenceExpression":
       return true;
     case "ConditionalExpression": {
-      return true;
+      return false;
     }
     case "ClassExpression":
       return isNonEmptyArray(rightNode.decorators);

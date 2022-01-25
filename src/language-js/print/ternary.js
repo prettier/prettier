@@ -7,6 +7,8 @@ const {
   getComments,
   isCallExpression,
   isMemberExpression,
+  isBinaryish,
+  isAssignmentLike,
 } = require("../utils.js");
 const { locStart, locEnd } = require("../loc.js");
 const {
@@ -19,6 +21,7 @@ const {
     ifBreak,
     dedent,
     breakParent,
+    indentIfBreak,
   },
 } = require("../../document/index.js");
 
@@ -236,6 +239,9 @@ function printTernary(path, options, print) {
   const firstNonConditionalParent = currentParent || parent;
   const lastConditionalParent = previousParent;
 
+  const shouldIndentIfBreak =
+    node.test && isBinaryish(node.test) && isAssignmentLike(parent);
+
   if (
     isConditionalExpression &&
     (isJsxNode(node[testNodePropertyNames[0]]) ||
@@ -339,9 +345,15 @@ function printTernary(path, options, print) {
 
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
 
+  const groupId = Symbol("binary");
+
   const result = maybeGroup([
-    printTernaryTest(path, options, print),
-    forceNoIndent ? parts : indent(parts),
+    group(printTernaryTest(path, options, print), { id: groupId }),
+    shouldIndentIfBreak
+      ? indentIfBreak(forceNoIndent ? parts : indent(parts), { groupId })
+      : forceNoIndent
+      ? parts
+      : indent(parts),
     isConditionalExpression && breakClosingParen && !shouldExtraIndent
       ? softline
       : "",

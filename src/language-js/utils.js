@@ -1326,6 +1326,18 @@ function isTsKeywordType({ type }) {
   return type.startsWith("TS") && type.endsWith("Keyword");
 }
 
+function isAssignmentLike(node) {
+  return (
+    node.type === "AssignmentExpression" ||
+    node.type === "VariableDeclarator" ||
+    node.type === "ClassProperty" ||
+    node.type === "PropertyDefinition" ||
+    node.type === "TSAbstractPropertyDefinition" ||
+    node.type === "ClassPrivateProperty" ||
+    isObjectProperty(node)
+  );
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1392,4 +1404,5 @@ module.exports = {
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
   isTsKeywordType,
+  isAssignmentLike,
 };
