@@ -157,7 +157,7 @@
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
-    "build": "node ./scripts/build/build.mjs",
+    "build": "node ./scripts/build/build.mjs --no-minify",
     "build:website": "node ./scripts/build-website.mjs"
   },
   "browserslist": [
