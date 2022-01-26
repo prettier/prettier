@@ -85,7 +85,8 @@ async function* getEsbuildOptions(bundle, options) {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
-    // Use `""` instead of other value, so it can be falsy and access property
+    // Use `""` instead of other values, so it can be falsy and able to access property, like `process.{argv, cwd}`
+    // Define it as empty object will cause `esbuild` inject `init_define_process()` everywhere
     define.process = JSON.stringify("");
 
     // Replace `__dirname` and `__filename` with a fake value
