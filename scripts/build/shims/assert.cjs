@@ -1,3 +1,5 @@
+"use strict";
+
 const assert = () => {};
 assert.ok = assert;
 assert.strictEqual = assert;

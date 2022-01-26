@@ -41,7 +41,6 @@ const parsers = [
       'typeof globalThis === "object"': "true",
       // `@typescript-eslint/typescript-estree` v4
       'require("globby")': "{}",
-      'require("debug")': "() => {}",
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
       "process.versions.node": "'999.999.999'",
@@ -62,6 +61,9 @@ const parsers = [
       // https://github.com/npm/node-semver/issues/381
       "typescriptVersionIsAtLeast[version] = semverCheck(version);":
         "typescriptVersionIsAtLeast[version] = true;",
+    },
+    replaceModule: {
+      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
     },
   },
   {
