@@ -20,6 +20,7 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
+    options.parser !== "acorn" &&
     options.parser !== "espree" &&
     options.parser !== "meriyah"
   ) {
@@ -134,8 +135,8 @@ function postprocess(ast, options) {
   }
 }
 
-// This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
-// and `typescript` into `babel` shape AST, we should do the opposite,
+// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
+// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
 // since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {

@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`test.js [acorn] format 1`] = `
+"Unexpected token (3:8)
+  1 | export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";
+  2 |
+> 3 | export a,{b} from \\"./baz\\";
+    |        ^
+  4 |
+  5 | export * as ns from \\"mod\\";
+  6 |"
+`;
+
 exports[`test.js [espree] format 1`] = `
 "Unexpected token a (3:8)
   1 | export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from \\"exports\\";

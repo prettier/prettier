@@ -1,1 +1,1 @@
-run_spec(__dirname, ["espree", "meriyah", "babel"]);
+run_spec(__dirname, ["acorn", "espree", "meriyah", "babel"]);

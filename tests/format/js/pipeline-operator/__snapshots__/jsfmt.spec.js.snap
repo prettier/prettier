@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`block-comments.js [acorn] format 1`] = `
+"Unexpected token (2:2)
+  1 | bifornCringerMoshedPerplexSawder
+> 2 | |> foo1
+    |  ^
+  3 | |> foo2 /* comment1 */
+  4 | |> foo3 /* comment2 */
+  5 | |> kochabCooieGameOnOboleUnweave"
+`;
+
 exports[`block-comments.js [espree] format 1`] = `
 "Unexpected token > (2:2)
   1 | bifornCringerMoshedPerplexSawder
@@ -42,6 +52,16 @@ bifornCringerMoshedPerplexSawder
   |> glimseGlyphsHazardNoopsTieTie;
 
 ================================================================================
+`;
+
+exports[`fsharp_style_pipeline_operator.js [acorn] format 1`] = `
+"Unexpected token (2:4)
+  1 | promise
+> 2 |   |> await
+    |    ^
+  3 |   |> x => doubleSay(x, ', ')
+  4 |   |> capitalize
+  5 |   |> x => x + '!'"
 `;
 
 exports[`fsharp_style_pipeline_operator.js [espree] format 1`] = `
@@ -157,6 +177,15 @@ const f = x + ((f) => f |> f);
 const f = x |> (f) => f |> f;
 
 ================================================================================
+`;
+
+exports[`hack_pipeline_operator.js [acorn] format 1`] = `
+"Unexpected token (1:4)
+> 1 | a |> await % |> % * 3;
+    |    ^
+  2 |
+  3 | foo
+  4 |   |> await %"
 `;
 
 exports[`hack_pipeline_operator.js [espree] format 1`] = `
@@ -289,6 +318,15 @@ async function* f() {
 }
 
 ================================================================================
+`;
+
+exports[`minimal_pipeline_operator.js [acorn] format 1`] = `
+"Unexpected token (1:4)
+> 1 | a |> b |> c;
+    |    ^
+  2 |
+  3 | a |> (b |> c);
+  4 |"
 `;
 
 exports[`minimal_pipeline_operator.js [espree] format 1`] = `

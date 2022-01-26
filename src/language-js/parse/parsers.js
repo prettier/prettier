@@ -53,9 +53,13 @@ module.exports = {
   get __ng_directive() {
     return require("./angular.js").parsers.__ng_directive;
   },
+  // JS - acorn
+  get acorn() {
+    return require("./acorn-and-espree.js").parsers.acorn;
+  },
   // JS - espree
   get espree() {
-    return require("./espree.js").parsers.espree;
+    return require("./acorn-and-espree.js").parsers.espree;
   },
   // JS - meriyah
   get meriyah() {
