@@ -5,7 +5,6 @@ import builtinModules from "builtin-modules";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
-import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
@@ -69,24 +68,29 @@ function getBabelConfig(bundle) {
 
 async function* getEsbuildOptions(bundle, options) {
   const replaceStrings = {
-    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
-    "process.env.NODE_ENV": JSON.stringify("production"),
     // `tslib` exports global variables
     "createExporter(root": "createExporter({}",
   };
+
+  const define = {
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  };
+
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
-    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
-    // `parser-typescript.js` will contain a path of working directory
+    replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
+
+    define.process = JSON.stringify({ env: {}, argv: [] });
+
+    // Replace `__dirname` and `__filename` with a fake value
+    // So `parser-typescript.js` won't contain a path of working directory
     // See #8268
-    replaceStrings.__filename = JSON.stringify(
+    define.__filename = JSON.stringify(
       "/prettier-security-filename-placeholder.js"
     );
-    replaceStrings.__dirname = JSON.stringify(
-      "/prettier-security-dirname-placeholder"
-    );
+    define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
   const replaceModule = {};
@@ -139,12 +143,12 @@ async function* getEsbuildOptions(bundle, options) {
 
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
+    define,
     bundle: true,
     metafile: true,
     plugins: [
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
-      bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginTextReplace({
         include: /\.[cm]?js$/,

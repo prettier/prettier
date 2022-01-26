@@ -43,7 +43,8 @@ const parsers = [
       'require("globby")': "{}",
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
-      "process.versions.node": "'999.999.999'",
+      "process.versions.node": JSON.stringify("999.999.999"),
+      "process.cwd()": JSON.stringify("/prettier-security-dirname-placeholder"),
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
@@ -58,6 +59,9 @@ const parsers = [
       // https://github.com/npm/node-semver/issues/381
       "typescriptVersionIsAtLeast[version] = semverCheck(version);":
         "typescriptVersionIsAtLeast[version] = true;",
+    },
+    replaceModule: {
+      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
     },
   },
   {
