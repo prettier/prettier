@@ -6,7 +6,6 @@ import browserslist from "browserslist";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
-import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
