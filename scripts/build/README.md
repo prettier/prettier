@@ -67,5 +67,5 @@ When debugging the build script, we may want skip this step, so the build proces
 `--babel` have no effect, don't use.
 
 ```sh
-yarn build --file=index.js --skip-babel
+yarn build --file=index.js --no-babel
 ```
