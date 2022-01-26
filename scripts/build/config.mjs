@@ -43,10 +43,8 @@ const parsers = [
       'require("globby")': "{}",
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
-      "process.versions.node": "'999.999.999'",
-      "process.cwd()": JSON.stringify(
-        "/prettier-security-filename-placeholder.js"
-      ),
+      "process.versions.node": JSON.stringify("999.999.999"),
+      "process.cwd()": JSON.stringify("/prettier-security-dirname-placeholder"),
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",

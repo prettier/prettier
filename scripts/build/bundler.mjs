@@ -86,7 +86,7 @@ async function* getEsbuildOptions(bundle, options) {
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
 
-    define.process = JSON.stringify({ env: {} });
+    define.process = JSON.stringify({ env: {}, argv: [] });
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
