@@ -12,7 +12,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { shouldPrintParamsWithoutParens } = require("./function.js");
 
 /**

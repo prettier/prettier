@@ -14,7 +14,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils.js");
+} = require("./utils/index.js");
 
 function needsParens(path, options) {
   const parent = path.getParentNode();

@@ -6,7 +6,7 @@ const {
   utils: { replaceTextEndOfLine },
 } = require("../../document/index.js");
 
-const { isLineComment, isBlockComment } = require("../utils.js");
+const { isLineComment, isBlockComment } = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
 
 function printComment(commentPath, options) {

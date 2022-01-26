@@ -12,7 +12,7 @@ const {
   isNextLineEmpty,
   isNumericLiteral,
   isSignedNumericLiteral,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locStart } = require("../loc.js");
 
 const { printOptionalToken, printTypeAnnotation } = require("./misc.js");

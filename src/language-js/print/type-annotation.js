@@ -16,7 +16,7 @@ const {
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { printAssignment } = require("./assignment.js");
 const {
   printFunctionParameters,

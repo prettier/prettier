@@ -28,7 +28,7 @@ const {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
 
 /**

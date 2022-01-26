@@ -8,24 +8,24 @@ const {
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
   getStringWidth,
-} = require("../common/util.js");
-const { locStart, locEnd, hasSameLocStart } = require("./loc.js");
+} = require("../../common/util.js");
+const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
 
 /**
- * @typedef {import("./types/estree").Node} Node
- * @typedef {import("./types/estree").TemplateLiteral} TemplateLiteral
- * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("./types/estree").MemberExpression} MemberExpression
- * @typedef {import("./types/estree").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("./types/estree").CallExpression} CallExpression
- * @typedef {import("./types/estree").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("./types/estree").Expression} Expression
- * @typedef {import("./types/estree").Property} Property
- * @typedef {import("./types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("./types/estree").Literal} Literal
+ * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree").TemplateLiteral} TemplateLiteral
+ * @typedef {import("../types/estree").Comment} Comment
+ * @typedef {import("../types/estree").MemberExpression} MemberExpression
+ * @typedef {import("../types/estree").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("../types/estree").CallExpression} CallExpression
+ * @typedef {import("../types/estree").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("../types/estree").Expression} Expression
+ * @typedef {import("../types/estree").Property} Property
+ * @typedef {import("../types/estree").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("../types/estree").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("../types/estree").Literal} Literal
  *
- * @typedef {import("../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path")} AstPath
  */
 
 // We match any whitespace except line terminators because
