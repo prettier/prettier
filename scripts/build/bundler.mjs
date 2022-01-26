@@ -86,7 +86,7 @@ async function* getEsbuildOptions(bundle, options) {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
-    replaceStrings["process.env"] = "{}";
+    define.process = "undefined";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
