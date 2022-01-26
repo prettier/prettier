@@ -31,7 +31,7 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const pathNeedsParens = require("../needs-parens.js");
 const { willPrintOwnComments } = require("../comments.js");
 

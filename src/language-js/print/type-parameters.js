@@ -12,7 +12,7 @@ const {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { createGroupIdMapper } = require("../../common/util.js");
 const { shouldHugType } = require("./type-annotation.js");
 const { isArrowFunctionVariableDeclarator } = require("./assignment.js");
