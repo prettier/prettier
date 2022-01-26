@@ -51,6 +51,33 @@ const parsers = [
       "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
       // Remove useless `ts.sys`
       "ts.sys = ": "ts.sys = undefined && ",
+
+      // Remove useless language service
+      "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
+      "ts.TypeScriptServicesFactory = ":
+        "ts.TypeScriptServicesFactory = undefined && ",
+      "var ShimBase = ": "var ShimBase = undefined && ",
+      "var TypeScriptServicesFactory = ":
+        "var TypeScriptServicesFactory = undefined && ",
+      "var LanguageServiceShimObject = ":
+        "var LanguageServiceShimObject = undefined && ",
+      "var CoreServicesShimHostAdapter = ":
+        "var CoreServicesShimHostAdapter = undefined && ",
+      "var LanguageServiceShimHostAdapter = ":
+        "var LanguageServiceShimHostAdapter = undefined && ",
+      "var ScriptSnapshotShimAdapter = ":
+        "var ScriptSnapshotShimAdapter = undefined && ",
+      "var ClassifierShimObject = ": "var ClassifierShimObject = undefined && ",
+      "var CoreServicesShimObject = ":
+        "var CoreServicesShimObject = undefined && ",
+      "function simpleForwardCall(": "0 && function simpleForwardCall(",
+      "function forwardJSONCall(": "0 && function forwardJSONCall(",
+      "function forwardCall(": "0 && function forwardCall(",
+      "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
+      "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
+      "function convertClassifications(":
+        "0 && function convertClassifications(",
+
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
