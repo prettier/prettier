@@ -30,10 +30,22 @@ yarn build --print-size
 
 ### `--file`
 
-To build a single file:
+To build specific file(s):
 
 ```sh
-yarn build --file=parser-babel.js
+yarn build --file=esm/parser-babel.mjs
+```
+
+```sh
+yarn build --file=standalone.js --file=parser-meriyah.js
+```
+
+### `--save-as`
+
+To save bundled file to a different location, this flag can only use together with ONE `--file` flag
+
+```sh
+yarn build --file=parser-babel.js --save-as=babel-for-test.js
 ```
 
 ### `--minify` and `--no-minify`

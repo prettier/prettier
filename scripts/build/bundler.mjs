@@ -179,7 +179,7 @@ async function* getEsbuildOptions(bundle, buildOptions) {
 
     yield {
       ...esbuildOptions,
-      outfile: path.join(DIST_DIR, bundle.output),
+      outfile: bundle.output,
       plugins: [
         esbuildPluginUmd({ name: bundle.name }),
         ...esbuildOptions.plugins,
@@ -187,16 +187,11 @@ async function* getEsbuildOptions(bundle, buildOptions) {
       format: "umd",
     };
 
-    if (!bundle.format && !buildOptions.playground) {
-      yield {
-        ...esbuildOptions,
-        outfile: path.join(
-          DIST_DIR,
-          `esm/${bundle.output.replace(".js", ".mjs")}`
-        ),
-        format: "esm",
-      };
-    }
+    yield {
+      ...esbuildOptions,
+      outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
+      format: "esm",
+    };
   } else {
     esbuildOptions.external.push(
       ...builtinModules,
@@ -207,7 +202,7 @@ async function* getEsbuildOptions(bundle, buildOptions) {
 
     yield {
       ...esbuildOptions,
-      outfile: path.join(DIST_DIR, bundle.output),
+      outfile: bundle.output,
       format: "cjs",
     };
   }
@@ -244,19 +239,25 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
   });
 }
 
-async function createBundle(bundle, buildOptions) {
-  if (
-    buildOptions.playground &&
-    (bundle.target !== "universal" || bundle.output === "doc.js")
-  ) {
-    return { skipped: true };
-  }
-
+async function* createBundle(bundle, buildOptions, onStart) {
   for await (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
-    await runBuild(bundle, esbuildOptions, buildOptions);
-  }
+    const { outfile: file } = esbuildOptions;
+    const name = file.startsWith("esm/") ? `  ${file}` : file;
+    onStart(name);
 
-  return { bundled: true };
+    if (
+      (buildOptions.files && !buildOptions.files.has(file)) ||
+      (buildOptions.playground && esbuildOptions.format !== "umd")
+    ) {
+      yield { name, skipped: true };
+      continue;
+    }
+
+    esbuildOptions.outfile = path.join(DIST_DIR, buildOptions.saveAs || file);
+
+    await runBuild(bundle, esbuildOptions, buildOptions);
+    yield { name, file: esbuildOptions.outfile };
+  }
 }
 
 export default createBundle;
