@@ -260,7 +260,7 @@ module.exports = {
         "prettier-internal-rules/no-node-comments": [
           "error",
           {
-            file: "src/language-js/utils.js",
+            file: "src/language-js/utils/index.js",
             functions: ["hasComment", "getComments"],
           },
           "src/language-js/pragma.js",
