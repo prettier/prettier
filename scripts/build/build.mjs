@@ -136,8 +136,12 @@ async function preparePackage() {
 
 async function run(params) {
   const shouldPreparePackage =
+    !params.playground &&
+    !params.file &&
+    params.minify === null &&
+    !params.babel;
+  const shouldSaveBundledPackagesLicenses =
     !params.playground && !params.file && params.minify === null;
-  const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
 
   let configs = bundleConfigs;
   if (params.file) {
@@ -172,8 +176,8 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "minify"],
+    boolean: ["playground", "print-size", "minify", "babel"],
     string: ["file"],
-    default: { playground: false, printSize: false, minify: null },
+    default: { playground: false, printSize: false, minify: null, babel: true },
   })
 );

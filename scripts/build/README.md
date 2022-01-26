@@ -53,3 +53,19 @@ Disable minify files:
 ```sh
 yarn build --file=parser-babel.js --no-minify
 ```
+
+### `--no-babel`
+
+Currently, we need babel to transform/shim following new language features:
+
+- `Array#flat()` for Node.js 10
+- `Array#flatMap()` for Node.js 10
+- `Object.fromEntries()` for Node.js 10
+
+When debugging the build script, we may want skip this step, so the build process can be faster.
+
+`--babel` have no effect, don't use.
+
+```sh
+yarn build --file=index.js --skip-babel
+```
