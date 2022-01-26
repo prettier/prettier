@@ -48,6 +48,8 @@ const parsers = [
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
       "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
+      // Remove useless `ts.sys`
+      "ts.sys = ": "ts.sys = undefined && ",
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
