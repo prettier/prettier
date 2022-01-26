@@ -1,4 +1,4 @@
 "use strict";
 
-const noop = () => noop;
-module.exports = noop;
+const debug = () => debug;
+module.exports = debug;
