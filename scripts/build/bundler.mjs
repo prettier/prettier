@@ -239,24 +239,23 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
   });
 }
 
-async function* createBundle(bundle, buildOptions, onStart) {
+async function* createBundle(bundle, buildOptions) {
   for await (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
     const { outfile: file } = esbuildOptions;
-    const name = file.startsWith("esm/") ? `  ${file}` : file;
-    onStart(name);
 
     if (
       (buildOptions.files && !buildOptions.files.has(file)) ||
       (buildOptions.playground && esbuildOptions.format !== "umd")
     ) {
-      yield { name, skipped: true };
+      yield { name: file, skipped: true };
       continue;
     }
 
     esbuildOptions.outfile = path.join(DIST_DIR, buildOptions.saveAs || file);
 
+    yield { name: file, started: true };
     await runBuild(bundle, esbuildOptions, buildOptions);
-    yield { name, file: esbuildOptions.outfile };
+    yield { name: file, file: esbuildOptions.outfile };
   }
 }
 

@@ -64,15 +64,20 @@ async function createBundle(bundleConfig, options) {
   const { target } = bundleConfig;
 
   try {
-    for await (const { name, skipped, file } of bundler(
+    for await (const { name, started, skipped, file } of bundler(
       bundleConfig,
-      options,
-      (name) => process.stdout.write(fitTerminal(name))
+      options
     )) {
+      const displayName = name.startsWith("esm/") ? `  ${name}` : name;
+
+      if (started) {
+        process.stdout.write(fitTerminal(displayName));
+        continue;
+      }
+
       if (skipped) {
-        if (options.files) {
-          clear();
-        } else {
+        if (!options.files) {
+          process.stdout.write(fitTerminal(displayName));
           console.log(status.SKIPPED);
         }
 
@@ -94,7 +99,7 @@ async function createBundle(bundleConfig, options) {
         clear();
 
         const size = prettyBytes((await fs.stat(file)).size);
-        process.stdout.write(fitTerminal(name, `${size} `));
+        process.stdout.write(fitTerminal(displayName, `${size} `));
       }
 
       console.log(status.DONE);
