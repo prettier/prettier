@@ -2,13 +2,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
-import browserslist from "browserslist";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
-import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
+import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
@@ -19,10 +18,7 @@ import bundles from "./config.mjs";
 const { __dirname, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
-const umdTarget = resolveToEsbuildTarget(
-  browserslist(packageJson.browserslist),
-  { printUnknownTargets: false }
-);
+const umdTarget = browserslistToEsbuild(packageJson.browserslist);
 
 function getBabelConfig(bundle) {
   const config = {
