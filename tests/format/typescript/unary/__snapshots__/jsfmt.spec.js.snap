@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<null>x;
+!(<null>x /* foo */);
+!(/* foo */ <null>x);
+!(
+  /* foo */
+  <null>x
+);
+!(
+  <null>x
+  /* foo */
+);
+!(
+  <null>x // foo
+);
+
+x as string;
+!(x as string /* foo */);
+!(/* foo */ x as string);
+!(
+  /* foo */
+  x as string
+);
+!(
+  x as string
+  /* foo */
+);
+!(
+  x as string // foo
+);
+=====================================output=====================================
+<null>x;
+!(<null>x /* foo */);
+!(/* foo */ <null>x);
+!(
+  /* foo */
+  <null>x
+);
+!(
+  <null>x
+  /* foo */
+);
+!(
+  <null>x // foo
+);
+
+x as string;
+!(x as string /* foo */);
+!(/* foo */ x as string);
+!(
+  /* foo */
+  x as string
+);
+!(
+  x as string
+  /* foo */
+);
+!(
+  x as string // foo
+);
+
+================================================================================
+`;

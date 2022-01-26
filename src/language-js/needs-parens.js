@@ -14,6 +14,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  hasComment,
 } = require("./utils.js");
 
 function needsParens(path, options) {
@@ -175,6 +176,23 @@ function needsParens(path, options) {
         return true;
       }
       break;
+    }
+    case "UnaryExpression": {
+      if (
+        (node.type === "BinaryExpression" ||
+          node.type === "LogicalExpression" ||
+          node.type === "ArrowFunctionExpression" ||
+          node.type === "AwaitExpression" ||
+          node.type === "YieldExpression" ||
+          node.type === "SequenceExpression" ||
+          node.type === "ConditionalExpression" ||
+          node.type === "AssignmentExpression" ||
+          node.type === "TSAsExpression" ||
+          node.type === "TSTypeAssertion") &&
+        hasComment(node)
+      ) {
+        return false;
+      }
     }
   }
 
