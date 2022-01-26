@@ -1322,10 +1322,6 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-function isTsKeywordType({ type }) {
-  return type.startsWith("TS") && type.endsWith("Keyword");
-}
-
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1391,5 +1387,4 @@ module.exports = {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-  isTsKeywordType,
 };

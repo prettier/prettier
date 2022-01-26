@@ -2,8 +2,8 @@
 
 const { getLast } = require("../../../common/util.js");
 const { locStart, locEnd } = require("../../loc.js");
-const { isTypeCastComment } = require("../../comments.js");
-const { isTsKeywordType } = require("../../utils.js");
+const { isTsKeywordType } = require("../../utils/is-ts-keyword-type.js");
+const { isTypeCastComment } = require("../../utils/is-type-cast-comment.js");
 const visitNode = require("./visitNode.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");
 
