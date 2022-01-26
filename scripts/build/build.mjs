@@ -31,7 +31,8 @@ process.on("unhandledRejection", (err) => {
 const statusConfig = [
   { color: "bgGreen", text: "DONE" },
   { color: "bgRed", text: "FAIL" },
-  { color: "bgGray", text: "SKIPPED" },
+  { color: "bgYellow", text: "SKIPPED" },
+  { color: "bgGray", text: "WORKING" },
 ];
 const maxLength = Math.max(...statusConfig.map(({ text }) => text.length)) + 2;
 const padStatusText = (text) => {
@@ -72,6 +73,7 @@ async function createBundle(bundleConfig, options) {
 
       if (started) {
         process.stdout.write(fitTerminal(displayName));
+        console.log(status.WORKING);
         continue;
       }
 
@@ -94,12 +96,13 @@ async function createBundle(bundleConfig, options) {
         }
       }
 
-      if (options.printSize) {
-        // Clear previous line
-        clear();
+      clear();
 
+      if (options.printSize) {
         const size = prettyBytes((await fs.stat(file)).size);
         process.stdout.write(fitTerminal(displayName, `${size} `));
+      } else {
+        process.stdout.write(fitTerminal(displayName));
       }
 
       console.log(status.DONE);
