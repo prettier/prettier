@@ -66,7 +66,7 @@ function getBabelConfig(bundle) {
   return config;
 }
 
-async function* getEsbuildOptions(bundle, options) {
+async function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
     // `tslib` exports global variables
     "createExporter(root": "createExporter({}",
@@ -136,7 +136,7 @@ async function* getEsbuildOptions(bundle, options) {
     };
   }
 
-  let shouldMinify = options.minify;
+  let shouldMinify = buildOptions.minify;
   if (typeof shouldMinify !== "boolean") {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
@@ -155,12 +155,12 @@ async function* getEsbuildOptions(bundle, options) {
         // TODO[@fisker]: Use RegExp when possible
         pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
       }),
-      options.onLicenseFound &&
+      buildOptions.onLicenseFound &&
         esbuildPluginLicense({
           cwd: PROJECT_ROOT,
           thirdParty: {
             includePrivate: true,
-            output: options.onLicenseFound,
+            output: buildOptions.onLicenseFound,
           },
         }),
     ].filter(Boolean),
@@ -187,7 +187,7 @@ async function* getEsbuildOptions(bundle, options) {
       format: "umd",
     };
 
-    if (!bundle.format && !options.playground) {
+    if (!bundle.format && !buildOptions.playground) {
       yield {
         ...esbuildOptions,
         outfile: path.join(
@@ -213,7 +213,12 @@ async function* getEsbuildOptions(bundle, options) {
   }
 }
 
-async function runBuild(bundle, esbuildOptions) {
+async function runBuild(bundle, esbuildOptions, buildOptions) {
+  if (!buildOptions.babel) {
+    await esbuild.build(esbuildOptions);
+    return;
+  }
+
   const { format, plugins, outfile } = esbuildOptions;
 
   await esbuild.build({
@@ -239,17 +244,16 @@ async function runBuild(bundle, esbuildOptions) {
   });
 }
 
-async function createBundle(bundle, options) {
+async function createBundle(bundle, buildOptions) {
   if (
-    options.playground &&
+    buildOptions.playground &&
     (bundle.target !== "universal" || bundle.output === "doc.js")
   ) {
     return { skipped: true };
   }
 
-  const esbuildOptions = getEsbuildOptions(bundle, options);
-  for await (const options of esbuildOptions) {
-    await runBuild(bundle, options);
+  for await (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
+    await runBuild(bundle, esbuildOptions, buildOptions);
   }
 
   return { bundled: true };

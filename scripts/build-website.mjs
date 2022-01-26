@@ -10,7 +10,6 @@ import {
   PROJECT_ROOT,
   DIST_DIR,
   WEBSITE_DIR,
-  readJson,
   writeJson,
   copyFile,
   writeFile,
@@ -32,18 +31,20 @@ const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 async function buildPrettier() {
   // --- Build prettier for PR ---
   const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
-  const content = await fs.readFile(packageJsonFile);
-  const packageJson = await readJson(packageJsonFile);
+  const packageJsonContent = await fs.readFile(packageJsonFile);
+  const packageJson = JSON.parse(packageJsonContent);
   await writeJson(packageJsonFile, {
     ...packageJson,
     version: `999.999.999-pr.${process.env.REVIEW_ID}`,
   });
 
   try {
-    await runYarn("build", ["--playground"], { cwd: PROJECT_ROOT });
+    await runYarn("build", ["--playground", "--no-babel"], {
+      cwd: PROJECT_ROOT,
+    });
   } finally {
     // restore
-    await writeFile(packageJsonFile, content);
+    await writeFile(packageJsonFile, packageJsonContent);
   }
 }
 
