@@ -64,6 +64,8 @@ Currently, we need babel to transform/shim following new language features:
 
 When debugging the build script, we may want skip this step, so the build process can be faster.
 
+Playground use this flag to speed up the build too.
+
 `--babel` have no effect, don't use.
 
 ```sh

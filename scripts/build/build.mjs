@@ -139,7 +139,7 @@ async function run(params) {
     !params.playground &&
     !params.file &&
     params.minify === null &&
-    params.babel;
+    params.babel !== false;
   const shouldSaveBundledPackagesLicenses =
     !params.playground && !params.file && params.minify === null;
 
