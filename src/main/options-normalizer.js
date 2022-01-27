@@ -17,6 +17,8 @@ const cliDescriptor = {
       : `${cliDescriptor.key(key)}=${value}`,
 };
 
+// To prevent `chalk` module from being included in the `standalone.js` bundle,
+// it will take that as an argument if needed.
 const getFlagSchema = (colorsModule) =>
   class FlagSchema extends vnopts.ChoiceSchema {
     constructor({ name, flags }) {
