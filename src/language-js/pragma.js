@@ -2,7 +2,7 @@
 
 const { parseWithComments, strip, extract, print } = require("jest-docblock");
 const { normalizeEndOfLine } = require("../common/end-of-line.js");
-const { getShebang } = require("./utils/get-shebang.js");
+const getShebang = require("./utils/get-shebang.js");
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);

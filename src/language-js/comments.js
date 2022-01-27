@@ -13,7 +13,6 @@ const {
   isNonEmptyArray,
 } = require("../common/util.js");
 const {
-  isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
   isJsxNode,
@@ -30,6 +29,7 @@ const {
   markerForIfWithoutBlockAndSameLineComment,
 } = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node

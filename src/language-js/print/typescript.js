@@ -21,7 +21,7 @@ const {
   isCallExpression,
   isMemberExpression,
 } = require("../utils/index.js");
-const { isTsKeywordType } = require("../utils/is-ts-keyword-type.js");
+const isTsKeywordType = require("../utils/is-ts-keyword-type.js");
 const { locStart, locEnd } = require("../loc.js");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc.js");

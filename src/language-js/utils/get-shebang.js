@@ -11,4 +11,4 @@ function getShebang(text) {
   return text.slice(0, index);
 }
 
-module.exports = { getShebang };
+module.exports = getShebang;
