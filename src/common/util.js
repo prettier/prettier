@@ -1,12 +1,10 @@
 "use strict";
 
-const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last.js");
 const { getSupportInfo } = require("../main/support.js");
 const isNonEmptyArray = require("../utils/is-non-empty-array.js");
-
-const notAsciiRegex = /[^\x20-\x7F]/;
+const getStringWidth = require("../utils/get-string-width.js");
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -516,23 +514,6 @@ function getMinNotPresentContinuousCount(str, target) {
   }
 
   return max + 1;
-}
-
-/**
- * @param {string} text
- * @returns {number}
- */
-function getStringWidth(text) {
-  if (!text) {
-    return 0;
-  }
-
-  // shortcut to avoid needless string `RegExp`s, replacements, and allocations within `string-width`
-  if (!notAsciiRegex.test(text)) {
-    return text.length;
-  }
-
-  return stringWidth(text);
 }
 
 function addCommentHelper(node, comment) {
