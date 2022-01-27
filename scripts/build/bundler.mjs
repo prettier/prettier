@@ -164,7 +164,8 @@ async function* getEsbuildOptions(bundle, buildOptions) {
             output: buildOptions.onLicenseFound,
           },
         }),
-      buildOptions.report && esbuildPluginVisualizer(),
+      buildOptions.reports &&
+        esbuildPluginVisualizer({ formats: buildOptions.reports }),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",

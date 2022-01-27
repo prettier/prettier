@@ -52,11 +52,18 @@ yarn build --file=parser-babel.js --save-as=babel-for-test.js
 
 Visualize and analyze your esbuild bundle to see which modules are taking up space.
 
-Report file saved next to the bundled file with `.report.html` suffix.
+Available reporter formats:
+
+- `html` Generate a HTML report file, saved next to the bundled file with `.report.html` suffix.
+- `text` Generate a plain text report file, saved next to the bundled file with `.report.txt` suffix.
+- `stdout` Log report information in console.
 
 ```sh
 yarn build --report
+yarn build --report=stdout --report=text --report=html
 ```
+
+**`--report` equals to `--report=html`**
 
 ### `--minify` and `--no-minify`
 
