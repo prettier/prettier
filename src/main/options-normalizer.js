@@ -219,6 +219,7 @@ function normalizeApiOptions(options, optionInfos, opts) {
 }
 
 function normalizeCliOptions(options, optionInfos, opts) {
+  /* istanbul ignore next */
   if (process.env.NODE_ENV !== "production" && !opts.colorsModule) {
     throw new Error("'colorsModule' option is required.");
   }
