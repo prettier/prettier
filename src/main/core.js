@@ -1,7 +1,7 @@
 "use strict";
 
 // Use `diff/lib/diff/array.js` instead of `diff` to reduce bundle size
-const diff = require("diff/lib/diff/array.js");
+const { diffArrays } = require("diff/lib/diff/array.js");
 
 const {
   printer: { printDocToString },
@@ -119,7 +119,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
     const newCursorNodeCharArray = [...newCursorNodeText];
 
-    const cursorNodeDiff = diff.diffArrays(
+    const cursorNodeDiff = diffArrays(
       oldCursorNodeCharArray,
       newCursorNodeCharArray
     );

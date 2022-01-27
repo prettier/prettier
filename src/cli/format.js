@@ -16,9 +16,18 @@ const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
 
 function diff(a, b) {
-  return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2,
-  });
+  // Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
+  return require("diff/lib/patch/create.js").createTwoFilesPatch(
+    "",
+    "",
+    a,
+    b,
+    "",
+    "",
+    {
+      context: 2,
+    }
+  );
 }
 
 function handleError(context, filename, error, printedFilename) {
