@@ -21,3 +21,49 @@ switch(x) {
   case y: {
   }
 }
+
+switch(x) {
+  case 1: // comment
+    break;
+
+  case 2: // comment
+    {break;}
+
+  case 3: { // comment
+    break;}
+}
+
+switch(x) {
+  default: // comment
+    break;
+}
+
+switch(x) {
+  default: // comment
+    {break;}
+}
+
+switch(x) {
+  default: {// comment
+    break;}
+}
+
+switch(x) {
+  default: /* comment */
+    break;
+}
+
+switch(x) {
+  default: /* comment */
+    {break;}
+}
+
+switch(x) {
+  default: {/* comment */
+    break;}
+}
+
+switch(x) {
+  default: /* comment */ {
+    break;}
+}
