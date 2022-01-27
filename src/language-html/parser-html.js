@@ -9,11 +9,9 @@ const parseFrontMatter = require("../utils/front-matter/parse.js");
 const getLast = require("../utils/get-last.js");
 const createError = require("../common/parser-create-error.js");
 const { inferParserByLanguage } = require("../common/util.js");
-const {
-  HTML_ELEMENT_ATTRIBUTES,
-  HTML_TAGS,
-  isUnknownNamespace,
-} = require("./utils.js");
+const HTML_TAGS = require("./utils/html-tag-names.js");
+const HTML_ELEMENT_ATTRIBUTES = require("./utils/html-elements-attributes.js");
+const isUnknownNamespace = require("./utils/is-unknown-namespace.js");
 const { hasPragma } = require("./pragma.js");
 const { Node } = require("./ast.js");
 const { parseIeConditionalComment } = require("./conditional-comment.js");
