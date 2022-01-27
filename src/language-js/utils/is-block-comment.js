@@ -17,4 +17,4 @@ function isBlockComment(comment) {
   );
 }
 
-module.exports = { isBlockComment };
+module.exports = isBlockComment;

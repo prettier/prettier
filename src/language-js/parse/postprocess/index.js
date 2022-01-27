@@ -1,8 +1,8 @@
 "use strict";
 
 const { locStart, locEnd } = require("../../loc.js");
-const { isTsKeywordType } = require("../../utils/is-ts-keyword-type.js");
-const { isTypeCastComment } = require("../../utils/is-type-cast-comment.js");
+const isTsKeywordType = require("../../utils/is-ts-keyword-type.js");
+const isTypeCastComment = require("../../utils/is-type-cast-comment.js");
 const getLast = require("../../../utils/get-last.js");
 const visitNode = require("./visitNode.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");

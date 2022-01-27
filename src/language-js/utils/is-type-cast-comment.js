@@ -1,6 +1,6 @@
 "use strict";
 
-const { isBlockComment } = require("./is-block-comment.js");
+const isBlockComment = require("./is-block-comment.js");
 
 /**
  * @typedef {import("../types/estree").Comment} Comment
@@ -21,4 +21,4 @@ function isTypeCastComment(comment) {
   );
 }
 
-module.exports = { isTypeCastComment };
+module.exports = isTypeCastComment;
