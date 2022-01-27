@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`attributes.html - {"singleQuote":false} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+<div title='My title'></div>
+<div title="My title"></div>
+<div title='My "title'></div>
+<div title="My 'title"></div>
+<div title='My "title"'></div>
+<div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title="My\\&quot; title"></div>
+<div title="My\\' title"></div>
+<div title="My\\&apos; title"></div>
+
+=====================================output=====================================
+<div title="My title"></div>
+<div title="My title"></div>
+<div title='My "title'></div>
+<div title="My 'title"></div>
+<div title='My "title"'></div>
+<div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title='My\\" title'></div>
+<div title="My\\' title"></div>
+<div title="My\\' title"></div>
+
+================================================================================
+`;
+
+exports[`attributes.html - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div title='My title'></div>
+<div title="My title"></div>
+<div title='My "title'></div>
+<div title="My 'title"></div>
+<div title='My "title"'></div>
+<div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title="My\\&quot; title"></div>
+<div title="My\\' title"></div>
+<div title="My\\&apos; title"></div>
+
+=====================================output=====================================
+<div title='My title'></div>
+<div title='My title'></div>
+<div title='My "title'></div>
+<div title="My 'title"></div>
+<div title='My "title"'></div>
+<div title="My 'title'"></div>
+<div title='My\\" title'></div>
+<div title='My\\" title'></div>
+<div title="My\\' title"></div>
+<div title="My\\' title"></div>
+
+================================================================================
+`;
+
+exports[`classes.html - {"singleQuote":false} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+<div class='foo'></div>
+<div class="foo"></div>
+<div class='foo "bar'></div>
+<div class="foo 'bar"></div>
+<div class='foo "bar"'></div>
+<div class="foo 'bar'"></div>
+
+=====================================output=====================================
+<div class="foo"></div>
+<div class="foo"></div>
+<div class='foo "bar'></div>
+<div class="foo 'bar"></div>
+<div class='foo "bar"'></div>
+<div class="foo 'bar'"></div>
+
+================================================================================
+`;
+
+exports[`classes.html - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div class='foo'></div>
+<div class="foo"></div>
+<div class='foo "bar'></div>
+<div class="foo 'bar"></div>
+<div class='foo "bar"'></div>
+<div class="foo 'bar'"></div>
+
+=====================================output=====================================
+<div class='foo'></div>
+<div class='foo'></div>
+<div class='foo "bar'></div>
+<div class="foo 'bar"></div>
+<div class='foo "bar"'></div>
+<div class="foo 'bar'"></div>
+
+================================================================================
+`;
+
+exports[`smart-quotes.html - {"singleQuote":false} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+<div 
+    smart-quotes='123 " 456'
+    smart-quotes="123 ' 456"
+    smart-quotes='123 &apos;&quot; 456'
+></div>
+
+=====================================output=====================================
+<div
+  smart-quotes='123 " 456'
+  smart-quotes="123 ' 456"
+  smart-quotes="123 '&quot; 456"
+></div>
+
+================================================================================
+`;
+
+exports[`smart-quotes.html - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div 
+    smart-quotes='123 " 456'
+    smart-quotes="123 ' 456"
+    smart-quotes='123 &apos;&quot; 456'
+></div>
+
+=====================================output=====================================
+<div
+  smart-quotes='123 " 456'
+  smart-quotes="123 ' 456"
+  smart-quotes='123 &apos;" 456'
+></div>
+
+================================================================================
+`;
+
+exports[`srcset.html - {"singleQuote":false} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+<img src="/assets/visual.png"
+srcset="/assets/visual@0.5.png  400w, /assets/visual.png      805w"
+sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
+
+=====================================output=====================================
+<img
+  src="/assets/visual.png"
+  srcset="/assets/visual@0.5.png 400w, /assets/visual.png 805w"
+  sizes="(max-width: 66rem) 100vw, 66rem"
+  alt=""
+/>
+
+================================================================================
+`;
+
+exports[`srcset.html - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<img src="/assets/visual.png"
+srcset="/assets/visual@0.5.png  400w, /assets/visual.png      805w"
+sizes="(max-width: 66rem) 100vw, 66rem" alt=""/>
+
+=====================================output=====================================
+<img
+  src='/assets/visual.png'
+  srcset='/assets/visual@0.5.png 400w, /assets/visual.png 805w'
+  sizes='(max-width: 66rem) 100vw, 66rem'
+  alt=''
+/>
+
+================================================================================
+`;

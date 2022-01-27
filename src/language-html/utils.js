@@ -591,16 +591,6 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
         .join("\n");
 }
 
-function countChars(text, char) {
-  let counter = 0;
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] === char) {
-      counter++;
-    }
-  }
-  return counter;
-}
-
 function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
 }
@@ -674,7 +664,6 @@ module.exports = {
   hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
-  countChars,
   countParents,
   dedentString,
   forceBreakChildren,
