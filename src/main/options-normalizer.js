@@ -220,7 +220,7 @@ function normalizeApiOptions(options, optionInfos, opts) {
 
 function normalizeCliOptions(options, optionInfos, opts) {
   if (process.env.NODE_ENV !== "production" && !opts.colorsModule) {
-    throw new Error("'colors' module is required.");
+    throw new Error("'colorsModule' option is required.");
   }
 
   return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
