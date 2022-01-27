@@ -1,6 +1,6 @@
 "use strict";
 
-const { isBlockComment } = require("./utils/index.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 const ignoredProperties = new Set([
   "range",

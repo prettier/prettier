@@ -10,6 +10,7 @@ const {
   getStringWidth,
 } = require("../../common/util.js");
 const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
+const isBlockComment = require("./is-block-comment.js");
 
 /**
  * @typedef {import("../types/estree").Node} Node
@@ -153,19 +154,6 @@ function getLeftSidePathName(path, node) {
     return ["expression"];
   }
   throw new Error("Unexpected node has no left side.");
-}
-
-/**
- * @param {Comment} comment
- * @returns {boolean}
- */
-function isBlockComment(comment) {
-  return (
-    comment.type === "Block" ||
-    comment.type === "CommentBlock" ||
-    // `meriyah`
-    comment.type === "MultiLine"
-  );
 }
 
 /**
@@ -1341,7 +1329,6 @@ module.exports = {
   hasNodeIgnoreComment,
   identity,
   isBinaryish,
-  isBlockComment,
   isCallLikeExpression,
   isEnabledHackPipeline,
   isLineComment,

@@ -20,7 +20,6 @@ const {
   hasComment,
   CommentCheckFlags,
   isTheOnlyJsxElementInMarkdown,
-  isBlockComment,
   isLineComment,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
@@ -31,6 +30,7 @@ const {
   markerForIfWithoutBlockAndSameLineComment,
 } = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 const {
   printHtmlBinding,
