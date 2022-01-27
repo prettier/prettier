@@ -4,6 +4,7 @@ const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last.js");
 const { getSupportInfo } = require("../main/support.js");
+const { isNonEmptyArray } = require("../utils/is-non-empty-array.js");
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -578,14 +579,6 @@ function inferParserByLanguage(language, options) {
 
 function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
-}
-
-/**
- * @param {any} object
- * @returns {object is Array<any>}
- */
-function isNonEmptyArray(object) {
-  return Array.isArray(object) && object.length > 0;
 }
 
 /**
