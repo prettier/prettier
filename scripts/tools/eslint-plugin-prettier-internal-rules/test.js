@@ -272,8 +272,8 @@ test("no-identifier-n", {
   valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
   invalid: [
     {
-      code: "const n = 1; alet(n)",
-      output: "const node = 1; alet(node)",
+      code: "const n = 1; alert(n)",
+      output: "const node = 1; alert(node)",
       errors: 1,
     },
     {

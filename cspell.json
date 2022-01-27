@@ -370,8 +370,6 @@
     ],
     "files": [
         "*",
-        ".*",
-        ".github/**/*",
         "bin/**/*",
         "changelog_unreleased/**/*",
         "docs/**/*",
@@ -381,14 +379,12 @@
         "website/**/*",
         "tests/config/**/*",
         "tests/integration/**/*",
-        "tests/**/jsfmt.spec.js"
+        "tests/format/**/jsfmt.spec.js"
     ],
     "ignorePaths": [
+        ".git",
         "cspell.json",
-        "**/node_modules/**",
-        "**/yarn.lock",
         "*.{log,svg,snap,png}",
-        "test*.*",
         "website/data/users.yml",
         "website/build/**",
         "website/playground/codeSamples.js",

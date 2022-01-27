@@ -151,7 +151,7 @@
     "lint:changelog": "node ./scripts/lint-changelog.mjs",
     "lint:prettier": "prettier . \"!test*\" --check",
     "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --config=./scripts/bundle-eslint-config.js \"dist/!(bin-prettier|index|third-party).js\"",
-    "lint:spellcheck": "cspell --no-progress --relative",
+    "lint:spellcheck": "cspell --no-progress --relative --dot --gitignore",
     "lint:deps": "node ./scripts/check-deps.mjs",
     "lint:actionlint": "node-actionlint",
     "fix": "run-s fix:eslint fix:prettier",
