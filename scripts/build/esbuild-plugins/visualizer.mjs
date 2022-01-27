@@ -1,11 +1,13 @@
 import fs from "node:fs/promises";
 import { visualizer as esbuildVisualizer } from "esbuild-visualizer/dist/plugin/index.js";
 
-export default function esbuildPluginVisualizer() {
+export default function esbuildPluginVisualizer({ formats }) {
+  formats = Object.fromEntries(formats.map((format) => [format, true]));
+
   return {
     name: "visualizer",
     setup(build) {
-      const { initialOptions: esbuildConfig } = build;
+      const { initialOptions: esbuildConfig, esbuild } = build;
       esbuildConfig.metafile = true;
 
       build.onEnd(async ({ metafile }) => {
@@ -15,11 +17,25 @@ export default function esbuildPluginVisualizer() {
           throw new Error("Unexpected `outputs`.");
         }
 
-        const html = await esbuildVisualizer(metafile, {
-          title: files[0],
-        });
+        if (formats.text || formats.stdout) {
+          const report = await esbuild.analyzeMetafile(metafile);
 
-        await fs.writeFile(`${esbuildConfig.outfile}.report.html`, html);
+          if (formats.stdout) {
+            console.log(report);
+          }
+
+          if (formats.text) {
+            await fs.writeFile(`${esbuildConfig.outfile}.report.txt`, report);
+          }
+        }
+
+        if (formats.html) {
+          const report = await esbuildVisualizer(metafile, {
+            title: files[0],
+          });
+
+          await fs.writeFile(`${esbuildConfig.outfile}.report.html`, report);
+        }
       });
     },
   };

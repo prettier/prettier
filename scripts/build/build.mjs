@@ -136,10 +136,17 @@ async function preparePackage() {
 }
 
 async function run(params) {
-  params.files = params.file ? new Set([params.file].flat()) : undefined;
+  params.files = params.file ? new Set([params.file].flat()) : params.file;
   params.saveAs = params["save-as"];
   params.printSize = params["print-size"];
+
+  if (params.report === "") {
+    params.report = ["html"];
+  }
+  params.reports = params.report ? [params.report].flat() : params.report;
+
   delete params.file;
+  delete params.report;
   delete params["save-as"];
   delete params["print-size"];
 
@@ -188,14 +195,13 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "minify", "babel", "report"],
-    string: ["file", "save-as"],
+    boolean: ["playground", "print-size", "minify", "babel"],
+    string: ["file", "save-as", "report"],
     default: {
       playground: false,
       printSize: false,
       minify: null,
       babel: true,
-      report: false,
     },
     unknown(flag) {
       throw new Error(`Unknown flag ${chalk.red(flag)}`);
