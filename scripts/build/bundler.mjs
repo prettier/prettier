@@ -12,6 +12,7 @@ import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
+import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
 const { __dirname, json } = createEsmUtils(import.meta);
@@ -163,6 +164,7 @@ async function* getEsbuildOptions(bundle, buildOptions) {
             output: buildOptions.onLicenseFound,
           },
         }),
+      buildOptions.report && esbuildPluginVisualizer(),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
