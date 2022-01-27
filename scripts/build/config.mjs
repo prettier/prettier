@@ -95,6 +95,10 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/espree.js",
+    replace: {
+      "const Syntax = ": "const Syntax = undefined && ",
+      "var visitorKeys = ": "var visitorKeys = undefined && ",
+    },
   },
   {
     input: "src/language-js/parse/meriyah.js",
