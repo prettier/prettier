@@ -127,7 +127,7 @@ const parsers = [
     replaceModule: {
       [require.resolve("parse-entities/decode-entity.browser.js")]:
         require.resolve("parse-entities/decode-entity.js"),
-      // Avoid `utils` shim
+      // Avoid `node:util` shim
       [require.resolve("inherits")]: require.resolve(
         "inherits/inherits_browser.js"
       ),
