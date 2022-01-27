@@ -188,9 +188,15 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "minify", "babel"],
+    boolean: ["playground", "print-size", "minify", "babel", "report"],
     string: ["file", "save-as"],
-    default: { playground: false, printSize: false, minify: null, babel: true },
+    default: {
+      playground: false,
+      printSize: false,
+      minify: null,
+      babel: true,
+      report: false,
+    },
     unknown(flag) {
       throw new Error(`Unknown flag ${chalk.red(flag)}`);
     },

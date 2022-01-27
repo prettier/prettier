@@ -48,6 +48,16 @@ To save bundled file to a different location, this flag can only use together wi
 yarn build --file=parser-babel.js --save-as=babel-for-test.js
 ```
 
+### `--report`
+
+Visualize and analyze your esbuild bundle to see which modules are taking up space.
+
+Report file saved next to the bundled file with `.report.html` suffix.
+
+```sh
+yarn build --report
+```
+
 ### `--minify` and `--no-minify`
 
 By default, the file minification is controlled by `config.mjs` and `bundler.mjs`, these flags are added to override that behavior.
