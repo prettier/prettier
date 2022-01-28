@@ -17,7 +17,7 @@ const {
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
-} = require("../utils.js");
+} = require("../utils/index.js");
 
 function printClosingTag(node, options) {
   return [

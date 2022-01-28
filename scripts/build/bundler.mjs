@@ -190,11 +190,13 @@ async function* getEsbuildOptions(bundle, buildOptions) {
       format: "umd",
     };
 
-    yield {
-      ...esbuildOptions,
-      outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
-      format: "esm",
-    };
+    if (/^(?:standalone|parser-.*)\.js$/.test(bundle.output)) {
+      yield {
+        ...esbuildOptions,
+        outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
+        format: "esm",
+      };
+    }
   } else {
     esbuildOptions.external.push(
       ...builtinModules,

@@ -696,6 +696,10 @@ function printPathNoParens(path, options, print, args) {
         parts.push("default:");
       }
 
+      if (hasComment(node, CommentCheckFlags.Dangling)) {
+        parts.push(" ", printDanglingComments(path, options, true));
+      }
+
       const consequent = node.consequent.filter(
         (node) => node.type !== "EmptyStatement"
       );

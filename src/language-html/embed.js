@@ -28,7 +28,7 @@ const {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const getNodeContent = require("./get-node-content.js");
 
 function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
