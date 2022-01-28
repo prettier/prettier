@@ -18,7 +18,9 @@ export default function esbuildPluginVisualizer({ formats }) {
         }
 
         if (formats.text || formats.stdout) {
-          const report = await esbuild.analyzeMetafile(metafile);
+          const report = await esbuild.analyzeMetafile(metafile, {
+            verbose: true,
+          });
 
           if (formats.stdout) {
             console.log(report);
