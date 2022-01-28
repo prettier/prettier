@@ -1,4 +1,5 @@
 import path from "node:path";
+import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 
 const { require } = createEsmUtils(import.meta);
@@ -181,6 +182,13 @@ const coreBundles = [
     input: "src/standalone.js",
     name: "prettier",
     target: "universal",
+    replaceModule: {
+      [require.resolve("@babel/highlight")]: require.resolve(
+        "./shims/babel-highlight.cjs"
+      ),
+      [createRequire(require.resolve("vnopts")).resolve("chalk")]:
+        require.resolve("./shims/chalk.cjs"),
+    },
   },
   {
     input: "bin/prettier.js",
