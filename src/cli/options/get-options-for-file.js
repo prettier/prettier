@@ -1,6 +1,7 @@
 "use strict";
 
 const dashify = require("dashify");
+const chalk = require("chalk");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../../index.js");
 const { optionsNormalizer } = require("../prettier-internal.js");
@@ -49,7 +50,7 @@ function parseArgsToOptions(context, overrideDefaults) {
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false }
+      { logger: false, colorsModule: chalk }
     ),
     context.detailedOptions
   );
