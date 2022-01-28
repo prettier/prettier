@@ -96,6 +96,8 @@ const parsers = [
   {
     input: "src/language-js/parse/acorn-and-espree.js",
     name: "prettierPlugins.acornAndEspree",
+    // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
+    output: "parser-espree.js",
     replace: {
       "const Syntax = ": "const Syntax = undefined && ",
       "var visitorKeys = ": "var visitorKeys = undefined && ",
