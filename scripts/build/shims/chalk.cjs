@@ -1,7 +1,6 @@
 "use strict";
 
 const chalk = (x) => x;
-chalk.supportsColor = false;
 chalk.grey = chalk;
 chalk.red = chalk;
 chalk.bold = chalk;
