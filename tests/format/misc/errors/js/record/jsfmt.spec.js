@@ -9,5 +9,5 @@ run_spec(
       "#{*e() {}}",
     ],
   },
-  ["babel", "espree", "meriyah"]
+  ["babel", "acorn", "espree", "meriyah"]
 );

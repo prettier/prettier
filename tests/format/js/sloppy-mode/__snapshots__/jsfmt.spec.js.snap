@@ -73,6 +73,13 @@ if (false) function foo() {}
 ================================================================================
 `;
 
+exports[`function-declaration-in-while.js [acorn] format 1`] = `
+"Unexpected token (1:15)
+> 1 | while (false) function foo(){}
+    |               ^
+  2 |"
+`;
+
 exports[`function-declaration-in-while.js [espree] format 1`] = `
 "Unexpected token function (1:15)
 > 1 | while (false) function foo(){}

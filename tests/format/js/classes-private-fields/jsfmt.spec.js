@@ -1,6 +1,7 @@
 const errors = {
-  meriyah: ["optional-chaining.js"],
+  acorn: ["optional-chaining.js"],
   espree: ["optional-chaining.js"],
+  meriyah: ["optional-chaining.js"],
 };
 run_spec(__dirname, ["babel"], {
   errors,

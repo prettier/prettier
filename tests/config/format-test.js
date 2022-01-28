@@ -56,6 +56,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
+const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
@@ -185,6 +186,9 @@ function runSpec(fixtures, parsers, options) {
       }
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
+      }
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
       }
     }
 

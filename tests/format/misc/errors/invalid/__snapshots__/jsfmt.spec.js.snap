@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`snippet: #0 [acorn] format 1`] = `
+"Unexpected token (1:5)
+> 1 | for each (a in b) {}
+    |     ^"
+`;
+
 exports[`snippet: #0 [babel] format 1`] = `
 "Unexpected token, expected \\"(\\" (1:5)
 > 1 | for each (a in b) {}
@@ -70,6 +76,12 @@ exports[`snippet: #0 [typescript] format 1`] = `
 "'(' expected. (1:5)
 > 1 | for each (a in b) {}
     |     ^"
+`;
+
+exports[`snippet: #1 [acorn] format 1`] = `
+"Unexpected token (1:7)
+> 1 | class switch() {}
+    |       ^"
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
