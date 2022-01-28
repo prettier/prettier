@@ -1,28 +1,24 @@
 "use strict";
 
 /**
- * @typedef {import("../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path")} AstPath
  */
 
-const htmlTagNames = require("html-tag-names");
-const htmlElementAttributes = require("html-element-attributes");
 const {
   inferParserByLanguage,
   isFrontMatterNode,
-} = require("../common/util.js");
+} = require("../../common/util.js");
 const {
   builders: { line, hardline, join },
   utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
+} = require("../../document/index.js");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
-} = require("./constants.evaluate.js");
-
-const HTML_TAGS = arrayToMap(htmlTagNames);
-const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
+} = require("../constants.evaluate.js");
+const isUnknownNamespace = require("./is-unknown-namespace.js");
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
@@ -46,22 +42,6 @@ const getLeadingAndTrailingHtmlWhitespace = (string) => {
   };
 };
 const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
-
-function arrayToMap(array) {
-  const map = Object.create(null);
-  for (const value of array) {
-    map[value] = true;
-  }
-  return map;
-}
-
-function mapObject(object, fn) {
-  const newObject = Object.create(null);
-  for (const [key, value] of Object.entries(object)) {
-    newObject[key] = fn(value, key);
-  }
-  return newObject;
-}
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
@@ -539,14 +519,6 @@ function getNodeCssStyleDisplay(node, options) {
   }
 }
 
-function isUnknownNamespace(node) {
-  return (
-    node.type === "element" &&
-    !node.hasExplicitNamespace &&
-    !["html", "svg"].includes(node.namespace)
-  );
-}
-
 function getNodeCssStyleWhiteSpace(node) {
   return (
     (node.type === "element" &&
@@ -667,8 +639,6 @@ function getTextValueParts(node, value = node.value) {
 }
 
 module.exports = {
-  HTML_ELEMENT_ATTRIBUTES,
-  HTML_TAGS,
   htmlTrim,
   htmlTrimPreserveIndentation,
   hasHtmlWhitespace,
