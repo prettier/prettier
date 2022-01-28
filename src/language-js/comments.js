@@ -24,6 +24,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isLineComment,
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
@@ -93,6 +94,7 @@ function handleEndOfLineComment(context) {
     handleTypeAliasComments,
     handleVariableDeclaratorComments,
     handleBreakAndContinueStatementComments,
+    handleSwitchDefaultCaseComments,
   ].some((fn) => fn(context));
 }
 
@@ -895,6 +897,28 @@ function handleTSMappedTypeComments({
   }
 
   return false;
+}
+
+function handleSwitchDefaultCaseComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    !enclosingNode ||
+    enclosingNode.type !== "SwitchCase" ||
+    enclosingNode.test
+  ) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
+    addBlockStatementFirstComment(followingNode, comment);
+  } else {
+    addDanglingComment(enclosingNode, comment);
+  }
+
+  return true;
 }
 
 /**
