@@ -636,6 +636,8 @@ export class Point {
   mismatchedIndentation() {}
 
   inline /* foo*/ (/* bar */) /* baz */ {}
+
+  noBody(/* comment */ arg);
 }
 
 =====================================output=====================================
@@ -685,6 +687,8 @@ export class Point {
   mismatchedIndentation() {}
 
   inline /* foo*/(/* bar */) /* baz */ {}
+
+  noBody(/* comment */ arg);
 }
 
 ================================================================================
