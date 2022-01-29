@@ -169,6 +169,7 @@ function isSourceElement(opts, node, parentNode) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "acorn":
     case "espree":
     case "meriyah":
     case "__babel_estree":

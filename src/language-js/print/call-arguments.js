@@ -16,7 +16,7 @@ const {
   isCallExpression,
   isStringLiteral,
   isObjectProperty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 
 const {
   builders: {

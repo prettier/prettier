@@ -13,7 +13,6 @@ const {
   isNonEmptyArray,
 } = require("../common/util.js");
 const {
-  isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
   isJsxNode,
@@ -25,11 +24,13 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isLineComment,
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -93,6 +94,7 @@ function handleEndOfLineComment(context) {
     handleTypeAliasComments,
     handleVariableDeclaratorComments,
     handleBreakAndContinueStatementComments,
+    handleSwitchDefaultCaseComments,
   ].some((fn) => fn(context));
 }
 
@@ -897,6 +899,28 @@ function handleTSMappedTypeComments({
   return false;
 }
 
+function handleSwitchDefaultCaseComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    !enclosingNode ||
+    enclosingNode.type !== "SwitchCase" ||
+    enclosingNode.test
+  ) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
+    addBlockStatementFirstComment(followingNode, comment);
+  } else {
+    addDanglingComment(enclosingNode, comment);
+  }
+
+  return true;
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -933,6 +957,7 @@ function getCommentChildNodes(node, options) {
   if (
     (options.parser === "typescript" ||
       options.parser === "flow" ||
+      options.parser === "acorn" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||
       options.parser === "__babel_estree") &&

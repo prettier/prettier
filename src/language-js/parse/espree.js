@@ -50,8 +50,4 @@ function parse(originalText, parsers, options = {}) {
   return postprocess(ast, options);
 }
 
-module.exports = {
-  parsers: {
-    espree: createParser(parse),
-  },
-};
+module.exports = createParser(parse);

@@ -20,7 +20,6 @@ const {
   hasComment,
   CommentCheckFlags,
   isTheOnlyJsxElementInMarkdown,
-  isBlockComment,
   isLineComment,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
@@ -29,8 +28,9 @@ const {
   isCallExpression,
   isMemberExpression,
   markerForIfWithoutBlockAndSameLineComment,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 const {
   printHtmlBinding,
@@ -694,6 +694,10 @@ function printPathNoParens(path, options, print, args) {
         parts.push("case ", print("test"), ":");
       } else {
         parts.push("default:");
+      }
+
+      if (hasComment(node, CommentCheckFlags.Dangling)) {
+        parts.push(" ", printDanglingComments(path, options, true));
       }
 
       const consequent = node.consequent.filter(

@@ -11,7 +11,7 @@ const {
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
 } = require("../../document/index.js");
-const { hasComment, CommentCheckFlags } = require("../utils.js");
+const { hasComment, CommentCheckFlags } = require("../utils/index.js");
 const { getTypeParametersGroupId } = require("./type-parameters.js");
 const { printMethod } = require("./function.js");
 const { printOptionalToken, printTypeAnnotation } = require("./misc.js");

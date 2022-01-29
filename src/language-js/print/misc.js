@@ -4,7 +4,7 @@ const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, join, line },
 } = require("../../document/index.js");
-const { isFlowAnnotationComment } = require("../utils.js");
+const { isFlowAnnotationComment } = require("../utils/index.js");
 
 function printOptionalToken(path) {
   const node = path.getValue();

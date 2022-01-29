@@ -2,27 +2,23 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import builtinModules from "builtin-modules";
-import browserslist from "browserslist";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
-import { NodeGlobalsPolyfillPlugin as esbuildPluginNodeGlobalsPolyfills } from "@esbuild-plugins/node-globals-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
-import { resolveToEsbuildTarget } from "esbuild-plugin-browserslist";
+import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
+import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
 const { __dirname, json } = createEsmUtils(import.meta);
 const packageJson = json.loadSync("../../package.json");
 
-const umdTarget = resolveToEsbuildTarget(
-  browserslist(packageJson.browserslist),
-  { printUnknownTargets: false }
-);
+const umdTarget = browserslistToEsbuild(packageJson.browserslist);
 
 function getBabelConfig(bundle) {
   const config = {
@@ -71,26 +67,31 @@ function getBabelConfig(bundle) {
   return config;
 }
 
-function* getEsbuildOptions(bundle, options) {
+async function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
-    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
-    "process.env.NODE_ENV": JSON.stringify("production"),
     // `tslib` exports global variables
     "createExporter(root": "createExporter({}",
   };
+
+  const define = {
+    "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  };
+
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
-    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
-    // `parser-typescript.js` will contain a path of working directory
+    replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
+
+    define.process = JSON.stringify({ env: {}, argv: [] });
+
+    // Replace `__dirname` and `__filename` with a fake value
+    // So `parser-typescript.js` won't contain a path of working directory
     // See #8268
-    replaceStrings.__filename = JSON.stringify(
+    define.__filename = JSON.stringify(
       "/prettier-security-filename-placeholder.js"
     );
-    replaceStrings.__dirname = JSON.stringify(
-      "/prettier-security-dirname-placeholder"
-    );
+    define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
   const replaceModule = {};
@@ -129,35 +130,42 @@ function* getEsbuildOptions(bundle, options) {
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = { contents: "" };
     }
+
+    // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+    replaceModule.assert = {
+      contents: await fs.readFile(path.join(__dirname, "./shims/assert.cjs")),
+    };
   }
 
-  let shouldMinify = options.minify;
+  let shouldMinify = buildOptions.minify;
   if (typeof shouldMinify !== "boolean") {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
 
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
+    define,
     bundle: true,
     metafile: true,
     plugins: [
-      bundle.target === "universal" && esbuildPluginNodeGlobalsPolyfills(),
-      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginTextReplace({
         include: /\.[cm]?js$/,
         // TODO[@fisker]: Use RegExp when possible
         pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
       }),
-      options.onLicenseFound &&
+      buildOptions.onLicenseFound &&
         esbuildPluginLicense({
           cwd: PROJECT_ROOT,
           thirdParty: {
             includePrivate: true,
-            output: options.onLicenseFound,
+            output: buildOptions.onLicenseFound,
           },
         }),
+      buildOptions.reports &&
+        esbuildPluginVisualizer({ formats: buildOptions.reports }),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
@@ -174,7 +182,7 @@ function* getEsbuildOptions(bundle, options) {
 
     yield {
       ...esbuildOptions,
-      outfile: path.join(DIST_DIR, bundle.output),
+      outfile: bundle.output,
       plugins: [
         esbuildPluginUmd({ name: bundle.name }),
         ...esbuildOptions.plugins,
@@ -182,13 +190,10 @@ function* getEsbuildOptions(bundle, options) {
       format: "umd",
     };
 
-    if (!bundle.format && !options.playground) {
+    if (/^(?:standalone|parser-.*)\.js$/.test(bundle.output)) {
       yield {
         ...esbuildOptions,
-        outfile: path.join(
-          DIST_DIR,
-          `esm/${bundle.output.replace(".js", ".mjs")}`
-        ),
+        outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
         format: "esm",
       };
     }
@@ -202,13 +207,18 @@ function* getEsbuildOptions(bundle, options) {
 
     yield {
       ...esbuildOptions,
-      outfile: path.join(DIST_DIR, bundle.output),
+      outfile: bundle.output,
       format: "cjs",
     };
   }
 }
 
-async function runBuild(bundle, esbuildOptions) {
+async function runBuild(bundle, esbuildOptions, buildOptions) {
+  if (!buildOptions.babel) {
+    await esbuild.build(esbuildOptions);
+    return;
+  }
+
   const { format, plugins, outfile } = esbuildOptions;
 
   await esbuild.build({
@@ -228,26 +238,31 @@ async function runBuild(bundle, esbuildOptions) {
 
   await esbuild.build({
     ...esbuildOptions,
+    define: {},
     plugins: plugins.filter(({ name }) => name === "umd"),
     entryPoints: [outfile],
     allowOverwrite: true,
   });
 }
 
-async function createBundle(bundle, options) {
-  if (
-    options.playground &&
-    (bundle.target !== "universal" || bundle.output === "doc.js")
-  ) {
-    return { skipped: true };
-  }
+async function* createBundle(bundle, buildOptions) {
+  for await (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
+    const { outfile: file } = esbuildOptions;
 
-  const esbuildOptions = getEsbuildOptions(bundle, options);
-  for (const options of esbuildOptions) {
-    await runBuild(bundle, options);
-  }
+    if (
+      (buildOptions.files && !buildOptions.files.has(file)) ||
+      (buildOptions.playground && esbuildOptions.format !== "umd")
+    ) {
+      yield { name: file, skipped: true };
+      continue;
+    }
 
-  return { bundled: true };
+    esbuildOptions.outfile = path.join(DIST_DIR, buildOptions.saveAs || file);
+
+    yield { name: file, started: true };
+    await runBuild(bundle, esbuildOptions, buildOptions);
+    yield { name: file, file: esbuildOptions.outfile };
+  }
 }
 
 export default createBundle;

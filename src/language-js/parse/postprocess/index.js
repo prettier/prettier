@@ -1,9 +1,9 @@
 "use strict";
 
-const { getLast } = require("../../../common/util.js");
 const { locStart, locEnd } = require("../../loc.js");
-const { isTypeCastComment } = require("../../comments.js");
-const { isTsKeywordType } = require("../../utils.js");
+const isTsKeywordType = require("../../utils/is-ts-keyword-type.js");
+const isTypeCastComment = require("../../utils/is-type-cast-comment.js");
+const getLast = require("../../../utils/get-last.js");
 const visitNode = require("./visitNode.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");
 
@@ -20,6 +20,7 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
+    options.parser !== "acorn" &&
     options.parser !== "espree" &&
     options.parser !== "meriyah"
   ) {
@@ -134,8 +135,8 @@ function postprocess(ast, options) {
   }
 }
 
-// This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
-// and `typescript` into `babel` shape AST, we should do the opposite,
+// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
+// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
 // since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {

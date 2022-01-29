@@ -20,8 +20,8 @@ const {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
-  isTsKeywordType,
-} = require("../utils.js");
+} = require("../utils/index.js");
+const isTsKeywordType = require("../utils/is-ts-keyword-type.js");
 const { locStart, locEnd } = require("../loc.js");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc.js");

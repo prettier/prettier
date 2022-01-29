@@ -13,6 +13,7 @@ const languages = [
       since: "0.0.0",
       parsers: [
         "babel",
+        "acorn",
         "espree",
         "meriyah",
         "babel-flow",

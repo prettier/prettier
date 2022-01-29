@@ -26,6 +26,7 @@ run_spec(
   },
   [
     "babel",
+    "acorn",
     "espree",
     // `meriyah` didn't throw https://github.com/meriyah/meriyah/issues/190
     // "meriyah",

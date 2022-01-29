@@ -14,7 +14,7 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils.js");
+} = require("./utils/index.js");
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,

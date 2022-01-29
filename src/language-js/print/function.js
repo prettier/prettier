@@ -43,7 +43,7 @@ const {
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locEnd } = require("../loc.js");
 const {
   printFunctionParameters,

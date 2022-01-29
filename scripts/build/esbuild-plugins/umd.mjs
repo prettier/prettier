@@ -46,8 +46,8 @@ function getUmdWrapper(name, build) {
 
   if (minify) {
     wrapper = build.esbuild
-      .buildSync({ stdin: { contents: wrapper }, minify, write: false })
-      .outputFiles[0].text.trim();
+      .transformSync(wrapper, { loader: "js", minify })
+      .code.trim();
   }
 
   const [intro, outro] = wrapper.split(placeholder);

@@ -129,6 +129,7 @@ const options = {
       { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
+      { value: "acorn", since: "2.6.0", description: "JavaScript" },
       { value: "espree", since: "2.2.0", description: "JavaScript" },
       { value: "meriyah", since: "2.2.0", description: "JavaScript" },
       { value: "css", since: "1.7.1", description: "CSS" },

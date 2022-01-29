@@ -11,7 +11,7 @@ const {
   isTextLikeNode,
   hasPrettierIgnore,
   preferHardlineAsLeadingSpaces,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const {
   printOpeningTagPrefix,
   needsToBorrowNextOpeningTagStartMarker,

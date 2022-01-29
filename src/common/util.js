@@ -1,11 +1,10 @@
 "use strict";
 
-const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last.js");
 const { getSupportInfo } = require("../main/support.js");
-
-const notAsciiRegex = /[^\x20-\x7F]/;
+const isNonEmptyArray = require("../utils/is-non-empty-array.js");
+const getStringWidth = require("../utils/get-string-width.js");
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -517,23 +516,6 @@ function getMinNotPresentContinuousCount(str, target) {
   return max + 1;
 }
 
-/**
- * @param {string} text
- * @returns {number}
- */
-function getStringWidth(text) {
-  if (!text) {
-    return 0;
-  }
-
-  // shortcut to avoid needless string `RegExp`s, replacements, and allocations within `string-width`
-  if (!notAsciiRegex.test(text)) {
-    return text.length;
-  }
-
-  return stringWidth(text);
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -578,25 +560,6 @@ function inferParserByLanguage(language, options) {
 
 function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
-}
-
-function getShebang(text) {
-  if (!text.startsWith("#!")) {
-    return "";
-  }
-  const index = text.indexOf("\n");
-  if (index === -1) {
-    return text;
-  }
-  return text.slice(0, index);
-}
-
-/**
- * @param {any} object
- * @returns {object is Array<any>}
- */
-function isNonEmptyArray(object) {
-  return Array.isArray(object) && object.length > 0;
 }
 
 /**
@@ -664,7 +627,6 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
-  getShebang,
   isNonEmptyArray,
   createGroupIdMapper,
 };

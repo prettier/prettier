@@ -18,7 +18,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locEnd } = require("../loc.js");
 
 const {

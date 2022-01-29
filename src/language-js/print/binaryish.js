@@ -26,7 +26,7 @@ const {
   isMemberExpression,
   isEnabledHackPipeline,
   isAssignmentLike,
-} = require("../utils.js");
+} = require("../utils/index.js");
 
 /** @typedef {import("../../document").Doc} Doc */
 

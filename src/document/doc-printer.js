@@ -1,7 +1,8 @@
 "use strict";
 
-const { getStringWidth, getLast } = require("../common/util.js");
 const { convertEndOfLineToChars } = require("../common/end-of-line.js");
+const getLast = require("../utils/get-last.js");
+const getStringWidth = require("../utils/get-string-width.js");
 const { fill, cursor, indent } = require("./doc-builders.js");
 const { isConcat, getDocParts } = require("./doc-utils.js");
 

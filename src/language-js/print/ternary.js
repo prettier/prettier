@@ -3,14 +3,14 @@
 const { hasNewlineInRange } = require("../../common/util.js");
 const {
   isJsxNode,
-  isBlockComment,
   getComments,
   isCallExpression,
   isMemberExpression,
   isBinaryish,
   isAssignmentLike,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
+const isBlockComment = require("../utils/is-block-comment.js");
 const {
   builders: {
     line,

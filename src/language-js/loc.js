@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util.js");
+const isNonEmptyArray = require("../utils/is-non-empty-array.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
