@@ -28,6 +28,14 @@ To print the bundled file sizes:
 yarn build --print-size
 ```
 
+### `--compare-size`
+
+Print the file size changes compare to the last released version:
+
+```sh
+yarn build --compare-size
+```
+
 ### `--file`
 
 To build specific file(s):
