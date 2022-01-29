@@ -459,6 +459,7 @@ function handleMethodNameComments({
   if (
     enclosingNode &&
     precedingNode &&
+    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "(" &&
     // "MethodDefinition" is handled in getCommentChildNodes
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
