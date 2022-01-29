@@ -6,7 +6,6 @@ import readline from "node:readline";
 import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
-import rimraf from "rimraf";
 import {
   PROJECT_ROOT,
   DIST_DIR,
@@ -161,13 +160,26 @@ async function run(params) {
     throw new Error("'--save-as' can only relative path");
   }
 
+  if (params.clean) {
+    let stat;
+    try {
+      stat = await fs.stat(DIST_DIR);
+    } catch {
+      // No op
+    }
+
+    if (stat) {
+      if (stat.isDirectory()) {
+        await fs.rm(DIST_DIR, { recursive: true, force: true });
+      } else {
+        throw new Error(`"${DIST_DIR}" is not a directory`);
+      }
+    }
+  }
+
   const shouldPreparePackage =
     !params.playground && !params.files && params.minify === null;
   const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
-
-  if (shouldPreparePackage) {
-    rimraf.sync(DIST_DIR);
-  }
 
   const licenses = [];
   if (shouldSaveBundledPackagesLicenses) {
@@ -195,9 +207,10 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "minify", "babel"],
+    boolean: ["playground", "print-size", "minify", "babel", "clean"],
     string: ["file", "save-as", "report"],
     default: {
+      clean: false,
       playground: false,
       printSize: false,
       minify: null,
