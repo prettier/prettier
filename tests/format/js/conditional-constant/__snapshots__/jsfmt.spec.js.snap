@@ -1,0 +1,541 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`binary.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a =
+  foooo === foo
+    ? bar
+    : baz;
+
+a.b =
+  foooooooo ===
+  foo
+    ? bar
+    : baz;
+
+const c =
+  a === foo
+    ? bar
+    : baz
+    ? bar
+    : baz;
+
+const d = foo
+  ? bar
+  : a === foo;
+
+const e = foo
+  ? foo
+    ? bar
+    : baz
+  : baz;
+
+const f = foo
+  ? foo === bar
+  : baz;
+
+const g =
+  foooo && fooo
+    ? bar
+    : baz;
+
+const h =
+  foooo ?? fooo
+    ? bar
+    : baz;
+
+const i =
+  foooo || fooo
+    ? bar
+    : baz;
+
+const j =
+  fooooo > fooo
+    ? bar
+    : baz;
+
+const k =
+  fooooo < fooo
+    ? bar
+    : baz;
+
+const l =
+  foooo >= fooo
+    ? bar
+    : baz;
+
+const m =
+  foooo <= fooo
+    ? bar
+    : baz;
+
+const n =
+  foooo != fooo
+    ? bar
+    : baz;
+
+const o =
+  foooo != fooo &&
+  fooo != fooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    fooooo === foo
+      ? foo
+      : foo,
+};
+
+class X {
+  prop1 =
+    foooo === foo
+      ? foo
+      : foo;
+  #prop2 =
+    fooo === foo
+      ? foo
+      : foo;
+}
+
+================================================================================
+`;
+
+exports[`binary.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a = foooo === foo
+  ? bar
+  : baz;
+
+a.b = foooooooo === foo
+  ? bar
+  : baz;
+
+const c = a === foo
+  ? bar
+  : baz
+  ? bar
+  : baz;
+
+const d = foo
+  ? bar
+  : a === foo;
+
+const e = foo
+  ? foo
+    ? bar
+    : baz
+  : baz;
+
+const f = foo
+  ? foo === bar
+  : baz;
+
+const g = foooo && fooo
+  ? bar
+  : baz;
+
+const h = foooo ?? fooo
+  ? bar
+  : baz;
+
+const i = foooo || fooo
+  ? bar
+  : baz;
+
+const j = fooooo > fooo
+  ? bar
+  : baz;
+
+const k = fooooo < fooo
+  ? bar
+  : baz;
+
+const l = foooo >= fooo
+  ? bar
+  : baz;
+
+const m = foooo <= fooo
+  ? bar
+  : baz;
+
+const n = foooo != fooo
+  ? bar
+  : baz;
+
+const o =
+  foooo != fooo &&
+  fooo != fooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1: fooooo === foo
+    ? foo
+    : foo,
+};
+
+class X {
+  prop1 = foooo === foo
+    ? foo
+    : foo;
+  #prop2 = fooo === foo
+    ? foo
+    : foo;
+}
+
+================================================================================
+`;
+
+exports[`binary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a = foooo === foo ? bar : baz;
+
+a.b = foooooooo === foo ? bar : baz;
+
+const c = a === foo ? bar : baz ? bar : baz;
+
+const d = foo ? bar : a === foo;
+
+const e = foo ? (foo ? bar : baz) : baz;
+
+const f = foo ? foo === bar : baz;
+
+const g = foooo && fooo ? bar : baz;
+
+const h = foooo ?? fooo ? bar : baz;
+
+const i = foooo || fooo ? bar : baz;
+
+const j = fooooo > fooo ? bar : baz;
+
+const k = fooooo < fooo ? bar : baz;
+
+const l = foooo >= fooo ? bar : baz;
+
+const m = foooo <= fooo ? bar : baz;
+
+const n = foooo != fooo ? bar : baz;
+
+const o = foooo != fooo && fooo != fooo ? bar : baz;
+
+const x = {
+  prop1: fooooo === foo ? foo : foo,
+};
+
+class X {
+  prop1 = foooo === foo ? foo : foo;
+  #prop2 = fooo === foo ? foo : foo;
+}
+
+================================================================================
+`;
+
+exports[`constant.js - {"printWidth":18} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 18
+                  | printWidth
+=====================================input======================================
+const a = !fooooooooo
+    ? bar
+    : baz;
+const b = fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oo()
+    ? bar
+    : baz,
+};
+
+
+
+=====================================output=====================================
+const a =
+  !fooooooooo
+    ? bar
+    : baz;
+const b =
+  fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+      ? bar
+      : baz,
+  prop1:
+    fooooooooo
+      ? bar
+      : baz,
+  prop1:
+    foooo.oooo
+      ? bar
+      : baz,
+  prop1:
+    foooo.oo()
+      ? bar
+      : baz,
+};
+
+================================================================================
+`;
+
+exports[`constant.js - {"printWidth":25} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 25
+                         | printWidth
+=====================================input======================================
+const a = !fooooooooo
+    ? bar
+    : baz;
+const b = fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oo()
+    ? bar
+    : baz,
+};
+
+
+
+=====================================output=====================================
+const a = !fooooooooo
+  ? bar
+  : baz;
+const b = fooooooooo
+  ? bar
+  : baz;
+
+const x = {
+  prop1: !fooooooooo
+    ? bar
+    : baz,
+  prop1: fooooooooo
+    ? bar
+    : baz,
+  prop1: foooo.oooo
+    ? bar
+    : baz,
+  prop1: foooo.oo()
+    ? bar
+    : baz,
+};
+
+================================================================================
+`;
+
+exports[`constant.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = !fooooooooo
+    ? bar
+    : baz;
+const b = fooooooooo
+    ? bar
+    : baz;
+
+const x = {
+  prop1:
+    !fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    fooooooooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oooo
+    ? bar
+    : baz,
+  prop1:
+    foooo.oo()
+    ? bar
+    : baz,
+};
+
+
+
+=====================================output=====================================
+const a = !fooooooooo ? bar : baz;
+const b = fooooooooo ? bar : baz;
+
+const x = {
+  prop1: !fooooooooo ? bar : baz,
+  prop1: fooooooooo ? bar : baz,
+  prop1: foooo.oooo ? bar : baz,
+  prop1: foooo.oo() ? bar : baz,
+};
+
+================================================================================
+`;
