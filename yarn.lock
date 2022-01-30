@@ -2849,10 +2849,10 @@ esbuild-openbsd-64@0.14.13:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.14.13.tgz#5394336b602e1db15583bbef7d827a2b9648e373"
   integrity sha512-bp6zSo3kDCXKPM5MmVUg6DEpt+yXDx37iDGzNTn3Kf9xh6d0cdITxUC4Bx6S3Di79GVYubWs+wNjSRVFIJpryw==
 
-esbuild-plugin-text-replace@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/esbuild-plugin-text-replace/-/esbuild-plugin-text-replace-1.1.3.tgz#3bd357b90e921fe56f4b13916302f77f9bc4f651"
-  integrity sha512-UY7nVdyxOXomNL0y+qLMcTV2nlbFP7gse1+RIdL1EvevahkSNcGWAAF6XmSE0k7MLbpS/hsLr1PE6n4PI+h5GA==
+esbuild-plugin-text-replace@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-text-replace/-/esbuild-plugin-text-replace-1.2.0.tgz#43d87d88c5c1314151d8046d490aa21605fe1feb"
+  integrity sha512-04kdAMjxqGG+TEV/F+uGQVMFZlh65Eb11xo8b532io8FjOg5x2faoCXGicJo97BovXYARCPUhiZEECKZrFQq7Q==
   dependencies:
     ts-replace-all "^1.0.0"
 
