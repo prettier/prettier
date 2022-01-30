@@ -74,7 +74,7 @@ const {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
