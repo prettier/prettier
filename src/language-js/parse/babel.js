@@ -1,10 +1,8 @@
 "use strict";
 
 const tryCombinations = require("../../utils/try-combinations.js");
-const {
-  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
-} = require("../../common/util.js");
 const getShebang = require("../utils/get-shebang.js");
+const getNextNonSpaceNonCommentCharacterIndexWithStartIndex = require("../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js");
 const createParser = require("./utils/create-parser.js");
 const createBabelParseError = require("./utils/create-babel-parse-error.js");
 const postprocess = require("./postprocess/index.js");
