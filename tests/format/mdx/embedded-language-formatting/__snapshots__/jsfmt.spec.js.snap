@@ -68,6 +68,9 @@ const Hello = () => {
      <p>Hello!<p/>);
 }
 
+ <Hello
+   />
+
 {/* prettier-ignore-end */}
 
 <!-- prettier-ignore-start -->
@@ -109,6 +112,9 @@ const Hello = () => {
    return (
      <p>Hello!<p/>);
 }
+
+ <Hello
+   />
 
 {/* prettier-ignore-end */}
 
