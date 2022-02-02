@@ -3482,6 +3482,8 @@ $background
 @mixin button-variant($foo: "  ...  ") {}
 @mixin sexy-border($color, $width, $foo: (color: red)) {}
 
+@mixin selector($param: "value") {}
+
 =====================================output=====================================
 @mixin clearfix {
 }
@@ -3549,6 +3551,9 @@ $background
 @mixin button-variant($foo: "  ...  ") {
 }
 @mixin sexy-border($color, $width, $foo: (color: red)) {
+}
+
+@mixin selector($param: "value") {
 }
 
 ================================================================================
