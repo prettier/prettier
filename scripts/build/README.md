@@ -12,6 +12,14 @@ yarn build
 
 ## Flags
 
+### `--clean`
+
+Remove `dist` directory before bundle files.
+
+```sh
+yarn build --clean
+```
+
 ### `--playground`
 
 Run script with `--playground` flag will only build files needed for the website.
