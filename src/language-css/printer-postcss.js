@@ -900,24 +900,38 @@ function genericPrint(path, options, print) {
           indent([
             softline,
             join(
-              [",", line],
-              path.map((childPath) => {
-                const node = childPath.getValue();
-                const printed = print();
+              [line],
+              path.map((childPath, index) => {
+                const child = childPath.getValue();
+                const isLast = index === node.groups.length - 1;
+                const printed = [print(), isLast ? "" : ","];
 
                 // Key/Value pair in open paren already indented
                 if (
-                  isKeyValuePairNode(node) &&
-                  node.type === "value-comma_group" &&
-                  node.groups &&
-                  node.groups[0].type !== "value-paren_group" &&
-                  node.groups[2] &&
-                  node.groups[2].type === "value-paren_group"
+                  isKeyValuePairNode(child) &&
+                  child.type === "value-comma_group" &&
+                  child.groups &&
+                  child.groups[0].type !== "value-paren_group" &&
+                  child.groups[2] &&
+                  child.groups[2].type === "value-paren_group"
                 ) {
-                  const parts = getDocParts(printed.contents.contents);
+                  const parts = getDocParts(printed[0].contents.contents);
                   parts[1] = group(parts[1]);
-
                   return group(dedent(printed));
+                }
+
+                if (
+                  !isLast &&
+                  child.type === "value-comma_group" &&
+                  child.groups &&
+                  child.groups[0].type !== "value-paren_group" &&
+                  isNextLineEmpty(
+                    options.originalText,
+                    getLast(child.groups),
+                    locEnd
+                  )
+                ) {
+                  printed.push(hardline);
                 }
 
                 return printed;
