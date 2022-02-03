@@ -5,8 +5,9 @@ import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { readPackage } from "read-pkg";
 import { writePackage } from "write-pkg";
-
-const vendors = ["string-width", "mem"];
+import { readPackageUp } from "read-pkg-up";
+import vendors from "./vendors.mjs";
+import { writeVendorVersions } from "./vendor-versions.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const rootDir = path.join(__dirname, "..", "..");
@@ -15,6 +16,18 @@ const vendorsDir = path.join(rootDir, "vendors");
 // prettier/vendors/*.js
 const getVendorFilePath = (vendorName) =>
   path.join(vendorsDir, `${vendorName}.js`);
+
+async function lockVersions(vendors) {
+  const vendorVersions = {};
+  for (const vendor of vendors) {
+    const { packageJson: vendorPackage } = await readPackageUp({
+      cwd: path.dirname(require.resolve(vendor)),
+    });
+    const vendorVersion = vendorPackage.version;
+    vendorVersions[vendor] = vendorVersion;
+  }
+  await writeVendorVersions(vendorVersions);
+}
 
 async function bundle(vendor) {
   /** @type {import("esbuild").CommonOptions} */
@@ -44,6 +57,8 @@ async function main() {
   }
   await updatePackage(imports);
   console.log("Updated: package.json");
+  await lockVersions(vendors);
+  console.log("Locked: vendor-versions.json");
 }
 
 main();
