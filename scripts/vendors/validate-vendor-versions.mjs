@@ -26,11 +26,11 @@ async function main() {
   }
   if (errors.length > 0) {
     for (const { packageName, oldVersion, newVersion } of errors) {
-      console.log(
+      console.error(
         `The version of \`${packageName}\` is "${newVersion}", expected locked "${oldVersion}"`
       );
     }
-    console.log("Did you forget running `./scripts/vendors/bundle.mjs`?");
+    throw new Error("Did you forget running `./scripts/vendors/bundle.mjs`?");
   } else {
     console.log("Done");
   }
