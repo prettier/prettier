@@ -476,6 +476,14 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
+  if (node.type === "comment") {
+    // <!-- display: block -->
+    const match = node.value.match(/^\s*display:\s*([a-z]+)\s*$/);
+    if (match) {
+      return match[1];
+    }
+  }
+
   if (node.prev && node.prev.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
@@ -491,6 +499,10 @@ function getNodeCssStyleDisplay(node, options) {
     } else {
       return node.name === "svg" ? "inline-block" : "block";
     }
+  }
+
+  if (node.type === "text") {
+    return "inline";
   }
 
   switch (options.htmlWhitespaceSensitivity) {
