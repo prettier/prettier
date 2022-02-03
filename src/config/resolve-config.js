@@ -2,7 +2,7 @@
 
 const path = require("path");
 const minimatch = require("minimatch");
-const mem = require("mem");
+const { default: mem, memClear } = require("#mem");
 const thirdParty = require("../common/third-party.js");
 
 const loadToml = require("../utils/load-toml.js");
@@ -127,7 +127,7 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
-  mem.clear(getExplorerMemoized);
+  memClear(getExplorerMemoized);
   resolveEditorConfig.clearCache();
 }
 

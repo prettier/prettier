@@ -3,7 +3,7 @@
 const path = require("path");
 
 const editorconfig = require("editorconfig");
-const mem = require("mem");
+const { default: mem, memClear } = require("#mem");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
 const findProjectRoot = require("./find-project-root.js");
 
@@ -36,8 +36,8 @@ function getLoadFunction(opts) {
 }
 
 function clearCache() {
-  mem.clear(editorconfigSyncWithCache);
-  mem.clear(editorconfigAsyncWithCache);
+  memClear(editorconfigSyncWithCache);
+  memClear(editorconfigAsyncWithCache);
 }
 
 module.exports = {

@@ -6,7 +6,7 @@ import esbuild from "esbuild";
 import { readPackage } from "read-pkg";
 import { writePackage } from "write-pkg";
 
-const vendors = ["string-width"];
+const vendors = ["string-width", "mem"];
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const rootDir = path.join(__dirname, "..", "..");
