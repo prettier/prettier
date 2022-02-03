@@ -9,13 +9,13 @@ const { require } = createEsmUtils(import.meta);
 
 async function main() {
   const errors = [];
-  const verndorVersions = await getVendorVersions();
+  const vendorVersions = await getVendorVersions();
   for (const vendor of vendors) {
     const { packageJson: vendorPackage } = await readPackageUp({
       cwd: require.resolve(vendor),
     });
     const vendorPackageVersion = vendorPackage.version;
-    const lockedVersion = verndorVersions[vendor];
+    const lockedVersion = vendorVersions[vendor];
     if (vendorPackageVersion !== lockedVersion) {
       errors.push({
         oldVersion: lockedVersion,

@@ -10,7 +10,7 @@ Currently, Prettier is developed using CommonJS Modules. This is for historical 
 
 However, migrating to ECMAScript Modules is not an easy task.
 
-While we are working on it, several important packages are being migrated to Pure ESM. Please see https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c from [@sindresorhus](https://github.com/sindresorhus) about Pure ESM Pacakges.
+While we are working on it, several important packages are being migrated to Pure ESM. Please see https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c from [@sindresorhus](https://github.com/sindresorhus) about Pure ESM Packages.
 
 It would be a problem if Prettier could not use the new Pure ESM Package until we have completed that work.
 
@@ -30,15 +30,15 @@ This script do the following 4 things:
 
 **1. Bundle ESM Packages to CommonJS**
 
-This bundles listed packages in `verndors.mjs` into `/vendors/*.js` as CommonJS.
+This bundles listed packages in `vendors.mjs` into `/vendors/*.js` as CommonJS.
 
 **2. Update `package.json`**
 
-This updates [`"imports"` in `package.json`](https://nodejs.org/api/packages.html#imports) to enables aliases to resolve pacakges put in `/vendors/*.js`.
+This updates [`"imports"` in `package.json`](https://nodejs.org/api/packages.html#imports) to enables aliases to resolve packages put in `/vendors/*.js`.
 
 **3. Lock ESM Packages version to `vendor-versions.json`**
 
-This locks versions of pacakges that is bundled to `vendor-versions.json`. It is used to validate by `validate-vendor-versions.mjs`.
+This locks versions of packages that is bundled to `vendor-versions.json`. It is used to validate by `validate-vendor-versions.mjs`.
 
 **4. Generate `/vendors/types.d.ts`**
 
