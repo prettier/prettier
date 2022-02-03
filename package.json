@@ -90,7 +90,8 @@
   },
   "imports": {
     "#string-width": "./vendors/string-width.js",
-    "#mem": "./vendors/mem.js"
+    "#mem": "./vendors/mem.js",
+    "#globby": "./vendors/globby.js"
   },
   "devDependencies": {
     "@babel/core": "7.17.0",

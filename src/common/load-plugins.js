@@ -102,7 +102,11 @@ function load(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
+<<<<<<< HEAD
   const pluginPackageJsonPaths = fastGlob.sync(
+=======
+  const pluginPackageJsonPaths = globbySync(
+>>>>>>> globby
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
