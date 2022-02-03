@@ -13,6 +13,7 @@
   "exclude": [
     "coverage/",
     "test*.*",
+    "vendors/*.js",
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",

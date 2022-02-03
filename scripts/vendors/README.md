@@ -26,7 +26,7 @@ So we will put the files bundled with Pure ESM Packages as CommonJS Modules unde
 node ./scripts/vendors/bundle-vendors.mjs
 ```
 
-This script do the following 3 things:
+This script do the following 4 things:
 
 **1. Bundle ESM Packages to CommonJS**
 
@@ -39,6 +39,10 @@ This updates [`"imports"` in `package.json`](https://nodejs.org/api/packages.htm
 **3. Lock ESM Packages version to `vendor-versions.json`**
 
 This locks versions of pacakges that is bundled to `vendor-versions.json`. It is used to validate by `validate-vendor-versions.mjs`.
+
+**4. Generate `/vendors/types.d.ts`**
+
+This Generates a minimal type definition file that satisfies `lint:typecheck`.
 
 ### `/scripts/vendors/validate-vendor-versions.mjs`
 

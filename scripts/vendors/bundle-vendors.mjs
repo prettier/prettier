@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
@@ -47,6 +48,14 @@ async function updatePackage(imports) {
   await writePackage(pkg, { normalize: false });
 }
 
+async function generateDts(vendors) {
+  let dtsContent = "// This file is generate automatically.\n";
+  for (const vendor of vendors) {
+    dtsContent += `declare module "#${vendor}";\n`;
+  }
+  await fs.writeFile(path.join(vendorsDir, "types.d.ts"), dtsContent, "utf-8");
+}
+
 async function main() {
   const imports = {};
   for (const vendor of vendors) {
@@ -59,6 +68,8 @@ async function main() {
   console.log("Updated: package.json");
   await lockVersions(vendors);
   console.log("Locked: vendor-versions.json");
+  await generateDts(vendors);
+  console.log("Generated: vendors/types.d.ts");
 }
 
 main();
