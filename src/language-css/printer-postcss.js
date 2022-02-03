@@ -493,8 +493,8 @@ function genericPrint(path, options, print) {
         grandParent.type === "value-func" &&
         grandParent.value === "selector"
       ) {
-        const start = locStart(parentNode.open) + 1;
-        const end = locEnd(parentNode.close) - 1;
+        const start = locEnd(parentNode.open) + 1;
+        const end = locStart(parentNode.close);
         const selector = options.originalText.slice(start, end).trim();
 
         return lastLineHasInlineComment(selector)
