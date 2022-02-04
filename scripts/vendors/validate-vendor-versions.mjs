@@ -30,9 +30,10 @@ async function main() {
         `The version of \`${packageName}\` is "${newVersion}", expected locked "${oldVersion}"`
       );
     }
-    throw new Error(
+    console.error(
       "Did you forget running `./scripts/vendors/bundle-vendors.mjs`?"
     );
+    process.exitCode = 1;
   } else {
     console.log("Done");
   }
