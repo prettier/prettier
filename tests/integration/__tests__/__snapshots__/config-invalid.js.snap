@@ -36,6 +36,15 @@ exports[`throw error for unsupported extension (stdout) 1`] = `""`;
 
 exports[`throw error for unsupported extension (write) 1`] = `Array []`;
 
+exports[`throw error if both --config and --no-config are submitted (stderr) 1`] = `
+"[error] You provided both a config and the --no-config flag. Please remove one!
+"
+`;
+
+exports[`throw error if both --config and --no-config are submitted (stdout) 1`] = `""`;
+
+exports[`throw error if both --config and --no-config are submitted (write) 1`] = `Array []`;
+
 exports[`throw error with invalid config format (stdout) 1`] = `""`;
 
 exports[`throw error with invalid config format (stdout) 2`] = `""`;

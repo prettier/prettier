@@ -72,6 +72,12 @@ describe("resolves external configuration from package.json", () => {
   });
 });
 
+describe("throw error if both --config and --no-config are submitted", () => {
+  runPrettier("cli/config/invalid", ["--config", "abc", "--no-config"]).test({
+    status: "non-zero",
+  });
+});
+
 // Tests below require --parser to prevent an error (no parser/filepath specified)
 
 describe("show warning with unknown option", () => {
