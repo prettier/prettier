@@ -1,10 +1,6 @@
 import fs from "node:fs/promises";
-import path from "node:path";
-import createEsmUtils from "esm-utils";
 
-const { __dirname } = createEsmUtils(import.meta);
-
-const vendorVersionsPath = path.join(__dirname, "vendor-versions.json");
+const vendorVersionsPath = new URL("./vendor-versions.json", import.meta.url);
 
 export async function getVendorVersions() {
   return JSON.parse(await fs.readFile(vendorVersionsPath));
