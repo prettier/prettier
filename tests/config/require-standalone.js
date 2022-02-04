@@ -2,11 +2,11 @@
 
 const fs = require("fs");
 const vm = require("vm");
-const globby = require("globby");
+const fastGlob = require("fast-glob");
 
 const sandbox = vm.createContext();
 
-const source = globby
+const source = fastGlob
   .sync(["standalone.js", "parser-*.js"], {
     cwd: process.env.PRETTIER_DIR,
     absolute: true,
