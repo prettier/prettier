@@ -427,6 +427,17 @@ function handleClassComments({
     // Don't add leading comments to `implements`, `extends`, `mixins` to
     // avoid printing the comment after the keyword.
     if (followingNode) {
+      if (
+        enclosingNode.superClass &&
+        followingNode === enclosingNode.superClass &&
+        precedingNode &&
+        (precedingNode === enclosingNode.id ||
+          precedingNode === enclosingNode.typeParameters)
+      ) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
       for (const prop of ["implements", "extends", "mixins"]) {
         if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
           if (
