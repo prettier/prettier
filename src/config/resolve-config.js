@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const minimatch = require("minimatch");
+const micromatch = require("micromatch");
 const thirdParty = require("../common/third-party.js");
 
 const loadToml = require("../utils/load-toml.js");
@@ -165,18 +165,30 @@ function mergeOverrides(configResult, filePath) {
 }
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
-function pathMatchesGlobs(filePath, patterns, excludedPatterns = []) {
+function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
-  const excludedPatternList = Array.isArray(excludedPatterns)
-    ? excludedPatterns
-    : [excludedPatterns];
-  const opts = { matchBase: true, dot: true };
-
+  // micromatch always matches against basename when the option is enabled
+  // use only patterns without slashes with it to match minimatch bahavior
+  const withSlashes = [];
+  const withoutSlashes = [];
+  for (const pattern of patternList) {
+    if (pattern.includes("/")) {
+      withSlashes.push(pattern);
+    } else {
+      withoutSlashes.push(pattern);
+    }
+  }
   return (
-    patternList.some((pattern) => minimatch(filePath, pattern, opts)) &&
-    !excludedPatternList.some((excludedPattern) =>
-      minimatch(filePath, excludedPattern, opts)
-    )
+    micromatch.isMatch(filePath, withoutSlashes, {
+      ignore: excludedPatterns,
+      basename: true,
+      dot: true,
+    }) ||
+    micromatch.isMatch(filePath, withSlashes, {
+      ignore: excludedPatterns,
+      basename: false,
+      dot: true,
+    })
   );
 }
 

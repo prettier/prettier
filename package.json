@@ -63,7 +63,7 @@
     "lodash": "4.17.21",
     "mem": "9.0.2",
     "meriyah": "4.2.0",
-    "minimatch": "3.0.4",
+    "micromatch": "4.0.4",
     "minimist": "1.2.5",
     "n-readlines": "1.0.1",
     "outdent": "0.8.0",
