@@ -95,7 +95,6 @@ function needsParens(path, options) {
           node.type === "LogicalExpression" ||
           node.type === "NewExpression" ||
           node.type === "ObjectExpression" ||
-          node.type === "ParenthesizedExpression" ||
           node.type === "SequenceExpression" ||
           node.type === "TaggedTemplateExpression" ||
           node.type === "UnaryExpression" ||
