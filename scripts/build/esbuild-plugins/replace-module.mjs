@@ -1,40 +1,55 @@
+import { dirname } from "node:path";
+
 export default function esbuildPluginReplaceModule(replacements = {}) {
   return {
     name: "replace-module",
     setup(build) {
-      build.onLoad({ filter: /./ }, ({ path }) => {
-        if (!Reflect.has(replacements, path)) {
+      build.onLoad({ filter: /./ }, ({ path, namespace }) => {
+        let options = replacements[path];
+
+        if (!options) {
           return;
         }
 
-        let replacement = replacements[path];
+        options =
+          typeof options === "string" ? { path: options } : { ...options };
 
-        if (typeof replacement === "string") {
-          replacement = { path: replacement };
+        let {
+          path: file,
+          resolveDir,
+          contents,
+          loader = "js",
+          external: isExternal,
+        } = options;
+
+        // Make this work with `@esbuild-plugins/node-modules-polyfill` plugin
+        if (
+          !resolveDir &&
+          namespace === "node-modules-polyfills-commonjs" &&
+          file
+        ) {
+          resolveDir = dirname(file);
         }
 
-        if (replacement.external) {
+        if (isExternal) {
+          if (!file) {
+            throw new Error("Missing external module path.");
+          }
+
           // Prevent `esbuild` to resolve
-          return {
-            contents: `
-              module.exports = require.call(undefined, ${JSON.stringify(
-                `${replacement.path}`
-              )});
-            `,
-          };
+          contents = `
+            const entry = ${JSON.stringify(`${file}`)};
+            module.exports = require(entry);
+          `;
+        } else {
+          if (file) {
+            contents = `
+              module.exports = require(${JSON.stringify(`${file}`)});
+            `;
+          }
         }
 
-        if (replacement.path) {
-          replacement = {
-            contents: `
-              module.exports = require(${JSON.stringify(
-                `${replacement.path}`
-              )});
-            `,
-          };
-        }
-
-        return replacement;
+        return { contents, loader, resolveDir };
       });
     },
   };
