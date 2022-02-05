@@ -6,5 +6,8 @@
   <div class="red">
     What is going on {{ prop1 }} and {{ prop2 }}
   </div>
+  <p>
+    Your email address belongs to <strong>{{ account.name }}</strong>, which already exists.
+  </p>
   </root>
 </template>

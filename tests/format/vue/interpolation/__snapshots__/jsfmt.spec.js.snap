@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parenthesized.vue - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<span>{{(a||          b)}} {{z&&(a&&b)}}</span>
+</template>
+
+=====================================output=====================================
+<template>
+  <span>{{ a || b }} {{ z && a && b }}</span>
+</template>
+
+================================================================================
+`;
+
+exports[`parenthesized.vue - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<span>{{(a||          b)}} {{z&&(a&&b)}}</span>
+</template>
+
+=====================================output=====================================
+<template>
+  <span>{{ a || b }} {{ z && a && b }}</span>
+</template>
+
+================================================================================
+`;
+
 exports[`parenthesized.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -13,6 +51,79 @@ printWidth: 80
 =====================================output=====================================
 <template>
   <span>{{ a || b }} {{ z && a && b }}</span>
+</template>
+
+================================================================================
+`;
+
+exports[`template.vue - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <root>
+<div class="red">
+    We are going to add this simple card here
+  </div>
+  <div class="red">
+    What is going on {{ prop1 }} and {{ prop2 }}
+  </div>
+  <p>
+    Your email address belongs to <strong>{{ account.name }}</strong>, which already exists.
+  </p>
+  </root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <div class="red">We are going to add this simple card here</div>
+    <div class="red">What is going on {{ prop1 }} and {{ prop2 }}</div>
+    <p>
+      Your email address belongs to
+      <strong>{{ account.name }}</strong>
+      , which already exists.
+    </p>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`template.vue - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <root>
+<div class="red">
+    We are going to add this simple card here
+  </div>
+  <div class="red">
+    What is going on {{ prop1 }} and {{ prop2 }}
+  </div>
+  <p>
+    Your email address belongs to <strong>{{ account.name }}</strong>, which already exists.
+  </p>
+  </root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <div class="red"> We are going to add this simple card here </div>
+    <div class="red"> What is going on {{ prop1 }} and {{ prop2 }} </div>
+    <p>
+      Your email address belongs to <strong>{{ account.name }}</strong
+      >, which already exists.
+    </p>
+  </root>
 </template>
 
 ================================================================================
@@ -32,6 +143,9 @@ printWidth: 80
   <div class="red">
     What is going on {{ prop1 }} and {{ prop2 }}
   </div>
+  <p>
+    Your email address belongs to <strong>{{ account.name }}</strong>, which already exists.
+  </p>
   </root>
 </template>
 
@@ -40,6 +154,10 @@ printWidth: 80
   <root>
     <div class="red">We are going to add this simple card here</div>
     <div class="red">What is going on {{ prop1 }} and {{ prop2 }}</div>
+    <p>
+      Your email address belongs to <strong>{{ account.name }}</strong
+      >, which already exists.
+    </p>
   </root>
 </template>
 
