@@ -19,7 +19,6 @@ const {
   needsToBorrowPrevClosingTagEndMarker,
   printClosingTagEndMarker,
   printClosingTagSuffix,
-  needsToBorrowParentClosingTagStartMarker,
 } = require("./tag.js");
 
 function printChild(childPath, options, print) {
