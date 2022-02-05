@@ -168,7 +168,7 @@ function mergeOverrides(configResult, filePath) {
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled
-  // use only patterns without slashes with it to match minimatch bahavior
+  // use only patterns without slashes with it to match minimatch behavior
   const withSlashes = [];
   const withoutSlashes = [];
   for (const pattern of patternList) {
