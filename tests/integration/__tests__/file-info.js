@@ -9,6 +9,8 @@ const runPrettier = require("../run-prettier.js");
 
 const { default: tempy } = require("../../vendors/tempy.js");
 
+const { default: tempy } = require("../../../vendors/tempy.js");
+
 expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("extracts file-info for a js file", () => {
