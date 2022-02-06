@@ -9,6 +9,7 @@ import { writePackage } from "write-pkg";
 import { readPackageUp } from "read-pkg-up";
 import vendors from "./vendors.mjs";
 import { writeVendorVersions } from "./vendor-versions.mjs";
+import esbuildPluginTsNocheck from "./esbuild-plugin-ts-nocheck.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const rootDir = path.join(__dirname, "..", "..");
@@ -58,6 +59,7 @@ async function bundle(vendor) {
     bundle: true,
     target: ["node12.17.0"],
     platform: "node",
+    plugins: [esbuildPluginTsNocheck()],
     outfile,
   };
   await esbuild.build(esbuildOption);
