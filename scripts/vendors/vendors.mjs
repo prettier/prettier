@@ -1,3 +1,3 @@
-const vendors = ["string-width", "mem", "globby"];
+const vendors = ["string-width", "mem"];
 
 export default vendors;
