@@ -2253,10 +2253,10 @@ classnames@^2.2.6:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
-clipboard@2.0.9:
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.9.tgz#beca1a755fb2c65938cc7c6092c421f922632641"
-  integrity sha512-JK1AIxL35mdvQoP50gelg1Gsx6wMsfjtMCzFAdePdrGEHaqTnNAz3qZg4vhmLQDlpTqiVgj7GRzmpIDsAcdvRA==
+clipboard@2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.10.tgz#e61f6f7139ac5044c58c0484dcac9fb2a918bfd6"
+  integrity sha512-cz3m2YVwFz95qSEbCDi2fzLN/epEN9zXBvfgAoGkvGOJZATMl9gtTDVOtBYkx2ODUJl2kvmud7n32sV2BpYR4g==
   dependencies:
     good-listener "^1.2.2"
     select "^1.1.2"
