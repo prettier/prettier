@@ -60,7 +60,7 @@
     "lines-and-columns": "2.0.3",
     "linguist-languages": "7.15.0",
     "lodash": "4.17.21",
-    "mem": "8.1.1",
+    "mem": "9.0.2",
     "meriyah": "4.2.0",
     "minimatch": "3.0.4",
     "minimist": "1.2.5",
@@ -79,7 +79,7 @@
     "remark-parse": "8.0.3",
     "resolve": "1.22.0",
     "semver": "7.3.5",
-    "string-width": "4.2.3",
+    "string-width": "5.0.1",
     "strip-ansi": "6.0.0",
     "typescript": "4.5.5",
     "unicode-regex": "3.0.0",
@@ -87,6 +87,10 @@
     "vnopts": "1.0.2",
     "wcwidth": "1.0.1",
     "yaml-unist-parser": "1.3.1"
+  },
+  "imports": {
+    "#string-width": "./vendors/string-width.js",
+    "#mem": "./vendors/mem.js"
   },
   "devDependencies": {
     "@babel/core": "7.17.0",
@@ -131,10 +135,13 @@
     "path-browserify": "1.0.1",
     "prettier": "2.5.1",
     "pretty-bytes": "5.6.0",
+    "read-pkg": "7.0.0",
+    "read-pkg-up": "9.0.0",
     "rimraf": "3.0.2",
     "rollup-plugin-license": "2.6.1",
     "snapshot-diff": "0.9.0",
-    "tempy": "1.0.1"
+    "tempy": "1.0.1",
+    "write-pkg": "5.0.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
