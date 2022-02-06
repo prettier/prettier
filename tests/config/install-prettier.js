@@ -2,9 +2,9 @@
 
 const path = require("path");
 const fs = require("fs");
-const execa = require("execa");
 const tempy = require("tempy");
 const chalk = require("chalk");
+const { execaSync } = require("#execa");
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
@@ -42,15 +42,15 @@ function cleanUp() {
 module.exports = (packageDir) => {
   const tmpDir = tempy.directory();
   directoriesToClean.add(tmpDir);
-  const fileName = execa
-    .sync("npm", ["pack"], { cwd: packageDir })
-    .stdout.trim();
+  const fileName = execaSync("npm", ["pack"], {
+    cwd: packageDir,
+  }).stdout.trim();
   const file = path.join(packageDir, fileName);
   const packed = path.join(tmpDir, fileName);
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  execa.sync(client, ["init", "-y"], { cwd: tmpDir });
+  execaSync(client, ["init", "-y"], { cwd: tmpDir });
 
   let installArguments = [];
   switch (client) {
@@ -67,7 +67,7 @@ module.exports = (packageDir) => {
       installArguments = ["add", packed];
   }
 
-  execa.sync(client, installArguments, { cwd: tmpDir });
+  execaSync(client, installArguments, { cwd: tmpDir });
   fs.unlinkSync(packed);
 
   const installed = path.join(tmpDir, "node_modules/prettier");
