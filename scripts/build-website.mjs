@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import fastGlob from "fast-glob";
 import prettier from "prettier";
 import createEsmUtils from "esm-utils";
-import execa from "execa";
+import { execa } from "execa";
 import {
   PROJECT_ROOT,
   DIST_DIR,
