@@ -32,7 +32,7 @@ async function lockVersions(vendors) {
 
 async function fileExists(filePath) {
   try {
-    return (await fs.stat(filePath)).isFile()
+    return (await fs.stat(filePath)).isFile();
   } catch {
     return false;
   }
@@ -41,7 +41,7 @@ async function fileExists(filePath) {
 async function cleanExistsBundledJS() {
   for (const file of await fs.readdir(vendorsDir)) {
     const filePath = path.join(vendorsDir, file);
-    if (path.extname(file) === ".js" && await (fileExists(filePath))) {
+    if (path.extname(file) === ".js" && (await fileExists(filePath))) {
       await fs.rm(filePath);
     }
   }
