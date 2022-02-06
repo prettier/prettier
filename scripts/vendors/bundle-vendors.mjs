@@ -38,6 +38,15 @@ async function fileExists(filePath) {
   }
 }
 
+async function cleanExistsBundledJS() {
+  for (const file of await fs.readdir(vendorsDir)) {
+    const filePath = path.join(vendorsDir, file);
+    if (path.extname(file) === ".js" && await (fileExists(filePath))) {
+      await fs.rm(filePath);
+    }
+  }
+}
+
 async function bundle(vendor) {
   const outfile = getVendorFilePath(vendor);
   if (await fileExists(outfile)) {
@@ -69,6 +78,7 @@ async function generateDts(vendors) {
 }
 
 async function main() {
+  await cleanExistsBundledJS();
   const imports = {};
   for (const vendor of vendors) {
     await bundle(vendor);
