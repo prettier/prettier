@@ -4063,10 +4063,10 @@ jest-diff@^27.4.6:
     jest-get-type "^27.4.0"
     pretty-format "^27.4.6"
 
-jest-docblock@27.4.0, jest-docblock@^27.4.0:
-  version "27.4.0"
-  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-27.4.0.tgz#06c78035ca93cbbb84faf8fce64deae79a59f69f"
-  integrity sha512-7TBazUdCKGV7svZ+gh7C8esAnweJoG+SvcF6Cjqj4l17zA2q1cMwx2JObSioubk317H+cjcHgP+7fTs60paulg==
+jest-docblock@27.5.0, jest-docblock@^27.4.0:
+  version "27.5.0"
+  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-27.5.0.tgz#096fa3a8b55d019a954ef7cc205c791bf94b2352"
+  integrity sha512-U4MtJgdZn2x+jpPzd7NAYvDmgJAA5h9QxVAwsyuH7IymGzY8VGHhAkHcIGOmtmdC61ORLxCbEhj6fCJsaCWzXA==
   dependencies:
     detect-newline "^3.0.0"
 
