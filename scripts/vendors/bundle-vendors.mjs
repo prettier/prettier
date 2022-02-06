@@ -30,14 +30,26 @@ async function lockVersions(vendors) {
   await writeVendorVersions(vendorVersions);
 }
 
+async function fileExists(filePath) {
+  try {
+    return (await fs.stat(filePath)).isFile()
+  } catch {
+    return false;
+  }
+}
+
 async function bundle(vendor) {
+  const outfile = getVendorFilePath(vendor);
+  if (await fileExists(outfile)) {
+    await fs.rm(outfile);
+  }
   /** @type {import("esbuild").CommonOptions} */
   const esbuildOption = {
     entryPoints: [require.resolve(vendor)],
     bundle: true,
     target: ["node12.17.0"],
     platform: "node",
-    outfile: getVendorFilePath(vendor),
+    outfile,
   };
   await esbuild.build(esbuildOption);
 }
