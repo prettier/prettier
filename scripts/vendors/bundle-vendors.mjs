@@ -9,6 +9,7 @@ import { writePackage } from "write-pkg";
 import { readPackageUp } from "read-pkg-up";
 import vendors from "./vendors.mjs";
 import { writeVendorVersions } from "./vendor-versions.mjs";
+import esbuildPluginTsNocheck from "./esbuild-plugin-ts-nocheck.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const rootDir = path.join(__dirname, "..", "..");
@@ -32,7 +33,7 @@ async function lockVersions(vendors) {
 
 async function fileExists(filePath) {
   try {
-    return (await fs.stat(filePath)).isFile()
+    return (await fs.stat(filePath)).isFile();
   } catch {
     return false;
   }
@@ -41,7 +42,7 @@ async function fileExists(filePath) {
 async function cleanExistsBundledJS() {
   for (const file of await fs.readdir(vendorsDir)) {
     const filePath = path.join(vendorsDir, file);
-    if (path.extname(file) === ".js" && await (fileExists(filePath))) {
+    if (path.extname(file) === ".js" && (await fileExists(filePath))) {
       await fs.rm(filePath);
     }
   }
@@ -58,6 +59,7 @@ async function bundle(vendor) {
     bundle: true,
     target: ["node12.17.0"],
     platform: "node",
+    plugins: [esbuildPluginTsNocheck()],
     outfile,
   };
   await esbuild.build(esbuildOption);
