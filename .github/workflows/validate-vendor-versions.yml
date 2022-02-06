@@ -26,4 +26,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Validate Vendor Versions
-        run: node ./scripts/vendors/validate-vendor-versions.mjs
+        run: yarn run vendors:validate
