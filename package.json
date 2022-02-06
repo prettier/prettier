@@ -18,7 +18,8 @@
     "index.js",
     "standalone.js",
     "src",
-    "bin"
+    "bin",
+    "vendors"
   ],
   "dependencies": {
     "@angular/compiler": "12.2.16",
