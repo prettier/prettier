@@ -1525,6 +1525,11 @@
   resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-3.3.14.tgz#b72a37c654e598f9ae6f8335faaee182bebc6b28"
   integrity sha512-n2RC9d6XatVbWFdHLimzzUJxJ1KY8LdjqrW6YvGPiRmsHkhOUx74/Ct10x5Yo7bC/Jvqx7cDEW8IMPv/+vwEzA==
 
+"@mdn/browser-compat-data@^4.1.5":
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.1.6.tgz#991b4393404babaac27cbc406dd28763aa14cec4"
+  integrity sha512-JbtcHGODAlkOT6eDV2rCyOguW3+o34ExMD9DOki6kxzeyN3IBtZ9PI0FlbKeD77Bm5U0UG5Heo4qnNbSajXUnw==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -2121,18 +2126,7 @@ browserslist-to-esbuild@1.1.1:
   dependencies:
     browserslist "^4.17.3"
 
-browserslist@^4.16.8, browserslist@^4.17.5:
-  version "4.18.1"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.18.1.tgz#60d3920f25b6860eb917c6c7b185576f4d8b017f"
-  integrity sha512-8ScCzdpPwR2wQh8IT82CA2VgDwjHyqMovPBZSNH54+tm4Jk2pCuv90gmAdH6J84OCRWi0b4gMe6O6XPXuJnjgQ==
-  dependencies:
-    caniuse-lite "^1.0.30001280"
-    electron-to-chromium "^1.3.896"
-    escalade "^3.1.1"
-    node-releases "^2.0.1"
-    picocolors "^1.0.0"
-
-browserslist@^4.17.3, browserslist@^4.19.1:
+browserslist@^4.16.8, browserslist@^4.17.3, browserslist@^4.17.5, browserslist@^4.19.1:
   version "4.19.1"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.19.1.tgz#4ac0435b35ab655896c31d53018b6dd5e9e4c9a3"
   integrity sha512-u2tbbG5PdKRTUoctO3NBD8FQ5HdPh1ZXPHzp1rwaa5jTc+RV9/+RlWiAIKmjRPQF+xbGM9Kklj5bZQFa2s/38A==
@@ -2183,15 +2177,10 @@ camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-caniuse-lite@^1.0.30001267, caniuse-lite@^1.0.30001280:
-  version "1.0.30001283"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001283.tgz#8573685bdae4d733ef18f78d44ba0ca5fe9e896b"
-  integrity sha512-9RoKo841j1GQFSJz/nCXOj0sD7tHBtlowjYlrqIUS812x9/emfBLBt6IyMz1zIaYc/eRL8Cs6HPUVi2Hzq4sIg==
-
-caniuse-lite@^1.0.30001286:
-  version "1.0.30001298"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001298.tgz#0e690039f62e91c3ea581673d716890512e7ec52"
-  integrity sha512-AcKqikjMLlvghZL/vfTHorlQsLDhGRalYf1+GmWCf5SCMziSGjRYQW/JEksj14NaYHIR6KIhrFAy0HV5C25UzQ==
+caniuse-lite@^1.0.30001286, caniuse-lite@^1.0.30001304:
+  version "1.0.30001307"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001307.tgz#27a67f13ebc4aa9c977e6b8256a11d5eafb30f27"
+  integrity sha512-+MXEMczJ4FuxJAUp0jvAl6Df0NI/OfW1RWEE61eSmzS7hw6lz4IKutbhbXendwq8BljfFuHtu26VWsg4afQ7Ng==
 
 ccount@^1.0.0:
   version "1.1.0"
@@ -2705,11 +2694,6 @@ editorconfig@0.15.3:
     semver "^5.6.0"
     sigmund "^1.0.1"
 
-electron-to-chromium@^1.3.896:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.6.tgz#7bf0c03001bcdbd0fc57a45c6b23bc6432246ade"
-  integrity sha512-YDZAXP0P8USm0YoyIXWijxFT3tJHbt3WwY7CTQiK3+Ad6Ai/b9N4GqfDR107jfGilAfxl7Gkhb+h0KPoKXAgqw==
-
 electron-to-chromium@^1.4.17:
   version "1.4.38"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.38.tgz#10ea58d73d36b13e78d5024f3b74a352d3958d01"
@@ -2973,15 +2957,15 @@ eslint-module-utils@^2.7.2:
     debug "^3.2.7"
     find-up "^2.1.0"
 
-eslint-plugin-compat@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-4.0.1.tgz#54e1b5095a7c3ef45701556fce1923d615c76445"
-  integrity sha512-vs4oa+WQcCRH7lD/0H8eh90tnSQurV3Cebt32x28JlP0Kn9UkQT+N8Pm939KavTO3/DiFPQyTPCNdYXcIWP/GA==
+eslint-plugin-compat@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-compat/-/eslint-plugin-compat-4.0.2.tgz#b058627a7d25d352adf0ec16dca8fcf92d9c7af7"
+  integrity sha512-xqvoO54CLTVaEYGMzhu35Wzwk/As7rCvz/2dqwnFiWi0OJccEtGIn+5qq3zqIu9nboXlpdBN579fZcItC73Ycg==
   dependencies:
-    "@mdn/browser-compat-data" "^3.3.14"
+    "@mdn/browser-compat-data" "^4.1.5"
     ast-metadata-inferer "^0.7.0"
     browserslist "^4.16.8"
-    caniuse-lite "^1.0.30001267"
+    caniuse-lite "^1.0.30001304"
     core-js "^3.16.2"
     find-up "^5.0.0"
     lodash.memoize "4.1.2"
