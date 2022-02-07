@@ -16,7 +16,7 @@ When plugins cannot be found automatically, you can load them with:
 - The [CLI](cli.md), via `--plugin-search-dir` and `--plugin`:
 
   ```bash
-  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
+  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=prettier-plugin-foo
   ```
 
   > Tip: You can set `--plugin-search-dir` or `--plugin` options multiple times.
@@ -27,11 +27,11 @@ When plugins cannot be found automatically, you can load them with:
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"],
+    plugins: ["prettier-plugin-foo"],
   });
   ```
 
-- Or the [Configuration File](configuration.md):
+- The [Configuration File](configuration.md):
 
   ```json
   {
@@ -40,7 +40,11 @@ When plugins cannot be found automatically, you can load them with:
   }
   ```
 
-The path that is provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, this can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
+`pluginSearchDirs` and `plugins` are independent and one does not require the other.
+
+The paths that are provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, these can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
+
+Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
 
 Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
 
