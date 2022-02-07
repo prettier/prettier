@@ -5,7 +5,7 @@ const createParser = require("./utils/create-parser.js");
 const replaceHashbang = require("./utils/replace-hashbang.js");
 const postprocess = require("./postprocess/index.js");
 
-// https://github.com/facebook/flow/tree/master/packages/flow-parser#options
+// https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 const parseOptions = {
   // `all_comments` (boolean, default `true`) - include a list of all comments from the whole program
   // all_comments: true,
@@ -29,7 +29,7 @@ const parseOptions = {
   // types: true,
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive
   // use_strict: false,
-  // Not documented
+  // `tokens` (boolean, default false) - include a list of all parsed tokens in a top-level `tokens` property
   tokens: true,
 };
 
