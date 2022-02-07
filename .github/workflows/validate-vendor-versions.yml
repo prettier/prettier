@@ -2,6 +2,9 @@ name: Validate_Vendor_Versions
 
 on:
   push:
+    branches:
+      - main
+      - patch-release
     paths:
       - "package.json"
   pull_request:
