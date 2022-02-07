@@ -1,6 +1,6 @@
 "use strict";
 
-const stringWidth = require("string-width");
+const stringWidth = require("#string-width").default;
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 

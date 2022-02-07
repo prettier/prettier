@@ -2,7 +2,7 @@
 
 import path from "node:path";
 import fs from "node:fs/promises";
-import globby from "globby";
+import fastGlob from "fast-glob";
 import prettier from "prettier";
 import createEsmUtils from "esm-utils";
 import execa from "execa";
@@ -39,7 +39,7 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--playground", "--no-babel"], {
+    await runYarn("build", ["--playground", "--no-babel", "--clean"], {
       cwd: PROJECT_ROOT,
     });
   } finally {
@@ -49,7 +49,7 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const files = await globby(["standalone.js", "parser-*.js"], {
+  const files = await fastGlob(["standalone.js", "parser-*.js"], {
     cwd: PRETTIER_DIR,
   });
   const parsers = {};
