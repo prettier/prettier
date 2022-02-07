@@ -1,4 +1,5 @@
 // @ts-nocheck
+// This file is generated automatically
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;

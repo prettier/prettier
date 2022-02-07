@@ -4,8 +4,8 @@ const path = require("path");
 
 const editorconfig = require("editorconfig");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
+const { default: mem, memClear } = require("../../vendors/mem.js");
 const findProjectRoot = require("./find-project-root.js");
-const { default: mem, memClear } = require("#mem");
 
 const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
 

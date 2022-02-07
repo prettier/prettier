@@ -70,7 +70,6 @@ module.exports = {
   moduleNameMapper: {
     "prettier-local": "<rootDir>/tests/config/require-prettier.js",
     "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
-    "#(.*)": "<rootDir>/vendors/$1",
   },
   modulePathIgnorePatterns: [
     "<rootDir>/dist",
