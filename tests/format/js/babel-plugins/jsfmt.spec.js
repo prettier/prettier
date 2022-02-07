@@ -24,6 +24,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-blocks.js",
       "async-do-expressions.js",
+      "regex-v-flag.js",
     ],
     espree: [
       "decimal.js",
@@ -46,6 +47,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-blocks.js",
       "async-do-expressions.js",
+      "regex-v-flag.js",
     ],
     meriyah: [
       "decimal.js",
@@ -71,6 +73,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "module-string-names.js",
       "module-blocks.js",
       "async-do-expressions.js",
+      "regex-v-flag.js",
     ],
   },
 });

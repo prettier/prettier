@@ -8,8 +8,8 @@ exports[`prints information for debugging comment attachment with --debug-print-
     \\"start\\": 0,
     \\"end\\": 7,
     \\"loc\\": {
-      \\"start\\": { \\"line\\": 1, \\"column\\": 0 },
-      \\"end\\": { \\"line\\": 1, \\"column\\": 7 }
+      \\"start\\": { \\"line\\": 1, \\"column\\": 0, \\"index\\": 0 },
+      \\"end\\": { \\"line\\": 1, \\"column\\": 7, \\"index\\": 7 }
     },
     \\"placement\\": \\"endOfLine\\",
     \\"leading\\": true,
@@ -22,8 +22,8 @@ exports[`prints information for debugging comment attachment with --debug-print-
     \\"start\\": 24,
     \\"end\\": 31,
     \\"loc\\": {
-      \\"start\\": { \\"line\\": 2, \\"column\\": 16 },
-      \\"end\\": { \\"line\\": 2, \\"column\\": 23 }
+      \\"start\\": { \\"line\\": 2, \\"column\\": 16, \\"index\\": 24 },
+      \\"end\\": { \\"line\\": 2, \\"column\\": 23, \\"index\\": 31 }
     },
     \\"placement\\": \\"remaining\\",
     \\"leading\\": false,
@@ -36,8 +36,8 @@ exports[`prints information for debugging comment attachment with --debug-print-
     \\"start\\": 34,
     \\"end\\": 38,
     \\"loc\\": {
-      \\"start\\": { \\"line\\": 2, \\"column\\": 26 },
-      \\"end\\": { \\"line\\": 2, \\"column\\": 30 }
+      \\"start\\": { \\"line\\": 2, \\"column\\": 26, \\"index\\": 34 },
+      \\"end\\": { \\"line\\": 2, \\"column\\": 30, \\"index\\": 38 }
     },
     \\"placement\\": \\"remaining\\",
     \\"leading\\": false,
