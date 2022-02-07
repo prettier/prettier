@@ -13,21 +13,21 @@ Plugins are automatically loaded if you have them installed in the same `node_mo
 
 When plugins cannot be found automatically, you can load them with:
 
-- The [CLI](cli.md), via `--plugin` and `--plugin-search-dir`:
+- The [CLI](cli.md), via `--plugin-search-dir` and `--plugin`:
 
   ```bash
-  prettier --write main.foo --plugin=./foo-plugin --plugin-search-dir=./dir-with-plugins
+  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
   ```
 
-  > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
+  > Tip: You can set `--plugin-search-dir` or `--plugin` options multiple times.
 
-- The [API](api.md), via the `plugins` and `pluginSearchDirs` options:
+- The [API](api.md), via the `pluginSearchDirs` and `plugins` options:
 
   ```js
   prettier.format("code", {
     parser: "foo",
-    plugins: ["./foo-plugin"],
     pluginSearchDirs: ["./dir-with-plugins"],
+    plugins: ["./foo-plugin"],
   });
   ```
 
@@ -35,12 +35,12 @@ When plugins cannot be found automatically, you can load them with:
 
   ```json
   {
-    "plugins": ["./foo-plugin"],
-    "pluginSearchDirs": ["./dir-with-plugins"]
+    "pluginSearchDirs": ["./dir-with-plugins"],
+    "plugins": ["./foo-plugin"]
   }
   ```
 
-The path that is provided to `pluginSearchDirs` should generally contain a `node_modules` subdirectory. For instance, this can be your project directory or the location of global npm modules. You can also provide a path that is the direct parent directory of your plugins if needed. That is, a path directly to `node_modules` or some arbitrary directory that contains your plugins. Either way, the path you provide is where `prettier-plugin-*`, `@prettier/plugin-*`, and `@*/prettier-plugin-*` will be searched.
+The path that is provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, this can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
 
 Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
 
