@@ -5,8 +5,10 @@ import path from "node:path";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { readPackageUp } from "read-pkg-up";
+import { PROJECT_ROOT } from "../utils/index.mjs";
+import esbuildPluginLicense from "../build/esbuild-plugins/license.mjs";
 import vendors from "./vendors.mjs";
-import { writeVendorVersions } from "./vendor-versions.mjs";
+import { saveVendorVersions, saveVendorLicenses } from "./utils.mjs";
 import esbuildPluginTsNocheck from "./esbuild-plugin-ts-nocheck.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
@@ -26,7 +28,7 @@ async function lockVersions(vendors) {
     const vendorVersion = vendorPackage.version;
     vendorVersions[vendor] = vendorVersion;
   }
-  await writeVendorVersions(vendorVersions);
+  await saveVendorVersions(vendorVersions);
 }
 
 async function fileExists(filePath) {
@@ -46,18 +48,28 @@ async function cleanExistsBundledJS() {
   }
 }
 
-async function bundle(vendor) {
+async function bundle(vendor, options) {
   const outfile = getVendorFilePath(vendor);
   if (await fileExists(outfile)) {
     await fs.rm(outfile);
   }
+
   /** @type {import("esbuild").CommonOptions} */
   const esbuildOption = {
     entryPoints: [require.resolve(vendor)],
     bundle: true,
     target: ["node12.17.0"],
     platform: "node",
-    plugins: [esbuildPluginTsNocheck()],
+    plugins: [
+      esbuildPluginTsNocheck(),
+      esbuildPluginLicense({
+        cwd: PROJECT_ROOT,
+        thirdParty: {
+          includePrivate: true,
+          output: options.onLicenseFound,
+        },
+      }),
+    ],
     outfile,
   };
   await esbuild.build(esbuildOption);
@@ -76,12 +88,22 @@ async function bundle(vendor) {
 
 async function main() {
   await cleanExistsBundledJS();
+
+  const licenses = [];
   for (const vendor of vendors) {
-    await bundle(vendor);
+    await bundle(vendor, {
+      onLicenseFound(dependencies) {
+        licenses.push(...dependencies);
+      },
+    });
     console.log(`Bundled: ${vendor}`);
   }
+
   await lockVersions(vendors);
-  console.log("Locked: vendor-versions.json");
+  console.log("Vendor versions saved");
+
+  await saveVendorLicenses(licenses);
+  console.log("Vendor licenses saved");
 }
 
 main();

@@ -2,7 +2,7 @@
 
 import createEsmUtils from "esm-utils";
 import { readPackageUp } from "read-pkg-up";
-import { getVendorVersions } from "./vendor-versions.mjs";
+import { getVendorVersions } from "./utils.mjs";
 import vendors from "./vendors.mjs";
 
 const { require } = createEsmUtils(import.meta);
