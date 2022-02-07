@@ -7,7 +7,7 @@ Plugins are ways of adding new languages or formatting rules to Prettier. Pretti
 
 ## Using Plugins
 
-Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `prettier-plugin-` or `@prettier/plugin-` or `@<scope>/prettier-plugin-` to be registered.
+Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` or `@<scope>/prettier-plugin-` to be registered.
 
 > `<scope>` should be replaced by a name, read more about [NPM scope](https://docs.npmjs.com/misc/scope.html).
 
