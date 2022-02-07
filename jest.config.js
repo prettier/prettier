@@ -9,11 +9,13 @@ const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 
+let customPrettierDir = false;
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
   : PROJECT_ROOT;
 if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
   PRETTIER_DIR = installPrettier(PRETTIER_DIR);
+  customPrettierDir = true;
 }
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
@@ -70,7 +72,7 @@ module.exports = {
   moduleNameMapper: {
     "prettier-local": "<rootDir>/tests/config/require-prettier.js",
     "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
-    "#(.*)": PRETTIER_DIR + "/vendors/$1",
+    "#(.*)": (customPrettierDir ? PRETTIER_DIR : "<rootDir>") + "/vendors/$1",
   },
   modulePathIgnorePatterns: [
     "<rootDir>/dist",
