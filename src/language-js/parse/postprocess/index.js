@@ -115,6 +115,29 @@ function postprocess(ast, options) {
       case "TopicReference":
         options.__isUsingHackPipeline = true;
         break;
+      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
+      case "ExportAllDeclaration": {
+        const { exported } = node;
+        if (
+          options.parser === "meriyah" &&
+          exported &&
+          exported.type === "Identifier"
+        ) {
+          const raw = options.originalText.slice(
+            locStart(exported),
+            locEnd(exported)
+          );
+          if (raw.startsWith('"') || raw.startsWith("'")) {
+            node.exported = {
+              ...node.exported,
+              type: "Literal",
+              value: node.exported.name,
+              raw,
+            };
+          }
+        }
+        break;
+      }
     }
   });
 

@@ -2,12 +2,12 @@
 
 const path = require("path");
 const minimatch = require("minimatch");
-const mem = require("mem");
 const thirdParty = require("../common/third-party.js");
 
 const loadToml = require("../utils/load-toml.js");
 const loadJson5 = require("../utils/load-json5.js");
 const resolve = require("../common/resolve.js");
+const { default: mem, memClear } = require("../../vendors/mem.js");
 const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
 /**
@@ -127,7 +127,7 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
-  mem.clear(getExplorerMemoized);
+  memClear(getExplorerMemoized);
   resolveEditorConfig.clearCache();
 }
 
