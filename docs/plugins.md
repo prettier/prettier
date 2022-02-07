@@ -36,7 +36,7 @@ When plugins cannot be found automatically, you can load them with:
   ```json
   {
     "pluginSearchDirs": ["./dir-with-plugins"],
-    "plugins": ["./foo-plugin"]
+    "plugins": ["prettier-plugin-foo"]
   }
   ```
 
