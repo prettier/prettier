@@ -226,7 +226,7 @@ async function run(params) {
       );
     }
 
-    if (params.saveAs === false) {
+    if (params.saveAs) {
       throw new Error(
         "'--compare-size' can not use together with '--save-as' flag"
       );
