@@ -4,7 +4,7 @@ import { runYarn, logPromise, readJson } from "../utils.js";
 export default async function generateBundles({ version }) {
   await logPromise(
     "Generating bundles",
-    runYarn(["build", "--clean", "--print-size"])
+    runYarn(["build", "--clean", "--print-size", "--compare-size"])
   );
 
   const builtPkg = await readJson("dist/package.json");

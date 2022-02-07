@@ -255,11 +255,14 @@ async function* createBundle(bundle, buildOptions) {
       continue;
     }
 
-    esbuildOptions.outfile = path.join(DIST_DIR, buildOptions.saveAs || file);
+    const relativePath = buildOptions.saveAs || file;
+    const absolutePath = path.join(DIST_DIR, relativePath);
+
+    esbuildOptions.outfile = absolutePath;
 
     yield { name: file, started: true };
     await runBuild(bundle, esbuildOptions, buildOptions);
-    yield { name: file, file: esbuildOptions.outfile };
+    yield { name: file, relativePath, absolutePath };
   }
 }
 
