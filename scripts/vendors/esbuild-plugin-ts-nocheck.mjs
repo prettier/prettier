@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-const tsNoCheck = "// @ts-nocheck\n";
+const tsNoCheck = "// @ts-nocheck\n// This file is generated automatically\n";
 
 export default function esbuildPluginTsNocheck() {
   return {

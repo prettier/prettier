@@ -7,8 +7,8 @@ const thirdParty = require("../common/third-party.js");
 const loadToml = require("../utils/load-toml.js");
 const loadJson5 = require("../utils/load-json5.js");
 const resolve = require("../common/resolve.js");
+const { default: mem, memClear } = require("../../vendors/mem.js");
 const resolveEditorConfig = require("./resolve-config-editorconfig.js");
-const { default: mem, memClear } = require("#mem");
 
 /**
  * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
