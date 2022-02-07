@@ -123,7 +123,15 @@ function genericPrint(path, options, print, args) {
   const needsParens = pathNeedsParens(path, options);
 
   if (!needsParens) {
-    return args && args.needsSemi ? [";", parts] : parts;
+    if (args && args.needsSemi) {
+      parts.unshift(";");
+    }
+
+    if (isClassExpressionWithDecorators) {
+      return parts;
+    }
+
+    return printed;
   }
 
   if (isClassExpressionWithDecorators) {
