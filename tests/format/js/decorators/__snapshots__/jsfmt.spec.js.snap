@@ -51,16 +51,20 @@ export class Bar {}
 export default class Baz {}
 
 const foo =
-  @deco
-  class {
-    //
-  };
+  (
+    @deco
+    class {
+      //
+    }
+  );
 
 const bar =
-  @deco
-  class {
-    //
-  };
+  (
+    @deco
+    class {
+      //
+    }
+  );
 
 ================================================================================
 `;
