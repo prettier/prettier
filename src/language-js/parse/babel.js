@@ -37,6 +37,7 @@ const parseOptions = {
     "decimal",
     "moduleBlocks",
     "asyncDoExpressions",
+    "regexpUnicodeSets",
   ],
   tokens: true,
   ranges: true,
