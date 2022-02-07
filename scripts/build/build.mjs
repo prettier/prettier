@@ -276,7 +276,7 @@ run(
       clean: false,
       playground: false,
       printSize: false,
-      compareSize: true,
+      compareSize: false,
       minify: null,
       babel: true,
     },
