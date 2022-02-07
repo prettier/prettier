@@ -6,6 +6,7 @@ const replaceHashbang = require("./utils/replace-hashbang.js");
 const postprocess = require("./postprocess/index.js");
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
+// Keep this sync with `/scripts/sync-flow-test.js`
 const parseOptions = {
   // `all_comments` (boolean, default `true`) - include a list of all comments from the whole program
   // all_comments: true,
