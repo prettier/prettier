@@ -3,35 +3,44 @@ id: plugins
 title: Plugins
 ---
 
-Plugins are ways of adding new languages to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
+Plugins are ways of adding new languages or formatting rules to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
 
 ## Using Plugins
 
-Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `@prettier/plugin-` or `prettier-plugin-` or `@<scope>/prettier-plugin-` to be registered.
+Plugins are automatically loaded if you have them installed in the same `node_modules` directory where `prettier` is located. Plugin package names must start with `prettier-plugin-` or `@prettier/plugin-` or `@<scope>/prettier-plugin-` to be registered.
 
 > `<scope>` should be replaced by a name, read more about [NPM scope](https://docs.npmjs.com/misc/scope.html).
 
 When plugins cannot be found automatically, you can load them with:
 
-- The [CLI](cli.md), via the `--plugin` and `--plugin-search-dir`:
+- The [CLI](cli.md), via `--plugin` and `--plugin-search-dir`:
 
   ```bash
-  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
+  prettier --write main.foo --plugin=./foo-plugin --plugin-search-dir=./dir-with-plugins
   ```
 
   > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
 
-- Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
+- The [API](api.md), via the `plugins` and `pluginSearchDirs` options:
 
   ```js
   prettier.format("code", {
     parser: "foo",
-    pluginSearchDirs: ["./dir-with-plugins"],
     plugins: ["./foo-plugin"],
+    pluginSearchDirs: ["./dir-with-plugins"],
   });
   ```
 
-Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*`, `@*/prettier-plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
+- Or the [Configuration File](configuration.md):
+
+  ```json
+  {
+    "plugins": ["./foo-plugin"],
+    "pluginSearchDirs": ["./dir-with-plugins"]
+  }
+  ```
+
+The path that is provided to `pluginSearchDirs` should generally contain a `node_modules` subdirectory. For instance, this can be your project directory or the location of global npm modules. You can also provide a path that is the direct parent directory of your plugins if needed. That is, a path directly to `node_modules` or some arbitrary directory that contains your plugins. Either way, the path you provide is where `prettier-plugin-*`, `@prettier/plugin-*`, and `@*/prettier-plugin-*` will be searched.
 
 Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
 
