@@ -10,7 +10,7 @@ async function readJson(file) {
 }
 
 function writeJson(file, content) {
-  content = JSON.stringify(content, null, 2);
+  content = JSON.stringify(content, null, 2) + "\n";
   return writeFile(file, content);
 }
 
