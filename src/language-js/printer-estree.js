@@ -127,7 +127,7 @@ function genericPrint(path, options, print, args) {
       parts.unshift(";");
     }
 
-    // In member-chain print, it add `label` to the doc, if we returns array here it will be broken
+    // In member-chain print, it add `label` to the doc, if we return array here it will be broken
     if (parts.length === 1 && parts[0] === printed) {
       return printed;
     }
