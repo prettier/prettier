@@ -253,6 +253,11 @@ async function run(params) {
   }
 
   if (shouldSaveBundledPackagesLicenses) {
+    const vendorMeta = await readJson(
+      new URL("../vendors/vendor-meta.json", import.meta.url)
+    );
+    licenses.push(...vendorMeta.licenses);
+
     await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
   } else {
     console.warn(
