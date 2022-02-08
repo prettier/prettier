@@ -1,4 +1,5 @@
 // @ts-nocheck
+// This file is generated automatically
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
@@ -554,9 +555,9 @@ var require_cross_spawn = __commonJS({
   }
 });
 
-// node_modules/execa/node_modules/signal-exit/signals.js
+// node_modules/signal-exit/signals.js
 var require_signals = __commonJS({
-  "node_modules/execa/node_modules/signal-exit/signals.js"(exports, module2) {
+  "node_modules/signal-exit/signals.js"(exports, module2) {
     module2.exports = [
       "SIGABRT",
       "SIGALRM",
@@ -573,9 +574,9 @@ var require_signals = __commonJS({
   }
 });
 
-// node_modules/execa/node_modules/signal-exit/index.js
+// node_modules/signal-exit/index.js
 var require_signal_exit = __commonJS({
-  "node_modules/execa/node_modules/signal-exit/index.js"(exports, module2) {
+  "node_modules/signal-exit/index.js"(exports, module2) {
     var process4 = global.process;
     var processOk = function(process5) {
       return process5 && typeof process5 === "object" && typeof process5.removeListener === "function" && typeof process5.emit === "function" && typeof process5.reallyExit === "function" && typeof process5.listeners === "function" && typeof process5.kill === "function" && typeof process5.pid === "number" && typeof process5.on === "function";
