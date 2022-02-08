@@ -13,7 +13,7 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const printMemberChain = require("./member-chain.js");
 const printCallArguments = require("./call-arguments.js");
 const {

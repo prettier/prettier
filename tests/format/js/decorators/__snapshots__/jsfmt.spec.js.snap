@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`classes.js [acorn] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @deco class Foo {}
+    | ^
+  2 |
+  3 | @deco export class Bar {}
+  4 |"
+`;
+
 exports[`classes.js [espree] format 1`] = `
 "Unexpected character '@' (1:1)
 > 1 | @deco class Foo {}
@@ -54,6 +63,17 @@ const bar =
   };
 
 ================================================================================
+`;
+
+exports[`comments.js [acorn] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | var x = 100
+  2 |
+> 3 | @Hello({
+    | ^
+  4 |   a: 'a', // Comment is in the wrong place
+  5 |   // test
+  6 |   b: '2'"
 `;
 
 exports[`comments.js [espree] format 1`] = `
@@ -138,6 +158,17 @@ export class Bar {}
 ================================================================================
 `;
 
+exports[`methods.js [acorn] format 1`] = `
+"Unexpected character '@' (3:3)
+  1 |
+  2 | class Yo {
+> 3 |   @foo(\\"hello\\")
+    |   ^
+  4 |   async plop() {}
+  5 |
+  6 |   @anotherDecoratorWithALongName(\\"and a very long string as a first argument\\")"
+`;
+
 exports[`methods.js [espree] format 1`] = `
 "Unexpected character '@' (3:3)
   1 |
@@ -181,6 +212,17 @@ class Yo {
 ================================================================================
 `;
 
+exports[`mixed.js [acorn] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | // https://github.com/prettier/prettier/issues/6747
+  2 |
+> 3 | @foo
+    | ^
+  4 | export default class MyComponent {
+  5 |   @task
+  6 |   *foo() {"
+`;
+
 exports[`mixed.js [espree] format 1`] = `
 "Unexpected character '@' (3:1)
   1 | // https://github.com/prettier/prettier/issues/6747
@@ -216,6 +258,17 @@ export default class MyComponent {
 }
 
 ================================================================================
+`;
+
+exports[`mobx.js [acorn] format 1`] = `
+"Unexpected character '@' (3:1)
+  1 | import {observable} from \\"mobx\\";
+  2 |
+> 3 | @observer class OrderLine {
+    | ^
+  4 |   @observable price:number = 0;
+  5 |   @observable amount:number = 1;
+  6 |"
 `;
 
 exports[`mobx.js [espree] format 1`] = `
@@ -334,6 +387,16 @@ class OrderLine {
 ================================================================================
 `;
 
+exports[`multiline.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class Foo {
+> 2 |   @deco([
+    |   ^
+  3 |     foo,
+  4 |     bar
+  5 |   ]) prop = value;"
+`;
+
 exports[`multiline.js [espree] format 1`] = `
 "Unexpected character '@' (2:3)
   1 | class Foo {
@@ -381,6 +444,16 @@ class Foo {
 }
 
 ================================================================================
+`;
+
+exports[`multiple.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | const dog = {
+> 2 |   @readonly
+    |   ^
+  3 |   @nonenumerable
+  4 |   @doubledValue
+  5 |   legs: 4,"
 `;
 
 exports[`multiple.js [espree] format 1`] = `
@@ -448,6 +521,16 @@ const foo = {
 ================================================================================
 `;
 
+exports[`parens.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class X {
+> 2 |   @(computed().volatile())
+    |   ^
+  3 |   x
+  4 | }
+  5 |"
+`;
+
 exports[`parens.js [espree] format 1`] = `
 "Unexpected character '@' (2:3)
   1 | class X {
@@ -476,6 +559,15 @@ class X {
 }
 
 ================================================================================
+`;
+
+exports[`redux.js [acorn] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @connect(mapStateToProps, mapDispatchToProps)
+    | ^
+  2 | export class MyApp extends React.Component {}
+  3 |
+  4 | @connect(state => ({ todos: state.todos }))"
 `;
 
 exports[`redux.js [espree] format 1`] = `

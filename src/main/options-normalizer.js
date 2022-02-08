@@ -2,7 +2,6 @@
 
 const vnopts = require("vnopts");
 const leven = require("leven");
-const chalk = require("chalk");
 const getLast = require("../utils/get-last.js");
 
 const cliDescriptor = {
@@ -18,41 +17,48 @@ const cliDescriptor = {
       : `${cliDescriptor.key(key)}=${value}`,
 };
 
-class FlagSchema extends vnopts.ChoiceSchema {
-  constructor({ name, flags }) {
-    super({ name, choices: flags });
-    this._flags = [...flags].sort();
-  }
-  preprocess(value, utils) {
-    if (
-      typeof value === "string" &&
-      value.length > 0 &&
-      !this._flags.includes(value)
-    ) {
-      const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
-      if (suggestion) {
-        utils.logger.warn(
-          [
-            `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
-            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
-          ].join(" ")
-        );
-        return suggestion;
-      }
+// To prevent `chalk` module from being included in the `standalone.js` bundle,
+// it will take that as an argument if needed.
+const getFlagSchema = (colorsModule) =>
+  class FlagSchema extends vnopts.ChoiceSchema {
+    constructor({ name, flags }) {
+      super({ name, choices: flags });
+      this._flags = [...flags].sort();
     }
-    return value;
-  }
-  expected() {
-    return "a flag";
-  }
-}
+    preprocess(value, utils) {
+      if (
+        typeof value === "string" &&
+        value.length > 0 &&
+        !this._flags.includes(value)
+      ) {
+        const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
+        if (suggestion) {
+          utils.logger.warn(
+            [
+              `Unknown flag ${colorsModule.yellow(
+                utils.descriptor.value(value)
+              )},`,
+              `did you mean ${colorsModule.blue(
+                utils.descriptor.value(suggestion)
+              )}?`,
+            ].join(" ")
+          );
+          return suggestion;
+        }
+      }
+      return value;
+    }
+    expected() {
+      return "a flag";
+    }
+  };
 
 let hasDeprecationWarned;
 
 function normalizeOptions(
   options,
   optionInfos,
-  { logger, isCLI = false, passThrough = false } = {}
+  { logger, isCLI = false, passThrough = false, colorsModule } = {}
 ) {
   const unknown = !passThrough
     ? (key, value, options) => {
@@ -69,7 +75,7 @@ function normalizeOptions(
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
-  const schemas = optionInfosToSchemas(optionInfos, { isCLI });
+  const schemas = optionInfosToSchemas(optionInfos, { isCLI, colorsModule });
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
     unknown,
@@ -95,7 +101,7 @@ function normalizeOptions(
   return normalized;
 }
 
-function optionInfosToSchemas(optionInfos, { isCLI }) {
+function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
   const schemas = [];
 
   if (isCLI) {
@@ -103,7 +109,9 @@ function optionInfosToSchemas(optionInfos, { isCLI }) {
   }
 
   for (const optionInfo of optionInfos) {
-    schemas.push(optionInfoToSchema(optionInfo, { isCLI, optionInfos }));
+    schemas.push(
+      optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule })
+    );
 
     if (optionInfo.alias && isCLI) {
       schemas.push(
@@ -118,7 +126,7 @@ function optionInfosToSchemas(optionInfos, { isCLI }) {
   return schemas;
 }
 
-function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
+function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
   const { name } = optionInfo;
 
   if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
@@ -174,7 +182,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       SchemaConstructor = vnopts.BooleanSchema;
       break;
     case "flag":
-      SchemaConstructor = FlagSchema;
+      SchemaConstructor = getFlagSchema(colorsModule);
       parameters.flags = optionInfos.flatMap((optionInfo) =>
         [
           optionInfo.alias,
@@ -241,6 +249,11 @@ function normalizeApiOptions(options, optionInfos, opts) {
 }
 
 function normalizeCliOptions(options, optionInfos, opts) {
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== "production" && !opts.colorsModule) {
+    throw new Error("'colorsModule' option is required.");
+  }
+
   return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
 }
 

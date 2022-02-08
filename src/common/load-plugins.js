@@ -4,17 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
-const globby = require("globby");
-const mem = require("mem");
+const fastGlob = require("fast-glob");
 const internalPlugins = require("../languages.js");
+const { default: mem, memClear } = require("../../vendors/mem.js");
 const thirdParty = require("./third-party.js");
 const resolve = require("./resolve.js");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
 const clearCache = () => {
-  mem.clear(memoizedLoad);
-  mem.clear(memoizedSearch);
+  memClear(memoizedLoad);
+  memClear(memoizedSearch);
 };
 
 function load(plugins, pluginSearchDirs) {
@@ -105,7 +105,7 @@ function load(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackageJsonPaths = globby.sync(
+  const pluginPackageJsonPaths = fastGlob.sync(
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
@@ -113,7 +113,6 @@ function findPluginsInNodeModules(nodeModulesDir) {
     ],
     {
       cwd: nodeModulesDir,
-      expandDirectories: false,
     }
   );
   return pluginPackageJsonPaths.map(path.dirname);

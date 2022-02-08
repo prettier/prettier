@@ -4,7 +4,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isObjectProperty,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const formatMarkdown = require("./embed/markdown.js");
 const formatCss = require("./embed/css.js");
 const formatGraphql = require("./embed/graphql.js");

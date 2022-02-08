@@ -22,7 +22,7 @@ const {
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
-} = require("../utils.js");
+} = require("../utils/index.js");
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();

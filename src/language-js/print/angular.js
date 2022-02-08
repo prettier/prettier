@@ -3,7 +3,7 @@
 const {
   builders: { join, line, group },
 } = require("../../document/index.js");
-const { hasNode, hasComment, getComments } = require("../utils.js");
+const { hasNode, hasComment, getComments } = require("../utils/index.js");
 const { printBinaryishExpression } = require("./binaryish.js");
 
 /** @typedef {import("../../common/ast-path")} AstPath */

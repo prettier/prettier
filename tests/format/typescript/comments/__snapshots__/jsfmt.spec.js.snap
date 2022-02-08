@@ -28,6 +28,40 @@ abstract class AbstractRule {
 ================================================================================
 `;
 
+exports[`abstract_methods.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class AbstractFoo {
+  abstract method1(/* comment */ arg: string);
+  abstract method2(
+    /* comment */
+    arg: string
+  );
+  abstract method3(
+    // comment
+    arg: string
+  );
+}
+
+=====================================output=====================================
+abstract class AbstractFoo {
+  abstract method1(/* comment */ arg: string);
+  abstract method2(
+    /* comment */
+    arg: string
+  );
+  abstract method3(
+    // comment
+    arg: string
+  );
+}
+
+================================================================================
+`;
+
 exports[`after_jsx_generic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -602,6 +636,8 @@ export class Point {
   mismatchedIndentation() {}
 
   inline /* foo*/ (/* bar */) /* baz */ {}
+
+  noBody(/* comment */ arg);
 }
 
 =====================================output=====================================
@@ -651,6 +687,8 @@ export class Point {
   mismatchedIndentation() {}
 
   inline /* foo*/(/* bar */) /* baz */ {}
+
+  noBody(/* comment */ arg);
 }
 
 ================================================================================

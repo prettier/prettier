@@ -5,7 +5,7 @@ const {
   builders: { line, hardline, join, breakParent, group },
 } = require("../../document/index.js");
 const { locStart, locEnd } = require("../loc.js");
-const { getParentExportDeclaration } = require("../utils.js");
+const { getParentExportDeclaration } = require("../utils/index.js");
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();

@@ -18,7 +18,7 @@ const {
   hasComment,
   isSignedNumericLiteral,
   isObjectProperty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { shouldInlineLogicalExpression } = require("./binaryish.js");
 const { printCallExpression } = require("./call-expression.js");
 

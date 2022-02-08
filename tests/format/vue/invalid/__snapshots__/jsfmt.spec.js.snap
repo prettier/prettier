@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`v-for.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+    <div
+      v-for="    _       in          "
+      v-for="            in _        "
+      v-for="            in          "
+      v-for="    _,      in a        "
+      v-for="    ,_      in a        "
+
+      v-for="    a, b,      in a        "
+      v-for="    a,  , c     in a        "
+
+      v-for="     , b, c     in a        "
+      v-for="    a, b,       in a        "
+
+      v-for="     , b, c     in a        "
+      v-for="    a,  , c     in a        "
+      v-for="    (,a,b) of 'abcd'        "
+    ></div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <div
+      v-for="    _       in          "
+      v-for="            in _        "
+      v-for="            in          "
+      v-for="_ in a"
+      v-for="    ,_      in a        "
+      v-for="(a, b) in a"
+      v-for="    a,  , c     in a        "
+      v-for="     , b, c     in a        "
+      v-for="(a, b) in a"
+      v-for="     , b, c     in a        "
+      v-for="    a,  , c     in a        "
+      v-for="    (,a,b) of 'abcd'        "
+    ></div>
+  </div>
+</template>
+
+================================================================================
+`;

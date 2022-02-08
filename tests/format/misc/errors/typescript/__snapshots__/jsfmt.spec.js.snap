@@ -23,8 +23,6 @@ exports[`invalid-jsx-1.ts [typescript] format 1`] = `
   4 |"
 `;
 
-exports[`issue-8773.ts [typescript] format 1`] = `"Comment \\"comment\\" was not printed. Please report this error!"`;
-
 exports[`module-attributes-static.ts [typescript] format 1`] = `
 "';' expected. (1:28)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";

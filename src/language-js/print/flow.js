@@ -14,7 +14,7 @@ const {
   isGetterOrSetter,
   rawText,
   shouldPrintComma,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
 const { printClass } = require("./class.js");
 const {

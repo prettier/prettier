@@ -26,11 +26,13 @@ class Node {
     if (nodes !== this[key]) {
       this[key] = cloneAndUpdateNodes(nodes, this);
       if (key === "attrs") {
-        setNonEnumerableProperties(this, {
-          attrMap: Object.fromEntries(
+        setNonEnumerableProperty(
+          this,
+          "attrMap",
+          Object.fromEntries(
             this[key].map((attr) => [attr.fullName, attr.value])
-          ),
-        });
+          )
+        );
       }
     }
   }
@@ -45,7 +47,8 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            newNode = new Node();
+            // @ts-expect-error
+            newNode = new Node({ parent: this.parent });
           }
           newNode._setNodes(NODES_KEY, mappedNodes);
         }
@@ -58,15 +61,6 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      // @ts-expect-error
-      const { index, siblings, prev, next, parent } = this;
-      setNonEnumerableProperties(newNode, {
-        index,
-        siblings,
-        prev,
-        next,
-        parent,
-      });
     }
 
     return fn(newNode || this);
@@ -85,10 +79,37 @@ class Node {
   }
 
   /**
-   * @param {Object} [overrides]
+   * @param {Node} [target]
+   * @param {Object} [node]
    */
-  clone(overrides) {
-    return new Node(overrides ? { ...this, ...overrides } : this);
+  insertChildBefore(target, node) {
+    const newNode = new Node({ ...node, parent: this });
+
+    // @ts-expect-error
+    this.children.splice(this.children.indexOf(target), 0, newNode);
+  }
+
+  /**
+   * @param {Node} [child]
+   */
+  removeChild(child) {
+    // @ts-expect-error
+    this.children.splice(this.children.indexOf(child), 1);
+  }
+
+  /**
+   * @param {Node} [target]
+   * @param {Object} [node]
+   */
+  replaceChild(target, node) {
+    const newNode = new Node({ ...node, parent: this });
+
+    // @ts-expect-error
+    this.children[this.children.indexOf(target)] = newNode;
+  }
+
+  clone() {
+    return new Node(this);
   }
 
   /**
@@ -106,6 +127,24 @@ class Node {
   get lastChild() {
     // @ts-expect-error
     return isNonEmptyArray(this.children) ? getLast(this.children) : null;
+  }
+
+  get prev() {
+    // @ts-expect-error
+    if (!this.parent) {
+      return null;
+    }
+    // @ts-expect-error
+    return this.parent.children[this.parent.children.indexOf(this) - 1];
+  }
+
+  get next() {
+    // @ts-expect-error
+    if (!this.parent) {
+      return null;
+    }
+    // @ts-expect-error
+    return this.parent.children[this.parent.children.indexOf(this) + 1];
   }
 
   // for element and attribute
@@ -128,38 +167,18 @@ function mapNodesIfChanged(nodes, fn) {
 
 function cloneAndUpdateNodes(nodes, parent) {
   const siblings = nodes.map((node) =>
-    node instanceof Node ? node.clone() : new Node(node)
+    node instanceof Node ? node.clone() : new Node({ ...node, parent })
   );
 
-  let prev = null;
-  let current = siblings[0];
-  let next = siblings[1] || null;
-
-  for (let index = 0; index < siblings.length; index++) {
-    setNonEnumerableProperties(current, {
-      index,
-      siblings,
-      prev,
-      next,
-      parent,
-    });
-    prev = current;
-    current = next;
-    next = siblings[index + 2] || null;
+  for (const sibling of siblings) {
+    sibling.parent = parent;
   }
 
   return siblings;
 }
 
-function setNonEnumerableProperties(obj, props) {
-  const descriptors = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [
-      key,
-      { value, enumerable: false },
-    ])
-  );
-
-  Object.defineProperties(obj, descriptors);
+function setNonEnumerableProperty(obj, key, value) {
+  Object.defineProperty(obj, key, { value, enumerable: false });
 }
 
 module.exports = {

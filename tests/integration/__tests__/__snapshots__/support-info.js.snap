@@ -45,6 +45,7 @@ Object {
     ],
     "JavaScript": Array [
       "babel",
+      "acorn",
       "espree",
       "meriyah",
       "babel-flow",
@@ -157,6 +158,7 @@ Object {
         "babel-flow",
         "babel-ts",
         "typescript",
+        "acorn",
         "espree",
         "meriyah",
         "css",
@@ -330,6 +332,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"JavaScript\\",
       \\"parsers\\": [
         \\"babel\\",
+        \\"acorn\\",
         \\"espree\\",
         \\"meriyah\\",
         \\"babel-flow\\",
@@ -915,6 +918,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"since\\": \\"1.4.0\\",
           \\"value\\": \\"typescript\\"
         },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.6.0\\", \\"value\\": \\"acorn\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"espree\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"meriyah\\" },
         { \\"description\\": \\"CSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"css\\" },

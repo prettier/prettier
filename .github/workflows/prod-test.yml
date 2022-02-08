@@ -16,23 +16,12 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-
-      - name: Cache Build Results
-        id: build-cache
-        uses: actions/cache@v2.1.7
-        with:
-          path: .cache
-          key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-          restore-keys: |
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/main-
 
       - name: Build Package
         run: yarn build
@@ -45,12 +34,12 @@ jobs:
 
       # This step calls `git reset`
       # It should be the last step
-      # The cache step might saving the result of main branch, need investigate
       - name: Check Sizes
         if: ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/') }}
         uses: preactjs/compressed-size-action@2.3.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          pattern: "./dist/**/*"
           compression: none
 
   lint:
@@ -62,7 +51,7 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           cache: "yarn"
 
@@ -115,7 +104,7 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"

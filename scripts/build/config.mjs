@@ -1,4 +1,8 @@
 import path from "node:path";
+import { createRequire } from "node:module";
+import createEsmUtils from "esm-utils";
+
+const { require } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -7,8 +11,6 @@ import path from "node:path";
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
  * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
- * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
- * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
@@ -42,10 +44,41 @@ const parsers = [
       'require("globby")': "{}",
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
-      "process.versions.node": "'999.999.999'",
+      "process.versions.node": JSON.stringify("999.999.999"),
+      "process.cwd()": JSON.stringify("/prettier-security-dirname-placeholder"),
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
+      "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
+      // Remove useless `ts.sys`
+      "ts.sys = ": "ts.sys = undefined && ",
+
+      // Remove useless language service
+      "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
+      "ts.TypeScriptServicesFactory = ":
+        "ts.TypeScriptServicesFactory = undefined && ",
+      "var ShimBase = ": "var ShimBase = undefined && ",
+      "var TypeScriptServicesFactory = ":
+        "var TypeScriptServicesFactory = undefined && ",
+      "var LanguageServiceShimObject = ":
+        "var LanguageServiceShimObject = undefined && ",
+      "var CoreServicesShimHostAdapter = ":
+        "var CoreServicesShimHostAdapter = undefined && ",
+      "var LanguageServiceShimHostAdapter = ":
+        "var LanguageServiceShimHostAdapter = undefined && ",
+      "var ScriptSnapshotShimAdapter = ":
+        "var ScriptSnapshotShimAdapter = undefined && ",
+      "var ClassifierShimObject = ": "var ClassifierShimObject = undefined && ",
+      "var CoreServicesShimObject = ":
+        "var CoreServicesShimObject = undefined && ",
+      "function simpleForwardCall(": "0 && function simpleForwardCall(",
+      "function forwardJSONCall(": "0 && function forwardJSONCall(",
+      "function forwardCall(": "0 && function forwardCall(",
+      "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
+      "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
+      "function convertClassifications(":
+        "0 && function convertClassifications(",
+
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
@@ -57,20 +90,31 @@ const parsers = [
       "typescriptVersionIsAtLeast[version] = semverCheck(version);":
         "typescriptVersionIsAtLeast[version] = true;",
     },
+    replaceModule: {
+      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
+    },
   },
   {
-    input: "src/language-js/parse/espree.js",
+    input: "src/language-js/parse/acorn-and-espree.js",
+    name: "prettierPlugins.espree",
+    // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
+    output: "parser-espree.js",
+    replace: {
+      "const Syntax = ": "const Syntax = undefined && ",
+      "var visitorKeys = ": "var visitorKeys = undefined && ",
+    },
   },
   {
     input: "src/language-js/parse/meriyah.js",
   },
   {
     input: "src/language-js/parse/angular.js",
+    replace: {
+      "@angular/compiler/src": "@angular/compiler/esm2015/src",
+    },
   },
   {
     input: "src/language-css/parser-postcss.js",
-    // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack",
     replace: {
       // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
@@ -78,27 +122,33 @@ const parsers = [
     },
   },
   {
-    input: "dist/parser-postcss.js",
-    output: "esm/parser-postcss.mjs",
-    format: "esm",
-  },
-  {
     input: "src/language-graphql/parser-graphql.js",
   },
   {
     input: "src/language-markdown/parser-markdown.js",
+    replaceModule: {
+      [require.resolve("parse-entities/decode-entity.browser.js")]:
+        require.resolve("parse-entities/decode-entity.js"),
+      // Avoid `node:util` shim
+      [require.resolve("inherits")]: require.resolve(
+        "inherits/inherits_browser.js"
+      ),
+    },
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    commonjs: {
-      ignore: ["source-map"],
-    },
   },
   {
     input: "src/language-html/parser-html.js",
   },
   {
     input: "src/language-yaml/parser-yaml.js",
+    replaceModule: {
+      // Use `tslib.es6.js`, so we can avoid `globalThis` shim
+      [require.resolve("tslib")]: require
+        .resolve("tslib")
+        .replace(/tslib\.js$/, "tslib.es6.js"),
+    },
   },
 ].map((bundle) => {
   const { name } = bundle.input.match(
@@ -135,6 +185,13 @@ const coreBundles = [
     input: "src/standalone.js",
     name: "prettier",
     target: "universal",
+    replaceModule: {
+      [require.resolve("@babel/highlight")]: require.resolve(
+        "./shims/babel-highlight.cjs"
+      ),
+      [createRequire(require.resolve("vnopts")).resolve("chalk")]:
+        require.resolve("./shims/chalk.cjs"),
+    },
   },
   {
     input: "bin/prettier.js",

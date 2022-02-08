@@ -33,7 +33,7 @@ async function bump({
   } else {
     pkg.version = semver.inc(version, "minor") + "-dev";
   }
-  await writeJson("package.json", pkg, { spaces: 2 });
+  await writeJson("package.json", pkg);
 }
 
 export default async function bumpPrettier(params) {
