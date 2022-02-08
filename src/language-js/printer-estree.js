@@ -106,24 +106,53 @@ function genericPrint(path, options, print, args) {
     return printed;
   }
 
+  let parts = [printed];
+
   const printedDecorators = printDecorators(path, options, print);
-  // Nodes with decorators can't have parentheses and don't need leading semicolons
+  const isClassExpressionWithDecorators =
+    node.type === "ClassExpression" && printedDecorators;
+  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
   if (printedDecorators) {
-    return group([...printedDecorators, printed]);
+    parts = [...printedDecorators, printed];
+
+    if (!isClassExpressionWithDecorators) {
+      return group(parts);
+    }
   }
 
   const needsParens = pathNeedsParens(path, options);
 
   if (!needsParens) {
-    return args && args.needsSemi ? [";", printed] : printed;
+    if (args && args.needsSemi) {
+      parts.unshift(";");
+    }
+
+    // In member-chain print, it add `label` to the doc, if we return array here it will be broken
+    if (parts.length === 1 && parts[0] === printed) {
+      return printed;
+    }
+
+    return parts;
   }
 
-  const parts = [args && args.needsSemi ? ";(" : "(", printed];
+  if (isClassExpressionWithDecorators) {
+    parts = [indent([line, ...parts])];
+  }
+
+  parts.unshift("(");
+
+  if (args && args.needsSemi) {
+    parts.unshift(";");
+  }
 
   if (hasFlowShorthandAnnotationComment(node)) {
     const [comment] = node.trailingComments;
     parts.push(" /*", comment.value.trimStart(), "*/");
     comment.printed = true;
+  }
+
+  if (isClassExpressionWithDecorators) {
+    parts.push(line);
   }
 
   parts.push(")");
