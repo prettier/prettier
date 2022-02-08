@@ -153,7 +153,7 @@
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.mjs",
     "lint:prettier": "prettier . \"!test*\" --check",
-    "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --config=./scripts/bundle-eslint-config.js \"dist/!(bin-prettier|index|third-party).js\"",
+    "lint:dist": "eslint --no-eslintrc --no-ignore --no-inline-config --config=./scripts/bundle-eslint-config.cjs \"dist/**/*.{js,mjs}\"",
     "lint:spellcheck": "cspell --no-progress --relative --dot --gitignore",
     "lint:deps": "node ./scripts/check-deps.mjs",
     "lint:actionlint": "node-actionlint",
