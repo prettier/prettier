@@ -113,7 +113,7 @@ function genericPrint(path, options, print, args) {
     node.type === "ClassExpression" && printedDecorators;
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
   if (printedDecorators) {
-    parts.unshift(...printedDecorators);
+    parts = [...printedDecorators, printed];
 
     if (!isClassExpressionWithDecorators) {
       return group(parts);
@@ -127,11 +127,12 @@ function genericPrint(path, options, print, args) {
       parts.unshift(";");
     }
 
-    if (isClassExpressionWithDecorators) {
-      return parts;
+    // In member-chain print, it add `label` to the doc, if we returns array here it will be broken
+    if (parts.length === 1 && parts[0] === printed) {
+      return printed;
     }
 
-    return printed;
+    return parts;
   }
 
   if (isClassExpressionWithDecorators) {
