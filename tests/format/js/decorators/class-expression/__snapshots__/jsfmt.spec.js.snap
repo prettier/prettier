@@ -208,6 +208,9 @@ const b1 = []
 const b2 = []
 ;(@deco class {})
 
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco class Foo {}
+
 =====================================output=====================================
 const a1 =
   (
@@ -241,6 +244,10 @@ const b2 = []
   class {}
 )
 
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco
+class Foo {}
+
 ================================================================================
 `;
 
@@ -261,6 +268,9 @@ const b1 = []
 
 const b2 = []
 ;(@deco class {})
+
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco class Foo {}
 
 =====================================output=====================================
 const a1 =
@@ -294,6 +304,10 @@ const b2 = [];
   @deco
   class {}
 );
+
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco
+class Foo {}
 
 ================================================================================
 `;

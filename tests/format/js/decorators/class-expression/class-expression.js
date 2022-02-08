@@ -9,3 +9,6 @@ const b1 = []
 
 const b2 = []
 ;(@deco class {})
+
+// This is not a `ClassExpression` but `ClassDeclaration`
+@deco class Foo {}
