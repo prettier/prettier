@@ -1,10 +1,10 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
+import fastGlob from "fast-glob";
 import { projectRoot } from "../env.js";
 import coreOptions from "../../../src/main/core-options.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import jestPathSerializer from "../path-serializer.js";
-const fastGlob = require("fast-glob");
 
 const { require } = createEsmUtils(import.meta);
 
