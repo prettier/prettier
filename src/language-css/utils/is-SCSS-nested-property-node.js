@@ -1,6 +1,10 @@
 "use strict";
 
-function isSCSSNestedPropertyNode(node) {
+function isSCSSNestedPropertyNode(node, options) {
+  if (options.parser !== "scss") {
+    return false;
+  }
+
   /* istanbul ignore next */
   if (!node.selector) {
     return false;

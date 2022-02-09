@@ -268,13 +268,7 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: [
-      "playground",
-      "print-size",
-      "compare-size",
-      "minify",
-      "clean",
-    ],
+    boolean: ["playground", "print-size", "compare-size", "minify", "clean"],
     string: ["file", "save-as", "report"],
     default: {
       clean: false,
