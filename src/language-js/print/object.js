@@ -114,7 +114,22 @@ function printObject(path, options, print) {
 
   /** @type {Doc[]} */
   let separatorParts = [];
+  let commentAfterLeftBrace;
+
   const props = propsAndLoc.map((prop) => {
+    if (
+      hasComment(prop.node) &&
+      getComments(prop.node)[0].loc.start.line === node.loc.start.line &&
+      (prop.node.type === "ObjectProperty" ||
+        prop.node.type === "Property" ||
+        prop.node.type === "TSPropertySignature")
+    ) {
+      commentAfterLeftBrace = prop.printed[0].shift();
+      if (commentAfterLeftBrace) {
+        commentAfterLeftBrace[1] = softline;
+      }
+    }
+
     const result = [...separatorParts, group(prop.printed)];
     separatorParts = [separator, line];
     if (
@@ -187,6 +202,7 @@ function printObject(path, options, print) {
         ? printHardlineAfterHeritage(parent)
         : "",
       leftBrace,
+      commentAfterLeftBrace ? group([" ", commentAfterLeftBrace]) : "",
       indent([options.bracketSpacing ? line : softline, ...props]),
       ifBreak(
         canHaveTrailingSeparator &&
