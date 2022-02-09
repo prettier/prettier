@@ -1,7 +1,12 @@
 "use strict";
 
-function isSCSSVariable(node) {
-  return Boolean(node && node.type === "word" && node.value.startsWith("$"));
+function isSCSSVariable(node, options) {
+  return Boolean(
+    options.parser === "scss" &&
+    node &&
+    node.type === "word" &&
+    node.value.startsWith("$")
+  );
 }
 
 module.exports = isSCSSVariable;
