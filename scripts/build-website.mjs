@@ -39,7 +39,7 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--playground", "--no-babel", "--clean"], {
+    await runYarn("build", ["--playground", "--clean"], {
       cwd: PROJECT_ROOT,
     });
   } finally {

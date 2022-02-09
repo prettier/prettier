@@ -226,26 +226,6 @@ function isSCSSControlDirectiveNode(node, options) {
   );
 }
 
-<<<<<<< HEAD:src/language-css/utils.js
-function isSCSSNestedPropertyNode(node, options) {
-  if (options.parser !== "scss") {
-    return false;
-  }
-
-  /* istanbul ignore next */
-  if (!node.selector) {
-    return false;
-  }
-
-  return node.selector
-    .replace(/\/\*.*?\*\//, "")
-    .replace(/\/\/.*\n/, "")
-    .trim()
-    .endsWith(":");
-}
-
-=======
->>>>>>> main:src/language-css/utils/index.js
 function isDetachedRulesetCallNode(node) {
   return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 }

@@ -76,8 +76,6 @@ const {
   isParenGroupNode,
 } = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
-const isLessParser = require("./utils/is-less-parser.js");
-const isSCSS = require("./utils/is-scss.js");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
