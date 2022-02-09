@@ -1,7 +1,7 @@
 "use strict";
 
 const createError = require("../../../common/parser-create-error.js");
-const visitNode = require("./visitNode.js");
+const visitNode = require("./visit-node.js");
 
 function throwSyntaxError(node, message) {
   const { start, end } = node.loc;
