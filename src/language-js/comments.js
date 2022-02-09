@@ -13,7 +13,6 @@ const {
   isNonEmptyArray,
 } = require("../common/util.js");
 const {
-  isBlockComment,
   getFunctionParameters,
   isPrettierIgnoreComment,
   isJsxNode,
@@ -25,11 +24,13 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isLineComment,
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -68,6 +69,7 @@ function handleOwnLineComment(context) {
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
+    handleBreakAndContinueStatementComments,
   ].some((fn) => fn(context));
 }
 
@@ -91,6 +93,8 @@ function handleEndOfLineComment(context) {
     handleOnlyComments,
     handleTypeAliasComments,
     handleVariableDeclaratorComments,
+    handleBreakAndContinueStatementComments,
+    handleSwitchDefaultCaseComments,
   ].some((fn) => fn(context));
 }
 
@@ -423,6 +427,17 @@ function handleClassComments({
     // Don't add leading comments to `implements`, `extends`, `mixins` to
     // avoid printing the comment after the keyword.
     if (followingNode) {
+      if (
+        enclosingNode.superClass &&
+        followingNode === enclosingNode.superClass &&
+        precedingNode &&
+        (precedingNode === enclosingNode.id ||
+          precedingNode === enclosingNode.typeParameters)
+      ) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
       for (const prop of ["implements", "extends", "mixins"]) {
         if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
           if (
@@ -455,6 +470,7 @@ function handleMethodNameComments({
   if (
     enclosingNode &&
     precedingNode &&
+    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "(" &&
     // "MethodDefinition" is handled in getCommentChildNodes
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
@@ -895,6 +911,28 @@ function handleTSMappedTypeComments({
   return false;
 }
 
+function handleSwitchDefaultCaseComments({
+  comment,
+  enclosingNode,
+  followingNode,
+}) {
+  if (
+    !enclosingNode ||
+    enclosingNode.type !== "SwitchCase" ||
+    enclosingNode.test
+  ) {
+    return false;
+  }
+
+  if (followingNode.type === "BlockStatement" && isLineComment(comment)) {
+    addBlockStatementFirstComment(followingNode, comment);
+  } else {
+    addDanglingComment(enclosingNode, comment);
+  }
+
+  return true;
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -931,6 +969,7 @@ function getCommentChildNodes(node, options) {
   if (
     (options.parser === "typescript" ||
       options.parser === "flow" ||
+      options.parser === "acorn" ||
       options.parser === "espree" ||
       options.parser === "meriyah" ||
       options.parser === "__babel_estree") &&

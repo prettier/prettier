@@ -2,13 +2,15 @@ import fs from "node:fs/promises";
 import url from "node:url";
 import path from "node:path";
 
+const toPath = (path) => (path instanceof URL ? url.fileURLToPath(path) : path);
+
 async function readJson(file) {
   const data = await fs.readFile(file);
   return JSON.parse(data);
 }
 
 function writeJson(file, content) {
-  content = JSON.stringify(content, null, 2);
+  content = JSON.stringify(content, null, 2) + "\n";
   return writeFile(file, content);
 }
 
@@ -18,7 +20,7 @@ async function copyFile(from, to) {
 }
 
 async function writeFile(file, content) {
-  const directory = path.dirname(file);
+  const directory = path.dirname(toPath(file));
   try {
     await fs.mkdir(directory, { recursive: true });
   } catch {

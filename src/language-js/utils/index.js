@@ -8,24 +8,25 @@ const {
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
   getStringWidth,
-} = require("../common/util.js");
-const { locStart, locEnd, hasSameLocStart } = require("./loc.js");
+} = require("../../common/util.js");
+const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
+const isBlockComment = require("./is-block-comment.js");
 
 /**
- * @typedef {import("./types/estree").Node} Node
- * @typedef {import("./types/estree").TemplateLiteral} TemplateLiteral
- * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("./types/estree").MemberExpression} MemberExpression
- * @typedef {import("./types/estree").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("./types/estree").CallExpression} CallExpression
- * @typedef {import("./types/estree").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("./types/estree").Expression} Expression
- * @typedef {import("./types/estree").Property} Property
- * @typedef {import("./types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("./types/estree").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("./types/estree").Literal} Literal
+ * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree").TemplateLiteral} TemplateLiteral
+ * @typedef {import("../types/estree").Comment} Comment
+ * @typedef {import("../types/estree").MemberExpression} MemberExpression
+ * @typedef {import("../types/estree").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("../types/estree").CallExpression} CallExpression
+ * @typedef {import("../types/estree").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("../types/estree").Expression} Expression
+ * @typedef {import("../types/estree").Property} Property
+ * @typedef {import("../types/estree").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("../types/estree").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("../types/estree").Literal} Literal
  *
- * @typedef {import("../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path")} AstPath
  */
 
 // We match any whitespace except line terminators because
@@ -153,19 +154,6 @@ function getLeftSidePathName(path, node) {
     return ["expression"];
   }
   throw new Error("Unexpected node has no left side.");
-}
-
-/**
- * @param {Comment} comment
- * @returns {boolean}
- */
-function isBlockComment(comment) {
-  return (
-    comment.type === "Block" ||
-    comment.type === "CommentBlock" ||
-    // `meriyah`
-    comment.type === "MultiLine"
-  );
 }
 
 /**
@@ -715,6 +703,7 @@ function isStringPropSafeToUnquote(node, options) {
       (isSimpleNumber(node.key.value) &&
         String(Number(node.key.value)) === node.key.value &&
         (options.parser === "babel" ||
+          options.parser === "acorn" ||
           options.parser === "espree" ||
           options.parser === "meriyah" ||
           options.parser === "__babel_estree")))
@@ -1322,10 +1311,6 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-function isTsKeywordType({ type }) {
-  return type.startsWith("TS") && type.endsWith("Keyword");
-}
-
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1345,7 +1330,6 @@ module.exports = {
   hasNodeIgnoreComment,
   identity,
   isBinaryish,
-  isBlockComment,
   isCallLikeExpression,
   isEnabledHackPipeline,
   isLineComment,
@@ -1391,5 +1375,4 @@ module.exports = {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-  isTsKeywordType,
 };

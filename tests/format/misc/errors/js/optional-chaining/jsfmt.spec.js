@@ -17,5 +17,5 @@ run_spec(
       "new exists?.(); // undefined",
     ],
   },
-  ["babel", "espree", "meriyah"]
+  ["babel", "acorn", "espree", "meriyah"]
 );

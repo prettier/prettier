@@ -13,7 +13,7 @@ const {
   needsHardlineAfterDanglingComment,
   isStringLiteral,
   rawText,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locStart, hasSameLoc } = require("../loc.js");
 const {
   hasDecoratorsBeforeExport,

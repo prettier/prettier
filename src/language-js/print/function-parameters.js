@@ -18,7 +18,7 @@ const {
   shouldPrintComma,
   hasComment,
   isNextLineEmpty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locEnd } = require("../loc.js");
 const { ArgExpansionBailout } = require("../../common/errors.js");
 const { printFunctionTypeParameters } = require("./misc.js");

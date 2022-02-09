@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`call-arguments.js [acorn] format 1`] = `
+"Unexpected token (3:3)
+  1 | // from https://github.com/babel/babel/pull/13122/
+  2 | expect(
+> 3 |   do {
+    |   ^
+  4 |     var bar = \\"foo\\";
+  5 |     if (!bar) throw new Error(
+  6 |       \\"unreachable\\""
+`;
+
 exports[`call-arguments.js [espree] format 1`] = `
 "Unexpected token do (3:3)
   1 | // from https://github.com/babel/babel/pull/13122/
@@ -106,6 +117,17 @@ expect(
 ).toThrow(ReferenceError);
 
 ================================================================================
+`;
+
+exports[`do.js [acorn] format 1`] = `
+"Unexpected token (3:5)
+  1 | const envSpecific = {
+  2 |   domain:
+> 3 |     do {
+    |     ^
+  4 |       if(env === 'production') 'https://abc.mno.com/';
+  5 |       else if(env === 'development') 'http://localhost:4000';
+  6 |     }"
 `;
 
 exports[`do.js [espree] format 1`] = `

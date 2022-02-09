@@ -2,7 +2,7 @@
 
 exports[`interfaces.js format 1`] = `
 ====================================options=====================================
-parsers: ["espree", "meriyah", "babel"]
+parsers: ["acorn", "espree", "meriyah", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

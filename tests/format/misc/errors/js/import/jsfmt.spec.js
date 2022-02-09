@@ -8,5 +8,14 @@ run_spec(
       "new import();",
     ],
   },
-  ["babel", "espree", "meriyah", "flow", "typescript", "babel-flow", "babel-ts"]
+  [
+    "babel",
+    "acorn",
+    "espree",
+    "meriyah",
+    "flow",
+    "typescript",
+    "babel-flow",
+    "babel-ts",
+  ]
 );

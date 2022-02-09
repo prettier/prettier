@@ -6,7 +6,7 @@ import readline from "node:readline";
 import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
-import rimraf from "rimraf";
+import createEsmUtils from "esm-utils";
 import {
   PROJECT_ROOT,
   DIST_DIR,
@@ -17,6 +17,8 @@ import {
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
 import saveLicenses from "./save-licenses.mjs";
+
+const { require } = createEsmUtils(import.meta);
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -49,60 +51,100 @@ function fitTerminal(input, suffix = "") {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    const repeatCount = WIDTH - input.length - 1 - suffix.length;
+    const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
     input += chalk.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
 
+const clear = () => {
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0, null);
+};
+
 async function createBundle(bundleConfig, options) {
-  const { output, target, format, type } = bundleConfig;
-  process.stdout.write(fitTerminal(output));
+  const { target } = bundleConfig;
+
   try {
-    const { skipped } = await bundler(bundleConfig, options);
+    for await (const {
+      name,
+      started,
+      skipped,
+      relativePath,
+      absolutePath,
+    } of bundler(bundleConfig, options)) {
+      const displayName = name.startsWith("esm/") ? `  ${name}` : name;
 
-    if (skipped) {
-      console.log(status.SKIPPED);
-      return;
-    }
-
-    const file = path.join(DIST_DIR, output);
-
-    // Files including U+FFEE can't load in Chrome Extension
-    // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
-    // details https://github.com/prettier/prettier/pull/8534
-    if (target === "universal") {
-      const content = await fs.readFile(file, "utf8");
-      if (content.includes("\ufffe")) {
-        throw new Error("Bundled umd file should not have U+FFFE character.");
+      if (started) {
+        process.stdout.write(fitTerminal(displayName));
+        continue;
       }
-    }
 
-    if (options["print-size"]) {
-      // Clear previous line
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      if (skipped) {
+        if (!options.files) {
+          process.stdout.write(fitTerminal(displayName));
+          console.log(status.SKIPPED);
+        }
 
-      const getSizeText = async (file) =>
-        prettyBytes((await fs.stat(file)).size);
-      const sizeTexts = [await getSizeText(file)];
-      if (
-        type !== "core" &&
-        format !== "esm" &&
-        bundleConfig.bundler !== "webpack" &&
-        target === "universal"
-      ) {
-        const esmFile = path.join(
-          DIST_DIR,
-          "esm",
-          output.replace(".js", ".mjs")
+        continue;
+      }
+
+      // Files including U+FFEE can't load in Chrome Extension
+      // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
+      // details https://github.com/prettier/prettier/pull/8534
+      if (target === "universal") {
+        const content = await fs.readFile(absolutePath, "utf8");
+        if (content.includes("\ufffe")) {
+          throw new Error("Bundled umd file should not have U+FFFE character.");
+        }
+      }
+
+      const sizeMessages = [];
+
+      if (options.printSize) {
+        const { size } = await fs.stat(absolutePath);
+        sizeMessages.push(prettyBytes(size));
+      }
+
+      if (options.compareSize) {
+        // TODO: Use `import.meta.resolve` when Node.js support
+        const stablePrettierDirectory = path.dirname(
+          require.resolve("prettier")
         );
-        sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
-      }
-      process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
-    }
+        const stableVersionFile = path.join(
+          stablePrettierDirectory,
+          relativePath
+        );
+        let stableSize;
+        try {
+          ({ size: stableSize } = await fs.stat(stableVersionFile));
+        } catch {
+          // No op
+        }
 
-    console.log(status.DONE);
+        if (stableSize) {
+          const { size } = await fs.stat(absolutePath);
+          const sizeDiff = size - stableSize;
+          const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
+            prettyBytes(sizeDiff)
+          );
+
+          sizeMessages.push(`${message}`);
+        } else {
+          sizeMessages.push(chalk.blue("[NEW FILE]"));
+        }
+      }
+
+      if (sizeMessages.length > 0) {
+        // Clear previous line
+        clear();
+        process.stdout.write(
+          fitTerminal(displayName, `${sizeMessages.join(", ")} `)
+        );
+      }
+
+      console.log(status.DONE);
+    }
   } catch (error) {
     console.log(status.FAIL + "\n");
     handleError(error);
@@ -135,16 +177,65 @@ async function preparePackage() {
 }
 
 async function run(params) {
-  const shouldPreparePackage =
-    !params.playground && !params.file && params.minify === null;
-  const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
+  params.files = params.file ? new Set([params.file].flat()) : params.file;
+  params.saveAs = params["save-as"];
+  params.printSize = params["print-size"];
 
-  let configs = bundleConfigs;
-  if (params.file) {
-    configs = configs.filter(({ output }) => output === params.file);
-  } else {
-    rimraf.sync(DIST_DIR);
+  if (params.report === "") {
+    params.report = ["html"];
   }
+  params.reports = params.report ? [params.report].flat() : params.report;
+
+  delete params.file;
+  delete params.report;
+  delete params["save-as"];
+  delete params["print-size"];
+
+  if (params.saveAs && !(params.files && params.files.size === 1)) {
+    throw new Error("'--save-as' can only use together with one '--file' flag");
+  }
+
+  if (
+    params.saveAs &&
+    !path.join(DIST_DIR, params.saveAs).startsWith(DIST_DIR)
+  ) {
+    throw new Error("'--save-as' can only relative path");
+  }
+
+  if (params.clean) {
+    let stat;
+    try {
+      stat = await fs.stat(DIST_DIR);
+    } catch {
+      // No op
+    }
+
+    if (stat) {
+      if (stat.isDirectory()) {
+        await fs.rm(DIST_DIR, { recursive: true, force: true });
+      } else {
+        throw new Error(`"${DIST_DIR}" is not a directory`);
+      }
+    }
+  }
+
+  if (params.compareSize) {
+    if (params.minify === false) {
+      throw new Error(
+        "'--compare-size' can not use together with '--no-minify' flag"
+      );
+    }
+
+    if (params.saveAs) {
+      throw new Error(
+        "'--compare-size' can not use together with '--save-as' flag"
+      );
+    }
+  }
+
+  const shouldPreparePackage =
+    !params.playground && !params.files && params.minify === null;
+  const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
 
   const licenses = [];
   if (shouldSaveBundledPackagesLicenses) {
@@ -153,7 +244,7 @@ async function run(params) {
 
   console.log(chalk.inverse(" Building packages "));
 
-  for (const bundleConfig of configs) {
+  for (const bundleConfig of bundleConfigs) {
     await createBundle(bundleConfig, params);
   }
 
@@ -162,7 +253,12 @@ async function run(params) {
   }
 
   if (shouldSaveBundledPackagesLicenses) {
-    await saveLicenses(licenses);
+    const vendorMeta = await readJson(
+      new URL("../vendors/vendor-meta.json", import.meta.url)
+    );
+    licenses.push(...vendorMeta.licenses);
+
+    await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
   } else {
     console.warn(
       chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")
@@ -172,8 +268,23 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "minify"],
-    string: ["file"],
-    default: { playground: false, printSize: false, minify: null },
+    boolean: [
+      "playground",
+      "print-size",
+      "compare-size",
+      "minify",
+      "clean",
+    ],
+    string: ["file", "save-as", "report"],
+    default: {
+      clean: false,
+      playground: false,
+      printSize: false,
+      compareSize: false,
+      minify: null,
+    },
+    unknown(flag) {
+      throw new Error(`Unknown flag ${chalk.red(flag)}`);
+    },
   })
 );

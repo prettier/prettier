@@ -1,6 +1,5 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util.js");
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -28,7 +27,6 @@ const colorAdjusterFunctions = new Set([
   "hwb",
   "hwba",
 ]);
-const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
@@ -57,43 +55,6 @@ function getPropOfDeclNode(path) {
     declAncestorNode &&
     declAncestorNode.prop &&
     declAncestorNode.prop.toLowerCase()
-  );
-}
-
-function hasSCSSInterpolation(groupList) {
-  if (isNonEmptyArray(groupList)) {
-    for (let i = groupList.length - 1; i > 0; i--) {
-      // If we find `#{`, return true.
-      if (
-        groupList[i].type === "word" &&
-        groupList[i].value === "{" &&
-        groupList[i - 1].type === "word" &&
-        groupList[i - 1].value.endsWith("#")
-      ) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-function hasStringOrFunction(groupList) {
-  if (isNonEmptyArray(groupList)) {
-    for (let i = 0; i < groupList.length; i++) {
-      if (groupList[i].type === "string" || groupList[i].type === "func") {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-function isSCSSVariable(node, options) {
-  return (
-    options.parser === "scss" &&
-    node &&
-    node.type === "word" &&
-    node.value.startsWith("$")
   );
 }
 
@@ -265,6 +226,7 @@ function isSCSSControlDirectiveNode(node, options) {
   );
 }
 
+<<<<<<< HEAD:src/language-css/utils.js
 function isSCSSNestedPropertyNode(node, options) {
   if (options.parser !== "scss") {
     return false;
@@ -282,6 +244,8 @@ function isSCSSNestedPropertyNode(node, options) {
     .endsWith(":");
 }
 
+=======
+>>>>>>> main:src/language-css/utils/index.js
 function isDetachedRulesetCallNode(node) {
   return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
 }
@@ -444,45 +408,12 @@ function lastLineHasInlineComment(text) {
   return /\/\//.test(text.split(/[\n\r]/).pop());
 }
 
-function stringifyNode(node) {
-  if (node.groups) {
-    const open = node.open && node.open.value ? node.open.value : "";
-    const groups = node.groups.reduce(
-      (previousValue, currentValue, index) =>
-        previousValue +
-        stringifyNode(currentValue) +
-        (node.groups[0].type === "comma_group" &&
-        index !== node.groups.length - 1
-          ? ","
-          : ""),
-      ""
-    );
-    const close = node.close && node.close.value ? node.close.value : "";
-
-    return open + groups + close;
-  }
-
-  const before = node.raws && node.raws.before ? node.raws.before : "";
-  const quote = node.raws && node.raws.quote ? node.raws.quote : "";
-  const atword = node.type === "atword" ? "@" : "";
-  const value = node.value ? node.value : "";
-  const unit = node.unit ? node.unit : "";
-  const group = node.group ? stringifyNode(node.group) : "";
-  const after = node.raws && node.raws.after ? node.raws.after : "";
-
-  return before + quote + atword + value + quote + unit + group + after;
-}
-
 function isAtWordPlaceholderNode(node) {
   return (
     node &&
     node.type === "value-atword" &&
     node.value.startsWith("prettier-placeholder-")
   );
-}
-
-function isModuleRuleName(name) {
-  return moduleRuleNames.has(name);
 }
 
 function isConfigurationNode(node, parentNode) {
@@ -523,8 +454,6 @@ module.exports = {
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,
-  hasSCSSInterpolation,
-  hasStringOrFunction,
   maybeToLowerCase,
   insideValueFunctionNode,
   insideICSSRuleNode,
@@ -532,7 +461,6 @@ module.exports = {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
-  isSCSSVariable,
   isLastNode,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
@@ -551,7 +479,6 @@ module.exports = {
   hasComposesNode,
   hasParensAroundNode,
   hasEmptyRawBefore,
-  isSCSSNestedPropertyNode,
   isDetachedRulesetCallNode,
   isTemplatePlaceholderNode,
   isTemplatePropNode,
@@ -569,9 +496,7 @@ module.exports = {
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
-  stringifyNode,
   isAtWordPlaceholderNode,
-  isModuleRuleName,
   isConfigurationNode,
   isParenGroupNode,
 };

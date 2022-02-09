@@ -1,11 +1,9 @@
 "use strict";
 
+const { skipEverythingButNewLine } = require("../utils/text/skip.js");
+const getLast = require("../utils/get-last.js");
+const isNonEmptyArray = require("../utils/is-non-empty-array.js");
 const lineColumnToIndex = require("../utils/line-column-to-index.js");
-const {
-  getLast,
-  skipEverythingButNewLine,
-  isNonEmptyArray,
-} = require("../common/util.js");
 
 function calculateLocStart(node, text) {
   // `postcss>=8`

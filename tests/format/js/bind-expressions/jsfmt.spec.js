@@ -1,5 +1,7 @@
-run_spec(import.meta, ["babel"], { errors: { espree: true, meriyah: true } });
-run_spec(import.meta, ["babel"], {
+run_spec(__dirname, ["babel"], {
+  errors: { acorn: true, espree: true, meriyah: true },
+});
+run_spec(__dirname, ["babel"], {
   semi: false,
-  errors: { espree: true, meriyah: true },
+  errors: { acorn: true, espree: true, meriyah: true },
 });

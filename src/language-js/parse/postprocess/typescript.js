@@ -63,7 +63,8 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
 function throwErrorForInvalidNodes(ast, options) {
   const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
     options.tsParseResult;
-  ast = visitNode(ast, (node) => {
+
+  visitNode(ast, (node) => {
     const tsNode = esTreeNodeToTSNodeMap.get(node);
     if (!tsNode) {
       return;

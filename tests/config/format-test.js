@@ -41,6 +41,7 @@ const unstableTests = new Map(
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
     "js/comments/html-like/comment.js",
+    "js/for/continue-and-break-comment-without-blocks.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -57,6 +58,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
+const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
@@ -188,6 +190,9 @@ function runSpec(fixtures, parsers, options) {
       }
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
+      }
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
       }
     }
 

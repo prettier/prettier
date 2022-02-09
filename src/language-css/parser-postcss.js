@@ -4,16 +4,14 @@ const createError = require("../common/parser-create-error.js");
 const getLast = require("../utils/get-last.js");
 const parseFrontMatter = require("../utils/front-matter/parse.js");
 const { hasPragma } = require("./pragma.js");
-const {
-  hasSCSSInterpolation,
-  hasStringOrFunction,
-  isSCSSNestedPropertyNode,
-  isSCSSVariable,
-  stringifyNode,
-  isModuleRuleName,
-} = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
+const hasSCSSInterpolation = require("./utils/has-SCSS-interpolation.js");
+const hasStringOrFunction = require("./utils/has-string-or-function.js");
+const isSCSSNestedPropertyNode = require("./utils/is-SCSS-nested-property-node.js");
+const isSCSSVariable = require("./utils/is-SCSS-variable.js");
+const stringifyNode = require("./utils/stringify-node.js");
+const isModuleRuleName = require("./utils/is-module-rule-name.js");
 
 const getHighestAncestor = (node) => {
   while (node.parent) {

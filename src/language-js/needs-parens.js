@@ -1,6 +1,7 @@
 "use strict";
 
 const getLast = require("../utils/get-last.js");
+const isNonEmptyArray = require("../utils/is-non-empty-array.js");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -14,7 +15,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils.js");
+} = require("./utils/index.js");
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -95,7 +96,6 @@ function needsParens(path, options) {
           node.type === "LogicalExpression" ||
           node.type === "NewExpression" ||
           node.type === "ObjectExpression" ||
-          node.type === "ParenthesizedExpression" ||
           node.type === "SequenceExpression" ||
           node.type === "TaggedTemplateExpression" ||
           node.type === "UnaryExpression" ||
@@ -668,6 +668,10 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
+      if (isNonEmptyArray(node.decorators)) {
+        return true;
+      }
+
       switch (parent.type) {
         case "NewExpression":
           return name === "callee";

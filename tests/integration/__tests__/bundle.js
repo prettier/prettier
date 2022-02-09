@@ -1,10 +1,10 @@
 import path from "node:path";
-import globby from "globby";
 import createEsmUtils from "esm-utils";
 import { projectRoot } from "../env.js";
 import coreOptions from "../../../src/main/core-options.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import jestPathSerializer from "../path-serializer.js";
+const fastGlob = require("fast-glob");
 
 const { require } = createEsmUtils(import.meta);
 
@@ -22,7 +22,7 @@ beforeAll(async () => {
     path.join(distDirectory, "esm/standalone.mjs")
   ));
   esmPlugins = await Promise.all(
-    globby
+    fastGlob
       .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
       .map(async (file) => (await import(file)).default)
   );
@@ -30,7 +30,7 @@ beforeAll(async () => {
 
 describe("standalone", () => {
   const standalone = require(path.join(distDirectory, "standalone.js"));
-  const plugins = globby
+  const plugins = fastGlob
     .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 

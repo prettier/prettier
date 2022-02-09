@@ -31,7 +31,7 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const pathNeedsParens = require("../needs-parens.js");
 const { willPrintOwnComments } = require("../comments.js");
 
@@ -502,24 +502,25 @@ function printJsxAttribute(path, options, print) {
 
 function printJsxExpressionContainer(path, options, print) {
   const node = path.getValue();
-  const parent = path.getParentNode(0);
 
-  const shouldInline =
-    node.expression.type === "JSXEmptyExpression" ||
-    (!hasComment(node.expression) &&
-      (node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression" ||
-        node.expression.type === "ArrowFunctionExpression" ||
-        isCallExpression(node.expression) ||
-        node.expression.type === "FunctionExpression" ||
-        node.expression.type === "TemplateLiteral" ||
-        node.expression.type === "TaggedTemplateExpression" ||
-        node.expression.type === "DoExpression" ||
+  const shouldInline = (node, parent) =>
+    node.type === "JSXEmptyExpression" ||
+    (!hasComment(node) &&
+      (node.type === "ArrayExpression" ||
+        node.type === "ObjectExpression" ||
+        node.type === "ArrowFunctionExpression" ||
+        (node.type === "AwaitExpression" &&
+          (shouldInline(node.argument, node) ||
+            node.argument.type === "JSXElement")) ||
+        isCallExpression(node) ||
+        node.type === "FunctionExpression" ||
+        node.type === "TemplateLiteral" ||
+        node.type === "TaggedTemplateExpression" ||
+        node.type === "DoExpression" ||
         (isJsxNode(parent) &&
-          (node.expression.type === "ConditionalExpression" ||
-            isBinaryish(node.expression)))));
+          (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
-  if (shouldInline) {
+  if (shouldInline(node.expression, path.getParentNode(0))) {
     return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 

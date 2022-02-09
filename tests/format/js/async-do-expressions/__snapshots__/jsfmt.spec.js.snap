@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`async-do-expressions.js [acorn] format 1`] = `
+"Unexpected token (1:7)
+> 1 | async do {
+    |       ^
+  2 |   1;
+  3 | };
+  4 |"
+`;
+
 exports[`async-do-expressions.js [espree] format 1`] = `
 "Unexpected token do (1:7)
 > 1 | async do {

@@ -20,7 +20,7 @@ const {
   isVueCustomBlock,
   countParents,
   forceBreakContent,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const {
   printOpeningTagPrefix,
   printOpeningTag,

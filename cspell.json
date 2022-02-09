@@ -213,6 +213,7 @@
         "neoclide",
         "neoformat",
         "neovim",
+        "nocheck",
         "nnoremap",
         "nonenumerable",
         "Nonspacing",
@@ -369,8 +370,6 @@
     ],
     "files": [
         "*",
-        ".*",
-        ".github/**/*",
         "bin/**/*",
         "changelog_unreleased/**/*",
         "docs/**/*",
@@ -380,20 +379,19 @@
         "website/**/*",
         "tests/config/**/*",
         "tests/integration/**/*",
-        "tests/**/jsfmt.spec.js"
+        "tests/format/**/jsfmt.spec.js"
     ],
     "ignorePaths": [
+        ".git",
         "cspell.json",
-        "**/node_modules/**",
-        "**/yarn.lock",
         "*.{log,svg,snap,png}",
-        "test*.*",
         "tests/config/jest-light-runner/**/*",
         "website/data/users.yml",
         "website/build/**",
         "website/playground/codeSamples.mjs",
         "website/pages/googlefe164a33bda4034b.html",
         "website/static/lib/**",
-        "website/static/playground.js"
+        "website/static/playground.js",
+        "scripts/vendors/vendor-meta.json"
     ]
 }

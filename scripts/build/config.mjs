@@ -1,4 +1,5 @@
 import path from "node:path";
+import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 
 const { require } = createEsmUtils(import.meta);
@@ -43,11 +44,41 @@ const parsers = [
       'require("globby")': "{}",
       "extra.projects = prepareAndTransformProjects(":
         "extra.projects = [] || prepareAndTransformProjects(",
-      "process.versions.node": "'999.999.999'",
+      "process.versions.node": JSON.stringify("999.999.999"),
+      "process.cwd()": JSON.stringify("/prettier-security-dirname-placeholder"),
       // `rollup-plugin-polyfill-node` don't have polyfill for these modules
       'require("perf_hooks")': "{}",
       'require("inspector")': "{}",
       "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
+      // Remove useless `ts.sys`
+      "ts.sys = ": "ts.sys = undefined && ",
+
+      // Remove useless language service
+      "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
+      "ts.TypeScriptServicesFactory = ":
+        "ts.TypeScriptServicesFactory = undefined && ",
+      "var ShimBase = ": "var ShimBase = undefined && ",
+      "var TypeScriptServicesFactory = ":
+        "var TypeScriptServicesFactory = undefined && ",
+      "var LanguageServiceShimObject = ":
+        "var LanguageServiceShimObject = undefined && ",
+      "var CoreServicesShimHostAdapter = ":
+        "var CoreServicesShimHostAdapter = undefined && ",
+      "var LanguageServiceShimHostAdapter = ":
+        "var LanguageServiceShimHostAdapter = undefined && ",
+      "var ScriptSnapshotShimAdapter = ":
+        "var ScriptSnapshotShimAdapter = undefined && ",
+      "var ClassifierShimObject = ": "var ClassifierShimObject = undefined && ",
+      "var CoreServicesShimObject = ":
+        "var CoreServicesShimObject = undefined && ",
+      "function simpleForwardCall(": "0 && function simpleForwardCall(",
+      "function forwardJSONCall(": "0 && function forwardJSONCall(",
+      "function forwardCall(": "0 && function forwardCall(",
+      "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
+      "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
+      "function convertClassifications(":
+        "0 && function convertClassifications(",
+
       // Dynamic `require()`s
       "ts.sys && ts.sys.require": "false",
       "require(etwModulePath)": "undefined",
@@ -59,9 +90,19 @@ const parsers = [
       "typescriptVersionIsAtLeast[version] = semverCheck(version);":
         "typescriptVersionIsAtLeast[version] = true;",
     },
+    replaceModule: {
+      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
+    },
   },
   {
-    input: "src/language-js/parse/espree.js",
+    input: "src/language-js/parse/acorn-and-espree.js",
+    name: "prettierPlugins.espree",
+    // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
+    output: "parser-espree.js",
+    replace: {
+      "const Syntax = ": "const Syntax = undefined && ",
+      "var visitorKeys = ": "var visitorKeys = undefined && ",
+    },
   },
   {
     input: "src/language-js/parse/meriyah.js",
@@ -88,6 +129,10 @@ const parsers = [
     replaceModule: {
       [require.resolve("parse-entities/decode-entity.browser.js")]:
         require.resolve("parse-entities/decode-entity.js"),
+      // Avoid `node:util` shim
+      [require.resolve("inherits")]: require.resolve(
+        "inherits/inherits_browser.js"
+      ),
     },
   },
   {
@@ -98,6 +143,12 @@ const parsers = [
   },
   {
     input: "src/language-yaml/parser-yaml.js",
+    replaceModule: {
+      // Use `tslib.es6.js`, so we can avoid `globalThis` shim
+      [require.resolve("tslib")]: require
+        .resolve("tslib")
+        .replace(/tslib\.js$/, "tslib.es6.js"),
+    },
   },
 ].map((bundle) => {
   const { name } = bundle.input.match(
@@ -134,6 +185,13 @@ const coreBundles = [
     input: "src/standalone.js",
     name: "prettier",
     target: "universal",
+    replaceModule: {
+      [require.resolve("@babel/highlight")]: require.resolve(
+        "./shims/babel-highlight.cjs"
+      ),
+      [createRequire(require.resolve("vnopts")).resolve("chalk")]:
+        require.resolve("./shims/chalk.cjs"),
+    },
   },
   {
     input: "bin/prettier.js",

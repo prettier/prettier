@@ -40,6 +40,7 @@ jobs:
         uses: preactjs/compressed-size-action@2.3.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          pattern: "./dist/**/*"
           compression: none
 
   lint:
