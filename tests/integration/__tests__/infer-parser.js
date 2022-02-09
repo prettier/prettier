@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {

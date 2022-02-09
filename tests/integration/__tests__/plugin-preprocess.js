@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 const EOL = "\n";
 
 describe("parser preprocess function is used to reshape input text", () => {

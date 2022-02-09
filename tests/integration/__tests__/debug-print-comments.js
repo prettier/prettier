@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 
 describe("prints information for debugging comment attachment with --debug-print-comments", () => {
   runPrettier(

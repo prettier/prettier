@@ -6,7 +6,7 @@ const tempy = require("tempy");
 const fromPairs = require("lodash/fromPairs");
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 
 expect.addSnapshotSerializer(require("../path-serializer.js"));
 
