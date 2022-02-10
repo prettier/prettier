@@ -1,13 +1,14 @@
-"use strict";
-const pick = require("lodash/pick");
-const camelCase = require("camelcase");
-const chalk = require("chalk");
+import pick from "lodash/pick.js";
+import camelCase from "camelcase";
+import chalk from "chalk";
+import prettierInternal from "../prettier-internal.js";
+import getContextOptions from "./get-context-options.js";
+import minimist from "./minimist.js";
+import createMinimistOptions from "./create-minimist-options.js";
+
 const {
   optionsNormalizer: { normalizeCliOptions },
-} = require("../prettier-internal.js");
-const getContextOptions = require("./get-context-options.js");
-const minimist = require("./minimist.js");
-const createMinimistOptions = require("./create-minimist-options.js");
+} = prettierInternal;
 
 function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const minimistOptions = createMinimistOptions(detailedOptions);
@@ -47,4 +48,4 @@ function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   );
 }
 
-module.exports = { parseArgv, parseArgvWithoutPlugins };
+export { parseArgv, parseArgvWithoutPlugins };

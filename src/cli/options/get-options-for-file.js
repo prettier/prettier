@@ -1,12 +1,11 @@
-"use strict";
+import dashify from "dashify";
+import chalk from "chalk";
+import prettier from "../../index.js";
+import prettierInternal from "../prettier-internal.js";
+import minimist from "./minimist.js";
+import createMinimistOptions from "./create-minimist-options.js";
 
-const dashify = require("dashify");
-const chalk = require("chalk");
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../../index.js");
-const { optionsNormalizer } = require("../prettier-internal.js");
-const minimist = require("./minimist.js");
-const createMinimistOptions = require("./create-minimist-options.js");
+const { optionsNormalizer } = prettierInternal;
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -136,4 +135,4 @@ async function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
-module.exports = getOptionsForFile;
+export default getOptionsForFile;

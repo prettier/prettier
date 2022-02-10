@@ -1,15 +1,15 @@
-"use strict";
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../../index.js");
+import prettier from "../../index.js";
+import prettierInternal from "../prettier-internal.js";
+import * as constant from "../constant.js";
+import {
+  normalizeDetailedOptionMap,
+  createDetailedOptionMap,
+} from "./option-map.js";
+
 const {
   optionsModule,
   utils: { arrayify },
-} = require("../prettier-internal.js");
-const constant = require("../constant.js");
-const {
-  normalizeDetailedOptionMap,
-  createDetailedOptionMap,
-} = require("./option-map.js");
+} = prettierInternal;
 
 function getContextOptions(plugins, pluginSearchDirs) {
   const { options: supportOptions, languages } = prettier.getSupportInfo({
@@ -44,4 +44,4 @@ function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-module.exports = getContextOptions;
+export default getContextOptions;

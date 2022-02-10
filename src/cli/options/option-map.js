@@ -1,7 +1,7 @@
-"use strict";
+import dashify from "dashify";
+import prettierInternal from "../prettier-internal.js";
 
-const dashify = require("dashify");
-const { coreOptions } = require("../prettier-internal.js");
+const { coreOptions } = prettierInternal;
 
 function normalizeDetailedOption(name, option) {
   return {
@@ -56,7 +56,4 @@ function createDetailedOptionMap(supportOptions) {
   );
 }
 
-module.exports = {
-  normalizeDetailedOptionMap,
-  createDetailedOptionMap,
-};
+export { normalizeDetailedOptionMap, createDetailedOptionMap };

@@ -1,4 +1,3 @@
-"use strict";
+import prettier from "../index.js";
 
-// eslint-disable-next-line no-restricted-modules
-module.exports = require("../index.js").__internal;
+export default prettier.__internal;

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-"use strict";
+import * as cli from "../src/cli/index.js";
 
-module.exports = require("../src/cli/index.js").run(process.argv.slice(2));
+export const promise = cli.run(process.argv.slice(2));

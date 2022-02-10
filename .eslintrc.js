@@ -159,7 +159,13 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs", "scripts/release/**/*.js", "tests/**/*.js"],
+      files: [
+        "**/*.mjs",
+        "scripts/release/**/*.js",
+        "tests/**/*.js",
+        "bin/**/*.js",
+        "src/cli/**/*.js",
+      ],
       excludedFiles: [
         "tests/integration/plugins/automatic/prettier-plugin-bar.js",
       ],
@@ -169,6 +175,15 @@ module.exports = {
       rules: {
         "unicorn/prefer-module": "error",
         "unicorn/prefer-node-protocol": "error",
+        // TODO[@fisker]: Fix this
+        "import/no-extraneous-dependencies": "off",
+      },
+    },
+    // `esbuild` don't support
+    {
+      files: ["bin/**/*.js", "src/**/*.js"],
+      rules: {
+        "unicorn/prefer-node-protocol": "off",
       },
     },
     {
@@ -219,6 +234,7 @@ module.exports = {
     {
       files: ["src/cli/*.js"],
       rules: {
+        // TODO[@fisker]: This not actually working, need fix. #11903
         "no-restricted-modules": [
           "error",
           {
