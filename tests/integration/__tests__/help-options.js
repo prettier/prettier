@@ -1,6 +1,6 @@
 import prettier from "prettier-local";
 import runPrettier from "../run-prettier.js";
-import constant from "../../../src/cli/constant.js";
+import * as constant from "../../../src/cli/constant.js";
 import arrayify from "../../../src/utils/arrayify.js";
 import {
   createDetailedOptionMap,
