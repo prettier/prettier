@@ -6,12 +6,12 @@ const parseFrontMatter = require("../utils/front-matter/parse.js");
 const { hasPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
-const hasSCSSInterpolation = require("./utils/has-SCSS-interpolation.js");
+const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
 const hasStringOrFunction = require("./utils/has-string-or-function.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
-const isSCSSNestedPropertyNode = require("./utils/is-SCSS-nested-property-node.js");
-const isSCSSVariable = require("./utils/is-SCSS-variable.js");
+const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
+const isSCSSVariable = require("./utils/is-scss-variable.js");
 const stringifyNode = require("./utils/stringify-node.js");
 const isModuleRuleName = require("./utils/is-module-rule-name.js");
 
