@@ -234,6 +234,7 @@ module.exports = {
     {
       files: ["src/cli/*.js"],
       rules: {
+        // TODO[@fisker]: This not actually working, need fix. #11903
         "no-restricted-modules": [
           "error",
           {

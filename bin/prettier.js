@@ -2,4 +2,4 @@
 
 import * as cli from "../src/cli/index.js";
 
-export const promise = cli.run(process.argv.slice(2));
+export const cliResult = cli.run(process.argv.slice(2));

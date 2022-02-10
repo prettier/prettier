@@ -112,7 +112,7 @@ async function run(dir, args, options) {
     .mockImplementation(() => process.cwd());
 
   try {
-    await require(prettierCli).promise;
+    await require(prettierCli).cliResult;
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
