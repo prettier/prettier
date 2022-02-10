@@ -1,7 +1,5 @@
-"use strict";
-
-const { outdent } = require("outdent");
-const { coreOptions } = require("./prettier-internal.js");
+import { outdent } from "outdent";
+import { coreOptions } from "./prettier-internal.js";
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,
@@ -231,8 +229,4 @@ const usageSummary = outdent`
   Stdin is read if it is piped to Prettier and no files are given.
 `;
 
-module.exports = {
-  categoryOrder,
-  options,
-  usageSummary,
-};
+export { categoryOrder, options, usageSummary };

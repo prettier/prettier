@@ -1,33 +1,23 @@
-"use strict";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 
-const { promises: fs } = require("fs");
-const path = require("path");
+import chalk from "chalk";
 
-const chalk = require("chalk");
+import diffModule from "diff/lib/patch/create.js";
+import prettier from "../index.js";
 
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
-// eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party.js");
+import { getStdin } from "../common/third-party.js";
 
-const { createIgnorer, errors } = require("./prettier-internal.js");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
-const getOptionsForFile = require("./options/get-options-for-file.js");
-const isTTY = require("./is-tty.js");
+import { createIgnorer, errors } from "./prettier-internal.js";
+import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
+import isTTY from "./is-tty.js";
+// Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
 
 function diff(a, b) {
-  // Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
-  return require("diff/lib/patch/create.js").createTwoFilesPatch(
-    "",
-    "",
-    a,
-    b,
-    "",
-    "",
-    {
-      context: 2,
-    }
-  );
+  return diffModule.createTwoFilesPatch("", "", a, b, "", "", {
+    context: 2,
+  });
 }
 
 function handleError(context, filename, error, printedFilename) {
@@ -111,7 +101,7 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function format(context, input, opt) {
+async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
       "No parser and no file path given, couldn't infer a parser."
@@ -177,8 +167,7 @@ function format(context, input, opt) {
   if (context.argv.debugBenchmark) {
     let benchmark;
     try {
-      // eslint-disable-next-line import/no-extraneous-dependencies
-      benchmark = require("benchmark");
+      ({ default: benchmark } = await import("benchmark"));
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
@@ -275,7 +264,7 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, format(context, input, options), options);
+    writeOutput(context, await format(context, input, options), options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -363,7 +352,7 @@ async function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, options);
+      result = await format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);
@@ -445,4 +434,4 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { formatStdin, formatFiles };
+export { formatStdin, formatFiles };

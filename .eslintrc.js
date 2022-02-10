@@ -159,7 +159,13 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs", "scripts/release/**/*.js", "tests/**/*.js"],
+      files: [
+        "**/*.mjs",
+        "scripts/release/**/*.js",
+        "tests/**/*.js",
+        "bin/**/*.js",
+        "src/cli/**/*.js",
+      ],
       excludedFiles: [
         "tests/integration/plugins/automatic/prettier-plugin-bar.js",
       ],
@@ -169,6 +175,8 @@ module.exports = {
       rules: {
         "unicorn/prefer-module": "error",
         "unicorn/prefer-node-protocol": "error",
+        // TODO[@fisker]: Fix this
+        "import/no-extraneous-dependencies": "off",
       },
     },
     {

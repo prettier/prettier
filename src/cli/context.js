@@ -1,12 +1,13 @@
-"use strict";
-const {
-  utils: { getLast },
-} = require("./prettier-internal.js");
-const getContextOptions = require("./options/get-context-options.js");
-const {
+import prettierInternal from "./prettier-internal.js";
+import getContextOptions from "./options/get-context-options.js";
+import {
   parseArgv,
   parseArgvWithoutPlugins,
-} = require("./options/parse-cli-arguments.js");
+} from "./options/parse-cli-arguments.js";
+
+const {
+  utils: { getLast },
+} = prettierInternal;
 
 /**
  * @typedef {Object} Context
@@ -59,4 +60,4 @@ class Context {
   }
 }
 
-module.exports = Context;
+export default Context;

@@ -1,9 +1,5 @@
-"use strict";
-
-const path = require("path");
-
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
+import path from "node:path";
+import prettier from "../index.js";
 
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv.findConfigPath;
@@ -15,4 +11,4 @@ async function logResolvedConfigPathOrDie(context) {
   }
 }
 
-module.exports = logResolvedConfigPathOrDie;
+export default logResolvedConfigPathOrDie;
