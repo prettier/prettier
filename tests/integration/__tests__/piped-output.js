@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("output with --check + unformatted differs when piped", () => {
   const cli0 = runPrettier(

@@ -1,5 +1,5 @@
 import snapshotDiff from "snapshot-diff";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 test("show external options with `--help`", async () => {
   const originalStdout = await runPrettier("plugins/options-string", ["--help"])

@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 const EOL = "\n";
 
 describe("uses 'extensions' from languages to determine parser", () => {

@@ -1,6 +1,6 @@
 /** @type {import('prettier')} */
 import prettier from "prettier-local";
-import printDoc from "../printDoc.js";
+import printDoc from "../print-doc.js";
 
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;

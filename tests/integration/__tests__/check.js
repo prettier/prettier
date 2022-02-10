@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("checks stdin with --check", () => {
   runPrettier("cli/with-shebang", ["--check", "--parser", "babel"], {

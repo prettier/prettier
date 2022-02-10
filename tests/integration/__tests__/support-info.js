@@ -1,5 +1,5 @@
 import prettier from "prettier-local";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 test("API getSupportInfo()", () => {
   expect(getCoreInfo()).toMatchSnapshot();

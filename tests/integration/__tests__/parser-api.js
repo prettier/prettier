@@ -1,5 +1,5 @@
 import prettier from "prettier-local";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 test("allows custom parser provided as object", () => {
   const output = prettier.format("1", {

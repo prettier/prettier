@@ -1,5 +1,5 @@
 import stripAnsi from "strip-ansi";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 test("do not show logs with --loglevel silent", async () => {
   await runPrettierWithLogLevel("silent", null);

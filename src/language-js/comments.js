@@ -91,7 +91,6 @@ function handleEndOfLineComment(context) {
     handleCallExpressionComments,
     handlePropertyComments,
     handleOnlyComments,
-    handleTypeAliasComments,
     handleVariableDeclaratorComments,
     handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
@@ -815,14 +814,6 @@ function handleAssignmentPatternComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleTypeAliasComments({ comment, enclosingNode }) {
-  if (enclosingNode && enclosingNode.type === "TypeAlias") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
 function handleVariableDeclaratorComments({
   comment,
   enclosingNode,
@@ -831,12 +822,16 @@ function handleVariableDeclaratorComments({
   if (
     enclosingNode &&
     (enclosingNode.type === "VariableDeclarator" ||
-      enclosingNode.type === "AssignmentExpression") &&
+      enclosingNode.type === "AssignmentExpression" ||
+      enclosingNode.type === "TypeAlias" ||
+      enclosingNode.type === "TSTypeAliasDeclaration") &&
     followingNode &&
     (followingNode.type === "ObjectExpression" ||
       followingNode.type === "ArrayExpression" ||
       followingNode.type === "TemplateLiteral" ||
       followingNode.type === "TaggedTemplateExpression" ||
+      followingNode.type === "ObjectTypeAnnotation" ||
+      followingNode.type === "TSTypeLiteral" ||
       isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);

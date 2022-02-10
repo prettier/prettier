@@ -124,6 +124,7 @@ module.exports = {
 
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
+    "unicorn/filename-case": "error",
     "unicorn/new-for-builtins": "error",
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
@@ -299,6 +300,7 @@ module.exports = {
         "react/display-name": "off",
         "react/no-deprecated": "off",
         "react/prop-types": "off",
+        "unicorn/filename-case": "off",
       },
     },
     {

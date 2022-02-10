@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 const EOL = "\n";
 
 describe("parser preprocess function is used to reshape input text", () => {

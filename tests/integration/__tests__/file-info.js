@@ -3,7 +3,7 @@ import fs from "node:fs";
 import tempy from "tempy";
 import prettier from "prettier-local";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 
 const { __dirname } = createEsmUtils(import.meta);

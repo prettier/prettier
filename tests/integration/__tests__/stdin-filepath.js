@@ -1,5 +1,5 @@
 import { isCI } from "ci-info";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
   runPrettier(

@@ -1,7 +1,7 @@
 import path from "node:path";
 import prettier from "prettier-local";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 
 const { __dirname } = createEsmUtils(import.meta);
