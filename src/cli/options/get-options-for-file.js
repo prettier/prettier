@@ -1,10 +1,11 @@
 import dashify from "dashify";
 import chalk from "chalk";
-
 import prettier from "../../index.js";
-import { optionsNormalizer } from "../prettier-internal.js";
+import prettierInternal from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
+
+const { optionsNormalizer } = prettierInternal;
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(

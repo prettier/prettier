@@ -1,4 +1,4 @@
-import partition from "lodash/partition";
+import partition from "lodash/partition.js";
 
 export default function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(

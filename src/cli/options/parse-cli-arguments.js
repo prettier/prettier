@@ -1,4 +1,4 @@
-import pick from "lodash/pick";
+import pick from "lodash/pick.js";
 import camelCase from "camelcase";
 import chalk from "chalk";
 import prettierInternal from "../prettier-internal.js";

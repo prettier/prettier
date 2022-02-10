@@ -1,5 +1,7 @@
 import { outdent } from "outdent";
-import { coreOptions } from "./prettier-internal.js";
+import prettierInternal from "./prettier-internal.js";
+
+const { coreOptions } = prettierInternal;
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,

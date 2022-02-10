@@ -1,6 +1,6 @@
 import prettier from "../../index.js";
 import prettierInternal from "../prettier-internal.js";
-import constant from "../constant.js";
+import * as constant from "../constant.js";
 import {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,

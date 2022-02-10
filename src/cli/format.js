@@ -1,18 +1,17 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-
+import { promises as fs } from "fs";
+import path from "path";
 import chalk from "chalk";
-
+// Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
 import diffModule from "diff/lib/patch/create.js";
 import prettier from "../index.js";
-
-import { getStdin } from "../common/third-party.js";
-
-import { createIgnorer, errors } from "./prettier-internal.js";
+import thirdParty from "../common/third-party.js";
+import prettierInternal from "./prettier-internal.js";
 import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
-// Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
+
+const { getStdin } = thirdParty;
+const { createIgnorer, errors } = prettierInternal;
 
 function diff(a, b) {
   return diffModule.createTwoFilesPatch("", "", a, b, "", "", {
