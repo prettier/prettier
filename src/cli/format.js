@@ -1,8 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
 import chalk from "chalk";
-// Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
-import diffModule from "diff/lib/patch/create.js";
 import prettier from "../index.js";
 import thirdParty from "../common/third-party.js";
 import prettierInternal from "./prettier-internal.js";
@@ -13,10 +11,14 @@ import isTTY from "./is-tty.js";
 const { getStdin } = thirdParty;
 const { createIgnorer, errors } = prettierInternal;
 
-function diff(a, b) {
-  return diffModule.createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2,
-  });
+let diffModule;
+async function diff(a, b) {
+  if (!diffModule) {
+    // Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
+    ({ default: diffModule } = await import("diff/lib/patch/create.js"));
+  }
+
+  return diffModule.createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
 function handleError(context, filename, error, printedFilename) {
@@ -133,7 +135,8 @@ async function format(context, input, opt) {
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
       throw new errors.DebugError(
-        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+        "prettier(input) !== prettier(prettier(input))\n" +
+          (await diff(pp, pppp))
       );
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
@@ -150,12 +153,12 @@ async function format(context, input, opt) {
         const astDiff =
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
-            : diff(ast, past);
+            : await diff(ast, past);
         throw new errors.DebugError(
           "ast(input) !== ast(prettier(input))\n" +
             astDiff +
             "\n" +
-            diff(input, pp)
+            (await diff(input, pp))
         );
       }
     }
