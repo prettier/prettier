@@ -153,7 +153,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["scripts/**/*.js", "scripts/**/*.mjs"],
+      files: [
+        "scripts/**/*.js",
+        "scripts/**/*.mjs",
+        "tests/config/install-prettier.js",
+      ],
       rules: {
         "no-console": "off",
       },
