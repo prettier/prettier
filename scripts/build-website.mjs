@@ -55,13 +55,14 @@ async function buildPlaygroundFiles() {
   const parsers = {};
   for (const fileName of files) {
     const file = path.join(PRETTIER_DIR, fileName);
-    await copyFile(file, path.join(PLAYGROUND_PRETTIER_DIR, fileName));
+    const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
+    await copyFile(file, dist);
 
     if (fileName === "standalone.js") {
       continue;
     }
 
-    const plugin = require(file);
+    const plugin = require(dist);
     // We add plugins to the global `prettierPlugins` object
     // the name after `parser-` is used as property
     // For example to get parsers in `parser-babel.js` via `prettierPlugins.babel`
