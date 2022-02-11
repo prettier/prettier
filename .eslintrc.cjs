@@ -1,5 +1,4 @@
 "use strict";
-
 const { isCI } = require("ci-info");
 
 module.exports = {
