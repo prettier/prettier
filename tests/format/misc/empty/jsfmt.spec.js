@@ -1,6 +1,4 @@
-// TODO: Use this when we drop support for Node.js 12
-// import prettier from "../../../config/prettier-entry.js";
-const { prettier } = run_spec;
+import prettier from "../../../../index.js"
 
 const parsers = prettier
   .getSupportInfo()
