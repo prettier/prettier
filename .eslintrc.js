@@ -25,7 +25,7 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
-    "no-console": isCI ? "error" : "off",
+    "no-console": isCI ? "error" : "warn",
     "no-else-return": [
       "error",
       {
@@ -153,7 +153,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["scripts/**/*.js", "scripts/**/*.mjs"],
+      files: [
+        "scripts/**/*.js",
+        "scripts/**/*.mjs",
+        "tests/config/install-prettier.js",
+      ],
       rules: {
         "no-console": "off",
       },
