@@ -451,6 +451,13 @@ function format(originalText, originalOptions) {
   };
 }
 
-runSpec.usePrettier = (prettierModule) =>
-  (runSpec.prettier = prettier = prettierModule);
+Reflect.defineProperty(runSpec, "prettier", {
+  get() {
+    return prettier;
+  },
+  set(prettierModule) {
+    prettier = prettierModule;
+  },
+  configurable: true
+});
 export default runSpec;

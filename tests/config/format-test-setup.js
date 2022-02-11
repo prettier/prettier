@@ -9,7 +9,7 @@ async function setup() {
     ? createEsmUtils(import.meta).require("./require-standalone.cjs")
     : await getPrettier();
 
-  runSpec.usePrettier(prettier);
+  runSpec.prettier = prettier;
 
   globalThis.run_spec = runSpec;
 }
