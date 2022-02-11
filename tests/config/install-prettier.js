@@ -27,9 +27,9 @@ function cleanUp() {
       // No op
     }
     if (fs.existsSync(directory)) {
-      console.error(chalk.red(`Failed to remove '${highlight(directory)}'.`));
+      console.error(chalk.red(`Failed to remove directory '${highlight(directory)}'.`));
     } else {
-      console.log(chalk.green(`'${highlight(directory)}' removed.`));
+      console.log(chalk.green(`Directory '${highlight(directory)}' removed.`));
     }
   }
 }
