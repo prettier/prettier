@@ -1,8 +1,13 @@
-import {pathToFileURL} from "node:url"
-import path from "node:path"
 
-const entry = pathToFileURL(path.join(process.env.PRETTIER_DIR, "index.js"))
+import { pathToFileURL } from "node:url";
+import path from "node:path";
 
-const {default: prettier} = await import(entry);
+const getPrettier = async () => {
+  const entry = pathToFileURL(path.join(process.env.PRETTIER_DIR, "index.js"));
 
-export default prettier;
+  const { default: prettier } = await import(entry);
+
+  return prettier
+}
+
+export default getPrettier;
