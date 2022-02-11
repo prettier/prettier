@@ -161,6 +161,7 @@ module.exports = {
     {
       files: [
         "scripts/**/*.js",
+        "scripts/**/*.cjs",
         "scripts/**/*.mjs",
         "tests/config/install-prettier.js",
       ],
