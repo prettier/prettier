@@ -46,7 +46,7 @@ const config = {
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier-local": "<rootDir>/tests/config/require-prettier.cjs",
+    "prettier-local": "<rootDir>/tests/config/get-prettier.js",
     "prettier-standalone": "<rootDir>/tests/config/require-standalone.cjs",
   },
   modulePathIgnorePatterns: [

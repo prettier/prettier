@@ -12,7 +12,7 @@ const { require, __dirname } = createEsmUtils(import.meta);
 
 const { TEST_STANDALONE } = process.env;
 const prettier = !TEST_STANDALONE
-  ? require("./require-prettier.cjs")
+  ? (await import("./get-prettier.js")).default
   : require("./require-standalone.cjs");
 
 const { FULL_TEST } = process.env;

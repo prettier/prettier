@@ -1,4 +1,4 @@
-import prettier from "../../../config/require-prettier.cjs";
+import prettier from "../../../config/get-prettier.js";
 
 const parsers = prettier
   .getSupportInfo()
