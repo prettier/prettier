@@ -156,7 +156,7 @@ module.exports = {
       files: [
         "scripts/**/*.js",
         "scripts/**/*.mjs",
-        "test/config/install-prettier.js",
+        "tests/config/install-prettier.js",
       ],
       rules: {
         "no-console": "off",
