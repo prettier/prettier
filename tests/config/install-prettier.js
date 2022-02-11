@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const execa = require("execa");
 const tempy = require("tempy");
+const chalk = require("chalk");
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
@@ -12,8 +13,31 @@ if (!allowedClients.has(client)) {
   client = "yarn";
 }
 
+const highlight = (text) => chalk.bgGreen(chalk.white(text));
+const directoriesToClean = new Set();
+
+process.on("exit", cleanUp);
+
+function cleanUp() {
+  for (const directory of directoriesToClean) {
+    fs.rmSync(directory, { force: true, recursive: true });
+    if (fs.existsSync(directory)) {
+      console.log(chalk.red(`Failed to remove '${highlight(directory)}'.`));
+    } else {
+      console.log(chalk.yellow(`'${highlight(directory)}' removed.`));
+    }
+  }
+}
+
 module.exports = (packageDir) => {
+  console.log(
+    chalk.yellow(
+      `Installing Prettier from '${highlight(packageDir)}' with '${client}'.`
+    )
+  );
+
   const tmpDir = tempy.directory();
+  directoriesToClean.add(tmpDir);
   const fileName = execa
     .sync("npm", ["pack"], { cwd: packageDir })
     .stdout.trim();
@@ -42,5 +66,9 @@ module.exports = (packageDir) => {
   execa.sync(client, installArguments, { cwd: tmpDir });
   fs.unlinkSync(packed);
 
-  return path.join(tmpDir, "node_modules/prettier");
+  const installed = path.join(tmpDir, "node_modules/prettier");
+
+  console.log(chalk.green(`Prettier installed at '${highlight(installed)}'.`));
+
+  return installed;
 };
