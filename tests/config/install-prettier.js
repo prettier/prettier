@@ -20,7 +20,12 @@ process.on("exit", cleanUp);
 
 function cleanUp() {
   for (const directory of directoriesToClean) {
-    fs.rmSync(directory, { force: true, recursive: true });
+    // Node.js<14 don't support `fs.rmSync`
+    try {
+      fs.rmSync(directory, { force: true, recursive: true });
+    } catch {
+      // No op
+    }
     if (fs.existsSync(directory)) {
       console.error(chalk.red(`Failed to remove '${highlight(directory)}'.`));
     } else {
