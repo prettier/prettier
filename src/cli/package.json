@@ -1,3 +1,5 @@
 {
-  "type": "module"
+  "type": "module",
+  "//TODO": "Remove this file when we close #10157",
+  "//description": "A package.json file to use `.js` files in this directory as ES module."
 }

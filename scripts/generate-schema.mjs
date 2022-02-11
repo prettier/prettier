@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import prettier from "../index.js";
-import generateSchema from "./utils/generate-schema.js";
+import generateSchema from "./utils/generate-schema.mjs";
 
 console.log(
   prettier.format(

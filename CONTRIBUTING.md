@@ -53,7 +53,7 @@ Parameters:
 
 The implementation of `run_spec` can be found in [`tests/config/format-test.js`](tests/config/format-test.js).
 
-`tests/format/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.js ../flow/tests/`.
+`tests/format/flow-repo/` contains the Flow test suite and is not supposed to be edited by hand. To update it, clone the Flow repo next to the Prettier repo and run: `node scripts/sync-flow-tests.cjs ../flow/tests/`.
 
 ## Debugging
 

@@ -79,7 +79,7 @@ function run(argv) {
     console.error(
       [
         "You must provide the path to a flow tests directory to sync from!",
-        "Example: node scripts/sync-flow-tests.js ../flow/tests/",
+        "Example: node scripts/sync-flow-tests.cjs ../flow/tests/",
       ].join("\n")
     );
     return 1;
