@@ -458,6 +458,6 @@ Reflect.defineProperty(runSpec, "prettier", {
   set(prettierModule) {
     prettier = prettierModule;
   },
-  configurable: true
+  configurable: true,
 });
 export default runSpec;
