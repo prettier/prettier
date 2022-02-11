@@ -13,8 +13,8 @@ import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, json, require } = createEsmUtils(import.meta);
-const packageJson = json.loadSync("../../package.json");
+const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
 const EMPTY_MODULE_REPLACEMENT = { contents: "" };
