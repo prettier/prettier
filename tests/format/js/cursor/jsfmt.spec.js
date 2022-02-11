@@ -1,4 +1,6 @@
-import prettier from "../../../config/prettier-entry.js";
+// TODO: Use this when we drop support for Node.js 12
+// import prettier from "../../../config/prettier-entry.js";
+const { prettier } = run_spec;
 
 run_spec(import.meta, ["babel", "typescript", "flow"]);
 

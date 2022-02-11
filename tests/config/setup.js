@@ -5,13 +5,12 @@ import runSpec from "./format-test.js";
 async function setup() {
   const { TEST_STANDALONE } = process.env;
 
-  const prettier = !TEST_STANDALONE
-    ? await getPrettier()
-    : createEsmUtils(import.meta).require("./require-standalone.cjs");
+  const prettier = TEST_STANDALONE
+    ? createEsmUtils(import.meta).require("./require-standalone.cjs")
+    : await getPrettier();
 
-  runSpec.setPrettier(prettier);
+  runSpec.usePrettier(prettier);
 
-  globalThis.prettier = prettier;
   globalThis.run_spec = runSpec;
 }
 

@@ -451,5 +451,6 @@ function format(originalText, originalOptions) {
   };
 }
 
-runSpec.setPrettier = (prettierModule) => (prettier = prettierModule);
+runSpec.usePrettier = (prettierModule) =>
+  (runSpec.prettier = prettier = prettierModule);
 export default runSpec;
