@@ -31,8 +31,8 @@ if (!isProduction) {
 const config = {
   projects: [
     "<rootDir>/jest-format-test.config.mjs",
-    isProduction && "<rootDir>/jest-integration-test.config.mjs",
-  ].filter(Boolean),
+    "<rootDir>/jest-integration-test.config.mjs",
+  ],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
