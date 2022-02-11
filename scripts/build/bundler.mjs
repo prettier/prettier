@@ -49,10 +49,15 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
-    // Replace package.json with dynamic `require("./package.json")`
+    // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
+    // // Replace package.json with dynamic `require("./package.json")`
+    // replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
+    //   path: "./package.json",
+    //   external: true,
+    // };
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      path: "./package.json",
-      external: true,
+      contents: JSON.stringify({ version: packageJson.version }),
+      loader: "json",
     };
 
     // Dynamic require bundled files
