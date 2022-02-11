@@ -22,15 +22,15 @@ function cleanUp() {
   for (const directory of directoriesToClean) {
     fs.rmSync(directory, { force: true, recursive: true });
     if (fs.existsSync(directory)) {
-      console.log(chalk.red(`Failed to remove '${highlight(directory)}'.`));
+      console.error(chalk.red(`Failed to remove '${highlight(directory)}'.`));
     } else {
-      console.log(chalk.yellow(`'${highlight(directory)}' removed.`));
+      console.log(chalk.green(`'${highlight(directory)}' removed.`));
     }
   }
 }
 
 module.exports = (packageDir) => {
-  console.log(
+  console.warn(
     chalk.yellow(
       `Installing Prettier from '${highlight(packageDir)}' with '${client}'.`
     )
