@@ -116,19 +116,19 @@ jobs:
 
       - name: Run Tests (macOS)
         if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test:dist --maxWorkers=4
+        run: yarn test:dist --runInBand
 
       - name: Run Tests (Linux and Windows)
         if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn test:dist --maxWorkers=2
+        run: yarn test:dist --runInBand
 
       - name: Run Format Tests (standalone) (macOS)
         if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test:dist-standalone --maxWorkers=4
+        run: yarn test:dist-standalone --runInBand
 
       - name: Run Format Tests (standalone) (Linux and Windows)
         if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn test:dist-standalone --maxWorkers=2
+        run: yarn test:dist-standalone --runInBand
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
