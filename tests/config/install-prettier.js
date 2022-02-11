@@ -13,12 +13,16 @@ if (!allowedClients.has(client)) {
   client = "yarn";
 }
 
-const highlight = (text) => chalk.bgGreen(chalk.white(text));
 const directoriesToClean = new Set();
 
 process.on("exit", cleanUp);
 
 function cleanUp() {
+  if (directoriesToClean.size === 0) {
+    return;
+  }
+  console.log(chalk.green("Removing installed Prettier:"));
+
   for (const directory of directoriesToClean) {
     // Node.js<14 don't support `fs.rmSync`
     try {
@@ -26,21 +30,16 @@ function cleanUp() {
     } catch {
       // No op
     }
+
     if (fs.existsSync(directory)) {
-      console.error(chalk.red(`Failed to remove directory '${highlight(directory)}'.`));
+      console.error(chalk.red(` - ${chalk.inverse(directory)} FAIL`));
     } else {
-      console.log(chalk.green(`Directory '${highlight(directory)}' removed.`));
+      console.log(chalk.green(` - ${chalk.inverse(directory)} DONE`));
     }
   }
 }
 
 module.exports = (packageDir) => {
-  console.warn(
-    chalk.yellow(
-      `Installing Prettier from '${highlight(packageDir)}' with '${client}'.`
-    )
-  );
-
   const tmpDir = tempy.directory();
   directoriesToClean.add(tmpDir);
   const fileName = execa
@@ -73,7 +72,16 @@ module.exports = (packageDir) => {
 
   const installed = path.join(tmpDir, "node_modules/prettier");
 
-  console.log(chalk.green(`Prettier installed at '${highlight(installed)}'.`));
+  console.log(
+    chalk.green(
+      `
+Prettier installed
+  at ${chalk.inverse(installed)}
+  from ${chalk.inverse(packageDir)}
+  with ${chalk.inverse(client)}.
+      `.trim()
+    )
+  );
 
   return installed;
 };
