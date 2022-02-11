@@ -88,7 +88,7 @@ describe("throw error and show usage with something unexpected", () => {
   });
 });
 
-test("node version error", async () => {
+test.skip("node version error", async () => {
   const originalProcessVersion = process.version;
   let result;
 

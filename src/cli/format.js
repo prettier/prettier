@@ -1,33 +1,24 @@
-"use strict";
+import { promises as fs } from "fs";
+import path from "path";
+import chalk from "chalk";
+import prettier from "../index.js";
+import thirdParty from "../common/third-party.js";
+import prettierInternal from "./prettier-internal.js";
+import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
+import isTTY from "./is-tty.js";
 
-const { promises: fs } = require("fs");
-const path = require("path");
+const { getStdin } = thirdParty;
+const { createIgnorer, errors } = prettierInternal;
 
-const chalk = require("chalk");
+let diffModule;
+async function diff(a, b) {
+  if (!diffModule) {
+    // Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
+    ({ default: diffModule } = await import("diff/lib/patch/create.js"));
+  }
 
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
-// eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party.js");
-
-const { createIgnorer, errors } = require("./prettier-internal.js");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
-const getOptionsForFile = require("./options/get-options-for-file.js");
-const isTTY = require("./is-tty.js");
-
-function diff(a, b) {
-  // Use `diff/lib/patch/create.js` instead of `diff` to reduce bundle size
-  return require("diff/lib/patch/create.js").createTwoFilesPatch(
-    "",
-    "",
-    a,
-    b,
-    "",
-    "",
-    {
-      context: 2,
-    }
-  );
+  return diffModule.createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
 function handleError(context, filename, error, printedFilename) {
@@ -111,7 +102,7 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function format(context, input, opt) {
+async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
       "No parser and no file path given, couldn't infer a parser."
@@ -144,7 +135,8 @@ function format(context, input, opt) {
     const pppp = prettier.format(pp, opt);
     if (pp !== pppp) {
       throw new errors.DebugError(
-        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+        "prettier(input) !== prettier(prettier(input))\n" +
+          (await diff(pp, pppp))
       );
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
@@ -161,12 +153,12 @@ function format(context, input, opt) {
         const astDiff =
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
-            : diff(ast, past);
+            : await diff(ast, past);
         throw new errors.DebugError(
           "ast(input) !== ast(prettier(input))\n" +
             astDiff +
             "\n" +
-            diff(input, pp)
+            (await diff(input, pp))
         );
       }
     }
@@ -177,8 +169,7 @@ function format(context, input, opt) {
   if (context.argv.debugBenchmark) {
     let benchmark;
     try {
-      // eslint-disable-next-line import/no-extraneous-dependencies
-      benchmark = require("benchmark");
+      ({ default: benchmark } = await import("benchmark"));
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
@@ -275,7 +266,7 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, format(context, input, options), options);
+    writeOutput(context, await format(context, input, options), options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -363,7 +354,7 @@ async function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, options);
+      result = await format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);
@@ -445,4 +436,4 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { formatStdin, formatFiles };
+export { formatStdin, formatFiles };

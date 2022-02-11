@@ -1,20 +1,12 @@
-"use strict";
-
-// eslint-disable-next-line no-restricted-modules
-const packageJson = require("../../package.json");
-require("please-upgrade-node")(packageJson);
-
-// eslint-disable-next-line import/order
-const stringify = require("fast-json-stable-stringify");
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
-const createLogger = require("./logger.js");
-const Context = require("./context.js");
-const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
-const { createDetailedUsage, createUsage } = require("./usage.js");
-const { formatStdin, formatFiles } = require("./format.js");
-const logFileInfoOrDie = require("./file-info.js");
-const logResolvedConfigPathOrDie = require("./find-config-path.js");
+import stringify from "fast-json-stable-stringify";
+import prettier from "../index.js";
+import createLogger from "./logger.js";
+import Context from "./context.js";
+import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
+import { createDetailedUsage, createUsage } from "./usage.js";
+import { formatStdin, formatFiles } from "./format.js";
+import logFileInfoOrDie from "./file-info.js";
+import logResolvedConfigPathOrDie from "./find-config-path.js";
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -99,6 +91,4 @@ async function main(rawArguments, logger) {
   }
 }
 
-module.exports = {
-  run,
-};
+export { run };

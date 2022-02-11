@@ -2,8 +2,8 @@
 
 const fs = require("fs");
 const path = require("path");
-const uniqBy = require("lodash/uniqBy");
-const partition = require("lodash/partition");
+const uniqBy = require("lodash/uniqBy.js");
+const partition = require("lodash/partition.js");
 const fastGlob = require("fast-glob");
 const internalPlugins = require("../languages.js");
 const { default: mem, memClear } = require("../../vendors/mem.js");

@@ -1,8 +1,6 @@
-"use strict";
+import partition from "lodash/partition.js";
 
-const partition = require("lodash/partition");
-
-module.exports = function createMinimistOptions(detailedOptions) {
+export default function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(
     detailedOptions,
     ({ type }) => type === "boolean"
@@ -32,4 +30,4 @@ module.exports = function createMinimistOptions(detailedOptions) {
     string,
     default: defaults,
   };
-};
+}

@@ -1,8 +1,5 @@
-"use strict";
-
-const stringify = require("fast-json-stable-stringify");
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
+import stringify from "fast-json-stable-stringify";
+import prettier from "../index.js";
 
 async function logFileInfoOrDie(context) {
   const {
@@ -25,4 +22,4 @@ async function logFileInfoOrDie(context) {
   context.logger.log(prettier.format(stringify(fileInfo), { parser: "json" }));
 }
 
-module.exports = logFileInfoOrDie;
+export default logFileInfoOrDie;
