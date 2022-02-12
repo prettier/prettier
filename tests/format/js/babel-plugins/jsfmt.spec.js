@@ -6,6 +6,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
     acorn: [
       "decimal.js",
       "decorators.js",
+      "destructuring-private.js",
       "do-expressions.js",
       "export-default-from.js",
       "flow.js",
@@ -29,6 +30,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
     espree: [
       "decimal.js",
       "decorators.js",
+      "destructuring-private.js",
       "do-expressions.js",
       "export-default-from.js",
       "flow.js",
@@ -52,6 +54,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
     meriyah: [
       "decimal.js",
       "do-expressions.js",
+      "destructuring-private.js",
       "export-default-from.js",
       "flow.js",
       "function-bind.js",

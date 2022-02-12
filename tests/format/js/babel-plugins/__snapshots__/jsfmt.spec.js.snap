@@ -626,6 +626,75 @@ function enumerable(value) {
 ================================================================================
 `;
 
+exports[`destructuring-private.js [acorn] format 1`] = `
+"Unexpected token (5:13)
+  3 |   constructor() {
+  4 |     console.log(this.#x); // => 1
+> 5 |     const { #x: x } = this;
+    |             ^
+  6 |     console.log(x); // => 1
+  7 |   }
+  8 |   equals({ #x: otherX }) {"
+`;
+
+exports[`destructuring-private.js [espree] format 1`] = `
+"Unexpected token #x (5:13)
+  3 |   constructor() {
+  4 |     console.log(this.#x); // => 1
+> 5 |     const { #x: x } = this;
+    |             ^
+  6 |     console.log(x); // => 1
+  7 |   }
+  8 |   equals({ #x: otherX }) {"
+`;
+
+exports[`destructuring-private.js [meriyah] format 1`] = `
+"[5:13]: Unexpected token: 'PrivateField' (5:13)
+  3 |   constructor() {
+  4 |     console.log(this.#x); // => 1
+> 5 |     const { #x: x } = this;
+    |             ^
+  6 |     console.log(x); // => 1
+  7 |   }
+  8 |   equals({ #x: otherX }) {"
+`;
+
+exports[`destructuring-private.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  #x = 1;
+  constructor() {
+    console.log(this.#x); // => 1
+    const { #x: x } = this;
+    console.log(x); // => 1
+  }
+  equals({ #x: otherX }) {
+    const { #x: currentX } = this;
+    return currentX === otherX;
+  }
+}
+
+=====================================output=====================================
+class Foo {
+  #x = 1;
+  constructor() {
+    console.log(this.#x); // => 1
+    const { #x: x } = this;
+    console.log(x); // => 1
+  }
+  equals({ #x: otherX }) {
+    const { #x: currentX } = this;
+    return currentX === otherX;
+  }
+}
+
+================================================================================
+`;
+
 exports[`do-expressions.js [acorn] format 1`] = `
 "Unexpected token (3:9)
   1 | // https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions
