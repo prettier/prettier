@@ -39,12 +39,12 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           // Prevent `esbuild` to resolve
           contents = `
             const entry = ${JSON.stringify(`${file}`)};
-            module.exports = require(entry);
+            export default require(entry);
           `;
         } else {
           if (file) {
             contents = `
-              module.exports = require(${JSON.stringify(`${file}`)});
+              export default require(${JSON.stringify(`${file}`)});
             `;
           }
         }
