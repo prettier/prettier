@@ -2,8 +2,8 @@
 
 const path = require("path");
 const fs = require("fs");
-const tempy = require("tempy");
 const chalk = require("chalk");
+const { default: tempy } = require("../../vendors/tempy.js");
 const { execaSync } = require("../../vendors/execa.js");
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);

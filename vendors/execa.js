@@ -1561,7 +1561,7 @@ var setExitHandler = async (spawned, { cleanup, detached }, timedPromise) => {
   });
 };
 
-// node_modules/execa/node_modules/is-stream/index.js
+// node_modules/is-stream/index.js
 function isStream(stream) {
   return stream !== null && typeof stream === "object" && typeof stream.pipe === "function";
 }
