@@ -110,10 +110,8 @@ function fun3() {
   </>
 </div>;
 
-foo = (
-  // comment
-  <></>
-);
+foo = // comment
+<></>;
 
 </* open fragment */>
   <Component />
