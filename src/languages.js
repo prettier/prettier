@@ -1,6 +1,6 @@
-import createEsmUtils from "esm-utils";
+import { createRequire } from "module";
 
-const { require } = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 
 // We need to list the parsers and getters so we can load them only when necessary.
 const languages = [

@@ -39,6 +39,7 @@ function getUmdWrapper(name, build) {
         ${globalObjectText.trimStart()}
       }
     })(function() {
+    "use strict";
     ${placeholder}
     return ${temporaryName};
     });
@@ -52,13 +53,13 @@ function getUmdWrapper(name, build) {
 
   const [intro, outro] = wrapper.split(placeholder);
 
+  const expectedOutput = `var ${temporaryName}${minify ? "=" : " = "}`;
+
   return {
     name: temporaryName,
     intro,
     outro,
-    expectedOutput: `"use strict";${minify ? "" : "\n"}var ${temporaryName}${
-      minify ? "=" : " = "
-    }`,
+    expectedOutput,
   };
 }
 

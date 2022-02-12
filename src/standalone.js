@@ -1,12 +1,11 @@
-import createEsmUtils from "esm-utils";
-
+import { createRequire } from "module";
 import core from "./main/core.js";
 import { getSupportInfo } from "./main/support.js";
 import sharedUtil from "./common/util-shared.js";
 import languages from "./languages.js";
 import doc from "./document/index.js";
 
-const { require } = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 const { version } = require("../package.json");
 
 function withPlugins(

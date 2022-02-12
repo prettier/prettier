@@ -1,4 +1,4 @@
-import createEsmUtils from "esm-utils";
+import { createRequire } from "module";
 import core from "./main/core.js";
 import { getSupportInfo } from "./main/support.js";
 import getFileInfo from "./common/get-file-info.js";
@@ -8,7 +8,7 @@ import config from "./config/resolve-config.js";
 import doc from "./document/index.js";
 import languages from "./languages.js";
 
-const { require } = createEsmUtils(import.meta);
+const require = createRequire(import.meta.url);
 
 const { version } = require("../package.json");
 

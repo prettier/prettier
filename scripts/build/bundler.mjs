@@ -23,6 +23,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
     // `tslib` exports global variables
     "createExporter(root": "createExporter({}",
+
+    // Use `require` directly
+    "const require = createRequire(import.meta.url);": "",
   };
 
   const define = {
@@ -46,7 +49,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
-  const replaceModule = {};
+  const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
     // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
