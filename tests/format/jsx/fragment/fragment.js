@@ -70,3 +70,13 @@ function fun3() {
 (<></>).props;
 (<></>)["computed"];
 (<></>)["computed"]();
+
+const MyComponent = () => <>
+  <div className="test" />
+</>;
+
+function MyOtherComponent() {
+  return <>
+    <div className="test" />
+  </>;
+}

@@ -79,6 +79,16 @@ function fun3() {
 (<></>)["computed"];
 (<></>)["computed"]();
 
+const MyComponent = () => <>
+  <div className="test" />
+</>;
+
+function MyOtherComponent() {
+  return <>
+    <div className="test" />
+  </>;
+}
+
 =====================================output=====================================
 <></>;
 
@@ -152,6 +162,16 @@ function fun3() {
 (<></>).props;
 (<></>)["computed"];
 (<></>)["computed"]();
+
+const MyComponent = () => <>
+  <div className="test" />
+</>;
+
+function MyOtherComponent() {
+  return <>
+    <div className="test" />
+  </>;
+}
 
 ================================================================================
 `;
