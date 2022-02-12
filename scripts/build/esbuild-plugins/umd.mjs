@@ -95,7 +95,12 @@ export default function esbuildPluginUmd({ name }) {
         if (!fs.existsSync(outfile)) {
           throw new Error(`${outfile} not exists`);
         }
-        const text = fs.readFileSync(outfile, "utf8");
+
+        // We already insert `"use strict";` in the wrapper
+        let text = fs.readFileSync(outfile, "utf8");
+        if (text.startsWith('"use strict";')) {
+          text = text.slice('"use strict";'.length).trimStart();
+        }
         const actualOutput = text.slice(0, expectedOutput.length);
         if (actualOutput !== expectedOutput) {
           console.log();
