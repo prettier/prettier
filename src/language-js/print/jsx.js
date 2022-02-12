@@ -459,7 +459,9 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 
   const needsParens = pathNeedsParens(path, options);
 
-  if (path.getValue().type === "JSXFragment" && !needsParens) {
+  const node = path.getValue();
+
+  if (node.type === "JSXFragment" && !needsParens && !hasComment(node)) {
     return elem;
   }
 
