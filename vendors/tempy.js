@@ -9819,7 +9819,7 @@ function uniqueString() {
 // node_modules/tempy/index.js
 var import_temp_dir = __toESM(require_temp_dir(), 1);
 
-// node_modules/tempy/node_modules/is-stream/index.js
+// node_modules/is-stream/index.js
 function isStream(stream2) {
   return stream2 !== null && typeof stream2 === "object" && typeof stream2.pipe === "function";
 }
