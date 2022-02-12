@@ -6,6 +6,7 @@ import sharedUtil from "./common/util-shared.js";
 import plugins from "./common/load-plugins.js";
 import config from "./config/resolve-config.js";
 import doc from "./document/index.js";
+import languages from "./languages.js";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -19,7 +20,10 @@ function _withPlugins(
     const opts = args[optsArgIdx] || {};
     args[optsArgIdx] = {
       ...opts,
-      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
+      plugins: [
+        ...languages,
+        ...plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
+      ],
     };
     return fn(...args);
   };

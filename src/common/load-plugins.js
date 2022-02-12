@@ -5,7 +5,6 @@ const path = require("path");
 const uniqBy = require("lodash/uniqBy.js");
 const partition = require("lodash/partition.js");
 const fastGlob = require("fast-glob");
-const internalPlugins = require("../languages.js");
 const { default: mem, memClear } = require("../../vendors/mem.js");
 const thirdParty = require("./third-party.js");
 const resolve = require("./resolve.js");
@@ -98,7 +97,7 @@ function load(plugins, pluginSearchDirs) {
     ...externalPluginInstances,
   ];
 
-  return [...internalPlugins, ...externalPlugins];
+  return externalPlugins;
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
