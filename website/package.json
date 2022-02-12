@@ -1,4 +1,5 @@
 {
+  "private": true,
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production && docusaurus-build",

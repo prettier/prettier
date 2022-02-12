@@ -7,6 +7,10 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+  },
   reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
   plugins: [
@@ -87,7 +91,6 @@ module.exports = {
       },
     ],
     "require-await": "error",
-    strict: "error",
     "symbol-description": "error",
     yoda: [
       "error",
@@ -98,12 +101,13 @@ module.exports = {
     ],
 
     "import/extensions": ["error", "ignorePackages"],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
-      },
-    ],
+    // TODO[@fisker]: Fix this
+    // "import/no-extraneous-dependencies": [
+    //   "error",
+    //   {
+    //     devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
+    //   },
+    // ],
     "import/order": "error",
     "import/no-anonymous-default-export": "error",
 
@@ -142,6 +146,8 @@ module.exports = {
     "unicorn/prefer-array-some": "error",
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-json-parse-buffer": "error",
+    "unicorn/prefer-module": "error",
+    "unicorn/prefer-node-protocol": "error",
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
@@ -155,6 +161,7 @@ module.exports = {
     {
       files: [
         "scripts/**/*.js",
+        "scripts/**/*.cjs",
         "scripts/**/*.mjs",
         "tests/config/install-prettier.js",
       ],
@@ -162,25 +169,33 @@ module.exports = {
         "no-console": "off",
       },
     },
+    // CommonJS modules
     {
       files: [
-        "**/*.mjs",
-        "scripts/release/**/*.js",
-        "tests/**/*.js",
-        "bin/**/*.js",
-        "src/cli/**/*.js",
-      ],
-      excludedFiles: [
+        "**/*.cjs",
+        "src/*.js",
+        "src/common/**/*.js",
+        "src/config/**/*.js",
+        "src/document/**/*.js",
+        "src/language-css/**/*.js",
+        "src/language-graphql/**/*.js",
+        "src/language-handlebars/**/*.js",
+        "src/language-html/**/*.js",
+        "src/language-js/**/*.js",
+        "src/language-markdown/**/*.js",
+        "src/language-yaml/**/*.js",
+        "src/main/**/*.js",
+        "src/utils/**/*.js",
+        "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
+        "website/**/*.js",
         "tests/integration/plugins/automatic/prettier-plugin-bar.js",
       ],
       parserOptions: {
-        sourceType: "module",
+        sourceType: "script",
       },
       rules: {
-        "unicorn/prefer-module": "error",
-        "unicorn/prefer-node-protocol": "error",
-        // TODO[@fisker]: Fix this
-        "import/no-extraneous-dependencies": "off",
+        strict: "error",
+        "unicorn/prefer-module": "off",
       },
     },
     // `esbuild` don't support
@@ -226,7 +241,6 @@ module.exports = {
     {
       files: ["tests/**/*.js"],
       rules: {
-        strict: "off",
         "import/no-extraneous-dependencies": "off",
         "unicorn/prefer-array-flat": "off",
         "unicorn/prefer-array-flat-map": "off",
@@ -327,6 +341,12 @@ module.exports = {
       files: ["website/playground/**/*"],
       parserOptions: {
         sourceType: "module",
+      },
+    },
+    {
+      files: ["scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js"],
+      rules: {
+        "import/no-extraneous-dependencies": "error",
       },
     },
   ],

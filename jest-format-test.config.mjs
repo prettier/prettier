@@ -4,7 +4,7 @@ const config = {
   ...baseConfig,
   runner: "./tests/config/jest-light-runner",
   testRegex: "tests/format/.*/jsfmt\\.spec\\.js$",
-  setupFiles: ["<rootDir>/tests/config/setup.js"],
+  setupFiles: ["<rootDir>/tests/config/format-test-setup.js"],
   projects: [],
 };
 

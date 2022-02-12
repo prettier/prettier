@@ -8,12 +8,9 @@ import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
 import consistentEndOfLine from "./utils/consistent-end-of-line.js";
 import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 
-const { require, __dirname } = createEsmUtils(import.meta);
+const { __dirname } = createEsmUtils(import.meta);
 
-const { TEST_STANDALONE } = process.env;
-const prettier = !TEST_STANDALONE
-  ? require("./require-prettier.cjs")
-  : require("./require-standalone.cjs");
+let prettier;
 
 const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";
@@ -454,4 +451,13 @@ function format(originalText, originalOptions) {
   };
 }
 
+Object.defineProperty(runSpec, "prettier", {
+  get() {
+    return prettier;
+  },
+  set(prettierModule) {
+    prettier = prettierModule;
+  },
+  configurable: true,
+});
 export default runSpec;

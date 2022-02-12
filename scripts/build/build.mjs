@@ -164,6 +164,7 @@ async function preparePackage() {
   delete packageJson.dependencies;
   delete packageJson.devDependencies;
   delete packageJson.browserslist;
+  delete packageJson.type;
   packageJson.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",

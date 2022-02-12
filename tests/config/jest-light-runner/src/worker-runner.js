@@ -28,7 +28,11 @@ export default async function ({ test, updateSnapshot, port }) {
 
   const {setupFiles, snapshotSerializers} = test.context.config;
   for (const path of setupFiles) {
-    await import(pathToFileURL(path));
+    const { setup } = await import(pathToFileURL(path));
+
+    if (typeof setup === "function") {
+      await setup();
+    }
   }
   for (const path of snapshotSerializers) {
     const {default: serializer} = await import(pathToFileURL(path));
