@@ -1,12 +1,13 @@
-"use strict";
+import createEsmUtils from "esm-utils";
 
+import core from "./main/core.js";
+import { getSupportInfo } from "./main/support.js";
+import sharedUtil from "./common/util-shared.js";
+import languages from "./languages.js";
+import doc from "./document/index.js";
+
+const { require } = createEsmUtils(import.meta);
 const { version } = require("../package.json");
-
-const core = require("./main/core.js");
-const { getSupportInfo } = require("./main/support.js");
-const sharedUtil = require("./common/util-shared.js");
-const languages = require("./languages.js");
-const doc = require("./document/index.js");
 
 function withPlugins(
   fn,
@@ -30,7 +31,7 @@ function withPlugins(
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-module.exports = {
+const prettierStandalone = {
   formatWithCursor,
 
   format(text, opts) {
@@ -58,3 +59,5 @@ module.exports = {
     printDocToString: withPlugins(core.printDocToString),
   },
 };
+
+export default prettierStandalone;

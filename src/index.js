@@ -1,14 +1,15 @@
-"use strict";
+import createEsmUtils from "esm-utils";
+import core from "./main/core.js";
+import { getSupportInfo } from "./main/support.js";
+import getFileInfo from "./common/get-file-info.js";
+import sharedUtil from "./common/util-shared.js";
+import plugins from "./common/load-plugins.js";
+import config from "./config/resolve-config.js";
+import doc from "./document/index.js";
+
+const { require } = createEsmUtils(import.meta);
 
 const { version } = require("../package.json");
-
-const core = require("./main/core.js");
-const { getSupportInfo } = require("./main/support.js");
-const getFileInfo = require("./common/get-file-info.js");
-const sharedUtil = require("./common/util-shared.js");
-const plugins = require("./common/load-plugins.js");
-const config = require("./config/resolve-config.js");
-const doc = require("./document/index.js");
 
 function _withPlugins(
   fn,
@@ -35,7 +36,7 @@ function withPlugins(fn, optsArgIdx) {
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-module.exports = {
+const prettier = {
   formatWithCursor,
 
   format(text, opts) {
@@ -87,3 +88,5 @@ module.exports = {
     printDocToString: withPlugins(core.printDocToString),
   },
 };
+
+export default prettier;

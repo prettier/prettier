@@ -173,7 +173,6 @@ module.exports = {
     {
       files: [
         "**/*.cjs",
-        "src/*.js",
         "src/common/**/*.js",
         "src/config/**/*.js",
         "src/document/**/*.js",
