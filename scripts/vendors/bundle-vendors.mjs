@@ -48,6 +48,24 @@ async function cleanExistsBundledJS() {
   }
 }
 
+async function generateDts(vendor) {
+  const hasDefault = await import(vendor).then((module) =>
+    Boolean(module.default)
+  );
+  await fs.writeFile(
+    path.join(vendorsDir, `${vendor}.d.ts`),
+    [
+      "// This file is generated automatically.",
+      hasDefault ? `export {default} from "${vendor}";` : null,
+      `export * from "${vendor}";`,
+      "",
+    ]
+      .filter((line) => line !== null)
+      .join("\n"),
+    "utf-8"
+  );
+}
+
 async function bundle(vendor, options) {
   const outfile = getVendorFilePath(vendor);
   if (await fileExists(outfile)) {
@@ -74,16 +92,7 @@ async function bundle(vendor, options) {
   };
   await esbuild.build(esbuildOption);
 
-  await fs.writeFile(
-    path.join(vendorsDir, `${vendor}.d.ts`),
-    [
-      "// This file is generated automatically.",
-      `export {default} from "${vendor}";`,
-      `export * from "${vendor}";`,
-      "",
-    ].join("\n"),
-    "utf-8"
-  );
+  await generateDts(vendor);
 }
 
 async function main() {
