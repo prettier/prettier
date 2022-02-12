@@ -451,7 +451,7 @@ function format(originalText, originalOptions) {
   };
 }
 
-Reflect.defineProperty(runSpec, "prettier", {
+Object.defineProperty(runSpec, "prettier", {
   get() {
     return prettier;
   },
