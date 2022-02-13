@@ -59,9 +59,9 @@ const espreeDisabledTests = new Set(
 const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = new Set([
   ...espreeDisabledTests,
-  // Meriyah does not support decorator auto accesors syntax.
+  // Meriyah does not support decorator auto accessors syntax.
   // But meriyah can parse it as an ordinary class property.
-  // So meriyah does not thorw parsing error for it.
+  // So meriyah does not throw parsing error for it.
   ...[
     "basic.js",
     "computed.js",
