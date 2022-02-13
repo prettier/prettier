@@ -98,7 +98,7 @@
     "@types/estree": "0.0.51",
     "@types/jest": "27.4.0",
     "@typescript-eslint/eslint-plugin": "5.10.2",
-    "babel-jest": "27.5.0",
+    "babel-jest": "27.5.1",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
     "builtin-modules": "3.2.0",
