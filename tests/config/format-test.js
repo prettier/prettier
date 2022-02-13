@@ -62,6 +62,16 @@ const meriyahDisabledTests = new Set([
   // Meriyah does not support decorator auto accesors syntax.
   // But meriyah can parse it as an ordinary class property.
   // So meriyah does not thorw parsing error for it.
+  ...[
+    "basic.js",
+    "computed.js",
+    "private.js",
+    "static-computed.js",
+    "static-private.js",
+    "static.js",
+  ].map((filename) =>
+    path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
+  ),
   path.join(
     __dirname,
     "../format/js/babel-plugins/decorator-auto-accessors.js"
