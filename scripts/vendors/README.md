@@ -38,7 +38,7 @@ Locks versions of packages to `vendor-meta.json`. It is used to validate by `val
 
 **3. Save vendors license info**
 
-Saves vendors licens info to `vendor-meta.json`.
+Saves vendors licenses info to `vendor-meta.json`.
 
 **4. Generate `/vendors/*.d.ts`**
 
