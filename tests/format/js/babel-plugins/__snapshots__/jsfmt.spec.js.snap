@@ -534,6 +534,44 @@ typeof 1m === "decimal128";
 ================================================================================
 `;
 
+exports[`decorator-auto-accessors.js [acorn] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @defineElement(\\"my-class\\")
+    | ^
+  2 | class C extends HTMLElement {
+  3 |   @reactive accessor clicked = false;
+  4 | }"
+`;
+
+exports[`decorator-auto-accessors.js [espree] format 1`] = `
+"Unexpected character '@' (1:1)
+> 1 | @defineElement(\\"my-class\\")
+    | ^
+  2 | class C extends HTMLElement {
+  3 |   @reactive accessor clicked = false;
+  4 | }"
+`;
+
+exports[`decorator-auto-accessors.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@defineElement("my-class")
+class C extends HTMLElement {
+  @reactive accessor clicked = false;
+}
+
+=====================================output=====================================
+@defineElement("my-class")
+class C extends HTMLElement {
+  @reactive accessor clicked = false;
+}
+
+================================================================================
+`;
+
 exports[`decorators.js [acorn] format 1`] = `
 "Unexpected character '@' (3:1)
   1 | // https://babeljs.io/docs/en/babel-plugin-proposal-decorators
