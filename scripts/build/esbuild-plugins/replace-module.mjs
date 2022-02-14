@@ -38,15 +38,10 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           }
 
           // Prevent `esbuild` to resolve
-          contents = isEsm
-            ? `
-              const entry = ${JSON.stringify(`${file}`)};
-              export default require(entry);
-            `
-            : `
-              const entry = ${JSON.stringify(`${file}`)};
-              module.exports = require(entry);
-            `;
+          contents = `
+            const entry = ${JSON.stringify(`${file}`)};
+            ${isEsm ? "export default" : "module.exports ="} require(entry);
+          `;
         } else {
           if (file) {
             contents = isEsm
