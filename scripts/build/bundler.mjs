@@ -141,7 +141,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       ...esbuildOptions,
       outfile: bundle.output,
       plugins: [
-        esbuildPluginUmd({ name: bundle.name }),
+        esbuildPluginUmd({ name: bundle.name, ...bundle.umdOptions }),
         ...esbuildOptions.plugins,
       ],
       format: "umd",

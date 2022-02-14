@@ -16,6 +16,7 @@ const { require } = createEsmUtils(import.meta);
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
+ * @property {boolean?} umdOptions - options for UMD bundle
 
  * @typedef {Object} CommonJSConfig
  * @property {string[]} ignore - paths of CJS modules to ignore
@@ -192,6 +193,9 @@ const coreBundles = [
       [createRequire(require.resolve("vnopts")).resolve("chalk")]:
         require.resolve("./shims/chalk.cjs"),
     },
+    umdOptions: {
+      interopDefault: true
+    }
   },
   {
     input: "bin/prettier.js",
