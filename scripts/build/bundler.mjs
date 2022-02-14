@@ -68,8 +68,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
     for (const item of bundles) {
       if (item.input !== bundle.input) {
         replaceModule[path.join(PROJECT_ROOT, item.input)] = {
-          file: `./${item.output}`,
+          path: `./${item.output}`,
           isEsm: item.isEsm,
+          external: true,
         };
       }
     }
