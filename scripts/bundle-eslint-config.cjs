@@ -39,20 +39,21 @@ module.exports = {
         "compat/compat": "error",
       },
     },
-    {
-      files: ["index.js", "bin-prettier.js", "third-party.js"],
-      rules: {
-        "no-restricted-syntax": [
-          "error",
-          // Forbid top level `require()` parsers
-          {
-            selector:
-              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/parser-/]',
-            message: "Parsers should be inline `require()`d.",
-          },
-        ],
-      },
-    },
+    // TODO[@fisker]: Find a way to inline `require` parsers
+    // {
+    //   files: ["index.js", "bin-prettier.js", "third-party.js"],
+    //   rules: {
+    //     "no-restricted-syntax": [
+    //       "error",
+    //       // Forbid top level `require()` parsers
+    //       {
+    //         selector:
+    //           'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/parser-/]',
+    //         message: "Parsers should be inline `require()`d.",
+    //       },
+    //     ],
+    //   },
+    // },
     {
       files: ["doc.js", "parser-*.js", "standalone.js"],
       rules: {
