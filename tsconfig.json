@@ -4,6 +4,7 @@
     "checkJs": true,
     "noEmit": true,
     "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
