@@ -2,7 +2,7 @@
   "versions": {
     "string-width": "5.0.1",
     "mem": "9.0.2",
-    "execa": "6.0.0",
+    "execa": "6.1.0",
     "tempy": "2.0.0"
   },
   "licenses": [
@@ -293,7 +293,7 @@
     {
       "name": "npm-run-path",
       "maintainers": [],
-      "version": "5.0.1",
+      "version": "5.1.0",
       "description": "Get your PATH prepended with locally installed binaries",
       "repository": "sindresorhus/npm-run-path",
       "homepage": null,
@@ -361,7 +361,7 @@
     {
       "name": "execa",
       "maintainers": [],
-      "version": "6.0.0",
+      "version": "6.1.0",
       "description": "Process execution for humans",
       "repository": "sindresorhus/execa",
       "homepage": null,
