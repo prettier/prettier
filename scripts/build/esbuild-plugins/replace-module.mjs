@@ -20,6 +20,7 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           contents,
           loader = "js",
           external: isExternal,
+          isEsm,
         } = options;
 
         // Make this work with `@esbuild-plugins/node-modules-polyfill` plugin
@@ -39,13 +40,13 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           // Prevent `esbuild` to resolve
           contents = `
             const entry = ${JSON.stringify(`${file}`)};
-            export default require(entry);
+            module.exports = require(entry)${isEsm ? ".default" : ""};
           `;
         } else {
           if (file) {
-            contents = `
-              export default require(${JSON.stringify(`${file}`)});
-            `;
+            contents = isEsm
+              ? `export { default } from ${JSON.stringify(`${file}`)};`
+              : `module.exports = require(${JSON.stringify(`${file}`)})`;
           }
         }
 

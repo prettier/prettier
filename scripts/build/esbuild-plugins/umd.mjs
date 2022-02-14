@@ -2,7 +2,7 @@ import fs from "node:fs";
 import camelCase from "camelcase";
 import { outdent } from "outdent";
 
-function getUmdWrapper({name, interopDefault = false}, build) {
+function getUmdWrapper({ name, interopDefault = false }, build) {
   const path = name.split(".");
   const { minify } = build.initialOptions;
   const temporaryName = minify ? "m" : camelCase(name);
