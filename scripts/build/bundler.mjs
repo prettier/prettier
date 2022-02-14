@@ -19,6 +19,9 @@ const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
 const EMPTY_MODULE_REPLACEMENT = { contents: "" };
+const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
+  contents: "export default undefined",
+};
 
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
@@ -93,6 +96,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
       "src/language-yaml/parsers.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = EMPTY_MODULE_REPLACEMENT;
+    }
+    for (const file of ["src/language-markdown/parsers.js"]) {
+      replaceModule[path.join(PROJECT_ROOT, file)] =
+        EXPORT_UNDEFINED_MODULE_REPLACEMENT;
     }
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module

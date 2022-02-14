@@ -1,5 +1,7 @@
 import { createRequire } from "module";
 
+import markdown from "./language-markdown/index.js";
+
 const require = createRequire(import.meta.url);
 
 // We need to list the parsers and getters so we can load them only when necessary.
@@ -13,7 +15,7 @@ const languages = [
   // GraphQL
   require("./language-graphql/index.js"),
   // Markdown
-  require("./language-markdown/index.js"),
+  markdown,
   // HTML
   require("./language-html/index.js"),
   // YAML

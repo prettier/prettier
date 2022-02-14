@@ -1,12 +1,26 @@
-"use strict";
-
-const {
+import {
   getLast,
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
   isNonEmptyArray,
-} = require("../common/util.js");
+} from "../common/util.js";
+import doc from "../document/index.js";
+import embed from "./embed.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import preprocess from "./print-preprocess.js";
+import clean from "./clean.js";
+import {
+  getFencedCodeBlockValue,
+  hasGitDiffFriendlyOrderedList,
+  splitText,
+  punctuationPattern,
+  INLINE_NODE_TYPES,
+  INLINE_NODE_WRAPPER_TYPES,
+  isAutolink,
+} from "./utils.js";
+
 const {
   builders: {
     breakParent,
@@ -25,21 +39,7 @@ const {
   },
   utils: { normalizeDoc, replaceTextEndOfLine },
   printer: { printDocToString },
-} = require("../document/index.js");
-const embed = require("./embed.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const preprocess = require("./print-preprocess.js");
-const clean = require("./clean.js");
-const {
-  getFencedCodeBlockValue,
-  hasGitDiffFriendlyOrderedList,
-  splitText,
-  punctuationPattern,
-  INLINE_NODE_TYPES,
-  INLINE_NODE_WRAPPER_TYPES,
-  isAutolink,
-} = require("./utils.js");
+} = doc;
 
 /**
  * @typedef {import("../document").Doc} Doc
@@ -915,7 +915,7 @@ function hasPrettierIgnore(path) {
   return isPrettierIgnore(prevNode) === "next";
 }
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   embed,
@@ -923,3 +923,5 @@ module.exports = {
   hasPrettierIgnore,
   insertPragma,
 };
+
+export default printer;

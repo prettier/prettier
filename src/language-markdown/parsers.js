@@ -1,14 +1,16 @@
-"use strict";
+import markdownParser from "./parser-markdown.js";
 
-module.exports = {
+const parsers = {
   /* istanbul ignore next */
   get remark() {
-    return require("./parser-markdown.js").parsers.remark;
+    return markdownParser.parsers.remark;
   },
   get markdown() {
-    return require("./parser-markdown.js").parsers.remark;
+    return markdownParser.parsers.remark;
   },
   get mdx() {
-    return require("./parser-markdown.js").parsers.mdx;
+    return markdownParser.parsers.mdx;
   },
 };
+
+export default parsers;

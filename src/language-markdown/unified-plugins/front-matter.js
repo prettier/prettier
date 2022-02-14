@@ -1,6 +1,4 @@
-"use strict";
-
-const parseFrontMatter = require("../../utils/front-matter/parse.js");
+import parseFrontMatter from "../../utils/front-matter/parse.js";
 
 function frontMatter() {
   const proto = this.Parser.prototype;
@@ -17,4 +15,4 @@ function frontMatter() {
   tokenizer.onlyAtStart = true;
 }
 
-module.exports = frontMatter;
+export default frontMatter;
