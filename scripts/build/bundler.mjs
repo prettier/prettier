@@ -10,7 +10,7 @@ import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
-import esbuildPluginCommonjs from "./esbuild-plugins/commonjs.mjs";
+import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
@@ -171,7 +171,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     );
 
     if (bundle.isEsm) {
-      esbuildOptions.plugins.push(esbuildPluginCommonjs());
+      esbuildOptions.plugins.push(esbuildPluginInteropDefault());
     }
 
     yield {

@@ -1,8 +1,8 @@
 import fs from "node:fs";
 
-export default function esbuildPluginCommonjs() {
+export default function esbuildPluginInteropDefault() {
   return {
-    name: "commonjs",
+    name: "interop-default",
     setup(build) {
       const { onEnd, initialOptions: esbuildOptions } = build;
 
