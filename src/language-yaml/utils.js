@@ -256,7 +256,7 @@ function getBlockValueLineContents(
   const leadingSpaceCount =
     node.indent === null
       ? ((match) => (match ? match[1].length : Number.POSITIVE_INFINITY))(
-          content.match(/^( *)\S/m)
+          content.match(/^( *)[^\n\r ]/m)
         )
       : node.indent - 1 + parentIndent;
 
