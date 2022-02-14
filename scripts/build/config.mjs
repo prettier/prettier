@@ -135,6 +135,7 @@ const parsers = [
         "inherits/inherits_browser.js"
       ),
     },
+    isEsm: true,
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
