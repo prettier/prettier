@@ -60,7 +60,6 @@ function parseWithOptions(text, module) {
 }
 
 function createParseError(error) {
-  // throw the error for `module` parsing
   let { message, line, column } = error;
 
   const matches = (
