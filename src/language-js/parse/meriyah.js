@@ -61,11 +61,30 @@ function parseWithOptions(text, module) {
 
 function createParseError(error) {
   // throw the error for `module` parsing
-  const { message, line, column } = error;
+  let { message, line, column } = error;
+
+  const matches = (
+    message.match(/^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/) || {}
+  ).groups;
+
+  if (matches) {
+    message = matches.message;
+
+    /* istanbul ignore next */
+    if (typeof line !== "number") {
+      line = Number(matches.line);
+      column = Number(matches.column);
+    }
+  }
 
   /* istanbul ignore next */
   if (typeof line !== "number") {
     return error;
+  }
+
+  const locationInfo = `[${line}:${column}]: `;
+  if (message.startsWith(locationInfo)) {
+    message = message.slice(locationInfo.length);
   }
 
   return createError(message, { start: { line, column } });

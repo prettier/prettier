@@ -95,7 +95,7 @@ exports[`function-declaration-in-while.js [flow] format 1`] = `
 `;
 
 exports[`function-declaration-in-while.js [meriyah] format 1`] = `
-"[1:22]: In strict mode code, functions can only be declared at top level or inside a block (1:22)
+"In strict mode code, functions can only be declared at top level or inside a block (1:22)
 > 1 | while (false) function foo(){}
     |                      ^
   2 |"

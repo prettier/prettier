@@ -15,7 +15,7 @@ exports[`dynamic-import.js [espree] format 1`] = `
 `;
 
 exports[`dynamic-import.js [meriyah] format 1`] = `
-"[1:20]: Expected ')' (1:20)
+"Expected ')' (1:20)
 > 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
     |                    ^
   2 |"
@@ -56,7 +56,7 @@ exports[`empty.js [espree] format 1`] = `
 `;
 
 exports[`empty.js [meriyah] format 1`] = `
-"[2:38]: Unexpected token: 'identifier' (2:38)
+"Unexpected token: 'identifier' (2:38)
   1 | export * as foo from \\"foo.json\\"
 > 2 | export * as bar from \\"bar.json\\" assert { }
     |                                      ^
@@ -105,7 +105,7 @@ exports[`multi-types.js [espree] format 1`] = `
 `;
 
 exports[`multi-types.js [meriyah] format 1`] = `
-"[1:36]: Unexpected token: 'identifier' (1:36)
+"Unexpected token: 'identifier' (1:36)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\", type: \\"bar\\" };
     |                                    ^
   2 |"
@@ -140,7 +140,7 @@ exports[`non-type.js [espree] format 1`] = `
 `;
 
 exports[`non-type.js [meriyah] format 1`] = `
-"[1:33]: Unexpected token: 'identifier' (1:33)
+"Unexpected token: 'identifier' (1:33)
 > 1 | import foo from \\"foo.json\\" assert { lazy: \\"true\\" };
     |                                 ^
   2 |"
@@ -195,7 +195,7 @@ exports[`re-export.js [espree] format 1`] = `
 `;
 
 exports[`re-export.js [meriyah] format 1`] = `
-"[1:38]: Unexpected token: 'identifier' (1:38)
+"Unexpected token: 'identifier' (1:38)
 > 1 | export { foo2 } from \\"foo.json\\" assert { type: \\"json\\" };
     |                                      ^
   2 | export * from \\"foo.json\\" assert { type: \\"json\\" };
@@ -236,7 +236,7 @@ exports[`static-import.js [espree] format 1`] = `
 `;
 
 exports[`static-import.js [meriyah] format 1`] = `
-"[1:36]: Unexpected token: 'identifier' (1:36)
+"Unexpected token: 'identifier' (1:36)
 > 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
     |                                    ^
   2 |"
@@ -271,7 +271,7 @@ exports[`without-from.js [espree] format 1`] = `
 `;
 
 exports[`without-from.js [meriyah] format 1`] = `
-"[1:19]: Unexpected token: 'identifier' (1:19)
+"Unexpected token: 'identifier' (1:19)
 > 1 | import \\"foo\\" assert { type: \\"json\\" }
     |                   ^
   2 |"

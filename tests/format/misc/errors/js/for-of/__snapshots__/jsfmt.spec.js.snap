@@ -55,7 +55,7 @@ exports[`snippet: #0 [flow] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"[1:9]: Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:9)
+"Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:9)
 > 1 | for (let.foo of []);
     |         ^"
 `;
@@ -91,7 +91,7 @@ exports[`snippet: #1 [flow] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"[1:9]: Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:9)
+"Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:9)
 > 1 | for (let().bar of []);
     |         ^"
 `;
@@ -127,7 +127,7 @@ exports[`snippet: #2 [flow] format 1`] = `
 `;
 
 exports[`snippet: #2 [meriyah] format 1`] = `
-"[1:10]: Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:10)
+"Identifier \\"let\\" disallowed as left-hand side expression in strict mode (1:10)
 > 1 | for (let\`\`.bar of []);
     |          ^"
 `;

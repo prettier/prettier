@@ -25,7 +25,7 @@ exports[`snippet: #0 [espree] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"[1:6]: Invalid left-hand side in assignment (1:6)
+"Invalid left-hand side in assignment (1:6)
 > 1 | ({}) = x;
     |      ^"
 `;

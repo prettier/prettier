@@ -19,7 +19,7 @@ exports[`snippet: #0 [espree] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #{a() {}}
     | ^"
 `;
@@ -43,7 +43,7 @@ exports[`snippet: #1 [espree] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #{async b() {}}
     | ^"
 `;
@@ -67,7 +67,7 @@ exports[`snippet: #2 [espree] format 1`] = `
 `;
 
 exports[`snippet: #2 [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #{get c() {}}
     | ^"
 `;
@@ -91,7 +91,7 @@ exports[`snippet: #3 [espree] format 1`] = `
 `;
 
 exports[`snippet: #3 [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #{set d(_) {}}
     | ^"
 `;
@@ -115,7 +115,7 @@ exports[`snippet: #4 [espree] format 1`] = `
 `;
 
 exports[`snippet: #4 [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #{*e() {}}
     | ^"
 `;

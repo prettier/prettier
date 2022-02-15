@@ -287,7 +287,7 @@ exports[`mobx.js [espree] format 1`] = `
 `;
 
 exports[`mobx.js [meriyah] format 1`] = `
-"[4:20]: Unexpected token: ':' (4:20)
+"Unexpected token: ':' (4:20)
   2 |
   3 | @observer class OrderLine {
 > 4 |   @observable price:number = 0;
@@ -471,7 +471,7 @@ exports[`multiple.js [espree] format 1`] = `
 `;
 
 exports[`multiple.js [meriyah] format 1`] = `
-"[2:3]: Unexpected token: '@' (2:3)
+"Unexpected token: '@' (2:3)
   1 | const dog = {
 > 2 |   @readonly
     |   ^
