@@ -1,6 +1,7 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
+import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -16,6 +17,8 @@ const { require } = createEsmUtils(import.meta);
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
+ * @property {string[]?} esbuildTarget - ESBuild target
+ * @property {boolean?} skipBabel - Skip babel transform
 
  * @typedef {Object} CommonJSConfig
  * @property {string[]} ignore - paths of CJS modules to ignore
@@ -196,6 +199,13 @@ const coreBundles = [
   {
     input: "bin/prettier.js",
     output: "bin-prettier.js",
+    external: [path.join(PROJECT_ROOT, "src/cli/index.js")],
+    esbuildTarget: ["node0.10"],
+    skipBabel: true,
+  },
+  {
+    input: "src/cli/index.js",
+    output: "cli.js",
     external: ["benchmark"],
   },
   {
