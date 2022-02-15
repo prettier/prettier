@@ -156,7 +156,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.5.1
         with:
-          node-version: "0.10.48"
+          node-version: "16"
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
