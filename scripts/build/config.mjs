@@ -199,7 +199,6 @@ const coreBundles = [
   {
     input: "bin/prettier.js",
     output: "bin-prettier.js",
-    external: [path.join(PROJECT_ROOT, "src/cli/index.js")],
     esbuildTarget: ["node0.10"],
     skipBabel: true,
   },
