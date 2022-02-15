@@ -81,11 +81,6 @@ function createParseError(error) {
     return error;
   }
 
-  const locationInfo = `[${line}:${column}]: `;
-  if (message.startsWith(locationInfo)) {
-    message = message.slice(locationInfo.length);
-  }
-
   return createError(message, { start: { line, column } });
 }
 
