@@ -201,7 +201,13 @@ function* getEsbuildOptions(bundle, buildOptions) {
       };
     }
   } else {
-    esbuildOptions.external.push(...builtinModules);
+    esbuildOptions.external.push(
+      ...builtinModules,
+      // This may not work as expected, but works better than `external` in `replaceModule`
+      ...bundles
+        .filter((item) => item.input !== bundle.input)
+        .map((item) => `./${item.output}`)
+    );
 
     yield {
       ...esbuildOptions,
