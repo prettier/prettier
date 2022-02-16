@@ -253,12 +253,15 @@ function getBlockValueLineContents(
           // exclude open line `>` or `|`
           .match(/^[^\n]*\n(.*)$/s)[1];
 
-  const leadingSpaceCount =
-    node.indent === null
-      ? ((match) => (match ? match[1].length : Number.POSITIVE_INFINITY))(
-          content.match(/^( *)[^\n\r ]/m)
-        )
-      : node.indent - 1 + parentIndent;
+  let leadingSpaceCount;
+  if (node.indent === null) {
+    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
+    leadingSpaceCount = matches
+      ? matches.groups.leadingSpace.length
+      : Number.POSITIVE_INFINITY;
+  } else {
+    leadingSpaceCount = node.indent - 1 + parentIndent;
+  }
 
   const rawLineContents = content
     .split("\n")
