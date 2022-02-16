@@ -47,7 +47,7 @@ describe("infers parser from filename", () => {
   });
 
   test("json from .swcrc", () => {
-    expect(prettier.format("  {   }  ", { filepath: "x/y/.swcrc" })).toBe(
+    expect(prettier.format("  {   }  ", { filepath: "/path/to/.swcrc" })).toBe(
       "{}\n"
     );
   });
