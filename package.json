@@ -104,7 +104,7 @@
     "builtin-modules": "3.2.0",
     "core-js": "3.21.0",
     "cross-env": "7.0.3",
-    "cspell": "5.18.4",
+    "cspell": "5.18.5",
     "enquirer": "2.3.6",
     "esbuild": "0.14.21",
     "esbuild-plugin-text-replace": "1.2.0",
