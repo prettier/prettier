@@ -45,4 +45,10 @@ describe("infers parser from filename", () => {
       prettier.format("let foo = ( x = 1 ) => x", { filepath: "x/y/Jakefile" })
     ).toBe("let foo = (x = 1) => x;\n");
   });
+
+  test("json from .swcrc", () => {
+    expect(prettier.format("  {   }  ", { filepath: "x/y/.swcrc" })).toBe(
+      "{}\n"
+    );
+  });
 });
