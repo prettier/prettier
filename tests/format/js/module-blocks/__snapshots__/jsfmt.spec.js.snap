@@ -19,7 +19,7 @@ exports[`comments.js [espree] format 1`] = `
 `;
 
 exports[`comments.js [meriyah] format 1`] = `
-"[1:32]: Unexpected token: '{' (1:32)
+"Unexpected token: '{' (1:32)
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                                ^
   2 |   /*A4*/
@@ -80,7 +80,7 @@ exports[`module-blocks.js [espree] format 1`] = `
 `;
 
 exports[`module-blocks.js [meriyah] format 1`] = `
-"[1:8]: Unexpected token: '{' (1:8)
+"Unexpected token: '{' (1:8)
 > 1 | module { await 3 };
     |        ^
   2 |
@@ -224,7 +224,7 @@ exports[`range.js [espree] format 1`] = `
 `;
 
 exports[`range.js [meriyah] format 1`] = `
-"[1:26]: Unexpected token: '{' (1:26)
+"Unexpected token: '{' (1:26)
 > 1 | let moduleBlock = module {  export let y = 1;
     |                          ^
   2 | };
@@ -280,7 +280,7 @@ exports[`worker.js [espree] format 1`] = `
 `;
 
 exports[`worker.js [meriyah] format 1`] = `
-"[1:32]: Expected ')' (1:32)
+"Expected ')' (1:32)
 > 1 | let worker = new Worker(module {
     |                                ^
   2 |   onmessage = function({data}) {

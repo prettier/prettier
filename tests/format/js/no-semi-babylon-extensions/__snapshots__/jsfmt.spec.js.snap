@@ -21,7 +21,7 @@ exports[`no-semi.js [espree] format 1`] = `
 `;
 
 exports[`no-semi.js [meriyah] format 1`] = `
-"[2:2]: Unexpected token: ':' (2:2)
+"Unexpected token: ':' (2:2)
   1 | a
 > 2 | ;::b.c
     |  ^
@@ -51,7 +51,7 @@ exports[`no-semi.js - {"semi":false} [espree] format 1`] = `
 `;
 
 exports[`no-semi.js - {"semi":false} [meriyah] format 1`] = `
-"[2:2]: Unexpected token: ':' (2:2)
+"Unexpected token: ':' (2:2)
   1 | a
 > 2 | ;::b.c
     |  ^

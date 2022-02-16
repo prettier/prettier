@@ -15,7 +15,7 @@ exports[`default-escaped.js [espree] format 1`] = `
 `;
 
 exports[`default-escaped.js [meriyah] format 1`] = `
-"[2:12]: Unexpected token: 'identifier' (2:12)
+"Unexpected token: 'identifier' (2:12)
   1 | // export asyn\\\\u{63} from \\"async\\";
 > 2 | export n\\\\u{63} from \\"async\\";
     |            ^"
