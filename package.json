@@ -121,7 +121,7 @@
     "eslint-plugin-unicorn": "40.1.0",
     "esm-utils": "3.0.0",
     "jest": "27.5.1",
-    "execa": "6.0.0",
+    "execa": "6.1.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.2.0",
     "jest-watch-typeahead": "1.0.0",

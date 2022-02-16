@@ -902,6 +902,7 @@ function stripFinalNewline(input) {
 // node_modules/npm-run-path/index.js
 var import_node_process = __toESM(require("process"), 1);
 var import_node_path = __toESM(require("path"), 1);
+var import_node_url = __toESM(require("url"), 1);
 
 // node_modules/npm-run-path/node_modules/path-key/index.js
 function pathKey(options = {}) {
@@ -923,14 +924,15 @@ function npmRunPath(options = {}) {
     execPath = import_node_process.default.execPath
   } = options;
   let previous;
-  let cwdPath = import_node_path.default.resolve(cwd);
+  const cwdString = cwd instanceof URL ? import_node_url.default.fileURLToPath(cwd) : cwd;
+  let cwdPath = import_node_path.default.resolve(cwdString);
   const result = [];
   while (previous !== cwdPath) {
     result.push(import_node_path.default.join(cwdPath, "node_modules/.bin"));
     previous = cwdPath;
     cwdPath = import_node_path.default.resolve(cwdPath, "..");
   }
-  result.push(import_node_path.default.resolve(cwd, execPath, ".."));
+  result.push(import_node_path.default.resolve(cwdString, execPath, ".."));
   return [...result, path_].join(import_node_path.default.delimiter);
 }
 function npmRunPathEnv(_a = {}) {
@@ -1783,7 +1785,7 @@ function execa(file, args, options) {
         escapedCommand,
         parsed,
         timedOut,
-        isCanceled: context.isCanceled,
+        isCanceled: context.isCanceled || (parsed.options.signal ? parsed.options.signal.aborted : false),
         killed: spawned.killed
       });
       if (!parsed.options.reject) {
