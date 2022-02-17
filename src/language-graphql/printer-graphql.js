@@ -1,11 +1,11 @@
-"use strict";
+import doc from "../document/index.js";
+import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
 
 const {
   builders: { join, hardline, line, softline, group, indent, ifBreak },
-} = require("../document/index.js");
-const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
+} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -611,7 +611,7 @@ function hasPrettierIgnore(path) {
   );
 }
 
-module.exports = {
+const printer = {
   print: genericPrint,
   massageAstNode: clean,
   hasPrettierIgnore,
@@ -619,3 +619,5 @@ module.exports = {
   printComment,
   canAttachComment,
 };
+
+export default printer;
