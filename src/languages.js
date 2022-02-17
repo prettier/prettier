@@ -1,4 +1,5 @@
 import { createRequire } from "module";
+import graphql from "./language-markdown/index.js";
 
 const require = createRequire(import.meta.url);
 
@@ -11,7 +12,7 @@ const languages = [
   // Handlebars
   require("./language-handlebars/index.js"),
   // GraphQL
-  require("./language-graphql/index.js"),
+  graphql,
   // Markdown
   require("./language-markdown/index.js"),
   // HTML
