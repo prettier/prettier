@@ -10,6 +10,7 @@ import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
+import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
@@ -23,6 +24,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
     // `tslib` exports global variables
     "createExporter(root": "createExporter({}",
+
+    // Use `require` directly
+    "const require = createRequire(import.meta.url);": "",
   };
 
   const define = {
@@ -46,7 +50,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
-  const replaceModule = {};
+  const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
     // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
@@ -63,7 +67,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
     // Dynamic require bundled files
     for (const item of bundles) {
       if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
+        replaceModule[path.join(PROJECT_ROOT, item.input)] = {
+          path: `./${item.output}`,
+          isEsm: item.isEsm,
+          external: true,
+        };
       }
     }
   } else {
@@ -138,7 +146,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
       ...esbuildOptions,
       outfile: bundle.output,
       plugins: [
-        esbuildPluginUmd({ name: bundle.name }),
+        esbuildPluginUmd({
+          name: bundle.name,
+          interopDefault: Boolean(bundle.isEsm),
+        }),
         ...esbuildOptions.plugins,
       ],
       format: "umd",
@@ -158,6 +169,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
         .filter((item) => item.input !== bundle.input)
         .map((item) => `./${item.output}`)
     );
+
+    if (bundle.isEsm) {
+      esbuildOptions.plugins.push(esbuildPluginInteropDefault());
+    }
 
     yield {
       ...esbuildOptions,

@@ -16,6 +16,7 @@ const { require } = createEsmUtils(import.meta);
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
+ * @property {boolean?} isEsm - Entry is ES Module
 
  * @typedef {Object} CommonJSConfig
  * @property {string[]} ignore - paths of CJS modules to ignore
@@ -172,6 +173,7 @@ const coreBundles = [
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect",
     },
+    isEsm: true,
   },
   {
     input: "src/document/index.js",
@@ -192,6 +194,7 @@ const coreBundles = [
       [createRequire(require.resolve("vnopts")).resolve("chalk")]:
         require.resolve("./shims/chalk.cjs"),
     },
+    isEsm: true,
   },
   {
     input: "bin/prettier.js",

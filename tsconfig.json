@@ -3,8 +3,9 @@
     "allowJs": true,
     "checkJs": true,
     "noEmit": true,
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     // TBD it is desired to enabled strict type checking at some point:

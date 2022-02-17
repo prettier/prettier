@@ -1,7 +1,9 @@
-"use strict";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 // We need to list the parsers and getters so we can load them only when necessary.
-module.exports = [
+const languages = [
   // JS
   require("./language-js/index.js"),
   // CSS
@@ -17,3 +19,5 @@ module.exports = [
   // YAML
   require("./language-yaml/index.js"),
 ];
+
+export default languages;
