@@ -1,5 +1,5 @@
 import { createRequire } from "module";
-import graphql from "./language-markdown/index.js";
+import graphql from "./language-graphql/index.js";
 
 const require = createRequire(import.meta.url);
 

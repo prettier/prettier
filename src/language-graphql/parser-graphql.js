@@ -1,7 +1,7 @@
 // TODO[@fisker]: try inline import this module
 // Inline the require to avoid loading all the JS if we don't use it
-import { parse as parseGraphql } from "graphql/language/parser";
-import { GraphQLError } from "graphql/error/GraphQLError";
+import { parse as parseGraphql } from "graphql/language/parser.mjs";
+import { GraphQLError } from "graphql/error/GraphQLError.mjs";
 import createError from "../common/parser-create-error.js";
 import tryCombinations from "../utils/try-combinations.js";
 import { hasPragma } from "./pragma.js";
