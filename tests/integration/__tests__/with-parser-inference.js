@@ -47,8 +47,24 @@ describe("infers parser from filename", () => {
   });
 
   test("json from .swcrc", () => {
-    expect(prettier.format("  {   }  ", { filepath: "/path/to/.swcrc" })).toBe(
-      "{}\n"
-    );
+    expect(
+      prettier.format(
+        `
+    {
+      "jsc": {
+    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+        "keepClassNames": false
+      }
+    }
+    `,
+        { filepath: "/path/to/.swcrc" }
+      )
+    ).toBe(`{
+  "jsc": {
+    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+    "keepClassNames": false
+  }
+}
+`);
   });
 });
