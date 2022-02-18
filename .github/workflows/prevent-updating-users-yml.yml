@@ -10,12 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Create comment
-        uses: actions-cool/issues-helper@v2.5.0
+      - name: Prevent file change
+        uses: xalvarez/prevent-file-change-action@v1
         with:
-          actions: 'create-comment'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: 
-            Thank you for using Prettier! But we don't accept updating `users.yml` anymore.
-            If you created this PR for a purpose other than adding users, please ping a maintainer.
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          pattern: website/data/users.yml
