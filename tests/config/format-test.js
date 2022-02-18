@@ -424,10 +424,16 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 function format(originalText, originalOptions) {
-  const { text: input, options } = replacePlaceholders(
+  let { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions
   );
+
+  options = {
+    pluginSearchDirs: false,
+    ...options,
+  };
+
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
   const { formatted: output, cursorOffset } = prettier.formatWithCursor(
