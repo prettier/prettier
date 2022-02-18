@@ -178,18 +178,22 @@ async function preparePackage() {
 
 async function run(params) {
   params.files = params.file ? new Set([params.file].flat()) : params.file;
+  delete params.file;
+
   params.saveAs = params["save-as"];
+  delete params["save-as"];
+
   params.printSize = params["print-size"];
+  delete params["print-size"];
+
+  params.compareSize = params["compare-size"];
+  delete params["compare-size"];
 
   if (params.report === "") {
     params.report = ["html"];
   }
   params.reports = params.report ? [params.report].flat() : params.report;
-
-  delete params.file;
   delete params.report;
-  delete params["save-as"];
-  delete params["print-size"];
 
   if (params.saveAs && !(params.files && params.files.size === 1)) {
     throw new Error("'--save-as' can only use together with one '--file' flag");
