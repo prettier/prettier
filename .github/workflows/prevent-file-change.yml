@@ -15,4 +15,3 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml
-          trustedAuthors: fisker, sosukesuzuki
