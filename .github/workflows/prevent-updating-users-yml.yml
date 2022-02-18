@@ -1,4 +1,4 @@
-name: Prevent updating users.yml
+name: Prevent File change
 
 on:
   pull_request:
@@ -15,3 +15,4 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml
+          trustedAuthors: fisker, sosukesuzuki
