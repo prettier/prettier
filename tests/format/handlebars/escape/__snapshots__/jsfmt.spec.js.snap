@@ -25,7 +25,7 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<p data-attr="backslash \\ in an attribute" />
+<p data-attr="backslash \\ in an attribute"></p>
 
 =====================================output=====================================
 <p data-attr="backslash \\ in an attribute"></p>
