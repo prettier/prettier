@@ -39,6 +39,33 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`backslashes-in-attributes.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<p data-attr="backslash \\ in an attribute" />
+
+=====================================output=====================================
+<p data-attr='backslash \\ in an attribute'></p>
+================================================================================
+`;
+
+exports[`backslashes-in-attributes.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p data-attr="backslash \\ in an attribute" />
+
+=====================================output=====================================
+<p data-attr="backslash \\ in an attribute"></p>
+================================================================================
+`;
+
 exports[`basics.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
