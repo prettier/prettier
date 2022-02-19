@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 const constant = require("../../../src/cli/constant.js");
 const {
   createDetailedOptionMap,

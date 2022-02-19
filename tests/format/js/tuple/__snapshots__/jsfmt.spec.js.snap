@@ -19,7 +19,7 @@ exports[`destructuring.js [espree] format 1`] = `
 `;
 
 exports[`destructuring.js [meriyah] format 1`] = `
-"[1:16]: '#' not followed by identifier (1:16)
+"'#' not followed by identifier (1:16)
 > 1 | const [a, b] = #[1, 2];
     |                ^
   2 | assert(a === 1);
@@ -86,7 +86,7 @@ exports[`invalid-tuple-holes.js [espree] format 1`] = `
 `;
 
 exports[`invalid-tuple-holes.js [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #[,]
     | ^
   2 |"
@@ -111,7 +111,7 @@ exports[`syntax.js [espree] format 1`] = `
 `;
 
 exports[`syntax.js [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #[]
     | ^
   2 | #[1, 2]
@@ -156,7 +156,7 @@ exports[`tuple.js [espree] format 1`] = `
 `;
 
 exports[`tuple.js [meriyah] format 1`] = `
-"[1:16]: '#' not followed by identifier (1:16)
+"'#' not followed by identifier (1:16)
 > 1 | const tuple1 = #[1, 2, 3];
     |                ^
   2 |
@@ -225,7 +225,7 @@ exports[`tuple-trailing-comma.js [espree] format 1`] = `
 `;
 
 exports[`tuple-trailing-comma.js [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #[1,]
     | ^
   2 |"

@@ -2,7 +2,7 @@
 
 const path = require("path");
 const fs = require("fs");
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 const { projectRoot } = require("../env.js");
 
 expect.addSnapshotSerializer(require("../path-serializer.js"));

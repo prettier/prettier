@@ -2,8 +2,9 @@
 
 const path = require("path");
 const fs = require("fs");
-const execa = require("execa");
-const tempy = require("tempy");
+const chalk = require("chalk");
+const { default: tempy } = require("../../vendors/tempy.js");
+const { execaSync } = require("../../vendors/execa.js");
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
@@ -12,17 +13,44 @@ if (!allowedClients.has(client)) {
   client = "yarn";
 }
 
+const directoriesToClean = new Set();
+
+process.on("exit", cleanUp);
+
+function cleanUp() {
+  if (directoriesToClean.size === 0) {
+    return;
+  }
+  console.log(chalk.green("Removing installed Prettier:"));
+
+  for (const directory of directoriesToClean) {
+    // Node.js<14 don't support `fs.rmSync`
+    try {
+      fs.rmSync(directory, { force: true, recursive: true });
+    } catch {
+      // No op
+    }
+
+    if (fs.existsSync(directory)) {
+      console.error(chalk.red(` - ${chalk.inverse(directory)} FAIL`));
+    } else {
+      console.log(chalk.green(` - ${chalk.inverse(directory)} DONE`));
+    }
+  }
+}
+
 module.exports = (packageDir) => {
   const tmpDir = tempy.directory();
-  const fileName = execa
-    .sync("npm", ["pack"], { cwd: packageDir })
-    .stdout.trim();
+  directoriesToClean.add(tmpDir);
+  const fileName = execaSync("npm", ["pack"], {
+    cwd: packageDir,
+  }).stdout.trim();
   const file = path.join(packageDir, fileName);
   const packed = path.join(tmpDir, fileName);
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  execa.sync(client, ["init", "-y"], { cwd: tmpDir });
+  execaSync(client, ["init", "-y"], { cwd: tmpDir });
 
   let installArguments = [];
   switch (client) {
@@ -39,8 +67,21 @@ module.exports = (packageDir) => {
       installArguments = ["add", packed];
   }
 
-  execa.sync(client, installArguments, { cwd: tmpDir });
+  execaSync(client, installArguments, { cwd: tmpDir });
   fs.unlinkSync(packed);
 
-  return path.join(tmpDir, "node_modules/prettier");
+  const installed = path.join(tmpDir, "node_modules/prettier");
+
+  console.log(
+    chalk.green(
+      `
+Prettier installed
+  at ${chalk.inverse(installed)}
+  from ${chalk.inverse(packageDir)}
+  with ${chalk.inverse(client)}.
+      `.trim()
+    )
+  );
+
+  return installed;
 };

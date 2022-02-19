@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`empty-lines.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$colours: (
+    "text": $light-100,
+    "background-primary": $dark-300,
+
+
+
+
+
+
+    "background-secondary": $dark-200,
+    "background-tertiary": $dark-100
+);
+
+=====================================output=====================================
+$colours: (
+  "text": $light-100,
+  "background-primary": $dark-300,
+
+  "background-secondary": $dark-200,
+  "background-tertiary": $dark-100
+);
+
+================================================================================
+`;
+
 exports[`parens.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]

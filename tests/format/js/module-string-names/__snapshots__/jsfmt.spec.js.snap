@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`module-string-names-export.js [meriyah] format 1`] = `
-"[1:26]: Only a identifier can be used to indicate alias (1:26)
+"Only a identifier can be used to indicate alias (1:26)
 > 1 | export { smile as \\"smile1\\" } from \\"./emojis.js\\";
     |                          ^
   2 | export { \\"smile\\" as smile2 } from \\"./emojis.js\\";
@@ -37,7 +37,7 @@ export { "smile4" } from "./emojis.js";
 `;
 
 exports[`module-string-names-import.js [meriyah] format 1`] = `
-"[1:18]: Expected '}' (1:18)
+"Expected '}' (1:18)
 > 1 | import { \\"default\\" as quotation1 } from \\"Confucius\\";
     |                  ^
   2 | import { \\"foo\\" as bar, \\"default\\" as qux } from \\"module-a\\";

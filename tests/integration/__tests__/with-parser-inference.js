@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 
 describe("infers postcss parser", () => {
   runPrettier("cli/with-parser-inference", ["--end-of-line", "lf", "*"]).test({
@@ -44,5 +44,27 @@ describe("infers parser from filename", () => {
     expect(
       prettier.format("let foo = ( x = 1 ) => x", { filepath: "x/y/Jakefile" })
     ).toBe("let foo = (x = 1) => x;\n");
+  });
+
+  test("json from .swcrc", () => {
+    expect(
+      prettier.format(
+        `
+    {
+      "jsc": {
+    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+        "keepClassNames": false
+      }
+    }
+    `,
+        { filepath: "/path/to/.swcrc" }
+      )
+    ).toBe(`{
+  "jsc": {
+    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+    "keepClassNames": false
+  }
+}
+`);
   });
 });

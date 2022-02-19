@@ -512,7 +512,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\"language-configuration.json\\",
         \\"tsconfig.json\\",
         \\"tslint.json\\",
-        \\".eslintrc\\"
+        \\".eslintrc\\",
+        \\".swcrc\\"
       ],
       \\"group\\": \\"JSON\\",
       \\"linguistLanguageId\\": 423,

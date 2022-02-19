@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const flowParser = require("flow-parser");
-const globby = require("globby");
+const fastGlob = require("fast-glob");
 const rimraf = require("rimraf");
 
 const DEFAULT_SPEC_CONTENT = "run_spec(__dirname);\n";
@@ -11,9 +11,11 @@ const SPEC_FILE_NAME = "jsfmt.spec.js";
 const FLOW_TESTS_DIR = path.join(__dirname, "..", "tests", "flow-repo");
 
 function tryParse(file, content) {
+  // Keep this sync with `/src/language-js/parse/flow.js`
   const ast = flowParser.parse(content, {
-    esproposal_class_instance_fields: true,
-    esproposal_class_static_fields: true,
+    comments: false,
+    enums: true,
+    esproposal_decorators: true,
     esproposal_export_star_as: true,
   });
 
@@ -27,10 +29,10 @@ function tryParse(file, content) {
 }
 
 function syncTests(syncDir) {
-  const specFiles = globby.sync(
+  const specFiles = fastGlob.sync(
     path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME)
   );
-  const filesToCopy = globby.sync(path.join(syncDir, "**/*.js"));
+  const filesToCopy = fastGlob.sync(path.join(syncDir, "**/*.js"));
 
   if (filesToCopy.length === 0) {
     throw new Error(

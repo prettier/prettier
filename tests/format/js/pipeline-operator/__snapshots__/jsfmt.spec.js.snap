@@ -21,7 +21,7 @@ exports[`block-comments.js [espree] format 1`] = `
 `;
 
 exports[`block-comments.js [meriyah] format 1`] = `
-"[2:2]: Unexpected token: '>' (2:2)
+"Unexpected token: '>' (2:2)
   1 | bifornCringerMoshedPerplexSawder
 > 2 | |> foo1
     |  ^
@@ -75,7 +75,7 @@ exports[`fsharp_style_pipeline_operator.js [espree] format 1`] = `
 `;
 
 exports[`fsharp_style_pipeline_operator.js [meriyah] format 1`] = `
-"[2:4]: Unexpected token: '>' (2:4)
+"Unexpected token: '>' (2:4)
   1 | promise
 > 2 |   |> await
     |    ^
@@ -198,7 +198,7 @@ exports[`hack_pipeline_operator.js [espree] format 1`] = `
 `;
 
 exports[`hack_pipeline_operator.js [meriyah] format 1`] = `
-"[1:4]: Unexpected token: '>' (1:4)
+"Unexpected token: '>' (1:4)
 > 1 | a |> await % |> % * 3;
     |    ^
   2 |
@@ -339,7 +339,7 @@ exports[`minimal_pipeline_operator.js [espree] format 1`] = `
 `;
 
 exports[`minimal_pipeline_operator.js [meriyah] format 1`] = `
-"[1:4]: Unexpected token: '>' (1:4)
+"Unexpected token: '>' (1:4)
 > 1 | a |> b |> c;
     |    ^
   2 |

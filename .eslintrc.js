@@ -25,7 +25,7 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
-    "no-console": isCI ? "error" : "off",
+    "no-console": isCI ? "error" : "warn",
     "no-else-return": [
       "error",
       {
@@ -38,6 +38,9 @@ module.exports = {
       "error",
       // `!foo === bar` and `!foo !== bar`
       'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]',
+      // `(() => (foo ? bar : baz))()`
+      // TODO: Remove this when https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1730 get implemented
+      'CallExpression[callee.type="ArrowFunctionExpression"][callee.body.type="ConditionalExpression"]',
     ],
     "no-return-await": "error",
     "no-unneeded-ternary": "error",
@@ -124,6 +127,7 @@ module.exports = {
 
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
+    "unicorn/filename-case": "error",
     "unicorn/new-for-builtins": "error",
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
@@ -152,7 +156,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["scripts/**/*.js", "scripts/**/*.mjs"],
+      files: [
+        "scripts/**/*.js",
+        "scripts/**/*.mjs",
+        "tests/config/install-prettier.js",
+      ],
       rules: {
         "no-console": "off",
       },
@@ -289,6 +297,7 @@ module.exports = {
         "react/display-name": "off",
         "react/no-deprecated": "off",
         "react/prop-types": "off",
+        "unicorn/filename-case": "off",
       },
     },
     {

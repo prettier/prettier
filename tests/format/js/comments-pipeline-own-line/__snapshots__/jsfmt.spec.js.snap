@@ -23,7 +23,7 @@ exports[`pipeline_own_line.js [espree] format 1`] = `
 `;
 
 exports[`pipeline_own_line.js [meriyah] format 1`] = `
-"[4:3]: Unexpected token: '>' (4:3)
+"Unexpected token: '>' (4:3)
   2 | 	0
   3 | 	// Comment
 > 4 | 	|> x
