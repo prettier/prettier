@@ -88,13 +88,6 @@ function normalizeOptions(
     normalizer._hasDeprecationWarned = hasDeprecationWarned;
   }
 
-  if (Array.isArray(options.config) && options.config.includes(false)) {
-    logger.error(
-      "You provided both a config and the --no-config flag. Please remove one!"
-    );
-    process.exit(2);
-  }
-
   const normalized = normalizer.normalize(options);
 
   if (shouldSuppressDuplicateDeprecationWarnings) {
