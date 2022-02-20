@@ -1,14 +1,16 @@
 import createEsmUtils from "esm-utils";
 
-const { require } = createEsmUtils(import.meta);
+const { importModule } = createEsmUtils(import.meta);
 
 export default function esbuildPluginEvaluate() {
   return {
     name: "evaluate",
 
     setup(build) {
-      build.onLoad({ filter: /\.evaluate\.js$/ }, ({ path }) => {
-        const json = JSON.stringify(require(path), (_, v) => {
+      build.onLoad({ filter: /\.evaluate\.js$/ }, async ({ path }) => {
+        const data = await importModule(path);
+
+        const json = JSON.stringify(data, (_, v) => {
           if (typeof v === "function") {
             throw new TypeError("Cannot evaluate functions.");
           }
