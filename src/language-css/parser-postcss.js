@@ -269,7 +269,7 @@ function parseMediaQuery(params) {
   let result = null;
 
   try {
-    result = mediaParser(params);
+    result = mediaParser.default(params);
   } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
