@@ -1,6 +1,15 @@
-"use strict";
 
 /** @typedef {import("../../document").Doc} Doc */
+
+import doc from "../../document/index.js";
+import {
+  getAncestorCount,
+  getBlockValueLineContents,
+  hasIndicatorComment,
+  isLastDescendantNode,
+  isNode,
+} from "../utils.js";
+import { alignWithSpaces } from "./misc.js";
 
 const {
   builders: {
@@ -14,15 +23,7 @@ const {
     markAsRoot,
   },
   utils: { getDocParts },
-} = require("../../document/index.js");
-const {
-  getAncestorCount,
-  getBlockValueLineContents,
-  hasIndicatorComment,
-  isLastDescendantNode,
-  isNode,
-} = require("../utils.js");
-const { alignWithSpaces } = require("./misc.js");
+} = doc
 
 function printBlock(path, print, options) {
   const node = path.getValue();
@@ -79,4 +80,4 @@ function printBlock(path, print, options) {
   return parts;
 }
 
-module.exports = printBlock;
+export default printBlock;

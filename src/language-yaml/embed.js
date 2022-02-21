@@ -1,4 +1,3 @@
-"use strict";
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -13,4 +12,4 @@ function embed(path, print, textToDoc, options) {
   }
 }
 
-module.exports = embed;
+export default embed;

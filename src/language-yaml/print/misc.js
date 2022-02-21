@@ -1,10 +1,10 @@
-"use strict";
+
+import doc from "../../document/index.js";
+import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
 const {
   builders: { softline, align },
-} = require("../../document/index.js");
-
-const { hasEndComments, isNextLineEmpty, isNode } = require("../utils.js");
+} = doc
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
@@ -48,7 +48,7 @@ function alignWithSpaces(width, doc) {
   return align(" ".repeat(width), doc);
 }
 
-module.exports = {
+export  {
   alignWithSpaces,
   shouldPrintEndComments,
   printNextEmptyLine,

@@ -1,9 +1,10 @@
-"use strict";
+import { createRequire } from "module";
+import createLanguage from "../utils/create-language.js";
+import printer from "./printer-yaml.js";
+import options from "./options.js";
+import parsers from "./parsers.js";
 
-const createLanguage = require("../utils/create-language.js");
-const printer = require("./printer-yaml.js");
-const options = require("./options.js");
-const parsers = require("./parsers.js");
+const require = createRequire(import.meta.url);
 
 const languages = [
   createLanguage(require("linguist-languages/data/YAML.json"), (data) => ({
@@ -19,9 +20,11 @@ const languages = [
   })),
 ];
 
-module.exports = {
+const language = {
   languages,
   printers: { yaml: printer },
   options,
   parsers,
 };
+
+export default language

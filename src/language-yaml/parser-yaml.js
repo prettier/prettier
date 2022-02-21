@@ -1,14 +1,13 @@
-"use strict";
-
-const createError = require("../common/parser-create-error.js");
-const { hasPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
+// TODO[@fisker]: try inline import this module
+// Inline the require to avoid loading all the JS if we don't use it
+  import { parse as parseYaml } from "yaml-unist-parser";
+import createError from "../common/parser-create-error.js";
+import { hasPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
 
 function parse(text) {
-  const { parse } = require("yaml-unist-parser");
-
   try {
-    const root = parse(text);
+    const root = parseYaml(text);
 
     /**
      * suppress `comment not printed` error
@@ -37,8 +36,10 @@ const parser = {
   locEnd,
 };
 
-module.exports = {
+const yaml = {
   parsers: {
     yaml: parser,
   },
 };
+
+export default yaml

@@ -1,11 +1,8 @@
-"use strict";
 
 /** @typedef {import("../../document").Doc} Doc */
 
-const {
-  builders: { conditionalGroup, group, hardline, ifBreak, join, line },
-} = require("../../document/index.js");
-const {
+import doc from "../../document/index.js";
+import {
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComment,
@@ -13,8 +10,12 @@ const {
   isNode,
   isEmptyNode,
   isInlineNode,
-} = require("../utils.js");
-const { alignWithSpaces } = require("./misc.js");
+} from "../utils.js";
+import { alignWithSpaces } from "./misc.js";
+
+const {
+  builders: { conditionalGroup, group, hardline, ifBreak, join, line },
+} =  doc
 
 function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;
@@ -208,4 +209,4 @@ function isSingleLineNode(node) {
   }
 }
 
-module.exports = printMappingItem;
+export default printMappingItem;
