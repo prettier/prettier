@@ -1,4 +1,3 @@
-
 import { isNonEmptyArray, hasNewline } from "../../common/util.js";
 import doc from "../../document/index.js";
 import { locStart, locEnd } from "../loc.js";
@@ -6,7 +5,7 @@ import { getParentExportDeclaration } from "../utils/index.js";
 
 const {
   builders: { line, hardline, join, breakParent, group },
-} = doc
+} = doc;
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
@@ -78,7 +77,7 @@ function hasDecoratorsBeforeExport(node) {
   );
 }
 
-export  {
+export {
   printDecorators,
   printClassMemberDecorators,
   printDecoratorsBeforeExport,

@@ -1,4 +1,3 @@
-
 import {
   getLast,
   hasNewline,
@@ -1025,7 +1024,7 @@ function willPrintOwnComments(path /*, options */) {
   );
 }
 
-export  {
+export {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,

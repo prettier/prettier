@@ -1,7 +1,6 @@
 // TODO[@fisker]: try inline import this module
 import { parseExpression } from "@babel/parser";
 
-
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";

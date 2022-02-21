@@ -1,5 +1,3 @@
-"use strict";
-
 import { printDanglingComments } from "../../main/comments.js";
 import { hasNewlineInRange } from "../../common/util.js";
 import doc from "../../document/index.js";
@@ -23,10 +21,7 @@ import { printTemplateLiteral } from "./template-literal.js";
 import { printArrayItems } from "./array.js";
 import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
-import {
-  printTypeParameter,
-  printTypeParameters,
-} from "./type-parameters.js";
+import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printPropertyKey } from "./property.js";
 import { printFunction, printMethodInternal } from "./function.js";
 import { printInterface } from "./interface.js";
@@ -51,7 +46,7 @@ const {
     conditionalGroup,
     ifBreak,
   },
-} = doc
+} = doc;
 
 function printTypescript(path, options, print) {
   const node = path.getValue();
@@ -530,4 +525,4 @@ function printTypescript(path, options, print) {
   }
 }
 
-export  { printTypescript };
+export { printTypescript };

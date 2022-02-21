@@ -1,11 +1,10 @@
-
 import { isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
 import { isFlowAnnotationComment } from "../utils/index.js";
 
 const {
   builders: { indent, join, line },
-} = doc
+} = doc;
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -91,7 +90,7 @@ function printRestSpread(path, options, print) {
   return ["...", print("argument"), printTypeAnnotation(path, options, print)];
 }
 
-export  {
+export {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,

@@ -1,4 +1,3 @@
-
 import { printComments } from "../../main/comments.js";
 import { printString, printNumber } from "../../common/util.js";
 import {
@@ -104,4 +103,4 @@ function printProperty(path, options, print) {
   );
 }
 
-export  { printProperty, printPropertyKey };
+export { printProperty, printPropertyKey };

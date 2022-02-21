@@ -1,4 +1,3 @@
-
 import { hasPragma } from "../../pragma.js";
 import { locStart, locEnd } from "../../loc.js";
 

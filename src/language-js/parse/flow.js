@@ -1,6 +1,6 @@
 // TODO[@fisker]: try inline import this module
-  // Inline the require to avoid loading all the JS if we don't use it
-import flow  from "flow-parser";
+// Inline the require to avoid loading all the JS if we don't use it
+import flow from "flow-parser";
 
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";
@@ -58,4 +58,4 @@ const parser = {
   },
 };
 
-export default parser
+export default parser;

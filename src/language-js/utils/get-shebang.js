@@ -1,4 +1,3 @@
-
 function getShebang(text) {
   if (!text.startsWith("#!")) {
     return "";

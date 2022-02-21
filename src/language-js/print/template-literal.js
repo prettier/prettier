@@ -1,4 +1,3 @@
-
 import getLast from "../../utils/get-last.js";
 import { getStringWidth, getIndentSize } from "../../common/util.js";
 import doc from "../../document/index.js";
@@ -23,7 +22,7 @@ const {
   },
   printer: { printDocToString },
   utils: { mapDoc },
-} = doc
+} = doc;
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
@@ -233,7 +232,7 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
-export  {
+export {
   printTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,

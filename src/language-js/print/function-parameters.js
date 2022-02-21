@@ -1,4 +1,3 @@
-
 import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
 import { printDanglingComments } from "../../main/comments.js";
 import doc from "../../document/index.js";
@@ -22,7 +21,7 @@ import { printFunctionTypeParameters } from "./misc.js";
 const {
   builders: { line, hardline, softline, group, indent, ifBreak },
   utils: { removeLines, willBreak },
-} = doc
+} = doc;
 
 function printFunctionParameters(
   path,
@@ -224,7 +223,7 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   );
 }
 
-export  {
+export {
   printFunctionParameters,
   shouldHugFunctionParameters,
   shouldGroupFunctionParameters,

@@ -1,11 +1,10 @@
 // TODO[@fisker]: try inline import this module
-
+import meriyah from "meriyah";
 
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
-  const meriyah= require("meriyah");
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -93,4 +92,4 @@ const parser = {
   },
 };
 
-export default parser
+export default parser;

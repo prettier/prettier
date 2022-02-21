@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
@@ -13,14 +12,11 @@ import {
 } from "../utils/index.js";
 import printMemberChain from "./member-chain.js";
 import printCallArguments from "./call-arguments.js";
-import {
-  printOptionalToken,
-  printFunctionTypeParameters,
-} from "./misc.js";
+import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
 const {
   builders: { join, group },
-} = doc
+} = doc;
 
 function printCallExpression(path, options, print) {
   const node = path.getValue();
@@ -129,4 +125,4 @@ function isCommonsJsOrAmdCall(node, parentNode) {
   return false;
 }
 
-export  { printCallExpression };
+export { printCallExpression };

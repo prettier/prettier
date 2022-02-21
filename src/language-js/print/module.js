@@ -1,4 +1,3 @@
-
 import { isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
 import { printDanglingComments } from "../../main/comments.js";
@@ -19,7 +18,7 @@ import {
 
 const {
   builders: { softline, group, indent, join, line, ifBreak, hardline },
-} = doc
+} = doc;
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -355,7 +354,7 @@ function isShorthandSpecifier(specifier) {
   }
 }
 
-export  {
+export {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,

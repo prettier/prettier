@@ -56,6 +56,4 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
-export  {
-  printLiteral,
-};
+export { printLiteral };

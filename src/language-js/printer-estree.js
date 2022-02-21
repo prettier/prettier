@@ -1,4 +1,3 @@
-
 /** @typedef {import("../document").Doc} Doc */
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
@@ -8,7 +7,7 @@ import doc from "../document/index.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
-import * as  handleComments from "./comments.js";
+import * as handleComments from "./comments.js";
 import pathNeedsParens from "./needs-parens.js";
 import preprocess from "./print-preprocess.js";
 import {
@@ -82,7 +81,7 @@ import { printDecorators } from "./print/decorators.js";
 const {
   builders: { join, line, hardline, softline, group, indent },
   utils: { replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function genericPrint(path, options, print, args) {
   const printed = printPathNoParens(path, options, print, args);
@@ -836,7 +835,7 @@ function canAttachComment(node) {
   );
 }
 
-const printer= {
+const printer = {
   preprocess,
   print: genericPrint,
   embed,
@@ -859,4 +858,4 @@ const printer= {
   getCommentChildNodes: handleComments.getCommentChildNodes,
 };
 
-export default printer
+export default printer;

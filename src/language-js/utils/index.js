@@ -1,4 +1,3 @@
-
 import esutils from "esutils";
 import {
   getLast,
@@ -11,7 +10,7 @@ import {
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import isBlockComment from "./is-block-comment.js";
 
-const isIdentifierName = esutils.keyword.isIdentifierNameES5
+const isIdentifierName = esutils.keyword.isIdentifierNameES5;
 
 /**
  * @typedef {import("../types/estree").Node} Node
@@ -1312,7 +1311,7 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-export  {
+export {
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,

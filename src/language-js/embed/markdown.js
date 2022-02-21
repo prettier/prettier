@@ -1,10 +1,9 @@
-
 import doc from "../../document/index.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
 const {
   builders: { indent, softline, literalline, dedentToRoot },
-} = doc
+} = doc;
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

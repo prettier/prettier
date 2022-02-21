@@ -1,8 +1,4 @@
-
-import {
-  printComments,
-  printDanglingComments,
-} from "../../main/comments.js";
+import { printComments, printDanglingComments } from "../../main/comments.js";
 import doc from "../../document/index.js";
 
 import { getLast, getPreferredQuote } from "../../common/util.js";
@@ -34,7 +30,7 @@ const {
     join,
   },
   utils: { willBreak },
-} = doc
+} = doc;
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -850,7 +846,4 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
-export  {
-  hasJsxIgnoreComment,
-  printJsx,
-};
+export { hasJsxIgnoreComment, printJsx };

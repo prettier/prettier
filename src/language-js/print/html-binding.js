@@ -1,9 +1,8 @@
-
 import doc from "../../document/index.js";
 
 const {
   builders: { join, line, group, softline, indent },
-} = doc
+} = doc;
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();
@@ -66,7 +65,4 @@ function isVueEventBindingExpression(node) {
   }
 }
 
-export  {
-  isVueEventBindingExpression,
-  printHtmlBinding,
-};
+export { isVueEventBindingExpression, printHtmlBinding };

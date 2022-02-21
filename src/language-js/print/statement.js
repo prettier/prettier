@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
@@ -14,7 +13,7 @@ import { shouldPrintParamsWithoutParens } from "./function.js";
 
 const {
   builders: { hardline },
-} = doc
+} = doc;
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -246,7 +245,4 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-export  {
-  printBody,
-  printSwitchCaseConsequent,
-};
+export { printBody, printSwitchCaseConsequent };

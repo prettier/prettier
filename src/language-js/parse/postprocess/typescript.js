@@ -1,4 +1,3 @@
-
 import createError from "../../../common/parser-create-error.js";
 import visitNode from "./visit-node.js";
 
@@ -77,4 +76,4 @@ function throwErrorForInvalidNodes(ast, options) {
   });
 }
 
-export  { throwErrorForInvalidNodes };
+export { throwErrorForInvalidNodes };

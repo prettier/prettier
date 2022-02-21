@@ -1,6 +1,5 @@
 // TODO[@fisker]: try inline import this module
-import babel from  "@babel/parser"
-
+import babelParser from "@babel/parser";
 
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
@@ -88,7 +87,7 @@ function isFlowFile(text, options) {
 function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
   /** @type {Parse} */
-  const parse = babel[parseMethod];
+  const parse = babelParser[parseMethod];
   const ast = parse(text, options);
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)
@@ -231,7 +230,7 @@ const babel = createParser(parse);
 const babelExpression = createParser(parseExpression);
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const parser = {
   parsers: {
     babel,
     "babel-flow": createParser(parseFlow),
@@ -247,3 +246,5 @@ module.exports = {
     __babel_estree: createParser(parseEstree),
   },
 };
+
+export default parser;

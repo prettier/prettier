@@ -1,4 +1,3 @@
-
 import acorn from "./acorn.js";
 import espree from "./espree.js";
 
@@ -9,4 +8,4 @@ const parserAcornAndEspree = {
   },
 };
 
-export default  parserAcornAndEspree
+export default parserAcornAndEspree;

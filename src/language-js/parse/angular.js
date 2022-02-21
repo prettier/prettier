@@ -1,5 +1,5 @@
 // TODO[@fisker]: try inline import this module
-    import ngEstreeParser from "angular-estree-parser";
+import ngEstreeParser from "angular-estree-parser";
 
 import { locStart, locEnd } from "../loc.js";
 
@@ -26,4 +26,4 @@ const parser = {
   },
 };
 
-export default parser
+export default parser;

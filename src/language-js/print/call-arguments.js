@@ -1,4 +1,3 @@
-
 import { printDanglingComments } from "../../main/comments.js";
 import { getLast, getPenultimate } from "../../common/util.js";
 import {
@@ -34,7 +33,7 @@ const {
     breakParent,
   },
   utils: { willBreak },
-} = doc
+} = doc;
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();

@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import {
   isNumericLiteral,
@@ -9,7 +8,7 @@ import { printOptionalToken } from "./misc.js";
 
 const {
   builders: { softline, group, indent, label },
-} = doc
+} = doc;
 
 function printMemberExpression(path, options, print) {
   const node = path.getValue();
@@ -69,4 +68,4 @@ function printMemberLookup(path, options, print) {
   return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
-export  { printMemberExpression, printMemberLookup };
+export { printMemberExpression, printMemberLookup };

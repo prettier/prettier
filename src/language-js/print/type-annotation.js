@@ -1,8 +1,4 @@
-
-import {
-  printComments,
-  printDanglingComments,
-} from "../../main/comments.js";
+import { printComments, printDanglingComments } from "../../main/comments.js";
 import { getLast, isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
 import pathNeedsParens from "../needs-parens.js";
@@ -23,7 +19,7 @@ import { printArrayItems } from "./array.js";
 
 const {
   builders: { group, join, line, softline, indent, align, ifBreak },
-}  = doc
+} = doc;
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -315,7 +311,7 @@ function printIndexedAccessType(path, options, print) {
   return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
-export  {
+export {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,

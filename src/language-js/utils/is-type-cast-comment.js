@@ -1,4 +1,3 @@
-
 import isBlockComment from "./is-block-comment.js";
 
 /**

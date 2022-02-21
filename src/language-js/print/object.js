@@ -1,4 +1,3 @@
-
 import { printDanglingComments } from "../../main/comments.js";
 import doc from "../../document/index.js";
 import {
@@ -23,7 +22,7 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 const {
   builders: { line, softline, group, indent, ifBreak, hardline },
-} = doc
+} = doc;
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -244,4 +243,4 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-export  { printObject };
+export { printObject };

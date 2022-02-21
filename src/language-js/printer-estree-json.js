@@ -1,10 +1,9 @@
-
 import doc from "../document/index.js";
 import preprocess from "./print-preprocess.js";
 
 const {
   builders: { hardline, indent, join },
-} = doc
+} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -116,4 +115,4 @@ const printer = {
   massageAstNode: clean,
 };
 
-export default printer
+export default printer;

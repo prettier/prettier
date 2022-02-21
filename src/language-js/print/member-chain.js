@@ -1,4 +1,3 @@
-
 import { printComments } from "../../main/comments.js";
 import {
   getLast,
@@ -40,7 +39,7 @@ const {
     label,
   },
   utils: { willBreak },
-}  = doc
+} = doc;
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:

@@ -1,4 +1,3 @@
-
 import createError from "../../../common/parser-create-error.js";
 
 function createBabelParseError(error) {

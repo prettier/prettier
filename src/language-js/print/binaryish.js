@@ -1,4 +1,3 @@
-
 import { printComments } from "../../main/comments.js";
 import { getLast } from "../../common/util.js";
 import doc from "../../document/index.js";
@@ -27,7 +26,7 @@ const {
     indentIfBreak,
   },
   utils: { cleanDoc, getDocParts, isConcat },
-} = doc
+} = doc;
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -338,4 +337,4 @@ function shouldInlineLogicalExpression(node) {
   return false;
 }
 
-export  { printBinaryishExpression, shouldInlineLogicalExpression };
+export { printBinaryishExpression, shouldInlineLogicalExpression };

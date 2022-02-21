@@ -2,10 +2,9 @@ import doc from "../../document/index.js";
 import { hasNode, hasComment, getComments } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
-
 const {
   builders: { join, line, group },
-}  =doc
+} = doc;
 
 /** @typedef {import("../../common/ast-path")} AstPath */
 
@@ -126,4 +125,4 @@ function hasNgSideEffect(path) {
   });
 }
 
-export  { printAngular };
+export { printAngular };

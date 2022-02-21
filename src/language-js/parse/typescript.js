@@ -1,5 +1,5 @@
 // TODO[@fisker]: try inline import this module
-  import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree";
+import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree";
 
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
@@ -75,4 +75,4 @@ const parser = {
   },
 };
 
-export default parser
+export default parser;

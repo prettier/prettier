@@ -1,4 +1,3 @@
-
 import commonOptions from "../common/common-options.js";
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
@@ -100,4 +99,4 @@ const options = {
   singleAttributePerLine: commonOptions.singleAttributePerLine,
 };
 
-export default options
+export default options;

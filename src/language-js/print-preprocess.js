@@ -1,4 +1,3 @@
-
 function preprocess(ast, options) {
   switch (options.parser) {
     case "json":

@@ -1,4 +1,3 @@
-
 import { printDanglingComments } from "../../main/comments.js";
 import { isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
@@ -13,7 +12,7 @@ import { printBody } from "./statement.js";
 
 const {
   builders: { hardline, indent },
-} = doc
+} = doc;
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -108,4 +107,4 @@ function printBlockBody(path, options, print) {
   return parts;
 }
 
-export  { printBlock, printBlockBody };
+export { printBlock, printBlockBody };

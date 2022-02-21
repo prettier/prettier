@@ -1,4 +1,3 @@
-
 import { parseWithComments, strip, extract, print } from "jest-docblock";
 import { normalizeEndOfLine } from "../common/end-of-line.js";
 import getShebang from "./utils/get-shebang.js";
@@ -41,7 +40,4 @@ function insertPragma(originalText) {
   );
 }
 
-export  {
-  hasPragma,
-  insertPragma,
-};
+export { hasPragma, insertPragma };

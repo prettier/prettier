@@ -1,10 +1,9 @@
-import babel from "./babel.js"
-import flow from "./flow.js"
-import typescript from "./typescript.js"
-import angular from "./angular.js"
-import acornAndEspree from "./acorn-and-espree.js"
-import meriyah from "./meriyah.js"
-
+import babel from "./babel.js";
+import flow from "./flow.js";
+import typescript from "./typescript.js";
+import angular from "./angular.js";
+import acornAndEspree from "./acorn-and-espree.js";
+import meriyah from "./meriyah.js";
 
 const parsers = {
   // JS - Babel
@@ -77,4 +76,4 @@ const parsers = {
   },
 };
 
-export default parsers
+export default parsers;

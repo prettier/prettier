@@ -1,4 +1,3 @@
-
 import { printDanglingComments } from "../../main/comments.js";
 import doc from "../../document/index.js";
 import {
@@ -16,7 +15,7 @@ import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 
 const {
   builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = doc
+} = doc;
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
@@ -145,8 +144,4 @@ function printTypeParameter(path, options, print) {
   return parts;
 }
 
-export  {
-  printTypeParameter,
-  printTypeParameters,
-  getTypeParametersGroupId,
-};
+export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };

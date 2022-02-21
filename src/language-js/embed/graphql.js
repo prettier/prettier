@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import {
   escapeTemplateCharacters,
@@ -7,7 +6,7 @@ import {
 
 const {
   builders: { indent, join, hardline },
-} = doc
+} = doc;
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

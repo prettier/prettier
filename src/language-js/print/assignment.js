@@ -1,4 +1,3 @@
-
 import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
 import doc from "../../document/index.js";
 import {
@@ -21,7 +20,7 @@ import { printCallExpression } from "./call-expression.js";
 const {
   builders: { line, group, indent, indentIfBreak },
   utils: { cleanDoc, willBreak, canBreak },
-}  = doc
+} = doc;
 
 function printAssignment(
   path,
@@ -463,7 +462,7 @@ function getTypeArgumentsFromCallExpression(node) {
   );
 }
 
-export  {
+export {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,

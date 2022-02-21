@@ -1,4 +1,3 @@
-
 /** @typedef {import("../../document/doc-builders").Doc} Doc */
 
 import assert from "assert";
@@ -7,9 +6,7 @@ import {
   printCommentsSeparately,
 } from "../../main/comments.js";
 import getLast from "../../utils/get-last.js";
-import {
-  getNextNonSpaceNonCommentCharacterIndex,
-} from "../../common/util.js";
+import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
 import doc from "../../document/index.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
@@ -51,7 +48,7 @@ const {
     indentIfBreak,
   },
   utils: { removeLines, willBreak },
-} = doc
+} = doc;
 
 function printFunction(path, print, options, args) {
   const node = path.getValue();
@@ -529,7 +526,7 @@ function returnArgumentHasLeadingComment(options, argument) {
   return false;
 }
 
-export  {
+export {
   printFunction,
   printArrowFunction,
   printMethod,

@@ -1,4 +1,3 @@
-
 import {
   hasComment,
   CommentCheckFlags,

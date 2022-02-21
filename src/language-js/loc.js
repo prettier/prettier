@@ -1,4 +1,3 @@
-
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 /**
@@ -54,9 +53,4 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-export  {
-  locStart,
-  locEnd,
-  hasSameLocStart,
-  hasSameLoc,
-};
+export { locStart, locEnd, hasSameLocStart, hasSameLoc };

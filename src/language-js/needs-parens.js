@@ -1,4 +1,3 @@
-
 import getLast from "../utils/get-last.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import {

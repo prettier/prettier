@@ -1,4 +1,3 @@
-
 /** @typedef {import("../../document").Doc} Doc */
 
 import assert from "assert";
@@ -24,14 +23,8 @@ import {
   printIndexedAccessType,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
-import {
-  printTypeParameter,
-  printTypeParameters,
-} from "./type-parameters.js";
-import {
-  printExportDeclaration,
-  printExportAllDeclaration,
-} from "./module.js";
+import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
+import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
 import { printArrayItems } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
@@ -43,7 +36,7 @@ import {
 
 const {
   builders: { hardline, softline, group, indent },
-} = doc
+} = doc;
 
 function printFlow(path, options, print) {
   const node = path.getValue();
@@ -383,4 +376,4 @@ function printFlowDeclaration(path, printed) {
   return ["declare ", printed];
 }
 
-export  { printFlow };
+export { printFlow };

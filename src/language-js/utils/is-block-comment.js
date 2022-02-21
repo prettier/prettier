@@ -1,4 +1,3 @@
-
 /**
  * @typedef {import("../types/estree").Comment} Comment
  */

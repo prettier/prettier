@@ -1,4 +1,3 @@
-
 import { locStart, locEnd } from "../../loc.js";
 import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";

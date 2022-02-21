@@ -1,4 +1,3 @@
-
 import { hasNewlineInRange } from "../../common/util.js";
 import {
   isJsxNode,
@@ -21,7 +20,7 @@ const {
     dedent,
     breakParent,
   },
-} = doc
+} = doc;
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -353,4 +352,4 @@ function printTernary(path, options, print) {
     : result;
 }
 
-export  { printTernary };
+export { printTernary };

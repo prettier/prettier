@@ -1,4 +1,3 @@
-
 import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([

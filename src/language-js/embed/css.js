@@ -1,4 +1,3 @@
-
 import { isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
@@ -6,7 +5,7 @@ import { printTemplateExpressions } from "../print/template-literal.js";
 const {
   builders: { indent, hardline, softline },
   utils: { mapDoc, replaceEndOfLine, cleanDoc },
-} = doc
+} = doc;
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

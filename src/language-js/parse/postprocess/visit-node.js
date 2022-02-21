@@ -1,4 +1,3 @@
-
 function visitNode(node, fn) {
   if (Array.isArray(node)) {
     // As of Node.js 16 using raw for loop over Array.entries provides a

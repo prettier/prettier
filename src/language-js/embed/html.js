@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import {
   printTemplateExpressions,
@@ -8,7 +7,7 @@ import {
 const {
   builders: { indent, line, hardline, group },
   utils: { mapDoc },
-} = doc
+} = doc;
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;

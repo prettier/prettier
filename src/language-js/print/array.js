@@ -1,4 +1,3 @@
-
 import { printDanglingComments } from "../../main/comments.js";
 import doc from "../../document/index.js";
 import { getLast, hasNewline } from "../../common/util.js";
@@ -16,7 +15,7 @@ import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 
 const {
   builders: { line, softline, hardline, group, indent, ifBreak, fill },
-} = doc
+} = doc;
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -187,4 +186,4 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-export  { printArray, printArrayItems, isConciselyPrintedArray };
+export { printArray, printArrayItems, isConciselyPrintedArray };

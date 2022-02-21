@@ -1,4 +1,3 @@
-
 import { hasNewline } from "../../common/util.js";
 import doc from "../../document/index.js";
 
@@ -9,7 +8,7 @@ import isBlockComment from "../utils/is-block-comment.js";
 const {
   builders: { join, hardline },
   utils: { replaceTextEndOfLine },
-}  = doc
+} = doc;
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
@@ -78,4 +77,4 @@ function printIndentableBlockComment(comment) {
   ];
 }
 
-export  { printComment };
+export { printComment };

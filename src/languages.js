@@ -1,5 +1,5 @@
 import { createRequire } from "module";
-import js from "./language-js/index.js"
+import js from "./language-js/index.js";
 import graphql from "./language-graphql/index.js";
 import markdown from "./language-markdown/index.js";
 
