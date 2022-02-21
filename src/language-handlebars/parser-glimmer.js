@@ -1,8 +1,9 @@
-"use strict";
-
-const { LinesAndColumns } = require("lines-and-columns");
-const createError = require("../common/parser-create-error.js");
-const { locStart, locEnd } = require("./loc.js");
+// TODO[@fisker]: try inline import this module
+// Inline the require to avoid loading all the JS if we don't use it
+import { preprocess as glimmer } from "@glimmer/syntax";
+import { LinesAndColumns } from "lines-and-columns";
+import createError from "../common/parser-create-error.js";
+import { locStart, locEnd } from "./loc.js";
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash
@@ -37,7 +38,6 @@ function addOffset(text) {
 }
 
 function parse(text) {
-  const { preprocess: glimmer } = require("@glimmer/syntax");
   let ast;
   try {
     ast = glimmer(text, {
@@ -76,7 +76,7 @@ function getErrorLocation(error) {
   }
 }
 
-module.exports = {
+const glimmerParser = {
   parsers: {
     glimmer: {
       parse,
@@ -86,3 +86,5 @@ module.exports = {
     },
   },
 };
+
+export default glimmerParser;

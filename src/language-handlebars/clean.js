@@ -1,5 +1,3 @@
-"use strict";
-
 function clean(ast, newNode /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
   if (ast.type === "TextNode") {
@@ -18,4 +16,4 @@ function clean(ast, newNode /*, parent*/) {
 
 clean.ignoredProperties = new Set(["loc", "selfClosing"]);
 
-module.exports = clean;
+export default clean;
