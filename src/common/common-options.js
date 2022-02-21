@@ -1,4 +1,3 @@
-
 const CATEGORY_COMMON = "Common";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
@@ -62,4 +61,4 @@ const options = {
   },
 };
 
-export default options
+export default options;

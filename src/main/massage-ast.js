@@ -1,4 +1,3 @@
-
 function massageAST(ast, options, parent) {
   if (Array.isArray(ast)) {
     return ast.map((e) => massageAST(e, options, parent)).filter(Boolean);

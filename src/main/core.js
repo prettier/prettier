@@ -1,4 +1,3 @@
-
 // Use `diff/lib/diff/array.js` instead of `diff` to reduce bundle size
 import { diffArrays } from "diff/lib/diff/array.js";
 
@@ -10,17 +9,17 @@ import {
   countEndOfLineChars,
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
-import {normalize as normalizeOptions} from "./options.js";
+import { normalize as normalizeOptions } from "./options.js";
 import massageAST from "./massage-ast.js";
-import {ensureAllCommentsPrinted, attach} from "./comments.js";
-import {parse, resolveParser} from "./parser.js";
+import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
-import {calculateRange, findNodeAtOffset} from "./range-util.js";
+import { calculateRange, findNodeAtOffset } from "./range-util.js";
 
 const {
   printer: { printDocToString },
   debug: { printDocToDebug },
-}  = doc
+} = doc;
 
 const BOM = "\uFEFF";
 
@@ -366,4 +365,4 @@ const prettier = {
   },
 };
 
-export default prettier
+export default prettier;

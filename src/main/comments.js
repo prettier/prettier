@@ -1,4 +1,3 @@
-
 import assert from "assert";
 
 import doc from "../document/index.js";
@@ -15,7 +14,7 @@ import {
 
 const {
   builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
-} = doc
+} = doc;
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -602,7 +601,7 @@ function ensureAllCommentsPrinted(astComments) {
   }
 }
 
-export  {
+export {
   attach,
   printComments,
   printCommentsSeparately,

@@ -1,4 +1,3 @@
-
 import vnopts from "vnopts";
 import leven from "leven";
 import getLast from "../utils/get-last.js";
@@ -256,7 +255,4 @@ function normalizeCliOptions(options, optionInfos, opts) {
   return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
 }
 
-export  {
-  normalizeApiOptions,
-  normalizeCliOptions,
-};
+export { normalizeApiOptions, normalizeCliOptions };

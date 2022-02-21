@@ -1,4 +1,3 @@
-
 import path from "path";
 
 import editorconfig from "editorconfig";
@@ -39,7 +38,4 @@ function clearCache() {
   memClear(editorconfigAsyncWithCache);
 }
 
-export  {
-  getLoadFunction,
-  clearCache,
-};
+export { getLoadFunction, clearCache };

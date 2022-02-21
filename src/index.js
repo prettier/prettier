@@ -3,7 +3,10 @@ import core from "./main/core.js";
 import { getSupportInfo } from "./main/support.js";
 import getFileInfo from "./common/get-file-info.js";
 import * as sharedUtil from "./common/util-shared.js";
-import {loadPlugins, clearCache as clearPluginCache} from "./common/load-plugins.js";
+import {
+  loadPlugins,
+  clearCache as clearPluginCache,
+} from "./common/load-plugins.js";
 import {
   resolveConfig,
   resolveConfigFile,
@@ -12,15 +15,14 @@ import {
 import doc from "./document/index.js";
 import languages from "./languages.js";
 
-import * as errors from "./common/errors.js"
-import * as coreOptions from "./main/core-options.js"
-import createIgnorer from "./common/create-ignorer.js"
-import * as optionsModule from "./main/options.js"
-import * as optionsNormalizer from "./main/options-normalizer.js"
-import arrayify from "./utils/arrayify.js"
-import getLast from "./utils/get-last.js"
-import {isNonEmptyArray} from "./common/util.js"
-
+import * as errors from "./common/errors.js";
+import * as coreOptions from "./main/core-options.js";
+import createIgnorer from "./common/create-ignorer.js";
+import * as optionsModule from "./main/options.js";
+import * as optionsNormalizer from "./main/options-normalizer.js";
+import arrayify from "./utils/arrayify.js";
+import getLast from "./utils/get-last.js";
+import { isNonEmptyArray } from "./common/util.js";
 
 const require = createRequire(import.meta.url);
 

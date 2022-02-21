@@ -1,15 +1,16 @@
-
+import { createRequire } from "module";
 import fs from "fs";
 import path from "path";
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 import uniqBy from "lodash/uniqBy.js";
 import partition from "lodash/partition.js";
 import fastGlob from "fast-glob";
-import mem, {memClear } from "mem";
+import mem, { memClear } from "mem";
 import thirdParty from "./third-party.cjs";
 import resolve from "./resolve.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -127,7 +128,4 @@ function isDirectory(dir) {
   }
 }
 
-export  {
-  memoizedLoad as loadPlugins,
-  clearCache,
-};
+export { memoizedLoad as loadPlugins, clearCache };

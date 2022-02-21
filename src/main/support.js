@@ -1,12 +1,11 @@
-import {createRequire} from "module"
-import semverCompare from "semver/functions/compare.js"
-import semverGte from "semver/functions/gte.js"
-import semverLt from "semver/functions/lt.js"
+import { createRequire } from "module";
+import semverCompare from "semver/functions/compare.js";
+import semverGte from "semver/functions/gte.js";
+import semverLt from "semver/functions/lt.js";
 import arrayify from "../utils/arrayify.js";
-import {options as coreOptions} from "./core-options.js";
+import { options as coreOptions } from "./core-options.js";
 
-const require = createRequire(import.meta.url)
-
+const require = createRequire(import.meta.url);
 
 const currentVersion = require("../../package.json").version;
 
@@ -126,6 +125,4 @@ function collectParsersFromLanguages(option, languages, plugins) {
   }
 }
 
-export  {
-  getSupportInfo,
-};
+export { getSupportInfo };

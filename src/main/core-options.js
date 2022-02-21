@@ -1,4 +1,3 @@
-
 import { outdent } from "outdent";
 
 const CATEGORY_CONFIG = "Config";
@@ -275,4 +274,3 @@ export {
   CATEGORY_SPECIAL,
   options,
 };
-

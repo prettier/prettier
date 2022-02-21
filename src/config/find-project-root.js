@@ -1,4 +1,3 @@
-
 // Simple version of `find-project-root`
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 

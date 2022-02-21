@@ -1,13 +1,12 @@
-
 import AstPath from "../common/ast-path.js";
 import doc from "../document/index.js";
 import { printComments } from "./comments.js";
-import {printSubtree} from "./multiparser.js";
+import { printSubtree } from "./multiparser.js";
 
 const {
   builders: { hardline, addAlignmentToDoc },
   utils: { propagateBreaks },
-} = doc
+} = doc;
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a

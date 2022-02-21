@@ -1,6 +1,5 @@
-
 import assert from "assert";
-import {getSortedChildNodes} from "./comments.js";
+import { getSortedChildNodes } from "./comments.js";
 
 const isJsonParser = ({ parser }) =>
   parser === "json" || parser === "json5" || parser === "json-stringify";
@@ -251,7 +250,4 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-export  {
-  calculateRange,
-  findNodeAtOffset,
-};
+export { calculateRange, findNodeAtOffset };

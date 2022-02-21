@@ -477,7 +477,7 @@ function describeNodeForDebugging(node) {
   return nodeType + (nodeName ? " " + nodeName : "");
 }
 
-export  {
+export {
   inferParserByLanguage,
   getStringWidth,
   getMaxContinuousCount,

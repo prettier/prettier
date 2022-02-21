@@ -1,6 +1,4 @@
-
-
-export  {
+export {
   getMaxContinuousCount,
   getStringWidth,
   getAlignmentSize,

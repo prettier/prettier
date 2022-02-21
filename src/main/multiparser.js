@@ -1,12 +1,11 @@
 import doc from "../document/index.js";
 import { normalize } from "./options.js";
-import {ensureAllCommentsPrinted, attach} from "./comments.js";
-import {parse} from "./parser.js"
-
+import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { parse } from "./parser.js";
 
 const {
   utils: { stripTrailingHardline },
-}  = doc
+} = doc;
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -70,6 +69,4 @@ function textToDoc(
   return doc;
 }
 
-export  {
-  printSubtree,
-};
+export { printSubtree };

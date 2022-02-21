@@ -1,9 +1,9 @@
-import {createRequire} from "module"
+import { createRequire } from "module";
 import path from "path";
 import { ConfigError } from "../common/errors.js";
 import { locStart, locEnd } from "../language-js/loc.js";
 
-const require = createRequire(import.meta.url)
+const require = createRequire(import.meta.url);
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
 // triggering the parsers getters.
@@ -109,4 +109,4 @@ function parse(text, opts) {
   }
 }
 
-export  { parse, resolveParser };
+export { parse, resolveParser };

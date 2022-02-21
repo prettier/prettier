@@ -1,4 +1,3 @@
-
 import path from "path";
 import ignore from "ignore";
 import getFileContentOrNull from "../utils/get-file-content-or-null.js";

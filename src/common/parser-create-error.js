@@ -1,4 +1,3 @@
-
 function createError(message, loc) {
   // Construct an error similar to the ones thrown by Babel.
   const error = new SyntaxError(
