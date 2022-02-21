@@ -1,4 +1,4 @@
-import { convertEndOfLineToChars } from "../common/end-of-line.cjs";
+import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
 import { fill, cursor, indent } from "./doc-builders.js";
