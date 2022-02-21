@@ -1,6 +1,6 @@
 "use strict";
 
-const { convertEndOfLineToChars } = require("../common/end-of-line.js");
+const { convertEndOfLineToChars } = require("../common/end-of-line.cjs");
 const getLast = require("../utils/get-last.js");
 const getStringWidth = require("../utils/get-string-width.js");
 const { fill, cursor, indent } = require("./doc-builders.js");

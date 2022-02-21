@@ -2,7 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import chalk from "chalk";
 import prettier from "../index.js";
-import thirdParty from "../common/third-party.js";
+import thirdParty from "../common/third-party.cjs";
 import prettierInternal from "./prettier-internal.js";
 import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";

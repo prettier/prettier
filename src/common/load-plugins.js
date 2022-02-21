@@ -1,13 +1,12 @@
-"use strict";
 
-const fs = require("fs");
-const path = require("path");
-const uniqBy = require("lodash/uniqBy.js");
-const partition = require("lodash/partition.js");
-const fastGlob = require("fast-glob");
-const { default: mem, memClear } = require("../../vendors/mem.js");
-const thirdParty = require("./third-party.js");
-const resolve = require("./resolve.js");
+import fs from "fs";
+import path from "path";
+import uniqBy from "lodash/uniqBy.js";
+import partition from "lodash/partition.js";
+import fastGlob from "fast-glob";
+import mem, {memClear } from "../../vendors/mem.js";
+import thirdParty from "./third-party.cjs";
+import resolve from "./resolve.js";
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -125,7 +124,7 @@ function isDirectory(dir) {
   }
 }
 
-module.exports = {
-  loadPlugins: memoizedLoad,
+export  {
+  memoizedLoad as loadPlugins,
   clearCache,
 };

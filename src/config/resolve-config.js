@@ -2,7 +2,7 @@
 
 const path = require("path");
 const micromatch = require("micromatch");
-const thirdParty = require("../common/third-party.js");
+const thirdParty = require("../common/third-party.cjs");
 
 const loadToml = require("../utils/load-toml.js");
 const loadJson5 = require("../utils/load-json5.js");
