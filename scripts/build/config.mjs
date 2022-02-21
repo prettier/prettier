@@ -26,6 +26,7 @@ const { require } = createEsmUtils(import.meta);
 const parsers = [
   {
     input: "src/language-js/parse/babel.js",
+    isEsm: true,
   },
   {
     input: "src/language-js/parse/flow.js",
@@ -33,6 +34,7 @@ const parsers = [
       // `flow-parser` use this for `globalThis`, can't work in strictMode
       "(function(){return this}())": '(new Function("return this")())',
     },
+    isEsm: true,
   },
   {
     input: "src/language-js/parse/typescript.js",
@@ -94,6 +96,7 @@ const parsers = [
     replaceModule: {
       [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
     },
+    isEsm: true,
   },
   {
     input: "src/language-js/parse/acorn-and-espree.js",
@@ -104,15 +107,18 @@ const parsers = [
       "const Syntax = ": "const Syntax = undefined && ",
       "var visitorKeys = ": "var visitorKeys = undefined && ",
     },
+    isEsm: true,
   },
   {
     input: "src/language-js/parse/meriyah.js",
+    isEsm: true,
   },
   {
     input: "src/language-js/parse/angular.js",
     replace: {
       "@angular/compiler/src": "@angular/compiler/esm2015/src",
     },
+    isEsm: true,
   },
   {
     input: "src/language-css/parser-postcss.js",

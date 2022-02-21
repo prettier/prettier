@@ -179,7 +179,6 @@ module.exports = {
         "src/language-css/**/*.js",
         "src/language-handlebars/**/*.js",
         "src/language-html/**/*.js",
-        "src/language-js/**/*.js",
         "src/language-yaml/**/*.js",
         "src/main/**/*.js",
         "src/utils/**/*.js",
