@@ -144,6 +144,7 @@ const parsers = [
   },
   {
     input: "src/language-html/parser-html.js",
+    isEsm: true,
   },
   {
     input: "src/language-yaml/parser-yaml.js",
