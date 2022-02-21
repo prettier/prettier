@@ -3,6 +3,7 @@ import css from "./language-css/index.js";
 import handlebars from "./language-handlebars/index.js";
 import graphql from "./language-graphql/index.js";
 import markdown from "./language-markdown/index.js";
+import html from "./language-html/index.js";
 import yaml from "./language-yaml/index.js";
 
 const require = createRequire(import.meta.url);
@@ -20,7 +21,7 @@ const languages = [
   // Markdown
   markdown,
   // HTML
-  require("./language-html/index.js"),
+  html,
   // YAML
   yaml,
 ];
