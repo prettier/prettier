@@ -1,8 +1,7 @@
-"use strict";
 
-const {
+import {
   ParseSourceSpan,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
+} from "angular-html-parser/lib/compiler/src/parse_util";
 
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
@@ -83,6 +82,6 @@ function parseIeConditionalEndComment(node /*, parseHtml, match */) {
   };
 }
 
-module.exports = {
+export  {
   parseIeConditionalComment,
 };

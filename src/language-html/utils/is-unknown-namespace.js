@@ -1,4 +1,3 @@
-"use strict";
 
 function isUnknownNamespace(node) {
   return (
@@ -8,4 +7,4 @@ function isUnknownNamespace(node) {
   );
 }
 
-module.exports = isUnknownNamespace;
+export default isUnknownNamespace;

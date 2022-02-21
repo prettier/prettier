@@ -1,4 +1,3 @@
-"use strict";
 
 function mapObject(object, fn) {
   const newObject = Object.create(null);
@@ -8,4 +7,4 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-module.exports = mapObject;
+export default mapObject;

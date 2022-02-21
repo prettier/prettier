@@ -1,4 +1,3 @@
-"use strict";
 
 function arrayToMap(array) {
   const map = Object.create(null);
@@ -8,4 +7,4 @@ function arrayToMap(array) {
   return map;
 }
 
-module.exports = arrayToMap;
+export default arrayToMap;
