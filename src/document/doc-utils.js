@@ -1,4 +1,3 @@
-
 import getLast from "../utils/get-last.js";
 import { literalline, join } from "./doc-builders.js";
 
@@ -411,7 +410,7 @@ function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
 }
 
-export  {
+export {
   isConcat,
   getDocParts,
   willBreak,

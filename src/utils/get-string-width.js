@@ -1,5 +1,4 @@
-
-import stringWidth from "string-width"
+import stringWidth from "string-width";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 

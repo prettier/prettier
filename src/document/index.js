@@ -1,9 +1,7 @@
-import * as builders from "./doc-builders.js"
-import * as printer from "./doc-printer.js"
-import * as utils from "./doc-utils.js"
-import * as debug from "./doc-debug.js"
-
-
+import * as builders from "./doc-builders.js";
+import * as printer from "./doc-printer.js";
+import * as utils from "./doc-utils.js";
+import * as debug from "./doc-debug.js";
 
 /**
  * @typedef {import("./doc-builders").Doc} Doc
@@ -16,4 +14,4 @@ const doc = {
   debug,
 };
 
-export default doc
+export default doc;

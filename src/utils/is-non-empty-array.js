@@ -1,4 +1,3 @@
-
 /**
  * @param {any} object
  * @returns {object is Array<any>}

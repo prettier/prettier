@@ -1,4 +1,3 @@
-
 import { convertEndOfLineToChars } from "../common/end-of-line.cjs";
 import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
@@ -602,4 +601,4 @@ function printDocToString(doc, options) {
   return { formatted: out.join("") };
 }
 
-export  { printDocToString };
+export { printDocToString };

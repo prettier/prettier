@@ -5,6 +5,6 @@ function lineColumnToIndex(lineColumn, text) {
     index = text.indexOf("\n", index) + 1;
   }
   return index + lineColumn.column;
-};
+}
 
-export default lineColumnToIndex
+export default lineColumnToIndex;

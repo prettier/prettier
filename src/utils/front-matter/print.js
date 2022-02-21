@@ -1,9 +1,8 @@
 import doc from "../../document/index.js";
 
-
 const {
   builders: { hardline, markAsRoot },
-} = doc
+} = doc;
 
 function print(node, textToDoc) {
   if (node.lang === "yaml") {

@@ -1,4 +1,3 @@
-
 const frontMatterRegex = new RegExp(
   "^(?<startDelimiter>-{3}|\\+{3})" +
     // trailing spaces after delimiters are allowed

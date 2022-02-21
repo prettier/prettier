@@ -1,4 +1,3 @@
-
 /** @typedef {import("./skip").SkipOptions} SkipOptions */
 
 // This one doesn't use the above helper function because it wants to

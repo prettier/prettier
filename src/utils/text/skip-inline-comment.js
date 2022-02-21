@@ -1,4 +1,3 @@
-
 /**
  * @param {string} text
  * @param {number | false} index

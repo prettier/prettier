@@ -1,4 +1,3 @@
-
 import { isConcat, getDocParts } from "./doc-utils.js";
 
 function flattenDoc(doc) {
@@ -209,4 +208,4 @@ function printDocToDebug(doc) {
   }
 }
 
-export  { printDocToDebug };
+export { printDocToDebug };

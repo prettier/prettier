@@ -1,4 +1,3 @@
-
 import parse from "@iarna/toml/parse-string.js";
 
 function loadToml(filePath, content) {
@@ -8,6 +7,6 @@ function loadToml(filePath, content) {
     error.message = `TOML Error in ${filePath}:\n${error.message}`;
     throw error;
   }
-};
+}
 
-export default loadToml
+export default loadToml;

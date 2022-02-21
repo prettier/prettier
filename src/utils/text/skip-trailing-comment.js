@@ -1,4 +1,3 @@
-
 import { skipEverythingButNewLine } from "./skip.js";
 
 /**
