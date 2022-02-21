@@ -1,4 +1,3 @@
-"use strict";
 
 function preprocess(ast, options) {
   switch (options.parser) {
@@ -19,4 +18,4 @@ function preprocess(ast, options) {
   }
 }
 
-module.exports = preprocess;
+export default preprocess;

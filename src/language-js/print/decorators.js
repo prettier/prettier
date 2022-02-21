@@ -1,11 +1,12 @@
-"use strict";
 
-const { isNonEmptyArray, hasNewline } = require("../../common/util.js");
+import { isNonEmptyArray, hasNewline } from "../../common/util.js";
+import doc from "../../document/index.js";
+import { locStart, locEnd } from "../loc.js";
+import { getParentExportDeclaration } from "../utils/index.js";
+
 const {
   builders: { line, hardline, join, breakParent, group },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const { getParentExportDeclaration } = require("../utils/index.js");
+} = doc
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
@@ -77,7 +78,7 @@ function hasDecoratorsBeforeExport(node) {
   );
 }
 
-module.exports = {
+export  {
   printDecorators,
   printClassMemberDecorators,
   printDecoratorsBeforeExport,

@@ -1,10 +1,7 @@
-"use strict";
 
-const {
-  builders: { join, group },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import doc from "../../document/index.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getCallArguments,
   hasFlowAnnotationComment,
   isCallExpression,
@@ -13,13 +10,17 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} = require("../utils/index.js");
-const printMemberChain = require("./member-chain.js");
-const printCallArguments = require("./call-arguments.js");
-const {
+} from "../utils/index.js";
+import printMemberChain from "./member-chain.js";
+import printCallArguments from "./call-arguments.js";
+import {
   printOptionalToken,
   printFunctionTypeParameters,
-} = require("./misc.js");
+} from "./misc.js";
+
+const {
+  builders: { join, group },
+} = doc
 
 function printCallExpression(path, options, print) {
   const node = path.getValue();
@@ -128,4 +129,4 @@ function isCommonsJsOrAmdCall(node, parentNode) {
   return false;
 }
 
-module.exports = { printCallExpression };
+export  { printCallExpression };

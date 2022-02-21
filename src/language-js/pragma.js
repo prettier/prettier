@@ -1,8 +1,7 @@
-"use strict";
 
-const { parseWithComments, strip, extract, print } = require("jest-docblock");
-const { normalizeEndOfLine } = require("../common/end-of-line.js");
-const getShebang = require("./utils/get-shebang.js");
+import { parseWithComments, strip, extract, print } from "jest-docblock";
+import { normalizeEndOfLine } from "../common/end-of-line.js";
+import getShebang from "./utils/get-shebang.js";
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);
@@ -42,7 +41,7 @@ function insertPragma(originalText) {
   );
 }
 
-module.exports = {
+export  {
   hasPragma,
   insertPragma,
 };

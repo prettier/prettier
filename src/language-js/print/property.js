@@ -1,15 +1,14 @@
-"use strict";
 
-const { printComments } = require("../../main/comments.js");
-const { printString, printNumber } = require("../../common/util.js");
-const {
+import { printComments } from "../../main/comments.js";
+import { printString, printNumber } from "../../common/util.js";
+import {
   isNumericLiteral,
   isSimpleNumber,
   isStringLiteral,
   isStringPropSafeToUnquote,
   rawText,
-} = require("../utils/index.js");
-const { printAssignment } = require("./assignment.js");
+} from "../utils/index.js";
+import { printAssignment } from "./assignment.js";
 
 const needsQuoteProps = new WeakMap();
 
@@ -105,4 +104,4 @@ function printProperty(path, options, print) {
   );
 }
 
-module.exports = { printProperty, printPropertyKey };
+export  { printProperty, printPropertyKey };

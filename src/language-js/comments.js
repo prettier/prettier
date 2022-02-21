@@ -1,6 +1,5 @@
-"use strict";
 
-const {
+import {
   getLast,
   hasNewline,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
@@ -11,8 +10,8 @@ const {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
-} = require("../common/util.js");
-const {
+} from "../common/util.js";
+import {
   getFunctionParameters,
   isPrettierIgnoreComment,
   isJsxNode,
@@ -28,9 +27,9 @@ const {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-} = require("./utils/index.js");
-const { locStart, locEnd } = require("./loc.js");
-const isBlockComment = require("./utils/is-block-comment.js");
+} from "./utils/index.js";
+import { locStart, locEnd } from "./loc.js";
+import isBlockComment from "./utils/is-block-comment.js";
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -1026,7 +1025,7 @@ function willPrintOwnComments(path /*, options */) {
   );
 }
 
-module.exports = {
+export  {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,

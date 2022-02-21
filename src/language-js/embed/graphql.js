@@ -1,12 +1,13 @@
-"use strict";
+
+import doc from "../../document/index.js";
+import {
+  escapeTemplateCharacters,
+  printTemplateExpressions,
+} from "../print/template-literal.js";
 
 const {
   builders: { indent, join, hardline },
-} = require("../../document/index.js");
-const {
-  escapeTemplateCharacters,
-  printTemplateExpressions,
-} = require("../print/template-literal.js");
+} = doc
 
 function format(path, print, textToDoc) {
   const node = path.getValue();
@@ -105,4 +106,4 @@ function printGraphqlComments(lines) {
   return parts.length === 0 ? null : join(hardline, parts);
 }
 
-module.exports = format;
+export default format;

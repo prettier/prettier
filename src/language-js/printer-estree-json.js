@@ -1,9 +1,10 @@
-"use strict";
+
+import doc from "../document/index.js";
+import preprocess from "./print-preprocess.js";
 
 const {
   builders: { hardline, indent, join },
-} = require("../document/index.js");
-const preprocess = require("./print-preprocess.js");
+} = doc
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -109,8 +110,10 @@ function clean(node, newNode /*, parent*/) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
 };
+
+export default printer

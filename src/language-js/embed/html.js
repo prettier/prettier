@@ -1,13 +1,14 @@
-"use strict";
+
+import doc from "../../document/index.js";
+import {
+  printTemplateExpressions,
+  uncookTemplateElementValue,
+} from "../print/template-literal.js";
 
 const {
   builders: { indent, line, hardline, group },
   utils: { mapDoc },
-} = require("../../document/index.js");
-const {
-  printTemplateExpressions,
-  uncookTemplateElementValue,
-} = require("../print/template-literal.js");
+} = doc
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
@@ -97,4 +98,4 @@ function format(path, print, textToDoc, options, { parser }) {
   ]);
 }
 
-module.exports = format;
+export default format;

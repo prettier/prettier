@@ -1,28 +1,29 @@
-"use strict";
 
-const {
+import {
   printComments,
   printDanglingComments,
-} = require("../../main/comments.js");
-const { getLast, isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { locStart } = require("../loc.js");
-const {
+} from "../../main/comments.js";
+import { getLast, isNonEmptyArray } from "../../common/util.js";
+import doc from "../../document/index.js";
+import pathNeedsParens from "../needs-parens.js";
+import { locStart } from "../loc.js";
+import {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils/index.js");
-const { printAssignment } = require("./assignment.js");
-const {
+} from "../utils/index.js";
+import { printAssignment } from "./assignment.js";
+import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters.js");
-const { printArrayItems } = require("./array.js");
+} from "./function-parameters.js";
+import { printArrayItems } from "./array.js";
+
+const {
+  builders: { group, join, line, softline, indent, align, ifBreak },
+}  = doc
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -314,7 +315,7 @@ function printIndexedAccessType(path, options, print) {
   return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
-module.exports = {
+export  {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,

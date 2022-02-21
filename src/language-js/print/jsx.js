@@ -1,9 +1,25 @@
-"use strict";
 
-const {
+import {
   printComments,
   printDanglingComments,
-} = require("../../main/comments.js");
+} from "../../main/comments.js";
+import doc from "../../document/index.js";
+
+import { getLast, getPreferredQuote } from "../../common/util.js";
+import {
+  isJsxNode,
+  rawText,
+  isLiteral,
+  isCallExpression,
+  isStringLiteral,
+  isBinaryish,
+  hasComment,
+  CommentCheckFlags,
+  hasNodeIgnoreComment,
+} from "../utils/index.js";
+import pathNeedsParens from "../needs-parens.js";
+import { willPrintOwnComments } from "../comments.js";
+
 const {
   builders: {
     line,
@@ -18,22 +34,7 @@ const {
     join,
   },
   utils: { willBreak },
-} = require("../../document/index.js");
-
-const { getLast, getPreferredQuote } = require("../../common/util.js");
-const {
-  isJsxNode,
-  rawText,
-  isLiteral,
-  isCallExpression,
-  isStringLiteral,
-  isBinaryish,
-  hasComment,
-  CommentCheckFlags,
-  hasNodeIgnoreComment,
-} = require("../utils/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { willPrintOwnComments } = require("../comments.js");
+} = doc
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -849,7 +850,7 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
-module.exports = {
+export  {
   hasJsxIgnoreComment,
   printJsx,
 };

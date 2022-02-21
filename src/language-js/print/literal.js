@@ -1,5 +1,4 @@
-"use strict";
-const { printString, printNumber } = require("../../common/util.js");
+import { printString, printNumber } from "../../common/util.js";
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -57,6 +56,6 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
-module.exports = {
+export  {
   printLiteral,
 };

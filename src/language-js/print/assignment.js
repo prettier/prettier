@@ -1,11 +1,7 @@
-"use strict";
 
-const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
-const {
-  builders: { line, group, indent, indentIfBreak },
-  utils: { cleanDoc, willBreak, canBreak },
-} = require("../../document/index.js");
-const {
+import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
+import doc from "../../document/index.js";
+import {
   hasLeadingOwnLineComment,
   isBinaryish,
   isStringLiteral,
@@ -18,9 +14,14 @@ const {
   hasComment,
   isSignedNumericLiteral,
   isObjectProperty,
-} = require("../utils/index.js");
-const { shouldInlineLogicalExpression } = require("./binaryish.js");
-const { printCallExpression } = require("./call-expression.js");
+} from "../utils/index.js";
+import { shouldInlineLogicalExpression } from "./binaryish.js";
+import { printCallExpression } from "./call-expression.js";
+
+const {
+  builders: { line, group, indent, indentIfBreak },
+  utils: { cleanDoc, willBreak, canBreak },
+}  = doc
 
 function printAssignment(
   path,
@@ -462,7 +463,7 @@ function getTypeArgumentsFromCallExpression(node) {
   );
 }
 
-module.exports = {
+export  {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,

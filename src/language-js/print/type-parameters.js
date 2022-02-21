@@ -1,10 +1,7 @@
-"use strict";
 
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import doc from "../../document/index.js";
+import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
@@ -12,10 +9,14 @@ const {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-} = require("../utils/index.js");
-const { createGroupIdMapper } = require("../../common/util.js");
-const { shouldHugType } = require("./type-annotation.js");
-const { isArrowFunctionVariableDeclarator } = require("./assignment.js");
+} from "../utils/index.js";
+import { createGroupIdMapper } from "../../common/util.js";
+import { shouldHugType } from "./type-annotation.js";
+import { isArrowFunctionVariableDeclarator } from "./assignment.js";
+
+const {
+  builders: { join, line, hardline, softline, group, indent, ifBreak },
+} = doc
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
@@ -144,7 +145,7 @@ function printTypeParameter(path, options, print) {
   return parts;
 }
 
-module.exports = {
+export  {
   printTypeParameter,
   printTypeParameters,
   getTypeParametersGroupId,

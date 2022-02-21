@@ -1,16 +1,17 @@
-"use strict";
 
-const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
-const {
+import esutils from "esutils";
+import {
   getLast,
   hasNewline,
   skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
   getStringWidth,
-} = require("../../common/util.js");
-const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
-const isBlockComment = require("./is-block-comment.js");
+} from "../../common/util.js";
+import { locStart, locEnd, hasSameLocStart } from "../loc.js";
+import isBlockComment from "./is-block-comment.js";
+
+const isIdentifierName = esutils.keyword.isIdentifierNameES5
 
 /**
  * @typedef {import("../types/estree").Node} Node
@@ -1311,7 +1312,7 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-module.exports = {
+export  {
   getFunctionParameters,
   iterateFunctionParametersPath,
   getCallArguments,

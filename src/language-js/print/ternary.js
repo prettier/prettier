@@ -1,14 +1,15 @@
-"use strict";
 
-const { hasNewlineInRange } = require("../../common/util.js");
-const {
+import { hasNewlineInRange } from "../../common/util.js";
+import {
   isJsxNode,
   getComments,
   isCallExpression,
   isMemberExpression,
-} = require("../utils/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const isBlockComment = require("../utils/is-block-comment.js");
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import isBlockComment from "../utils/is-block-comment.js";
+import doc from "../../document/index.js";
+
 const {
   builders: {
     line,
@@ -20,7 +21,7 @@ const {
     dedent,
     breakParent,
   },
-} = require("../../document/index.js");
+} = doc
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -352,4 +353,4 @@ function printTernary(path, options, print) {
     : result;
 }
 
-module.exports = { printTernary };
+export  { printTernary };

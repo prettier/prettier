@@ -1,7 +1,45 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments.js");
-const { hasNewlineInRange } = require("../../common/util.js");
+import { printDanglingComments } from "../../main/comments.js";
+import { hasNewlineInRange } from "../../common/util.js";
+import doc from "../../document/index.js";
+import {
+  isLiteral,
+  getTypeScriptMappedTypeModifier,
+  shouldPrintComma,
+  isCallExpression,
+  isMemberExpression,
+} from "../utils/index.js";
+import isTsKeywordType from "../utils/is-ts-keyword-type.js";
+import { locStart, locEnd } from "../loc.js";
+
+import { printOptionalToken, printTypeScriptModifiers } from "./misc.js";
+import { printTernary } from "./ternary.js";
+import {
+  printFunctionParameters,
+  shouldGroupFunctionParameters,
+} from "./function-parameters.js";
+import { printTemplateLiteral } from "./template-literal.js";
+import { printArrayItems } from "./array.js";
+import { printObject } from "./object.js";
+import { printClassProperty, printClassMethod } from "./class.js";
+import {
+  printTypeParameter,
+  printTypeParameters,
+} from "./type-parameters.js";
+import { printPropertyKey } from "./property.js";
+import { printFunction, printMethodInternal } from "./function.js";
+import { printInterface } from "./interface.js";
+import { printBlock } from "./block.js";
+import {
+  printTypeAlias,
+  printIntersectionType,
+  printUnionType,
+  printFunctionType,
+  printTupleType,
+  printIndexedAccessType,
+} from "./type-annotation.js";
+
 const {
   builders: {
     join,
@@ -13,43 +51,7 @@ const {
     conditionalGroup,
     ifBreak,
   },
-} = require("../../document/index.js");
-const {
-  isLiteral,
-  getTypeScriptMappedTypeModifier,
-  shouldPrintComma,
-  isCallExpression,
-  isMemberExpression,
-} = require("../utils/index.js");
-const isTsKeywordType = require("../utils/is-ts-keyword-type.js");
-const { locStart, locEnd } = require("../loc.js");
-
-const { printOptionalToken, printTypeScriptModifiers } = require("./misc.js");
-const { printTernary } = require("./ternary.js");
-const {
-  printFunctionParameters,
-  shouldGroupFunctionParameters,
-} = require("./function-parameters.js");
-const { printTemplateLiteral } = require("./template-literal.js");
-const { printArrayItems } = require("./array.js");
-const { printObject } = require("./object.js");
-const { printClassProperty, printClassMethod } = require("./class.js");
-const {
-  printTypeParameter,
-  printTypeParameters,
-} = require("./type-parameters.js");
-const { printPropertyKey } = require("./property.js");
-const { printFunction, printMethodInternal } = require("./function.js");
-const { printInterface } = require("./interface.js");
-const { printBlock } = require("./block.js");
-const {
-  printTypeAlias,
-  printIntersectionType,
-  printUnionType,
-  printFunctionType,
-  printTupleType,
-  printIndexedAccessType,
-} = require("./type-annotation.js");
+} = doc
 
 function printTypescript(path, options, print) {
   const node = path.getValue();
@@ -528,4 +530,4 @@ function printTypescript(path, options, print) {
   }
 }
 
-module.exports = { printTypescript };
+export  { printTypescript };

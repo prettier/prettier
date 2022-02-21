@@ -1,8 +1,7 @@
-"use strict";
 
-const getLast = require("../utils/get-last.js");
-const isNonEmptyArray = require("../utils/is-non-empty-array.js");
-const {
+import getLast from "../utils/get-last.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import {
   getFunctionParameters,
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
@@ -15,7 +14,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils/index.js");
+} from "./utils/index.js";
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -947,4 +946,4 @@ function shouldWrapFunctionForExportDefault(path, options) {
   );
 }
 
-module.exports = needsParens;
+export default needsParens;
