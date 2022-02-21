@@ -1,11 +1,9 @@
-"use strict";
-
-const commonOptions = require("../common/common-options.js");
+import commonOptions from "../common/common-options.js";
 
 const CATEGORY_HTML = "HTML";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
-module.exports = {
+const options = {
   bracketSameLine: commonOptions.bracketSameLine,
   htmlWhitespaceSensitivity: {
     since: "1.15.0",
@@ -37,3 +35,5 @@ module.exports = {
     description: "Indent script and style tags in Vue files.",
   },
 };
+
+export default options;

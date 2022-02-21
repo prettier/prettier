@@ -1,8 +1,7 @@
-"use strict";
-
+import doc from "../document/index.js";
 const {
   builders: { group },
-} = require("../document/index.js");
+} = doc;
 
 /**
  *     v-for="... in ..."
@@ -97,8 +96,4 @@ function isVueEventBindingExpression(eventBindingValue) {
   return fnExpRE.test(value) || simplePathRE.test(value);
 }
 
-module.exports = {
-  isVueEventBindingExpression,
-  printVueFor,
-  printVueBindings,
-};
+export { isVueEventBindingExpression, printVueFor, printVueBindings };

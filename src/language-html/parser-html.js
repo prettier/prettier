@@ -1,21 +1,27 @@
-"use strict";
-
-const {
+// TODO[@fisker]: try inline import this module
+import angularHtmlParser from "angular-html-parser";
+import {
+  RecursiveVisitor,
+  visitAll,
+} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js";
+import { getHtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags.js";
+import {
   ParseSourceSpan,
   ParseLocation,
   ParseSourceFile,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
-const getLast = require("../utils/get-last.js");
-const createError = require("../common/parser-create-error.js");
-const { inferParserByLanguage } = require("../common/util.js");
-const HTML_TAGS = require("./utils/html-tag-names.js");
-const HTML_ELEMENT_ATTRIBUTES = require("./utils/html-elements-attributes.js");
-const isUnknownNamespace = require("./utils/is-unknown-namespace.js");
-const { hasPragma } = require("./pragma.js");
-const { Node } = require("./ast.js");
-const { parseIeConditionalComment } = require("./conditional-comment.js");
-const { locStart, locEnd } = require("./loc.js");
+} from "angular-html-parser/lib/compiler/src/parse_util.js";
+
+import parseFrontMatter from "../utils/front-matter/parse.js";
+import getLast from "../utils/get-last.js";
+import createError from "../common/parser-create-error.js";
+import { inferParserByLanguage } from "../common/util.js";
+import HTML_TAGS from "./utils/html-tag-names.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
+import isUnknownNamespace from "./utils/is-unknown-namespace.js";
+import { hasPragma } from "./pragma.js";
+import { Node } from "./ast.js";
+import { parseIeConditionalComment } from "./conditional-comment.js";
+import { locStart, locEnd } from "./loc.js";
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -51,17 +57,7 @@ function ngHtmlParser(
   },
   options
 ) {
-  const parser = require("angular-html-parser");
-  const {
-    RecursiveVisitor,
-    visitAll,
-  } = require("angular-html-parser/lib/compiler/src/ml_parser/ast");
-  const {
-    ParseSourceSpan,
-  } = require("angular-html-parser/lib/compiler/src/parse_util");
-  const {
-    getHtmlTagDefinition,
-  } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
+  const parser = angularHtmlParser;
 
   let { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
@@ -401,7 +397,7 @@ function createParser({
   };
 }
 
-module.exports = {
+const parser = {
   parsers: {
     html: createParser({
       name: "html",
@@ -424,10 +420,12 @@ module.exports = {
               ({ name, value }) => name === "lang" && value !== "html"
             ))
         ) {
-          return require("angular-html-parser").TagContentType.RAW_TEXT;
+          return angularHtmlParser.TagContentType.RAW_TEXT;
         }
       },
     }),
     lwc: createParser({ name: "lwc" }),
   },
 };
+
+export default parser;

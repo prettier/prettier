@@ -1,7 +1,5 @@
-"use strict";
-
-const { isNonEmptyArray } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
+import { isNonEmptyArray } from "../common/util.js";
+import getLast from "../utils/get-last.js";
 
 const NODES_KEYS = {
   attrs: true,
@@ -181,6 +179,4 @@ function setNonEnumerableProperty(obj, key, value) {
   Object.defineProperty(obj, key, { value, enumerable: false });
 }
 
-module.exports = {
-  Node,
-};
+export { Node };

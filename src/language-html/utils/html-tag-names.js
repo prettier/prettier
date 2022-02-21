@@ -1,8 +1,6 @@
-"use strict";
-
-const htmlTagNames = require("html-tag-names");
-const arrayToMap = require("./array-to-map.js");
+import { htmlTagNames } from "html-tag-names";
+import arrayToMap from "./array-to-map.js";
 
 const HTML_TAGS = arrayToMap(htmlTagNames);
 
-module.exports = HTML_TAGS;
+export default HTML_TAGS;

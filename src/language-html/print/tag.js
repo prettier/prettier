@@ -1,23 +1,23 @@
-"use strict";
-
 /**
  * @typedef {import("../../document").Doc} Doc
  */
 
-const assert = require("assert");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
+import assert from "assert";
+import { isNonEmptyArray } from "../../common/util.js";
+import doc from "../../document/index.js";
+import { locStart, locEnd } from "../loc.js";
+import {
   isTextLikeNode,
   getLastDescendant,
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
-} = require("../utils/index.js");
+} from "../utils/index.js";
+
+const {
+  builders: { indent, join, line, softline, hardline },
+  utils: { replaceTextEndOfLine },
+} = doc;
 
 function printClosingTag(node, options) {
   return [
@@ -364,7 +364,7 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-module.exports = {
+export {
   printClosingTag,
   printClosingTagStart,
   printClosingTagStartMarker,

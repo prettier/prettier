@@ -1,24 +1,19 @@
-"use strict";
-
-const {
-  builders: { breakParent, group, hardline, indent, line, fill, softline },
-  utils: { mapDoc, replaceTextEndOfLine },
-} = require("../document/index.js");
-const printFrontMatter = require("../utils/front-matter/print.js");
-const {
+import doc from "../document/index.js";
+import printFrontMatter from "../utils/front-matter/print.js";
+import {
   printClosingTag,
   printClosingTagSuffix,
   needsToBorrowPrevClosingTagEndMarker,
   printOpeningTagPrefix,
   printOpeningTag,
-} = require("./print/tag.js");
-const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
-const {
+} from "./print/tag.js";
+import { printImgSrcset, printClassNames } from "./syntax-attribute.js";
+import {
   printVueFor,
   printVueBindings,
   isVueEventBindingExpression,
-} = require("./syntax-vue.js");
-const {
+} from "./syntax-vue.js";
+import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
   inferScriptParser,
@@ -28,8 +23,13 @@ const {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-} = require("./utils/index.js");
-const getNodeContent = require("./get-node-content.js");
+} from "./utils/index.js";
+import getNodeContent from "./get-node-content.js";
+
+const {
+  builders: { breakParent, group, hardline, indent, line, fill, softline },
+  utils: { mapDoc, replaceTextEndOfLine },
+} = doc;
 
 function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
@@ -399,4 +399,4 @@ function embed(path, print, textToDoc, options) {
   }
 }
 
-module.exports = embed;
+export default embed;

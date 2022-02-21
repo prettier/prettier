@@ -179,7 +179,6 @@ module.exports = {
         "src/common/**/*.js",
         "src/config/**/*.js",
         "src/document/**/*.js",
-        "src/language-html/**/*.js",
         "src/main/**/*.js",
         "src/utils/**/*.js",
         "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",

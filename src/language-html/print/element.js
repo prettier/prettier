@@ -1,4 +1,21 @@
-"use strict";
+import doc from "../../document/index.js";
+import getNodeContent from "../get-node-content.js";
+import {
+  shouldPreserveContent,
+  isScriptLikeTag,
+  isVueCustomBlock,
+  countParents,
+  forceBreakContent,
+} from "../utils/index.js";
+import {
+  printOpeningTagPrefix,
+  printOpeningTag,
+  printClosingTagSuffix,
+  printClosingTag,
+  needsToBorrowPrevClosingTagEndMarker,
+  needsToBorrowLastChildClosingTagEndMarker,
+} from "./tag.js";
+import { printChildren } from "./children.js";
 
 const {
   builders: {
@@ -12,24 +29,7 @@ const {
     softline,
   },
   utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const getNodeContent = require("../get-node-content.js");
-const {
-  shouldPreserveContent,
-  isScriptLikeTag,
-  isVueCustomBlock,
-  countParents,
-  forceBreakContent,
-} = require("../utils/index.js");
-const {
-  printOpeningTagPrefix,
-  printOpeningTag,
-  printClosingTagSuffix,
-  printClosingTag,
-  needsToBorrowPrevClosingTagEndMarker,
-  needsToBorrowLastChildClosingTagEndMarker,
-} = require("./tag.js");
-const { printChildren } = require("./children.js");
+} = doc;
 
 function printElement(path, options, print) {
   const node = path.getValue();
@@ -173,4 +173,4 @@ function printElement(path, options, print) {
   ]);
 }
 
-module.exports = { printElement };
+export { printElement };

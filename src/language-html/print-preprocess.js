@@ -1,9 +1,5 @@
-"use strict";
-
-const {
-  ParseSourceSpan,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const {
+import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
   hasHtmlWhitespace,
@@ -14,7 +10,7 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils/index.js");
+} from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
@@ -408,4 +404,4 @@ function addIsSpaceSensitive(ast, options) {
   });
 }
 
-module.exports = preprocess;
+export default preprocess;

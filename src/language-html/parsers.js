@@ -1,20 +1,22 @@
-"use strict";
+import htmlParser from "./parser-html.js";
 
-module.exports = {
+const parsers = {
   // HTML
   get html() {
-    return require("./parser-html.js").parsers.html;
+    return htmlParser.parsers.html;
   },
   // Vue
   get vue() {
-    return require("./parser-html.js").parsers.vue;
+    return htmlParser.parsers.vue;
   },
   // Angular
   get angular() {
-    return require("./parser-html.js").parsers.angular;
+    return htmlParser.parsers.angular;
   },
   // Lightning Web Components
   get lwc() {
-    return require("./parser-html.js").parsers.lwc;
+    return htmlParser.parsers.lwc;
   },
 };
+
+export default parsers;
