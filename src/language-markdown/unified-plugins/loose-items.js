@@ -1,5 +1,3 @@
-"use strict";
-
 function looseItems() {
   const proto = this.Parser.prototype;
   const originalList = proto.blockTokenizers.list;
@@ -32,4 +30,4 @@ function looseItems() {
   };
 }
 
-module.exports = looseItems;
+export default looseItems;

@@ -1,9 +1,10 @@
-"use strict";
+import { createRequire } from "module";
+import createLanguage from "../utils/create-language.js";
+import printer from "./printer-markdown.js";
+import options from "./options.js";
+import parsers from "./parsers.js";
 
-const createLanguage = require("../utils/create-language.js");
-const printer = require("./printer-markdown.js");
-const options = require("./options.js");
-const parsers = require("./parsers.js");
+const require = createRequire(import.meta.url);
 
 const languages = [
   createLanguage(require("linguist-languages/data/Markdown.json"), (data) => ({
@@ -27,9 +28,11 @@ const printers = {
   mdast: printer,
 };
 
-module.exports = {
+const language = {
   languages,
   options,
   printers,
   parsers,
 };
+
+export default language;

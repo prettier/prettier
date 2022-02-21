@@ -1,12 +1,10 @@
-"use strict";
-
-const { getLast } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const {
+import { getLast } from "../common/util.js";
+import { locStart, locEnd } from "./loc.js";
+import {
   cjkPattern,
   kPattern,
   punctuationPattern,
-} = require("./constants.evaluate.js");
+} from "./constants.evaluate.js";
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
@@ -232,7 +230,7 @@ function isAutolink(node) {
   );
 }
 
-module.exports = {
+export {
   mapAst,
   splitText,
   punctuationPattern,
