@@ -124,6 +124,7 @@ const parsers = [
   },
   {
     input: "src/language-graphql/parser-graphql.js",
+    isEsm: true,
   },
   {
     input: "src/language-markdown/parser-markdown.js",

@@ -177,7 +177,6 @@ module.exports = {
         "src/config/**/*.js",
         "src/document/**/*.js",
         "src/language-css/**/*.js",
-        "src/language-graphql/**/*.js",
         "src/language-handlebars/**/*.js",
         "src/language-html/**/*.js",
         "src/language-js/**/*.js",
