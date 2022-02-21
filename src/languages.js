@@ -1,6 +1,7 @@
 import { createRequire } from "module";
 import graphql from "./language-graphql/index.js";
 import markdown from "./language-markdown/index.js";
+import yaml from "./language-yaml/index.js";
 
 const require = createRequire(import.meta.url);
 
@@ -19,7 +20,7 @@ const languages = [
   // HTML
   require("./language-html/index.js"),
   // YAML
-  require("./language-yaml/index.js"),
+  yaml,
 ];
 
 export default languages;

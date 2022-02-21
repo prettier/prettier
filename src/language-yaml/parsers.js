@@ -1,7 +1,9 @@
-"use strict";
+import yamlParser from "./parser-yaml.js";
 
-module.exports = {
+const parsers = {
   get yaml() {
-    return require("./parser-yaml.js").parsers.yaml;
+    return yamlParser.parsers.yaml;
   },
 };
+
+export default parsers;

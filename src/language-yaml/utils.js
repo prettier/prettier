@@ -1,6 +1,4 @@
-"use strict";
-
-const { getLast, isNonEmptyArray } = require("../common/util.js");
+import { getLast, isNonEmptyArray } from "../common/util.js";
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -352,7 +350,7 @@ function isInlineNode(node) {
   }
 }
 
-module.exports = {
+export {
   getLast,
   getAncestorCount,
   isNode,

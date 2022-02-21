@@ -1,6 +1,34 @@
-"use strict";
-
 /** @typedef {import("../document").Doc} Doc */
+
+import doc from "../document/index.js";
+import { isPreviousLineEmpty } from "../common/util.js";
+import { insertPragma, isPragma } from "./pragma.js";
+import { locStart } from "./loc.js";
+import embed from "./embed.js";
+import {
+  getFlowScalarLineContents,
+  getLastDescendantNode,
+  hasLeadingComments,
+  hasMiddleComments,
+  hasTrailingComment,
+  hasEndComments,
+  hasPrettierIgnore,
+  isLastDescendantNode,
+  isNode,
+  isInlineNode,
+} from "./utils.js";
+import preprocess from "./print-preprocess.js";
+import {
+  alignWithSpaces,
+  printNextEmptyLine,
+  shouldPrintEndComments,
+} from "./print/misc.js";
+import {
+  printFlowMapping,
+  printFlowSequence,
+} from "./print/flow-mapping-sequence.js";
+import printMappingItem from "./print/mapping-item.js";
+import printBlock from "./print/block.js";
 
 const {
   builders: {
@@ -14,35 +42,7 @@ const {
     literalline,
   },
   utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
-const { isPreviousLineEmpty } = require("../common/util.js");
-const { insertPragma, isPragma } = require("./pragma.js");
-const { locStart } = require("./loc.js");
-const embed = require("./embed.js");
-const {
-  getFlowScalarLineContents,
-  getLastDescendantNode,
-  hasLeadingComments,
-  hasMiddleComments,
-  hasTrailingComment,
-  hasEndComments,
-  hasPrettierIgnore,
-  isLastDescendantNode,
-  isNode,
-  isInlineNode,
-} = require("./utils.js");
-const preprocess = require("./print-preprocess.js");
-const {
-  alignWithSpaces,
-  printNextEmptyLine,
-  shouldPrintEndComments,
-} = require("./print/misc.js");
-const {
-  printFlowMapping,
-  printFlowSequence,
-} = require("./print/flow-mapping-sequence.js");
-const printMappingItem = require("./print/mapping-item.js");
-const printBlock = require("./print/block.js");
+} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -443,10 +443,12 @@ function clean(node, newNode /*, parent */) {
   }
 }
 
-module.exports = {
+const printer = {
   preprocess,
   embed,
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
 };
+
+export default printer;
