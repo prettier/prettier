@@ -12,7 +12,7 @@ const {
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
-} = constants;
+} = constants.default || constants;
 
 const {
   builders: { line, hardline, join },
