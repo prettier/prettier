@@ -3,13 +3,13 @@ import angularHtmlParser from "angular-html-parser";
 import {
   RecursiveVisitor,
   visitAll,
-} from "angular-html-parser/lib/compiler/src/ml_parser/ast";
-import { getHtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags";
+} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js";
+import { getHtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags.js";
 import {
   ParseSourceSpan,
   ParseLocation,
   ParseSourceFile,
-} from "angular-html-parser/lib/compiler/src/parse_util";
+} from "angular-html-parser/lib/compiler/src/parse_util.js";
 
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import getLast from "../utils/get-last.js";

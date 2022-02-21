@@ -1,4 +1,4 @@
-import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util";
+import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
 
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
