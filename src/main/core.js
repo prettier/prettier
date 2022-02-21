@@ -13,7 +13,7 @@ import {
 import {normalize as normalizeOptions} from "./options.js";
 import massageAST from "./massage-ast.js";
 import {ensureAllCommentsPrinted, attach} from "./comments.js";
-import {parse} from "./parser.js";
+import {parse, resolveParser} from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
 import {calculateRange, findNodeAtOffset} from "./range-util.js";
 
@@ -277,7 +277,7 @@ function normalizeInputAndOptions(text, options) {
 }
 
 function hasPragma(text, options) {
-  const selectedParser = parser.resolveParser(options);
+  const selectedParser = resolveParser(options);
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
