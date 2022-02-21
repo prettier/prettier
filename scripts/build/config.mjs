@@ -141,6 +141,7 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
+    isEsm: true,
   },
   {
     input: "src/language-html/parser-html.js",

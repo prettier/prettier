@@ -1,7 +1,9 @@
-"use strict";
+import glimmerParser from "./parser-glimmer.js";
 
-module.exports = {
+const parsers = {
   get glimmer() {
-    return require("./parser-glimmer.js").parsers.glimmer;
+    return glimmerParser.parsers.glimmer;
   },
 };
+
+export default parsers;

@@ -176,7 +176,6 @@ module.exports = {
         "src/common/**/*.js",
         "src/config/**/*.js",
         "src/document/**/*.js",
-        "src/language-handlebars/**/*.js",
         "src/language-html/**/*.js",
         "src/language-js/**/*.js",
         "src/main/**/*.js",
