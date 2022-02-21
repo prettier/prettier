@@ -1,4 +1,5 @@
 import { createRequire } from "module";
+import handlebars from "./language-handlebars/index.js";
 import graphql from "./language-graphql/index.js";
 import markdown from "./language-markdown/index.js";
 
@@ -11,7 +12,7 @@ const languages = [
   // CSS
   require("./language-css/index.js"),
   // Handlebars
-  require("./language-handlebars/index.js"),
+  handlebars,
   // GraphQL
   graphql,
   // Markdown
