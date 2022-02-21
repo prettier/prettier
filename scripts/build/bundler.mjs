@@ -87,7 +87,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
 
     // Replace parser getters with `undefined`
     for (const file of [
-      "src/language-handlebars/parsers.js",
       "src/language-js/parse/parsers.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = EMPTY_MODULE_REPLACEMENT;
@@ -95,8 +94,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-graphql/parsers.js",
-      // "src/language-handlebars/parsers.js",
       "src/language-html/parsers.js",
+      "src/language-handlebars/parsers.js",
       // "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
