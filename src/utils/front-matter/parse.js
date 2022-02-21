@@ -1,4 +1,3 @@
-"use strict";
 
 const frontMatterRegex = new RegExp(
   "^(?<startDelimiter>-{3}|\\+{3})" +
@@ -47,4 +46,4 @@ function parse(text) {
   };
 }
 
-module.exports = parse;
+export default parse;

@@ -1,4 +1,3 @@
-"use strict";
 
 /**
  * @param {string} text
@@ -21,4 +20,4 @@ function skipInlineComment(text, index) {
   return index;
 }
 
-module.exports = skipInlineComment;
+export default skipInlineComment;

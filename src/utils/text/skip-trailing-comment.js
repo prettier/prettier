@@ -1,6 +1,5 @@
-"use strict";
 
-const { skipEverythingButNewLine } = require("./skip.js");
+import { skipEverythingButNewLine } from "./skip.js";
 
 /**
  * @param {string} text
@@ -19,4 +18,4 @@ function skipTrailingComment(text, index) {
   return index;
 }
 
-module.exports = skipTrailingComment;
+export default skipTrailingComment;

@@ -1,6 +1,5 @@
-"use strict";
 
-const fs = require("fs");
+import fs from "fs";
 const fsAsync = fs.promises;
 
 /**
@@ -35,4 +34,4 @@ function handleError(filename, error) {
   throw new Error(`Unable to read ${filename}: ${error.message}`);
 }
 
-module.exports = getFileContentOrNull;
+export default getFileContentOrNull;

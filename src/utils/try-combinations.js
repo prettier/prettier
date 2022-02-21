@@ -1,4 +1,3 @@
-"use strict";
 
 function tryCombinations(...combinations) {
   let firstError;
@@ -14,4 +13,4 @@ function tryCombinations(...combinations) {
   return { error: firstError };
 }
 
-module.exports = tryCombinations;
+export default tryCombinations;

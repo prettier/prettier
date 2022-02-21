@@ -1,4 +1,3 @@
-"use strict";
 
 /** @typedef {import("./skip").SkipOptions} SkipOptions */
 
@@ -51,4 +50,4 @@ function skipNewline(text, index, opts) {
   return index;
 }
 
-module.exports = skipNewline;
+export default skipNewline;

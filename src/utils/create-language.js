@@ -1,6 +1,5 @@
-"use strict";
 
-module.exports = function (linguistData, override) {
+ function createLanguage(linguistData, override) {
   const { languageId, ...rest } = linguistData;
   return {
     linguistLanguageId: languageId,
@@ -8,3 +7,5 @@ module.exports = function (linguistData, override) {
     ...override(linguistData),
   };
 };
+
+export default createLanguage

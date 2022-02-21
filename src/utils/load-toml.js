@@ -1,8 +1,7 @@
-"use strict";
 
-const parse = require("@iarna/toml/parse-string");
+import parse from "@iarna/toml/parse-string.js";
 
-module.exports = function (filePath, content) {
+function loadToml(filePath, content) {
   try {
     return parse(content);
   } catch (error) {
@@ -10,3 +9,5 @@ module.exports = function (filePath, content) {
     throw error;
   }
 };
+
+export default loadToml
