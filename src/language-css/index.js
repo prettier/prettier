@@ -1,9 +1,10 @@
-"use strict";
+import { createRequire } from "module";
+import createLanguage from "../utils/create-language.js";
+import printer from "./printer-postcss.js";
+import options from "./options.js";
+import parsers from "./parsers.js";
 
-const createLanguage = require("../utils/create-language.js");
-const printer = require("./printer-postcss.js");
-const options = require("./options.js");
-const parsers = require("./parsers.js");
+const require = createRequire(import.meta.url);
 
 const languages = [
   createLanguage(require("linguist-languages/data/CSS.json"), (data) => ({
@@ -38,9 +39,11 @@ const printers = {
   postcss: printer,
 };
 
-module.exports = {
+const language = {
   languages,
   options,
   printers,
   parsers,
 };
+
+export default language;

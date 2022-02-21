@@ -1,5 +1,3 @@
-"use strict";
-
 function isSCSSVariable(node, options) {
   return Boolean(
     options.parser === "scss" &&
@@ -9,4 +7,4 @@ function isSCSSVariable(node, options) {
   );
 }
 
-module.exports = isSCSSVariable;
+export default isSCSSVariable;
