@@ -4,13 +4,15 @@
 
 import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
 import doc from "../../document/index.js";
-import {
+import constants from "../constants.evaluate.js";
+import isUnknownNamespace from "./is-unknown-namespace.js";
+
+const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
-} from "../constants.evaluate.js";
-import isUnknownNamespace from "./is-unknown-namespace.js";
+} = constants;
 
 const {
   builders: { line, hardline, join },

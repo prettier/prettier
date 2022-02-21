@@ -26,7 +26,8 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
         // Make this work with `@esbuild-plugins/node-modules-polyfill` plugin
         if (
           !resolveDir &&
-          namespace === "node-modules-polyfills-commonjs" &&
+          (namespace === "node-modules-polyfills-commonjs" ||
+            namespace === "node-modules-polyfills") &&
           file
         ) {
           resolveDir = dirname(file);
