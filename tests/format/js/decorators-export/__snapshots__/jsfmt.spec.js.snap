@@ -19,7 +19,7 @@ exports[`after_export.js [espree] format 1`] = `
 `;
 
 exports[`after_export.js [meriyah] format 1`] = `
-"[1:8]: Unexpected token: '@' (1:8)
+"Unexpected token: '@' (1:8)
 > 1 | export @decorator class Foo {}
     |        ^
   2 |

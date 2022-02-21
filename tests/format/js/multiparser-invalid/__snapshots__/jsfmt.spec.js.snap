@@ -32,7 +32,7 @@ exports[`text.js [flow] format 1`] = `
 `;
 
 exports[`text.js [meriyah] format 1`] = `
-"[6:20]: Invalid hexadecimal escape sequence (6:20)
+"Invalid hexadecimal escape sequence (6:20)
   4 | foo = markdown\`\\\\u{prettier}\\\\u{0065}\`;
   5 | foo = css\`\\\\u{prettier}\\\\u{0065}\`;
 > 6 | foo = /* HTML */\`\\\\u{prettier}\\\\u{0065}\`;

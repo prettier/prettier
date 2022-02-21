@@ -28,7 +28,7 @@ exports[`getter-generator.js [espree] format 1`] = `
 `;
 
 exports[`getter-generator.js [meriyah] format 1`] = `
-"[2:9]: A getter cannot be a generator (2:9)
+"A getter cannot be a generator (2:9)
   1 | ({
 > 2 |     get *iterator() { },
     |         ^
@@ -58,7 +58,7 @@ exports[`getter-with-parameter.js [espree] format 1`] = `
 `;
 
 exports[`getter-with-parameter.js [meriyah] format 1`] = `
-"[1:10]: Getter functions must have exactly no arguments (1:10)
+"Getter functions must have exactly no arguments (1:10)
 > 1 | ({ get x(a){} });
     |          ^
   2 |"
@@ -92,7 +92,7 @@ exports[`setter-generator.js [espree] format 1`] = `
 `;
 
 exports[`setter-generator.js [meriyah] format 1`] = `
-"[2:9]: A getter cannot be a generator (2:9)
+"A getter cannot be a generator (2:9)
   1 | ({
 > 2 |     set *iterator(iter) { },
     |         ^
@@ -122,7 +122,7 @@ exports[`setter-without-parameter.js [espree] format 1`] = `
 `;
 
 exports[`setter-without-parameter.js [meriyah] format 1`] = `
-"[1:10]: Setter functions must have exactly one argument (1:10)
+"Setter functions must have exactly one argument (1:10)
 > 1 | ({ set x(){} });
     |          ^
   2 |"

@@ -15,7 +15,7 @@ exports[`example.js [espree] format 1`] = `
 `;
 
 exports[`example.js [meriyah] format 1`] = `
-"[1:6]: Calls to super must be in the \\"constructor\\" method of a class expression or class declaration that has a superclass (1:6)
+"Calls to super must be in the \\"constructor\\" method of a class expression or class declaration that has a superclass (1:6)
 > 1 | super();
     |      ^
   2 |"

@@ -19,7 +19,7 @@ exports[`optional-chaining.js [espree] format 1`] = `
 `;
 
 exports[`optional-chaining.js [meriyah] format 1`] = `
-"[3:13]: Dot property must be an identifier (3:13)
+"Dot property must be an identifier (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
 > 3 | delete obj?.#x.a
@@ -46,7 +46,7 @@ exports[`optional-chaining.js - {"semi":false} [espree] format 1`] = `
 `;
 
 exports[`optional-chaining.js - {"semi":false} [meriyah] format 1`] = `
-"[3:13]: Dot property must be an identifier (3:13)
+"Dot property must be an identifier (3:13)
   1 | // https://github.com/babel/babel/pull/11669
   2 |
 > 3 | delete obj?.#x.a

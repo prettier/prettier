@@ -358,6 +358,17 @@ exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 
 
 exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help no-plugin-search (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-plugin-search (stdout) 1`] = `
+"--no-plugin-search
+
+  Disable plugin autoloading.
+"
+`;
+
+exports[`show detailed usage with --help no-plugin-search (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `

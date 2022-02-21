@@ -39,6 +39,7 @@ const parseOptions = {
     "moduleBlocks",
     "asyncDoExpressions",
     "regexpUnicodeSets",
+    "destructuringPrivate",
   ],
   tokens: true,
   ranges: true,

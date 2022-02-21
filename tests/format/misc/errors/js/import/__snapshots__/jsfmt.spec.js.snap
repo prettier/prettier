@@ -37,7 +37,7 @@ exports[`snippet: #0 [flow] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"[1:8]: Unexpected token: ')' (1:8)
+"Unexpected token: ')' (1:8)
 > 1 | import();
     |        ^"
 `;
@@ -85,7 +85,7 @@ exports[`snippet: #1 [flow] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"[1:21]: Unexpected token: ')' (1:21)
+"Unexpected token: ')' (1:21)
 > 1 | import(/* comment */);
     |                     ^"
 `;
@@ -133,7 +133,7 @@ exports[`snippet: #2 [flow] format 1`] = `
 `;
 
 exports[`snippet: #2 [meriyah] format 1`] = `
-"[1:11]: Cannot use new with import(...) (1:11)
+"Cannot use new with import(...) (1:11)
 > 1 | new import('./a.mjs');
     |           ^"
 `;
@@ -181,7 +181,7 @@ exports[`snippet: #3 [flow] format 1`] = `
 `;
 
 exports[`snippet: #3 [meriyah] format 1`] = `
-"[1:11]: Cannot use new with import(...) (1:11)
+"Cannot use new with import(...) (1:11)
 > 1 | new import();
     |           ^"
 `;
