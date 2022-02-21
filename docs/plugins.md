@@ -46,7 +46,7 @@ The paths that are provided to `pluginSearchDirs` will be searched for `@prettie
 
 Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
 
-Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
+To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI or add `{ pluginSearchDirs: false }` to options in `prettier.format()` or to the config file.
 
 ## Official Plugins
 

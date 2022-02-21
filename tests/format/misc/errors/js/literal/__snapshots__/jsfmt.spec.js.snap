@@ -22,7 +22,7 @@ exports[`invalid-exponent.js [espree] format 1`] = `
 `;
 
 exports[`invalid-exponent.js [meriyah] format 1`] = `
-"[1:5]: Non-number found after exponent indicator (1:5)
+"Non-number found after exponent indicator (1:5)
 > 1 | 12.3e
     |     ^
   2 |"

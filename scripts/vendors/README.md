@@ -23,31 +23,31 @@ So we will put the files bundled with Pure ESM Packages as CommonJS Modules unde
 ### `/scripts/vendors/bundle-vendors.mjs`
 
 ```
-node ./scripts/vendors/bundle-vendors.mjs
+yarn vendors:bundle
 ```
 
 This script do the following 4 things:
 
 **1. Bundle ESM Packages to CommonJS**
 
-This bundles listed packages in `vendors.mjs` into `/vendors/*.js` as CommonJS.
+Bundles listed packages in `vendors.mjs` into `/vendors/*.js` as CommonJS.
 
-**2. Update `package.json`**
+**2. Lock vendor versions**
 
-This updates [`"imports"` in `package.json`](https://nodejs.org/api/packages.html#imports) to enables aliases to resolve packages put in `/vendors/*.js`.
+Locks versions of packages to `vendor-meta.json`. It is used to validate by `validate-vendor-versions.mjs`.
 
-**3. Lock ESM Packages version to `vendor-versions.json`**
+**3. Save vendors license info**
 
-This locks versions of packages that is bundled to `vendor-versions.json`. It is used to validate by `validate-vendor-versions.mjs`.
+Saves vendors licenses info to `vendor-meta.json`.
 
-**4. Generate `/vendors/types.d.ts`**
+**4. Generate `/vendors/*.d.ts`**
 
-This Generates a minimal type definition file that satisfies `lint:typecheck`.
+Generates a definition files that satisfies `lint:typecheck` for each vendors.
 
 ### `/scripts/vendors/validate-vendor-versions.mjs`
 
 ```
-node ./scripts/vendors/validate-vendor-versions.mjs
+yarn vendors:validate
 ```
 
 This script compares the version of packages locked in `vendor-versions.json` with the version of packages actually installed, and fails if they are different.

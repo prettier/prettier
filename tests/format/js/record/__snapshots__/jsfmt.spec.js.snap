@@ -21,7 +21,7 @@ exports[`computed.js [espree] format 1`] = `
 `;
 
 exports[`computed.js [meriyah] format 1`] = `
-"[2:8]: '#' not followed by identifier (2:8)
+"'#' not followed by identifier (2:8)
   1 | const key = \\"a\\";
 > 2 | assert(#{ [key]: 1 } === #{ a: 1 })
     |        ^
@@ -79,7 +79,7 @@ exports[`destructuring.js [espree] format 1`] = `
 `;
 
 exports[`destructuring.js [meriyah] format 1`] = `
-"[1:18]: '#' not followed by identifier (1:18)
+"'#' not followed by identifier (1:18)
 > 1 | const { a, b } = #{ a: 1, b: 2 };
     |                  ^
   2 | assert(a === 1);
@@ -136,7 +136,7 @@ exports[`record.js [espree] format 1`] = `
 `;
 
 exports[`record.js [meriyah] format 1`] = `
-"[1:17]: '#' not followed by identifier (1:17)
+"'#' not followed by identifier (1:17)
 > 1 | const record1 = #{
     |                 ^
   2 |     a: 1,
@@ -207,7 +207,7 @@ exports[`shorthand.js [espree] format 1`] = `
 `;
 
 exports[`shorthand.js [meriyah] format 1`] = `
-"[2:16]: '#' not followed by identifier (2:16)
+"'#' not followed by identifier (2:16)
   1 | const url = \\"https://github.com/tc39/proposal-record-tuple\\";
 > 2 | const record = #{ url }
     |                ^
@@ -252,7 +252,7 @@ exports[`spread.js [espree] format 1`] = `
 `;
 
 exports[`spread.js [meriyah] format 1`] = `
-"[1:18]: '#' not followed by identifier (1:18)
+"'#' not followed by identifier (1:18)
 > 1 | const formData = #{ title: \\"Implement all the things\\" }
     |                  ^
   2 | const taskNow = #{ id: 42, status: \\"WIP\\", ...formData }
@@ -303,7 +303,7 @@ exports[`syntax.js [espree] format 1`] = `
 `;
 
 exports[`syntax.js [meriyah] format 1`] = `
-"[1:1]: '#' not followed by identifier (1:1)
+"'#' not followed by identifier (1:1)
 > 1 | #{}
     | ^
   2 | #{ a: 1, b: 2 }

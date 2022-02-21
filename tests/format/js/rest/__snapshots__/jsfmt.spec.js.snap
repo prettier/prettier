@@ -19,7 +19,7 @@ exports[`trailing-commas.js - {"trailingComma":"all"} [espree] format 1`] = `
 `;
 
 exports[`trailing-commas.js - {"trailingComma":"all"} [meriyah] format 1`] = `
-"[1:13]: Unexpected token: 'class' (1:13)
+"Unexpected token: 'class' (1:13)
 > 1 | declare class C {
     |             ^
   2 |   f(

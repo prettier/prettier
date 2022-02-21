@@ -37,7 +37,7 @@ exports[`null-arguments-item.js [espree] format 1`] = `
 `;
 
 exports[`null-arguments-item.js [meriyah] format 1`] = `
-"[1:11]: Unexpected token: ',' (1:11)
+"Unexpected token: ',' (1:11)
 > 1 | foor('a', , 'b');
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
