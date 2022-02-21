@@ -49,7 +49,9 @@ function load(plugins, pluginSearchDirs) {
         requirePath = resolve(path.resolve(process.cwd(), pluginName));
       } catch {
         // try node modules
-        requirePath = resolve(pluginName, { paths: [process.cwd()] });
+        requirePath = resolve(pluginName, {
+          paths: [process.cwd(), ...pluginSearchDirs],
+        });
       }
 
       return {
