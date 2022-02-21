@@ -79,7 +79,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
     }
 
     // Use `__dirname` directly
-    replaceStrings["const __dirname = path.dirname(fileURLToPath(import.meta.url));"] = ""
+    replaceStrings[
+      "const __dirname = path.dirname(fileURLToPath(import.meta.url));"
+    ] = "";
   } else {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
