@@ -1,7 +1,7 @@
-import { createRequire } from "module";
 import path from "path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
+import getInterpreter from "../utils/get-interpreter.js";
 import { normalizeApiOptions } from "./options-normalizer.js";
 import { resolveParser } from "./parser.js";
 
@@ -139,10 +139,6 @@ function inferParser(filepath, plugins) {
     !language &&
     !filename.includes(".")
   ) {
-    const require = createRequire(import.meta.url);
-    // `getInterpreter` requires file access, put `require()` in the `if` block,
-    // So we can easily remove this part during build
-    const getInterpreter = require("../utils/get-interpreter.js");
     const interpreter = getInterpreter(filepath);
     language = languages.find(
       (language) =>

@@ -99,6 +99,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
       "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
+      // This module requires file access, should not include in universal bundle
+      "src/utils/get-interpreter.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] =
         EXPORT_UNDEFINED_MODULE_REPLACEMENT;
