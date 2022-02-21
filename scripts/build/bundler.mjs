@@ -90,7 +90,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
       "src/language-handlebars/parsers.js",
       "src/language-html/parsers.js",
       "src/language-js/parse/parsers.js",
-      "src/language-yaml/parsers.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = EMPTY_MODULE_REPLACEMENT;
     }
@@ -101,7 +100,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       // "src/language-html/parsers.js",
       // "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
-      // "src/language-yaml/parsers.js",
+      "src/language-yaml/parsers.js",
     ]) {
       replaceModule[path.join(PROJECT_ROOT, file)] =
         EXPORT_UNDEFINED_MODULE_REPLACEMENT;
