@@ -6,7 +6,7 @@ const {
   builders: { join, line, group },
 } = doc;
 
-/** @typedef {import("../../common/ast-path")} AstPath */
+/** @typedef {import("../../common/ast-path.js").default} AstPath */
 
 function printAngular(path, options, print) {
   const node = path.getValue();

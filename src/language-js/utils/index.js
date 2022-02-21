@@ -26,7 +26,7 @@ const isIdentifierName = esutils.keyword.isIdentifierNameES5;
  * @typedef {import("../types/estree").TaggedTemplateExpression} TaggedTemplateExpression
  * @typedef {import("../types/estree").Literal} Literal
  *
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
 // We match any whitespace except line terminators because
