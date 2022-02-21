@@ -1,7 +1,6 @@
-"use strict";
 
-const getLast = require("../utils/get-last.js");
-const { literalline, join } = require("./doc-builders.js");
+import getLast from "../utils/get-last.js";
+import { literalline, join } from "./doc-builders.js";
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {
@@ -412,7 +411,7 @@ function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
 }
 
-module.exports = {
+export  {
   isConcat,
   getDocParts,
   willBreak,

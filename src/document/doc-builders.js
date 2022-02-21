@@ -1,4 +1,3 @@
-"use strict";
 
 /**
  * TBD properly tagged union for Doc object type is needed here.
@@ -263,7 +262,7 @@ function label(label, contents) {
   return { type: "label", label, contents };
 }
 
-module.exports = {
+export  {
   concat,
   join,
   line,
