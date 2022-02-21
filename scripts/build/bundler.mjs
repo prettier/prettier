@@ -86,9 +86,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     };
 
     // Replace parser getters with `undefined`
-    for (const file of [
-      "src/language-html/parsers.js",
-    ]) {
+    for (const file of ["src/language-html/parsers.js"]) {
       replaceModule[path.join(PROJECT_ROOT, file)] = EMPTY_MODULE_REPLACEMENT;
     }
     for (const file of [
