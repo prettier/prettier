@@ -153,6 +153,7 @@ const parsers = [
         .resolve("tslib")
         .replace(/tslib\.js$/, "tslib.es6.js"),
     },
+    isEsm: true,
   },
 ].map((bundle) => {
   const { name } = bundle.input.match(
