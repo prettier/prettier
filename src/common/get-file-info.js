@@ -1,7 +1,7 @@
 
 import path from "path";
 import {inferParser} from "../main/options.js";
-import config from "../config/resolve-config.js";
+import * as config from "../config/resolve-config.js";
 import createIgnorer from "./create-ignorer.js";
 
 /**

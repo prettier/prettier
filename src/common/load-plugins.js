@@ -4,7 +4,7 @@ import path from "path";
 import uniqBy from "lodash/uniqBy.js";
 import partition from "lodash/partition.js";
 import fastGlob from "fast-glob";
-import mem, {memClear } from "../../vendors/mem.js";
+import mem, {memClear } from "mem";
 import thirdParty from "./third-party.cjs";
 import resolve from "./resolve.js";
 

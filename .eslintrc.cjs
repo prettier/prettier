@@ -176,7 +176,6 @@ module.exports = {
     {
       files: [
         "**/*.cjs",
-        "src/config/**/*.js",
         "src/document/**/*.js",
         "src/utils/**/*.js",
         "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",

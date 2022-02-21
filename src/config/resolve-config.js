@@ -1,14 +1,13 @@
-"use strict";
+import {createRequire} from "module"
+import path from "path";
+import micromatch from "micromatch";
+import mem, { memClear } from "mem";
+import thirdParty from "../common/third-party.cjs";
 
-const path = require("path");
-const micromatch = require("micromatch");
-const thirdParty = require("../common/third-party.cjs");
-
-const loadToml = require("../utils/load-toml.js");
-const loadJson5 = require("../utils/load-json5.js");
-const resolve = require("../common/resolve.js");
-const { default: mem, memClear } = require("../../vendors/mem.js");
-const resolveEditorConfig = require("./resolve-config-editorconfig.js");
+import loadToml from "../utils/load-toml.js";
+import loadJson5 from "../utils/load-json5.js";
+import resolve from "../common/resolve.js";
+import * as  resolveEditorConfig from "./resolve-config-editorconfig.js";
 
 /**
  * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
@@ -20,6 +19,7 @@ const resolveEditorConfig = require("./resolve-config-editorconfig.js");
  */
 const getExplorerMemoized = mem(
   (opts) => {
+    const require = createRequire(import.meta.url)
     const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
     const explorer = cosmiconfig("prettier", {
       cache: opts.cache,
@@ -192,7 +192,7 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   );
 }
 
-module.exports = {
+export  {
   resolveConfig,
   resolveConfigFile,
   clearCache,

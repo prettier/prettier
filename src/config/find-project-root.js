@@ -1,10 +1,9 @@
-"use strict";
 
 // Simple version of `find-project-root`
 // https://github.com/kirstein/find-project-root/blob/master/index.js
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 const MARKERS = [".git", ".hg"];
 
@@ -23,4 +22,4 @@ function findProjectRoot(directory) {
   return directory;
 }
 
-module.exports = findProjectRoot;
+export default findProjectRoot;

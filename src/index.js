@@ -4,7 +4,11 @@ import { getSupportInfo } from "./main/support.js";
 import getFileInfo from "./common/get-file-info.js";
 import * as sharedUtil from "./common/util-shared.js";
 import {loadPlugins, clearCache as clearPluginCache} from "./common/load-plugins.js";
-import config from "./config/resolve-config.js";
+import {
+  resolveConfig,
+  resolveConfigFile,
+  clearCache as clearConfigCache,
+} from "./config/resolve-config.js";
 import doc from "./document/index.js";
 import languages from "./languages.js";
 
@@ -64,10 +68,10 @@ const prettier = {
 
   doc,
 
-  resolveConfig: config.resolveConfig,
-  resolveConfigFile: config.resolveConfigFile,
+  resolveConfig,
+  resolveConfigFile,
   clearConfigCache() {
-    config.clearCache();
+    clearConfigCache();
     clearPluginCache();
   },
 
