@@ -1,4 +1,3 @@
-
 import doc from "../document/index.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import { locStart, locEnd } from "./loc.js";
@@ -29,7 +28,7 @@ const {
     softline,
   },
   utils: { getDocParts, replaceTextEndOfLine },
-}  = doc
+} = doc;
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -793,4 +792,4 @@ const printer = {
   massageAstNode: clean,
 };
 
-export default printer
+export default printer;

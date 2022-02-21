@@ -17,10 +17,10 @@ const printers = {
   glimmer: printer,
 };
 
-const language= {
+const language = {
   languages,
   printers,
   parsers,
 };
 
-export default language
+export default language;

@@ -1,5 +1,4 @@
-import glimmerParser from "./parser-glimmer.js"
-
+import glimmerParser from "./parser-glimmer.js";
 
 const parsers = {
   get glimmer() {
@@ -7,4 +6,4 @@ const parsers = {
   },
 };
 
-export default parsers
+export default parsers;

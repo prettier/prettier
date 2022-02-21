@@ -1,4 +1,3 @@
-
 import htmlVoidElements from "html-void-elements";
 import getLast from "../utils/get-last.js";
 
@@ -101,7 +100,7 @@ function hasPrettierIgnore(path) {
   );
 }
 
-export  {
+export {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,

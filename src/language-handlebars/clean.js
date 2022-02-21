@@ -1,4 +1,3 @@
-
 function clean(ast, newNode /*, parent*/) {
   // (Glimmer/HTML) ignore TextNode
   if (ast.type === "TextNode") {
