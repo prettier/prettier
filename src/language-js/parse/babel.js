@@ -1,12 +1,14 @@
-"use strict";
+// TODO[@fisker]: try inline import this module
+import babel from  "@babel/parser"
 
-const tryCombinations = require("../../utils/try-combinations.js");
-const getShebang = require("../utils/get-shebang.js");
-const getNextNonSpaceNonCommentCharacterIndexWithStartIndex = require("../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js");
-const createParser = require("./utils/create-parser.js");
-const createBabelParseError = require("./utils/create-babel-parse-error.js");
-const postprocess = require("./postprocess/index.js");
-const jsonParsers = require("./json.js");
+
+import tryCombinations from "../../utils/try-combinations.js";
+import getShebang from "../utils/get-shebang.js";
+import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
+import createParser from "./utils/create-parser.js";
+import createBabelParseError from "./utils/create-babel-parse-error.js";
+import postprocess from "./postprocess/index.js";
+import jsonParsers from "./json.js";
 
 /**
  * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
@@ -86,7 +88,7 @@ function isFlowFile(text, options) {
 function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
   /** @type {Parse} */
-  const parse = require("@babel/parser")[parseMethod];
+  const parse = babel[parseMethod];
   const ast = parse(text, options);
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)

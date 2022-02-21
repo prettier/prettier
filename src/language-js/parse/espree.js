@@ -1,10 +1,11 @@
-"use strict";
+// TODO[@fisker]: try inline import this module
+  import espree from "espree";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import replaceHashbang from "./utils/replace-hashbang.js";
+import postprocess from "./postprocess/index.js";
 
 /** @type {import("espree").Options} */
 const parseOptions = {
@@ -33,12 +34,11 @@ function createParseError(error) {
 }
 
 function parse(originalText, parsers, options = {}) {
-  const { parse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parse(textToParse, { ...parseOptions, sourceType: "module" }),
-    () => parse(textToParse, { ...parseOptions, sourceType: "script" })
+    () => espree.parse(textToParse, { ...parseOptions, sourceType: "module" }),
+    () => espree.parse(textToParse, { ...parseOptions, sourceType: "script" })
   );
 
   if (!ast) {
@@ -50,4 +50,4 @@ function parse(originalText, parsers, options = {}) {
   return postprocess(ast, options);
 }
 
-module.exports = createParser(parse);
+export default createParser(parse);

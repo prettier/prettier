@@ -1,7 +1,6 @@
-"use strict";
 
-const createError = require("../../../common/parser-create-error.js");
-const visitNode = require("./visit-node.js");
+import createError from "../../../common/parser-create-error.js";
+import visitNode from "./visit-node.js";
 
 function throwSyntaxError(node, message) {
   const { start, end } = node.loc;
@@ -78,4 +77,4 @@ function throwErrorForInvalidNodes(ast, options) {
   });
 }
 
-module.exports = { throwErrorForInvalidNodes };
+export  { throwErrorForInvalidNodes };

@@ -1,9 +1,12 @@
-"use strict";
+// TODO[@fisker]: try inline import these modules
+    import { Parser as AcornParser } from "acorn";
+    import acornJsx from "acorn-jsx";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const postprocess = require("./postprocess/index.js");
+
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import postprocess from "./postprocess/index.js";
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
@@ -37,8 +40,6 @@ function createParseError(error) {
 let parser;
 const getParser = () => {
   if (!parser) {
-    const { Parser: AcornParser } = require("acorn");
-    const acornJsx = require("acorn-jsx");
     parser = AcornParser.extend(acornJsx());
   }
   return parser;
@@ -78,4 +79,4 @@ function parse(text, parsers, options = {}) {
   return postprocess(ast, options);
 }
 
-module.exports = createParser(parse);
+export default createParser(parse);

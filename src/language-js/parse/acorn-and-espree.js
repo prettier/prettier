@@ -1,11 +1,12 @@
-"use strict";
 
-const acorn = require("./acorn.js");
-const espree = require("./espree.js");
+import acorn from "./acorn.js";
+import espree from "./espree.js";
 
-module.exports = {
+const parserAcornAndEspree = {
   parsers: {
     acorn,
     espree,
   },
 };
+
+export default  parserAcornAndEspree

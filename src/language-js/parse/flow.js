@@ -1,9 +1,11 @@
-"use strict";
+// TODO[@fisker]: try inline import this module
+  // Inline the require to avoid loading all the JS if we don't use it
+import flow  from "flow-parser";
 
-const createError = require("../../common/parser-create-error.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+import createError from "../../common/parser-create-error.js";
+import createParser from "./utils/create-parser.js";
+import replaceHashbang from "./utils/replace-hashbang.js";
+import postprocess from "./postprocess/index.js";
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -39,9 +41,7 @@ function createParseError(error) {
 }
 
 function parse(text, parsers, options = {}) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("flow-parser");
-  const ast = parse(replaceHashbang(text), parseOptions);
+  const ast = flow.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
@@ -52,8 +52,10 @@ function parse(text, parsers, options = {}) {
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const parser = {
   parsers: {
     flow: createParser(parse),
   },
 };
+
+export default parser

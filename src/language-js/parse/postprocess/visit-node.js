@@ -1,4 +1,3 @@
-"use strict";
 
 function visitNode(node, fn) {
   if (Array.isArray(node)) {
@@ -24,4 +23,4 @@ function visitNode(node, fn) {
   return node;
 }
 
-module.exports = visitNode;
+export default visitNode;
