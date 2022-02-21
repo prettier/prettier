@@ -1,10 +1,11 @@
-"use strict";
+// TODO[@fisker]: try inline import this module
+import { parseWithNodeMaps } from "@typescript-eslint/typescript-estree";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import replaceHashbang from "./utils/replace-hashbang.js";
+import postprocess from "./postprocess/index.js";
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -36,7 +37,6 @@ function parse(text, parsers, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
-  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
   const { result, error: firstError } = tryCombinations(
     // Try passing with our best guess first.
     () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
@@ -69,8 +69,10 @@ function isProbablyJsx(text) {
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const parser = {
   parsers: {
     typescript: createParser(parse),
   },
 };
+
+export default parser;

@@ -1,10 +1,10 @@
-"use strict";
+import { isNonEmptyArray } from "../../common/util.js";
+import doc from "../../document/index.js";
+import { isFlowAnnotationComment } from "../utils/index.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, join, line },
-} = require("../../document/index.js");
-const { isFlowAnnotationComment } = require("../utils/index.js");
+} = doc;
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -90,7 +90,7 @@ function printRestSpread(path, options, print) {
   return ["...", print("argument"), printTypeAnnotation(path, options, print)];
 }
 
-module.exports = {
+export {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,

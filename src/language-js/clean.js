@@ -1,6 +1,4 @@
-"use strict";
-
-const isBlockComment = require("./utils/is-block-comment.js");
+import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([
   "range",
@@ -212,4 +210,4 @@ function clean(ast, newObj, parent) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;

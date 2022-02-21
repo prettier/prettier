@@ -1,8 +1,8 @@
-"use strict";
+import doc from "../../document/index.js";
 
 const {
   builders: { join, line, group, softline, indent },
-} = require("../../document/index.js");
+} = doc;
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();
@@ -65,7 +65,4 @@ function isVueEventBindingExpression(node) {
   }
 }
 
-module.exports = {
-  isVueEventBindingExpression,
-  printHtmlBinding,
-};
+export { isVueEventBindingExpression, printHtmlBinding };

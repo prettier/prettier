@@ -1,6 +1,4 @@
-"use strict";
-
-const isNonEmptyArray = require("../utils/is-non-empty-array.js");
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -55,9 +53,4 @@ function hasSameLoc(nodeA, nodeB) {
   return hasSameLocStart(nodeA, nodeB) && hasSameLocEnd(nodeA, nodeB);
 }
 
-module.exports = {
-  locStart,
-  locEnd,
-  hasSameLocStart,
-  hasSameLoc,
-};
+export { locStart, locEnd, hasSameLocStart, hasSameLoc };

@@ -1,8 +1,6 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const { getLast, getPenultimate } = require("../../common/util.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import { getLast, getPenultimate } from "../../common/util.js";
+import {
   getFunctionParameters,
   hasComment,
   CommentCheckFlags,
@@ -16,7 +14,12 @@ const {
   isCallExpression,
   isStringLiteral,
   isObjectProperty,
-} = require("../utils/index.js");
+} from "../utils/index.js";
+
+import doc from "../../document/index.js";
+
+import { ArgExpansionBailout } from "../../common/errors.js";
+import { isConciselyPrintedArray } from "./array.js";
 
 const {
   builders: {
@@ -30,10 +33,7 @@ const {
     breakParent,
   },
   utils: { willBreak },
-} = require("../../document/index.js");
-
-const { ArgExpansionBailout } = require("../../common/errors.js");
-const { isConciselyPrintedArray } = require("./array.js");
+} = doc;
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();
@@ -303,4 +303,4 @@ function isTypeModuleObjectExpression(node) {
   );
 }
 
-module.exports = printCallArguments;
+export default printCallArguments;

@@ -1,10 +1,10 @@
-"use strict";
+// TODO[@fisker]: try inline import this module
+import ngEstreeParser from "angular-estree-parser";
 
-const { locStart, locEnd } = require("../loc.js");
+import { locStart, locEnd } from "../loc.js";
 
 function createParser(_parse) {
   const parse = (text, parsers, options) => {
-    const ngEstreeParser = require("angular-estree-parser");
     const node = _parse(text, ngEstreeParser);
     return {
       type: "NGRoot",
@@ -17,7 +17,7 @@ function createParser(_parse) {
   return { astFormat: "estree", parse, locStart, locEnd };
 }
 
-module.exports = {
+const parser = {
   parsers: {
     __ng_action: createParser((text, ng) => ng.parseAction(text)),
     __ng_binding: createParser((text, ng) => ng.parseBinding(text)),
@@ -25,3 +25,5 @@ module.exports = {
     __ng_directive: createParser((text, ng) => ng.parseTemplateBindings(text)),
   },
 };
+
+export default parser;

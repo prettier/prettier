@@ -1,24 +1,24 @@
-"use strict";
+import { isNonEmptyArray } from "../../common/util.js";
+import doc from "../../document/index.js";
+import { printDanglingComments } from "../../main/comments.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { softline, group, indent, join, line, ifBreak, hardline },
-} = require("../../document/index.js");
-const { printDanglingComments } = require("../../main/comments.js");
-
-const {
+import {
   hasComment,
   CommentCheckFlags,
   shouldPrintComma,
   needsHardlineAfterDanglingComment,
   isStringLiteral,
   rawText,
-} = require("../utils/index.js");
-const { locStart, hasSameLoc } = require("../loc.js");
-const {
+} from "../utils/index.js";
+import { locStart, hasSameLoc } from "../loc.js";
+import {
   hasDecoratorsBeforeExport,
   printDecoratorsBeforeExport,
-} = require("./decorators.js");
+} from "./decorators.js";
+
+const {
+  builders: { softline, group, indent, join, line, ifBreak, hardline },
+} = doc;
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -354,7 +354,7 @@ function isShorthandSpecifier(specifier) {
   }
 }
 
-module.exports = {
+export {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,

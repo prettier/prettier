@@ -1,11 +1,9 @@
-"use strict";
-
-const commonOptions = require("../common/common-options.js");
+import commonOptions from "../common/common-options.js";
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
-module.exports = {
+const options = {
   arrowParens: {
     since: "1.9.0",
     category: CATEGORY_JAVASCRIPT,
@@ -100,3 +98,5 @@ module.exports = {
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
 };
+
+export default options;

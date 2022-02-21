@@ -1,11 +1,11 @@
-"use strict";
+import { isNonEmptyArray } from "../../common/util.js";
+import doc from "../../document/index.js";
+import { printTemplateExpressions } from "../print/template-literal.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, hardline, softline },
   utils: { mapDoc, replaceEndOfLine, cleanDoc },
-} = require("../../document/index.js");
-const { printTemplateExpressions } = require("../print/template-literal.js");
+} = doc;
 
 function format(path, print, textToDoc) {
   const node = path.getValue();
@@ -77,4 +77,4 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
-module.exports = format;
+export default format;
