@@ -1,5 +1,5 @@
 // TODO[@fisker]: try inline import this module
-import meriyah from "meriyah";
+import { parse as meriyahParse } from "meriyah";
 
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
@@ -47,7 +47,7 @@ function parseWithOptions(text, module) {
   const tokens = [];
 
   /** @type {any} */
-  const ast = meriyah.parse(text, {
+  const ast = meriyahParse(text, {
     ...parseOptions,
     module,
     onComment: comments,

@@ -1,5 +1,5 @@
 // TODO[@fisker]: try inline import this module
-import espree from "espree";
+import { parse as espreeParse } from "espree";
 
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
@@ -36,8 +36,8 @@ function createParseError(error) {
 function parse(originalText, parsers, options = {}) {
   const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
-    () => espree.parse(textToParse, { ...parseOptions, sourceType: "module" }),
-    () => espree.parse(textToParse, { ...parseOptions, sourceType: "script" })
+    () => espreeParse(textToParse, { ...parseOptions, sourceType: "module" }),
+    () => espreeParse(textToParse, { ...parseOptions, sourceType: "script" })
   );
 
   if (!ast) {
