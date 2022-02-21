@@ -1,4 +1,3 @@
-
 /**
  * @typedef {import("../document").Doc} Doc
  */
@@ -26,7 +25,7 @@ import { printChildren } from "./print/children.js";
 const {
   builders: { fill, group, hardline, literalline },
   utils: { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -133,4 +132,4 @@ const printer = {
   embed,
 };
 
-export default printer
+export default printer;

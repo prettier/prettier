@@ -1,4 +1,4 @@
-import htmlParser from "./parser-html.js"
+import htmlParser from "./parser-html.js";
 
 const parsers = {
   // HTML
@@ -19,4 +19,4 @@ const parsers = {
   },
 };
 
-export default parsers
+export default parsers;

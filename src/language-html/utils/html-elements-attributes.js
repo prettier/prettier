@@ -1,4 +1,3 @@
-
 import htmlElementAttributes from "html-element-attributes";
 import mapObject from "./map-object.js";
 import arrayToMap from "./array-to-map.js";

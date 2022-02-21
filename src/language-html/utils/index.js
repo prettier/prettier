@@ -1,12 +1,8 @@
-
 /**
  * @typedef {import("../../common/ast-path")} AstPath
  */
 
-import {
-  inferParserByLanguage,
-  isFrontMatterNode,
-} from "../../common/util.js";
+import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
 import doc from "../../document/index.js";
 import {
   CSS_DISPLAY_TAGS,
@@ -19,7 +15,7 @@ import isUnknownNamespace from "./is-unknown-namespace.js";
 const {
   builders: { line, hardline, join },
   utils: { getDocParts, replaceTextEndOfLine },
-}  = doc
+} = doc;
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
@@ -639,7 +635,7 @@ function getTextValueParts(node, value = node.value) {
     : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
-export  {
+export {
   htmlTrim,
   htmlTrimPreserveIndentation,
   hasHtmlWhitespace,

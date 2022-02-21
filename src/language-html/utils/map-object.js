@@ -1,4 +1,3 @@
-
 function mapObject(object, fn) {
   const newObject = Object.create(null);
   for (const [key, value] of Object.entries(object)) {

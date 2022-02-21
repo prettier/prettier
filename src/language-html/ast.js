@@ -1,4 +1,3 @@
-
 import { isNonEmptyArray } from "../common/util.js";
 import getLast from "../utils/get-last.js";
 
@@ -180,6 +179,4 @@ function setNonEnumerableProperty(obj, key, value) {
   Object.defineProperty(obj, key, { value, enumerable: false });
 }
 
-export  {
-  Node,
-};
+export { Node };

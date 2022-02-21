@@ -1,4 +1,3 @@
-
 function isUnknownNamespace(node) {
   return (
     node.type === "element" &&

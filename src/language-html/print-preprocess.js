@@ -1,7 +1,4 @@
-
-import {
-  ParseSourceSpan,
-} from "angular-html-parser/lib/compiler/src/parse_util";
+import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util";
 import {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,

@@ -1,4 +1,3 @@
-
 import doc from "../document/index.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import {
@@ -30,7 +29,7 @@ import getNodeContent from "./get-node-content.js";
 const {
   builders: { breakParent, group, hardline, indent, line, fill, softline },
   utils: { mapDoc, replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>

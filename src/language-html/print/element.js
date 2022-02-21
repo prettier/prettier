@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import getNodeContent from "../get-node-content.js";
 import {
@@ -30,7 +29,7 @@ const {
     softline,
   },
   utils: { replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function printElement(path, options, print) {
   const node = path.getValue();
@@ -174,4 +173,4 @@ function printElement(path, options, print) {
   ]);
 }
 
-export  { printElement };
+export { printElement };

@@ -1,4 +1,3 @@
-
 import {
   needsToBorrowParentClosingTagStartMarker,
   printClosingTagStartMarker,

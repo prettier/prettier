@@ -1,4 +1,3 @@
-
 import { isFrontMatterNode } from "../common/util.js";
 
 const ignoredProperties = new Set([

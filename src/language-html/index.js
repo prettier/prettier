@@ -50,4 +50,4 @@ const language = {
   parsers,
 };
 
-export default language
+export default language;

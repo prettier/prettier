@@ -1,4 +1,3 @@
-
 function arrayToMap(array) {
   const map = Object.create(null);
   for (const value of array) {

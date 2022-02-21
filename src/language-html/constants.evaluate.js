@@ -1,4 +1,3 @@
-
 import htmlStyles from "html-styles";
 
 const getCssStyleTags = (property) =>
@@ -54,4 +53,4 @@ const constants = {
   CSS_WHITE_SPACE_DEFAULT,
 };
 
-export default constants
+export default constants;

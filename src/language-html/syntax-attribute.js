@@ -1,10 +1,9 @@
-
 import parseSrcset from "parse-srcset";
 import doc from "../document/index.js";
 
 const {
   builders: { ifBreak, join, line },
-} = doc
+} = doc;
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {
@@ -64,7 +63,4 @@ function printClassNames(value) {
   return value.trim().split(/\s+/).join(" ");
 }
 
-export  {
-  printImgSrcset,
-  printClassNames,
-};
+export { printImgSrcset, printClassNames };

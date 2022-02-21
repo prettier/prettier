@@ -1,4 +1,3 @@
-
 /**
  * @typedef {import("../../document").Doc} Doc
  */
@@ -18,7 +17,7 @@ import {
 const {
   builders: { indent, join, line, softline, hardline },
   utils: { replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function printClosingTag(node, options) {
   return [
@@ -365,7 +364,7 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-export  {
+export {
   printClosingTag,
   printClosingTagStart,
   printClosingTagStartMarker,

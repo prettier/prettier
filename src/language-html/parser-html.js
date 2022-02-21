@@ -1,12 +1,10 @@
 // TODO[@fisker]: try inline import this module
-import angularHtmlParser from "angular-html-parser"
-  import {
-    RecursiveVisitor,
-    visitAll,
-  } from "angular-html-parser/lib/compiler/src/ml_parser/ast";
-  import {
-    getHtmlTagDefinition,
-  } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags";
+import angularHtmlParser from "angular-html-parser";
+import {
+  RecursiveVisitor,
+  visitAll,
+} from "angular-html-parser/lib/compiler/src/ml_parser/ast";
+import { getHtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags";
 import {
   ParseSourceSpan,
   ParseLocation,
@@ -399,7 +397,7 @@ function createParser({
   };
 }
 
-export default {
+const parser = {
   parsers: {
     html: createParser({
       name: "html",
@@ -429,3 +427,5 @@ export default {
     lwc: createParser({ name: "lwc" }),
   },
 };
+
+export default parser;

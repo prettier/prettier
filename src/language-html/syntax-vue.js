@@ -1,8 +1,7 @@
-
 import doc from "../document/index.js";
 const {
   builders: { group },
-} = doc
+} = doc;
 
 /**
  *     v-for="... in ..."
@@ -97,8 +96,4 @@ function isVueEventBindingExpression(eventBindingValue) {
   return fnExpRE.test(value) || simplePathRE.test(value);
 }
 
-export  {
-  isVueEventBindingExpression,
-  printVueFor,
-  printVueBindings,
-};
+export { isVueEventBindingExpression, printVueFor, printVueBindings };

@@ -1,4 +1,3 @@
-
 import doc from "../../document/index.js";
 import { locStart, locEnd } from "../loc.js";
 import {
@@ -21,7 +20,7 @@ import {
 const {
   builders: { breakParent, group, ifBreak, line, softline, hardline },
   utils: { replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function printChild(childPath, options, print) {
   const child = childPath.getValue();
@@ -208,4 +207,4 @@ function printChildren(path, options, print) {
   }, "children");
 }
 
-export  { printChildren };
+export { printChildren };

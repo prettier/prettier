@@ -1,10 +1,9 @@
-
 import commonOptions from "../common/common-options.js";
 
 const CATEGORY_HTML = "HTML";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
-const options= {
+const options = {
   bracketSameLine: commonOptions.bracketSameLine,
   htmlWhitespaceSensitivity: {
     since: "1.15.0",
@@ -37,4 +36,4 @@ const options= {
   },
 };
 
-export default options
+export default options;
