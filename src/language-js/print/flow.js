@@ -1,23 +1,19 @@
-"use strict";
-
 /** @typedef {import("../../document").Doc} Doc */
 
-const assert = require("assert");
-const { printDanglingComments } = require("../../main/comments.js");
-const { printString, printNumber } = require("../../common/util.js");
-const {
-  builders: { hardline, softline, group, indent },
-} = require("../../document/index.js");
-const {
+import assert from "assert";
+import { printDanglingComments } from "../../main/comments.js";
+import { printString, printNumber } from "../../common/util.js";
+import doc from "../../document/index.js";
+import {
   getParentExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
   shouldPrintComma,
-} = require("../utils/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const { printClass } = require("./class.js");
-const {
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import { printClass } from "./class.js";
+import {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
@@ -25,24 +21,22 @@ const {
   printFunctionType,
   printTupleType,
   printIndexedAccessType,
-} = require("./type-annotation.js");
-const { printInterface } = require("./interface.js");
-const {
-  printTypeParameter,
-  printTypeParameters,
-} = require("./type-parameters.js");
-const {
-  printExportDeclaration,
-  printExportAllDeclaration,
-} = require("./module.js");
-const { printArrayItems } = require("./array.js");
-const { printObject } = require("./object.js");
-const { printPropertyKey } = require("./property.js");
-const {
+} from "./type-annotation.js";
+import { printInterface } from "./interface.js";
+import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
+import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
+import { printArrayItems } from "./array.js";
+import { printObject } from "./object.js";
+import { printPropertyKey } from "./property.js";
+import {
   printOptionalToken,
   printTypeAnnotation,
   printRestSpread,
-} = require("./misc.js");
+} from "./misc.js";
+
+const {
+  builders: { hardline, softline, group, indent },
+} = doc;
 
 function printFlow(path, options, print) {
   const node = path.getValue();
@@ -382,4 +376,4 @@ function printFlowDeclaration(path, printed) {
   return ["declare ", printed];
 }
 
-module.exports = { printFlow };
+export { printFlow };

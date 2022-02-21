@@ -1,10 +1,11 @@
-"use strict";
+import { createRequire } from "module";
+import createLanguage from "../utils/create-language.js";
+import estreePrinter from "./printer-estree.js";
+import estreeJsonPrinter from "./printer-estree-json.js";
+import options from "./options.js";
+import parsers from "./parse/parsers.js";
 
-const createLanguage = require("../utils/create-language.js");
-const estreePrinter = require("./printer-estree.js");
-const estreeJsonPrinter = require("./printer-estree-json.js");
-const options = require("./options.js");
-const parsers = require("./parse/parsers.js");
+const require = createRequire(import.meta.url);
 
 const languages = [
   createLanguage(
@@ -117,9 +118,11 @@ const printers = {
   "estree-json": estreeJsonPrinter,
 };
 
-module.exports = {
+const language = {
   languages,
   options,
   printers,
   parsers,
 };
+
+export default language;

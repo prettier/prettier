@@ -1,10 +1,10 @@
-"use strict";
+import doc from "../../document/index.js";
+import { hasNode, hasComment, getComments } from "../utils/index.js";
+import { printBinaryishExpression } from "./binaryish.js";
 
 const {
   builders: { join, line, group },
-} = require("../../document/index.js");
-const { hasNode, hasComment, getComments } = require("../utils/index.js");
-const { printBinaryishExpression } = require("./binaryish.js");
+} = doc;
 
 /** @typedef {import("../../common/ast-path")} AstPath */
 
@@ -125,4 +125,4 @@ function hasNgSideEffect(path) {
   });
 }
 
-module.exports = { printAngular };
+export { printAngular };

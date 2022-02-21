@@ -1,7 +1,19 @@
-"use strict";
+import { printComments } from "../../main/comments.js";
+import { getLast } from "../../common/util.js";
+import doc from "../../document/index.js";
+import {
+  hasLeadingOwnLineComment,
+  isBinaryish,
+  isJsxNode,
+  shouldFlatten,
+  hasComment,
+  CommentCheckFlags,
+  isCallExpression,
+  isMemberExpression,
+  isObjectProperty,
+  isEnabledHackPipeline,
+} from "../utils/index.js";
 
-const { printComments } = require("../../main/comments.js");
-const { getLast } = require("../../common/util.js");
 const {
   builders: {
     join,
@@ -14,19 +26,7 @@ const {
     indentIfBreak,
   },
   utils: { cleanDoc, getDocParts, isConcat },
-} = require("../../document/index.js");
-const {
-  hasLeadingOwnLineComment,
-  isBinaryish,
-  isJsxNode,
-  shouldFlatten,
-  hasComment,
-  CommentCheckFlags,
-  isCallExpression,
-  isMemberExpression,
-  isObjectProperty,
-  isEnabledHackPipeline,
-} = require("../utils/index.js");
+} = doc;
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -337,4 +337,4 @@ function shouldInlineLogicalExpression(node) {
   return false;
 }
 
-module.exports = { printBinaryishExpression, shouldInlineLogicalExpression };
+export { printBinaryishExpression, shouldInlineLogicalExpression };

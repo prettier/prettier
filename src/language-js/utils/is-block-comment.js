@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @typedef {import("../types/estree").Comment} Comment
  */
@@ -17,4 +15,4 @@ function isBlockComment(comment) {
   );
 }
 
-module.exports = isBlockComment;
+export default isBlockComment;

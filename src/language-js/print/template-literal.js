@@ -1,7 +1,14 @@
-"use strict";
+import getLast from "../../utils/get-last.js";
+import { getStringWidth, getIndentSize } from "../../common/util.js";
+import doc from "../../document/index.js";
+import {
+  isBinaryish,
+  isJestEachTemplateLiteral,
+  isSimpleTemplateLiteral,
+  hasComment,
+  isMemberExpression,
+} from "../utils/index.js";
 
-const getLast = require("../../utils/get-last.js");
-const { getStringWidth, getIndentSize } = require("../../common/util.js");
 const {
   builders: {
     join,
@@ -15,14 +22,7 @@ const {
   },
   printer: { printDocToString },
   utils: { mapDoc },
-} = require("../../document/index.js");
-const {
-  isBinaryish,
-  isJestEachTemplateLiteral,
-  isSimpleTemplateLiteral,
-  hasComment,
-  isMemberExpression,
-} = require("../utils/index.js");
+} = doc;
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
@@ -232,7 +232,7 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
-module.exports = {
+export {
   printTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,

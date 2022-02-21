@@ -1,13 +1,11 @@
-"use strict";
-
-const { printComments } = require("../../main/comments.js");
-const {
+import { printComments } from "../../main/comments.js";
+import {
   getLast,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+} from "../../common/util.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   isCallExpression,
   isMemberExpression,
   isFunctionOrArrowExpression,
@@ -18,8 +16,17 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils/index.js");
-const { locEnd } = require("../loc.js");
+} from "../utils/index.js";
+import { locEnd } from "../loc.js";
+
+import doc from "../../document/index.js";
+import printCallArguments from "./call-arguments.js";
+import { printMemberLookup } from "./member.js";
+import {
+  printOptionalToken,
+  printFunctionTypeParameters,
+  printBindExpressionCallee,
+} from "./misc.js";
 
 const {
   builders: {
@@ -32,14 +39,7 @@ const {
     label,
   },
   utils: { willBreak },
-} = require("../../document/index.js");
-const printCallArguments = require("./call-arguments.js");
-const { printMemberLookup } = require("./member.js");
-const {
-  printOptionalToken,
-  printFunctionTypeParameters,
-  printBindExpressionCallee,
-} = require("./misc.js");
+} = doc;
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -407,4 +407,4 @@ function printMemberChain(path, options, print) {
   return label("member-chain", result);
 }
 
-module.exports = printMemberChain;
+export default printMemberChain;
