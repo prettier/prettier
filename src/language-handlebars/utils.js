@@ -1,7 +1,6 @@
-"use strict";
 
-const htmlVoidElements = require("html-void-elements");
-const getLast = require("../utils/get-last.js");
+import htmlVoidElements from "html-void-elements";
+import getLast from "../utils/get-last.js";
 
 function isLastNodeOfSiblings(path) {
   const node = path.getValue();
@@ -102,7 +101,7 @@ function hasPrettierIgnore(path) {
   );
 }
 
-module.exports = {
+export  {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,

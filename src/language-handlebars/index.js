@@ -1,8 +1,9 @@
-"use strict";
+import { createRequire } from "module";
+import createLanguage from "../utils/create-language.js";
+import printer from "./printer-glimmer.js";
+import parsers from "./parsers.js";
 
-const createLanguage = require("../utils/create-language.js");
-const printer = require("./printer-glimmer.js");
-const parsers = require("./parsers.js");
+const require = createRequire(import.meta.url);
 
 const languages = [
   createLanguage(require("linguist-languages/data/Handlebars.json"), () => ({
@@ -16,8 +17,10 @@ const printers = {
   glimmer: printer,
 };
 
-module.exports = {
+const language= {
   languages,
   printers,
   parsers,
 };
+
+export default language

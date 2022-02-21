@@ -1,4 +1,20 @@
-"use strict";
+
+import doc from "../document/index.js";
+import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
+import { locStart, locEnd } from "./loc.js";
+import clean from "./clean.js";
+import {
+  getNextNode,
+  getPreviousNode,
+  hasPrettierIgnore,
+  isLastNodeOfSiblings,
+  isNextNodeOfSomeType,
+  isNodeOfSomeType,
+  isParentOfSomeType,
+  isPreviousNodeOfSomeType,
+  isVoid,
+  isWhitespaceNode,
+} from "./utils.js";
 
 const {
   builders: {
@@ -13,22 +29,7 @@ const {
     softline,
   },
   utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
-const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const clean = require("./clean.js");
-const {
-  getNextNode,
-  getPreviousNode,
-  hasPrettierIgnore,
-  isLastNodeOfSiblings,
-  isNextNodeOfSomeType,
-  isNodeOfSomeType,
-  isParentOfSomeType,
-  isPreviousNodeOfSomeType,
-  isVoid,
-  isWhitespaceNode,
-} = require("./utils.js");
+}  = doc
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -787,7 +788,9 @@ function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
 }
 
-module.exports = {
+const printer = {
   print,
   massageAstNode: clean,
 };
+
+export default printer
