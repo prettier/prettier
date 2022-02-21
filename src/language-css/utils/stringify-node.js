@@ -1,4 +1,3 @@
-
 function stringifyNode(node) {
   if (node.groups) {
     const open = node.open && node.open.value ? node.open.value : "";

@@ -39,11 +39,11 @@ const printers = {
   postcss: printer,
 };
 
-const language= {
+const language = {
   languages,
   options,
   printers,
   parsers,
 };
 
-export default language
+export default language;

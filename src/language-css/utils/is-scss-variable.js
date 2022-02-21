@@ -1,4 +1,3 @@
-
 function isSCSSVariable(node, options) {
   return Boolean(
     options.parser === "scss" &&

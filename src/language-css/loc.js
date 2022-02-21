@@ -1,4 +1,3 @@
-
 import { skipEverythingButNewLine } from "../utils/text/skip.js";
 import getLast from "../utils/get-last.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
@@ -256,9 +255,4 @@ function locEnd(node) {
   return node.source.endOffset;
 }
 
-export  {
-  locStart,
-  locEnd,
-  calculateLoc,
-  replaceQuotesInInlineComments,
-};
+export { locStart, locEnd, calculateLoc, replaceQuotesInInlineComments };

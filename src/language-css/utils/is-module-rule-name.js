@@ -1,4 +1,3 @@
-
 const moduleRuleNames = new Set(["import", "use", "forward"]);
 
 function isModuleRuleName(name) {

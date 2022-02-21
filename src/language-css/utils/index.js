@@ -1,4 +1,3 @@
-
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -429,7 +428,7 @@ function isParenGroupNode(node) {
   );
 }
 
-export  {
+export {
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,

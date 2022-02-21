@@ -1,4 +1,4 @@
-import parserPostCss from "./parser-postcss.js"
+import parserPostCss from "./parser-postcss.js";
 
 const parsers = {
   // TODO: switch these to just `postcss` and use `language` instead.
@@ -13,4 +13,4 @@ const parsers = {
   },
 };
 
-export default parsers
+export default parsers;

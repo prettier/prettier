@@ -1,4 +1,3 @@
-
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 
 function hasStringOrFunction(groupList) {

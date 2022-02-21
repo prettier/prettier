@@ -1,4 +1,3 @@
-
 import getLast from "../utils/get-last.js";
 import {
   printNumber,
@@ -76,7 +75,7 @@ const {
     breakParent,
   },
   utils: { removeLines, getDocParts },
-} = doc
+} = doc;
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -1119,11 +1118,11 @@ function printCssNumber(rawNumber) {
   );
 }
 
-const printer= {
+const printer = {
   print: genericPrint,
   embed,
   insertPragma,
   massageAstNode: clean,
 };
 
-export default printer
+export default printer;

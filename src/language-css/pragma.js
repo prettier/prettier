@@ -1,4 +1,3 @@
-
 import jsPragma from "../language-js/pragma.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 
@@ -14,7 +13,4 @@ function insertPragma(text) {
   );
 }
 
-export  {
-  hasPragma,
-  insertPragma,
-};
+export { hasPragma, insertPragma };

@@ -1,4 +1,3 @@
-
 function isSCSSNestedPropertyNode(node, options) {
   if (options.parser !== "scss") {
     return false;

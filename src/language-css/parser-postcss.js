@@ -213,7 +213,6 @@ function parseNestedValue(node, options) {
 }
 
 function parseValue(value, options) {
-
   let result = null;
 
   try {
@@ -267,7 +266,6 @@ function parseSelector(selector) {
 }
 
 function parseMediaQuery(params) {
-
   let result = null;
 
   try {
@@ -725,4 +723,4 @@ const postcssParser = {
   },
 };
 
-export default postcssParser
+export default postcssParser;
