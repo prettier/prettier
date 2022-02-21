@@ -1,4 +1,3 @@
-"use strict";
 
 function massageAST(ast, options, parent) {
   if (Array.isArray(ast)) {
@@ -37,4 +36,4 @@ function massageAST(ast, options, parent) {
   return newObj;
 }
 
-module.exports = massageAST;
+export default massageAST;

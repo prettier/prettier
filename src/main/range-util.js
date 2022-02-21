@@ -1,7 +1,6 @@
-"use strict";
 
-const assert = require("assert");
-const comments = require("./comments.js");
+import assert from "assert";
+import {getSortedChildNodes} from "./comments.js";
 
 const isJsonParser = ({ parser }) =>
   parser === "json" || parser === "json5" || parser === "json-stringify";
@@ -93,7 +92,7 @@ function findNodeAtOffset(
     return;
   }
 
-  for (const childNode of comments.getSortedChildNodes(node, options)) {
+  for (const childNode of getSortedChildNodes(node, options)) {
     const childResult = findNodeAtOffset(
       childNode,
       offset,
@@ -252,7 +251,7 @@ function calculateRange(text, opts, ast) {
   };
 }
 
-module.exports = {
+export  {
   calculateRange,
   findNodeAtOffset,
 };

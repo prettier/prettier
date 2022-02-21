@@ -1,8 +1,7 @@
-"use strict";
 
-const vnopts = require("vnopts");
-const leven = require("leven");
-const getLast = require("../utils/get-last.js");
+import vnopts from "vnopts";
+import leven from "leven";
+import getLast from "../utils/get-last.js";
 
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -257,7 +256,7 @@ function normalizeCliOptions(options, optionInfos, opts) {
   return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
 }
 
-module.exports = {
+export  {
   normalizeApiOptions,
   normalizeCliOptions,
 };

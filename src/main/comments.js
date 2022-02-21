@@ -1,12 +1,9 @@
-"use strict";
 
-const assert = require("assert");
+import assert from "assert";
 
-const {
-  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
-} = require("../document/index.js");
+import doc from "../document/index.js";
 
-const {
+import {
   hasNewline,
   skipNewline,
   skipSpaces,
@@ -14,7 +11,11 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("../common/util.js");
+} from "../common/util.js";
+
+const {
+  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
+} = doc
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -601,7 +602,7 @@ function ensureAllCommentsPrinted(astComments) {
   }
 }
 
-module.exports = {
+export  {
   attach,
   printComments,
   printCommentsSeparately,

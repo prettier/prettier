@@ -1,13 +1,14 @@
-"use strict";
+import {createRequire} from "module"
+import semverCompare from "semver/functions/compare.js"
+import semverGte from "semver/functions/gte.js"
+import semverLt from "semver/functions/lt.js"
+import arrayify from "../utils/arrayify.js";
+import {options as coreOptions} from "./core-options.js";
 
-const semver = {
-  compare: require("semver/functions/compare"),
-  lt: require("semver/functions/lt"),
-  gte: require("semver/functions/gte"),
-};
-const arrayify = require("../utils/arrayify.js");
+const require = createRequire(import.meta.url)
+
+
 const currentVersion = require("../../package.json").version;
-const coreOptions = require("./core-options.js").options;
 
 /**
  * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
@@ -50,7 +51,7 @@ function getSupportInfo({
             : option.default
                 .filter(filterSince)
                 .sort((info1, info2) =>
-                  semver.compare(info2.since, info1.since)
+                  semverCompare(info2.since, info1.since)
                 )[0].value;
       }
 
@@ -83,7 +84,7 @@ function getSupportInfo({
     return (
       showUnreleased ||
       !("since" in object) ||
-      (object.since && semver.gte(version, object.since))
+      (object.since && semverGte(version, object.since))
     );
   }
 
@@ -91,7 +92,7 @@ function getSupportInfo({
     return (
       showDeprecated ||
       !("deprecated" in object) ||
-      (object.deprecated && semver.lt(version, object.deprecated))
+      (object.deprecated && semverLt(version, object.deprecated))
     );
   }
 
@@ -125,6 +126,6 @@ function collectParsersFromLanguages(option, languages, plugins) {
   }
 }
 
-module.exports = {
+export  {
   getSupportInfo,
 };
