@@ -1,6 +1,5 @@
-"use strict";
 
-const isNonEmptyArray = require("../../utils/is-non-empty-array.js");
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 
 function hasStringOrFunction(groupList) {
   if (isNonEmptyArray(groupList)) {
@@ -13,4 +12,4 @@ function hasStringOrFunction(groupList) {
   return false;
 }
 
-module.exports = hasStringOrFunction;
+export default hasStringOrFunction;

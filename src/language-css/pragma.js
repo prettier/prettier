@@ -1,7 +1,6 @@
-"use strict";
 
-const jsPragma = require("../language-js/pragma.js");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
+import jsPragma from "../language-js/pragma.js";
+import parseFrontMatter from "../utils/front-matter/parse.js";
 
 function hasPragma(text) {
   return jsPragma.hasPragma(parseFrontMatter(text).content);
@@ -15,7 +14,7 @@ function insertPragma(text) {
   );
 }
 
-module.exports = {
+export  {
   hasPragma,
   insertPragma,
 };

@@ -1,17 +1,24 @@
-"use strict";
+// TODO[@fisker]: try inline import these modules
+// Inline the require to avoid loading all the JS if we don't use it
+import postcss from "postcss";
+import less from "postcss-less";
+import scss from "postcss-scss";
+import valueParser from "postcss-values-parser";
+import selectorParser from "postcss-selector-parser";
+import mediaParser from "postcss-media-query-parser";
 
-const createError = require("../common/parser-create-error.js");
-const getLast = require("../utils/get-last.js");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
-const { hasPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
-const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
-const hasStringOrFunction = require("./utils/has-string-or-function.js");
-const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
-const isSCSSVariable = require("./utils/is-scss-variable.js");
-const stringifyNode = require("./utils/stringify-node.js");
-const isModuleRuleName = require("./utils/is-module-rule-name.js");
+import createError from "../common/parser-create-error.js";
+import getLast from "../utils/get-last.js";
+import parseFrontMatter from "../utils/front-matter/parse.js";
+import { hasPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import { calculateLoc, replaceQuotesInInlineComments } from "./loc.js";
+import hasSCSSInterpolation from "./utils/has-scss-interpolation.js";
+import hasStringOrFunction from "./utils/has-string-or-function.js";
+import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
+import isSCSSVariable from "./utils/is-scss-variable.js";
+import stringifyNode from "./utils/stringify-node.js";
+import isModuleRuleName from "./utils/is-module-rule-name.js";
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -206,7 +213,6 @@ function parseNestedValue(node, options) {
 }
 
 function parseValue(value, options) {
-  const valueParser = require("postcss-values-parser");
 
   let result = null;
 
@@ -238,8 +244,6 @@ function parseSelector(selector) {
     };
   }
 
-  const selectorParser = require("postcss-selector-parser");
-
   let result = null;
 
   try {
@@ -263,7 +267,6 @@ function parseSelector(selector) {
 }
 
 function parseMediaQuery(params) {
-  const mediaParser = require("postcss-media-query-parser").default;
 
   let result = null;
 
@@ -680,24 +683,21 @@ function parseWithParser(parse, text, options) {
 }
 
 function parseCss(text, parsers, options = {}) {
-  const { parse } = require("postcss");
-  return parseWithParser(parse, text, options);
+  return parseWithParser(postcss.parse, text, options);
 }
 
 function parseLess(text, parsers, options = {}) {
-  const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
+    (text) => less.parse(replaceQuotesInInlineComments(text)),
     text,
     options
   );
 }
 
 function parseScss(text, parsers, options = {}) {
-  const { parse } = require("postcss-scss");
-  return parseWithParser(parse, text, options);
+  return parseWithParser(scss.parse, text, options);
 }
 
 const postCssParser = {
@@ -708,7 +708,7 @@ const postCssParser = {
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const postcssParser = {
   parsers: {
     css: {
       ...postCssParser,
@@ -724,3 +724,5 @@ module.exports = {
     },
   },
 };
+
+export default postcssParser

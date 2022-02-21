@@ -1,4 +1,3 @@
-"use strict";
 
 function isSCSSNestedPropertyNode(node, options) {
   if (options.parser !== "scss") {
@@ -17,4 +16,4 @@ function isSCSSNestedPropertyNode(node, options) {
     .endsWith(":");
 }
 
-module.exports = isSCSSNestedPropertyNode;
+export default isSCSSNestedPropertyNode;

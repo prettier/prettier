@@ -1,7 +1,6 @@
-"use strict";
 
-const { isFrontMatterNode } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
+import { isFrontMatterNode } from "../common/util.js";
+import getLast from "../utils/get-last.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -194,4 +193,4 @@ function cleanCSSStrings(value) {
   return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
 }
 
-module.exports = clean;
+export default clean;

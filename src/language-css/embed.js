@@ -1,8 +1,9 @@
-"use strict";
+import doc from "../document/index.js";
+import printFrontMatter from "../utils/front-matter/print.js";
+
 const {
   builders: { hardline },
-} = require("../document/index.js");
-const printFrontMatter = require("../utils/front-matter/print.js");
+} = doc
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -13,4 +14,4 @@ function embed(path, print, textToDoc /*, options */) {
   }
 }
 
-module.exports = embed;
+export default embed;

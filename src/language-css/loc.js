@@ -1,9 +1,8 @@
-"use strict";
 
-const { skipEverythingButNewLine } = require("../utils/text/skip.js");
-const getLast = require("../utils/get-last.js");
-const isNonEmptyArray = require("../utils/is-non-empty-array.js");
-const lineColumnToIndex = require("../utils/line-column-to-index.js");
+import { skipEverythingButNewLine } from "../utils/text/skip.js";
+import getLast from "../utils/get-last.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import lineColumnToIndex from "../utils/line-column-to-index.js";
 
 function calculateLocStart(node, text) {
   // `postcss>=8`
@@ -257,7 +256,7 @@ function locEnd(node) {
   return node.source.endOffset;
 }
 
-module.exports = {
+export  {
   locStart,
   locEnd,
   calculateLoc,

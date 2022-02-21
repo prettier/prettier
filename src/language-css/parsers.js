@@ -1,14 +1,16 @@
-"use strict";
+import parserPostCss from "./parser-postcss.js"
 
-module.exports = {
+const parsers = {
   // TODO: switch these to just `postcss` and use `language` instead.
   get css() {
-    return require("./parser-postcss.js").parsers.css;
+    return parserPostCss.parsers.css;
   },
   get less() {
-    return require("./parser-postcss.js").parsers.less;
+    return parserPostCss.parsers.less;
   },
   get scss() {
-    return require("./parser-postcss.js").parsers.scss;
+    return parserPostCss.parsers.scss;
   },
 };
+
+export default parsers

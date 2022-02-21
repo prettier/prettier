@@ -1,6 +1,5 @@
-"use strict";
 
-const isNonEmptyArray = require("../../utils/is-non-empty-array.js");
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 
 function hasSCSSInterpolation(groupList) {
   if (isNonEmptyArray(groupList)) {
@@ -19,4 +18,4 @@ function hasSCSSInterpolation(groupList) {
   return false;
 }
 
-module.exports = hasSCSSInterpolation;
+export default hasSCSSInterpolation;

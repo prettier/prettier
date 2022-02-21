@@ -1,34 +1,19 @@
-"use strict";
 
-const getLast = require("../utils/get-last.js");
-const {
+import getLast from "../utils/get-last.js";
+import {
   printNumber,
   printString,
   hasNewline,
   isFrontMatterNode,
   isNextLineEmpty,
   isNonEmptyArray,
-} = require("../common/util.js");
-const {
-  builders: {
-    join,
-    line,
-    hardline,
-    softline,
-    group,
-    fill,
-    indent,
-    dedent,
-    ifBreak,
-    breakParent,
-  },
-  utils: { removeLines, getDocParts },
-} = require("../document/index.js");
-const clean = require("./clean.js");
-const embed = require("./embed.js");
-const { insertPragma } = require("./pragma.js");
+} from "../common/util.js";
+import doc from "../document/index.js";
+import clean from "./clean.js";
+import embed from "./embed.js";
+import { insertPragma } from "./pragma.js";
 
-const {
+import {
   getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
@@ -74,8 +59,24 @@ const {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
-} = require("./utils/index.js");
-const { locStart, locEnd } = require("./loc.js");
+} from "./utils/index.js";
+import { locStart, locEnd } from "./loc.js";
+
+const {
+  builders: {
+    join,
+    line,
+    hardline,
+    softline,
+    group,
+    fill,
+    indent,
+    dedent,
+    ifBreak,
+    breakParent,
+  },
+  utils: { removeLines, getDocParts },
+} = doc
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -1118,9 +1119,11 @@ function printCssNumber(rawNumber) {
   );
 }
 
-module.exports = {
+const printer= {
   print: genericPrint,
   embed,
   insertPragma,
   massageAstNode: clean,
 };
+
+export default printer
