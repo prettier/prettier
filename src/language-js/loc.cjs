@@ -27,7 +27,6 @@ function locEnd(node) {
   return node.range ? node.range[1] : node.end;
 }
 
-
 module.exports = {
   locStart,
   locEnd,
