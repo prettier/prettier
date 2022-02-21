@@ -179,7 +179,6 @@ module.exports = {
         "src/language-css/**/*.js",
         "src/language-handlebars/**/*.js",
         "src/language-html/**/*.js",
-        "src/language-yaml/**/*.js",
         "src/main/**/*.js",
         "src/utils/**/*.js",
         "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",

@@ -1,10 +1,10 @@
-"use strict";
+import doc from "../../document/index.js";
+import { isEmptyNode, getLast, hasEndComments } from "../utils.js";
+import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
 const {
   builders: { ifBreak, line, softline, hardline, join },
-} = require("../../document/index.js");
-const { isEmptyNode, getLast, hasEndComments } = require("../utils.js");
-const { printNextEmptyLine, alignWithSpaces } = require("./misc.js");
+} = doc;
 
 function printFlowMapping(path, print, options) {
   const node = path.getValue();
@@ -60,8 +60,8 @@ function printChildren(path, print, options) {
   return parts;
 }
 
-module.exports = {
+export {
   printFlowMapping,
   // Alias
-  printFlowSequence: printFlowMapping,
+  printFlowMapping as printFlowSequence,
 };
