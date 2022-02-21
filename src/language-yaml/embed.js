@@ -1,4 +1,3 @@
-
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 

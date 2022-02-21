@@ -1,4 +1,3 @@
-
 /** @typedef {import("../../document").Doc} Doc */
 
 import doc from "../../document/index.js";
@@ -23,7 +22,7 @@ const {
     markAsRoot,
   },
   utils: { getDocParts },
-} = doc
+} = doc;
 
 function printBlock(path, print, options) {
   const node = path.getValue();

@@ -1,10 +1,9 @@
-
 import doc from "../../document/index.js";
 import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
 const {
   builders: { softline, align },
-} = doc
+} = doc;
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
@@ -48,8 +47,4 @@ function alignWithSpaces(width, doc) {
   return align(" ".repeat(width), doc);
 }
 
-export  {
-  alignWithSpaces,
-  shouldPrintEndComments,
-  printNextEmptyLine,
-};
+export { alignWithSpaces, shouldPrintEndComments, printNextEmptyLine };

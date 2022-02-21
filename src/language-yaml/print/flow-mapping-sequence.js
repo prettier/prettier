@@ -4,7 +4,7 @@ import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
 const {
   builders: { ifBreak, line, softline, hardline, join },
-} = doc
+} = doc;
 
 function printFlowMapping(path, print, options) {
   const node = path.getValue();
@@ -60,7 +60,7 @@ function printChildren(path, print, options) {
   return parts;
 }
 
-export  {
+export {
   printFlowMapping,
   // Alias
   printFlowMapping as printFlowSequence,

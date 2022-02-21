@@ -1,4 +1,3 @@
-
 import { getLast, isNonEmptyArray } from "../common/util.js";
 
 function getAncestorCount(path, filter) {
@@ -351,7 +350,7 @@ function isInlineNode(node) {
   }
 }
 
-export  {
+export {
   getLast,
   getAncestorCount,
   isNode,

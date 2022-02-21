@@ -6,4 +6,4 @@ const parsers = {
   },
 };
 
-export default parsers
+export default parsers;

@@ -1,6 +1,6 @@
 // TODO[@fisker]: try inline import this module
 // Inline the require to avoid loading all the JS if we don't use it
-  import { parse as parseYaml } from "yaml-unist-parser";
+import { parse as parseYaml } from "yaml-unist-parser";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -42,4 +42,4 @@ const yaml = {
   },
 };
 
-export default yaml
+export default yaml;

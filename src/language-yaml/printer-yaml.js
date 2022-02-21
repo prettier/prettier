@@ -1,4 +1,3 @@
-
 /** @typedef {import("../document").Doc} Doc */
 
 import doc from "../document/index.js";
@@ -43,7 +42,7 @@ const {
     literalline,
   },
   utils: { getDocParts, replaceTextEndOfLine },
-} = doc
+} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -452,4 +451,4 @@ const printer = {
   insertPragma,
 };
 
-export default printer
+export default printer;

@@ -1,4 +1,3 @@
-
 /** @typedef {import("../../document").Doc} Doc */
 
 import doc from "../../document/index.js";
@@ -15,7 +14,7 @@ import { alignWithSpaces } from "./misc.js";
 
 const {
   builders: { conditionalGroup, group, hardline, ifBreak, join, line },
-} =  doc
+} = doc;
 
 function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;
