@@ -2,7 +2,8 @@
 
 const path = require("path");
 const { ConfigError } = require("../common/errors.js");
-const jsLoc = require("../language-js/loc.js");
+// TODO: Use esm version
+const jsLoc = require("../language-js/loc.cjs");
 
 const { locStart, locEnd } = jsLoc;
 
