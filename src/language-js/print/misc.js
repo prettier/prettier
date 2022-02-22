@@ -26,14 +26,12 @@ function printOptionalToken(path) {
 }
 
 function printDefiniteToken(path) {
-  const node = path.getValue();
-  if (node.definite) {
-    return "!";
-  }
-  const parentNode = path.getParentNode();
-  return parentNode &&
-    parentNode.type === "VariableDeclarator" &&
-    parentNode.definite
+  return path.getValue().definite ||
+    path.match(
+      undefined,
+      (node, name) =>
+        name === "id" && node.type === "VariableDeclarator" && node.definite
+    )
     ? "!"
     : "";
 }
