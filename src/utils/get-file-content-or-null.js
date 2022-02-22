@@ -1,31 +1,26 @@
 "use strict";
 
 const fs = require("fs");
-const fsAsync = fs.promises;
+const generateSync = require("gensync");
 
-/**
- * @param {string} filename
- * @returns {Promise<null | string>}
- */
-async function getFileContentOrNull(filename) {
-  try {
-    return await fsAsync.readFile(filename, "utf8");
-  } catch (error) {
-    return handleError(filename, error);
-  }
-}
+const readFile = generateSync({
+  async: fs.promises.readFile,
+  sync: fs.readFileSync,
+});
 
-/**
- * @param {string} filename
- * @returns {null | string}
- */
-getFileContentOrNull.sync = function (filename) {
-  try {
-    return fs.readFileSync(filename, "utf8");
-  } catch (error) {
-    return handleError(filename, error);
+const getFileContentOrNull = generateSync(
+  /**
+   * @param {string} filename
+   * @returns {null | string}
+   */
+  function* (filename) {
+    try {
+      return yield* readFile(filename, "utf8");
+    } catch (error) {
+      return handleError(filename, error);
+    }
   }
-};
+);
 
 function handleError(filename, error) {
   if (error && error.code === "ENOENT") {
