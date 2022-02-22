@@ -1,5 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`call.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (true)
+  if (true)
+    if (true)
+      if (true)
+        if (true)
+          longVariableName1 = // @ts-ignore
+          (variable01 + veryLongVariableNameNumber2).method();
+
+=====================================output=====================================
+if (true)
+  if (true)
+    if (true)
+      if (true)
+        if (true)
+          longVariableName1 = // @ts-ignore
+            (variable01 + veryLongVariableNameNumber2).method();
+
+================================================================================
+`;
+
+exports[`call2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const kochabCooieGameOnOboleUnweave = // ???
+      rhubarbRhubarb(annularCooeedSplicesWalksWayWay);
+
+=====================================output=====================================
+const kochabCooieGameOnOboleUnweave = // ???
+  rhubarbRhubarb(annularCooeedSplicesWalksWayWay);
+
+================================================================================
+`;
+
 exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -82,7 +124,8 @@ f3 = (
   a = b //comment
 ) => {};
 
-f4 = () => {}; // Comment
+f4 = // Comment
+  () => {};
 
 f5 =
   // Comment
@@ -109,7 +152,8 @@ let f3 = (
   a = b //comment
 ) => {};
 
-let f4 = () => {}; // Comment
+let f4 = // Comment
+  () => {};
 
 let f5 =
   // Comment
@@ -141,7 +185,8 @@ const bifornCringerMoshedPerplexSawder = // !!!
   anodyneCondosMalateOverateRetinol;
 
 =====================================output=====================================
-const kochabCooieGameOnOboleUnweave = annularCooeedSplicesWalksWayWay; // ???
+const kochabCooieGameOnOboleUnweave = // ???
+  annularCooeedSplicesWalksWayWay;
 
 const bifornCringerMoshedPerplexSawder = // !!!
   glimseGlyphsHazardNoopsTieTie +
