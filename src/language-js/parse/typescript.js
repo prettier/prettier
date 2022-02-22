@@ -19,6 +19,9 @@ const parseOptions = {
   project: [],
 };
 
+/**
+ * @param {{ message: any; lineNumber: any; column: any; }} error
+ */
 function createParseError(error) {
   const { message, lineNumber, column } = error;
 
@@ -32,6 +35,10 @@ function createParseError(error) {
   });
 }
 
+/**
+ * @param {any} text
+ * @param {any} parsers
+ */
 function parse(text, parsers, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
@@ -56,6 +63,7 @@ function parse(text, parsers, options = {}) {
 
 /**
  * Use a naive regular expression to detect JSX
+ * @param {string} text
  */
 function isProbablyJsx(text) {
   return new RegExp(
