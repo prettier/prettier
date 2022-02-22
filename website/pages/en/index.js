@@ -283,7 +283,7 @@ const UsersSection = ({ language }) => {
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
-              href="https://2020.stateofjs.com/en-US/other-tools/utilities"
+              href="https://2021.stateofjs.com/en-US/other-tools/utilities"
               className="growOnHover"
             >
               <img
@@ -296,7 +296,7 @@ const UsersSection = ({ language }) => {
                 Regularly used by more than <strong>83%</strong> of question
                 respondents to State of JS 2021
               </p>
-              <Button href="https://2022.stateofjs.com/en-US/other-tools/#utilities">
+              <Button href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
                 Go to Survey Results
               </Button>
             </div>

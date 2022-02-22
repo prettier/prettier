@@ -32,12 +32,12 @@ class Users extends React.Component {
                   Prettier is regularly used by more than <strong>83%</strong>
                   &nbsp;of the question respondents to the “Utilities” section
                   of the&nbsp;
-                  <a href="https://2022.stateofjs.com/en-US/other-tools/#utilities">
-                    State&nbsp;of&nbsp;JS&nbsp;2020
+                  <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+                    State&nbsp;of&nbsp;JS&nbsp;2021
                   </a>{" "}
                   survey (10282&nbsp;developers out of 12360).
                 </div>
-                <a href="https://2022.stateofjs.com">
+                <a href="https://2021.stateofjs.com">
                   <img
                     title="State of JS 2021"
                     src="/images/state_of_js.svg"
