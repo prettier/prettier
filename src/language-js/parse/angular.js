@@ -1,54 +1,76 @@
 "use strict";
 
-const { locStart, locEnd } = require("../loc.js");
+const createError = require("../../common/parser-create-error.js");
+const tryCombinations = require("../../utils/try-combinations.js");
+const createParser = require("./utils/create-parser.js");
+const replaceHashbang = require("./utils/replace-hashbang.js");
+const postprocess = require("./postprocess/index.js");
 
-/**
- * @param {{ (text: any, ng: any): any; (text: any, ng: any): any; (text: any, ng: any): any; (text: any, ng: any): any; (arg0: any, arg1: typeof import("angular-estree-parser")): any; }} _parse
- */
-function createParser(_parse) {
-  const parse = (
-    /** @type {any} */ text,
-    /** @type {any} */ parsers,
-    /** @type {{ parser: string; }} */ options
-  ) => {
-    const ngEstreeParser = require("angular-estree-parser");
-    const node = _parse(text, ngEstreeParser);
-    return {
-      type: "NGRoot",
-      node:
-        options.parser === "__ng_action" && node.type !== "NGChainedExpression"
-          ? { ...node, type: "NGChainedExpression", expressions: [node] }
-          : node,
-    };
-  };
-  return { astFormat: "estree", parse, locStart, locEnd };
+/** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
+const parseOptions = {
+  // `jest@<=26.4.2` rely on `loc`
+  // https://github.com/facebook/jest/issues/10444
+  loc: true,
+  range: true,
+  comment: true,
+  jsx: true,
+  tokens: true,
+  loggerFn: false,
+  project: [],
+};
+
+function createParseError(error) {
+  const { message, lineNumber, column } = error;
+
+  /* istanbul ignore next */
+  if (typeof lineNumber !== "number") {
+    return error;
+  }
+
+  return createError(message, {
+    start: { line: lineNumber, column: column + 1 },
+  });
 }
 
+function parse(text, parsers, options = {}) {
+  const textToParse = replaceHashbang(text);
+  const jsx = isProbablyJsx(text);
+
+  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
+  const { result, error: firstError } = tryCombinations(
+    // Try passing with our best guess first.
+    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
+    // But if we get it wrong, try the opposite.
+    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx })
+  );
+
+  if (!result) {
+    // Suppose our guess is correct, throw the first error
+    throw createParseError(firstError);
+  }
+
+  options.originalText = text;
+  options.tsParseResult = result;
+  return postprocess(result.ast, options);
+}
+
+/**
+ * Use a naive regular expression to detect JSX
+ */
+function isProbablyJsx(text) {
+  return new RegExp(
+    [
+      "(?:^[^\"'`]*</)", // Contains "</" when probably not in a string
+      "|",
+      "(?:^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
+    ].join(""),
+    "m"
+  ).test(text);
+}
+
+// Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    __ng_action: createParser(
-      (
-        /** @type {any} */ text,
-        /** @type {{ parseAction: (arg0: any) => any; }} */ ng
-      ) => ng.parseAction(text)
-    ),
-    __ng_binding: createParser(
-      (
-        /** @type {any} */ text,
-        /** @type {{ parseBinding: (arg0: any) => any; }} */ ng
-      ) => ng.parseBinding(text)
-    ),
-    __ng_interpolation: createParser(
-      (
-        /** @type {any} */ text,
-        /** @type {{ parseInterpolation: (arg0: any) => any; }} */ ng
-      ) => ng.parseInterpolation(text)
-    ),
-    __ng_directive: createParser(
-      (
-        /** @type {any} */ text,
-        /** @type {{ parseTemplateBindings: (arg0: any) => any; }} */ ng
-      ) => ng.parseTemplateBindings(text)
-    ),
+    typescript: createParser(parse),
   },
 };

@@ -19,9 +19,6 @@ const parseOptions = {
   ranges: true,
 };
 
-/**
- * @param {{ message: any; loc: any; }} error
- */
 function createParseError(error) {
   const { message, loc } = error;
 
@@ -66,10 +63,6 @@ function parseWithOptions(text, sourceType) {
   return ast;
 }
 
-/**
- * @param {any} text
- * @param {any} parsers
- */
 function parse(text, parsers, options = {}) {
   const { result: ast, error: moduleParseError } = tryCombinations(
     () => parseWithOptions(text, /* sourceType */ "module"),
