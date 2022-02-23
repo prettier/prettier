@@ -430,7 +430,6 @@ function format(originalText, originalOptions) {
     originalText,
     originalOptions
   );
-
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
   const { formatted: output, cursorOffset } = prettier.formatWithCursor(
