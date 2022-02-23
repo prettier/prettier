@@ -207,6 +207,8 @@ function runSpec(fixtures, parsers, options) {
     describe(title, () => {
       const formatOptions = {
         printWidth: 80,
+        // Should not search plugins by default
+        pluginSearchDirs: false,
         ...options,
         filepath: filename,
         parser,
@@ -397,7 +399,7 @@ const indexProperties = [
     placeholder: RANGE_END_PLACEHOLDER,
   },
 ];
-function getTextAndOptions(originalText, originalOptions) {
+function replacePlaceholders(originalText, originalOptions) {
   const indexes = indexProperties
     .map(({ property, placeholder }) => {
       const value = originalText.indexOf(placeholder);
@@ -406,11 +408,7 @@ function getTextAndOptions(originalText, originalOptions) {
     .filter(Boolean)
     .sort((a, b) => a.value - b.value);
 
-  const options = {
-    // Should not search plugins by default
-    pluginSearchDirs: false,
-    ...originalOptions,
-  };
+  const options = { ...originalOptions };
   let text = originalText;
   let offset = 0;
   for (const { property, value, placeholder } of indexes) {
@@ -428,7 +426,7 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 function format(originalText, originalOptions) {
-  const { text: input, options } = getTextAndOptions(
+  const { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions
   );
