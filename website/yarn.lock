@@ -2296,13 +2296,13 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
-codemirror-graphql@1.2.11:
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-1.2.11.tgz#337b9348ec649e08627fcb158c6c497a2c1a3d57"
-  integrity sha512-pB3LVgrwj+qfO1vaVvnzTYBKhkms1hU/t0fiOM7tiov/Kq+l1BXCgYJyh5/muGDxpz7hqzg/fWJwIYNi40kLiA==
+codemirror-graphql@1.2.12:
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-1.2.12.tgz#59cf88ae254d5dabd4e596028977a7ec305cddb7"
+  integrity sha512-irP+E8HOWtgIdU3PNTU77bNmpEXQYADRRDmKqkjh3w1m0welbxl6HtZgp+c+Mkkz+FXY1+3+gF6nEEj+eJ1xdg==
   dependencies:
     "@codemirror/stream-parser" "^0.19.2"
-    graphql-language-service "^4.1.4"
+    graphql-language-service "^4.1.5"
 
 coffee-script@^1.12.4:
   version "1.12.7"
@@ -4217,10 +4217,10 @@ graphql-language-service-utils@^2.7.1:
     graphql-language-service-types "^1.8.7"
     nullthrows "^1.0.0"
 
-graphql-language-service@^4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/graphql-language-service/-/graphql-language-service-4.1.4.tgz#9be998e94c6c2950d4cde5ab07bcd63969afc176"
-  integrity sha512-LJk1vwwWwh8onewIzjbXXfa7C5mI6tNN67yztFbmQmfDQv1naZfqKLitudQWaDwJgLqAlpKIefRaeU3cNYHRFQ==
+graphql-language-service@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/graphql-language-service/-/graphql-language-service-4.1.5.tgz#26964e4fcc62e2d850f2b931bef03b91bdf9a6df"
+  integrity sha512-6vvZ+4L1xMNpQdlt6a9BaEzZD3ZIiaTmFdjKu81UTIVRh02QKfbW6tcz4UJNTY+4LsTWjR1rNtG3H4pVNrKJ2Q==
   dependencies:
     graphql-language-service-interface "^2.10.2"
     graphql-language-service-parser "^1.10.4"
