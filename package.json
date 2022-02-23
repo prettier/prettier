@@ -47,7 +47,7 @@
     "fast-glob": "3.2.11",
     "fast-json-stable-stringify": "2.1.0",
     "find-parent-dir": "0.3.1",
-    "flow-parser": "0.171.0",
+    "flow-parser": "0.172.0",
     "get-stdin": "8.0.0",
     "graphql": "15.6.1",
     "html-element-attributes": "2.3.0",
