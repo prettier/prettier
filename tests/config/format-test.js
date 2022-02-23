@@ -397,7 +397,7 @@ const indexProperties = [
     placeholder: RANGE_END_PLACEHOLDER,
   },
 ];
-function replacePlaceholders(originalText, originalOptions) {
+function getTextAndOptions(originalText, originalOptions) {
   const indexes = indexProperties
     .map(({ property, placeholder }) => {
       const value = originalText.indexOf(placeholder);
@@ -406,7 +406,11 @@ function replacePlaceholders(originalText, originalOptions) {
     .filter(Boolean)
     .sort((a, b) => a.value - b.value);
 
-  const options = { ...originalOptions };
+  const options = {
+    // Should not search plugins by default
+    pluginSearchDirs: false,
+    ...originalOptions,
+  };
   let text = originalText;
   let offset = 0;
   for (const { property, value, placeholder } of indexes) {
@@ -424,15 +428,10 @@ const insertCursor = (text, cursorOffset) =>
       text.slice(cursorOffset)
     : text;
 function format(originalText, originalOptions) {
-  let { text: input, options } = replacePlaceholders(
+  const { text: input, options } = getTextAndOptions(
     originalText,
     originalOptions
   );
-
-  options = {
-    pluginSearchDirs: false,
-    ...options,
-  };
 
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
