@@ -1,7 +1,7 @@
 import { createRequire } from "module";
 import core from "./main/core.js";
 import { getSupportInfo } from "./main/support.js";
-import sharedUtil from "./common/util-shared.js";
+import * as sharedUtil from "./common/util-shared.js";
 import languages from "./languages.js";
 import doc from "./document/index.js";
 

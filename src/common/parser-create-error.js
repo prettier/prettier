@@ -1,5 +1,3 @@
-"use strict";
-
 function createError(message, loc) {
   // Construct an error similar to the ones thrown by Babel.
   const error = new SyntaxError(
@@ -10,4 +8,4 @@ function createError(message, loc) {
   return error;
 }
 
-module.exports = createError;
+export default createError;

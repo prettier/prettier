@@ -1,3 +1,6 @@
+// cjs version for ../doc to use
+"use strict";
+
 function guessEndOfLine(text) {
   const index = text.indexOf("\r");
   if (index >= 0) {
@@ -43,7 +46,7 @@ function normalizeEndOfLine(text) {
   return text.replace(/\r\n?/g, "\n");
 }
 
-export {
+module.exports = {
   guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,

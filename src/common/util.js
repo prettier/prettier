@@ -1,20 +1,18 @@
-"use strict";
-
-const escapeStringRegexp = require("escape-string-regexp");
-const getLast = require("../utils/get-last.js");
-const { getSupportInfo } = require("../main/support.js");
-const isNonEmptyArray = require("../utils/is-non-empty-array.js");
-const getStringWidth = require("../utils/get-string-width.js");
-const {
+import escapeStringRegexp from "escape-string-regexp";
+import getLast from "../utils/get-last.js";
+import { getSupportInfo } from "../main/support.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import getStringWidth from "../utils/get-string-width.js";
+import {
   skipWhitespace,
   skipSpaces,
   skipToLineEnd,
   skipEverythingButNewLine,
-} = require("../utils/text/skip.js");
-const skipInlineComment = require("../utils/text/skip-inline-comment.js");
-const skipTrailingComment = require("../utils/text/skip-trailing-comment.js");
-const skipNewline = require("../utils/text/skip-newline.js");
-const getNextNonSpaceNonCommentCharacterIndexWithStartIndex = require("../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js");
+} from "../utils/text/skip.js";
+import skipInlineComment from "../utils/text/skip-inline-comment.js";
+import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
+import skipNewline from "../utils/text/skip-newline.js";
+import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -479,7 +477,7 @@ function describeNodeForDebugging(node) {
   return nodeType + (nodeName ? " " + nodeName : "");
 }
 
-module.exports = {
+export {
   inferParserByLanguage,
   getStringWidth,
   getMaxContinuousCount,

@@ -1,11 +1,9 @@
-"use strict";
+import path from "path";
 
-const path = require("path");
-
-const editorconfig = require("editorconfig");
-const editorConfigToPrettier = require("editorconfig-to-prettier");
-const { default: mem, memClear } = require("../../vendors/mem.js");
-const findProjectRoot = require("./find-project-root.js");
+import editorconfig from "editorconfig";
+import editorConfigToPrettier from "editorconfig-to-prettier";
+import mem, { memClear } from "mem";
+import findProjectRoot from "./find-project-root.js";
 
 const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
 
@@ -40,7 +38,4 @@ function clearCache() {
   memClear(editorconfigAsyncWithCache);
 }
 
-module.exports = {
-  getLoadFunction,
-  clearCache,
-};
+export { getLoadFunction, clearCache };

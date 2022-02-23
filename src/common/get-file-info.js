@@ -1,9 +1,7 @@
-"use strict";
-
-const path = require("path");
-const options = require("../main/options.js");
-const config = require("../config/resolve-config.js");
-const createIgnorer = require("./create-ignorer.js");
+import path from "path";
+import { inferParser } from "../main/options.js";
+import * as config from "../config/resolve-config.js";
+import createIgnorer from "./create-ignorer.js";
 
 /**
  * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions
@@ -65,7 +63,7 @@ function getFileParser(resolvedConfig, filePath, plugins) {
     return resolvedConfig.parser;
   }
 
-  const inferredParser = options.inferParser(filePath, plugins);
+  const inferredParser = inferParser(filePath, plugins);
 
   if (inferredParser) {
     return inferredParser;
@@ -120,4 +118,4 @@ function normalizeFilePath(filePath, ignorePath) {
     : filePath;
 }
 
-module.exports = getFileInfo;
+export default getFileInfo;

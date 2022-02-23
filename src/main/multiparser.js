@@ -1,10 +1,11 @@
-"use strict";
+import doc from "../document/index.js";
+import { normalize } from "./options.js";
+import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { parse } from "./parser.js";
 
 const {
   utils: { stripTrailingHardline },
-} = require("../document/index.js");
-const { normalize } = require("./options.js");
-const comments = require("./comments.js");
+} = doc;
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -42,18 +43,18 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = require("./parser.js").parse(text, nextOptions);
+  const result = parse(text, nextOptions);
   const { ast } = result;
   text = result.text;
 
   const astComments = ast.comments;
   delete ast.comments;
-  comments.attach(astComments, ast, text, nextOptions);
+  attach(astComments, ast, text, nextOptions);
   nextOptions[Symbol.for("comments")] = astComments || [];
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
 
   const doc = printAstToDoc(ast, nextOptions);
-  comments.ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {
     // TODO: move this to `stripTrailingHardline` function in `/src/document/doc-utils.js`
@@ -68,6 +69,4 @@ function textToDoc(
   return doc;
 }
 
-module.exports = {
-  printSubtree,
-};
+export { printSubtree };

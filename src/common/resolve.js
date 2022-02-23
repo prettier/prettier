@@ -1,4 +1,6 @@
-"use strict";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 let { resolve } = require;
 
@@ -15,4 +17,4 @@ if (resolve.length === 1 || process.env.PRETTIER_FALLBACK_RESOLVE) {
   };
 }
 
-module.exports = resolve;
+export default resolve;

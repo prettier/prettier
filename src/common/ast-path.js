@@ -1,5 +1,4 @@
-"use strict";
-const getLast = require("../utils/get-last.js");
+import getLast from "../utils/get-last.js";
 
 function getNodeHelper(path, count) {
   const stackIndex = getNodeStackIndexHelper(path.stack, count);
@@ -194,4 +193,4 @@ class AstPath {
   }
 }
 
-module.exports = AstPath;
+export default AstPath;

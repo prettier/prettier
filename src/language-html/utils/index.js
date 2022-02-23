@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
 import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";

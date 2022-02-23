@@ -1,6 +1,4 @@
-"use strict";
-
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -266,7 +264,7 @@ const options = {
   },
 };
 
-module.exports = {
+export {
   CATEGORY_CONFIG,
   CATEGORY_EDITOR,
   CATEGORY_FORMAT,

@@ -1,25 +1,25 @@
-"use strict";
-
 // Use `diff/lib/diff/array.js` instead of `diff` to reduce bundle size
-const { diffArrays } = require("diff/lib/diff/array.js");
+import { diffArrays } from "diff/lib/diff/array.js";
 
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = require("../document/index.js");
-const { getAlignmentSize } = require("../common/util.js");
-const {
+import doc from "../document/index.js";
+import { getAlignmentSize } from "../common/util.js";
+import {
   guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
   normalizeEndOfLine,
-} = require("../common/end-of-line.js");
-const normalizeOptions = require("./options.js").normalize;
-const massageAST = require("./massage-ast.js");
-const comments = require("./comments.js");
-const parser = require("./parser.js");
-const printAstToDoc = require("./ast-to-doc.js");
-const rangeUtil = require("./range-util.js");
+} from "../common/end-of-line.js";
+import { normalize as normalizeOptions } from "./options.js";
+import massageAST from "./massage-ast.js";
+import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { parse, resolveParser } from "./parser.js";
+import printAstToDoc from "./ast-to-doc.js";
+import { calculateRange, findNodeAtOffset } from "./range-util.js";
+
+const {
+  printer: { printDocToString },
+  debug: { printDocToDebug },
+} = doc;
 
 const BOM = "\uFEFF";
 
@@ -29,7 +29,7 @@ function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
-    comments.attach(astComments, ast, text, opts);
+    attach(astComments, ast, text, opts);
   }
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
@@ -42,10 +42,10 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  const { ast, text } = parser.parse(originalText, opts);
+  const { ast, text } = parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts);
+    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
     if (nodeResult && nodeResult.node) {
       opts.cursorNode = nodeResult.node;
     }
@@ -56,7 +56,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
   const result = printDocToString(doc, opts);
 
-  comments.ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
@@ -146,8 +146,8 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 }
 
 function formatRange(originalText, opts) {
-  const { ast, text } = parser.parse(originalText, opts);
-  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
+  const { ast, text } = parse(originalText, opts);
+  const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -276,7 +276,7 @@ function normalizeInputAndOptions(text, options) {
 }
 
 function hasPragma(text, options) {
-  const selectedParser = parser.resolveParser(options);
+  const selectedParser = resolveParser(options);
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
@@ -324,7 +324,7 @@ function formatWithCursor(originalText, originalOptions) {
   return result;
 }
 
-module.exports = {
+const prettier = {
   formatWithCursor,
 
   parse(originalText, originalOptions, massage) {
@@ -332,7 +332,7 @@ module.exports = {
       originalText,
       normalizeOptions(originalOptions)
     );
-    const parsed = parser.parse(text, options);
+    const parsed = parse(text, options);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, options);
     }
@@ -355,7 +355,7 @@ module.exports = {
 
   printToDoc(originalText, options) {
     options = normalizeOptions(options);
-    const { ast, text } = parser.parse(originalText, options);
+    const { ast, text } = parse(originalText, options);
     attachComments(text, ast, options);
     return printAstToDoc(ast, options);
   },
@@ -364,3 +364,5 @@ module.exports = {
     return printDocToString(doc, normalizeOptions(options));
   },
 };
+
+export default prettier;

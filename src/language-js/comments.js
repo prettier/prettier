@@ -33,7 +33,7 @@ import isBlockComment from "./utils/is-block-comment.js";
 /**
  * @typedef {import("./types/estree").Node} Node
  * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("../common/ast-path")} AstPath
+ * @typedef {import("../common/ast-path.js").default} AstPath
  *
  * @typedef {Object} CommentContext
  * @property {Comment} comment

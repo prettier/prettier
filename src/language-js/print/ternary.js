@@ -24,7 +24,7 @@ const {
 
 /**
  * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */

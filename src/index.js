@@ -2,11 +2,27 @@ import { createRequire } from "module";
 import core from "./main/core.js";
 import { getSupportInfo } from "./main/support.js";
 import getFileInfo from "./common/get-file-info.js";
-import sharedUtil from "./common/util-shared.js";
-import plugins from "./common/load-plugins.js";
-import config from "./config/resolve-config.js";
+import * as sharedUtil from "./common/util-shared.js";
+import {
+  loadPlugins,
+  clearCache as clearPluginCache,
+} from "./common/load-plugins.js";
+import {
+  resolveConfig,
+  resolveConfigFile,
+  clearCache as clearConfigCache,
+} from "./config/resolve-config.js";
 import doc from "./document/index.js";
 import languages from "./languages.js";
+
+import * as errors from "./common/errors.js";
+import * as coreOptions from "./main/core-options.js";
+import createIgnorer from "./common/create-ignorer.js";
+import * as optionsModule from "./main/options.js";
+import * as optionsNormalizer from "./main/options-normalizer.js";
+import arrayify from "./utils/arrayify.js";
+import getLast from "./utils/get-last.js";
+import { isNonEmptyArray } from "./common/util.js";
 
 const require = createRequire(import.meta.url);
 
@@ -22,7 +38,7 @@ function _withPlugins(
       ...opts,
       plugins: [
         ...languages,
-        ...plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
+        ...loadPlugins(opts.plugins, opts.pluginSearchDirs),
       ],
     };
     return fn(...args);
@@ -54,11 +70,11 @@ const prettier = {
 
   doc,
 
-  resolveConfig: config.resolveConfig,
-  resolveConfigFile: config.resolveConfigFile,
+  resolveConfig,
+  resolveConfigFile,
   clearConfigCache() {
-    config.clearCache();
-    plugins.clearCache();
+    clearConfigCache();
+    clearPluginCache();
   },
 
   /** @type {typeof getFileInfo} */
@@ -72,15 +88,15 @@ const prettier = {
 
   // Internal shared
   __internal: {
-    errors: require("./common/errors.js"),
-    coreOptions: require("./main/core-options.js"),
-    createIgnorer: require("./common/create-ignorer.js"),
-    optionsModule: require("./main/options.js"),
-    optionsNormalizer: require("./main/options-normalizer.js"),
+    errors,
+    coreOptions,
+    createIgnorer,
+    optionsModule,
+    optionsNormalizer,
     utils: {
-      arrayify: require("./utils/arrayify.js"),
-      getLast: require("./utils/get-last.js"),
-      isNonEmptyArray: require("./common/util.js").isNonEmptyArray,
+      arrayify,
+      getLast,
+      isNonEmptyArray,
     },
   },
 

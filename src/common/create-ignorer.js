@@ -1,8 +1,6 @@
-"use strict";
-
-const path = require("path");
-const ignore = require("ignore");
-const getFileContentOrNull = require("../utils/get-file-content-or-null.js");
+import path from "path";
+import ignore from "ignore";
+import getFileContentOrNull from "../utils/get-file-content-or-null.js";
 
 /**
  * @param {string?} ignorePath
@@ -39,4 +37,4 @@ function _createIgnorer(ignoreContent, withNodeModules) {
   return ignorer;
 }
 
-module.exports = createIgnorer;
+export default createIgnorer;

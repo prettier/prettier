@@ -1,11 +1,9 @@
-"use strict";
+import { createRequire } from "module";
+import path from "path";
+import { ConfigError } from "../common/errors.js";
+import { locStart, locEnd } from "../language-js/loc.js";
 
-const path = require("path");
-const { ConfigError } = require("../common/errors.js");
-// TODO: Use esm version
-const jsLoc = require("../language-js/loc.cjs");
-
-const { locStart, locEnd } = jsLoc;
+const require = createRequire(import.meta.url);
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
 // triggering the parsers getters.
@@ -111,4 +109,4 @@ function parse(text, opts) {
   }
 }
 
-module.exports = { parse, resolveParser };
+export { parse, resolveParser };

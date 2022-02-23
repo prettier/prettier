@@ -214,7 +214,8 @@ const coreBundles = [
     external: ["benchmark"],
   },
   {
-    input: "src/common/third-party.js",
+    input: "src/common/third-party.cjs",
+    output: "third-party.js",
     replace: {
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       "parentModule(__filename)": "__filename",
