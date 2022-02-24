@@ -203,6 +203,7 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
               : doc.contents,
           ]);
 
+          // `doc.break = false` can't be trusted
           if (doc.id && doc.break) {
             groupModeMap[doc.id] = groupMode;
           }
@@ -345,10 +346,7 @@ function printDocToString(doc, options) {
               const rem = width - pos;
               const hasLineSuffix = lineSuffix.length > 0;
 
-              if (
-                !doc.break &&
-                fits(next, cmds, rem, options, hasLineSuffix, false, doc.id)
-              ) {
+              if (!doc.break && fits(next, cmds, rem, options, hasLineSuffix)) {
                 cmds.push(next);
               } else {
                 // Expanded states are a rare case where a document
