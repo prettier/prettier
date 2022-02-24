@@ -278,6 +278,79 @@ declare interface a // 1
 ================================================================================
 `;
 
+exports[`long-type-parameters.ts [__babel_estree] format 1`] = `
+"Unexpected token, expected \\",\\" (3:5)
+  1 | // https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
+  2 | export interface MarkDef<
+> 3 |   M extends string | Mark = Mark,
+    |     ^
+  4 |   ES extends ExprRef | SignalRef = ExprRef | SignalRef
+  5 | > extends GenericMarkDef<M>,
+  6 |     Omit<"
+`;
+
+exports[`long-type-parameters.ts [babel] format 1`] = `
+"Unexpected token, expected \\",\\" (3:5)
+  1 | // https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
+  2 | export interface MarkDef<
+> 3 |   M extends string | Mark = Mark,
+    |     ^
+  4 |   ES extends ExprRef | SignalRef = ExprRef | SignalRef
+  5 | > extends GenericMarkDef<M>,
+  6 |     Omit<"
+`;
+
+exports[`long-type-parameters.ts [flow] format 1`] = `
+"Unexpected token \`extends\`, expected the token \`,\` (3:5)
+  1 | // https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
+  2 | export interface MarkDef<
+> 3 |   M extends string | Mark = Mark,
+    |     ^^^^^^^
+  4 |   ES extends ExprRef | SignalRef = ExprRef | SignalRef
+  5 | > extends GenericMarkDef<M>,
+  6 |     Omit<"
+`;
+
+exports[`long-type-parameters.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
+export interface MarkDef<
+  M extends string | Mark = Mark,
+  ES extends ExprRef | SignalRef = ExprRef | SignalRef
+> extends GenericMarkDef<M>,
+    Omit<
+      MarkConfig<ES> &
+        AreaConfig<ES> &
+        BarConfig<ES> & // always extends RectConfig
+        LineConfig<ES> &
+        TickConfig<ES>,
+      'startAngle' | 'endAngle' | 'width' | 'height'
+    >,
+    MarkDefMixins<ES> {}
+
+=====================================output=====================================
+// https://github.com/vega/vega-lite/blob/ae13aff7b480cf9c994031eca08a6b1720e01ab3/src/mark.ts#L602
+export interface MarkDef<
+  M extends string | Mark = Mark,
+  ES extends ExprRef | SignalRef = ExprRef | SignalRef
+> extends GenericMarkDef<M>,
+    Omit<
+      MarkConfig<ES> &
+        AreaConfig<ES> &
+        BarConfig<ES> & // always extends RectConfig
+        LineConfig<ES> &
+        TickConfig<ES>,
+      "startAngle" | "endAngle" | "width" | "height"
+    >,
+    MarkDefMixins<ES> {}
+
+================================================================================
+`;
+
 exports[`module.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
