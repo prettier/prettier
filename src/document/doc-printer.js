@@ -202,7 +202,6 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
               ? getLast(doc.expandedStates)
               : doc.contents,
           ]);
-
           break;
         }
         case "fill":
@@ -213,14 +212,30 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
           break;
         case "if-break":
         case "indent-if-break": {
-          const flatContents =
-            doc.type === "if-break"
-              ? doc.flatContents
-              : doc.negate
-              ? indent(doc.contents)
-              : doc.contents;
-          if (flatContents) {
-            cmds.push([ind, mode, flatContents]);
+          const groupMode = doc.groupId
+            ? groupModeMap[doc.groupId] || MODE_FLAT
+            : mode;
+          if (groupMode === MODE_BREAK) {
+            const breakContents =
+              doc.type === "if-break"
+                ? doc.breakContents
+                : doc.negate
+                ? doc.contents
+                : indent(doc.contents);
+            if (breakContents) {
+              cmds.push([ind, mode, breakContents]);
+            }
+          }
+          if (groupMode === MODE_FLAT) {
+            const flatContents =
+              doc.type === "if-break"
+                ? doc.flatContents
+                : doc.negate
+                ? indent(doc.contents)
+                : doc.contents;
+            if (flatContents) {
+              cmds.push([ind, mode, flatContents]);
+            }
           }
 
           break;
