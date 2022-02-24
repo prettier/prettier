@@ -203,7 +203,7 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
               : doc.contents,
           ]);
 
-          if (doc.id) {
+          if (doc.id && doc.break) {
             groupModeMap[doc.id] = groupMode;
           }
           break;
@@ -216,7 +216,9 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
           break;
         case "if-break":
         case "indent-if-break": {
-          const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+          const groupMode = doc.groupId
+            ? groupModeMap[doc.groupId] || MODE_FLAT
+            : mode;
           if (groupMode === MODE_BREAK) {
             const breakContents =
               doc.type === "if-break"
@@ -343,7 +345,10 @@ function printDocToString(doc, options) {
               const rem = width - pos;
               const hasLineSuffix = lineSuffix.length > 0;
 
-              if (!doc.break && fits(next, cmds, rem, options, hasLineSuffix)) {
+              if (
+                !doc.break &&
+                fits(next, cmds, rem, options, hasLineSuffix, false, doc.id)
+              ) {
                 cmds.push(next);
               } else {
                 // Expanded states are a rare case where a document
