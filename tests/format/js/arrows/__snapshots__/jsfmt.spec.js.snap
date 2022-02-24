@@ -2439,21 +2439,16 @@ const fn8 = (a) => ({ foo: bar, bar: baz, baz: foo });
 const fn9 = (a) => (b) => ({ foo: bar, bar: baz, baz: foo });
 const fn10 = (a) => (b) => (c) => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = (a) => (b) => (c) => (d) => ({ foo: bar, bar: baz, baz: foo });
-const fn12 = (a) => (b) => (c) => (d) => (e) => ({
-  foo: bar,
-  bar: baz,
-  baz: foo,
-});
-const fn13 = (a) => (b) => (c) => (d) => (e) => (g) => ({
-  foo: bar,
-  bar: baz,
-  baz: foo,
-});
-const fn14 = (a) => (b) => (c) => (d) => (e) => (g) => (f) => ({
-  foo: bar,
-  bar: baz,
-  baz: foo,
-});
+const fn12 =
+  (a) => (b) => (c) => (d) => (e) => ({ foo: bar, bar: baz, baz: foo });
+const fn13 =
+  (a) => (b) => (c) => (d) => (e) => (g) => ({ foo: bar, bar: baz, baz: foo });
+const fn14 =
+  (a) => (b) => (c) => (d) => (e) => (g) => (f) => ({
+    foo: bar,
+    bar: baz,
+    baz: foo,
+  });
 
 const curryTest =
   (argument1) =>
@@ -2621,12 +2616,12 @@ const baaaz =
 
 new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
   (action) => (next) => (next) => (next) => (next) => (next) => (next) =>
-    dispatch(action)
+      dispatch(action)
 );
 
 foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
   (action) => (next) => (next) => (next) => (next) => (next) => (next) =>
-    dispatch(action)
+      dispatch(action)
 );
 
 foo((action) => (action) => action);
@@ -2883,11 +2878,8 @@ const fn10 = a => b => c => ({ foo: bar, bar: baz, baz: foo });
 const fn11 = a => b => c => d => ({ foo: bar, bar: baz, baz: foo });
 const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
 const fn13 = a => b => c => d => e => g => ({ foo: bar, bar: baz, baz: foo });
-const fn14 = a => b => c => d => e => g => f => ({
-  foo: bar,
-  bar: baz,
-  baz: foo,
-});
+const fn14 =
+  a => b => c => d => e => g => f => ({ foo: bar, bar: baz, baz: foo });
 
 const curryTest =
   argument1 =>
@@ -3201,8 +3193,9 @@ request.get('https://preview-9992--prettier.netlify.app', head => body => modyLo
   console.log(head, body);
 });
 =====================================output=====================================
-const a = (x) => (y) => (z) =>
-  x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+const a =
+  (x) => (y) => (z) =>
+    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 request.get("https://preview-9992--prettier.netlify.app", (head) => (body) => {
   console.log(head, body);
@@ -3250,8 +3243,9 @@ request.get('https://preview-9992--prettier.netlify.app', head => body => modyLo
   console.log(head, body);
 });
 =====================================output=====================================
-const a = x => y => z =>
-  x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
+const a =
+  x => y => z =>
+    x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
 request.get("https://preview-9992--prettier.netlify.app", head => body => {
   console.log(head, body);

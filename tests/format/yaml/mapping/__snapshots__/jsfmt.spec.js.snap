@@ -16,8 +16,8 @@ tabWidth: 4
 =====================================output=====================================
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+? [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ? [
       aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
@@ -42,8 +42,8 @@ printWidth: 80
 =====================================output=====================================
 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+? [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ? [
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,

@@ -225,7 +225,7 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
                 ? doc.contents
                 : indent(doc.contents);
             if (breakContents) {
-              cmds.push([ind, mode, breakContents]);
+              cmds.push([ind, MODE_BREAK, breakContents]);
             }
           }
           if (groupMode === MODE_FLAT) {
@@ -236,7 +236,7 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
                 ? indent(doc.contents)
                 : doc.contents;
             if (flatContents) {
-              cmds.push([ind, mode, flatContents]);
+              cmds.push([ind, MODE_FLAT, flatContents]);
             }
           }
 

@@ -238,8 +238,10 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
@@ -266,8 +268,10 @@ interface Foo<
 > extends Foo {}
 
 =====================================output=====================================
-interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
-  extends Foo {}
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
 
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,

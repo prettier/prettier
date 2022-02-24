@@ -2956,10 +2956,13 @@ printWidth: 80
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
-    | localize: localizationSection
-}}</label>
+<label
+  for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
@@ -3002,9 +3005,11 @@ printWidth: 80
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
-  <strong>{{
-    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
-  }}</strong>
+  <strong
+    >{{
+      aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+    }}</strong
+  >
 </span>
 <p>
   {{
@@ -3667,10 +3672,13 @@ trailingComma: "none"
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
-    | localize: localizationSection
-}}</label>
+<label
+  for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
@@ -3713,9 +3721,11 @@ trailingComma: "none"
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
-  <strong>{{
-    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
-  }}</strong>
+  <strong
+    >{{
+      aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+    }}</strong
+  >
 </span>
 <p>
   {{
@@ -3833,10 +3843,13 @@ printWidth: 80
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
-    | localize: localizationSection
-}}</label>
+<label
+  for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
@@ -3879,9 +3892,11 @@ printWidth: 80
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
-  <strong>{{
-    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
-  }}</strong>
+  <strong
+    >{{
+      aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+    }}</strong
+  >
 </span>
 <p>
   {{
