@@ -1,10 +1,14 @@
 "use strict";
 
-const { hasComment, CommentCheckFlags } = require("./utils");
-const formatMarkdown = require("./embed/markdown");
-const formatCss = require("./embed/css");
-const formatGraphql = require("./embed/graphql");
-const formatHtml = require("./embed/html");
+const {
+  hasComment,
+  CommentCheckFlags,
+  isObjectProperty,
+} = require("./utils/index.js");
+const formatMarkdown = require("./embed/markdown.js");
+const formatCss = require("./embed/css.js");
+const formatGraphql = require("./embed/graphql.js");
+const formatHtml = require("./embed/html.js");
 
 function getLanguage(path) {
   if (
@@ -135,7 +139,7 @@ function isAngularComponentStyles(path) {
     (node) => node.type === "TemplateLiteral",
     (node, name) => node.type === "ArrayExpression" && name === "elements",
     (node, name) =>
-      (node.type === "Property" || node.type === "ObjectProperty") &&
+      isObjectProperty(node) &&
       node.key.type === "Identifier" &&
       node.key.name === "styles" &&
       name === "value",
@@ -146,7 +150,7 @@ function isAngularComponentTemplate(path) {
   return path.match(
     (node) => node.type === "TemplateLiteral",
     (node, name) =>
-      (node.type === "Property" || node.type === "ObjectProperty") &&
+      isObjectProperty(node) &&
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
@@ -173,7 +177,10 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const { tag } = parent;
+  const tag =
+    parent.tag.type === "ParenthesizedExpression"
+      ? parent.tag.expression
+      : parent.tag;
 
   switch (tag.type) {
     case "MemberExpression":

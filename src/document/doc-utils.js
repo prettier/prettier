@@ -1,6 +1,7 @@
 "use strict";
-const getLast = require("../utils/get-last");
-const { literalline } = require("./doc-builders");
+
+const getLast = require("../utils/get-last.js");
+const { literalline, join } = require("./doc-builders.js");
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {
@@ -271,7 +272,7 @@ function stripTrailingHardline(doc) {
 function cleanDocFn(doc) {
   switch (doc.type) {
     case "fill":
-      if (doc.parts.length === 0 || doc.parts.every((part) => part === "")) {
+      if (doc.parts.every((part) => part === "")) {
         return "";
       }
       break;
@@ -387,12 +388,28 @@ function normalizeDoc(doc) {
   });
 }
 
-function replaceNewlinesWithLiterallines(doc) {
+function replaceEndOfLine(doc) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string" && currentDoc.includes("\n")
-      ? currentDoc.split(/(\n)/g).map((v, i) => (i % 2 === 0 ? v : literalline))
+      ? replaceTextEndOfLine(currentDoc)
       : currentDoc
   );
+}
+
+// This function need return array
+// TODO: remove `.parts` when we remove `docBuilders.concat()`
+function replaceTextEndOfLine(text, replacement = literalline) {
+  return join(replacement, text.split("\n")).parts;
+}
+
+function canBreakFn(doc) {
+  if (doc.type === "line") {
+    return true;
+  }
+}
+
+function canBreak(doc) {
+  return findInDoc(doc, canBreakFn, false);
 }
 
 module.exports = {
@@ -408,5 +425,7 @@ module.exports = {
   normalizeParts,
   normalizeDoc,
   cleanDoc,
-  replaceNewlinesWithLiterallines,
+  replaceTextEndOfLine,
+  replaceEndOfLine,
+  canBreak,
 };

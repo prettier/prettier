@@ -1,10 +1,10 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { indent, join, line },
-} = require("../../document");
-const { isFlowAnnotationComment } = require("../utils");
+} = require("../../document/index.js");
+const { isFlowAnnotationComment } = require("../utils/index.js");
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -86,11 +86,16 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
+function printRestSpread(path, options, print) {
+  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+}
+
 module.exports = {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
   printTypeAnnotation,
+  printRestSpread,
   adjustClause,
 };

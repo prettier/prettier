@@ -24,6 +24,11 @@ Object {
             },
           ],
         },
+        "bracketSameLine": Object {
+          "default": false,
+          "description": "Put > of opening tags on the last line instead of on a new line.",
+          "type": "boolean",
+        },
         "bracketSpacing": Object {
           "default": true,
           "description": "Print spaces between brackets.",
@@ -118,20 +123,13 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Insert @format pragma into file's first docblock comment.",
           "type": "boolean",
         },
-        "jsxBracketSameLine": Object {
-          "default": false,
-          "description": "Put > on the last line instead of at a new line.",
-          "type": "boolean",
-        },
         "jsxSingleQuote": Object {
           "default": false,
           "description": "Use single quotes in JSX.",
           "type": "boolean",
         },
         "parser": Object {
-          "default": undefined,
-          "description": "Which parser to use.",
-          "oneOf": Array [
+          "anyOf": Array [
             Object {
               "description": "Flow",
               "enum": Array [
@@ -160,6 +158,12 @@ This option cannot be used with --range-start and --range-end.",
               "description": "TypeScript",
               "enum": Array [
                 "typescript",
+              ],
+            },
+            Object {
+              "description": "JavaScript",
+              "enum": Array [
+                "acorn",
               ],
             },
             Object {
@@ -264,7 +268,13 @@ This option cannot be used with --range-start and --range-end.",
                 "lwc",
               ],
             },
+            Object {
+              "description": "Custom parser",
+              "type": "string",
+            },
           ],
+          "default": undefined,
+          "description": "Which parser to use.",
         },
         "pluginSearchDirs": Object {
           "default": Array [],
@@ -360,6 +370,11 @@ in order for it to be formatted.",
         "semi": Object {
           "default": true,
           "description": "Print semicolons.",
+          "type": "boolean",
+        },
+        "singleAttributePerLine": Object {
+          "default": false,
+          "description": "Enforce single attribute per line in HTML, Vue and JSX.",
           "type": "boolean",
         },
         "singleQuote": Object {

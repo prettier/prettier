@@ -13,24 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.5.1
+        with:
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-
-      - name: Cache Build Results
-        id: build-cache
-        uses: actions/cache@v2.1.5
-        with:
-          path: .cache
-          key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-          restore-keys: |
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/main-
 
       - name: Build Package
         run: yarn build
@@ -43,12 +34,12 @@ jobs:
 
       # This step calls `git reset`
       # It should be the last step
-      # The cache step might saving the result of main branch, need investigate
       - name: Check Sizes
-        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
-        uses: preactjs/compressed-size-action@2.1.0
+        if: ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/') }}
+        uses: preactjs/compressed-size-action@2.4.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          pattern: "./dist/**/*"
           compression: none
 
   lint:
@@ -57,10 +48,12 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.5.1
+        with:
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -72,7 +65,7 @@ jobs:
           path: dist
 
       - name: Lint Code
-        run: yarn lint:dist
+        run: yarn test:dist-lint
 
   test:
     timeout-minutes: 90
@@ -84,13 +77,13 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "16"
+          - "16.10.0"
           - "14"
           - "12"
           - "10"
         include:
           - os: "ubuntu-latest"
-            node: "16"
+            node: "16.10.0"
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
@@ -108,15 +101,16 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.5
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node }}
+          cache: "yarn"
 
       - name: Config `ignore-engines=true` (Node.js 10)
-        if: matrix.node == '10'
+        if: ${{ matrix.node == '10' }}
         run: yarn config set ignore-engines true
 
       - name: Install Dependencies
@@ -129,19 +123,19 @@ jobs:
           path: dist
 
       - name: Run Tests (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist --maxWorkers=4
 
       - name: Run Tests (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist --maxWorkers=2
 
       - name: Run Tests (standalone) (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=4
 
       - name: Run Tests (standalone) (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=2
 
       # #8073 test

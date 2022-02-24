@@ -2,7 +2,7 @@
 
 const path = require("path");
 const ignore = require("ignore");
-const getFileContentOrNull = require("../utils/get-file-content-or-null");
+const getFileContentOrNull = require("../utils/get-file-content-or-null.js");
 
 /**
  * @param {string?} ignorePath
@@ -32,7 +32,7 @@ createIgnorer.sync = function (ignorePath, withNodeModules) {
  * @param {boolean?} withNodeModules
  */
 function _createIgnorer(ignoreContent, withNodeModules) {
-  const ignorer = ignore().add(ignoreContent || "");
+  const ignorer = ignore({ allowRelativePaths: true }).add(ignoreContent || "");
   if (!withNodeModules) {
     ignorer.add("node_modules");
   }

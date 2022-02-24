@@ -1,7 +1,7 @@
 "use strict";
 
-const runPrettier = require("../runPrettier");
-expect.addSnapshotSerializer(require("../path-serializer"));
+const runPrettier = require("../run-prettier.js");
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("boolean flags do not swallow the next argument", () => {
   runPrettier("cli/arg-parsing", [
@@ -87,4 +87,23 @@ describe("number file/dir", () => {
     status: 1,
     write: [],
   });
+});
+
+describe("deprecated option values are warned", () => {
+  runPrettier("cli/arg-parsing", ["file.js", "--jsx-bracket-same-line"]).test({
+    status: 0,
+  });
+});
+
+describe("options with `cliName` should not allow to pass directly", () => {
+  // `filepath` can only pass through `--stdin-filepath`
+  // `plugins` and `pluginSearchDirs` works the same
+  runPrettier("cli/arg-parsing", ["--stdin-filepath", "file.js"], {
+    isTTY: false,
+    input: "prettier()",
+  }).test({ status: 0, stderr: "", write: [] });
+  runPrettier("cli/arg-parsing", ["--filepath", "file.js"], {
+    isTTY: false,
+    input: "prettier()",
+  }).test({ status: 2, write: [] });
 });

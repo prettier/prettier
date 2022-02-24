@@ -6,7 +6,7 @@ const {
   getMaxContinuousCount,
   getStringWidth,
   isNonEmptyArray,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   builders: {
     breakParent,
@@ -23,15 +23,14 @@ const {
     group,
     hardlineWithoutBreakParent,
   },
-  utils: { normalizeDoc },
+  utils: { normalizeDoc, replaceTextEndOfLine },
   printer: { printDocToString },
-} = require("../document");
-const { replaceEndOfLineWith } = require("../common/util");
-const embed = require("./embed");
-const { insertPragma } = require("./pragma");
-const { locStart, locEnd } = require("./loc");
-const preprocess = require("./print-preprocess");
-const clean = require("./clean");
+} = require("../document/index.js");
+const embed = require("./embed.js");
+const { insertPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
+const preprocess = require("./print-preprocess.js");
+const clean = require("./clean.js");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -40,7 +39,7 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-} = require("./utils");
+} = require("./utils.js");
 
 /**
  * @typedef {import("../document").Doc} Doc
@@ -143,7 +142,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
+        nextNode && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
@@ -246,7 +245,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          ...replaceEndOfLineWith(node.value, hardline),
+          ...replaceTextEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -261,7 +260,7 @@ function genericPrint(path, options, print) {
         node.meta ? " " + node.meta : "",
         hardline,
 
-        ...replaceEndOfLineWith(
+        ...replaceTextEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -275,9 +274,11 @@ function genericPrint(path, options, print) {
         parentNode.type === "root" && getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
-      return replaceEndOfLineWith(
+      const isHtmlComment = /^<!--.*-->$/s.test(value);
+
+      return replaceTextEndOfLine(
         value,
+        // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
@@ -428,12 +429,14 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceEndOfLineWith(node.value, hardline);
+      return replaceTextEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
     case "importExport":
       return [node.value, hardline];
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "jsx":
       return node.value;
     case "math":
@@ -441,7 +444,7 @@ function genericPrint(path, options, print) {
         "$$",
         hardline,
         node.value
-          ? [...replaceEndOfLineWith(node.value, hardline), hardline]
+          ? [...replaceTextEndOfLine(node.value, hardline), hardline]
           : "",
         "$$",
       ];
@@ -757,13 +760,29 @@ function getLastDescendantNode(node) {
 
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  if (node.type !== "html") {
-    return false;
+  let match;
+
+  if (node.type === "html") {
+    match = node.value.match(/^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/);
+  } else {
+    let comment;
+
+    if (node.type === "esComment") {
+      comment = node;
+    } else if (
+      node.type === "paragraph" &&
+      node.children.length === 1 &&
+      node.children[0].type === "esComment"
+    ) {
+      comment = node.children[0];
+    }
+
+    if (comment) {
+      match = comment.value.match(/^prettier-ignore(?:-(start|end))?$/);
+    }
   }
-  const match = node.value.match(
-    /^<!--\s*prettier-ignore(?:-(start|end))?\s*-->$/
-  );
-  return match === null ? false : match[1] ? match[1] : "next";
+
+  return match ? (match[1] ? match[1] : "next") : false;
 }
 
 function shouldPrePrintHardline(node, data) {

@@ -1,7 +1,8 @@
 "use strict";
 
-const createLanguage = require("../utils/create-language");
-const printer = require("./printer-glimmer");
+const createLanguage = require("../utils/create-language.js");
+const printer = require("./printer-glimmer.js");
+const parsers = require("./parsers.js");
 
 const languages = [
   createLanguage(require("linguist-languages/data/Handlebars.json"), () => ({
@@ -13,12 +14,6 @@ const languages = [
 
 const printers = {
   glimmer: printer,
-};
-
-const parsers = {
-  get glimmer() {
-    return require("./parser-glimmer").parsers.glimmer;
-  },
 };
 
 module.exports = {

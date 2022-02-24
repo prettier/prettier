@@ -2,14 +2,20 @@
 
 const {
   builders: { join, line, group },
-} = require("../../document");
-const { hasNode, hasComment, getComments } = require("../utils");
-const { printBinaryishExpression } = require("./binaryish");
+} = require("../../document/index.js");
+const { hasNode, hasComment, getComments } = require("../utils/index.js");
+const { printBinaryishExpression } = require("./binaryish.js");
 
 /** @typedef {import("../../common/ast-path")} AstPath */
 
 function printAngular(path, options, print) {
   const node = path.getValue();
+
+  // Angular nodes always starts with `NG`
+  if (!node.type.startsWith("NG")) {
+    return;
+  }
+
   switch (node.type) {
     case "NGRoot":
       return [
@@ -48,7 +54,7 @@ function printAngular(path, options, print) {
         "body"
       );
     case "NGMicrosyntaxKey":
-      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(node.name)
+      return /^[$_a-z][\w$]*(?:-[$_a-z][\w$])*$/i.test(node.name)
         ? node.name
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
@@ -83,6 +89,11 @@ function printAngular(path, options, print) {
       ];
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
+    default:
+      /* istanbul ignore next */
+      throw new Error(
+        `Unknown Angular node type: ${JSON.stringify(node.type)}.`
+      );
   }
 }
 

@@ -27,6 +27,8 @@ Specify the line length that the printer will wrap on.
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
+Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
+
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width
@@ -37,6 +39,8 @@ Specify the number of spaces per indentation-level.
 | ------- | ------------------- | ----------------- |
 | `2`     | `--tab-width <int>` | `tabWidth: <int>` |
 
+Setting `indent_size` or `tab_width` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab width, unless overridden.
+
 ## Tabs
 
 Indent lines with tabs instead of spaces.
@@ -44,6 +48,8 @@ Indent lines with tabs instead of spaces.
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
+
+Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
@@ -135,7 +141,44 @@ Valid options:
 | ------- | ---------------------- | ------------------------ |
 | `true`  | `--no-bracket-spacing` | `bracketSpacing: <bool>` |
 
-## JSX Brackets
+## Bracket Line
+
+Put the `>` of a multi-line HTML (HTML, JSX, Vue, Angular) element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
+
+Valid options:
+
+- `true` - Example:
+
+<!-- prettier-ignore -->
+```html
+<button
+  className="prettier-class"
+  id="prettier-id"
+  onClick={this.handleClick}>
+  Click Here
+</button>
+```
+
+- `false` - Example:
+
+<!-- prettier-ignore -->
+```html
+<button
+  className="prettier-class"
+  id="prettier-id"
+  onClick={this.handleClick}
+>
+  Click Here
+</button>
+```
+
+| Default | CLI Override          | API Override              |
+| ------- | --------------------- | ------------------------- |
+| `false` | `--bracket-same-line` | `bracketSameLine: <bool>` |
+
+## [Deprecated] JSX Brackets
+
+_This option has been deprecated in v2.4.0, use --bracket-same-line instead_
 
 Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 
@@ -222,6 +265,7 @@ Valid options:
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
 - `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
 - `"meriyah"` (via [meriyah](https://github.com/meriyah/meriyah)) _First available in v2.2.0_
+- `"acorn"` (via [acorn](https://github.com/acornjs/acorn)) _First available in v2.6.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
 - `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
 - `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
@@ -307,13 +351,13 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 _First available in v1.8.2_
 
-By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer, e.g. GitHub comment and BitBucket. In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out with `"never"`.
+By default, Prettier will not change wrapping in markdown text since some services use a linebreak-sensitive renderer, e.g. GitHub comments and BitBucket. To have Prettier wrap prose to the print width, change this option to "always". If you want Prettier to force all prose blocks to be on a single line and rely on editor/viewer soft wrapping instead, you can use `"never"`.
 
 Valid options:
 
 - `"always"` - Wrap prose if it exceeds the print width.
-- `"never"` - Do not wrap prose.
-- `"preserve"` - Wrap prose as-is. _First available in v1.9.0_
+- `"never"` - Un-wrap each block of prose into one line.
+- `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
 
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |
@@ -345,8 +389,8 @@ Whether or not to indent the code inside `<script>` and `<style>` tags in Vue fi
 
 Valid options:
 
-- `"false"` - Do not indent script and style tags in Vue files.
-- `"true"` - Indent script and style tags in Vue files.
+- `false` - Do not indent script and style tags in Vue files.
+- `true` - Indent script and style tags in Vue files.
 
 | Default | CLI Override                    | API Override                      |
 | ------- | ------------------------------- | --------------------------------- |
@@ -388,6 +432,8 @@ Valid options:
 | ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
 
+Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
+
 ## Embedded Language Formatting
 
 _First available in v2.1.0_
@@ -406,3 +452,18 @@ Valid options:
 | Default  | CLI Override                         | API Override                        |
 | -------- | ------------------------------------ | ----------------------------------- |
 | `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
+
+## Single Attribute Per Line
+
+_First available in v2.6.0_
+
+Enforce single attribute per line in HTML, Vue and JSX.
+
+Valid options:
+
+- `false` - Do not enforce single attribute per line.
+- `true` - Enforce single attribute per line.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |

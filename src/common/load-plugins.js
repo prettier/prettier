@@ -4,17 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
-const globby = require("globby");
-const mem = require("mem");
-const internalPlugins = require("../languages");
-const thirdParty = require("./third-party");
-const resolve = require("./resolve");
+const fastGlob = require("fast-glob");
+const internalPlugins = require("../languages.js");
+const { default: mem, memClear } = require("../../vendors/mem.js");
+const thirdParty = require("./third-party.js");
+const resolve = require("./resolve.js");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
 const clearCache = () => {
-  mem.clear(memoizedLoad);
-  mem.clear(memoizedSearch);
+  memClear(memoizedLoad);
+  memClear(memoizedSearch);
 };
 
 function load(plugins, pluginSearchDirs) {
@@ -22,14 +22,17 @@ function load(plugins, pluginSearchDirs) {
     plugins = [];
   }
 
-  if (!pluginSearchDirs) {
+  if (pluginSearchDirs === false) {
     pluginSearchDirs = [];
-  }
-  // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
-  if (pluginSearchDirs.length === 0) {
-    const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
-    if (autoLoadDir) {
-      pluginSearchDirs = [autoLoadDir];
+  } else {
+    pluginSearchDirs = pluginSearchDirs || [];
+
+    // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
+    if (pluginSearchDirs.length === 0) {
+      const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
+      if (autoLoadDir) {
+        pluginSearchDirs = [autoLoadDir];
+      }
     }
   }
 
@@ -93,7 +96,7 @@ function load(plugins, pluginSearchDirs) {
       "requirePath"
     ).map((externalPluginInfo) => ({
       name: externalPluginInfo.name,
-      ...eval("require")(externalPluginInfo.requirePath),
+      ...require(externalPluginInfo.requirePath),
     })),
     ...externalPluginInstances,
   ];
@@ -102,7 +105,7 @@ function load(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackageJsonPaths = globby.sync(
+  const pluginPackageJsonPaths = fastGlob.sync(
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
@@ -110,7 +113,6 @@ function findPluginsInNodeModules(nodeModulesDir) {
     ],
     {
       cwd: nodeModulesDir,
-      expandDirectories: false,
     }
   );
   return pluginPackageJsonPaths.map(path.dirname);

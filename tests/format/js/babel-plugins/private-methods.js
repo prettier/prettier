@@ -4,6 +4,7 @@
 
 class Counter extends HTMLElement {
   #xValue = 0;
+  #render() {}
 
   get #x() { return this.#xValue; }
   set #x(value) {

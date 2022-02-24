@@ -126,9 +126,9 @@ exports[`snippet: #8 [babel] format 1`] = `
 `;
 
 exports[`snippet: #9 [babel] format 1`] = `
-"Tuple expressions starting with '[|' are only allowed when the 'syntaxType' option of the 'recordAndTuple' plugin is set to 'bar'. (1:1)
+"Unexpected token (1:2)
 > 1 | [| 1 |]
-    | ^"
+    |  ^"
 `;
 
 exports[`snippet: #10 [babel] format 1`] = `

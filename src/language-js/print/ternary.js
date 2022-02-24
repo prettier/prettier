@@ -1,14 +1,14 @@
 "use strict";
 
-const { hasNewlineInRange } = require("../../common/util");
+const { hasNewlineInRange } = require("../../common/util.js");
 const {
   isJsxNode,
-  isBlockComment,
   getComments,
   isCallExpression,
   isMemberExpression,
-} = require("../utils");
-const { locStart, locEnd } = require("../loc");
+} = require("../utils/index.js");
+const { locStart, locEnd } = require("../loc.js");
+const isBlockComment = require("../utils/is-block-comment.js");
 const {
   builders: {
     line,
@@ -20,7 +20,7 @@ const {
     dedent,
     breakParent,
   },
-} = require("../../document");
+} = require("../../document/index.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -208,7 +208,7 @@ function printTernary(path, options, print) {
   const parts = [];
 
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
-  // See tests/jsx/conditional-expression.js for more info.
+  // See `tests/format/jsx/conditional-expression.js` for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
   const isParentTest =

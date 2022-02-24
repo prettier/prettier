@@ -1,8 +1,8 @@
 "use strict";
 
-const LinesAndColumns = require("lines-and-columns").default;
-const createError = require("../common/parser-create-error");
-const { locStart, locEnd } = require("./loc");
+const { LinesAndColumns } = require("lines-and-columns");
+const createError = require("../common/parser-create-error.js");
+const { locStart, locEnd } = require("./loc.js");
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash
@@ -12,8 +12,21 @@ function addBackslash(/* options*/) {
   return {
     name: "addBackslash",
     visitor: {
-      TextNode(node) {
-        node.chars = node.chars.replace(/\\/, "\\\\");
+      All(node) {
+        const childrenOrBody = node.children || node.body;
+        if (childrenOrBody) {
+          for (let i = 0; i < childrenOrBody.length - 1; i++) {
+            if (
+              childrenOrBody[i].type === "TextNode" &&
+              childrenOrBody[i + 1].type === "MustacheStatement"
+            ) {
+              childrenOrBody[i].chars = childrenOrBody[i].chars.replace(
+                /\\$/,
+                "\\\\"
+              );
+            }
+          }
+        }
       },
     },
   };

@@ -149,6 +149,107 @@ exports[`Negative patterns with explicit files: prettier dir1/a1.js dir2/a2.js '
 "
 `;
 
+exports[`Trailing slash 1: prettier ./ (stdout) 1`] = `
+"!dir/a.js
+dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+dir2/a2.js
+dir2/b2.js
+dir2/nested2/an2.js
+dir2/nested2/bn2.js
+"
+`;
+
+exports[`Trailing slash 2: prettier .// (stdout) 1`] = `
+"!dir/a.js
+dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+dir2/a2.js
+dir2/b2.js
+dir2/nested2/an2.js
+dir2/nested2/bn2.js
+"
+`;
+
+exports[`Trailing slash 3: prettier dir1/ (stdout) 1`] = `
+"dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+"
+`;
+
+exports[`Trailing slash 4: prettier dir1// (stdout) 1`] = `
+"dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+"
+`;
+
+exports[`Trailing slash 5: prettier .//dir2/..//./dir1// (stdout) 1`] = `
+"dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+"
+`;
+
+exports[`Trailing slash run in sub dir 1: prettier .. (stdout) 1`] = `
+"../!dir/a.js
+../dir1/a1.js
+../dir1/b1.js
+../dir1/nested1/an1.css
+../dir1/nested1/an1.js
+../dir1/nested1/bn1.js
+a2.js
+b2.js
+nested2/an2.js
+nested2/bn2.js
+"
+`;
+
+exports[`Trailing slash run in sub dir 2: prettier ../ (stdout) 1`] = `
+"../!dir/a.js
+../dir1/a1.js
+../dir1/b1.js
+../dir1/nested1/an1.css
+../dir1/nested1/an1.js
+../dir1/nested1/bn1.js
+a2.js
+b2.js
+nested2/an2.js
+nested2/bn2.js
+"
+`;
+
+exports[`Trailing slash run in sub dir 3: prettier ../dir1 (stdout) 1`] = `
+"../dir1/a1.js
+../dir1/b1.js
+../dir1/nested1/an1.css
+../dir1/nested1/an1.js
+../dir1/nested1/bn1.js
+"
+`;
+
+exports[`Trailing slash run in sub dir 4: prettier ../dir1/ (stdout) 1`] = `
+"../dir1/a1.js
+../dir1/b1.js
+../dir1/nested1/an1.css
+../dir1/nested1/an1.js
+../dir1/nested1/bn1.js
+"
+`;
+
 exports[`plugins \`*\` (stderr) 1`] = `
 "[error] No parser could be inferred for file: unknown.unknown
 "

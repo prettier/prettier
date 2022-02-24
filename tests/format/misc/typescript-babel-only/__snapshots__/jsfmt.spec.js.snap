@@ -60,64 +60,126 @@ class Bar {
 ================================================================================
 `;
 
-exports[`ts-4.3-override-modifier.ts format 1`] = `
+exports[`parenthesized-decorators-call-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class MyClass extends BaseClass {
-  override show() {}
-  public override show() {}
-  override size = 5;
-  override readonly size = 5;
+@(test().x("global").y())
+class X {}
+
+=====================================output=====================================
+@(test().x("global").y())
+class X {}
+
+================================================================================
+`;
+
+exports[`parenthesized-decorators-tagged-template.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Test {
+  @(foo\`bar\`)
+  text: string = "text"
 }
 
 =====================================output=====================================
-class MyClass extends BaseClass {
-  override show() {}
-  public override show() {}
-  override size = 5;
-  override readonly size = 5;
+class Test {
+  @(foo\`bar\`)
+  text: string = "text";
 }
 
 ================================================================================
 `;
 
-exports[`ts4.3-type-members-get-set.ts format 1`] = `
+exports[`prettier-ignore-nested-unions.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-interface Foo {
-  get foo(): string;
-  set bar(v);
-}
+export type a =
+  // foo
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  // prettier-ignore
+  | (
+    | aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2
+  )
+  // baz
+  | baz1&baz2;
 
-type Foo = {
-  get foo(): string;
-  set bar(v);
-}
-
-interface Foo {
-  set bar(foo: string);
-}
+export type b =
+  // foo
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  | (
+    // prettier-ignore
+    | aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2
+  )
+  // baz
+  | baz1&baz2;
 
 =====================================output=====================================
-interface Foo {
-  get foo(): string;
-  set bar(v);
-}
+export type a =
+  // foo
+  | (foo1 & foo2)
+  // bar
+  | (bar1 & bar2)
+  // prettier-ignore
+  | (
+    | aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2
+  )
+  // baz
+  | (baz1 & baz2);
 
-type Foo = {
-  get foo(): string;
-  set bar(v);
-};
+export type b =
+  // foo
+  | (foo1 & foo2)
+  // bar
+  | (bar1 & bar2)
+  | (
+      | // prettier-ignore
+      aaaaaaaaaaaaa&1
+      // b
+      | (bbbbbbbbbbbbb & 2)
+    )
+  // baz
+  | (baz1 & baz2);
 
-interface Foo {
-  set bar(foo: string);
-}
+================================================================================
+`;
+
+exports[`prettier-ignore-parenthesized-type.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo =
+  // prettier-ignore
+  (
+    aa
+  );
+
+=====================================output=====================================
+type Foo =
+  // prettier-ignore
+  (
+    aa
+  );
 
 ================================================================================
 `;

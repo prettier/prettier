@@ -7,13 +7,6 @@ exports[`default-escaped.ts [typescript] format 1`] = `
   2 |"
 `;
 
-exports[`dynamic-import.ts [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
-> 1 | import('./prettier.mjs', {})
-    |        ^
-  2 |"
-`;
-
 exports[`export-declare.ts [typescript] format 1`] = `
 "Declaration or statement expected. (1:1)
 > 1 | export declare foo;
@@ -30,15 +23,6 @@ exports[`invalid-jsx-1.ts [typescript] format 1`] = `
   4 |"
 `;
 
-exports[`issue-8773.ts [typescript] format 1`] = `"Comment \\"comment\\" was not printed. Please report this error!"`;
-
-exports[`module-attributes-dynamic.ts [typescript] format 1`] = `
-"Dynamic import must have one specifier as an argument. (1:8)
-> 1 | import(\\"foo.json\\", { with: { type: \\"json\\" } })
-    |        ^
-  2 |"
-`;
-
 exports[`module-attributes-static.ts [typescript] format 1`] = `
 "';' expected. (1:28)
 > 1 | import foo from \\"foo.json\\" with type: \\"json\\";
@@ -47,9 +31,9 @@ exports[`module-attributes-static.ts [typescript] format 1`] = `
 `;
 
 exports[`newline-before-arrow.ts [typescript] format 1`] = `
-"';' expected. (1:7)
+"Unexpected keyword or identifier. (1:1)
 > 1 | async x
-    |       ^
+    | ^
   2 | => x
   3 |"
 `;
@@ -88,4 +72,13 @@ exports[`snippet: #5 [typescript] format 1`] = `
 "Expression expected. (1:15)
 > 1 | let x6 = <div>>{\\"foo\\"}</div>;
     |               ^"
+`;
+
+exports[`value-of-abstract-property.ts [typescript] format 1`] = `
+"Abstract property cannot have an initializer (2:3)
+  1 | abstract class Foo {
+> 2 |   abstract prop = 3;
+    |   ^^^^^^^^^^^^^^^^^^
+  3 | }
+  4 |"
 `;

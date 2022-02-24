@@ -1,20 +1,19 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const getLast = require("../utils/get-last");
-const parseFrontMatter = require("../utils/front-matter/parse");
-const { hasPragma } = require("./pragma");
-const {
-  hasSCSSInterpolation,
-  hasStringOrFunction,
-  isLessParser,
-  isSCSS,
-  isSCSSNestedPropertyNode,
-  isSCSSVariable,
-  stringifyNode,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
-const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
+const createError = require("../common/parser-create-error.js");
+const getLast = require("../utils/get-last.js");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
+const { hasPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
+const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
+const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
+const hasStringOrFunction = require("./utils/has-string-or-function.js");
+const isLessParser = require("./utils/is-less-parser.js");
+const isSCSS = require("./utils/is-scss.js");
+const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
+const isSCSSVariable = require("./utils/is-scss-variable.js");
+const stringifyNode = require("./utils/stringify-node.js");
+const isModuleRuleName = require("./utils/is-module-rule-name.js");
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -283,8 +282,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -454,7 +453,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim()
@@ -515,7 +514,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
+        if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
           node.params = parseValue(params, options);
         } else {
           node.selector = parseSelector(params);
@@ -525,7 +524,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (lowercasedName === "import") {
+      if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
         node.params = parseValue(params, options);
@@ -551,9 +550,11 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
+        // Move spaces after the `...`, so we can keep the range correct
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        // Move spaces after the `(`, so we can keep the range correct
+        params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -618,7 +619,7 @@ function parseWithParser(parse, text, options) {
 }
 
 // TODO: make this only work on css
-function parseCss(text, parsers, options) {
+function parseCss(text, parsers, options = {}) {
   const isSCSSParser = isSCSS(options.parser, text);
   const parseFunctions = isSCSSParser
     ? [parseScss, parseLess]
@@ -639,7 +640,7 @@ function parseCss(text, parsers, options) {
   }
 }
 
-function parseLess(text, parsers, options) {
+function parseLess(text, parsers, options = {}) {
   const lessParser = require("postcss-less");
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
@@ -650,7 +651,7 @@ function parseLess(text, parsers, options) {
   );
 }
 
-function parseScss(text, parsers, options) {
+function parseScss(text, parsers, options = {}) {
   const { parse } = require("postcss-scss");
   return parseWithParser(parse, text, options);
 }

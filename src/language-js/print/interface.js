@@ -1,12 +1,16 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { join, line, group, indent, ifBreak },
-} = require("../../document");
-const { hasComment, identity, CommentCheckFlags } = require("../utils");
-const { getTypeParametersGroupId } = require("./type-parameters");
-const { printTypeScriptModifiers } = require("./misc");
+} = require("../../document/index.js");
+const {
+  hasComment,
+  identity,
+  CommentCheckFlags,
+} = require("../utils/index.js");
+const { getTypeParametersGroupId } = require("./type-parameters.js");
+const { printTypeScriptModifiers } = require("./misc.js");
 
 function printInterface(path, options, print) {
   const node = path.getValue();

@@ -2,7 +2,7 @@
 
 exports[`flow-only.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow", "babel-flow", "babel"]
+parsers: ["typescript", "flow", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -21,7 +21,7 @@ const foo7: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
 exports[`issue-9501.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow", "babel-flow", "babel"]
+parsers: ["typescript", "flow", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -38,7 +38,7 @@ const name: SomeGeneric<Pick<Config, "ONE_LONG_PROP" | "ANOTHER_LONG_PROP">> =
 
 exports[`simple-types.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow", "babel-flow", "babel"]
+parsers: ["typescript", "flow", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -84,13 +84,6 @@ const foo12: Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 ================================================================================
 `;
 
-exports[`template-literal-types.ts [babel] format 1`] = `
-"Unexpected token (1:84)
-> 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
-    |                                                                                    ^
-  2 |"
-`;
-
 exports[`template-literal-types.ts [babel-flow] format 1`] = `
 "Unexpected token (1:84)
 > 1 | const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo<\`Hello, \${keyof World}\`> = a;
@@ -107,7 +100,7 @@ exports[`template-literal-types.ts [flow] format 1`] = `
 
 exports[`template-literal-types.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow", "babel-flow", "babel"]
+parsers: ["typescript", "flow", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -122,7 +115,7 @@ const foo1: Fooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
 exports[`typescript-only.ts format 1`] = `
 ====================================options=====================================
-parsers: ["typescript", "flow", "babel-flow", "babel"]
+parsers: ["typescript", "flow", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

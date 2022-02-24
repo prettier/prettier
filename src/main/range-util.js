@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const comments = require("./comments");
+const comments = require("./comments.js");
 
 const isJsonParser = ({ parser }) =>
   parser === "json" || parser === "json5" || parser === "json-stringify";
@@ -169,8 +169,10 @@ function isSourceElement(opts, node, parentNode) {
     case "babel-flow":
     case "babel-ts":
     case "typescript":
+    case "acorn":
     case "espree":
     case "meriyah":
+    case "__babel_estree":
       return isJsSourceElement(node.type, parentNode && parentNode.type);
     case "json":
     case "json5":

@@ -1,7 +1,7 @@
 "use strict";
 
-const { isFrontMatterNode } = require("../common/util");
-const getLast = require("../utils/get-last");
+const { isFrontMatterNode } = require("../common/util.js");
+const getLast = require("../utils/get-last.js");
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -37,7 +37,7 @@ function clean(ast, newObj, parent) {
       delete newObj.text;
 
       // standalone pragma
-      if (/^\*\s*@(format|prettier)\s*$/.test(ast.text)) {
+      if (/^\*\s*@(?:format|prettier)\s*$/.test(ast.text)) {
         return null;
       }
     }
@@ -165,6 +165,23 @@ function clean(ast, newObj, parent) {
   // Workaround for SCSS nested properties
   if (ast.type === "selector-unknown") {
     delete newObj.value;
+  }
+
+  // Workaround for SCSS arbitrary arguments
+  if (ast.type === "value-comma_group") {
+    const index = ast.groups.findIndex(
+      (node) => node.type === "value-number" && node.unit === "..."
+    );
+
+    if (index !== -1) {
+      newObj.groups[index].unit = "";
+      newObj.groups.splice(index + 1, 0, {
+        type: "value-word",
+        value: "...",
+        isColor: false,
+        isHex: false,
+      });
+    }
   }
 }
 

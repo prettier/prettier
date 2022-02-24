@@ -32,7 +32,7 @@ async function* expandPatterns(context) {
     yield relativePath;
   }
 
-  if (noResults && context.argv["error-on-unmatched-pattern"] !== false) {
+  if (noResults && context.argv.errorOnUnmatchedPattern !== false) {
     // If there was no files and no other errors, let's yield a general error.
     yield {
       error: `No matching files. Patterns: ${context.filePatterns.join(" ")}`,
@@ -46,7 +46,7 @@ async function* expandPatterns(context) {
 async function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
   const silentlyIgnoredDirs = [".git", ".svn", ".hg"];
-  if (context.argv["with-node-modules"] !== true) {
+  if (context.argv.withNodeModules !== true) {
     silentlyIgnoredDirs.push("node_modules");
   }
   const globOptions = {
@@ -76,10 +76,16 @@ async function* expandPatternsInternal(context) {
           input: pattern,
         });
       } else if (stat.isDirectory()) {
+        /*
+        1. Remove trailing `/`, `fast-glob` can't find files for `src//*.js` pattern
+        2. Cleanup dirname, when glob `src/../*.js` pattern with `fast-glob`,
+          it returns files like 'src/../index.js'
+        */
+        const relativePath = path.relative(cwd, absolutePath) || ".";
         entries.push({
           type: "dir",
           glob:
-            escapePathForGlob(fixWindowsSlashes(pattern)) +
+            escapePathForGlob(fixWindowsSlashes(relativePath)) +
             "/" +
             getSupportedFilesGlob(),
           input: pattern,
@@ -110,7 +116,7 @@ async function* expandPatternsInternal(context) {
     }
 
     if (result.length === 0) {
-      if (context.argv["error-on-unmatched-pattern"] !== false) {
+      if (context.argv.errorOnUnmatchedPattern !== false) {
         yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
       }
     } else {

@@ -1,12 +1,20 @@
 {
   "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
   "dependencies": {
-    "chalk": "4.1.1",
-    "execa": "5.0.0",
+    "chalk": "4.1.2",
+    "execa": "6.1.0",
     "minimist": "1.2.5",
-    "node-fetch": "2.6.1",
+    "node-fetch": "3.2.0",
     "outdent": "0.8.0",
     "semver": "7.3.5",
-    "string-width": "4.2.0"
+    "string-width": "5.1.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "27.5.1",
+    "jest": "27.5.1"
   }
 }

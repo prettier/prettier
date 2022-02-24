@@ -1,6 +1,9 @@
 "use strict";
 
-const { printComments, printDanglingComments } = require("../../main/comments");
+const {
+  printComments,
+  printDanglingComments,
+} = require("../../main/comments.js");
 const {
   builders: {
     line,
@@ -15,9 +18,9 @@ const {
     join,
   },
   utils: { willBreak },
-} = require("../../document");
+} = require("../../document/index.js");
 
-const { getLast, getPreferredQuote } = require("../../common/util");
+const { getLast, getPreferredQuote } = require("../../common/util.js");
 const {
   isJsxNode,
   rawText,
@@ -28,9 +31,9 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils");
-const pathNeedsParens = require("../needs-parens");
-const { willPrintOwnComments } = require("../comments");
+} = require("../utils/index.js");
+const pathNeedsParens = require("../needs-parens.js");
+const { willPrintOwnComments } = require("../comments.js");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -95,7 +98,7 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = node.children.filter(isJsxNode).length > 0;
+  const containsTag = node.children.some(isJsxNode);
   const containsMultipleExpressions =
     node.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
@@ -476,14 +479,17 @@ function printJsxAttribute(path, options, print) {
     let res;
     if (isStringLiteral(node.value)) {
       const raw = rawText(node.value);
-      // Unescape all quotes so we get an accurate preferred quote
-      let final = raw.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
-      const quote = getPreferredQuote(
+      // Remove enclosing quotes and unescape
+      // all quotes so we get an accurate preferred quote
+      let final = raw
+        .slice(1, -1)
+        .replace(/&apos;/g, "'")
+        .replace(/&quot;/g, '"');
+      const { escaped, quote, regex } = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'
       );
-      const escape = quote === "'" ? "&apos;" : "&quot;";
-      final = final.slice(1, -1).replace(new RegExp(quote, "g"), escape);
+      final = final.replace(regex, escaped);
       res = [quote, final, quote];
     } else {
       res = print("value");
@@ -496,24 +502,25 @@ function printJsxAttribute(path, options, print) {
 
 function printJsxExpressionContainer(path, options, print) {
   const node = path.getValue();
-  const parent = path.getParentNode(0);
 
-  const shouldInline =
-    node.expression.type === "JSXEmptyExpression" ||
-    (!hasComment(node.expression) &&
-      (node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression" ||
-        node.expression.type === "ArrowFunctionExpression" ||
-        isCallExpression(node.expression) ||
-        node.expression.type === "FunctionExpression" ||
-        node.expression.type === "TemplateLiteral" ||
-        node.expression.type === "TaggedTemplateExpression" ||
-        node.expression.type === "DoExpression" ||
+  const shouldInline = (node, parent) =>
+    node.type === "JSXEmptyExpression" ||
+    (!hasComment(node) &&
+      (node.type === "ArrayExpression" ||
+        node.type === "ObjectExpression" ||
+        node.type === "ArrowFunctionExpression" ||
+        (node.type === "AwaitExpression" &&
+          (shouldInline(node.argument, node) ||
+            node.argument.type === "JSXElement")) ||
+        isCallExpression(node) ||
+        node.type === "FunctionExpression" ||
+        node.type === "TemplateLiteral" ||
+        node.type === "TaggedTemplateExpression" ||
+        node.type === "DoExpression" ||
         (isJsxNode(parent) &&
-          (node.expression.type === "ConditionalExpression" ||
-            isBinaryish(node.expression)))));
+          (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
-  if (shouldInline) {
+  if (shouldInline(node.expression, path.getParentNode(0))) {
     return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 
@@ -573,9 +580,11 @@ function printJsxOpeningElement(path, options, print) {
 
   const bracketSameLine =
     // Simple tags (no attributes and no comment in tag name) should be
-    // kept unbroken regardless of `jsxBracketSameLine`
+    // kept unbroken regardless of `bracketSameLine`.
+    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
+    // but is still needed for backwards compatibility.
     (node.attributes.length === 0 && !nameHasComments) ||
-    (options.jsxBracketSameLine &&
+    ((options.bracketSameLine || options.jsxBracketSameLine) &&
       // We should print the bracket in a new line for the following cases:
       // <div
       //   // comment
@@ -597,12 +606,17 @@ function printJsxOpeningElement(path, options, print) {
         attr.value.value.includes("\n")
     );
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attributes.length > 1
+      ? hardline
+      : line;
+
   return group(
     [
       "<",
       print("name"),
       print("typeParameters"),
-      indent(path.map(() => [line, print()], "attributes")),
+      indent(path.map(() => [attributeLine, print()], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
       node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],
@@ -698,6 +712,12 @@ function printJsxSpreadAttribute(path, options, print) {
 
 function printJsx(path, options, print) {
   const node = path.getValue();
+
+  // JSX nodes always starts with `JSX`
+  if (!node.type.startsWith("JSX")) {
+    return;
+  }
+
   switch (node.type) {
     case "JSXAttribute":
       return printJsxAttribute(path, options, print);
@@ -731,6 +751,9 @@ function printJsx(path, options, print) {
     case "JSXText":
       /* istanbul ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
+    default:
+      /* istanbul ignore next */
+      throw new Error(`Unknown JSX node type: ${JSON.stringify(node.type)}.`);
   }
 }
 

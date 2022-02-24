@@ -3,7 +3,6 @@
 const {
   ParseSourceSpan,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const getLast = require("../utils/get-last");
 const {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
@@ -15,11 +14,11 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils");
+} = require("./utils/index.js");
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
-  mergeIeConditonalStartEndCommentIntoElementOpeningTag,
+  mergeIfConditionalStartEndCommentIntoElementOpeningTag,
   mergeCdataIntoText,
   extractInterpolation,
   extractWhitespaces,
@@ -32,13 +31,13 @@ const PREPROCESS_PIPELINE = [
 
 function preprocess(ast, options) {
   for (const fn of PREPROCESS_PIPELINE) {
-    ast = fn(ast, options);
+    fn(ast, options);
   }
   return ast;
 }
 
 function removeIgnorableFirstLf(ast /*, options */) {
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (
       node.type === "element" &&
       node.tagDefinition.ignoreFirstLf &&
@@ -46,19 +45,17 @@ function removeIgnorableFirstLf(ast /*, options */) {
       node.children[0].type === "text" &&
       node.children[0].value[0] === "\n"
     ) {
-      const [text, ...rest] = node.children;
-      return node.clone({
-        children:
-          text.value.length === 1
-            ? rest
-            : [text.clone({ value: text.value.slice(1) }), ...rest],
-      });
+      const text = node.children[0];
+      if (text.value.length === 1) {
+        node.removeChild(text);
+      } else {
+        text.value = text.value.slice(1);
+      }
     }
-    return node;
   });
 }
 
-function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
+function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
   ast /*, options */
 ) {
   /**
@@ -72,98 +69,69 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
     node.firstChild &&
     node.firstChild.type === "ieConditionalEndComment" &&
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.children) {
-      const isTargetResults = node.children.map(isTarget);
-      if (isTargetResults.some(Boolean)) {
-        const newChildren = [];
-
-        for (let i = 0; i < node.children.length; i++) {
-          const child = node.children[i];
-
-          if (isTargetResults[i + 1]) {
-            // ieConditionalStartComment
-            continue;
-          }
-
-          if (isTargetResults[i]) {
-            const ieConditionalStartComment = child.prev;
-            const ieConditionalEndComment = child.firstChild;
-
-            const startSourceSpan = new ParseSourceSpan(
-              ieConditionalStartComment.sourceSpan.start,
-              ieConditionalEndComment.sourceSpan.end
-            );
-            const sourceSpan = new ParseSourceSpan(
-              startSourceSpan.start,
-              child.sourceSpan.end
-            );
-
-            newChildren.push(
-              child.clone({
-                condition: ieConditionalStartComment.condition,
-                sourceSpan,
-                startSourceSpan,
-                children: child.children.slice(1),
-              })
-            );
-
-            continue;
-          }
-
-          newChildren.push(child);
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
+        if (!isTarget(child)) {
+          continue;
         }
 
-        return node.clone({ children: newChildren });
+        const ieConditionalStartComment = child.prev;
+        const ieConditionalEndComment = child.firstChild;
+
+        // ieConditionalStartComment
+        node.removeChild(ieConditionalStartComment);
+        i--; // because a node was removed
+
+        const startSourceSpan = new ParseSourceSpan(
+          ieConditionalStartComment.sourceSpan.start,
+          ieConditionalEndComment.sourceSpan.end
+        );
+        const sourceSpan = new ParseSourceSpan(
+          startSourceSpan.start,
+          child.sourceSpan.end
+        );
+
+        child.condition = ieConditionalStartComment.condition;
+        child.sourceSpan = sourceSpan;
+        child.startSourceSpan = startSourceSpan;
+        child.removeChild(ieConditionalEndComment);
       }
     }
-    return node;
   });
 }
 
 function mergeNodeIntoText(ast, shouldMerge, getValue) {
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.children) {
-      const shouldMergeResults = node.children.map(shouldMerge);
-      if (shouldMergeResults.some(Boolean)) {
-        const newChildren = [];
-        for (let i = 0; i < node.children.length; i++) {
-          const child = node.children[i];
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
 
-          if (child.type !== "text" && !shouldMergeResults[i]) {
-            newChildren.push(child);
-            continue;
-          }
-
-          const newChild =
-            child.type === "text"
-              ? child
-              : child.clone({ type: "text", value: getValue(child) });
-
-          if (
-            newChildren.length === 0 ||
-            getLast(newChildren).type !== "text"
-          ) {
-            newChildren.push(newChild);
-            continue;
-          }
-
-          const lastChild = newChildren.pop();
-          newChildren.push(
-            lastChild.clone({
-              value: lastChild.value + newChild.value,
-              sourceSpan: new ParseSourceSpan(
-                lastChild.sourceSpan.start,
-                newChild.sourceSpan.end
-              ),
-            })
-          );
+        if (child.type !== "text" && !shouldMerge(child)) {
+          continue;
         }
-        return node.clone({ children: newChildren });
+
+        if (child.type !== "text") {
+          child.type = "text";
+          child.value = getValue(child);
+        }
+
+        const prevChild = child.prev;
+        if (!prevChild || prevChild.type !== "text") {
+          continue;
+        }
+
+        prevChild.value += child.value;
+        prevChild.sourceSpan = new ParseSourceSpan(
+          prevChild.sourceSpan.start,
+          child.sourceSpan.end
+        );
+
+        node.removeChild(child);
+        i--; // because a node was removed
       }
     }
-
-    return node;
   });
 }
 
@@ -192,60 +160,49 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.prev.type === "text" &&
     node.next &&
     node.next.type === "text";
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.children) {
-      const isSimpleElementResults = node.children.map(isSimpleElement);
-      if (isSimpleElementResults.some(Boolean)) {
-        const newChildren = [];
-        for (let i = 0; i < node.children.length; i++) {
-          const child = node.children[i];
-          if (isSimpleElementResults[i]) {
-            const lastChild = newChildren.pop();
-            const nextChild = node.children[++i];
-            const { isTrailingSpaceSensitive, hasTrailingSpaces } = nextChild;
-            newChildren.push(
-              lastChild.clone({
-                value:
-                  lastChild.value +
-                  `<${child.rawName}>` +
-                  child.firstChild.value +
-                  `</${child.rawName}>` +
-                  nextChild.value,
-                sourceSpan: new ParseSourceSpan(
-                  lastChild.sourceSpan.start,
-                  nextChild.sourceSpan.end
-                ),
-                isTrailingSpaceSensitive,
-                hasTrailingSpaces,
-              })
-            );
-          } else {
-            newChildren.push(child);
-          }
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
+        if (!isSimpleElement(child)) {
+          continue;
         }
-        return node.clone({ children: newChildren });
+
+        const prevChild = child.prev;
+        const nextChild = child.next;
+        prevChild.value +=
+          `<${child.rawName}>` +
+          child.firstChild.value +
+          `</${child.rawName}>` +
+          nextChild.value;
+        prevChild.sourceSpan = new ParseSourceSpan(
+          prevChild.sourceSpan.start,
+          nextChild.sourceSpan.end
+        );
+        prevChild.isTrailingSpaceSensitive = nextChild.isTrailingSpaceSensitive;
+        prevChild.hasTrailingSpaces = nextChild.hasTrailingSpaces;
+
+        node.removeChild(child);
+        i--; // because a node was removed
+        node.removeChild(nextChild);
       }
     }
-    return node;
   });
 }
 
 function extractInterpolation(ast, options) {
   if (options.parser === "html") {
-    return ast;
+    return;
   }
 
-  const interpolationRegex = /{{([\S\s]+?)}}/g;
-  return ast.map((node) => {
+  const interpolationRegex = /{{(.+?)}}/s;
+  ast.walk((node) => {
     if (!canHaveInterpolation(node)) {
-      return node;
+      return;
     }
-
-    const newChildren = [];
 
     for (const child of node.children) {
       if (child.type !== "text") {
-        newChildren.push(child);
         continue;
       }
 
@@ -262,7 +219,7 @@ function extractInterpolation(ast, options) {
         if (i % 2 === 0) {
           endSourceSpan = startSourceSpan.moveBy(value.length);
           if (value.length > 0) {
-            newChildren.push({
+            node.insertChildBefore(child, {
               type: "text",
               value,
               sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
@@ -272,7 +229,7 @@ function extractInterpolation(ast, options) {
         }
 
         endSourceSpan = startSourceSpan.moveBy(value.length + 4); // `{{` + `}}`
-        newChildren.push({
+        node.insertChildBefore(child, {
           type: "interpolation",
           sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
           children:
@@ -290,9 +247,9 @@ function extractInterpolation(ast, options) {
                 ],
         });
       }
-    }
 
-    return node.clone({ children: newChildren });
+      node.removeChild(child);
+    }
   });
 }
 
@@ -304,10 +261,9 @@ function extractInterpolation(ast, options) {
  * - remove insensitive whitespaces
  */
 function extractWhitespaces(ast /*, options*/) {
-  const TYPE_WHITESPACE = "whitespace";
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (!node.children) {
-      return node;
+      return;
     }
 
     if (
@@ -316,110 +272,99 @@ function extractWhitespaces(ast /*, options*/) {
         node.children[0].type === "text" &&
         htmlTrim(node.children[0].value).length === 0)
     ) {
-      return node.clone({
-        children: [],
-        hasDanglingSpaces: node.children.length > 0,
-      });
+      node.hasDanglingSpaces = node.children.length > 0;
+      node.children = [];
+      return;
     }
 
     const isWhitespaceSensitive = isWhitespaceSensitiveNode(node);
     const isIndentationSensitive = isIndentationSensitiveNode(node);
 
-    return node.clone({
-      isWhitespaceSensitive,
-      isIndentationSensitive,
-      children: node.children
-        // extract whitespace nodes
-        .reduce((newChildren, child) => {
-          if (child.type !== "text" || isWhitespaceSensitive) {
-            return [...newChildren, child];
+    if (!isWhitespaceSensitive) {
+      for (let i = 0; i < node.children.length; i++) {
+        const child = node.children[i];
+        if (child.type !== "text") {
+          continue;
+        }
+
+        const { leadingWhitespace, text, trailingWhitespace } =
+          getLeadingAndTrailingHtmlWhitespace(child.value);
+
+        const prevChild = child.prev;
+        const nextChild = child.next;
+
+        if (!text) {
+          node.removeChild(child);
+          i--; // because a node was removed
+
+          if (leadingWhitespace || trailingWhitespace) {
+            if (prevChild) {
+              prevChild.hasTrailingSpaces = true;
+            }
+            if (nextChild) {
+              nextChild.hasLeadingSpaces = true;
+            }
           }
-
-          const localChildren = [];
-
-          const { leadingWhitespace, text, trailingWhitespace } =
-            getLeadingAndTrailingHtmlWhitespace(child.value);
+        } else {
+          child.value = text;
+          child.sourceSpan = new ParseSourceSpan(
+            child.sourceSpan.start.moveBy(leadingWhitespace.length),
+            child.sourceSpan.end.moveBy(-trailingWhitespace.length)
+          );
 
           if (leadingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            if (prevChild) {
+              prevChild.hasTrailingSpaces = true;
+            }
+            child.hasLeadingSpaces = true;
           }
-
-          if (text) {
-            localChildren.push({
-              type: "text",
-              value: text,
-              sourceSpan: new ParseSourceSpan(
-                child.sourceSpan.start.moveBy(leadingWhitespace.length),
-                child.sourceSpan.end.moveBy(-trailingWhitespace.length)
-              ),
-            });
-          }
-
           if (trailingWhitespace) {
-            localChildren.push({ type: TYPE_WHITESPACE });
+            child.hasTrailingSpaces = true;
+            if (nextChild) {
+              nextChild.hasLeadingSpaces = true;
+            }
           }
+        }
+      }
+    }
 
-          return [...newChildren, ...localChildren];
-        }, [])
-        // set hasLeadingSpaces/hasTrailingSpaces and filter whitespace nodes
-        .reduce((newChildren, child, i, children) => {
-          if (child.type === TYPE_WHITESPACE) {
-            return newChildren;
-          }
-
-          const hasLeadingSpaces =
-            i !== 0 && children[i - 1].type === TYPE_WHITESPACE;
-          const hasTrailingSpaces =
-            i !== children.length - 1 &&
-            children[i + 1].type === TYPE_WHITESPACE;
-
-          return [
-            ...newChildren,
-            {
-              ...child,
-              hasLeadingSpaces,
-              hasTrailingSpaces,
-            },
-          ];
-        }, []),
-    });
+    node.isWhitespaceSensitive = isWhitespaceSensitive;
+    node.isIndentationSensitive = isIndentationSensitive;
   });
 }
 
 function addIsSelfClosing(ast /*, options */) {
-  return ast.map((node) =>
-    Object.assign(node, {
-      isSelfClosing:
-        !node.children ||
-        (node.type === "element" &&
-          (node.tagDefinition.isVoid ||
-            // self-closing
-            node.startSourceSpan === node.endSourceSpan)),
-    })
-  );
+  ast.walk((node) => {
+    node.isSelfClosing =
+      !node.children ||
+      (node.type === "element" &&
+        (node.tagDefinition.isVoid ||
+          // self-closing
+          node.startSourceSpan === node.endSourceSpan));
+  });
 }
 
 function addHasHtmComponentClosingTag(ast, options) {
-  return ast.map((node) =>
-    node.type !== "element"
-      ? node
-      : Object.assign(node, {
-          hasHtmComponentClosingTag:
-            node.endSourceSpan &&
-            /^<\s*\/\s*\/\s*>$/.test(
-              options.originalText.slice(
-                node.endSourceSpan.start.offset,
-                node.endSourceSpan.end.offset
-              )
-            ),
-        })
-  );
+  ast.walk((node) => {
+    if (node.type !== "element") {
+      return;
+    }
+
+    node.hasHtmComponentClosingTag =
+      node.endSourceSpan &&
+      /^<\s*\/\s*\/\s*>$/.test(
+        options.originalText.slice(
+          node.endSourceSpan.start.offset,
+          node.endSourceSpan.end.offset
+        )
+      );
+  });
 }
 
 function addCssDisplay(ast, options) {
-  return ast.map((node) =>
-    Object.assign(node, { cssDisplay: getNodeCssStyleDisplay(node, options) })
-  );
+  ast.walk((node) => {
+    node.cssDisplay = getNodeCssStyleDisplay(node, options);
+  });
 }
 
 /**
@@ -428,41 +373,38 @@ function addCssDisplay(ast, options) {
  * - add `isDanglingSpaceSensitive` field for parent nodes
  */
 function addIsSpaceSensitive(ast, options) {
-  return ast.map((node) => {
-    if (!node.children) {
-      return node;
+  ast.walk((node) => {
+    const { children } = node;
+    if (!children) {
+      return;
     }
-
-    if (node.children.length === 0) {
-      return node.clone({
-        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node),
-      });
+    if (children.length === 0) {
+      node.isDanglingSpaceSensitive = isDanglingSpaceSensitiveNode(node);
+      return;
     }
-
-    return node.clone({
-      children: node.children
-        .map((child) => ({
-          ...child,
-          isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, options),
-          isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
-            child,
-            options
-          ),
-        }))
-        .map((child, index, children) => ({
-          ...child,
-          isLeadingSpaceSensitive:
-            index === 0
-              ? child.isLeadingSpaceSensitive
-              : children[index - 1].isTrailingSpaceSensitive &&
-                child.isLeadingSpaceSensitive,
-          isTrailingSpaceSensitive:
-            index === children.length - 1
-              ? child.isTrailingSpaceSensitive
-              : children[index + 1].isLeadingSpaceSensitive &&
-                child.isTrailingSpaceSensitive,
-        })),
-    });
+    for (const child of children) {
+      child.isLeadingSpaceSensitive = isLeadingSpaceSensitiveNode(
+        child,
+        options
+      );
+      child.isTrailingSpaceSensitive = isTrailingSpaceSensitiveNode(
+        child,
+        options
+      );
+    }
+    for (let index = 0; index < children.length; index++) {
+      const child = children[index];
+      child.isLeadingSpaceSensitive =
+        index === 0
+          ? child.isLeadingSpaceSensitive
+          : child.prev.isTrailingSpaceSensitive &&
+            child.isLeadingSpaceSensitive;
+      child.isTrailingSpaceSensitive =
+        index === children.length - 1
+          ? child.isTrailingSpaceSensitive
+          : child.next.isLeadingSpaceSensitive &&
+            child.isTrailingSpaceSensitive;
+    }
   });
 }
 

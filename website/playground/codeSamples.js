@@ -1,6 +1,7 @@
-export default function (parser) {
+export default function getCodeSamples(parser) {
   switch (parser) {
     case "babel":
+    case "acorn":
     case "espree":
     case "meriyah":
       return [

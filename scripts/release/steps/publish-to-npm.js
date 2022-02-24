@@ -1,22 +1,67 @@
-"use strict";
+import chalk from "chalk";
+import outdent from "outdent";
+import { execa } from "execa";
+import semver from "semver";
+import {
+  getBlogPostInfo,
+  getChangelogContent,
+  logPromise,
+  waitForEnter,
+} from "../utils.js";
 
-const chalk = require("chalk");
-const { string: outdentString } = require("outdent");
-const execa = require("execa");
-const { logPromise, waitForEnter } = require("../utils");
+const outdentString = outdent.string;
 
-module.exports = async function ({ dry, version }) {
+/**
+ * Retry "npm publish" when to enter OTP is failed.
+ */
+async function retryNpmPublish() {
+  const runNpmPublish = () =>
+    execa("npm", ["publish"], {
+      cwd: "./dist",
+      stdio: "inherit", // we need to input OTP if 2FA enabled
+    });
+  for (let i = 5; i > 0; i--) {
+    try {
+      return await runNpmPublish();
+    } catch (error) {
+      if (error.code === "EOTP" && i > 0) {
+        console.log(`To enter OTP is failed, you can retry it ${i} times.`);
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+
+export function getReleaseUrl(version, previousVersion) {
+  const semverDiff = semver.diff(version, previousVersion);
+  const isPatch = semverDiff === "patch";
+  let body;
+  if (isPatch) {
+    const urlToChangelog =
+      "https://github.com/prettier/prettier/blob/main/CHANGELOG.md#" +
+      version.split(".").join("");
+    body = `🔗 [Changelog](${urlToChangelog})`;
+  } else {
+    const blogPostInfo = getBlogPostInfo(version);
+    body = getChangelogContent({
+      version,
+      previousVersion,
+      body: `🔗 [Release note](https://prettier.io/${blogPostInfo.path})`,
+    });
+  }
+  body = encodeURIComponent(body);
+  return `https://github.com/prettier/prettier/releases/new?tag=${version}&title=${version}&body=${body}`;
+}
+
+export default async function publishToNpm({ dry, version, previousVersion }) {
   if (dry) {
     return;
   }
 
-  await logPromise(
-    "Publishing to npm",
-    execa("npm", ["publish"], {
-      cwd: "./dist",
-      stdio: "inherit", // we need to input OTP if 2FA enabled
-    })
-  );
+  await logPromise("Publishing to npm", retryNpmPublish());
+
+  const releaseUrl = getReleaseUrl(version, previousVersion);
 
   console.log(
     outdentString(chalk`
@@ -25,8 +70,7 @@ module.exports = async function ({ dry, version }) {
       {yellow.bold Some manual steps are necessary.}
 
       {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline https://github.com/prettier/prettier/releases/new?tag=${version}}
-      - Copy release notes from {yellow CHANGELOG.md}
+      - Go to {cyan.underline ${releaseUrl}}
       - Press {bgGreen.black  Publish release }
 
       {bold.underline Test the new release}
@@ -38,4 +82,4 @@ module.exports = async function ({ dry, version }) {
     `)
   );
   await waitForEnter();
-};
+}

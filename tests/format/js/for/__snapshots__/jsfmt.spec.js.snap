@@ -74,6 +74,709 @@ for (x of y);
 ================================================================================
 `;
 
+exports[`continue-and-break-comment-1.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(;;) {
+    continue // comment
+    ;
+}
+
+for (;;) {
+    break // comment
+    ;
+}
+
+for (const f of []) {
+    continue // comment
+    ;
+}
+
+for (const f of []) {
+    break // comment
+    ;
+}
+
+for (const f in {}) {
+    continue // comment
+    ;
+}
+
+for (const f in {}) {
+    break // comment
+    ;
+}
+
+while(true) {
+    continue // comment
+    ;
+}
+
+while (true) {
+    break // comment
+    ;
+}
+
+do {
+    continue // comment
+    ;
+} while(true);
+
+
+do {
+    break // comment
+    ;
+} while(true);
+
+label1: for (;;) {
+    continue label1 // comment
+    ;
+}
+
+label2: {
+    break label2 // comment
+    ;
+};
+
+for(;;) {
+    continue /* comment */
+    ;
+}
+
+for (;;) {
+    break /* comment */
+    ;
+}
+
+for (const f of []) {
+    continue /* comment */
+    ;
+}
+
+for (const f of []) {
+    break /* comment */
+    ;
+}
+
+for (const f in {}) {
+    continue /* comment */
+    ;
+}
+
+for (const f in {}) {
+    break /* comment */
+    ;
+}
+
+while(true) {
+    continue /* comment */
+    ;
+}
+
+while (true) {
+    break /* comment */
+    ;
+}
+
+do {
+    continue /* comment */
+    ;
+} while(true);
+
+
+do {
+    break /* comment */
+    ;
+} while(true);
+
+label1: for (;;) {
+    continue label1 /* comment */
+    ;
+}
+
+label2: {
+    break label2 /* comment */
+    ;
+};
+
+=====================================output=====================================
+for (;;) {
+  continue; // comment
+}
+
+for (;;) {
+  break; // comment
+}
+
+for (const f of []) {
+  continue; // comment
+}
+
+for (const f of []) {
+  break; // comment
+}
+
+for (const f in {}) {
+  continue; // comment
+}
+
+for (const f in {}) {
+  break; // comment
+}
+
+while (true) {
+  continue; // comment
+}
+
+while (true) {
+  break; // comment
+}
+
+do {
+  continue; // comment
+} while (true);
+
+do {
+  break; // comment
+} while (true);
+
+label1: for (;;) {
+  continue label1; // comment
+}
+
+label2: {
+  break label2; // comment
+}
+
+for (;;) {
+  continue; /* comment */
+}
+
+for (;;) {
+  break; /* comment */
+}
+
+for (const f of []) {
+  continue; /* comment */
+}
+
+for (const f of []) {
+  break; /* comment */
+}
+
+for (const f in {}) {
+  continue; /* comment */
+}
+
+for (const f in {}) {
+  break; /* comment */
+}
+
+while (true) {
+  continue; /* comment */
+}
+
+while (true) {
+  break; /* comment */
+}
+
+do {
+  continue; /* comment */
+} while (true);
+
+do {
+  break; /* comment */
+} while (true);
+
+label1: for (;;) {
+  continue label1 /* comment */;
+}
+
+label2: {
+  break label2 /* comment */;
+}
+
+================================================================================
+`;
+
+exports[`continue-and-break-comment-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(;;) {
+    continue
+    // comment
+    ;
+}
+
+for (;;) {
+    break
+    // comment
+    ;
+}
+
+for (const f of []) {
+    continue
+    // comment
+    ;
+}
+
+for (const f of []) {
+    break
+    // comment
+    ;
+}
+
+for (const f in {}) {
+    continue
+    // comment
+    ;
+}
+
+for (const f in {}) {
+    break
+    // comment
+    ;
+}
+
+while(true) {
+    continue
+    // comment
+    ;
+}
+
+while (true) {
+    break
+    // comment
+    ;
+}
+
+do {
+    continue
+    // comment
+    ;
+} while(true);
+
+
+do {
+    break
+    // comment
+    ;
+} while(true);
+
+label1: for (;;) {
+    continue label1
+    // comment
+    ;
+}
+
+label2: {
+    break label2
+    // comment
+    ;
+};
+
+for(;;) {
+    continue
+    /* comment */
+    ;
+}
+
+for (;;) {
+    break
+    /* comment */
+    ;
+}
+
+for (const f of []) {
+    continue
+    /* comment */
+    ;
+}
+
+for (const f of []) {
+    break
+    /* comment */
+    ;
+}
+
+for (const f in {}) {
+    continue
+    /* comment */
+    ;
+}
+
+for (const f in {}) {
+    break
+    /* comment */
+    ;
+}
+
+while(true) {
+    continue
+    /* comment */
+    ;
+}
+
+while (true) {
+    break
+    /* comment */
+    ;
+}
+
+do {
+    continue
+    /* comment */
+    ;
+} while(true);
+
+
+do {
+    break
+    /* comment */
+    ;
+} while(true);
+
+label1: for (;;) {
+    continue label1
+    /* comment */
+    ;
+}
+
+label2: {
+    break label2
+    /* comment */
+    ;
+};
+
+=====================================output=====================================
+for (;;) {
+  continue;
+  // comment
+}
+
+for (;;) {
+  break;
+  // comment
+}
+
+for (const f of []) {
+  continue;
+  // comment
+}
+
+for (const f of []) {
+  break;
+  // comment
+}
+
+for (const f in {}) {
+  continue;
+  // comment
+}
+
+for (const f in {}) {
+  break;
+  // comment
+}
+
+while (true) {
+  continue;
+  // comment
+}
+
+while (true) {
+  break;
+  // comment
+}
+
+do {
+  continue;
+  // comment
+} while (true);
+
+do {
+  break;
+  // comment
+} while (true);
+
+label1: for (;;) {
+  continue label1;
+  // comment
+}
+
+label2: {
+  break label2;
+  // comment
+}
+
+for (;;) {
+  continue;
+  /* comment */
+}
+
+for (;;) {
+  break;
+  /* comment */
+}
+
+for (const f of []) {
+  continue;
+  /* comment */
+}
+
+for (const f of []) {
+  break;
+  /* comment */
+}
+
+for (const f in {}) {
+  continue;
+  /* comment */
+}
+
+for (const f in {}) {
+  break;
+  /* comment */
+}
+
+while (true) {
+  continue;
+  /* comment */
+}
+
+while (true) {
+  break;
+  /* comment */
+}
+
+do {
+  continue;
+  /* comment */
+} while (true);
+
+do {
+  break;
+  /* comment */
+} while (true);
+
+label1: for (;;) {
+  continue label1;
+  /* comment */
+}
+
+label2: {
+  break label2;
+  /* comment */
+}
+
+================================================================================
+`;
+
+exports[`continue-and-break-comment-without-blocks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for(;;) continue
+// comment
+;
+
+for (;;) break
+// comment
+;
+
+for (const f of []) continue
+// comment
+;
+
+for (const f of []) break
+// comment
+;
+
+for (const f in {}) continue
+// comment
+;
+
+for (const f in {}) break
+// comment
+;
+
+for(;;) continue // comment
+;
+
+for (;;) break // comment
+;
+
+for (const f of []) continue // comment
+;
+
+for (const f of []) break // comment
+;
+
+for (const f in {}) continue // comment
+;
+
+for (const f in {}) break // comment
+;
+
+for(;;) continue /* comment */
+;
+
+for (;;) break /* comment */
+;
+
+for (const f of []) continue /* comment */
+;
+
+for (const f of []) break /* comment */
+;
+
+for (const f in {}) continue /* comment */
+;
+
+for (const f in {}) break /* comment */
+;
+
+for(;;) continue
+/* comment */
+;
+
+for (;;) break
+/* comment */
+;
+
+for (const f of []) continue
+/* comment */
+;
+
+for (const f of []) break
+/* comment */
+;
+
+for (const f in {}) continue
+/* comment */
+;
+
+for (const f in {}) break
+/* comment */
+;
+
+label1: for (;;) continue label1 /* comment */
+;
+
+label1: for (;;) continue label1
+/* comment */
+;
+
+label1: for (;;) continue label1 // comment
+;
+
+label1: for (;;) continue label1
+// comment
+;
+
+=====================================output=====================================
+for (;;)
+  continue;
+  // comment
+
+for (;;)
+  break;
+  // comment
+
+for (const f of [])
+  continue;
+  // comment
+
+for (const f of [])
+  break;
+  // comment
+
+for (const f in {})
+  continue;
+  // comment
+
+for (const f in {})
+  break;
+  // comment
+
+for (;;)
+  continue; // comment
+
+for (;;)
+  break; // comment
+
+for (const f of [])
+  continue; // comment
+
+for (const f of [])
+  break; // comment
+
+for (const f in {})
+  continue; // comment
+
+for (const f in {})
+  break; // comment
+
+for (;;) continue; /* comment */
+
+for (;;) break; /* comment */
+
+for (const f of []) continue; /* comment */
+
+for (const f of []) break; /* comment */
+
+for (const f in {}) continue; /* comment */
+
+for (const f in {}) break; /* comment */
+
+for (;;)
+  continue;
+  /* comment */
+
+for (;;)
+  break;
+  /* comment */
+
+for (const f of [])
+  continue;
+  /* comment */
+
+for (const f of [])
+  break;
+  /* comment */
+
+for (const f in {})
+  continue;
+  /* comment */
+
+for (const f in {})
+  break;
+  /* comment */
+
+label1: for (;;) continue label1 /* comment */;
+
+label1: for (;;)
+  continue label1;
+  /* comment */
+
+label1: for (;;)
+  continue label1; // comment
+
+label1: for (;;)
+  continue label1;
+  // comment
+
+================================================================================
+`;
+
 exports[`for.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

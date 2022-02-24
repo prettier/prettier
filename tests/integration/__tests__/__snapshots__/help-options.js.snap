@@ -18,6 +18,19 @@ Default: always
 
 exports[`show detailed usage with --help arrow-parens (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help bracket-same-line (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help bracket-same-line (stdout) 1`] = `
+"--bracket-same-line
+
+  Put > of opening tags on the last line instead of on a new line.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help bracket-same-line (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `
@@ -245,19 +258,6 @@ Default: false
 
 exports[`show detailed usage with --help insert-pragma (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help jsx-bracket-same-line (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help jsx-bracket-same-line (stdout) 1`] = `
-"--jsx-bracket-same-line
-
-  Put > on the last line instead of at a new line.
-
-Default: false
-"
-`;
-
-exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help jsx-single-quote (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help jsx-single-quote (stdout) 1`] = `
@@ -358,6 +358,17 @@ exports[`show detailed usage with --help no-error-on-unmatched-pattern (stdout) 
 
 exports[`show detailed usage with --help no-error-on-unmatched-pattern (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help no-plugin-search (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help no-plugin-search (stdout) 1`] = `
+"--no-plugin-search
+
+  Disable plugin autoloading.
+"
+`;
+
+exports[`show detailed usage with --help no-plugin-search (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-semi (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-semi (stdout) 1`] = `
@@ -372,7 +383,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
 
   Which parser to use.
 
@@ -383,6 +394,7 @@ Valid options:
   babel-flow       Flow
   babel-ts         TypeScript
   typescript       TypeScript
+  acorn            JavaScript
   espree           JavaScript
   meriyah          JavaScript
   css              CSS
@@ -540,6 +552,19 @@ Default: true
 `;
 
 exports[`show detailed usage with --help semi (write) 1`] = `Array []`;
+
+exports[`show detailed usage with --help single-attribute-per-line (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help single-attribute-per-line (stdout) 1`] = `
+"--single-attribute-per-line
+
+  Enforce single attribute per line in HTML, Vue and JSX.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help single-attribute-per-line (write) 1`] = `Array []`;
 
 exports[`show detailed usage with --help single-quote (stderr) 1`] = `""`;
 

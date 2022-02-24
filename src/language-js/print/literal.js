@@ -1,5 +1,5 @@
 "use strict";
-const { printString, printNumber } = require("../../common/util");
+const { printString, printNumber } = require("../../common/util.js");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -29,6 +29,10 @@ function printLiteral(path, options /*, print*/) {
         return printBigInt(node.raw);
       }
 
+      if (node.decimal) {
+        return printNumber(node.decimal) + "m";
+      }
+
       const { value } = node;
 
       if (typeof value === "number") {
@@ -49,7 +53,7 @@ function printBigInt(raw) {
 }
 
 function printRegex({ pattern, flags }) {
-  flags = flags.split("").sort().join("");
+  flags = [...flags].sort().join("");
   return `/${pattern}/${flags}`;
 }
 

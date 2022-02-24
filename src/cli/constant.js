@@ -1,7 +1,7 @@
 "use strict";
 
 const { outdent } = require("outdent");
-const { coreOptions } = require("./prettier-internal");
+const { coreOptions } = require("./prettier-internal.js");
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,
@@ -135,6 +135,9 @@ const options = {
   "debug-print-comments": {
     type: "boolean",
   },
+  "debug-print-ast": {
+    type: "boolean",
+  },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
     type: "int",
@@ -198,6 +201,10 @@ const options = {
     description: "What level of logs to report.",
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"],
+  },
+  "plugin-search": {
+    type: "boolean",
+    oppositeDescription: "Disable plugin autoloading.",
   },
   "support-info": {
     type: "boolean",

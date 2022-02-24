@@ -5,19 +5,17 @@ const {
   ParseLocation,
   ParseSourceFile,
 } = require("angular-html-parser/lib/compiler/src/parse_util");
-const parseFrontMatter = require("../utils/front-matter/parse");
-const getLast = require("../utils/get-last");
-const createError = require("../common/parser-create-error");
-const { inferParserByLanguage } = require("../common/util");
-const {
-  HTML_ELEMENT_ATTRIBUTES,
-  HTML_TAGS,
-  isUnknownNamespace,
-} = require("./utils");
-const { hasPragma } = require("./pragma");
-const { Node } = require("./ast");
-const { parseIeConditionalComment } = require("./conditional-comment");
-const { locStart, locEnd } = require("./loc");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
+const getLast = require("../utils/get-last.js");
+const createError = require("../common/parser-create-error.js");
+const { inferParserByLanguage } = require("../common/util.js");
+const HTML_TAGS = require("./utils/html-tag-names.js");
+const HTML_ELEMENT_ATTRIBUTES = require("./utils/html-elements-attributes.js");
+const isUnknownNamespace = require("./utils/is-unknown-namespace.js");
+const { hasPragma } = require("./pragma.js");
+const { Node } = require("./ast.js");
+const { parseIeConditionalComment } = require("./conditional-comment.js");
+const { locStart, locEnd } = require("./loc.js");
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -25,6 +23,7 @@ const { locStart, locEnd } = require("./loc");
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Element} Element
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser').ParseTreeResult} ParserTreeResult
  * @typedef {Omit<import('angular-html-parser').ParseOptions, 'canSelfClose'> & {
+ *   name?: 'html' | 'angular' | 'vue' | 'lwc';
  *   recognizeSelfClosing?: boolean;
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
@@ -186,25 +185,30 @@ function ngHtmlParser(
    * @param {AstNode} node
    */
   const restoreNameAndValue = (node) => {
-    if (node.type === "element") {
-      restoreName(node);
-      for (const attr of node.attrs) {
-        restoreName(attr);
-        if (!attr.valueSpan) {
-          attr.value = null;
-        } else {
-          attr.value = attr.valueSpan.toString();
-          if (/["']/.test(attr.value[0])) {
-            attr.value = attr.value.slice(1, -1);
+    switch (node.type) {
+      case "element":
+        restoreName(node);
+        for (const attr of node.attrs) {
+          restoreName(attr);
+          if (!attr.valueSpan) {
+            attr.value = null;
+          } else {
+            attr.value = attr.valueSpan.toString();
+            if (/["']/.test(attr.value[0])) {
+              attr.value = attr.value.slice(1, -1);
+            }
           }
         }
-      }
-    } else if (node.type === "comment") {
-      node.value = node.sourceSpan
-        .toString()
-        .slice("<!--".length, -"-->".length);
-    } else if (node.type === "text") {
-      node.value = node.sourceSpan.toString();
+        break;
+      case "comment":
+        node.value = node.sourceSpan
+          .toString()
+          .slice("<!--".length, -"-->".length);
+        break;
+      case "text":
+        node.value = node.sourceSpan.toString();
+        break;
+      // No default
     }
   };
 
@@ -312,7 +316,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     const start = new ParseLocation(file, 0, 0, 0);
     const end = start.moveBy(frontMatter.raw.length);
     frontMatter.sourceSpan = new ParseSourceSpan(start, end);
-    // @ts-ignore
+    // @ts-expect-error
     rawAst.children.unshift(frontMatter);
   }
 
@@ -328,13 +332,16 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
+    // @ts-expect-error
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
+      // @ts-expect-error
       getLast(subAst.children).sourceSpan.end
     );
+    // @ts-expect-error
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
-      /* istanbul ignore next */
+      /* istanbul ignore next */ // @ts-expect-error
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(
@@ -346,25 +353,26 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     return subAst;
   };
 
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.type === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
         node,
         parseSubHtml
       );
       if (ieConditionalComment) {
-        return ieConditionalComment;
+        node.parent.replaceChild(node, ieConditionalComment);
       }
     }
-
-    return node;
   });
+
+  return ast;
 }
 
 /**
  * @param {ParserOptions} parserOptions
  */
 function createParser({
+  name,
   recognizeSelfClosing = false,
   normalizeTagName = false,
   normalizeAttributeName = false,
@@ -374,14 +382,18 @@ function createParser({
 } = {}) {
   return {
     parse: (text, parsers, options) =>
-      _parse(text, options, {
-        recognizeSelfClosing,
-        normalizeTagName,
-        normalizeAttributeName,
-        allowHtmComponentClosingTags,
-        isTagNameCaseSensitive,
-        getTagContentType,
-      }),
+      _parse(
+        text,
+        { parser: name, ...options },
+        {
+          recognizeSelfClosing,
+          normalizeTagName,
+          normalizeAttributeName,
+          allowHtmComponentClosingTags,
+          isTagNameCaseSensitive,
+          getTagContentType,
+        }
+      ),
     hasPragma,
     astFormat: "html",
     locStart,
@@ -392,13 +404,15 @@ function createParser({
 module.exports = {
   parsers: {
     html: createParser({
+      name: "html",
       recognizeSelfClosing: true,
       normalizeTagName: true,
       normalizeAttributeName: true,
       allowHtmComponentClosingTags: true,
     }),
-    angular: createParser(),
+    angular: createParser({ name: "angular" }),
     vue: createParser({
+      name: "vue",
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
       getTagContentType: (tagName, prefix, hasParent, attrs) => {
@@ -414,6 +428,6 @@ module.exports = {
         }
       },
     }),
-    lwc: createParser(),
+    lwc: createParser({ name: "lwc" }),
   },
 };

@@ -2,13 +2,14 @@
 
 const path = require("path");
 const fs = require("fs");
-const tempy = require("tempy");
 const fromPairs = require("lodash/fromPairs");
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../run-prettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+const { default: tempy } = require("../../../vendors/tempy.js");
+
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("extracts file-info for a js file", () => {
   runPrettier("cli/", ["--file-info", "something.js"]).test({

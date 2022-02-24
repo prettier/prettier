@@ -3,13 +3,13 @@
 const {
   inferParserByLanguage,
   getMaxContinuousCount,
-} = require("../common/util");
+} = require("../common/util.js");
 const {
   builders: { hardline, markAsRoot },
-  utils: { replaceNewlinesWithLiterallines },
-} = require("../document");
-const printFrontMatter = require("../utils/front-matter/print");
-const { getFencedCodeBlockValue } = require("./utils");
+  utils: { replaceEndOfLine },
+} = require("../document/index.js");
+const printFrontMatter = require("../utils/front-matter/print.js");
+const { getFencedCodeBlockValue } = require("./utils.js");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -21,9 +21,13 @@ function embed(path, print, textToDoc, options) {
       const style = styleUnit.repeat(
         Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
       );
+      const newOptions = { parser };
+      if (node.lang === "tsx") {
+        newOptions.filepath = "dummy.tsx";
+      }
       const doc = textToDoc(
         getFencedCodeBlockValue(node, options.originalText),
-        { parser },
+        newOptions,
         { stripTrailingHardline: true }
       );
       return markAsRoot([
@@ -31,7 +35,7 @@ function embed(path, print, textToDoc, options) {
         node.lang,
         node.meta ? " " + node.meta : "",
         hardline,
-        replaceNewlinesWithLiterallines(doc),
+        replaceEndOfLine(doc),
         hardline,
         style,
       ]);

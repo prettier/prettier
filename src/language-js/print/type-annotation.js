@@ -1,25 +1,28 @@
 "use strict";
 
-const { printComments, printDanglingComments } = require("../../main/comments");
-const { getLast } = require("../../common/util");
+const {
+  printComments,
+  printDanglingComments,
+} = require("../../main/comments.js");
+const { getLast, isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document");
-const pathNeedsParens = require("../needs-parens");
-const { locStart } = require("../loc");
+} = require("../../document/index.js");
+const pathNeedsParens = require("../needs-parens.js");
+const { locStart } = require("../loc.js");
 const {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils");
-const { printAssignment } = require("./assignment");
+} = require("../utils/index.js");
+const { printAssignment } = require("./assignment.js");
 const {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters");
-const { printArrayItems } = require("./array");
+} = require("./function-parameters.js");
+const { printArrayItems } = require("./array.js");
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -284,15 +287,21 @@ function printFunctionType(path, options, print) {
 function printTupleType(path, options, print) {
   const node = path.getValue();
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const hasRest =
-    node[typesField].length > 0 &&
-    getLast(node[typesField]).type === "TSRestType";
+  const types = node[typesField];
+  const isNonEmptyTuple = isNonEmptyArray(types);
+  const hasRest = isNonEmptyTuple && getLast(types).type === "TSRestType";
+  const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
   return group([
     "[",
-    indent([softline, printArrayItems(path, options, typesField, print)]),
-    ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
+    indent([
+      bracketsDelimiterLine,
+      printArrayItems(path, options, typesField, print),
+    ]),
+    ifBreak(
+      isNonEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
+    ),
     printDanglingComments(path, options, /* sameIndent */ true),
-    softline,
+    bracketsDelimiterLine,
     "]",
   ]);
 }

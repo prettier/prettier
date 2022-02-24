@@ -1,7 +1,7 @@
 "use strict";
 
-const { printDanglingComments } = require("../../main/comments");
-const { getLast, getPenultimate } = require("../../common/util");
+const { printDanglingComments } = require("../../main/comments.js");
+const { getLast, getPenultimate } = require("../../common/util.js");
 const {
   getFunctionParameters,
   hasComment,
@@ -14,7 +14,9 @@ const {
   iterateCallArgumentsPath,
   isNextLineEmpty,
   isCallExpression,
-} = require("../utils");
+  isStringLiteral,
+  isObjectProperty,
+} = require("../utils/index.js");
 
 const {
   builders: {
@@ -28,10 +30,10 @@ const {
     breakParent,
   },
   utils: { willBreak },
-} = require("../../document");
+} = require("../../document/index.js");
 
-const { ArgExpansionBailout } = require("../../common/errors");
-const { isConciselyPrintedArray } = require("./array");
+const { ArgExpansionBailout } = require("../../common/errors.js");
+const { isConciselyPrintedArray } = require("./array.js");
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();
@@ -293,10 +295,10 @@ function isTypeModuleObjectExpression(node) {
   return (
     node.type === "ObjectExpression" &&
     node.properties.length === 1 &&
-    node.properties[0].type === "ObjectProperty" &&
+    isObjectProperty(node.properties[0]) &&
     node.properties[0].key.type === "Identifier" &&
     node.properties[0].key.name === "type" &&
-    node.properties[0].value.type === "StringLiteral" &&
+    isStringLiteral(node.properties[0].value) &&
     node.properties[0].value.value === "module"
   );
 }

@@ -7,11 +7,11 @@ const path = require("path");
 const prettier = !TEST_STANDALONE
   ? require("prettier-local")
   : require("prettier-standalone");
-const checkParsers = require("./utils/check-parsers");
-const createSnapshot = require("./utils/create-snapshot");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line");
-const consistentEndOfLine = require("./utils/consistent-end-of-line");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title");
+const checkParsers = require("./utils/check-parsers.js");
+const createSnapshot = require("./utils/create-snapshot.js");
+const visualizeEndOfLine = require("./utils/visualize-end-of-line.js");
+const consistentEndOfLine = require("./utils/consistent-end-of-line.js");
+const stringifyOptionsForTitle = require("./utils/stringify-options-for-title.js");
 
 const { FULL_TEST } = process.env;
 const BOM = "\uFEFF";
@@ -39,6 +39,7 @@ const unstableTests = new Map(
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
     "js/comments/html-like/comment.js",
+    "js/for/continue-and-break-comment-without-blocks.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -55,6 +56,7 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
+const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = espreeDisabledTests;
 
 const isUnstable = (filename, options) => {
@@ -185,6 +187,13 @@ function runSpec(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
+      }
+    }
+
+    if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
+      allParsers.push("__babel_estree");
     }
   }
 

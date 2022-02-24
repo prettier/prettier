@@ -2,16 +2,15 @@
 
 /** @typedef {import("../../document/doc-builders").Doc} Doc */
 
-/** @type {import("assert")} */
 const assert = require("assert");
 const {
   printDanglingComments,
   printCommentsSeparately,
-} = require("../../main/comments");
-const getLast = require("../../utils/get-last");
+} = require("../../main/comments.js");
+const getLast = require("../../utils/get-last.js");
 const {
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util");
+} = require("../../common/util.js");
 const {
   builders: {
     line,
@@ -23,7 +22,9 @@ const {
     join,
     indentIfBreak,
   },
-} = require("../../document");
+  utils: { removeLines, willBreak },
+} = require("../../document/index.js");
+const { ArgExpansionBailout } = require("../../common/errors.js");
 const {
   getFunctionParameters,
   hasLeadingOwnLineComment,
@@ -32,24 +33,41 @@ const {
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
-  returnArgumentHasLeadingComment,
   isBinaryish,
   isLineComment,
   hasComment,
   getComments,
   CommentCheckFlags,
   isCallLikeExpression,
-} = require("../utils");
-const { locEnd } = require("../loc");
+  isCallExpression,
+  getCallArguments,
+  hasNakedLeftSide,
+  getLeftSide,
+} = require("../utils/index.js");
+const { locEnd } = require("../loc.js");
 const {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters");
-const { printPropertyKey } = require("./property");
-const { printFunctionTypeParameters } = require("./misc");
+} = require("./function-parameters.js");
+const { printPropertyKey } = require("./property.js");
+const { printFunctionTypeParameters } = require("./misc.js");
 
-function printFunctionDeclaration(path, print, options, expandArg) {
+function printFunction(path, print, options, args) {
   const node = path.getValue();
+
+  let expandArg = false;
+  if (
+    (node.type === "FunctionDeclaration" ||
+      node.type === "FunctionExpression") &&
+    args &&
+    args.expandLastArg
+  ) {
+    const parent = path.getParentNode();
+    if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+      expandArg = true;
+    }
+  }
+
   const parts = [];
 
   // For TypeScript the TSDeclareFunction node shares the AST
@@ -176,16 +194,24 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
+    const expandArg = args && (args.expandLastArg || args.expandFirstArg);
+    let returnTypeDoc = printReturnType(path, print, options);
+    if (expandArg) {
+      if (willBreak(returnTypeDoc)) {
+        throw new ArgExpansionBailout();
+      }
+      returnTypeDoc = group(removeLines(returnTypeDoc));
+    }
     parts.push(
       group([
         printFunctionParameters(
           path,
           print,
           options,
-          /* expandLast */ args && (args.expandLastArg || args.expandFirstArg),
+          expandArg,
           /* printTypeParams */ true
         ),
-        printReturnType(path, print, options),
+        returnTypeDoc,
       ])
     );
   }
@@ -226,12 +252,19 @@ function printArrowChain(
   const isAssignmentRhs = Boolean(args && args.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
-    tailNode.body.type !== "ObjectExpression";
+    tailNode.body.type !== "ObjectExpression" &&
+    tailNode.body.type !== "SequenceExpression";
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
     (args && args.assignmentLayout === "chain-tail-arrow-chain");
 
   const groupId = Symbol("arrow-chain");
+
+  // We handle sequence expressions as the body of arrows specially,
+  // so that the required parentheses end up on their own lines.
+  if (tailNode.body.type === "SequenceExpression") {
+    bodyDoc = group(["(", indent([softline, bodyDoc]), softline, ")"]);
+  }
 
   return group([
     group(
@@ -250,7 +283,7 @@ function printArrowChain(
   ]);
 }
 
-function printArrowFunctionExpression(path, options, print, args) {
+function printArrowFunction(path, options, print, args) {
   let node = path.getValue();
   /** @type {Doc[]} */
   const signatures = [];
@@ -388,6 +421,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   return false;
 }
 
+/** @returns {Doc} */
 function printReturnType(path, print, options) {
   const node = path.getValue();
   const returnType = print("returnType");
@@ -416,7 +450,7 @@ function printReturnType(path, print, options) {
 }
 
 // `ReturnStatement` and `ThrowStatement`
-function printReturnAndThrowArgument(path, options, print) {
+function printReturnOrThrowArgument(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   const parts = [];
@@ -464,16 +498,39 @@ function printReturnAndThrowArgument(path, options, print) {
 }
 
 function printReturnStatement(path, options, print) {
-  return ["return", printReturnAndThrowArgument(path, options, print)];
+  return ["return", printReturnOrThrowArgument(path, options, print)];
 }
 
 function printThrowStatement(path, options, print) {
-  return ["throw", printReturnAndThrowArgument(path, options, print)];
+  return ["throw", printReturnOrThrowArgument(path, options, print)];
+}
+
+// This recurses the return argument, looking for the first token
+// (the leftmost leaf node) and, if it (or its parents) has any
+// leadingComments, returns true (so it can be wrapped in parens).
+function returnArgumentHasLeadingComment(options, argument) {
+  if (hasLeadingOwnLineComment(options.originalText, argument)) {
+    return true;
+  }
+
+  if (hasNakedLeftSide(argument)) {
+    let leftMost = argument;
+    let newLeftMost;
+    while ((newLeftMost = getLeftSide(leftMost))) {
+      leftMost = newLeftMost;
+
+      if (hasLeadingOwnLineComment(options.originalText, leftMost)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 module.exports = {
-  printFunctionDeclaration,
-  printArrowFunctionExpression,
+  printFunction,
+  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,

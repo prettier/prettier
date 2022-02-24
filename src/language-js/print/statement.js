@@ -2,8 +2,8 @@
 
 const {
   builders: { hardline },
-} = require("../../document");
-const pathNeedsParens = require("../needs-parens");
+} = require("../../document/index.js");
+const pathNeedsParens = require("../needs-parens.js");
 const {
   getLeftSidePathName,
   hasNakedLeftSide,
@@ -12,8 +12,8 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils");
-const { shouldPrintParamsWithoutParens } = require("./function");
+} = require("../utils/index.js");
+const { shouldPrintParamsWithoutParens } = require("./function.js");
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -201,10 +201,21 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
     }
   }
 
+  // Flow variance sigil +/- requires semi if there's no
+  // "declare" or "static" keyword before it.
+  if (
+    isClassProperty(nextNode) &&
+    nextNode.variance &&
+    !nextNode.static &&
+    !nextNode.declare
+  ) {
+    return true;
+  }
+
   switch (nextNode.type) {
     case "ClassProperty":
     case "PropertyDefinition":
-    case "TSAbstractClassProperty":
+    case "TSAbstractPropertyDefinition":
       return nextNode.computed;
     case "MethodDefinition": // Flow
     case "TSAbstractMethodDefinition": // TypeScript

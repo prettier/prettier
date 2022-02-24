@@ -14,50 +14,21 @@ run_spec(
       "f = (a) => +a! ** 6;",
       "async (a) => (await a!) ** 6;",
       "(-+5 ** 6);",
-      // TODO: Test these two edge case
-      // outdent`
-      //   export class C {
-      //     p = await (0);
-      //   }
-      // `,
-      // "await (0);"
-    ],
-  },
-  ["babel", "espree", "meriyah", "flow"]
-);
-
-run_spec(
-  {
-    dirname: __dirname,
-    snippets: [
-      // `espree` and `meriyah` didn't throw
       "f = async () => await 5 ** 6;",
-      // `espree` didn't throw
       "f = async () => await -5 ** 6;",
+      "async({ foo33 = 1 });",
     ],
   },
-  ["babel"]
-);
-
-run_spec(
-  {
-    dirname: __dirname,
-    snippets: ["async (x = await (2)) => {};"],
-  },
-  ["babel", "espree", "meriyah"]
+  ["babel", "acorn", "espree", "meriyah", "flow"]
 );
 
 run_spec(
   {
     dirname: __dirname,
     snippets: [
-      outdent`
-        export class C {
-          p = await 0;
-        }
-      `,
-      "await 0;",
+      // `flow` and `meriyah` didn't throw
+      "async (x = await (2)) => {};",
     ],
   },
-  ["espree", "meriyah"]
+  ["babel", "acorn", "espree"]
 );

@@ -6,9 +6,9 @@ parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-a:
+a: # a.trailingComment
   123
-  # impicitMappginValue
+  # implicitMappingValue
 
 ? b
   # explicitMappingKey
@@ -37,9 +37,9 @@ empty_content:
   # hello world
 
 =====================================output=====================================
-a:
+a: # a.trailingComment
   123
-  # impicitMappginValue
+  # implicitMappingValue
 
 ? b
   # explicitMappingKey

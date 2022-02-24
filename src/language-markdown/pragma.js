@@ -1,6 +1,6 @@
 "use strict";
 
-const parseFrontMatter = require("../utils/front-matter/parse");
+const parseFrontMatter = require("../utils/front-matter/parse.js");
 
 const pragmas = ["format", "prettier"];
 
@@ -9,6 +9,7 @@ function startWithPragma(text) {
   const regex = new RegExp(
     [
       `<!--\\s*${pragma}\\s*-->`,
+      `{\\s*\\/\\*\\s*${pragma}\\s*\\*\\/\\s*}`,
       `<!--.*\r?\n[\\s\\S]*(^|\n)[^\\S\n]*${pragma}[^\\S\n]*($|\n)[\\s\\S]*\n.*-->`,
     ].join("|"),
     "m"

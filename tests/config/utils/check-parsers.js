@@ -3,7 +3,7 @@
 const path = require("path");
 const { outdent } = require("outdent");
 
-const TESTS_ROOT = path.join(__dirname, "../../tests");
+const TESTS_ROOT = path.join(__dirname, "../../format");
 
 const getCategory = (dirname) =>
   path.relative(TESTS_ROOT, dirname).split(path.sep).shift();
@@ -50,11 +50,12 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: ["babel", "meriyah", "espree"],
+      parsers: ["babel", "acorn", "espree", "meriyah"],
       verifyParsers: [
         "babel",
-        "meriyah",
+        "acorn",
         "espree",
+        "meriyah",
         "flow",
         "babel-flow",
         "typescript",

@@ -3,9 +3,9 @@
 const path = require("path");
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../run-prettier.js");
 
-expect.addSnapshotSerializer(require("../path-serializer"));
+expect.addSnapshotSerializer(require("../path-serializer.js"));
 
 describe("resolves configuration from external files", () => {
   runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({
@@ -303,6 +303,14 @@ test("API resolveConfig resolves relative path values based on config filepath",
   expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toMatchObject({
     plugins: [path.join(parentDir, "path-to-plugin")],
     pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")],
+  });
+
+  expect(
+    prettier.resolveConfig.sync(
+      path.join(__dirname, "../cli/config/plugin-search-dirs/index.js")
+    )
+  ).toMatchObject({
+    pluginSearchDirs: false,
   });
 });
 

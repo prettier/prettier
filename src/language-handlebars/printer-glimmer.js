@@ -11,13 +11,12 @@ const {
     join,
     line,
     softline,
-    literalline,
   },
-  utils: { getDocParts },
-} = require("../document");
-const { isNonEmptyArray, replaceEndOfLineWith } = require("../common/util");
-const { locStart, locEnd } = require("./loc");
-const clean = require("./clean");
+  utils: { getDocParts, replaceTextEndOfLine },
+} = require("../document/index.js");
+const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
+const { locStart, locEnd } = require("./loc.js");
+const clean = require("./clean.js");
 const {
   getNextNode,
   getPreviousNode,
@@ -29,7 +28,7 @@ const {
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
-} = require("./utils");
+} = require("./utils.js");
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -47,6 +46,8 @@ function print(path, options, print) {
   if (hasPrettierIgnore(path)) {
     return options.originalText.slice(locStart(node), locEnd(node));
   }
+
+  const favoriteQuote = options.singleQuote ? "'" : '"';
 
   switch (node.type) {
     case "Block":
@@ -154,14 +155,14 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? chooseEnclosingQuote(options, node.value.chars).quote
+        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
         : node.value.type === "ConcatStatement"
-        ? chooseEnclosingQuote(
-            options,
+        ? getPreferredQuote(
             node.value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
-              .join("")
+              .join(""),
+            favoriteQuote
           ).quote
         : "";
 
@@ -225,7 +226,7 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceEndOfLineWith(text, literalline);
+        return replaceTextEndOfLine(text);
       }
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
@@ -398,7 +399,11 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
-      return printStringLiteral(node.value, options);
+      if (needsOppositeQuote(path)) {
+        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
+        return printStringLiteral(node.value, printFavoriteQuote);
+      }
+      return printStringLiteral(node.value, favoriteQuote);
     }
     case "NumberLiteral": {
       return String(node.value);
@@ -418,24 +423,30 @@ function print(path, options, print) {
 
 /* ElementNode print helpers */
 
+function sortByLoc(a, b) {
+  return locStart(a) - locStart(b);
+}
+
 function printStartingTag(path, print) {
   const node = path.getValue();
 
-  const attributesLike = ["attributes", "modifiers", "comments", "blockParams"]
-    .filter((property) => isNonEmptyArray(node[property]))
-    .map((property) => [
-      line,
-      property === "blockParams"
-        ? printBlockParams(node)
-        : join(line, path.map(print, property)),
-    ]);
+  const types = ["attributes", "modifiers", "comments"].filter((property) =>
+    isNonEmptyArray(node[property])
+  );
+  const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
-  return [
-    "<",
-    node.tag,
-    indent(attributesLike),
-    printStartingTagEndMarker(node),
-  ];
+  for (const attributeType of types) {
+    path.each((attributePath) => {
+      const index = attributes.indexOf(attributePath.getValue());
+      attributes.splice(index, 1, [line, print()]);
+    }, attributeType);
+  }
+
+  if (isNonEmptyArray(node.blockParams)) {
+    attributes.push(line, printBlockParams(node));
+  }
+
+  return ["<", node.tag, indent(attributes), printStartingTagEndMarker(node)];
 }
 
 function printChildren(path, options, print) {
@@ -681,10 +692,14 @@ function countTrailingNewLines(string) {
 }
 
 function generateHardlines(number = 0) {
-  return new Array(Math.min(number, NEWLINES_TO_PRESERVE_MAX)).fill(hardline);
+  return Array.from({
+    length: Math.min(number, NEWLINES_TO_PRESERVE_MAX),
+  }).fill(hardline);
 }
 
 /* StringLiteral print helpers */
+
+/** @typedef {import("../common/util").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on
@@ -693,38 +708,28 @@ function generateHardlines(number = 0) {
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
  * @param {string} stringLiteral - the string literal value
- * @param {object} options - the prettier options object
+ * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, options) {
-  const { quote, regex } = chooseEnclosingQuote(options, stringLiteral);
+function printStringLiteral(stringLiteral, favoriteQuote) {
+  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
 }
 
-function chooseEnclosingQuote(options, stringLiteral) {
-  const double = { quote: '"', regex: /"/g };
-  const single = { quote: "'", regex: /'/g };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = preferred === single ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  // If `stringLiteral` contains at least one of the quote preferred for
-  // enclosing the string, we might want to enclose with the alternate quote
-  // instead, to minimize the number of escaped quotes.
-  if (
-    stringLiteral.includes(preferred.quote) ||
-    stringLiteral.includes(alternate.quote)
-  ) {
-    const numPreferredQuotes = (stringLiteral.match(preferred.regex) || [])
-      .length;
-    const numAlternateQuotes = (stringLiteral.match(alternate.regex) || [])
-      .length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+function needsOppositeQuote(path) {
+  let index = 0;
+  let parentNode = path.getParentNode(index);
+  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
+    index++;
+    parentNode = path.getParentNode(index);
   }
-
-  return shouldUseAlternateQuote ? alternate : preferred;
+  if (
+    parentNode &&
+    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
+    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /* SubExpression print helpers */

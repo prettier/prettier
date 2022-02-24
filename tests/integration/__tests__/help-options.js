@@ -1,21 +1,24 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
-const constant = require("../../../src/cli/constant");
-const core = require("../../../src/cli/core");
-const arrayify = require("../../../src/utils/arrayify");
+const runPrettier = require("../run-prettier.js");
+const constant = require("../../../src/cli/constant.js");
+const {
+  createDetailedOptionMap,
+  normalizeDetailedOptionMap,
+} = require("../../../src/cli/options/option-map.js");
+const arrayify = require("../../../src/utils/arrayify.js");
 
 for (const option of arrayify(
   {
-    ...core.createDetailedOptionMap(
+    ...createDetailedOptionMap(
       prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
         showInternal: true,
       }).options
     ),
-    ...core.normalizeDetailedOptionMap(constant.options),
+    ...normalizeDetailedOptionMap(constant.options),
   },
   "name"
 )) {

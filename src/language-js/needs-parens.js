@@ -1,6 +1,7 @@
 "use strict";
 
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
+const isNonEmptyArray = require("../utils/is-non-empty-array.js");
 const {
   getFunctionParameters,
   getLeftSidePathName,
@@ -13,7 +14,8 @@ const {
   getPrecedence,
   isCallExpression,
   isMemberExpression,
-} = require("./utils");
+  isObjectProperty,
+} = require("./utils/index.js");
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -94,7 +96,6 @@ function needsParens(path, options) {
           node.type === "LogicalExpression" ||
           node.type === "NewExpression" ||
           node.type === "ObjectExpression" ||
-          node.type === "ParenthesizedExpression" ||
           node.type === "SequenceExpression" ||
           node.type === "TaggedTemplateExpression" ||
           node.type === "UnaryExpression" ||
@@ -132,13 +133,17 @@ function needsParens(path, options) {
                 /** @(x().y) */ hasMemberExpression ||
                 /** @(x().y()) */ hasCallExpression
               ) {
-                return true;
+                return options.parser !== "typescript";
               }
               hasCallExpression = true;
               current = current.callee;
               break;
             case "Identifier":
               return false;
+            case "TaggedTemplateExpression":
+              // babel-parser cannot parse
+              //   @foo`bar`
+              return options.parser !== "typescript";
             default:
               return true;
           }
@@ -217,10 +222,7 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (
-        parent.type === "UpdateExpression" ||
-        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
-      ) {
+      if (parent.type === "UpdateExpression") {
         return true;
       }
 
@@ -366,16 +368,6 @@ function needsParens(path, options) {
       ) {
         return true;
       }
-
-      if (
-        name === "expression" &&
-        node.argument &&
-        node.argument.type === "PipelinePrimaryTopicReference" &&
-        parent.type === "PipelineTopicExpression"
-      ) {
-        return true;
-      }
-
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
@@ -413,7 +405,6 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "TSJSDocFunctionType":
     case "TSConditionalType":
       if (name === "extendsType" && parent.type === "TSConditionalType") {
         return true;
@@ -449,7 +440,7 @@ function needsParens(path, options) {
         (name === "objectType" && parent.type === "TSIndexedAccessType") ||
         parent.type === "TSTypeOperator" ||
         (parent.type === "TSTypeAnnotation" &&
-          /^TSJSDoc/.test(path.getParentNode(1).type))
+          path.getParentNode(1).type.startsWith("TSJSDoc"))
       );
 
     case "ArrayTypeAnnotation":
@@ -461,11 +452,19 @@ function needsParens(path, options) {
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "UnionTypeAnnotation"
+        parent.type === "UnionTypeAnnotation" ||
+        (name === "objectType" &&
+          (parent.type === "IndexedAccessType" ||
+            parent.type === "OptionalIndexedAccessType"))
       );
 
     case "NullableTypeAnnotation":
-      return parent.type === "ArrayTypeAnnotation";
+      return (
+        parent.type === "ArrayTypeAnnotation" ||
+        (name === "objectType" &&
+          (parent.type === "IndexedAccessType" ||
+            parent.type === "OptionalIndexedAccessType"))
+      );
 
     case "FunctionTypeAnnotation": {
       const ancestor =
@@ -477,6 +476,9 @@ function needsParens(path, options) {
         ancestor.type === "UnionTypeAnnotation" ||
         ancestor.type === "IntersectionTypeAnnotation" ||
         ancestor.type === "ArrayTypeAnnotation" ||
+        (name === "objectType" &&
+          (ancestor.type === "IndexedAccessType" ||
+            ancestor.type === "OptionalIndexedAccessType")) ||
         // We should check ancestor's parent to know whether the parentheses
         // are really needed, but since ??T doesn't make sense this check
         // will almost never be true.
@@ -494,6 +496,13 @@ function needsParens(path, options) {
 
     case "OptionalIndexedAccessType":
       return name === "objectType" && parent.type === "IndexedAccessType";
+
+    case "TypeofTypeAnnotation":
+      return (
+        name === "objectType" &&
+        (parent.type === "IndexedAccessType" ||
+          parent.type === "OptionalIndexedAccessType")
+      );
 
     case "StringLiteral":
     case "NumericLiteral":
@@ -628,9 +637,6 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
-        case "PipelineTopicExpression":
-          return Boolean(node.extra && node.extra.parenthesized);
-
         case "BinaryExpression":
           return (
             parent.operator !== "|>" || (node.extra && node.extra.parenthesized)
@@ -662,6 +668,10 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
+      if (isNonEmptyArray(node.decorators)) {
+        return true;
+      }
+
       switch (parent.type) {
         case "NewExpression":
           return name === "callee";
@@ -763,9 +773,8 @@ function needsParens(path, options) {
           parent.type !== "JSXExpressionContainer" &&
           parent.type !== "JSXFragment" &&
           parent.type !== "LogicalExpression" &&
-          parent.type !== "ObjectProperty" &&
           !isCallExpression(parent) &&
-          parent.type !== "Property" &&
+          !isObjectProperty(parent) &&
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&

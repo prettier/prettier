@@ -14,6 +14,32 @@ const test = (ruleId, tests) => {
   );
 };
 
+test("await-cli-tests", {
+  valid: [
+    "async () => await runPrettier()",
+    "runPrettier().test()",
+    "notRunPrettier()",
+    "async () => await runPrettier().stderr",
+    outdent`
+      async () => {
+        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+      }
+    `,
+  ],
+  invalid: [
+    {
+      code: "runPrettier()",
+      errors: [
+        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+      ],
+    },
+    {
+      code: "runPrettier().stderr",
+      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+    },
+  ],
+});
+
 test("better-parent-property-check-in-needs-parens", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
@@ -246,8 +272,8 @@ test("no-identifier-n", {
   valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
   invalid: [
     {
-      code: "const n = 1; alet(n)",
-      output: "const node = 1; alet(node)",
+      code: "const n = 1; alert(n)",
+      output: "const node = 1; alert(node)",
       errors: 1,
     },
     {
@@ -414,18 +440,6 @@ test("prefer-is-non-empty-array", {
       output: "!a || !isNonEmptyArray(a.b)",
       errors: 1,
     })),
-  ],
-});
-
-test("require-json-extensions", {
-  valid: ['require("./not-exists")', 'require("./index")'],
-  invalid: [
-    {
-      code: 'require("./package")',
-      filename: __filename,
-      output: 'require("./package.json")',
-      errors: [{ message: 'Missing file extension ".json" for "./package".' }],
-    },
   ],
 });
 

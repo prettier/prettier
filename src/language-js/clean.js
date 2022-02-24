@@ -1,6 +1,6 @@
 "use strict";
 
-const { isBlockComment } = require("./utils");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 const ignoredProperties = new Set([
   "range",
@@ -45,6 +45,9 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "DecimalLiteral") {
     newObj.value = Number(newObj.value);
+  }
+  if (ast.type === "Literal" && newObj.decimal) {
+    newObj.decimal = Number(newObj.decimal);
   }
 
   // We remove extra `;` and add them when needed

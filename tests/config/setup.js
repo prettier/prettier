@@ -2,6 +2,6 @@
 
 Object.defineProperty(global, "run_spec", {
   get() {
-    return require("./format-test");
+    return require("./format-test.js");
   },
 });

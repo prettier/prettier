@@ -2,7 +2,7 @@
 
 const {
   builders: { group },
-} = require("../document");
+} = require("../document/index.js");
 
 /**
  *     v-for="... in ..."
@@ -32,7 +32,7 @@ function printVueFor(value, textToDoc) {
 
 // modified from https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/parser/index.js#L370-L387
 function parseVueFor(value) {
-  const forAliasRE = /([^]*?)\s+(in|of)\s+([^]*)/;
+  const forAliasRE = /(.*?)\s+(in|of)\s+(.*)/s;
   const forIteratorRE = /,([^,\]}]*)(?:,([^,\]}]*))?$/;
   const stripParensRE = /^\(|\)$/g;
 
@@ -40,8 +40,13 @@ function parseVueFor(value) {
   if (!inMatch) {
     return;
   }
+
   const res = {};
   res.for = inMatch[3].trim();
+  if (!res.for) {
+    return;
+  }
+
   const alias = inMatch[1].trim().replace(stripParensRE, "");
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
@@ -54,10 +59,18 @@ function parseVueFor(value) {
     res.alias = alias;
   }
 
+  const left = [res.alias, res.iterator1, res.iterator2];
+  if (
+    left.some(
+      (part, index) =>
+        !part && (index === 0 || left.slice(index + 1).some(Boolean))
+    )
+  ) {
+    return;
+  }
+
   return {
-    left: `${[res.alias, res.iterator1, res.iterator2]
-      .filter(Boolean)
-      .join(",")}`,
+    left: left.filter(Boolean).join(","),
     operator: inMatch[2],
     right: res.for,
   };
@@ -73,10 +86,10 @@ function printVueBindings(value, textToDoc) {
 function isVueEventBindingExpression(eventBindingValue) {
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/codegen/events.js#L3-L4
   // arrow function or anonymous function
-  const fnExpRE = /^([\w$]+|\([^)]*?\))\s*=>|^function\s*\(/;
+  const fnExpRE = /^(?:[\w$]+|\([^)]*\))\s*=>|^function\s*\(/;
   // simple member expression chain (a, a.b, a['b'], a["b"], a[0], a[b])
   const simplePathRE =
-    /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
+    /^[$A-Z_a-z][\w$]*(?:\.[$A-Z_a-z][\w$]*|\['[^']*']|\["[^"]*"]|\[\d+]|\[[$A-Z_a-z][\w$]*])*$/;
 
   // https://github.com/vuejs/vue/blob/v2.5.17/src/compiler/helpers.js#L104
   const value = eventBindingValue.trim();

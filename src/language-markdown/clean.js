@@ -1,7 +1,7 @@
 "use strict";
 
-const { isFrontMatterNode } = require("../common/util");
-const { startWithPragma } = require("./pragma");
+const { isFrontMatterNode } = require("../common/util.js");
+const { startWithPragma } = require("./pragma.js");
 
 const ignoredProperties = new Set([
   "position",

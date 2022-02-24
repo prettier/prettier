@@ -1,7 +1,7 @@
 "use strict";
 
 const htmlVoidElements = require("html-void-elements");
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 
 function isLastNodeOfSiblings(path) {
   const node = path.getValue();
@@ -32,6 +32,7 @@ function isGlimmerComponent(node) {
   return (
     isNodeOfSomeType(node, ["ElementNode"]) &&
     typeof node.tag === "string" &&
+    node.tag[0] !== ":" &&
     (isUppercase(node.tag[0]) || node.tag.includes("."))
   );
 }

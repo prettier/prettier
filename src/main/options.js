@@ -1,12 +1,10 @@
 "use strict";
 
-const fs = require("fs");
 const path = require("path");
-const readlines = require("n-readlines");
-const { UndefinedParserError } = require("../common/errors");
-const { getSupportInfo } = require("../main/support");
-const normalizer = require("./options-normalizer");
-const { resolveParser } = require("./parser");
+const { UndefinedParserError } = require("../common/errors.js");
+const { getSupportInfo } = require("../main/support.js");
+const normalizer = require("./options-normalizer.js");
+const { resolveParser } = require("./parser.js");
 
 const hiddenDefaults = {
   astFormat: "estree",
@@ -118,52 +116,6 @@ function getPlugin(options) {
   return printerPlugin;
 }
 
-function getInterpreter(filepath) {
-  /* istanbul ignore next */
-  if (typeof filepath !== "string") {
-    return "";
-  }
-
-  let fd;
-  try {
-    fd = fs.openSync(filepath, "r");
-  } catch {
-    // istanbul ignore next
-    return "";
-  }
-
-  try {
-    const liner = new readlines(fd);
-    const firstLine = liner.next().toString("utf8");
-
-    // #!/bin/env node, #!/usr/bin/env node
-    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
-    if (m1) {
-      return m1[1];
-    }
-
-    // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
-    if (m2) {
-      return m2[1];
-    }
-    return "";
-  } catch {
-    // There are some weird cases where paths are missing, causing Jest
-    // failures. It's unclear what these correspond to in the real world.
-    /* istanbul ignore next */
-    return "";
-  } finally {
-    try {
-      // There are some weird cases where paths are missing, causing Jest
-      // failures. It's unclear what these correspond to in the real world.
-      fs.closeSync(fd);
-    } catch {
-      // nop
-    }
-  }
-}
-
 function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
   const languages = getSupportInfo({ plugins }).languages.filter(
@@ -183,7 +135,14 @@ function inferParser(filepath, plugins) {
         language.filenames.some((name) => name.toLowerCase() === filename))
   );
 
-  if (!language && !filename.includes(".")) {
+  if (
+    process.env.PRETTIER_TARGET !== "universal" &&
+    !language &&
+    !filename.includes(".")
+  ) {
+    // `getInterpreter` requires file access, put `require()` in the `if` block,
+    // So we can easily remove this part during build
+    const getInterpreter = require("../utils/get-interpreter.js");
     const interpreter = getInterpreter(filepath);
     language = languages.find(
       (language) =>

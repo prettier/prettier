@@ -2,7 +2,7 @@
 
 const groupBy = require("lodash/groupBy");
 const camelCase = require("camelcase");
-const constant = require("./constant");
+const constant = require("./constant.js");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -73,9 +73,7 @@ function createChoiceUsages(choices, margin, indentation) {
     (choice) => !choice.deprecated && choice.since !== null
   );
   const threshold =
-    activeChoices
-      .map((choice) => choice.value.length)
-      .reduce((current, length) => Math.max(current, length), 0) + margin;
+    Math.max(0, ...activeChoices.map((choice) => choice.value.length)) + margin;
   return activeChoices.map((choice) =>
     indent(
       createOptionUsageRow(choice.value, choice.description, threshold),

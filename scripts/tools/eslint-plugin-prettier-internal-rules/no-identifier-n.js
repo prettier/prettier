@@ -17,13 +17,14 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/no-identifier-n.js",
     },
     messages: {
       [ERROR]: "Please rename variable 'n'.",
       [SUGGESTION]: "Rename to `node`.",
     },
     fixable: "code",
+    hasSuggestions: true,
   },
   create(context) {
     const variables = new Map();
@@ -34,7 +35,7 @@ module.exports = {
 
         /* istanbul ignore next */
         if (!variable) {
-          throw new Error("Unexpected case.");
+          return;
         }
 
         if (!variables.has(variable)) {
@@ -63,12 +64,7 @@ module.exports = {
 
             for (const identifier of identifiers) {
               const { parent } = identifier;
-              if (
-                parent &&
-                parent.type === "Property" &&
-                parent.shorthand &&
-                parent.key === identifier
-              ) {
+              if (parent && parent.type === "Property" && parent.shorthand) {
                 yield fixer.replaceText(identifier, "n: node");
               } else {
                 yield fixer.replaceText(identifier, "node");

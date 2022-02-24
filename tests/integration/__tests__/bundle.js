@@ -1,10 +1,11 @@
 "use strict";
 
 const path = require("path");
-const globby = require("globby");
-const { projectRoot } = require("../env");
-const coreOptions = require("../../../src/main/core-options");
-const codeSamples = require("../../../website/playground/codeSamples").default;
+const fastGlob = require("fast-glob");
+const { projectRoot } = require("../env.js");
+const coreOptions = require("../../../src/main/core-options.js");
+const codeSamples =
+  require("../../../website/playground/codeSamples.js").default;
 
 const parserNames = coreOptions.options.parser.choices.map(
   ({ value }) => value
@@ -13,7 +14,7 @@ const distDirectory = path.join(projectRoot, "dist");
 
 describe("standalone", () => {
   const standalone = require(path.join(distDirectory, "standalone.js"));
-  const plugins = globby
+  const plugins = fastGlob
     .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
@@ -21,7 +22,7 @@ describe("standalone", () => {
     distDirectory,
     "esm/standalone.mjs"
   )).default;
-  const esmPlugins = globby
+  const esmPlugins = fastGlob
     .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file).default);
 

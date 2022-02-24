@@ -15,6 +15,99 @@ export type RequestNextDealAction =
 ================================================================================
 `;
 
+exports[`issue-100857.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  T extends stringggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  S = stringggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+=====================================output=====================================
+type FieldLayoutWith<
+  T extends string,
+  S extends unknown = { width: string }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<T extends string, S extends unknown> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<S extends unknown = { width: string }> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  T extends stringggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T extends stringggggggggggg,
+  S = stringggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+================================================================================
+`;
+
 exports[`pattern-parameter.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

@@ -2,92 +2,86 @@
 
 /** @typedef {import("../document").Doc} Doc */
 
-/** @type {import("assert")} */
-const assert = require("assert");
-
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-const { printDanglingComments } = require("../main/comments");
-const { hasNewline, printString, printNumber } = require("../common/util");
+const { printDanglingComments } = require("../main/comments.js");
+const { hasNewline } = require("../common/util.js");
 const {
-  builders: { join, line, hardline, softline, literalline, group, indent },
-} = require("../document");
-const embed = require("./embed");
-const clean = require("./clean");
-const { insertPragma } = require("./pragma");
-const handleComments = require("./comments");
-const pathNeedsParens = require("./needs-parens");
-const preprocess = require("./print-preprocess");
+  builders: { join, line, hardline, softline, group, indent },
+  utils: { replaceTextEndOfLine },
+} = require("../document/index.js");
+const embed = require("./embed.js");
+const clean = require("./clean.js");
+const { insertPragma } = require("./pragma.js");
+const handleComments = require("./comments.js");
+const pathNeedsParens = require("./needs-parens.js");
+const preprocess = require("./print-preprocess.js");
 const {
-  getCallArguments,
   hasFlowShorthandAnnotationComment,
   hasComment,
   CommentCheckFlags,
-  isFunctionNotation,
-  isGetterOrSetter,
   isTheOnlyJsxElementInMarkdown,
-  isBlockComment,
   isLineComment,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
-  shouldPrintComma,
   hasIgnoreComment,
   isCallExpression,
   isMemberExpression,
-} = require("./utils");
-const { locStart, locEnd } = require("./loc");
+  markerForIfWithoutBlockAndSameLineComment,
+} = require("./utils/index.js");
+const { locStart, locEnd } = require("./loc.js");
+const isBlockComment = require("./utils/is-block-comment.js");
 
 const {
   printHtmlBinding,
   isVueEventBindingExpression,
-} = require("./print/html-binding");
-const { printAngular } = require("./print/angular");
-const { printJsx, hasJsxIgnoreComment } = require("./print/jsx");
-const { printFlow } = require("./print/flow");
-const { printTypescript } = require("./print/typescript");
+} = require("./print/html-binding.js");
+const { printAngular } = require("./print/angular.js");
+const { printJsx, hasJsxIgnoreComment } = require("./print/jsx.js");
+const { printFlow } = require("./print/flow.js");
+const { printTypescript } = require("./print/typescript.js");
 const {
   printOptionalToken,
   printBindExpressionCallee,
   printTypeAnnotation,
   adjustClause,
-} = require("./print/misc");
+  printRestSpread,
+} = require("./print/misc.js");
 const {
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
   printModuleSpecifier,
-} = require("./print/module");
-const { printTernary } = require("./print/ternary");
-const { printTemplateLiteral } = require("./print/template-literal");
-const { printArray, printArrayItems } = require("./print/array");
-const { printObject } = require("./print/object");
+} = require("./print/module.js");
+const { printTernary } = require("./print/ternary.js");
+const { printTemplateLiteral } = require("./print/template-literal.js");
+const { printArray } = require("./print/array.js");
+const { printObject } = require("./print/object.js");
 const {
   printClass,
   printClassMethod,
   printClassProperty,
-} = require("./print/class");
-const { printTypeParameters } = require("./print/type-parameters");
-const { printPropertyKey, printProperty } = require("./print/property");
+} = require("./print/class.js");
+const { printProperty } = require("./print/property.js");
 const {
-  printFunctionDeclaration,
-  printArrowFunctionExpression,
+  printFunction,
+  printArrowFunction,
   printMethod,
   printReturnStatement,
   printThrowStatement,
-} = require("./print/function");
-const { printCallExpression } = require("./print/call-expression");
-const { printInterface } = require("./print/interface");
+} = require("./print/function.js");
+const { printCallExpression } = require("./print/call-expression.js");
 const {
   printVariableDeclarator,
   printAssignmentExpression,
-} = require("./print/assignment");
-const { printBinaryishExpression } = require("./print/binaryish");
-const { printSwitchCaseConsequent } = require("./print/statement");
-const { printMemberExpression } = require("./print/member");
-const { printBlock, printBlockBody } = require("./print/block");
-const { printComment } = require("./print/comment");
-const { printLiteral } = require("./print/literal");
-const { printDecorators } = require("./print/decorators");
+} = require("./print/assignment.js");
+const { printBinaryishExpression } = require("./print/binaryish.js");
+const { printSwitchCaseConsequent } = require("./print/statement.js");
+const { printMemberExpression } = require("./print/member.js");
+const { printBlock, printBlockBody } = require("./print/block.js");
+const { printComment } = require("./print/comment.js");
+const { printLiteral } = require("./print/literal.js");
+const { printDecorators } = require("./print/decorators.js");
 
 function genericPrint(path, options, print, args) {
   const printed = printPathNoParens(path, options, print, args);
@@ -103,7 +97,7 @@ function genericPrint(path, options, print, args) {
     type === "ClassPrivateMethod" ||
     type === "ClassProperty" ||
     type === "PropertyDefinition" ||
-    type === "TSAbstractClassProperty" ||
+    type === "TSAbstractPropertyDefinition" ||
     type === "ClassPrivateProperty" ||
     type === "MethodDefinition" ||
     type === "TSAbstractMethodDefinition" ||
@@ -112,24 +106,53 @@ function genericPrint(path, options, print, args) {
     return printed;
   }
 
+  let parts = [printed];
+
   const printedDecorators = printDecorators(path, options, print);
-  // Nodes with decorators can't have parentheses and don't need leading semicolons
+  const isClassExpressionWithDecorators =
+    node.type === "ClassExpression" && printedDecorators;
+  // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
   if (printedDecorators) {
-    return group([...printedDecorators, printed]);
+    parts = [...printedDecorators, printed];
+
+    if (!isClassExpressionWithDecorators) {
+      return group(parts);
+    }
   }
 
   const needsParens = pathNeedsParens(path, options);
 
   if (!needsParens) {
-    return args && args.needsSemi ? [";", printed] : printed;
+    if (args && args.needsSemi) {
+      parts.unshift(";");
+    }
+
+    // In member-chain print, it add `label` to the doc, if we return array here it will be broken
+    if (parts.length === 1 && parts[0] === printed) {
+      return printed;
+    }
+
+    return parts;
   }
 
-  const parts = [args && args.needsSemi ? ";(" : "(", printed];
+  if (isClassExpressionWithDecorators) {
+    parts = [indent([line, ...parts])];
+  }
+
+  parts.unshift("(");
+
+  if (args && args.needsSemi) {
+    parts.unshift(";");
+  }
 
   if (hasFlowShorthandAnnotationComment(node)) {
     const [comment] = node.trailingComments;
     parts.push(" /*", comment.value.trimStart(), "*/");
     comment.printed = true;
+  }
+
+  if (isClassExpressionWithDecorators) {
+    parts.push(line);
   }
 
   parts.push(")");
@@ -187,7 +210,7 @@ function printPathNoParens(path, options, print, args) {
     // Babel extension.
     case "EmptyStatement":
       return "";
-    case "ExpressionStatement":
+    case "ExpressionStatement": {
       // Detect Flow and TypeScript directives
       if (node.directive) {
         return [printDirective(node.expression, options), semi];
@@ -207,11 +230,20 @@ function printPathNoParens(path, options, print, args) {
         }
       }
 
+      const danglingComment = printDanglingComments(
+        path,
+        options,
+        /** sameIndent */ true,
+        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
+      );
+
       // Do not append semicolon after the only JSX element in a program
       return [
         print("expression"),
         isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
+        danglingComment ? [" ", danglingComment] : "",
       ];
+    }
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug =
@@ -269,25 +301,12 @@ function printPathNoParens(path, options, print, args) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
-    case "ObjectTypeSpreadProperty":
-      return [
-        "...",
-        print("argument"),
-        printTypeAnnotation(path, options, print),
-      ];
+      return printRestSpread(path, options, print);
     case "FunctionDeclaration":
-    case "FunctionExpression": {
-      let expandArg = false;
-      if (args && args.expandLastArg) {
-        const parent = path.getParentNode();
-        if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
-          expandArg = true;
-        }
-      }
-      return printFunctionDeclaration(path, print, options, expandArg);
-    }
+    case "FunctionExpression":
+      return printFunction(path, print, options, args);
     case "ArrowFunctionExpression":
-      return printArrowFunctionExpression(path, options, print, args);
+      return printArrowFunction(path, options, print, args);
     case "YieldExpression":
       parts.push("yield");
 
@@ -354,20 +373,9 @@ function printPathNoParens(path, options, print, args) {
     case "OptionalCallExpression":
     case "CallExpression":
       return printCallExpression(path, options, print);
-    case "ObjectTypeInternalSlot":
-      return [
-        node.static ? "static " : "",
-        "[[",
-        print("id"),
-        "]]",
-        printOptionalToken(path),
-        node.method ? "" : ": ",
-        print("value"),
-      ];
 
     case "ObjectExpression":
     case "ObjectPattern":
-    case "ObjectTypeAnnotation":
     case "RecordExpression":
       return printObject(path, options, print);
     // Babel 6
@@ -717,6 +725,10 @@ function printPathNoParens(path, options, print, args) {
         parts.push("default:");
       }
 
+      if (hasComment(node, CommentCheckFlags.Dangling)) {
+        parts.push(" ", printDanglingComments(path, options, true));
+      }
+
       const consequent = node.consequent.filter(
         (node) => node.type !== "EmptyStatement"
       );
@@ -749,252 +761,11 @@ function printPathNoParens(path, options, print, args) {
     case "ClassPrivateProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
-      return join(literalline, node.value.raw.split(/\r?\n/g));
+      return replaceTextEndOfLine(node.value.raw);
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
       return [print("tag"), print("typeParameters"), print("quasi")];
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
-    case "Node":
-    case "Printable":
-    case "SourceLocation":
-    case "Position":
-    case "Statement":
-    case "Function":
-    case "Pattern":
-    case "Expression":
-    case "Declaration":
-    case "Specifier":
-    case "NamedSpecifier":
-    case "Comment":
-    case "MemberTypeAnnotation": // Flow
-    case "Type":
-      /* istanbul ignore next */
-      throw new Error("unprintable type: " + JSON.stringify(node.type));
-    case "ExistsTypeAnnotation":
-      return "*";
-    case "EmptyTypeAnnotation":
-      return "empty";
-    case "MixedTypeAnnotation":
-      return "mixed";
-    case "ArrayTypeAnnotation":
-      return [print("elementType"), "[]"];
-    case "BooleanLiteralTypeAnnotation":
-      return String(node.value);
-
-    case "EnumDeclaration":
-      return ["enum ", print("id"), " ", print("body")];
-    case "EnumBooleanBody":
-    case "EnumNumberBody":
-    case "EnumStringBody":
-    case "EnumSymbolBody": {
-      if (node.type === "EnumSymbolBody" || node.explicitType) {
-        let type = null;
-        switch (node.type) {
-          case "EnumBooleanBody":
-            type = "boolean";
-            break;
-          case "EnumNumberBody":
-            type = "number";
-            break;
-          case "EnumStringBody":
-            type = "string";
-            break;
-          case "EnumSymbolBody":
-            type = "symbol";
-            break;
-        }
-        parts.push("of ", type, " ");
-      }
-      if (node.members.length === 0 && !node.hasUnknownMembers) {
-        parts.push(
-          group(["{", printDanglingComments(path, options), softline, "}"])
-        );
-      } else {
-        const members =
-          node.members.length > 0
-            ? [
-                hardline,
-                printArrayItems(path, options, "members", print),
-                node.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
-              ]
-            : [];
-
-        parts.push(
-          group([
-            "{",
-            indent([
-              ...members,
-              ...(node.hasUnknownMembers ? [hardline, "..."] : []),
-            ]),
-            printDanglingComments(path, options, /* sameIndent */ true),
-            hardline,
-            "}",
-          ])
-        );
-      }
-      return parts;
-    }
-    case "EnumBooleanMember":
-    case "EnumNumberMember":
-    case "EnumStringMember":
-      return [
-        print("id"),
-        " = ",
-        typeof node.init === "object" ? print("init") : String(node.init),
-      ];
-    case "EnumDefaultedMember":
-      return print("id");
-    case "FunctionTypeParam": {
-      const name = node.name
-        ? print("name")
-        : path.getParentNode().this === node
-        ? "this"
-        : "";
-      return [
-        name,
-        printOptionalToken(path),
-        name ? ": " : "",
-        print("typeAnnotation"),
-      ];
-    }
-
-    case "InterfaceDeclaration":
-    case "InterfaceTypeAnnotation":
-      return printInterface(path, options, print);
-    case "ClassImplements":
-    case "InterfaceExtends":
-      return [print("id"), print("typeParameters")];
-    case "NullableTypeAnnotation":
-      return ["?", print("typeAnnotation")];
-    case "Variance": {
-      const { kind } = node;
-      assert.ok(kind === "plus" || kind === "minus");
-      return kind === "plus" ? "+" : "-";
-    }
-    case "ObjectTypeCallProperty":
-      if (node.static) {
-        parts.push("static ");
-      }
-
-      parts.push(print("value"));
-
-      return parts;
-    case "ObjectTypeIndexer": {
-      return [
-        node.variance ? print("variance") : "",
-        "[",
-        print("id"),
-        node.id ? ": " : "",
-        print("key"),
-        "]: ",
-        print("value"),
-      ];
-    }
-    case "ObjectTypeProperty": {
-      let modifier = "";
-
-      if (node.proto) {
-        modifier = "proto ";
-      } else if (node.static) {
-        modifier = "static ";
-      }
-
-      return [
-        modifier,
-        isGetterOrSetter(node) ? node.kind + " " : "",
-        node.variance ? print("variance") : "",
-        printPropertyKey(path, options, print),
-        printOptionalToken(path),
-        isFunctionNotation(node) ? "" : ": ",
-        print("value"),
-      ];
-    }
-    case "QualifiedTypeIdentifier":
-      return [print("qualification"), ".", print("id")];
-    case "StringLiteralTypeAnnotation":
-      return printString(rawText(node), options);
-    case "NumberLiteralTypeAnnotation":
-      assert.strictEqual(typeof node.value, "number");
-    // fall through
-    case "BigIntLiteralTypeAnnotation":
-      if (node.extra) {
-        return printNumber(node.extra.raw);
-      }
-      return printNumber(node.raw);
-    case "TypeCastExpression": {
-      return [
-        "(",
-        print("expression"),
-        printTypeAnnotation(path, options, print),
-        ")",
-      ];
-    }
-
-    case "TypeParameterDeclaration":
-    case "TypeParameterInstantiation": {
-      const printed = printTypeParameters(path, options, print, "params");
-
-      if (options.parser === "flow") {
-        const start = locStart(node);
-        const end = locEnd(node);
-        const commentStartIndex = options.originalText.lastIndexOf("/*", start);
-        const commentEndIndex = options.originalText.indexOf("*/", end);
-        if (commentStartIndex !== -1 && commentEndIndex !== -1) {
-          const comment = options.originalText
-            .slice(commentStartIndex + 2, commentEndIndex)
-            .trim();
-          if (
-            comment.startsWith("::") &&
-            !comment.includes("/*") &&
-            !comment.includes("*/")
-          ) {
-            return ["/*:: ", printed, " */"];
-          }
-        }
-      }
-
-      return printed;
-    }
-
-    case "InferredPredicate":
-      return "%checks";
-    // Unhandled types below. If encountered, nodes of these types should
-    // be either left alone or desugared into AST types that are fully
-    // supported by the pretty-printer.
-    case "DeclaredPredicate":
-      return ["%checks(", print("value"), ")"];
-    case "AnyTypeAnnotation":
-    case "TSAnyKeyword":
-      return "any";
-    case "BooleanTypeAnnotation":
-    case "TSBooleanKeyword":
-      return "boolean";
-    case "BigIntTypeAnnotation":
-    case "TSBigIntKeyword":
-      return "bigint";
-    case "TSConstKeyword":
-      return "const";
-    case "NullLiteralTypeAnnotation":
-    case "TSNullKeyword":
-      return "null";
-    case "NumberTypeAnnotation":
-    case "TSNumberKeyword":
-      return "number";
-    case "SymbolTypeAnnotation":
-    case "TSSymbolKeyword":
-      return "symbol";
-    case "StringTypeAnnotation":
-    case "TSStringKeyword":
-      return "string";
-    case "VoidTypeAnnotation":
-    case "TSVoidKeyword":
-      return "void";
-    case "ThisTypeAnnotation":
-    case "TSThisType":
-      return "this";
-
     case "PrivateIdentifier":
       return ["#", print("name")];
     case "PrivateName":
@@ -1009,12 +780,9 @@ function printPathNoParens(path, options, print, args) {
 
       return parts;
 
-    case "PipelineBareFunction":
-      return print("callee");
-    case "PipelineTopicExpression":
-      return print("expression");
-    case "PipelinePrimaryTopicReference":
-      return "#";
+    // For hack-style pipeline
+    case "TopicReference":
+      return "%";
 
     case "ArgumentPlaceholder":
       return "?";

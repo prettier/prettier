@@ -1,7 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier");
+const runPrettier = require("../run-prettier.js");
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
@@ -181,7 +181,7 @@ describe("API with no path and no parser", () => {
   });
 
   test("prettier.format", () => {
-    expect(prettier.format(" foo  (  )")).toEqual("foo();\n");
+    expect(prettier.format(" foo  (  )")).toBe("foo();\n");
     expect(global.console.warn).toHaveBeenCalledTimes(1);
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
@@ -201,6 +201,17 @@ describe("Known/Unknown", () => {
     ".",
   ]).test({
     status: 1,
+    stderr: "",
+    write: [],
+  });
+});
+
+describe("Interpreters", () => {
+  runPrettier("cli/infer-parser/interpreters", [
+    "--file-info",
+    "zx-script",
+  ]).test({
+    status: 0,
     stderr: "",
     write: [],
   });

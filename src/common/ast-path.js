@@ -1,5 +1,5 @@
 "use strict";
-const getLast = require("../utils/get-last");
+const getLast = require("../utils/get-last.js");
 
 function getNodeHelper(path, count) {
   const stackIndex = getNodeStackIndexHelper(path.stack, count);

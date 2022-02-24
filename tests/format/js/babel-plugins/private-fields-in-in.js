@@ -13,7 +13,7 @@ class C {
   }
 }
 
-class C {
+class C2 {
   #data = null; // populated later
 
   get #getter() {
@@ -33,7 +33,7 @@ class C {
   }
 }
 
-class C {
+class C3 {
   #brand;
 
   #method() {}

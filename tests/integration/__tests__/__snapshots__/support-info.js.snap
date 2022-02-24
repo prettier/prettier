@@ -45,6 +45,7 @@ Object {
     ],
     "JavaScript": Array [
       "babel",
+      "acorn",
       "espree",
       "meriyah",
       "babel-flow",
@@ -94,6 +95,10 @@ Object {
       "default": "always",
       "type": "choice",
     },
+    "bracketSameLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "bracketSpacing": Object {
       "default": true,
       "type": "boolean",
@@ -142,10 +147,6 @@ Object {
       "default": false,
       "type": "boolean",
     },
-    "jsxBracketSameLine": Object {
-      "default": false,
-      "type": "boolean",
-    },
     "jsxSingleQuote": Object {
       "default": false,
       "type": "boolean",
@@ -157,6 +158,7 @@ Object {
         "babel-flow",
         "babel-ts",
         "typescript",
+        "acorn",
         "espree",
         "meriyah",
         "css",
@@ -239,6 +241,10 @@ Object {
       "default": true,
       "type": "boolean",
     },
+    "singleAttributePerLine": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "singleQuote": Object {
       "default": false,
       "type": "boolean",
@@ -319,12 +325,14 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\"qjs\\",
         \\"rhino\\",
         \\"v8\\",
-        \\"v8-shell\\"
+        \\"v8-shell\\",
+        \\"zx\\"
       ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
       \\"parsers\\": [
         \\"babel\\",
+        \\"acorn\\",
         \\"espree\\",
         \\"meriyah\\",
         \\"babel-flow\\",
@@ -393,7 +401,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"application/typescript\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"color\\": \\"#2b7489\\",
-      \\"extensions\\": [\\".ts\\"],
+      \\"extensions\\": [\\".ts\\", \\".mts\\", \\".cts\\"],
       \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
@@ -455,6 +463,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"filenames\\": [
         \\".arcconfig\\",
         \\".htmlhintrc\\",
+        \\".imgbotconfig\\",
         \\".tern-config\\",
         \\".tern-project\\",
         \\".watchmanconfig\\",
@@ -497,12 +506,14 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".jscsrc\\",
         \\".jshintrc\\",
         \\".jslintrc\\",
+        \\"api-extractor.json\\",
         \\"devcontainer.json\\",
         \\"jsconfig.json\\",
         \\"language-configuration.json\\",
         \\"tsconfig.json\\",
         \\"tslint.json\\",
-        \\".eslintrc\\"
+        \\".eslintrc\\",
+        \\".swcrc\\"
       ],
       \\"group\\": \\"JSON\\",
       \\"linguistLanguageId\\": 423,
@@ -707,7 +718,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"html\\",
-      \\"color\\": \\"#2c3e50\\",
+      \\"color\\": \\"#41b883\\",
       \\"extensions\\": [\\".vue\\"],
       \\"linguistLanguageId\\": 391,
       \\"name\\": \\"Vue\\",
@@ -740,7 +751,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".clang-tidy\\",
         \\".gemrc\\",
         \\"glide.lock\\",
-        \\".prettierrc\\"
+        \\".prettierrc\\",
+        \\".stylelintrc\\"
       ],
       \\"linguistLanguageId\\": 407,
       \\"name\\": \\"YAML\\",
@@ -770,6 +782,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.9.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": false,
+      \\"description\\": \\"Put > of opening tags on the last line instead of on a new line.\\",
+      \\"name\\": \\"bracketSameLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.4.0\\",
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Common\\",
@@ -880,15 +901,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"default\\": false,
-      \\"description\\": \\"Put > on the last line instead of at a new line.\\",
-      \\"name\\": \\"jsxBracketSameLine\\",
-      \\"pluginDefaults\\": {},
-      \\"since\\": \\"0.17.0\\",
-      \\"type\\": \\"boolean\\"
-    },
-    {
-      \\"category\\": \\"JavaScript\\",
-      \\"default\\": false,
       \\"description\\": \\"Use single quotes in JSX.\\",
       \\"name\\": \\"jsxSingleQuote\\",
       \\"pluginDefaults\\": {},
@@ -907,6 +919,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"since\\": \\"1.4.0\\",
           \\"value\\": \\"typescript\\"
         },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.6.0\\", \\"value\\": \\"acorn\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"espree\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"2.2.0\\", \\"value\\": \\"meriyah\\" },
         { \\"description\\": \\"CSS\\", \\"since\\": \\"1.7.1\\", \\"value\\": \\"css\\" },
@@ -1059,6 +1072,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"oppositeDescription\\": \\"Do not print semicolons, except at the beginning of lines which may need them.\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"Common\\",
+      \\"default\\": false,
+      \\"description\\": \\"Enforce single attribute per line in HTML, Vue and JSX.\\",
+      \\"name\\": \\"singleAttributePerLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.6.0\\",
       \\"type\\": \\"boolean\\"
     },
     {
