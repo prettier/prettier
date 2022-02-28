@@ -1,6 +1,4 @@
-"use strict";
-
-const { isConcat, getDocParts } = require("./doc-utils.js");
+import { isConcat, getDocParts } from "./doc-utils.js";
 
 function flattenDoc(doc) {
   if (!doc) {
@@ -210,4 +208,4 @@ function printDocToDebug(doc) {
   }
 }
 
-module.exports = { printDocToDebug };
+export { printDocToDebug };

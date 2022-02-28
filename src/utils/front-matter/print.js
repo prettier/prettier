@@ -1,8 +1,8 @@
-"use strict";
+import doc from "../../document/index.js";
 
 const {
   builders: { hardline, markAsRoot },
-} = require("../../document/index.js");
+} = doc;
 
 function print(node, textToDoc) {
   if (node.lang === "yaml") {
@@ -20,4 +20,4 @@ function print(node, textToDoc) {
   }
 }
 
-module.exports = print;
+export default print;

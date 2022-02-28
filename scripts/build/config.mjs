@@ -194,6 +194,7 @@ const coreBundles = [
     target: "universal",
     format: "umd",
     minify: false,
+    isEsm: true,
   },
   {
     input: "src/standalone.js",

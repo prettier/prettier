@@ -1,10 +1,8 @@
-"use strict";
-
-const { convertEndOfLineToChars } = require("../common/end-of-line.cjs");
-const getLast = require("../utils/get-last.js");
-const getStringWidth = require("../utils/get-string-width.js");
-const { fill, cursor, indent } = require("./doc-builders.js");
-const { isConcat, getDocParts } = require("./doc-utils.js");
+import { convertEndOfLineToChars } from "../common/end-of-line.js";
+import getLast from "../utils/get-last.js";
+import getStringWidth from "../utils/get-string-width.js";
+import { fill, cursor, indent } from "./doc-builders.js";
+import { isConcat, getDocParts } from "./doc-utils.js";
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -603,4 +601,4 @@ function printDocToString(doc, options) {
   return { formatted: out.join("") };
 }
 
-module.exports = { printDocToString };
+export { printDocToString };

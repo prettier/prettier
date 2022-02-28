@@ -1,6 +1,4 @@
-"use strict";
-
-const stringWidth = require("../../vendors/string-width.js").default;
+import stringWidth from "string-width";
 
 const notAsciiRegex = /[^\x20-\x7F]/;
 
@@ -21,4 +19,4 @@ function getStringWidth(text) {
   return stringWidth(text);
 }
 
-module.exports = getStringWidth;
+export default getStringWidth;
