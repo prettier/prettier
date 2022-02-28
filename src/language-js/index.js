@@ -1,4 +1,4 @@
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 import createLanguage from "../utils/create-language.js";
 import estreePrinter from "./printer-estree.js";
 import estreeJsonPrinter from "./printer-estree-json.js";

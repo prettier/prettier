@@ -1,4 +1,4 @@
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 import semverCompare from "semver/functions/compare.js";
 import semverGte from "semver/functions/gte.js";
 import semverLt from "semver/functions/lt.js";

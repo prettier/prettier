@@ -1,6 +1,6 @@
 /** @typedef {import("../../document/doc-builders").Doc} Doc */
 
-import assert from "assert";
+import assert from "node:assert";
 import {
   printDanglingComments,
   printCommentsSeparately,

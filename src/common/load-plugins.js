@@ -1,7 +1,7 @@
-import { createRequire } from "module";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { createRequire } from "node:module";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import uniqBy from "lodash/uniqBy.js";
 import partition from "lodash/partition.js";
 import fastGlob from "fast-glob";

@@ -1,4 +1,4 @@
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 import createLanguage from "../utils/create-language.js";
 import printer from "./printer-markdown.js";
 import options from "./options.js";
