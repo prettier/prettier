@@ -106,7 +106,6 @@
     "babel-jest": "27.5.1",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
-    "builtin-modules": "3.2.0",
     "cross-env": "7.0.3",
     "cspell": "5.18.5",
     "enquirer": "2.3.6",

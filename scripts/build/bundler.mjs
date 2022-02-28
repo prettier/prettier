@@ -1,6 +1,5 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import builtinModules from "builtin-modules";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
@@ -145,6 +144,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     external: [...(bundle.external || [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+    mainFields: ["module", "main"],
     target: ["node12"],
     logLevel: "error",
   };
@@ -173,8 +173,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
       };
     }
   } else {
+    esbuildOptions.platform = "node";
     esbuildOptions.external.push(
-      ...builtinModules,
       ...bundles
         .filter((item) => item.input !== bundle.input)
         .map((item) => `./${item.output}`)
