@@ -2,6 +2,7 @@
 const pick = require("lodash/pick");
 const camelCase = require("camelcase");
 const chalk = require("chalk");
+const leven = require("leven");
 const {
   optionsNormalizer: { normalizeCliOptions },
 } = require("../prettier-internal.js");
@@ -27,6 +28,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const normalized = normalizeCliOptions(argv, detailedOptions, {
     logger,
     colorsModule: chalk,
+    levenshteinDistance: leven,
   });
 
   return {
