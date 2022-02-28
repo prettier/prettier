@@ -104,13 +104,12 @@ module.exports = {
     ],
 
     "import/extensions": ["error", "ignorePackages"],
-    // TODO[@fisker]: Fix this
-    // "import/no-extraneous-dependencies": [
-    //   "error",
-    //   {
-    //     devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
-    //   },
-    // ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
+      },
+    ],
     "import/order": "error",
     "import/no-anonymous-default-export": "error",
 
