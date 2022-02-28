@@ -80,7 +80,7 @@
     "remark-parse": "8.0.3",
     "resolve": "1.22.0",
     "semver": "7.3.5",
-    "string-width": "5.0.1",
+    "string-width": "5.1.1",
     "strip-ansi": "6.0.0",
     "typescript": "4.5.5",
     "unicode-regex": "3.0.0",
