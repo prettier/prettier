@@ -159,6 +159,7 @@
         "jscodefmt",
         "jsesc",
         "jsfmt",
+        "jsonata",
         "jsonl",
         "judgements",
         "kalmanb",
