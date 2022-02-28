@@ -14,7 +14,7 @@ import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
@@ -107,7 +107,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     }
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule.assert = require.resolve("./shims/assert.cjs");
+    replaceModule.assert = path.join(dirname, "shims/assert.js");
   }
 
   let shouldMinify = buildOptions.minify;
@@ -144,7 +144,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     legalComments: "none",
     external: [...(bundle.external || [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+    tsconfig: path.join(dirname, "empty-tsconfig.json"),
     mainFields: ["main"],
     target: ["node12"],
     logLevel: "error",

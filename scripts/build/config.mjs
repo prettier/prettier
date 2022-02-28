@@ -2,7 +2,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 
-const { require } = createEsmUtils(import.meta);
+const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -94,7 +94,7 @@ const parsers = [
         "typescriptVersionIsAtLeast[version] = true;",
     },
     replaceModule: {
-      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
+      [require.resolve("debug")]: path.join(dirname, "shims/debug.js"),
     },
     isEsm: true,
   },
@@ -201,11 +201,14 @@ const coreBundles = [
     name: "prettier",
     target: "universal",
     replaceModule: {
-      [require.resolve("@babel/highlight")]: require.resolve(
-        "./shims/babel-highlight.cjs"
+      [require.resolve("@babel/highlight")]: path.join(
+        dirname,
+        "shims/babel-highlight.js"
       ),
-      [createRequire(require.resolve("vnopts")).resolve("chalk")]:
-        require.resolve("./shims/chalk.cjs"),
+      [createRequire(require.resolve("vnopts")).resolve("chalk")]: path.join(
+        dirname,
+        "shims/chalk.js"
+      ),
     },
     isEsm: true,
   },
