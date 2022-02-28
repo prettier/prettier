@@ -20,13 +20,12 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           resolveDir: args.resolveDir,
         });
 
-        if (!replacements.has(resolveResult.file)) {
-          return;
-        }
-        const { external, path } = replacements.get(resolveResult.file);
+        if (replacements.has(resolveResult.file)) {
+          const { external, path } = replacements.get(resolveResult.file);
 
-        if (external) {
-          return { path, external: true };
+          if (external) {
+            return { ...resolveResult, path, external: true };
+          }
         }
 
         return resolveResult;
