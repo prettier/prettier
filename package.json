@@ -19,8 +19,7 @@
     "index.js",
     "standalone.js",
     "src",
-    "bin",
-    "vendors"
+    "bin"
   ],
   "dependencies": {
     "@angular/compiler": "12.2.16",
@@ -165,9 +164,7 @@
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.mjs",
-    "build:website": "node ./scripts/build-website.mjs",
-    "vendors:bundle": "node ./scripts/vendors/bundle-vendors.mjs",
-    "vendors:validate": "node ./scripts/vendors/validate-vendor-versions.mjs"
+    "build:website": "node ./scripts/build-website.mjs"
   },
   "c8": {
     "reporter": [

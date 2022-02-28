@@ -392,7 +392,6 @@
         "website/playground/codeSamples.mjs",
         "website/pages/googlefe164a33bda4034b.html",
         "website/static/lib/**",
-        "website/static/playground.js",
-        "scripts/vendors/vendor-meta.json"
+        "website/static/playground.js"
     ]
 }
