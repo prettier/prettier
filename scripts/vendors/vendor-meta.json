@@ -1,6 +1,6 @@
 {
   "versions": {
-    "string-width": "5.0.1",
+    "string-width": "5.1.1",
     "mem": "9.0.2",
     "execa": "6.1.0",
     "tempy": "2.0.0"
@@ -41,19 +41,19 @@
       "contributors": []
     },
     {
-      "name": "is-fullwidth-code-point",
+      "name": "eastasianwidth",
       "maintainers": [],
-      "version": "4.0.0",
-      "description": "Check if the character represented by a given Unicode code point is fullwidth",
-      "repository": "sindresorhus/is-fullwidth-code-point",
+      "version": "0.2.0",
+      "description": "Get East Asian Width from a character.",
+      "repository": "git://github.com/komagata/eastasianwidth.git",
       "homepage": null,
       "private": false,
       "license": "MIT",
-      "licenseText": "MIT License\n\nCopyright (c) Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+      "licenseText": null,
       "author": {
-        "name": "Sindre Sorhus",
-        "email": "sindresorhus@gmail.com",
-        "url": "https://sindresorhus.com"
+        "name": "Masaki Komagata",
+        "email": null,
+        "url": null
       },
       "contributors": []
     },
@@ -80,7 +80,7 @@
     {
       "name": "string-width",
       "maintainers": [],
-      "version": "5.0.1",
+      "version": "5.1.1",
       "description": "Get the visual width of a string - the number of columns required to display it",
       "repository": "sindresorhus/string-width",
       "homepage": null,
@@ -1239,7 +1239,7 @@
     {
       "name": "minimatch",
       "maintainers": [],
-      "version": "3.0.5",
+      "version": "3.1.2",
       "description": "a glob matcher in javascript",
       "repository": {
         "type": "git",
