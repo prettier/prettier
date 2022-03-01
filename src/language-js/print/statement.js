@@ -167,7 +167,8 @@ function printSwitchCaseConsequent(path, options, print) {
 const isClassProperty = ({ type }) =>
   type === "ClassProperty" ||
   type === "PropertyDefinition" ||
-  type === "ClassPrivateProperty";
+  type === "ClassPrivatePropertyj" ||
+  type === "ClassAccessorProperty";
 /**
  * @returns {boolean}
  */
