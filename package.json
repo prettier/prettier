@@ -34,7 +34,7 @@
     "angular-html-parser": "1.8.0",
     "c8": "7.10.0",
     "camelcase": "6.3.0",
-    "chalk": "4.1.2",
+    "chalk": "5.0.0",
     "ci-info": "3.3.0",
     "cjk-regex": "2.0.1",
     "cosmiconfig": "7.0.1",
