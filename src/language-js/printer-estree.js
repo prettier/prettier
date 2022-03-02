@@ -96,6 +96,7 @@ function genericPrint(path, options, print, args) {
     type === "ClassMethod" ||
     type === "ClassPrivateMethod" ||
     type === "ClassProperty" ||
+    type === "ClassAccessorProperty" ||
     type === "PropertyDefinition" ||
     type === "TSAbstractPropertyDefinition" ||
     type === "ClassPrivateProperty" ||
@@ -759,6 +760,7 @@ function printPathNoParens(path, options, print, args) {
     case "ClassProperty":
     case "PropertyDefinition":
     case "ClassPrivateProperty":
+    case "ClassAccessorProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
       return replaceTextEndOfLine(node.value.raw);
