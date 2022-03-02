@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import ignore from "ignore";
 import getFileContentOrNull from "../utils/get-file-content-or-null.js";
 

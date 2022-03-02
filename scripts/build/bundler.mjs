@@ -11,6 +11,7 @@ import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
+import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import bundles from "./config.mjs";
 
 const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -121,6 +122,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     metafile: true,
     plugins: [
       esbuildPluginEvaluate(),
+      esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginTextReplace({

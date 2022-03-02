@@ -187,13 +187,6 @@ module.exports = {
         "unicorn/prefer-module": "off",
       },
     },
-    // `esbuild` don't support
-    {
-      files: ["bin/**/*.js", "src/**/*.js"],
-      rules: {
-        "unicorn/prefer-node-protocol": "off",
-      },
-    },
     {
       files: [
         "tests/format/**/jsfmt.spec.js",

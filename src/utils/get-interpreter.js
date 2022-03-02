@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import readlines from "n-readlines";
 
 function getInterpreter(filepath) {

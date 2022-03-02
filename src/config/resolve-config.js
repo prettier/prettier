@@ -1,5 +1,5 @@
-import { createRequire } from "module";
-import path from "path";
+import { createRequire } from "node:module";
+import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
 import thirdParty from "../common/third-party.cjs";

@@ -1,4 +1,4 @@
-import readline from "readline";
+import readline from "node:readline";
 import chalk from "chalk";
 import stripAnsi from "strip-ansi";
 import wcwidth from "wcwidth";

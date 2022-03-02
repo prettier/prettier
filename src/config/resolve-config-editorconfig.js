@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 
 import editorconfig from "editorconfig";
 import editorConfigToPrettier from "editorconfig-to-prettier";
