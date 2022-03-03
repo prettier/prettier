@@ -1,7 +1,6 @@
 "use strict";
 
 const vnopts = require("vnopts");
-const leven = require("leven");
 const getLast = require("../utils/get-last.js");
 
 const cliDescriptor = {
@@ -17,9 +16,8 @@ const cliDescriptor = {
       : `${cliDescriptor.key(key)}=${value}`,
 };
 
-// To prevent `chalk` module from being included in the `standalone.js` bundle,
-// it will take that as an argument if needed.
-const getFlagSchema = (colorsModule) =>
+// To prevent `chalk` and `leven` module from being included in the `standalone.js` bundle, it will take that as an argument if needed.
+const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
   class FlagSchema extends vnopts.ChoiceSchema {
     constructor({ name, flags }) {
       super({ name, choices: flags });
@@ -31,7 +29,9 @@ const getFlagSchema = (colorsModule) =>
         value.length > 0 &&
         !this._flags.includes(value)
       ) {
-        const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
+        const suggestion = this._flags.find(
+          (flag) => levenshteinDistance(flag, value) < 3
+        );
         if (suggestion) {
           utils.logger.warn(
             [
@@ -58,7 +58,13 @@ let hasDeprecationWarned;
 function normalizeOptions(
   options,
   optionInfos,
-  { logger, isCLI = false, passThrough = false, colorsModule } = {}
+  {
+    logger,
+    isCLI = false,
+    passThrough = false,
+    colorsModule,
+    levenshteinDistance,
+  } = {}
 ) {
   const unknown = !passThrough
     ? (key, value, options) => {
@@ -75,7 +81,11 @@ function normalizeOptions(
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
-  const schemas = optionInfosToSchemas(optionInfos, { isCLI, colorsModule });
+  const schemas = optionInfosToSchemas(optionInfos, {
+    isCLI,
+    colorsModule,
+    levenshteinDistance,
+  });
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
     unknown,
@@ -101,7 +111,10 @@ function normalizeOptions(
   return normalized;
 }
 
-function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
+function optionInfosToSchemas(
+  optionInfos,
+  { isCLI, colorsModule, levenshteinDistance }
+) {
   const schemas = [];
 
   if (isCLI) {
@@ -110,7 +123,12 @@ function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
 
   for (const optionInfo of optionInfos) {
     schemas.push(
-      optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule })
+      optionInfoToSchema(optionInfo, {
+        isCLI,
+        optionInfos,
+        colorsModule,
+        levenshteinDistance,
+      })
     );
 
     if (optionInfo.alias && isCLI) {
@@ -126,7 +144,10 @@ function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
   return schemas;
 }
 
-function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
+function optionInfoToSchema(
+  optionInfo,
+  { isCLI, optionInfos, colorsModule, levenshteinDistance }
+) {
   const { name } = optionInfo;
 
   if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
@@ -182,7 +203,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
       SchemaConstructor = vnopts.BooleanSchema;
       break;
     case "flag":
-      SchemaConstructor = getFlagSchema(colorsModule);
+      SchemaConstructor = getFlagSchema({ colorsModule, levenshteinDistance });
       parameters.flags = optionInfos.flatMap((optionInfo) =>
         [
           optionInfo.alias,

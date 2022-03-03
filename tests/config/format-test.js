@@ -57,7 +57,28 @@ const espreeDisabledTests = new Set(
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
 const acornDisabledTests = espreeDisabledTests;
-const meriyahDisabledTests = espreeDisabledTests;
+const meriyahDisabledTests = new Set([
+  ...espreeDisabledTests,
+  // Meriyah does not support decorator auto accessors syntax.
+  // But meriyah can parse it as an ordinary class property.
+  // So meriyah does not throw parsing error for it.
+  ...[
+    "basic.js",
+    "computed.js",
+    "private.js",
+    "static-computed.js",
+    "static-private.js",
+    "static.js",
+    "with-semicolon-1.js",
+    "with-semicolon-2.js",
+  ].map((filename) =>
+    path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
+  ),
+  path.join(
+    __dirname,
+    "../format/js/babel-plugins/decorator-auto-accessors.js"
+  ),
+]);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -216,6 +237,13 @@ function runSpec(fixtures, parsers, options) {
         : format(code, formatOptions);
 
       for (const currentParser of allParsers) {
+        if (
+          (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
+          (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
+          (currentParser === "acorn" && acornDisabledTests.has(filename))
+        ) {
+          continue;
+        }
         runTest({
           parsers,
           name,
