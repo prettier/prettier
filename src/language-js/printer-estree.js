@@ -46,6 +46,7 @@ const {
   printTypeAnnotation,
   adjustClause,
   printRestSpread,
+  printDefiniteToken,
 } = require("./print/misc.js");
 const {
   printImportDeclaration,
@@ -292,6 +293,7 @@ function printPathNoParens(path, options, print, args) {
       return [
         node.name,
         printOptionalToken(path),
+        printDefiniteToken(path),
         printTypeAnnotation(path, options, print),
       ];
     }
