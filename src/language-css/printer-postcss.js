@@ -973,7 +973,7 @@ function genericPrint(path, options, print) {
         printCssNumber(node.value),
         cssUnits.find(
           (elem) => elem.toLowerCase() === node.unit.toLowerCase()
-        ) ?? node.unit,
+        ) || node.unit,
       ];
     }
     case "value-operator": {
