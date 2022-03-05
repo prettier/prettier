@@ -421,7 +421,8 @@ module.exports = {
           !hasParent &&
           (tagName !== "template" ||
             attrs.some(
-              ({ name, value }) => name === "lang" && value !== "html"
+              ({ name, value }) =>
+                name === "lang" && value !== "html" && value !== ""
             ))
         ) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;

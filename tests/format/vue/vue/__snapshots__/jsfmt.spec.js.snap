@@ -4154,6 +4154,13 @@ semi: false
     some-component(tag='<some-tag>')
 </template>
 
+<template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -4170,6 +4177,14 @@ semi: false
 <template lang="unknown">
   #container
     some-component(tag='<some-tag>')
+</template>
+
+<template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
 </template>
 
 ================================================================================
@@ -4203,6 +4218,13 @@ trailingComma: "none"
     some-component(tag='<some-tag>')
 </template>
 
+<template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -4219,6 +4241,14 @@ trailingComma: "none"
 <template lang="unknown">
   #container
     some-component(tag='<some-tag>')
+</template>
+
+<template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
 </template>
 
 ================================================================================
@@ -4251,6 +4281,13 @@ printWidth: 80
     some-component(tag='<some-tag>')
 </template>
 
+<template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -4267,6 +4304,14 @@ printWidth: 80
 <template lang="unknown">
   #container
     some-component(tag='<some-tag>')
+</template>
+
+<template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
 </template>
 
 ================================================================================
