@@ -1,5 +1,5 @@
 "use strict";
-
+const cssUnits = require("css-units-list");
 const getLast = require("../utils/get-last.js");
 const {
   printNumber,
@@ -969,7 +969,12 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-number": {
-      return [printCssNumber(node.value), maybeToLowerCase(node.unit)];
+      return [
+        printCssNumber(node.value),
+        cssUnits.find(
+          (elem) => elem.toLowerCase() === node.unit.toLowerCase()
+        ) ?? node.unit,
+      ];
     }
     case "value-operator": {
       return node.value;

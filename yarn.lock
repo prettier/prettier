@@ -2498,6 +2498,11 @@ cspell@5.18.5:
     strip-ansi "^6.0.1"
     vscode-uri "^3.0.3"
 
+css-units-list@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/css-units-list/-/css-units-list-0.0.4.tgz#0c51969005417e83ec8a9b69792615a80e0e77d2"
+  integrity sha512-2KeoQuCk1RLqORqRMa8U+Js4dEkEr2THpW9URaZLqS5lcE9b0hr2WWBjIoIUamLT3VbVhnT2nHTy6eWgo7FTew==
+
 cssom@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.4.4.tgz#5a66cf93d2d0b661d80bf6a44fb65f5c2e4e0a10"
