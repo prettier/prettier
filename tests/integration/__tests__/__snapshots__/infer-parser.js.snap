@@ -3,7 +3,7 @@
 exports[`--check with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
 [warn] foo.js
-[warn] Code style issues found in the above file(s). Forgot to run Prettier?
+[warn] Code style issues found in the above file. Forgot to run Prettier?
 "
 `;
 
@@ -36,7 +36,7 @@ exports[`--list-different with unknown path and no parser specific file (stderr)
 exports[`--write and --check with unknown path and no parser multiple files (stderr) 1`] = `
 "[error] No parser could be inferred for file: FOO
 [warn] foo.js
-[warn] Code style issues fixed in the above file(s).
+[warn] Code style issues fixed in the above file.
 "
 `;
 
