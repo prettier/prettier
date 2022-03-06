@@ -1,5 +1,5 @@
 "use strict";
-const cssUnits = require("css-units-list");
+
 const getLast = require("../utils/get-last.js");
 const {
   printNumber,
@@ -78,6 +78,7 @@ const {
 const { locStart, locEnd } = require("./loc.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
+const { CSS_UNITS } = require("./css-units.evaluate.js");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -971,9 +972,7 @@ function genericPrint(path, options, print) {
     case "value-number": {
       return [
         printCssNumber(node.value),
-        cssUnits.find(
-          (elem) => elem.toLowerCase() === node.unit.toLowerCase()
-        ) || node.unit,
+        CSS_UNITS.get(node.unit.toLowerCase()) || node.unit,
       ];
     }
     case "value-operator": {
