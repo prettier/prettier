@@ -422,7 +422,10 @@ module.exports = {
           (tagName !== "template" ||
             attrs.some(
               ({ name, value }) =>
-                name === "lang" && value !== "html" && value !== ""
+                name === "lang" &&
+                value !== "html" &&
+                value !== "" &&
+                value !== undefined
             ))
         ) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;

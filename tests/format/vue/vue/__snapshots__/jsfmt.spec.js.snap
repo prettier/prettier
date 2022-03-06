@@ -4161,6 +4161,14 @@ semi: false
     </v-menu>
   </v-app-bar>
 </template>
+
+<template lang>
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -4180,6 +4188,14 @@ semi: false
 </template>
 
 <template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
+
+<template lang>
   <v-app-bar>
     <v-menu offset-y>
       <template></template>
@@ -4225,6 +4241,14 @@ trailingComma: "none"
     </v-menu>
   </v-app-bar>
 </template>
+
+<template lang>
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -4244,6 +4268,14 @@ trailingComma: "none"
 </template>
 
 <template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
+
+<template lang>
   <v-app-bar>
     <v-menu offset-y>
       <template></template>
@@ -4288,6 +4320,14 @@ printWidth: 80
     </v-menu>
   </v-app-bar>
 </template>
+
+<template lang>
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -4307,6 +4347,14 @@ printWidth: 80
 </template>
 
 <template lang="">
+  <v-app-bar>
+    <v-menu offset-y>
+      <template></template>
+    </v-menu>
+  </v-app-bar>
+</template>
+
+<template lang>
   <v-app-bar>
     <v-menu offset-y>
       <template></template>
