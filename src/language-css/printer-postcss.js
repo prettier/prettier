@@ -972,7 +972,9 @@ function genericPrint(path, options, print) {
     case "value-number": {
       return [
         printCssNumber(node.value),
-        CSS_UNITS[node.unit.toLowerCase()] || node.unit,
+        Object.prototype.hasOwnProperty.call(CSS_UNITS, node.unit.toLowerCase())
+          ? CSS_UNITS[node.unit.toLowerCase()]
+          : node.unit,
       ];
     }
     case "value-operator": {
