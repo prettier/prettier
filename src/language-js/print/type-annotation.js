@@ -1,5 +1,5 @@
 import { printComments, printDanglingComments } from "../../main/comments.js";
-import { getLast, isNonEmptyArray } from "../../common/util.js";
+import { isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { locStart } from "../loc.js";
@@ -286,7 +286,6 @@ function printTupleType(path, options, print) {
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
   const isNonEmptyTuple = isNonEmptyArray(types);
-  const hasRest = isNonEmptyTuple && getLast(types).type === "TSRestType";
   const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
   return group([
     "[",
@@ -294,9 +293,7 @@ function printTupleType(path, options, print) {
       bracketsDelimiterLine,
       printArrayItems(path, options, typesField, print),
     ]),
-    ifBreak(
-      isNonEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
-    ),
+    ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
     printDanglingComments(path, options, /* sameIndent */ true),
     bracketsDelimiterLine,
     "]",

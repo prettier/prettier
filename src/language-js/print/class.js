@@ -4,7 +4,11 @@ import doc from "../../document/index.js";
 import { hasComment, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printMethod } from "./function.js";
-import { printOptionalToken, printTypeAnnotation } from "./misc.js";
+import {
+  printOptionalToken,
+  printTypeAnnotation,
+  printDefiniteToken,
+} from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
@@ -211,9 +215,13 @@ function printClassProperty(path, options, print) {
   if (node.variance) {
     parts.push(print("variance"));
   }
+  if (node.type === "ClassAccessorProperty") {
+    parts.push("accessor ");
+  }
   parts.push(
     printPropertyKey(path, options, print),
     printOptionalToken(path),
+    printDefiniteToken(path),
     printTypeAnnotation(path, options, print)
   );
 
