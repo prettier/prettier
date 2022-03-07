@@ -78,7 +78,7 @@ const {
 const { locStart, locEnd } = require("./loc.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
-const { CSS_UNITS } = require("./css-units.evaluate.js");
+const printUnit = require("./utils/print-unit.js");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -970,12 +970,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-number": {
-      return [
-        printCssNumber(node.value),
-        Object.prototype.hasOwnProperty.call(CSS_UNITS, node.unit.toLowerCase())
-          ? CSS_UNITS[node.unit.toLowerCase()]
-          : node.unit,
-      ];
+      return [printCssNumber(node.value), printUnit(node.unit)];
     }
     case "value-operator": {
       return node.value;

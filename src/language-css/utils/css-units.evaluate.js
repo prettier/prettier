@@ -6,6 +6,4 @@ const CSS_UNITS = Object.fromEntries(
   cssUnits.map((unit) => [unit.toLowerCase(), unit])
 );
 
-module.exports = {
-  CSS_UNITS,
-};
+module.exports = CSS_UNITS;
