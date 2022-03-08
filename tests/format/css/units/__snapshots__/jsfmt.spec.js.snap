@@ -48,6 +48,7 @@ printWidth: 80
   a: 5DPI;
   a: 5DPCM;
   a: 5DPPX;
+  a: 5X;
 
   a: 5PROTOTYPE;
   a: 5constructoR;
@@ -96,6 +97,7 @@ printWidth: 80
   a: 5dpi;
   a: 5dpcm;
   a: 5dppx;
+  a: 5x;
 
   a: 5PROTOTYPE;
   a: 5constructoR;
