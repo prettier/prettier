@@ -23,8 +23,8 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
         if (replacements.has(resolveResult.path)) {
           const { external, path } = replacements.get(resolveResult.path);
 
-          if (external) {
-            return { path, external: true };
+          if (path) {
+            return { path, external };
           }
         }
 
@@ -36,27 +36,8 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           return;
         }
 
-        let {
-          path,
-          resolveDir,
-          contents,
-          loader = "js",
-        } = replacements.get(args.path);
-
-        if (
-          !resolveDir &&
-          (args.namespace === "node-modules-polyfills-commonjs" ||
-            args.namespace === "node-modules-polyfills") &&
-          path
-        ) {
-          resolveDir = dirname(path);
-        }
-
-        if (path) {
-          contents = `module.exports = require(${JSON.stringify(`${path}`)})`;
-        }
-
-        return { contents, loader, resolveDir };
+        const { contents, loader } = replacements.get(args.path);
+        return { contents, loader };
       });
     },
   };

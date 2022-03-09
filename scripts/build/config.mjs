@@ -144,12 +144,6 @@ const parsers = [
   },
   {
     input: "src/language-yaml/parser-yaml.js",
-    replaceModule: {
-      // Use `tslib.es6.js`, so we can avoid `globalThis` shim
-      [require.resolve("tslib")]: require
-        .resolve("tslib")
-        .replace(/tslib\.js$/, "tslib.es6.js"),
-    },
   },
 ].map((bundle) => {
   const { name } = bundle.input.match(

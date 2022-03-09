@@ -106,7 +106,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
     // Dynamic require bundled files
     for (const item of bundles) {
       if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
+        replaceModule[path.join(PROJECT_ROOT, item.input)] = {
+          path: `./${item.output}`,
+          external: true,
+        };
       }
     }
   } else {
