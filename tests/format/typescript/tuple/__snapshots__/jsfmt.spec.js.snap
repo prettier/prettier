@@ -1,91 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"all"} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "all"
-                                                                                | printWidth
-=====================================input======================================
-type ValidateArgs = [
-	{
-		[key: string]: any;
-	},
-	string,
-	string,
-	...string[],
-];
-
-=====================================output=====================================
-type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
-];
-
-================================================================================
-`;
-
-exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"none"} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
-type ValidateArgs = [
-	{
-		[key: string]: any;
-	},
-	string,
-	string,
-	...string[],
-];
-
-=====================================output=====================================
-type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
-];
-
-================================================================================
-`;
-
-exports[`no-trailing-comma-after-rest.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-type ValidateArgs = [
-	{
-		[key: string]: any;
-	},
-	string,
-	string,
-	...string[],
-];
-
-=====================================output=====================================
-type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
-];
-
-================================================================================
-`;
-
 exports[`trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -269,6 +183,92 @@ type Foo =
   Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
     ? Foo3
     : Foo4;
+
+================================================================================
+`;
+
+exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[],
+];
+
+================================================================================
+`;
+
+exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[]
+];
+
+================================================================================
+`;
+
+exports[`trailing-comma-trailing-rest.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[]
+];
 
 ================================================================================
 `;

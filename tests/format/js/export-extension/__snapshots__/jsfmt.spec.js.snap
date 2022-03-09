@@ -21,7 +21,7 @@ exports[`export.js [espree] format 1`] = `
 `;
 
 exports[`export.js [meriyah] format 1`] = `
-"[2:8]: Unexpected token: 'identifier' (2:8)
+"Unexpected token: 'identifier' (2:8)
   1 | export * as ns from 'mod';
 > 2 | export v from 'mod';
     |        ^

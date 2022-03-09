@@ -202,6 +202,10 @@ const options = {
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"],
   },
+  "plugin-search": {
+    type: "boolean",
+    oppositeDescription: "Disable plugin autoloading.",
+  },
   "support-info": {
     type: "boolean",
     description: "Print support information as JSON.",

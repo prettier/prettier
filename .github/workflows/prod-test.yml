@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v3
         with:
           cache: "yarn"
 
@@ -36,7 +36,7 @@ jobs:
       # It should be the last step
       - name: Check Sizes
         if: ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/') }}
-        uses: preactjs/compressed-size-action@2.3.0
+        uses: preactjs/compressed-size-action@2.5.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "./dist/**/*"
@@ -48,10 +48,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v3
         with:
           cache: "yarn"
 
@@ -101,10 +101,10 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"

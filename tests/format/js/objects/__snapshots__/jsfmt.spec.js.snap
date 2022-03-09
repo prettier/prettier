@@ -75,7 +75,7 @@ exports[`expression.js [espree] format 1`] = `
 `;
 
 exports[`expression.js [meriyah] format 1`] = `
-"[5:4]: Expected ')' (5:4)
+"Expected ')' (5:4)
   3 | a = () => ({}).x;
   4 | ({} && a, b);
 > 5 | ({}::b, 0);

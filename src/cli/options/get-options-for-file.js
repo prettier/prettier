@@ -2,6 +2,7 @@
 
 const dashify = require("dashify");
 const chalk = require("chalk");
+const leven = require("leven");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../../index.js");
 const { optionsNormalizer } = require("../prettier-internal.js");
@@ -50,7 +51,7 @@ function parseArgsToOptions(context, overrideDefaults) {
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false, colorsModule: chalk }
+      { logger: false, colorsModule: chalk, levenshteinDistance: leven }
     ),
     context.detailedOptions
   );

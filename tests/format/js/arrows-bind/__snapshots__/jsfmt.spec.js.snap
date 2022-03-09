@@ -19,7 +19,7 @@ exports[`arrows-bind.js [espree] format 1`] = `
 `;
 
 exports[`arrows-bind.js [meriyah] format 1`] = `
-"[1:9]: Expected ')' (1:9)
+"Expected ')' (1:9)
 > 1 | a => ({}::b()\`\`[''].c++ && 0 ? 0 : 0);
     |         ^
   2 | (a => b)::c;

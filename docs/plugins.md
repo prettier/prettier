@@ -46,7 +46,7 @@ The paths that are provided to `pluginSearchDirs` will be searched for `@prettie
 
 Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
 
-Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
+To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI or add `{ pluginSearchDirs: false }` to options in `prettier.format()` or to the config file.
 
 ## Official Plugins
 
@@ -62,12 +62,13 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
 - [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
+- [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
+- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
-- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 
 ## Developing Plugins
 

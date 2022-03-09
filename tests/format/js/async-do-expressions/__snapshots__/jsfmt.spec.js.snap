@@ -19,7 +19,7 @@ exports[`async-do-expressions.js [espree] format 1`] = `
 `;
 
 exports[`async-do-expressions.js [meriyah] format 1`] = `
-"[1:8]: Unexpected token: 'do' (1:8)
+"Unexpected token: 'do' (1:8)
 > 1 | async do {
     |        ^
   2 |   1;

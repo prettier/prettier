@@ -102,7 +102,7 @@ const languages = [
       since: "1.5.0",
       parsers: ["json"],
       vscodeLanguageIds: ["jsonc"],
-      filenames: [...data.filenames, ".eslintrc"],
+      filenames: [...data.filenames, ".eslintrc", ".swcrc"],
     })
   ),
   createLanguage(require("linguist-languages/data/JSON5.json"), () => ({

@@ -205,3 +205,70 @@ describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd
     write: [],
   });
 });
+
+test("--no-plugin-search", async () => {
+  async function getParser(args = []) {
+    const { stdout } = await runPrettier("plugins/automatic", [
+      "--file-info=file.foo",
+      ...args,
+    ]);
+    return JSON.parse(stdout).inferredParser;
+  }
+
+  expect(await getParser()).toBe("foo");
+  expect(await getParser(["--plugin-search-dir=."])).toBe("foo");
+  expect(await getParser(["--no-plugin-search"])).toBeNull();
+});
+
+test("--no-plugin-search still allow use --plugin", async () => {
+  const args = ["file.txt", "--parser=bar"];
+  const { stdout: stdoutWithoutPlugin } = await runPrettier(
+    "plugins/automatic",
+    args
+  );
+  const argsWithPlugin = [...args, "--plugin=./prettier-plugin-bar.js"];
+  const { stdout: stdoutWithPlugin } = await runPrettier(
+    "plugins/automatic",
+    argsWithPlugin
+  );
+  const { stdout: stdoutWithoutPluginAndNoPluginSearch } = await runPrettier(
+    "plugins/automatic",
+    [...args, "--no-plugin-search"]
+  );
+  const { stdout: stdoutWithPluginButNoPluginSearch } = await runPrettier(
+    "plugins/automatic",
+    [...argsWithPlugin, "--no-plugin-search"]
+  );
+
+  expect(stdoutWithoutPlugin).not.toBe(stdoutWithPlugin);
+  expect(stdoutWithoutPluginAndNoPluginSearch).toBe("");
+  expect(stdoutWithPlugin).toBe(stdoutWithPluginButNoPluginSearch);
+});
+
+test("--no-plugin-search together with --plugin-search-dir", async () => {
+  const result1 = await runPrettier("plugins/automatic", [
+    "--no-plugin-search",
+    "--plugin-search-dir",
+  ]);
+  const result2 = await runPrettier("plugins/automatic", [
+    "--no-plugin-search",
+    "--plugin-search-dir=foo",
+  ]);
+  const result3 = await runPrettier("plugins/automatic", [
+    "--no-plugin-search",
+    "--plugin-search-dir=foo",
+    "--plugin-search-dir=bar",
+  ]);
+
+  expect(result1).toMatchInlineSnapshot(`
+    Object {
+      "status": 1,
+      "stderr": "[error] Cannot use --no-plugin-search and --plugin-search-dir together.
+    ",
+      "stdout": "",
+      "write": Array [],
+    }
+  `);
+  expect(result2).toEqual(result1);
+  expect(result3).toEqual(result1);
+});

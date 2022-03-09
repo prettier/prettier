@@ -38,6 +38,9 @@ module.exports = {
       "error",
       // `!foo === bar` and `!foo !== bar`
       'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]',
+      // `(() => (foo ? bar : baz))()`
+      // TODO: Remove this when https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1730 get implemented
+      'CallExpression[callee.type="ArrowFunctionExpression"][callee.body.type="ConditionalExpression"]',
     ],
     "no-return-await": "error",
     "no-unneeded-ternary": "error",

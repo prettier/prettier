@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import builtinModules from "builtin-modules";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
@@ -201,6 +200,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       };
     }
   } else {
+    esbuildOptions.platform = "node";
     esbuildOptions.external.push(
       ...builtinModules,
       // This may not work as expected, but works better than `external` in `replaceModule`
