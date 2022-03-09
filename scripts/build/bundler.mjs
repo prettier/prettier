@@ -235,9 +235,11 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
 
   await esbuild.build({
     ...esbuildOptions,
-    define: {},
-    plugins: plugins.filter(({ name }) => name === "umd"),
     entryPoints: [outfile],
+    plugins: plugins.filter(({ name }) => name === "umd"),
+    define: {},
+    external: [],
+    bundle: false,
     allowOverwrite: true,
   });
 }
