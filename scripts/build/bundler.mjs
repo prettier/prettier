@@ -97,20 +97,15 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
-    // Replace package.json with dynamic `require("./package.json")`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      path: "./package.json",
-      external: true,
-    };
-
-    // Dynamic require bundled files
-    for (const item of bundles) {
-      if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = {
-          path: `./${item.output}`,
-          external: true,
-        };
-      }
+    // Replace bundled files and `package.json` with dynamic `require()`
+    for (const { input, output } of [
+      ...bundles,
+      { input: "package.json", output: "package.json" },
+    ]) {
+      replaceModule[path.join(PROJECT_ROOT, input)] = {
+        path: `./${output}`,
+        external: true,
+      };
     }
   } else {
     // Universal bundle only use version info from package.json
