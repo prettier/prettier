@@ -4,11 +4,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
-import { readPackageUp } from "read-pkg-up";
 import { PROJECT_ROOT } from "../utils/index.mjs";
 import esbuildPluginLicense from "../build/esbuild-plugins/license.mjs";
 import vendors from "./vendors.mjs";
-import { saveVendorVersions, saveVendorLicenses } from "./utils.mjs";
+import { saveVendorLicenses } from "./utils.mjs";
 import esbuildPluginTsNocheck from "./esbuild-plugin-ts-nocheck.mjs";
 
 const { __dirname, require } = createEsmUtils(import.meta);
@@ -18,18 +17,6 @@ const vendorsDir = path.join(rootDir, "vendors");
 // prettier/vendors/*.js
 const getVendorFilePath = (vendorName) =>
   path.join(vendorsDir, `${vendorName}.js`);
-
-async function lockVersions(vendors) {
-  const vendorVersions = {};
-  for (const vendor of vendors) {
-    const { packageJson: vendorPackage } = await readPackageUp({
-      cwd: path.dirname(require.resolve(vendor)),
-    });
-    const vendorVersion = vendorPackage.version;
-    vendorVersions[vendor] = vendorVersion;
-  }
-  await saveVendorVersions(vendorVersions);
-}
 
 async function fileExists(filePath) {
   try {
@@ -107,9 +94,6 @@ async function main() {
     });
     console.log(`Bundled: ${vendor}`);
   }
-
-  await lockVersions(vendors);
-  console.log("Vendor versions saved");
 
   await saveVendorLicenses(licenses);
   console.log("Vendor licenses saved");

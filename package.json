@@ -161,8 +161,7 @@
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.mjs",
     "build:website": "node ./scripts/build-website.mjs",
-    "vendors:bundle": "node ./scripts/vendors/bundle-vendors.mjs",
-    "vendors:validate": "node ./scripts/vendors/validate-vendor-versions.mjs"
+    "vendors:bundle": "node ./scripts/vendors/bundle-vendors.mjs"
   },
   "browserslist": [
     ">0.5%",
