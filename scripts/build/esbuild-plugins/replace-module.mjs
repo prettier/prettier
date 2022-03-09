@@ -1,3 +1,5 @@
+import createEsmUtils from "esm-utils";
+
 export default function esbuildPluginReplaceModule(replacements = {}) {
   replacements = Object.entries(replacements).map(([file, options]) => [
     file,
@@ -14,20 +16,22 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
   return {
     name: "replace-module",
     setup(build) {
-      build.onResolve({ filter: /./ }, async (args) => {
+      build.onResolve({ filter: /./ }, (args) => {
         if (args.kind !== "import-statement" && args.kind !== "require-call") {
           return;
         }
 
-        const resolveResult = await build.resolve(args.path, {
-          importer: args.importer,
-          namespace: args.namespace,
-          resolveDir: args.resolveDir,
-          kind: args.kind,
-          pluginData: args.pluginData,
-        });
+        // Can't work with `kind`
+        // const resolveResult = await build.resolve(args.path, {
+        //   importer: args.importer,
+        //   namespace: args.namespace,
+        //   resolveDir: args.resolveDir,
+        //   kind: args.kind,
+        //   pluginData: args.pluginData,
+        // });
+        const path = createEsmUtils(args.importer).require.resolve(args.path);
 
-        return pathReplacements.get(resolveResult.path) || resolveResult;
+        return pathReplacements.get(path);
       });
 
       build.onLoad({ filter: /./ }, ({ path }) =>
