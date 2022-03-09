@@ -202,7 +202,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
   } else {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(
-      ...builtinModules,
       // This may not work as expected, but works better than `external` in `replaceModule`
       ...bundles
         .filter((item) => item.input !== bundle.input)
