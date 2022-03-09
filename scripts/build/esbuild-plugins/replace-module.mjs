@@ -33,9 +33,14 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
         //   kind: args.kind,
         //   pluginData: args.pluginData,
         // });
-        const path = createEsmUtils(args.importer).require.resolve(args.path);
+        const resolved = createEsmUtils(args.importer).require.resolve(
+          args.path
+        );
 
-        return pathReplacements.get(path);
+        return (
+          pathReplacements.get(resolved) ||
+          build.resolve(resolved, { resolveDir: args.resolveDir })
+        );
       });
 
       build.onLoad({ filter: /./ }, ({ path }) =>
