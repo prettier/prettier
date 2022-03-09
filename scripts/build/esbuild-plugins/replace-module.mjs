@@ -1,52 +1,59 @@
 import { dirname } from "node:path";
 
 export default function esbuildPluginReplaceModule(replacements = {}) {
+  replacements = new Map(
+    Object.entries(replacements).map(([file, options]) => [
+      file,
+      typeof options === "string" ? { path: options } : options,
+    ])
+  );
+
   return {
     name: "replace-module",
     setup(build) {
-      build.onLoad({ filter: /./ }, ({ path, namespace }) => {
-        let options = replacements[path];
-
-        if (!options) {
+      build.onResolve({ filter: /./ }, async (args) => {
+        if (args.kind !== "import-statement" && args.kind !== "require-call") {
           return;
         }
 
-        options =
-          typeof options === "string" ? { path: options } : { ...options };
+        const resolveResult = await build.resolve(args.path, {
+          resolveDir: args.resolveDir,
+        });
+
+        if (replacements.has(resolveResult.path)) {
+          const { external, path } = replacements.get(resolveResult.path);
+
+          if (external) {
+            return { path, external: true };
+          }
+        }
+
+        return resolveResult;
+      });
+
+      build.onLoad({ filter: /./ }, (args) => {
+        if (!replacements.has(args.path)) {
+          return;
+        }
 
         let {
-          path: file,
+          path,
           resolveDir,
           contents,
           loader = "js",
-          external: isExternal,
-        } = options;
+        } = replacements.get(args.path);
 
-        // Make this work with `@esbuild-plugins/node-modules-polyfill` plugin
         if (
           !resolveDir &&
-          namespace === "node-modules-polyfills-commonjs" &&
-          file
+          (args.namespace === "node-modules-polyfills-commonjs" ||
+            args.namespace === "node-modules-polyfills") &&
+          path
         ) {
-          resolveDir = dirname(file);
+          resolveDir = dirname(path);
         }
 
-        if (isExternal) {
-          if (!file) {
-            throw new Error("Missing external module path.");
-          }
-
-          // Prevent `esbuild` to resolve
-          contents = `
-            const entry = ${JSON.stringify(`${file}`)};
-            module.exports = require(entry);
-          `;
-        } else {
-          if (file) {
-            contents = `
-              module.exports = require(${JSON.stringify(`${file}`)});
-            `;
-          }
+        if (path) {
+          contents = `module.exports = require(${JSON.stringify(`${path}`)})`;
         }
 
         return { contents, loader, resolveDir };
