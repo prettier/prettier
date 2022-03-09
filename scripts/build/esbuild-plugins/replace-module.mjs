@@ -17,7 +17,7 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
     name: "replace-module",
     setup(build) {
       build.onResolve({ filter: /./ }, (args) => {
-        if (args.kind !== "import-statement" && args.kind !== "require-call") {
+        if (args.kind !== "require-call") {
           return;
         }
 
