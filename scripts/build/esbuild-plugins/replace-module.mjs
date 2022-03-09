@@ -21,6 +21,10 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           return;
         }
 
+        if (args.namespace !== "file") {
+          return;
+        }
+
         // Can't work with `kind`
         // const resolveResult = await build.resolve(args.path, {
         //   importer: args.importer,
