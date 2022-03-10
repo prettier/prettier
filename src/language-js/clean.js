@@ -182,7 +182,7 @@ function clean(ast, newObj, parent) {
       ast.leadingComments.some(
         (comment) =>
           isBlockComment(comment) &&
-          ["GraphQL", "HTML"].some(
+          ["GraphQL", "HTML", "JS"].some(
             (languageName) => comment.value === ` ${languageName} `
           )
       );
