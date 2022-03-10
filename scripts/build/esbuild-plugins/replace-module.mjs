@@ -1,7 +1,4 @@
 export default function esbuildPluginReplaceModule(replacements = {}) {
-  // `build.resolve()` will call `onResolve` listener
-  // Avoid infinite loop
-  const seen = new Set();
   const pathReplacements = new Map();
   const contentsReplacements = new Map();
 
@@ -26,6 +23,10 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
   return {
     name: "replace-module",
     setup(build) {
+      // `build.resolve()` will call `onResolve` listener
+      // Avoid infinite loop
+      const seen = new Set();
+
       build.onResolve({ filter: /./ }, async (args) => {
         if (
           !(args.kind === "require-call" || args.kind === "import-statement") ||
@@ -44,7 +45,7 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           importer: args.importer,
           namespace: args.namespace,
           resolveDir: args.resolveDir,
-          kind: args.kind,
+          // kind: args.kind,
           pluginData: args.pluginData,
         });
 
