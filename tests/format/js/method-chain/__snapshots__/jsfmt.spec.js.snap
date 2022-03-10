@@ -429,9 +429,12 @@ nock(/test/)
 nock(/test/)
   .matchHeader("Accept", "application/json")
   [httpMethodNock(method)]("/foo")
-  .reply(200, {
-    foo: "bar",
-  });
+  .reply(
+    200,
+    {
+      foo: "bar",
+    }
+  );
 
 ================================================================================
 `;
@@ -1044,10 +1047,13 @@ d3.select("body")
 
 Object.keys(props)
   .filter((key) => key in own === false)
-  .reduce((a, key) => {
-    a[key] = props[key];
-    return a;
-  }, {});
+  .reduce(
+    (a, key) => {
+      a[key] = props[key];
+      return a;
+    },
+    {}
+  );
 
 point().x(4).y(3).z(6).plot();
 

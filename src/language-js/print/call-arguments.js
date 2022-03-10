@@ -101,7 +101,7 @@ function printCallArguments(path, options, print) {
 
   const shouldGroupFirst = shouldGroupFirstArg(args);
   const shouldGroupLast = shouldGroupLastArg(args, options);
-  if (shouldGroupFirst || shouldGroupLast) {
+  if (args.length === 1 && (shouldGroupFirst || shouldGroupLast)) {
     if (
       shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)

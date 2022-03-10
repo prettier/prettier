@@ -54,9 +54,12 @@ const UsersList = ({ users }) => (
 const TodoList = ({ todos }) => (
   <div className="TodoList">
     <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
+      {_.map(
+        todos,
+        (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        )
+      )}
     </ul>
   </div>
 );
@@ -132,9 +135,12 @@ const UsersList = ({ users }) => (
 const TodoList = ({ todos }) => (
   <div className='TodoList'>
     <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
+      {_.map(
+        todos,
+        (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        )
+      )}
     </ul>
   </div>
 );
@@ -210,9 +216,12 @@ const UsersList = ({ users }) => (
 const TodoList = ({ todos }) => (
   <div className="TodoList">
     <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
+      {_.map(
+        todos,
+        (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        )
+      )}
     </ul>
   </div>
 );
@@ -288,9 +297,12 @@ const UsersList = ({ users }) => (
 const TodoList = ({ todos }) => (
   <div className='TodoList'>
     <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
+      {_.map(
+        todos,
+        (todo, i) => (
+          <TodoItem key={i} {...todo} />
+        )
+      )}
     </ul>
   </div>
 );

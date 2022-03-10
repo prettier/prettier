@@ -550,9 +550,10 @@ async function f() {
   return { data, status };
 }
 
-const data1 = request.delete("----------------------------------------------", {
-  validateStatus: () => true,
-});
+const data1 = request.delete(
+  "----------------------------------------------",
+  { validateStatus: () => true }
+);
 
 const data2 = request.delete(
   "----------------------------------------------x",

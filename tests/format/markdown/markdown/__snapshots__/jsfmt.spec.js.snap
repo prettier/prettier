@@ -1508,13 +1508,16 @@ function. The function signature of the parser function is:
 Prettier's built-in parsers are exposed as properties on the \`parsers\` argument.
 
 \`\`\`js
-prettier.format('lodash ( )', {
-  parser(text, { babylon }) {
-    const ast = babylon(text);
-    ast.program.body[0].expression.callee.name = '_';
-    return ast;
-  },
-});
+prettier.format(
+  'lodash ( )',
+  {
+    parser(text, { babylon }) {
+      const ast = babylon(text);
+      ast.program.body[0].expression.callee.name = '_';
+      return ast;
+    },
+  }
+);
 // -> "_();\\n"
 \`\`\`
 
@@ -3487,13 +3490,16 @@ function. The function signature of the parser function is:
 Prettier's built-in parsers are exposed as properties on the \`parsers\` argument.
 
 \`\`\`js
-prettier.format("lodash ( )", {
-  parser(text, { babylon }) {
-    const ast = babylon(text);
-    ast.program.body[0].expression.callee.name = "_";
-    return ast;
-  },
-});
+prettier.format(
+  "lodash ( )",
+  {
+    parser(text, { babylon }) {
+      const ast = babylon(text);
+      ast.program.body[0].expression.callee.name = "_";
+      return ast;
+    },
+  }
+);
 // -> "_();\\n"
 \`\`\`
 

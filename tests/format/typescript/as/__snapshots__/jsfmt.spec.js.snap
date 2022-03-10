@@ -177,16 +177,22 @@ const TYPE_MAP = {
   "symbolic link": "link",
 } as Foo;
 
-this.previewPlayerHandle = setInterval(async () => {
-  if (this.previewIsPlaying) {
-    await this.fetchNextPreviews();
-    this.currentPreviewIndex++;
-  }
-}, this.refreshDelay) as unknown as number;
+this.previewPlayerHandle = setInterval(
+  async () => {
+    if (this.previewIsPlaying) {
+      await this.fetchNextPreviews();
+      this.currentPreviewIndex++;
+    }
+  },
+  this.refreshDelay
+) as unknown as number;
 
-this.intervalID = setInterval(() => {
-  self.step();
-}, 30) as unknown as number;
+this.intervalID = setInterval(
+  () => {
+    self.step();
+  },
+  30
+) as unknown as number;
 
 ================================================================================
 `;
@@ -236,14 +242,17 @@ const defaultMaskGetter = $parse(attrs[directiveName]) as (
   (this.editorBody as any) =
     undefined;
 
-angular.module("foo").directive("formIsolator", () => {
-  return {
-    name: "form",
-    controller: class FormIsolatorController {
-      $addControl = angular.noop;
-    } as ng.IControllerConstructor,
-  };
-});
+angular.module("foo").directive(
+  "formIsolator",
+  () => {
+    return {
+      name: "form",
+      controller: class FormIsolatorController {
+        $addControl = angular.noop;
+      } as ng.IControllerConstructor,
+    };
+  }
+);
 
 (this.selectorElem as any) =
   this.multiselectWidget =

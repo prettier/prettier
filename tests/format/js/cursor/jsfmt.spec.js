@@ -39,11 +39,14 @@ foo('bar', cb => {
   expect(
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toMatchObject({
-    formatted: `foo("bar", (cb) => {
-  console.log("stuff");
-});
+    formatted: `foo(
+  "bar",
+  (cb) => {
+    console.log("stuff");
+  }
+);
 `,
-    cursorOffset: 25,
+    cursorOffset: 32,
   });
 });
 

@@ -19,19 +19,22 @@ export default class AddAssetHtmlPlugin {
 =====================================output=====================================
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
-    compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
-      compilation.plugin(
-        "html-webpack-plugin-before-html",
-        (callback: Callback<any>) => {
-          addAllAssetsToCompilation(
-            this.assets,
-            compilation,
-            htmlPluginData,
-            callback
-          );
-        }
-      );
-    });
+    compiler.plugin(
+      "compilation",
+      (compilation: WebpackCompilationType) => {
+        compilation.plugin(
+          "html-webpack-plugin-before-html",
+          (callback: Callback<any>) => {
+            addAllAssetsToCompilation(
+              this.assets,
+              compilation,
+              htmlPluginData,
+              callback
+            );
+          }
+        );
+      }
+    );
   }
 }
 
@@ -61,10 +64,10 @@ var listener = DOM.listen(
   "click",
   sigil,
   (event: JavelinEvent): void =>
-    BanzaiLogger.log(config, {
-      ...logData,
-      ...DataStore.get(event.getNode(sigil)),
-    })
+    BanzaiLogger.log(
+      config,
+      { ...logData, ...DataStore.get(event.getNode(sigil)) }
+    )
 );
 
 ================================================================================

@@ -311,12 +311,15 @@ let worker = new Worker(module {
 worker.postMessage(module { export function fn() { return "hello!" } });
 
 =====================================output=====================================
-let worker = new Worker(module {
-  onmessage = function ({ data }) {
-    let mod = import(data);
-    postMessage(mod.fn());
-  };
-}, { type: "module" });
+let worker = new Worker(
+  module {
+    onmessage = function ({ data }) {
+      let mod = import(data);
+      postMessage(mod.fn());
+    };
+  },
+  { type: "module" }
+);
 
 let worker = new Worker(
   module {

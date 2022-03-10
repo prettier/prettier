@@ -160,25 +160,22 @@ function packageJs() {
    console.log(\\"package/file.js should have tab width 3\\");
 }
 function rcJson() {
-  console.log.apply(null, [
-    'rc-json/file.js',
-    'should have trailing comma',
-    'and single quotes',
-  ]);
+  console.log.apply(
+    null,
+    ['rc-json/file.js', 'should have trailing comma', 'and single quotes'],
+  );
 }
 function rcToml() {
-  console.log.apply(null, [
-    'rc-toml/file.js',
-    'should have trailing comma',
-    'and single quotes',
-  ]);
+  console.log.apply(
+    null,
+    ['rc-toml/file.js', 'should have trailing comma', 'and single quotes'],
+  );
 }
 function rcYaml() {
-  console.log.apply(null, [
-    'rc-yaml/file.js',
-    'should have trailing comma',
-    'and single quotes',
-  ]);
+  console.log.apply(
+    null,
+    ['rc-yaml/file.js', 'should have trailing comma', 'and single quotes'],
+  );
 }
 "
 `;

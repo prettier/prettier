@@ -55,10 +55,13 @@ let tests = [
   function () {
     const hmac = crypto.createHmac("sha256", "a secret");
 
-    hmac.on("readable", () => {
-      (hmac.read(): ?(string | Buffer));
-      (hmac.read(): number); // 4 errors: null, void, string, Buffer
-    });
+    hmac.on(
+      "readable",
+      () => {
+        (hmac.read(): ?(string | Buffer));
+        (hmac.read(): number); // 4 errors: null, void, string, Buffer
+      }
+    );
 
     hmac.write("some data to hash");
     hmac.write(123); // 2 errors: not a string or a Buffer

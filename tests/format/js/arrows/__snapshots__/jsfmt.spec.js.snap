@@ -877,10 +877,13 @@ foo(
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
-    markdownDoc(member.doc, {
-      typePath: typePath.concat(memberName.slice(1)),
-      signatures: member.signatures,
-    })
+    markdownDoc(
+      member.doc,
+      {
+        typePath: typePath.concat(memberName.slice(1)),
+        signatures: member.signatures,
+      }
+    )
   )
 );
 
@@ -1674,10 +1677,13 @@ foo(
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
-    markdownDoc(member.doc, {
-      typePath: typePath.concat(memberName.slice(1)),
-      signatures: member.signatures,
-    })
+    markdownDoc(
+      member.doc,
+      {
+        typePath: typePath.concat(memberName.slice(1)),
+        signatures: member.signatures,
+      }
+    )
   )
 );
 
@@ -3204,9 +3210,12 @@ request.get('https://preview-9992--prettier.netlify.app', head => body => modyLo
 const a = (x) => (y) => (z) =>
   x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
-request.get("https://preview-9992--prettier.netlify.app", (head) => (body) => {
-  console.log(head, body);
-});
+request.get(
+  "https://preview-9992--prettier.netlify.app",
+  (head) => (body) => {
+    console.log(head, body);
+  }
+);
 
 request.get(
   "https://preview-9992--prettier.netlify.app",
@@ -3253,9 +3262,12 @@ request.get('https://preview-9992--prettier.netlify.app', head => body => modyLo
 const a = x => y => z =>
   x / 0.123456789 + (y * calculateSomething(z)) / Math.PI;
 
-request.get("https://preview-9992--prettier.netlify.app", head => body => {
-  console.log(head, body);
-});
+request.get(
+  "https://preview-9992--prettier.netlify.app",
+  head => body => {
+    console.log(head, body);
+  }
+);
 
 request.get(
   "https://preview-9992--prettier.netlify.app",

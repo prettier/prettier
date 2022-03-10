@@ -121,41 +121,68 @@ func((args) => {
 }, result => result && console.log("success"))
 
 =====================================output=====================================
-setTimeout(function () {
-  thing();
-}, 500);
+setTimeout(
+  function () {
+    thing();
+  },
+  500
+);
 
-["a", "b", "c"].reduce(function (item, thing) {
-  return thing + " " + item;
-}, "letters:");
+["a", "b", "c"].reduce(
+  function (item, thing) {
+    return thing + " " + item;
+  },
+  "letters:"
+);
 
-func(() => {
-  thing();
-}, identifier);
+func(
+  () => {
+    thing();
+  },
+  identifier
+);
 
-func(function () {
-  thing();
-}, this.props.timeout * 1000);
+func(
+  function () {
+    thing();
+  },
+  this.props.timeout * 1000
+);
 
-func((that) => {
-  thing();
-}, this.props.getTimeout());
+func(
+  (that) => {
+    thing();
+  },
+  this.props.getTimeout()
+);
 
-func(() => {
-  thing();
-}, true);
+func(
+  () => {
+    thing();
+  },
+  true
+);
 
-func(() => {
-  thing();
-}, null);
+func(
+  () => {
+    thing();
+  },
+  null
+);
 
-func(() => {
-  thing();
-}, undefined);
+func(
+  () => {
+    thing();
+  },
+  undefined
+);
 
-func(() => {
-  thing();
-}, /regex.*?/);
+func(
+  () => {
+    thing();
+  },
+  /regex.*?/
+);
 
 func(
   () => {
@@ -208,13 +235,19 @@ compose(
   (b) => b * b
 );
 
-somthing.reduce(function (item, thing) {
-  return (thing.blah = item);
-}, {});
+somthing.reduce(
+  function (item, thing) {
+    return (thing.blah = item);
+  },
+  {}
+);
 
-somthing.reduce(function (item, thing) {
-  return thing.push(item);
-}, []);
+somthing.reduce(
+  function (item, thing) {
+    return thing.push(item);
+  },
+  []
+);
 
 reallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongMethod(
   (f, g, h) => {

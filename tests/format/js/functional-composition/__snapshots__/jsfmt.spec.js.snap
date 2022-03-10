@@ -127,10 +127,13 @@ app.connect(
 
 =====================================output=====================================
 button.connect("clicked", () => doSomething());
-app.connect("activate", async () => {
-  await data.load();
-  win.show_all();
-});
+app.connect(
+  "activate",
+  async () => {
+    await data.load();
+    win.show_all();
+  }
+);
 
 ================================================================================
 `;
@@ -250,10 +253,13 @@ MongoClient.connect(
 );
 
 =====================================output=====================================
-MongoClient.connect("mongodb://localhost:27017/posts", (err, db) => {
-  assert.equal(null, err);
-  db.close();
-});
+MongoClient.connect(
+  "mongodb://localhost:27017/posts",
+  (err, db) => {
+    assert.equal(null, err);
+    db.close();
+  }
+);
 
 ================================================================================
 `;
@@ -674,12 +680,15 @@ const bar = createSelector(
 =====================================output=====================================
 import { createSelector } from "reselect";
 
-const foo = createSelector(getIds, getObjects, (ids, objects) =>
-  ids.map((id) => objects[id])
+const foo = createSelector(
+  getIds,
+  getObjects,
+  (ids, objects) => ids.map((id) => objects[id])
 );
 
-const bar = createSelector([getIds, getObjects], (ids, objects) =>
-  ids.map((id) => objects[id])
+const bar = createSelector(
+  [getIds, getObjects],
+  (ids, objects) => ids.map((id) => objects[id])
 );
 
 ================================================================================
