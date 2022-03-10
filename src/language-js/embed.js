@@ -375,7 +375,6 @@ function isJsxScriptTag(path) {
         (attr.type === "JSXAttribute" && attr.name.name === "src")
     )
   ) {
-    let x = 0;
     return;
   }
 
