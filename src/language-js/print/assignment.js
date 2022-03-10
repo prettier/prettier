@@ -18,7 +18,7 @@ import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
 const {
-  builders: { line, group, indent, indentIfBreak },
+  builders: { line, group, indent, indentIfBreak, lineSuffixBoundary },
   utils: { cleanDoc, willBreak, canBreak },
 } = doc;
 
@@ -50,6 +50,7 @@ function printAssignment(
         group(leftDoc),
         operator,
         group(indent(line), { id: groupId }),
+        lineSuffixBoundary,
         indentIfBreak(rightDoc, { groupId }),
       ]);
     }
