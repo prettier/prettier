@@ -2732,7 +2732,8 @@ const regex = new RegExp(
 import path from "path" // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
-Observable.of(process)
+Observable
+  .of(process)
   // Don't complete until we say so!
   .merge(Observable.never())
   // Get the errors.
@@ -2883,7 +2884,8 @@ const regex = new RegExp(
 import path from "path"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
-Observable.of(process)
+Observable
+  .of(process)
   // Don't complete until we say so!
   .merge(Observable.never())
   // Get the errors.
