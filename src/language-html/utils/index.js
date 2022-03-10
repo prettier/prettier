@@ -12,6 +12,7 @@ const {
   builders: { line, hardline, join },
   utils: { getDocParts, replaceTextEndOfLine },
 } = require("../../document/index.js");
+const inferScriptParser = require("../../utils/script-language.js");
 const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -340,39 +341,6 @@ function hasNonTextChild(node) {
   return node.children && node.children.some((child) => child.type !== "text");
 }
 
-function _inferScriptParser(node) {
-  const { type, lang } = node.attrMap;
-  if (
-    type === "module" ||
-    type === "text/javascript" ||
-    type === "text/babel" ||
-    type === "application/javascript" ||
-    lang === "jsx"
-  ) {
-    return "babel";
-  }
-
-  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
-    return "typescript";
-  }
-
-  if (type === "text/markdown") {
-    return "markdown";
-  }
-
-  if (type === "text/html") {
-    return "html";
-  }
-
-  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
-    return "json";
-  }
-
-  if (type === "text/x-handlebars-template") {
-    return "glimmer";
-  }
-}
-
 function inferStyleParser(node) {
   const { lang } = node.attrMap;
   if (!lang || lang === "postcss" || lang === "css") {
@@ -388,12 +356,12 @@ function inferStyleParser(node) {
   }
 }
 
-function inferScriptParser(node, options) {
+function inferElementParser(node, options) {
   if (node.name === "script" && !node.attrMap.src) {
     if (!node.attrMap.lang && !node.attrMap.type) {
       return "babel";
     }
-    return _inferScriptParser(node);
+    return inferScriptParser(node.attrMap);
   }
 
   if (node.name === "style") {
@@ -402,7 +370,7 @@ function inferScriptParser(node, options) {
 
   if (options && isVueNonHtmlBlock(node, options)) {
     return (
-      _inferScriptParser(node) ||
+      inferScriptParser(node) ||
       (!("src" in node.attrMap) &&
         inferParserByLanguage(node.attrMap.lang, options))
     );
@@ -654,7 +622,7 @@ module.exports = {
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
   hasPrettierIgnore,
-  inferScriptParser,
+  inferElementParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
   isVueSlotAttribute,

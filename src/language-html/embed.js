@@ -21,7 +21,7 @@ const {
 const {
   isScriptLikeTag,
   isVueNonHtmlBlock,
-  inferScriptParser,
+  inferElementParser,
   htmlTrimPreserveIndentation,
   dedentString,
   unescapeQuoteEntities,
@@ -249,7 +249,7 @@ function embed(path, print, textToDoc, options) {
       }
 
       if (!node.isSelfClosing && isVueNonHtmlBlock(node, options)) {
-        const parser = inferScriptParser(node, options);
+        const parser = inferElementParser(node, options);
         if (!parser) {
           return;
         }
@@ -280,7 +280,7 @@ function embed(path, print, textToDoc, options) {
     }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent);
+        const parser = inferElementParser(node.parent);
         if (parser) {
           const value =
             parser === "markdown"
