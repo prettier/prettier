@@ -1,38 +1,36 @@
 export default function esbuildPluginReplaceModule(replacements = {}) {
-  replacements = Object.entries(replacements).map(([file, options]) => {
+  // `build.resolve()` will call `onResolve` listener
+  // Avoid infinite loop
+  const seen = new Set();
+  const pathReplacements = new Map();
+  const contentsReplacements = new Map();
+
+  for (let [file, options] of Object.entries(replacements)) {
     if (typeof options === "string") {
       options = { path: options };
     }
 
-    if (
-      !Object.prototype.hasOwnProperty.call(options, "path") &&
-      !Object.prototype.hasOwnProperty.call(options, "contents")
-    ) {
-      throw new Error("'path' or 'contents' is required.");
+    if (Reflect.has(options, "path")) {
+      pathReplacements.set(file, options);
+      continue;
     }
 
-    return [file, options];
-  });
+    if (Reflect.has(options, "contents")) {
+      contentsReplacements.set(file, options);
+      continue;
+    }
 
-  // `build.resolve()` will call `onResolve` listener
-  // Avoid
-  const seen = new Set();
-  const pathReplacements = new Map(
-    replacements.filter(([, replacement]) => replacement.path)
-  );
-  const contentsReplacements = new Map(
-    replacements.filter(([, replacement]) => !replacement.path)
-  );
+    throw new Error("'path' or 'contents' is required.");
+  }
 
   return {
     name: "replace-module",
     setup(build) {
       build.onResolve({ filter: /./ }, async (args) => {
-        if (args.kind !== "require-call") {
-          return;
-        }
-
-        if (args.namespace !== "file") {
+        if (
+          !(args.kind === "require-call" || args.kind === "import-statement") ||
+          args.namespace !== "file"
+        ) {
           return;
         }
 
@@ -51,7 +49,7 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
         });
 
         // `build.resolve()` seems not respecting `browser` field in `package.json`
-        // Return `undefined` instead of `resolveResult` so esbuild will resolve correctly
+        // Return `undefined` instead of `resolveResult` so esbuild can resolve correctly
         return pathReplacements.get(resolveResult.path);
       });
 
