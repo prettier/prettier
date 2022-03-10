@@ -45,7 +45,7 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
           importer: args.importer,
           namespace: args.namespace,
           resolveDir: args.resolveDir,
-          // kind: args.kind,
+          kind: args.kind,
           pluginData: args.pluginData,
         });
 
