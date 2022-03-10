@@ -10,7 +10,7 @@ export default function esbuildPluginEvaluate() {
       build.onLoad({ filter: /\.evaluate\.js$/ }, async ({ path }) => {
         let data = await importModule(path);
 
-        if (data.default) {
+        if (Object.prototype.hasOwnProperty.call(data, "default")) {
           if (Object.keys(data).length !== 1) {
             throw new TypeError("Mixed export not allowed.");
           }
