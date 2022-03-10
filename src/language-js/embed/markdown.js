@@ -4,18 +4,11 @@ const {
   builders: { indent, softline, literalline, dedentToRoot },
 } = require("../../document/index.js");
 const { escapeTemplateCharacters } = require("../print/template-literal.js");
+const { unescape, dedent } = require("./utils.js");
 
 function format(path, print, textToDoc) {
   const node = path.getValue();
-  let text = node.quasis[0].value.raw.replace(
-    /((?:\\\\)*)\\`/g,
-    (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"
-  );
-  const indentation = getIndentation(text);
-  const hasIndent = indentation !== "";
-  if (hasIndent) {
-    text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
-  }
+  const { text, hasIndent } = dedent(unescape(node.quasis[0].value.raw));
   const doc = escapeTemplateCharacters(
     textToDoc(
       text,
@@ -30,11 +23,6 @@ function format(path, print, textToDoc) {
     softline,
     "`",
   ];
-}
-
-function getIndentation(str) {
-  const firstMatchedIndent = str.match(/^([^\S\n]*)\S/m);
-  return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
 module.exports = format;
