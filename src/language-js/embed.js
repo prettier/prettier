@@ -9,6 +9,7 @@ const formatMarkdown = require("./embed/markdown.js");
 const formatCss = require("./embed/css.js");
 const formatGraphql = require("./embed/graphql.js");
 const formatHtml = require("./embed/html.js");
+const formatJs = require("./embed/js.js");
 
 function getLanguage(path) {
   if (
@@ -34,6 +35,10 @@ function getLanguage(path) {
 
   if (isMarkdown(path)) {
     return "markdown";
+  }
+
+  if (isJS(path)) {
+    return "js";
   }
 }
 
@@ -68,6 +73,10 @@ function embed(path, print, textToDoc, options) {
 
   if (language === "html" || language === "angular") {
     return formatHtml(path, print, textToDoc, options, { parser: language });
+  }
+
+  if (language === "js") {
+    return formatJs(path, print, textToDoc, options.parser);
   }
 }
 
@@ -295,6 +304,13 @@ function isHtml(path) {
         node.tag.name === "html" &&
         name === "quasi"
     )
+  );
+}
+
+function isJS(path) {
+  return (
+    hasLanguageComment(path.getValue(), "JS") &&
+    path.getValue().quasis.length === 1
   );
 }
 
