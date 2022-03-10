@@ -10,7 +10,6 @@ const pathNeedsParens = require("../needs-parens.js");
 const {
   isCallExpression,
   isMemberExpression,
-  isFunctionOrArrowExpression,
   isLongCurriedCallExpression,
   isMemberish,
   isNumericLiteral,
@@ -276,6 +275,25 @@ function printMemberChain(path, options, print) {
     return name.length <= options.tabWidth;
   }
 
+  const callExpressions = printedNodes
+    .map(({ node }) => node)
+    .filter(isCallExpression);
+
+  // Do not wrap if the name is "_" or the identifier is a factory and either:
+  // - No call expressions exist
+  // - The first call expression has 0 or 1 simple arguments
+  function shouldNotWrapAfterIdentifier(name) {
+    return (
+      name === "_" ||
+      (isFactory(name) &&
+        (callExpressions.length === 0 ||
+          (callExpressions[0].arguments.length <= 1 &&
+            callExpressions[0].arguments.every((arg) =>
+              isSimpleCallArgument(arg, 0)
+            ))))
+    );
+  }
+
   function shouldNotWrap(groups) {
     const hasComputed = groups[1].length > 0 && groups[1][0].node.computed;
 
@@ -284,7 +302,7 @@ function printMemberChain(path, options, print) {
       return (
         firstNode.type === "ThisExpression" ||
         (firstNode.type === "Identifier" &&
-          (isFactory(firstNode.name) ||
+          (shouldNotWrapAfterIdentifier(firstNode.name) ||
             (isExpressionStatement && isShort(firstNode.name)) ||
             hasComputed))
       );
@@ -294,7 +312,7 @@ function printMemberChain(path, options, print) {
     return (
       isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
-      (isFactory(lastNode.property.name) || hasComputed)
+      (shouldNotWrapAfterIdentifier(lastNode.property.name) || hasComputed)
     );
   }
 
@@ -360,20 +378,23 @@ function printMemberChain(path, options, print) {
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
   ];
 
-  const callExpressions = printedNodes
-    .map(({ node }) => node)
-    .filter(isCallExpression);
+  function groupWillBreak(group) {
+    return willBreak(group) || group.some(willBreak);
+  }
 
-  function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
-    const lastGroupNode = getLast(getLast(groups)).node;
-    const lastGroupDoc = getLast(printedGroups);
-    return (
-      isCallExpression(lastGroupNode) &&
-      willBreak(lastGroupDoc) &&
-      callExpressions
-        .slice(0, -1)
-        .some((node) => node.arguments.some(isFunctionOrArrowExpression))
-    );
+  /**
+   * Return true if any group will break, excluding the last one if it is a then
+   * function.
+   */
+  function someGroupWillBreak() {
+    if (printedGroups.slice(0, -1).some(groupWillBreak)) {
+      return true;
+    }
+
+    const firstNodeOfLastGroup = getLast(groups)[0].node;
+    return firstNodeOfLastGroup.property.name === "then"
+      ? false
+      : printedGroups.slice(-1).some(groupWillBreak);
   }
 
   let result;
@@ -382,16 +403,14 @@ function printMemberChain(path, options, print) {
   //  * the chain has comments,
   //  * the chain is an expression statement and all the arguments are literal-like ("fluent configuration" pattern),
   //  * the chain is longer than 2 calls and has non-trivial arguments or more than 2 arguments in any call but the first one,
-  //  * any group but the last one has a hard line,
-  //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
+  //  * any group has a hardline, except for the last one if it is a then function.
   if (
     nodeHasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
         (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
       )) ||
-    printedGroups.slice(0, -1).some(willBreak) ||
-    lastGroupWillBreakAndOtherCallsHaveFunctionArguments()
+    someGroupWillBreak()
   ) {
     result = group(expanded);
   } else {
