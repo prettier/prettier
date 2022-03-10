@@ -130,3 +130,45 @@ console.log(   bar    );
 
 ================================================================================
 `;
+
+exports[`typescript.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="application/x-typescript">{\`
+const bar: number = 'bar';
+console.log(   bar    );
+\`}</script>;
+
+<script type="application/x-typescript">{\`
+const bar: number = 'bar';
+\${"not formatted"}
+console.log(   bar    );
+\`}</script>;
+
+<script lang="ts">{\`
+  const bar: number = 'bar';
+console.log(   bar    );
+\`}</script>;
+
+=====================================output=====================================
+<script type="application/x-typescript">{\`
+const bar: number = "bar";
+console.log(bar);
+\`}</script>;
+
+<script type="application/x-typescript">{\`
+const bar: number = 'bar';
+\${"not formatted"}
+console.log(   bar    );
+\`}</script>;
+
+<script lang="ts">{\`
+  const bar: number = "bar";
+  console.log(bar);
+\`}</script>;
+
+================================================================================
+`;

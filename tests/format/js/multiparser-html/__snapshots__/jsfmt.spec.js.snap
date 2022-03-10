@@ -228,6 +228,59 @@ export default function include_photoswipe(gallery_selector = ".my-gallery") {
 ================================================================================
 `;
 
+exports[`jsx-script.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="text/html">{\`
+  <div>
+<div>nested</div>
+  </div>
+   <div  >two</div>
+  <div > three </div>
+\`}</script>;
+
+=====================================output=====================================
+<script type="text/html">{\`
+  <div>
+    <div>nested</div>
+  </div>
+  <div>two</div>
+  <div>three</div>
+\`}</script>;
+
+================================================================================
+`;
+
+exports[`jsx-script.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="text/html">{\`
+  <div>
+<div>nested</div>
+  </div>
+   <div  >two</div>
+  <div > three </div>
+\`}</script>;
+
+=====================================output=====================================
+<script type="text/html">{\`
+  <div>
+    <div>nested</div>
+  </div>
+  <div>two</div>
+  <div>three</div>
+\`}</script>;
+
+================================================================================
+`;
+
 exports[`lit-html.js - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"

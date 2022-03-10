@@ -84,6 +84,9 @@ function embed(path, print, textToDoc, options) {
   if (language === "js") {
     return formatJs(path, print, textToDoc, options.parser);
   }
+  if (language === "typescript") {
+    return formatJs(path, print, textToDoc, language);
+  }
 }
 
 /**
