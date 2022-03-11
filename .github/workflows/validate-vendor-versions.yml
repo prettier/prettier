@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          version: "14"
+          node-version: "14"
           cache: "yarn"
 
       - name: Install Dependencies
