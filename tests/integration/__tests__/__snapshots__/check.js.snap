@@ -2,13 +2,13 @@
 
 exports[`--checks works in CI just as in a non-TTY mode (stderr) 1`] = `
 "[warn] unformatted.js
-[warn] Code style issues found in the above file. Forgot to run Prettier?
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
 
 exports[`--checks works in CI just as in a non-TTY mode (stderr) 2`] = `
 "[warn] unformatted.js
-[warn] Code style issues found in the above file. Forgot to run Prettier?
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
 

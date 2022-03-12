@@ -31,7 +31,7 @@ exports[`ignore-unknown alias (stdout) 1`] = `
 
 exports[`ignore-unknown check (stderr) 1`] = `
 "[warn] javascript.js
-[warn] Code style issues found in the above file. Forgot to run Prettier?
+[warn] Code style issues found in the above file(s). Forgot to run Prettier?
 "
 `;
 
