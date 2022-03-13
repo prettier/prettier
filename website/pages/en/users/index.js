@@ -29,13 +29,17 @@ class Users extends React.Component {
                 }}
               >
                 <div className="prose">
-                  Prettier is regularly used by more than <strong>83%</strong>
-                  &nbsp;of the question respondents from the “Utilities” section
-                  of the&nbsp;
+                  Prettier is regularly used by more than <strong>83%</strong>{" "}
+                  and <strong>70%</strong>&nbsp;of the question respondents from
+                  the “Utilities” section of the&nbsp;
                   <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
                     State&nbsp;of&nbsp;JS&nbsp;2021
                   </a>{" "}
-                  survey (10282&nbsp;developers out of 12360).
+                  and
+                  <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
+                    State&nbsp;of&nbsp;JS&nbsp;2020
+                  </a>{" "}
+                  surveys.
                 </div>
                 <a href="https://2021.stateofjs.com">
                   <img

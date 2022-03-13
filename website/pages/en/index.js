@@ -293,11 +293,16 @@ const UsersSection = ({ language }) => {
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                Regularly used by more than <strong>83%</strong> of question
-                respondents from the{" "}
+                Regularly used by more than <strong>83%</strong> and{" "}
+                <strong>70%</strong> of question respondents from the{" "}
                 <a href="https://2021.stateofjs.com/">
                   <strong>State of JS 2021</strong>
-                </a>
+                </a>{" "}
+                and{" "}
+                <a href="https://2020.stateofjs.com/">
+                  <strong>State of JS 2020</strong>
+                </a>{" "}
+                surveys.
               </p>
               <Button href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
                 Go to Survey Results
