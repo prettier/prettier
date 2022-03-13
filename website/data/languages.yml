@@ -28,7 +28,6 @@
   variants:
     - "[GraphQL Schemas](https://graphql.org/learn/schema/)"
 - name: Markdown
-  nameLink: "https://www.markdownguide.org/getting-started/"
   showName: true
   image: /images/languages/tools_md.svg
   variants:
