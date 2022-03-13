@@ -39,8 +39,7 @@ function getUmdWrapper(name, build) {
         ${globalObjectText.trimStart()}
       }
     })(function() {
-    ${placeholder}
-    return ${temporaryName};
+      "use strict";${placeholder}
     });
   `;
 
@@ -56,9 +55,9 @@ function getUmdWrapper(name, build) {
     name: temporaryName,
     intro,
     outro,
-    expectedOutput: `"use strict";${minify ? "" : "\n"}var ${temporaryName}${
-      minify ? "=" : " = "
-    }`,
+    expectedOutput: minify
+      ? `"use strict";var ${temporaryName}=(()=>{`
+      : `"use strict";\nvar ${temporaryName} = (() => {`,
   };
 }
 
@@ -108,7 +107,7 @@ export default function esbuildPluginUmd({ name }) {
           throw new Error("Unexpected output");
         }
 
-        fs.writeFileSync(outfile, intro + text.trim() + outro);
+        fs.writeFileSync(outfile, intro + text.slice(expectedOutput.length));
       });
     },
   };
