@@ -16,6 +16,8 @@ const { require } = createEsmUtils(import.meta);
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
+ * @property {string[]?} esbuildTarget - ESBuild target
+ * @property {boolean?} skipBabel - Skip babel transform
 
  * @typedef {Object} CommonJSConfig
  * @property {string[]} ignore - paths of CJS modules to ignore
@@ -196,6 +198,12 @@ const coreBundles = [
   {
     input: "bin/prettier.js",
     output: "bin-prettier.js",
+    esbuildTarget: ["node0.10"],
+    skipBabel: true,
+  },
+  {
+    input: "src/cli/index.js",
+    output: "cli.js",
     external: ["benchmark"],
   },
   {
