@@ -67,6 +67,14 @@ function getBabelConfig(bundle) {
   return config;
 }
 
+const bundledFiles = [
+  ...bundles,
+  { input: "package.json", output: "package.json" },
+].map(({ input, output }) => ({
+  input: path.join(PROJECT_ROOT, input),
+  output: `./${output}`,
+}));
+
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
     // `tslib` exports global variables
@@ -97,17 +105,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
-    // Replace package.json with dynamic `require("./package.json")`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      path: "./package.json",
-      external: true,
-    };
-
-    // Dynamic require bundled files
-    for (const item of bundles) {
-      if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
-      }
+    // Replace bundled files and `package.json` with dynamic `require()`
+    for (const { input, output } of bundledFiles) {
+      replaceModule[input] = { path: output, external: true };
     }
   } else {
     // Universal bundle only use version info from package.json
@@ -196,11 +196,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     }
   } else {
     esbuildOptions.platform = "node";
-    esbuildOptions.external.push(
-      ...bundles
-        .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}`)
-    );
+    esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
     yield {
       ...esbuildOptions,
