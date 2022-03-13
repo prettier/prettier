@@ -43,10 +43,10 @@
   greyImage: /images/users/used_by_storybook.svg
   infoLink: https://storybook.js.org/
   pinned: true
-- caption: Vercel
+- caption: ZEIT
   image: /images/users/zeit-200x100.png
   greyImage: /images/users/used_by_zeit.svg
-  infoLink: https://vercel.com/
+  infoLink: https://zeit.co
 - caption: Spotify
   image: /images/users/used_by_spotify.svg
   infoLink: https://spotify.github.io

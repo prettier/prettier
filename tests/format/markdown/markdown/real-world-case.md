@@ -180,7 +180,7 @@ A few of the [many projects](https://www.npmjs.com/browse/depended/prettier) usi
 </tr>
 <tr>
 <td><p align="center"><a href="https://babeljs.io/"><img src="website/static/images/babel-200x100.png" alt="Babel" width="200" height="100"><br>Babel</a></p></td>
-<td><p align="center"><a href="https://vercel.com/"><img src="website/static/images/zeit-200x100.png" alt="Vercel" width="200" height="100"><br>Vercel</a></p></td>
+<td><p align="center"><a href="https://zeit.co/"><img src="website/static/images/zeit-200x100.png" alt="Zeit" width="200" height="100"><br>Zeit</a></p></td>
 <td><p align="center"><a href="https://webpack.js.org/api/cli/"><img src="website/static/images/webpack-200x100.png" alt="Webpack-cli" width="200" height="100"><br>Webpack-cli</a></p></td>
 </tr>
 </table>
