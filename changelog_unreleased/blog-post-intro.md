@@ -6,7 +6,7 @@ title: "Prettier 2.6: new singleAttributePerLine option and new JavaScript featu
 
 This release includes a new `singleAttributePerLine` option. For us, adding a new option was a hard decision.
 
-We've also support formatting for some new ECMAScript proposals via Babel.
+We've also added support formatting for some new JavaScript syntax proposals via Babel.
 
 If you enjoy Prettier and would like to support our work, consider sponsoring us directly via [our OpenCollective](https://opencollective.com/prettier) or by sponsoring the projects we depend on, including [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel).
 
