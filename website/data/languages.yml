@@ -42,7 +42,8 @@
   image: /images/languages/tools_yaml.svg
   variants: []
 - name: Community Plugins
-  nameLink: https://prettier.io/docs/en/plugins.html#community-plugins
+  nameLink: ./docs/en/plugins.html#community-plugins
+``
   showName: true
   image: /images/languages/tools_wip.svg
   variants:
