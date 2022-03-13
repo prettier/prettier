@@ -1,5 +1,4 @@
 - name: JavaScript
-  nameLink: https://www.javascript.com/
   showName: true
   image: /images/languages/tools_js.svg
   variants:
