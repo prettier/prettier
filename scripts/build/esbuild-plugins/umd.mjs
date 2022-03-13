@@ -55,9 +55,12 @@ function getUmdWrapper(name, build) {
     name: temporaryName,
     intro,
     outro,
-    expectedOutput: minify
-      ? `"use strict";var ${temporaryName}=(()=>{`
-      : `"use strict";\nvar ${temporaryName} = (() => {`,
+    expectedOutput: {
+      start: minify
+        ? `"use strict";var ${temporaryName}=(()=>{`
+        : `"use strict";\nvar ${temporaryName} = (() => {`,
+      end: "})();",
+    },
   };
 }
 
@@ -83,6 +86,7 @@ export default function esbuildPluginUmd({ name }) {
       const {
         name: temporaryName,
         intro,
+        outro,
         expectedOutput,
       } = getUmdWrapper(name, build);
       options.globalName = temporaryName;
@@ -92,21 +96,34 @@ export default function esbuildPluginUmd({ name }) {
         if (!fs.existsSync(outfile)) {
           throw new Error(`${outfile} not exists`);
         }
-        const text = fs.readFileSync(outfile, "utf8");
-        const actualOutput = text.slice(0, expectedOutput.length);
-        if (actualOutput !== expectedOutput) {
-          console.log();
-          console.error(outdent`
-            Expected output starts with:
-            ${expectedOutput}
+        const text = fs.readFileSync(outfile, "utf8").trim();
+        const actualOutput = {
+          start: text.slice(0, expectedOutput.start.length),
+          end: text.slice(-expectedOutput.end.length),
+        };
+        for (const property of ["start", "end"]) {
+          if (actualOutput[property] !== expectedOutput[property]) {
+            console.log();
+            console.error(outdent`
+              Expected output ${property}s with:
+              ${expectedOutput[property]}
 
-            Got:
-            ${actualOutput}
-          `);
-          throw new Error("Unexpected output");
+              Got:
+              ${actualOutput[property]}
+            `);
+            throw new Error("Unexpected output");
+          }
         }
 
-        fs.writeFileSync(outfile, intro + text.slice(expectedOutput.length));
+        fs.writeFileSync(
+          outfile,
+          intro +
+            text.slice(
+              expectedOutput.start.length,
+              -expectedOutput.end.length
+            ) +
+            outro
+        );
       });
     },
   };
