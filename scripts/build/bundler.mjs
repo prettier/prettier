@@ -221,6 +221,7 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
     plugins: plugins.filter(({ name }) => name !== "umd"),
     format: format === "umd" ? "cjs" : format,
     minify: false,
+    target: undefined,
   });
 
   const text = await fs.readFile(outfile);
