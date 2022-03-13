@@ -83,7 +83,6 @@ export default function esbuildPluginUmd({ name }) {
       const {
         name: temporaryName,
         intro,
-        outro,
         expectedOutput,
       } = getUmdWrapper(name, build);
       options.globalName = temporaryName;
