@@ -131,7 +131,6 @@
     "path-browserify": "1.0.1",
     "prettier": "2.5.1",
     "pretty-bytes": "5.6.0",
-    "read-pkg-up": "9.1.0",
     "rimraf": "3.0.2",
     "rollup-plugin-license": "2.6.1",
     "snapshot-diff": "0.9.0",
@@ -161,8 +160,7 @@
     "fix:prettier": "yarn lint:prettier --write",
     "build": "node ./scripts/build/build.mjs",
     "build:website": "node ./scripts/build-website.mjs",
-    "vendors:bundle": "node ./scripts/vendors/bundle-vendors.mjs",
-    "vendors:validate": "node ./scripts/vendors/validate-vendor-versions.mjs"
+    "vendors:bundle": "node ./scripts/vendors/bundle-vendors.mjs"
   },
   "browserslist": [
     ">0.5%",
