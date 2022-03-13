@@ -1,8 +1,9 @@
 "use strict";
 const pick = require("lodash/pick");
 const camelCase = require("camelcase");
-const chalk = require("chalk");
 const leven = require("leven");
+// eslint-disable-next-line no-restricted-modules
+const { default: chalk } = require("../../../vendors/chalk.js");
 const {
   optionsNormalizer: { normalizeCliOptions },
 } = require("../prettier-internal.js");
