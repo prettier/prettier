@@ -294,7 +294,10 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 Regularly used by more than <strong>83%</strong> of question
-                respondents from the State of JS 2021
+                respondents from the{" "}
+                <a href="https://2021.stateofjs.com/">
+                  <strong>State of JS 2021</strong>
+                </a>
               </p>
               <Button href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
                 Go to Survey Results
@@ -313,7 +316,10 @@ const UsersSection = ({ language }) => {
               <p>
                 More than{" "}
                 <strong data-placeholder="dependent-github">3.8 million</strong>{" "}
-                dependent repositories on GitHub
+                dependent repositories on{" "}
+                <a href="https://github.com/prettier/prettier">
+                  <strong>GitHub</strong>
+                </a>
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
                 Check Them Out
@@ -331,7 +337,10 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than <strong data-placeholder="dependent-npm">10k</strong>{" "}
-                dependent packages on npm
+                dependent packages on{" "}
+                <a href="https://www.npmjs.com/package/prettier">
+                  <strong>npm</strong>
+                </a>
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">
                 See them all
