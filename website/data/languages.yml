@@ -41,7 +41,6 @@
   variants: []
 - name: Community Plugins
   nameLink: ./docs/en/plugins.html#community-plugins
-``
   showName: true
   image: /images/languages/tools_wip.svg
   variants:
