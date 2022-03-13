@@ -17,5 +17,5 @@ export const CHANGELOG_CATEGORIES = [
   "typescript",
   "vue",
   "yaml",
-  "others",
+  "other",
 ];
