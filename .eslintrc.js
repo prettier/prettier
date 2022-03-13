@@ -306,5 +306,14 @@ module.exports = {
         sourceType: "module",
       },
     },
+    {
+      files: ["bin/prettier.js"],
+      parserOptions: {
+        ecmaVersion: 5,
+      },
+      rules: {
+        "no-var": "off",
+      },
+    },
   ],
 };

@@ -1,10 +1,5 @@
 "use strict";
 
-// eslint-disable-next-line no-restricted-modules
-const packageJson = require("../../package.json");
-require("please-upgrade-node")(packageJson);
-
-// eslint-disable-next-line import/order
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
