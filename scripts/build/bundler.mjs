@@ -198,16 +198,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     }
   } else {
     esbuildOptions.platform = "node";
-<<<<<<< HEAD
-    esbuildOptions.external.push(
-      // This may not work as expected, but works better than `external` in `replaceModule`
-      ...bundles
-        .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}`)
-    );
-=======
     esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
->>>>>>> main
 
     yield {
       ...esbuildOptions,
