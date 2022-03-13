@@ -1,7 +1,7 @@
 dist/
 .cache/
 coverage/
-# /tests/format/**/*.*
+/tests/format/**/*.*
 !/tests/format/**/jsfmt.spec.js
 /tests/integration/cli/
 /tests/integration/plugins/
