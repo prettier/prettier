@@ -44,8 +44,8 @@
   infoLink: https://storybook.js.org/
   pinned: true
 - caption: Vercel
-  image: /images/users/zeit-200x100.png
-  greyImage: /images/users/used_by_zeit.svg
+  image: /images/users/vercel-200x100.png
+  greyImage: /images/users/used_by_vercel.svg
   infoLink: https://vercel.com/
 - caption: Spotify
   image: /images/users/used_by_spotify.svg
