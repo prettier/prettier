@@ -14,7 +14,11 @@ const {
 const { hasComment, CommentCheckFlags } = require("../utils/index.js");
 const { getTypeParametersGroupId } = require("./type-parameters.js");
 const { printMethod } = require("./function.js");
-const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
+const {
+  printOptionalToken,
+  printTypeAnnotation,
+  printDefiniteToken,
+} = require("./misc.js");
 const { printPropertyKey } = require("./property.js");
 const { printAssignment } = require("./assignment.js");
 const { printClassMemberDecorators } = require("./decorators.js");
@@ -37,6 +41,8 @@ function printClass(path, options, print) {
   // If there is only on extends and there are not comments
   const groupMode =
     (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
+    (node.typeParameters &&
+      hasComment(node.typeParameters, CommentCheckFlags.Trailing)) ||
     (node.superClass && hasComment(node.superClass)) ||
     isNonEmptyArray(node.extends) || // DeclareClass
     isNonEmptyArray(node.mixins) ||
@@ -53,12 +59,11 @@ function printClass(path, options, print) {
 
   if (node.superClass) {
     const printed = [
-      "extends ",
       printSuperClass(path, options, print),
       print("superTypeParameters"),
     ];
     const printedWithComments = path.call(
-      (superClass) => printComments(superClass, printed, options),
+      (superClass) => ["extends ", printComments(superClass, printed, options)],
       "superClass"
     );
     if (groupMode) {
@@ -216,9 +221,13 @@ function printClassProperty(path, options, print) {
   if (node.variance) {
     parts.push(print("variance"));
   }
+  if (node.type === "ClassAccessorProperty") {
+    parts.push("accessor ");
+  }
   parts.push(
     printPropertyKey(path, options, print),
     printOptionalToken(path),
+    printDefiniteToken(path),
     printTypeAnnotation(path, options, print)
   );
 

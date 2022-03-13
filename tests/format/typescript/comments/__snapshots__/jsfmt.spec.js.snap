@@ -694,6 +694,46 @@ export class Point {
 ================================================================================
 `;
 
+exports[`type_literals.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Props1 = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+{
+  isPlaying: boolean,
+};
+
+type Props2 = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+type Props3 = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean
+};
+
+=====================================output=====================================
+type Props1 =
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  {
+    isPlaying: boolean;
+  };
+
+type Props2 = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean;
+};
+
+type Props3 = {
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  isPlaying: boolean;
+};
+
+================================================================================
+`;
+
 exports[`type-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

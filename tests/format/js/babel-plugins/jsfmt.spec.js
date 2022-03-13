@@ -6,6 +6,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
     acorn: [
       "decimal.js",
       "decorators.js",
+      "destructuring-private.js",
       "do-expressions.js",
       "export-default-from.js",
       "flow.js",
@@ -24,10 +25,13 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-blocks.js",
       "async-do-expressions.js",
+      "regex-v-flag.js",
+      "decorator-auto-accessors.js",
     ],
     espree: [
       "decimal.js",
       "decorators.js",
+      "destructuring-private.js",
       "do-expressions.js",
       "export-default-from.js",
       "flow.js",
@@ -46,10 +50,13 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "v8intrinsic.js",
       "module-blocks.js",
       "async-do-expressions.js",
+      "regex-v-flag.js",
+      "decorator-auto-accessors.js",
     ],
     meriyah: [
       "decimal.js",
       "do-expressions.js",
+      "destructuring-private.js",
       "export-default-from.js",
       "flow.js",
       "function-bind.js",
@@ -71,6 +78,7 @@ run_spec(__dirname, ["babel", "babel-ts", "babel-flow"], {
       "module-string-names.js",
       "module-blocks.js",
       "async-do-expressions.js",
+      "regex-v-flag.js",
     ],
   },
 });

@@ -91,7 +91,6 @@ function handleEndOfLineComment(context) {
     handleCallExpressionComments,
     handlePropertyComments,
     handleOnlyComments,
-    handleTypeAliasComments,
     handleVariableDeclaratorComments,
     handleBreakAndContinueStatementComments,
     handleSwitchDefaultCaseComments,
@@ -427,6 +426,17 @@ function handleClassComments({
     // Don't add leading comments to `implements`, `extends`, `mixins` to
     // avoid printing the comment after the keyword.
     if (followingNode) {
+      if (
+        enclosingNode.superClass &&
+        followingNode === enclosingNode.superClass &&
+        precedingNode &&
+        (precedingNode === enclosingNode.id ||
+          precedingNode === enclosingNode.typeParameters)
+      ) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+
       for (const prop of ["implements", "extends", "mixins"]) {
         if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
           if (
@@ -804,14 +814,6 @@ function handleAssignmentPatternComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleTypeAliasComments({ comment, enclosingNode }) {
-  if (enclosingNode && enclosingNode.type === "TypeAlias") {
-    addLeadingComment(enclosingNode, comment);
-    return true;
-  }
-  return false;
-}
-
 function handleVariableDeclaratorComments({
   comment,
   enclosingNode,
@@ -820,12 +822,16 @@ function handleVariableDeclaratorComments({
   if (
     enclosingNode &&
     (enclosingNode.type === "VariableDeclarator" ||
-      enclosingNode.type === "AssignmentExpression") &&
+      enclosingNode.type === "AssignmentExpression" ||
+      enclosingNode.type === "TypeAlias" ||
+      enclosingNode.type === "TSTypeAliasDeclaration") &&
     followingNode &&
     (followingNode.type === "ObjectExpression" ||
       followingNode.type === "ArrayExpression" ||
       followingNode.type === "TemplateLiteral" ||
       followingNode.type === "TaggedTemplateExpression" ||
+      followingNode.type === "ObjectTypeAnnotation" ||
+      followingNode.type === "TSTypeLiteral" ||
       isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);

@@ -12,8 +12,21 @@ function addBackslash(/* options*/) {
   return {
     name: "addBackslash",
     visitor: {
-      TextNode(node) {
-        node.chars = node.chars.replace(/\\/, "\\\\");
+      All(node) {
+        const childrenOrBody = node.children || node.body;
+        if (childrenOrBody) {
+          for (let i = 0; i < childrenOrBody.length - 1; i++) {
+            if (
+              childrenOrBody[i].type === "TextNode" &&
+              childrenOrBody[i + 1].type === "MustacheStatement"
+            ) {
+              childrenOrBody[i].chars = childrenOrBody[i].chars.replace(
+                /\\$/,
+                "\\\\"
+              );
+            }
+          }
+        }
       },
     },
   };

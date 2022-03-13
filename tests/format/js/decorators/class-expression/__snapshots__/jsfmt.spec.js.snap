@@ -1,0 +1,543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arguments.js [acorn] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js [espree] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js [flow] format 1`] = `
+"Unexpected token \`@\` (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js [typescript] format 1`] = `
+"Argument expression expected. (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js - {"semi":false} [flow] format 1`] = `
+"Unexpected token \`@\` (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js - {"semi":false} [typescript] format 1`] = `
+"Argument expression expected. (1:13)
+> 1 | console.log(@deco class Foo {})
+    |             ^
+  2 | console.log(@deco class {})
+  3 |"
+`;
+
+exports[`arguments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+console.log(@deco class Foo {})
+console.log(@deco class {})
+
+=====================================output=====================================
+console.log(
+  (
+    @deco
+    class Foo {}
+  )
+)
+console.log(
+  (
+    @deco
+    class {}
+  )
+)
+
+================================================================================
+`;
+
+exports[`arguments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+console.log(@deco class Foo {})
+console.log(@deco class {})
+
+=====================================output=====================================
+console.log(
+  (
+    @deco
+    class Foo {}
+  )
+);
+console.log(
+  (
+    @deco
+    class {}
+  )
+);
+
+================================================================================
+`;
+
+exports[`class-expression.js [acorn] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js [espree] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js [flow] format 1`] = `
+"Unexpected token \`@\` (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js [typescript] format 1`] = `
+"Expression expected. (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '@' (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js - {"semi":false} [flow] format 1`] = `
+"Unexpected token \`@\` (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js - {"semi":false} [typescript] format 1`] = `
+"Expression expected. (1:13)
+> 1 | const a1 = (@deco class Foo {});
+    |             ^
+  2 | const a2 = (@deco class {});
+  3 |
+  4 | (@deco class Foo {});"
+`;
+
+exports[`class-expression.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const a1 = (@deco class Foo {});
+const a2 = (@deco class {});
+
+(@deco class Foo {});
+(@deco class {});
+
+const b1 = []
+;(@deco class Foo {})
+
+const b2 = []
+;(@deco class {})
+
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco class Foo {}
+
+=====================================output=====================================
+const a1 =
+  (
+    @deco
+    class Foo {}
+  )
+const a2 =
+  (
+    @deco
+    class {}
+  )
+
+;(
+  @deco
+  class Foo {}
+)
+;(
+  @deco
+  class {}
+)
+
+const b1 = []
+;(
+  @deco
+  class Foo {}
+)
+
+const b2 = []
+;(
+  @deco
+  class {}
+)
+
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco
+class Foo {}
+
+================================================================================
+`;
+
+exports[`class-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a1 = (@deco class Foo {});
+const a2 = (@deco class {});
+
+(@deco class Foo {});
+(@deco class {});
+
+const b1 = []
+;(@deco class Foo {})
+
+const b2 = []
+;(@deco class {})
+
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco class Foo {}
+
+=====================================output=====================================
+const a1 =
+  (
+    @deco
+    class Foo {}
+  );
+const a2 =
+  (
+    @deco
+    class {}
+  );
+
+(
+  @deco
+  class Foo {}
+);
+(
+  @deco
+  class {}
+);
+
+const b1 = [];
+(
+  @deco
+  class Foo {}
+);
+
+const b2 = [];
+(
+  @deco
+  class {}
+);
+
+// This is not a \`ClassExpression\` but \`ClassDeclaration\`
+@deco
+class Foo {}
+
+================================================================================
+`;
+
+exports[`member-expression.js [acorn] format 1`] = `
+"Unexpected character '@' (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js [espree] format 1`] = `
+"Unexpected character '@' (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js [flow] format 1`] = `
+"Unexpected token \`@\` (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js [typescript] format 1`] = `
+"Expression expected. (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '@' (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '@' (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js - {"semi":false} [flow] format 1`] = `
+"Unexpected token \`@\` (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js - {"semi":false} [typescript] format 1`] = `
+"Expression expected. (1:2)
+> 1 | (@deco class Foo {}).name;
+    |  ^
+  2 | (@deco class {}).name;
+  3 |"
+`;
+
+exports[`member-expression.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+(@deco class Foo {}).name;
+(@deco class {}).name;
+
+=====================================output=====================================
+;((
+  @deco
+  class Foo {}
+).name)
+;((
+  @deco
+  class {}
+).name)
+
+================================================================================
+`;
+
+exports[`member-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(@deco class Foo {}).name;
+(@deco class {}).name;
+
+=====================================output=====================================
+((
+  @deco
+  class Foo {}
+).name);
+((
+  @deco
+  class {}
+).name);
+
+================================================================================
+`;
+
+exports[`super-class.js [acorn] format 1`] = `
+"Unexpected character '@' (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js [espree] format 1`] = `
+"Unexpected character '@' (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js [flow] format 1`] = `
+"Unexpected token \`@\` (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js [typescript] format 1`] = `
+"Expression expected. (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '@' (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '@' (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js - {"semi":false} [flow] format 1`] = `
+"Unexpected token \`@\` (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js - {"semi":false} [typescript] format 1`] = `
+"Expression expected. (1:20)
+> 1 | class Foo extends (@deco class Foo {}){}
+    |                    ^
+  2 |
+  3 | class Foo extends (@deco class {}){}
+  4 |"
+`;
+
+exports[`super-class.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo extends (@deco class Foo {}){}
+
+class Foo extends (@deco class {}){}
+
+=====================================output=====================================
+class Foo extends (
+  @deco
+  class Foo {}
+) {}
+
+class Foo extends (
+  @deco
+  class {}
+) {}
+
+================================================================================
+`;
+
+exports[`super-class.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo extends (@deco class Foo {}){}
+
+class Foo extends (@deco class {}){}
+
+=====================================output=====================================
+class Foo extends (
+  @deco
+  class Foo {}
+) {}
+
+class Foo extends (
+  @deco
+  class {}
+) {}
+
+================================================================================
+`;

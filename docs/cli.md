@@ -200,3 +200,7 @@ $ prettier "**/*" --write --ignore-unknown
 ## `--no-error-on-unmatched-pattern`
 
 Prevent errors when pattern is unmatched.
+
+## `--no-plugin-search`
+
+Disable plugin autoloading.

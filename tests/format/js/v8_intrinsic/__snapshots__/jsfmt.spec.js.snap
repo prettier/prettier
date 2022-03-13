@@ -17,7 +17,7 @@ exports[`avoid-conflicts-to-pipeline.js [espree] format 1`] = `
 `;
 
 exports[`avoid-conflicts-to-pipeline.js [meriyah] format 1`] = `
-"[2:16]: Unexpected token: '%' (2:16)
+"Unexpected token: '%' (2:16)
   1 | // |>
 > 2 | const status = %GetOptimizationStatus(fn);
     |                ^
@@ -61,7 +61,7 @@ exports[`intrinsic_call.js [espree] format 1`] = `
 `;
 
 exports[`intrinsic_call.js [meriyah] format 1`] = `
-"[2:13]: Unexpected token: '%' (2:13)
+"Unexpected token: '%' (2:13)
   1 | function doSmth()     {
 > 2 |             %DebugPrint
     |             ^

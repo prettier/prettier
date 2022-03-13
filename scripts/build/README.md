@@ -12,6 +12,14 @@ yarn build
 
 ## Flags
 
+### `--clean`
+
+Remove `dist` directory before bundle files.
+
+```sh
+yarn build --clean
+```
+
 ### `--playground`
 
 Run script with `--playground` flag will only build files needed for the website.
@@ -26,6 +34,14 @@ To print the bundled file sizes:
 
 ```sh
 yarn build --print-size
+```
+
+### `--compare-size`
+
+Print the file size changes compare to the last released version:
+
+```sh
+yarn build --compare-size
 ```
 
 ### `--file`

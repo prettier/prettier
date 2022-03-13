@@ -1,13 +1,13 @@
 "use strict";
 
 const path = require("path");
-const minimatch = require("minimatch");
-const mem = require("mem");
+const micromatch = require("micromatch");
 const thirdParty = require("../common/third-party.js");
 
 const loadToml = require("../utils/load-toml.js");
 const loadJson5 = require("../utils/load-json5.js");
 const resolve = require("../common/resolve.js");
+const { default: mem, memClear } = require("../../vendors/mem.js");
 const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
 /**
@@ -127,7 +127,7 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
-  mem.clear(getExplorerMemoized);
+  memClear(getExplorerMemoized);
   resolveEditorConfig.clearCache();
 }
 
@@ -165,18 +165,30 @@ function mergeOverrides(configResult, filePath) {
 }
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
-function pathMatchesGlobs(filePath, patterns, excludedPatterns = []) {
+function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
-  const excludedPatternList = Array.isArray(excludedPatterns)
-    ? excludedPatterns
-    : [excludedPatterns];
-  const opts = { matchBase: true, dot: true };
-
+  // micromatch always matches against basename when the option is enabled
+  // use only patterns without slashes with it to match minimatch behavior
+  const withSlashes = [];
+  const withoutSlashes = [];
+  for (const pattern of patternList) {
+    if (pattern.includes("/")) {
+      withSlashes.push(pattern);
+    } else {
+      withoutSlashes.push(pattern);
+    }
+  }
   return (
-    patternList.some((pattern) => minimatch(filePath, pattern, opts)) &&
-    !excludedPatternList.some((excludedPattern) =>
-      minimatch(filePath, excludedPattern, opts)
-    )
+    micromatch.isMatch(filePath, withoutSlashes, {
+      ignore: excludedPatterns,
+      basename: true,
+      dot: true,
+    }) ||
+    micromatch.isMatch(filePath, withSlashes, {
+      ignore: excludedPatterns,
+      basename: false,
+      dot: true,
+    })
   );
 }
 

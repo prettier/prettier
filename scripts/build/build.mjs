@@ -6,7 +6,7 @@ import readline from "node:readline";
 import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
-import rimraf from "rimraf";
+import createEsmUtils from "esm-utils";
 import {
   PROJECT_ROOT,
   DIST_DIR,
@@ -17,6 +17,8 @@ import {
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
 import saveLicenses from "./save-licenses.mjs";
+
+const { require } = createEsmUtils(import.meta);
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
@@ -49,7 +51,7 @@ function fitTerminal(input, suffix = "") {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    const repeatCount = WIDTH - input.length - 1 - suffix.length;
+    const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
     input += chalk.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
@@ -64,10 +66,13 @@ async function createBundle(bundleConfig, options) {
   const { target } = bundleConfig;
 
   try {
-    for await (const { name, started, skipped, file } of bundler(
-      bundleConfig,
-      options
-    )) {
+    for await (const {
+      name,
+      started,
+      skipped,
+      relativePath,
+      absolutePath,
+    } of bundler(bundleConfig, options)) {
       const displayName = name.startsWith("esm/") ? `  ${name}` : name;
 
       if (started) {
@@ -88,18 +93,54 @@ async function createBundle(bundleConfig, options) {
       // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
       // details https://github.com/prettier/prettier/pull/8534
       if (target === "universal") {
-        const content = await fs.readFile(file, "utf8");
+        const content = await fs.readFile(absolutePath, "utf8");
         if (content.includes("\ufffe")) {
           throw new Error("Bundled umd file should not have U+FFFE character.");
         }
       }
 
+      const sizeMessages = [];
+
       if (options.printSize) {
+        const { size } = await fs.stat(absolutePath);
+        sizeMessages.push(prettyBytes(size));
+      }
+
+      if (options.compareSize) {
+        // TODO: Use `import.meta.resolve` when Node.js support
+        const stablePrettierDirectory = path.dirname(
+          require.resolve("prettier")
+        );
+        const stableVersionFile = path.join(
+          stablePrettierDirectory,
+          relativePath
+        );
+        let stableSize;
+        try {
+          ({ size: stableSize } = await fs.stat(stableVersionFile));
+        } catch {
+          // No op
+        }
+
+        if (stableSize) {
+          const { size } = await fs.stat(absolutePath);
+          const sizeDiff = size - stableSize;
+          const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
+            prettyBytes(sizeDiff)
+          );
+
+          sizeMessages.push(`${message}`);
+        } else {
+          sizeMessages.push(chalk.blue("[NEW FILE]"));
+        }
+      }
+
+      if (sizeMessages.length > 0) {
         // Clear previous line
         clear();
-
-        const size = prettyBytes((await fs.stat(file)).size);
-        process.stdout.write(fitTerminal(displayName, `${size} `));
+        process.stdout.write(
+          fitTerminal(displayName, `${sizeMessages.join(", ")} `)
+        );
       }
 
       console.log(status.DONE);
@@ -137,18 +178,22 @@ async function preparePackage() {
 
 async function run(params) {
   params.files = params.file ? new Set([params.file].flat()) : params.file;
+  delete params.file;
+
   params.saveAs = params["save-as"];
+  delete params["save-as"];
+
   params.printSize = params["print-size"];
+  delete params["print-size"];
+
+  params.compareSize = params["compare-size"];
+  delete params["compare-size"];
 
   if (params.report === "") {
     params.report = ["html"];
   }
   params.reports = params.report ? [params.report].flat() : params.report;
-
-  delete params.file;
   delete params.report;
-  delete params["save-as"];
-  delete params["print-size"];
 
   if (params.saveAs && !(params.files && params.files.size === 1)) {
     throw new Error("'--save-as' can only use together with one '--file' flag");
@@ -161,13 +206,40 @@ async function run(params) {
     throw new Error("'--save-as' can only relative path");
   }
 
+  if (params.clean) {
+    let stat;
+    try {
+      stat = await fs.stat(DIST_DIR);
+    } catch {
+      // No op
+    }
+
+    if (stat) {
+      if (stat.isDirectory()) {
+        await fs.rm(DIST_DIR, { recursive: true, force: true });
+      } else {
+        throw new Error(`"${DIST_DIR}" is not a directory`);
+      }
+    }
+  }
+
+  if (params.compareSize) {
+    if (params.minify === false) {
+      throw new Error(
+        "'--compare-size' can not use together with '--no-minify' flag"
+      );
+    }
+
+    if (params.saveAs) {
+      throw new Error(
+        "'--compare-size' can not use together with '--save-as' flag"
+      );
+    }
+  }
+
   const shouldPreparePackage =
     !params.playground && !params.files && params.minify === null;
   const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
-
-  if (shouldPreparePackage) {
-    rimraf.sync(DIST_DIR);
-  }
 
   const licenses = [];
   if (shouldSaveBundledPackagesLicenses) {
@@ -185,6 +257,11 @@ async function run(params) {
   }
 
   if (shouldSaveBundledPackagesLicenses) {
+    const vendorMeta = await readJson(
+      new URL("../vendors/vendor-meta.json", import.meta.url)
+    );
+    licenses.push(...vendorMeta.licenses);
+
     await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
   } else {
     console.warn(
@@ -195,11 +272,20 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["playground", "print-size", "minify", "babel"],
+    boolean: [
+      "playground",
+      "print-size",
+      "compare-size",
+      "minify",
+      "babel",
+      "clean",
+    ],
     string: ["file", "save-as", "report"],
     default: {
+      clean: false,
       playground: false,
       printSize: false,
+      compareSize: false,
       minify: null,
       babel: true,
     },

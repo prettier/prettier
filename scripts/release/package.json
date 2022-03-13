@@ -6,15 +6,15 @@
   },
   "dependencies": {
     "chalk": "4.1.2",
-    "execa": "6.0.0",
+    "execa": "6.1.0",
     "minimist": "1.2.5",
-    "node-fetch": "3.2.0",
+    "node-fetch": "3.2.3",
     "outdent": "0.8.0",
     "semver": "7.3.5",
-    "string-width": "5.1.0"
+    "string-width": "5.1.2"
   },
   "devDependencies": {
-    "@jest/globals": "27.4.6",
-    "jest": "27.4.7"
+    "@jest/globals": "27.5.1",
+    "jest": "27.5.1"
   }
 }

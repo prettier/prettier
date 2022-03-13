@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import builtinModules from "builtin-modules";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
@@ -15,10 +14,11 @@ import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, json } = createEsmUtils(import.meta);
-const packageJson = json.loadSync("../../package.json");
+const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
+const EMPTY_MODULE_REPLACEMENT = { contents: "" };
 
 function getBabelConfig(bundle) {
   const config = {
@@ -67,7 +67,7 @@ function getBabelConfig(bundle) {
   return config;
 }
 
-async function* getEsbuildOptions(bundle, buildOptions) {
+function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
     // `tslib` exports global variables
     "createExporter(root": "createExporter({}",
@@ -113,9 +113,8 @@ async function* getEsbuildOptions(bundle, buildOptions) {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: `module.exports = ${JSON.stringify({
-        version: packageJson.version,
-      })};`,
+      contents: JSON.stringify({ version: packageJson.version }),
+      loader: "json",
     };
 
     // Replace parser getters with `undefined`
@@ -128,13 +127,11 @@ async function* getEsbuildOptions(bundle, buildOptions) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] = { contents: "" };
+      replaceModule[path.join(PROJECT_ROOT, file)] = EMPTY_MODULE_REPLACEMENT;
     }
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule.assert = {
-      contents: await fs.readFile(path.join(__dirname, "./shims/assert.cjs")),
-    };
+    replaceModule.assert = require.resolve("./shims/assert.cjs");
   }
 
   let shouldMinify = buildOptions.minify;
@@ -198,8 +195,8 @@ async function* getEsbuildOptions(bundle, buildOptions) {
       };
     }
   } else {
+    esbuildOptions.platform = "node";
     esbuildOptions.external.push(
-      ...builtinModules,
       ...bundles
         .filter((item) => item.input !== bundle.input)
         .map((item) => `./${item.output}`)
@@ -246,7 +243,7 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
 }
 
 async function* createBundle(bundle, buildOptions) {
-  for await (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
+  for (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
     const { outfile: file } = esbuildOptions;
 
     if (
@@ -257,11 +254,14 @@ async function* createBundle(bundle, buildOptions) {
       continue;
     }
 
-    esbuildOptions.outfile = path.join(DIST_DIR, buildOptions.saveAs || file);
+    const relativePath = buildOptions.saveAs || file;
+    const absolutePath = path.join(DIST_DIR, relativePath);
+
+    esbuildOptions.outfile = absolutePath;
 
     yield { name: file, started: true };
     await runBuild(bundle, esbuildOptions, buildOptions);
-    yield { name: file, file: esbuildOptions.outfile };
+    yield { name: file, relativePath, absolutePath };
   }
 }
 

@@ -23,7 +23,7 @@ exports[`call-arguments.js [espree] format 1`] = `
 `;
 
 exports[`call-arguments.js [meriyah] format 1`] = `
-"[3:4]: Unexpected token: 'do' (3:4)
+"Unexpected token: 'do' (3:4)
   1 | // from https://github.com/babel/babel/pull/13122/
   2 | expect(
 > 3 |   do {
@@ -142,7 +142,7 @@ exports[`do.js [espree] format 1`] = `
 `;
 
 exports[`do.js [meriyah] format 1`] = `
-"[3:6]: Unexpected token: 'do' (3:6)
+"Unexpected token: 'do' (3:6)
   1 | const envSpecific = {
   2 |   domain:
 > 3 |     do {
