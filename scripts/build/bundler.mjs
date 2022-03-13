@@ -166,16 +166,18 @@ function* getEsbuildOptions(bundle, buildOptions) {
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
-    external: [...(bundle.external || [])],
+    external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     mainFields: ["main"],
-    target: ["node10"],
+    target: [...(bundle.esbuildTarget ?? ["node10"])],
     logLevel: "error",
   };
 
   if (bundle.target === "universal") {
-    esbuildOptions.target.push(...umdTarget);
+    if (!bundle.esbuildTarget) {
+      esbuildOptions.target.push(...umdTarget);
+    }
 
     yield {
       ...esbuildOptions,
@@ -207,7 +209,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
 }
 
 async function runBuild(bundle, esbuildOptions, buildOptions) {
-  if (!buildOptions.babel) {
+  if (!buildOptions.babel || bundle.skipBabel) {
     await esbuild.build(esbuildOptions);
     return;
   }
