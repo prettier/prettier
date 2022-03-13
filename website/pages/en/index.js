@@ -283,7 +283,7 @@ const UsersSection = ({ language }) => {
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
-              href="https://2021.stateofjs.com/en-US/other-tools/utilities"
+              href="https://2020.stateofjs.com/en-US/other-tools/utilities"
               className="growOnHover"
             >
               <img
@@ -293,10 +293,10 @@ const UsersSection = ({ language }) => {
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                Regularly used by more than <strong>83%</strong> of question
-                respondents from the State of JS 2021
+                Regularly used by more than <strong>70%</strong> of respondents
+                to State of JS 2020
               </p>
-              <Button href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+              <Button href="https://2020.stateofjs.com/en-US/other-tools/utilities">
                 Go to Survey Results
               </Button>
             </div>
@@ -312,7 +312,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">3.8 million</strong>{" "}
+                <strong data-placeholder="dependent-github">3.5 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
