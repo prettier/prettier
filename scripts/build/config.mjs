@@ -13,7 +13,7 @@ const { require } = createEsmUtils(import.meta);
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
- * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
+ * @property {{file: string, find: string, replacement: string}[]} replaceText - Text replacements
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
  * @property {string[]?} esbuildTarget - ESBuild target
@@ -30,68 +30,104 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/flow.js",
-    replace: {
+    replaceText: [
       // `flow-parser` use this for `globalThis`, can't work in strictMode
-      "(function(){return this}())": "(globalThis)",
-    },
+      {
+        file: require.resolve("flow-parser"),
+        find: "(function(){return this}())",
+        replacement: "(globalThis)",
+      },
+    ],
   },
   {
     input: "src/language-js/parse/typescript.js",
-    replace: {
-      // `typescript/lib/typescript.js` expose extra global objects
-      // `TypeScript`, `toolsVersion`, `globalThis`
-      'typeof process === "undefined" || process.browser': "false",
-      'typeof globalThis === "object"': "true",
+    replaceText: [
       // `@typescript-eslint/typescript-estree` v4
-      'require("globby")': "{}",
-      "extra.projects = prepareAndTransformProjects(":
-        "extra.projects = [] || prepareAndTransformProjects(",
-      "process.versions.node": JSON.stringify("999.999.999"),
-      "process.cwd()": JSON.stringify("/prettier-security-dirname-placeholder"),
-      // `rollup-plugin-polyfill-node` don't have polyfill for these modules
-      'require("perf_hooks")': "{}",
-      'require("inspector")': "{}",
-      "_fs.realpathSync.native": "_fs.realpathSync && _fs.realpathSync.native",
-      // Remove useless `ts.sys`
-      "ts.sys = ": "ts.sys = undefined && ",
+      {
+        file: "*",
+        find: 'require("globby")',
+        replacement: "{}",
+      },
+      {
+        file: "*",
+        find: "extra.projects = prepareAndTransformProjects(",
+        replacement: "extra.projects = [] || prepareAndTransformProjects(",
+      },
+      {
+        file: "*",
+        find: "process.versions.node",
+        replacement: JSON.stringify("999.999.999"),
+      },
+      {
+        file: "*",
+        find: "process.cwd()",
+        replacement: JSON.stringify("/prettier-security-dirname-placeholder"),
+      },
+      {
+        file: "*",
+        find: 'require("perf_hooks")',
+        replacement: "{}",
+      },
+      {
+        file: "*",
+        find: 'require("inspector")',
+        replacement: "{}",
+      },
+      {
+        file: "*",
+        find: "typescriptVersionIsAtLeast[version] = semverCheck(version);",
+        replacement: "typescriptVersionIsAtLeast[version] = true;",
+      },
 
-      // Remove useless language service
-      "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
-      "ts.TypeScriptServicesFactory = ":
-        "ts.TypeScriptServicesFactory = undefined && ",
-      "var ShimBase = ": "var ShimBase = undefined && ",
-      "var TypeScriptServicesFactory = ":
-        "var TypeScriptServicesFactory = undefined && ",
-      "var LanguageServiceShimObject = ":
-        "var LanguageServiceShimObject = undefined && ",
-      "var CoreServicesShimHostAdapter = ":
-        "var CoreServicesShimHostAdapter = undefined && ",
-      "var LanguageServiceShimHostAdapter = ":
-        "var LanguageServiceShimHostAdapter = undefined && ",
-      "var ScriptSnapshotShimAdapter = ":
-        "var ScriptSnapshotShimAdapter = undefined && ",
-      "var ClassifierShimObject = ": "var ClassifierShimObject = undefined && ",
-      "var CoreServicesShimObject = ":
-        "var CoreServicesShimObject = undefined && ",
-      "function simpleForwardCall(": "0 && function simpleForwardCall(",
-      "function forwardJSONCall(": "0 && function forwardJSONCall(",
-      "function forwardCall(": "0 && function forwardCall(",
-      "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
-      "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
-      "function convertClassifications(":
-        "0 && function convertClassifications(",
+      ...Object.entries({
+        // `typescript/lib/typescript.js` expose extra global objects
+        // `TypeScript`, `toolsVersion`, `globalThis`
+        'typeof process === "undefined" || process.browser': "false",
+        'typeof globalThis === "object"': "true",
 
-      // Dynamic `require()`s
-      "ts.sys && ts.sys.require": "false",
-      "require(etwModulePath)": "undefined",
-      'require("source-map-support").install()': "",
-      "require(modulePath)": "undefined",
-      // `node-semver` can't work with `@rollup/plugin-commonjs>=19.0.0`
-      // https://github.com/rollup/plugins/issues/879
-      // https://github.com/npm/node-semver/issues/381
-      "typescriptVersionIsAtLeast[version] = semverCheck(version);":
-        "typescriptVersionIsAtLeast[version] = true;",
-    },
+        "_fs.realpathSync.native":
+          "_fs.realpathSync && _fs.realpathSync.native",
+        // Remove useless `ts.sys`
+        "ts.sys = ": "ts.sys = undefined && ",
+
+        // Remove useless language service
+        "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
+        "ts.TypeScriptServicesFactory = ":
+          "ts.TypeScriptServicesFactory = undefined && ",
+        "var ShimBase = ": "var ShimBase = undefined && ",
+        "var TypeScriptServicesFactory = ":
+          "var TypeScriptServicesFactory = undefined && ",
+        "var LanguageServiceShimObject = ":
+          "var LanguageServiceShimObject = undefined && ",
+        "var CoreServicesShimHostAdapter = ":
+          "var CoreServicesShimHostAdapter = undefined && ",
+        "var LanguageServiceShimHostAdapter = ":
+          "var LanguageServiceShimHostAdapter = undefined && ",
+        "var ScriptSnapshotShimAdapter = ":
+          "var ScriptSnapshotShimAdapter = undefined && ",
+        "var ClassifierShimObject = ":
+          "var ClassifierShimObject = undefined && ",
+        "var CoreServicesShimObject = ":
+          "var CoreServicesShimObject = undefined && ",
+        "function simpleForwardCall(": "0 && function simpleForwardCall(",
+        "function forwardJSONCall(": "0 && function forwardJSONCall(",
+        "function forwardCall(": "0 && function forwardCall(",
+        "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
+        "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
+        "function convertClassifications(":
+          "0 && function convertClassifications(",
+
+        // Dynamic `require()`s
+        "ts.sys && ts.sys.require": "false",
+        "require(etwModulePath)": "undefined",
+        'require("source-map-support").install()': "",
+        "require(modulePath)": "undefined",
+      }).map(([find, replacement]) => ({
+        file: require.resolve("typescript"),
+        find,
+        replacement,
+      })),
+    ],
     replaceModule: {
       [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
     },
@@ -101,27 +137,43 @@ const parsers = [
     name: "prettierPlugins.espree",
     // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
     output: "parser-espree.js",
-    replace: {
-      "const Syntax = ": "const Syntax = undefined && ",
-      "var visitorKeys = ": "var visitorKeys = undefined && ",
-    },
+    replaceText: [
+      {
+        file: require.resolve("espree"),
+        find: "const Syntax = (function() {",
+        replacement: "const Syntax = undefined && (function() {",
+      },
+      {
+        file: require.resolve("espree"),
+        find: "var visitorKeys = require('eslint-visitor-keys');",
+        replacement: "var visitorKeys;",
+      },
+    ],
   },
   {
     input: "src/language-js/parse/meriyah.js",
   },
   {
     input: "src/language-js/parse/angular.js",
-    replace: {
-      "@angular/compiler/src": "@angular/compiler/esm2015/src",
-    },
+    replaceText: [
+      {
+        file: "*",
+        find: 'require("@angular/compiler/src/',
+        replacement: 'require("@angular/compiler/esm2015/src/',
+      },
+    ],
   },
   {
     input: "src/language-css/parser-postcss.js",
-    replace: {
-      // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
-      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
-      "node.constructor.name === 'Word'": "node.type === 'word'",
-    },
+    replaceText: [
+      {
+        // `postcss-values-parser` uses constructor.name, it will be changed by bundler
+        // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
+        file: require.resolve("postcss-values-parser/lib/parser.js"),
+        find: "node.constructor.name === 'Word'",
+        replacement: "node.type === 'word'",
+      },
+    ],
   },
   {
     input: "src/language-graphql/parser-graphql.js",
@@ -170,10 +222,13 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
-    replace: {
-      // from @iarna/toml/parse-string
-      "eval(\"require('util').inspect\")": "require('util').inspect",
-    },
+    replaceText: [
+      {
+        file: require.resolve("@iarna/toml/lib/toml-parser.js"),
+        find: "const utilInspect = eval(\"require('util').inspect\")",
+        replacement: "const utilInspect = require('util').inspect",
+      },
+    ],
   },
   {
     input: "src/document/index.js",
@@ -208,10 +263,14 @@ const coreBundles = [
   },
   {
     input: "src/common/third-party.js",
-    replace: {
+    replaceText: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
-      "parentModule(__filename)": "__filename",
-    },
+      {
+        file: require.resolve("import-fresh"),
+        find: "parentModule(__filename)",
+        replacement: "__filename",
+      },
+    ],
   },
 ].map((bundle) => ({
   type: "core",
