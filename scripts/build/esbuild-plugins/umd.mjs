@@ -58,16 +58,14 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
 
   const [intro, outro] = wrapper.split(placeholder);
 
-  const expectedOutput = `var ${temporaryName}${minify ? "=" : " = "}`;
-
   return {
     name: temporaryName,
     intro,
     outro,
     expectedOutput: {
       start: minify
-        ? `"use strict";var ${temporaryName}=(()=>{`
-        : `"use strict";\nvar ${temporaryName} = (() => {`,
+        ? `var ${temporaryName}=(()=>{`
+        : `var ${temporaryName} = (() => {`,
       end: "})();",
     },
   };
@@ -105,7 +103,12 @@ export default function esbuildPluginUmd(options) {
         if (!fs.existsSync(outfile)) {
           throw new Error(`${outfile} not exists`);
         }
-        const text = fs.readFileSync(outfile, "utf8").trim();
+        let text = fs.readFileSync(outfile, "utf8").trim();
+        // We already insert `"use strict";` in the wrapper
+        if (text.startsWith('"use strict";')) {
+          text = text.slice('"use strict";'.length).trimStart();
+        }
+
         const actualOutput = {
           start: text.slice(0, expectedOutput.start.length),
           end: text.slice(-expectedOutput.end.length),
