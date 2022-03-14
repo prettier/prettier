@@ -25,7 +25,7 @@ const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
 
 const bundledFiles = [
   ...bundles,
-  // { input: "package.json", output: "package.json" },
+  { input: "package.json", output: "package.json" },
 ].map(({ input, output }) => ({
   input: path.join(PROJECT_ROOT, input),
   output: `./${output}`,
@@ -68,12 +68,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
     for (const { input, output } of bundledFiles) {
       replaceModule[input] = { path: output, external: true };
     }
-
-    // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: JSON.stringify({ version: packageJson.version }),
-      loader: "json",
-    };
 
     // Use `__dirname` directly
     replaceStrings[
