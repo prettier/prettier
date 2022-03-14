@@ -156,7 +156,6 @@ const parsers = [
   {
     input: "src/language-js/parse/angular.js",
     replaceText: [
-      // `@typescript-eslint/typescript-estree` v4
       {
         file: "*",
         find: 'require("@angular/compiler/src/',
@@ -168,7 +167,7 @@ const parsers = [
     input: "src/language-css/parser-postcss.js",
     replaceText: [
       {
-        // `postcss-values-parser` uses constructor.name, it will be changed by rollup or terser
+        // `postcss-values-parser` uses constructor.name, it will be changed by bundler
         // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
         file: require.resolve("postcss-values-parser/lib/parser.js"),
         find: "node.constructor.name === 'Word'",
