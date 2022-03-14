@@ -11,7 +11,7 @@ function runCli(cli) {
   return cli.run(process.argv.slice(2));
 }
 
-module.exports = (function () {
+module.exports.promise = (function () {
   if (process.env.NODE_ENV !== "production") {
     var dynamicImport = new Function("module", "return import(module)");
 
