@@ -107,7 +107,6 @@
     "cspell": "5.19.0",
     "enquirer": "2.3.6",
     "esbuild": "0.14.25",
-    "esbuild-plugin-text-replace": "1.2.0",
     "esbuild-visualizer": "0.3.1",
     "eslint": "8.11.0",
     "eslint-config-prettier": "8.5.0",
