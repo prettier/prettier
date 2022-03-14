@@ -4,11 +4,11 @@ import createEsmUtils from "esm-utils";
 import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
-import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
+import esbuildPluginReplaceText from "./esbuild-plugins/replace-text.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
@@ -76,10 +76,14 @@ const bundledFiles = [
 }));
 
 function* getEsbuildOptions(bundle, buildOptions) {
-  const replaceStrings = {
+  const replaceText = [
     // `tslib` exports global variables
-    "createExporter(root": "createExporter({}",
-  };
+    {
+      file: require.resolve("tslib"),
+      find: "factory(createExporter(root",
+      replacement: "factory(createExporter({}",
+    },
+  ];
 
   const define = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
@@ -89,7 +93,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
+    replaceText.push({
+      file: "*",
+      find: "process.env.PRETTIER_DEBUG",
+      replacement: "globalThis.PRETTIER_DEBUG",
+    });
 
     define.process = JSON.stringify({ env: {}, argv: [] });
 
@@ -148,10 +156,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
       esbuildPluginEvaluate(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
-      esbuildPluginTextReplace({
-        include: /\.[cm]?js$/,
-        // TODO[@fisker]: Use RegExp when possible
-        pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
+      esbuildPluginReplaceText({
+        filter: /\.[cm]?js$/,
+        replacements: [...replaceText, ...(bundle.replaceText ?? [])],
       }),
       buildOptions.onLicenseFound &&
         esbuildPluginLicense({
