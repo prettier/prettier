@@ -144,7 +144,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     mainFields: ["module", "main"],
-    target: [...(bundle.esbuildTarget ?? ["node10"])],
+    target: [...(bundle.esbuildTarget ?? ["node12"])],
     logLevel: "error",
   };
 
