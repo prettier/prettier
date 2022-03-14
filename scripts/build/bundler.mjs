@@ -71,7 +71,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
 
     // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: JSON.stringify({ name: packageJson.name, version: packageJson.version, engines: packageJson.engines }),
+      contents: JSON.stringify({
+        name: packageJson.name,
+        version: packageJson.version,
+        engines: packageJson.engines,
+      }),
       loader: "json",
     };
 
