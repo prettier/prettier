@@ -104,13 +104,12 @@ module.exports = {
     ],
 
     "import/extensions": ["error", "ignorePackages"],
-    // TODO[@fisker]: Fix this
-    // "import/no-extraneous-dependencies": [
-    //   "error",
-    //   {
-    //     devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
-    //   },
-    // ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
+      },
+    ],
     "import/order": "error",
     "import/no-anonymous-default-export": "error",
 
@@ -186,13 +185,6 @@ module.exports = {
       rules: {
         strict: "error",
         "unicorn/prefer-module": "off",
-      },
-    },
-    // `esbuild` don't support
-    {
-      files: ["bin/**/*.js", "src/**/*.js"],
-      rules: {
-        "unicorn/prefer-node-protocol": "off",
       },
     },
     {
@@ -339,5 +331,15 @@ module.exports = {
         "import/no-extraneous-dependencies": "error",
       },
     },
+    // TODO[@fisker]: Fix this
+    // {
+    //   files: ["bin/prettier.js"],
+    //   parserOptions: {
+    //     ecmaVersion: 5,
+    //   },
+    //   rules: {
+    //     "no-var": "off",
+    //   },
+    // },
   ],
 };

@@ -1,4 +1,4 @@
-import groupBy from "lodash/groupBy.js";
+import { groupBy } from "lodash-es";
 import camelCase from "camelcase";
 import * as constant from "./constant.js";
 

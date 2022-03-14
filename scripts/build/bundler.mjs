@@ -1,6 +1,5 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import builtinModules from "builtin-modules";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
@@ -12,6 +11,7 @@ import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
+import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import bundles from "./config.mjs";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -22,6 +22,14 @@ const EMPTY_MODULE_REPLACEMENT = { contents: "" };
 const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
   contents: "export default undefined",
 };
+
+const bundledFiles = [
+  ...bundles,
+  { input: "package.json", output: "package.json" },
+].map(({ input, output }) => ({
+  input: path.join(PROJECT_ROOT, input),
+  output: `./${output}`,
+}));
 
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
@@ -56,26 +64,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
-    // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
-    // // Replace package.json with dynamic `require("./package.json")`
-    // replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-    //   path: "./package.json",
-    //   external: true,
-    // };
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: JSON.stringify({ version: packageJson.version }),
-      loader: "json",
-    };
-
-    // Dynamic require bundled files
-    for (const item of bundles) {
-      if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = {
-          path: `./${item.output}`,
-          isEsm: item.isEsm,
-          external: true,
-        };
-      }
+    // Replace bundled files and `package.json` with dynamic `require()`
+    for (const { input, output } of bundledFiles) {
+      replaceModule[input] = { path: output, external: true };
     }
 
     // Use `__dirname` directly
@@ -115,6 +106,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
 
+  const interopDefault =
+    !bundle.input.endsWith(".cjs") && bundle.interopDefault !== false;
+
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     define,
@@ -122,6 +116,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     metafile: true,
     plugins: [
       esbuildPluginEvaluate(),
+      esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
       bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       esbuildPluginTextReplace({
@@ -142,16 +137,18 @@ function* getEsbuildOptions(bundle, buildOptions) {
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
-    external: [...(bundle.external || [])],
+    external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(dirname, "empty-tsconfig.json"),
-    mainFields: ["main"],
-    target: ["node12"],
+    mainFields: ["module", "main"],
+    target: [...(bundle.esbuildTarget ?? ["node12"])],
     logLevel: "error",
   };
 
   if (bundle.target === "universal") {
-    esbuildOptions.target.push(...umdTarget);
+    if (!bundle.esbuildTarget) {
+      esbuildOptions.target.push(...umdTarget);
+    }
 
     yield {
       ...esbuildOptions,
@@ -159,7 +156,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       plugins: [
         esbuildPluginUmd({
           name: bundle.name,
-          interopDefault: Boolean(bundle.isEsm),
+          interopDefault,
         }),
         ...esbuildOptions.plugins,
       ],
@@ -174,14 +171,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
       };
     }
   } else {
-    esbuildOptions.external.push(
-      ...builtinModules,
-      ...bundles
-        .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}`)
-    );
+    esbuildOptions.platform = "node";
+    esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
-    if (bundle.isEsm) {
+    if (interopDefault) {
       esbuildOptions.plugins.push(esbuildPluginInteropDefault());
     }
 

@@ -2,7 +2,7 @@
  * @typedef {import("../../document").Doc} Doc
  */
 
-import assert from "assert";
+import assert from "node:assert";
 import { isNonEmptyArray } from "../../common/util.js";
 import doc from "../../document/index.js";
 import { locStart, locEnd } from "../loc.js";

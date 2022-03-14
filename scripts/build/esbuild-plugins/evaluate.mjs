@@ -8,7 +8,15 @@ export default function esbuildPluginEvaluate() {
 
     setup(build) {
       build.onLoad({ filter: /\.evaluate\.js$/ }, async ({ path }) => {
-        const data = await importModule(path);
+        let data = await importModule(path);
+
+        if (Object.prototype.hasOwnProperty.call(data, "default")) {
+          if (Object.keys(data).length !== 1) {
+            throw new TypeError("Mixed export not allowed.");
+          }
+
+          data = data.default;
+        }
 
         const json = JSON.stringify(data, (_, v) => {
           if (typeof v === "function") {

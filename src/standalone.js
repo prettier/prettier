@@ -1,4 +1,4 @@
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 import core from "./main/core.js";
 import { getSupportInfo } from "./main/support.js";
 import * as sharedUtil from "./common/util-shared.js";

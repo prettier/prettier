@@ -417,7 +417,11 @@ const parser = {
           !hasParent &&
           (tagName !== "template" ||
             attrs.some(
-              ({ name, value }) => name === "lang" && value !== "html"
+              ({ name, value }) =>
+                name === "lang" &&
+                value !== "html" &&
+                value !== "" &&
+                value !== undefined
             ))
         ) {
           return angularHtmlParser.TagContentType.RAW_TEXT;

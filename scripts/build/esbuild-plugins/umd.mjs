@@ -46,9 +46,7 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
         ${globalObjectText.trimStart()} = interopModuleDefault(factory);
       }
     })(function() {
-    "use strict";
-    ${placeholder}
-    return ${temporaryName};
+      "use strict";${placeholder}
     });
   `;
 
@@ -60,13 +58,16 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
 
   const [intro, outro] = wrapper.split(placeholder);
 
-  const expectedOutput = `var ${temporaryName}${minify ? "=" : " = "}`;
-
   return {
     name: temporaryName,
     intro,
     outro,
-    expectedOutput,
+    expectedOutput: {
+      start: minify
+        ? `var ${temporaryName}=(()=>{`
+        : `var ${temporaryName} = (() => {`,
+      end: "})();",
+    },
   };
 }
 
@@ -102,26 +103,38 @@ export default function esbuildPluginUmd(options) {
         if (!fs.existsSync(outfile)) {
           throw new Error(`${outfile} not exists`);
         }
-
+        let text = fs.readFileSync(outfile, "utf8").trim();
         // We already insert `"use strict";` in the wrapper
-        let text = fs.readFileSync(outfile, "utf8");
         if (text.startsWith('"use strict";')) {
           text = text.slice('"use strict";'.length).trimStart();
         }
-        const actualOutput = text.slice(0, expectedOutput.length);
-        if (actualOutput !== expectedOutput) {
-          console.log();
-          console.error(outdent`
-            Expected output starts with:
-            ${expectedOutput}
 
-            Got:
-            ${actualOutput}
-          `);
-          throw new Error("Unexpected output");
+        const actualOutput = {
+          start: text.slice(0, expectedOutput.start.length),
+          end: text.slice(-expectedOutput.end.length),
+        };
+        for (const property of ["start", "end"]) {
+          if (actualOutput[property] !== expectedOutput[property]) {
+            console.log();
+            console.error(outdent`
+              Expected output ${property}s with:
+              ${expectedOutput[property]}
+
+              Got:
+              ${actualOutput[property]}
+            `);
+            throw new Error("Unexpected output");
+          }
         }
 
-        fs.writeFileSync(outfile, intro + text.trim() + outro);
+        fs.writeFileSync(
+          outfile,
+          intro +
+            text
+              .slice(expectedOutput.start.length, -expectedOutput.end.length)
+              .trimEnd() +
+            outro
+        );
       });
     },
   };

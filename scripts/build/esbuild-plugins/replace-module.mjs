@@ -1,58 +1,62 @@
-import { dirname } from "node:path";
-
 export default function esbuildPluginReplaceModule(replacements = {}) {
+  const pathReplacements = new Map();
+  const contentsReplacements = new Map();
+
+  for (let [file, options] of Object.entries(replacements)) {
+    if (typeof options === "string") {
+      options = { path: options };
+    }
+
+    if (Reflect.has(options, "path")) {
+      pathReplacements.set(file, options);
+      continue;
+    }
+
+    if (Reflect.has(options, "contents")) {
+      contentsReplacements.set(file, options);
+      continue;
+    }
+
+    throw new Error("'path' or 'contents' is required.");
+  }
+
   return {
     name: "replace-module",
     setup(build) {
-      build.onLoad({ filter: /./ }, ({ path, namespace }) => {
-        let options = replacements[path];
+      // `build.resolve()` will call `onResolve` listener
+      // Avoid infinite loop
+      const seen = new Set();
 
-        if (!options) {
+      build.onResolve({ filter: /./ }, async (args) => {
+        if (
+          !(args.kind === "require-call" || args.kind === "import-statement") ||
+          args.namespace !== "file"
+        ) {
           return;
         }
 
-        options =
-          typeof options === "string" ? { path: options } : { ...options };
-
-        let {
-          path: file,
-          resolveDir,
-          contents,
-          loader = "js",
-          external: isExternal,
-          isEsm,
-        } = options;
-
-        // Make this work with `@esbuild-plugins/node-modules-polyfill` plugin
-        if (
-          !resolveDir &&
-          (namespace === "node-modules-polyfills-commonjs" ||
-            namespace === "node-modules-polyfills") &&
-          file
-        ) {
-          resolveDir = dirname(file);
+        const key = JSON.stringify(args);
+        if (seen.has(key)) {
+          return;
         }
+        seen.add(key);
 
-        if (isExternal) {
-          if (!file) {
-            throw new Error("Missing external module path.");
-          }
+        const resolveResult = await build.resolve(args.path, {
+          importer: args.importer,
+          namespace: args.namespace,
+          resolveDir: args.resolveDir,
+          kind: args.kind,
+          pluginData: args.pluginData,
+        });
 
-          // Prevent `esbuild` to resolve
-          contents = `
-            const entry = ${JSON.stringify(`${file}`)};
-            ${isEsm ? "export default" : "module.exports ="} require(entry);
-          `;
-        } else {
-          if (file) {
-            contents = isEsm
-              ? `export { default } from ${JSON.stringify(`${file}`)};`
-              : `module.exports = require(${JSON.stringify(`${file}`)})`;
-          }
-        }
-
-        return { contents, loader, resolveDir };
+        // `build.resolve()` seems not respecting `browser` field in `package.json`
+        // Return `undefined` instead of `resolveResult` so esbuild can resolve correctly
+        return pathReplacements.get(resolveResult.path);
       });
+
+      build.onLoad({ filter: /./ }, ({ path }) =>
+        contentsReplacements.get(path)
+      );
     },
   };
 }

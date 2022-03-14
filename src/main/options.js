@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import getInterpreter from "../utils/get-interpreter.js";

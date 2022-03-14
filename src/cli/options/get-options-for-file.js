@@ -1,5 +1,6 @@
 import dashify from "dashify";
 import chalk from "chalk";
+import leven from "leven";
 import prettier from "../../index.js";
 import prettierInternal from "../prettier-internal.js";
 import minimist from "./minimist.js";
@@ -49,7 +50,7 @@ function parseArgsToOptions(context, overrideDefaults) {
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false, colorsModule: chalk }
+      { logger: false, colorsModule: chalk, levenshteinDistance: leven }
     ),
     context.detailedOptions
   );

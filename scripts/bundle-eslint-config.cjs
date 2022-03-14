@@ -41,7 +41,7 @@ module.exports = {
     },
     // TODO[@fisker]: Find a way to inline `require` parsers
     // {
-    //   files: ["index.js", "bin-prettier.js", "third-party.js"],
+    //   files: ["index.js", "bin-prettier.js", "cli.js", "third-party.js"],
     //   rules: {
     //     "no-restricted-syntax": [
     //       "error",
@@ -52,6 +52,15 @@ module.exports = {
     //         message: "Parsers should be inline `require()`d.",
     //       },
     //     ],
+    //   },
+    // },
+    // {
+    //   files: ["bin-prettier.js"],
+    //   parserOptions: {
+    //     ecmaVersion: 5,
+    //   },
+    //   rules: {
+    //     "compat/compat": "error",
     //   },
     // },
     {

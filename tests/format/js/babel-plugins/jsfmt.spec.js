@@ -26,6 +26,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "module-blocks.js",
       "async-do-expressions.js",
       "regex-v-flag.js",
+      "decorator-auto-accessors.js",
     ],
     espree: [
       "decimal.js",
@@ -50,6 +51,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "module-blocks.js",
       "async-do-expressions.js",
       "regex-v-flag.js",
+      "decorator-auto-accessors.js",
     ],
     meriyah: [
       "decimal.js",

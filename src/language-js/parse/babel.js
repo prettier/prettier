@@ -40,6 +40,7 @@ const parseOptions = {
     "asyncDoExpressions",
     "regexpUnicodeSets",
     "destructuringPrivate",
+    "decoratorAutoAccessors",
   ],
   tokens: true,
   ranges: true,

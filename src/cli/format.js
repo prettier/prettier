@@ -1,5 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import chalk from "chalk";
 import prettier from "../index.js";
 import thirdParty from "../common/third-party.cjs";
@@ -169,6 +169,7 @@ async function format(context, input, opt) {
   if (context.argv.debugBenchmark) {
     let benchmark;
     try {
+      // eslint-disable-next-line import/no-extraneous-dependencies
       ({ default: benchmark } = await import("benchmark"));
     } catch {
       context.logger.debug(

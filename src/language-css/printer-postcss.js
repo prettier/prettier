@@ -60,6 +60,7 @@ import {
   isParenGroupNode,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
+import printUnit from "./utils/print-unit.js";
 
 const {
   builders: {
@@ -978,7 +979,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-number": {
-      return [printCssNumber(node.value), maybeToLowerCase(node.unit)];
+      return [printCssNumber(node.value), printUnit(node.unit)];
     }
     case "value-operator": {
       return node.value;
