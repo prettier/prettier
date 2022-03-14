@@ -8,6 +8,7 @@ import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
 import prettierInternal from "./prettier-internal.js";
+
 const {
   utils: { isNonEmptyArray },
 } = prettierInternal;

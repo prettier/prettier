@@ -23,6 +23,14 @@ const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
   contents: "export default undefined",
 };
 
+const bundledFiles = [
+  ...bundles,
+  { input: "package.json", output: "package.json" },
+].map(({ input, output }) => ({
+  input: path.join(PROJECT_ROOT, input),
+  output: `./${output}`,
+}));
+
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceStrings = {
     // `tslib` exports global variables
@@ -56,6 +64,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
+<<<<<<< HEAD
     // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
     // // Replace package.json with dynamic `require("./package.json")`
     // replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
@@ -76,6 +85,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
           external: true,
         };
       }
+=======
+    // Replace bundled files and `package.json` with dynamic `require()`
+    for (const { input, output } of bundledFiles) {
+      replaceModule[input] = { path: output, external: true };
+>>>>>>> main
     }
 
     // Use `__dirname` directly
@@ -143,16 +157,23 @@ function* getEsbuildOptions(bundle, buildOptions) {
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
-    external: [...(bundle.external || [])],
+    external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+<<<<<<< HEAD
     mainFields: ["module", "main"],
     target: ["node12"],
+=======
+    mainFields: ["main"],
+    target: [...(bundle.esbuildTarget ?? ["node10"])],
+>>>>>>> main
     logLevel: "error",
   };
 
   if (bundle.target === "universal") {
-    esbuildOptions.target.push(...umdTarget);
+    if (!bundle.esbuildTarget) {
+      esbuildOptions.target.push(...umdTarget);
+    }
 
     yield {
       ...esbuildOptions,
@@ -176,11 +197,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     }
   } else {
     esbuildOptions.platform = "node";
-    esbuildOptions.external.push(
-      ...bundles
-        .filter((item) => item.input !== bundle.input)
-        .map((item) => `./${item.output}`)
-    );
+    esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
     if (bundle.isEsm) {
       esbuildOptions.plugins.push(esbuildPluginInteropDefault());
@@ -194,8 +211,42 @@ function* getEsbuildOptions(bundle, buildOptions) {
   }
 }
 
+<<<<<<< HEAD
 async function runBuild(bundle, esbuildOptions) {
   await esbuild.build(esbuildOptions);
+=======
+async function runBuild(bundle, esbuildOptions, buildOptions) {
+  if (!buildOptions.babel || bundle.skipBabel) {
+    await esbuild.build(esbuildOptions);
+    return;
+  }
+
+  const { format, plugins, outfile } = esbuildOptions;
+
+  await esbuild.build({
+    ...esbuildOptions,
+    plugins: plugins.filter(({ name }) => name !== "umd"),
+    format: format === "umd" ? "cjs" : format,
+    minify: false,
+    target: undefined,
+  });
+
+  const text = await fs.readFile(outfile);
+
+  const { code } = await babel.transformAsync(text, {
+    filename: outfile,
+    ...getBabelConfig(bundle),
+  });
+  await fs.writeFile(outfile, code);
+
+  await esbuild.build({
+    ...esbuildOptions,
+    define: {},
+    plugins: plugins.filter(({ name }) => name === "umd"),
+    entryPoints: [outfile],
+    allowOverwrite: true,
+  });
+>>>>>>> main
 }
 
 async function* createBundle(bundle, buildOptions) {
