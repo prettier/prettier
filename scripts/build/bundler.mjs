@@ -25,7 +25,7 @@ const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
 
 const bundledFiles = [
   ...bundles,
-  { input: "package.json", output: "package.json" },
+  // { input: "package.json", output: "package.json" },
 ].map(({ input, output }) => ({
   input: path.join(PROJECT_ROOT, input),
   output: `./${output}`,
