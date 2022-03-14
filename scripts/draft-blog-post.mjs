@@ -49,7 +49,7 @@ const categories = [
   { dir: "yaml", title: "YAML" },
   { dir: "api", title: "API" },
   { dir: "cli", title: "CLI" },
-  { dir: "misc", title: "Misc" },
+  { dir: "misc", title: "Miscellaneous" },
 ];
 
 const categoriesByDir = new Map(
