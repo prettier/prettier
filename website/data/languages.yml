@@ -40,6 +40,7 @@
   image: /images/languages/tools_yaml.svg
   variants: []
 - name: Community Plugins
+  nameLink: ./docs/en/plugins.html#community-plugins
   showName: true
   image: /images/languages/tools_wip.svg
   variants:
@@ -50,3 +51,4 @@
     - "[Ruby](https://github.com/prettier/plugin-ruby)"
     - "[TOML](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)"
     - "[XML](https://github.com/prettier/plugin-xml)"
+    - "[And more...](./docs/en/plugins.html#community-plugins)"
