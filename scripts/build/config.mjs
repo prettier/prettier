@@ -17,8 +17,7 @@ const { require } = createEsmUtils(import.meta);
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
  * @property {string[]?} esbuildTarget - ESBuild target
- * @property {boolean?} skipBabel - Skip babel transform
- * @property {boolean?} isEsm - Entry is ES Module
+ * @property {boolean?} interopDefault - Should export the ESM default export
 
  * @typedef {Object} CommonJSConfig
  * @property {string[]} ignore - paths of CJS modules to ignore
@@ -28,7 +27,6 @@ const { require } = createEsmUtils(import.meta);
 const parsers = [
   {
     input: "src/language-js/parse/babel.js",
-    isEsm: true,
   },
   {
     input: "src/language-js/parse/flow.js",
@@ -36,7 +34,6 @@ const parsers = [
       // `flow-parser` use this for `globalThis`, can't work in strictMode
       "(function(){return this}())": "(globalThis)",
     },
-    isEsm: true,
   },
   {
     input: "src/language-js/parse/typescript.js",
@@ -98,7 +95,6 @@ const parsers = [
     replaceModule: {
       [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
     },
-    isEsm: true,
   },
   {
     input: "src/language-js/parse/acorn-and-espree.js",
@@ -109,18 +105,15 @@ const parsers = [
       "const Syntax = ": "const Syntax = undefined && ",
       "var visitorKeys = ": "var visitorKeys = undefined && ",
     },
-    isEsm: true,
   },
   {
     input: "src/language-js/parse/meriyah.js",
-    isEsm: true,
   },
   {
     input: "src/language-js/parse/angular.js",
     replace: {
       "@angular/compiler/src": "@angular/compiler/esm2015/src",
     },
-    isEsm: true,
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -129,11 +122,9 @@ const parsers = [
       // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
       "node.constructor.name === 'Word'": "node.type === 'word'",
     },
-    isEsm: true,
   },
   {
     input: "src/language-graphql/parser-graphql.js",
-    isEsm: true,
   },
   {
     input: "src/language-markdown/parser-markdown.js",
@@ -145,15 +136,12 @@ const parsers = [
         "inherits/inherits_browser.js"
       ),
     },
-    isEsm: true,
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    isEsm: true,
   },
   {
     input: "src/language-html/parser-html.js",
-    isEsm: true,
   },
   {
     input: "src/language-yaml/parser-yaml.js",
@@ -163,7 +151,6 @@ const parsers = [
         .resolve("tslib")
         .replace(/tslib\.js$/, "tslib.es6.js"),
     },
-    isEsm: true,
   },
 ].map((bundle) => {
   const { name } = bundle.input.match(
@@ -187,7 +174,6 @@ const coreBundles = [
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect",
     },
-    isEsm: true,
   },
   {
     input: "src/document/index.js",
@@ -196,7 +182,6 @@ const coreBundles = [
     target: "universal",
     format: "umd",
     minify: false,
-    isEsm: true,
   },
   {
     input: "src/standalone.js",
@@ -209,7 +194,6 @@ const coreBundles = [
       [createRequire(require.resolve("vnopts")).resolve("chalk")]:
         require.resolve("./shims/chalk.cjs"),
     },
-    isEsm: true,
   },
   {
     input: "bin/prettier.cjs",
@@ -220,6 +204,7 @@ const coreBundles = [
     input: "src/cli/index.js",
     output: "cli.js",
     external: ["benchmark"],
+    interopDefault: false,
   },
   {
     input: "src/common/third-party.cjs",

@@ -106,6 +106,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
 
+  const interopDefault =
+    !bundle.input.endsWith(".cjs") && bundle.interopDefault !== false;
+
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
     define,
@@ -153,7 +156,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       plugins: [
         esbuildPluginUmd({
           name: bundle.name,
-          interopDefault: Boolean(bundle.isEsm),
+          interopDefault,
         }),
         ...esbuildOptions.plugins,
       ],
@@ -171,7 +174,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
-    if (bundle.isEsm) {
+    if (interopDefault) {
       esbuildOptions.plugins.push(esbuildPluginInteropDefault());
     }
 
