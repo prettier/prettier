@@ -1,3 +1,3 @@
 "use strict";
 
-module.exports = (module) => module;
+module.exports = (file) => file;
