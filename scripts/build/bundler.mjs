@@ -64,33 +64,17 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
-<<<<<<< HEAD
+
+    // Replace bundled files and `package.json` with dynamic `require()`
+    for (const { input, output } of bundledFiles) {
+      replaceModule[input] = { path: output, external: true };
+    }
+
     // TODO[@fisker]: Fix this later, currently esbuild resolve it as ESM
-    // // Replace package.json with dynamic `require("./package.json")`
-    // replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-    //   path: "./package.json",
-    //   external: true,
-    // };
     replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
       contents: JSON.stringify({ version: packageJson.version }),
       loader: "json",
     };
-
-    // Dynamic require bundled files
-    for (const item of bundles) {
-      if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = {
-          path: `./${item.output}`,
-          isEsm: item.isEsm,
-          external: true,
-        };
-      }
-=======
-    // Replace bundled files and `package.json` with dynamic `require()`
-    for (const { input, output } of bundledFiles) {
-      replaceModule[input] = { path: output, external: true };
->>>>>>> main
-    }
 
     // Use `__dirname` directly
     replaceStrings[
@@ -160,13 +144,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
     external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
-<<<<<<< HEAD
     mainFields: ["module", "main"],
-    target: ["node12"],
-=======
-    mainFields: ["main"],
     target: [...(bundle.esbuildTarget ?? ["node10"])],
->>>>>>> main
     logLevel: "error",
   };
 
@@ -211,42 +190,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
   }
 }
 
-<<<<<<< HEAD
 async function runBuild(bundle, esbuildOptions) {
   await esbuild.build(esbuildOptions);
-=======
-async function runBuild(bundle, esbuildOptions, buildOptions) {
-  if (!buildOptions.babel || bundle.skipBabel) {
-    await esbuild.build(esbuildOptions);
-    return;
-  }
-
-  const { format, plugins, outfile } = esbuildOptions;
-
-  await esbuild.build({
-    ...esbuildOptions,
-    plugins: plugins.filter(({ name }) => name !== "umd"),
-    format: format === "umd" ? "cjs" : format,
-    minify: false,
-    target: undefined,
-  });
-
-  const text = await fs.readFile(outfile);
-
-  const { code } = await babel.transformAsync(text, {
-    filename: outfile,
-    ...getBabelConfig(bundle),
-  });
-  await fs.writeFile(outfile, code);
-
-  await esbuild.build({
-    ...esbuildOptions,
-    define: {},
-    plugins: plugins.filter(({ name }) => name === "umd"),
-    entryPoints: [outfile],
-    allowOverwrite: true,
-  });
->>>>>>> main
 }
 
 async function* createBundle(bundle, buildOptions) {
