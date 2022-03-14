@@ -13,7 +13,7 @@ function runCli(cli) {
 
 module.exports = (function () {
   if (process.env.NODE_ENV !== "production") {
-    var dynamicImport = (new Function("module", "return import(module)"));
+    var dynamicImport = new Function("module", "return import(module)");
 
     return dynamicImport("../src/cli/index.js").then(runCli);
   }
