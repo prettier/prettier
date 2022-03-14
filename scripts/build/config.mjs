@@ -13,7 +13,7 @@ const { require } = createEsmUtils(import.meta);
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string | {code: string}>} replaceModule - module replacement path or code
- * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
+ * @property {{file: string, find: string, replacement: string}[]} replaceText - Text replacements
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
  * @property {string[]?} esbuildTarget - ESBuild target
