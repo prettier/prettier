@@ -130,10 +130,9 @@ export default function esbuildPluginUmd(options) {
         fs.writeFileSync(
           outfile,
           intro +
-            text.slice(
-              expectedOutput.start.length,
-              -expectedOutput.end.length
-            ).trimEnd() +
+            text
+              .slice(expectedOutput.start.length, -expectedOutput.end.length)
+              .trimEnd() +
             outro
         );
       });
