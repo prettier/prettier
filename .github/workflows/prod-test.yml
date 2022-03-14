@@ -137,28 +137,28 @@ jobs:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true
 
-  # TODO[@fisker]: Fix this
-  # cli:
-  #   name: CLI
-  #   runs-on: ubuntu-latest
-  #   needs: [build]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2.4.0
+  TODO[@fisker]: Fix this
+  cli:
+    name: CLI
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2.5.1
-  #       with:
-  #         node-version: "0.10.48"
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: "0.10.48"
 
-  #     - name: Download Artifact
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #         path: dist
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
 
-  #     - name: Validate Node.js Version
-  #       run: node -v | grep "v0.10.48" || exit 1
+      - name: Validate Node.js Version
+        run: node -v | grep "v0.10.48" || exit 1
 
-  #     - name: Run CLI on Node.js v0.10.48
-  #       run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 10.13.0 of Node, please upgrade" || exit 1
+      - name: Run CLI on Node.js v0.10.48
+        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 10.13.0 of Node, please upgrade" || exit 1

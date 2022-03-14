@@ -212,10 +212,9 @@ const coreBundles = [
     isEsm: true,
   },
   {
-    input: "bin/prettier.js",
+    input: "bin/prettier.cjs",
     output: "bin-prettier.js",
-    // TODO[@fisker]: Fix this
-    // esbuildTarget: ["node0.10"],
+    esbuildTarget: ["node0.10"],
   },
   {
     input: "src/cli/index.js",

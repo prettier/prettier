@@ -331,15 +331,15 @@ module.exports = {
         "import/no-extraneous-dependencies": "error",
       },
     },
-    // TODO[@fisker]: Fix this
-    // {
-    //   files: ["bin/prettier.js"],
-    //   parserOptions: {
-    //     ecmaVersion: 5,
-    //   },
-    //   rules: {
-    //     "no-var": "off",
-    //   },
-    // },
+    {
+      files: ["bin/prettier.cjs"],
+      parserOptions: {
+        ecmaVersion: 5,
+      },
+      rules: {
+        "no-var": "off",
+        "prefer-arrow-callback": "off",
+      },
+    },
   ],
 };
