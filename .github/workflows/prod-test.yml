@@ -137,7 +137,6 @@ jobs:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true
 
-  TODO[@fisker]: Fix this
   cli:
     name: CLI
     runs-on: ubuntu-latest
