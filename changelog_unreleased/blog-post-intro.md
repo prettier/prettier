@@ -8,6 +8,22 @@ This release includes a new `singleAttributePerLine` option. This is an option t
 
 We've also added support formatting for some new JavaScript syntax proposals via Babel.
 
-If you enjoy Prettier and would like to support our work, consider sponsoring us directly via [our OpenCollective](https://opencollective.com/prettier) or by sponsoring the projects we depend on, including [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel). Also thanks to [LINE](https://line.me/en/) and [Ubie](https://us.ubie.app) for actually sponsoring us! For more information on LINE's OSS sponsoring, please read the blog post [LINE has started to donate to Prettier – why companies should support OSS](https://engineering.linecorp.com/en/blog/support-prettier-and-oss/).
+## Thanks to our sponsors!
 
-Please see our previously posted blog [Prettier begins paying maintainers](https://prettier.io/blog/2022/01/06/prettier-begins-paying-maintainers.html) on how we use our funds.
+As discussed in [a blog post from earlier this year](https://prettier.io/blog/2022/01/06/prettier-begins-paying-maintainers.html), we have begun paying our maintainers from funds received from our sponsors. We would like to thank our many sponsors who have made this possible! We’re especially grateful to the following companies and individuals, who have donated over $1,000 to us:
+
+- [Frontend Masters](https://frontendmasters.com/)
+- [Salesforce](https://www.salesforce.com/)
+- [Indeed](https://indeed.com/)
+- [Sentry](https://sentry.io/welcome/)
+- [Airbnb](https://www.airbnb.com/)
+- [LINE](https://engineering.linecorp.com/en/)
+- [AMP Project](https://www.ampproject.org/)
+- [InVision AG](https://www.ivx.com/)
+- [Ubie](https://ubiehealth.com/)
+- [Shogun Labs, Inc](https://getshogun.com/)
+- [Underbelly](https://www.underbelly.is/)
+- [Principal Financial Group](https://www.principal.com/about-us)
+- [Suhail Doshi](https://twitter.com/suhail)
+
+If you enjoy Prettier and would like to support our work, consider sponsoring us directly via [our OpenCollective](https://opencollective.com/prettier) or by sponsoring the projects we depend on, including [typescript-eslint](https://opencollective.com/typescript-eslint), [remark](https://opencollective.com/unified), and [Babel](https://opencollective.com/babel).
