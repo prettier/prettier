@@ -64,7 +64,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
-
     // Replace bundled files and `package.json` with dynamic `require()`
     for (const { input, output } of bundledFiles) {
       replaceModule[input] = { path: output, external: true };

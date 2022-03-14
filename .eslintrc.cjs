@@ -329,16 +329,17 @@ module.exports = {
       files: ["scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js"],
       rules: {
         "import/no-extraneous-dependencies": "error",
-      }
-    },
-    {
-      files: ["bin/prettier.js"],
-      parserOptions: {
-        ecmaVersion: 5,
-      },
-      rules: {
-        "no-var": "off",
       },
     },
+    // TODO[@fisker]: Fix this
+    // {
+    //   files: ["bin/prettier.js"],
+    //   parserOptions: {
+    //     ecmaVersion: 5,
+    //   },
+    //   rules: {
+    //     "no-var": "off",
+    //   },
+    // },
   ],
 };
