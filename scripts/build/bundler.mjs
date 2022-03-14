@@ -14,7 +14,7 @@ import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import bundles from "./config.mjs";
 
-const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const { dirname, readJsonSync } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
