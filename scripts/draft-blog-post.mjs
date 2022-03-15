@@ -2,6 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import minimist from "minimist";
 import rimraf from "rimraf";
 import createEsmUtils from "esm-utils";
 import {
@@ -11,6 +12,15 @@ import {
   changelogUnreleasedDirs,
   printEntries,
 } from "./utils/changelog.mjs";
+
+const options = minimist(process.argv.slice(2), {
+  boolean: ["print-truncate"],
+  default: {
+    ["print-truncate"]: true,
+  },
+});
+
+const shouldPrintTruncate = options["print-truncate"];
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
@@ -74,7 +84,7 @@ fs.writeFileSync(
   replaceVersions(
     [
       fs.readFileSync(introFile, "utf8").trim(),
-      "<!--truncate-->",
+      shouldPrintTruncate ? "<!--truncate-->" : "",
       ...printEntriesWithTitle({
         title: "Highlights",
         filter: (entry) => entry.section === "highlight",
@@ -91,7 +101,9 @@ fs.writeFileSync(
         title: "Other Changes",
         filter: (entry) => !entry.section,
       }),
-    ].join("\n\n") + "\n",
+    ]
+      .filter(Boolean)
+      .join("\n\n") + "\n",
     previousVersion,
     version
   )

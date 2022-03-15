@@ -8,6 +8,8 @@ This release includes a new `singleAttributePerLine` option. This is an option t
 
 We've also added support formatting for some new JavaScript syntax proposals via Babel.
 
+<!--truncate-->
+
 ## Thanks to our sponsors!
 
 As discussed in [a blog post from earlier this year](https://prettier.io/blog/2022/01/06/prettier-begins-paying-maintainers.html), we have begun paying our maintainers from funds received from our sponsors. We would like to thank our many sponsors who have made this possible! We’re especially grateful to the following companies and individuals, who have donated over $1,000 to us:
