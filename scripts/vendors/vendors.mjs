@@ -1,3 +1,3 @@
-const vendors = ["string-width", "mem", "execa", "tempy"];
+const vendors = ["string-width", "mem", "execa", "tempy", "chalk"];
 
 export default vendors;

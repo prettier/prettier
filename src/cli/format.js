@@ -3,7 +3,8 @@
 const { promises: fs } = require("fs");
 const path = require("path");
 
-const chalk = require("chalk");
+// eslint-disable-next-line no-restricted-modules
+const { default: chalk } = require("../../vendors/chalk.js");
 
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
