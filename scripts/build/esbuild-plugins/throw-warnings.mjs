@@ -1,4 +1,4 @@
-const allowedWarnings = new Set([
+const ignoredWarnings = new Set([
   // Duplicated case clause
   "This case clause will never be evaluated because it duplicates an earlier case clause",
 ]);
@@ -9,7 +9,7 @@ export default function esbuildPluginThrowWarnings() {
     setup(build) {
       build.onEnd(({ warnings }) => {
         for (const warning of warnings) {
-          if (allowedWarnings.has(warning.text)) {
+          if (ignoredWarnings.has(warning.text)) {
             continue;
           }
 
