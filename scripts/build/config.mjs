@@ -263,14 +263,12 @@ const coreBundles = [
   },
   {
     input: "src/common/third-party.js",
-    replaceText: [
+    replaceModule: {
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
-      {
-        file: require.resolve("import-fresh"),
-        find: "parentModule(__filename)",
-        replacement: "__filename",
-      },
-    ],
+      [require.resolve("parent-module")]: require.resolve(
+        "./shims/parent-module.cjs"
+      ),
+    },
   },
 ].map((bundle) => ({
   type: "core",
