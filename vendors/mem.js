@@ -23,7 +23,6 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -31,22 +30,16 @@ var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __reExport = (target, module2, copyDefault, desc) => {
-  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-    for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
-        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-  return target;
+  return to;
 };
-var __toESM = (module2, isNodeMode) => {
-  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
-};
-var __toCommonJS = /* @__PURE__ */ ((cache) => {
-  return (module2, temp) => {
-    return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
-  };
-})(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/p-defer/index.js
 var require_p_defer = __commonJS({
@@ -171,6 +164,7 @@ __export(dist_exports, {
   memClear: () => memClear,
   memDecorator: () => memDecorator
 });
+module.exports = __toCommonJS(dist_exports);
 
 // node_modules/mimic-fn/index.js
 var copyProperty = (to, from, property, ignoreNonConfigurable) => {
@@ -272,7 +266,6 @@ function memClear(fn) {
   }
   cache.clear();
 }
-module.exports = __toCommonJS(dist_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   memClear,

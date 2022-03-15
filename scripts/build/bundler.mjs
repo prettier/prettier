@@ -12,6 +12,7 @@ import esbuildPluginReplaceText from "./esbuild-plugins/replace-text.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
+import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import bundles from "./config.mjs";
 
 const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -170,6 +171,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
         }),
       buildOptions.reports &&
         esbuildPluginVisualizer({ formats: buildOptions.reports }),
+      esbuildPluginThrowWarnings(),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
@@ -242,7 +244,9 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
   await esbuild.build({
     ...esbuildOptions,
     define: {},
-    plugins: plugins.filter(({ name }) => name === "umd"),
+    plugins: plugins.filter(
+      ({ name }) => name === "umd" || name === "throw-warnings"
+    ),
     entryPoints: [outfile],
     allowOverwrite: true,
   });
