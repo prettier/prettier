@@ -2,7 +2,6 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import minimist from "minimist";
 import rimraf from "rimraf";
 import createEsmUtils from "esm-utils";
 import {
@@ -12,15 +11,6 @@ import {
   changelogUnreleasedDirs,
   printEntries,
 } from "./utils/changelog.mjs";
-
-const options = minimist(process.argv.slice(2), {
-  boolean: ["print-truncate"],
-  default: {
-    ["print-truncate"]: true,
-  },
-});
-
-const shouldPrintTruncate = options["print-truncate"];
 
 const { __dirname, require } = createEsmUtils(import.meta);
 const blogDir = path.join(__dirname, "../website/blog");
@@ -79,12 +69,17 @@ for (const dir of changelogUnreleasedDirs) {
 
 rimraf.sync(postGlob);
 
+const introFileData = fs.readFileSync(introFile, "utf8").trim();
+
+const TRUNCATE_COMMENT = "<!--truncate-->";
+const shouldPrintTruncate = introFileData.includes(TRUNCATE_COMMENT);
+
 fs.writeFileSync(
   postFile,
   replaceVersions(
     [
-      fs.readFileSync(introFile, "utf8").trim(),
-      shouldPrintTruncate ? "<!--truncate-->" : "",
+      introFileData,
+      shouldPrintTruncate ? TRUNCATE_COMMENT : "",
       ...printEntriesWithTitle({
         title: "Highlights",
         filter: (entry) => entry.section === "highlight",
