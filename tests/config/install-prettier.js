@@ -2,7 +2,7 @@
 
 const path = require("path");
 const fs = require("fs");
-const chalk = require("chalk");
+const { default: chalk } = require("../../vendors/chalk.js");
 const { default: tempy } = require("../../vendors/tempy.js");
 const { execaSync } = require("../../vendors/execa.js");
 

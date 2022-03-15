@@ -1,7 +1,6 @@
 "use strict";
 
-// Use `diff/lib/diff/array.js` instead of `diff` to reduce bundle size
-const { diffArrays } = require("diff/lib/diff/array.js");
+const { diffArrays } = require("diff");
 
 const {
   printer: { printDocToString },

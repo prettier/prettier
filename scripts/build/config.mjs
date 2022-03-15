@@ -23,6 +23,20 @@ const { require } = createEsmUtils(import.meta);
  * @property {string[]} ignore - paths of CJS modules to ignore
  */
 
+/*
+`diff` use deprecated folder mapping "./" in the "exports" field,
+so we can't `require("diff/lib/diff/array.js")` directory.
+To reduce the bundle size
+
+We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
+*/
+const replaceDiffPackageEntry = (file) => ({
+  [require.resolve("diff")]: path.join(
+    path.dirname(require.resolve("diff/package.json")),
+    file
+  ),
+});
+
 /** @type {Bundle[]} */
 const parsers = [
   {
@@ -229,6 +243,7 @@ const coreBundles = [
         replacement: "const utilInspect = require('util').inspect",
       },
     ],
+    replaceModule: replaceDiffPackageEntry("lib/diff/array.js"),
   },
   {
     input: "src/document/index.js",
@@ -248,6 +263,7 @@ const coreBundles = [
       ),
       [createRequire(require.resolve("vnopts")).resolve("chalk")]:
         require.resolve("./shims/chalk.cjs"),
+      ...replaceDiffPackageEntry("lib/diff/array.js"),
     },
   },
   {
@@ -260,17 +276,16 @@ const coreBundles = [
     input: "src/cli/index.js",
     output: "cli.js",
     external: ["benchmark"],
+    replaceModule: replaceDiffPackageEntry("lib/patch/create.js"),
   },
   {
     input: "src/common/third-party.js",
-    replaceText: [
+    replaceModule: {
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
-      {
-        file: require.resolve("import-fresh"),
-        find: "parentModule(__filename)",
-        replacement: "__filename",
-      },
-    ],
+      [require.resolve("parent-module")]: require.resolve(
+        "./shims/parent-module.cjs"
+      ),
+    },
   },
 ].map((bundle) => ({
   type: "core",
