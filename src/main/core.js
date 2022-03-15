@@ -1,6 +1,6 @@
 "use strict";
 
-const diff = require("diff");
+const { diffArrays } = require("diff");
 
 const {
   printer: { printDocToString },
@@ -118,7 +118,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
     const newCursorNodeCharArray = [...newCursorNodeText];
 
-    const cursorNodeDiff = diff.diffArrays(
+    const cursorNodeDiff = diffArrays(
       oldCursorNodeCharArray,
       newCursorNodeCharArray
     );
