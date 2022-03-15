@@ -243,9 +243,7 @@ const coreBundles = [
         replacement: "const utilInspect = require('util').inspect",
       },
     ],
-    replaceModule: {
-      ...replaceDiffPackageEntry("lib/diff/array.js"),
-    },
+    replaceModule: replaceDiffPackageEntry("lib/diff/array.js"),
   },
   {
     input: "src/document/index.js",
