@@ -276,9 +276,7 @@ const coreBundles = [
     input: "src/cli/index.js",
     output: "cli.js",
     external: ["benchmark"],
-    replaceModule: {
-      ...replaceDiffPackageEntry("lib/patch/create.js"),
-    },
+    replaceModule: replaceDiffPackageEntry("lib/patch/create.js"),
   },
   {
     input: "src/common/third-party.js",
