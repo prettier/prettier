@@ -45,8 +45,8 @@ async function run() {
       "./steps/update-changelog.js",
       "./steps/push-to-git.js",
       "./steps/publish-to-npm.js",
-      "./steps/bump-prettier.js",
       "./steps/update-dependents-count.js",
+      "./steps/bump-prettier.js",
       "./steps/post-publish-steps.js",
     ].map((step) => importDefault(step))
   );
