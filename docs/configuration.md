@@ -125,7 +125,7 @@ If you don’t want to use `package.json`, you can use any of the supported exte
 "@company/prettier-config"
 ```
 
-An example configuration repository is available [here](https://github.com/azz/prettier-config).
+Example configuration repositories are available [here](https://github.com/azz/prettier-config) and [here](https://github.com/bokub/prettier-config).
 
 > Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
 >
