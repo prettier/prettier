@@ -165,8 +165,8 @@ const checkParser = ({ dirname, files }, parsers = []) => {
         : outdent`
           Suggest move your tests to:
           ${suggestCategories
-              .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
-              .join("\n")}
+            .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
+            .join("\n")}
 
           Or config to allow use this parser in "${__filename}".
         `;
