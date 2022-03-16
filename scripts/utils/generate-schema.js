@@ -88,7 +88,7 @@ function optionToSchema(option) {
     // #10274
     if (option.name === "pluginSearchDirs") {
       schema = {
-        anyOf: [
+        oneOf: [
           schema,
           {
             enum: [false],
