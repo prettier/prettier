@@ -6,7 +6,7 @@ const prettier = require("../index.js");
 const createLogger = require("./logger.js");
 const Context = require("./context.js");
 const { parseArgvWithoutPlugins } = require("./options/parse-cli-arguments.js");
-const { createDetailedUsage, createUsage } = require("./usage.js");
+const showUsage = require("./usage.js");
 const { formatStdin, formatFiles } = require("./format.js");
 const logFileInfoOrDie = require("./file-info.js");
 const logResolvedConfigPathOrDie = require("./find-config-path.js");
@@ -17,26 +17,38 @@ const {
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = createLogger();
+  let logLevel;
 
   try {
-    const logLevel = parseArgvWithoutPlugins(
+    logLevel = parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"
     ).loglevel;
-    if (logLevel !== logger.logLevel) {
-      logger = createLogger(logLevel);
-    }
+  } catch (error) {
+    logger.error(error.message);
+    return;
+  }
 
+  if (logLevel !== logger.logLevel) {
+    logger = createLogger(logLevel);
+  }
+
+  try {
     await main(rawArguments, logger);
   } catch (error) {
     logger.error(error.message);
-    process.exitCode = 1;
   }
 }
-
 async function main(rawArguments, logger) {
-  const context = new Context({ rawArguments, logger });
+  let context;
+
+  try {
+    context = new Context({ rawArguments, logger });
+  } catch (error) {
+    logger.error(error.message);
+    return;
+  }
 
   logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
@@ -46,26 +58,31 @@ async function main(rawArguments, logger) {
       typeof rawPluginSearchDirs === "string" ||
       isNonEmptyArray(rawPluginSearchDirs)
     ) {
-      throw new Error(
+      logger.error(
         "Cannot use --no-plugin-search and --plugin-search-dir together."
       );
+      return;
     }
   }
 
   if (context.argv.check && context.argv.listDifferent) {
-    throw new Error("Cannot use --check and --list-different together.");
+    logger.error("Cannot use --check and --list-different together.");
+    return;
   }
 
   if (context.argv.write && context.argv.debugCheck) {
-    throw new Error("Cannot use --write and --debug-check together.");
+    logger.error("Cannot use --write and --debug-check together.");
+    return;
   }
 
   if (context.argv.findConfigPath && context.filePatterns.length > 0) {
-    throw new Error("Cannot use --find-config-path with multiple files");
+    logger.error("Cannot use --find-config-path with multiple files");
+    return;
   }
 
   if (context.argv.fileInfo && context.filePatterns.length > 0) {
-    throw new Error("Cannot use --file-info with multiple files");
+    logger.error("Cannot use --file-info with multiple files");
+    return;
   }
 
   if (context.argv.version) {
@@ -74,11 +91,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.help !== undefined) {
-    logger.log(
-      typeof context.argv.help === "string" && context.argv.help !== ""
-        ? createDetailedUsage(context, context.argv.help)
-        : createUsage(context)
-    );
+    showUsage(context, context.argv.help);
     return;
   }
 
@@ -104,8 +117,8 @@ async function main(rawArguments, logger) {
   } else if (hasFilePatterns) {
     await formatFiles(context);
   } else {
-    logger.log(createUsage(context));
     process.exitCode = 1;
+    showUsage(context);
   }
 }
 

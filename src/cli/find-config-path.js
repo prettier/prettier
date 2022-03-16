@@ -11,7 +11,7 @@ async function logResolvedConfigPathOrDie(context) {
   if (configFile) {
     context.logger.log(path.relative(process.cwd(), configFile));
   } else {
-    throw new Error(`Can not find configure file for "${file}"`);
+    context.logger.error(`Can not find configure file for "${file}"`);
   }
 }
 

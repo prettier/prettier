@@ -32,10 +32,10 @@ function handleError(context, filename, error, printedFilename) {
     if (context.argv.ignoreUnknown) {
       return;
     }
-    if (!context.argv.check && !context.argv.listDifferent) {
-      process.exitCode = 2;
-    }
-    context.logger.error(error.message);
+
+    const exitCode =
+      context.argv.check || context.argv.listDifferent ? false : 2;
+    context.logger.error(error.message, { exitCode });
     return;
   }
 
@@ -86,18 +86,20 @@ function listDifferent(context, input, options, filename) {
 
   try {
     if (!options.filepath && !options.parser) {
-      throw new errors.UndefinedParserError(
-        "No parser and no file path given, couldn't infer a parser."
+      context.logger.error(
+        "No parser and no file path given, couldn't infer a parser.",
+        { exitCode: false }
       );
+
+      return true;
     }
     if (!prettier.check(input, options)) {
       if (!context.argv.write) {
-        context.logger.log(filename);
-        process.exitCode = 1;
+        context.logger.log(filename, { exitCode: 1 });
       }
     }
   } catch (error) {
-    context.logger.error(error.message);
+    context.logger.error(error.message, { exitCode: false });
   }
 
   return true;
@@ -286,9 +288,8 @@ async function formatFiles(context) {
 
   for await (const pathOrError of expandPatterns(context)) {
     if (typeof pathOrError === "object") {
-      context.logger.error(pathOrError.error);
       // Don't exit, but set the exit code to 2
-      process.exitCode = 2;
+      context.logger.error(pathOrError.error, { exitCode: 2 });
       continue;
     }
 
@@ -331,14 +332,12 @@ async function formatFiles(context) {
       /* istanbul ignore next */
       context.logger.log("");
 
-      /* istanbul ignore next */
-      context.logger.error(
-        `Unable to read file: ${filename}\n${error.message}`
-      );
-
       // Don't exit the process if one file failed
       /* istanbul ignore next */
-      process.exitCode = 2;
+      context.logger.error(
+        `Unable to read file: ${filename}\n${error.message}`,
+        { exitCode: 2 }
+      );
 
       /* istanbul ignore next */
       continue;
@@ -380,14 +379,12 @@ async function formatFiles(context) {
         try {
           await fs.writeFile(filename, output, "utf8");
         } catch (error) {
-          /* istanbul ignore next */
-          context.logger.error(
-            `Unable to write file: ${filename}\n${error.message}`
-          );
-
           // Don't exit the process if one file failed
           /* istanbul ignore next */
-          process.exitCode = 2;
+          context.logger.error(
+            `Unable to write file: ${filename}\n${error.message}`,
+            { exitCode: 2 }
+          );
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);

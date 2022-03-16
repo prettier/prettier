@@ -40,14 +40,29 @@ function createLogger(logLevel = "log") {
   };
 
   function createLogFunc(loggerName, color) {
+    const setErrorCode = (options) => {
+      const { exitCode } = {
+        exitCode: loggerName === "error" ? 1 : false,
+        ...options,
+      };
+
+      if (exitCode !== false) {
+        process.exitCode = exitCode;
+      }
+    };
+
     if (!shouldLog(loggerName)) {
-      return () => emptyLogResult;
+      return (_, options) => {
+        setErrorCode(options);
+        return emptyLogResult;
+      };
     }
 
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
 
     return (message, options) => {
+      setErrorCode(options);
       options = {
         newline: true,
         clearable: false,

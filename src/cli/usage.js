@@ -112,7 +112,11 @@ function getOptionsWithOpposites(options) {
   return optionsWithOpposites.flat().filter(Boolean);
 }
 
-function createUsage(context) {
+function showUsage(context, flag) {
+  if (flag) {
+    return showDetailedUsage(context, flag);
+  }
+
   const options = getOptionsWithOpposites(context.detailedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
     (option) =>
@@ -145,10 +149,10 @@ function createUsage(context) {
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
+  context.logger.log([constant.usageSummary, ...optionsUsage, ""].join("\n\n"));
 }
 
-function createDetailedUsage(context, flag) {
+function showDetailedUsage(context, flag) {
   const option = getOptionsWithOpposites(context.detailedOptions).find(
     (option) => option.name === flag || option.alias === flag
   );
@@ -177,10 +181,9 @@ function createDetailedUsage(context, flag) {
           ([key, value]) => `\n* ${key}: ${createDefaultValueDisplay(value)}`
         )}`
       : "";
-  return `${header}${description}${choices}${defaults}${pluginDefaults}`;
+  context.logger.log(
+    `${header}${description}${choices}${defaults}${pluginDefaults}`
+  );
 }
 
-module.exports = {
-  createUsage,
-  createDetailedUsage,
-};
+module.exports = showUsage;
