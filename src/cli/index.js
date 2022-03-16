@@ -34,11 +34,7 @@ async function run(rawArguments) {
     logger = createLogger(logLevel);
   }
 
-  try {
-    await main(rawArguments, logger);
-  } catch (error) {
-    logger.error(error.message);
-  }
+  await main(rawArguments, logger);
 }
 async function main(rawArguments, logger) {
   let context;
