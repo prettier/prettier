@@ -316,6 +316,9 @@ const UsersSection = ({ language }) => {
               <p>
                 More than <strong data-placeholder="dependent-npm">10k</strong>{" "}
                 dependent packages on npm
+                More than{" "}
+                <strong data-placeholder="dependent-github">3.9 million</strong>{" "}
+                dependent repositories on GitHub
               </p>
             </div>
           </div>
@@ -334,6 +337,9 @@ const UsersSection = ({ language }) => {
                 <a href="https://www.npmjs.com/package/prettier">
                   <strong>npm</strong>
                 </a>
+                More than{" "}
+                <strong data-placeholder="dependent-npm">10.4k</strong>{" "}
+                dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">
                 See them all

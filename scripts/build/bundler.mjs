@@ -178,7 +178,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
     external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
-    mainFields: ["main"],
     target: [...(bundle.esbuildTarget ?? ["node10"])],
     logLevel: "error",
   };

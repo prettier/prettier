@@ -25,8 +25,8 @@ const { require } = createEsmUtils(import.meta);
 
 /*
 `diff` use deprecated folder mapping "./" in the "exports" field,
-so we can't `require("diff/lib/diff/array.js")` directory.
-To reduce the bundle size
+so we can't `require("diff/lib/diff/array.js")` directly.
+To reduce the bundle size, replace the entry with smaller files.
 
 We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
 */
@@ -143,7 +143,8 @@ const parsers = [
       })),
     ],
     replaceModule: {
-      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
+      [require.resolve("debug/src/browser.js")]:
+        require.resolve("./shims/debug.cjs"),
     },
   },
   {
@@ -197,10 +198,6 @@ const parsers = [
     replaceModule: {
       [require.resolve("parse-entities/decode-entity.browser.js")]:
         require.resolve("parse-entities/decode-entity.js"),
-      // Avoid `node:util` shim
-      [require.resolve("inherits")]: require.resolve(
-        "inherits/inherits_browser.js"
-      ),
     },
   },
   {
