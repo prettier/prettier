@@ -74,13 +74,15 @@ describe("loglevel should not effect information print", () => {
     {
       argv: ["--find-config-path", "any-file"],
       assertOptions: {
-        stdout: ".prettierrc",
+        stdout: ".prettierrc\n",
       },
     },
     {
       argv: ["--file-info", "any-js-file.js"],
       assertOptions: {
-        stdout: { ignored: false, inferredParser: "babel" },
+        stdout(value) {
+          expect(JSON.parse(value)).toEqual({ ignored: false, inferredParser: "babel" });
+        },
       },
     },
     {
