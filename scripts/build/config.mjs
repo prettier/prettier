@@ -243,9 +243,13 @@ const coreBundles = [
       {
         file: require.resolve("editorconfig"),
         find: 'var semver = __importStar(require("semver"));',
-        replacement: `var semver = { gte: require(${JSON.stringify(
-          require.resolve("semver/functions/gte")
-        )})};`,
+        replacement: `
+          var semver = {
+            gte: require(${JSON.stringify(
+              require.resolve("semver/functions/gte")
+            )})
+          };
+        `,
       },
     ],
     replaceModule: replaceDiffPackageEntry("lib/diff/array.js"),
