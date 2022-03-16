@@ -163,13 +163,13 @@ const checkParser = ({ dirname, files }, parsers = []) => {
       suggestCategories.length === 0
         ? ""
         : outdent`
-            Suggest move your tests to:
-            ${suggestCategories
+          Suggest move your tests to:
+          ${suggestCategories
               .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
               .join("\n")}
 
-            Or config to allow use this parser in "${__filename}".
-          `;
+          Or config to allow use this parser in "${__filename}".
+        `;
 
     throw new Error(
       `Parser "${parser}" should not used in "${dirname}".${
