@@ -143,7 +143,8 @@ const parsers = [
       })),
     ],
     replaceModule: {
-      [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
+      [require.resolve("debug/src/browser.js")]:
+        require.resolve("./shims/debug.cjs"),
     },
   },
   {
@@ -197,10 +198,6 @@ const parsers = [
     replaceModule: {
       [require.resolve("parse-entities/decode-entity.browser.js")]:
         require.resolve("parse-entities/decode-entity.js"),
-      // Avoid `node:util` shim
-      [require.resolve("inherits")]: require.resolve(
-        "inherits/inherits_browser.js"
-      ),
     },
   },
   {
