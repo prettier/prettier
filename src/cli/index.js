@@ -69,12 +69,12 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.version) {
-    logger.log(prettier.version);
+    console.log(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    logger.log(
+    console.log(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
         : createUsage(context)
@@ -83,7 +83,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.supportInfo) {
-    logger.log(
+    console.log(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
@@ -104,8 +104,8 @@ async function main(rawArguments, logger) {
   } else if (hasFilePatterns) {
     await formatFiles(context);
   } else {
-    logger.log(createUsage(context));
     process.exitCode = 1;
+    console.log(createUsage(context));
   }
 }
 

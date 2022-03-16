@@ -9,7 +9,7 @@ async function logResolvedConfigPathOrDie(context) {
   const file = context.argv.findConfigPath;
   const configFile = await prettier.resolveConfigFile(file);
   if (configFile) {
-    context.logger.log(path.relative(process.cwd(), configFile));
+    console.log(path.relative(process.cwd(), configFile));
   } else {
     throw new Error(`Can not find configure file for "${file}"`);
   }

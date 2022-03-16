@@ -22,7 +22,7 @@ async function logFileInfoOrDie(context) {
     resolveConfig: config !== false,
   });
 
-  context.logger.log(prettier.format(stringify(fileInfo), { parser: "json" }));
+  console.log(prettier.format(stringify(fileInfo), { parser: "json" }));
 }
 
 module.exports = logFileInfoOrDie;
