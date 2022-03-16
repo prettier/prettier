@@ -144,6 +144,8 @@ const parsers = [
     ],
     replaceModule: {
       [require.resolve("debug")]: require.resolve("./shims/debug.cjs"),
+      [require.resolve("debug/src/browser.js")]:
+        require.resolve("./shims/debug.cjs"),
     },
   },
   {
