@@ -16,21 +16,18 @@ export default function esbuildPluginInteropDefault() {
         const text = fs.readFileSync(file, "utf8").trim();
         const lines = text.split("\n");
         if (
-          !lines[lines.length - 3].startsWith(
-            "module.exports = __toCommonJS("
-          ) ||
           lines[lines.length - 2] !==
             "// Annotate the CommonJS export names for ESM import in node:" ||
           lines[lines.length - 1] !== "0 && (module.exports = {});"
         ) {
           throw new Error("Unexpected output.");
         }
-
-        lines[lines.length - 3] = lines[lines.length - 3].replace(
-          /;$/,
-          ".default;"
-        );
         lines.length -= 2;
+
+        lines.push(
+          "// Interop default export",
+          "module.exports = module.exports.default"
+        );
 
         fs.writeFileSync(file, lines.join("\n"));
       });
