@@ -28,6 +28,8 @@ Specify the line length that the printer will wrap on.
 | ------- | --------------------- | ------------------- |
 | `80`    | `--print-width <int>` | `printWidth: <int>` |
 
+Setting `max_line_length` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s print width, unless overridden.
+
 (If you don’t want line wrapping when formatting Markdown, you can set the [Prose Wrap](#prose-wrap) option to disable it.)
 
 ## Tab Width
@@ -38,6 +40,8 @@ Specify the number of spaces per indentation-level.
 | ------- | ------------------- | ----------------- |
 | `2`     | `--tab-width <int>` | `tabWidth: <int>` |
 
+Setting `indent_size` or `tab_width` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab width, unless overridden.
+
 ## Tabs
 
 Indent lines with tabs instead of spaces.
@@ -45,6 +49,8 @@ Indent lines with tabs instead of spaces.
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
 | `false` | `--use-tabs` | `useTabs: <bool>` |
+
+Setting `indent_style` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s tab usage, unless overridden.
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
@@ -260,6 +266,7 @@ Valid options:
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
 - `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
 - `"meriyah"` (via [meriyah](https://github.com/meriyah/meriyah)) _First available in v2.2.0_
+- `"acorn"` (via [acorn](https://github.com/acornjs/acorn)) _First available in v2.6.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
 - `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
 - `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
@@ -383,8 +390,8 @@ Whether or not to indent the code inside `<script>` and `<style>` tags in Vue fi
 
 Valid options:
 
-- `"false"` - Do not indent script and style tags in Vue files.
-- `"true"` - Indent script and style tags in Vue files.
+- `false` - Do not indent script and style tags in Vue files.
+- `true` - Indent script and style tags in Vue files.
 
 | Default | CLI Override                    | API Override                      |
 | ------- | ------------------------------- | --------------------------------- |
@@ -426,6 +433,8 @@ Valid options:
 | ------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | `"lf"`  | <code>--end-of-line <lf&#124;crlf&#124;cr&#124;auto></code> | <code>endOfLine: "<lf&#124;crlf&#124;cr&#124;auto>"</code> |
 
+Setting `end_of_line` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s end of line usage, unless overridden.
+
 ## Embedded Language Formatting
 
 _First available in v2.1.0_
@@ -444,3 +453,18 @@ Valid options:
 | Default  | CLI Override                         | API Override                        |
 | -------- | ------------------------------------ | ----------------------------------- |
 | `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
+
+## Single Attribute Per Line
+
+_First available in v2.6.0_
+
+Enforce single attribute per line in HTML, Vue and JSX.
+
+Valid options:
+
+- `false` - Do not enforce single attribute per line.
+- `true` - Enforce single attribute per line.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |
