@@ -153,6 +153,7 @@ module.exports = {
     "unicorn/prefer-string-starts-ends-with": "error",
     "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
+    "unicorn/template-indent": "error",
   },
   overrides: [
     {
