@@ -79,7 +79,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
-  const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
+  const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace bundled files and `package.json` with dynamic `require()`
@@ -112,6 +112,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
     replaceModule.assert = require.resolve("./shims/assert.cjs");
+
+    // `esbuildPluginNodeModulePolyfills` didn't shim this module
+    replaceModule.module = {contents: "export const createRequire = () => {};"}
   }
 
   let shouldMinify = buildOptions.minify;

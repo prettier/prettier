@@ -275,14 +275,10 @@ const coreBundles = [
     output: "cli.js",
     external: ["benchmark"],
     interopDefault: false,
-  },
-  {
-    input: "src/common/third-party.cjs",
-    output: "third-party.js",
     replaceModule: replaceDiffPackageEntry("lib/patch/create.js"),
   },
   {
-    input: "src/common/third-party.js",
+    input: "src/common/third-party.cjs",
     replaceModule: {
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       [require.resolve("parent-module")]: require.resolve(
