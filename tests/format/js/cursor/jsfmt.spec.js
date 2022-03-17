@@ -1,4 +1,3 @@
-
 import { outdent } from "outdent";
 // TODO: Use this when we drop support for Node.js 12
 // import prettier from "../../../config/prettier-entry.js";

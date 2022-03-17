@@ -1,4 +1,3 @@
-
 import { outdent } from "outdent";
 import loadToml from "../../../src/utils/load-toml.js";
 
