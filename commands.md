@@ -24,7 +24,7 @@ declare function group(doc: Doc, options?: GroupOptions): Doc;
 
 Mark a group of items which the printer should try to fit on one line. This is the basic command to tell the printer when to break. Groups are usually nested, and the printer will try to fit everything on one line, but if it doesn't fit it will break the outermost group first and try again. It will continue breaking groups until everything fits (or there are no more groups to break).
 
-A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakParent). A [hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
+A group is forced to break if it's created with the `shouldBreak` option set to `true` or if it includes [`breakParent`](#breakParent). [Hard](#hardline) and [literal](#literalline) line breaks automatically include this so they always break parent groups. Breaks are propagated to all parent groups, so if a deeply nested expression has a hard break, everything will break. This only matters for "hard" breaks, i.e. newlines that are printed no matter what and can be statically analyzed.
 
 For example, an array will try to fit on one line:
 
