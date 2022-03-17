@@ -1,3 +1,5 @@
+
+import { outdent } from "outdent";
 // TODO: Use this when we drop support for Node.js 12
 // import prettier from "../../../config/prettier-entry.js";
 const { prettier } = run_spec;
@@ -34,17 +36,22 @@ test("keeps cursor inside formatted node", () => {
 });
 
 test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
-  const code = `
-foo('bar', cb => {
-  console.log('stuff')
-})`;
+  const code =
+    "\n" +
+    outdent`
+      foo('bar', cb => {
+        console.log('stuff')
+      })
+    `;
   expect(
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toMatchObject({
-    formatted: `foo("bar", (cb) => {
-  console.log("stuff");
-});
-`,
+    formatted:
+      outdent`
+        foo("bar", (cb) => {
+          console.log("stuff");
+        });
+      ` + "\n",
     cursorOffset: 25,
   });
 });

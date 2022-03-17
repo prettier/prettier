@@ -12,12 +12,11 @@ exports[`html parser should handle CRLF correctly 1`] = `"\\"<!--\\\\r\\\\n  tes
 exports[`markdown parser should handle CRLF correctly 1`] = `"\\"\`\`\`\\\\r\\\\n\\\\r\\\\n\\\\r\\\\n\`\`\`\\\\r\\\\n\\""`;
 
 exports[`typescript parser should throw the first error when both JSX and non-JSX mode failed 1`] = `
-"Expression expected. (9:7)
-   7 | );
-   8 |
->  9 | label:
-     |       ^
-  10 |   "
+"Expression expected. (8:7)
+  6 | );
+  7 |
+> 8 | label:
+    |       ^"
 `;
 
 exports[`yaml parser should handle CRLF correctly 1`] = `"\\"a: 123\\\\r\\\\n\\""`;

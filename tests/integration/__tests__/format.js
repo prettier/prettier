@@ -1,4 +1,5 @@
 import prettier from "prettier-local";
+import { outdent } from "outdent";
 import fooPlugin from "../plugins/defaultOptions/plugin.cjs";
 
 test("yaml parser should handle CRLF correctly", () => {
@@ -12,15 +13,15 @@ test("yaml parser should handle CRLF correctly", () => {
 });
 
 test("typescript parser should throw the first error when both JSX and non-JSX mode failed", () => {
-  const input = `
-import React from "react";
+  const input = outdent`
+    import React from "react";
 
-const App = () => (
-  <div className="App">
-  </div>
-);
+    const App = () => (
+      <div className="App">
+      </div>
+    );
 
-label:
+    label:
   `;
   expect(() =>
     prettier.format(input, { parser: "typescript" })
