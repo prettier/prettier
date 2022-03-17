@@ -279,6 +279,7 @@ const coreBundles = [
   },
   {
     input: "src/common/third-party.cjs",
+    output: "third-party.js",
     replaceModule: {
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       [require.resolve("parent-module")]: require.resolve(

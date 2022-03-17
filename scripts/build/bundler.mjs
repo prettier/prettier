@@ -19,7 +19,6 @@ const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
-const EMPTY_MODULE_REPLACEMENT = { contents: "" };
 const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
   contents: "export default undefined",
 };
@@ -114,7 +113,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
     replaceModule.assert = require.resolve("./shims/assert.cjs");
 
     // `esbuildPluginNodeModulePolyfills` didn't shim this module
-    replaceModule.module = {contents: "export const createRequire = () => {};"}
+    replaceModule.module = {
+      contents: "export const createRequire = () => {};",
+    };
   }
 
   let shouldMinify = buildOptions.minify;
