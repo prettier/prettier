@@ -5,6 +5,8 @@ const path = require("path");
 const stripAnsi = require("strip-ansi");
 const { prettierCli, thirdParty } = require("./env.js");
 
+const PROCESS_EXIT_ERROR = new Error("process.exit()");
+
 async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
 
@@ -16,6 +18,9 @@ async function run(dir, args, options) {
     if (status === undefined) {
       status = exitCode || 0;
     }
+
+    // Exit CLI
+    throw PROCESS_EXIT_ERROR;
   });
 
   jest
@@ -113,8 +118,10 @@ async function run(dir, args, options) {
     await require(prettierCli);
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
-    status = 1;
-    stderr += error.message;
+    if (error !== PROCESS_EXIT_ERROR) {
+      status = 1;
+      stderr += error.message;
+    }
   } finally {
     process.chdir(originalCwd);
     process.argv = originalArgv;
