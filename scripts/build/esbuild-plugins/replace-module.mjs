@@ -29,7 +29,11 @@ export default function esbuildPluginReplaceModule(replacements = {}) {
 
       build.onResolve({ filter: /./ }, async (args) => {
         if (
-          !(args.kind === "require-call" || args.kind === "import-statement") ||
+          !(
+            args.kind === "require-call" ||
+            args.kind === "import-statement" ||
+            args.kind === "dynamic-import"
+          ) ||
           args.namespace !== "file"
         ) {
           return;

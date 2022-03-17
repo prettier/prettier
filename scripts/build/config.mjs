@@ -30,9 +30,10 @@ To reduce the bundle size, replace the entry with smaller files.
 
 We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
 */
+const diffPackageDirectory = path.dirname(require.resolve("diff/package.json"));
 const replaceDiffPackageEntry = (file) => ({
-  [require.resolve("diff")]: path.join(
-    path.dirname(require.resolve("diff/package.json")),
+  [path.join(diffPackageDirectory, "lib/index.mjs")]: path.join(
+    diffPackageDirectory,
     file
   ),
 });

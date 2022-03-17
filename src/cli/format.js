@@ -11,13 +11,13 @@ import isTTY from "./is-tty.js";
 const { getStdin } = thirdParty;
 const { createIgnorer, errors } = prettierInternal;
 
-let diffModule;
+let createTwoFilesPatch;
 async function diff(a, b) {
-  if (!diffModule) {
-    ({ default: diffModule } = await import("diff"));
+  if (!createTwoFilesPatch) {
+    ({ createTwoFilesPatch } = await import("diff"));
   }
 
-  return diffModule.createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
+  return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
 function handleError(context, filename, error, printedFilename) {
