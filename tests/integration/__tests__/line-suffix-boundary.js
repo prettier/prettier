@@ -2,6 +2,7 @@
 
 /** @type {import('prettier')} */
 const prettier = require("prettier-local");
+const { outdent } = require("outdent");
 
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;
@@ -24,11 +25,13 @@ describe("lineSuffixBoundary", () => {
       "];",
     ]);
 
-    const expected = `let foo = [
-  item1,
-  item2, // comment
-  item3
-];`;
+    const expected = outdent`
+      let foo = [
+        item1,
+        item2, // comment
+        item3
+      ];
+    `;
 
     expect(printDoc(doc)).toBe(expected);
   });

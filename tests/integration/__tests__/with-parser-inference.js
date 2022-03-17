@@ -1,6 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
+const { outdent } = require("outdent");
 const runPrettier = require("../run-prettier.js");
 
 describe("infers postcss parser", () => {
@@ -49,22 +50,24 @@ describe("infers parser from filename", () => {
   test("json from .swcrc", () => {
     expect(
       prettier.format(
-        `
-    {
-      "jsc": {
-    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
-        "keepClassNames": false
-      }
-    }
-    `,
+        /* indent */ `
+          {
+                      "jsc": {
+                    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+                        "keepClassNames": false
+                      }}
+        `,
         { filepath: "/path/to/.swcrc" }
       )
-    ).toBe(`{
-  "jsc": {
-    // Requires v1.2.50 or upper and requires target to be es2016 or upper.
-    "keepClassNames": false
-  }
-}
-`);
+    ).toBe(
+      outdent`
+        {
+          "jsc": {
+            // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+            "keepClassNames": false
+          }
+        }
+      ` + "\n"
+    );
   });
 });
