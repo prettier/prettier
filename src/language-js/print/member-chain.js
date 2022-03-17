@@ -40,6 +40,7 @@ const {
   printFunctionTypeParameters,
   printBindExpressionCallee,
 } = require("./misc.js");
+const { concat } = require("regexp-util");
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -276,6 +277,19 @@ function printMemberChain(path, options, print) {
     return name.length <= options.tabWidth;
   }
 
+  function shouldBreak(parentNode, printedNodes) {
+    if (
+      parentNode.type === "ArrayExpression" &&
+      parentNode.elements.length === 0
+    ) {
+      return false;
+    }
+    return (
+      parentNode.type === "CallExpression" &&
+      parentNode.callee === printedNodes[0].node
+    );
+  }
+
   function shouldNotWrap(groups) {
     const hasComputed = groups[1].length > 0 && groups[1][0].node.computed;
 
@@ -286,7 +300,8 @@ function printMemberChain(path, options, print) {
         (firstNode.type === "Identifier" &&
           (isFactory(firstNode.name) ||
             (isExpressionStatement && isShort(firstNode.name)) ||
-            hasComputed))
+            hasComputed)) ||
+        shouldBreak(groups[1][0].node, printedNodes)
       );
     }
 
@@ -294,14 +309,16 @@ function printMemberChain(path, options, print) {
     return (
       isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
-      (isFactory(lastNode.property.name) || hasComputed)
+      (isFactory(lastNode.property.name) || hasComputed) &&
+      shouldBreak(groups[1][0].node, printedNodes)
     );
   }
 
   const shouldMerge =
     groups.length >= 2 &&
     !hasComment(groups[1][0].node) &&
-    shouldNotWrap(groups);
+    shouldNotWrap(groups) &&
+    !shouldBreak(groups[1][0].node, groups[1]);
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);

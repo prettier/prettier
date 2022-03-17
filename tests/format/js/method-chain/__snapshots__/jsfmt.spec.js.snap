@@ -335,18 +335,21 @@ function f() {
   );
 }
 
-_.a(a)
+_
+  .a(a)
   /* very very very very very very very long such that it is longer than 80 columns */
   .a();
 
-_.a(
-  a
-) /* very very very very very very very long such that it is longer than 80 columns */
+_
+  .a(
+    a
+  ) /* very very very very very very very long such that it is longer than 80 columns */
   .a();
 
-_.a(
-  a
-) /* very very very very very very very long such that it is longer than 80 columns */
+_
+  .a(
+    a
+  ) /* very very very very very very very long such that it is longer than 80 columns */
   .a();
 
 Something
@@ -369,7 +372,8 @@ const configModel = this.baseConfigurationService
   .consolidated // global/default values (do NOT modify)
   .merge(this.cachedWorkspaceConfig);
 
-this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
+this
+  .doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
     () => null,
     (error) => {
@@ -461,7 +465,8 @@ window.Data[key]("foo")
 
 =====================================output=====================================
 [].forEach((key) => {
-  data[key]("foo")
+  data
+    [key]("foo")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
 });
@@ -473,7 +478,8 @@ window.Data[key]("foo")
     .catch(() => console.log("baz"));
 });
 
-window.Data[key]("foo")
+window.Data
+  [key]("foo")
   .then(() => a)
   .catch(() => b);
 
@@ -592,7 +598,8 @@ not.d3.scaleLinear()
   .range([0, width])
 
 =====================================output=====================================
-d3.select("body")
+d3
+  .select("body")
   .append("circle")
   .at({ width: 30, fill: "#f0f" })
   .st({ fontWeight: 600 });
@@ -654,15 +661,16 @@ function f() {
 =====================================output=====================================
 export default function theFunction(action$, store) {
   return action$.ofType(THE_ACTION).switchMap((action) =>
-    Observable.webSocket({
-      url: THE_URL,
-      more: stuff(),
-      evenMore: stuff({
-        value1: true,
-        value2: false,
-        value3: false,
-      }),
-    })
+    Observable
+      .webSocket({
+        url: THE_URL,
+        more: stuff(),
+        evenMore: stuff({
+          value1: true,
+          value2: false,
+          value3: false,
+        }),
+      })
       .filter((data) => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
       .retryWhen((errors) => errors)
@@ -670,20 +678,22 @@ export default function theFunction(action$, store) {
 }
 
 function f() {
-  return this._getWorker(workerOptions)({
-    filePath,
-    hasteImplModulePath: this._options.hasteImplModulePath,
-  }).then((metadata) => {
-    // \`1\` for truthy values instead of \`true\` to save cache space.
-    fileMetadata[H.VISITED] = 1;
-    const metadataId = metadata.id;
-    const metadataModule = metadata.module;
-    if (metadataId && metadataModule) {
-      fileMetadata[H.ID] = metadataId;
-      setModule(metadataId, metadataModule);
-    }
-    fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
-  });
+  return this
+    ._getWorker(workerOptions)({
+      filePath,
+      hasteImplModulePath: this._options.hasteImplModulePath,
+    })
+    .then((metadata) => {
+      // \`1\` for truthy values instead of \`true\` to save cache space.
+      fileMetadata[H.VISITED] = 1;
+      const metadataId = metadata.id;
+      const metadataModule = metadata.module;
+      if (metadataId && metadataModule) {
+        fileMetadata[H.ID] = metadataId;
+        setModule(metadataId, metadataModule);
+      }
+      fileMetadata[H.DEPENDENCIES] = metadata.dependencies || [];
+    });
 }
 
 ================================================================================
@@ -754,16 +764,19 @@ var jqxhr = $.ajax("example.php")
   .fail(failFn);
 
 =====================================output=====================================
-Object.keys(
-  availableLocales({
-    test: true,
-  })
-).forEach((locale) => {
-  // ...
-});
+Object
+  .keys(
+    availableLocales({
+      test: true,
+    })
+  )
+  .forEach((locale) => {
+    // ...
+  });
 
 this.layoutPartsToHide = this.utils.hashset(
-  _.flatMap(this.visibilityHandlers, (fn) => fn())
+  _
+    .flatMap(this.visibilityHandlers, (fn) => fn())
     .concat(this.record.resolved_legacy_visrules)
     .filter(Boolean)
 );
@@ -1036,13 +1049,15 @@ function palindrome(a, b) {
 
 // examples from https://github.com/prettier/prettier/issues/1565
 
-d3.select("body")
+d3
+  .select("body")
   .selectAll("p")
   .data([1, 2, 3])
   .enter()
   .style("color", "white");
 
-Object.keys(props)
+Object
+  .keys(props)
   .filter((key) => key in own === false)
   .reduce((a, key) => {
     a[key] = props[key];
@@ -1077,10 +1092,12 @@ fetchUser(id) //
 // examples from https://github.com/prettier/prettier/issues/3107
 
 function HelloWorld() {
-  window.FooClient.setVars({
-    locale: getFooLocale({ page }),
-    authorizationToken: data.token,
-  }).initVerify("foo_container");
+  window.FooClient
+    .setVars({
+      locale: getFooLocale({ page }),
+      authorizationToken: data.token,
+    })
+    .initVerify("foo_container");
 
   fejax
     .ajax({
@@ -1104,7 +1121,8 @@ action$
   .map((action) => action.payload.query)
   .filter((q) => !!q)
   .switchMap((q) =>
-    Observable.timer(800) // debounce
+    Observable
+      .timer(800) // debounce
       .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
       .mergeMap(() =>
         Observable.merge(
@@ -1117,10 +1135,12 @@ action$
       )
   );
 
-window.FooClient.setVars({
-  locale: getFooLocale({ page }),
-  authorizationToken: data.token,
-}).initVerify("foo_container");
+window.FooClient
+  .setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token,
+  })
+  .initVerify("foo_container");
 
 it("gets triggered by mouseenter", () => {
   const wrapper = shallow(<CalendarDay />);
@@ -1138,13 +1158,16 @@ class X {
 }
 
 // should break when call expressions get complex
-x.a()
+x
+  .a()
   .b([c, [d, [e]]])
   .f();
-x.a()
+x
+  .a()
   .b(c(d(e())))
   .f();
-x.a()
+x
+  .a()
   .b(\`\${c(d())}\`)
   .f();
 
