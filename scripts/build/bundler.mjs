@@ -36,11 +36,16 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceText = [
     // Use `require` directly
     {
-      file: '*',
+      file: "*",
       find: "const require = createRequire(import.meta.url);",
       replacement: "",
     },
-    // Use `require` directly
+    // Use `__dirname` directly
+    {
+      file: "*",
+      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
+      replacement: "",
+    },
     // `tslib` exports global variables
     {
       file: require.resolve("tslib"),
@@ -81,11 +86,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
     for (const { input, output } of bundledFiles) {
       replaceModule[input] = { path: output, external: true };
     }
-
-    // Use `__dirname` directly
-    replaceStrings[
-      "const __dirname = path.dirname(fileURLToPath(import.meta.url));"
-    ] = "";
   } else {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
@@ -153,12 +153,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
-<<<<<<< HEAD
-    mainFields: ["module", "main"],
     target: [...(bundle.esbuildTarget ?? ["node12"])],
-=======
-    target: [...(bundle.esbuildTarget ?? ["node10"])],
->>>>>>> main
     logLevel: "error",
   };
 
@@ -203,44 +198,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
   }
 }
 
-<<<<<<< HEAD
 async function runBuild(bundle, esbuildOptions) {
   await esbuild.build(esbuildOptions);
-=======
-async function runBuild(bundle, esbuildOptions, buildOptions) {
-  if (!buildOptions.babel || bundle.skipBabel) {
-    await esbuild.build(esbuildOptions);
-    return;
-  }
-
-  const { format, plugins, outfile } = esbuildOptions;
-
-  await esbuild.build({
-    ...esbuildOptions,
-    plugins: plugins.filter(({ name }) => name !== "umd"),
-    format: format === "umd" ? "cjs" : format,
-    minify: false,
-    target: undefined,
-  });
-
-  const text = await fs.readFile(outfile);
-
-  const { code } = await babel.transformAsync(text, {
-    filename: outfile,
-    ...getBabelConfig(bundle),
-  });
-  await fs.writeFile(outfile, code);
-
-  await esbuild.build({
-    ...esbuildOptions,
-    define: {},
-    plugins: plugins.filter(
-      ({ name }) => name === "umd" || name === "throw-warnings"
-    ),
-    entryPoints: [outfile],
-    allowOverwrite: true,
-  });
->>>>>>> main
 }
 
 async function* createBundle(bundle, buildOptions) {
