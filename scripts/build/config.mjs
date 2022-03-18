@@ -189,6 +189,16 @@ const parsers = [
         replacement: "node.type === 'word'",
       },
     ],
+    replaceModule: {
+      // Prevent load `source-map` module
+      [require.resolve("postcss/lib/previous-map.js")]: {
+        contents: "module.exports = class {}",
+      },
+      // Prevent load `source-map` module
+      [require.resolve("postcss/lib/map-generator.js")]: {
+        contents: "module.exports = class { generate() {} }",
+      },
+    },
   },
   {
     input: "src/language-graphql/parser-graphql.js",
