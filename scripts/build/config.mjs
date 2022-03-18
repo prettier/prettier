@@ -92,6 +92,15 @@ const parsers = [
         find: "typescriptVersionIsAtLeast[version] = semverCheck(version);",
         replacement: "typescriptVersionIsAtLeast[version] = true;",
       },
+      // This cause webpack warn `Critical dependency: require function is used in a way in which dependencies cannot be statically extracted`
+      // #12338
+      {
+        file: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/create-program/shared.js"
+        ),
+        find: "moduleResolver = require(moduleResolverPath);",
+        replacement: "throw new Error('Dynamic require is not supported');",
+      },
 
       ...Object.entries({
         // `typescript/lib/typescript.js` expose extra global objects
