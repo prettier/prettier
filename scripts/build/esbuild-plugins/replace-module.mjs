@@ -1,7 +1,10 @@
 import fs from "node:fs/promises";
 
-const DEFAULT_ON_RESOLVE_CONCEPTS = { filter: /./ };
-const DEFAULT_ON_LOAD_CONCEPTS = { filter: /.(?:js|json|mjs|cjs)$/ };
+const DEFAULT_ON_RESOLVE_CONCEPTS = { filter: /./, namespace: "file" };
+const DEFAULT_ON_LOAD_CONCEPTS = {
+  filter: /.(?:js|json|mjs|cjs)$/,
+  namespace: "file",
+};
 
 function processReplacements(replacements) {
   const onResolveReplacements = new Map();
@@ -114,10 +117,7 @@ function setupOnResolveListener(build, { concepts, replacements }) {
   // Use a `Set` to avoid infinite loop
   const seenModules = new Set();
   build.onResolve(concepts, async (args) => {
-    if (
-      !(args.kind === "require-call" || args.kind === "import-statement") ||
-      args.namespace !== "file"
-    ) {
+    if (!(args.kind === "require-call" || args.kind === "import-statement")) {
       return;
     }
 
