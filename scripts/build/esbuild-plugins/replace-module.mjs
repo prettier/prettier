@@ -99,7 +99,7 @@ function processReplacements(replacements) {
     }
 
     console.log(replacement);
-    throw new Error("Unexpected replacement option");
+    throw new Error("Unexpected replacement option.");
   }
 
   return { onResolveReplacements, onLoadReplacements, onLoadProcessors };
