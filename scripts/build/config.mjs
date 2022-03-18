@@ -1,6 +1,7 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
+import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -280,6 +281,13 @@ const coreBundles = [
         require.resolve("./shims/chalk.cjs"),
       ...replaceDiffPackageEntry("lib/diff/array.js"),
     },
+    replaceText: [
+      {
+        file: path.join(PROJECT_ROOT, "src/main/parser.js"),
+        find: "return requireParser(opts.parser);",
+        replacement: "",
+      },
+    ],
   },
   {
     input: "bin/prettier.js",
