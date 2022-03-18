@@ -11,7 +11,7 @@ export default function esbuildPluginReplaceText({
 
     if (Object.prototype.hasOwnProperty.call(replacement, "process")) {
       if (typeof replacement.process !== "function") {
-        throw new Error("'process' option should be a function.");
+        throw new TypeError("'process' option should be a function.");
       }
 
       continue;
