@@ -21,11 +21,9 @@ function processReplacements(replacements) {
       return;
     }
 
-    if (onLoadReplacements.has(module)) {
-      throw new Error(
-        `module: '${module}' already replaced with another content.`
-      );
-    }
+    throw new Error(
+      `module: '${module}' already replaced with another content.`
+    );
   };
 
   for (const replacement of replacements) {
@@ -61,7 +59,7 @@ function processReplacements(replacements) {
       }
 
       checkPathReplaced(module);
-      checkTextReplaced();
+      checkTextReplaced(module);
 
       onLoadReplacements.set(module, {
         contents: replacement.text,
@@ -72,7 +70,7 @@ function processReplacements(replacements) {
     }
 
     checkPathReplaced(module);
-    checkTextReplaced();
+    checkTextReplaced(module);
 
     if (!onLoadProcessors.has(module)) {
       onLoadProcessors.set(module, []);
