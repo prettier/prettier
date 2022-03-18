@@ -134,10 +134,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule.push({
-        module: path.join(PROJECT_ROOT, file),
-        text: "",
-      });
+      replaceModule.push({ module: path.join(PROJECT_ROOT, file), text: "" });
     }
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
