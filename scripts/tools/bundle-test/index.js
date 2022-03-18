@@ -33,26 +33,33 @@ const TEMPORARY_DIRECTORY = fileURLToPath(new URL("./.tmp", import.meta.url));
 
 /* `require` in `parser-typescript.js`, #12338 */
 (async () => {
-  const files = await fs.readdir(DIST_DIR);
-  for (const file of files) {
-    if (
-      !(
-        file.startsWith("parser-") ||
-        file === "standalone.js" ||
-        file === "doc.js"
-      )
-    ) {
-      continue;
-    }
+  const esmFilesDirectory = path.join(DIST_DIR, "esm");
 
-    console.log(`Testing ${file}: `);
+  const files = [
+    (await fs.readdir(DIST_DIR))
+      .filter(
+        (name) =>
+          name.startsWith("parser-") ||
+          name === "standalone.js" ||
+          name === "doc.js"
+      )
+      .map((name) => ({ name, file: path.join(DIST_DIR, name) })),
+    (await fs.readdir(esmFilesDirectory)).map((name) => ({
+      displayName: `esm/${name}`,
+      name,
+      file: path.join(esmFilesDirectory, name),
+    })),
+  ].flat();
+
+  for (const { displayName, name, file } of files) {
+    console.log(`${displayName || name}: `);
 
     const stats = await runWebpack({
       mode: "production",
-      entry: path.join(DIST_DIR, file),
+      entry: file,
       output: {
         path: TEMPORARY_DIRECTORY,
-        filename: getRandomFileName(file),
+        filename: getRandomFileName(name),
       },
     });
     const result = stats.toJson();
@@ -70,6 +77,6 @@ const TEMPORARY_DIRECTORY = fileURLToPath(new URL("./.tmp", import.meta.url));
       throw new Error("Unexpected webpack warning.");
     }
 
-    console.log("Passed.");
+    console.log("  Passed.");
   }
 })();
