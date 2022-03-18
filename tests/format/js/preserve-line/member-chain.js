@@ -58,4 +58,4 @@ const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
 
-  const video = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0]
+const video = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0]
