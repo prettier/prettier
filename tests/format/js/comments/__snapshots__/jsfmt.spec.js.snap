@@ -4370,9 +4370,8 @@ function memberOutside() {
 
 function memberInAndOutWithCalls() {
   return (
-    aFunction
-      .b// Reason for a
-      ()
+    aFunction.b// Reason for a
+    ()
       .c.d()
   )
 }
@@ -4632,9 +4631,8 @@ function memberOutside() {
 
 function memberInAndOutWithCalls() {
   return (
-    aFunction
-      .b// Reason for a
-      ()
+    aFunction.b// Reason for a
+    ()
       .c.d()
   );
 }
