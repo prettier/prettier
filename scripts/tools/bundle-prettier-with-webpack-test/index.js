@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import crypto from "node:crypto";
+import fs from "node:fs/promises";
 import webpack from "webpack";
 import { DIST_DIR } from "../../../scripts/utils/index.mjs";
 
@@ -32,24 +33,43 @@ const TEMPORARY_DIRECTORY = fileURLToPath(new URL("./.tmp", import.meta.url));
 
 /* `require` in `parser-typescript.js`, #12338 */
 (async () => {
-  const PROBLEMATIC_WARNING_MESSAGE =
-    "Critical dependency: require function is used in a way in which dependencies cannot be statically extracted";
+  const files = await fs.readdir(DIST_DIR);
+  for (const file of files) {
+    if (
+      !(
+        file.startsWith("parser-") ||
+        file === "standalone.js" ||
+        file === "doc.js"
+      )
+    ) {
+      continue;
+    }
 
-  const stats = await runWebpack({
-    mode: "production",
-    entry: path.join(DIST_DIR, "parser-typescript.js"),
-    output: {
-      path: TEMPORARY_DIRECTORY,
-      filename: getRandomFileName("output"),
-    },
-  });
-  const result = stats.toJson();
-  const { warnings } = result;
-  const error = warnings.find(
-    ({ message }) => message === PROBLEMATIC_WARNING_MESSAGE
-  );
-  if (error) {
-    console.error(error);
-    throw new Error("Unexpected webpack warning.");
+    console.log(`Testing ${file}: `);
+
+    const stats = await runWebpack({
+      mode: "production",
+      entry: path.join(DIST_DIR, file),
+      output: {
+        path: TEMPORARY_DIRECTORY,
+        filename: getRandomFileName(file),
+      },
+    });
+    const result = stats.toJson();
+    const warnings = result.warnings.filter(
+      ({ message }) =>
+        !(
+          message.startsWith("entrypoint size limit:") ||
+          message.startsWith("asset size limit:") ||
+          message.startsWith("webpack performance recommendations:")
+        )
+    );
+
+    if (warnings.length > 0) {
+      console.log(warnings);
+      throw new Error("Unexpected webpack warning.");
+    }
+
+    console.log("Passed.");
   }
 })();
