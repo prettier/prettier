@@ -1,6 +1,5 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import fs from "node:fs/promises";
 import crypto from "node:crypto";
 import webpack from "webpack";
 import { DIST_DIR } from "../../../scripts/utils/index.mjs";
@@ -33,27 +32,12 @@ const TEMPORARY_DIRECTORY = fileURLToPath(new URL("./.tmp", import.meta.url));
 
 /* `require` in `parser-typescript.js`, #12338 */
 (async () => {
-  try {
-    await fs.mkdir(TEMPORARY_DIRECTORY);
-  } catch {
-    // No op
-  }
-
-  const relativePath = path
-    .relative(TEMPORARY_DIRECTORY, DIST_DIR)
-    .replaceAll("\\", "/");
-
   const PROBLEMATIC_WARNING_MESSAGE =
     "Critical dependency: require function is used in a way in which dependencies cannot be statically extracted";
-  const inputFile = path.join(TEMPORARY_DIRECTORY, getRandomFileName("input"));
-  await fs.writeFile(
-    inputFile,
-    `import "${relativePath}/parser-typescript.js"`
-  );
 
   const stats = await runWebpack({
     mode: "production",
-    entry: inputFile,
+    entry: path.join(DIST_DIR, "parser-typescript.js"),
     output: {
       path: TEMPORARY_DIRECTORY,
       filename: getRandomFileName("output"),
