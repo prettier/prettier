@@ -104,25 +104,10 @@ const parsers = [
       {
         file: require.resolve("typescript"),
         process(text) {
-          const lines = text.split("\n");
-          const functionStartLine = lines.findIndex((line) =>
-            line.includes("function tryGetNodePerformanceHooks() {")
-          );
-          if (functionStartLine === -1) {
-            throw new Error("Unexpected text.");
-          }
-          const lineText = lines[functionStartLine];
-          const { indentText } = lineText.match(/^(?<indentText>\s+)\S/).groups;
-          const functionTotalLines =
-            lines
-              .slice(functionStartLine)
-              .findIndex((line) => line.startsWith(`${indentText}}`)) + 1;
-          lines.splice(
-            functionStartLine,
-            functionTotalLines,
+          return text.replace(
+            /(?<=\n)(?<indentString>\s+)function tryGetNodePerformanceHooks\(\) {.*?\n\k<indentString>}(?=\n)/s,
             "function tryGetNodePerformanceHooks() {}"
           );
-          return lines.join("\n");
         },
       },
 
