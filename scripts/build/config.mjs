@@ -92,7 +92,7 @@ const parsers = [
         find: "typescriptVersionIsAtLeast[version] = semverCheck(version);",
         replacement: "typescriptVersionIsAtLeast[version] = true;",
       },
-      // This cause webpack warn `Critical dependency: require function is used in a way in which dependencies cannot be statically extracted`
+      // The next two replacement fixed webpack warning `Critical dependency: require function is used in a way in which dependencies cannot be statically extracted`
       // #12338
       {
         file: require.resolve(
@@ -100,6 +100,30 @@ const parsers = [
         ),
         find: "moduleResolver = require(moduleResolverPath);",
         replacement: "throw new Error('Dynamic require is not supported');",
+      },
+      {
+        file: require.resolve("typescript"),
+        process(text) {
+          const lines = text.split("\n");
+          const functionStartLine = lines.findIndex((line) =>
+            line.includes("function tryGetNodePerformanceHooks() {")
+          );
+          if (functionStartLine === -1) {
+            throw new Error("Unexpected text.");
+          }
+          const lineText = lines[functionStartLine];
+          const { indentText } = lineText.match(/^(?<indentText>\s+)\S/).groups;
+          const functionTotalLines =
+            lines
+              .slice(functionStartLine)
+              .findIndex((line) => line.startsWith(`${indentText}}`)) + 1;
+          lines.splice(
+            functionStartLine,
+            functionTotalLines,
+            "function tryGetNodePerformanceHooks() {}"
+          );
+          return lines.join("\n");
+        },
       },
 
       ...Object.entries({
