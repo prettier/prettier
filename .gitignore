@@ -3,7 +3,7 @@
 /node_modules
 /website/node_modules
 /scripts/release/node_modules
-/scripts/tools/bundle-prettier-with-webpack-test/node_modules
+/scripts/tools/bundle-test/node_modules
 /scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
 
 .tmp

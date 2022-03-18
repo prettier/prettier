@@ -170,7 +170,7 @@ module.exports = {
       files: [
         "**/*.mjs",
         "scripts/release/**/*.js",
-        "scripts/tools/bundle-prettier-with-webpack-test/**/*.js",
+        "scripts/tools/bundle-test/**/*.js",
       ],
       parserOptions: {
         sourceType: "module",

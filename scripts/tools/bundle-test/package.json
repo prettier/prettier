@@ -1,5 +1,5 @@
 {
-  "name": "bundle-prettier-with-webpack-test",
+  "name": "@prettier/bundle-test",
   "version": "0.0.0",
   "private": "true",
   "type": "module",

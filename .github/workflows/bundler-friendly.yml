@@ -40,7 +40,7 @@ jobs:
     needs: [build]
     defaults:
       run:
-        working-directory: scripts/tools/bundle-prettier-with-webpack-test
+        working-directory: scripts/tools/bundle-test
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0

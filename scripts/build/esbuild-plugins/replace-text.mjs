@@ -21,9 +21,7 @@ export default function esbuildPluginReplaceText({
       !Object.prototype.hasOwnProperty.call(replacement, "find") ||
       !Object.prototype.hasOwnProperty.call(replacement, "replacement")
     ) {
-      throw new Error(
-        "'process' or 'find' and 'replacement' option is required."
-      );
+      throw new Error("'find' and 'replacement' option is required.");
     }
 
     replacement.process = (text) =>
