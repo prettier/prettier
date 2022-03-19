@@ -71,7 +71,6 @@ function printFlow(path, options, print) {
     case "DeclareModuleExports":
       return printFlowDeclaration(path, [
         "module.exports",
-        ": ",
         print("typeAnnotation"),
         semi,
       ]);
@@ -116,7 +115,7 @@ function printFlow(path, options, print) {
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
-      return print("typeAnnotation");
+      return [": ", print("typeAnnotation")];
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
@@ -200,12 +199,7 @@ function printFlow(path, options, print) {
         : path.getParentNode().this === node
         ? "this"
         : "";
-      return [
-        name,
-        printOptionalToken(path),
-        name ? ": " : "",
-        print("typeAnnotation"),
-      ];
+      return [name, printOptionalToken(path), print("typeAnnotation")];
     }
 
     case "InterfaceDeclaration":

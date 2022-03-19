@@ -258,7 +258,7 @@ function printFunctionType(path, options, print) {
   const returnTypeDoc =
     node.returnType || node.predicate || node.typeAnnotation
       ? [
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
+          isArrowFunctionTypeAnnotation ? " => " : "",
           print("returnType"),
           print("predicate"),
           print("typeAnnotation"),

@@ -68,3 +68,10 @@ test("cursorOffset === rangeStart", () => {
     cursorOffset: 7,
   });
 });
+
+test("keep cursor inside literal with type annotation", () => {
+  const code = "let i: T;\n";
+  expect(
+    prettier.formatWithCursor(code, { parser: "typescript", cursorOffset: 5 })
+  ).toMatchObject({ formatted: code, cursorOffset: 5 });
+});

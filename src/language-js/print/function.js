@@ -438,15 +438,10 @@ function printReturnType(path, print, options) {
 
   const parts = [returnType];
 
-  // prepend colon to TypeScript type annotation
-  if (node.returnType && node.returnType.typeAnnotation) {
-    parts.unshift(": ");
-  }
-
   if (node.predicate) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
-    parts.push(node.returnType ? " " : ": ", print("predicate"));
+    parts.push(print("predicate"));
   }
 
   return parts;

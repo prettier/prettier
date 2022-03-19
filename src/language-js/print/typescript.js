@@ -175,7 +175,7 @@ function printTypescript(path, options, print) {
       );
 
       if (node.typeAnnotation) {
-        parts.push(": ", print("typeAnnotation"));
+        parts.push(print("typeAnnotation"));
       }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
@@ -236,7 +236,7 @@ function printTypescript(path, options, print) {
         node.declare ? "declare " : "",
         "[",
         node.parameters ? parametersGroup : "",
-        node.typeAnnotation ? "]: " : "]",
+        "]",
         node.typeAnnotation ? print("typeAnnotation") : "",
         parent.type === "ClassBody" ? semi : "",
       ];
@@ -287,7 +287,7 @@ function printTypescript(path, options, print) {
       if (node.returnType || node.typeAnnotation) {
         const isType = node.type === "TSConstructorType";
         parts.push(
-          isType ? " => " : ": ",
+          isType ? " => " : "",
           print("returnType"),
           print("typeAnnotation")
         );
@@ -318,7 +318,6 @@ function printTypescript(path, options, print) {
             node.optional
               ? getTypeScriptMappedTypeModifier(node.optional, "?")
               : "",
-            node.typeAnnotation ? ": " : "",
             print("typeAnnotation"),
             ifBreak(semi),
           ]),
@@ -515,8 +514,15 @@ function printTypescript(path, options, print) {
         print("typeName"),
         printTypeParameters(path, options, print, "typeParameters"),
       ];
-    case "TSTypeAnnotation":
-      return print("typeAnnotation");
+    case "TSTypeAnnotation": {
+      const parentNode = path.getParentNode();
+      const isFunctionDeclarationIdentifier =
+        parentNode.type === "DeclareFunction" && parentNode.id === node;
+      return [
+        isFunctionDeclarationIdentifier ? "" : ": ",
+        print("typeAnnotation"),
+      ];
+    }
     case "TSEmptyBodyFunctionExpression":
       return printMethodInternal(path, options, print);
 

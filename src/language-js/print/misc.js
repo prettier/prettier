@@ -53,16 +53,11 @@ function printTypeAnnotation(path, options, print) {
     return "";
   }
 
-  const parentNode = path.getParentNode();
-
-  const isFunctionDeclarationIdentifier =
-    parentNode.type === "DeclareFunction" && parentNode.id === node;
-
   if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
     return [" /*: ", print("typeAnnotation"), " */"];
   }
 
-  return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
+  return print("typeAnnotation");
 }
 
 function printBindExpressionCallee(path, options, print) {
