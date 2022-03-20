@@ -269,8 +269,14 @@ function normalizeApiOptions(options, optionInfos, opts) {
 
 function normalizeCliOptions(options, optionInfos, opts) {
   /* istanbul ignore next */
-  if (process.env.NODE_ENV !== "production" && !opts.colorsModule) {
-    throw new Error("'colorsModule' option is required.");
+  if (process.env.NODE_ENV !== "production") {
+    if (!opts.colorsModule) {
+      throw new Error("'colorsModule' option is required.");
+    }
+
+    if (!opts.levenshteinDistance) {
+      throw new Error("'levenshteinDistance' option is required.");
+    }
   }
 
   return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });

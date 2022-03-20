@@ -23,9 +23,14 @@ function printOptions(options) {
     filepath,
     errors,
     parser,
+    pluginSearchDirs,
 
     ...snapshotOptions
   } = options;
+
+  if (pluginSearchDirs !== false) {
+    snapshotOptions.pluginSearchDirs = pluginSearchDirs;
+  }
 
   const keys = Object.keys(snapshotOptions).sort();
   return keys
