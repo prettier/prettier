@@ -53,9 +53,9 @@ for (var of of) {
 `;
 
 exports[`parserForInStatement2.ts [babel-ts] format 1`] = `
-"Unexpected keyword 'in'. (1:10)
+"Missing semicolon. (1:12)
 > 1 | for (var in X) {
-    |          ^
+    |            ^
   2 | }
   3 |"
 `;

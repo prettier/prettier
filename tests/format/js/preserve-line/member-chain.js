@@ -59,3 +59,5 @@ const sel = this.connections
   .filter(x => x.selected);
 
 const video = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0]
+
+const longerVideo = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0].anotherFunction("function")[index - 1]

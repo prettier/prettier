@@ -265,8 +265,20 @@ function printMemberChain(path, options, print) {
     return /^[A-Z]|^[$_]+$/.test(name);
   }
 
-  function containsArray(name) {
-    return /^\[/.test(name);
+  // If the case contains an array then we want to wrap the array before
+  // the next function call
+
+  function isArrayExpression(node) {
+    return node.type === "ArrayExpression";
+  }
+
+  function containsOneArray(nodes) {
+    const nodeNames = nodes.map((node) => node.node.name);
+    if (nodeNames.length !== 1) {
+      return false;
+    } else {
+      return false;
+    }
   }
 
   // In case the Identifier is shorter than tab width, we can keep the
@@ -280,9 +292,26 @@ function printMemberChain(path, options, print) {
     return name.length <= options.tabWidth;
   }
 
-  function shouldNotBreak(name) {
-    return (isFactory(name) && !isShort(name)) || containsArray(name);
+  // Do not wrap a line if it contains an array
+  // due to it may produce formatting issues
+  // where arrays are put on new lines
+  // instead of functions
+
+  function shouldNotBreak(node) {
+    if (containsOneArray(node)) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  // wrap the following
+  // const longerVideo = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0].anotherFunction("function")[index - 1]
+  // to output
+  // const longerVideo = document
+  // .querySelectorAll(".cms-block-layout1 .swiper-slide")[index + 1]
+  // .querySelectorAll("video")[0]
+  // .anotherFunction("function")[index - 1];
 
   function shouldNotWrap(groups) {
     const hasComputed = groups[1].length > 0 && groups[1][0].node.computed;

@@ -531,6 +531,8 @@ const sel = this.connections
 
 const video = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0]
 
+const longerVideo = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0].anotherFunction("function")[index - 1]
+
 =====================================output=====================================
 fooBar.doSomething("Hello World")
   .doAnotherThing("Foo", { foo: bar })
@@ -583,6 +585,12 @@ const sel = this.connections.concat(
 const video = document.querySelectorAll(".cms-block-layout1 .swiper-slide")[
   index + 1
 ].querySelectorAll("video")[0];
+
+const longerVideo = document.querySelectorAll(
+  ".cms-block-layout1 .swiper-slide"
+)
+  [index + 1].querySelectorAll("video")[0]
+  .anotherFunction("function")[index - 1];
 
 ================================================================================
 `;
