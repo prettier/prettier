@@ -281,10 +281,20 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Custom directory that contains prettier plugins in node_modules subdirectory.
 Overrides default behavior when plugins are searched relatively to the location of Prettier.
 Multiple values are accepted.",
-          "items": Object {
-            "type": "string",
-          },
-          "type": "array",
+          "oneOf": Array [
+            Object {
+              "items": Object {
+                "type": "string",
+              },
+              "type": "array",
+            },
+            Object {
+              "description": "Disable plugin autoloading.",
+              "enum": Array [
+                false,
+              ],
+            },
+          ],
         },
         "plugins": Object {
           "default": Array [],
