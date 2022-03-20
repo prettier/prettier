@@ -222,7 +222,6 @@ module.exports = {
             patterns: ["../"],
           },
         ],
-        "no-console": "off",
       },
     },
     {

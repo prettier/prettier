@@ -13,6 +13,7 @@ const logResolvedConfigPathOrDie = require("./find-config-path.js");
 const {
   utils: { isNonEmptyArray },
 } = require("./prettier-internal.js");
+const { printToScreen } = require("./utils.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -69,12 +70,12 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.version) {
-    console.log(prettier.version);
+    printToScreen(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    console.log(
+    printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
         : createUsage(context)
@@ -83,7 +84,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.supportInfo) {
-    console.log(
+    printToScreen(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
@@ -105,7 +106,7 @@ async function main(rawArguments, logger) {
     await formatFiles(context);
   } else {
     process.exitCode = 1;
-    console.log(createUsage(context));
+    printToScreen(createUsage(context));
   }
 }
 
