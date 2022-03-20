@@ -2,6 +2,7 @@
 
 const path = require("path");
 const fs = require("fs");
+const { outdent } = require("outdent");
 const { default: chalk } = require("../../vendors/chalk.js");
 const { default: tempy } = require("../../vendors/tempy.js");
 const { execaSync } = require("../../vendors/execa.js");
@@ -74,12 +75,12 @@ module.exports = (packageDir) => {
 
   console.log(
     chalk.green(
+      outdent`
+        Prettier installed
+          at ${chalk.inverse(installed)}
+          from ${chalk.inverse(packageDir)}
+          with ${chalk.inverse(client)}.
       `
-Prettier installed
-  at ${chalk.inverse(installed)}
-  from ${chalk.inverse(packageDir)}
-  with ${chalk.inverse(client)}.
-      `.trim()
     )
   );
 
