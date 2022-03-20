@@ -192,7 +192,7 @@ const parsers = [
       },
       {
         module: require.resolve("postcss/lib/map-generator.js"),
-        text: "module.exports = class { generate() {} }",
+        text: "module.exports = class { generate() {} };",
       },
     ],
   },
