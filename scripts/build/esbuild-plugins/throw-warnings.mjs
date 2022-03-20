@@ -7,8 +7,12 @@ export default function esbuildPluginThrowWarnings() {
   return {
     name: "throw-warnings",
     setup(build) {
-      build.onEnd(({ warnings }) => {
-        for (const warning of warnings) {
+      build.onEnd((result) => {
+        if (result.errors.length > 0) {
+          return;
+        }
+
+        for (const warning of result.warnings) {
           if (ignoredWarnings.has(warning.text)) {
             continue;
           }
