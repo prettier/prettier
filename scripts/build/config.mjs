@@ -178,12 +178,21 @@ const parsers = [
   {
     input: "src/language-css/parser-postcss.js",
     replaceModule: [
+      // `postcss-values-parser` uses constructor.name, it will be changed by bundler
+      // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
       {
-        // `postcss-values-parser` uses constructor.name, it will be changed by bundler
-        // https://github.com/shellscape/postcss-values-parser/blob/c00f858ab8c86ce9f06fdb702e8f26376f467248/lib/parser.js#L499
         module: require.resolve("postcss-values-parser/lib/parser.js"),
         find: "node.constructor.name === 'Word'",
         replacement: "node.type === 'word'",
+      },
+      // The following two replacements prevent load `source-map` module
+      {
+        module: require.resolve("postcss/lib/previous-map.js"),
+        text: "module.exports = class {};",
+      },
+      {
+        module: require.resolve("postcss/lib/map-generator.js"),
+        text: "module.exports = class { generate() {} };",
       },
     ],
   },
