@@ -8,7 +8,6 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
-import esbuildPluginReplaceText from "./esbuild-plugins/replace-text.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
@@ -19,7 +18,6 @@ const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
-const EMPTY_MODULE_REPLACEMENT = { contents: "" };
 
 function getBabelConfig(bundle) {
   const config = {
@@ -77,10 +75,10 @@ const bundledFiles = [
 }));
 
 function* getEsbuildOptions(bundle, buildOptions) {
-  const replaceText = [
+  const replaceModule = [
     // `tslib` exports global variables
     {
-      file: require.resolve("tslib"),
+      module: require.resolve("tslib"),
       find: "factory(createExporter(root",
       replacement: "factory(createExporter({}",
     },
@@ -94,8 +92,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceText.push({
-      file: "*",
+    replaceModule.push({
+      module: "*",
       find: "process.env.PRETTIER_DEBUG",
       replacement: "globalThis.PRETTIER_DEBUG",
     });
@@ -111,20 +109,20 @@ function* getEsbuildOptions(bundle, buildOptions) {
     define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
-  const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace bundled files and `package.json` with dynamic `require()`
     for (const { input, output } of bundledFiles) {
-      replaceModule[input] = { path: output, external: true };
+      replaceModule.push({ module: input, external: output });
     }
   } else {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: JSON.stringify({ version: packageJson.version }),
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, "package.json"),
+      text: JSON.stringify({ version: packageJson.version }),
       loader: "json",
-    };
+    });
 
     // Replace parser getters with `undefined`
     for (const file of [
@@ -136,11 +134,14 @@ function* getEsbuildOptions(bundle, buildOptions) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] = EMPTY_MODULE_REPLACEMENT;
+      replaceModule.push({ module: path.join(PROJECT_ROOT, file), text: "" });
     }
 
     // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule.assert = require.resolve("./shims/assert.cjs");
+    replaceModule.push({
+      module: "assert",
+      path: require.resolve("./shims/assert.cjs"),
+    });
   }
 
   let shouldMinify = buildOptions.minify;
@@ -155,12 +156,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
     metafile: true,
     plugins: [
       esbuildPluginEvaluate(),
-      esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
-      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
-      esbuildPluginReplaceText({
-        filter: /\.[cm]?js$/,
-        replacements: [...replaceText, ...(bundle.replaceText ?? [])],
+      esbuildPluginReplaceModule({
+        replacements: [...replaceModule, ...(bundle.replaceModule ?? [])],
       }),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       buildOptions.onLicenseFound &&
         esbuildPluginLicense({
           cwd: PROJECT_ROOT,
