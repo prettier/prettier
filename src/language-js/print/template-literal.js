@@ -44,7 +44,9 @@ function printTemplateLiteral(path, print, options) {
   const parts = [];
 
   let expressions = path.map(print, expressionsKey);
-  const isSimple = isSimpleTemplateLiteral(node);
+  const isSimple = options.templateLiteralLineBreaks
+    ? isSimpleTemplateLiteral(node)
+    : true;
 
   if (isSimple) {
     expressions = expressions.map(

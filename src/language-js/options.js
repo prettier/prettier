@@ -74,6 +74,14 @@ module.exports = {
       },
     ],
   },
+  templateLiteralLineBreaks: {
+    since: "2.7.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: true,
+    description:
+      "Change whether template literals expressions can have line breaks added",
+  },
   trailingComma: {
     since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,
