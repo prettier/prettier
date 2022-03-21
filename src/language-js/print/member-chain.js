@@ -281,10 +281,7 @@ function printMemberChain(path, options, print) {
   }
 
   function shouldNotBreak(name) {
-    return (
-      (isFactory(name) && !isShort(name)) ||
-      (containsArray(name) && !isShort(name))
-    );
+    return (isFactory(name) && !isShort(name)) || containsArray(name);
   }
 
   function shouldNotWrap(groups) {

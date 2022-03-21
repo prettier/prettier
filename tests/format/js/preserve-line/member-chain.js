@@ -1,4 +1,4 @@
-fooBar.doSomething('Hello World').doAnotherThing('Foo', { foo: bar })
+fooBar.doSomething('Hello World').doAnotherThing('Foo', {foo: bar })
 
   // App configuration.
   .doOneMoreThing(config)
