@@ -1,7 +1,6 @@
 "use strict";
 
-function printToScreen(text) {
-  process.stdout.write(text);
-}
+// eslint-disable-next-line no-console
+const printToScreen = console.log.bind(console)
 
 module.exports = { printToScreen };
