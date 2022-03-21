@@ -7,6 +7,6 @@ class Foo {
 }
 
 let a! = x
-const b!
+const b! = x
 var c/* */! = x
-export const d!
+export const d! = x
