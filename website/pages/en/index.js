@@ -315,8 +315,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than <strong data-placeholder="dependent-npm">10k</strong>{" "}
-                dependent packages on npm
-                More than{" "}
+                dependent packages on npm More than{" "}
                 <strong data-placeholder="dependent-github">3.9 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
