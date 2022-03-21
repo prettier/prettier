@@ -248,6 +248,18 @@ const coreBundles = [
         find: "const utilInspect = eval(\"require('util').inspect\")",
         replacement: "const utilInspect = require('util').inspect",
       },
+      // `editorconfig` use a older version of `semver` and only uses `semver.gte`
+      {
+        module: require.resolve("editorconfig"),
+        find: 'var semver = __importStar(require("semver"));',
+        replacement: `
+          var semver = {
+            gte: require(${JSON.stringify(
+              require.resolve("semver/functions/gte")
+            )})
+          };
+        `,
+      },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
   },
