@@ -104,6 +104,19 @@ Note that Prettier never unquotes numeric property names in Angular expressions,
 
 If this option is set to `preserve`, `singleQuote` to `false` (default value), and `parser` to `json5`, double quotes are always used for strings. This effectively allows using the `json5` parser for “JSON with comments and trailing commas”.
 
+## Template literal line breaks
+
+Change whether template literals can have line breaks added to them.
+
+Valid options:
+
+- `true` - Line breaks may be added
+- `false` - Line breaks will never be added
+
+| Default | CLI Override                        | API Override                        |
+| ------- | ----------------------------------- | ----------------------------------- |
+| `true`  | `--no-template-literal-line-breaks` | `templateLiteralLineBreaks: <bool>` |
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.

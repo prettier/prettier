@@ -38,6 +38,7 @@ const ENABLED_OPTIONS = [
   "bracketSpacing",
   "jsxSingleQuote",
   "quoteProps",
+  "templateLiteralLineBreaks",
   "arrowParens",
   "trailingComma",
   "proseWrap",
