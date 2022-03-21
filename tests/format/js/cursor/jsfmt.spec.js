@@ -1,6 +1,7 @@
 run_spec(__dirname, ["babel", "typescript", "flow"]);
 
 const prettier = require("prettier-local");
+const { outdent } = require("outdent");
 
 test("translates cursor correctly in basic case", () => {
   expect(
@@ -32,17 +33,22 @@ test("keeps cursor inside formatted node", () => {
 });
 
 test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
-  const code = `
-foo('bar', cb => {
-  console.log('stuff')
-})`;
+  const code =
+    "\n" +
+    outdent`
+      foo('bar', cb => {
+        console.log('stuff')
+      })
+    `;
   expect(
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toMatchObject({
-    formatted: `foo("bar", (cb) => {
-  console.log("stuff");
-});
-`,
+    formatted:
+      outdent`
+        foo("bar", (cb) => {
+          console.log("stuff");
+        });
+      ` + "\n",
     cursorOffset: 25,
   });
 });

@@ -49,6 +49,7 @@ const categories = [
   { dir: "yaml", title: "YAML" },
   { dir: "api", title: "API" },
   { dir: "cli", title: "CLI" },
+  { dir: "misc", title: "Miscellaneous" },
 ];
 
 const categoriesByDir = new Map(
@@ -68,12 +69,17 @@ for (const dir of changelogUnreleasedDirs) {
 
 rimraf.sync(postGlob);
 
+const introFileData = fs.readFileSync(introFile, "utf8").trim();
+
+const TRUNCATE_COMMENT = "<!--truncate-->";
+const shouldPrintTruncate = introFileData.includes(TRUNCATE_COMMENT);
+
 fs.writeFileSync(
   postFile,
   replaceVersions(
     [
-      fs.readFileSync(introFile, "utf8").trim(),
-      "<!--truncate-->",
+      introFileData,
+      shouldPrintTruncate ? TRUNCATE_COMMENT : "",
       ...printEntriesWithTitle({
         title: "Highlights",
         filter: (entry) => entry.section === "highlight",
@@ -90,7 +96,9 @@ fs.writeFileSync(
         title: "Other Changes",
         filter: (entry) => !entry.section,
       }),
-    ].join("\n\n") + "\n",
+    ]
+      .filter(Boolean)
+      .join("\n\n") + "\n",
     previousVersion,
     version
   )
