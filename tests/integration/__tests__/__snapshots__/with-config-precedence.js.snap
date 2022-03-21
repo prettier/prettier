@@ -21,22 +21,14 @@ exports[`CLI --stdin-filepath works with --config-precedence prefer-file (stdout
 
 exports[`CLI --stdin-filepath works with --config-precedence prefer-file (write) 1`] = `Array []`;
 
-exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stderr) 1`] = `
-"[error] file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stderr) 1`] = `""`;
+
+exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stdout) 1`] = `
+"function noConfigJs() {
+      console.log(\\"no-config/file.js should have no semicolons\\")
+}
 "
 `;
-
-exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stdout) 1`] = `""`;
 
 exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (write) 1`] = `Array []`;
 
@@ -87,108 +79,7 @@ module.exports = {
 
 exports[`CLI overrides take lower precedence with --config-precedence file-override (write) 1`] = `Array []`;
 
-exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `
-"[error] editorconfig\\\\lib\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] editorconfig\\\\repo-root\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] external-config\\\\index.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\__best-tests__\\\\.file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\__best-tests__\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\Component.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\Component.test.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] no-config\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] package\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-"
-`;
+exports[`CLI overrides take precedence with --config-precedence cli-override (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence with --config-precedence cli-override (stdout) 1`] = `
 "function f() {
@@ -197,10 +88,35 @@ exports[`CLI overrides take precedence with --config-precedence cli-override (st
 	)
 }
 function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
         console.log(
                 \\"should have space width 8\\"
         )
 }
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
+console.log(
+  \\"jest/Component.js should not have semi\\"
+)
+console.log(
+  \\"jest/Component.test.js should have semi\\"
+);
 function js() {
         console.log(
                 \\"js/file.js should have tab width 8 (1 if CLI)\\"
@@ -213,6 +129,16 @@ module.exports =
                 endOfLine: \\"auto\\",
                 tabWidth: 8,
         };
+function noConfigJs() {
+  console.log(
+    \\"no-config/file.js should have no semicolons\\"
+  )
+}
+function packageJs() {
+   console.log(
+      \\"package/file.js should have tab width 3\\"
+   );
+}
 function rcJson() {
   console.log.apply(
     null,
@@ -248,108 +174,7 @@ function rcYaml() {
 
 exports[`CLI overrides take precedence with --config-precedence cli-override (write) 1`] = `Array []`;
 
-exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `
-"[error] editorconfig\\\\lib\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] editorconfig\\\\repo-root\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] external-config\\\\index.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\__best-tests__\\\\.file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\__best-tests__\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\Component.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] jest\\\\Component.test.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] no-config\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-[error] package\\\\file.js: TypeError: node.filter is not a function
-[error]     at containsOneArray (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:276:14)
-[error]     at shouldNotBreak (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:300:9)
-[error]     at shouldNotWrap (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:326:9)
-[error]     at printMemberChain (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\member-chain.js:342:6)
-[error]     at printCallExpression (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\print\\\\call-expression.js:84:12)
-[error]     at printPathNoParens (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:378:14)
-[error]     at Object.genericPrint [as print] (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\language-js\\\\printer-estree.js:88:19)
-[error]     at callPluginPrintFunction (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:133:21)
-[error]     at mainPrintInternal (G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:76:17)
-[error]     at G:\\\\Computing\\\\Year 10\\\\prettier\\\\src\\\\main\\\\ast-to-doc.js:63:28
-"
-`;
+exports[`CLI overrides take precedence without --config-precedence (stderr) 1`] = `""`;
 
 exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] = `
 "function f() {
@@ -358,10 +183,35 @@ exports[`CLI overrides take precedence without --config-precedence (stdout) 1`] 
 	)
 }
 function f() {
+  console.log(
+    \\"should have space width 2\\"
+  )
+}
+function f() {
         console.log(
                 \\"should have space width 8\\"
         )
 }
+function f() {
+  console.log(
+    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+  )
+}
+console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
+  \\"jest/__best-tests__/file.js should have semi\\"
+);
+console.log(
+  \\"jest/Component.js should not have semi\\"
+)
+console.log(
+  \\"jest/Component.test.js should have semi\\"
+);
 function js() {
         console.log(
                 \\"js/file.js should have tab width 8 (1 if CLI)\\"
@@ -374,6 +224,16 @@ module.exports =
                 endOfLine: \\"auto\\",
                 tabWidth: 8,
         };
+function noConfigJs() {
+  console.log(
+    \\"no-config/file.js should have no semicolons\\"
+  )
+}
+function packageJs() {
+   console.log(
+      \\"package/file.js should have tab width 3\\"
+   );
+}
 function rcJson() {
   console.log.apply(
     null,
