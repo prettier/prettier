@@ -273,9 +273,8 @@ function printMemberChain(path, options, print) {
   }
 
   function containsOneArray(nodes) {
-    const nodeNames = nodes.map((node) => node.node.name);
-    if (nodeNames.length !== 1) {
-      return false;
+    if (isArrayExpression(nodes[0].node)) {
+      return true;
     } else {
       return false;
     }
