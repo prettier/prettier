@@ -287,11 +287,11 @@ const UsersSection = ({ language }) => {
               className="growOnHover"
             >
               <img
-                src="/images/state_of_js_grey.svg"
-                style={{ height: "100px" }}
+                src="/images/state_of_js_grey.png"
+                style={{ height: "95px" }}
               />
             </a>
-            <div style={{ marginLeft: ".7em", width: "260px" }}>
+            <div style={{ marginLeft: "1.1em", width: "260px" }}>
               <p>
                 Regularly used by: <br />
                 <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
