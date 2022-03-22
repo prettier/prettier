@@ -288,7 +288,7 @@ const UsersSection = ({ language }) => {
             >
               <img
                 src="/images/state_of_js_grey.png"
-                style={{ height: "95px" }}
+                style={{ height: "95px", width: "100%" }}
               />
             </a>
             <div style={{ marginLeft: "1.1em", width: "260px" }}>
