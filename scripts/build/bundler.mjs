@@ -76,11 +76,10 @@ const bundledFiles = [
 
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = [
-    // `tslib` exports global variables
+    // #12493, NEED A REASON!!
     {
       module: require.resolve("tslib"),
-      find: "factory(createExporter(root",
-      replacement: "factory(createExporter({}",
+      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
     },
   ];
 
