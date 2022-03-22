@@ -44,7 +44,7 @@ class Users extends React.Component {
                 <a href="https://2021.stateofjs.com">
                   <img
                     title="State of JS 2021"
-                    src="/images/state_of_js.svg"
+                    src="/images/state_of_js.png"
                     width="180"
                     style={{ background: "#222429", borderRadius: 5 }}
                   />
