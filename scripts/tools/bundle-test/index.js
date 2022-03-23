@@ -58,6 +58,7 @@ const TEMPORARY_DIRECTORY = fileURLToPath(new URL("./.tmp", import.meta.url));
         filename: `${name}.[contenthash:7].js`,
       },
       performance: { hints: false },
+      optimization: { minimize: false },
     });
     const result = stats.toJson();
     const { warnings } = result;
