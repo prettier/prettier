@@ -301,6 +301,10 @@ const UsersSection = ({ language }) => {
                 <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
                   More than 70% of respondents to State of JS 2020.
                 </a>
+                <ul>
+                  <li />
+                  <li />
+                </ul>
               </p>
             </div>
           </div>
