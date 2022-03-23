@@ -76,7 +76,7 @@ const bundledFiles = [
 
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = [
-    // #12493
+    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),
       path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
