@@ -103,7 +103,7 @@ async function* expandPatternsInternal(context) {
     }
   }
 
-  for (const { type, glob, input } of entries) {
+  for (var { type, glob, input } of entries) {
     let result;
 
     try {
@@ -117,7 +117,10 @@ async function* expandPatternsInternal(context) {
 
     if (result.length === 0) {
       if (context.argv.errorOnUnmatchedPattern !== false) {
-        yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
+        input = input.toString();
+        yield {
+          error: `${errorMessages.emptyResults[type]}: "${input}".`,
+        };
       }
     } else {
       yield* sortPaths(result);
