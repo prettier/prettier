@@ -6,6 +6,7 @@ on:
     - cron: "0 0 * * 0"
   pull_request:
     paths:
+      - "scripts/tools/bundle-test/**"
       # This workflow file
       - ".github/workflows/bundler-friendly.yml"
 
