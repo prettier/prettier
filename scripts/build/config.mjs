@@ -1,6 +1,7 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
+import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -88,6 +89,24 @@ const parsers = [
         module: "*",
         find: "typescriptVersionIsAtLeast[version] = semverCheck(version);",
         replacement: "typescriptVersionIsAtLeast[version] = true;",
+      },
+      // The next two replacement fixed webpack warning `Critical dependency: require function is used in a way in which dependencies cannot be statically extracted`
+      // #12338
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/create-program/shared.js"
+        ),
+        find: "moduleResolver = require(moduleResolverPath);",
+        replacement: "throw new Error('Dynamic require is not supported');",
+      },
+      {
+        module: require.resolve("typescript"),
+        process(text) {
+          return text.replace(
+            /(?<=\n)(?<indentString>\s+)function tryGetNodePerformanceHooks\(\) {.*?\n\k<indentString>}(?=\n)/s,
+            "function tryGetNodePerformanceHooks() {}"
+          );
+        },
       },
 
       ...Object.entries({
@@ -285,6 +304,11 @@ const coreBundles = [
         path: require.resolve("./shims/chalk.cjs"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
+      {
+        module: path.join(PROJECT_ROOT, "src/main/parser.js"),
+        find: "return requireParser(opts.parser);",
+        replacement: "",
+      },
     ],
   },
   {
