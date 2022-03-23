@@ -402,6 +402,29 @@ function genericPrint(path, options, print) {
       ];
     }
 
+    case "SchemaExtension": {
+      return [
+        "extend schema",
+        printDirectives(path, print, node),
+        ...(node.operationTypes.length > 0
+          ? [
+              " {",
+              indent([
+                hardline,
+                join(
+                  hardline,
+                  path.call(
+                    (opsPath) => printSequence(opsPath, options, print),
+                    "operationTypes"
+                  )
+                ),
+              ]),
+              hardline,
+              "}",
+            ]
+          : []),
+      ];
+    }
     case "SchemaDefinition": {
       return [
         print("description"),

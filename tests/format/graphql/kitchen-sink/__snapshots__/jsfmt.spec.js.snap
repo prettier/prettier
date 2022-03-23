@@ -149,6 +149,10 @@ schema {
   mutation: MutationType
 }
 
+extend schema @directive {
+  subscription: Subscription
+}
+
 """
 This is a description
 of the \`Foo\` type.
@@ -269,6 +273,10 @@ directive @include2(if: Boolean!) on
 schema {
   query: QueryType
   mutation: MutationType
+}
+
+extend schema @directive {
+  subscription: Subscription
 }
 
 """
