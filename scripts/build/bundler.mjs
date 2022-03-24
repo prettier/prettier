@@ -19,53 +19,6 @@ const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
 
-function getBabelConfig(bundle) {
-  const config = {
-    babelrc: false,
-    assumptions: {
-      setSpreadProperties: true,
-    },
-    sourceType: "unambiguous",
-    plugins: bundle.babelPlugins || [],
-    compact: false,
-    exclude: [/\/core-js\//],
-  };
-  const targets = { node: "10" };
-  if (bundle.target === "universal") {
-    targets.browsers = packageJson.browserslist;
-  }
-  config.presets = [
-    [
-      "@babel/preset-env",
-      {
-        targets,
-        exclude: [
-          "es.array.unscopables.flat",
-          "es.array.unscopables.flat-map",
-          "es.array.sort",
-          "es.promise",
-          "es.promise.finally",
-          "es.string.replace",
-          "es.symbol.description",
-          "es.typed-array.*",
-          "web.*",
-        ],
-        modules: false,
-        useBuiltIns: "usage",
-        corejs: {
-          version: 3,
-        },
-        debug: false,
-      },
-    ],
-  ];
-  config.plugins.push([
-    "@babel/plugin-proposal-object-rest-spread",
-    { useBuiltIns: true },
-  ]);
-  return config;
-}
-
 const bundledFiles = [
   ...bundles,
   { input: "package.json", output: "package.json" },
