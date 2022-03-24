@@ -101,7 +101,7 @@ const TldrSection = ({ language }) => (
             <li>Saves you time and energy</li>
             <li>
               <a
-                style={{ color: "inherit !important" }}
+                style={{ color: "inherit !important", fontSize: "inherit" }}
                 href={"/docs/" + language + "/why-prettier.html"}
               >
                 And more &raquo;
