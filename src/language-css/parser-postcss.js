@@ -681,7 +681,7 @@ function parseWithParser(parse, text, options) {
 }
 
 function parseCss(text, parsers, options = {}) {
-  const postcss = require("postcss")
+  const postcss = require("postcss");
   return parseWithParser(postcss.parse, text, options);
 }
 

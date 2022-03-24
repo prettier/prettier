@@ -1,4 +1,3 @@
-
 import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";

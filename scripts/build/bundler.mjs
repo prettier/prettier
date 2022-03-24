@@ -93,14 +93,20 @@ function* getEsbuildOptions(bundle, buildOptions) {
       replaceModule.push({
         module: path.join(PROJECT_ROOT, file),
         process(text) {
-          text = text.replaceAll(
-            /\/\* BUNDLE_REMOVE_START \*\/.*?\/\* BUNDLE_REMOVE_END \*\//gs,
-            ""
+          const importDeclarations = text.matchAll(
+            /(?<declaration>import (?<variableName>[A-Za-z]+) from "(?<source>\..*)";)/g
           );
-          text = text.replaceAll(
-            /\/\* (?<requireCall>require\(.*?\)) \*\/ .*?\.parsers/g,
-            "$<requireCall>"
-          );
+
+          for (const {
+            groups: { declaration, variableName, source },
+          } of importDeclarations) {
+            text = text.replace(declaration, "");
+            text = text.replaceAll(
+              `return ${variableName}.parsers`,
+              `return require("${source}").parsers`
+            );
+          }
+
           return text;
         },
       });

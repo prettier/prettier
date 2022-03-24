@@ -1,4 +1,3 @@
-
 import { createRequire } from "node:module";
 import { locStart, locEnd } from "../loc.js";
 
