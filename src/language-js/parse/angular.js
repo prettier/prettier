@@ -1,10 +1,12 @@
-// TODO[@fisker]: try inline import this module
-import ngEstreeParser from "angular-estree-parser";
 
+import { createRequire } from "node:module";
 import { locStart, locEnd } from "../loc.js";
+
+const require = createRequire(import.meta.url);
 
 function createParser(_parse) {
   const parse = (text, parsers, options) => {
+    const ngEstreeParser = require("angular-estree-parser");
     const node = _parse(text, ngEstreeParser);
     return {
       type: "NGRoot",

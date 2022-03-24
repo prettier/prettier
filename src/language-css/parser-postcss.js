@@ -1,12 +1,4 @@
-// TODO[@fisker]: try inline import these modules
-// Inline the require to avoid loading all the JS if we don't use it
-import postcss from "postcss";
-import less from "postcss-less";
-import scss from "postcss-scss";
-import valueParser from "postcss-values-parser";
-import selectorParser from "postcss-selector-parser";
-import mediaParser from "postcss-media-query-parser";
-
+import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
 import getLast from "../utils/get-last.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
@@ -19,6 +11,8 @@ import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
 import isSCSSVariable from "./utils/is-scss-variable.js";
 import stringifyNode from "./utils/stringify-node.js";
 import isModuleRuleName from "./utils/is-module-rule-name.js";
+
+const require = createRequire(import.meta.url);
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -213,6 +207,8 @@ function parseNestedValue(node, options) {
 }
 
 function parseValue(value, options) {
+  const valueParser = require("postcss-values-parser");
+
   let result = null;
 
   try {
@@ -243,6 +239,8 @@ function parseSelector(selector) {
     };
   }
 
+  const selectorParser = require("postcss-selector-parser");
+
   let result = null;
 
   try {
@@ -266,6 +264,8 @@ function parseSelector(selector) {
 }
 
 function parseMediaQuery(params) {
+  const mediaParser = require("postcss-media-query-parser").default;
+
   let result = null;
 
   try {
@@ -681,10 +681,13 @@ function parseWithParser(parse, text, options) {
 }
 
 function parseCss(text, parsers, options = {}) {
+  const postcss = require("postcss")
   return parseWithParser(postcss.parse, text, options);
 }
 
 function parseLess(text, parsers, options = {}) {
+  const less = require("postcss-less");
+
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
@@ -695,6 +698,7 @@ function parseLess(text, parsers, options = {}) {
 }
 
 function parseScss(text, parsers, options = {}) {
+  const scss = require("postcss-scss");
   return parseWithParser(scss.parse, text, options);
 }
 

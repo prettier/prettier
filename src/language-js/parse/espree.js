@@ -1,11 +1,11 @@
-// TODO[@fisker]: try inline import this module
-import { parse as espreeParse } from "espree";
-
+import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
+
+const require = createRequire(import.meta.url);
 
 /** @type {import("espree").Options} */
 const parseOptions = {
@@ -34,6 +34,8 @@ function createParseError(error) {
 }
 
 function parse(originalText, parsers, options = {}) {
+  const { parse: espreeParse } = require("espree");
+
   const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
     () => espreeParse(textToParse, { ...parseOptions, sourceType: "module" }),

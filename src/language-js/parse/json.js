@@ -1,15 +1,16 @@
-// TODO[@fisker]: try inline import this module
-import { parseExpression } from "@babel/parser";
-
+import { createRequire } from "node:module";
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 
+const require = createRequire(import.meta.url);
+
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
   return function parse(text /*, parsers, options*/) {
+    const { parseExpression } = require("@babel/parser");
     let ast;
     try {
       ast = parseExpression(text, {
