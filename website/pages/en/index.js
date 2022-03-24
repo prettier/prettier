@@ -284,37 +284,33 @@ const UsersSection = ({ language }) => {
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
               href="https://2021.stateofjs.com/en-US/other-tools/utilities"
-              className="growOnHover"
+              style={{ marginTop: "15px" }}
             >
               <img
-                src="/images/state_of_js_grey.png"
-                style={{ height: "95px", width: "100%" }}
+                src="/images/state_of_js_grey.svg"
+                style={{ width: "80px" }}
               />
             </a>
-            <div style={{ marginLeft: "1.1em", width: "260px" }}>
-              <p>
-                Regularly used by: <br />
-                <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
-                  More than 83% of respondents to State of JS 2021.
-                </a>
-                <br />
-                <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
-                  More than 70% of respondents to State of JS 2020.
-                </a>
-                <ul>
-                  <li />
-                  <li />
-                </ul>
-              </p>
+            <div style={{ marginLeft: ".7em", width: "260px" }}>
+              <p>Regularly used by:</p>
+              <ul style={{ marginBottom: "0" }}>
+                <li>
+                  <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+                    More than 83% of respondents to State of JS 2021.
+                  </a>
+                </li>
+                <li>
+                  <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
+                    More than 70% of respondents to State of JS 2020.
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div style={{ display: "flex", marginTop: "22px" }}>
-            <a
-              href="https://github.com/prettier/prettier"
-              className="growOnHover"
-            >
-              <img src="/images/github_grey.svg" style={{ height: "100px" }} />
+            <a href="https://github.com/prettier/prettier">
+              <img src="/images/github_grey.svg" style={{ width: "80px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
@@ -329,11 +325,8 @@ const UsersSection = ({ language }) => {
           </div>
 
           <div style={{ display: "flex", marginTop: "22px" }}>
-            <a
-              href="https://npmjs.com/package/prettier"
-              className="growOnHover"
-            >
-              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
+            <a href="https://npmjs.com/package/prettier">
+              <img src="/images/npm_grey.svg" style={{ width: "80px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
