@@ -43,7 +43,7 @@ async function generateDts(vendor) {
     ]
       .filter((line) => line !== null)
       .join("\n"),
-    "utf-8"
+    "utf8"
   );
 }
 

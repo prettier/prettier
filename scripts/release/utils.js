@@ -83,7 +83,7 @@ function writeJson(filename, content) {
 }
 
 function processFile(filename, fn) {
-  const content = fs.readFileSync(filename, "utf-8");
+  const content = fs.readFileSync(filename, "utf8");
   fs.writeFileSync(filename, fn(content));
 }
 
