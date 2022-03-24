@@ -264,7 +264,7 @@ function parseSelector(selector) {
 }
 
 function parseMediaQuery(params) {
-  const mediaParser = require("postcss-media-query-parser").default;
+  const mediaParser = require("postcss-media-query-parser");
 
   let result = null;
 
