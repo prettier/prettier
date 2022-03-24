@@ -53,15 +53,15 @@ module.exports = {
         ],
       },
     },
-    {
-      files: ["bin-prettier.js"],
-      parserOptions: {
-        ecmaVersion: 5,
-      },
-      rules: {
-        "compat/compat": "error",
-      },
-    },
+    // {
+    //   files: ["bin-prettier.js"],
+    //   parserOptions: {
+    //     ecmaVersion: 5,
+    //   },
+    //   rules: {
+    //     "compat/compat": "error",
+    //   },
+    // },
     {
       files: ["doc.js", "parser-*.js", "standalone.js"],
       rules: {
