@@ -112,13 +112,31 @@ function* getEsbuildOptions(bundle, buildOptions) {
       });
     }
   } else {
-    // Universal bundle only use version info from package.json
-    // Replace package.json with `{version: "{VERSION}"}`
-    replaceModule.push({
-      module: path.join(PROJECT_ROOT, "package.json"),
-      text: JSON.stringify({ version: packageJson.version }),
-      loader: "json",
-    });
+    replaceModule.push(
+      // Universal bundle only use version info from package.json
+      // Replace package.json with `{version: "{VERSION}"}`
+      {
+        module: path.join(PROJECT_ROOT, "package.json"),
+        text: JSON.stringify({ version: packageJson.version }),
+        loader: "json",
+      },
+      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
+      {
+        module: "*",
+        find: 'import { createRequire } from "node:module";',
+        replacement: "",
+      },
+      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+      {
+        module: "assert",
+        path: require.resolve("./shims/assert.cjs"),
+      },
+      // `esbuildPluginNodeModulePolyfills` didn't shim this module
+      {
+        module: "module",
+        text: "export const createRequire = () => {};",
+      }
+    );
 
     // Replace parser getters with `undefined`
     for (const file of [
@@ -137,19 +155,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
         text: "export default undefined;",
       });
     }
-
-    replaceModule.push(
-      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-      {
-        module: "assert",
-        path: require.resolve("./shims/assert.cjs"),
-      },
-      // `esbuildPluginNodeModulePolyfills` didn't shim this module
-      {
-        module: "module",
-        text: "export const createRequire = () => {};",
-      }
-    );
   }
 
   let shouldMinify = buildOptions.minify;
