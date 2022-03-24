@@ -6,7 +6,6 @@ import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
-import esbuildPluginReplaceText from "./esbuild-plugins/replace-text.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
@@ -19,9 +18,53 @@ const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
-const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
-  contents: "export default undefined",
-};
+
+function getBabelConfig(bundle) {
+  const config = {
+    babelrc: false,
+    assumptions: {
+      setSpreadProperties: true,
+    },
+    sourceType: "unambiguous",
+    plugins: bundle.babelPlugins || [],
+    compact: false,
+    exclude: [/\/core-js\//],
+  };
+  const targets = { node: "10" };
+  if (bundle.target === "universal") {
+    targets.browsers = packageJson.browserslist;
+  }
+  config.presets = [
+    [
+      "@babel/preset-env",
+      {
+        targets,
+        exclude: [
+          "es.array.unscopables.flat",
+          "es.array.unscopables.flat-map",
+          "es.array.sort",
+          "es.promise",
+          "es.promise.finally",
+          "es.string.replace",
+          "es.symbol.description",
+          "es.typed-array.*",
+          "web.*",
+        ],
+        modules: false,
+        useBuiltIns: "usage",
+        corejs: {
+          version: 3,
+        },
+        debug: false,
+      },
+    ],
+  ];
+  config.plugins.push([
+    "@babel/plugin-proposal-object-rest-spread",
+    { useBuiltIns: true },
+  ]);
+  return config;
+}
 
 const bundledFiles = [
   ...bundles,
@@ -32,7 +75,7 @@ const bundledFiles = [
 }));
 
 function* getEsbuildOptions(bundle, buildOptions) {
-  const replaceText = [
+  const replaceModule = [
     // Use `require` directly
     {
       file: "*",
@@ -45,11 +88,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
-    // `tslib` exports global variables
+    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
-      file: require.resolve("tslib"),
-      find: "factory(createExporter(root",
-      replacement: "factory(createExporter({}",
+      module: require.resolve("tslib"),
+      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
     },
   ];
 
@@ -61,8 +103,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceText.push({
-      file: "*",
+    replaceModule.push({
+      module: "*",
       find: "process.env.PRETTIER_DEBUG",
       replacement: "globalThis.PRETTIER_DEBUG",
     });
@@ -78,20 +120,20 @@ function* getEsbuildOptions(bundle, buildOptions) {
     define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
-  const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace bundled files and `package.json` with dynamic `require()`
     for (const { input, output } of bundledFiles) {
-      replaceModule[input] = { path: output, external: true };
+      replaceModule.push({ module: input, external: output });
     }
   } else {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: JSON.stringify({ version: packageJson.version }),
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, "package.json"),
+      text: JSON.stringify({ version: packageJson.version }),
       loader: "json",
-    };
+    });
 
     // Replace parser getters with `undefined`
     for (const file of [
@@ -105,17 +147,24 @@ function* getEsbuildOptions(bundle, buildOptions) {
       // This module requires file access, should not include in universal bundle
       "src/utils/get-interpreter.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] =
-        EXPORT_UNDEFINED_MODULE_REPLACEMENT;
+      replaceModule.push({
+        module: path.join(PROJECT_ROOT, file),
+        text: "export default undefined;",
+      });
     }
 
-    // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule.assert = require.resolve("./shims/assert.cjs");
-
-    // `esbuildPluginNodeModulePolyfills` didn't shim this module
-    replaceModule.module = {
-      contents: "export const createRequire = () => {};",
-    };
+    replaceModule.push(
+      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+      {
+        module: "assert",
+        path: require.resolve("./shims/assert.cjs"),
+      },
+      // `esbuildPluginNodeModulePolyfills` didn't shim this module
+      {
+        module: "module",
+        text: "export const createRequire = () => {};",
+      }
+    );
   }
 
   let shouldMinify = buildOptions.minify;
@@ -134,12 +183,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
     plugins: [
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
-      esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
-      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
-      esbuildPluginReplaceText({
-        filter: /\.[cm]?js$/,
-        replacements: [...replaceText, ...(bundle.replaceText ?? [])],
+      esbuildPluginReplaceModule({
+        replacements: [...replaceModule, ...(bundle.replaceModule ?? [])],
       }),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       buildOptions.onLicenseFound &&
         esbuildPluginLicense({
           cwd: PROJECT_ROOT,
