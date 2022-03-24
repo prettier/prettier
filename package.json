@@ -65,7 +65,7 @@
     "mem": "9.0.2",
     "meriyah": "4.2.0",
     "micromatch": "4.0.4",
-    "minimist": "1.2.5",
+    "minimist": "1.2.6",
     "n-readlines": "1.0.1",
     "outdent": "0.8.0",
     "parse-srcset": "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
