@@ -117,9 +117,9 @@ async function* expandPatternsInternal(context) {
 
     if (result.length === 0) {
       if (context.argv.errorOnUnmatchedPattern !== false) {
-        input = input.toString();
+        const parsedInput = parseInt(input, 16);
         yield {
-          error: `${errorMessages.emptyResults[type]}: "${input}".`,
+          error: `${errorMessages.emptyResults[type]}: "${parsedInput}".`,
         };
       }
     } else {
