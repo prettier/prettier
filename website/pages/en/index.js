@@ -100,7 +100,12 @@ const TldrSection = ({ language }) => (
             <li>No need to discuss style in code review</li>
             <li>Saves you time and energy</li>
             <li>
-              <a href={"/docs/" + language + "/why-prettier.html"}>And more</a>
+              <a
+                style={{ color: "inherit !important" }}
+                href={"/docs/" + language + "/why-prettier.html"}
+              >
+                And more &raquo;
+              </a>
             </li>
           </ul>
         </div>
