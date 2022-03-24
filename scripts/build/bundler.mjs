@@ -31,13 +31,13 @@ function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = [
     // Use `require` directly
     {
-      file: "*",
+      module: "*",
       find: "const require = createRequire(import.meta.url);",
       replacement: "",
     },
     // Use `__dirname` directly
     {
-      file: "*",
+      module: "*",
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
     },
