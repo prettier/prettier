@@ -79,6 +79,32 @@ function* getEsbuildOptions(bundle, buildOptions) {
     for (const { input, output } of bundledFiles) {
       replaceModule.push({ module: input, external: output });
     }
+
+    // Transform import declaration into inline `require()`
+    for (const file of [
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-js/parse/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
+    ]) {
+      replaceModule.push({
+        module: path.join(PROJECT_ROOT, file),
+        process(text) {
+          text = text.replaceAll(
+            /\/\* BUNDLE_REMOVE_START \*\/.*?\/\* BUNDLE_REMOVE_END \*\//gs,
+            ""
+          );
+          text = text.replaceAll(
+            /\/\* (?<requireCall>require\(.*?\)) \*\/ .*?\.parsers/g,
+            "$<requireCall>"
+          );
+          return text;
+        },
+      });
+    }
   } else {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
