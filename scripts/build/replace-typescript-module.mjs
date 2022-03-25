@@ -12,7 +12,7 @@ In typescript package, there are many block in shape like
 })(ts || (ts = {}));
 ```
 */
-function removeTypescriptModuleBlock(text, test) {
+function removeBlock(text, test) {
   if (typeof test === "string") {
     const testString = test;
     test = (text) => text.includes(testString);
@@ -27,51 +27,66 @@ function removeTypescriptModuleBlock(text, test) {
 
 function replaceTypescriptModule(text) {
   // Deprecated apis
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "// The following are deprecations for the public API."
   );
 
   // Remove useless language service
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "ts.TypeScriptServicesFactory = TypeScriptServicesFactory;"
   );
 
   // Remove useless file accessing
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "ts.createSystemWatchFunctions = createSystemWatchFunctions;"
   );
 
   // Remove useless compiler
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "ts.convertCompilerOptionsFromJson = convertCompilerOptionsFromJson;"
   );
 
   // Remove useless performance
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "ts.tryGetNativePerformanceHooks = tryGetNativePerformanceHooks;"
   );
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "performance = ts.performance || (ts.performance = {})"
   );
 
   // Remove useless performance tracing
-  text = removeTypescriptModuleBlock(
+  text = removeBlock(
     text,
     "ts.startTracing = tracingEnabled.startTracing;"
   );
 
   // Remove useless path related
-  text = removeTypescriptModuleBlock(text, "ts.resolvePath = resolvePath;");
+  text = removeBlock(text, "ts.resolvePath = resolvePath;");
 
   // Remove useless diagnosticMessages
-  text = removeTypescriptModuleBlock(text, "ts.Diagnostics = {");
+  text = removeBlock(text, "ts.Diagnostics = {");
+  text = removeBlock(
+    text,
+    "ts.sortAndDeduplicateDiagnostics = sortAndDeduplicateDiagnostics;"
+  );
 
+  //
+  text = removeBlock(
+    text,
+    "ts.getScriptTargetFeatures = getScriptTargetFeatures;"
+  );
+
+  //
+  text = removeBlock(
+    text,
+    "BuilderState = ts.BuilderState || (ts.BuilderState = {})"
+  );
 
 
   // `typescript/lib/typescript.js` expose extra global objects
