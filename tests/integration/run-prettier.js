@@ -88,9 +88,7 @@ async function run(dir, args, options) {
     .spyOn(thirdParty, "getStdin")
     // eslint-disable-next-line require-await
     .mockImplementation(async () => options.input || "");
-  jest
-    .spyOn(thirdParty, "isCI")
-    .mockImplementation(() => Boolean(options.ci));
+  jest.spyOn(thirdParty, "isCI").mockImplementation(() => Boolean(options.ci));
   jest
     .spyOn(thirdParty, "cosmiconfig")
     .mockImplementation((moduleName, options) =>
