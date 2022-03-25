@@ -149,6 +149,10 @@ function replaceTypescriptModule(text) {
     text,
     "OrganizeImports = ts.OrganizeImports || (ts.OrganizeImports = {})"
   );
+  text = removeBlock(
+    text,
+    "classifier = ts.classifier || (ts.classifier = {})"
+  );
 
   //
   text = removeBlock(
