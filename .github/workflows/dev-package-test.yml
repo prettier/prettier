@@ -2,12 +2,14 @@ name: Dev_Package_Test
 
 on:
   schedule:
-    - cron: "0 0 * * 1"
+    # “At 00:00 on Sunday.” https://crontab.guru/#0%C2%A00%C2%A0*%C2%A0*%C2%A00
+    - cron: "0 0 * * 0"
   pull_request:
     paths:
       - "package.json"
-      - ".github/workflows/dev-package-test.yml"
       - "yarn.lock"
+      # This workflow file
+      - ".github/workflows/dev-package-test.yml"
 
 jobs:
   test:

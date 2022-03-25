@@ -50,17 +50,22 @@ function resolveParser(opts, parsers = getParsers(opts)) {
       );
     }
 
-    try {
-      return {
-        parse: require(path.resolve(process.cwd(), opts.parser)),
-        astFormat: "estree",
-        locStart,
-        locEnd,
-      };
-    } catch {
-      /* istanbul ignore next */
-      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
-    }
+    // This line of code will be removed when bundling `standalone.js`
+    return requireParser(opts.parser);
+  }
+}
+
+function requireParser(parser) {
+  try {
+    return {
+      parse: require(path.resolve(process.cwd(), parser)),
+      astFormat: "estree",
+      locStart,
+      locEnd,
+    };
+  } catch {
+    /* istanbul ignore next */
+    throw new ConfigError(`Couldn't resolve parser "${parser}"`);
   }
 }
 

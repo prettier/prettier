@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "chalk": "4.1.2",
+    "enquirer": "2.3.6",
     "execa": "6.1.0",
     "minimist": "1.2.5",
     "node-fetch": "3.2.3",
