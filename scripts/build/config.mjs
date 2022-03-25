@@ -2,6 +2,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT } from "../utils/index.mjs";
+import { replaceAlignedCode } from "./utils.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -102,10 +103,11 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
-          return text.replace(
-            /(?<=\n)(?<indentString>\s+)function tryGetNodePerformanceHooks\(\) {.*?\n\k<indentString>}(?=\n)/s,
-            "function tryGetNodePerformanceHooks() {}"
-          );
+          return replaceAlignedCode(text, {
+            start: "function tryGetNodePerformanceHooks() {",
+            end: "}",
+            replacement: "function tryGetNodePerformanceHooks() {}",
+          });
         },
       },
 
