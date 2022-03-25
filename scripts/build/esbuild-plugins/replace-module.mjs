@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 
 const DEFAULT_ON_RESOLVE_CONCEPTS = { filter: /./, namespace: "file" };
 const DEFAULT_ON_LOAD_CONCEPTS = {
-  filter: /.(?:js|json|mjs|cjs)$/,
+  filter: /\.(?:js|json|mjs|cjs)$/,
   namespace: "file",
 };
 
