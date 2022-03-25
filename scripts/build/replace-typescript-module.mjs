@@ -72,7 +72,7 @@ function replaceTypescriptModule(text) {
   );
 
   // Remove useless path related
-  text = removeBlock(text, "ts.resolvePath = resolvePath;");
+  // text = removeBlock(text, "ts.resolvePath = resolvePath;");
 
   // Remove useless diagnosticMessages
   // text = removeBlock(text, "ts.Diagnostics = {");
