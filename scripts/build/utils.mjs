@@ -4,7 +4,7 @@ function replaceAlignedCode(text, { start, end, replacement }) {
   const regex = new RegExp(
     [
       "(?<=\\n)",
-      "(?<indentString>\\s+)",
+      "(?<indentString>\\s*)",
       escapeStringRegexp(start),
       "\\n",
       ".*?",
@@ -13,10 +13,10 @@ function replaceAlignedCode(text, { start, end, replacement }) {
       escapeStringRegexp(end),
       "(?=\\n)",
     ].join(""),
-    "s"
+    "gs"
   );
 
-  return text.replace(regex, replacement);
+  return text.replaceAll(regex, replacement);
 }
 
 export { replaceAlignedCode };

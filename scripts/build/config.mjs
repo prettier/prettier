@@ -103,14 +103,31 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
-// This function includes Node.js modules
+          text = replaceAlignedCode(text, {
+            start: "(function (ts) {",
+            end: "})(ts || (ts = {}));",
+            replacement(part) {
+              // Remove useless language service
+              if (
+                part.includes(
+                  "ts.TypeScriptServicesFactory = TypeScriptServicesFactory;"
+                )
+              ) {
+                return "";
+              }
+
+              return part;
+            },
+          });
+
+          // This function includes Node.js modules
           text = replaceAlignedCode(text, {
             start: "function tryGetNodePerformanceHooks() {",
             end: "}",
             replacement: "function tryGetNodePerformanceHooks() {}",
           });
 
-        // Remove useless `ts.sys`
+          // Remove useless `ts.sys`
           text = replaceAlignedCode(text, {
             start: "ts.sys = (function () {",
             end: "})();",
@@ -129,33 +146,6 @@ const parsers = [
 
         "_fs.realpathSync.native":
           "_fs.realpathSync && _fs.realpathSync.native",
-
-        // Remove useless language service
-        "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
-        "ts.TypeScriptServicesFactory = ":
-          "ts.TypeScriptServicesFactory = undefined && ",
-        "var ShimBase = ": "var ShimBase = undefined && ",
-        "var TypeScriptServicesFactory = ":
-          "var TypeScriptServicesFactory = undefined && ",
-        "var LanguageServiceShimObject = ":
-          "var LanguageServiceShimObject = undefined && ",
-        "var CoreServicesShimHostAdapter = ":
-          "var CoreServicesShimHostAdapter = undefined && ",
-        "var LanguageServiceShimHostAdapter = ":
-          "var LanguageServiceShimHostAdapter = undefined && ",
-        "var ScriptSnapshotShimAdapter = ":
-          "var ScriptSnapshotShimAdapter = undefined && ",
-        "var ClassifierShimObject = ":
-          "var ClassifierShimObject = undefined && ",
-        "var CoreServicesShimObject = ":
-          "var CoreServicesShimObject = undefined && ",
-        "function simpleForwardCall(": "0 && function simpleForwardCall(",
-        "function forwardJSONCall(": "0 && function forwardJSONCall(",
-        "function forwardCall(": "0 && function forwardCall(",
-        "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
-        "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
-        "function convertClassifications(":
-          "0 && function convertClassifications(",
 
         // Dynamic `require()`s
         "ts.sys && ts.sys.require": "false",
