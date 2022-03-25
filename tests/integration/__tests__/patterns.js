@@ -73,3 +73,9 @@ describe("multiple patterns, throw error and exit with non zero code on non exis
     status: 2,
   });
 });
+
+describe("Strings should be outputted in the error message", () => {
+  runPrettier("cli/patterns", ["1e3", "-l"]).test({
+    status: 2,
+  });
+});

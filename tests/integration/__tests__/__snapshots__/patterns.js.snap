@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Strings should be outputted in the error message (stderr) 1`] = `
+"[error] No files matching the pattern were found: \\"1000\\".
+"
+`;
+
+exports[`Strings should be outputted in the error message (stdout) 1`] = `""`;
+
+exports[`Strings should be outputted in the error message (write) 1`] = `Array []`;
+
 exports[`multiple patterns (stderr) 1`] = `""`;
 
 exports[`multiple patterns (stdout) 1`] = `

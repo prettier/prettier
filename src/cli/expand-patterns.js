@@ -103,7 +103,7 @@ async function* expandPatternsInternal(context) {
     }
   }
 
-  for (var { type, glob, input } of entries) {
+  for (let { type, glob, input } of entries) {
     let result;
 
     try {
@@ -117,7 +117,9 @@ async function* expandPatternsInternal(context) {
 
     if (result.length === 0) {
       if (context.argv.errorOnUnmatchedPattern !== false) {
-        input = input.toString();
+        if (typeof input === "number") {
+          input = input.toString();
+        }
         yield {
           error: `${errorMessages.emptyResults[type]}: "${input}".`,
         };
