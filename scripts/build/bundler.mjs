@@ -14,7 +14,7 @@ import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protoco
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
@@ -97,7 +97,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
       {
         module: "assert",
-        path: require.resolve("./shims/assert.cjs"),
+        path: path.join(dirname, "./shims/assert.js"),
       },
       // `esbuildPluginNodeModulePolyfills` didn't shim this module
       {
@@ -161,7 +161,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     legalComments: "none",
     external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+    tsconfig: path.join(dirname, "empty-tsconfig.json"),
     target: [...(bundle.esbuildTarget ?? ["node12"])],
     logLevel: "error",
   };

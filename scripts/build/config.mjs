@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT } from "../utils/index.mjs";
 
-const { require } = createEsmUtils(import.meta);
+const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -160,7 +160,7 @@ const parsers = [
       })),
       {
         module: require.resolve("debug/src/browser.js"),
-        path: require.resolve("./shims/debug.cjs"),
+        path: path.join(dirname, "./shims/debug.js"),
       },
     ],
   },
@@ -297,11 +297,11 @@ const coreBundles = [
     replaceModule: [
       {
         module: require.resolve("@babel/highlight"),
-        path: require.resolve("./shims/babel-highlight.cjs"),
+        path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
         module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: require.resolve("./shims/chalk.cjs"),
+        path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
@@ -332,7 +332,7 @@ const coreBundles = [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
         module: require.resolve("parent-module"),
-        path: require.resolve("./shims/parent-module.cjs"),
+        path: path.join(dirname, "./shims/parent-module.cjs"),
       },
     ],
   },
