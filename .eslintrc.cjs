@@ -159,6 +159,7 @@ module.exports = {
     "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
     "unicorn/template-indent": "error",
+    "unicorn/text-encoding-identifier-case": "error",
   },
   overrides: [
     {

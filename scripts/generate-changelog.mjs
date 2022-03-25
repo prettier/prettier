@@ -100,7 +100,7 @@ async function createChangelog(title, user, prNumber, category) {
     __dirname,
     "../changelog_unreleased/TEMPLATE.md"
   );
-  const changelogTemplate = await fs.readFile(changelogTemplatePath, "utf-8");
+  const changelogTemplate = await fs.readFile(changelogTemplatePath, "utf8");
 
   const titlePart = "Title";
   const prNumberPart = "#XXXX";
