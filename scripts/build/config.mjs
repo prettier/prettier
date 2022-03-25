@@ -301,7 +301,7 @@ const coreBundles = [
       },
       {
         module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: path.join(dirname, "shims/chalk.js"),
+        path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
@@ -332,7 +332,7 @@ const coreBundles = [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
         module: require.resolve("parent-module"),
-        path: path.join(dirname, "shims/parent-module.js"),
+        path: path.join(dirname, "./shims/parent-module.js"),
       },
     ],
   },

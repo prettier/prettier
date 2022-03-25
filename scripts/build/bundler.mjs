@@ -97,7 +97,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
       {
         module: "assert",
-        path: path.join(dirname, "shims/assert.js"),
+        path: path.join(dirname, "./shims/assert.js"),
       },
       // `esbuildPluginNodeModulePolyfills` didn't shim this module
       {
