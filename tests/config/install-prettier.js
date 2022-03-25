@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
+import { outdent } from "outdent";
 import { execaSync } from "execa";
 import tempy from "tempy";
 import chalk from "chalk";
@@ -71,12 +72,12 @@ function installPrettier(packageDir) {
   const installed = path.join(tmpDir, "node_modules/prettier");
   console.log(
     chalk.green(
+      outdent`
+        Prettier installed
+          at ${chalk.inverse(installed)}
+          from ${chalk.inverse(packageDir)}
+          with ${chalk.inverse(client)}.
       `
-Prettier installed
-  at ${chalk.inverse(installed)}
-  from ${chalk.inverse(packageDir)}
-  with ${chalk.inverse(client)}.
-      `.trim()
     )
   );
 

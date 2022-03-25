@@ -1,5 +1,6 @@
 /** @type {import('prettier')} */
 import prettier from "prettier-local";
+import { outdent } from "outdent";
 import printDoc from "../print-doc.js";
 
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
@@ -21,11 +22,13 @@ describe("lineSuffixBoundary", () => {
       "];",
     ]);
 
-    const expected = `let foo = [
-  item1,
-  item2, // comment
-  item3
-];`;
+    const expected = outdent`
+      let foo = [
+        item1,
+        item2, // comment
+        item3
+      ];
+    `;
 
     expect(printDoc(doc)).toBe(expected);
   });

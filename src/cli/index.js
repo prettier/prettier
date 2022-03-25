@@ -8,6 +8,7 @@ import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
 import prettierInternal from "./prettier-internal.js";
+import { printToScreen } from "./utils.js";
 
 const {
   utils: { isNonEmptyArray },
@@ -68,12 +69,12 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.version) {
-    logger.log(prettier.version);
+    printToScreen(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    logger.log(
+    printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
         : createUsage(context)
@@ -82,7 +83,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.supportInfo) {
-    logger.log(
+    printToScreen(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
@@ -103,8 +104,8 @@ async function main(rawArguments, logger) {
   } else if (hasFilePatterns) {
     await formatFiles(context);
   } else {
-    logger.log(createUsage(context));
     process.exitCode = 1;
+    printToScreen(createUsage(context));
   }
 }
 

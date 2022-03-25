@@ -441,7 +441,9 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
         firstArg.type === "TSUnionType" ||
         firstArg.type === "UnionTypeAnnotation" ||
         firstArg.type === "TSIntersectionType" ||
-        firstArg.type === "IntersectionTypeAnnotation"
+        firstArg.type === "IntersectionTypeAnnotation" ||
+        firstArg.type === "TSTypeLiteral" ||
+        firstArg.type === "ObjectTypeAnnotation"
       ) {
         return true;
       }

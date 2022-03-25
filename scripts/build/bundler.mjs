@@ -2,7 +2,6 @@ import path from "node:path";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
-import esbuildPluginTextReplace from "esbuild-plugin-text-replace";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
@@ -12,16 +11,13 @@ import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
 import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
+import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import bundles from "./config.mjs";
 
-const { dirname, readJsonSync } = createEsmUtils(import.meta);
+const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
-const EMPTY_MODULE_REPLACEMENT = { contents: "" };
-const EXPORT_UNDEFINED_MODULE_REPLACEMENT = {
-  contents: "export default undefined",
-};
 
 const bundledFiles = [
   ...bundles,
@@ -32,13 +28,25 @@ const bundledFiles = [
 }));
 
 function* getEsbuildOptions(bundle, buildOptions) {
-  const replaceStrings = {
-    // `tslib` exports global variables
-    "createExporter(root": "createExporter({}",
-
+  const replaceModule = [
     // Use `require` directly
-    "const require = createRequire(import.meta.url);": "",
-  };
+    {
+      module: "*",
+      find: "const require = createRequire(import.meta.url);",
+      replacement: "",
+    },
+    // Use `__dirname` directly
+    {
+      module: "*",
+      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
+      replacement: "",
+    },
+    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
+    {
+      module: require.resolve("tslib"),
+      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
+    },
+  ];
 
   const define = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
@@ -48,7 +56,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceStrings["process.env.PRETTIER_DEBUG"] = "globalThis.PRETTIER_DEBUG";
+    replaceModule.push({
+      module: "*",
+      find: "process.env.PRETTIER_DEBUG",
+      replacement: "globalThis.PRETTIER_DEBUG",
+    });
 
     define.process = JSON.stringify({ env: {}, argv: [] });
 
@@ -61,25 +73,38 @@ function* getEsbuildOptions(bundle, buildOptions) {
     define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
 
-  const replaceModule = { module: EMPTY_MODULE_REPLACEMENT };
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace bundled files and `package.json` with dynamic `require()`
     for (const { input, output } of bundledFiles) {
-      replaceModule[input] = { path: output, external: true };
+      replaceModule.push({ module: input, external: output });
     }
-
-    // Use `__dirname` directly
-    replaceStrings[
-      "const __dirname = path.dirname(fileURLToPath(import.meta.url));"
-    ] = "";
   } else {
-    // Universal bundle only use version info from package.json
-    // Replace package.json with `{version: "{VERSION}"}`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      contents: JSON.stringify({ version: packageJson.version }),
-      loader: "json",
-    };
+    replaceModule.push(
+      // Universal bundle only use version info from package.json
+      // Replace package.json with `{version: "{VERSION}"}`
+      {
+        module: path.join(PROJECT_ROOT, "package.json"),
+        text: JSON.stringify({ version: packageJson.version }),
+        loader: "json",
+      },
+      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
+      {
+        module: "*",
+        find: 'import { createRequire } from "node:module";',
+        replacement: "",
+      },
+      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+      {
+        module: "assert",
+        path: path.join(dirname, "shims/assert.js"),
+      },
+      // `esbuildPluginNodeModulePolyfills` didn't shim this module
+      {
+        module: "module",
+        text: "export const createRequire = () => {};",
+      }
+    );
 
     // Replace parser getters with `undefined`
     for (const file of [
@@ -93,12 +118,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
       // This module requires file access, should not include in universal bundle
       "src/utils/get-interpreter.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] =
-        EXPORT_UNDEFINED_MODULE_REPLACEMENT;
+      replaceModule.push({
+        module: path.join(PROJECT_ROOT, file),
+        text: "export default undefined;",
+      });
     }
-
-    // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule.assert = path.join(dirname, "shims/assert.js");
   }
 
   let shouldMinify = buildOptions.minify;
@@ -117,13 +141,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
     plugins: [
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
-      esbuildPluginReplaceModule({ ...replaceModule, ...bundle.replaceModule }),
-      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
-      esbuildPluginTextReplace({
-        include: /\.[cm]?js$/,
-        // TODO[@fisker]: Use RegExp when possible
-        pattern: Object.entries({ ...replaceStrings, ...bundle.replace }),
+      esbuildPluginReplaceModule({
+        replacements: [...replaceModule, ...(bundle.replaceModule ?? [])],
       }),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
       buildOptions.onLicenseFound &&
         esbuildPluginLicense({
           cwd: PROJECT_ROOT,
@@ -134,13 +155,13 @@ function* getEsbuildOptions(bundle, buildOptions) {
         }),
       buildOptions.reports &&
         esbuildPluginVisualizer({ formats: buildOptions.reports }),
+      esbuildPluginThrowWarnings(),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
     external: [...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(dirname, "empty-tsconfig.json"),
-    mainFields: ["module", "main"],
     target: [...(bundle.esbuildTarget ?? ["node12"])],
     logLevel: "error",
   };

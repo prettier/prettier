@@ -283,36 +283,39 @@ const UsersSection = ({ language }) => {
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
             <a
-              href="https://2020.stateofjs.com/en-US/other-tools/utilities"
-              className="growOnHover"
+              href="https://2021.stateofjs.com/en-US/other-tools/utilities"
+              style={{ marginTop: "15px" }}
             >
               <img
                 src="/images/state_of_js_grey.svg"
-                style={{ height: "100px" }}
+                style={{ width: "80px" }}
               />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>
-                Regularly used by more than <strong>70%</strong> of respondents
-                to State of JS 2020
-              </p>
-              <Button href="https://2020.stateofjs.com/en-US/other-tools/utilities">
-                Go to Survey Results
-              </Button>
+              <p>Regularly used by:</p>
+              <ul style={{ marginBottom: "0" }}>
+                <li>
+                  <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+                    More than 83% of respondents to State of JS 2021.
+                  </a>
+                </li>
+                <li>
+                  <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
+                    More than 70% of respondents to State of JS 2020.
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
           <div style={{ display: "flex", marginTop: "22px" }}>
-            <a
-              href="https://github.com/prettier/prettier"
-              className="growOnHover"
-            >
-              <img src="/images/github_grey.svg" style={{ height: "100px" }} />
+            <a href="https://github.com/prettier/prettier">
+              <img src="/images/github_grey.svg" style={{ width: "80px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">3.5 million</strong>{" "}
+                <strong data-placeholder="dependent-github">3.9 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
@@ -322,15 +325,13 @@ const UsersSection = ({ language }) => {
           </div>
 
           <div style={{ display: "flex", marginTop: "22px" }}>
-            <a
-              href="https://npmjs.com/package/prettier"
-              className="growOnHover"
-            >
-              <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
+            <a href="https://npmjs.com/package/prettier">
+              <img src="/images/npm_grey.svg" style={{ width: "80px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
-                More than <strong data-placeholder="dependent-npm">10k</strong>{" "}
+                More than{" "}
+                <strong data-placeholder="dependent-npm">10.4k</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">

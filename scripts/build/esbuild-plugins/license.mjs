@@ -10,6 +10,10 @@ export default function esbuildPluginLicense(options) {
       build.initialOptions.metafile = true;
 
       build.onEnd((result) => {
+        if (result.errors.length > 0) {
+          return;
+        }
+
         const files = Object.keys(result.metafile.inputs);
         const chunk = {
           modules: Object.fromEntries(
