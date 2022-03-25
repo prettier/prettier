@@ -75,7 +75,7 @@ function replaceTypescriptModule(text) {
   text = removeBlock(text, "ts.resolvePath = resolvePath;");
 
   // Remove useless diagnosticMessages
-  text = removeBlock(text, "ts.Diagnostics = {");
+  // text = removeBlock(text, "ts.Diagnostics = {");
   text = removeBlock(
     text,
     "ts.sortAndDeduplicateDiagnostics = sortAndDeduplicateDiagnostics;"
