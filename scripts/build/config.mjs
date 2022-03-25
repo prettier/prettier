@@ -103,20 +103,29 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
+          // Remove useless language service
           text = replaceAlignedCode(text, {
             start: "(function (ts) {",
             end: "})(ts || (ts = {}));",
             replacement(part) {
-              // Remove useless language service
-              if (
-                part.includes(
-                  "ts.TypeScriptServicesFactory = TypeScriptServicesFactory;"
-                )
-              ) {
-                return "";
-              }
+              return part.includes(
+                "ts.TypeScriptServicesFactory = TypeScriptServicesFactory;"
+              )
+                ? ""
+                : part;
+            },
+          });
 
-              return part;
+          // Remove useless file accessing
+          text = replaceAlignedCode(text, {
+            start: "(function (ts) {",
+            end: "})(ts || (ts = {}));",
+            replacement(part) {
+              return part.includes(
+                "ts.createSystemWatchFunctions = createSystemWatchFunctions;"
+              )
+                ? ""
+                : part;
             },
           });
 
@@ -127,26 +136,12 @@ const parsers = [
             replacement: "function tryGetNodePerformanceHooks() {}",
           });
 
-          // Remove useless `ts.sys`
-          text = replaceAlignedCode(text, {
-            start: "ts.sys = (function () {",
-            end: "})();",
-            replacement: "",
-          });
-
           // `typescript/lib/typescript.js` expose extra global objects
           // `TypeScript`, `toolsVersion`, `globalThis`
           text = replaceAlignedCode(text, {
             start: 'if (typeof process === "undefined" || process.browser) {',
             end: "}",
             replacement: "",
-          });
-          text = replaceAlignedCode(text, {
-            start: "((function () {",
-            end: "})());",
-            replacement(part) {
-              return part.includes("__magic__") ? "" : part;
-            },
           });
 
           text = replaceAlignedCode(text, {
