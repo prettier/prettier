@@ -3,7 +3,9 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const { prettierCli, thirdParty } = require("./env.js");
+const { prettierCli, thirdParty: thirdPartyPath } = require("./env.js");
+
+const thirdParty = require(thirdPartyPath);
 
 async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
@@ -83,14 +85,14 @@ async function run(dir, args, options) {
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
   jest
-    .spyOn(require(thirdParty), "getStdin")
+    .spyOn(thirdParty, "getStdin")
     // eslint-disable-next-line require-await
     .mockImplementation(async () => options.input || "");
   jest
-    .spyOn(require(thirdParty), "isCI")
+    .spyOn(thirdParty, "isCI")
     .mockImplementation(() => Boolean(options.ci));
   jest
-    .spyOn(require(thirdParty), "cosmiconfig")
+    .spyOn(thirdParty, "cosmiconfig")
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig").cosmiconfig(moduleName, {
         ...options,
@@ -98,7 +100,7 @@ async function run(dir, args, options) {
       })
     );
   jest
-    .spyOn(require(thirdParty), "cosmiconfigSync")
+    .spyOn(thirdParty, "cosmiconfigSync")
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig").cosmiconfigSync(moduleName, {
         ...options,
@@ -106,7 +108,7 @@ async function run(dir, args, options) {
       })
     );
   jest
-    .spyOn(require(thirdParty), "findParentDir")
+    .spyOn(thirdParty, "findParentDir")
     .mockImplementation(() => process.cwd());
 
   try {
