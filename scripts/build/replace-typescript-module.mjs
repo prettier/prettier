@@ -66,6 +66,10 @@ function replaceTypescriptModule(text) {
     text,
     "ts.startTracing = tracingEnabled.startTracing;"
   );
+  text = removeBlock(
+    text,
+    "ts.trace = trace;"
+  );
 
   // Remove useless path related
   text = removeBlock(text, "ts.resolvePath = resolvePath;");
@@ -76,6 +80,14 @@ function replaceTypescriptModule(text) {
     text,
     "ts.sortAndDeduplicateDiagnostics = sortAndDeduplicateDiagnostics;"
   );
+
+
+  text = removeBlock(
+    text,
+    "ts.createSourceMapGenerator = createSourceMapGenerator;"
+  );
+
+
 
   //
   text = removeBlock(
