@@ -7,6 +7,7 @@ const { require } = createEsmUtils(import.meta);
 In typescript package, there are many block in shape like
 
 ```js
+var ts;
 (function (ts) {
   // ...
 })(ts || (ts = {}));
@@ -19,7 +20,7 @@ function removeBlock(text, test) {
   }
 
   return replaceAlignedCode(text, {
-    start: "(function (ts) {",
+    start: "var ts;\n(function (ts) {",
     end: "})(ts || (ts = {}));",
     replacement: (part) => (test(part) ? "" : part),
   });
@@ -86,6 +87,72 @@ function replaceTypescriptModule(text) {
   text = removeBlock(
     text,
     "BuilderState = ts.BuilderState || (ts.BuilderState = {})"
+  );
+
+  //
+  text = removeBlock(
+    text,
+    "codefix = ts.codefix || (ts.codefix = {})"
+  );
+  text = removeBlock(
+    text,
+    "BreakpointResolver = ts.BreakpointResolver || (ts.BreakpointResolver = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.transform = transform;"
+  );
+  text = removeBlock(
+    text,
+    "ts.getDefaultLibFilePath = getDefaultLibFilePath;"
+  );
+  text = removeBlock(
+    text,
+    "refactor = ts.refactor || (ts.refactor = {})"
+  );
+  text = removeBlock(
+    text,
+    "textChanges = ts.textChanges || (ts.textChanges = {})"
+  );
+  text = removeBlock(
+    text,
+    "formatting = ts.formatting || (ts.formatting = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.fixupCompilerOptions = fixupCompilerOptions;"
+  );
+  text = removeBlock(
+    text,
+    "SymbolDisplay = ts.SymbolDisplay || (ts.SymbolDisplay = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.canBeConvertedToAsync = canBeConvertedToAsync;"
+  );
+  text = removeBlock(
+    text,
+    "ts.getSourceMapper = getSourceMapper;"
+  );
+  text = removeBlock(
+    text,
+    "InlayHints = ts.InlayHints || (ts.InlayHints = {})"
+  );
+  text = removeBlock(
+    text,
+    "SignatureHelp = ts.SignatureHelp || (ts.SignatureHelp = {})"
+  );
+  text = removeBlock(
+    text,
+    "SmartSelectionRange = ts.SmartSelectionRange || (ts.SmartSelectionRange = {})"
+  );
+  text = removeBlock(
+    text,
+    "Rename = ts.Rename || (ts.Rename = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.preProcessFile = preProcessFile;"
   );
 
 
