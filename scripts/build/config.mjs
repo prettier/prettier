@@ -103,6 +103,19 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
+          // Deprecated apis
+          text = replaceAlignedCode(text, {
+            start: "(function (ts) {",
+            end: "})(ts || (ts = {}));",
+            replacement(part) {
+              return part.includes(
+                "// The following are deprecations for the public API."
+              )
+                ? ""
+                : part;
+            },
+          });
+
           // Remove useless language service
           text = replaceAlignedCode(text, {
             start: "(function (ts) {",
@@ -178,6 +191,11 @@ const parsers = [
             end: "}",
             replacement: "",
           });
+
+          require("fs").writeFileSync(
+            require.resolve("typescript") + ".modified.js",
+            text
+          );
 
           return text;
         },
