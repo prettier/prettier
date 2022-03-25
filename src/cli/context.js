@@ -13,7 +13,7 @@ const {
  * @property logger
  * @property {string[]} rawArguments
  * @property argv
- * @property {string} filePatterns
+ * @property {string[]} filePatterns
  * @property {any[]} supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
