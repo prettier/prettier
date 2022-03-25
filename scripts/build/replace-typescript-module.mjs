@@ -81,13 +81,34 @@ function replaceTypescriptModule(text) {
     "ts.sortAndDeduplicateDiagnostics = sortAndDeduplicateDiagnostics;"
   );
 
-
   text = removeBlock(
     text,
     "ts.createSourceMapGenerator = createSourceMapGenerator;"
   );
-
-
+  text = removeBlock(
+    text,
+    "ts.isBuildInfoFile = isBuildInfoFile;"
+  );
+  text = removeBlock(
+    text,
+    "ts.findConfigFile = findConfigFile;"
+  );
+  text = removeBlock(
+    text,
+    "ts.createBuilderProgram = createBuilderProgram;"
+  );
+  text = removeBlock(
+    text,
+    "moduleSpecifiers = ts.moduleSpecifiers || (ts.moduleSpecifiers = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.resolveConfigFileProjectName = resolveConfigFileProjectName;"
+  );
+  text = removeBlock(
+    text,
+    "Completions = ts.Completions || (ts.Completions = {})"
+  );
 
   //
   text = removeBlock(
