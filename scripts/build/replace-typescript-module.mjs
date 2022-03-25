@@ -109,6 +109,46 @@ function replaceTypescriptModule(text) {
     text,
     "Completions = ts.Completions || (ts.Completions = {})"
   );
+  text = removeBlock(
+    text,
+    "DocumentHighlights = ts.DocumentHighlights || (ts.DocumentHighlights = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.createDocumentRegistry = createDocumentRegistry;"
+  );
+  text = removeBlock(
+    text,
+    "FindAllReferences = ts.FindAllReferences || (ts.FindAllReferences = {})"
+  );
+  text = removeBlock(
+    text,
+    "CallHierarchy = ts.CallHierarchy || (ts.CallHierarchy = {})"
+  );
+  text = removeBlock(
+    text,
+    "ts.getEditsForFileRename = getEditsForFileRename;"
+  );
+  text = removeBlock(
+    text,
+    "GoToDefinition = ts.GoToDefinition || (ts.GoToDefinition = {})"
+  );
+  text = removeBlock(
+    text,
+    "JsDoc = ts.JsDoc || (ts.JsDoc = {})"
+  );
+  text = removeBlock(
+    text,
+    "NavigateTo = ts.NavigateTo || (ts.NavigateTo = {})"
+  );
+  text = removeBlock(
+    text,
+    "NavigationBar = ts.NavigationBar || (ts.NavigationBar = {})"
+  );
+  text = removeBlock(
+    text,
+    "OrganizeImports = ts.OrganizeImports || (ts.OrganizeImports = {})"
+  );
 
   //
   text = removeBlock(
