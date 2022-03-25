@@ -265,6 +265,10 @@ function printMemberChain(path, options, print) {
     return /^[A-Z]|^[$_]+$/.test(name);
   }
 
+  function containsArray(name) {
+    return /^\[/.test(name);
+  }
+
   // In case the Identifier is shorter than tab width, we can keep the
   // first call in a single line, if it's an ExpressionStatement.
   //
@@ -274,6 +278,10 @@ function printMemberChain(path, options, print) {
   //
   function isShort(name) {
     return name.length <= options.tabWidth;
+  }
+
+  function shouldNotBreak(name) {
+    return (isFactory(name) && !isShort(name)) || containsArray(name);
   }
 
   function shouldNotWrap(groups) {
@@ -286,7 +294,8 @@ function printMemberChain(path, options, print) {
         (firstNode.type === "Identifier" &&
           (isFactory(firstNode.name) ||
             (isExpressionStatement && isShort(firstNode.name)) ||
-            hasComputed))
+            hasComputed)) ||
+        shouldNotBreak(firstNode.name)
       );
     }
 
@@ -294,14 +303,15 @@ function printMemberChain(path, options, print) {
     return (
       isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
-      (isFactory(lastNode.property.name) || hasComputed)
+      (isFactory(lastNode.property.name) || hasComputed) &&
+      !shouldNotBreak(lastNode.property.name)
     );
   }
 
   const shouldMerge =
     groups.length >= 2 &&
     !hasComment(groups[1][0].node) &&
-    shouldNotWrap(groups);
+    !shouldNotWrap(groups);
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);

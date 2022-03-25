@@ -99,9 +99,10 @@ class A extends B {
 }
 
 this.subscriptions.add(
-  this.componentUpdates
-    .pipe(startWith(this.props), distinctUntilChanged(isEqual))
-    .subscribe((props) => {})
+  this.componentUpdates.pipe(
+    startWith(this.props),
+    distinctUntilChanged(isEqual)
+  ).subscribe((props) => {})
 );
 
 ================================================================================
@@ -313,14 +314,12 @@ printWidth: 80
   pipe(
     serviceEventFromMessage(msg),
     TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError)))
-  )()
-    .then(messageResponse(logger, msg))
-    .catch((err) => {
-      logger.error(
-        pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
-      );
-      process.exit(1);
-    });
+  )().then(messageResponse(logger, msg)).catch((err) => {
+    logger.error(
+      pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
+    );
+    process.exit(1);
+  });
 
   pipe(Changelog.timestampOfFirstCommit([[commit]]), O.toUndefined);
 
@@ -408,18 +407,16 @@ printWidth: 80
         TE.mapLeft(nackFromError)
       )
     )
-  )()
-    .then(messageResponse(logger, msg))
-    .catch((err) => {
-      logger.error(
-        pipe(
-          // add a descriptive comment here
-          O.fromNullable(err.stack),
-          O.getOrElse(constant(err.message))
-        )
-      );
-      process.exit(1);
-    });
+  )().then(messageResponse(logger, msg)).catch((err) => {
+    logger.error(
+      pipe(
+        // add a descriptive comment here
+        O.fromNullable(err.stack),
+        O.getOrElse(constant(err.message))
+      )
+    );
+    process.exit(1);
+  });
 
   pipe(
     // add a descriptive comment here
@@ -709,13 +706,11 @@ import { map, filter, scan } from "rxjs/operators";
 
 const source$ = range(0, 10);
 
-source$
-  .pipe(
-    filter((x) => x % 2 === 0),
-    map((x) => x + x),
-    scan((acc, x) => acc + x, 0)
-  )
-  .subscribe((x) => console.log(x));
+source$.pipe(
+  filter((x) => x % 2 === 0),
+  map((x) => x + x),
+  scan((acc, x) => acc + x, 0)
+).subscribe((x) => console.log(x));
 
 ================================================================================
 `;

@@ -34,14 +34,12 @@ printWidth: 80
   pipe(
     serviceEventFromMessage(msg),
     TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError)))
-  )()
-    .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
-      logger.error(
-        pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
-      );
-      process.exit(1);
-    });
+  )().then(messageResponse(logger, msg)).catch((err: Error) => {
+    logger.error(
+      pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
+    );
+    process.exit(1);
+  });
 })();
 
 ================================================================================
@@ -125,18 +123,16 @@ printWidth: 80
         TE.mapLeft(nackFromError)
       )
     )
-  )()
-    .then(messageResponse(logger, msg))
-    .catch((err: Error) => {
-      logger.error(
-        pipe(
-          // add a descriptive comment here
-          O.fromNullable(err.stack),
-          O.getOrElse(constant(err.message))
-        )
-      );
-      process.exit(1);
-    });
+  )().then(messageResponse(logger, msg)).catch((err: Error) => {
+    logger.error(
+      pipe(
+        // add a descriptive comment here
+        O.fromNullable(err.stack),
+        O.getOrElse(constant(err.message))
+      )
+    );
+    process.exit(1);
+  });
 
   pipe(
     // add a descriptive comment here

@@ -1,4 +1,4 @@
-fooBar.doSomething('Hello World').doAnotherThing('Foo', { foo: bar })
+fooBar.doSomething('Hello World').doAnotherThing('Foo', {foo: bar })
 
   // App configuration.
   .doOneMoreThing(config)
@@ -57,3 +57,5 @@ const sel = this.connections
 
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
+
+const video = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0]
