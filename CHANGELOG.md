@@ -1,3 +1,69 @@
+# 2.6.1
+
+[diff](https://github.com/prettier/prettier/compare/2.6.0...2.6.1)
+
+#### Ignore `loglevel` when printing information ([#12477](https://github.com/prettier/prettier/pull/12477) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```bash
+# Prettier 2.6.0
+prettier --loglevel silent --find-config-path index.js
+# Nothing printed
+
+# Prettier 2.6.1
+prettier --loglevel silent --help no-color
+# .prettierrc
+```
+
+#### Make artifact friendly for webpack ([#12485](https://github.com/prettier/prettier/pull/12485), [#12511](https://github.com/prettier/prettier/pull/12511) by [@fisker](https://github.com/fisker))
+
+Fixes two problems when bundling our UMD files with webpack:
+
+- A error `` "`....__exportStar` is not a function" `` throws when running the bundles.
+- Some files cause warning about `"Critical dependency: the request of a dependency is an expression"`.
+
+#### Fix non-idempotent formatting of function calls with complex type arguments ([#12508](https://github.com/prettier/prettier/pull/12508) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const foo =
+  doSomething<{ foo1: "foo1", foo2: "foo2", foo3: "foo3", foo4: "foo4", foo5: "foo5" }>();
+
+// Prettier 2.6.0 (first)
+const foo =
+  doSomething<{
+    foo1: "foo1";
+    foo2: "foo2";
+    foo3: "foo3";
+    foo4: "foo4";
+    foo5: "foo5";
+  }>();
+
+// Prettier 2.6.0 (second)
+const foo = doSomething<{
+  foo1: "foo1";
+  foo2: "foo2";
+  foo3: "foo3";
+  foo4: "foo4";
+  foo5: "foo5";
+}>();
+
+// Prettier 2.6.1
+const foo = doSomething<{
+  foo1: "foo1";
+  foo2: "foo2";
+  foo3: "foo3";
+  foo4: "foo4";
+  foo5: "foo5";
+}>();
+
+```
+
+#### Fix minimist security issue ([#12513](https://github.com/prettier/prettier/pull/12513) by [@dependabot](https://github.com/dependabot))
+
+Details: [Prototype Pollution](https://security.snyk.io/vuln/SNYK-JS-MINIMIST-559764)
+
 # 2.6.0
 
 [diff](https://github.com/prettier/prettier/compare/2.5.1...2.6.0)
