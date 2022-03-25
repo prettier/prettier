@@ -129,6 +129,19 @@ const parsers = [
             },
           });
 
+          //
+          text = replaceAlignedCode(text, {
+            start: "(function (ts) {",
+            end: "})(ts || (ts = {}));",
+            replacement(part) {
+              return part.includes(
+                "ts.convertCompilerOptionsFromJson = convertCompilerOptionsFromJson;"
+              )
+                ? ""
+                : part;
+            },
+          });
+
           // This function includes Node.js modules
           text = replaceAlignedCode(text, {
             start: "function tryGetNodePerformanceHooks() {",
