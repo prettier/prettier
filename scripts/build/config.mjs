@@ -103,11 +103,21 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
-          return replaceAlignedCode(text, {
+// This function includes Node.js modules
+          text = replaceAlignedCode(text, {
             start: "function tryGetNodePerformanceHooks() {",
             end: "}",
             replacement: "function tryGetNodePerformanceHooks() {}",
           });
+
+        // Remove useless `ts.sys`
+          text = replaceAlignedCode(text, {
+            start: "ts.sys = (function () {",
+            end: "})();",
+            replacement: "",
+          });
+
+          return text;
         },
       },
 
@@ -119,8 +129,6 @@ const parsers = [
 
         "_fs.realpathSync.native":
           "_fs.realpathSync && _fs.realpathSync.native",
-        // Remove useless `ts.sys`
-        "ts.sys = ": "ts.sys = undefined && ",
 
         // Remove useless language service
         "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
