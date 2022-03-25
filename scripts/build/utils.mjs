@@ -16,7 +16,14 @@ function replaceAlignedCode(text, { start, end, replacement }) {
     "gs"
   );
 
-  return text.replaceAll(regex, replacement);
+  const replaced = text.replaceAll(regex, replacement);
+
+  if (replaced === text) {
+    console.log({ start, end, replacement });
+    throw new Error("Code didn't change.");
+  }
+
+  return replaced;
 }
 
 export { replaceAlignedCode };

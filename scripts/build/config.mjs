@@ -134,29 +134,47 @@ const parsers = [
             replacement: "",
           });
 
+          // `typescript/lib/typescript.js` expose extra global objects
+          // `TypeScript`, `toolsVersion`, `globalThis`
+          text = replaceAlignedCode(text, {
+            start: 'if (typeof process === "undefined" || process.browser) {',
+            end: "}",
+            replacement: "",
+          });
+          text = replaceAlignedCode(text, {
+            start: "((function () {",
+            end: "})());",
+            replacement(part) {
+              return part.includes("__magic__") ? "" : part;
+            },
+          });
+
+          text = replaceAlignedCode(text, {
+            start: "((function () {",
+            end: "})());",
+            replacement(part) {
+              return part.includes("__magic__") ? "" : part;
+            },
+          });
+
+          text = replaceAlignedCode(text, {
+            start: "try {",
+            end: "}",
+            replacement(part) {
+              return part.includes("require(etwModulePath)") ? "try {}" : part;
+            },
+          });
+
+          text = replaceAlignedCode(text, {
+            start: "if (ts.sys && ts.sys.require) {",
+            end: "}",
+            replacement: "",
+          });
+
           return text;
         },
       },
 
-      ...Object.entries({
-        // `typescript/lib/typescript.js` expose extra global objects
-        // `TypeScript`, `toolsVersion`, `globalThis`
-        'typeof process === "undefined" || process.browser': "false",
-        'typeof globalThis === "object"': "true",
-
-        "_fs.realpathSync.native":
-          "_fs.realpathSync && _fs.realpathSync.native",
-
-        // Dynamic `require()`s
-        "ts.sys && ts.sys.require": "false",
-        "require(etwModulePath)": "undefined",
-        'require("source-map-support").install()': "",
-        "require(modulePath)": "undefined",
-      }).map(([find, replacement]) => ({
-        module: require.resolve("typescript"),
-        find,
-        replacement,
-      })),
       {
         module: require.resolve("debug/src/browser.js"),
         path: require.resolve("./shims/debug.cjs"),
