@@ -121,7 +121,7 @@ async function* expandPatternsInternal(context) {
           input = input.toString();
         }
         yield {
-          error: `${errorMessages.emptyResults[type]}: "${input}".`,
+          error: `${errorMessages.emptyResults[type]}: "${parsedInput}".`,
         };
       }
     } else {
