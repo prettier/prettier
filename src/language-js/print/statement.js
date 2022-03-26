@@ -35,7 +35,7 @@ function printStatementSequence(path, options, print, property) {
       return;
     }
 
-    if (node.type == "EmptyStatement" && index != statements.length - 1) {
+    if (node.type === "EmptyStatement" && index !== statements.length - 1) {
       return;
     }
 
