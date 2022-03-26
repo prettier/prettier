@@ -153,6 +153,8 @@ module.exports = {
     "unicorn/prefer-string-starts-ends-with": "error",
     "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
+    "unicorn/template-indent": "error",
+    "unicorn/text-encoding-identifier-case": "error",
   },
   overrides: [
     {
@@ -166,7 +168,11 @@ module.exports = {
       },
     },
     {
-      files: ["**/*.mjs", "scripts/release/**/*.js"],
+      files: [
+        "**/*.mjs",
+        "scripts/release/**/*.js",
+        "scripts/tools/bundle-test/**/*.js",
+      ],
       parserOptions: {
         sourceType: "module",
       },
@@ -304,6 +310,15 @@ module.exports = {
       files: ["website/playground/**/*"],
       parserOptions: {
         sourceType: "module",
+      },
+    },
+    {
+      files: ["bin/prettier.js"],
+      parserOptions: {
+        ecmaVersion: 5,
+      },
+      rules: {
+        "no-var": "off",
       },
     },
   ],

@@ -2,7 +2,6 @@
 
 const prettier = require("prettier-local");
 const runPrettier = require("../run-prettier.js");
-const { isProduction } = require("../env.js");
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
@@ -89,31 +88,4 @@ describe("throw error and show usage with something unexpected", () => {
   runPrettier("cli", [], { isTTY: true }).test({
     status: "non-zero",
   });
-});
-
-test("node version error", async () => {
-  const originalProcessVersion = process.version;
-  let result;
-
-  Object.defineProperty(process, "version", {
-    value: "v8.0.0",
-    writable: false,
-  });
-  try {
-    result = await runPrettier("cli", ["--help"]);
-  } finally {
-    Object.defineProperty(process, "version", {
-      value: originalProcessVersion,
-      writable: false,
-    });
-  }
-
-  expect(result.status).toBe(1);
-  expect(result.stderr).toBe(
-    `prettier requires at least version ${
-      isProduction ? "10.13.0" : "12.17.0"
-    } of Node, please upgrade\n`
-  );
-  expect(result.stdout).toBe("");
-  expect(result.write).toEqual([]);
 });

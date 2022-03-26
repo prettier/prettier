@@ -83,7 +83,7 @@ function writeJson(filename, content) {
 }
 
 function processFile(filename, fn) {
-  const content = fs.readFileSync(filename, "utf-8");
+  const content = fs.readFileSync(filename, "utf8");
   fs.writeFileSync(filename, fn(content));
 }
 
@@ -103,9 +103,9 @@ function getBlogPostInfo(version) {
 
 function getChangelogContent({ version, previousVersion, body }) {
   return outdent`
-  [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
+    [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
 
-  ${body}
+    ${body}
   `;
 }
 

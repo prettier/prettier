@@ -1,10 +1,5 @@
 "use strict";
 
-// eslint-disable-next-line no-restricted-modules
-const packageJson = require("../../package.json");
-require("please-upgrade-node")(packageJson);
-
-// eslint-disable-next-line import/order
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
@@ -18,6 +13,7 @@ const logResolvedConfigPathOrDie = require("./find-config-path.js");
 const {
   utils: { isNonEmptyArray },
 } = require("./prettier-internal.js");
+const { printToScreen } = require("./utils.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -74,12 +70,12 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.version) {
-    logger.log(prettier.version);
+    printToScreen(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    logger.log(
+    printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
         : createUsage(context)
@@ -88,7 +84,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.supportInfo) {
-    logger.log(
+    printToScreen(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
@@ -109,8 +105,8 @@ async function main(rawArguments, logger) {
   } else if (hasFilePatterns) {
     await formatFiles(context);
   } else {
-    logger.log(createUsage(context));
     process.exitCode = 1;
+    printToScreen(createUsage(context));
   }
 }
 

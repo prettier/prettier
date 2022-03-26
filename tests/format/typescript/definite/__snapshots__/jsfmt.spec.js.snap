@@ -26,7 +26,7 @@ class MyComponent {
 ngModel!: ng.INgModelController;
 }
 
-const x!: string
+const x!: string = '';
 
 var y!: MyComponent
 
@@ -35,7 +35,7 @@ class MyComponent {
   ngModel!: ng.INgModelController;
 }
 
-const x!: string;
+const x!: string = "";
 
 var y!: MyComponent;
 
@@ -57,9 +57,9 @@ class Foo {
 }
 
 let a! = x
-const b!
+const b! = x
 var c/* */! = x
-export const d!
+export const d! = x
 
 =====================================output=====================================
 class Foo {
@@ -71,9 +71,9 @@ class Foo {
 }
 
 let a! = x;
-const b!;
+const b! = x;
 var c! /* */ = x;
-export const d!;
+export const d! = x;
 
 ================================================================================
 `;
