@@ -35,6 +35,10 @@ function printStatementSequence(path, options, print, property) {
       return;
     }
 
+    if (node.type == "EmptyStatement" && index != statements.length - 1) {
+      return;
+    }
+
     const printed = print();
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
