@@ -758,7 +758,7 @@ function printIgnoreComment(node) {
   if (
     node.type === "paragraph" &&
     Array.isArray(node.children) &&
-    node.children[0] &&
+    node.children.length === 1 &&
     node.children[0].type === "esComment"
   ) {
     return ["{/* ", node.children[0].value, " */}"];
