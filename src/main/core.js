@@ -16,6 +16,7 @@ const {
 const normalizeOptions = require("./options.js").normalize;
 const massageAST = require("./massage-ast.js");
 const comments = require("./comments.js");
+const attachComments = require("./attach-comments.js");
 const parser = require("./parser.js");
 const printAstToDoc = require("./ast-to-doc.js");
 const rangeUtil = require("./range-util.js");
@@ -23,18 +24,6 @@ const rangeUtil = require("./range-util.js");
 const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
-
-function attachComments(text, ast, opts) {
-  const astComments = ast.comments;
-  if (astComments) {
-    delete ast.comments;
-    comments.attach(astComments, ast, text, opts);
-  }
-  opts[Symbol.for("comments")] = astComments || [];
-  opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
-  return astComments;
-}
 
 function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
@@ -362,4 +351,6 @@ module.exports = {
   printDocToString(doc, options) {
     return printDocToString(doc, normalizeOptions(options));
   },
+
+  attachComments,
 };

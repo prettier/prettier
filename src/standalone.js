@@ -48,7 +48,10 @@ module.exports = {
 
   version,
 
-  util: sharedUtil,
+  util: {
+    ...sharedUtil,
+    attachComments: core.attachComments,
+  },
 
   __debug: {
     parse: withPlugins(core.parse),
