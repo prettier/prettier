@@ -59,6 +59,10 @@ one: string
   foo(input: {multiline: "ab\\ncd"}) { id }
 }
 
+query { # some comment
+  foo
+}
+
 =====================================output=====================================
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
@@ -127,6 +131,11 @@ input Input {
   foo(input: { multiline: "ab\\ncd" }) {
     id
   }
+}
+
+query {
+  # some comment
+  foo
 }
 
 ================================================================================

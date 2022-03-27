@@ -14,12 +14,21 @@ query (
    someField
  }
 
+query { # some comment
+  foo
+}
+
 =====================================output=====================================
 query (
   $string: String # Some variable comment
   $bool: Boolean # Some comment
 ) {
   someField
+}
+
+query {
+  # some comment
+  foo
 }
 
 ================================================================================

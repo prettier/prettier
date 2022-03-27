@@ -50,3 +50,7 @@ one: string
 {
   foo(input: {multiline: "ab\ncd"}) { id }
 }
+
+query { # some comment
+  foo
+}

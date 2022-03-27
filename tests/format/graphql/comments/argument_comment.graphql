@@ -5,3 +5,7 @@ query (
  ) {
    someField
  }
+
+query { # some comment
+  foo
+}
