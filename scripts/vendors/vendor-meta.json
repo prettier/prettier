@@ -803,7 +803,7 @@
     {
       "name": "micromatch",
       "maintainers": [],
-      "version": "4.0.4",
+      "version": "4.0.5",
       "description": "Glob matching for javascript/node.js. A replacement and faster alternative to minimatch and multimatch.",
       "repository": "micromatch/micromatch",
       "homepage": "https://github.com/micromatch/micromatch",
