@@ -377,10 +377,7 @@ function genericPrint(path, options, print) {
                 hardline,
                 join(
                   hardline,
-                  path.call(
-                    (opsPath) => printSequence(opsPath, options, print),
-                    "operationTypes"
-                  )
+                  printSequence(path, options, print, "operationTypes")
                 ),
               ]),
               hardline,
