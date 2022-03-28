@@ -1,11 +1,10 @@
-// TODO[@fisker]: try inline import this module
-// Inline the require to avoid loading all the JS if we don't use it
-import flow from "flow-parser";
-
+import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
+
+const require = createRequire(import.meta.url);
 
 // https://github.com/facebook/flow/tree/main/packages/flow-parser#options
 // Keep this sync with `/scripts/sync-flow-test.js`
@@ -41,6 +40,8 @@ function createParseError(error) {
 }
 
 function parse(text, parsers, options = {}) {
+  // Inline the require to avoid loading all the JS if we don't use it
+  const flow = require("flow-parser");
   const ast = flow.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {

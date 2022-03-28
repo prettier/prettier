@@ -1,11 +1,13 @@
-// TODO[@fisker]: try inline import this module
-// Inline the require to avoid loading all the JS if we don't use it
-import { parse as parseYaml } from "yaml-unist-parser";
+import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 
+const require = createRequire(import.meta.url);
+
 function parse(text) {
+  const { parse: parseYaml } = require("yaml-unist-parser");
+
   try {
     const root = parseYaml(text);
 
