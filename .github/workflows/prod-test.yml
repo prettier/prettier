@@ -77,13 +77,13 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "16.10.0"
+          - "16"
           - "14"
           - "12"
           - "10"
         include:
           - os: "ubuntu-latest"
-            node: "16.10.0"
+            node: "16"
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
