@@ -7,33 +7,20 @@ const { locStart, locEnd } = require("./loc.js");
 
 function parseComments(ast) {
   const comments = [];
-  const stack = [];
-  let prev = null;
-  let token = ast.startToken;
-  while (token) {
-    if (token.kind === "Punctuator" && token.value === "{") {
-      stack.push(prev);
-    } else if (token.kind === "Punctuator" && token.value === "}") {
-      prev = stack.pop();
+  const { startToken } = ast.loc;
+  let { next } = startToken;
+  while (next.kind !== "<EOF>") {
+    if (next.kind === "Comment") {
+      Object.assign(next, {
+        // The Comment token's column starts _after_ the `#`,
+        // but we need to make sure the node captures the `#`
+        column: next.column - 1,
+      });
+      comments.push(next);
     }
-    if (token.kind === "Comment") {
-      const comment = {
-        value: token.value,
-        loc: {
-          start: locStart(token),
-          end: locEnd(token),
-        },
-      };
-      if (prev) {
-        prev.trailingComments = prev.trailingComments || [];
-        prev.trailingComments.push(comment);
-      } else {
-        comments.push(comment);
-      }
-    }
-    prev = token;
-    token = token.next;
+    next = next.next;
   }
+
   return comments;
 }
 
