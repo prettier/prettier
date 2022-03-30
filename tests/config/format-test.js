@@ -344,7 +344,10 @@ async function runTest({
     formatResult.input === code
   ) {
     const { eolVisualizedOutput: firstOutput, output } = formatResult;
-    const { eolVisualizedOutput: secondOutput } = format(output, formatOptions);
+    const { eolVisualizedOutput: secondOutput } = await format(
+      output,
+      formatOptions
+    );
     if (isUnstableTest) {
       // To keep eye on failed tests, this assert never supposed to pass,
       // if it fails, just remove the file from `unstableTests`
