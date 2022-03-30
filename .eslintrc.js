@@ -4,8 +4,11 @@ const { isCI } = require("ci-info");
 module.exports = {
   root: true,
   env: {
-    es2021: true,
+    es2022: true,
     node: true,
+  },
+  parserOptions: {
+    ecmaVersion: "latest",
   },
   reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
@@ -165,6 +168,12 @@ module.exports = {
       ],
       rules: {
         "no-console": "off",
+      },
+    },
+    {
+      files: ["scripts/**/*.mjs"],
+      rules: {
+        "unicorn/prefer-top-level-await": "error",
       },
     },
     {
