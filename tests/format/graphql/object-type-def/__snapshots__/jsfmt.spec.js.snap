@@ -60,12 +60,13 @@ parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type VRMConversation implements Node, Entity @foo {
+type VRMConversation implements Node, Entity @foo { # some comment
   a: Int
 }
 
 =====================================output=====================================
-type VRMConversation implements Node, Entity @foo {
+type VRMConversation implements Node, Entity
+  @foo { # some comment
   a: Int
 }
 

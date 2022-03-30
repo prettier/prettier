@@ -14,7 +14,7 @@ query (
    someField
  }
 
-query { # some comment
+query { # some comment 2
   foo
 }
 
@@ -27,7 +27,7 @@ query (
 }
 
 query {
-  # some comment
+  # some comment 2
   foo
 }
 

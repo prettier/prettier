@@ -6,6 +6,6 @@ query (
    someField
  }
 
-query { # some comment
+query { # some comment 2
   foo
 }

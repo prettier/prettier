@@ -590,7 +590,7 @@ function canAttachComment(node) {
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   if (comment.kind === "Comment") {
-    return "#" + comment.value.replace(/\n/g, "\n#");
+    return "#" + comment.value.trimEnd();
   }
 
   /* istanbul ignore next */
