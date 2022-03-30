@@ -577,7 +577,10 @@ function printTable(path, options, print) {
     "children"
   );
 
-  const alignedTable = printTableContents(/* isCompact */ false);
+  // don't align table when alignColumns is false
+  const alignedTable = printTableContents(
+    /* isCompact */ options.alignColumns === false
+  );
   if (options.proseWrap !== "never") {
     return [breakParent, alignedTable];
   }

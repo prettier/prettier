@@ -467,3 +467,19 @@ Valid options:
 | Default | CLI Override                  | API Override                     |
 | ------- | ----------------------------- | -------------------------------- |
 | `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |
+
+## Align Columns
+
+_First available in v2.6.0_
+
+By default, Prettier will align every column to the same width. However, Prettier has no control how font is rendered in editors, so in some cases, e.g. a
+proportional font is used or some characters fall back to system font(common for CJK users), it will still be misaligned yet filled with padding. This option will allow you to opt out with `false`.
+
+Valid options:
+
+- `"true"` - Align columns to the same width.
+- `"false"` - Don't align columns.
+
+| Default  | CLI Override                                   | API Override                                  |
+| -------- | ---------------------------------------------- | --------------------------------------------- |
+| `"true"` | <code>--align-columns <true&#124;false></code> | <code>alignColumns: "<rue&#124;false>"</code> |

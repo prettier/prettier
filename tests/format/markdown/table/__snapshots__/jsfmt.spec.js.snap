@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`align.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+|a|b|c|
+|:--|:-:|--:|
+|d|e|f|
+
+=====================================output=====================================
+| a | b | c |
+| :-- | :-: | --: |
+| d | e | f |
+
+================================================================================
+`;
+
 exports[`align.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -15,6 +35,26 @@ proseWrap: "always"
 | a   |  b  |   c |
 | :-- | :-: | --: |
 | d   |  e  |   f |
+
+================================================================================
+`;
+
+exports[`cjk.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| abc | def | ghi |
+| --- | --- | --- |
+| 第一欄 | 第二欄 | 第三欄 |
+
+=====================================output=====================================
+| abc | def | ghi |
+| --- | --- | --- |
+| 第一欄 | 第二欄 | 第三欄 |
 
 ================================================================================
 `;
@@ -38,6 +78,69 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`cjk-long.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Pilot|Airport|Hours
+--|:--:|--:
+John Doe|SKG|1338ewrqewrewrewqrewrqwerewrweqrwerew
+Jane Roe|JFK|自分自身の状態を管理
+
+=====================================output=====================================
+| Pilot | Airport | Hours |
+| --- | :-: | --: |
+| John Doe | SKG | 1338ewrqewrewrewqrewrqwerewrweqrwerew |
+| Jane Roe | JFK | 自分自身の状態を管理 |
+
+================================================================================
+`;
+
+exports[`cjk-long.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Pilot|Airport|Hours
+--|:--:|--:
+John Doe|SKG|1338ewrqewrewrewqrewrqwerewrweqrwerew
+Jane Roe|JFK|自分自身の状態を管理
+
+=====================================output=====================================
+| Pilot    | Airport |                                 Hours |
+| -------- | :-----: | ------------------------------------: |
+| John Doe |   SKG   | 1338ewrqewrewrewqrewrqwerewrweqrwerew |
+| Jane Roe |   JFK   |                  自分自身の状態を管理 |
+
+================================================================================
+`;
+
+exports[`emoji.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| abc | def | ghi |
+| --- | --- | --- |
+| 👍👍👍 | 👍👍👍 | 👍👍👍 |
+
+=====================================output=====================================
+| abc | def | ghi |
+| --- | --- | --- |
+| 👍👍👍 | 👍👍👍 | 👍👍👍 |
+
+================================================================================
+`;
+
 exports[`emoji.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -53,6 +156,28 @@ proseWrap: "always"
 | abc    | def    | ghi    |
 | ------ | ------ | ------ |
 | 👍👍👍 | 👍👍👍 | 👍👍👍 |
+
+================================================================================
+`;
+
+exports[`empty.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Foo | Bar
+--- | ---
+X   |
+Y   |
+
+=====================================output=====================================
+| Foo | Bar |
+| --- | --- |
+| X |
+| Y |
 
 ================================================================================
 `;
@@ -78,6 +203,26 @@ Y   |
 ================================================================================
 `;
 
+exports[`escape.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| a | b | c |
+|:--|:-:|--:|
+| \\| | \\| | \\| |
+
+=====================================output=====================================
+| a | b | c |
+| :-- | :-: | --: |
+| \\| | \\| | \\| |
+
+================================================================================
+`;
+
 exports[`escape.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -93,6 +238,26 @@ proseWrap: "always"
 | a   |  b  |   c |
 | :-- | :-: | --: |
 | \\|  | \\|  |  \\| |
+
+================================================================================
+`;
+
+exports[`html.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Default | CLI Override | API Override
+--------|--------------|-------------
+\`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code>
+
+=====================================output=====================================
+| Default | CLI Override | API Override |
+| --- | --- | --- |
+| \`"none"\` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
 ================================================================================
 `;
@@ -116,6 +281,26 @@ Default | CLI Override | API Override
 ================================================================================
 `;
 
+exports[`simple.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+| Title A | Title B | Title C |
+|---|---|---|
+| content A | content B | content C |
+
+=====================================output=====================================
+| Title A | Title B | Title C |
+| --- | --- | --- |
+| content A | content B | content C |
+
+================================================================================
+`;
+
 exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
@@ -131,6 +316,57 @@ proseWrap: "always"
 | Title A   | Title B   | Title C   |
 | --------- | --------- | --------- |
 | content A | content B | content C |
+
+================================================================================
+`;
+
+exports[`table.md - {"proseWrap":"always","alignColumns":false} format 1`] = `
+====================================options=====================================
+alignColumns: false
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- min-table
+
+  | Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+- big-table
+
+  |学号|姓名|分数|
+  |-|-|-|
+  |小明|男|75|
+  |小红|女|79|
+  |小陆|男|92|
+
+| col1 | col2 | col3 |
+|---|--|--|
+| long text | \`\` | text |
+
+=====================================output=====================================
+- min-table
+
+  | Age | Time | Food | Gold | Requirement |
+  | --- | --- | --- | --- | --- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 | - |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+
+- big-table
+
+  | 学号 | 姓名 | 分数 |
+  | --- | --- | --- |
+  | 小明 | 男 | 75 |
+  | 小红 | 女 | 79 |
+  | 小陆 | 男 | 92 |
+
+| col1 | col2 | col3 |
+| --- | --- | --- |
+| long text | \`\` | text |
 
 ================================================================================
 `;

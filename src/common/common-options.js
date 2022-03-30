@@ -61,4 +61,11 @@ module.exports = {
     default: false,
     description: "Enforce single attribute per line in HTML, Vue and JSX.",
   },
+  alignColumns: {
+    since: "2.6.0",
+    category: CATEGORY_COMMON,
+    type: "boolean",
+    default: true,
+    description: "Align markdown table columns.",
+  },
 };

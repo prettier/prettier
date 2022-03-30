@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`show detailed usage with --help align-columns (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help align-columns (stdout) 1`] = `
+"--align-columns
+
+  Align markdown table columns.
+
+Default: true
+"
+`;
+
+exports[`show detailed usage with --help align-columns (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `

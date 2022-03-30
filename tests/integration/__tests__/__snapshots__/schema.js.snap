@@ -6,6 +6,11 @@ Object {
   "definitions": Object {
     "optionsDefinition": Object {
       "properties": Object {
+        "alignColumns": Object {
+          "default": true,
+          "description": "Align markdown table columns.",
+          "type": "boolean",
+        },
         "arrowParens": Object {
           "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",

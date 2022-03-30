@@ -58,6 +58,8 @@ Output options:
 
 Format options:
 
+  --align-columns          Align markdown table columns.
+                           Defaults to true.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
@@ -228,6 +230,8 @@ Output options:
 
 Format options:
 
+  --align-columns          Align markdown table columns.
+                           Defaults to true.
   --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to always.
