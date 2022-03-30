@@ -294,7 +294,7 @@ async function runTest({
     const runFormat = () => format(code, formatOptions);
 
     if (shouldThrowOnFormat(name, formatOptions)) {
-      expect(runFormat).toThrowErrorMatchingSnapshot();
+      await expect(runFormat()).rejects.toThrowErrorMatchingSnapshot();
       return;
     }
 
