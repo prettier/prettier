@@ -234,12 +234,19 @@ function runSpec(fixtures, parsers, options) {
         filepath: filename,
         parser,
       };
+      const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
+        name,
+        formatOptions
+      );
+
       let mainParserFormatResult;
-      beforeAll(async () => {
-        mainParserFormatResult = shouldThrowOnFormat(name, formatOptions)
-          ? { options: formatOptions, error: true }
-          : await format(code, formatOptions);
-      });
+      if (shouldThrowOnMainParserFormat) {
+        mainParserFormatResult = { options: formatOptions, error: true };
+      } else {
+        beforeAll(async () => {
+          mainParserFormatResult = await format(code, formatOptions);
+        });
+      }
 
       for (const currentParser of allParsers) {
         if (
@@ -251,6 +258,7 @@ function runSpec(fixtures, parsers, options) {
         }
 
         const testTitle =
+          shouldThrowOnMainParserFormat ||
           formatOptions.parser !== currentParser
             ? `[${currentParser}] format`
             : "format";
