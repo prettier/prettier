@@ -16,7 +16,8 @@ const runSpellcheck = (options) => {
 };
 
 console.log("Empty words ...");
-const config = JSON.parse(await fs.readFile(CSPELL_CONFIG_FILE));
+const configFileContent = await fs.readFile(CSPELL_CONFIG_FILE);
+const config = JSON.parse(configFileContent);
 const original = config.words;
 await updateConfig({ ...config, words: [] });
 
