@@ -251,7 +251,7 @@ function runSpec(fixtures, parsers, options) {
         }
 
         const testTitle =
-          formatOptions.parser !== parser
+          formatOptions.parser !== currentParser
             ? `[${currentParser}] format`
             : "format";
 
