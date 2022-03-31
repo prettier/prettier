@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
-import assert from "node:assert/strict";
+import assert from "node:assert";
 import { fileURLToPath } from "node:url";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
@@ -23,7 +23,7 @@ const getVendorFilePath = (vendorName, extension = "js") =>
 // Unsafe, but good enough for now.
 const isJson = (value) => {
   try {
-    assert.deepEqual(JSON.parse(JSON.stringify(value)), { ...value });
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(value)), { ...value });
     return true;
   } catch {
     return false;
