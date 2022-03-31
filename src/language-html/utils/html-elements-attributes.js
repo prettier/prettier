@@ -2,7 +2,7 @@
 
 const {
   htmlElementAttributes,
-} = require("../../../vendors/html-element-attributes.js");
+} = require("../../../vendors/html-element-attributes.json");
 const mapObject = require("./map-object.js");
 const arrayToMap = require("./array-to-map.js");
 

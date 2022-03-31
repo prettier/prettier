@@ -4,6 +4,7 @@ const vendors = [
   "execa",
   "tempy",
   "chalk",
+  "html-void-elements",
   "html-element-attributes",
 ];
 

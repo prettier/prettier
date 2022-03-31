@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
+import assert from "node:assert";
 import { fileURLToPath } from "node:url";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { outdent } from "outdent";
-import { PROJECT_ROOT } from "../utils/index.mjs";
+import { PROJECT_ROOT, writeJson } from "../utils/index.mjs";
 import esbuildPluginLicense from "../build/esbuild-plugins/license.mjs";
 import vendors from "./vendors.mjs";
 import { vendorMetaFile, saveVendorLicenses } from "./utils.mjs";
@@ -16,8 +17,18 @@ const rootDir = new URL("../../", import.meta.url);
 // prettier/vendors
 const vendorsDir = new URL("./vendors/", rootDir);
 // prettier/vendors/*.js
-const getVendorFilePath = (vendorName) =>
-  fileURLToPath(new URL(`./${vendorName}.js`, vendorsDir));
+const getVendorFilePath = (vendorName, extension = "js") =>
+  fileURLToPath(new URL(`./${vendorName}.${extension}`, vendorsDir));
+
+// Unsafe, but good enough for now.
+const isJson = (value) => {
+  try {
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(value)), { ...value });
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 async function clean() {
   for (const directoryOrFile of [vendorsDir, vendorMetaFile]) {
@@ -29,10 +40,8 @@ async function clean() {
   }
 }
 
-async function generateDts(vendor) {
-  const hasDefault = await import(vendor).then((module) =>
-    Boolean(module.default)
-  );
+async function generateDts({ vendor, module }) {
+  const hasDefault = Boolean(module.default);
   await fs.writeFile(
     new URL(`${vendor}.d.ts`, vendorsDir),
     [
@@ -70,7 +79,15 @@ async function bundle(vendor, options) {
   };
   await esbuild.build(esbuildOption);
 
-  await generateDts(vendor);
+  // Still running esbuild, because we want collect license
+  const module = await import(vendor);
+  if (isJson(module)) {
+    await fs.rm(outfile);
+    await writeJson(getVendorFilePath(vendor, "json"), module);
+    return;
+  }
+
+  await generateDts({ vendor, module });
 }
 
 async function main() {
