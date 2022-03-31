@@ -15,7 +15,7 @@ exports[`snippet: #0 [acorn] format 2`] = `
 `;
 
 exports[`snippet: #0 [babel] format 1`] = `
-"'await' is only allowed within async functions and at the top levels of modules. (2:20)
+"'await' is not allowed in async function parameters. (2:20)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
     |                    ^
