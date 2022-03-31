@@ -1034,7 +1034,7 @@ const compareOperators = {
   "<=": true,
   ">": true,
   ">=": true,
-}
+};
 
 function shouldFlatten(parentOp, nodeOp) {
   if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
