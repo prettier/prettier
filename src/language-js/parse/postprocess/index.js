@@ -71,14 +71,6 @@ function postprocess(ast, options) {
         }
         break;
       }
-      // fix unexpected locEnd caused by --no-semi style
-      case "VariableDeclaration": {
-        const lastDeclaration = getLast(node.declarations);
-        if (lastDeclaration && lastDeclaration.init) {
-          overrideLocEnd(node, lastDeclaration);
-        }
-        break;
-      }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
         if (
