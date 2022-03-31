@@ -1,6 +1,5 @@
 "use strict";
 
-const { range } = require("lodash");
 const runPrettier = require("../run-prettier.js");
 
 describe("checks stdin with --check", () => {
@@ -55,15 +54,5 @@ describe("--checks should print the number of files that need formatting", () =>
     input: "0",
   }).test({
     status: 1,
-  });
-
-  test("Should print the number of files that need formatting", async () => {
-    const result = await runPrettier(
-      "cli/write",
-      ["--check", "unformatted.js", "unformatted2.js"],
-      {
-        input: "0",
-      }
-    );
   });
 });
