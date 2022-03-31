@@ -134,20 +134,6 @@ function postprocess(ast, options) {
   });
 
   return ast;
-
-  /**
-   * - `toOverrideNode` must be the last thing in `toBeOverriddenNode`
-   * - do nothing if there's a semicolon on `toOverrideNode.end` (no need to fix)
-   */
-  function overrideLocEnd(toBeOverriddenNode, toOverrideNode) {
-    if (options.originalText[locEnd(toOverrideNode)] === ";") {
-      return;
-    }
-    toBeOverriddenNode.range = [
-      locStart(toBeOverriddenNode),
-      locEnd(toOverrideNode),
-    ];
-  }
 }
 
 // This is a workaround to transform `ChainExpression` from `acorn`, `espree`,

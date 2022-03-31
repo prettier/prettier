@@ -7,8 +7,8 @@ const getLast = require("../utils/get-last.js");
  * @typedef {import("./types/estree").Node} Node
  */
 
-function locStart(node, options) {
-  const { ignoreDecorators } = options || {};
+function locStart(node, options = {}) {
+  const { ignoreDecorators } = options;
 
   // Handle nodes with decorators. They should start at the first decorator
   if (!ignoreDecorators) {
@@ -23,8 +23,8 @@ function locStart(node, options) {
   return node.range ? node.range[0] : node.start;
 }
 
-function locEnd(node, options) {
-  const { forCommentAttach } = options || {};
+function locEnd(node, options = {}) {
+  const { forCommentAttach } = options;
 
   if (forCommentAttach && node.type === "VariableDeclaration") {
     const lastDeclaration = getLast(node.declarations);
