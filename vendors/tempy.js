@@ -3042,9 +3042,9 @@ var require_micromatch = __commonJS({
           options.onResult(state);
         items.push(state.output);
       };
-      let matches = micromatch(list, patterns, __spreadProps(__spreadValues({}, options), { onResult }));
+      let matches = new Set(micromatch(list, patterns, __spreadProps(__spreadValues({}, options), { onResult })));
       for (let item of items) {
-        if (!matches.includes(item)) {
+        if (!matches.has(item)) {
           result.add(item);
         }
       }

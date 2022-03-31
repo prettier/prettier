@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`2.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+.background-gradient(@cut) {
+    background: linear-gradient(
+        to right,
+
+
+        /* Should preserve empty lines */
+        @white 0%,
+        @white (@cut - 0.01%),
+        @portal-background @cut,
+        @portal-background 100%
+    );
+}
+
+=====================================output=====================================
+.background-gradient(@cut) {
+  background: linear-gradient(
+    to right,
+
+    /* Should preserve empty lines */ @white 0%,
+    @white (@cut - 0.01%),
+    @portal-background @cut,
+    @portal-background 100%
+  );
+}
+
+================================================================================
+`;
+
 exports[`parens.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
