@@ -1,6 +1,6 @@
 "use strict";
 
-const { htmlVoidElements } = require("../../vendors/html-void-elements.js");
+const { htmlVoidElements } = require("../../vendors/html-void-elements.json");
 const getLast = require("../utils/get-last.js");
 
 function isLastNodeOfSiblings(path) {
