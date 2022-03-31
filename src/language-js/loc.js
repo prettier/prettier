@@ -1,13 +1,14 @@
 "use strict";
 
 const isNonEmptyArray = require("../utils/is-non-empty-array.js");
+const getLast = require("../utils/get-last.js");
 
 /**
  * @typedef {import("./types/estree").Node} Node
  */
 
-function locStart(node, opts) {
-  const { ignoreDecorators } = opts || {};
+function locStart(node, options) {
+  const { ignoreDecorators } = options || {};
 
   // Handle nodes with decorators. They should start at the first decorator
   if (!ignoreDecorators) {
@@ -22,7 +23,16 @@ function locStart(node, opts) {
   return node.range ? node.range[0] : node.start;
 }
 
-function locEnd(node) {
+function locEnd(node, options) {
+  const { forCommentAttach } = options || {};
+
+  if (forCommentAttach && node.type === "VariableDeclaration") {
+    const lastDeclaration = getLast(node.declarations);
+    if (lastDeclaration && lastDeclaration.init) {
+      return locEnd(lastDeclaration);
+    }
+  }
+
   return node.range ? node.range[1] : node.end;
 }
 
