@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`--checks should print the number of files that need formatting (stderr) 1`] = `
+"[warn] unformatted.js
+[warn] unformatted2.js
+[warn] Code style issues found in 2 files. Forgot to run Prettier?
+"
+`;
+
+exports[`--checks should print the number of files that need formatting (stdout) 1`] = `
+"Checking formatting...
+"
+`;
+
+exports[`--checks should print the number of files that need formatting (write) 1`] = `Array []`;
+
 exports[`--checks works in CI just as in a non-TTY mode (stderr) 1`] = `
 "[warn] unformatted.js
 [warn] Code style issues found in the above file. Forgot to run Prettier?
