@@ -1,3 +1,10 @@
-const vendors = ["string-width", "mem", "execa", "tempy", "chalk"];
+const vendors = [
+  "string-width",
+  "mem",
+  "execa",
+  "tempy",
+  "chalk",
+  "html-element-attributes",
+];
 
 export default vendors;

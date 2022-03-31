@@ -1,6 +1,8 @@
 "use strict";
 
-const htmlElementAttributes = require("html-element-attributes");
+const {
+  htmlElementAttributes,
+} = require("../../../vendors/html-element-attributes.js");
 const mapObject = require("./map-object.js");
 const arrayToMap = require("./array-to-map.js");
 
