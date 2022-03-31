@@ -1029,6 +1029,12 @@ const bitshiftOperators = {
   ">>>": true,
   "<<": true,
 };
+const compareOperators = {
+  "<": true,
+  "<=": true,
+  ">": true,
+  ">=": true,
+}
 
 function shouldFlatten(parentOp, nodeOp) {
   if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
@@ -1043,6 +1049,11 @@ function shouldFlatten(parentOp, nodeOp) {
 
   // x == y == z --> (x == y) == z
   if (equalityOperators[parentOp] && equalityOperators[nodeOp]) {
+    return false;
+  }
+
+  // x < y < z --> (x < y) < z
+  if (compareOperators[parentOp] && compareOperators[nodeOp]) {
     return false;
   }
 
