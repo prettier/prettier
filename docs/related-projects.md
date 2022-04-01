@@ -16,12 +16,6 @@ title: Related Projects
 - [stylelint-prettier](https://github.com/prettier/stylelint-prettier) runs Prettier as a stylelint rule and reports differences as individual stylelint issues
 - [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint) passes `prettier` output to `stylelint --fix`
 
-## TSLint Integrations
-
-- [tslint-config-prettier](https://github.com/alexjoverm/tslint-config-prettier) use TSLint with Prettier without any conflict
-- [tslint-plugin-prettier](https://github.com/ikatyang/tslint-plugin-prettier) runs Prettier as a TSLint rule and reports differences as individual TSLint issues
-- [prettier-tslint](https://github.com/azz/prettier-tslint) passes `prettier` output to `tslint --fix`
-
 ## Forks
 
 - [prettierx](https://github.com/brodybits/prettierx) less opinionated fork of Prettier
