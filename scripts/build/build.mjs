@@ -63,8 +63,6 @@ const clear = () => {
 };
 
 async function createBundle(bundleConfig, options) {
-  const { target } = bundleConfig;
-
   try {
     for await (const {
       name,
