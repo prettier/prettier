@@ -58,7 +58,7 @@
     "ignore": "5.2.0",
     "jest-docblock": "27.5.1",
     "json5": "2.2.1",
-    "leven": "3.1.0",
+    "leven": "4.0.0",
     "lines-and-columns": "2.0.3",
     "linguist-languages": "7.15.0",
     "lodash": "4.17.21",
