@@ -119,6 +119,14 @@ const isTestDirectory = (dirname, name) =>
     path.join(__dirname, "../format", name) + path.sep
   );
 
+const ensurePromise = (value) => {
+  if (!(value instanceof Promise)) {
+    throw new TypeError("Expected value to be a 'Promise'.");
+  }
+
+  return value;
+};
+
 function runSpec(fixtures, parsers, options) {
   let { importMeta, snippets = [] } = fixtures.importMeta
     ? fixtures
@@ -462,7 +470,6 @@ const insertCursor = (text, cursorOffset) =>
       CURSOR_PLACEHOLDER +
       text.slice(cursorOffset)
     : text;
-// eslint-disable-next-line require-await
 async function format(originalText, originalOptions) {
   const { text: input, options } = replacePlaceholders(
     originalText,
@@ -470,9 +477,8 @@ async function format(originalText, originalOptions) {
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
-  const { formatted: output, cursorOffset } = prettier.formatWithCursor(
-    input,
-    options
+  const { formatted: output, cursorOffset } = await ensurePromise(
+    prettier.formatWithCursor(input, options)
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);

@@ -279,7 +279,8 @@ function hasPragma(text, options) {
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
-function formatWithCursor(originalText, originalOptions) {
+// eslint-disable-next-line require-await
+async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
     normalizeOptions(originalOptions)
@@ -345,11 +346,14 @@ const prettier = {
   },
 
   // Doesn't handle shebang for now
-  formatDoc(doc, options) {
-    return formatWithCursor(printDocToDebug(doc), {
+  async formatDoc(doc, options) {
+    const text = printDocToDebug(doc);
+    const { formatted } = await formatWithCursor(text, {
       ...options,
       parser: "__js_expression",
-    }).formatted;
+    });
+
+    return formatted;
   },
 
   printToDoc(originalText, options) {
