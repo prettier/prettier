@@ -1,18 +1,11 @@
 "use strict";
 
-const fs = require("fs");
 const vm = require("vm");
-const fastGlob = require("fast-glob");
+const getStandaloneVersionSource = require("./utils/get-standalone-version-source.js");
 
 const sandbox = vm.createContext();
 
-const source = fastGlob
-  .sync(["standalone.js", "parser-*.js"], {
-    cwd: process.env.PRETTIER_DIR,
-    absolute: true,
-  })
-  .map((file) => fs.readFileSync(file, "utf8"))
-  .join(";");
+const source = getStandaloneVersionSource(process.env.PRETTIER_DIR).text;
 
 vm.runInContext(source, sandbox);
 
