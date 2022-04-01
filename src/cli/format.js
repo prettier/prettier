@@ -420,7 +420,7 @@ async function formatFiles(context) {
     } else if (numberOfUnformattedFilesFound === 1) {
       context.logger.warn(
         context.argv.write
-          ? "Code style issues fixed in the above file(s)."
+          ? "Code style issues fixed in the above file."
           : "Code style issues found in the above file. Forgot to run Prettier?"
       );
     } else {
