@@ -11,7 +11,9 @@ function getStandaloneVersionSource(prettierDirectory) {
     })
     .map((file) => ({
       file,
-      text: fs.readFileSync(file, "utf8"),
+      get text() {
+        return fs.readFileSync(file, "utf8");
+      },
     }));
 
   return {
