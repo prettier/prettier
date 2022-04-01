@@ -3591,10 +3591,10 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
   integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
-html-element-attributes@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/html-element-attributes/-/html-element-attributes-2.3.0.tgz#a192ac90a457be9f1e2cc9ab69000ee89be74aa6"
-  integrity sha512-RJv2v3BBaYSc0ODHwT0sqWI+2lFs6DATBvCRnW20BDmULxoAWvfT6r28uL8LcW1a9/eqUl+1DccUOJzw00qVXQ==
+html-element-attributes@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/html-element-attributes/-/html-element-attributes-3.1.0.tgz#07869037b9020bec3bb1897263e97dd65829d15b"
+  integrity sha512-cHM9qM06tyWHwvGqDqVEBwoYtGgyq7X/GQt3dor38M1hYMZw1yVadaDQrwwQer6NefiYAoHaqFARI8ETMCAOYA==
 
 html-encoding-sniffer@^2.0.1:
   version "2.0.1"
@@ -3618,10 +3618,10 @@ html-tag-names@2.0.1:
   resolved "https://registry.yarnpkg.com/html-tag-names/-/html-tag-names-2.0.1.tgz#5626263e7d7b15789fa35a9f816234156901adc6"
   integrity sha512-PX8KyLG7dwsjis3NPj1u+/EJf2CgH2d+qzekQpnlCOPQ6Uu6T8+F2ZqQg+wtsP+WKhxK3QMN9Garcwr7fCRhxA==
 
-html-void-elements@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/html-void-elements/-/html-void-elements-1.0.5.tgz#ce9159494e86d95e45795b166c2021c2cfca4483"
-  integrity sha512-uE/TxKuyNIcx44cIWnjr/rfIATDH7ZaOMmstu0CwhFG1Dunhlp4OC6/NMbhiwoq5BpW0ubi303qnEk/PZj614w==
+html-void-elements@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/html-void-elements/-/html-void-elements-2.0.1.tgz#29459b8b05c200b6c5ee98743c41b979d577549f"
+  integrity sha512-0quDb7s97CfemeJAnW9wC0hw78MtW7NU3hqtCD75g2vFlDLt36llsYD7uB7SUzojLMP24N5IatXf7ylGXiGG9A==
 
 http-proxy-agent@^4.0.1:
   version "4.0.1"
