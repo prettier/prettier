@@ -12,7 +12,7 @@ const { __dirname } = createEsmUtils(import.meta);
 
 let prettier;
 
-const { FULL_TEST } = process.env;
+const { FULL_TEST, TEST_STANDALONE } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -120,7 +120,12 @@ const isTestDirectory = (dirname, name) =>
   );
 
 const ensurePromise = (value) => {
-  if (!(value instanceof Promise)) {
+  const isPromise = TEST_STANDALONE
+    ? // In standalone test, promise is from another context
+      Object.prototype.toString.call(value) === "[object Promise]"
+    : value instanceof Promise;
+
+  if (!isPromise) {
     throw new TypeError("Expected value to be a 'Promise'.");
   }
 
