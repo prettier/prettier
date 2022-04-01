@@ -27,7 +27,7 @@
     "@babel/parser": "7.17.8",
     "@glimmer/syntax": "0.84.1",
     "@iarna/toml": "2.2.5",
-    "@typescript-eslint/typescript-estree": "5.16.0",
+    "@typescript-eslint/typescript-estree": "5.17.0",
     "acorn": "8.7.0",
     "acorn-jsx": "5.3.2",
     "angular-estree-parser": "2.5.0",
