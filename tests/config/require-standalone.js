@@ -1,6 +1,16 @@
 "use strict";
 
 const vm = require("vm");
+const fastGlob = require("fast-glob");
+const createSandBox = require("./utils/create-sandbox.js");
+
+const sandbox = createSandBox({
+  files: (files = fastGlob.sync(["standalone.js", "parser-*.js"], {
+    cwd: process.env.PRETTIER_DIR,
+    absolute: true,
+  })),
+});
+
 const getStandaloneVersionSource = require("./utils/get-standalone-version-source.js");
 
 const sandbox = vm.createContext();

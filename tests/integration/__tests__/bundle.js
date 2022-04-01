@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const fastGlob = require("fast-glob");
 const { projectRoot } = require("../env.js");
+const createSandBox = require("../../config/utils/create-sandbox.js");
 const coreOptions = require("../../../src/main/core-options.js");
 const codeSamples =
   require("../../../website/playground/codeSamples.js").default;
@@ -61,5 +62,28 @@ describe("standalone", () => {
 
       expect(esmOutput).toBe(umdOutput);
     });
+  }
+});
+
+test("global objects", async () => {
+  const files = await fastGlob(["standalone.js", "parser-*.js"], {
+    cwd: distDirectory,
+    absolute: true,
+  });
+
+  const allowedGlobalObjects = new Set(["prettier", "prettierPlugins"]);
+  const getGlobalObjects = (file) => {
+    const sandbox = createSandBox({ files: [file] });
+    return Object.fromEntries(
+      Object.entries(sandbox).filter(
+        ([property]) => !allowedGlobalObjects.has(property)
+      )
+    );
+  };
+
+  for (const file of files) {
+    const globalObjects = getGlobalObjects(file);
+
+    expect(globalObjects).toStrictEqual({});
   }
 });
