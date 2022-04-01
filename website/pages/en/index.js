@@ -293,7 +293,11 @@ const UsersSection = ({ language }) => {
             >
               <img
                 src="/images/state_of_js_grey.svg"
-                style={{ width: "80px" }}
+                style={{
+                  width: "200px",
+                  margin: "auto",
+                  height: "auto",
+                }}
               />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
