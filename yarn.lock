@@ -6520,6 +6520,13 @@ unicode-property-aliases-ecmascript@^2.0.0:
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.0.0.tgz#0a36cb9a585c4f6abd51ad1deddb285c165297c8"
   integrity sha512-5Zfuy9q/DFr4tfO7ZPeVXb1aPoeQSdeFMLpYuFebehDAhbuevLs5yxSZmIFN1tP5F9Wl4IpJrYojg85/zgyZHQ==
 
+unicode-regex@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/unicode-regex/-/unicode-regex-3.0.0.tgz#0c20df914c6da0412b3714cd300726e0f7f24698"
+  integrity sha512-WiDJdORsqgxkZrjC8WsIP573130HNn7KsB0IDnUccW2BG2b19QQNloNhVe6DKk3Aef0UcoIHhNVj7IkkcYWrNw==
+  dependencies:
+    regexp-util "^1.2.0"
+
 unicode-regex@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/unicode-regex/-/unicode-regex-2.0.0.tgz#ef8f6642c37dddcaa0c09af5b9456aabf6b436a3"
