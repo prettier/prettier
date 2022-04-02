@@ -5,6 +5,7 @@ const vendors = [
   "html-element-attributes",
   "html-tag-names",
   "html-void-elements",
+  "leven",
   "mem",
   "string-width",
   "strip-ansi",
