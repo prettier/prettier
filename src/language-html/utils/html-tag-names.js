@@ -1,6 +1,6 @@
 "use strict";
 
-const htmlTagNames = require("html-tag-names");
+const { htmlTagNames } = require("../../../vendors/html-tag-names.json");
 const arrayToMap = require("./array-to-map.js");
 
 const HTML_TAGS = arrayToMap(htmlTagNames);

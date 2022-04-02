@@ -320,7 +320,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-github">3.9 million</strong>{" "}
+                <strong data-placeholder="dependent-github">4 million</strong>{" "}
                 dependent repositories on GitHub
               </p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
@@ -336,7 +336,7 @@ const UsersSection = ({ language }) => {
             <div style={{ marginLeft: ".7em", width: "260px" }}>
               <p>
                 More than{" "}
-                <strong data-placeholder="dependent-npm">10.5k</strong>{" "}
+                <strong data-placeholder="dependent-npm">10.6k</strong>{" "}
                 dependent packages on npm
               </p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">

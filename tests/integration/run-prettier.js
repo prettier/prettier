@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const stripAnsi = require("strip-ansi");
+const { default: stripAnsi } = require("../../vendors/strip-ansi.js");
 const { prettierCli, thirdParty } = require("./env.js");
 
 async function run(dir, args, options) {
