@@ -1,16 +1,4 @@
-// TODO[@fisker]: try inline import this module
-import angularHtmlParser from "angular-html-parser";
-import {
-  RecursiveVisitor,
-  visitAll,
-} from "angular-html-parser/lib/compiler/src/ml_parser/ast.js";
-import { getHtmlTagDefinition } from "angular-html-parser/lib/compiler/src/ml_parser/html_tags.js";
-import {
-  ParseSourceSpan,
-  ParseLocation,
-  ParseSourceFile,
-} from "angular-html-parser/lib/compiler/src/parse_util.js";
-
+import { createRequire } from "node:module";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import getLast from "../utils/get-last.js";
 import createError from "../common/parser-create-error.js";
@@ -22,6 +10,8 @@ import { hasPragma } from "./pragma.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locStart, locEnd } from "./loc.js";
+
+const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -57,7 +47,17 @@ function ngHtmlParser(
   },
   options
 ) {
-  const parser = angularHtmlParser;
+  const parser = require("angular-html-parser");
+  const {
+    RecursiveVisitor,
+    visitAll,
+  } = require("angular-html-parser/lib/compiler/src/ml_parser/ast");
+  const {
+    ParseSourceSpan,
+  } = require("angular-html-parser/lib/compiler/src/parse_util");
+  const {
+    getHtmlTagDefinition,
+  } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
   let { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
@@ -299,6 +299,12 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const {
+    ParseSourceSpan,
+    ParseLocation,
+    ParseSourceFile,
+  } = require("angular-html-parser/lib/compiler/src/parse_util.js");
+
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
   const end = start.moveBy(text.length);
@@ -424,7 +430,7 @@ const parser = {
                 value !== undefined
             ))
         ) {
-          return angularHtmlParser.TagContentType.RAW_TEXT;
+          return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
       },
     }),

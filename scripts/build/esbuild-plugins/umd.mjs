@@ -99,7 +99,11 @@ export default function esbuildPluginUmd(options) {
       esbuildOptions.globalName = temporaryName;
       esbuildOptions.format = "iife";
 
-      build.onEnd(() => {
+      build.onEnd((result) => {
+        if (result.errors.length > 0) {
+          return;
+        }
+
         if (!fs.existsSync(outfile)) {
           throw new Error(`${outfile} not exists`);
         }

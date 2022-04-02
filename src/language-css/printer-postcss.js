@@ -933,15 +933,16 @@ function genericPrint(path, options, print) {
                 if (
                   !isLast &&
                   child.type === "value-comma_group" &&
-                  child.groups &&
-                  child.groups[0].type !== "value-paren_group" &&
-                  isNextLineEmpty(
-                    options.originalText,
-                    getLast(child.groups),
-                    locEnd
-                  )
+                  isNonEmptyArray(child.groups)
                 ) {
-                  printed.push(hardline);
+                  const last = getLast(child.groups);
+                  if (
+                    // `value-paren_group` missing location info
+                    last.source &&
+                    isNextLineEmpty(options.originalText, last, locEnd)
+                  ) {
+                    printed.push(hardline);
+                  }
                 }
 
                 return printed;
