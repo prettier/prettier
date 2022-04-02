@@ -63,8 +63,6 @@ const clear = () => {
 };
 
 async function createBundle(bundleConfig, options) {
-  const { target } = bundleConfig;
-
   try {
     for await (const {
       name,
@@ -87,16 +85,6 @@ async function createBundle(bundleConfig, options) {
         }
 
         continue;
-      }
-
-      // Files including U+FFEE can't load in Chrome Extension
-      // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
-      // details https://github.com/prettier/prettier/pull/8534
-      if (target === "universal") {
-        const content = await fs.readFile(absolutePath, "utf8");
-        if (content.includes("\ufffe")) {
-          throw new Error("Bundled umd file should not have U+FFFE character.");
-        }
       }
 
       const sizeMessages = [];
