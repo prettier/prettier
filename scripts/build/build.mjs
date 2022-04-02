@@ -20,16 +20,6 @@ import saveLicenses from "./save-licenses.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
-// Errors in promises should be fatal.
-const loggedErrors = new Set();
-process.on("unhandledRejection", (err) => {
-  // No need to print it twice.
-  if (!loggedErrors.has(err)) {
-    console.error(err);
-  }
-  process.exit(1);
-});
-
 const statusConfig = [
   { color: "bgGreen", text: "DONE" },
   { color: "bgRed", text: "FAIL" },
@@ -135,14 +125,9 @@ async function createBundle(bundleConfig, options) {
     }
   } catch (error) {
     console.log(status.FAIL + "\n");
-    handleError(error);
+    console.error(error);
+    throw error;
   }
-}
-
-function handleError(error) {
-  loggedErrors.add(error);
-  console.error(error);
-  throw error;
 }
 
 async function preparePackage() {
@@ -258,7 +243,7 @@ async function run(params) {
   }
 }
 
-run(
+await run(
   minimist(process.argv.slice(2), {
     boolean: [
       "playground",

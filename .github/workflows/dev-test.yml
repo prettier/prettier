@@ -18,21 +18,20 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "16.10.0"
+          - "16"
           - "14"
-          - "12"
         include:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
-            node: "16.10.0"
+            node: "16"
             ENABLE_CODE_COVERAGE: true
             FULL_TEST: true
             CHECK_TEST_PARSERS: true
-        exclude:
-          - os: "macos-latest"
-            node: "14"
-          - os: "windows-latest"
-            node: "14"
+        # exclude:
+        #   - os: "macos-latest"
+        #     node: "14"
+        #   - os: "windows-latest"
+        #     node: "14"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
       FULL_TEST: ${{ matrix.FULL_TEST }}
@@ -42,9 +41,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        # `codecov/codecov-action` require depth to be at least `2`, see #10219
-        with:
-          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v3

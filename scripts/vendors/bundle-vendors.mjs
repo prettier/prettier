@@ -124,4 +124,4 @@ async function main() {
   console.log("`README.md` file saved");
 }
 
-main();
+await main();
