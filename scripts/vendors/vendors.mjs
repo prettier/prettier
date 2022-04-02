@@ -7,6 +7,7 @@ const vendors = [
   "html-void-elements",
   "mem",
   "string-width",
+  "strip-ansi",
   "tempy",
 ];
 
