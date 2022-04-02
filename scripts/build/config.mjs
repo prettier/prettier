@@ -312,11 +312,9 @@ const coreBundles = [
     ],
   },
   {
-    input: "bin/prettier.js",
+    input: "bin/prettier.cjs",
     output: "bin-prettier.js",
-    // TODO[@fisker]: Fix this
-    // esbuildTarget: ["node0.10"],
-    interopDefault: false,
+    esbuildTarget: ["node0.10"],
   },
   {
     input: "src/cli/index.js",

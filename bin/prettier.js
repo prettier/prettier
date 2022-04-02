@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import * as cli from "../src/cli/index.js";
+// Add this file so we can use `node bin/prettier` or `node bin/prettier.js`
+// instead of `node bin/prettier.cjs`.
 
-export const promise = cli.run(process.argv.slice(2));
+import "./prettier.cjs";
