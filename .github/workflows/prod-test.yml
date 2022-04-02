@@ -32,16 +32,6 @@ jobs:
           name: dist
           path: dist
 
-      # This step calls `git reset`
-      # It should be the last step
-      - name: Check Sizes
-        if: ${{ github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/') }}
-        uses: preactjs/compressed-size-action@2.5.0
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          pattern: "./dist/**/*"
-          compression: none
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
