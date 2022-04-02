@@ -1,6 +1,8 @@
 "use strict";
 
-const escapeStringRegexp = require("escape-string-regexp");
+const {
+  default: escapeStringRegexp,
+} = require("../../vendors/escape-string-regexp.js");
 const getLast = require("../utils/get-last.js");
 const { getSupportInfo } = require("../main/support.js");
 const isNonEmptyArray = require("../utils/is-non-empty-array.js");
