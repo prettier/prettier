@@ -1,4 +1,14 @@
 {
+  "entries": {
+    "chalk": "chalk.js",
+    "escape-string-regexp": "escape-string-regexp.js",
+    "execa": "execa.js",
+    "html-element-attributes": "html-element-attributes.json",
+    "html-tag-names": "html-tag-names.json",
+    "html-void-elements": "html-void-elements.json",
+    "mem": "mem.js",
+    "string-width": "string-width.js"
+  },
   "licenses": [
     {
       "name": "chalk",
