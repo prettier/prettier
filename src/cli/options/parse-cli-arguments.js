@@ -1,15 +1,10 @@
 "use strict";
 const pick = require("lodash/pick");
 const camelCase = require("camelcase");
-const leven = require("leven");
-// eslint-disable-next-line no-restricted-modules
-const { default: chalk } = require("../../../vendors/chalk.js");
-const {
-  optionsNormalizer: { normalizeCliOptions },
-} = require("../prettier-internal.js");
 const getContextOptions = require("./get-context-options.js");
 const minimist = require("./minimist.js");
 const createMinimistOptions = require("./create-minimist-options.js");
+const normalizeCliOptions = require("./normalize-cli-options.js");
 
 function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const minimistOptions = createMinimistOptions(detailedOptions);
@@ -26,11 +21,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
     argv = pick(argv, keys);
   }
 
-  const normalized = normalizeCliOptions(argv, detailedOptions, {
-    logger,
-    colorsModule: chalk,
-    levenshteinDistance: leven,
-  });
+  const normalized = normalizeCliOptions(argv, detailedOptions, { logger });
 
   return {
     ...Object.fromEntries(
