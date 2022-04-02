@@ -1,10 +1,9 @@
 import fs from "node:fs/promises";
 import chalk from "chalk";
 
-const packageJsonContent = await fs.readFile(
-  new URL("../package.json", import.meta.url)
+const packageJson = JSON.parse(
+  await fs.readFile(new URL("../package.json", import.meta.url))
 );
-const packageJson = JSON.parse(packageJsonContent);
 
 validateDependencyObject(packageJson.dependencies);
 validateDependencyObject(packageJson.devDependencies);
