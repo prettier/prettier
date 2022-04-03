@@ -15,8 +15,9 @@ async function run() {
 
   const params = minimist(process.argv.slice(2), {
     string: ["version"],
-    boolean: ["dry"],
+    boolean: ["dry", "manual"],
     alias: { v: "version" },
+    default: { manual: false },
   });
 
   const { stdout: previousVersion } = await runGit([
@@ -39,16 +40,20 @@ async function run() {
       "./steps/validate-new-version.js",
       "./steps/check-git-status.js",
       "./steps/install-dependencies.js",
-      "./steps/run-tests.js",
+      params.manual && "./steps/run-tests.js",
       "./steps/update-version.js",
-      "./steps/generate-bundles.js",
+      params.manual && "./steps/generate-bundles.js",
       "./steps/update-changelog.js",
       "./steps/push-to-git.js",
-      "./steps/publish-to-npm.js",
+      params.manual
+        ? "./steps/publish-to-npm.js"
+        : "./steps/wait-for-bot-release.js",
       "./steps/update-dependents-count.js",
       "./steps/bump-prettier.js",
       "./steps/post-publish-steps.js",
-    ].map((step) => importDefault(step))
+    ]
+      .filter(Boolean)
+      .map((step) => importDefault(step))
   );
 
   try {
