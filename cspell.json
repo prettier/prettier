@@ -391,7 +391,6 @@
         ".git",
         "cspell.json",
         "*.{log,svg,snap,png}",
-        "tests/config/jest-light-runner/**/*",
         "website/data/users.yml",
         "website/build/**",
         "website/playground/codeSamples.mjs",
