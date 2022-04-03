@@ -6,8 +6,10 @@
     "html-element-attributes": "html-element-attributes.json",
     "html-tag-names": "html-tag-names.json",
     "html-void-elements": "html-void-elements.json",
+    "leven": "leven.js",
     "mem": "mem.js",
-    "string-width": "string-width.js"
+    "string-width": "string-width.js",
+    "strip-ansi": "strip-ansi.js"
   },
   "licenses": [
     {
