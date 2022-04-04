@@ -17,6 +17,15 @@ export async function isVersionReleased(version) {
   return versionExists;
 }
 
+async function checkBotPermission() {
+  const response = await fetch("https://registry.npmjs.org/prettier/");
+  const { maintainers } = await response.json();
+
+  return maintainers.some(({ name }) => name === "prettier-bot");
+}
+
+checkBotPermission();
+
 const sleep = () =>
   new Promise((resolve) => {
     setTimeout(resolve, 30_000);
@@ -27,8 +36,21 @@ export default async function waitForBotRelease({ dry, version }) {
     return;
   }
 
+  if (!(await checkBotPermission())) {
+    console.log(
+      outdentString(chalk/* indent */ `
+        1. Go to {green.underline https://www.npmjs.com/package/prettier/access}
+        2. Add "{yellow prettier-bot}" as prettier package maintainers.
+
+        Press ENTER to continue.
+      `)
+    );
+
+    await waitForEnter();
+  }
+
   console.log(
-    outdentString(chalk`
+    outdentString(chalk/* indent */ `
       1. Go to {green.underline https://github.com/prettier/release-workflow/actions/workflows/release.yml}
       2. Click "{green Run workflow}" button, type "{yellow.underline ${version}}" in "Version to release", uncheck all checkboxes, hit the "{bgGreen Run workflow}" button.
 
