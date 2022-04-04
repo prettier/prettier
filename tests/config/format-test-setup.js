@@ -14,5 +14,4 @@ async function setup() {
   globalThis.run_spec = runSpec;
 }
 
-// TODO: Use top-level-await
-export default setup();
+export default setup;

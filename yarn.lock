@@ -4302,9 +4302,9 @@ jest-leak-detector@^27.5.1:
     jest-get-type "^27.5.1"
     pretty-format "^27.5.1"
 
-jest-light-runner@fisker/jest-light-runner#3724b45b3a4c71c7f35f0eafc61c11e7474c2e6a:
+jest-light-runner@fisker/jest-light-runner#cfaacfc6ed5b505ef5e99881e62fe07028748134:
   version "0.1.0"
-  resolved "https://codeload.github.com/fisker/jest-light-runner/tar.gz/3724b45b3a4c71c7f35f0eafc61c11e7474c2e6a"
+  resolved "https://codeload.github.com/fisker/jest-light-runner/tar.gz/cfaacfc6ed5b505ef5e99881e62fe07028748134"
   dependencies:
     expect "^27.5.1"
     jest-circus "^27.5.1"
