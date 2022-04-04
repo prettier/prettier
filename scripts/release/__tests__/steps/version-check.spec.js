@@ -9,7 +9,7 @@ describe("isVersionReleased", () => {
     await expect(
       isVersionReleased("999.0.0")
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"prettier@999.0.0 doesn't exit."`
+      '"prettier@999.0.0 doesn\'t exit."'
     );
   });
 });
