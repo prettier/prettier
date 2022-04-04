@@ -48,6 +48,7 @@ async function run() {
       params.manual
         ? "./steps/publish-to-npm.js"
         : "./steps/wait-for-bot-release.js",
+      "./steps/show-instructions-after-npm-publish.js",
       "./steps/update-dependents-count.js",
       "./steps/bump-prettier.js",
       "./steps/post-publish-steps.js",
