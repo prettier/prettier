@@ -40,7 +40,7 @@ export default async function waitForBotRelease({ dry, version }) {
     console.log(
       outdentString(chalk/* indent */ `
         1. Go to {green.underline https://www.npmjs.com/package/prettier/access}
-        2. Add "{yellow prettier-bot}" as prettier package maintainers.
+        2. Add "{yellow prettier-bot}" as prettier package maintainer.
 
         Press ENTER to continue.
       `)
