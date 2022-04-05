@@ -7,7 +7,6 @@ coverage/
 /tests/integration/cli/
 /tests/integration/plugins/
 /tests/integration/custom-parsers/
-/tests/config/jest-light-runner/**/*
 /website/build/
 /website/static/lib/
 /website/static/playground.js

@@ -14,6 +14,4 @@ async function setup() {
   globalThis.run_spec = runSpec;
 }
 
-// `await`ed in `./jest-light-runner/worker-runner.js`
-// Use top-level await in `./prettier-entry.js` when we drop support for Node.js 12
-export { setup };
+export default setup;
