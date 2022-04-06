@@ -25,7 +25,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Validate Vendors
         run: yarn run vendors:bundle && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed."

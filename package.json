@@ -166,5 +166,6 @@
     "not ie 11",
     "not safari 5.1",
     "not op_mini all"
-  ]
+  ],
+  "packageManager": "yarn@3.2.0"
 }

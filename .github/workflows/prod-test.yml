@@ -21,7 +21,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build Package
         run: yarn build
@@ -46,7 +46,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
@@ -104,7 +104,7 @@ jobs:
         run: yarn config set ignore-engines true
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Download Artifact
         uses: actions/download-artifact@v2
