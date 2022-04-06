@@ -2,6 +2,7 @@
 
 const { promises: fs } = require("fs");
 const path = require("path");
+const { createPatch, createTwoFilesPatch } = require("diff");
 
 // eslint-disable-next-line no-restricted-modules
 const { default: chalk } = require("../../vendors/chalk.js");
@@ -20,7 +21,7 @@ const FormatResultsCache = require("./format-results-cache.js");
 const { statSafe } = require("./utils.js");
 
 function diff(a, b) {
-  return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
+  return createTwoFilesPatch("", "", a, b, "", "", {
     context: 2,
   });
 }
@@ -35,7 +36,11 @@ function handleError(context, filename, error, printedFilename) {
     if (context.argv.ignoreUnknown) {
       return;
     }
-    if (!context.argv.check && !context.argv.listDifferent) {
+    if (
+      !context.argv.check &&
+      !context.argv.listDifferent &&
+      !context.argv.diff
+    ) {
       process.exitCode = 2;
     }
     context.logger.error(error.message);
@@ -83,7 +88,11 @@ function writeOutput(context, result, options) {
 }
 
 function listDifferent(context, input, options, filename) {
-  if (!context.argv.check && !context.argv.listDifferent) {
+  if (
+    !context.argv.check &&
+    !context.argv.listDifferent &&
+    !context.argv.diff
+  ) {
     return;
   }
 
@@ -93,9 +102,15 @@ function listDifferent(context, input, options, filename) {
         "No parser and no file path given, couldn't infer a parser."
       );
     }
-    if (!prettier.check(input, options)) {
+
+    const formatted = prettier.format(input, options);
+    if (formatted !== input) {
       if (!context.argv.write) {
-        context.logger.log(filename);
+        if (context.argv.diff) {
+          context.logger.log(createPatch(filename, input, formatted));
+        } else {
+          context.logger.log(filename);
+        }
         process.exitCode = 1;
       }
     }
@@ -341,7 +356,8 @@ async function formatFiles(context) {
       (context.argv.debugCheck ||
         context.argv.write ||
         context.argv.check ||
-        context.argv.listDifferent)
+        context.argv.listDifferent ||
+        context.argv.diff)
     ) {
       continue;
     }
@@ -426,7 +442,11 @@ async function formatFiles(context) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
-        if (!context.argv.check && !context.argv.listDifferent) {
+        if (
+          !context.argv.check &&
+          !context.argv.listDifferent &&
+          !context.argv.diff
+        ) {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -443,7 +463,11 @@ async function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
-      } else if (!context.argv.check && !context.argv.listDifferent) {
+      } else if (
+        !context.argv.check &&
+        !context.argv.listDifferent &&
+        !context.argv.diff
+      ) {
         const message = `${chalk.grey(filename)} ${Date.now() - start}ms`;
         if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
@@ -458,7 +482,11 @@ async function formatFiles(context) {
       } else {
         process.exitCode = 2;
       }
-    } else if (!context.argv.check && !context.argv.listDifferent) {
+    } else if (
+      !context.argv.check &&
+      !context.argv.listDifferent &&
+      !context.argv.diff
+    ) {
       writeOutput(context, result, options);
     }
 
@@ -473,6 +501,8 @@ async function formatFiles(context) {
         context.logger.warn(filename);
       } else if (context.argv.listDifferent) {
         context.logger.log(filename);
+      } else if (context.argv.diff) {
+        context.logger.log(createPatch(filename, input, output));
       }
       numberOfUnformattedFilesFound += 1;
     }
@@ -505,7 +535,7 @@ async function formatFiles(context) {
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
   if (
-    (context.argv.check || context.argv.listDifferent) &&
+    (context.argv.check || context.argv.listDifferent || context.argv.diff) &&
     numberOfUnformattedFilesFound > 0 &&
     !process.exitCode &&
     !context.argv.write

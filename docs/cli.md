@@ -124,6 +124,14 @@ prettier --single-quote --list-different "src/**/*.js"
 
 You can also use [`--check`](cli.md#--check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
 
+## `--diff`
+
+The `--diff` flag will print a unified diff for each file that is different from PRettier formatting. Like [`--check`](cli.md#--check), it will exit with a non-zero code if there are differences.
+
+```bash
+prettier --single-quote --diff "src/**/*.js"
+```
+
 ## `--no-config`
 
 Do not look for a configuration file. The default settings will be used.

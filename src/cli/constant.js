@@ -167,6 +167,14 @@ const options = {
     default: 0,
     type: "int",
   },
+  diff: {
+    type: "boolean",
+    category: coreOptions.CATEGORY_OUTPUT,
+    description: outdent`
+      Check if the given files are formatted, print a unified diff patch for
+      each unformatted file with formatting changes (see also --check).
+    `,
+  },
   editorconfig: {
     category: coreOptions.CATEGORY_CONFIG,
     default: true,

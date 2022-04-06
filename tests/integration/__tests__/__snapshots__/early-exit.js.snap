@@ -53,6 +53,8 @@ Output options:
 
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
+  --diff                   Check if the given files are formatted, print a unified diff patch for
+                           each unformatted file with formatting changes (see also --check).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
   -w, --write              Edit files in-place. (Beware!)
 
@@ -228,6 +230,8 @@ Output options:
 
   -c, --check              Check if the given files are formatted, print a human-friendly summary
                            message and paths to unformatted files (see also --list-different).
+  --diff                   Check if the given files are formatted, print a unified diff patch for
+                           each unformatted file with formatting changes (see also --check).
   -l, --list-different     Print the names of files that are different from Prettier's formatting (see also --check).
   -w, --write              Edit files in-place. (Beware!)
 
@@ -348,7 +352,7 @@ Other options:
 exports[`throw error and show usage with something unexpected (write) 1`] = `[]`;
 
 exports[`throw error with --check + --list-different (stderr) 1`] = `
-"[error] Cannot use --check and --list-different together.
+"[error] Cannot use --check, --list-different, or --diff together.
 "
 `;
 

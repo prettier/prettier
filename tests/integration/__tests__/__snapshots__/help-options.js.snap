@@ -154,6 +154,18 @@ Default: -1
 
 exports[`show detailed usage with --help cursor-offset (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help diff (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help diff (stdout) 1`] = `
+"--diff
+
+  Check if the given files are formatted, print a unified diff patch for
+  each unformatted file with formatting changes (see also --check).
+"
+`;
+
+exports[`show detailed usage with --help diff (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help editorconfig (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help editorconfig (stdout) 1`] = `

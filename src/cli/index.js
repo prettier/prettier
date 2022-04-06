@@ -55,8 +55,14 @@ async function main(context) {
     }
   }
 
-  if (context.argv.check && context.argv.listDifferent) {
-    throw new Error("Cannot use --check and --list-different together.");
+  if (
+    [context.argv.check, context.argv.listDifferent, context.argv.diff].filter(
+      (o) => o
+    ).length > 1
+  ) {
+    throw new Error(
+      "Cannot use --check, --list-different, or --diff together."
+    );
   }
 
   if (context.argv.write && context.argv.debugCheck) {
