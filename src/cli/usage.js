@@ -1,8 +1,8 @@
 "use strict";
 
-const groupBy = require("lodash/groupBy");
 const camelCase = require("camelcase");
 const constant = require("./constant.js");
+const { groupBy } = require("./utils.js");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
