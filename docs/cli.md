@@ -126,7 +126,7 @@ You can also use [`--check`](cli.md#--check) flag, which works the same way as `
 
 ## `--diff`
 
-The `--diff` flag will print a unified diff for each file that is different from PRettier formatting. Like [`--check`](cli.md#--check), it will exit with a non-zero code if there are differences.
+The `--diff` flag will print a unified diff for each file that is different from Prettier formatting. Like [`--check`](cli.md#--check), it will exit with a non-zero code if there are differences.
 
 ```bash
 prettier --single-quote --diff "src/**/*.js"
