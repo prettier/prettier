@@ -4275,9 +4275,10 @@ jest-leak-detector@^27.5.1:
     jest-get-type "^27.5.1"
     pretty-format "^27.5.1"
 
-jest-light-runner@nicolo-ribaudo/jest-light-runner#1c31422:
-  version "0.1.0"
-  resolved "https://codeload.github.com/nicolo-ribaudo/jest-light-runner/tar.gz/1c3142229d667fe874749ee3fb91e67ef102ab15"
+jest-light-runner@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/jest-light-runner/-/jest-light-runner-0.1.1.tgz#945791693e7177a036e4ed8f2d3136320d2fc644"
+  integrity sha512-ZOxlrSG+6LqQ+kYrQq6Xbt/sURcYeaLU9j7JWhN9ffQBBgH39BnFrTcGrY4JpOQ9LmInfD6iu4g00QS4pFEwpA==
   dependencies:
     expect "^27.5.1"
     jest-circus "^27.5.1"
