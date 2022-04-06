@@ -446,9 +446,9 @@ var require_is_glob = __commonJS({
   }
 });
 
-// node_modules/glob-parent/index.js
+// node_modules/fast-glob/node_modules/glob-parent/index.js
 var require_glob_parent = __commonJS({
-  "node_modules/glob-parent/index.js"(exports, module2) {
+  "node_modules/fast-glob/node_modules/glob-parent/index.js"(exports, module2) {
     "use strict";
     var isGlob = require_is_glob();
     var pathPosixDirname = require("path").posix.dirname;
@@ -9687,7 +9687,7 @@ var import_node_path = __toESM(require("path"), 1);
 var import_node_stream = __toESM(require("stream"), 1);
 var import_node_util = require("util");
 
-// node_modules/crypto-random-string/index.js
+// node_modules/tempy/node_modules/crypto-random-string/index.js
 var import_util = require("util");
 var import_crypto = __toESM(require("crypto"), 1);
 var randomBytesAsync = (0, import_util.promisify)(import_crypto.default.randomBytes);
@@ -9802,7 +9802,7 @@ var cryptoRandomString = createGenerator(generateForCustomCharacters, generateRa
 cryptoRandomString.async = createGenerator(generateForCustomCharactersAsync, generateRandomBytesAsync);
 var crypto_random_string_default = cryptoRandomString;
 
-// node_modules/unique-string/index.js
+// node_modules/tempy/node_modules/unique-string/index.js
 function uniqueString() {
   return crypto_random_string_default({ length: 32 });
 }
