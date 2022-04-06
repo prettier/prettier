@@ -1,6 +1,6 @@
 "use strict";
 
-const partition = require("lodash/partition");
+const { partition } = require("../utils.js");
 
 module.exports = function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(
