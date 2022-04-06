@@ -429,7 +429,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"aceMode\\": \\"json\\",
       \\"codemirrorMimeType\\": \\"application/json\\",
       \\"codemirrorMode\\": \\"javascript\\",
-      \\"extensions\\": [],
+      \\"extensions\\": [\\".importmap\\"],
       \\"filenames\\": [\\"package.json\\", \\"package-lock.json\\", \\"composer.json\\"],
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON.stringify\\",
