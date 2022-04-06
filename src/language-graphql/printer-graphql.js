@@ -35,10 +35,10 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
-      const hasQuery = options.originalText[locStart(node)] !== "query {";
-      const hasComment = options.originalText[locStart(node)] !== "#";
+      const hasQueryComment =
+        options.originalText[locStart(node)] !== "query { #";
       const hasName = Boolean(node.name);
-      if (hasOperation && !hasQuery) {
+      if (hasOperation && !hasQueryComment) {
         return [
           hasOperation ? node.operation : "",
           hasOperation && hasName ? [" ", print("name")] : "",
@@ -63,7 +63,7 @@ function genericPrint(path, options, print) {
           node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
           print("selectionSet"),
         ];
-      } else if (hasQuery && hasComment) {
+      } else if (hasQueryComment) {
         return [
           hasOperation ? node.operation : "",
           hasOperation && hasName ? [" ", print("name")] : "",
