@@ -2,7 +2,6 @@
 
 const path = require("path");
 const fs = require("fs");
-const fromPairs = require("lodash/fromPairs");
 
 const prettier = require("prettier-local");
 const runPrettier = require("../run-prettier.js");
@@ -162,7 +161,7 @@ test("API getFileInfo.sync with filepath only", () => {
 });
 
 describe("API getFileInfo resolveConfig", () => {
-  const files = fromPairs(
+  const files = Object.fromEntries(
     ["foo", "js", "bar", "css"].map((ext) => [
       ext,
       path.resolve(
