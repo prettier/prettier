@@ -29,4 +29,8 @@ function partition(array, predicate) {
   return result;
 }
 
-module.exports = { printToScreen, groupBy, partition };
+function pick(object, keys) {
+  return Object.fromEntries(keys.map((key) => [key, object[key]]));
+}
+
+module.exports = { printToScreen, groupBy, partition, pick };

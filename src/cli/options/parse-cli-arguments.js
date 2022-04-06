@@ -1,6 +1,6 @@
 "use strict";
-const pick = require("lodash/pick");
 const camelCase = require("camelcase");
+const { pick } = require("../utils.js");
 const getContextOptions = require("./get-context-options.js");
 const minimist = require("./minimist.js");
 const createMinimistOptions = require("./create-minimist-options.js");
