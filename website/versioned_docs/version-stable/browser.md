@@ -1,7 +1,6 @@
 ---
-id: version-stable-browser
+id: browser
 title: Browser
-original_id: browser
 ---
 
 Run Prettier in the browser using its **standalone** version. This version doesn’t depend on Node.js. It only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.
@@ -51,12 +50,13 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 <script type="importmap">
   {
     "imports": {
+      "prettier": "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs",
       "prettier/": "https://unpkg.com/prettier@2.6.2/"
     }
   }
 </script>
 <script type="module">
-  import prettier from "prettier/esm/standalone.mjs";
+  import prettier from "prettier";
   import parserGraphql from "prettier/esm/parser-graphql.mjs";
 
   prettier.format("type Query { hello: String }", {
@@ -109,9 +109,17 @@ prettier.format("type Query { hello: String }", {
 If you want to format [embedded code](options.md#embedded-language-formatting), you need to load related plugins too. For example:
 
 ```html
+<script type="importmap">
+  {
+    "imports": {
+      "prettier": "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs",
+      "prettier/": "https://unpkg.com/prettier@2.6.2/"
+    }
+  }
+</script>
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.6.2/esm/parser-babel.mjs";
+  import prettier from "prettier";
+  import parserBabel from "prettier/esm/parser-babel.mjs";
 
   console.log(
     prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
@@ -126,10 +134,18 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
 The HTML code embedded in JavaScript stays unformatted because the `html` parser hasn’t been loaded. Correct usage:
 
 ```html
+<script type="importmap">
+  {
+    "imports": {
+      "prettier": "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs",
+      "prettier/": "https://unpkg.com/prettier@2.6.2/"
+    }
+  }
+</script>
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.6.2/esm/parser-babel.mjs";
-  import parserHtml from "https://unpkg.com/prettier@2.6.2/esm/parser-html.mjs";
+  import prettier from "prettier";
+  import parserBabel from "prettier/esm/parser-babel.mjs";
+  import parserHtml from "prettier/esm/parser-html.mjs";
 
   console.log(
     prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
