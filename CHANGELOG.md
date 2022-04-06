@@ -1,3 +1,61 @@
+# 2.6.2
+
+[diff](https://github.com/prettier/prettier/compare/2.6.1...2.6.2)
+
+#### Fix LESS/SCSS format error ([#12536](https://github.com/prettier/prettier/pull/12536) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```less
+// Input
+.background-gradient(@cut) {
+    background: linear-gradient(
+        to right,
+        @white 0%,
+        @white (@cut - 0.01%),
+        @portal-background @cut,
+        @portal-background 100%
+    );
+}
+
+// Prettier 2.6.1
+TypeError: Cannot read properties of undefined (reading 'endOffset')
+
+// Prettier 2.6.2
+.background-gradient(@cut) {
+  background: linear-gradient(
+    to right,
+    @white 0%,
+    @white (@cut - 0.01%),
+    @portal-background @cut,
+    @portal-background 100%
+  );
+}
+```
+
+#### Update `meriyah` to fix several bugs ([#12567](https://github.com/prettier/prettier/pull/12567) by [@fisker](https://github.com/fisker), fixes in [`meriyah`](https://github.com/meriyah/meriyah/) by [@3cp](https://github.com/3cp))
+
+Fixes bugs when parsing following valid code:
+
+```js
+foo(await bar());
+```
+
+```js
+const regex = /.*/ms;
+```
+
+```js
+const element = <p>{/w/.test(s)}</p>;
+```
+
+```js
+class A extends B {
+  #privateMethod() {
+    super.method();
+  }
+}
+```
+
 # 2.6.1
 
 [diff](https://github.com/prettier/prettier/compare/2.6.0...2.6.1)

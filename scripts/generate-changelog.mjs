@@ -18,34 +18,32 @@ import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.mjs";
 
 const { __dirname } = createEsmUtils(import.meta);
 
-(async () => {
-  const prNumberPrompt = new enquirer.NumberPrompt({
-    message: "Input your Pull Request number:",
-  });
-  const prNumber = await prNumberPrompt.run();
+const prNumberPrompt = new enquirer.NumberPrompt({
+  message: "Input your Pull Request number:",
+});
+const prNumber = await prNumberPrompt.run();
 
-  const categoryPrompt = new enquirer.AutoComplete({
-    message: "Input category of your Pull Request:",
-    limit: CHANGELOG_CATEGORIES.length,
-    // The array passed to `choices` will be broken, so copy it.
-    choices: [...CHANGELOG_CATEGORIES],
-  });
-  const category = (await categoryPrompt.run()).trim();
+const categoryPrompt = new enquirer.AutoComplete({
+  message: "Input category of your Pull Request:",
+  limit: CHANGELOG_CATEGORIES.length,
+  // The array passed to `choices` will be broken, so copy it.
+  choices: [...CHANGELOG_CATEGORIES],
+});
+const category = (await categoryPrompt.run()).trim();
 
-  if (!prNumber || !category) {
-    throw new Error("Two args are required.");
-  }
-  assertCategory(category);
+if (!prNumber || !category) {
+  throw new Error("Two args are required.");
+}
+assertCategory(category);
 
-  const { title, user } = await getPr(prNumber);
+const { title, user } = await getPr(prNumber);
 
-  const newChangelog = await createChangelog(title, user, prNumber, category);
+const newChangelog = await createChangelog(title, user, prNumber, category);
 
-  const changelogPath = await addNewChangelog(prNumber, category, newChangelog);
+const changelogPath = await addNewChangelog(prNumber, category, newChangelog);
 
-  const relativePath = path.relative(path.join(__dirname, ".."), changelogPath);
-  console.log("Generated changelog file: " + relativePath);
-})();
+const relativePath = path.relative(path.join(__dirname, ".."), changelogPath);
+console.log("Generated changelog file: " + relativePath);
 
 /**
  * @param {number} prNumber

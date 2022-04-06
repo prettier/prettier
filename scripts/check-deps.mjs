@@ -1,17 +1,12 @@
 import fs from "node:fs/promises";
 import chalk from "chalk";
 
-(async () => {
-  const packageJson = JSON.parse(
-    await fs.readFile(new URL("../package.json", import.meta.url))
-  );
+const packageJson = JSON.parse(
+  await fs.readFile(new URL("../package.json", import.meta.url))
+);
 
-  validateDependencyObject(packageJson.dependencies);
-  validateDependencyObject(packageJson.devDependencies);
-})().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+validateDependencyObject(packageJson.dependencies);
+validateDependencyObject(packageJson.devDependencies);
 
 function validateDependencyObject(object) {
   for (const key of Object.keys(object)) {

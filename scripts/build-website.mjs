@@ -87,19 +87,17 @@ async function buildPlaygroundFiles() {
   );
 }
 
-(async () => {
-  if (IS_PULL_REQUEST) {
-    console.log("Building prettier...");
-    await buildPrettier();
-  }
+if (IS_PULL_REQUEST) {
+  console.log("Building prettier...");
+  await buildPrettier();
+}
 
-  console.log("Preparing files for playground...");
-  await buildPlaygroundFiles();
+console.log("Preparing files for playground...");
+await buildPlaygroundFiles();
 
-  // --- Site ---
-  console.log("Installing website dependencies...");
-  await runYarn("install", [], { cwd: WEBSITE_DIR });
+// --- Site ---
+console.log("Installing website dependencies...");
+await runYarn("install", [], { cwd: WEBSITE_DIR });
 
-  console.log("Building website...");
-  await runYarn("build", [], { cwd: WEBSITE_DIR });
-})();
+console.log("Building website...");
+await runYarn("build", [], { cwd: WEBSITE_DIR });

@@ -178,7 +178,7 @@ function optionInfoToSchema(
     case "int":
       SchemaConstructor = vnopts.IntegerSchema;
       if (isCLI) {
-        parameters.preprocess = (value) => Number(value);
+        parameters.preprocess = Number;
       }
       break;
     case "string":

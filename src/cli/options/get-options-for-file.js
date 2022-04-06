@@ -1,12 +1,8 @@
 import dashify from "dashify";
-import chalk from "chalk";
-import leven from "leven";
 import prettier from "../../index.js";
-import prettierInternal from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
-
-const { optionsNormalizer } = prettierInternal;
+import normalizeCliOptions from "./normalize-cli-options.js";
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -43,14 +39,14 @@ function parseArgsToOptions(context, overrideDefaults) {
     context.detailedOptions
   );
   return getOptions(
-    optionsNormalizer.normalizeCliOptions(
+    normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false, colorsModule: chalk, levenshteinDistance: leven }
+      { logger: false }
     ),
     context.detailedOptions
   );

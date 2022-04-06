@@ -1,15 +1,9 @@
 import { pick } from "lodash-es";
 import camelCase from "camelcase";
-import chalk from "chalk";
-import leven from "leven";
-import prettierInternal from "../prettier-internal.js";
 import getContextOptions from "./get-context-options.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
-
-const {
-  optionsNormalizer: { normalizeCliOptions },
-} = prettierInternal;
+import normalizeCliOptions from "./normalize-cli-options.js";
 
 function parseArgv(rawArguments, detailedOptions, logger, keys) {
   const minimistOptions = createMinimistOptions(detailedOptions);
@@ -26,11 +20,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
     argv = pick(argv, keys);
   }
 
-  const normalized = normalizeCliOptions(argv, detailedOptions, {
-    logger,
-    colorsModule: chalk,
-    levenshteinDistance: leven,
-  });
+  const normalized = normalizeCliOptions(argv, detailedOptions, { logger });
 
   return {
     ...Object.fromEntries(
