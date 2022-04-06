@@ -268,7 +268,7 @@ describe("API getFileInfo resolveConfig", () => {
 });
 
 describe("API getFileInfo resolveConfig when no config is present", () => {
-  const files = fromPairs(
+  const files = Object.fromEntries(
     ["foo", "js"].map((ext) => [
       ext,
       path.resolve(path.join(__dirname, `../cli/non-exists-dir/file.${ext}`)),
