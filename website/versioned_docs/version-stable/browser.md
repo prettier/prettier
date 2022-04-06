@@ -48,9 +48,16 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 ### ES Modules
 
 ```html
+<script type="importmap">
+  {
+    "imports": {
+      "prettier/": "https://unpkg.com/prettier@2.6.2/"
+    }
+  }
+</script>
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
-  import parserGraphql from "https://unpkg.com/prettier@2.6.2/esm/parser-graphql.mjs";
+  import prettier from "prettier/esm/standalone.mjs";
+  import parserGraphql from "prettier/esm/parser-graphql.mjs";
 
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
