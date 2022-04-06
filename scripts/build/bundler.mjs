@@ -105,7 +105,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
       replacement: "globalThis.PRETTIER_DEBUG",
     });
 
-    define.process = JSON.stringify({ env: {}, argv: [] });
+    define.process = JSON.stringify({
+      env: {},
+      argv: [],
+      versions: { pnp: false },
+    });
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
@@ -181,7 +185,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",
-    external: [...(bundle.external ?? [])],
+    external: ["pnpapi", ...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     target: [...(bundle.esbuildTarget ?? ["node10"])],
