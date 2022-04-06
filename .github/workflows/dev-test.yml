@@ -72,7 +72,7 @@ jobs:
 
       - name: Run Format Tests (Linux and Windows)
         if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn c8 yarn test:format --maxWorkers=2
+        run: yarn test:format --maxWorkers=2
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v2.1.0
