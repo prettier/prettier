@@ -1,5 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+""" Customer """
+type Person {
+  name: String
+}
+
+"""
+  - list
+  - list
+extra comment
+"""
+type Person {
+  name: String
+}
+
+"""
+## Example Request
+
+\`\`\`graphql
+query{a}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{"a":42}
+\`\`\`
+"""
+type Query {
+  a: Number!
+}
+
+=====================================output=====================================
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+- list
+- list
+  extra comment
+"""
+type Person {
+  name: String
+}
+
+"""
+## Example Request
+
+\`\`\`graphql
+query {
+  a
+}
+\`\`\`
+
+## Example Response
+
+\`\`\`json
+{ "a": 42 }
+\`\`\`
+"""
+type Query {
+  a: Number!
+}
+
+================================================================================
+`;
+
 exports[`string.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -80,8 +156,8 @@ type T {
 
 """
 a
-  b
-    c
+b
+c
 """
 type T {
   a: Int

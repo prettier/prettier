@@ -1,0 +1,30 @@
+""" Customer """
+type Person {
+  name: String
+}
+
+"""
+  - list
+  - list
+extra comment
+"""
+type Person {
+  name: String
+}
+
+"""
+## Example Request
+
+```graphql
+query{a}
+```
+
+## Example Response
+
+```json
+{"a":42}
+```
+"""
+type Query {
+  a: Number!
+}
