@@ -19,18 +19,8 @@ function groupBy(array, iteratee) {
   return result;
 }
 
-function partition(array, predicate) {
-  const result = [[], []];
-
-  for (const value of array) {
-    result[predicate(value) ? 0 : 1].push(value);
-  }
-
-  return result;
-}
-
 function pick(object, keys) {
   return Object.fromEntries(keys.map((key) => [key, object[key]]));
 }
 
-module.exports = { printToScreen, groupBy, partition, pick };
+module.exports = { printToScreen, groupBy, pick };

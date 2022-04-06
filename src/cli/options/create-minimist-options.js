@@ -1,6 +1,8 @@
 "use strict";
 
-const { partition } = require("../utils.js");
+const {
+  utils: { partition },
+} = require("../prettier-internal.js");
 
 module.exports = function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(
