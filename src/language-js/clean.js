@@ -108,6 +108,22 @@ function clean(ast, newObj, parent) {
     }
   }
 
+  // Remove formatted script tags
+  if (
+    ast.type === "JSXElement" &&
+    ast.openingElement.name.name === "script" &&
+    ast.openingElement.attributes.every((attr) => attr.name.name !== "src")
+  ) {
+    for (const { type, expression } of newObj.children) {
+      if (
+        type === "JSXExpressionContainer" &&
+        expression.type === "TemplateLiteral"
+      ) {
+        removeTemplateElementsValue(expression);
+      }
+    }
+  }
+
   // CSS template literals in css prop
   if (
     ast.type === "JSXAttribute" &&
@@ -182,7 +198,7 @@ function clean(ast, newObj, parent) {
       ast.leadingComments.some(
         (comment) =>
           isBlockComment(comment) &&
-          ["GraphQL", "HTML"].some(
+          ["GraphQL", "HTML", "JS"].some(
             (languageName) => comment.value === ` ${languageName} `
           )
       );

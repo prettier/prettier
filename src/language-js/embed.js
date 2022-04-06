@@ -1,5 +1,6 @@
 "use strict";
 
+const inferScriptParser = require("../utils/script-language.js");
 const {
   hasComment,
   CommentCheckFlags,
@@ -9,6 +10,7 @@ const formatMarkdown = require("./embed/markdown.js");
 const formatCss = require("./embed/css.js");
 const formatGraphql = require("./embed/graphql.js");
 const formatHtml = require("./embed/html.js");
+const formatJs = require("./embed/js.js");
 
 function getLanguage(path) {
   if (
@@ -34,6 +36,15 @@ function getLanguage(path) {
 
   if (isMarkdown(path)) {
     return "markdown";
+  }
+
+  if (isJS(path)) {
+    return "js";
+  }
+
+  const inferredScriptTag = isJsxScriptTag(path);
+  if (inferredScriptTag) {
+    return inferredScriptTag;
   }
 }
 
@@ -68,6 +79,13 @@ function embed(path, print, textToDoc, options) {
 
   if (language === "html" || language === "angular") {
     return formatHtml(path, print, textToDoc, options, { parser: language });
+  }
+
+  if (language === "js") {
+    return formatJs(path, print, textToDoc, options.parser);
+  }
+  if (language === "typescript") {
+    return formatJs(path, print, textToDoc, language);
   }
 }
 
@@ -296,6 +314,97 @@ function isHtml(path) {
         name === "quasi"
     )
   );
+}
+
+/**
+ * - <script>{`...`}</script>
+ * - <script type="module">{`...`}</script>
+ * - <script type="text/javascript">{`...`}</script>
+ * - ... (see inferScriptParser)
+ * - HTML comment block
+ */
+function isJS(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  return (
+    hasLanguageComment(node, "JS") &&
+    parent.type !== "TaggedTemplateExpression" &&
+    node.quasis.length === 1
+  );
+}
+
+function readJsxStringValue(valueNode) {
+  if (valueNode.type === "StringLiteral") {
+    return valueNode.value;
+  }
+  if (valueNode.type === "JSXExpressionContainer") {
+    const { expression } = valueNode;
+    if (expression.type === "StringLiteral") {
+      return expression.value;
+    }
+
+    if (
+      expression.type === "TemplateLiteral" &&
+      expression.quasis.length === 1
+    ) {
+      return expression.quasis[0].value.cooked;
+    }
+  }
+}
+
+/**
+ * <script>{`...`}</script>
+ * <script type="...">{`...`}</script>
+ * <script type="..." lang="...">{`...`}</script>
+ */
+function isJsxScriptTag(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  const grandParent = path.getParentNode(1);
+  if (
+    node.quasis.length !== 1 ||
+    parent.type !== "JSXExpressionContainer" ||
+    grandParent.type !== "JSXElement" ||
+    grandParent.children.length !== 1 ||
+    grandParent.openingElement.name.type !== "JSXIdentifier" ||
+    grandParent.openingElement.name.name !== "script" ||
+    grandParent.openingElement.attributes.some(
+      (attr) =>
+        attr.type === "JSXSpreadAttribute" ||
+        (attr.type === "JSXAttribute" && attr.name.name === "src")
+    )
+  ) {
+    return;
+  }
+
+  const typeNode = grandParent.openingElement.attributes.find(
+    (attr) => attr.type === "JSXAttribute" && attr.name.name === "type"
+  );
+  let type;
+  if (typeNode) {
+    type = readJsxStringValue(typeNode.value);
+    if (!type) {
+      return;
+    }
+  }
+
+  const langNode = grandParent.openingElement.attributes.find(
+    (attr) => attr.type === "JSXAttribute" && attr.name.name === "lang"
+  );
+  let lang;
+  if (langNode) {
+    lang = readJsxStringValue(langNode.value);
+    if (!lang) {
+      return;
+    }
+  }
+
+  const inferred = inferScriptParser({ type, lang });
+  if (inferred === "babel" || (!type && !lang)) {
+    return "js";
+  }
+  return inferred;
 }
 
 function hasInvalidCookedValue({ quasis }) {
