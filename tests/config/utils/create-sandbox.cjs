@@ -1,5 +1,6 @@
-import vm from "node:vm";
-import fs from "node:fs";
+"use strict";
+const vm = require("vm");
+const fs = require("fs");
 
 function createSandBox({ files }) {
   const source = files.map((file) => fs.readFileSync(file, "utf8")).join(";");
@@ -10,4 +11,4 @@ function createSandBox({ files }) {
   return sandbox;
 }
 
-export default createSandBox;
+module.exports = createSandBox;
