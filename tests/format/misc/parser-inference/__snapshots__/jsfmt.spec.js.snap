@@ -117,6 +117,29 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`test.importmap format 1`] = `
+====================================options=====================================
+parsers: []
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{"imports": {
+    "prettier": "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs",
+    "prettier/": "https://unpkg.com/prettier@2.6.2/"
+  }
+}
+
+=====================================output=====================================
+{
+  "imports": {
+    "prettier": "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs",
+    "prettier/": "https://unpkg.com/prettier@2.6.2/"
+  }
+}
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: []
