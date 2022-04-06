@@ -1,10 +1,6 @@
-"use strict";
-
-// eslint-disable-next-line no-restricted-modules
-const { default: chalk } = require("../../../vendors/chalk.js");
-// eslint-disable-next-line no-restricted-modules
-const { default: leven } = require("../../../vendors/leven.js");
-const { optionsNormalizer } = require("../prettier-internal.js");
+import chalk from "chalk";
+import leven from "leven";
+import { optionsNormalizer } from "../prettier-internal.js";
 
 function normalizeCliOptions(options, optionInfos, opts) {
   return optionsNormalizer.normalizeCliOptions(options, optionInfos, {
@@ -14,4 +10,4 @@ function normalizeCliOptions(options, optionInfos, opts) {
   });
 }
 
-module.exports = normalizeCliOptions;
+export default normalizeCliOptions;
