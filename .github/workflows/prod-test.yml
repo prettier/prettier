@@ -97,7 +97,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-          cache: "yarn"
+          # Cann't work on Node.js 10
+          # cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --immutable
