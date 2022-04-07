@@ -2319,7 +2319,7 @@ collapse-white-space@^1.0.2:
   resolved "https://registry.yarnpkg.com/collapse-white-space/-/collapse-white-space-1.0.6.tgz#e63629c0016665792060dbbeb79c42239d2c5287"
   integrity sha512-jEovNnrhMuqyCcjfEJA56v0Xq8SkIoPKDyaHahwo3POf4qcSXqMYuwNcOTzp74vTsR9Tn08z4MxWqAhcekogkQ==
 
-collect-v8-coverage@^1.0.0:
+collect-v8-coverage@^1.0.0, collect-v8-coverage@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz#cc2c8e94fc18bbdffe64d6534570c8a673b27f59"
   integrity sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg==
@@ -4275,11 +4275,12 @@ jest-leak-detector@^27.5.1:
     jest-get-type "^27.5.1"
     pretty-format "^27.5.1"
 
-jest-light-runner@0.1.1:
+jest-light-runner@SimenB/jest-light-runner#79f3f2b:
   version "0.1.1"
-  resolved "https://registry.yarnpkg.com/jest-light-runner/-/jest-light-runner-0.1.1.tgz#945791693e7177a036e4ed8f2d3136320d2fc644"
-  integrity sha512-ZOxlrSG+6LqQ+kYrQq6Xbt/sURcYeaLU9j7JWhN9ffQBBgH39BnFrTcGrY4JpOQ9LmInfD6iu4g00QS4pFEwpA==
+  resolved "https://codeload.github.com/SimenB/jest-light-runner/tar.gz/79f3f2b8fefdcc70bf75449898dc5d18a7d464c8"
   dependencies:
+    "@jest/transform" "^27.5.1"
+    collect-v8-coverage "^1.0.1"
     expect "^27.5.1"
     jest-circus "^27.5.1"
     jest-each "^27.5.1"
