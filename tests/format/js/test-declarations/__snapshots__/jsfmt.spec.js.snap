@@ -656,7 +656,8 @@ describe.each\`
 // an example to demo multiline quasi
 describe.each\`
   a    | b    | expected
-  \${11111111111} | \${a().b(x => x)
+  \${11111111111} | \${a()
+  .b(x => x)
   .c()
   .d()} | \${2}
   \${1} | \${2} | \${3}
@@ -799,7 +800,8 @@ describe.each\`
 // an example to demo multiline quasi
 describe.each\`
   a    | b    | expected
-  \${11111111111} | \${a().b((x) => x)
+  \${11111111111} | \${a()
+  .b((x) => x)
   .c()
   .d()} | \${2}
   \${1} | \${2} | \${3}

@@ -52,24 +52,22 @@ function tes2(val: Map<string, Promise<number>>) {
 declare var pstr: Promise<string>;
 declare var pnum: Promise<number>;
 
-Promise
-  .all([
-    pstr,
-    pnum,
-    true, // non-Promise values passed through
-  ])
-  .then((xs) => {
-    // tuple information is preserved
-    let [a, b, c] = xs;
-    (a: number); // Error: string ~> number
-    (b: boolean); // Error: number ~> boolean
-    (c: string); // Error: boolean ~> string
+Promise.all([
+  pstr,
+  pnum,
+  true, // non-Promise values passed through
+]).then((xs) => {
+  // tuple information is preserved
+  let [a, b, c] = xs;
+  (a: number); // Error: string ~> number
+  (b: boolean); // Error: number ~> boolean
+  (c: string); // Error: boolean ~> string
 
-    // array element type is (string | number | boolean)
-    xs.forEach((x) => {
-      (x: void); // Errors: string ~> void, number ~> void, boolean ~> void
-    });
+  // array element type is (string | number | boolean)
+  xs.forEach((x) => {
+    (x: void); // Errors: string ~> void, number ~> void, boolean ~> void
   });
+});
 
 // First argument is required
 Promise.all(); // Error: expected array instead of undefined (too few arguments)
@@ -533,8 +531,7 @@ Promise.reject(Promise.resolve(0)).then(function (num) {
 //////////////////////////////////
 
 // resolvedPromise.then():T -> then(T)
-Promise
-  .resolve(0)
+Promise.resolve(0)
   .then(function (num) {
     return "asdf";
   })
@@ -544,8 +541,7 @@ Promise
   });
 
 // resolvedPromise.then():Promise<T> -> then(T)
-Promise
-  .resolve(0)
+Promise.resolve(0)
   .then(function (num) {
     return Promise.resolve("asdf");
   })
@@ -555,8 +551,7 @@ Promise
   });
 
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
-Promise
-  .resolve(0)
+Promise.resolve(0)
   .then(function (num) {
     return Promise.resolve(Promise.resolve("asdf"));
   })
@@ -566,8 +561,7 @@ Promise
   });
 
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
-Promise
-  .resolve(0)
+Promise.resolve(0)
   .then(function (num) {
     throw "str";
   })
@@ -583,8 +577,7 @@ Promise
 ///////////////////////////////////
 
 // rejectedPromise.catch():U -> then(U)
-Promise
-  .reject(0)
+Promise.reject(0)
   .catch(function (num) {
     return "asdf";
   })
@@ -594,8 +587,7 @@ Promise
   });
 
 // rejectedPromise.catch():Promise<U> -> then(U)
-Promise
-  .reject(0)
+Promise.reject(0)
   .catch(function (num) {
     return Promise.resolve("asdf");
   })
@@ -605,8 +597,7 @@ Promise
   });
 
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
-Promise
-  .reject(0)
+Promise.reject(0)
   .catch(function (num) {
     return Promise.resolve(Promise.resolve("asdf"));
   })
@@ -616,8 +607,7 @@ Promise
   });
 
 // resolvedPromise<T> -> catch() -> then():?T
-Promise
-  .resolve(0)
+Promise.resolve(0)
   .catch(function (err) {})
   .then(function (num) {
     var a: ?number = num;

@@ -238,14 +238,16 @@ foo.bar.baz
 =====================================output=====================================
 function foo() {
   return (
-    a.b()
+    a
+      .b()
       .c()
       // Comment
       ?.d()
   );
 }
 
-fooBar.doSomething("Hello World")
+fooBar
+  .doSomething("Hello World")
   .doAnotherThing("Foo", { foo: bar })
 
   // App configuration.
@@ -253,7 +255,9 @@ fooBar.doSomething("Hello World")
 
   ?.run(() => console.log("Bar"));
 
-bigDeal.doSomething("Hello World")
+bigDeal
+
+  .doSomething("Hello World")
 
   // Hello world
   ?.doAnotherThing("Foo", { foo: bar })
@@ -263,7 +267,9 @@ bigDeal.doSomething("Hello World")
 
   ?.run(() => console.log("Bar"));
 
-foo.bar.baz?.doSomething("Hello World")
+foo.bar.baz
+
+  ?.doSomething("Hello World")
 
   // Hello world
   .foo.bar.doAnotherThing("Foo", { foo: bar })

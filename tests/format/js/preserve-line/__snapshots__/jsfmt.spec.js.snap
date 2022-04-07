@@ -532,7 +532,8 @@ const sel = this.connections
 const video = document.querySelectorAll('.cms-block-layout1 .swiper-slide')[index + 1].querySelectorAll('video')[0]
 
 =====================================output=====================================
-fooBar.doSomething("Hello World")
+fooBar
+  .doSomething("Hello World")
   .doAnotherThing("Foo", { foo: bar })
 
   // App configuration.
@@ -540,7 +541,9 @@ fooBar.doSomething("Hello World")
 
   .run(() => console.log("Bar"));
 
-bigDeal.doSomething("Hello World")
+bigDeal
+
+  .doSomething("Hello World")
 
   // Hello world
   .doAnotherThing("Foo", { foo: bar })
@@ -550,7 +553,9 @@ bigDeal.doSomething("Hello World")
 
   .run(() => console.log("Bar"));
 
-foo.bar.baz.doSomething("Hello World")
+foo.bar.baz
+
+  .doSomething("Hello World")
 
   // Hello world
   .foo.bar.doAnotherThing("Foo", { foo: bar })
@@ -566,23 +571,30 @@ foo.bar.baz.doSomething("Hello World")
   .doAnotherThing("Foo", { foo: bar }) // Run this
   .run(() => console.log("Bar")); // Do this
 
-helloWorld.text()
-.then((t) => t);
+helloWorld
+
+  .text()
+
+  .then((t) => t);
 
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
-).map((tickets) => TicketRecord.createFromSomeLongString())
-.filter((obj) => !!obj);
+)
 
-const sel = this.connections.concat(
-  this.activities.concat(this.operators)
-).filter((x) => x.selected);
+  .map((tickets) => TicketRecord.createFromSomeLongString())
 
-const video = document.querySelectorAll(".cms-block-layout1 .swiper-slide")[
-  index + 1
-].querySelectorAll("video")[0];
+  .filter((obj) => !!obj);
+
+const sel = this.connections
+
+  .concat(this.activities.concat(this.operators))
+  .filter((x) => x.selected);
+
+const video = document
+  .querySelectorAll(".cms-block-layout1 .swiper-slide")
+  [index + 1].querySelectorAll("video")[0];
 
 ================================================================================
 `;
