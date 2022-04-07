@@ -37,15 +37,21 @@ self.onmessage = function (event) {
   });
 };
 
-function serializeAst(ast) {
+function serializeAst(ast, parser) {
+  const isHtmlParser =
+    parser === "html" || parser === "vue" || parser === "angular";
   return JSON.stringify(
     ast,
-    (_, value) =>
-      value instanceof Error
+    (key, value) => {
+      if (isHtmlParser && key === "parent") {
+        return;
+      }
+      return value instanceof Error
         ? { name: value.name, message: value.message, ...value }
         : typeof value === "bigint"
         ? `BigInt('${String(value)}')`
-        : value,
+        : value;
+    },
     2
   );
 }
@@ -91,7 +97,10 @@ function handleMessage(message) {
       let ast;
       let errored = false;
       try {
-        ast = serializeAst(prettier.__debug.parse(message.code, options).ast);
+        ast = serializeAst(
+          prettier.__debug.parse(message.code, options).ast,
+          options.parser
+        );
       } catch (e) {
         errored = true;
         ast = String(e);
