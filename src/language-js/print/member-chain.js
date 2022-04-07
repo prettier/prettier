@@ -280,8 +280,8 @@ function printMemberChain(path, options, print) {
     return name.length <= options.tabWidth;
   }
 
-  function shouldNotBreak(name) {
-    return (isFactory(name) && !isShort(name)) || containsArray(name);
+  function shouldNotBreakArray(name) {
+    return containsArray(name);
   }
 
   function shouldNotWrap(groups) {
@@ -295,7 +295,7 @@ function printMemberChain(path, options, print) {
           (isFactory(firstNode.name) ||
             (isExpressionStatement && isShort(firstNode.name)) ||
             hasComputed)) ||
-        shouldNotBreak(firstNode.name)
+        shouldNotBreakArray(firstNode.name)
       );
     }
 
@@ -304,7 +304,7 @@ function printMemberChain(path, options, print) {
       isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
       (isFactory(lastNode.property.name) || hasComputed) &&
-      !shouldNotBreak(lastNode.property.name)
+      !shouldNotBreakArray(lastNode.property.name)
     );
   }
 
