@@ -126,9 +126,17 @@ function format(context, input, opt) {
 
   if (context.argv.debugPrintAst) {
     const { ast } = prettier.__debug.parse(input, opt);
-    return {
-      formatted: JSON.stringify(ast),
-    };
+    const { inferredParser } = prettier.getFileInfo.sync(opt.filepath, opt);
+    const isHtmlParser = ["html", "vue", "angular"].includes(inferredParser);
+    // To avoid circular JSON structure for HTML parser
+    const replacer = isHtmlParser
+      ? (key, value) => {
+          if (key !== "parent") {
+            return value;
+          }
+        }
+      : null;
+    return { formatted: JSON.stringify(ast, replacer) };
   }
 
   if (context.argv.debugCheck) {
