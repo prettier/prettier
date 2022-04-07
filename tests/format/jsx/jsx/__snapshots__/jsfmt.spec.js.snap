@@ -5060,6 +5060,94 @@ singleQuote: true
 ================================================================================
 `;
 
+exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
 exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false

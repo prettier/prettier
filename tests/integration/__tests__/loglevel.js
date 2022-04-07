@@ -1,6 +1,6 @@
 "use strict";
 
-const stripAnsi = require("strip-ansi");
+const { default: stripAnsi } = require("../../../vendors/strip-ansi.js");
 const runPrettier = require("../run-prettier.js");
 
 test("do not show logs with --loglevel silent", async () => {

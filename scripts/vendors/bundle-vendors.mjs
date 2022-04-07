@@ -1,26 +1,39 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import path from "node:path";
+import assert from "node:assert";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { outdent } from "outdent";
-import { PROJECT_ROOT } from "../utils/index.mjs";
+import { PROJECT_ROOT, writeJson } from "../utils/index.mjs";
 import esbuildPluginLicense from "../build/esbuild-plugins/license.mjs";
 import vendors from "./vendors.mjs";
-import { vendorMetaFile, saveVendorLicenses } from "./utils.mjs";
+import {
+  vendorsDirectory,
+  vendorMetaFile,
+  saveVendorLicenses,
+  saveVendorEntry,
+} from "./utils.mjs";
 import esbuildPluginTsNocheck from "./esbuild-plugin-ts-nocheck.mjs";
 
 const { require } = createEsmUtils(import.meta);
-const rootDir = new URL("../../", import.meta.url);
-// prettier/vendors
-const vendorsDir = new URL("./vendors/", rootDir);
 // prettier/vendors/*.js
-const getVendorFilePath = (vendorName) =>
-  fileURLToPath(new URL(`./${vendorName}.js`, vendorsDir));
+const getVendorFilePath = (vendorName, extension = "js") =>
+  path.join(vendorsDirectory, `${vendorName}.${extension}`);
+
+// Unsafe, but good enough for now.
+const isJson = (value) => {
+  try {
+    assert.deepStrictEqual(JSON.parse(JSON.stringify(value)), { ...value });
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 async function clean() {
-  for (const directoryOrFile of [vendorsDir, vendorMetaFile]) {
+  for (const directoryOrFile of [vendorsDirectory, vendorMetaFile]) {
     try {
       await fs.rm(directoryOrFile, { recursive: true, force: true });
     } catch {
@@ -29,12 +42,10 @@ async function clean() {
   }
 }
 
-async function generateDts(vendor) {
-  const hasDefault = await import(vendor).then((module) =>
-    Boolean(module.default)
-  );
+async function generateDts({ vendor, module }) {
+  const hasDefault = Boolean(module.default);
   await fs.writeFile(
-    new URL(`${vendor}.d.ts`, vendorsDir),
+    path.join(vendorsDirectory, `${vendor}.d.ts`),
     [
       "// This file is generated automatically.",
       hasDefault ? `export {default} from "${vendor}";` : null,
@@ -70,7 +81,18 @@ async function bundle(vendor, options) {
   };
   await esbuild.build(esbuildOption);
 
-  await generateDts(vendor);
+  // Still running esbuild, because we want collect license
+  const module = await import(vendor);
+  if (isJson(module)) {
+    await fs.rm(outfile);
+    const file = getVendorFilePath(vendor, "json");
+    await writeJson(file, module);
+    saveVendorEntry(vendor, file);
+    return;
+  }
+
+  await generateDts({ vendor, module });
+  saveVendorEntry(vendor, outfile);
 }
 
 async function main() {
@@ -90,7 +112,7 @@ async function main() {
   console.log("Vendor licenses saved");
 
   await fs.writeFile(
-    new URL("./README.md", vendorsDir),
+    path.join(vendorsDirectory, "README.md"),
     outdent`
       # \`./vendors\`
 
@@ -102,4 +124,4 @@ async function main() {
   console.log("`README.md` file saved");
 }
 
-main();
+await main();

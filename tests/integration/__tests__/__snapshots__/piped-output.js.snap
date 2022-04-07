@@ -34,13 +34,13 @@ exports[`no file diffs with --list-different + formatted file (write) 2`] = `Arr
 
 exports[`output with --check + unformatted differs when piped (stderr) 1`] = `
 "[warn] unformatted.js
-[warn] Code style issues fixed in the above file(s).
+[warn] Code style issues fixed in the above file.
 "
 `;
 
 exports[`output with --check + unformatted differs when piped (stderr) 2`] = `
 "[warn] unformatted.js
-[warn] Code style issues fixed in the above file(s).
+[warn] Code style issues fixed in the above file.
 "
 `;
 
