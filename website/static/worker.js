@@ -38,8 +38,7 @@ self.onmessage = function (event) {
 };
 
 function serializeAst(ast, parser) {
-  const isHtmlParser =
-    parser === "html" || parser === "vue" || parser === "angular";
+  const isHtmlParser = ["html", "vue", "angular"].includes(parser);
   return JSON.stringify(
     ast,
     (key, value) => {
