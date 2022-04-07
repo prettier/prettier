@@ -126,7 +126,7 @@ function format(context, input, opt) {
 
   if (context.argv.debugPrintAst) {
     const { ast } = prettier.__debug.parse(input, opt);
-    const isHtmlParser = ["html", "vue", "angular"].includes(opt.parser);
+    const isHtmlParser = ["html", "vue", "angular", "lwc"].includes(opt.parser);
     // To avoid circular JSON structure for HTML parser
     const replacer = isHtmlParser
       ? (key, value) => {
