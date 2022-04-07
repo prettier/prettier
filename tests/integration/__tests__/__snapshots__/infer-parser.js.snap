@@ -129,7 +129,7 @@ Array [
 `;
 
 exports[`Interpreters (stdout) 1`] = `
-"{ \\"ignored\\": false, \\"inferredParser\\": \\"babel\\" }
+"{ "ignored": false, "inferredParser": "babel" }
 
 "
 `;

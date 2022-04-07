@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`keywords.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\"{\\" (9:12)
+"Unexpected token, expected "{" (9:12)
    7 |
    8 |     // Apparently this parses :P
 >  9 |     export private public protected static readonly abstract async enum X { }
@@ -196,7 +196,7 @@ class G {
 `;
 
 exports[`module.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\"{\\" (7:10)
+"Unexpected token, expected "{" (7:10)
    5 |
    6 |   // Apparently this parses :P
 >  7 |   export private public protected static readonly abstract async enum X { }

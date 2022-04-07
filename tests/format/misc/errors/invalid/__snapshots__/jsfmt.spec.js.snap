@@ -7,7 +7,7 @@ exports[`snippet: #0 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #0 [babel] format 1`] = `
-"Unexpected token, expected \\"(\\" (1:5)
+"Unexpected token, expected "(" (1:5)
 > 1 | for each (a in b) {}
     |     ^"
 `;
@@ -19,7 +19,7 @@ exports[`snippet: #0 [babel] format 2`] = `
 `;
 
 exports[`snippet: #0 [babel-flow] format 1`] = `
-"Unexpected token, expected \\"(\\" (1:5)
+"Unexpected token, expected "(" (1:5)
 > 1 | for each (a in b) {}
     |     ^"
 `;
@@ -31,7 +31,7 @@ exports[`snippet: #0 [babel-flow] format 2`] = `
 `;
 
 exports[`snippet: #0 [babel-ts] format 1`] = `
-"Unexpected token, expected \\"(\\" (1:5)
+"Unexpected token, expected "(" (1:5)
 > 1 | for each (a in b) {}
     |     ^"
 `;
