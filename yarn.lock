@@ -4249,9 +4249,9 @@ jest-leak-detector@^27.5.1:
     jest-get-type "^27.5.1"
     pretty-format "^27.5.1"
 
-jest-light-runner@SimenB/jest-light-runner#79f3f2b:
+jest-light-runner@SimenB/jest-light-runner#8f53bd0:
   version "0.1.1"
-  resolved "https://codeload.github.com/SimenB/jest-light-runner/tar.gz/79f3f2b8fefdcc70bf75449898dc5d18a7d464c8"
+  resolved "https://codeload.github.com/SimenB/jest-light-runner/tar.gz/8f53bd01b92d7629876942443fe1417f7dd11d5f"
   dependencies:
     "@jest/transform" "^27.5.1"
     collect-v8-coverage "^1.0.1"
