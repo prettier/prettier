@@ -109,13 +109,6 @@ class Node {
     return new Node(this);
   }
 
-  /**
-   * @param {Array} [children]
-   */
-  setChildren(children) {
-    this._setNodes("children", children);
-  }
-
   get firstChild() {
     // @ts-expect-error
     return this.children?.[0];
