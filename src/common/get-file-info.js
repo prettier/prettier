@@ -6,7 +6,7 @@ const config = require("../config/resolve-config.js");
 const createIgnorer = require("./create-ignorer.js");
 
 /**
- * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions
+ * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
  * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
  */
 
