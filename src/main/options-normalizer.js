@@ -3,6 +3,10 @@
 const vnopts = require("vnopts");
 const getLast = require("../utils/get-last.js");
 
+/**
+ * @typedef {import("./support").NamedOptionInfo} NamedOptionInfo
+ */
+
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
   value: (value) => vnopts.apiDescriptor.value(value),
@@ -146,6 +150,11 @@ function optionInfosToSchemas(
   return schemas;
 }
 
+/**
+ * @param {NamedOptionInfo} optionInfo
+ * @param {any} param1
+ * @returns
+ */
 function optionInfoToSchema(
   optionInfo,
   { isCLI, optionInfos, colorsModule, levenshteinDistance }
