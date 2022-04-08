@@ -80,19 +80,6 @@ class Node {
     fn(this);
   }
 
-  /**
-   * @param {Node} [target]
-   * @param {Object} [node]
-   */
-  insertChildBefore(target, node) {
-    // @ts-expect-error
-    this.children.splice(
-      this.children.indexOf(target),
-      0,
-      this.createChild(node)
-    );
-  }
-
   createChild(nodeOrProperties) {
     const node =
       nodeOrProperties instanceof Node
@@ -106,9 +93,13 @@ class Node {
    * @param {Node} [target]
    * @param {Object} [node]
    */
-  replaceChild(target, node) {
+  insertChildBefore(target, node) {
     // @ts-expect-error
-    this.children[this.children.indexOf(target)] = this.createChild(node);
+    this.children.splice(
+      this.children.indexOf(target),
+      0,
+      this.createChild(node)
+    );
   }
 
   /**
@@ -119,8 +110,51 @@ class Node {
     this.children.splice(this.children.indexOf(child), 1);
   }
 
+  /**
+   * @param {Node} [target]
+   * @param {Object} [node]
+   */
+  replaceChild(target, node) {
+    // @ts-expect-error
+    this.children[this.children.indexOf(target)] = this.createChild(node);
+  }
+
   clone() {
     return new Node(this);
+  }
+
+  get firstChild() {
+    // @ts-expect-error
+    return isNonEmptyArray(this.children) ? this.children[0] : null;
+  }
+
+  get lastChild() {
+    // @ts-expect-error
+    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
+  }
+
+  get prev() {
+    // @ts-expect-error
+    if (!this.parent) {
+      return null;
+    }
+    // @ts-expect-error
+    return this.parent.children[this.parent.children.indexOf(this) - 1];
+  }
+
+  get next() {
+    // @ts-expect-error
+    if (!this.parent) {
+      return null;
+    }
+    // @ts-expect-error
+    return this.parent.children[this.parent.children.indexOf(this) + 1];
+  }
+
+  // for element and attribute
+  get rawName() {
+    // @ts-expect-error
+    return this.hasExplicitNamespace ? this.fullName : this.name;
   }
 
   get fullName() {
