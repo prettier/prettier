@@ -59,15 +59,20 @@ const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
 
 let hasDeprecationWarned;
 
+/**
+ * @param {*} options
+ * @param {*} optionInfos
+ * @param {{ logger?: false; isCLI?: boolean; passThrough?: boolean; colorsModule?: any; levenshteinDistance?: any }} param2
+ */
 function normalizeOptions(
   options,
   optionInfos,
   {
-    logger,
+    logger = false,
     isCLI = false,
     passThrough = false,
-    colorsModule,
-    levenshteinDistance,
+    colorsModule = null,
+    levenshteinDistance = null,
   } = {}
 ) {
   const unknown = !passThrough
