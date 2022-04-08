@@ -24,9 +24,9 @@ coverage
 
 It’s recommended to have a `.prettierignore` in your project! This way you can run `prettier --write .` to make sure that everything is formatted (without mangling files you don’t want, or choking on generated files). And – your editor will know which files _not_ to format!
 
-(See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
+By default prettier ignores files in version control systems directories (".git", ".svn" and ".hg") and `node_modules` (if [`--with-node-modules` CLI option](cli.md#--with-node-modules) not specified)
 
-By default pettier ignores what it will find in any .gitignore it finds in the current repository
+(See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
 
 ## JavaScript
 
