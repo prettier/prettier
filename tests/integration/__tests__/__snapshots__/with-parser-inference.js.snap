@@ -4,7 +4,7 @@ exports[`infers postcss parser (stderr) 1`] = `""`;
 
 exports[`infers postcss parser (stdout) 1`] = `
 "/* JavaScript */
-\\"use strict\\";
+"use strict";
 /* Stylesheet */
 * {
   outline: none;

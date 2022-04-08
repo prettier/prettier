@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`type-interfaces.graphql [graphql] format 1`] = `
-"Syntax Error: Unexpected \\"|\\". (5:21)
+"Syntax Error: Unexpected "|". (5:21)
   3 | # which will break seperator detection added in #7305
   4 |
 > 5 | type A implements A | B {

@@ -153,7 +153,7 @@ class f7<> {
 `;
 
 exports[`index-signature.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\"]\\" (4:13)
+"Unexpected token, expected "]" (4:13)
   2 |
   3 | type TwoParams = {
 > 4 |   [a: string, b: string]: string;
@@ -164,7 +164,7 @@ exports[`index-signature.ts [babel-ts] format 1`] = `
 `;
 
 exports[`index-signature.ts - {"trailingComma":"all"} [babel-ts] format 1`] = `
-"Unexpected token, expected \\"]\\" (4:13)
+"Unexpected token, expected "]" (4:13)
   2 |
   3 | type TwoParams = {
 > 4 |   [a: string, b: string]: string;
@@ -238,7 +238,7 @@ type TooLongSingleParam = {
 `;
 
 exports[`index-signature.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
-"Unexpected token, expected \\"]\\" (4:13)
+"Unexpected token, expected "]" (4:13)
   2 |
   3 | type TwoParams = {
 > 4 |   [a: string, b: string]: string;

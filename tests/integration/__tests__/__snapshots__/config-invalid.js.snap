@@ -10,7 +10,7 @@ exports[`resolves external configuration from package.json (stdout) 1`] = `""`;
 exports[`resolves external configuration from package.json (write) 1`] = `Array []`;
 
 exports[`show warning with kebab-case option key (stderr) 1`] = `
-"[warn] Ignored unknown option { \\"print-width\\": 3 }. Did you mean printWidth?
+"[warn] Ignored unknown option { "print-width": 3 }. Did you mean printWidth?
 "
 `;
 
@@ -19,7 +19,7 @@ exports[`show warning with kebab-case option key (stdout) 1`] = `""`;
 exports[`show warning with kebab-case option key (write) 1`] = `Array []`;
 
 exports[`show warning with unknown option (stderr) 1`] = `
-"[warn] Ignored unknown option { hello: \\"world\\" }.
+"[warn] Ignored unknown option { hello: "world" }.
 "
 `;
 
@@ -28,7 +28,7 @@ exports[`show warning with unknown option (stdout) 1`] = `""`;
 exports[`show warning with unknown option (write) 1`] = `Array []`;
 
 exports[`throw error for unsupported extension (stderr) 1`] = `
-"[error] Invalid configuration file \`<cwd>/tests/integration/cli/config/invalid\`: No loader specified for extension \\".unsupported\\"
+"[error] Invalid configuration file \`<cwd>/tests/integration/cli/config/invalid\`: No loader specified for extension ".unsupported"
 "
 `;
 
@@ -54,7 +54,7 @@ exports[`throw error with invalid config option (int) (stdout) 1`] = `""`;
 exports[`throw error with invalid config option (int) (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config option (trailingComma) (stderr) 1`] = `
-"[error] Invalid trailingComma value. Expected \\"all\\", \\"es5\\" or \\"none\\", but received \\"wow\\".
+"[error] Invalid trailingComma value. Expected "all", "es5" or "none", but received "wow".
 "
 `;
 
@@ -63,7 +63,7 @@ exports[`throw error with invalid config option (trailingComma) (stdout) 1`] = `
 exports[`throw error with invalid config option (trailingComma) (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config precedence option (configPrecedence) (stderr) 1`] = `
-"[error] Invalid --config-precedence value. Expected \\"cli-override\\", \\"file-override\\" or \\"prefer-file\\", but received \\"option/configPrecedence\\".
+"[error] Invalid --config-precedence value. Expected "cli-override", "file-override" or "prefer-file", but received "option/configPrecedence".
 "
 `;
 
