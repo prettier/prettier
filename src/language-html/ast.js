@@ -8,7 +8,7 @@ const NODES_KEYS = {
   children: true,
 };
 
-const NON_ENUMERABLE_PROPERTIES = new Set(["children", "attrs", "parent"]);
+const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
 
 // TODO: typechecking is problematic for this class because of this issue:
 // https://github.com/microsoft/TypeScript/issues/26811
