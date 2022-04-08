@@ -14,12 +14,12 @@ const NON_ENUMERABLE_PROPERTIES = new Set(["children", "attrs", "parent"]);
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
-  constructor(props = {}) {
+  constructor(nodeOrProperties = {}) {
     for (const property of new Set([
       ...NON_ENUMERABLE_PROPERTIES,
-      ...Object.keys(props),
+      ...Object.keys(nodeOrProperties),
     ])) {
-      this.setProperty(property, props[property]);
+      this.setProperty(property, nodeOrProperties[property]);
     }
   }
 
@@ -34,6 +34,7 @@ class Node {
 
     if (!NON_ENUMERABLE_PROPERTIES.has(property)) {
       this[property] = value;
+      return;
     }
 
     Object.defineProperty(this, property, {
