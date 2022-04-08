@@ -162,6 +162,9 @@ function optionInfoToSchema(
         value = Array.isArray(value) ? value : [value];
         return value;
       },
+      /**
+       * @param {Array<unknown> | false} value
+       */
       validate(value) {
         if (value === false) {
           return true;
