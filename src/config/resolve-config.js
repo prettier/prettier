@@ -12,12 +12,15 @@ const { default: mem, memClear } = require("../../vendors/mem.js");
 const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
 /**
- * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfigSync>} SyncExplorer
  * @typedef {{sync?: boolean; cache?: boolean }} Options
  */
 
 /**
- * @type {(opts: Options) => Explorer}
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
  */
 const getExplorerMemoized = mem(
   (opts) => {
@@ -68,8 +71,9 @@ const getExplorerMemoized = mem(
 );
 
 /**
- * @param {Options} opts
- * @return {Explorer}
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
  */
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
