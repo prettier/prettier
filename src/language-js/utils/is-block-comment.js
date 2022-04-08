@@ -4,17 +4,16 @@
  * @typedef {import("../types/estree").Comment} Comment
  */
 
+const BLOCK_COMMENT_TYPES = new Set([
+  "Block",
+  "CommentBlock",
+  // `meriyah`
+  "MultiLine",
+]);
 /**
  * @param {Comment} comment
  * @returns {boolean}
  */
-function isBlockComment(comment) {
-  return (
-    comment.type === "Block" ||
-    comment.type === "CommentBlock" ||
-    // `meriyah`
-    comment.type === "MultiLine"
-  );
-}
+const isBlockComment = (comment) => BLOCK_COMMENT_TYPES.has(comment?.type);
 
 module.exports = isBlockComment;
