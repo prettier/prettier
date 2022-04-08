@@ -120,13 +120,7 @@ function genericPrint(path, options, print) {
         "{",
         indent([
           hardline,
-          join(
-            hardline,
-            path.call(
-              (selectionsPath) => printSequence(selectionsPath, options, print),
-              "selections"
-            )
-          ),
+          join(hardline, printSequence(path, options, print, "selections")),
         ]),
         hardline,
         "}",
@@ -143,10 +137,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -234,10 +225,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -278,13 +266,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (fieldsPath) => printSequence(fieldsPath, options, print),
-                    "fields"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -305,10 +287,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -335,10 +314,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -366,13 +342,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (valuesPath) => printSequence(valuesPath, options, print),
-                    "values"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "values")),
               ]),
               hardline,
               "}",
@@ -416,13 +386,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (fieldsPath) => printSequence(fieldsPath, options, print),
-                    "fields"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -442,10 +406,7 @@ function genericPrint(path, options, print) {
                 hardline,
                 join(
                   hardline,
-                  path.call(
-                    (opsPath) => printSequence(opsPath, options, print),
-                    "operationTypes"
-                  )
+                  printSequence(path, options, print, "operationTypes")
                 ),
               ]),
               hardline,
@@ -466,10 +427,7 @@ function genericPrint(path, options, print) {
               hardline,
               join(
                 hardline,
-                path.call(
-                  (opsPath) => printSequence(opsPath, options, print),
-                  "operationTypes"
-                )
+                printSequence(path, options, print, "operationTypes")
               ),
             ])
           : "",
@@ -499,13 +457,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (fieldsPath) => printSequence(fieldsPath, options, print),
-                    "fields"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -595,21 +547,19 @@ function printDirectives(path, print, node) {
   return [" ", group(indent([softline, printed]))];
 }
 
-function printSequence(sequencePath, options, print) {
-  const count = sequencePath.getValue().length;
-
-  return sequencePath.map((path, i) => {
+function printSequence(path, options, print, property) {
+  return path.map((path, index, sequence) => {
     const printed = print();
 
     if (
-      isNextLineEmpty(options.originalText, path.getValue(), locEnd) &&
-      i < count - 1
+      index < sequence.length - 1 &&
+      isNextLineEmpty(options.originalText, path.getValue(), locEnd)
     ) {
       return [printed, hardline];
     }
 
     return printed;
-  });
+  }, property);
 }
 
 function canAttachComment(node) {

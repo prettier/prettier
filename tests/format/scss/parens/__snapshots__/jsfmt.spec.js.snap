@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`2.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$icons: (
+  cal-day-group:
+    (
+      left: 253,
+      top: 73,
+    ),
+
+
+  /* Should preserve empty lines */
+  cal-week-group:
+    (
+      left: 1,
+      top: 169,
+    )
+);
+
+=====================================output=====================================
+$icons: (
+  cal-day-group: (
+    left: 253,
+    top: 73,
+  ),
+  /* Should preserve empty lines */ cal-week-group:
+    (
+      left: 1,
+      top: 169,
+    ),
+);
+
+================================================================================
+`;
+
 exports[`parens.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

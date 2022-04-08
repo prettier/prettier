@@ -41,7 +41,7 @@ __export(string_width_exports, {
 });
 module.exports = __toCommonJS(string_width_exports);
 
-// node_modules/string-width/node_modules/ansi-regex/index.js
+// node_modules/strip-ansi/node_modules/ansi-regex/index.js
 function ansiRegex({ onlyFirst = false } = {}) {
   const pattern = [
     "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
@@ -50,7 +50,7 @@ function ansiRegex({ onlyFirst = false } = {}) {
   return new RegExp(pattern, onlyFirst ? void 0 : "g");
 }
 
-// node_modules/string-width/node_modules/strip-ansi/index.js
+// node_modules/strip-ansi/index.js
 function stripAnsi(string) {
   if (typeof string !== "string") {
     throw new TypeError(`Expected a \`string\`, got \`${typeof string}\``);

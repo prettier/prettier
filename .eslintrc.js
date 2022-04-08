@@ -4,8 +4,11 @@ const { isCI } = require("ci-info");
 module.exports = {
   root: true,
   env: {
-    es2021: true,
+    es2022: true,
     node: true,
+  },
+  parserOptions: {
+    ecmaVersion: "latest",
   },
   reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
@@ -38,9 +41,6 @@ module.exports = {
       "error",
       // `!foo === bar` and `!foo !== bar`
       'BinaryExpression[operator=/^[!=]==$/] > UnaryExpression.left[operator="!"]',
-      // `(() => (foo ? bar : baz))()`
-      // TODO: Remove this when https://github.com/sindresorhus/eslint-plugin-unicorn/issues/1730 get implemented
-      'CallExpression[callee.type="ArrowFunctionExpression"][callee.body.type="ConditionalExpression"]',
     ],
     "no-return-await": "error",
     "no-unneeded-ternary": "error",
@@ -132,6 +132,7 @@ module.exports = {
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
     "unicorn/no-new-array": "error",
+    "unicorn/no-unreadable-iife": "error",
     "unicorn/no-useless-length-check": "error",
     "unicorn/no-useless-promise-resolve-reject": "error",
     "unicorn/no-useless-undefined": "error",
@@ -145,6 +146,7 @@ module.exports = {
     "unicorn/prefer-array-some": "error",
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-json-parse-buffer": "error",
+    "unicorn/prefer-native-coercion-functions": "error",
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
@@ -165,6 +167,12 @@ module.exports = {
       ],
       rules: {
         "no-console": "off",
+      },
+    },
+    {
+      files: ["scripts/**/*.mjs"],
+      rules: {
+        "unicorn/prefer-top-level-await": "error",
       },
     },
     {
