@@ -101,6 +101,7 @@ class Node {
   insertChildBefore(target, node) {
     // @ts-expect-error
     this.children.splice(
+      // @ts-expect-error
       this.children.indexOf(target),
       0,
       this.createChild(node)
@@ -169,6 +170,7 @@ class Node {
 
   get attrMap() {
     return Object.fromEntries(
+      // @ts-expect-error
       this.attrs.map((attr) => [attr.fullName, attr.value])
     );
   }
