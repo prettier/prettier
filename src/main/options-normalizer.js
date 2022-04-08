@@ -145,6 +145,7 @@ function optionInfosToSchemas(
     if (optionInfo.alias && isCLI) {
       schemas.push(
         vnopts.AliasSchema.create({
+          // @ts-expect-error
           name: optionInfo.alias,
           sourceName: optionInfo.name,
         })
@@ -168,6 +169,7 @@ function optionInfoToSchema(
 
   if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
     return vnopts.AnySchema.create({
+      // @ts-expect-error
       name,
       preprocess(value) {
         if (value === false) {
@@ -279,6 +281,7 @@ function optionInfoToSchema(
     ? vnopts.ArraySchema.create({
         ...(isCLI ? { preprocess: (v) => (Array.isArray(v) ? v : [v]) } : {}),
         ...handlers,
+        // @ts-expect-error
         valueSchema: SchemaConstructor.create(parameters),
       })
     : SchemaConstructor.create({ ...parameters, ...handlers });
