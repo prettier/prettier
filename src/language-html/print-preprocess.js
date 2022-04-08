@@ -273,7 +273,7 @@ function extractWhitespaces(ast /*, options*/) {
         htmlTrim(node.children[0].value).length === 0)
     ) {
       node.hasDanglingSpaces = node.children.length > 0;
-      node.children = [];
+      node.setProperty("children", []);
       return;
     }
 

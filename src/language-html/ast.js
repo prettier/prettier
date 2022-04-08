@@ -36,7 +36,11 @@ class Node {
       this[property] = value;
     }
 
-    Object.defineProperty(this, property, { value, enumerable: false });
+    Object.defineProperty(this, property, {
+      value,
+      enumerable: false,
+      configurable: true,
+    });
   }
 
   map(fn) {
