@@ -13,7 +13,7 @@ const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
 /**
  * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
- * @typedef {{sync: boolean; cache: boolean }} Options
+ * @typedef {{sync?: boolean; cache?: boolean }} Options
  */
 
 /**
