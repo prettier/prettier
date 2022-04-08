@@ -26,6 +26,8 @@ It’s recommended to have a `.prettierignore` in your project! This way you can
 
 (See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
 
+By default pettier ignores what it will find in any .gitignore it finds in the current repository
+
 ## JavaScript
 
 A JavaScript comment of `// prettier-ignore` will exclude the next node in the abstract syntax tree from formatting.
