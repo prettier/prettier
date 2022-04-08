@@ -95,12 +95,14 @@ function normalizeOptions(
   const shouldSuppressDuplicateDeprecationWarnings = logger !== false;
 
   if (shouldSuppressDuplicateDeprecationWarnings && hasDeprecationWarned) {
+    // @ts-expect-error
     normalizer._hasDeprecationWarned = hasDeprecationWarned;
   }
 
   const normalized = normalizer.normalize(options);
 
   if (shouldSuppressDuplicateDeprecationWarnings) {
+    // @ts-expect-error
     hasDeprecationWarned = normalizer._hasDeprecationWarned;
   }
 
