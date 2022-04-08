@@ -86,6 +86,7 @@ function _resolveConfig(filePath, opts, sync) {
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
+  /** @type {[any, any]} */
   const arr = [
     opts.config ? load(opts.config) : search(filePath),
     loadEditorConfig(filePath),
