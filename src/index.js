@@ -24,6 +24,11 @@ function _withPlugins(
   };
 }
 
+/**
+ * @param {*} fn
+ * @param {*} optsArgIdx
+ * @returns {*}
+ */
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
