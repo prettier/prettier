@@ -2,22 +2,22 @@
 
 exports[`default-escaped.js [acorn] format 1`] = `
 "Unexpected token (2:8)
-  1 | // export asyn\\\\u{63} from \\"async\\";
-> 2 | export n\\\\u{63} from \\"async\\";
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
     |        ^"
 `;
 
 exports[`default-escaped.js [espree] format 1`] = `
-"Unexpected token n\\\\u{63} (2:8)
-  1 | // export asyn\\\\u{63} from \\"async\\";
-> 2 | export n\\\\u{63} from \\"async\\";
+"Unexpected token n\\u{63} (2:8)
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
     |        ^"
 `;
 
 exports[`default-escaped.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (2:12)
-  1 | // export asyn\\\\u{63} from \\"async\\";
-> 2 | export n\\\\u{63} from \\"async\\";
+  1 | // export asyn\\u{63} from "async";
+> 2 | export n\\u{63} from "async";
     |            ^"
 `;
 

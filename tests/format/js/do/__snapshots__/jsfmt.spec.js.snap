@@ -6,9 +6,9 @@ exports[`call-arguments.js [acorn] format 1`] = `
   2 | expect(
 > 3 |   do {
     |   ^
-  4 |     var bar = \\"foo\\";
+  4 |     var bar = "foo";
   5 |     if (!bar) throw new Error(
-  6 |       \\"unreachable\\""
+  6 |       "unreachable""
 `;
 
 exports[`call-arguments.js [espree] format 1`] = `
@@ -17,9 +17,9 @@ exports[`call-arguments.js [espree] format 1`] = `
   2 | expect(
 > 3 |   do {
     |   ^
-  4 |     var bar = \\"foo\\";
+  4 |     var bar = "foo";
   5 |     if (!bar) throw new Error(
-  6 |       \\"unreachable\\""
+  6 |       "unreachable""
 `;
 
 exports[`call-arguments.js [meriyah] format 1`] = `
@@ -28,9 +28,9 @@ exports[`call-arguments.js [meriyah] format 1`] = `
   2 | expect(
 > 3 |   do {
     |    ^
-  4 |     var bar = \\"foo\\";
+  4 |     var bar = "foo";
   5 |     if (!bar) throw new Error(
-  6 |       \\"unreachable\\""
+  6 |       "unreachable""
 `;
 
 exports[`call-arguments.js format 1`] = `

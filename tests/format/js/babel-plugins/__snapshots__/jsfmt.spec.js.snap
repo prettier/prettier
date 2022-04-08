@@ -1017,9 +1017,9 @@ exports[`function-sent.js [acorn] format 1`] = `
 "Unexpected token (4:33)
   2 |
   3 | function* generator() {
-> 4 |     console.log(\\"Sent\\", function.sent);
+> 4 |     console.log("Sent", function.sent);
     |                                 ^
-  5 |     console.log(\\"Yield\\", yield);
+  5 |     console.log("Yield", yield);
   6 | }
   7 |"
 `;
@@ -1028,9 +1028,9 @@ exports[`function-sent.js [espree] format 1`] = `
 "Unexpected token . (4:33)
   2 |
   3 | function* generator() {
-> 4 |     console.log(\\"Sent\\", function.sent);
+> 4 |     console.log("Sent", function.sent);
     |                                 ^
-  5 |     console.log(\\"Yield\\", yield);
+  5 |     console.log("Yield", yield);
   6 | }
   7 |"
 `;
@@ -1039,9 +1039,9 @@ exports[`function-sent.js [meriyah] format 1`] = `
 "Expected '(' (4:33)
   2 |
   3 | function* generator() {
-> 4 |     console.log(\\"Sent\\", function.sent);
+> 4 |     console.log("Sent", function.sent);
     |                                 ^
-  5 |     console.log(\\"Yield\\", yield);
+  5 |     console.log("Yield", yield);
   6 | }
   7 |"
 `;
@@ -1080,21 +1080,21 @@ iterator.next(2); // Logs "Yield 2"
 
 exports[`import-assertions-dynamic.js [acorn] format 1`] = `
 "Unexpected token (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;
 
 exports[`import-assertions-dynamic.js [espree] format 1`] = `
 "Unexpected token , (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;
 
 exports[`import-assertions-dynamic.js [meriyah] format 1`] = `
 "Expected ')' (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;
@@ -1115,21 +1115,21 @@ import("./foo.json", { assert: { type: "json" } });
 
 exports[`import-assertions-static.js [acorn] format 1`] = `
 "Unexpected token (1:31)
-> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
+> 1 | import json from "./foo.json" assert { type: "json" };
     |                               ^
   2 |"
 `;
 
 exports[`import-assertions-static.js [espree] format 1`] = `
 "Unexpected token assert (1:31)
-> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
+> 1 | import json from "./foo.json" assert { type: "json" };
     |                               ^
   2 |"
 `;
 
 exports[`import-assertions-static.js [meriyah] format 1`] = `
 "Unexpected token: 'identifier' (1:36)
-> 1 | import json from \\"./foo.json\\" assert { type: \\"json\\" };
+> 1 | import json from "./foo.json" assert { type: "json" };
     |                                    ^
   2 |"
 `;
@@ -1297,9 +1297,9 @@ let m = module {
 
 exports[`module-string-names.js [meriyah] format 1`] = `
 "Expected '}' (1:13)
-> 1 | import { \\"😄\\" as smile } from \\"./emojis.js\\";
+> 1 | import { "😄" as smile } from "./emojis.js";
     |             ^
-  2 | export { smile as \\"😄\\" } from \\"./emojis.js\\";
+  2 | export { smile as "😄" } from "./emojis.js";
   3 |"
 `;
 
@@ -1884,9 +1884,9 @@ return list |> take(prefix.length, %) |> equals(%, prefix);
 
 exports[`pipeline-operator-minimal.js [acorn] format 1`] = `
 "Identifier 'result' has already been declared (7:5)
-   5 | result //=> \\"Hello, hello!\\"
+   5 | result //=> "Hello, hello!"
    6 |
->  7 | let result = \\"hello\\"
+>  7 | let result = "hello"
      |     ^
    8 |   |> doubleSay
    9 |   |> capitalize
@@ -1895,9 +1895,9 @@ exports[`pipeline-operator-minimal.js [acorn] format 1`] = `
 
 exports[`pipeline-operator-minimal.js [espree] format 1`] = `
 "Identifier 'result' has already been declared (7:5)
-   5 | result //=> \\"Hello, hello!\\"
+   5 | result //=> "Hello, hello!"
    6 |
->  7 | let result = \\"hello\\"
+>  7 | let result = "hello"
      |     ^
    8 |   |> doubleSay
    9 |   |> capitalize
@@ -1907,7 +1907,7 @@ exports[`pipeline-operator-minimal.js [espree] format 1`] = `
 exports[`pipeline-operator-minimal.js [meriyah] format 1`] = `
 "Unexpected token: '>' (8:4)
    6 |
-   7 | let result = \\"hello\\"
+   7 | let result = "hello"
 >  8 |   |> doubleSay
      |    ^
    9 |   |> capitalize

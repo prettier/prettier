@@ -155,7 +155,7 @@ exports[`snippet: #4 [acorn] format 1`] = `
 `;
 
 exports[`snippet: #4 [babel] format 1`] = `
-"Unexpected token, expected \\",\\" (1:22)
+"Unexpected token, expected "," (1:22)
 > 1 | async (a) => (await a!) ** 6;
     |                      ^"
 `;

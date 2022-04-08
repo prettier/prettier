@@ -166,22 +166,22 @@ exports[`methods.js [acorn] format 1`] = `
 "Unexpected character '@' (3:3)
   1 |
   2 | class Yo {
-> 3 |   @foo(\\"hello\\")
+> 3 |   @foo("hello")
     |   ^
   4 |   async plop() {}
   5 |
-  6 |   @anotherDecoratorWithALongName(\\"and a very long string as a first argument\\")"
+  6 |   @anotherDecoratorWithALongName("and a very long string as a first argument")"
 `;
 
 exports[`methods.js [espree] format 1`] = `
 "Unexpected character '@' (3:3)
   1 |
   2 | class Yo {
-> 3 |   @foo(\\"hello\\")
+> 3 |   @foo("hello")
     |   ^
   4 |   async plop() {}
   5 |
-  6 |   @anotherDecoratorWithALongName(\\"and a very long string as a first argument\\")"
+  6 |   @anotherDecoratorWithALongName("and a very long string as a first argument")"
 `;
 
 exports[`methods.js format 1`] = `
@@ -266,7 +266,7 @@ export default class MyComponent {
 
 exports[`mobx.js [acorn] format 1`] = `
 "Unexpected character '@' (3:1)
-  1 | import {observable} from \\"mobx\\";
+  1 | import {observable} from "mobx";
   2 |
 > 3 | @observer class OrderLine {
     | ^
@@ -277,7 +277,7 @@ exports[`mobx.js [acorn] format 1`] = `
 
 exports[`mobx.js [espree] format 1`] = `
 "Unexpected character '@' (3:1)
-  1 | import {observable} from \\"mobx\\";
+  1 | import {observable} from "mobx";
   2 |
 > 3 | @observer class OrderLine {
     | ^

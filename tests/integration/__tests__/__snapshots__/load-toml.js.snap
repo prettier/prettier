@@ -22,7 +22,7 @@ Object {
 
 exports[`TOML throws error on incorrect toml 1`] = `
 "TOML Error in example.toml:
-Unknown character \\"47\\" at row 1, col 2, pos 1:
+Unknown character "47" at row 1, col 2, pos 1:
 1> ///ERROR///
     ^
 

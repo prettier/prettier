@@ -172,7 +172,7 @@ exports[`show version with --version (stderr) 1`] = `""`;
 exports[`show version with --version (write) 1`] = `Array []`;
 
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"[warn] Unknown flag \\"parserr\\", did you mean \\"parser\\"?
+"[warn] Unknown flag "parserr", did you mean "parser"?
 "
 `;
 
@@ -365,7 +365,7 @@ exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""
 exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
 
 exports[`throw error with --help not-found (stderr) 1`] = `
-"[error] Invalid --help value. Expected a flag, but received \\"not-found\\".
+"[error] Invalid --help value. Expected a flag, but received "not-found".
 "
 `;
 

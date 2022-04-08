@@ -46,7 +46,7 @@ exports[`parenthesized-decorators-tagged-template.ts [babel-ts] format 1`] = `
   1 | class Test {
 > 2 |   @foo\`bar\`
     |       ^
-  3 |   text: string = \\"text\\"
+  3 |   text: string = "text"
   4 | }
   5 |"
 `;
