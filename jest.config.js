@@ -8,7 +8,9 @@ const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
-const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("10.");
+const SKIP_TESTS_WITH_NEW_SYNTAX =
+  process.versions.node.startsWith("10.") ||
+  process.versions.node.startsWith("12.");
 
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
