@@ -26,7 +26,10 @@ query (
   someField
 }
 
-query {
+query { # some comment 2
+  foo
+}
+{
   # some comment 2
   foo
 }
@@ -47,7 +50,10 @@ query {
 
 
 =====================================output=====================================
-query {
+query { 
+  someField # Trailing comment
+}
+{
   someField # Trailing comment
 }
 

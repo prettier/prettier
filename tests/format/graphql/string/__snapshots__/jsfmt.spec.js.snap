@@ -133,7 +133,10 @@ input Input {
   }
 }
 
-query {
+query { # some comment
+  foo
+}
+{
   # some comment
   foo
 }

@@ -35,60 +35,65 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
+      // check for a query comment
+      // e.g query { #
       const hasQueryComment =
-        options.originalText[locStart(node)] !== "query { #";
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("#") &&
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("query {");
+
       const hasName = Boolean(node.name);
-      if (hasOperation && !hasQueryComment) {
+      if (hasQueryComment) {
+        // return the comment in its original position
+        // e.g query { # comment -> query { # comment
+        // not query {
+        // # comment
+        // }
+        // query { # some comment
+        // foo
+        // }
+        // prints out as the following with the changes
+        // below
+        // query { # some comment 2
+        // foo
+        // }
+        // {
+        //   # some comment 2
+        //   foo
+        // }
         return [
-          hasOperation ? node.operation : "",
-          hasOperation && hasName ? [" ", print("name")] : "",
-          hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
-            ? " "
-            : "",
-          isNonEmptyArray(node.variableDefinitions)
-            ? group([
-                "(",
-                indent([
-                  softline,
-                  join(
-                    [ifBreak("", ", "), softline],
-                    path.map(print, "variableDefinitions")
-                  ),
-                ]),
-                softline,
-                ")",
-              ])
-            : "",
-          printDirectives(path, print, node),
-          node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-          print("selectionSet"),
-        ];
-      } else if (hasQueryComment) {
-        return [
-          hasOperation ? node.operation : "",
-          hasOperation && hasName ? [" ", print("name")] : "",
-          hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
-            ? " "
-            : "",
-          isNonEmptyArray(node.variableDefinitions)
-            ? group([
-                "(",
-                indent([
-                  softline,
-                  join(
-                    [ifBreak("", ", "), softline],
-                    path.map(print, "variableDefinitions")
-                  ),
-                ]),
-                softline,
-                ")",
-              ])
-            : "",
-          printDirectives(path, print, node),
-          node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+          options.originalText.slice(locStart(node), locEnd(node)),
+          hardline,
           print("selectionSet"),
         ];
       }
+      return [
+        hasOperation ? node.operation : "",
+        hasOperation && hasName ? [" ", print("name")] : "",
+        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+          ? " "
+          : "",
+        isNonEmptyArray(node.variableDefinitions)
+          ? group([
+              "(",
+              indent([
+                softline,
+                join(
+                  [ifBreak("", ", "), softline],
+                  path.map(print, "variableDefinitions")
+                ),
+              ]),
+              softline,
+              ")",
+            ])
+          : "",
+        printDirectives(path, print, node),
+        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+        print("selectionSet"),
+      ];
     }
     case "FragmentDefinition": {
       return [
