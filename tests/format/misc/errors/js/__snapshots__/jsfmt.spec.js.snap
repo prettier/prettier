@@ -13,42 +13,42 @@ exports[`html-like-comments.js [babel] format 1`] = `
 
 exports[`import-assertions-for-export-without-from.js [babel] format 1`] = `
 "Missing semicolon. (1:15)
-> 1 | export { foo } assert { type: \\"json\\" };
+> 1 | export { foo } assert { type: "json" };
     |               ^
   2 |"
 `;
 
 exports[`import-assertions-with-parens.js [babel] format 1`] = `
 "Unexpected token (1:19)
-> 1 | import \\"x\\" assert ({type: 'json'});
+> 1 | import "x" assert ({type: 'json'});
     |                   ^
   2 |"
 `;
 
 exports[`invalid-escape-in-identifier.js [babel] format 1`] = `
 "Invalid Unicode escape. (1:7)
-> 1 | const \\\\u{20} = 1
+> 1 | const \\u{20} = 1
     |       ^
-  2 | const \\\\u{3000} = 1
+  2 | const \\u{3000} = 1
   3 |"
 `;
 
 exports[`invalid-escape-in-identifier-2.js [babel] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX. (1:3)
-> 1 | a\\\\ = a
+"Expecting Unicode escape sequence \\uXXXX. (1:3)
+> 1 | a\\ = a
     |   ^
   2 |"
 `;
 
 exports[`module-attributes.js [babel] format 1`] = `
-"Unexpected token, expected \\"(\\" (1:33)
-> 1 | import foo from \\"foo.json\\" with type: \\"json\\";
+"Unexpected token, expected "(" (1:33)
+> 1 | import foo from "foo.json" with type: "json";
     |                                 ^
   2 |"
 `;
 
 exports[`no-for-in-init-concise-binary-in.js [babel] format 1`] = `
-"Unexpected token, expected \\")\\" (3:18)
+"Unexpected token, expected ")" (3:18)
   1 | // https://github.com/babel/babel/pull/11931
   2 |
 > 3 | for (() => x in y;;);
@@ -64,7 +64,7 @@ exports[`partial-template-strings.js [babel] format 1`] = `
     |                                          ^
   7 |   name_not_found: \`'\${?}' not found.\`
   8 | };
-  9 | Diagnostics.name_not_found(\\"foo\\"); // \\"'foo' not found.\\""
+  9 | Diagnostics.name_not_found("foo"); // "'foo' not found.""
 `;
 
 exports[`snippet: #0 [babel] format 1`] = `

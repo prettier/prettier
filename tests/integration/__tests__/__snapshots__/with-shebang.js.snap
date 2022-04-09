@@ -4,7 +4,7 @@ exports[`preserves shebang (stderr) 1`] = `""`;
 
 exports[`preserves shebang (stdout) 1`] = `
 "#!/usr/bin/env node
-\\"use strict\\";
+"use strict";
 "
 `;
 

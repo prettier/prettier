@@ -62,7 +62,7 @@ regular-module.js
 exports[`multiple patterns with ignore nested directories pattern (write) 1`] = `Array []`;
 
 exports[`multiple patterns with non exists pattern (stderr) 1`] = `
-"[error] No files matching the pattern were found: \\"non-existent.js\\".
+"[error] No files matching the pattern were found: "non-existent.js".
 "
 `;
 
@@ -75,8 +75,8 @@ directory/nested-directory/nested-directory-file.js
 exports[`multiple patterns with non exists pattern (write) 1`] = `Array []`;
 
 exports[`multiple patterns, throw error and exit with non zero code on non existing files (stderr) 1`] = `
-"[error] No files matching the pattern were found: \\"non-existent.js\\".
-[error] No files matching the pattern were found: \\"other-non-existent.js\\".
+"[error] No files matching the pattern were found: "non-existent.js".
+[error] No files matching the pattern were found: "other-non-existent.js".
 "
 `;
 
