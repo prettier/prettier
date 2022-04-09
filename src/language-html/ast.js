@@ -1,8 +1,5 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
-
 const NODES_KEYS = {
   attrs: true,
   children: true,
@@ -46,7 +43,7 @@ class Node {
 
   map(fn) {
     /** @type{any} */
-    let newNode = null;
+    let newNode;
 
     for (const NODES_KEY in NODES_KEYS) {
       const nodes = this[NODES_KEY];
@@ -131,30 +128,22 @@ class Node {
 
   get firstChild() {
     // @ts-expect-error
-    return isNonEmptyArray(this.children) ? this.children[0] : null;
+    return this.children?.[0];
   }
 
   get lastChild() {
     // @ts-expect-error
-    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
+    return this.children?.[this.children.length - 1];
   }
 
   get prev() {
     // @ts-expect-error
-    if (!this.parent) {
-      return null;
-    }
-    // @ts-expect-error
-    return this.parent.children[this.parent.children.indexOf(this) - 1];
+    return this.parent?.children[this.parent.children.indexOf(this) - 1];
   }
 
   get next() {
     // @ts-expect-error
-    if (!this.parent) {
-      return null;
-    }
-    // @ts-expect-error
-    return this.parent.children[this.parent.children.indexOf(this) + 1];
+    return this.parent?.children[this.parent.children.indexOf(this) + 1];
   }
 
   // for element and attribute
