@@ -27,7 +27,7 @@ It’s recommended to have a `.prettierignore` in your project! This way you can
 
 By default prettier ignores files in version control systems directories (".git", ".svn" and ".hg") and `node_modules` (if [`--with-node-modules` CLI option](cli.md#--with-node-modules) not specified)
 
-So by defualt it will be
+So by default it will be
 
 ```js
 **/.git
