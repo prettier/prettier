@@ -24,6 +24,11 @@ function _withPlugins(
   };
 }
 
+/**
+ * @param {*} fn
+ * @param {*} optsArgIdx
+ * @returns {*}
+ */
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
@@ -75,6 +80,7 @@ module.exports = {
     utils: {
       arrayify: require("./utils/arrayify.js"),
       getLast: require("./utils/get-last.js"),
+      partition: require("./utils/partition.js"),
       isNonEmptyArray: require("./common/util.js").isNonEmptyArray,
     },
   },

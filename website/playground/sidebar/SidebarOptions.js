@@ -1,5 +1,5 @@
 import * as React from "react";
-import groupBy from "lodash/groupBy";
+import { groupBy } from "../../../src/cli/utils.js";
 
 import { SidebarCategory } from "./components.js";
 import Option from "./options.js";

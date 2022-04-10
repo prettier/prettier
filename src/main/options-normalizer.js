@@ -3,6 +3,10 @@
 const vnopts = require("vnopts");
 const getLast = require("../utils/get-last.js");
 
+/**
+ * @typedef {import("./support").NamedOptionInfo} NamedOptionInfo
+ */
+
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
   value: (value) => vnopts.apiDescriptor.value(value),
@@ -55,15 +59,20 @@ const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
 
 let hasDeprecationWarned;
 
+/**
+ * @param {*} options
+ * @param {*} optionInfos
+ * @param {{ logger?: false; isCLI?: boolean; passThrough?: boolean; colorsModule?: any; levenshteinDistance?: any }} param2
+ */
 function normalizeOptions(
   options,
   optionInfos,
   {
-    logger,
+    logger = false,
     isCLI = false,
     passThrough = false,
-    colorsModule,
-    levenshteinDistance,
+    colorsModule = null,
+    levenshteinDistance = null,
   } = {}
 ) {
   const unknown = !passThrough
@@ -95,12 +104,14 @@ function normalizeOptions(
   const shouldSuppressDuplicateDeprecationWarnings = logger !== false;
 
   if (shouldSuppressDuplicateDeprecationWarnings && hasDeprecationWarned) {
+    // @ts-expect-error
     normalizer._hasDeprecationWarned = hasDeprecationWarned;
   }
 
   const normalized = normalizer.normalize(options);
 
   if (shouldSuppressDuplicateDeprecationWarnings) {
+    // @ts-expect-error
     hasDeprecationWarned = normalizer._hasDeprecationWarned;
   }
 
@@ -134,6 +145,7 @@ function optionInfosToSchemas(
     if (optionInfo.alias && isCLI) {
       schemas.push(
         vnopts.AliasSchema.create({
+          // @ts-expect-error
           name: optionInfo.alias,
           sourceName: optionInfo.name,
         })
@@ -144,6 +156,11 @@ function optionInfosToSchemas(
   return schemas;
 }
 
+/**
+ * @param {NamedOptionInfo} optionInfo
+ * @param {any} param1
+ * @returns
+ */
 function optionInfoToSchema(
   optionInfo,
   { isCLI, optionInfos, colorsModule, levenshteinDistance }
@@ -152,6 +169,7 @@ function optionInfoToSchema(
 
   if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
     return vnopts.AnySchema.create({
+      // @ts-expect-error
       name,
       preprocess(value) {
         if (value === false) {
@@ -160,6 +178,9 @@ function optionInfoToSchema(
         value = Array.isArray(value) ? value : [value];
         return value;
       },
+      /**
+       * @param {Array<unknown> | false} value
+       */
       validate(value) {
         if (value === false) {
           return true;
@@ -260,6 +281,7 @@ function optionInfoToSchema(
     ? vnopts.ArraySchema.create({
         ...(isCLI ? { preprocess: (v) => (Array.isArray(v) ? v : [v]) } : {}),
         ...handlers,
+        // @ts-expect-error
         valueSchema: SchemaConstructor.create(parameters),
       })
     : SchemaConstructor.create({ ...parameters, ...handlers });
