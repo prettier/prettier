@@ -10,7 +10,7 @@ export default function SidebarOptions({
   optionValues,
   onOptionValueChange,
 }) {
-  const options = groupBy(availableOptions, "category");
+  const options = groupBy(availableOptions, (option) => option.category);
   return categories.map((category) =>
     options[category] ? (
       <SidebarCategory key={category} title={category}>
