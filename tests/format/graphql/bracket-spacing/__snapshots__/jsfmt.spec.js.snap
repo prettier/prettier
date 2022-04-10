@@ -16,9 +16,7 @@ fragment Visit on HighlightedVisit
 
 =====================================output=====================================
 fragment Visit on HighlightedVisit
-@argumentDefinitions(count: {type: "Int", defaultValue: 20}) {
-  name
-}
+@argumentDefinitions(count: {type: "Int", defaultValue: 20})
 
 ================================================================================
 `;
@@ -38,9 +36,7 @@ fragment Visit on HighlightedVisit
 
 =====================================output=====================================
 fragment Visit on HighlightedVisit
-@argumentDefinitions(count: { type: "Int", defaultValue: 20 }) {
-  name
-}
+@argumentDefinitions(count: { type: "Int", defaultValue: 20 })
 
 ================================================================================
 `;

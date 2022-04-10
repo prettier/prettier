@@ -14,16 +14,12 @@ fragment G($first_variable: Int,   $second_variable: String =  "Very complex def
   field
 }
 =====================================output=====================================
-fragment F($var: Int) on Type {
-  field
-}
+fragment F($var: Int) on Type
 
 fragment G(
   $first_variable: Int
   $second_variable: String = "Very complex default argument value"
-) on Type {
-  field
-}
+) on Type
 
 ================================================================================
 `;

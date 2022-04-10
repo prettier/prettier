@@ -35,8 +35,6 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
-      // check for a query comment
-      // e.g query { #
       const hasQueryComment =
         options.originalText
           .slice(locStart(node), locEnd(node))
@@ -46,54 +44,33 @@ function genericPrint(path, options, print) {
           .includes("query {");
 
       const hasName = Boolean(node.name);
-      if (hasQueryComment) {
-        // return the comment in its original position
-        // e.g query { # comment -> query { # comment
-        // not query {
-        // # comment
-        // }
-        // query { # some comment
-        // foo
-        // }
-        // prints out as the following with the changes
-        // below
-        // query { # some comment 2
-        // foo
-        // }
-        // {
-        //   # some comment 2
-        //   foo
-        // }
+      if (!hasQueryComment) {
         return [
-          options.originalText.slice(locStart(node), locEnd(node)),
-          hardline,
+          hasOperation ? node.operation : "",
+          hasOperation && hasName ? [" ", print("name")] : "",
+          hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+            ? " "
+            : "",
+          isNonEmptyArray(node.variableDefinitions)
+            ? group([
+                "(",
+                indent([
+                  softline,
+                  join(
+                    [ifBreak("", ", "), softline],
+                    path.map(print, "variableDefinitions")
+                  ),
+                ]),
+                softline,
+                ")",
+              ])
+            : "",
+          printDirectives(path, print, node),
+          node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
           print("selectionSet"),
         ];
       }
-      return [
-        hasOperation ? node.operation : "",
-        hasOperation && hasName ? [" ", print("name")] : "",
-        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
-          ? " "
-          : "",
-        isNonEmptyArray(node.variableDefinitions)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  path.map(print, "variableDefinitions")
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
-        printDirectives(path, print, node),
-        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-        print("selectionSet"),
-      ];
+      return ["query ", [print("selectionSet")]];
     }
     case "FragmentDefinition": {
       return [
@@ -117,19 +94,38 @@ function genericPrint(path, options, print) {
         print("typeCondition"),
         printDirectives(path, print, node),
         " ",
-        print("selectionSet"),
       ];
     }
     case "SelectionSet": {
-      return [
-        "{",
-        indent([
+      const hasQueryComment =
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("#") &&
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("query {");
+      if (!hasQueryComment) {
+        return [
+          "{",
+          indent([
+            hardline,
+            join(hardline, printSequence(path, options, print, "selections")),
+          ]),
           hardline,
+          "}",
+        ];
+      }
+      return [
+        "{ ",
+        indent([
           join(hardline, printSequence(path, options, print, "selections")),
         ]),
         hardline,
         "}",
       ];
+    }
+    case "QueryComment": {
+      return ["{", hardline, "}"];
     }
     case "Field": {
       return group([
