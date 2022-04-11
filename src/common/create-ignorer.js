@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const ignore = require("ignore");
+const ignore = require("ignore").default;
 const getFileContentOrNull = require("../utils/get-file-content-or-null.js");
 
 /**
