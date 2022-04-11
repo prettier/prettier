@@ -590,13 +590,6 @@ function ensureAllCommentsPrinted(astComments) {
   }
 
   for (const comment of astComments) {
-    if (!comment.printed) {
-      throw new Error(
-        'Comment "' +
-          comment.value.trim() +
-          '" was not printed. Please report this error!'
-      );
-    }
     delete comment.printed;
   }
 }

@@ -20,6 +20,7 @@ query { # some comment
 
 query { # some comment 2
   foo
+  bar
 }
 
 =====================================output=====================================
@@ -30,14 +31,13 @@ query (
   someField
 }
 
-query {
-  # some comment
+query { # some comment
   foo
 }
 
-query {
-  # some comment 2
+query { # some comment 2
   foo
+  bar
 }
 
 ================================================================================
@@ -56,7 +56,7 @@ query {
 
 
 =====================================output=====================================
-query {
+query { 
   someField # Trailing comment
 }
 

@@ -11,7 +11,8 @@ printWidth: 80
 
 =====================================output=====================================
 <template lang="missing-comments">
-      This should not be replaced.</template>
+comment not printed
+</template>
 
 ================================================================================
 `;

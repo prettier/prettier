@@ -44,33 +44,33 @@ function genericPrint(path, options, print) {
           .includes("query {");
 
       const hasName = Boolean(node.name);
-      if (!hasQueryComment) {
-        return [
-          hasOperation ? node.operation : "",
-          hasOperation && hasName ? [" ", print("name")] : "",
-          hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
-            ? " "
-            : "",
-          isNonEmptyArray(node.variableDefinitions)
-            ? group([
-                "(",
-                indent([
-                  softline,
-                  join(
-                    [ifBreak("", ", "), softline],
-                    path.map(print, "variableDefinitions")
-                  ),
-                ]),
-                softline,
-                ")",
-              ])
-            : "",
-          printDirectives(path, print, node),
-          node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-          print("selectionSet"),
-        ];
+      if (hasQueryComment) {
+        return [options.originalText.slice(locStart(node), locEnd(node))];
       }
-      return ["query ", [print("selectionSet")]];
+      return [
+        hasOperation ? node.operation : "",
+        hasOperation && hasName ? [" ", print("name")] : "",
+        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+          ? " "
+          : "",
+        isNonEmptyArray(node.variableDefinitions)
+          ? group([
+              "(",
+              indent([
+                softline,
+                join(
+                  [ifBreak("", ", "), softline],
+                  path.map(print, "variableDefinitions")
+                ),
+              ]),
+              softline,
+              ")",
+            ])
+          : "",
+        printDirectives(path, print, node),
+        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+        print("selectionSet"),
+      ];
     }
     case "FragmentDefinition": {
       return [
@@ -97,35 +97,15 @@ function genericPrint(path, options, print) {
       ];
     }
     case "SelectionSet": {
-      const hasQueryComment =
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("#") &&
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("query {");
-      if (!hasQueryComment) {
-        return [
-          "{",
-          indent([
-            hardline,
-            join(hardline, printSequence(path, options, print, "selections")),
-          ]),
-          hardline,
-          "}",
-        ];
-      }
       return [
-        "{ ",
+        "{",
         indent([
+          hardline,
           join(hardline, printSequence(path, options, print, "selections")),
         ]),
         hardline,
         "}",
       ];
-    }
-    case "QueryComment": {
-      return ["{", hardline, "}"];
     }
     case "Field": {
       return group([
