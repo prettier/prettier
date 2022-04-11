@@ -35,42 +35,38 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
-      const hasQueryComment =
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("#") &&
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("query {");
+      const hasQueryComment = options.originalText
+        .slice(locStart(node), locEnd(node))
+        .includes("query { #");
 
       const hasName = Boolean(node.name);
-      if (hasQueryComment) {
-        return [options.originalText.slice(locStart(node), locEnd(node))];
-      }
-      return [
-        hasOperation ? node.operation : "",
-        hasOperation && hasName ? [" ", print("name")] : "",
-        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
-          ? " "
-          : "",
-        isNonEmptyArray(node.variableDefinitions)
-          ? group([
-              "(",
-              indent([
+      if (!hasQueryComment) {
+        return [
+          hasOperation ? node.operation : "",
+          hasOperation && hasName ? [" ", print("name")] : "",
+          hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+            ? " "
+            : "",
+          isNonEmptyArray(node.variableDefinitions)
+            ? group([
+                "(",
+                indent([
+                  softline,
+                  join(
+                    [ifBreak("", ", "), softline],
+                    path.map(print, "variableDefinitions")
+                  ),
+                ]),
                 softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  path.map(print, "variableDefinitions")
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
-        printDirectives(path, print, node),
-        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-        print("selectionSet"),
-      ];
+                ")",
+              ])
+            : "",
+          printDirectives(path, print, node),
+          node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+          print("selectionSet"),
+        ];
+      }
+      return [options.originalText.slice(locStart(node), locEnd(node))];
     }
     case "FragmentDefinition": {
       return [
