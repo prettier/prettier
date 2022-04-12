@@ -14,3 +14,12 @@ query { # some comment 2
   foo
   bar
 }
+
+query {#some comment with no space
+  foo
+}
+
+query  { # some comment 2
+  foo
+  bar
+}

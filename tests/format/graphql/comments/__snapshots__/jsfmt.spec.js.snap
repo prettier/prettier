@@ -23,6 +23,15 @@ query { # some comment 2
   bar
 }
 
+query {#some comment with no space
+  foo
+}
+
+query  { # some comment 2
+  foo
+  bar
+}
+
 =====================================output=====================================
 query (
   $string: String # Some variable comment
@@ -36,6 +45,15 @@ query { # some comment
 }
 
 query { # some comment 2
+  foo
+  bar
+}
+
+query {#some comment with no space
+  foo
+}
+
+query  { # some comment 2
   foo
   bar
 }

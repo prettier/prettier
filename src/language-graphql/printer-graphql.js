@@ -35,9 +35,16 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
-      const hasQueryComment = options.originalText
-        .slice(locStart(node), locEnd(node))
-        .includes("query { #");
+      const hasQueryComment =
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("query { #") ||
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("query {#") ||
+        options.originalText
+          .slice(locStart(node), locEnd(node))
+          .includes("query  { #");
       const hasName = Boolean(node.name);
       if (!hasQueryComment) {
         return [
