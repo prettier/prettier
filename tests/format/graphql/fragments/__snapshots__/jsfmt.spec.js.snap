@@ -34,7 +34,10 @@ fragment XYZ on ABC {
   }
 }
 
-fragment XYZ on ABC
+fragment XYZ on ABC {
+  field
+  ...AFragment
+}
 
 ================================================================================
 `;

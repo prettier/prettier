@@ -38,7 +38,6 @@ function genericPrint(path, options, print) {
       const hasQueryComment = options.originalText
         .slice(locStart(node), locEnd(node))
         .includes("query { #");
-
       const hasName = Boolean(node.name);
       if (!hasQueryComment) {
         return [
@@ -66,7 +65,7 @@ function genericPrint(path, options, print) {
           print("selectionSet"),
         ];
       }
-      return [options.originalText.slice(locStart(node), locEnd(node))];
+      return options.originalText.slice(locStart(node), locEnd(node));
     }
     case "FragmentDefinition": {
       return [
@@ -90,6 +89,7 @@ function genericPrint(path, options, print) {
         print("typeCondition"),
         printDirectives(path, print, node),
         " ",
+        print("selectionSet"),
       ];
     }
     case "SelectionSet": {

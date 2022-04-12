@@ -48,9 +48,13 @@ graphql\`
 
 =====================================output=====================================
 graphql\`
-  fragment x on y
+  fragment x on y {
+    z
+  }
 
-  fragment a on b
+  fragment a on b {
+    c
+  }
 \`;
 
 ================================================================================
@@ -554,7 +558,9 @@ gql\`
   \${fragment}
   #comment
 
-  fragment another on User
+  fragment another on User {
+    name
+  }
   \${fragment}
 \`;
 
