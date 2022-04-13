@@ -7,35 +7,30 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 """ Customer """
-type Person {
-  name: String
-}
+type Person {name: String}
+
+""" Customer """
+type Person {name: String}
 
 """
-  - list
-  - list
-extra comment
-"""
-type Person {
-  name: String
-}
+
+    Customer
+
 
 """
-## Example Request
+type Person {name: String}
 
-\`\`\`graphql
-query{a}
-\`\`\`
+""""""
+type Person {name: String}
 
-## Example Response
+"""    """
+type Person {name: String}
 
-\`\`\`json
-{"a":42}
-\`\`\`
 """
-type Query {
-  a: Number!
-}
+    1
+  2
+"""
+type Person {name: String}
 
 =====================================output=====================================
 """
@@ -46,31 +41,37 @@ type Person {
 }
 
 """
-- list
-- list
-  extra comment
+Customer
 """
 type Person {
   name: String
 }
 
 """
-## Example Request
-
-\`\`\`graphql
-query {
-  a
-}
-\`\`\`
-
-## Example Response
-
-\`\`\`json
-{ "a": 42 }
-\`\`\`
+Customer
 """
-type Query {
-  a: Number!
+type Person {
+  name: String
+}
+
+"""
+"""
+type Person {
+  name: String
+}
+
+"""
+"""
+type Person {
+  name: String
+}
+
+"""
+  1
+2
+"""
+type Person {
+  name: String
 }
 
 ================================================================================
@@ -135,6 +136,14 @@ one: string
   foo(input: {multiline: "ab\\ncd"}) { id }
 }
 
+{
+  foo(input: {multiline: """    foo    """}) { id }
+}
+
+{
+  foo(input: {multiline: """    """}) { id }
+}
+
 =====================================output=====================================
 query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
   a
@@ -156,8 +165,8 @@ type T {
 
 """
 a
-b
-c
+  b
+    c
 """
 type T {
   a: Int
@@ -201,6 +210,29 @@ input Input {
 
 {
   foo(input: { multiline: "ab\\ncd" }) {
+    id
+  }
+}
+
+{
+  foo(
+    input: {
+      multiline: """
+      foo
+      """
+    }
+  ) {
+    id
+  }
+}
+
+{
+  foo(
+    input: {
+      multiline: """
+      """
+    }
+  ) {
     id
   }
 }

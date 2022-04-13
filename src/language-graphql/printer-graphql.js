@@ -4,7 +4,6 @@ const {
   builders: { join, hardline, line, softline, group, indent, ifBreak },
 } = require("../document/index.js");
 const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
-const { formatWithCursor } = require("../main/core.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 
@@ -126,21 +125,15 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (node.block) {
-        const plugins = [
-          require("../language-markdown/index.js"),
-          require("../language-graphql/index.js"),
-          require("../language-js/index.js"),
-        ];
-        const formatMarkdown = (v) => formatWithCursor(v, { plugins, parser: "markdown" });
-        const { formatted } = formatMarkdown(node.value.replace(/"""/g, "\\$&"));
+        const lines = node.value.replace(/"""/g, "\\$&").split("\n");
+        if (lines.length === 1) {
+          lines[0] = lines[0].trim();
+        }
 
-        return [
-          '"""',
+        return join(
           hardline,
-          join(hardline, formatted.replace(/\n$/, "").split("\n")),
-          hardline,
-          '"""',
-        ];
+          ['"""', ...(lines.length > 0 ? lines : []), '"""'].filter(Boolean)
+        );
       }
       return [
         '"',
