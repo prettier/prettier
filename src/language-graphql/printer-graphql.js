@@ -48,6 +48,9 @@ function genericPrint(path, options, print) {
         options.originalText
           .slice(locStart(node), locEnd(node))
           .includes("query{ #");
+      options.originalText
+        .slice(locStart(node), locEnd(node))
+        .includes("query{#");
       const hasName = Boolean(node.name);
       if (!hasQueryComment) {
         return [
