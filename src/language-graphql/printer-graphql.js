@@ -574,7 +574,11 @@ function printInterfaces(path, options, print) {
   return parts;
 }
 
-function clean(/*node, newNode , parent*/) {}
+function clean(node, newNode /* , parent */) {
+  if (node.kind === "StringValue" ) {
+    newNode.value = newNode.value.trim();
+  }
+}
 clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
