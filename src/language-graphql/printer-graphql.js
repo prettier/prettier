@@ -575,7 +575,7 @@ function printInterfaces(path, options, print) {
 }
 
 function clean(node, newNode /* , parent */) {
-  if (node.kind === "StringValue" ) {
+  if (node.kind === "StringValue") {
     newNode.value = newNode.value.trim();
   }
 }
