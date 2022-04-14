@@ -575,7 +575,8 @@ function printInterfaces(path, options, print) {
 }
 
 function clean(node, newNode /* , parent */) {
-  if (node.kind === "StringValue") {
+  // only apply trim() in case of single line graphql `description`
+  if (node.kind === "StringValue" && node.block && !node.value.includes("\n")) {
     newNode.value = newNode.value.trim();
   }
 }
