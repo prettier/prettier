@@ -127,7 +127,7 @@ function genericPrint(path, options, print) {
       if (node.block) {
         const lines = node.value.replace(/"""/g, "\\$&").split("\n");
         if (lines.length === 1) {
-          lines[0] = lines[0].trimStart();
+          lines[0] = lines[0].trim();
         }
 
         return join(
@@ -576,7 +576,7 @@ function printInterfaces(path, options, print) {
 
 function clean(node, newNode /* , parent */) {
   if (node.kind === "StringValue" ) {
-    newNode.value = newNode.value.trimStart();
+    newNode.value = newNode.value.trim();
   }
 }
 clean.ignoredProperties = new Set(["loc", "comments"]);
