@@ -168,10 +168,10 @@ const parseEstree = createParse(
   "parse",
   appendPlugins(["jsx", "flow", "estree"])
 );
-const parseExpression = createParse(
+const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
+
+const parseTSExpression = createParse(
   "parseExpression",
-  appendPlugins(["jsx"]),
-  appendPlugins(["jsx", "typescript"]),
   appendPlugins(["typescript"])
 );
 
@@ -234,6 +234,7 @@ const allowedMessageCodes = new Set([
 
 const babel = createParser(parse);
 const babelExpression = createParser(parseExpression);
+const babelTSExpression = createParser(parseTSExpression);
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
@@ -244,6 +245,8 @@ module.exports = {
     ...jsonParsers,
     /** @internal */
     __js_expression: babelExpression,
+    /** @internal */
+    __ts_expression: babelTSExpression,
     /** for vue filter */
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */

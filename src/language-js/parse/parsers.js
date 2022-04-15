@@ -23,6 +23,9 @@ module.exports = {
   get __js_expression() {
     return require("./babel.js").parsers.__js_expression;
   },
+  get __ts_expression() {
+    return require("./babel.js").parsers.__ts_expression;
+  },
   get __vue_expression() {
     return require("./babel.js").parsers.__vue_expression;
   },

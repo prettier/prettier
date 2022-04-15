@@ -6,6 +6,7 @@ function preprocess(ast, options) {
     case "json5":
     case "json-stringify":
     case "__js_expression":
+    case "__ts_expression":
     case "__vue_expression":
       return {
         ...ast,
