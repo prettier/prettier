@@ -318,7 +318,9 @@ function embed(path, print, textToDoc, options) {
           textToDocOptions.parser = "__ng_interpolation";
           textToDocOptions.trailingComma = "none";
         } else if (options.parser === "vue") {
-          textToDocOptions.parser = "__vue_expression";
+          textToDocOptions.parser = options.__should_parse_vue_expr_as_ts
+            ? "__vue_ts_expression"
+            : "__vue_expression";
         } else {
           textToDocOptions.parser = "__js_expression";
         }

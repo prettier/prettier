@@ -245,10 +245,10 @@ module.exports = {
     ...jsonParsers,
     /** @internal */
     __js_expression: babelExpression,
-    /** @internal */
-    __ts_expression: babelTSExpression,
     /** for vue filter */
     __vue_expression: babelExpression,
+    /** for vue filter written in TS */
+    __vue_ts_expression: babelTSExpression,
     /** for vue event binding to handle semicolon */
     __vue_event_binding: babel,
     /** verify that we can print this AST */

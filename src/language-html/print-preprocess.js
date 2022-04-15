@@ -14,6 +14,7 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
+  isVueScriptTag,
 } = require("./utils/index.js");
 
 const PREPROCESS_PIPELINE = [
@@ -27,6 +28,7 @@ const PREPROCESS_PIPELINE = [
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText,
+  markTsScript,
 ];
 
 function preprocess(ast, options) {
@@ -406,6 +408,20 @@ function addIsSpaceSensitive(ast, options) {
             child.isTrailingSpaceSensitive;
     }
   });
+}
+
+function markTsScript(ast, options) {
+  if (options.parser === "vue") {
+    ast.walk((node) => {
+      if (isVueScriptTag(node, options)) {
+        const isTsScriptBlock =
+          node.attrMap.lang === "ts" || node.attrMap.lang === "typescript";
+        if (isTsScriptBlock) {
+          options.__should_parse_vue_expr_as_ts = true;
+        }
+      }
+    });
+  }
 }
 
 module.exports = preprocess;
