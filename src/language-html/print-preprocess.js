@@ -412,15 +412,16 @@ function addIsSpaceSensitive(ast, options) {
 
 function markTsScript(ast, options) {
   if (options.parser === "vue") {
-    ast.walk((node) => {
-      if (isVueScriptTag(node, options)) {
-        const isTsScriptBlock =
-          node.attrMap.lang === "ts" || node.attrMap.lang === "typescript";
-        if (isTsScriptBlock) {
-          options.__should_parse_vue_expr_as_ts = true;
-        }
-      }
-    });
+    const vueScriptTag = ast.children.find((child) =>
+      isVueScriptTag(child, options)
+    );
+    if (!vueScriptTag) {
+      return;
+    }
+    const { lang } = vueScriptTag.attrMap;
+    if (lang === "ts" || lang === "typescript") {
+      options.__should_parse_vue_expr_as_ts = true;
+    }
   }
 }
 
