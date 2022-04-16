@@ -219,7 +219,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (
-        options.parser === "__vue_event_binding" &&
+        options.parser === "__vue_event_binding" ||
         options.parser === "__vue_ts_event_binding"
       ) {
         const parent = path.getParentNode();
