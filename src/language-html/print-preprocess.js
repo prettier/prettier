@@ -420,7 +420,7 @@ function markTsScript(ast, options) {
     }
     const { lang } = vueScriptTag.attrMap;
     if (lang === "ts" || lang === "typescript") {
-      options.__should_parse_vue_expr_as_ts = true;
+      options.__should_parse_vue_template_with_ts = true;
     }
   }
 }

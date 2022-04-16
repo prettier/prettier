@@ -32,6 +32,9 @@ module.exports = {
   get __vue_event_binding() {
     return require("./babel.js").parsers.__vue_event_binding;
   },
+  get __vue_ts_event_binding() {
+    return require("./babel.js").parsers.__vue_ts_event_binding;
+  },
   // JS - Flow
   get flow() {
     return require("./flow.js").parsers.flow;
