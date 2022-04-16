@@ -639,7 +639,7 @@ function getTextValueParts(node, value = node.value) {
 }
 
 function isVueScriptTag(node, options) {
-  return isVueSfcBlock(node, options) && isScriptLikeTag(node);
+  return isVueSfcBlock(node, options) && node.name === "script";
 }
 
 module.exports = {
