@@ -11,7 +11,7 @@
     "minimist": "1.2.6",
     "node-fetch": "3.2.3",
     "outdent": "0.8.0",
-    "semver": "7.3.5",
+    "semver": "7.3.7",
     "string-width": "5.1.2"
   },
   "devDependencies": {
