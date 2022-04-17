@@ -94,7 +94,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/types": "7.17.0",
     "@esbuild-plugins/node-modules-polyfill": "0.1.4",
-    "@glimmer/reference": "0.84.1",
+    "@glimmer/reference": "0.84.2",
     "@types/estree": "0.0.51",
     "@types/jest": "27.4.1",
     "@typescript-eslint/eslint-plugin": "5.19.0",
