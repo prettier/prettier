@@ -97,7 +97,7 @@
     "@glimmer/reference": "0.84.1",
     "@types/estree": "0.0.51",
     "@types/jest": "27.4.1",
-    "@typescript-eslint/eslint-plugin": "5.18.0",
+    "@typescript-eslint/eslint-plugin": "5.19.0",
     "babel-jest": "27.5.1",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
