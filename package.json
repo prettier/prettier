@@ -25,7 +25,7 @@
     "@angular/compiler": "12.2.16",
     "@babel/code-frame": "7.16.7",
     "@babel/parser": "7.17.9",
-    "@glimmer/syntax": "0.84.1",
+    "@glimmer/syntax": "0.84.2",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "5.18.0",
     "acorn": "8.7.0",
