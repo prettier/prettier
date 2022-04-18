@@ -16,6 +16,8 @@ function printAngular(path, options, print) {
     return;
   }
 
+  const value = node.replace(/&quot;/g, "'");
+
   switch (node.type) {
     case "NGRoot":
       return [
@@ -85,7 +87,8 @@ function printAngular(path, options, print) {
       return [
         "let ",
         print("key"),
-        node.value === null ? "" : [" = ", print("value")],
+        node.value === null ? "" : ["=", value],
+        " ",
       ];
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
