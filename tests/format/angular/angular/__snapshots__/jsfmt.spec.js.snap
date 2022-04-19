@@ -484,19 +484,19 @@ printWidth: 80
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
-  *ngFor="  let     hero     of     heroes"
+  *ngFor="let hero of heroes"
   *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-  *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-  *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="  let    hero     of heroes; let i  =  index"
-  *ngFor="  let    hero     of heroes; value     myValue"
+  *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
-  *directive=" let hero "
+  *directive="let hero"
   *directive=" let hero = hello "
-  *directive=" let hero of heroes "
-  *directive=" let hero ; of : heroes "
+  *directive="let hero of heroes"
+  *directive="let hero of heroes"
   *directive="a"
   *directive="a as b"
   *directive="a; b"
@@ -752,19 +752,19 @@ printWidth: 80
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
-  *ngFor="  let     hero     of     heroes"
+  *ngFor="let hero of heroes"
   *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-  *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-  *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="  let    hero     of heroes; let i  =  index"
-  *ngFor="  let    hero     of heroes; value     myValue"
+  *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
-  *directive=" let hero "
+  *directive="let hero"
   *directive=" let hero = hello "
-  *directive=" let hero of heroes "
-  *directive=" let hero ; of : heroes "
+  *directive="let hero of heroes"
+  *directive="let hero of heroes"
   *directive="a"
   *directive="a as b"
   *directive="a; b"
@@ -1151,12 +1151,24 @@ printWidth: 1
     a
       | pipe
   "
-  *ngFor="  let     hero     of     heroes"
+  *ngFor="
+    let hero of heroes
+  "
   *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-  *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-  *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+  *ngFor="
+    let hero of heroes;
+    trackBy: trackByHeroes
+  "
+  *ngFor="
+    let item of items;
+    index as i;
+    trackBy: trackByFn
+  "
   *ngFor="  let    hero     of heroes; let i  =  index"
-  *ngFor="  let    hero     of heroes; value     myValue"
+  *ngFor="
+    let hero of heroes;
+    value: myValue
+  "
   *ngIf="
     condition;
     else elseBlock
@@ -1170,10 +1182,16 @@ printWidth: 1
     condition as value;
     else elseBlock
   "
-  *directive=" let hero "
+  *directive="
+    let hero
+  "
   *directive=" let hero = hello "
-  *directive=" let hero of heroes "
-  *directive=" let hero ; of : heroes "
+  *directive="
+    let hero of heroes
+  "
+  *directive="
+    let hero of heroes
+  "
   *directive="
     a
   "
@@ -1589,19 +1607,19 @@ trailingComma: "none"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
-  *ngFor="  let     hero     of     heroes"
+  *ngFor="let hero of heroes"
   *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-  *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-  *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="  let    hero     of heroes; let i  =  index"
-  *ngFor="  let    hero     of heroes; value     myValue"
+  *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
-  *directive=" let hero "
+  *directive="let hero"
   *directive=" let hero = hello "
-  *directive=" let hero of heroes "
-  *directive=" let hero ; of : heroes "
+  *directive="let hero of heroes"
+  *directive="let hero of heroes"
   *directive="a"
   *directive="a as b"
   *directive="a; b"
@@ -1856,19 +1874,19 @@ printWidth: 80
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
-  *ngFor="  let     hero     of     heroes"
+  *ngFor="let hero of heroes"
   *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-  *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-  *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
   *ngFor="  let    hero     of heroes; let i  =  index"
-  *ngFor="  let    hero     of heroes; value     myValue"
+  *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
-  *directive=" let hero "
+  *directive="let hero"
   *directive=" let hero = hello "
-  *directive=" let hero of heroes "
-  *directive=" let hero ; of : heroes "
+  *directive="let hero of heroes"
+  *directive="let hero of heroes"
   *directive="a"
   *directive="a as b"
   *directive="a; b"
@@ -5157,21 +5175,21 @@ bindon-ngModel
 
 <p>with trackBy and <i>comma</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>space</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with <i>generic</i> trackById function</p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackById">
+  <div *ngFor="let hero of heroes; trackBy: trackById">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
@@ -6800,7 +6818,7 @@ bindon-ngModel
   separator
 </p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
@@ -6811,7 +6829,7 @@ bindon-ngModel
   separator
 </p>
 <div class="box">
-  <div *ngFor="let hero of heroes trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
@@ -6822,7 +6840,7 @@ bindon-ngModel
   trackById function
 </p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackById">
+  <div *ngFor="let hero of heroes; trackBy: trackById">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
@@ -8055,7 +8073,9 @@ can be found in the LICENSE file at http://angular.io/license
 <!-- template hides the following; plenty of examples later -->
 <ng-template>
   <div
-    *ngFor="let hero of heroes"
+    *ngFor="
+      let hero of heroes
+    "
   >
     {{
       hero.name
@@ -8156,7 +8176,9 @@ can be found in the LICENSE file at http://angular.io/license
   class="context"
 >
   <button
-    *ngFor="let hero of heroes"
+    *ngFor="
+      let hero of heroes
+    "
     (click)="
       deleteHero(
         hero
@@ -9532,7 +9554,9 @@ bindon-ngModel
   class="box"
 >
   <div
-    *ngFor="let hero of heroes"
+    *ngFor="
+      let hero of heroes
+    "
   >
     {{
       hero.name
@@ -9546,7 +9570,9 @@ bindon-ngModel
 >
   <!-- *ngFor w/ hero-detail Component -->
   <app-hero-detail
-    *ngFor="let hero of heroes"
+    *ngFor="
+      let hero of heroes
+    "
     [hero]="
       hero
     "
@@ -9663,7 +9689,9 @@ bindon-ngModel
 >
   <div
     #noTrackBy
-    *ngFor="let hero of heroes"
+    *ngFor="
+      let hero of heroes
+    "
   >
     ({{
       hero.id
@@ -9700,7 +9728,10 @@ bindon-ngModel
 >
   <div
     #withTrackBy
-    *ngFor="let hero of heroes; trackBy: trackByHeroes"
+    *ngFor="
+      let hero of heroes;
+      trackBy: trackByHeroes
+    "
   >
     ({{
       hero.id
@@ -9743,7 +9774,10 @@ bindon-ngModel
   class="box"
 >
   <div
-    *ngFor="let hero of heroes; trackBy: trackByHeroes"
+    *ngFor="
+      let hero of heroes;
+      trackBy: trackByHeroes
+    "
   >
     ({{
       hero.id
@@ -9767,7 +9801,10 @@ bindon-ngModel
   class="box"
 >
   <div
-    *ngFor="let hero of heroes, trackBy: trackByHeroes"
+    *ngFor="
+      let hero of heroes;
+      trackBy: trackByHeroes
+    "
   >
     ({{
       hero.id
@@ -9791,7 +9828,10 @@ bindon-ngModel
   class="box"
 >
   <div
-    *ngFor="let hero of heroes trackBy: trackByHeroes"
+    *ngFor="
+      let hero of heroes;
+      trackBy: trackByHeroes
+    "
   >
     ({{
       hero.id
@@ -9814,7 +9854,10 @@ bindon-ngModel
   class="box"
 >
   <div
-    *ngFor="let hero of heroes, trackBy: trackById"
+    *ngFor="
+      let hero of heroes;
+      trackBy: trackById
+    "
   >
     ({{
       hero.id
@@ -9848,7 +9891,9 @@ bindon-ngModel
 </p>
 <div>
   <label
-    *ngFor="let h of heroes"
+    *ngFor="
+      let h of heroes
+    "
   >
     <input
       type="radio"
@@ -11739,21 +11784,21 @@ bindon-ngModel
 
 <p>with trackBy and <i>comma</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>space</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with <i>generic</i> trackById function</p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackById">
+  <div *ngFor="let hero of heroes; trackBy: trackById">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
@@ -13265,21 +13310,21 @@ bindon-ngModel
 
 <p>with trackBy and <i>comma</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with trackBy and <i>space</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes trackBy: trackByHeroes">
+  <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
 <p>with <i>generic</i> trackById function</p>
 <div class="box">
-  <div *ngFor="let hero of heroes, trackBy: trackById">
+  <div *ngFor="let hero of heroes; trackBy: trackById">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>

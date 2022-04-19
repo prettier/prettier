@@ -82,18 +82,16 @@ function printAngular(path, options, print) {
       ];
     }
     case "NGMicrosyntaxLet":
-      if (print("value").includes(/&quot;/g)) {
-        return [
-          "let ",
-          print("key"),
-          " = ",
-          print("value").replace(/&quot;/g, "'"),
-        ];
-      }
       return [
         "let ",
         print("key"),
-        node.value === null ? "" : [" = ", print("value")],
+        node.value === null
+          ? ""
+          : [
+              " = ",
+              node.replace(/&quot;/g, "'"),
+              print("value").replace(/&quot;/g, "'"),
+            ],
       ];
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
