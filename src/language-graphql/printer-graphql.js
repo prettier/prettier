@@ -7,6 +7,27 @@ const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
 const { insertPragma } = require("./pragma.js");
 const { locStart, locEnd } = require("./loc.js");
 
+function hasQueryComment(options, node) {
+  if (
+    options.originalText
+      .slice(locStart(node), locEnd(node))
+      .includes("query { #") ||
+    options.originalText
+      .slice(locStart(node), locEnd(node))
+      .includes("query {#") ||
+    options.originalText
+      .slice(locStart(node), locEnd(node))
+      .includes("query  { #") ||
+    options.originalText
+      .slice(locStart(node), locEnd(node))
+      .includes("query{ #") ||
+    options.originalText.slice(locStart(node), locEnd(node)).includes("query{#")
+  ) {
+    return true;
+  }
+  return false;
+}
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
   if (!node) {
@@ -35,24 +56,8 @@ function genericPrint(path, options, print) {
     }
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
-      const hasQueryComment =
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("query { #") ||
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("query {#") ||
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("query  { #") ||
-        options.originalText
-          .slice(locStart(node), locEnd(node))
-          .includes("query{ #");
-      options.originalText
-        .slice(locStart(node), locEnd(node))
-        .includes("query{#");
       const hasName = Boolean(node.name);
-      if (!hasQueryComment) {
+      if (!hasQueryComment(options, node)) {
         return [
           hasOperation ? node.operation : "",
           hasOperation && hasName ? [" ", print("name")] : "",
