@@ -67,19 +67,24 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "18"
           - "16"
           - "14"
           - "12"
           - "10"
         include:
           - os: "ubuntu-latest"
-            node: "16"
+            node: "18"
             FULL_TEST: true
         exclude:
+          - os: "macos-latest"
+            node: "16"
           - os: "macos-latest"
             node: "14"
           - os: "macos-latest"
             node: "12"
+          - os: "windows-latest"
+            node: "16"
           - os: "windows-latest"
             node: "14"
           - os: "windows-latest"
