@@ -3,7 +3,7 @@ id: ignore
 title: Ignoring Code
 ---
 
-Use `.prettierignore` to ignore (i.e. not reformat) certain files and folders completely.
+Use `.prettierignore` or a `prettierIgnore` key to ignore (i.e. not reformat) certain files and folders completely.
 
 Use “prettier-ignore” comments to ignore parts of files.
 
@@ -46,6 +46,23 @@ and
 if [`--with-node-modules` CLI option](cli.md#--with-node-modules) provided
 
 (See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
+
+## Ignoring Files: prettierIgnore key
+
+If Prettier fails to find a `.prettierignore` file and an alternate file is not specified via `--ignore-path`, a `prettierIgnore` key in package.json will be checked for files to ignore instead:
+
+```json
+{
+  "name": "pretty-package",
+  "version": "0.0.1",
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "prettierIgnore": ["dirty-file.js", "another-dirty-file.js"]
+}
+```
 
 ## JavaScript
 
