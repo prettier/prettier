@@ -9,21 +9,21 @@ const getFileContentOrNull = require("../utils/get-file-content-or-null.js");
  * @param {boolean?} withNodeModules
  */
 async function createIgnorer(ignorePath, withNodeModules) {
-  let keyContent = "";
-
-  try {
-    keyContent = JSON.parse(
-      await getFileContentOrNull(path.resolve("package.json"))
-    ).prettierIgnore;
-  } catch {
-    keyContent = null;
-  }
-
-  const ignoreContent = ignorePath
+  let ignoreContent = ignorePath
     ? await getFileContentOrNull(path.resolve(ignorePath))
     : null;
 
-  return _createIgnorer(ignoreContent, keyContent, withNodeModules);
+  if (!ignoreContent) {
+    try {
+      ignoreContent = JSON.parse(
+        await getFileContentOrNull(path.resolve("package.json"))
+      ).prettierIgnore;
+    } catch {
+      ignoreContent = null;
+    }
+  }
+
+  return _createIgnorer(ignoreContent, withNodeModules);
 }
 
 /**
@@ -31,32 +31,29 @@ async function createIgnorer(ignorePath, withNodeModules) {
  * @param {boolean?} withNodeModules
  */
 createIgnorer.sync = function (ignorePath, withNodeModules) {
-  let keyContent = "";
-
-  try {
-    keyContent = JSON.parse(
-      getFileContentOrNull.sync(path.resolve("package.json"))
-    ).prettierIgnore;
-  } catch {
-    keyContent = null;
-  }
-
-  const ignoreContent = !ignorePath
+  let ignoreContent = !ignorePath
     ? null
     : getFileContentOrNull.sync(path.resolve(ignorePath));
 
-  return _createIgnorer(ignoreContent, keyContent, withNodeModules);
+  if (!ignoreContent) {
+    try {
+      ignoreContent = JSON.parse(
+        getFileContentOrNull.sync(path.resolve("package.json"))
+      ).prettierIgnore;
+    } catch {
+      ignoreContent = null;
+    }
+  }
+
+  return _createIgnorer(ignoreContent, withNodeModules);
 };
 
 /**
  * @param {null | string} ignoreContent
- * @param {null | string} keyContent
  * @param {boolean?} withNodeModules
  */
-function _createIgnorer(ignoreContent, keyContent, withNodeModules) {
-  const ignorer = ignore({ allowRelativePaths: true })
-    .add(ignoreContent || "")
-    .add(keyContent || "");
+function _createIgnorer(ignoreContent, withNodeModules) {
+  const ignorer = ignore({ allowRelativePaths: true }).add(ignoreContent || "");
   if (!withNodeModules) {
     ignorer.add("node_modules");
   }
