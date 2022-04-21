@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignore file when using --debug-check (stderr) 1`] = `""`;
+
+exports[`ignore file when using --debug-check (stdout) 1`] = `
+"not-ignored.js
+"
+`;
+
+exports[`ignore file when using --debug-check (write) 1`] = `Array []`;
+
+exports[`outputs files as-is if no --write (stderr) 1`] = `""`;
+
+exports[`outputs files as-is if no --write (stdout) 1`] = `
+"'use strict';
+"
+`;
+
+exports[`outputs files as-is if no --write (write) 1`] = `Array []`;
+
+exports[`support prettierIgnore key in package.json (stderr) 1`] = `""`;
+
+exports[`support prettierIgnore key in package.json (stdout) 1`] = `
+"not-ignored.js
+"
+`;
+
+exports[`support prettierIgnore key in package.json (write) 1`] = `Array []`;
