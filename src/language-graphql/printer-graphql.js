@@ -576,7 +576,7 @@ function printInterfaces(path, options, print) {
 
 function clean(node, newNode /* , parent */) {
   // We print single line `""" string """` as multiple line string,
-  // and the parser ignores space in mutiple line string
+  // and the parser ignores space in multiple line string
   if (node.kind === "StringValue" && node.block && !node.value.includes("\n")) {
     newNode.value = newNode.value.trim();
   }
