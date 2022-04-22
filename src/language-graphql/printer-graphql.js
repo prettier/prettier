@@ -125,13 +125,15 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (node.block) {
-        return [
-          '"""',
+        const lines = node.value.replace(/"""/g, "\\$&").split("\n");
+        if (lines.length === 1) {
+          lines[0] = lines[0].trim();
+        }
+
+        return join(
           hardline,
-          join(hardline, node.value.replace(/"""/g, "\\$&").split("\n")),
-          hardline,
-          '"""',
-        ];
+          ['"""', ...(lines.length > 0 ? lines : []), '"""'].filter(Boolean)
+        );
       }
       return [
         '"',
@@ -572,7 +574,13 @@ function printInterfaces(path, options, print) {
   return parts;
 }
 
-function clean(/*node, newNode , parent*/) {}
+function clean(node, newNode /* , parent */) {
+  // We print single line `""" string """` as multiple line string,
+  // and the parser ignores space in multiple line string
+  if (node.kind === "StringValue" && node.block && !node.value.includes("\n")) {
+    newNode.value = newNode.value.trim();
+  }
+}
 clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
