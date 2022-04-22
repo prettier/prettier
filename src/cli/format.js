@@ -103,6 +103,16 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
+function getPerformanceTestFlag(context) {
+  if (context.argv.debugBenchmark) {
+    return "--debug-benchmark";
+  }
+
+  if (context.argv.debugRepeat > 0) {
+    return "--debug-repeat";
+  }
+}
+
 function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
@@ -267,7 +277,17 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, format(context, input, options), options);
+    const formatted = format(context, input, options);
+
+    const performanceTestFlag = getPerformanceTestFlag(context);
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag}' option found, skipped print code to screen.`
+      );
+      return;
+    }
+
+    writeOutput(context, formatted, options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -280,7 +300,7 @@ async function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv.check) {
+  if (context.argv.check && !getPerformanceTestFlag(context)) {
     context.logger.log("Checking formatting...");
   }
 
@@ -367,6 +387,14 @@ async function formatFiles(context) {
     if (printedFilename) {
       // Remove previously printed filename to log it with duration.
       printedFilename.clear();
+    }
+
+    const performanceTestFlag = getPerformanceTestFlag(context);
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag}' option found, skipped print code or write files.`
+      );
+      return;
     }
 
     if (context.argv.write) {
