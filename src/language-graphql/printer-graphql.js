@@ -575,7 +575,7 @@ function printInterfaces(path, options, print) {
 }
 
 function clean(node, newNode /* , parent */) {
-  // only apply trim() in case of single line graphql `description`
+  // We print single line `""" string """` as multiple line, and the parser ignores space in mutiple line string
   if (node.kind === "StringValue" && node.block && !node.value.includes("\n")) {
     newNode.value = newNode.value.trim();
   }
