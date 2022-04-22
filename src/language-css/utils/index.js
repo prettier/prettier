@@ -231,7 +231,7 @@ function isPostcssSimpleVarNode(currentNode, nextNode) {
 function hasComposesNode(node) {
   return (
     node.value?.type === "value-root" &&
-    node.value?.group.type === "value-value" &&
+    node.value.group?.type === "value-value" &&
     node.prop.toLowerCase() === "composes"
   );
 }
