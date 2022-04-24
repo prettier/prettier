@@ -107,7 +107,7 @@
     "enquirer": "2.3.6",
     "esbuild": "0.14.36",
     "esbuild-visualizer": "0.3.1",
-    "eslint": "8.13.0",
+    "eslint": "8.14.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-compat": "4.0.2",
