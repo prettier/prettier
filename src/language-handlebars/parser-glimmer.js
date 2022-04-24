@@ -13,7 +13,7 @@ function addBackslash(/* options*/) {
     name: "addBackslash",
     visitor: {
       All(node) {
-        const childrenOrBody = node.children || node.body;
+        const childrenOrBody = node.children ?? node.body;
         if (childrenOrBody) {
           for (let i = 0; i < childrenOrBody.length - 1; i++) {
             if (
