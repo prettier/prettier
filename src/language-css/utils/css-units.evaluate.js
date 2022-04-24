@@ -1,6 +1,6 @@
 "use strict";
 
-const cssUnits = require("css-units-list");
+const { default: cssUnits } = require("../../../vendors/css-units-list.json");
 
 const CSS_UNITS = Object.fromEntries(
   cssUnits.map((unit) => [unit.toLowerCase(), unit])
