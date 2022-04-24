@@ -329,7 +329,7 @@ function printNode(node, parentNode, path, options, print) {
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return ["- ", alignWithSpaces(2, !node.content ? "" : print("content"))];
+      return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":
     case "mappingValue":
       return !node.content ? "" : print("content");
