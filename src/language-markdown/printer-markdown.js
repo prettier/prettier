@@ -782,7 +782,7 @@ function isPrettierIgnore(node) {
     }
   }
 
-  return match ? (match[1] ? match[1] : "next") : false;
+  return match ? match[1] || "next" : false;
 }
 
 function shouldPrePrintHardline(node, data) {
@@ -804,21 +804,19 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.parentNode.type === "listItem" && !data.parentNode.loose;
 
   const isPrevNodeLooseListItem =
-    data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
+    data.prevNode?.type === "listItem" && data.prevNode.loose;
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
-    data.prevNode &&
-    data.prevNode.type === "html" &&
+    data.prevNode?.type === "html" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
     data.parentNode.type === "listItem" &&
-    data.prevNode &&
-    data.prevNode.type === "paragraph" &&
+    data.prevNode?.type === "paragraph" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
   return (

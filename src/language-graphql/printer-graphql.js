@@ -585,10 +585,8 @@ clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-  return (
-    node &&
-    Array.isArray(node.comments) &&
-    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+  return node?.comments?.some(
+    (comment) => comment.value.trim() === "prettier-ignore"
   );
 }
 

@@ -16,7 +16,7 @@
   "devDependencies": {
     "@babel/preset-react": "7.16.7",
     "@sandhose/prettier-animated-logo": "1.0.3",
-    "babel-loader": "8.2.4",
+    "babel-loader": "8.2.5",
     "concurrently": "7.1.0",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
