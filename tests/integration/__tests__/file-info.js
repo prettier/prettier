@@ -6,7 +6,9 @@ const fs = require("fs");
 const prettier = require("prettier-local");
 const runPrettier = require("../run-prettier.js");
 
-const { temporaryDirectory } = require("../../../vendors/tempy.js");
+const {
+  temporaryDirectory: getTemporaryDirectory,
+} = require("../../../vendors/tempy.js");
 
 expect.addSnapshotSerializer(require("../path-serializer.js"));
 
@@ -398,7 +400,7 @@ describe("API getFileInfo.sync with ignorePath", () => {
   let options;
   beforeAll(() => {
     cwd = process.cwd();
-    const tempDir = temporaryDirectory;
+    const tempDir = getTemporaryDirectory();
     process.chdir(tempDir);
     const fileDir = "src";
     filePath = `${fileDir}/should-be-ignored.js`;

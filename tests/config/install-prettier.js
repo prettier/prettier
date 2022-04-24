@@ -4,7 +4,9 @@ const path = require("path");
 const fs = require("fs");
 const { outdent } = require("outdent");
 const { default: chalk } = require("../../vendors/chalk.js");
-const { temporaryDirectory } = require("../../vendors/tempy.js");
+const {
+  temporaryDirectory: getTemporaryDirectory,
+} = require("../../vendors/tempy.js");
 const { execaSync } = require("../../vendors/execa.js");
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
@@ -41,7 +43,7 @@ function cleanUp() {
 }
 
 module.exports = (packageDir) => {
-  const tmpDir = temporaryDirectory;
+  const tmpDir = getTemporaryDirectory();
   directoriesToClean.add(tmpDir);
   const fileName = execaSync("npm", ["pack"], {
     cwd: packageDir,
