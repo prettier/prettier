@@ -11,17 +11,8 @@ function hasQueryComment(options, node) {
   if (
     options.originalText
       .slice(locStart(node), locEnd(node))
-      .includes("query { #") ||
-    options.originalText
-      .slice(locStart(node), locEnd(node))
-      .includes("query {#") ||
-    options.originalText
-      .slice(locStart(node), locEnd(node))
-      .includes("query  { #") ||
-    options.originalText
-      .slice(locStart(node), locEnd(node))
-      .includes("query{ #") ||
-    options.originalText.slice(locStart(node), locEnd(node)).includes("query{#")
+      .replace(/\s/g, "")
+      .includes("query{#")
   ) {
     return true;
   }
