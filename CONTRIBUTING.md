@@ -91,6 +91,7 @@ In the above commands:
 
 - `yarn && yarn build` ensures the compiler-optimized version of Prettier is built prior to launching it. Prettier's own environment checks are defaulted to production and removed during the build. The build output is cached, so a rebuild will happen only if the source code changes.
 - `NODE_ENV=production` ensures Prettier and its dependencies run in production mode.
+- `node --inspect-brk` pauses the script execution until Inspector is connected to the Node process.
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 
