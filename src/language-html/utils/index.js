@@ -635,7 +635,6 @@ function getTextValueParts(node, value = node.value) {
     : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
-
 function isVueScriptTag(node, options) {
   return isVueSfcBlock(node, options) && node.name === "script";
 }

@@ -1,6 +1,3 @@
-import { isNonEmptyArray } from "../common/util.js";
-import getLast from "../utils/get-last.js";
-
 const NODES_KEYS = {
   attrs: true,
   children: true,

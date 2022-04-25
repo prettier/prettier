@@ -33,7 +33,6 @@ if (SKIP_TESTS_WITH_NEW_SYNTAX) {
   );
 }
 
-
 const config = {
   projects: [
     "<rootDir>/jest-format-test.config.mjs",

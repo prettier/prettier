@@ -6,7 +6,7 @@ import thirdParty from "../common/third-party.cjs";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
 import resolve from "../common/resolve.js";
-import partition  from "../utils/partition.js";
+import partition from "../utils/partition.js";
 import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
 
 /**

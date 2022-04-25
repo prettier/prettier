@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @template {object} Element
  * @param {Array<Element>} array
@@ -21,4 +19,4 @@ function uniqByKey(array, key) {
   return result;
 }
 
-module.exports = uniqByKey;
+export default uniqByKey;

@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("should not write file or print code when `--debug-benchmark` or `--debug-repeat` found", () => {
   // Can't test `--debug-benchmark`, since it requires `benchmark` package

@@ -4,8 +4,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
-import partition from "../utils/partition.js"
-import uniqByKey from "../utils/uniq-by-key.js"
+import partition from "../utils/partition.js";
+import uniqByKey from "../utils/uniq-by-key.js";
 import thirdParty from "./third-party.cjs";
 import resolve from "./resolve.js";
 
