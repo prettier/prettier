@@ -38,7 +38,6 @@ const config = {
     "<rootDir>/jest-format-test.config.mjs",
     isProduction && "<rootDir>/jest-integration-test.config.mjs",
   ].filter(Boolean),
-  setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
@@ -46,7 +45,6 @@ const config = {
   snapshotFormat: {
     escapeString: false,
   },
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
