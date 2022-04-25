@@ -51,12 +51,6 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 "function js() {
         console.log("js/file.js should have tab width 8 (1 if CLI)");
 }
-"use strict";
-
-module.exports = {
-        endOfLine: "auto",
-        tabWidth: 8,
-};
 "
 `;
 
@@ -68,12 +62,6 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 "function js() {
         console.log("js/file.js should have tab width 8 (1 if CLI)");
 }
-"use strict";
-
-module.exports = {
-        endOfLine: "auto",
-        tabWidth: 8,
-};
 "
 `;
 
@@ -122,13 +110,6 @@ function js() {
                 "js/file.js should have tab width 8 (1 if CLI)"
         );
 }
-"use strict";
-
-module.exports =
-        {
-                endOfLine: "auto",
-                tabWidth: 8,
-        };
 function noConfigJs() {
   console.log(
     "no-config/file.js should have no semicolons"
@@ -217,13 +198,6 @@ function js() {
                 "js/file.js should have tab width 8 (1 if CLI)"
         );
 }
-"use strict";
-
-module.exports =
-        {
-                endOfLine: "auto",
-                tabWidth: 8,
-        };
 function noConfigJs() {
   console.log(
     "no-config/file.js should have no semicolons"
