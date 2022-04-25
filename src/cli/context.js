@@ -40,7 +40,6 @@ class Context {
 
     const argv = parseArgv(rawArguments, this.detailedOptions, logger);
     this.argv = argv;
-
     this.filePatterns = argv._.map(String);
   }
 
@@ -62,6 +61,7 @@ class Context {
   // eslint-disable-next-line getter-return
   get performanceTestFlag() {
     const { debugBenchmark, debugRepeat } = this.argv;
+    /* istanbul ignore next */
     if (debugBenchmark) {
       return {
         name: "--debug-benchmark",
