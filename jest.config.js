@@ -69,6 +69,7 @@ module.exports = {
   ],
   snapshotFormat: {
     escapeString: false,
+    printBasicPrototype: false,
   },
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns,

@@ -12,7 +12,7 @@ exports[`--checks should print the number of files that need formatting (stdout)
 "
 `;
 
-exports[`--checks should print the number of files that need formatting (write) 1`] = `Array []`;
+exports[`--checks should print the number of files that need formatting (write) 1`] = `[]`;
 
 exports[`--checks works in CI just as in a non-TTY mode (stderr) 1`] = `
 "[warn] unformatted.js
@@ -36,10 +36,10 @@ exports[`--checks works in CI just as in a non-TTY mode (stdout) 2`] = `
 "
 `;
 
-exports[`--checks works in CI just as in a non-TTY mode (write) 1`] = `Array []`;
+exports[`--checks works in CI just as in a non-TTY mode (write) 1`] = `[]`;
 
-exports[`--checks works in CI just as in a non-TTY mode (write) 2`] = `Array []`;
+exports[`--checks works in CI just as in a non-TTY mode (write) 2`] = `[]`;
 
-exports[`checks stdin with --check (write) 1`] = `Array []`;
+exports[`checks stdin with --check (write) 1`] = `[]`;
 
-exports[`checks stdin with -c (alias for --check) (write) 1`] = `Array []`;
+exports[`checks stdin with -c (alias for --check) (write) 1`] = `[]`;
