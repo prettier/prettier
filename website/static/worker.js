@@ -109,7 +109,7 @@ async function handleMessage(message) {
 
     if (message.debug.doc) {
       try {
-        response.debug.doc = prettier.__debug.formatDoc(
+        response.debug.doc = await prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
           { parser: "babel", plugins }
         );
