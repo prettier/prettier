@@ -48,33 +48,33 @@ function genericPrint(path, options, print) {
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
       const hasName = Boolean(node.name);
-      if (!hasQueryComment(options, node)) {
-        return [
-          hasOperation ? node.operation : "",
-          hasOperation && hasName ? [" ", print("name")] : "",
-          hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
-            ? " "
-            : "",
-          isNonEmptyArray(node.variableDefinitions)
-            ? group([
-                "(",
-                indent([
-                  softline,
-                  join(
-                    [ifBreak("", ", "), softline],
-                    path.map(print, "variableDefinitions")
-                  ),
-                ]),
-                softline,
-                ")",
-              ])
-            : "",
-          printDirectives(path, print, node),
-          node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-          print("selectionSet"),
-        ];
+      if (hasQueryComment(options, node)) {
+        return options.originalText.slice(locStart(node), locEnd(node));
       }
-      return options.originalText.slice(locStart(node), locEnd(node));
+      return [
+        hasOperation ? node.operation : "",
+        hasOperation && hasName ? [" ", print("name")] : "",
+        hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
+          ? " "
+          : "",
+        isNonEmptyArray(node.variableDefinitions)
+          ? group([
+              "(",
+              indent([
+                softline,
+                join(
+                  [ifBreak("", ", "), softline],
+                  path.map(print, "variableDefinitions")
+                ),
+              ]),
+              softline,
+              ")",
+            ])
+          : "",
+        printDirectives(path, print, node),
+        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+        print("selectionSet"),
+      ];
     }
     case "FragmentDefinition": {
       return [
