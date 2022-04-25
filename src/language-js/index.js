@@ -88,7 +88,7 @@ const languages = [
     since: "1.13.0",
     parsers: ["json-stringify"],
     vscodeLanguageIds: ["json"],
-    extensions: [], // .json file defaults to json instead of json-stringify
+    extensions: [".importmap"], // .json file defaults to json instead of json-stringify
     filenames: ["package.json", "package-lock.json", "composer.json"],
   })),
   createLanguage(require("linguist-languages/data/JSON.json"), (data) => ({

@@ -22,6 +22,7 @@ import * as optionsModule from "./main/options.js";
 import * as optionsNormalizer from "./main/options-normalizer.js";
 import arrayify from "./utils/arrayify.js";
 import getLast from "./utils/get-last.js";
+import partition from "./utils/partition.js";
 import { isNonEmptyArray } from "./common/util.js";
 
 const require = createRequire(import.meta.url);
@@ -45,6 +46,11 @@ function _withPlugins(
   };
 }
 
+/**
+ * @param {*} fn
+ * @param {*} optsArgIdx
+ * @returns {*}
+ */
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
@@ -97,6 +103,7 @@ const prettier = {
       arrayify,
       getLast,
       isNonEmptyArray,
+      partition,
     },
   },
 

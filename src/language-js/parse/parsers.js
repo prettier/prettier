@@ -31,8 +31,14 @@ const parsers = {
   get __vue_expression() {
     return babel.parsers.__vue_expression;
   },
+  get __vue_ts_expression() {
+    return require("./babel.js").parsers.__vue_ts_expression;
+  },
   get __vue_event_binding() {
     return babel.parsers.__vue_event_binding;
+  },
+  get __vue_ts_event_binding() {
+    return require("./babel.js").parsers.__vue_ts_event_binding;
   },
   // JS - Flow
   get flow() {

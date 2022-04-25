@@ -6,14 +6,14 @@ exports[`apply editorconfig for stdin-filepath with a deep path (stderr) 2`] = `
 
 exports[`apply editorconfig for stdin-filepath with a deep path (stdout) 1`] = `
 "function f() {
-	console.log(\\"should be indented with a tab\\")
+	console.log("should be indented with a tab")
 }
 "
 `;
 
 exports[`apply editorconfig for stdin-filepath with a deep path (stdout) 2`] = `
 "function f() {
-	console.log(\\"should be indented with a tab\\")
+	console.log("should be indented with a tab")
 }
 "
 `;
@@ -26,7 +26,7 @@ exports[`apply editorconfig for stdin-filepath with nonexistent directory (stder
 
 exports[`apply editorconfig for stdin-filepath with nonexistent directory (stdout) 1`] = `
 "function f() {
-	console.log(\\"should be indented with a tab\\")
+	console.log("should be indented with a tab")
 }
 "
 `;
@@ -37,7 +37,7 @@ exports[`apply editorconfig for stdin-filepath with nonexistent file (stderr) 1`
 
 exports[`apply editorconfig for stdin-filepath with nonexistent file (stdout) 1`] = `
 "function f() {
-	console.log(\\"should be indented with a tab\\")
+	console.log("should be indented with a tab")
 }
 "
 `;
@@ -48,7 +48,7 @@ exports[`don’t apply editorconfig outside project for stdin-filepath with none
 
 exports[`don’t apply editorconfig outside project for stdin-filepath with nonexistent directory (stdout) 1`] = `
 "function f() {
-  console.log(\\"should be indented with 2 spaces\\")
+  console.log("should be indented with 2 spaces")
 }
 "
 `;

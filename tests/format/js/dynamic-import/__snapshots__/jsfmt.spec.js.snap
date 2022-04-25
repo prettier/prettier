@@ -2,28 +2,28 @@
 
 exports[`assertions.js [acorn] format 1`] = `
 "Unexpected token (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;
 
 exports[`assertions.js [espree] format 1`] = `
 "Unexpected token , (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;
 
 exports[`assertions.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;
 
 exports[`assertions.js [meriyah] format 1`] = `
 "Expected ')' (1:20)
-> 1 | import(\\"./foo.json\\", { assert: { type: \\"json\\" } });
+> 1 | import("./foo.json", { assert: { type: "json" } });
     |                    ^
   2 |"
 `;

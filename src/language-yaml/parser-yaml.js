@@ -21,7 +21,7 @@ function parse(text) {
 
     return root;
   } catch (error) {
-    if (error && error.position) {
+    if (error?.position) {
       throw createError(error.message, error.position);
     }
 

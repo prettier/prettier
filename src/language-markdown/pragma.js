@@ -13,7 +13,7 @@ function startWithPragma(text) {
     "m"
   );
   const matched = text.match(regex);
-  return matched && matched.index === 0;
+  return matched?.index === 0;
 }
 
 const hasPragma = (text) =>

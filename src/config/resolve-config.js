@@ -3,19 +3,22 @@ import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
 import thirdParty from "../common/third-party.cjs";
-
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
 import resolve from "../common/resolve.js";
+import partition  from "../utils/partition.js";
 import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
 
 /**
- * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
- * @typedef {{sync: boolean; cache: boolean }} Options
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfigSync>} SyncExplorer
+ * @typedef {{sync?: boolean; cache?: boolean }} Options
  */
 
 /**
- * @type {(opts: Options) => Explorer}
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
  */
 const getExplorerMemoized = mem(
   (opts) => {
@@ -67,8 +70,9 @@ const getExplorerMemoized = mem(
 );
 
 /**
- * @param {Options} opts
- * @return {Explorer}
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
  */
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
@@ -85,6 +89,7 @@ function _resolveConfig(filePath, opts, sync) {
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
+  /** @type {[any, any]} */
   const arr = [
     opts.config ? load(opts.config) : search(filePath),
     loadEditorConfig(filePath),
@@ -169,15 +174,10 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
-  const withSlashes = [];
-  const withoutSlashes = [];
-  for (const pattern of patternList) {
-    if (pattern.includes("/")) {
-      withSlashes.push(pattern);
-    } else {
-      withoutSlashes.push(pattern);
-    }
-  }
+  const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
+    pattern.includes("/")
+  );
+
   return (
     micromatch.isMatch(filePath, withoutSlashes, {
       ignore: excludedPatterns,

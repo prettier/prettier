@@ -7,6 +7,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("12.");
 
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
@@ -26,16 +27,27 @@ if (!isProduction) {
     "<rootDir>/tests/integration/__tests__/bundle.js"
   );
 }
+if (SKIP_TESTS_WITH_NEW_SYNTAX) {
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests/integration/__tests__/help-options.js"
+  );
+}
+
 
 const config = {
   projects: [
     "<rootDir>/jest-format-test.config.mjs",
     isProduction && "<rootDir>/jest-integration-test.config.mjs",
   ].filter(Boolean),
+  setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
+  snapshotFormat: {
+    escapeString: false,
+  },
+  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],

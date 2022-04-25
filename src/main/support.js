@@ -10,6 +10,11 @@ const require = createRequire(import.meta.url);
 const currentVersion = require("../../package.json").version;
 
 /**
+ * @typedef {import("./core-options").OptionInfo} OptionInfo
+ * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
+ */
+
+/**
  * Strings in `plugins` and `pluginSearchDirs` are handled by a wrapped version
  * of this function created by `withPlugins`. Don't pass them here directly.
  * @param {object} param0
@@ -18,6 +23,7 @@ const currentVersion = require("../../package.json").version;
  * @param {boolean=} param0.showUnreleased
  * @param {boolean=} param0.showDeprecated
  * @param {boolean=} param0.showInternal
+ * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
  */
 function getSupportInfo({
   plugins = [],

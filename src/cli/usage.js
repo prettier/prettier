@@ -1,6 +1,6 @@
-import { groupBy } from "lodash-es";
 import camelCase from "camelcase";
 import * as constant from "./constant.js";
+import { groupBy } from "./utils.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;

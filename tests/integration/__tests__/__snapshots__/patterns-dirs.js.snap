@@ -29,7 +29,7 @@ dir2/nested2/bn2.js
 `;
 
 exports[`1c: prettier dir1 empty (stderr) 1`] = `
-"[error] No supported files were found in the directory: \\"empty\\".
+"[error] No supported files were found in the directory: "empty".
 "
 `;
 
@@ -62,7 +62,7 @@ dir2/node-shebang
 `;
 
 exports[`3: prettier nonexistent-dir 'dir2/**/*' (stderr) 1`] = `
-"[error] No files matching the pattern were found: \\"nonexistent-dir\\".
+"[error] No files matching the pattern were found: "nonexistent-dir".
 [error] No parser could be inferred for file: dir2/a2.foo
 "
 `;
@@ -140,7 +140,7 @@ exports[`Negative patterns 4: prettier '!nonexistent-dir1 !nonexistent-dir2' (st
 exports[`Negative patterns 4: prettier '!nonexistent-dir1 !nonexistent-dir2' (stdout) 1`] = `""`;
 
 exports[`Negative patterns with explicit files: prettier dir1/a1.js dir2/a2.js '!dir1/*' (stderr) 1`] = `
-"[error] Explicitly specified file was ignored due to negative glob patterns: \\"dir1/a1.js\\".
+"[error] Explicitly specified file was ignored due to negative glob patterns: "dir1/a1.js".
 "
 `;
 

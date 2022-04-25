@@ -1,5 +1,5 @@
-import { pick } from "lodash-es";
 import camelCase from "camelcase";
+import { pick } from "../utils.js";
 import getContextOptions from "./get-context-options.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";

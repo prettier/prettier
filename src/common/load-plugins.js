@@ -2,9 +2,10 @@ import { createRequire } from "node:module";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { uniqBy, partition } from "lodash-es";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
+import partition from "../utils/partition.js"
+import uniqByKey from "../utils/uniq-by-key.js"
 import thirdParty from "./third-party.cjs";
 import resolve from "./resolve.js";
 
@@ -92,7 +93,7 @@ function load(plugins, pluginSearchDirs) {
   );
 
   const externalPlugins = [
-    ...uniqBy(
+    ...uniqByKey(
       [...externalManualLoadPluginInfos, ...externalAutoLoadPluginInfos],
       "requirePath"
     ).map((externalPluginInfo) => ({

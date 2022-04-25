@@ -200,7 +200,8 @@ function attach(comments, ast, text, options) {
       options.parser === "json" ||
       options.parser === "json5" ||
       options.parser === "__js_expression" ||
-      options.parser === "__vue_expression"
+      options.parser === "__vue_expression" ||
+      options.parser === "__vue_ts_expression"
     ) {
       if (locStart(comment) - locStart(ast) <= 0) {
         addLeadingComment(ast, comment);

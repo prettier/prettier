@@ -81,14 +81,14 @@ export * as "foo" from "foo";
 
 exports[`export-star-as-string2.js [flow] format 1`] = `
 "Unexpected string, expected an identifier (1:13)
-> 1 | export * as \\"foo\\" from 'foo'
+> 1 | export * as "foo" from 'foo'
     |             ^^^^^
   2 |"
 `;
 
 exports[`export-star-as-string2.js [typescript] format 1`] = `
 "Identifier expected. (1:13)
-> 1 | export * as \\"foo\\" from 'foo'
+> 1 | export * as "foo" from 'foo'
     |             ^
   2 |"
 `;

@@ -1,4 +1,8 @@
-import { partition } from "lodash-es";
+import prettierInteral from "../prettier-internal.js";
+
+const {
+  utils: { partition },
+} = prettierInteral
 
 export default function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(

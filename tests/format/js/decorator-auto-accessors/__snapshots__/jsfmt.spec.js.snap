@@ -76,7 +76,7 @@ class Foo {
 exports[`computed.js [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class Foo {
-> 2 |   accessor [\\"bar\\"];
+> 2 |   accessor ["bar"];
     |            ^
   3 | }
   4 |"
@@ -85,7 +85,7 @@ exports[`computed.js [acorn] format 1`] = `
 exports[`computed.js [espree] format 1`] = `
 "Unexpected token [ (2:12)
   1 | class Foo {
-> 2 |   accessor [\\"bar\\"];
+> 2 |   accessor ["bar"];
     |            ^
   3 | }
   4 |"
@@ -94,7 +94,7 @@ exports[`computed.js [espree] format 1`] = `
 exports[`computed.js - {"semi":false} [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class Foo {
-> 2 |   accessor [\\"bar\\"];
+> 2 |   accessor ["bar"];
     |            ^
   3 | }
   4 |"
@@ -103,7 +103,7 @@ exports[`computed.js - {"semi":false} [acorn] format 1`] = `
 exports[`computed.js - {"semi":false} [espree] format 1`] = `
 "Unexpected token [ (2:12)
   1 | class Foo {
-> 2 |   accessor [\\"bar\\"];
+> 2 |   accessor ["bar"];
     |            ^
   3 | }
   4 |"
@@ -410,7 +410,7 @@ class Foo {
 exports[`static-computed.js [acorn] format 1`] = `
 "Unexpected token (2:19)
   1 | class Foo {
-> 2 |   static accessor [\\"bar\\"];
+> 2 |   static accessor ["bar"];
     |                   ^
   3 | }
   4 |"
@@ -419,7 +419,7 @@ exports[`static-computed.js [acorn] format 1`] = `
 exports[`static-computed.js [espree] format 1`] = `
 "Unexpected token [ (2:19)
   1 | class Foo {
-> 2 |   static accessor [\\"bar\\"];
+> 2 |   static accessor ["bar"];
     |                   ^
   3 | }
   4 |"
@@ -428,7 +428,7 @@ exports[`static-computed.js [espree] format 1`] = `
 exports[`static-computed.js - {"semi":false} [acorn] format 1`] = `
 "Unexpected token (2:19)
   1 | class Foo {
-> 2 |   static accessor [\\"bar\\"];
+> 2 |   static accessor ["bar"];
     |                   ^
   3 | }
   4 |"
@@ -437,7 +437,7 @@ exports[`static-computed.js - {"semi":false} [acorn] format 1`] = `
 exports[`static-computed.js - {"semi":false} [espree] format 1`] = `
 "Unexpected token [ (2:19)
   1 | class Foo {
-> 2 |   static accessor [\\"bar\\"];
+> 2 |   static accessor ["bar"];
     |                   ^
   3 | }
   4 |"
@@ -638,7 +638,7 @@ class Foo {
 exports[`with-semicolon-1.js [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   [foo]() {}
   4 | }
@@ -648,7 +648,7 @@ exports[`with-semicolon-1.js [acorn] format 1`] = `
 exports[`with-semicolon-1.js [espree] format 1`] = `
 "Unexpected token clicked (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   [foo]() {}
   4 | }
@@ -658,7 +658,7 @@ exports[`with-semicolon-1.js [espree] format 1`] = `
 exports[`with-semicolon-1.js - {"semi":false} [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   [foo]() {}
   4 | }
@@ -668,7 +668,7 @@ exports[`with-semicolon-1.js - {"semi":false} [acorn] format 1`] = `
 exports[`with-semicolon-1.js - {"semi":false} [espree] format 1`] = `
 "Unexpected token clicked (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   [foo]() {}
   4 | }
@@ -719,7 +719,7 @@ class C {
 exports[`with-semicolon-2.js [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   *foo() {}
   4 | }
@@ -729,7 +729,7 @@ exports[`with-semicolon-2.js [acorn] format 1`] = `
 exports[`with-semicolon-2.js [espree] format 1`] = `
 "Unexpected token clicked (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   *foo() {}
   4 | }
@@ -739,7 +739,7 @@ exports[`with-semicolon-2.js [espree] format 1`] = `
 exports[`with-semicolon-2.js - {"semi":false} [acorn] format 1`] = `
 "Unexpected token (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   *foo() {}
   4 | }
@@ -749,7 +749,7 @@ exports[`with-semicolon-2.js - {"semi":false} [acorn] format 1`] = `
 exports[`with-semicolon-2.js - {"semi":false} [espree] format 1`] = `
 "Unexpected token clicked (2:12)
   1 | class C {
-> 2 |   accessor clicked = \\"value\\";
+> 2 |   accessor clicked = "value";
     |            ^
   3 |   *foo() {}
   4 | }

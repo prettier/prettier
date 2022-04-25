@@ -1,5 +1,5 @@
 import * as React from "react";
-import groupBy from "lodash/groupBy";
+import { groupBy } from "../../../src/cli/utils.js";
 
 import { SidebarCategory } from "./components.js";
 import Option from "./options.js";
@@ -10,7 +10,7 @@ export default function SidebarOptions({
   optionValues,
   onOptionValueChange,
 }) {
-  const options = groupBy(availableOptions, "category");
+  const options = groupBy(availableOptions, (option) => option.category);
   return categories.map((category) =>
     options[category] ? (
       <SidebarCategory key={category} title={category}>

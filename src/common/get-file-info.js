@@ -4,7 +4,7 @@ import * as config from "../config/resolve-config.js";
 import createIgnorer from "./create-ignorer.js";
 
 /**
- * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object }} FileInfoOptions
+ * @typedef {{ ignorePath?: string, withNodeModules?: boolean, plugins: object, resolveConfig?: boolean }} FileInfoOptions
  * @typedef {{ ignored: boolean, inferredParser: string | null }} FileInfoResult
  */
 

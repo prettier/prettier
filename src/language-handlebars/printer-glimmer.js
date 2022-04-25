@@ -735,14 +735,14 @@ function needsOppositeQuote(path) {
 /* SubExpression print helpers */
 
 function printSubExpressionPathAndParams(path, print) {
-  const p = printPath(path, print);
+  const printed = printPath(path, print);
   const params = printParams(path, print);
 
   if (!params) {
-    return p;
+    return printed;
   }
 
-  return indent([p, line, group(params)]);
+  return indent([printed, line, group(params)]);
 }
 
 /* misc. print helpers */

@@ -101,6 +101,16 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
+function getPerformanceTestFlag(context) {
+  if (context.argv.debugBenchmark) {
+    return "--debug-benchmark";
+  }
+
+  if (context.argv.debugRepeat > 0) {
+    return "--debug-repeat";
+  }
+}
+
 async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
@@ -266,7 +276,17 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, await format(context, input, options), options);
+    const formatted = await format(context, input, options);
+
+    const performanceTestFlag = getPerformanceTestFlag(context);
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag}' option found, skipped print code to screen.`
+      );
+      return;
+    }
+
+    writeOutput(context, formatted, options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -279,7 +299,7 @@ async function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv.check) {
+  if (context.argv.check && !getPerformanceTestFlag(context)) {
     context.logger.log("Checking formatting...");
   }
 
@@ -368,6 +388,14 @@ async function formatFiles(context) {
       printedFilename.clear();
     }
 
+    const performanceTestFlag = getPerformanceTestFlag(context);
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag}' option found, skipped print code or write files.`
+      );
+      return;
+    }
+
     if (context.argv.write) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
@@ -416,11 +444,21 @@ async function formatFiles(context) {
   if (context.argv.check) {
     if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
+    } else if (numberOfUnformattedFilesFound === 1) {
+      context.logger.warn(
+        context.argv.write
+          ? "Code style issues fixed in the above file."
+          : "Code style issues found in the above file. Forgot to run Prettier?"
+      );
     } else {
       context.logger.warn(
         context.argv.write
-          ? "Code style issues fixed in the above file(s)."
-          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+          ? "Code style issues found in " +
+              numberOfUnformattedFilesFound +
+              " files."
+          : "Code style issues found in " +
+              numberOfUnformattedFilesFound +
+              " files. Forgot to run Prettier?"
       );
     }
   }
