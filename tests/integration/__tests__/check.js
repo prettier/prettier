@@ -50,9 +50,11 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
 });
 
 describe("--checks should print the number of files that need formatting", () => {
-  runPrettier("cli/write", ["--check", "unformatted.js", "unformatted2.js"], {
-    input: "0",
-  }).test({
+  runPrettier("cli/write", [
+    "--check",
+    "unformatted.js",
+    "unformatted2.js",
+  ]).test({
     status: 1,
   });
 });
