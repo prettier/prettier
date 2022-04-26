@@ -58,8 +58,9 @@ describe("external options from config file should work", () => {
 describe("Non exists plugin", () => {
   runPrettier(
     "plugins/options-string",
-    ["--plugin=--invalid--", "--stdin-filepath", "example.foo"],
-    { input: "hello-world" }
+    ["--plugin=--invalid--", "--stdin-filepath", "example.foo"]
+    // The CLI will exit before reading stdin, the input doesn't matters
+    // { input: "hello-world" }
   ).test({
     stdout: "",
     stderr: expect.stringMatching(
