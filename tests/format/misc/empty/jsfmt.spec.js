@@ -1,10 +1,37 @@
-import prettier from "../../../../index.js";
+// import prettier from "../../../../index.js";
 
-const parsers = prettier
-  .getSupportInfo()
-  .options.find((option) => option.name === "parser")
-  .choices.filter((choice) => !choice.deprecated)
-  .map((choice) => choice.value);
+// const parsers = prettier
+//   .getSupportInfo()
+//   .options.find((option) => option.name === "parser")
+//   .choices.filter((choice) => !choice.deprecated)
+//   .map((choice) => choice.value);
+
+// TODO: Use the code above when possible
+const parsers = [
+  "flow",
+  "babel",
+  "babel-flow",
+  "babel-ts",
+  "typescript",
+  "acorn",
+  "espree",
+  "meriyah",
+  "css",
+  "less",
+  "scss",
+  "json",
+  "json5",
+  "json-stringify",
+  "graphql",
+  "markdown",
+  "mdx",
+  "vue",
+  "yaml",
+  "glimmer",
+  "html",
+  "angular",
+  "lwc",
+];
 
 run_spec(
   {
