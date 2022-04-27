@@ -7,4 +7,4 @@ exports[`ignores files in version control systems (stdout) 1`] = `
 "
 `;
 
-exports[`ignores files in version control systems (write) 1`] = `Array []`;
+exports[`ignores files in version control systems (write) 1`] = `[]`;

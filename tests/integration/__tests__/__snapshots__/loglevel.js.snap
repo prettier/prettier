@@ -5,8 +5,8 @@ exports[`--write with --loglevel=silent doesn't log filenames (stderr) 1`] = `""
 exports[`--write with --loglevel=silent doesn't log filenames (stdout) 1`] = `""`;
 
 exports[`--write with --loglevel=silent doesn't log filenames (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",

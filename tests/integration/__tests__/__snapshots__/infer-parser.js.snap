@@ -46,8 +46,8 @@ exports[`--write and --check with unknown path and no parser multiple files (std
 `;
 
 exports[`--write and --check with unknown path and no parser multiple files (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "foo();
 ",
     "filename": "foo.js",
@@ -77,8 +77,8 @@ exports[`--write and --list-different with unknown path and no parser multiple f
 `;
 
 exports[`--write and --list-different with unknown path and no parser multiple files (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "foo();
 ",
     "filename": "foo.js",
@@ -102,8 +102,8 @@ exports[`--write with unknown path and no parser multiple files (stdout) 1`] = `
 `;
 
 exports[`--write with unknown path and no parser multiple files (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "foo();
 ",
     "filename": "foo.js",
@@ -117,13 +117,13 @@ exports[`--write with unknown path and no parser specific file (stderr) 1`] = `
 `;
 
 exports[`API with no path and no parser prettier.check 1`] = `
-Array [
+[
   "No parser and no filepath given, using 'babel' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred.",
 ]
 `;
 
 exports[`API with no path and no parser prettier.format 1`] = `
-Array [
+[
   "No parser and no filepath given, using 'babel' the parser now but this will throw an error in the future. Please specify a parser or a filepath so one can be inferred.",
 ]
 `;

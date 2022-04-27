@@ -16,9 +16,9 @@ All matched files use Prettier code style!
 "
 `;
 
-exports[`no file diffs with --check + formatted file (write) 1`] = `Array []`;
+exports[`no file diffs with --check + formatted file (write) 1`] = `[]`;
 
-exports[`no file diffs with --check + formatted file (write) 2`] = `Array []`;
+exports[`no file diffs with --check + formatted file (write) 2`] = `[]`;
 
 exports[`no file diffs with --list-different + formatted file (stderr) 1`] = `""`;
 
@@ -28,9 +28,9 @@ exports[`no file diffs with --list-different + formatted file (stdout) 1`] = `"f
 
 exports[`no file diffs with --list-different + formatted file (stdout) 2`] = `""`;
 
-exports[`no file diffs with --list-different + formatted file (write) 1`] = `Array []`;
+exports[`no file diffs with --list-different + formatted file (write) 1`] = `[]`;
 
-exports[`no file diffs with --list-different + formatted file (write) 2`] = `Array []`;
+exports[`no file diffs with --list-different + formatted file (write) 2`] = `[]`;
 
 exports[`output with --check + unformatted differs when piped (stderr) 1`] = `
 "[warn] unformatted.js
@@ -55,8 +55,8 @@ exports[`output with --check + unformatted differs when piped (stdout) 2`] = `
 `;
 
 exports[`output with --check + unformatted differs when piped (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",
@@ -65,8 +65,8 @@ Array [
 `;
 
 exports[`output with --check + unformatted differs when piped (write) 2`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",
@@ -89,8 +89,8 @@ exports[`output with --list-different + unformatted differs when piped (stdout) 
 `;
 
 exports[`output with --list-different + unformatted differs when piped (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",
@@ -99,8 +99,8 @@ Array [
 `;
 
 exports[`output with --list-different + unformatted differs when piped (write) 2`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",

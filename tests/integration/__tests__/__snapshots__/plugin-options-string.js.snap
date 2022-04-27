@@ -11,7 +11,7 @@ Default: bar
 "
 `;
 
-exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `Array []`;
+exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `[]`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:
