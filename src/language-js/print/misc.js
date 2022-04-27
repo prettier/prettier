@@ -55,6 +55,10 @@ function printTypeAnnotation(path, options, print) {
 
   const parentNode = path.getParentNode();
 
+  if (parentNode.type === "ArrayPattern" && options.parser === "babel-ts") {
+    return [" as ", print("typeAnnotation")];
+  }
+
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
