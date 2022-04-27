@@ -21,7 +21,7 @@ module.exports = {
   printers: {
     [astName]: {
       print(path) {
-        return path.getValue().text.replace(/;/g, '')
+        return path.getValue().text.replace(/;/g, "");
       },
     },
   },

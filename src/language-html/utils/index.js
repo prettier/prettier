@@ -388,7 +388,7 @@ function inferStyleParser(node, options) {
   }
 
   if (lang === "stylus") {
-    return inferParserByLanguage("stylus", options)
+    return inferParserByLanguage("stylus", options);
   }
 }
 
