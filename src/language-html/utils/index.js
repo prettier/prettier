@@ -373,7 +373,7 @@ function _inferScriptParser(node) {
   }
 }
 
-function inferStyleParser(node) {
+function inferStyleParser(node, options) {
   const { lang } = node.attrMap;
   if (!lang || lang === "postcss" || lang === "css") {
     return "css";
@@ -388,7 +388,7 @@ function inferStyleParser(node) {
   }
 
   if (lang === "stylus") {
-    return "stylus";
+    return inferParserByLanguage("stylus", options)
   }
 }
 
@@ -401,7 +401,7 @@ function inferScriptParser(node, options) {
   }
 
   if (node.name === "style") {
-    return inferStyleParser(node);
+    return inferStyleParser(node, options);
   }
 
   if (options && isVueNonHtmlBlock(node, options)) {

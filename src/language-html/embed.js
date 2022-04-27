@@ -283,7 +283,7 @@ function embed(path, print, textToDoc, options) {
     }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent);
+        const parser = inferScriptParser(node.parent, options);
         if (parser) {
           const value =
             parser === "markdown"
