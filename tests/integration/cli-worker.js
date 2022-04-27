@@ -55,9 +55,7 @@ async function run() {
       stopDir: path.join(__dirname, "cli"),
     });
   thirdParty.findParentDir = () => process.cwd();
-
-  const { promise } = await import(prettierCli);
-  await promise;
+  await require(prettierCli).promise;
 }
 
 parentPort.on("message", async () => {

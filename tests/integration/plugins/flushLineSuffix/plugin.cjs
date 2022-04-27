@@ -1,6 +1,6 @@
 "use strict";
 
-const prettier = require("../../../config/require-prettier.js");
+const prettier = require("../../../config/prettier-entry.common.cjs");
 const { lineSuffix } = prettier.doc.builders;
 
 module.exports = {

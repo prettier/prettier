@@ -34,6 +34,7 @@ function runCliWorker(dir, args, options) {
 
   const worker = new Worker(CLI_WORKER_FILE, {
     argv: args,
+    execArgv: ["--trace-deprecation"],
     stdout: true,
     stderr: true,
     env: {
