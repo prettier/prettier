@@ -386,6 +386,10 @@ function inferStyleParser(node) {
   if (lang === "less") {
     return "less";
   }
+
+  if (lang === "stylus") {
+    return "stylus";
+  }
 }
 
 function inferScriptParser(node, options) {
