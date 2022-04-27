@@ -5,5 +5,5 @@ world!
 
 <style lang="stylus">
 a
-    color blue
+    color blue;
 </style>

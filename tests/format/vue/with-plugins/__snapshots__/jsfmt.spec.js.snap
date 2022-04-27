@@ -127,7 +127,7 @@ world!
 
 <style lang="stylus">
 a
-    color blue
+    color blue;
 </style>
 =====================================output=====================================
 <style lang="uppercase-rocks">
@@ -137,7 +137,7 @@ world!
 
 <style lang="stylus">
 a
-    color blue
+    color blue;
 </style>
 
 ================================================================================
@@ -156,7 +156,7 @@ world!
 
 <style lang="stylus">
 a
-    color blue
+    color blue;
 </style>
 =====================================output=====================================
 <style lang="uppercase-rocks">
@@ -168,8 +168,6 @@ world!
 
 a
     color blue
-
-// by dummy parser
 </style>
 
 ================================================================================

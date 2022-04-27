@@ -21,7 +21,7 @@ module.exports = {
   printers: {
     [astName]: {
       print(path) {
-        return path.getValue().text + "\n// by dummy parser";
+        return path.getValue().text.replace(/;/g, '')
       },
     },
   },
