@@ -1,28 +1,8 @@
 "use strict";
 
-const parserName = "stylus-dummy-parser";
-const astName = parserName + "-ast";
+const createPlugin = require("../../utils/create-plugin.js");
 
-module.exports = {
-  languages: [
-    {
-      name: "stylus",
-      parsers: [parserName],
-    },
-  ],
-  parsers: {
-    [parserName]: {
-      parse: (text) => ({ text }),
-      astFormat: astName,
-      locStart() {},
-      locEnd() {},
-    },
-  },
-  printers: {
-    [astName]: {
-      print(path) {
-        return path.getValue().text.replace(/;/g, "");
-      },
-    },
-  },
-};
+module.exports = createPlugin({
+  name: "stylus",
+  print: (text) => text.toUpperCase(),
+});
