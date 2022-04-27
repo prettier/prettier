@@ -125,10 +125,19 @@ hello,
 world!
 </style>
 
+<style lang="stylus">
+a
+    color blue
+</style>
 =====================================output=====================================
 <style lang="uppercase-rocks">
 hello,
 world!
+</style>
+
+<style lang="stylus">
+a
+    color blue
 </style>
 
 ================================================================================
@@ -145,10 +154,22 @@ hello,
 world!
 </style>
 
+<style lang="stylus">
+a
+    color blue
+</style>
 =====================================output=====================================
 <style lang="uppercase-rocks">
 hello,
 world!
+</style>
+
+<style lang="stylus">
+
+a
+    color blue
+
+// by dummy parser
 </style>
 
 ================================================================================

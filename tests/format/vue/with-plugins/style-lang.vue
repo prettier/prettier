@@ -2,3 +2,8 @@
 hello,
 world!
 </style>
+
+<style lang="stylus">
+a
+    color blue
+</style>
