@@ -14,17 +14,17 @@ exports[`formats files when executing in a subdirectory (stdout) 2`] = `
 "
 `;
 
-exports[`formats files when executing in a subdirectory (write) 1`] = `Array []`;
+exports[`formats files when executing in a subdirectory (write) 1`] = `[]`;
 
-exports[`formats files when executing in a subdirectory (write) 2`] = `Array []`;
+exports[`formats files when executing in a subdirectory (write) 2`] = `[]`;
 
 exports[`formats files when executing in a subdirectory and using stdin (stderr) 1`] = `""`;
 
-exports[`formats files when executing in a subdirectory and using stdin (write) 1`] = `Array []`;
+exports[`formats files when executing in a subdirectory and using stdin (write) 1`] = `[]`;
 
 exports[`ignore files when executing in a subdirectory and using stdin (stderr) 1`] = `""`;
 
-exports[`ignore files when executing in a subdirectory and using stdin (write) 1`] = `Array []`;
+exports[`ignore files when executing in a subdirectory and using stdin (write) 1`] = `[]`;
 
 exports[`ignores files when executing in a subdirectory (stderr) 1`] = `""`;
 
@@ -34,6 +34,6 @@ exports[`ignores files when executing in a subdirectory (stdout) 1`] = `""`;
 
 exports[`ignores files when executing in a subdirectory (stdout) 2`] = `""`;
 
-exports[`ignores files when executing in a subdirectory (write) 1`] = `Array []`;
+exports[`ignores files when executing in a subdirectory (write) 1`] = `[]`;
 
-exports[`ignores files when executing in a subdirectory (write) 2`] = `Array []`;
+exports[`ignores files when executing in a subdirectory (write) 2`] = `[]`;

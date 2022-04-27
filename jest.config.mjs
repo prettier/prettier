@@ -45,6 +45,7 @@ const config = {
   ],
   snapshotFormat: {
     escapeString: false,
+    printBasicPrototype: false,
   },
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,

@@ -8,7 +8,7 @@ exports[`extracts file-info for a file in not_node_modules (stdout) 1`] = `
 "
 `;
 
-exports[`extracts file-info for a file in not_node_modules (write) 1`] = `Array []`;
+exports[`extracts file-info for a file in not_node_modules (write) 1`] = `[]`;
 
 exports[`extracts file-info for a js file (stderr) 1`] = `""`;
 
@@ -18,7 +18,7 @@ exports[`extracts file-info for a js file (stdout) 1`] = `
 "
 `;
 
-exports[`extracts file-info for a js file (write) 1`] = `Array []`;
+exports[`extracts file-info for a js file (write) 1`] = `[]`;
 
 exports[`extracts file-info for a known markdown file with no extension (stderr) 1`] = `""`;
 
@@ -28,7 +28,7 @@ exports[`extracts file-info for a known markdown file with no extension (stdout)
 "
 `;
 
-exports[`extracts file-info for a known markdown file with no extension (write) 1`] = `Array []`;
+exports[`extracts file-info for a known markdown file with no extension (write) 1`] = `[]`;
 
 exports[`extracts file-info for a markdown file (stderr) 1`] = `""`;
 
@@ -38,7 +38,7 @@ exports[`extracts file-info for a markdown file (stdout) 1`] = `
 "
 `;
 
-exports[`extracts file-info for a markdown file (write) 1`] = `Array []`;
+exports[`extracts file-info for a markdown file (write) 1`] = `[]`;
 
 exports[`extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided (stderr) 1`] = `""`;
 
@@ -48,7 +48,7 @@ exports[`extracts file-info with ignored=false for a file in node_modules when -
 "
 `;
 
-exports[`extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided (write) 1`] = `Array []`;
+exports[`extracts file-info with ignored=false for a file in node_modules when --with-node-modules provided (write) 1`] = `[]`;
 
 exports[`extracts file-info with ignored=true for a file in .prettierignore (stderr) 1`] = `""`;
 
@@ -58,7 +58,7 @@ exports[`extracts file-info with ignored=true for a file in .prettierignore (std
 "
 `;
 
-exports[`extracts file-info with ignored=true for a file in .prettierignore (write) 1`] = `Array []`;
+exports[`extracts file-info with ignored=true for a file in .prettierignore (write) 1`] = `[]`;
 
 exports[`extracts file-info with ignored=true for a file in a hand-picked .prettierignore (stderr) 1`] = `""`;
 
@@ -68,7 +68,7 @@ exports[`extracts file-info with ignored=true for a file in a hand-picked .prett
 "
 `;
 
-exports[`extracts file-info with ignored=true for a file in a hand-picked .prettierignore (write) 1`] = `Array []`;
+exports[`extracts file-info with ignored=true for a file in a hand-picked .prettierignore (write) 1`] = `[]`;
 
 exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked (stderr) 1`] = `""`;
 
@@ -78,7 +78,7 @@ exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked
 "
 `;
 
-exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked (write) 1`] = `Array []`;
+exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked (write) 1`] = `[]`;
 
 exports[`extracts file-info with inferredParser=foo when plugins are autoloaded (stderr) 1`] = `""`;
 
@@ -88,7 +88,7 @@ exports[`extracts file-info with inferredParser=foo when plugins are autoloaded 
 "
 `;
 
-exports[`extracts file-info with inferredParser=foo when plugins are autoloaded (write) 1`] = `Array []`;
+exports[`extracts file-info with inferredParser=foo when plugins are autoloaded (write) 1`] = `[]`;
 
 exports[`extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir (stderr) 1`] = `""`;
 
@@ -98,7 +98,7 @@ exports[`extracts file-info with inferredParser=foo when plugins are loaded with
 "
 `;
 
-exports[`extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir (write) 1`] = `Array []`;
+exports[`extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir (write) 1`] = `[]`;
 
 exports[`extracts file-info with inferredParser=null for file.foo (stderr) 1`] = `""`;
 
@@ -108,7 +108,7 @@ exports[`extracts file-info with inferredParser=null for file.foo (stdout) 1`] =
 "
 `;
 
-exports[`extracts file-info with inferredParser=null for file.foo (write) 1`] = `Array []`;
+exports[`extracts file-info with inferredParser=null for file.foo (write) 1`] = `[]`;
 
 exports[`extracts file-info with with ignored=true for a file in node_modules (stderr) 1`] = `""`;
 
@@ -118,7 +118,7 @@ exports[`extracts file-info with with ignored=true for a file in node_modules (s
 "
 `;
 
-exports[`extracts file-info with with ignored=true for a file in node_modules (write) 1`] = `Array []`;
+exports[`extracts file-info with with ignored=true for a file in node_modules (write) 1`] = `[]`;
 
 exports[`file-info should not try resolve config with --no-config (stdout) 1`] = `
 "{ "ignored": false, "inferredParser": "babel" }
@@ -134,7 +134,7 @@ exports[`file-info should try resolve config (stdout) 1`] = `
 "
 `;
 
-exports[`file-info should try resolve config (write) 1`] = `Array []`;
+exports[`file-info should try resolve config (write) 1`] = `[]`;
 
 exports[`non-exists ignore path (stderr) 1`] = `""`;
 
@@ -144,4 +144,4 @@ exports[`non-exists ignore path (stdout) 1`] = `
 "
 `;
 
-exports[`non-exists ignore path (write) 1`] = `Array []`;
+exports[`non-exists ignore path (write) 1`] = `[]`;
