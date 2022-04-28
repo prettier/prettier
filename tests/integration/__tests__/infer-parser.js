@@ -1,4 +1,4 @@
-import prettier from "prettier-local";
+import * as prettier from "prettier-local";
 import { jest } from "@jest/globals";
 import runPrettier from "../run-prettier.js";
 

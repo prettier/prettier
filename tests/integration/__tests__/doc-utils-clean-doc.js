@@ -1,6 +1,6 @@
-import prettier from "prettier-local";
-const docBuilders = prettier.doc.builders;
-const docUtils = prettier.doc.utils;
+import {doc} from "prettier-local";
+const docBuilders = doc.builders;
+const docUtils = doc.utils;
 
 const { cleanDoc } = docUtils;
 const { group, concat, align, indent, lineSuffix, ifBreak, fill } = docBuilders;

@@ -1,5 +1,5 @@
 import stringify from "fast-json-stable-stringify";
-import prettier from "../index.js";
+import * as prettier from "../index.js";
 import createLogger from "./logger.js";
 import Context from "./context.js";
 import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";

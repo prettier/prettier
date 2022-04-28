@@ -1,3 +1,3 @@
-import prettier from "../index.js";
+import {__internal} from "../index.js";
 
-export default prettier.__internal;
+export default __internal;

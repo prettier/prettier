@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 import core from "./main/core.js";
-import { getSupportInfo } from "./main/support.js";
+import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import * as sharedUtil from "./common/util-shared.js";
 import languages from "./languages.js";
 import doc from "./document/index.js";
@@ -30,33 +30,32 @@ function withPlugins(
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-const prettierStandalone = {
-  formatWithCursor,
+function format(text, opts) {
+  return formatWithCursor(text, opts).formatted;
+}
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
-  },
+function check(text, opts) {
+  const { formatted } = formatWithCursor(text, opts);
+  return formatted === text;
+}
 
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
-    return formatted === text;
-  },
+const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
-  doc,
-
-  getSupportInfo: withPlugins(getSupportInfo, 0),
-
-  version,
-
-  util: sharedUtil,
-
-  __debug: {
-    parse: withPlugins(core.parse),
-    formatAST: withPlugins(core.formatAST),
-    formatDoc: withPlugins(core.formatDoc),
-    printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
-  },
+const debugApis = {
+  parse: withPlugins(core.parse),
+  formatAST: withPlugins(core.formatAST),
+  formatDoc: withPlugins(core.formatDoc),
+  printToDoc: withPlugins(core.printToDoc),
+  printDocToString: withPlugins(core.printDocToString),
 };
 
-export default prettierStandalone;
+export {
+  version,
+  formatWithCursor,
+  format,
+  check,
+  doc,
+  getSupportInfo,
+  sharedUtil as util,
+  debugApis as __debug,
+};

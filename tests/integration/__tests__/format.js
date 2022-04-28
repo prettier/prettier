@@ -1,4 +1,4 @@
-import prettier from "prettier-local";
+import * as prettier from "prettier-local";
 import { outdent } from "outdent";
 import fooPlugin from "../plugins/defaultOptions/plugin.cjs";
 

@@ -1,5 +1,5 @@
 import path from "node:path";
-import prettier from "prettier-local";
+import * as prettier from "prettier-local";
 import createEsmUtils from "esm-utils";
 
 const { __dirname } = createEsmUtils(import.meta);

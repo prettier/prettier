@@ -1,5 +1,5 @@
 import path from "node:path";
-import prettier from "../index.js";
+import * as prettier from "../index.js";
 import { printToScreen } from "./utils.js";
 
 async function logResolvedConfigPathOrDie(context) {

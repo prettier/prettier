@@ -1,4 +1,4 @@
-import prettier from "prettier-local";
+import * as prettier from "prettier-local";
 const { formatAST } = prettier.__debug;
 
 describe("formatAST", () => {

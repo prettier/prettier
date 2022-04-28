@@ -1,5 +1,5 @@
 /** @type {import('prettier')} */
-import prettier from "prettier-local";
+import * as prettier from "prettier-local";
 import { outdent } from "outdent";
 import printDoc from "../print-doc.js";
 

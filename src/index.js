@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 import core from "./main/core.js";
-import { getSupportInfo } from "./main/support.js";
-import getFileInfo from "./common/get-file-info.js";
+import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
+import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import * as sharedUtil from "./common/util-shared.js";
 import {
   loadPlugins,
@@ -62,59 +62,62 @@ function withPlugins(fn, optsArgIdx) {
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-const prettier = {
-  formatWithCursor,
+function format(text, opts) {
+  return formatWithCursor(text, opts).formatted;
+}
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
-  },
+function check(text, opts) {
+  const { formatted } = formatWithCursor(text, opts);
+  return formatted === text;
+}
 
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
-    return formatted === text;
-  },
+function clearCache() {
+  clearConfigCache();
+  clearPluginCache();
+}
 
-  doc,
+/** @type {typeof getFileInfoWithoutPlugins} */
+const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
 
-  resolveConfig,
-  resolveConfigFile,
-  clearConfigCache() {
-    clearConfigCache();
-    clearPluginCache();
-  },
+/** @type {typeof getSupportInfoWithoutPlugins} */
+const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
-  /** @type {typeof getFileInfo} */
-  getFileInfo: withPlugins(getFileInfo),
-  /** @type {typeof getSupportInfo} */
-  getSupportInfo: withPlugins(getSupportInfo, 0),
-
-  version,
-
-  util: sharedUtil,
-
-  // Internal shared
-  __internal: {
-    errors,
-    coreOptions,
-    createIgnorer,
-    optionsModule,
-    optionsNormalizer,
-    utils: {
-      arrayify,
-      getLast,
-      isNonEmptyArray,
-      partition,
-    },
-  },
-
-  /* istanbul ignore next */
-  __debug: {
-    parse: withPlugins(core.parse),
-    formatAST: withPlugins(core.formatAST),
-    formatDoc: withPlugins(core.formatDoc),
-    printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
+// Internal shared with cli
+const sharedWithCli = {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsModule,
+  optionsNormalizer,
+  utils: {
+    arrayify,
+    getLast,
+    isNonEmptyArray,
+    partition,
   },
 };
 
-export default prettier;
+const debugApis = {
+  parse: withPlugins(core.parse),
+  formatAST: withPlugins(core.formatAST),
+  formatDoc: withPlugins(core.formatDoc),
+  printToDoc: withPlugins(core.printToDoc),
+  printDocToString: withPlugins(core.printDocToString),
+};
+
+export {
+  version,
+  formatWithCursor,
+  format,
+  check,
+  doc,
+  resolveConfig,
+  resolveConfigFile,
+  // TODO: Expose this as `clearCache` in v3
+  clearCache as clearConfigCache,
+  getFileInfo,
+  getSupportInfo,
+  sharedUtil as util,
+  sharedWithCli as __internal,
+  debugApis as __debug,
+};

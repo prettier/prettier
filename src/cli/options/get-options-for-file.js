@@ -1,5 +1,5 @@
 import dashify from "dashify";
-import prettier from "../../index.js";
+import * as prettier from "../../index.js";
 import prettierInternal from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";

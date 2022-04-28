@@ -1,5 +1,5 @@
 import stringify from "fast-json-stable-stringify";
-import prettier from "../index.js";
+import * as prettier from "../index.js";
 import { printToScreen } from "./utils.js";
 
 async function logFileInfoOrDie(context) {

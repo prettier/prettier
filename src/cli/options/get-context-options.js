@@ -1,4 +1,4 @@
-import prettier from "../../index.js";
+import * as prettier from "../../index.js";
 import prettierInternal from "../prettier-internal.js";
 import * as constant from "../constant.js";
 import {
