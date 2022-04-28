@@ -5,6 +5,7 @@ const {
   coreOptions,
   createIgnorer,
   optionsHiddenDefaults,
+  normalizeApiOptions,
   normalizeCliOptions,
   utils: { arrayify, getLast, isNonEmptyArray, partition },
 } = prettier.__internal;
@@ -14,6 +15,7 @@ export {
   coreOptions,
   createIgnorer,
   optionsHiddenDefaults,
+  normalizeApiOptions,
   normalizeCliOptions,
   // utils
   arrayify,
