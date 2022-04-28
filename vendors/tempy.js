@@ -5954,9 +5954,9 @@ var require_globby = __commonJS({
   }
 });
 
-// node_modules/graceful-fs/polyfills.js
+// node_modules/del/node_modules/graceful-fs/polyfills.js
 var require_polyfills = __commonJS({
-  "node_modules/graceful-fs/polyfills.js"(exports, module2) {
+  "node_modules/del/node_modules/graceful-fs/polyfills.js"(exports, module2) {
     var constants = require("constants");
     var origCwd = process.cwd;
     var cwd = null;
@@ -6006,7 +6006,7 @@ var require_polyfills = __commonJS({
       fs2.statSync = statFixSync(fs2.statSync);
       fs2.fstatSync = statFixSync(fs2.fstatSync);
       fs2.lstatSync = statFixSync(fs2.lstatSync);
-      if (!fs2.lchmod) {
+      if (fs2.chmod && !fs2.lchmod) {
         fs2.lchmod = function(path2, mode, cb) {
           if (cb)
             process.nextTick(cb);
@@ -6014,7 +6014,7 @@ var require_polyfills = __commonJS({
         fs2.lchmodSync = function() {
         };
       }
-      if (!fs2.lchown) {
+      if (fs2.chown && !fs2.lchown) {
         fs2.lchown = function(path2, uid, gid, cb) {
           if (cb)
             process.nextTick(cb);
@@ -6023,8 +6023,8 @@ var require_polyfills = __commonJS({
         };
       }
       if (platform === "win32") {
-        fs2.rename = function(fs$rename) {
-          return function(from, to, cb) {
+        fs2.rename = typeof fs2.rename !== "function" ? fs2.rename : function(fs$rename) {
+          function rename(from, to, cb) {
             var start = Date.now();
             var backoff = 0;
             fs$rename(from, to, function CB(er) {
@@ -6044,10 +6044,13 @@ var require_polyfills = __commonJS({
               if (cb)
                 cb(er);
             });
-          };
+          }
+          if (Object.setPrototypeOf)
+            Object.setPrototypeOf(rename, fs$rename);
+          return rename;
         }(fs2.rename);
       }
-      fs2.read = function(fs$read) {
+      fs2.read = typeof fs2.read !== "function" ? fs2.read : function(fs$read) {
         function read(fd, buffer, offset, length, position, callback_) {
           var callback;
           if (callback_ && typeof callback_ === "function") {
@@ -6066,7 +6069,7 @@ var require_polyfills = __commonJS({
           Object.setPrototypeOf(read, fs$read);
         return read;
       }(fs2.read);
-      fs2.readSync = function(fs$readSync) {
+      fs2.readSync = typeof fs2.readSync !== "function" ? fs2.readSync : function(fs$readSync) {
         return function(fd, buffer, offset, length, position) {
           var eagCounter = 0;
           while (true) {
@@ -6119,7 +6122,7 @@ var require_polyfills = __commonJS({
         };
       }
       function patchLutimes(fs3) {
-        if (constants.hasOwnProperty("O_SYMLINK")) {
+        if (constants.hasOwnProperty("O_SYMLINK") && fs3.futimes) {
           fs3.lutimes = function(path2, at, mt, cb) {
             fs3.open(path2, constants.O_SYMLINK, function(er, fd) {
               if (er) {
@@ -6154,7 +6157,7 @@ var require_polyfills = __commonJS({
             }
             return ret;
           };
-        } else {
+        } else if (fs3.futimes) {
           fs3.lutimes = function(_a, _b, _c, cb) {
             if (cb)
               process.nextTick(cb);
@@ -6262,9 +6265,9 @@ var require_polyfills = __commonJS({
   }
 });
 
-// node_modules/graceful-fs/legacy-streams.js
+// node_modules/del/node_modules/graceful-fs/legacy-streams.js
 var require_legacy_streams = __commonJS({
-  "node_modules/graceful-fs/legacy-streams.js"(exports, module2) {
+  "node_modules/del/node_modules/graceful-fs/legacy-streams.js"(exports, module2) {
     var Stream = require("stream").Stream;
     module2.exports = legacy;
     function legacy(fs2) {
@@ -6361,9 +6364,9 @@ var require_legacy_streams = __commonJS({
   }
 });
 
-// node_modules/graceful-fs/clone.js
+// node_modules/del/node_modules/graceful-fs/clone.js
 var require_clone = __commonJS({
-  "node_modules/graceful-fs/clone.js"(exports, module2) {
+  "node_modules/del/node_modules/graceful-fs/clone.js"(exports, module2) {
     "use strict";
     module2.exports = clone;
     var getPrototypeOf = Object.getPrototypeOf || function(obj) {
@@ -6384,9 +6387,9 @@ var require_clone = __commonJS({
   }
 });
 
-// node_modules/graceful-fs/graceful-fs.js
+// node_modules/del/node_modules/graceful-fs/graceful-fs.js
 var require_graceful_fs = __commonJS({
-  "node_modules/graceful-fs/graceful-fs.js"(exports, module2) {
+  "node_modules/del/node_modules/graceful-fs/graceful-fs.js"(exports, module2) {
     var fs2 = require("fs");
     var polyfills = require_polyfills();
     var legacy = require_legacy_streams();
@@ -6542,21 +6545,33 @@ var require_graceful_fs = __commonJS({
       }
       var fs$readdir = fs3.readdir;
       fs3.readdir = readdir;
+      var noReaddirOptionVersions = /^v[0-5]\./;
       function readdir(path2, options, cb) {
         if (typeof options === "function")
           cb = options, options = null;
+        var go$readdir = noReaddirOptionVersions.test(process.version) ? function go$readdir2(path3, options2, cb2, startTime) {
+          return fs$readdir(path3, fs$readdirCallback(path3, options2, cb2, startTime));
+        } : function go$readdir2(path3, options2, cb2, startTime) {
+          return fs$readdir(path3, options2, fs$readdirCallback(path3, options2, cb2, startTime));
+        };
         return go$readdir(path2, options, cb);
-        function go$readdir(path3, options2, cb2, startTime) {
-          return fs$readdir(path3, options2, function(err, files) {
+        function fs$readdirCallback(path3, options2, cb2, startTime) {
+          return function(err, files) {
             if (err && (err.code === "EMFILE" || err.code === "ENFILE"))
-              enqueue([go$readdir, [path3, options2, cb2], err, startTime || Date.now(), Date.now()]);
+              enqueue([
+                go$readdir,
+                [path3, options2, cb2],
+                err,
+                startTime || Date.now(),
+                Date.now()
+              ]);
             else {
               if (files && files.sort)
                 files.sort();
               if (typeof cb2 === "function")
                 cb2.call(this, err, files);
             }
-          });
+          };
         }
       }
       if (process.version.substr(0, 4) === "v0.8") {

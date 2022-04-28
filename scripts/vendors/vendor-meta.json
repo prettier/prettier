@@ -10,11 +10,11 @@
     "leven": "leven.js",
     "mem": "mem.js",
     "string-width": "string-width.js",
-    "strip-ansi": "strip-ansi.js"
-  },
-  "licenses": [
-    {
-      "name": "chalk",
+    "strip-ansi": "strip-ansi.js",
+    "tempy": "tempy.js"
+  }
+}
+  "name": "chalk",
       "maintainers": [],
       "version": "5.0.1",
       "description": "Terminal string styling done right",
@@ -1288,7 +1288,7 @@
     {
       "name": "graceful-fs",
       "maintainers": [],
-      "version": "4.2.9",
+      "version": "4.2.10",
       "description": "A drop-in replacement for fs, making various improvements.",
       "repository": {
         "type": "git",
@@ -1297,7 +1297,7 @@
       "homepage": null,
       "private": false,
       "license": "ISC",
-      "licenseText": "The ISC License\n\nCopyright (c) Isaac Z. Schlueter, Ben Noordhuis, and Contributors\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES\nWITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR\nANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR\nIN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n",
+      "licenseText": "The ISC License\n\nCopyright (c) 2011-2022 Isaac Z. Schlueter, Ben Noordhuis, and Contributors\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES\nWITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR\nANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR\nIN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n",
       "author": null,
       "contributors": []
     },
