@@ -57,6 +57,25 @@ class Context {
     this.stack.pop();
     Object.assign(this, getLast(this.stack));
   }
+
+  // eslint-disable-next-line getter-return
+  get performanceTestFlag() {
+    const { debugBenchmark, debugRepeat } = this.argv;
+    /* istanbul ignore next */
+    if (debugBenchmark) {
+      return {
+        name: "--debug-benchmark",
+        debugBenchmark: true,
+      };
+    }
+
+    if (debugRepeat > 0) {
+      return {
+        name: "--debug-repeat",
+        debugRepeat,
+      };
+    }
+  }
 }
 
 module.exports = Context;
