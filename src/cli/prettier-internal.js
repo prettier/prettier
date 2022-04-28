@@ -1,3 +1,4 @@
-import {__internal} from "../index.js";
 
-export default __internal;
+
+
+export {__internal as default} from "../index.js";

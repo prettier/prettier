@@ -1,9 +1,7 @@
 import { createRequire } from "node:module";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
-import * as sharedUtil from "./common/util-shared.js";
 import languages from "./languages.js";
-import doc from "./document/index.js";
 
 const require = createRequire(import.meta.url);
 const { version } = require("../package.json");
@@ -54,8 +52,8 @@ export {
   formatWithCursor,
   format,
   check,
-  doc,
   getSupportInfo,
-  sharedUtil as util,
   debugApis as __debug,
 };
+export * as util from "./common/util-shared.js";
+export {default as doc} from "./document/index.js";

@@ -2,7 +2,6 @@ import { createRequire } from "node:module";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
-import * as sharedUtil from "./common/util-shared.js";
 import {
   loadPlugins,
   clearCache as clearPluginCache,
@@ -12,7 +11,6 @@ import {
   resolveConfigFile,
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
-import doc from "./document/index.js";
 import languages from "./languages.js";
 
 import * as errors from "./common/errors.js";
@@ -110,14 +108,14 @@ export {
   formatWithCursor,
   format,
   check,
-  doc,
   resolveConfig,
   resolveConfigFile,
   // TODO: Expose this as `clearCache` in v3
   clearCache as clearConfigCache,
   getFileInfo,
   getSupportInfo,
-  sharedUtil as util,
   sharedWithCli as __internal,
   debugApis as __debug,
 };
+export * as util from "./common/util-shared.js";
+export {default as doc} from "./document/index.js";
