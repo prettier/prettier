@@ -315,7 +315,7 @@ module.exports = {
       extends: ["plugin:react/recommended"],
       settings: {
         react: {
-          version: "17",
+          version: "18",
         },
       },
       rules: {
