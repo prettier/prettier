@@ -1,4 +1,4 @@
-/** @typedef {import("../../document/doc-builders").Doc} Doc */
+/** @typedef {import("../../document/builders").Doc} Doc */
 
 import assert from "node:assert";
 import {

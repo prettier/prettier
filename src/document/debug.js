@@ -1,4 +1,4 @@
-import { isConcat, getDocParts } from "./doc-utils.js";
+import { isConcat, getDocParts } from "./utils.js";
 
 function flattenDoc(doc) {
   if (!doc) {

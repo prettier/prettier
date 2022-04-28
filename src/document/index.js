@@ -1,10 +1,10 @@
-import * as builders from "./doc-builders.js";
-import * as printer from "./doc-printer.js";
-import * as utils from "./doc-utils.js";
-import * as debug from "./doc-debug.js";
+import * as builders from "./builders.js";
+import * as printer from "./printer.js";
+import * as utils from "./utils.js";
+import * as debug from "./debug.js";
 
 /**
- * @typedef {import("./doc-builders").Doc} Doc
+ * @typedef {import("./builders").Doc} Doc
  */
 
 const doc = {
