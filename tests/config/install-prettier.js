@@ -4,7 +4,6 @@ const path = require("path");
 const fs = require("fs");
 const { outdent } = require("outdent");
 const { default: chalk } = require("../../vendors/chalk.js");
-// @ts-expect-error
 const { default: tempy } = require("../../vendors/tempy.js");
 const { execaSync } = require("../../vendors/execa.js");
 
