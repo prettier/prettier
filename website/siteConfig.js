@@ -52,6 +52,7 @@ const siteConfig = {
   },
   highlight: {
     theme: "default",
+    // eslint-disable-next-line import/no-extraneous-dependencies
     version: require("highlight.js/package.json").version,
   },
   usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
