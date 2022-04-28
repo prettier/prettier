@@ -16,7 +16,7 @@ describe("throw error with invalid config format", () => {
   runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
     stderr: expect.stringMatching(
-      /Cannot (?:resolve|find) module '--invalid--' from/
+      /Cannot (?:resolve|find) module '--invalid--'/
     ),
   });
 });

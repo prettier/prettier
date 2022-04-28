@@ -1,5 +1,4 @@
-import prettier from "prettier-local";
-import { jest } from "@jest/globals";
+import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 
 describe("stdin no path and no parser", () => {

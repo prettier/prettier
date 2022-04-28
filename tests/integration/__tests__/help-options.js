@@ -1,4 +1,5 @@
-import prettier from "prettier-local";
+
+import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 import * as constant from "../../../src/cli/constant.js";
 import arrayify from "../../../src/utils/arrayify.js";

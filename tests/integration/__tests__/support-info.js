@@ -1,4 +1,4 @@
-import prettier from "prettier-local";
+import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 
 test("API getSupportInfo()", () => {
