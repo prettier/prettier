@@ -1,4 +1,1 @@
-
-
-
-export {__internal as default} from "../index.js";
+export { __internal as default } from "../index.js";

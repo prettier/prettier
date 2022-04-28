@@ -2,7 +2,6 @@ import escapeStringRegexp from "escape-string-regexp";
 
 import { getSupportInfo } from "../main/support.js";
 
-
 import {
   skipWhitespace,
   skipSpaces,
@@ -479,11 +478,9 @@ function describeNodeForDebugging(node) {
 
 export {
   inferParserByLanguage,
-  
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
   getPenultimate,
-  
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
@@ -511,9 +508,8 @@ export {
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
-  
   createGroupIdMapper,
 };
-export {default as getLast} from "../utils/get-last.js";
-export {default as isNonEmptyArray} from "../utils/is-non-empty-array.js";
-export {default as getStringWidth} from "../utils/get-string-width.js";
+export { default as getLast } from "../utils/get-last.js";
+export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
+export { default as getStringWidth } from "../utils/get-string-width.js";
