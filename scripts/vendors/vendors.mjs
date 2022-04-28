@@ -1,5 +1,6 @@
 const vendors = [
   "chalk",
+  "css-units-list",
   "escape-string-regexp",
   "execa",
   "html-element-attributes",

@@ -8,4 +8,4 @@ exports[`preserves shebang (stdout) 1`] = `
 "
 `;
 
-exports[`preserves shebang (write) 1`] = `Array []`;
+exports[`preserves shebang (write) 1`] = `[]`;
