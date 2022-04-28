@@ -143,7 +143,7 @@
     "test:integration": "jest tests/integration",
     "test:dist-lint": "eslint --no-eslintrc --no-ignore --no-inline-config --config=./scripts/bundle-eslint-config.cjs \"dist/**/*.{js,mjs}\"",
     "perf": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js",
-    "perf:inspect": "cross-env NODE_OPTIONS=--inspect-brk yarn perf",
+    "perf:inspect": "yarn && yarn build && cross-env NODE_ENV=production node --inspect-brk ./dist/bin-prettier.js",
     "perf:benchmark": "yarn perf --debug-benchmark",
     "lint": "run-p lint:*",
     "lint:typecheck": "tsc",
