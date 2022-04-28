@@ -41,7 +41,7 @@ describe("standalone", () => {
   let esmStandalone;
   let esmPlugins;
   beforeAll(async () => {
-    ({ default: esmStandalone } = await import(
+    (esmStandalone = await import(
       path.join(distDirectory, "esm/standalone.mjs")
     ));
     esmPlugins = await Promise.all(
