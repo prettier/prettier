@@ -20,9 +20,6 @@ module.exports = {
     "unicorn",
     "@typescript-eslint",
   ],
-  settings: {
-    "import/internal-regex": "^linguist-languages/",
-  },
   rules: {
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
