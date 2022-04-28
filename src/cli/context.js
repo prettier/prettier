@@ -1,13 +1,9 @@
-import prettierInternal from "./prettier-internal.js";
+import { getLast } from "./prettier-internal.js";
 import getContextOptions from "./options/get-context-options.js";
 import {
   parseArgv,
   parseArgvWithoutPlugins,
 } from "./options/parse-cli-arguments.js";
-
-const {
-  utils: { getLast },
-} = prettierInternal;
 
 /**
  * @typedef {Object} Context

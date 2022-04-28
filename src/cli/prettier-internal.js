@@ -1,3 +1,23 @@
 import prettier from "../index.js";
 
-export default prettier.__internal;
+const {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsHiddenDefaults,
+  normalizeCliOptions,
+  utils: { arrayify, getLast, isNonEmptyArray, partition },
+} = prettier.__internal;
+
+export {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsHiddenDefaults,
+  normalizeCliOptions,
+  // utils
+  arrayify,
+  getLast,
+  isNonEmptyArray,
+  partition,
+};

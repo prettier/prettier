@@ -7,12 +7,8 @@ import { createDetailedUsage, createUsage } from "./usage.js";
 import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
-import prettierInternal from "./prettier-internal.js";
+import { isNonEmptyArray } from "./prettier-internal.js";
 import { printToScreen } from "./utils.js";
-
-const {
-  utils: { isNonEmptyArray },
-} = prettierInternal;
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing

@@ -18,8 +18,8 @@ import languages from "./languages.js";
 import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.js";
 import createIgnorer from "./common/create-ignorer.js";
-import * as optionsModule from "./main/options.js";
-import * as optionsNormalizer from "./main/options-normalizer.js";
+import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
+import { normalizeCliOptions } from "./main/options-normalizer.js";
 import arrayify from "./utils/arrayify.js";
 import getLast from "./utils/get-last.js";
 import partition from "./utils/partition.js";
@@ -97,8 +97,8 @@ const prettier = {
     errors,
     coreOptions,
     createIgnorer,
-    optionsModule,
-    optionsNormalizer,
+    optionsHiddenDefaults,
+    normalizeCliOptions,
     utils: {
       arrayify,
       getLast,

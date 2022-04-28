@@ -1,11 +1,9 @@
 import chalk from "chalk";
 import leven from "leven";
-import prettierInternal from "../prettier-internal.js";
-
-const { optionsNormalizer } = prettierInternal;
+import { normalizeCliOptions as prettierNormalizeCliOptions } from "../prettier-internal.js";
 
 function normalizeCliOptions(options, optionInfos, opts) {
-  return optionsNormalizer.normalizeCliOptions(options, optionInfos, {
+  return prettierNormalizeCliOptions(options, optionInfos, {
     colorsModule: chalk,
     levenshteinDistance: leven,
     ...opts,
