@@ -2,7 +2,7 @@
 
 const createPlugin = require("../../utils/create-plugin.js");
 
-const COMMENT = "/* Formatted by stylus plugin */"
+const COMMENT = "/* Formatted by stylus plugin */";
 
 module.exports = createPlugin({
   name: "stylus",
