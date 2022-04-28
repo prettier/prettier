@@ -3217,17 +3217,17 @@ eslint-plugin-react@7.29.4:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
 
-eslint-plugin-regexp@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.6.0.tgz#d757e40e53b51b67b84194387495e346774eca86"
-  integrity sha512-xkaQOzyY4PUukRd8b6zTq+QTtg0dePlCP2dZiM+XGSmvlpDeYiPJHfRDpAfS/sP9YtK6q7DGes1smCyPTD3Lkg==
+eslint-plugin-regexp@1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-regexp/-/eslint-plugin-regexp-1.7.0.tgz#19b3c98f4f4d5314242ecc8936346b1936de523e"
+  integrity sha512-nmhXqrEP+O+dz2z5MSkc41u/4fA8oakweoCUdfYwox7DBhzadEqZz8T+s6/UiY0NIU0kv+3UrzBfhPp4wUxbaA==
   dependencies:
     comment-parser "^1.1.2"
     eslint-utils "^3.0.0"
     grapheme-splitter "^1.0.4"
     jsdoctypeparser "^9.0.0"
     refa "^0.9.0"
-    regexp-ast-analysis "^0.3.0"
+    regexp-ast-analysis "^0.5.1"
     regexpp "^3.2.0"
     scslre "^0.1.6"
 
@@ -5975,10 +5975,10 @@ regexp-ast-analysis@^0.2.3:
     refa "^0.9.0"
     regexpp "^3.2.0"
 
-regexp-ast-analysis@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.3.0.tgz#386f177dfe5abc5ac58b51eb5962beac64e898ce"
-  integrity sha512-11PlbBSUxwWpdj6BdZUKfhDdV9g+cveqHB+BqBQDBD7ZermDBVgtyowUaXTvT0dO3tZYo2bDIr/GoED6X1aYSA==
+regexp-ast-analysis@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/regexp-ast-analysis/-/regexp-ast-analysis-0.5.1.tgz#f7c94e6199d6752f3430ae7a1d7a5978114197fb"
+  integrity sha512-Ca/g9gaTNuMewLuu+mBIq4vCrGRSO8AE9bP32NMQjJ/wBTdWq0g96qLkBb0NbGwEbp7S/q+NQF3o7veeuRfg0g==
   dependencies:
     refa "^0.9.0"
     regexpp "^3.2.0"
