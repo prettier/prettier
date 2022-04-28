@@ -144,6 +144,12 @@ module.exports = {
     ],
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-export-from": [
+      "error",
+      {
+        ignoreUsedVariables: true,
+      },
+    ],
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-json-parse-buffer": "error",
     "unicorn/prefer-module": "error",
