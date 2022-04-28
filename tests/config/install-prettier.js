@@ -2,7 +2,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { outdent } from "outdent";
 import { execaSync } from "execa";
-import tempy from "tempy";
+import { temporaryDirectory as getTemporaryDirectory } from "tempy";
 import chalk from "chalk";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
@@ -39,7 +39,7 @@ function cleanUp() {
 }
 
 function installPrettier(packageDir) {
-  const tmpDir = tempy.directory();
+  const tmpDir = getTemporaryDirectory();
   directoriesToClean.add(tmpDir);
   const fileName = execaSync("npm", ["pack"], {
     cwd: packageDir,

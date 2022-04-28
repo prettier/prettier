@@ -134,7 +134,7 @@
     "rimraf": "3.0.2",
     "rollup-plugin-license": "2.7.0",
     "snapshot-diff": "0.9.0",
-    "tempy": "2.0.0"
+    "tempy": "3.0.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

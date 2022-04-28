@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
-import tempy from "tempy";
+import { temporaryDirectory as getTemporaryDirectory } from "tempy";
 import prettier from "prettier-local";
 import createEsmUtils from "esm-utils";
 import runPrettier from "../run-prettier.js";
@@ -398,7 +398,7 @@ describe("API getFileInfo.sync with ignorePath", () => {
   let options;
   beforeAll(() => {
     cwd = process.cwd();
-    const tempDir = tempy.directory();
+    const tempDir = getTemporaryDirectory();
     process.chdir(tempDir);
     const fileDir = "src";
     filePath = `${fileDir}/should-be-ignored.js`;
