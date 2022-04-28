@@ -9,6 +9,10 @@ const selector = [
 
 const messageId = "no-doc-index-import";
 const docIndexFile = path.join(__dirname, "../../../src/document/index.js");
+const ignored = new Set([
+  path.join(__dirname, "../../../src/index.js"),
+  path.join(__dirname, "../../../src/standalone.js"),
+]);
 
 module.exports = {
   meta: {
@@ -21,7 +25,12 @@ module.exports = {
     },
   },
   create(context) {
-    const dir = path.dirname(context.getPhysicalFilename());
+    const file = context.getPhysicalFilename();
+    if (ignored.has(file)) {
+      return {};
+    }
+
+    const dir = path.dirname(file);
 
     return {
       [selector](node) {
