@@ -1,7 +1,5 @@
 import escapeStringRegexp from "escape-string-regexp";
-
 import { getSupportInfo } from "../main/support.js";
-
 import {
   skipWhitespace,
   skipSpaces,

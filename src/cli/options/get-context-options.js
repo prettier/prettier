@@ -1,4 +1,4 @@
-import * as prettier from "../../index.js";
+import { getSupportInfo } from "../../index.js";
 import prettierInternal from "../prettier-internal.js";
 import * as constant from "../constant.js";
 import {
@@ -12,7 +12,7 @@ const {
 } = prettierInternal;
 
 function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = prettier.getSupportInfo({
+  const { options: supportOptions, languages } = getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,

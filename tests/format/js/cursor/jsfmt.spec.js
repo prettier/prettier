@@ -1,6 +1,6 @@
 import { outdent } from "outdent";
 // TODO: Use this when we drop support for Node.js 12
-// import * as prettier from "../../../config/prettier-entry.js";
+// import prettier from "../../../config/prettier-entry.js";
 const { prettier } = run_spec;
 
 run_spec(import.meta, ["babel", "typescript", "flow"]);

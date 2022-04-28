@@ -1,5 +1,5 @@
 import dashify from "dashify";
-import * as prettier from "../../index.js";
+import { resolveConfig } from "../../index.js";
 import prettierInternal from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
@@ -70,7 +70,7 @@ async function getOptionsOrDie(context, filePath) {
         : `resolve config from '${filePath}'`
     );
 
-    const options = await prettier.resolveConfig(filePath, {
+    const options = await resolveConfig(filePath, {
       editorconfig: context.argv.editorconfig,
       config: context.argv.config,
     });

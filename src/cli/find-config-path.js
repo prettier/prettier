@@ -1,10 +1,10 @@
 import path from "node:path";
-import * as prettier from "../index.js";
+import { resolveConfigFile } from "../index.js";
 import { printToScreen } from "./utils.js";
 
 async function logResolvedConfigPathOrDie(context) {
   const file = context.argv.findConfigPath;
-  const configFile = await prettier.resolveConfigFile(file);
+  const configFile = await resolveConfigFile(file);
   if (configFile) {
     printToScreen(path.relative(process.cwd(), configFile));
   } else {
