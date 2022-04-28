@@ -1,5 +1,5 @@
 /** @type {import('prettier')} */
-import * as prettier from "prettier-local";
+import prettier from "prettier-local";
 
 function printDoc(doc) {
   // This dummy plugin ignores the input and simply returns the given doc.

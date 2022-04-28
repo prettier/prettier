@@ -1,4 +1,4 @@
-import * as prettier from "prettier-local";
+import prettier from "prettier-local";
 import { outdent } from "outdent";
 
 const {

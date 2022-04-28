@@ -1,4 +1,4 @@
-import * as prettier from "prettier-local";
+import prettier from "prettier-local";
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
