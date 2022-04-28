@@ -1,6 +1,7 @@
 import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
 import { printDanglingComments } from "../../main/comments.js";
-import doc from "../../document/index.js";
+import { line, hardline, softline, group, indent, ifBreak } from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
 import {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -18,10 +19,7 @@ import { locEnd } from "../loc.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
-const {
-  builders: { line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines, willBreak },
-} = doc;
+
 
 function printFunctionParameters(
   path,

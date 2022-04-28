@@ -1,10 +1,8 @@
-import doc from "../../document/index.js";
+import { join, line, group } from "../../document/builders.js";
 import { hasNode, hasComment, getComments } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
-const {
-  builders: { join, line, group },
-} = doc;
+
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
 

@@ -1,4 +1,5 @@
-import doc from "../../document/index.js";
+import { breakParent, group, ifBreak, line, softline, hardline } from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   forceBreakChildren,
@@ -16,11 +17,6 @@ import {
   printClosingTagSuffix,
   needsToBorrowParentClosingTagStartMarker,
 } from "./tag.js";
-
-const {
-  builders: { breakParent, group, ifBreak, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = doc;
 
 function printChild(childPath, options, print) {
   const child = childPath.getValue();

@@ -1,4 +1,15 @@
-import doc from "../document/index.js";
+import {
+    dedent,
+    fill,
+    group,
+    hardline,
+    ifBreak,
+    indent,
+    join,
+    line,
+    softline,
+  } from "../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
@@ -14,21 +25,6 @@ import {
   isVoid,
   isWhitespaceNode,
 } from "./utils.js";
-
-const {
-  builders: {
-    dedent,
-    fill,
-    group,
-    hardline,
-    ifBreak,
-    indent,
-    join,
-    line,
-    softline,
-  },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = doc;
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 

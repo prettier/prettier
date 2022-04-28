@@ -1,6 +1,15 @@
 import { printDanglingComments } from "../../main/comments.js";
 import { hasNewlineInRange } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+    join,
+    line,
+    hardline,
+    softline,
+    group,
+    indent,
+    conditionalGroup,
+    ifBreak,
+  } from "../../document/builders.js";
 import {
   isLiteral,
   getTypeScriptMappedTypeModifier,
@@ -35,18 +44,7 @@ import {
   printIndexedAccessType,
 } from "./type-annotation.js";
 
-const {
-  builders: {
-    join,
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    ifBreak,
-  },
-} = doc;
+
 
 function printTypescript(path, options, print) {
   const node = path.getValue();

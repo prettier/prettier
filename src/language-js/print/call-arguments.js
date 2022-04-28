@@ -16,13 +16,7 @@ import {
   isObjectProperty,
 } from "../utils/index.js";
 
-import doc from "../../document/index.js";
-
-import { ArgExpansionBailout } from "../../common/errors.js";
-import { isConciselyPrintedArray } from "./array.js";
-
-const {
-  builders: {
+import {
     line,
     hardline,
     softline,
@@ -31,9 +25,13 @@ const {
     conditionalGroup,
     ifBreak,
     breakParent,
-  },
-  utils: { willBreak },
-} = doc;
+  } from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
+
+import { ArgExpansionBailout } from "../../common/errors.js";
+import { isConciselyPrintedArray } from "./array.js";
+
+
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();

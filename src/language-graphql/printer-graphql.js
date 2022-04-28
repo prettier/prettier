@@ -1,11 +1,7 @@
-import doc from "../document/index.js";
+import { join, hardline, line, softline, group, indent, ifBreak } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
-
-const {
-  builders: { join, hardline, line, softline, group, indent, ifBreak },
-} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

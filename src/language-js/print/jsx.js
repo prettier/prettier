@@ -1,5 +1,17 @@
 import { printComments, printDanglingComments } from "../../main/comments.js";
-import doc from "../../document/index.js";
+import {
+    line,
+    hardline,
+    softline,
+    group,
+    indent,
+    conditionalGroup,
+    fill,
+    ifBreak,
+    lineSuffixBoundary,
+    join,
+  } from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
 
 import { getLast, getPreferredQuote } from "../../common/util.js";
 import {
@@ -16,21 +28,7 @@ import {
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments.js";
 
-const {
-  builders: {
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    fill,
-    ifBreak,
-    lineSuffixBoundary,
-    join,
-  },
-  utils: { willBreak },
-} = doc;
+
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;

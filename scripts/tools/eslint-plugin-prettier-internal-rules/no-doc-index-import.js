@@ -72,7 +72,10 @@ function fix(source, context) {
 
         return `import ${sourceCode.getText(
           property.value
-        )} from "${source.value.replace("index.js", `${propertyName}.js`)}";`;
+        )} from "${source.value.replace(
+          "/document/index.js",
+          `/document/${propertyName}.js`
+        )}";`;
       })
       .join("\n");
 
@@ -104,7 +107,11 @@ module.exports = {
       [selector](node) {
         const { value } = node;
 
-        if (!value.startsWith(".") || path.join(dir, value) !== docIndexFile) {
+        if (
+          !value.startsWith(".") ||
+          !value.endsWith("/document/index.js") ||
+          path.join(dir, value) !== docIndexFile
+        ) {
           return;
         }
 

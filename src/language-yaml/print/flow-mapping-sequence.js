@@ -1,10 +1,8 @@
-import doc from "../../document/index.js";
+import { ifBreak, line, softline, hardline, join } from "../../document/builders.js";
 import { isEmptyNode, getLast, hasEndComments } from "../utils.js";
 import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
-const {
-  builders: { ifBreak, line, softline, hardline, join },
-} = doc;
+
 
 function printFlowMapping(path, print, options) {
   const node = path.getValue();

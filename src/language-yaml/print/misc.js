@@ -1,9 +1,7 @@
-import doc from "../../document/index.js";
+import { softline, align } from "../../document/builders.js";
 import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
-const {
-  builders: { softline, align },
-} = doc;
+
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {

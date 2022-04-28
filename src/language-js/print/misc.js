@@ -1,10 +1,8 @@
 import { isNonEmptyArray } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { indent, join, line } from "../../document/builders.js";
 import { isFlowAnnotationComment } from "../utils/index.js";
 
-const {
-  builders: { indent, join, line },
-} = doc;
+
 
 function printOptionalToken(path) {
   const node = path.getValue();

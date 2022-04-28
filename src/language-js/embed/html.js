@@ -1,13 +1,11 @@
-import doc from "../../document/index.js";
+import { indent, line, hardline, group } from "../../document/builders.js";
+import { mapDoc } from "../../document/utils.js";
 import {
   printTemplateExpressions,
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
 
-const {
-  builders: { indent, line, hardline, group },
-  utils: { mapDoc },
-} = doc;
+
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;

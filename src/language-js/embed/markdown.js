@@ -1,9 +1,7 @@
-import doc from "../../document/index.js";
+import { indent, softline, literalline, dedentToRoot } from "../../document/builders.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
-const {
-  builders: { indent, softline, literalline, dedentToRoot },
-} = doc;
+
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

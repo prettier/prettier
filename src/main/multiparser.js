@@ -1,11 +1,7 @@
-import doc from "../document/index.js";
+import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
-
-const {
-  utils: { stripTrailingHardline },
-} = doc;
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {

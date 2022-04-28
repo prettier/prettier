@@ -4,7 +4,8 @@
 
 import assert from "node:assert";
 import { isNonEmptyArray } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { indent, join, line, softline, hardline } from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   isTextLikeNode,
@@ -14,10 +15,7 @@ import {
   shouldPreserveContent,
 } from "../utils/index.js";
 
-const {
-  builders: { indent, join, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = doc;
+
 
 function printClosingTag(node, options) {
   return [

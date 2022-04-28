@@ -1,4 +1,4 @@
-import doc from "../../document/index.js";
+import { softline, group, indent, label } from "../../document/builders.js";
 import {
   isNumericLiteral,
   isMemberExpression,
@@ -6,9 +6,7 @@ import {
 } from "../utils/index.js";
 import { printOptionalToken } from "./misc.js";
 
-const {
-  builders: { softline, group, indent, label },
-} = doc;
+
 
 function printMemberExpression(path, options, print) {
   const node = path.getValue();

@@ -1,11 +1,9 @@
 import { isNonEmptyArray } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { indent, hardline, softline } from "../../document/builders.js";
+import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 
-const {
-  builders: { indent, hardline, softline },
-  utils: { mapDoc, replaceEndOfLine, cleanDoc },
-} = doc;
+
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

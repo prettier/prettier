@@ -1,8 +1,6 @@
-import doc from "../../document/index.js";
+import { join, line, group, softline, indent } from "../../document/builders.js";
 
-const {
-  builders: { join, line, group, softline, indent },
-} = doc;
+
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();

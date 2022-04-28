@@ -3,7 +3,8 @@
  */
 
 import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { line, hardline, join } from "../../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../../document/utils.js";
 import {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -12,10 +13,7 @@ import {
 } from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
-const {
-  builders: { line, hardline, join },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = doc;
+
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);

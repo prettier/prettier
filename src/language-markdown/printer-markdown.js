@@ -5,7 +5,23 @@ import {
   getStringWidth,
   isNonEmptyArray,
 } from "../common/util.js";
-import doc from "../document/index.js";
+import {
+    breakParent,
+    join,
+    line,
+    literalline,
+    markAsRoot,
+    hardline,
+    softline,
+    ifBreak,
+    fill,
+    align,
+    indent,
+    group,
+    hardlineWithoutBreakParent,
+  } from "../document/builders.js";
+import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { printDocToString } from "../document/printer.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -21,25 +37,7 @@ import {
   isAutolink,
 } from "./utils.js";
 
-const {
-  builders: {
-    breakParent,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-    hardline,
-    softline,
-    ifBreak,
-    fill,
-    align,
-    indent,
-    group,
-    hardlineWithoutBreakParent,
-  },
-  utils: { normalizeDoc, replaceTextEndOfLine },
-  printer: { printDocToString },
-} = doc;
+
 
 /**
  * @typedef {import("../document").Doc} Doc

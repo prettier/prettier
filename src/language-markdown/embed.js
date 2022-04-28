@@ -2,14 +2,12 @@ import {
   inferParserByLanguage,
   getMaxContinuousCount,
 } from "../common/util.js";
-import doc from "../document/index.js";
+import { hardline, markAsRoot } from "../document/builders.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
-const {
-  builders: { hardline, markAsRoot },
-  utils: { replaceEndOfLine },
-} = doc;
+
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();

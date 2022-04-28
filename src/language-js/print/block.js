@@ -1,6 +1,6 @@
 import { printDanglingComments } from "../../main/comments.js";
 import { isNonEmptyArray } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { hardline, indent } from "../../document/builders.js";
 import {
   hasComment,
   CommentCheckFlags,
@@ -10,9 +10,7 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 import { printBody } from "./statement.js";
 
-const {
-  builders: { hardline, indent },
-} = doc;
+
 
 /** @typedef {import("../../document").Doc} Doc */
 
