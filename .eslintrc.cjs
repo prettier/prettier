@@ -109,7 +109,6 @@ module.exports = {
           "tests/**",
           "scripts/**",
           "website/**/*",
-          "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
         ],
       },
     ],
