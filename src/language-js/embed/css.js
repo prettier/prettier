@@ -3,8 +3,6 @@ import { indent, hardline, softline } from "../../document/builders.js";
 import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 
-
-
 function format(path, print, textToDoc) {
   const node = path.getValue();
 

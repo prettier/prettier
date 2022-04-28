@@ -1,5 +1,13 @@
 import { printDanglingComments } from "../../main/comments.js";
-import { line, softline, hardline, group, indent, ifBreak, fill } from "../../document/builders.js";
+import {
+  line,
+  softline,
+  hardline,
+  group,
+  indent,
+  ifBreak,
+  fill,
+} from "../../document/builders.js";
 import { getLast, hasNewline } from "../../common/util.js";
 import {
   shouldPrintComma,
@@ -12,8 +20,6 @@ import {
 import { locStart } from "../loc.js";
 
 import { printOptionalToken, printTypeAnnotation } from "./misc.js";
-
-
 
 /** @typedef {import("../../document").Doc} Doc */
 

@@ -17,21 +17,19 @@ import {
 } from "../utils/index.js";
 
 import {
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    ifBreak,
-    breakParent,
-  } from "../../document/builders.js";
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  conditionalGroup,
+  ifBreak,
+  breakParent,
+} from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
 
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { isConciselyPrintedArray } from "./array.js";
-
-
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();

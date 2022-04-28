@@ -6,8 +6,6 @@ import {
 } from "../utils/index.js";
 import { printOptionalToken } from "./misc.js";
 
-
-
 function printMemberExpression(path, options, print) {
   const node = path.getValue();
 

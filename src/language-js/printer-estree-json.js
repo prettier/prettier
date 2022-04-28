@@ -1,8 +1,6 @@
 import { hardline, indent, join } from "../document/builders.js";
 import preprocess from "./print-preprocess.js";
 
-
-
 function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {

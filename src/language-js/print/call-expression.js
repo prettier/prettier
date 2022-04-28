@@ -14,8 +14,6 @@ import printMemberChain from "./member-chain.js";
 import printCallArguments from "./call-arguments.js";
 import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
-
-
 function printCallExpression(path, options, print) {
   const node = path.getValue();
   const parentNode = path.getParentNode();

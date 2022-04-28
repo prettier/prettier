@@ -1,5 +1,12 @@
 import { printDanglingComments } from "../../main/comments.js";
-import { line, softline, group, indent, ifBreak, hardline } from "../../document/builders.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+  hardline,
+} from "../../document/builders.js";
 import {
   getLast,
   hasNewlineInRange,
@@ -19,8 +26,6 @@ import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 import { shouldHugFunctionParameters } from "./function-parameters.js";
 import { shouldHugType } from "./type-annotation.js";
 import { printHardlineAfterHeritage } from "./class.js";
-
-
 
 /** @typedef {import("../../document").Doc} Doc */
 

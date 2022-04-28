@@ -1,5 +1,13 @@
 import { isNonEmptyArray } from "../../common/util.js";
-import { softline, group, indent, join, line, ifBreak, hardline } from "../../document/builders.js";
+import {
+  softline,
+  group,
+  indent,
+  join,
+  line,
+  ifBreak,
+  hardline,
+} from "../../document/builders.js";
 import { printDanglingComments } from "../../main/comments.js";
 
 import {
@@ -15,8 +23,6 @@ import {
   hasDecoratorsBeforeExport,
   printDecoratorsBeforeExport,
 } from "./decorators.js";
-
-
 
 /**
  * @typedef {import("../../document").Doc} Doc

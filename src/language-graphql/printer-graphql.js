@@ -1,4 +1,12 @@
-import { join, hardline, line, softline, group, indent, ifBreak } from "../document/builders.js";
+import {
+  join,
+  hardline,
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";

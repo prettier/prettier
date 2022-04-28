@@ -1,15 +1,15 @@
 /** @typedef {import("../document").Doc} Doc */
 
 import {
-    breakParent,
-    fill,
-    group,
-    hardline,
-    join,
-    line,
-    lineSuffix,
-    literalline,
-  } from "../document/builders.js";
+  breakParent,
+  fill,
+  group,
+  hardline,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+} from "../document/builders.js";
 import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
 import { insertPragma, isPragma } from "./pragma.js";
@@ -39,8 +39,6 @@ import {
 } from "./print/flow-mapping-sequence.js";
 import printMappingItem from "./print/mapping-item.js";
 import printBlock from "./print/block.js";
-
-
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

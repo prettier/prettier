@@ -11,8 +11,6 @@ import {
 } from "../utils/index.js";
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
-
-
 /**
  * @typedef {import("../../document").Doc} Doc
  * @typedef {import("../../common/ast-path")} AstPath

@@ -1,14 +1,14 @@
 import {
-    dedent,
-    fill,
-    group,
-    hardline,
-    ifBreak,
-    indent,
-    join,
-    line,
-    softline,
-  } from "../document/builders.js";
+  dedent,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  softline,
+} from "../document/builders.js";
 import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import { locStart, locEnd } from "./loc.js";

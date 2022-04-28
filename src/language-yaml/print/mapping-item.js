@@ -1,6 +1,13 @@
 /** @typedef {import("../../document").Doc} Doc */
 
-import { conditionalGroup, group, hardline, ifBreak, join, line } from "../../document/builders.js";
+import {
+  conditionalGroup,
+  group,
+  hardline,
+  ifBreak,
+  join,
+  line,
+} from "../../document/builders.js";
 import {
   hasLeadingComments,
   hasMiddleComments,
@@ -11,8 +18,6 @@ import {
   isInlineNode,
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
-
-
 
 function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;

@@ -20,14 +20,14 @@ import {
 import { locEnd } from "../loc.js";
 
 import {
-    join,
-    hardline,
-    group,
-    indent,
-    conditionalGroup,
-    breakParent,
-    label,
-  } from "../../document/builders.js";
+  join,
+  hardline,
+  group,
+  indent,
+  conditionalGroup,
+  breakParent,
+  label,
+} from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
 import printCallArguments from "./call-arguments.js";
 import { printMemberLookup } from "./member.js";
@@ -36,8 +36,6 @@ import {
   printFunctionTypeParameters,
   printBindExpressionCallee,
 } from "./misc.js";
-
-
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:

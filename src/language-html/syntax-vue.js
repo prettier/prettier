@@ -1,4 +1,4 @@
-import  { group } from "../document/builders.js";
+import { group } from "../document/builders.js";
 
 /**
  *     v-for="... in ..."

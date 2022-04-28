@@ -2,8 +2,6 @@ import { isNonEmptyArray } from "../../common/util.js";
 import { indent, join, line } from "../../document/builders.js";
 import { isFlowAnnotationComment } from "../utils/index.js";
 
-
-
 function printOptionalToken(path) {
   const node = path.getValue();
   if (

@@ -4,7 +4,13 @@
 
 import assert from "node:assert";
 import { isNonEmptyArray } from "../../common/util.js";
-import { indent, join, line, softline, hardline } from "../../document/builders.js";
+import {
+  indent,
+  join,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
 import { replaceTextEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
@@ -14,8 +20,6 @@ import {
   hasPrettierIgnore,
   shouldPreserveContent,
 } from "../utils/index.js";
-
-
 
 function printClosingTag(node, options) {
   return [

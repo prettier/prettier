@@ -3,7 +3,14 @@
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 import { printDanglingComments } from "../main/comments.js";
 import { hasNewline } from "../common/util.js";
-import { join, line, hardline, softline, group, indent } from "../document/builders.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+} from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
@@ -79,8 +86,6 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
-
-
 
 function genericPrint(path, options, print, args) {
   const printed = printPathNoParens(path, options, print, args);

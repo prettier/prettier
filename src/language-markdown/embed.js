@@ -7,8 +7,6 @@ import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
-
-
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 

@@ -4,8 +4,6 @@ import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments.js";
 import { printSubtree } from "./multiparser.js";
 
-
-
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
  * document (series of printing primitives).

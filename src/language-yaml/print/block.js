@@ -1,15 +1,15 @@
 /** @typedef {import("../../document").Doc} Doc */
 
 import {
-    dedent,
-    dedentToRoot,
-    fill,
-    hardline,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-  } from "../../document/builders.js";
+  dedent,
+  dedentToRoot,
+  fill,
+  hardline,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+} from "../../document/builders.js";
 import { getDocParts } from "../../document/utils.js";
 import {
   getAncestorCount,
@@ -19,8 +19,6 @@ import {
   isNode,
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
-
-
 
 function printBlock(path, print, options) {
   const node = path.getValue();

@@ -1,5 +1,11 @@
 import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
-import { line, group, indent, indentIfBreak, lineSuffixBoundary } from "../../document/builders.js";
+import {
+  line,
+  group,
+  indent,
+  indentIfBreak,
+  lineSuffixBoundary,
+} from "../../document/builders.js";
 import { cleanDoc, willBreak, canBreak } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
@@ -17,8 +23,6 @@ import {
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
-
-
 
 function printAssignment(
   path,

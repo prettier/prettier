@@ -13,8 +13,6 @@ import {
 } from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
-
-
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
 const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");

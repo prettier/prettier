@@ -8,15 +8,15 @@ import {
 import getLast from "../../utils/get-last.js";
 import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
 import {
-    line,
-    softline,
-    group,
-    indent,
-    ifBreak,
-    hardline,
-    join,
-    indentIfBreak,
-  } from "../../document/builders.js";
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+  hardline,
+  join,
+  indentIfBreak,
+} from "../../document/builders.js";
 import { removeLines, willBreak } from "../../document/utils.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
@@ -45,8 +45,6 @@ import {
 } from "./function-parameters.js";
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters } from "./misc.js";
-
-
 
 function printFunction(path, print, options, args) {
   const node = path.getValue();

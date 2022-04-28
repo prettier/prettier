@@ -34,8 +34,6 @@ import {
   printRestSpread,
 } from "./misc.js";
 
-
-
 function printFlow(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";

@@ -10,8 +10,6 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 import { printBody } from "./statement.js";
 
-
-
 /** @typedef {import("../../document").Doc} Doc */
 
 function printBlock(path, options, print) {

@@ -1,6 +1,10 @@
-import { join, line, group, softline, indent } from "../../document/builders.js";
-
-
+import {
+  join,
+  line,
+  group,
+  softline,
+  indent,
+} from "../../document/builders.js";
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();

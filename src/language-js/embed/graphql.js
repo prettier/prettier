@@ -4,8 +4,6 @@ import {
   printTemplateExpressions,
 } from "../print/template-literal.js";
 
-
-
 function format(path, print, textToDoc) {
   const node = path.getValue();
 

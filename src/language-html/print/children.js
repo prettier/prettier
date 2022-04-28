@@ -1,4 +1,11 @@
-import { breakParent, group, ifBreak, line, softline, hardline } from "../../document/builders.js";
+import {
+  breakParent,
+  group,
+  ifBreak,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
 import { replaceTextEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {

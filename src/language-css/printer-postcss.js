@@ -8,16 +8,16 @@ import {
   isNonEmptyArray,
 } from "../common/util.js";
 import {
-    join,
-    line,
-    hardline,
-    softline,
-    group,
-    fill,
-    indent,
-    dedent,
-    ifBreak,
-    breakParent,
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  fill,
+  indent,
+  dedent,
+  ifBreak,
+  breakParent,
 } from "../document/builders.js";
 import { removeLines, getDocParts } from "../document/utils.js";
 import clean from "./clean.js";

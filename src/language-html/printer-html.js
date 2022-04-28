@@ -3,7 +3,12 @@
  */
 
 import { fill, group, hardline, literalline } from "../document/builders.js";
-import { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine } from "../document/utils.js";
+import {
+  cleanDoc,
+  getDocParts,
+  isConcat,
+  replaceTextEndOfLine,
+} from "../document/utils.js";
 import clean from "./clean.js";
 import {
   countChars,

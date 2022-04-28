@@ -8,17 +8,15 @@ import {
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
 import {
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    dedent,
-    breakParent,
-  } from "../../document/builders.js";
-
-
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  ifBreak,
+  dedent,
+  breakParent,
+} from "../../document/builders.js";
 
 /**
  * @typedef {import("../../document").Doc} Doc

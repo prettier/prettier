@@ -6,20 +6,20 @@ import {
   isNonEmptyArray,
 } from "../common/util.js";
 import {
-    breakParent,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-    hardline,
-    softline,
-    ifBreak,
-    fill,
-    align,
-    indent,
-    group,
-    hardlineWithoutBreakParent,
-  } from "../document/builders.js";
+  breakParent,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+  hardline,
+  softline,
+  ifBreak,
+  fill,
+  align,
+  indent,
+  group,
+  hardlineWithoutBreakParent,
+} from "../document/builders.js";
 import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import embed from "./embed.js";
@@ -36,8 +36,6 @@ import {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
 } from "./utils.js";
-
-
 
 /**
  * @typedef {import("../document").Doc} Doc

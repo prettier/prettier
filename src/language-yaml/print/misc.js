@@ -1,8 +1,6 @@
 import { softline, align } from "../../document/builders.js";
 import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
-
-
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();

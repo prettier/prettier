@@ -1,15 +1,15 @@
 import { printComments } from "../../main/comments.js";
 import { getLast } from "../../common/util.js";
 import {
-    join,
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    indentIfBreak,
-  } from "../../document/builders.js";
+  join,
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  ifBreak,
+  indentIfBreak,
+} from "../../document/builders.js";
 import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
@@ -23,8 +23,6 @@ import {
   isObjectProperty,
   isEnabledHackPipeline,
 } from "../utils/index.js";
-
-
 
 /** @typedef {import("../../document").Doc} Doc */
 

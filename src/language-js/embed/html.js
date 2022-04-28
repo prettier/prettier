@@ -5,8 +5,6 @@ import {
   uncookTemplateElementValue,
 } from "../print/template-literal.js";
 
-
-
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 function format(path, print, textToDoc, options, { parser }) {

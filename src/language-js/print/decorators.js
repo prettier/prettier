@@ -1,9 +1,13 @@
 import { isNonEmptyArray, hasNewline } from "../../common/util.js";
-import { line, hardline, join, breakParent, group } from "../../document/builders.js";
+import {
+  line,
+  hardline,
+  join,
+  breakParent,
+  group,
+} from "../../document/builders.js";
 import { locStart, locEnd } from "../loc.js";
 import { getParentExportDeclaration } from "../utils/index.js";
-
-
 
 function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();

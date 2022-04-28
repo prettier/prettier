@@ -2,8 +2,6 @@ import { join, line, group } from "../../document/builders.js";
 import { hasNode, hasComment, getComments } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
-
-
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
 
 function printAngular(path, options, print) {

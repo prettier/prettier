@@ -1,6 +1,14 @@
 import assert from "node:assert";
 
-import { line, hardline, breakParent, indent, lineSuffix, join, cursor } from "../document/builders.js";
+import {
+  line,
+  hardline,
+  breakParent,
+  indent,
+  lineSuffix,
+  join,
+  cursor,
+} from "../document/builders.js";
 
 import {
   hasNewline,
@@ -11,8 +19,6 @@ import {
   addDanglingComment,
   addTrailingComment,
 } from "../common/util.js";
-
-
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {

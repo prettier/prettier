@@ -1,13 +1,13 @@
 import {
-    breakParent,
-    dedentToRoot,
-    group,
-    ifBreak,
-    indentIfBreak,
-    indent,
-    line,
-    softline,
-  } from "../../document/builders.js";
+  breakParent,
+  dedentToRoot,
+  group,
+  ifBreak,
+  indentIfBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
 import { replaceTextEndOfLine } from "../../document/utils.js";
 import getNodeContent from "../get-node-content.js";
 import {
@@ -26,8 +26,6 @@ import {
   needsToBorrowLastChildClosingTagEndMarker,
 } from "./tag.js";
 import { printChildren } from "./children.js";
-
-
 
 function printElement(path, options, print) {
   const node = path.getValue();
