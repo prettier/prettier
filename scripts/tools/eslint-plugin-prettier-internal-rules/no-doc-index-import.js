@@ -14,6 +14,73 @@ const ignored = new Set([
   path.join(__dirname, "../../../src/standalone.js"),
 ]);
 
+const docProperties = new Set(["builders", "debug", "printer", "utils"]);
+
+function fix(source, context) {
+  // only fix `import doc from './document/index.js'`
+  if (
+    !(
+      source.parent.type === "ImportDeclaration" &&
+      source.parent.specifiers.length === 1 &&
+      source.parent.specifiers[0].type === "ImportDefaultSpecifier" &&
+      source.parent.specifiers[0].local.type === "Identifier" &&
+      source.parent.specifiers[0].local.name === "doc"
+    )
+  ) {
+    return;
+  }
+
+  const variables = context.getDeclaredVariables(source.parent);
+  if (variables.length !== 1 || variables[0].name !== "doc") {
+    return;
+  }
+
+  const [{ references }] = variables;
+  if (references.length !== 1) {
+    return;
+  }
+
+  // Only fix `const {builders: {}} = doc`
+  const [{ identifier }] = references;
+
+  if (
+    !(
+      identifier.parent.type === "VariableDeclarator" &&
+      identifier.parent.init === identifier &&
+      identifier.parent.id.type === "ObjectPattern" &&
+      identifier.parent.id.properties.every(
+        (property) =>
+          property.type === "Property" &&
+          !property.computed &&
+          property.key.type === "Identifier" &&
+          docProperties.has(property.key.name)
+      ) &&
+      identifier.parent.parent.type === "VariableDeclaration" &&
+      identifier.parent.parent.kind === "const" &&
+      identifier.parent.parent.declarations.length === 1 &&
+      identifier.parent.parent.declarations[0] === identifier.parent
+    )
+  ) {
+    return;
+  }
+
+  return function* (fixer) {
+    const sourceCode = context.getSourceCode();
+    const text = identifier.parent.id.properties
+      .map((property) => {
+        const propertyName = property.key.name;
+
+        return `import ${sourceCode.getText(
+          property.value
+        )} from "${source.value.replace("index.js", `${propertyName}.js`)}";`;
+      })
+      .join("\n");
+
+    yield fixer.replaceText(source.parent, text);
+    yield fixer.remove(identifier.parent.parent);
+  };
+}
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -23,6 +90,7 @@ module.exports = {
     messages: {
       [messageId]: "Do not {{type}} document/index.js file",
     },
+    fixable: "code",
   },
   create(context) {
     const file = context.getPhysicalFilename();
@@ -46,6 +114,7 @@ module.exports = {
           data: {
             type: node.parent.type.slice(0, 6).toLowerCase(),
           },
+          fix: fix(node, context),
         });
       },
     };
