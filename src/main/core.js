@@ -32,7 +32,7 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(originalText, opts, addAlignmentSize = 0) {
+async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
@@ -156,7 +156,7 @@ function formatRange(originalText, opts) {
 
   const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
-  const rangeResult = coreFormat(
+  const rangeResult = await coreFormat(
     rangeString,
     {
       ...opts,
@@ -306,7 +306,7 @@ async function formatWithCursor(originalText, originalOptions) {
     ) {
       text = options.printer.insertPragma(text);
     }
-    result = coreFormat(text, options);
+    result = await coreFormat(text, options);
   }
 
   if (hasBOM) {
