@@ -1,3 +1,19 @@
 import prettier from "../index.js";
 
-export default prettier.__internal;
+const {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsHiddenDefaults,
+  normalizeApiOptions,
+  normalizeCliOptions,
+} = prettier.__internal;
+
+export {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsHiddenDefaults,
+  normalizeApiOptions,
+  normalizeCliOptions,
+};

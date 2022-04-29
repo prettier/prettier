@@ -1,15 +1,11 @@
 import prettier from "../../index.js";
-import prettierInternal from "../prettier-internal.js";
+import { optionsHiddenDefaults } from "../prettier-internal.js";
 import * as constant from "../constant.js";
+import { arrayify } from "../utils.js";
 import {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
 } from "./option-map.js";
-
-const {
-  optionsModule,
-  utils: { arrayify },
-} = prettierInternal;
 
 function getContextOptions(plugins, pluginSearchDirs) {
   const { options: supportOptions, languages } = prettier.getSupportInfo({
@@ -27,7 +23,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
   const detailedOptions = arrayify(detailedOptionMap, "name");
 
   const apiDefaultOptions = {
-    ...optionsModule.hiddenDefaults,
+    ...optionsHiddenDefaults,
     ...Object.fromEntries(
       supportOptions
         .filter(({ deprecated }) => !deprecated)

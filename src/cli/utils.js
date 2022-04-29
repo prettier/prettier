@@ -1,3 +1,8 @@
+import prettier from "../index.js";
+
+const { arrayify, getLast, isNonEmptyArray, partition } =
+  prettier.__internal.utils;
+
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
 
@@ -36,4 +41,12 @@ function pick(object, keys) {
   return Object.fromEntries(entries);
 }
 
-export { printToScreen, groupBy, pick };
+export {
+  arrayify,
+  getLast,
+  isNonEmptyArray,
+  partition,
+  printToScreen,
+  groupBy,
+  pick,
+};
