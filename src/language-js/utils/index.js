@@ -445,23 +445,6 @@ function isSimpleType(node) {
   return false;
 }
 
-const unitTestRe = /^(?:skip|[fx]?(?:it|describe|test))$/;
-
-/**
- * @param {{callee: MemberExpression | OptionalMemberExpression}} node
- * @returns {boolean}
- */
-function isSkipOrOnlyBlock(node) {
-  return (
-    isMemberExpression(node.callee) &&
-    node.callee.object.type === "Identifier" &&
-    node.callee.property.type === "Identifier" &&
-    unitTestRe.test(node.callee.object.name) &&
-    (node.callee.property.name === "only" ||
-      node.callee.property.name === "skip")
-  );
-}
-
 /**
  * @param {CallExpression} node
  * @returns {boolean}
@@ -473,6 +456,83 @@ function isUnitTestSetUp(node) {
     unitTestSetUpRe.test(node.callee.name) &&
     node.arguments.length === 1
   );
+}
+
+/**
+ * The `patterns` will match these Identifier or Member Expressions
+ *
+ * it|describe
+ *            .only
+ *            .skip
+ * test
+ *     .step
+ *     .skip
+ *     .only
+ *     .describe
+ *              .only
+ *              .parallel
+ *                       .only
+ *              .serial
+ *                     .only
+ * skip
+ * [xf](it|test|describe)
+ */
+
+const patterns = [
+  {
+    regex: /^(?:describe|it)$/,
+    next: [
+      {
+        regex: /^(?:only|skip)$/,
+        next: [],
+      },
+    ],
+  },
+  {
+    regex: /^test$/,
+    next: [
+      {
+        regex: /^(?:step|only|skip)$/,
+        next: [],
+      },
+      {
+        regex: /^describe$/,
+        next: [
+          { regex: /^only$/, next: [] },
+          {
+            regex: /^(?:parallel|serial)$/,
+            next: [{ regex: /^only$/, next: [] }],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    regex: /^(?:[fx](?:test|describe|it)|skip)$/,
+    next: [],
+  },
+];
+
+function collateCalleeMember(node) {
+  if (node.type === "Identifier") {
+    return patterns.find((pattern) => pattern.regex.test(node.name))?.next;
+  }
+
+  if (node.type === "MemberExpression") {
+    const nextPatterns = collateCalleeMember(node.object);
+    if (!nextPatterns) {
+      return false;
+    }
+    return nextPatterns.find((pattern) =>
+      pattern.regex.test(node.property.name)
+    )?.next;
+  }
+
+  return false;
+}
+
+function isTestCallCallee(node) {
+  return Boolean(collateCalleeMember(node));
 }
 
 // eg; `describe("some string", (done) => {})`
@@ -490,9 +550,7 @@ function isTestCall(node, parent) {
     }
   } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      ((node.callee.type === "Identifier" &&
-        unitTestRe.test(node.callee.name)) ||
-        isSkipOrOnlyBlock(node)) &&
+      isTestCallCallee(node.callee) &&
       (node.arguments[0].type === "TemplateLiteral" ||
         isStringLiteral(node.arguments[0]))
     ) {
