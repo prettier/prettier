@@ -275,7 +275,6 @@ function hasPragma(text, options) {
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
-// eslint-disable-next-line require-await
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
@@ -323,7 +322,7 @@ async function formatWithCursor(originalText, originalOptions) {
 const prettier = {
   formatWithCursor,
 
-  parse(originalText, originalOptions, massage) {
+  async parse(originalText, originalOptions, massage) {
     const { text, options } = normalizeInputAndOptions(
       originalText,
       normalizeOptions(originalOptions)
