@@ -27,8 +27,8 @@ describe("API", () => {
     expect(Array.isArray(ast.program.body)).toBe(true);
   });
 
-  const { formatted: formatResultFromAST } = formatAST(ast, options);
   test("prettier.formatAST", () => {
+    const { formatted: formatResultFromAST } = formatAST(ast, options);
     expect(formatResultFromAST).toBe(formatted);
   });
 
