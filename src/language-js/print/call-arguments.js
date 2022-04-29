@@ -16,24 +16,20 @@ import {
   isObjectProperty,
 } from "../utils/index.js";
 
-import doc from "../../document/index.js";
+import {
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  conditionalGroup,
+  ifBreak,
+  breakParent,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
 
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { isConciselyPrintedArray } from "./array.js";
-
-const {
-  builders: {
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    ifBreak,
-    breakParent,
-  },
-  utils: { willBreak },
-} = doc;
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();

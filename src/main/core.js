@@ -1,6 +1,7 @@
 import { diffArrays } from "diff";
 
-import doc from "../document/index.js";
+import { printDocToString } from "../document/printer.js";
+import { printDocToDebug } from "../document/debug.js";
 import { getAlignmentSize } from "../common/util.js";
 import {
   guessEndOfLine,
@@ -14,11 +15,6 @@ import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
 import { calculateRange, findNodeAtOffset } from "./range-util.js";
-
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = doc;
 
 const BOM = "\uFEFF";
 

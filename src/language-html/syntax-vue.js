@@ -1,7 +1,4 @@
-import doc from "../document/index.js";
-const {
-  builders: { group },
-} = doc;
+import { group } from "../document/builders.js";
 
 /**
  *     v-for="... in ..."

@@ -1,12 +1,8 @@
-import doc from "../../document/index.js";
+import { indent, join, hardline } from "../../document/builders.js";
 import {
   escapeTemplateCharacters,
   printTemplateExpressions,
 } from "../print/template-literal.js";
-
-const {
-  builders: { indent, join, hardline },
-} = doc;
 
 function format(path, print, textToDoc) {
   const node = path.getValue();

@@ -1,9 +1,5 @@
 import parseSrcset from "parse-srcset";
-import doc from "../document/index.js";
-
-const {
-  builders: { ifBreak, join, line },
-} = doc;
+import { ifBreak, join, line } from "../document/builders.js";
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {
