@@ -52,9 +52,9 @@ Prettier enforces a consistent code **style** (i.e. code formatting that won’t
 
 If you want to learn more, these two conference talks are great introductions:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hkfBvpEfWdA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hkfBvpEfWdA" title="A Prettier Printer by James Long on React Conf 2017" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/0Q4kUNx85_4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0Q4kUNx85_4" title="JavaScript Code Formatting by Christopher Chedeau on React London 2017" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 #### Footnotes
 
