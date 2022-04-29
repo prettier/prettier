@@ -2,8 +2,6 @@
 
 const name = "async-parser";
 
-const isPromise = (value) => Promise.resolve(value) === value;
-
 module.exports = {
   languages: [
     {
@@ -13,7 +11,7 @@ module.exports = {
   ],
   parsers: {
     [name]: {
-      parse: (text) => Promise.resolve({ text }),
+      parse: (text) => Promise.resolve({ text, isAsyncParserPluginAst: true }),
       astFormat: name,
       locStart() {},
       locEnd() {},
@@ -22,7 +20,7 @@ module.exports = {
   printers: {
     [name]: {
       print(path) {
-        if (isPromise(path.getNode())) {
+        if (!path.getNode().isAsyncParserPluginAst) {
           throw new Error("Unexpected parse result.");
         }
 
