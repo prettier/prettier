@@ -65,7 +65,7 @@ function handleOwnLineComment(context) {
     handleForComments,
     handleUnionTypeComments,
     handleOnlyComments,
-    handleImportExportDeclarationComments,
+    handleModuleSpecifiersComments,
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
@@ -787,7 +787,7 @@ function handleForComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleImportExportDeclarationComments({
+function handleModuleSpecifiersComments({
   comment,
   precedingNode,
   enclosingNode,
