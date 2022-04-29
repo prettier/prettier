@@ -1,8 +1,23 @@
 import * as React from "react";
-import { groupBy } from "../../../src/cli/utils.js";
-
 import { SidebarCategory } from "./components.js";
 import Option from "./options.js";
+
+// Copied from `/src/cli/utils.js`
+function groupBy(array, iteratee) {
+  const result = Object.create(null);
+
+  for (const value of array) {
+    const key = iteratee(value);
+
+    if (Array.isArray(result[key])) {
+      result[key].push(value);
+    } else {
+      result[key] = [value];
+    }
+  }
+
+  return result;
+}
 
 export default function SidebarOptions({
   categories,
