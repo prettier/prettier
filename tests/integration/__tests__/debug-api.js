@@ -16,7 +16,13 @@ const formatted = 'const foo = "bar";\n';
 const options = { parser: "babel", originalText: code };
 
 describe("API", () => {
-  const { ast } = parse(code, options);
+  let ast
+  let doc
+  beforeAll(async () => {
+    ({ ast } = await parse(code, options))
+    doc = await printToDoc(code, options);
+  })
+
   test("prettier.parse", () => {
     expect(Array.isArray(ast.program.body)).toBe(true);
   });
@@ -26,7 +32,6 @@ describe("API", () => {
     expect(formatResultFromAST).toBe(formatted);
   });
 
-  const doc = printToDoc(code, options);
   test("prettier.printToDoc", (done) => {
     // If it's array, it's a `concat`
     if (!Array.isArray(doc)) {

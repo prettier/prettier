@@ -118,7 +118,7 @@ async function format(context, input, opt) {
   }
 
   if (context.argv.debugPrintDoc) {
-    const doc = prettier.__debug.printToDoc(input, opt);
+    const doc = await prettier.__debug.printToDoc(input, opt);
     return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };
   }
 
@@ -134,7 +134,7 @@ async function format(context, input, opt) {
   }
 
   if (context.argv.debugPrintAst) {
-    const { ast } = prettier.__debug.parse(input, opt);
+    const { ast } = await prettier.__debug.parse(input, opt);
     return {
       formatted: JSON.stringify(ast),
     };
@@ -151,10 +151,10 @@ async function format(context, input, opt) {
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
-        prettier.__debug.parse(input, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(input, opt, /* massage */ true)).ast
       );
       const past = stringify(
-        prettier.__debug.parse(pp, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(pp, opt, /* massage */ true)).ast
       );
 
       /* istanbul ignore next */

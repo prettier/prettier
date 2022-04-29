@@ -375,8 +375,8 @@ async function runTest({
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     const { input, output } = formatResult;
-    const originalAst = parse(input, formatOptions);
-    const formattedAst = parse(output, formatOptions);
+    const originalAst = await parse(input, formatOptions);
+    const formattedAst = await parse(output, formatOptions);
     if (isAstUnstableTest) {
       expect(formattedAst).not.toEqual(originalAst);
     } else {
@@ -431,8 +431,9 @@ function shouldSkipEolTest(code, options) {
   return false;
 }
 
-function parse(source, options) {
-  return prettier.__debug.parse(source, options, /* massage */ true).ast;
+async function parse(source, options) {
+  const {ast} = await prettier.__debug.parse(source, options, /* massage */ true);
+  return ast
 }
 
 const indexProperties = [
