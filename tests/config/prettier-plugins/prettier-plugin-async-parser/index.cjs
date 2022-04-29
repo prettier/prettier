@@ -2,7 +2,7 @@
 
 const name = "async-parser";
 
-const isPromise = value => Promise.resolve(value) === value
+const isPromise = value => Promise.resolve(value) === value;
 
 module.exports = {
   languages: [
@@ -28,6 +28,9 @@ module.exports = {
 
         return "Formatted by async-parser plugin";
       },
+      clean() {
+        return {text: "AST text value placeholder"}
+      }
     },
   },
 };
