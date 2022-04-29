@@ -68,7 +68,7 @@ function requireParser(parser) {
   }
 }
 
-async function parse(text, opts) {
+function callParseFunction(originalText, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -91,82 +91,49 @@ async function parse(text, opts) {
   const parser = resolveParser(opts, parsers);
 
   try {
-    if (parser.preprocess) {
-      text = parser.preprocess(text, opts);
-    }
+    const text = parser.preprocess
+      ? parser.preprocess(originalText, opts)
+      : originalText;
+    const result = parser.parse(text, parsersForCustomParserApi, opts);
 
-    const ast = await parser.parse(text, parsersForCustomParserApi, opts);
-
-    return {
-      text,
-      ast,
-    };
+    return { text, result };
   } catch (error) {
-    const { loc } = error;
-
-    if (loc) {
-      const { codeFrameColumns } = require("@babel/code-frame");
-      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-      error.message += "\n" + error.codeFrame;
-      throw error;
-    }
-
-    /* istanbul ignore next */
-    throw error.stack;
+    handleParseError(error, originalText);
   }
 }
 
-// TODO: Remove this
-function parseSync(text, opts) {
-  const parsers = getParsers(opts);
+function handleParseError(error, text) {
+  const { loc } = error;
 
-  // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
-  // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.defineProperties(
-    {},
-    Object.fromEntries(
-      Object.keys(parsers).map((parserName) => [
-        parserName,
-        {
-          enumerable: true,
-          get() {
-            return parsers[parserName].parse;
-          },
-        },
-      ])
-    )
-  );
+  if (loc) {
+    const { codeFrameColumns } = require("@babel/code-frame");
+    error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    error.message += "\n" + error.codeFrame;
+    throw error;
+  }
 
-  const parser = resolveParser(opts, parsers);
+  /* istanbul ignore next */
+  throw error.stack;
+}
+
+async function parse(originalText, opts) {
+  const { text, result } = callParseFunction(originalText, opts);
 
   try {
-    if (parser.preprocess) {
-      text = parser.preprocess(text, opts);
-    }
-
-    const ast = parser.parse(text, parsersForCustomParserApi, opts);
-
-    if (typeof ast?.then === "function") {
-      throw new TypeError("async parse is not supported in embed");
-    }
-
-    return {
-      text,
-      ast,
-    };
+    return { text, ast: await result };
   } catch (error) {
-    const { loc } = error;
-
-    if (loc) {
-      const { codeFrameColumns } = require("@babel/code-frame");
-      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-      error.message += "\n" + error.codeFrame;
-      throw error;
-    }
-
-    /* istanbul ignore next */
-    throw error.stack;
+    handleParseError(error, originalText);
   }
+}
+
+function parseSync(originalText, opts) {
+  const { text, result } = callParseFunction(originalText, opts);
+
+  if (typeof result?.then === "function") {
+    throw new TypeError("async parse is not supported in embed");
+  }
+
+  return { text, ast: result };
 }
 
 export { parse, parseSync, resolveParser };
