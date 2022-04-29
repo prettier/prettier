@@ -351,7 +351,7 @@ const prettier = {
     return formatted;
   },
 
-  printToDoc(originalText, options) {
+  async printToDoc(originalText, options) {
     options = normalizeOptions(options);
     const { ast, text } = await parse(originalText, options);
     attachComments(text, ast, options);
