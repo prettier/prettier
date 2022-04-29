@@ -384,20 +384,21 @@ function handleObjectPropertyAssignment({
   return false;
 }
 
+const classLikeNodeTypes = new Set([
+  "ClassDeclaration",
+  "ClassExpression",
+  "DeclareClass",
+  "DeclareInterface",
+  "InterfaceDeclaration",
+  "TSInterfaceDeclaration",
+]);
 function handleClassComments({
   comment,
   precedingNode,
   enclosingNode,
   followingNode,
 }) {
-  if (
-    enclosingNode?.type === "ClassDeclaration" ||
-    enclosingNode?.type === "ClassExpression" ||
-    enclosingNode?.type === "DeclareClass" ||
-    enclosingNode?.type === "DeclareInterface" ||
-    enclosingNode?.type === "InterfaceDeclaration" ||
-    enclosingNode?.type === "TSInterfaceDeclaration"
-  ) {
+  if (classLikeNodeTypes.has(enclosingNode?.type)) {
     if (
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
@@ -445,6 +446,15 @@ function handleClassComments({
   return false;
 }
 
+const propertyLikeNodeTypes = new Set([
+  "ClassMethod",
+  "ClassProperty",
+  "PropertyDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractMethodDefinition",
+  "TSDeclareMethod",
+  "MethodDefinition",
+]);
 function handleMethodNameComments({
   comment,
   precedingNode,
@@ -476,13 +486,7 @@ function handleMethodNameComments({
   // on the decorator node instead of the method node
   if (
     precedingNode?.type === "Decorator" &&
-    (enclosingNode?.type === "ClassMethod" ||
-      enclosingNode?.type === "ClassProperty" ||
-      enclosingNode?.type === "PropertyDefinition" ||
-      enclosingNode?.type === "TSAbstractPropertyDefinition" ||
-      enclosingNode?.type === "TSAbstractMethodDefinition" ||
-      enclosingNode?.type === "TSDeclareMethod" ||
-      enclosingNode?.type === "MethodDefinition")
+    propertyLikeNodeTypes.has(enclosingNode?.type)
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -491,6 +495,13 @@ function handleMethodNameComments({
   return false;
 }
 
+const functionLikeNodeTypes = new Set([
+  "FunctionDeclaration",
+  "FunctionExpression",
+  "ClassMethod",
+  "MethodDefinition",
+  "ObjectMethod",
+]);
 function handleFunctionNameComments({
   comment,
   precedingNode,
@@ -500,14 +511,7 @@ function handleFunctionNameComments({
   if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
     return false;
   }
-  if (
-    precedingNode &&
-    (enclosingNode?.type === "FunctionDeclaration" ||
-      enclosingNode?.type === "FunctionExpression" ||
-      enclosingNode?.type === "ClassMethod" ||
-      enclosingNode?.type === "MethodDefinition" ||
-      enclosingNode?.type === "ObjectMethod")
-  ) {
+  if (precedingNode && functionLikeNodeTypes.has(enclosingNode?.type)) {
     addTrailingComment(precedingNode, comment);
     return true;
   }
@@ -788,23 +792,28 @@ function handleAssignmentPatternComments({ comment, enclosingNode }) {
   return false;
 }
 
+const assignmentLikeNodeTypes = new Set([
+  "VariableDeclarator",
+  "AssignmentExpression",
+  "TypeAlias",
+  "TSTypeAliasDeclaration",
+]);
+const complexExprNodeTypes = new Set([
+  "ObjectExpression",
+  "ArrayExpression",
+  "TemplateLiteral",
+  "TaggedTemplateExpression",
+  "ObjectTypeAnnotation",
+  "TSTypeLiteral",
+]);
 function handleVariableDeclaratorComments({
   comment,
   enclosingNode,
   followingNode,
 }) {
   if (
-    (enclosingNode?.type === "VariableDeclarator" ||
-      enclosingNode?.type === "AssignmentExpression" ||
-      enclosingNode?.type === "TypeAlias" ||
-      enclosingNode?.type === "TSTypeAliasDeclaration") &&
-    (followingNode?.type === "ObjectExpression" ||
-      followingNode?.type === "ArrayExpression" ||
-      followingNode?.type === "TemplateLiteral" ||
-      followingNode?.type === "TaggedTemplateExpression" ||
-      followingNode?.type === "ObjectTypeAnnotation" ||
-      followingNode?.type === "TSTypeLiteral" ||
-      isBlockComment(comment))
+    assignmentLikeNodeTypes.has(enclosingNode?.type) &&
+    (complexExprNodeTypes.has(followingNode?.type) || isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
