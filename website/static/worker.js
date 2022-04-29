@@ -91,7 +91,9 @@ async function handleMessage(message) {
       let ast;
       let errored = false;
       try {
-        ast = serializeAst((await prettier.__debug.parse(message.code, options)).ast);
+        ast = serializeAst(
+          (await prettier.__debug.parse(message.code, options)).ast
+        );
       } catch (e) {
         errored = true;
         ast = String(e);

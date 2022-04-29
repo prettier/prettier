@@ -2,7 +2,7 @@
 
 const name = "async-parser";
 
-const isPromise = value => Promise.resolve(value) === value;
+const isPromise = (value) => Promise.resolve(value) === value;
 
 module.exports = {
   languages: [
@@ -13,7 +13,7 @@ module.exports = {
   ],
   parsers: {
     [name]: {
-      parse: (text) => Promise.resolve({text}),
+      parse: (text) => Promise.resolve({ text }),
       astFormat: name,
       locStart() {},
       locEnd() {},
@@ -23,14 +23,14 @@ module.exports = {
     [name]: {
       print(path) {
         if (isPromise(path.getNode())) {
-          throw new Error("Unexpected parse result.")
+          throw new Error("Unexpected parse result.");
         }
 
         return "Formatted by async-parser plugin";
       },
       massageAstNode() {
-        return {text: "AST text value placeholder"}
-      }
+        return { text: "AST text value placeholder" };
+      },
     },
   },
 };

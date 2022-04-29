@@ -95,7 +95,7 @@ async function parse(text, opts) {
       text = parser.preprocess(text, opts);
     }
 
-    const ast = await parser.parse(text, parsersForCustomParserApi, opts)
+    const ast = await parser.parse(text, parsersForCustomParserApi, opts);
 
     return {
       text,
@@ -144,10 +144,10 @@ function parseSync(text, opts) {
       text = parser.preprocess(text, opts);
     }
 
-    const ast = parser.parse(text, parsersForCustomParserApi, opts)
+    const ast = parser.parse(text, parsersForCustomParserApi, opts);
 
     if (typeof ast?.then === "function") {
-      throw new TypeError("async parse is not supported in embed")
+      throw new TypeError("async parse is not supported in embed");
     }
 
     return {

@@ -16,12 +16,12 @@ const formatted = 'const foo = "bar";\n';
 const options = { parser: "babel", originalText: code };
 
 describe("API", () => {
-  let ast
-  let doc
+  let ast;
+  let doc;
   beforeAll(async () => {
     ({ ast } = await parse(code, options));
     doc = await printToDoc(code, options);
-  })
+  });
 
   test("prettier.parse", () => {
     expect(Array.isArray(ast.program.body)).toBe(true);

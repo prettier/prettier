@@ -432,8 +432,12 @@ function shouldSkipEolTest(code, options) {
 }
 
 async function parse(source, options) {
-  const {ast} = await prettier.__debug.parse(source, options, /* massage */ true);
-  return ast
+  const { ast } = await prettier.__debug.parse(
+    source,
+    options,
+    /* massage */ true
+  );
+  return ast;
 }
 
 const indexProperties = [
