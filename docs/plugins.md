@@ -121,7 +121,7 @@ export const parsers = {
 The signature of the `parse` function is:
 
 ```ts
-function parse(text: string, parsers: object, options: object): AST;
+function parse(text: string, parsers: object, options: object): Promise<AST> | AST;
 ```
 
 The location extraction functions (`locStart` and `locEnd`) return the starting and ending locations of a given AST node:
