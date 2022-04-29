@@ -7,7 +7,6 @@ const {
   optionsHiddenDefaults,
   normalizeApiOptions,
   normalizeCliOptions,
-  utils: { arrayify, getLast, isNonEmptyArray, partition },
 } = prettier.__internal;
 
 export {
@@ -17,9 +16,4 @@ export {
   optionsHiddenDefaults,
   normalizeApiOptions,
   normalizeCliOptions,
-  // utils
-  arrayify,
-  getLast,
-  isNonEmptyArray,
-  partition,
 };

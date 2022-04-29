@@ -1,4 +1,4 @@
-import { partition } from "../prettier-internal.js";
+import { partition } from "../utils.js";
 
 export default function createMinimistOptions(detailedOptions) {
   const [boolean, string] = partition(

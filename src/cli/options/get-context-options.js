@@ -1,6 +1,7 @@
 import prettier from "../../index.js";
-import { optionsHiddenDefaults, arrayify } from "../prettier-internal.js";
+import { optionsHiddenDefaults } from "../prettier-internal.js";
 import * as constant from "../constant.js";
+import { arrayify } from "../utils.js";
 import {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
