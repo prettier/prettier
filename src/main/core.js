@@ -140,7 +140,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   };
 }
 
-function formatRange(originalText, opts) {
+async function formatRange(originalText, opts) {
   const { ast, text } = await parse(originalText, opts);
   const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
@@ -296,7 +296,7 @@ async function formatWithCursor(originalText, originalOptions) {
   let result;
 
   if (options.rangeStart > 0 || options.rangeEnd < text.length) {
-    result = formatRange(text, options);
+    result = await formatRange(text, options);
   } else {
     if (
       !options.requirePragma &&
