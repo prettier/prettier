@@ -63,12 +63,13 @@ function withPlugins(fn, optsArgIdx) {
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-function format(text, opts) {
-  return formatWithCursor(text, opts).formatted;
+async function format(text, opts) {
+  const { formatted } = await formatWithCursor(text, opts);
+  return formatted;
 }
 
-function check(text, opts) {
-  const { formatted } = formatWithCursor(text, opts);
+async function check(text, opts) {
+  const { formatted } = await formatWithCursor(text, opts);
   return formatted === text;
 }
 

@@ -1,4 +1,14 @@
-import doc from "../../document/index.js";
+import {
+  breakParent,
+  dedentToRoot,
+  group,
+  ifBreak,
+  indentIfBreak,
+  indent,
+  line,
+  softline,
+} from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import getNodeContent from "../get-node-content.js";
 import {
   shouldPreserveContent,
@@ -16,20 +26,6 @@ import {
   needsToBorrowLastChildClosingTagEndMarker,
 } from "./tag.js";
 import { printChildren } from "./children.js";
-
-const {
-  builders: {
-    breakParent,
-    dedentToRoot,
-    group,
-    ifBreak,
-    indentIfBreak,
-    indent,
-    line,
-    softline,
-  },
-  utils: { replaceTextEndOfLine },
-} = doc;
 
 function printElement(path, options, print) {
   const node = path.getValue();

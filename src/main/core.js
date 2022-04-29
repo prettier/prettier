@@ -1,6 +1,7 @@
 import { diffArrays } from "diff";
 
-import doc from "../document/index.js";
+import { printDocToString } from "../document/printer.js";
+import { printDocToDebug } from "../document/debug.js";
 import { getAlignmentSize } from "../common/util.js";
 import {
   guessEndOfLine,
@@ -14,11 +15,6 @@ import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
 import { calculateRange, findNodeAtOffset } from "./range-util.js";
-
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = doc;
 
 const BOM = "\uFEFF";
 
@@ -279,7 +275,8 @@ function hasPragma(text, options) {
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
-function formatWithCursor(originalText, originalOptions) {
+// eslint-disable-next-line require-await
+async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
     normalizeOptions(originalOptions)
@@ -345,11 +342,14 @@ const prettier = {
   },
 
   // Doesn't handle shebang for now
-  formatDoc(doc, options) {
-    return formatWithCursor(printDocToDebug(doc), {
+  async formatDoc(doc, options) {
+    const text = printDocToDebug(doc);
+    const { formatted } = await formatWithCursor(text, {
       ...options,
       parser: "__js_expression",
-    }).formatted;
+    });
+
+    return formatted;
   },
 
   printToDoc(originalText, options) {

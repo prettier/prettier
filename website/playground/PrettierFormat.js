@@ -26,7 +26,7 @@ export default class PrettierFormat extends React.Component {
     }
   }
 
-  format() {
+  async format() {
     const {
       worker,
       code,
@@ -37,9 +37,13 @@ export default class PrettierFormat extends React.Component {
       reformat,
     } = this.props;
 
-    worker
-      .format(code, options, { ast, doc, comments, reformat })
-      .then((result) => this.setState(result));
+    const result = await worker.format(code, options, {
+      ast,
+      doc,
+      comments,
+      reformat,
+    });
+    this.setState(result);
   }
 
   render() {

@@ -30,10 +30,10 @@ for (const file in parsersLocation) {
   }
 }
 
-self.onmessage = function (event) {
+self.onmessage = async function (event) {
   self.postMessage({
     uid: event.data.uid,
-    message: handleMessage(event.data.message),
+    message: await handleMessage(event.data.message),
   });
 };
 
@@ -50,7 +50,7 @@ function serializeAst(ast) {
   );
 }
 
-function handleMessage(message) {
+async function handleMessage(message) {
   if (message.type === "meta") {
     return {
       type: "meta",
@@ -75,7 +75,7 @@ function handleMessage(message) {
     const plugins = [{ parsers }];
     options.plugins = plugins;
 
-    const formatResult = formatCode(message.code, options);
+    const formatResult = await formatCode(message.code, options);
 
     const response = {
       formatted: formatResult.formatted,
@@ -99,7 +99,7 @@ function handleMessage(message) {
 
       if (!errored) {
         try {
-          ast = formatCode(ast, { parser: "json", plugins }).formatted;
+          ast = (await formatCode(ast, { parser: "json", plugins })).formatted;
         } catch {
           ast = serializeAst(ast);
         }
@@ -109,7 +109,7 @@ function handleMessage(message) {
 
     if (message.debug.doc) {
       try {
-        response.debug.doc = prettier.__debug.formatDoc(
+        response.debug.doc = await prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
           { parser: "babel", plugins }
         );
@@ -119,16 +119,17 @@ function handleMessage(message) {
     }
 
     if (message.debug.comments) {
-      response.debug.comments = formatCode(
-        JSON.stringify(formatResult.comments || []),
-        { parser: "json", plugins }
+      response.debug.comments = (
+        await formatCode(JSON.stringify(formatResult.comments || []), {
+          parser: "json",
+          plugins,
+        })
       ).formatted;
     }
 
     if (message.debug.reformat) {
-      response.debug.reformatted = formatCode(
-        response.formatted,
-        options
+      response.debug.reformatted = (
+        await formatCode(response.formatted, options)
       ).formatted;
     }
 
@@ -136,9 +137,9 @@ function handleMessage(message) {
   }
 }
 
-function formatCode(text, options) {
+async function formatCode(text, options) {
   try {
-    return prettier.formatWithCursor(text, options);
+    return await prettier.formatWithCursor(text, options);
   } catch (e) {
     if (e.constructor && e.constructor.name === "SyntaxError") {
       // Likely something wrong with the user's code

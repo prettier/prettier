@@ -1,4 +1,4 @@
-/** @typedef {import("../../document/doc-builders").Doc} Doc */
+/** @typedef {import("../../document/builders").Doc} Doc */
 
 import assert from "node:assert";
 import {
@@ -7,7 +7,17 @@ import {
 } from "../../main/comments.js";
 import getLast from "../../utils/get-last.js";
 import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+  hardline,
+  join,
+  indentIfBreak,
+} from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   getFunctionParameters,
@@ -35,20 +45,6 @@ import {
 } from "./function-parameters.js";
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters } from "./misc.js";
-
-const {
-  builders: {
-    line,
-    softline,
-    group,
-    indent,
-    ifBreak,
-    hardline,
-    join,
-    indentIfBreak,
-  },
-  utils: { removeLines, willBreak },
-} = doc;
 
 function printFunction(path, print, options, args) {
   const node = path.getValue();

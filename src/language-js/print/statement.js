@@ -1,4 +1,4 @@
-import doc from "../../document/index.js";
+import { hardline } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getLeftSidePathName,
@@ -10,10 +10,6 @@ import {
   isNextLineEmpty,
 } from "../utils/index.js";
 import { shouldPrintParamsWithoutParens } from "./function.js";
-
-const {
-  builders: { hardline },
-} = doc;
 
 /**
  * @typedef {import("../../document").Doc} Doc

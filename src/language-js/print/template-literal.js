@@ -1,6 +1,17 @@
 import getLast from "../../utils/get-last.js";
 import { getStringWidth, getIndentSize } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  join,
+  hardline,
+  softline,
+  group,
+  indent,
+  align,
+  lineSuffixBoundary,
+  addAlignmentToDoc,
+} from "../../document/builders.js";
+import { printDocToString } from "../../document/printer.js";
+import { mapDoc } from "../../document/utils.js";
 import {
   isBinaryish,
   isJestEachTemplateLiteral,
@@ -8,21 +19,6 @@ import {
   hasComment,
   isMemberExpression,
 } from "../utils/index.js";
-
-const {
-  builders: {
-    join,
-    hardline,
-    softline,
-    group,
-    indent,
-    align,
-    lineSuffixBoundary,
-    addAlignmentToDoc,
-  },
-  printer: { printDocToString },
-  utils: { mapDoc },
-} = doc;
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();

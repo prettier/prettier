@@ -20,7 +20,7 @@ async function logFileInfoOrDie(context) {
     resolveConfig: config !== false,
   });
 
-  printToScreen(format(stringify(fileInfo), { parser: "json" }));
+  printToScreen(await format(stringify(fileInfo), { parser: "json" }));
 }
 
 export default logFileInfoOrDie;

@@ -52,9 +52,9 @@ describe("standalone", () => {
   });
 
   for (const parser of parserNames) {
-    test(parser, () => {
+    test(parser, async () => {
       const input = codeSamples(parser);
-      const umdOutput = standalone.format(input, {
+      const umdOutput = await standalone.format(input, {
         parser,
         plugins,
       });
@@ -63,7 +63,7 @@ describe("standalone", () => {
       expect(typeof umdOutput).toBe("string");
       expect(umdOutput).not.toBe(input);
 
-      const esmOutput = esmStandalone.format(input, {
+      const esmOutput = await esmStandalone.format(input, {
         parser,
         plugins: esmPlugins,
       });

@@ -52,7 +52,7 @@ const config = {
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
     "<rootDir>/src/standalone.js",
-    "<rootDir>/src/document/doc-debug.js",
+    "<rootDir>/src/document/debug.js",
   ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {

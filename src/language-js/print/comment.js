@@ -1,14 +1,10 @@
 import { hasNewline } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { join, hardline } from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 
 import { isLineComment } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
-
-const {
-  builders: { join, hardline },
-  utils: { replaceTextEndOfLine },
-} = doc;
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
