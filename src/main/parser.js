@@ -128,11 +128,6 @@ async function parse(originalText, opts) {
 
 function parseSync(originalText, opts) {
   const { text, result } = callParseFunction(originalText, opts);
-
-  if (typeof result?.then === "function") {
-    throw new TypeError("async parse is not supported in embed");
-  }
-
   return { text, ast: result };
 }
 
