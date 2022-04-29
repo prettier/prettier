@@ -68,12 +68,13 @@ const formatWithCursor = withPlugins(core.formatWithCursor);
 const prettier = {
   formatWithCursor,
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
+  async format(text, opts) {
+    const { formatted } = await formatWithCursor(text, opts);
+    return formatted;
   },
 
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
+  async check(text, opts) {
+    const { formatted } = await formatWithCursor(text, opts);
     return formatted === text;
   },
 

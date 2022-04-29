@@ -179,14 +179,14 @@ describe("API with no path and no parser", () => {
     global.console = _console;
   });
 
-  test("prettier.format", () => {
-    expect(prettier.format(" foo  (  )")).toBe("foo();\n");
+  test("prettier.format", async () => {
+    expect(await prettier.format(" foo  (  )")).toBe("foo();\n");
     expect(global.console.warn).toHaveBeenCalledTimes(1);
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
 
-  test("prettier.check", () => {
-    expect(prettier.check(" foo (  )")).toBe(false);
+  test("prettier.check", async () => {
+    expect(await prettier.check(" foo (  )")).toBe(false);
     expect(global.console.warn).toHaveBeenCalledTimes(1);
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });

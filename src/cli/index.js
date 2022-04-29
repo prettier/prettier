@@ -79,7 +79,7 @@ async function main(rawArguments, logger) {
 
   if (context.argv.supportInfo) {
     printToScreen(
-      prettier.format(stringify(prettier.getSupportInfo()), {
+      await prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
     );
