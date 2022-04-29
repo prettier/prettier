@@ -19,7 +19,7 @@ describe("API", () => {
   let ast
   let doc
   beforeAll(async () => {
-    ({ ast } = await parse(code, options))
+    ({ ast } = await parse(code, options));
     doc = await printToDoc(code, options);
   })
 
@@ -41,8 +41,8 @@ describe("API", () => {
     done();
   });
 
-  const { formatted: stringFromDoc } = printDocToString(doc, options);
   test("prettier.printDocToString", () => {
+    const { formatted: stringFromDoc } = printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);
   });
 
