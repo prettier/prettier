@@ -65,7 +65,7 @@ function handleOwnLineComment(context) {
     handleForComments,
     handleUnionTypeComments,
     handleOnlyComments,
-    handleImportDeclarationComments,
+    handleModuleSpecifiersComments,
     handleAssignmentPatternComments,
     handleMethodNameComments,
     handleLabeledStatementComments,
@@ -787,17 +787,20 @@ function handleForComments({ comment, enclosingNode }) {
   return false;
 }
 
-function handleImportDeclarationComments({
+function handleModuleSpecifiersComments({
   comment,
   precedingNode,
   enclosingNode,
   text,
 }) {
+  const isImportDeclaration =
+    precedingNode?.type === "ImportSpecifier" &&
+    enclosingNode?.type === "ImportDeclaration";
+  const isExportDeclaration =
+    precedingNode?.type === "ExportSpecifier" &&
+    enclosingNode?.type === "ExportNamedDeclaration";
   if (
-    precedingNode &&
-    precedingNode.type === "ImportSpecifier" &&
-    enclosingNode &&
-    enclosingNode.type === "ImportDeclaration" &&
+    (isImportDeclaration || isExportDeclaration) &&
     hasNewline(text, locEnd(comment))
   ) {
     addTrailingComment(precedingNode, comment);
