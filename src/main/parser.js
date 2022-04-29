@@ -116,4 +116,57 @@ async function parse(text, opts) {
   }
 }
 
-export { parse, resolveParser };
+// TODO: Remove this
+function parseSync(text, opts) {
+  const parsers = getParsers(opts);
+
+  // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
+  // the parsers getters when actually calling the parser `parse` function.
+  const parsersForCustomParserApi = Object.defineProperties(
+    {},
+    Object.fromEntries(
+      Object.keys(parsers).map((parserName) => [
+        parserName,
+        {
+          enumerable: true,
+          get() {
+            return parsers[parserName].parse;
+          },
+        },
+      ])
+    )
+  );
+
+  const parser = resolveParser(opts, parsers);
+
+  try {
+    if (parser.preprocess) {
+      text = parser.preprocess(text, opts);
+    }
+
+    const ast = parser.parse(text, parsersForCustomParserApi, opts)
+
+    if (typeof ast?.then === "function") {
+      throw new TypeError("async parse is not supported in embed")
+    }
+
+    return {
+      text,
+      ast,
+    };
+  } catch (error) {
+    const { loc } = error;
+
+    if (loc) {
+      const { codeFrameColumns } = require("@babel/code-frame");
+      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+      error.message += "\n" + error.codeFrame;
+      throw error;
+    }
+
+    /* istanbul ignore next */
+    throw error.stack;
+  }
+}
+
+export { parse, parseSync, resolveParser };

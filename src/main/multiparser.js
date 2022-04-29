@@ -1,7 +1,7 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
-import { parse } from "./parser.js";
+import { parseSync } from "./parser.js";
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -39,7 +39,7 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = await parse(text, nextOptions);
+  const result = parseSync(text, nextOptions);
   const { ast } = result;
   text = result.text;
 
