@@ -28,7 +28,7 @@ module.exports = {
 
         return "Formatted by async-parser plugin";
       },
-      clean() {
+      massageAstNode() {
         return {text: "AST text value placeholder"}
       }
     },
