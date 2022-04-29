@@ -68,7 +68,7 @@ function requireParser(parser) {
   }
 }
 
-function parse(text, opts) {
+async function parse(text, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -95,9 +95,11 @@ function parse(text, opts) {
       text = parser.preprocess(text, opts);
     }
 
+    const ast = await parser.parse(text, parsersForCustomParserApi, opts)
+
     return {
       text,
-      ast: parser.parse(text, parsersForCustomParserApi, opts),
+      ast,
     };
   } catch (error) {
     const { loc } = error;

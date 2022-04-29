@@ -37,7 +37,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  const { ast, text } = parse(originalText, opts);
+  const { ast, text } = await parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
@@ -141,7 +141,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 }
 
 function formatRange(originalText, opts) {
-  const { ast, text } = parse(originalText, opts);
+  const { ast, text } = await parse(originalText, opts);
   const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
@@ -328,7 +328,7 @@ const prettier = {
       originalText,
       normalizeOptions(originalOptions)
     );
-    const parsed = parse(text, options);
+    const parsed = await parse(text, options);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, options);
     }
@@ -354,7 +354,7 @@ const prettier = {
 
   printToDoc(originalText, options) {
     options = normalizeOptions(options);
-    const { ast, text } = parse(originalText, options);
+    const { ast, text } = await parse(originalText, options);
     attachComments(text, ast, options);
     return printAstToDoc(ast, options);
   },

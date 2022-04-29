@@ -39,7 +39,7 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = parse(text, nextOptions);
+  const result = await parse(text, nextOptions);
   const { ast } = result;
   text = result.text;
 
