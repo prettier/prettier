@@ -813,7 +813,8 @@ function handleVariableDeclaratorComments({
 }) {
   if (
     assignmentLikeNodeTypes.has(enclosingNode?.type) &&
-    (complexExprNodeTypes.has(followingNode?.type) || isBlockComment(comment))
+    followingNode &&
+    (complexExprNodeTypes.has(followingNode.type) || isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
