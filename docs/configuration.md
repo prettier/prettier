@@ -180,7 +180,7 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 
 Here’s an annotated description of how different properties map to Prettier’s behavior:
 
-```toml
+```ini
 [*]
 # Non-configurable Prettier behaviors
 charset = "utf-8"
@@ -198,7 +198,7 @@ max_line_length = 80
 
 Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
 
-```toml
+```ini
 [*]
 charset = "utf-8"
 insert_final_newline = true
