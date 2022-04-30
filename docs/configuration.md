@@ -186,7 +186,7 @@ Here’s an annotated description of how different properties map to Prettier’
 charset = "utf-8"
 insert_final_newline = true
 # Caveat: Prettier won’t trim trailing whitespace inside template strings, but your editor might.
-trim_trailing_whitespace = true
+# trim_trailing_whitespace = true
 
 # Configurable Prettier behaviors
 # (change these if your Prettier config differs)
@@ -202,7 +202,6 @@ Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
 [*]
 charset = "utf-8"
 insert_final_newline = true
-trim_trailing_whitespace = true
 end_of_line = "lf"
 indent_style = "space"
 indent_size = 2
