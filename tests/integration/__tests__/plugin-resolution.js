@@ -128,6 +128,21 @@ describe("crashes when one of --plugin-search-dir does not exist", () => {
   });
 });
 
+describe("load --plugin using --plugin-search-dir", () => {
+  runPrettier("plugins/extensions", [
+    "file.foo",
+    "--parser=foo",
+    "--plugin=prettier-plugin-bar",
+    "--plugin-search-dir=../automatic",
+    "--plugin-search-dir=.",
+  ]).test({
+    stdout: "foo+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: [],
+  });
+});
+
 describe("loads --plugin by its relative path", () => {
   runPrettier("plugins", [
     "automatic/file.txt",
