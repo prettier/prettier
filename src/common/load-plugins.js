@@ -48,8 +48,17 @@ function load(plugins, pluginSearchDirs) {
         // try local files
         requirePath = resolve(path.resolve(process.cwd(), pluginName));
       } catch {
-        // try node modules
-        requirePath = resolve(pluginName, { paths: [process.cwd()] });
+        try {
+          // try node modules
+          requirePath = resolve(pluginName, { paths: [process.cwd()] });
+        } catch {
+          // try provided plugin search dirs
+          requirePath = resolve(pluginName, {
+            paths: pluginSearchDirs.map((dir) =>
+              path.resolve(process.cwd(), dir)
+            ),
+          });
+        }
       }
 
       return {
