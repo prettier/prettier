@@ -22,18 +22,20 @@ async function run(rawArguments) {
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
     }
+    const context = new Context({ rawArguments, logger });
+    if (logger.logLevel !== "debug" && context.performanceTestFlag) {
+      context.logger = createLogger("debug");
+    }
 
-    await main(rawArguments, logger);
+    await main(context);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-async function main(rawArguments, logger) {
-  const context = new Context({ rawArguments, logger });
-
-  logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+async function main(context) {
+  context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
   if (context.argv.pluginSearch === false) {
     const rawPluginSearchDirs = context.argv.__raw["plugin-search-dir"];
