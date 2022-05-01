@@ -387,6 +387,9 @@ function inferStyleParser(node, options) {
     return "less";
   }
 
+  // Prettier does not officially support stylus.
+  // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
+  // https://github.com/prettier/prettier/pull/12707
   if (lang === "stylus") {
     return inferParserByLanguage("stylus", options);
   }
