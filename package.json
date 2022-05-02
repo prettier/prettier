@@ -91,7 +91,7 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/types": "7.17.0",
+    "@babel/types": "7.17.10",
     "@esbuild-plugins/node-modules-polyfill": "0.1.4",
     "@glimmer/reference": "0.84.2",
     "@jest/globals": "28.0.2",
