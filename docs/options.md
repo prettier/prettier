@@ -81,6 +81,8 @@ See the [strings rationale](rationale.md#strings) for more information.
 | ------- | ---------------- | --------------------- |
 | `false` | `--single-quote` | `singleQuote: <bool>` |
 
+Setting `quote_type` in an [`.editorconfig` file](https://editorconfig.org/) will configure Prettier’s usage of quotes, unless overridden.
+
 ## Quote Props
 
 Change when properties in objects are quoted.
