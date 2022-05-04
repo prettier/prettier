@@ -68,7 +68,7 @@ function requireParser(parser) {
   }
 }
 
-function parse(text, opts) {
+function callPluginParseFunction(originalText, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -91,27 +91,44 @@ function parse(text, opts) {
   const parser = resolveParser(opts, parsers);
 
   try {
-    if (parser.preprocess) {
-      text = parser.preprocess(text, opts);
-    }
+    const text = parser.preprocess
+      ? parser.preprocess(originalText, opts)
+      : originalText;
+    const result = parser.parse(text, parsersForCustomParserApi, opts);
 
-    return {
-      text,
-      ast: parser.parse(text, parsersForCustomParserApi, opts),
-    };
+    return { text, result };
   } catch (error) {
-    const { loc } = error;
-
-    if (loc) {
-      const { codeFrameColumns } = require("@babel/code-frame");
-      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-      error.message += "\n" + error.codeFrame;
-      throw error;
-    }
-
-    /* istanbul ignore next */
-    throw error.stack;
+    handleParseError(error, originalText);
   }
 }
 
-export { parse, resolveParser };
+function handleParseError(error, text) {
+  const { loc } = error;
+
+  if (loc) {
+    const { codeFrameColumns } = require("@babel/code-frame");
+    error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    error.message += "\n" + error.codeFrame;
+    throw error;
+  }
+
+  /* istanbul ignore next */
+  throw error.stack;
+}
+
+async function parse(originalText, opts) {
+  const { text, result } = callPluginParseFunction(originalText, opts);
+
+  try {
+    return { text, ast: await result };
+  } catch (error) {
+    handleParseError(error, originalText);
+  }
+}
+
+function parseSync(originalText, opts) {
+  const { text, result } = callPluginParseFunction(originalText, opts);
+  return { text, ast: result };
+}
+
+export { parse, parseSync, resolveParser };
