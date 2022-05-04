@@ -126,9 +126,4 @@ async function parse(originalText, opts) {
   }
 }
 
-function parseSync(originalText, opts) {
-  const { text, result } = callPluginParseFunction(originalText, opts);
-  return { text, ast: result };
-}
-
-export { parse, parseSync, resolveParser };
+export { parse, resolveParser };

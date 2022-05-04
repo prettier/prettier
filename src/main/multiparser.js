@@ -1,7 +1,7 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
-import { parseSync } from "./parser.js";
+import { parse } from "./parser.js";
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -21,8 +21,8 @@ function printSubtree(path, print, options, printAstToDoc) {
   }
 }
 
-function textToDoc(
-  text,
+async function textToDoc(
+  originalText,
   partialNextOptions,
   parentOptions,
   printAstToDoc,
@@ -34,19 +34,12 @@ function textToDoc(
       ...parentOptions,
       ...partialNextOptions,
       parentParser: parentOptions.parser,
-      originalText: text,
+      originalText,
     },
     { passThrough: true }
   );
 
-  const result = parseSync(text, nextOptions);
-  const { ast } = result;
-
-  if (typeof ast?.then === "function") {
-    throw new TypeError("async parse is not supported in embed");
-  }
-
-  text = result.text;
+  const { ast, text } = await parse(originalText, nextOptions);
 
   const astComments = ast.comments;
   delete ast.comments;
