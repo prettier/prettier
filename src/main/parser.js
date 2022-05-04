@@ -68,7 +68,7 @@ function requireParser(parser) {
   }
 }
 
-function callParseFunction(originalText, opts) {
+function callPluginParseFunction(originalText, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -117,7 +117,7 @@ function handleParseError(error, text) {
 }
 
 async function parse(originalText, opts) {
-  const { text, result } = callParseFunction(originalText, opts);
+  const { text, result } = callPluginParseFunction(originalText, opts);
 
   try {
     return { text, ast: await result };
@@ -127,7 +127,7 @@ async function parse(originalText, opts) {
 }
 
 function parseSync(originalText, opts) {
-  const { text, result } = callParseFunction(originalText, opts);
+  const { text, result } = callPluginParseFunction(originalText, opts);
   return { text, ast: result };
 }
 
