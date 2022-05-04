@@ -49,7 +49,11 @@ function installPrettier(packageDir) {
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  execaSync(client, ["init", "-y"], { cwd: tmpDir });
+  if (client === "pnpm") {
+    execaSync(client, ["init"], { cwd: tmpDir });
+  } else {
+    execaSync(client, ["init", "-y"], { cwd: tmpDir });
+  }
 
   let installArguments = [];
   switch (client) {

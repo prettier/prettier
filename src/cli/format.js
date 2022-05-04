@@ -2,11 +2,13 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import chalk from "chalk";
 import * as prettier from "../index.js";
-import { getStdin } from "../common/third-party.cjs";
+import thirdParty from "../common/third-party.cjs";
 import { createIgnorer, errors } from "./prettier-internal.js";
 import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
+
+const { getStdin } = thirdParty;
 
 let createTwoFilesPatch;
 async function diff(a, b) {
@@ -98,16 +100,6 @@ async function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function getPerformanceTestFlag(context) {
-  if (context.argv.debugBenchmark) {
-    return "--debug-benchmark";
-  }
-
-  if (context.argv.debugRepeat > 0) {
-    return "--debug-repeat";
-  }
-}
-
 async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
@@ -116,7 +108,7 @@ async function format(context, input, opt) {
   }
 
   if (context.argv.debugPrintDoc) {
-    const doc = prettier.__debug.printToDoc(input, opt);
+    const doc = await prettier.__debug.printToDoc(input, opt);
     return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };
   }
 
@@ -132,7 +124,7 @@ async function format(context, input, opt) {
   }
 
   if (context.argv.debugPrintAst) {
-    const { ast } = prettier.__debug.parse(input, opt);
+    const { ast } = await prettier.__debug.parse(input, opt);
     return {
       formatted: JSON.stringify(ast),
     };
@@ -149,10 +141,10 @@ async function format(context, input, opt) {
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
-        prettier.__debug.parse(input, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(input, opt, /* massage */ true)).ast
       );
       const past = stringify(
-        prettier.__debug.parse(pp, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(pp, opt, /* massage */ true)).ast
       );
 
       /* istanbul ignore next */
@@ -283,10 +275,10 @@ async function formatStdin(context) {
 
     const formatted = await format(context, input, options);
 
-    const performanceTestFlag = getPerformanceTestFlag(context);
+    const { performanceTestFlag } = context;
     if (performanceTestFlag) {
       context.logger.log(
-        `'${performanceTestFlag}' option found, skipped print code to screen.`
+        `'${performanceTestFlag.name}' option found, skipped print code to screen.`
       );
       return;
     }
@@ -304,7 +296,7 @@ async function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv.check && !getPerformanceTestFlag(context)) {
+  if (context.argv.check && !context.performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
@@ -393,10 +385,10 @@ async function formatFiles(context) {
       printedFilename.clear();
     }
 
-    const performanceTestFlag = getPerformanceTestFlag(context);
+    const { performanceTestFlag } = context;
     if (performanceTestFlag) {
       context.logger.log(
-        `'${performanceTestFlag}' option found, skipped print code or write files.`
+        `'${performanceTestFlag.name}' option found, skipped print code or write files.`
       );
       return;
     }

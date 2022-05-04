@@ -1,5 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`blank-line-between-specifiers.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export {
+  // a
+  foo1,
+
+  // b
+  bar1,
+  baz1,
+} from "mod";
+
+const foo2 = 1;
+const bar2 = 1;
+const baz2 = 1;
+
+export {
+  // a
+  foo2,
+
+  // b
+  bar2,
+  baz2,
+};
+
+=====================================output=====================================
+export {
+  // a
+  foo1,
+
+  // b
+  bar1,
+  baz1,
+} from "mod";
+
+const foo2 = 1;
+const bar2 = 1;
+const baz2 = 1;
+
+export {
+  // a
+  foo2,
+
+  // b
+  bar2,
+  baz2,
+};
+
+================================================================================
+`;
+
+exports[`blank-line-between-specifiers.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export {
+  // a
+  foo1,
+
+  // b
+  bar1,
+  baz1,
+} from "mod";
+
+const foo2 = 1;
+const bar2 = 1;
+const baz2 = 1;
+
+export {
+  // a
+  foo2,
+
+  // b
+  bar2,
+  baz2,
+};
+
+=====================================output=====================================
+export {
+  // a
+  foo1,
+
+  // b
+  bar1,
+  baz1,
+} from "mod";
+
+const foo2 = 1;
+const bar2 = 1;
+const baz2 = 1;
+
+export {
+  // a
+  foo2,
+
+  // b
+  bar2,
+  baz2,
+};
+
+================================================================================
+`;
+
 exports[`bracket.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false

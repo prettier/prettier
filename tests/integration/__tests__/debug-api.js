@@ -16,17 +16,22 @@ const formatted = 'const foo = "bar";\n';
 const options = { parser: "babel", originalText: code };
 
 describe("API", () => {
-  const { ast } = parse(code, options);
+  let ast;
+  let doc;
+  beforeAll(async () => {
+    ({ ast } = await parse(code, options));
+    doc = await printToDoc(code, options);
+  });
+
   test("prettier.parse", () => {
     expect(Array.isArray(ast.program.body)).toBe(true);
   });
 
-  const { formatted: formatResultFromAST } = formatAST(ast, options);
   test("prettier.formatAST", () => {
+    const { formatted: formatResultFromAST } = formatAST(ast, options);
     expect(formatResultFromAST).toBe(formatted);
   });
 
-  const doc = printToDoc(code, options);
   test("prettier.printToDoc", (done) => {
     // If it's array, it's a `concat`
     if (!Array.isArray(doc)) {
@@ -36,8 +41,8 @@ describe("API", () => {
     done();
   });
 
-  const { formatted: stringFromDoc } = printDocToString(doc, options);
   test("prettier.printDocToString", () => {
+    const { formatted: stringFromDoc } = printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);
   });
 

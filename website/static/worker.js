@@ -91,7 +91,9 @@ async function handleMessage(message) {
       let ast;
       let errored = false;
       try {
-        ast = serializeAst(prettier.__debug.parse(message.code, options).ast);
+        ast = serializeAst(
+          (await prettier.__debug.parse(message.code, options)).ast
+        );
       } catch (e) {
         errored = true;
         ast = String(e);
@@ -110,7 +112,7 @@ async function handleMessage(message) {
     if (message.debug.doc) {
       try {
         response.debug.doc = await prettier.__debug.formatDoc(
-          prettier.__debug.printToDoc(message.code, options),
+          await prettier.__debug.printToDoc(message.code, options),
           { parser: "babel", plugins }
         );
       } catch (e) {

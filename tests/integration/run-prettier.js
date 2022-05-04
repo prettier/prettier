@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { jest } from "@jest/globals";
 import stripAnsi from "strip-ansi";
 import createEsmUtils from "esm-utils";
 import { prettierCli, thirdParty } from "./env.js";
 
 const { __dirname, require, __filename } = createEsmUtils(import.meta);
+const { jest } = import.meta;
 
 async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
