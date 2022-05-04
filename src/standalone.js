@@ -34,8 +34,8 @@ async function format(text, opts) {
 }
 
 async function check(text, opts) {
-    const { formatted } = await formatWithCursor(text, opts);
-    return formatted === text;
+  const { formatted } = await formatWithCursor(text, opts);
+  return formatted === text;
 }
 
 const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
