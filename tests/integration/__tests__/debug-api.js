@@ -42,7 +42,7 @@ describe("API", () => {
   });
 
   test("prettier.printDocToString", async () => {
-    const { formatted: stringFromDoc } =  await printDocToString(doc, options);
+    const { formatted: stringFromDoc } = await printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);
   });
 
