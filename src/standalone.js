@@ -57,4 +57,4 @@ export {
   debugApis as __debug,
 };
 export * as util from "./common/util-shared.js";
-export { default as doc } from "./document/index.js";
+export * as doc from "./document/index.js";

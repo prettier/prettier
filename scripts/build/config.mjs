@@ -285,6 +285,7 @@ const coreBundles = [
   },
   {
     input: "src/document/index.js",
+    interopDefault: false,
     name: "doc",
     output: "doc.js",
     target: "universal",
