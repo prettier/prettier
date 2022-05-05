@@ -102,7 +102,7 @@ When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will
 
 ## `prettier.getSupportInfo()`
 
-Returns an object representing the options, parsers, languages and file types Prettier supports.
+Returns a promise which resolves to an object representing the options, parsers, languages and file types Prettier supports.
 
 The support information looks like this:
 
