@@ -71,7 +71,7 @@ const getExplorerMemoized = mem(
 /**
  * @template {Options} Opts
  * @param {Opts} opts
- * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
+ * @return {Explorer}
  */
 function getExplorer(opts) {
   return getExplorerMemoized(
