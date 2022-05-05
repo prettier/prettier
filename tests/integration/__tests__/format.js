@@ -2,17 +2,17 @@ import prettier from "prettier-local";
 import { outdent } from "outdent";
 import fooPlugin from "../plugins/defaultOptions/plugin.cjs";
 
-test("yaml parser should handle CRLF correctly", () => {
+test("yaml parser should handle CRLF correctly", async () => {
   const input = "a:\r\n  123\r\n";
   expect(
     // use JSON.stringify to observe CRLF
     JSON.stringify(
-      prettier.format(input, { parser: "yaml", endOfLine: "auto" })
+      await prettier.format(input, { parser: "yaml", endOfLine: "auto" })
     )
   ).toMatchSnapshot();
 });
 
-test("typescript parser should throw the first error when both JSX and non-JSX mode failed", () => {
+test("typescript parser should throw the first error when both JSX and non-JSX mode failed", async () => {
   const input = outdent`
     import React from "react";
 
@@ -23,43 +23,46 @@ test("typescript parser should throw the first error when both JSX and non-JSX m
 
     label:
   `;
-  expect(() =>
+  await expect(
     prettier.format(input, { parser: "typescript" })
-  ).toThrowErrorMatchingSnapshot();
+  ).rejects.toThrowErrorMatchingSnapshot();
 });
 
-test("html parser should handle CRLF correctly", () => {
+test("html parser should handle CRLF correctly", async () => {
   const input = "<!--\r\n  test\r\n  test\r\n-->";
   expect(
     // use JSON.stringify to observe CRLF
     JSON.stringify(
-      prettier.format(input, { parser: "html", endOfLine: "auto" })
+      await prettier.format(input, { parser: "html", endOfLine: "auto" })
     )
   ).toMatchSnapshot();
 });
 
-test("markdown parser should handle CRLF correctly", () => {
+test("markdown parser should handle CRLF correctly", async () => {
   const input = "```\r\n\r\n\r\n```";
   expect(
     // use JSON.stringify to observe CRLF
     JSON.stringify(
-      prettier.format(input, { parser: "markdown", endOfLine: "auto" })
+      await prettier.format(input, { parser: "markdown", endOfLine: "auto" })
     )
   ).toMatchSnapshot();
 });
 
-test("should work with foo plugin instance", () => {
+test("should work with foo plugin instance", async () => {
   const input = "a:\r\n  123\r\n";
   expect(
     JSON.stringify(
-      prettier.format(input, { parser: "foo-parser", plugins: [fooPlugin] })
+      await prettier.format(input, {
+        parser: "foo-parser",
+        plugins: [fooPlugin],
+      })
     )
   ).toMatchInlineSnapshot('""{\\"tabWidth\\":8,\\"bracketSpacing\\":false}""');
 });
 
-test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", () => {
+test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", async () => {
   const input = "<a></a>\n<b></b>";
-  expect(() =>
+  await expect(
     prettier.format(input, { parser: "babel" })
-  ).toThrowErrorMatchingSnapshot();
+  ).rejects.toThrowErrorMatchingSnapshot();
 });

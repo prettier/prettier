@@ -14,13 +14,13 @@ const prettier = require("prettier");
 `format` is used to format text using Prettier. `options.parser` must be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.
 
 ```js
-prettier.format("foo ( );", { semi: false, parser: "babel" });
+await prettier.format("foo ( );", { semi: false, parser: "babel" });
 // -> "foo()"
 ```
 
 ## `prettier.check(source [, options])`
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Promise<boolean>`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.formatWithCursor(source [, options])`
 
@@ -29,7 +29,7 @@ prettier.format("foo ( );", { semi: false, parser: "babel" });
 The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
 ```js
-prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
+await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 

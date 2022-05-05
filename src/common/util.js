@@ -1,8 +1,5 @@
 import escapeStringRegexp from "escape-string-regexp";
-import getLast from "../utils/get-last.js";
 import { getSupportInfo } from "../main/support.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-import getStringWidth from "../utils/get-string-width.js";
 import {
   skipWhitespace,
   skipSpaces,
@@ -479,11 +476,9 @@ function describeNodeForDebugging(node) {
 
 export {
   inferParserByLanguage,
-  getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
   getPenultimate,
-  getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
@@ -511,6 +506,8 @@ export {
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
-  isNonEmptyArray,
   createGroupIdMapper,
 };
+export { default as getLast } from "../utils/get-last.js";
+export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
+export { default as getStringWidth } from "../utils/get-string-width.js";

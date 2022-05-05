@@ -1,6 +1,14 @@
 import { printComments, printDanglingComments } from "../../main/comments.js";
 import { isNonEmptyArray } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  group,
+  join,
+  line,
+  softline,
+  indent,
+  align,
+  ifBreak,
+} from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import { locStart } from "../loc.js";
 import {
@@ -16,10 +24,6 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printArrayItems } from "./array.js";
-
-const {
-  builders: { group, join, line, softline, indent, align, ifBreak },
-} = doc;
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {

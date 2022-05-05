@@ -1,38 +1,8 @@
-import { createRequire } from "node:module";
-import createLanguage from "../utils/create-language.js";
 import printer from "./printer-markdown.js";
-import options from "./options.js";
-import parsers from "./parsers.js";
 
-const require = createRequire(import.meta.url);
-
-const languages = [
-  createLanguage(require("linguist-languages/data/Markdown.json"), (data) => ({
-    since: "1.8.0",
-    parsers: ["markdown"],
-    vscodeLanguageIds: ["markdown"],
-    filenames: [...data.filenames, "README"],
-    extensions: data.extensions.filter((extension) => extension !== ".mdx"),
-  })),
-  createLanguage(require("linguist-languages/data/Markdown.json"), () => ({
-    name: "MDX",
-    since: "1.15.0",
-    parsers: ["mdx"],
-    vscodeLanguageIds: ["mdx"],
-    filenames: [],
-    extensions: [".mdx"],
-  })),
-];
-
-const printers = {
+export const printers = {
   mdast: printer,
 };
-
-const language = {
-  languages,
-  options,
-  printers,
-  parsers,
-};
-
-export default language;
+export { default as languages } from "./languages.evaluate.js";
+export { default as options } from "./options.js";
+export { default as parsers } from "./parsers.js";

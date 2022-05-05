@@ -5,36 +5,36 @@ const { prettier } = run_spec;
 
 run_spec(import.meta, ["babel", "typescript", "flow"]);
 
-test("translates cursor correctly in basic case", () => {
+test("translates cursor correctly in basic case", async () => {
   expect(
-    prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
+    await prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
   ).toMatchObject({
     formatted: "1;\n",
     cursorOffset: 1,
   });
 });
 
-test("positions cursor relative to closest node, not SourceElement", () => {
+test("positions cursor relative to closest node, not SourceElement", async () => {
   const code = "return         15";
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
+    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
   ).toMatchObject({
     formatted: "return 15;\n",
     cursorOffset: 7,
   });
 });
 
-test("keeps cursor inside formatted node", () => {
+test("keeps cursor inside formatted node", async () => {
   const code = "return         15";
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
+    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
   ).toMatchObject({
     formatted: "return 15;\n",
     cursorOffset: 7,
   });
 });
 
-test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
+test("doesn't insert second placeholder for nonexistent TypeAnnotation", async () => {
   const code =
     "\n" +
     outdent`
@@ -43,7 +43,7 @@ test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
       })
     `;
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
+    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toMatchObject({
     formatted:
       outdent`
@@ -55,11 +55,11 @@ test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
   });
 });
 
-test("cursorOffset === rangeStart", () => {
+test("cursorOffset === rangeStart", async () => {
   const code = "1.0000\n2.0000\n3.0000";
 
   expect(
-    prettier.formatWithCursor(code, {
+    await prettier.formatWithCursor(code, {
       parser: "babel",
       cursorOffset: 7,
       rangeStart: 7,

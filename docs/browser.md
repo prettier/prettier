@@ -48,7 +48,7 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
+  import * as prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
   import parserGraphql from "https://unpkg.com/prettier@2.6.2/esm/parser-graphql.mjs";
 
   prettier.format("type Query { hello: String }", {
@@ -102,7 +102,7 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
+  import * as prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
   import parserBabel from "https://unpkg.com/prettier@2.6.2/esm/parser-babel.mjs";
 
   console.log(
@@ -119,7 +119,7 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
+  import * as prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
   import parserBabel from "https://unpkg.com/prettier@2.6.2/esm/parser-babel.mjs";
   import parserHtml from "https://unpkg.com/prettier@2.6.2/esm/parser-html.mjs";
 

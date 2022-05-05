@@ -1,9 +1,5 @@
-import doc from "../document/index.js";
+import { hardline } from "../document/builders.js";
 import printFrontMatter from "../utils/front-matter/print.js";
-
-const {
-  builders: { hardline },
-} = doc;
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();

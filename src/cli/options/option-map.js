@@ -1,7 +1,5 @@
 import dashify from "dashify";
-import prettierInternal from "../prettier-internal.js";
-
-const { coreOptions } = prettierInternal;
+import { coreOptions } from "../prettier-internal.js";
 
 function normalizeDetailedOption(name, option) {
   return {

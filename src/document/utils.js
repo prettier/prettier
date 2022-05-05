@@ -1,5 +1,5 @@
 import getLast from "../utils/get-last.js";
-import { literalline, join } from "./doc-builders.js";
+import { literalline, join } from "./builders.js";
 
 const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
 const getDocParts = (doc) => {

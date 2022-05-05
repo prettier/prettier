@@ -7,6 +7,9 @@ updates:
       day: sunday
       time: "01:00"
     open-pull-requests-limit: 20
+    labels:
+      - scope:dependency
+    target-branch: "next"
 
   - package-ecosystem: "npm"
     directory: "/website"
@@ -14,6 +17,9 @@ updates:
       interval: weekly
       day: sunday
       time: "01:00"
+    labels:
+      - scope:dependency
+    target-branch: "next"
 
   - package-ecosystem: "npm"
     directory: "/scripts/release"
@@ -21,6 +27,9 @@ updates:
       interval: weekly
       day: sunday
       time: "01:00"
+    labels:
+      - scope:dependency
+    target-branch: "next"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -28,3 +37,6 @@ updates:
       interval: weekly
       day: sunday
       time: "01:00"
+    labels:
+      - scope:dependency
+    target-branch: "next"

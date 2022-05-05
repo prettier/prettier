@@ -1,13 +1,9 @@
-import prettierInternal from "./prettier-internal.js";
+import { getLast } from "./utils.js";
 import getContextOptions from "./options/get-context-options.js";
 import {
   parseArgv,
   parseArgvWithoutPlugins,
 } from "./options/parse-cli-arguments.js";
-
-const {
-  utils: { getLast },
-} = prettierInternal;
 
 /**
  * @typedef {Object} Context
@@ -57,6 +53,25 @@ class Context {
   popContextPlugins() {
     this.stack.pop();
     Object.assign(this, getLast(this.stack));
+  }
+
+  // eslint-disable-next-line getter-return
+  get performanceTestFlag() {
+    const { debugBenchmark, debugRepeat } = this.argv;
+    /* istanbul ignore next */
+    if (debugBenchmark) {
+      return {
+        name: "--debug-benchmark",
+        debugBenchmark: true,
+      };
+    }
+
+    if (debugRepeat > 0) {
+      return {
+        name: "--debug-repeat",
+        debugRepeat,
+      };
+    }
   }
 }
 

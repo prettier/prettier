@@ -1,6 +1,16 @@
 /** @typedef {import("../../document").Doc} Doc */
 
-import doc from "../../document/index.js";
+import {
+  dedent,
+  dedentToRoot,
+  fill,
+  hardline,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+} from "../../document/builders.js";
+import { getDocParts } from "../../document/utils.js";
 import {
   getAncestorCount,
   getBlockValueLineContents,
@@ -9,20 +19,6 @@ import {
   isNode,
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
-
-const {
-  builders: {
-    dedent,
-    dedentToRoot,
-    fill,
-    hardline,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-  },
-  utils: { getDocParts },
-} = doc;
 
 function printBlock(path, print, options) {
   const node = path.getValue();
