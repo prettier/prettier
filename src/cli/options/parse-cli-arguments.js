@@ -39,11 +39,13 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   };
 }
 
-const detailedOptionsWithoutPlugins = getContextOptions(
-  [],
-  false
-).detailedOptions;
-function parseArgvWithoutPlugins(rawArguments, logger, keys) {
+let detailedOptionsWithoutPlugins;
+async function parseArgvWithoutPlugins(rawArguments, logger, keys) {
+  if (!detailedOptionsWithoutPlugins) {
+    ({ detailedOptions: detailedOptionsWithoutPlugins } =
+      await getContextOptions([], false));
+  }
+
   return parseArgv(
     rawArguments,
     detailedOptionsWithoutPlugins,

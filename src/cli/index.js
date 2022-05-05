@@ -14,7 +14,7 @@ async function run(rawArguments) {
   let logger = createLogger();
 
   try {
-    const logLevel = parseArgvWithoutPlugins(
+    const logLevel = await parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"
@@ -23,6 +23,7 @@ async function run(rawArguments) {
       logger = createLogger(logLevel);
     }
     const context = new Context({ rawArguments, logger });
+    await context.init();
     if (logger.logLevel !== "debug" && context.performanceTestFlag) {
       context.logger = createLogger("debug");
     }
