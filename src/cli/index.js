@@ -14,11 +14,11 @@ async function run(rawArguments) {
   let logger = createLogger();
 
   try {
-    const logLevel = await parseArgvWithoutPlugins(
+    const {loglevel: logLevel} = await parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"
-    ).loglevel;
+    );
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
     }
