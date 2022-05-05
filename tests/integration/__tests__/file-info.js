@@ -256,6 +256,30 @@ test("API getFileInfo with ignorePath", async () => {
   });
 });
 
+test("API getFileInfo with ignorePath containing relative paths", async () => {
+  const file = path.resolve(
+    path.join(
+      __dirname,
+      "../cli/ignore-relative-path/level1-glob/level2-glob/level3-glob/shouldNotBeFormat.js"
+    )
+  );
+  const ignorePath = path.resolve(
+    path.join(__dirname, "../cli/ignore-relative-path/.prettierignore")
+  );
+
+  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
+    ignored: false,
+    inferredParser: "babel",
+  });
+
+  await expect(
+    prettier.getFileInfo(file, { ignorePath })
+  ).resolves.toMatchObject({
+    ignored: true,
+    inferredParser: null,
+  });
+});
+
 describe("API getFileInfo with ignorePath", () => {
   let cwd;
   let filePath;
@@ -287,30 +311,6 @@ describe("API getFileInfo with ignorePath", () => {
       options
     );
     expect(ignored).toBe(true);
-  });
-});
-
-test("API getFileInfo with ignorePath containing relative paths", async () => {
-  const file = path.resolve(
-    path.join(
-      __dirname,
-      "../cli/ignore-relative-path/level1-glob/level2-glob/level3-glob/shouldNotBeFormat.js"
-    )
-  );
-  const ignorePath = path.resolve(
-    path.join(__dirname, "../cli/ignore-relative-path/.prettierignore")
-  );
-
-  await expect(prettier.getFileInfo(file)).resolves.toMatchObject({
-    ignored: false,
-    inferredParser: "babel",
-  });
-
-  await expect(
-    prettier.getFileInfo(file, { ignorePath })
-  ).resolves.toMatchObject({
-    ignored: true,
-    inferredParser: null,
   });
 });
 
