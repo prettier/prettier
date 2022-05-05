@@ -23,7 +23,7 @@ import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
 const getExplorerMemoized = mem(
   (opts) => {
     const require = createRequire(import.meta.url);
-    const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+    const { cosmiconfig } = thirdParty;
     const explorer = cosmiconfig("prettier", {
       cache: opts.cache,
       transform: (result) => {
@@ -80,54 +80,43 @@ function getExplorer(opts) {
   return getExplorerMemoized(opts);
 }
 
-function _resolveConfig(filePath, opts, sync) {
+async function resolveConfig(filePath, opts) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
     cache: Boolean(opts.useCache),
-    sync: Boolean(sync),
     editorconfig: Boolean(opts.editorconfig),
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
-  /** @type {[any, any]} */
-  const arr = [
+
+  const [result, editorConfigured] = await Promise.all(
     opts.config ? load(opts.config) : search(filePath),
-    loadEditorConfig(filePath),
-  ];
+    loadEditorConfig(filePath)
+  );
 
-  const unwrapAndMerge = ([result, editorConfigured]) => {
-    const merged = {
-      ...editorConfigured,
-      ...mergeOverrides(result, filePath),
-    };
-
-    for (const optionName of ["plugins", "pluginSearchDirs"]) {
-      if (Array.isArray(merged[optionName])) {
-        merged[optionName] = merged[optionName].map((value) =>
-          typeof value === "string" && value.startsWith(".") // relative path
-            ? path.resolve(path.dirname(result.filepath), value)
-            : value
-        );
-      }
-    }
-
-    if (!result && !editorConfigured) {
-      return null;
-    }
-
-    // We are not using this option
-    delete merged.insertFinalNewline;
-    return merged;
+  const merged = {
+    ...editorConfigured,
+    ...mergeOverrides(result, filePath),
   };
 
-  if (loadOpts.sync) {
-    return unwrapAndMerge(arr);
+  for (const optionName of ["plugins", "pluginSearchDirs"]) {
+    if (Array.isArray(merged[optionName])) {
+      merged[optionName] = merged[optionName].map((value) =>
+        typeof value === "string" && value.startsWith(".") // relative path
+          ? path.resolve(path.dirname(result.filepath), value)
+          : value
+      );
+    }
   }
 
-  return Promise.all(arr).then(unwrapAndMerge);
-}
+  if (!result && !editorConfigured) {
+    return null;
+  }
 
-const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
+  // We are not using this option
+  delete merged.insertFinalNewline;
+  return merged;
+}
 
 function clearCache() {
   memClear(getExplorerMemoized);
