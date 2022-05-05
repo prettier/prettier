@@ -1,4 +1,4 @@
-import prettier from "../../index.js";
+import { getSupportInfo } from "../../index.js";
 import { optionsHiddenDefaults } from "../prettier-internal.js";
 import * as constant from "../constant.js";
 import { arrayify } from "../utils.js";
@@ -8,7 +8,7 @@ import {
 } from "./option-map.js";
 
 function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = prettier.getSupportInfo({
+  const { options: supportOptions, languages } = getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,

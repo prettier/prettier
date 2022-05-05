@@ -261,6 +261,7 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@iarna/toml/lib/toml-parser.js"),
@@ -292,6 +293,7 @@ const coreBundles = [
   },
   {
     input: "src/standalone.js",
+    interopDefault: false,
     name: "prettier",
     target: "universal",
     replaceModule: [

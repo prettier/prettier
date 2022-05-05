@@ -1,5 +1,5 @@
 import stringify from "fast-json-stable-stringify";
-import prettier from "../index.js";
+import { format, getFileInfo } from "../index.js";
 import { printToScreen } from "./utils.js";
 
 async function logFileInfoOrDie(context) {
@@ -12,7 +12,7 @@ async function logFileInfoOrDie(context) {
     config,
   } = context.argv;
 
-  const fileInfo = await prettier.getFileInfo(file, {
+  const fileInfo = await getFileInfo(file, {
     ignorePath,
     withNodeModules,
     plugins,
@@ -20,7 +20,7 @@ async function logFileInfoOrDie(context) {
     resolveConfig: config !== false,
   });
 
-  printToScreen(await prettier.format(stringify(fileInfo), { parser: "json" }));
+  printToScreen(await format(stringify(fileInfo), { parser: "json" }));
 }
 
 export default logFileInfoOrDie;

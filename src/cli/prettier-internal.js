@@ -1,19 +1,10 @@
-import prettier from "../index.js";
+import { __internal as sharedWithCli } from "../index.js";
 
-const {
+export const {
   errors,
   coreOptions,
   createIgnorer,
   optionsHiddenDefaults,
   normalizeApiOptions,
   normalizeCliOptions,
-} = prettier.__internal;
-
-export {
-  errors,
-  coreOptions,
-  createIgnorer,
-  optionsHiddenDefaults,
-  normalizeApiOptions,
-  normalizeCliOptions,
-};
+} = sharedWithCli;

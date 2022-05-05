@@ -3,10 +3,6 @@ import path from "node:path";
 
 const entry = pathToFileURL(path.join(process.env.PRETTIER_DIR, "index.js"));
 
-const getPrettier = async () => {
-  const { default: prettier } = await import(entry);
-
-  return prettier;
-};
+const getPrettier = () => import(entry);
 
 export default getPrettier;

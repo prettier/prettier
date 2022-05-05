@@ -1,7 +1,6 @@
-import prettier from "../index.js";
+import { __internal as sharedWithCli } from "../index.js";
 
-const { arrayify, getLast, isNonEmptyArray, partition } =
-  prettier.__internal.utils;
+const { arrayify, getLast, isNonEmptyArray, partition } = sharedWithCli.utils;
 
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
