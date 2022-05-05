@@ -100,14 +100,6 @@ async function run(dir, args, options) {
       })
     );
   jest
-    .spyOn(require(thirdParty), "cosmiconfigSync")
-    .mockImplementation((moduleName, options) =>
-      require("cosmiconfig").cosmiconfigSync(moduleName, {
-        ...options,
-        stopDir: path.join(__dirname, "cli"),
-      })
-    );
-  jest
     .spyOn(require(thirdParty), "findParentDir")
     .mockImplementation(() => process.cwd());
 

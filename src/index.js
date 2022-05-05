@@ -30,7 +30,12 @@ const require = createRequire(import.meta.url);
 
 const { version } = require("../package.json");
 
-function _withPlugins(
+/**
+ * @param {*} fn
+ * @param {*} optsArgIdx
+ * @returns {*}
+ */
+function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
 ) {
@@ -45,20 +50,6 @@ function _withPlugins(
     };
     return fn(...args);
   };
-}
-
-/**
- * @param {*} fn
- * @param {*} optsArgIdx
- * @returns {*}
- */
-function withPlugins(fn, optsArgIdx) {
-  const resultingFn = _withPlugins(fn, optsArgIdx);
-  if (fn.sync) {
-    // @ts-expect-error
-    resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
-  }
-  return resultingFn;
 }
 
 const formatWithCursor = withPlugins(core.formatWithCursor);

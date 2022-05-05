@@ -1,5 +1,4 @@
-import fs from "node:fs";
-const fsAsync = fs.promises;
+import { promises as fsPromises } from "node:fs";
 
 /**
  * @param {string} filename
@@ -7,30 +6,14 @@ const fsAsync = fs.promises;
  */
 async function getFileContentOrNull(filename) {
   try {
-    return await fsAsync.readFile(filename, "utf8");
+    return await fsPromises.readFile(filename, "utf8");
   } catch (error) {
-    return handleError(filename, error);
-  }
-}
+    if (error && error.code === "ENOENT") {
+      return null;
+    }
 
-/**
- * @param {string} filename
- * @returns {null | string}
- */
-getFileContentOrNull.sync = function (filename) {
-  try {
-    return fs.readFileSync(filename, "utf8");
-  } catch (error) {
-    return handleError(filename, error);
+    throw new Error(`Unable to read ${filename}: ${error.message}`);
   }
-};
-
-function handleError(filename, error) {
-  if (error && error.code === "ENOENT") {
-    return null;
-  }
-
-  throw new Error(`Unable to read ${filename}: ${error.message}`);
 }
 
 export default getFileContentOrNull;
