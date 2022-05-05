@@ -18,7 +18,12 @@ async function loadEditorConfig(filePath) {
     root: findProjectRoot(path.dirname(path.resolve(filePath))),
   });
 
-  return editorConfigToPrettier(editorConfig);
+  const config = editorConfigToPrettier(editorConfig);
+
+  // We are not using this option
+  delete config.insertFinalNewline;
+
+  return config
 }
 
 function getLoadFunction(opts) {
