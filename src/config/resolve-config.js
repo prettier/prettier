@@ -69,14 +69,13 @@ const getExplorerMemoized = mem(
 );
 
 /**
- * @template {Options} Opts
- * @param {Opts} opts
+ * @param {Options} [options]
  * @return {Explorer}
  */
-function getExplorer(opts) {
+function getExplorer(options) {
   return getExplorerMemoized(
     // Normalize opts before passing to a memoized function
-    { cache: false, ...opts }
+    { cache: false, ...options }
   );
 }
 
@@ -124,7 +123,7 @@ function clearCache() {
 }
 
 async function resolveConfigFile(filePath) {
-  const { search } = getExplorer({ sync: false });
+  const { search } = getExplorer();
   const result = await search(filePath);
   return result ? result.filepath : null;
 }
