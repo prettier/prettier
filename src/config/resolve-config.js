@@ -5,6 +5,7 @@ import mem, { memClear } from "mem";
 import thirdParty from "../common/third-party.cjs";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
+import loadJsConfig from "../utils/load-js-config.js";
 import resolve from "../common/resolve.js";
 import partition from "../utils/partition.js";
 import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
@@ -25,12 +26,12 @@ const getExplorerMemoized = mem(
     const { cosmiconfig } = thirdParty;
     const explorer = cosmiconfig("prettier", {
       cache: opts.cache,
-      transform: (result) => {
+      async transform (result) {
         if (result && result.config) {
           if (typeof result.config === "string") {
             const dir = path.dirname(result.filepath);
             const modulePath = resolve(result.config, { paths: [dir] });
-            result.config = require(modulePath);
+            result.config = await loadJsConfig(modulePath);
           }
 
           if (typeof result.config !== "object") {
@@ -52,14 +53,18 @@ const getExplorerMemoized = mem(
         ".prettierrc.yml",
         ".prettierrc.json5",
         ".prettierrc.js",
+        ".prettierrc.mjs",
         ".prettierrc.cjs",
         "prettier.config.js",
+        "prettier.config.mjs",
         "prettier.config.cjs",
         ".prettierrc.toml",
       ],
       loaders: {
         ".toml": loadToml,
         ".json5": loadJson5,
+        ".js": loadJsConfig,
+        ".mjs": loadJsConfig,
       },
     });
 
