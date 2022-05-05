@@ -58,8 +58,6 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 - `indent_size`/`tab_width`
 - `max_line_length`
 
-Use `prettier.resolveConfig.sync(filePath [, options])` if you’d like to use sync version.
-
 ## `prettier.resolveConfigFile([filePath])`
 
 `resolveConfigFile` can be used to find the path of the Prettier configuration file that will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
@@ -76,8 +74,6 @@ prettier.resolveConfigFile(filePath).then((configFile) => {
   // you got the path of the configuration file
 });
 ```
-
-Use `prettier.resolveConfigFile.sync([filePath])` if you’d like to use sync version.
 
 ## `prettier.clearConfigCache()`
 
@@ -103,8 +99,6 @@ If the given `filePath` is ignored, the `inferredParser` is always `null`.
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
 When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will resolve the configuration for the given `filePath`. This is useful, for example, when the `inferredParser` might be overridden for a subset of files.
-
-Use `prettier.getFileInfo.sync(filePath [, options])` if you’d like to use sync version.
 
 ## `prettier.getSupportInfo()`
 
