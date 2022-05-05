@@ -7,26 +7,30 @@ import findProjectRoot from "./find-project-root.js";
 
 const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
 
-const maybeParse = (filePath, parse) =>
-  filePath &&
-  parse(filePath, {
+const memoizedLoadEditorConfig = jsonStringifyMem(loadEditorConfig);
+
+async function loadEditorConfig(filePath) {
+  if (!filePath) {
+    return;
+  }
+
+  const editorConfig = await editorconfig.parse(filePath, {
     root: findProjectRoot(path.dirname(path.resolve(filePath))),
   });
 
-const editorconfigAsyncNoCache = async (filePath) =>
-  editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
-const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
+  return editorConfigToPrettier(editorConfig);
+}
 
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {
-    return () => null;
+    return () => {};
   }
 
-  return opts.cache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache;
+  return opts.cache ? memoizedLoadEditorConfig : loadEditorConfig;
 }
 
 function clearCache() {
-  memClear(editorconfigAsyncWithCache);
+  memClear(memoizedLoadEditorConfig);
 }
 
 export { getLoadFunction, clearCache };
