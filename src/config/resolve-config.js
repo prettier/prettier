@@ -89,10 +89,10 @@ async function resolveConfig(filePath, opts) {
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
 
-  const [result, editorConfigured] = await Promise.all(
+  const [result, editorConfigured] = await Promise.all([
     opts.config ? load(opts.config) : search(filePath),
     loadEditorConfig(filePath)
-  );
+  ]);
 
   const merged = {
     ...editorConfigured,
