@@ -75,9 +75,10 @@ const getExplorerMemoized = mem(
  * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
  */
 function getExplorer(opts) {
-  // Normalize opts before passing to a memoized function
-  opts = { sync: false, cache: false, ...opts };
-  return getExplorerMemoized(opts);
+  return getExplorerMemoized(
+    // Normalize opts before passing to a memoized function
+    { cache: false, ...opts }
+  );
 }
 
 async function resolveConfig(filePath, opts) {
