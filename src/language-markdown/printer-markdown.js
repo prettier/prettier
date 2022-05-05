@@ -38,7 +38,7 @@ import {
 } from "./utils.js";
 
 /**
- * @typedef {import("../document").Doc} Doc
+ * @typedef {import("../document/builders.js").Doc} Doc
  */
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);

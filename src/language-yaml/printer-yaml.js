@@ -1,4 +1,4 @@
-/** @typedef {import("../document").Doc} Doc */
+/** @typedef {import("../document/builders.js").Doc} Doc */
 
 import {
   breakParent,

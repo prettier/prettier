@@ -27,7 +27,7 @@ import { shouldHugFunctionParameters } from "./function-parameters.js";
 import { shouldHugType } from "./type-annotation.js";
 import { printHardlineAfterHeritage } from "./class.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";

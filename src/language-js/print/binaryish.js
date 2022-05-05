@@ -24,7 +24,7 @@ import {
   isEnabledHackPipeline,
 } from "../utils/index.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
