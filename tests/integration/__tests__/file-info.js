@@ -256,6 +256,40 @@ test("API getFileInfo with ignorePath", async () => {
   });
 });
 
+describe("API getFileInfo with ignorePath", () => {
+  let cwd;
+  let filePath;
+  let options;
+  beforeAll(() => {
+    cwd = process.cwd();
+    const tempDir = tempy.directory();
+    process.chdir(tempDir);
+    const fileDir = "src";
+    filePath = `${fileDir}/should-be-ignored.js`;
+    const ignorePath = path.join(tempDir, ".prettierignore");
+    fs.writeFileSync(ignorePath, filePath, "utf8");
+    options = { ignorePath };
+  });
+  afterAll(() => {
+    process.chdir(cwd);
+  });
+  test("with relative filePath", async () => {
+    await expect(
+      prettier.getFileInfo.sync(filePath, options).ignored
+    ).resolves.toMatchInlineSnapshot("true");
+  });
+  test("with relative filePath starts with dot", async () => {
+    await expect(
+      prettier.getFileInfo.sync(`./${filePath}`, options).ignored
+    ).resolves.toMatchInlineSnapshot("true");
+  });
+  test("with absolute filePath", async () => {
+    await expect(
+      prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
+    ).resolves.toMatchInlineSnapshot("true");
+  });
+});
+
 test("API getFileInfo with ignorePath containing relative paths", async () => {
   const file = path.resolve(
     path.join(
