@@ -11,7 +11,7 @@ import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
 
 /**
  * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
- * @typedef {{sync?: boolean; cache?: boolean }} Options
+ * @typedef {{cache?: boolean }} Options
  */
 
 /**
