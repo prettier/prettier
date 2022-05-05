@@ -17,24 +17,15 @@ const editorconfigAsyncNoCache = async (filePath) =>
   editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
 const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
 
-const editorconfigSyncNoCache = (filePath) =>
-  editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
-const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
-
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {
     return () => null;
-  }
-
-  if (opts.sync) {
-    return opts.cache ? editorconfigSyncWithCache : editorconfigSyncNoCache;
   }
 
   return opts.cache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache;
 }
 
 function clearCache() {
-  memClear(editorconfigSyncWithCache);
   memClear(editorconfigAsyncWithCache);
 }
 
