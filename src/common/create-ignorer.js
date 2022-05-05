@@ -11,25 +11,6 @@ async function createIgnorer(ignorePath, withNodeModules) {
     ? await getFileContentOrNull(path.resolve(ignorePath))
     : null;
 
-  return _createIgnorer(ignoreContent, withNodeModules);
-}
-
-/**
- * @param {string?} ignorePath
- * @param {boolean?} withNodeModules
- */
-createIgnorer.sync = function (ignorePath, withNodeModules) {
-  const ignoreContent = !ignorePath
-    ? null
-    : getFileContentOrNull.sync(path.resolve(ignorePath));
-  return _createIgnorer(ignoreContent, withNodeModules);
-};
-
-/**
- * @param {null | string} ignoreContent
- * @param {boolean?} withNodeModules
- */
-function _createIgnorer(ignoreContent, withNodeModules) {
   const ignorer = ignore({ allowRelativePaths: true }).add(ignoreContent || "");
   if (!withNodeModules) {
     ignorer.add("node_modules");
