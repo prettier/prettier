@@ -39,13 +39,14 @@ function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
 ) {
-  return (...args) => {
+  return async (...args) => {
     const opts = args[optsArgIdx] || {};
+
     args[optsArgIdx] = {
       ...opts,
       plugins: [
         ...languages,
-        ...loadPlugins(opts.plugins, opts.pluginSearchDirs),
+        ...(await loadPlugins(opts.plugins, opts.pluginSearchDirs)),
       ],
     };
     return fn(...args);
