@@ -274,19 +274,19 @@ describe("API getFileInfo with ignorePath", () => {
     process.chdir(cwd);
   });
   test("with relative filePath", async () => {
-    await expect(
-      prettier.getFileInfo.sync(filePath, options).ignored
-    ).resolves.toMatchInlineSnapshot("true");
+    const { ignored } = await prettier.getFileInfo(filePath, options);
+    expect(ignored).toBe(true);
   });
   test("with relative filePath starts with dot", async () => {
-    await expect(
-      prettier.getFileInfo.sync(`./${filePath}`, options).ignored
-    ).resolves.toMatchInlineSnapshot("true");
+    const { ignored } = await prettier.getFileInfo(`./${filePath}`, options);
+    expect(ignored).toBe(true);
   });
   test("with absolute filePath", async () => {
-    await expect(
-      prettier.getFileInfo.sync(path.resolve(filePath), options).ignored
-    ).resolves.toMatchInlineSnapshot("true");
+    const { ignored } = await prettier.getFileInfo(
+      path.resolve(filePath),
+      options
+    );
+    expect(ignored).toBe(true);
   });
 });
 
