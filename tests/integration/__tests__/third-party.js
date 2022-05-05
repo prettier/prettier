@@ -51,7 +51,7 @@ describe("cosmiconfig", () => {
 
   // #8815, please make sure this error contains code frame
   test("Invalid json file", async () => {
-    await expect(() =>
+    await expect(
       cosmiconfig("prettier").search(
         path.join(__dirname, "../cli/config/invalid/broken-json")
       )
