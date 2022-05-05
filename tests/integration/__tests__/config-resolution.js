@@ -123,7 +123,7 @@ test("API resolveConfig with file arg and .editorconfig (key = unset)", async ()
     path.join(__dirname, "../cli/config/editorconfig/tab_width=unset.js")
   );
 
- await expect(
+  await expect(
     prettier.resolveConfig(file, { editorconfig: true })
   ).resolves.not.toMatchObject({ tabWidth: "unset" });
 });
@@ -137,11 +137,13 @@ test("API resolveConfig with nested file arg and .editorconfig", async () => {
     semi: false,
   });
 
-  await expect(prettier.resolveConfig(file, { editorconfig: true })).resolves.toMatchObject({
-      useTabs: false,
-      tabWidth: 2,
-      printWidth: 100,
-    });
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true })
+  ).resolves.toMatchObject({
+    useTabs: false,
+    tabWidth: 2,
+    printWidth: 100,
+  });
 });
 
 test("API resolveConfig with nested file arg and .editorconfig and indent_size = tab", async () => {
@@ -183,7 +185,7 @@ test("API resolveConfig overrides work with absolute paths", async () => {
   });
 });
 
-test("API resolveConfig overrides excludeFiles", () => {
+test("API resolveConfig overrides excludeFiles", async () => {
   const notOverride = path.join(
     __dirname,
     "../cli/config/overrides-exclude-files/foo"
@@ -212,14 +214,12 @@ test("API resolveConfig overrides excludeFiles", () => {
   });
 });
 
-test("API resolveConfig removes $schema option", () => {
+test("API resolveConfig removes $schema option", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/$schema/index.js")
   );
-  return prettier.resolveConfig(file).then((result) => {
-    expect(result).toEqual({
-      tabWidth: 42,
-    });
+  await expect(prettier.resolveConfig(file)).resolves.toEqual({
+    tabWidth: 42,
   });
 });
 
