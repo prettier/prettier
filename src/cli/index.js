@@ -80,10 +80,9 @@ async function main(context) {
   }
 
   if (context.argv.supportInfo) {
+    const supportInfo = await prettier.getSupportInfo();
     printToScreen(
-      await prettier.format(stringify(prettier.getSupportInfo()), {
-        parser: "json",
-      })
+      await prettier.format(stringify(supportInfo), { parser: "json" })
     );
     return;
   }
