@@ -41,8 +41,8 @@ describe("API", () => {
     done();
   });
 
-  test("prettier.printDocToString", await () => {
-    const { formatted: stringFromDoc } = async printDocToString(doc, options);
+  test("prettier.printDocToString", async () => {
+    const { formatted: stringFromDoc } =  await printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);
   });
 
