@@ -1,4 +1,4 @@
-import {promises as fsPromises} from "node:fs";
+import { promises as fsPromises } from "node:fs";
 
 /**
  * @param {string} filename
