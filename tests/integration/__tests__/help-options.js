@@ -10,7 +10,7 @@ import {
 for (const option of arrayify(
   {
     ...createDetailedOptionMap(
-      prettier.getSupportInfo({
+      await prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
         showInternal: true,
