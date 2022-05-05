@@ -129,8 +129,6 @@ function _resolveConfig(filePath, opts, sync) {
 
 const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 
-resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
-
 function clearCache() {
   memClear(getExplorerMemoized);
   resolveEditorConfig.clearCache();
@@ -141,12 +139,6 @@ async function resolveConfigFile(filePath) {
   const result = await search(filePath);
   return result ? result.filepath : null;
 }
-
-resolveConfigFile.sync = (filePath) => {
-  const { search } = getExplorer({ sync: true });
-  const result = search(filePath);
-  return result ? result.filepath : null;
-};
 
 function mergeOverrides(configResult, filePath) {
   const { config, filepath: configPath } = configResult || {};

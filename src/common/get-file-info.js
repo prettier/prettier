@@ -35,29 +35,6 @@ async function getFileInfo(filePath, opts) {
   });
 }
 
-/**
- * @param {string} filePath
- * @param {FileInfoOptions} opts
- * @returns {FileInfoResult}
- */
-getFileInfo.sync = function (filePath, opts) {
-  if (typeof filePath !== "string") {
-    throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``
-    );
-  }
-
-  const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
-  return _getFileInfo({
-    ignorer,
-    filePath,
-    plugins: opts.plugins,
-    resolveConfig: opts.resolveConfig,
-    ignorePath: opts.ignorePath,
-    sync: true,
-  });
-};
-
 function getFileParser(resolvedConfig, filePath, plugins) {
   if (resolvedConfig && resolvedConfig.parser) {
     return resolvedConfig.parser;
