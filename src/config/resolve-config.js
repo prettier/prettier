@@ -11,14 +11,13 @@ import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
 
 /**
  * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
- * @typedef {ReturnType<import("cosmiconfig").cosmiconfigSync>} SyncExplorer
  * @typedef {{sync?: boolean; cache?: boolean }} Options
  */
 
 /**
  * @template {Options} Opts
  * @param {Opts} opts
- * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
+ * @return {Explorer}
  */
 const getExplorerMemoized = mem(
   (opts) => {
