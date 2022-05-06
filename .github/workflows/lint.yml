@@ -46,22 +46,32 @@ jobs:
         run: yarn lint:actionlint
 
       - name: Run yarn install (/)
-        run: yarn
+        run: |
+          yarn
+          yarn dedupe --check
 
       - name: Run yarn install (/website)
-        run: yarn
+        run: |
+          yarn
+          yarn dedupe --check
         working-directory: website
 
       - name: Run yarn install (/scripts/release)
-        run: yarn
+        run: |
+          yarn
+          yarn dedupe --check
         working-directory: scripts/release
 
       - name: Run yarn install (/scripts/tools/bundle-test)
-        run: yarn
+        run: |
+          yarn
+          yarn dedupe --check
         working-directory: scripts/tools/bundle-test
 
       - name: Run yarn install (/scripts/tools/eslint-plugin-prettier-internal-rules)
-        run: yarn
+        run: |
+          yarn
+          yarn dedupe --check
         working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
 
       - name: Check File Changes
