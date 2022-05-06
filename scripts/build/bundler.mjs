@@ -46,6 +46,20 @@ function* getEsbuildOptions(bundle, buildOptions) {
       module: require.resolve("tslib"),
       path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
     },
+    // https://github.com/evanw/esbuild/issues/2103
+    {
+      module: path.join(
+        path.dirname(require.resolve("outdent/package.json")),
+        "lib-module/index.js"
+      ),
+      process(text) {
+        const index = text.indexOf('if (typeof module !== "undefined") {');
+        if (index === -1) {
+          throw new Error("Unexpected code");
+        }
+        return text.slice(0, index);
+      },
+    },
   ];
 
   const define = {
