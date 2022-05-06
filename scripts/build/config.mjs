@@ -307,9 +307,8 @@ const coreBundles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
-        module: path.join(PROJECT_ROOT, "src/main/parser.js"),
-        find: "return requireParser(opts.parser);",
-        replacement: "",
+        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
+        text: "export default () => {};",
       },
     ],
   },
