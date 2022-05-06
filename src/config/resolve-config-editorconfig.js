@@ -23,7 +23,7 @@ async function loadEditorConfig(filePath) {
   // We are not using this option
   delete config.insertFinalNewline;
 
-  return config
+  return config;
 }
 
 function getLoadFunction(opts) {
