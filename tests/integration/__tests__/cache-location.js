@@ -39,7 +39,7 @@ async function rmdir(dirPath) {
 describe("--cache-location option", () => {
   const dir = resolveDir("cli/cache-location");
   const defaultCacheFile = path.join(dir, ".prettiercache");
-  const newCacheFile = path.join(dir, ".newprettiercache");
+  const newCacheFile = path.join(dir, ".new_prettiercache");
   const newCacheDir = path.join(dir, "cache-dir");
 
   afterEach(async () => {
@@ -50,7 +50,7 @@ describe("--cache-location option", () => {
   it("doesn't create `.prettiercache` file when `--cache-location` is used.", async () => {
     await runPrettier(dir, [
       "--cache",
-      "--cache-location=.newprettiercache",
+      "--cache-location=.new_prettiercache",
       ".",
     ]);
     await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
@@ -63,7 +63,7 @@ describe("--cache-location option", () => {
     it("creates cache file at the specified file", async () => {
       await runPrettier(dir, [
         "--cache",
-        "--cache-location=.newprettiercache",
+        "--cache-location=.new_prettiercache",
         ".",
       ]);
       const cacheFileData = await fs.readFile(newCacheFile, "utf8");
@@ -73,13 +73,13 @@ describe("--cache-location option", () => {
     it("skips formatting when cache is available", async () => {
       await runPrettier(dir, [
         "--cache",
-        "--cache-location=.newprettiercache",
+        "--cache-location=.new_prettiercache",
         "--write",
         ".",
       ]);
       const { stdout } = await runPrettier(dir, [
         "--cache",
-        "--cache-location=.newprettiercache",
+        "--cache-location=.new_prettiercache",
         "--write",
         ".",
       ]);
