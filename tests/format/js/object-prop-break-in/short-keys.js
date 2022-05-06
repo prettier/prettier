@@ -15,4 +15,8 @@ var obj = {
   '古': 'https://prettier.io/docs/en/rationale.html#what-prettier-is-concerned-about',
   '古今': 'https://prettier.io/docs/en/rationale.html#what-prettier-is-concerned-about',
   '古体诗': 'https://prettier.io/docs/en/rationale.html#what-prettier-is-concerned-about',
+  templateString: `2222-2222-2222-2222-2222-2222-2222-2222-2222-2222-2222-2222-`,
+  identifier: aaaaBBBBccccDDDDeeeeFFFFggggHHHHiiiiJJJJkkkkLLLLmmmmNNNNooooPPPPqq,
+  number: 1234567890123456789012345678901234567890123456789012345678901234567890,
+  bigintLiteral: 12345678901234567890123456789012345678901234567890123456789012n,
 };

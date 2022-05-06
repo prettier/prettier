@@ -129,6 +129,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   }
 
   if (
+    (isObjectProperty(node) && isStringLiteral(rightNode)) ||
     (rightNode.type === "CallExpression" &&
       rightNode.callee.name === "require") ||
     // do not put values on a separate line from the key in json
@@ -210,7 +211,6 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
     }
   }
   if (
-    isStringLiteral(node) ||
     path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
       ...propertiesForPath
