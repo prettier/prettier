@@ -96,7 +96,7 @@ function load(plugins, pluginSearchDirs) {
       "requirePath"
     ).map((externalPluginInfo) => ({
       name: externalPluginInfo.name,
-      ...require(externalPluginInfo.requirePath),
+      ...require(/* webpackIgnore: true */ externalPluginInfo.requirePath),
     })),
     ...externalPluginInstances,
   ];
