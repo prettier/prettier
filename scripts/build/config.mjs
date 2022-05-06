@@ -109,6 +109,12 @@ const parsers = [
           );
         },
       },
+      // yarn pnp
+      {
+        module: require.resolve("typescript"),
+        find: "process.versions.pnp",
+        replacement: "undefined",
+      },
 
       ...Object.entries({
         // `typescript/lib/typescript.js` expose extra global objects

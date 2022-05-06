@@ -31,6 +31,26 @@ updates:
       - scope:dependency
     target-branch: "next"
 
+  - package-ecosystem: "npm"
+    directory: "/scripts/tools/bundle-test"
+    schedule:
+      interval: weekly
+      day: sunday
+      time: "01:00"
+    labels:
+      - scope:dependency
+    target-branch: "next"
+
+  - package-ecosystem: "npm"
+    directory: "/scripts/tools/eslint-plugin-prettier-internal-rules"
+    schedule:
+      interval: weekly
+      day: sunday
+      time: "01:00"
+    labels:
+      - scope:dependency
+    target-branch: "next"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
