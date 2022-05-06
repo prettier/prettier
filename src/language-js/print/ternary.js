@@ -19,7 +19,7 @@ import {
 } from "../../document/builders.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  * @typedef {import("../../common/ast-path.js").default} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)

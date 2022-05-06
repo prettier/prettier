@@ -12,8 +12,8 @@ import {
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
 function printStatementSequence(path, options, print, property) {
