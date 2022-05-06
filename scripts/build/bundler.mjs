@@ -55,7 +55,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       process(text) {
         const index = text.indexOf('if (typeof module !== "undefined") {');
         if (index === -1) {
-          throw new Error("Unexpect code");
+          throw new Error("Unexpected code");
         }
         return text.slice(0, index);
       },
