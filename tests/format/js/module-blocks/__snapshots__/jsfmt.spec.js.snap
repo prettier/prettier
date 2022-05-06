@@ -5,7 +5,7 @@ exports[`comments.js [acorn] format 1`] = `
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                                ^
   2 |   /*A4*/
-  3 |   export const foo = \\"foo\\";
+  3 |   export const foo = "foo";
   4 |   export { foo }; /*A5*/"
 `;
 
@@ -14,7 +14,7 @@ exports[`comments.js [espree] format 1`] = `
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                                ^
   2 |   /*A4*/
-  3 |   export const foo = \\"foo\\";
+  3 |   export const foo = "foo";
   4 |   export { foo }; /*A5*/"
 `;
 
@@ -23,7 +23,7 @@ exports[`comments.js [meriyah] format 1`] = `
 > 1 | const m = /*A1*/ module /*A2*/ { /*A3*/
     |                                ^
   2 |   /*A4*/
-  3 |   export const foo = \\"foo\\";
+  3 |   export const foo = "foo";
   4 |   export { foo }; /*A5*/"
 `;
 
@@ -211,7 +211,7 @@ exports[`range.js [acorn] format 1`] = `
     |                          ^
   2 | };
   3 |
-  4 | foo(module { export let foo = \\"foo\\"; })"
+  4 | foo(module { export let foo = "foo"; })"
 `;
 
 exports[`range.js [espree] format 1`] = `
@@ -220,7 +220,7 @@ exports[`range.js [espree] format 1`] = `
     |                          ^
   2 | };
   3 |
-  4 | foo(module { export let foo = \\"foo\\"; })"
+  4 | foo(module { export let foo = "foo"; })"
 `;
 
 exports[`range.js [meriyah] format 1`] = `
@@ -229,7 +229,7 @@ exports[`range.js [meriyah] format 1`] = `
     |                          ^
   2 | };
   3 |
-  4 | foo(module { export let foo = \\"foo\\"; })"
+  4 | foo(module { export let foo = "foo"; })"
 `;
 
 exports[`range.js format 1`] = `

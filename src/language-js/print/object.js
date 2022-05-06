@@ -1,28 +1,31 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+  hardline,
+} from "../../document/builders.js";
+import {
   getLast,
   hasNewlineInRange,
   hasNewline,
   isNonEmptyArray,
-} = require("../../common/util.js");
-const {
+} from "../../common/util.js";
+import {
   shouldPrintComma,
   hasComment,
   getComments,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils/index.js");
-const { locStart, locEnd } = require("../loc.js");
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
-const { shouldHugFunctionParameters } = require("./function-parameters.js");
-const { shouldHugType } = require("./type-annotation.js");
-const { printHardlineAfterHeritage } = require("./class.js");
+import { printOptionalToken, printTypeAnnotation } from "./misc.js";
+import { shouldHugFunctionParameters } from "./function-parameters.js";
+import { shouldHugType } from "./type-annotation.js";
+import { printHardlineAfterHeritage } from "./class.js";
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -243,4 +246,4 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-module.exports = { printObject };
+export { printObject };

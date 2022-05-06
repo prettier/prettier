@@ -1,12 +1,9 @@
-"use strict";
-
-const dashify = require("dashify");
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../../index.js");
-const { optionsNormalizer } = require("../prettier-internal.js");
-const minimist = require("./minimist.js");
-const createMinimistOptions = require("./create-minimist-options.js");
-const normalizeCliOptions = require("./normalize-cli-options.js");
+import dashify from "dashify";
+import { resolveConfig } from "../../index.js";
+import { normalizeApiOptions } from "../prettier-internal.js";
+import minimist from "./minimist.js";
+import createMinimistOptions from "./create-minimist-options.js";
+import normalizeCliOptions from "./normalize-cli-options.js";
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -71,7 +68,7 @@ async function getOptionsOrDie(context, filePath) {
         : `resolve config from '${filePath}'`
     );
 
-    const options = await prettier.resolveConfig(filePath, {
+    const options = await resolveConfig(filePath, {
       editorconfig: context.argv.editorconfig,
       config: context.argv.config,
     });
@@ -110,7 +107,7 @@ async function getOptionsForFile(context, filepath) {
 
   const hasPlugins = options && options.plugins;
   if (hasPlugins) {
-    context.pushContextPlugins(options.plugins);
+    await context.pushContextPlugins(options.plugins);
   }
 
   const appliedOptions = {
@@ -118,7 +115,7 @@ async function getOptionsForFile(context, filepath) {
     ...applyConfigPrecedence(
       context,
       options &&
-        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+        normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger,
         })
     ),
@@ -136,4 +133,4 @@ async function getOptionsForFile(context, filepath) {
   return appliedOptions;
 }
 
-module.exports = getOptionsForFile;
+export default getOptionsForFile;

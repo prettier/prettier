@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - patch-release
+      - next
   pull_request:
 
 jobs:
@@ -27,7 +28,7 @@ jobs:
         run: yarn build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: dist
@@ -49,7 +50,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -67,23 +68,23 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "18"
           - "16"
           - "14"
           - "12"
-          - "10"
         include:
           - os: "ubuntu-latest"
-            node: "16"
+            node: "18"
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
-            node: "14"
+            node: "16"
           - os: "macos-latest"
-            node: "12"
-          - os: "windows-latest"
             node: "14"
           - os: "windows-latest"
-            node: "12"
+            node: "16"
+          - os: "windows-latest"
+            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
@@ -97,14 +98,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-          # Cann't work on Node.js 10
-          # cache: "yarn"
+          cache: "yarn"
+
+      - name: Config `ignore-engines=true` (Node.js < 14)
+        if: ${{ matrix.node == '12' }}
+        run: yarn config set ignore-engines true
 
       - name: Install Dependencies
         run: yarn install --immutable
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -117,11 +121,11 @@ jobs:
         if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist --maxWorkers=2
 
-      - name: Run Tests (standalone) (macOS)
+      - name: Run Format Tests (standalone) (macOS)
         if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=4
 
-      - name: Run Tests (standalone) (Linux and Windows)
+      - name: Run Format Tests (standalone) (Linux and Windows)
         if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=2
 
@@ -146,7 +150,7 @@ jobs:
           node-version: "0.10.48"
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
@@ -155,4 +159,4 @@ jobs:
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 10.13.0 of Node, please upgrade" || exit 1
+        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 12.17.0 of Node, please upgrade" || exit 1

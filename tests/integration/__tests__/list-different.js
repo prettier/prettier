@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("checks stdin with --list-different", () => {
   runPrettier("cli/with-shebang", ["--list-different", "--parser", "babel"], {

@@ -1,9 +1,10 @@
-"use strict";
-
-const {
-  builders: { indent, softline, literalline, dedentToRoot },
-} = require("../../document/index.js");
-const { escapeTemplateCharacters } = require("../print/template-literal.js");
+import {
+  indent,
+  softline,
+  literalline,
+  dedentToRoot,
+} from "../../document/builders.js";
+import { escapeTemplateCharacters } from "../print/template-literal.js";
 
 function format(path, print, textToDoc) {
   const node = path.getValue();
@@ -37,4 +38,4 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-module.exports = format;
+export default format;

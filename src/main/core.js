@@ -1,24 +1,20 @@
-"use strict";
+import { diffArrays } from "diff";
 
-const { diffArrays } = require("diff");
-
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = require("../document/index.js");
-const { getAlignmentSize } = require("../common/util.js");
-const {
+import { printDocToString } from "../document/printer.js";
+import { printDocToDebug } from "../document/debug.js";
+import { getAlignmentSize } from "../common/util.js";
+import {
   guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
   normalizeEndOfLine,
-} = require("../common/end-of-line.js");
-const normalizeOptions = require("./options.js").normalize;
-const massageAST = require("./massage-ast.js");
-const comments = require("./comments.js");
-const parser = require("./parser.js");
-const printAstToDoc = require("./ast-to-doc.js");
-const rangeUtil = require("./range-util.js");
+} from "../common/end-of-line.js";
+import { normalize as normalizeOptions } from "./options.js";
+import massageAST from "./massage-ast.js";
+import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { parse, resolveParser } from "./parser.js";
+import printAstToDoc from "./ast-to-doc.js";
+import { calculateRange, findNodeAtOffset } from "./range-util.js";
 
 const BOM = "\uFEFF";
 
@@ -28,7 +24,7 @@ function attachComments(text, ast, opts) {
   const astComments = ast.comments;
   if (astComments) {
     delete ast.comments;
-    comments.attach(astComments, ast, text, opts);
+    attach(astComments, ast, text, opts);
   }
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
@@ -36,15 +32,15 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(originalText, opts, addAlignmentSize = 0) {
+async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  const { ast, text } = parser.parse(originalText, opts);
+  const { ast, text } = await parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts);
+    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
     if (nodeResult && nodeResult.node) {
       opts.cursorNode = nodeResult.node;
     }
@@ -55,7 +51,7 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
   const result = printDocToString(doc, opts);
 
-  comments.ensureAllCommentsPrinted(astComments);
+  ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
   if (addAlignmentSize > 0) {
     const trimmed = result.formatted.trim();
@@ -144,9 +140,9 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
   };
 }
 
-function formatRange(originalText, opts) {
-  const { ast, text } = parser.parse(originalText, opts);
-  const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
+async function formatRange(originalText, opts) {
+  const { ast, text } = await parse(originalText, opts);
+  const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -160,7 +156,7 @@ function formatRange(originalText, opts) {
 
   const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
-  const rangeResult = coreFormat(
+  const rangeResult = await coreFormat(
     rangeString,
     {
       ...opts,
@@ -275,11 +271,11 @@ function normalizeInputAndOptions(text, options) {
 }
 
 function hasPragma(text, options) {
-  const selectedParser = parser.resolveParser(options);
+  const selectedParser = resolveParser(options);
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
-function formatWithCursor(originalText, originalOptions) {
+async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
     normalizeOptions(originalOptions)
@@ -299,7 +295,7 @@ function formatWithCursor(originalText, originalOptions) {
   let result;
 
   if (options.rangeStart > 0 || options.rangeEnd < text.length) {
-    result = formatRange(text, options);
+    result = await formatRange(text, options);
   } else {
     if (
       !options.requirePragma &&
@@ -309,7 +305,7 @@ function formatWithCursor(originalText, originalOptions) {
     ) {
       text = options.printer.insertPragma(text);
     }
-    result = coreFormat(text, options);
+    result = await coreFormat(text, options);
   }
 
   if (hasBOM) {
@@ -323,15 +319,15 @@ function formatWithCursor(originalText, originalOptions) {
   return result;
 }
 
-module.exports = {
+const prettier = {
   formatWithCursor,
 
-  parse(originalText, originalOptions, massage) {
+  async parse(originalText, originalOptions, massage) {
     const { text, options } = normalizeInputAndOptions(
       originalText,
       normalizeOptions(originalOptions)
     );
-    const parsed = parser.parse(text, options);
+    const parsed = await parse(text, options);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, options);
     }
@@ -345,16 +341,19 @@ module.exports = {
   },
 
   // Doesn't handle shebang for now
-  formatDoc(doc, options) {
-    return formatWithCursor(printDocToDebug(doc), {
+  async formatDoc(doc, options) {
+    const text = printDocToDebug(doc);
+    const { formatted } = await formatWithCursor(text, {
       ...options,
       parser: "__js_expression",
-    }).formatted;
+    });
+
+    return formatted;
   },
 
-  printToDoc(originalText, options) {
+  async printToDoc(originalText, options) {
     options = normalizeOptions(options);
-    const { ast, text } = parser.parse(originalText, options);
+    const { ast, text } = await parse(originalText, options);
     attachComments(text, ast, options);
     return printAstToDoc(ast, options);
   },
@@ -363,3 +362,5 @@ module.exports = {
     return printDocToString(doc, normalizeOptions(options));
   },
 };
+
+export default prettier;

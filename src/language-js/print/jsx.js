@@ -1,27 +1,20 @@
-"use strict";
+import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  conditionalGroup,
+  fill,
+  ifBreak,
+  lineSuffixBoundary,
+  join,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
 
-const {
-  printComments,
-  printDanglingComments,
-} = require("../../main/comments.js");
-const {
-  builders: {
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    fill,
-    ifBreak,
-    lineSuffixBoundary,
-    join,
-  },
-  utils: { willBreak },
-} = require("../../document/index.js");
-
-const { getLast, getPreferredQuote } = require("../../common/util.js");
-const {
+import { getLast, getPreferredQuote } from "../../common/util.js";
+import {
   isJsxNode,
   rawText,
   isLiteral,
@@ -31,15 +24,15 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { willPrintOwnComments } = require("../comments.js");
+} from "../utils/index.js";
+import pathNeedsParens from "../needs-parens.js";
+import { willPrintOwnComments } from "../comments.js";
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  * @typedef {import("../types/estree").Node} Node
  * @typedef {import("../types/estree").JSXElement} JSXElement
  */
@@ -849,7 +842,4 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
-module.exports = {
-  hasJsxIgnoreComment,
-  printJsx,
-};
+export { hasJsxIgnoreComment, printJsx };

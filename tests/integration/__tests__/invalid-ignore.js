@@ -1,10 +1,12 @@
-"use strict";
+import path from "node:path";
+import prettier from "prettier-local";
+import createEsmUtils from "esm-utils";
+import runPrettier from "../run-prettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
-const prettier = require("prettier-local");
-const runPrettier = require("../run-prettier.js");
+const { __dirname } = createEsmUtils(import.meta);
 
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("throw error with invalid ignore", () => {
   runPrettier("cli/invalid-ignore", ["something.js"]).test({

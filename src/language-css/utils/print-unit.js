@@ -1,6 +1,4 @@
-"use strict";
-
-const CSS_UNITS = require("./css-units.evaluate.js");
+import CSS_UNITS from "./css-units.evaluate.js";
 
 function printUnit(unit) {
   const lowercased = unit.toLowerCase();
@@ -10,4 +8,4 @@ function printUnit(unit) {
     : unit;
 }
 
-module.exports = printUnit;
+export default printUnit;

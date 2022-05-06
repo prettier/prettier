@@ -1,7 +1,5 @@
-"use strict";
-
-const { hasPragma } = require("../../pragma.js");
-const { locStart, locEnd } = require("../../loc.js");
+import { hasPragma } from "../../pragma.js";
+import { locStart, locEnd } from "../../loc.js";
 
 function createParser(options) {
   options = typeof options === "function" ? { parse: options } : options;
@@ -15,4 +13,4 @@ function createParser(options) {
   };
 }
 
-module.exports = createParser;
+export default createParser;

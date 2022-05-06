@@ -1,10 +1,6 @@
-"use strict";
-
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line },
-} = require("../../document/index.js");
-const { isFlowAnnotationComment } = require("../utils/index.js");
+import { isNonEmptyArray } from "../../common/util.js";
+import { indent, join, line } from "../../document/builders.js";
+import { isFlowAnnotationComment } from "../utils/index.js";
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -55,6 +51,11 @@ function printTypeAnnotation(path, options, print) {
 
   const parentNode = path.getParentNode();
 
+  // Workaround for https://github.com/babel/babel/issues/14498
+  if (parentNode.type === "ArrayPattern" && options.parser === "babel-ts") {
+    return [" as ", print("typeAnnotation")];
+  }
+
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
@@ -93,7 +94,7 @@ function printRestSpread(path, options, print) {
   return ["...", print("argument"), printTypeAnnotation(path, options, print)];
 }
 
-module.exports = {
+export {
   printOptionalToken,
   printDefiniteToken,
   printFunctionTypeParameters,

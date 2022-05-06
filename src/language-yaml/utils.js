@@ -1,6 +1,4 @@
-"use strict";
-
-const { getLast, isNonEmptyArray } = require("../common/util.js");
+import { getLast, isNonEmptyArray } from "../common/util.js";
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -138,23 +136,23 @@ function hasComments(node) {
 }
 
 function hasLeadingComments(node) {
-  return node && isNonEmptyArray(node.leadingComments);
+  return isNonEmptyArray(node?.leadingComments);
 }
 
 function hasMiddleComments(node) {
-  return node && isNonEmptyArray(node.middleComments);
+  return isNonEmptyArray(node?.middleComments);
 }
 
 function hasIndicatorComment(node) {
-  return node && node.indicatorComment;
+  return node?.indicatorComment;
 }
 
 function hasTrailingComment(node) {
-  return node && node.trailingComment;
+  return node?.trailingComment;
 }
 
 function hasEndComments(node) {
-  return node && isNonEmptyArray(node.endComments);
+  return isNonEmptyArray(node?.endComments);
 }
 
 /**
@@ -355,7 +353,7 @@ function isInlineNode(node) {
   }
 }
 
-module.exports = {
+export {
   getLast,
   getAncestorCount,
   isNode,

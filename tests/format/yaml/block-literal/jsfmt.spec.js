@@ -1,4 +1,4 @@
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 const snippets = [
   {
@@ -13,5 +13,7 @@ const snippets = [
   },
 ].map((test) => ({ ...test, output: test.output + "\n" }));
 
-run_spec({ dirname: __dirname, snippets }, ["yaml"]);
-run_spec({ dirname: __dirname, snippets }, ["yaml"], { proseWrap: "always" });
+run_spec({ importMeta: import.meta, snippets }, ["yaml"]);
+run_spec({ importMeta: import.meta, snippets }, ["yaml"], {
+  proseWrap: "always",
+});

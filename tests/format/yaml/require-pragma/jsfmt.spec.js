@@ -1,1 +1,1 @@
-run_spec(__dirname, ["yaml"], { requirePragma: true });
+run_spec(import.meta, ["yaml"], { requirePragma: true });

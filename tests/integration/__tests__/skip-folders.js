@@ -1,8 +1,7 @@
-"use strict";
+import runPrettier from "../run-prettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const runPrettier = require("../run-prettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("skips folders in glob", () => {
   runPrettier("cli/skip-folders", ["**/*", "-l"]).test({

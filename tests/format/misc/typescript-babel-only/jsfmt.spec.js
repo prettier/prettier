@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babel-ts"]);
+run_spec(import.meta, ["babel-ts"]);

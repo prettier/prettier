@@ -1,9 +1,5 @@
-"use strict";
-
-const {
-  ParseSourceSpan,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const {
+import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
+import {
   htmlTrim,
   getLeadingAndTrailingHtmlWhitespace,
   hasHtmlWhitespace,
@@ -14,7 +10,8 @@ const {
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
-} = require("./utils/index.js");
+  isVueScriptTag,
+} from "./utils/index.js";
 
 const PREPROCESS_PIPELINE = [
   removeIgnorableFirstLf,
@@ -27,6 +24,7 @@ const PREPROCESS_PIPELINE = [
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
   mergeSimpleElementIntoText,
+  markTsScript,
 ];
 
 function preprocess(ast, options) {
@@ -408,4 +406,19 @@ function addIsSpaceSensitive(ast, options) {
   });
 }
 
-module.exports = preprocess;
+function markTsScript(ast, options) {
+  if (options.parser === "vue") {
+    const vueScriptTag = ast.children.find((child) =>
+      isVueScriptTag(child, options)
+    );
+    if (!vueScriptTag) {
+      return;
+    }
+    const { lang } = vueScriptTag.attrMap;
+    if (lang === "ts" || lang === "typescript") {
+      options.__should_parse_vue_template_with_ts = true;
+    }
+  }
+}
+
+export default preprocess;

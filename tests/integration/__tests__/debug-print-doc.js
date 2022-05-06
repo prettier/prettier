@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("prints doc with --debug-print-doc", () => {
   runPrettier("cli/with-shebang", ["--debug-print-doc", "--parser", "babel"], {

@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
  */
@@ -62,9 +60,4 @@ const skipToLineEnd = skip(",; \t");
  */
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 
-module.exports = {
-  skipWhitespace,
-  skipSpaces,
-  skipToLineEnd,
-  skipEverythingButNewLine,
-};
+export { skipWhitespace, skipSpaces, skipToLineEnd, skipEverythingButNewLine };

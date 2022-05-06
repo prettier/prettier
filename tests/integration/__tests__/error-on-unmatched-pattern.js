@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("no error on unmatched pattern", () => {
   runPrettier("cli/error-on-unmatched-pattern", [

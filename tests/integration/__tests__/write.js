@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("write file with --write + unformatted file", () => {
   runPrettier("cli/write", ["--write", "unformatted.js"]).test({

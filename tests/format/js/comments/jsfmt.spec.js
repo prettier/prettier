@@ -1,5 +1,5 @@
 const fixtures = {
-  dirname: __dirname,
+  importMeta: import.meta,
   snippets: [
     "var a = { /* comment */      \nb };", // trailing whitespace after comment
     "var a = { /* comment */\nb };",

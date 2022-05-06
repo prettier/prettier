@@ -1,7 +1,5 @@
-"use strict";
-
-const { LinesAndColumns } = require("lines-and-columns");
-const { codeFrameColumns } = require("@babel/code-frame");
+import { LinesAndColumns } from "lines-and-columns";
+import { codeFrameColumns } from "@babel/code-frame";
 const codeFrameColumnsOptions = {
   linesAbove: Number.POSITIVE_INFINITY,
   linesBelow: Number.POSITIVE_INFINITY,
@@ -37,4 +35,4 @@ const visualizeRange = (text, { rangeStart = 0, rangeEnd = text.length }) =>
       : codeFrameColumnsOptions
   );
 
-module.exports = visualizeRange;
+export default visualizeRange;

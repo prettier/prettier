@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT } from "../utils/index.mjs";
 
-const { require } = createEsmUtils(import.meta);
+const { require, dirname } = createEsmUtils(import.meta);
 
 /**
  * @typedef {Object} Bundle
@@ -17,7 +17,7 @@ const { require } = createEsmUtils(import.meta);
  * @property {string[]} babelPlugins - babel plugins
  * @property {boolean?} minify - minify
  * @property {string[]?} esbuildTarget - ESBuild target
- * @property {boolean?} skipBabel - Skip babel transform
+ * @property {boolean?} interopDefault - Should export the ESM default export
 
  * @typedef {Object} CommonJSConfig
  * @property {string[]} ignore - paths of CJS modules to ignore
@@ -30,9 +30,10 @@ To reduce the bundle size, replace the entry with smaller files.
 
 We can switch to deep require once https://github.com/kpdecker/jsdiff/pull/351 get merged
 */
+const diffPackageDirectory = path.dirname(require.resolve("diff/package.json"));
 const replaceDiffPackageEntry = (file) => ({
-  module: require.resolve("diff"),
-  path: path.join(path.dirname(require.resolve("diff/package.json")), file),
+  module: path.join(diffPackageDirectory, "lib/index.mjs"),
+  path: path.join(diffPackageDirectory, file),
 });
 
 /** @type {Bundle[]} */
@@ -165,7 +166,7 @@ const parsers = [
       })),
       {
         module: require.resolve("debug/src/browser.js"),
-        path: require.resolve("./shims/debug.cjs"),
+        path: path.join(dirname, "./shims/debug.js"),
       },
     ],
   },
@@ -212,11 +213,17 @@ const parsers = [
       },
       // The following two replacements prevent load `source-map` module
       {
-        module: require.resolve("postcss/lib/previous-map.js"),
+        module: path.join(
+          require.resolve("postcss/package.json"),
+          "lib/previous-map.js"
+        ),
         text: "module.exports = class {};",
       },
       {
-        module: require.resolve("postcss/lib/map-generator.js"),
+        module: path.join(
+          require.resolve("postcss/package.json"),
+          "lib/postcss/lib/map-generator.js"
+        ),
         text: "module.exports = class { generate() {} };",
       },
     ],
@@ -260,6 +267,7 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@iarna/toml/lib/toml-parser.js"),
@@ -291,44 +299,45 @@ const coreBundles = [
   },
   {
     input: "src/standalone.js",
+    interopDefault: false,
     name: "prettier",
     target: "universal",
     replaceModule: [
       {
         module: require.resolve("@babel/highlight"),
-        path: require.resolve("./shims/babel-highlight.cjs"),
+        path: path.join(dirname, "./shims/babel-highlight.js"),
       },
       {
         module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: require.resolve("./shims/chalk.cjs"),
+        path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
-        module: path.join(PROJECT_ROOT, "src/main/parser.js"),
-        find: "return requireParser(opts.parser);",
-        replacement: "",
+        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
+        text: "export default () => {};",
       },
     ],
   },
   {
-    input: "bin/prettier.js",
+    input: "bin/prettier.cjs",
     output: "bin-prettier.js",
     esbuildTarget: ["node0.10"],
-    skipBabel: true,
   },
   {
     input: "src/cli/index.js",
     output: "cli.js",
     external: ["benchmark"],
+    interopDefault: false,
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
-    input: "src/common/third-party.js",
+    input: "src/common/third-party.cjs",
+    output: "third-party.js",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
         module: require.resolve("parent-module"),
-        path: require.resolve("./shims/parent-module.cjs"),
+        path: path.join(dirname, "./shims/parent-module.cjs"),
       },
     ],
   },

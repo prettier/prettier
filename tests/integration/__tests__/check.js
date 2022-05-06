@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("checks stdin with --check", () => {
   runPrettier("cli/with-shebang", ["--check", "--parser", "babel"], {
@@ -46,5 +44,13 @@ describe("--checks works in CI just as in a non-TTY mode", () => {
 
   test("Should have same stdout", async () => {
     expect(await result0.stdout).toEqual(await result1.stdout);
+  });
+});
+
+describe("--checks should print the number of files that need formatting", () => {
+  runPrettier("cli/write", ["--check", "unformatted.js", "unformatted2.js"], {
+    input: "0",
+  }).test({
+    status: 1,
   });
 });

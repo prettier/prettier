@@ -1,21 +1,17 @@
-"use strict";
+import { createRequire } from "node:module";
+import parseFrontMatter from "../utils/front-matter/parse.js";
+import getLast from "../utils/get-last.js";
+import createError from "../common/parser-create-error.js";
+import { inferParserByLanguage } from "../common/util.js";
+import HTML_TAGS from "./utils/html-tag-names.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
+import isUnknownNamespace from "./utils/is-unknown-namespace.js";
+import { hasPragma } from "./pragma.js";
+import { Node } from "./ast.js";
+import { parseIeConditionalComment } from "./conditional-comment.js";
+import { locStart, locEnd } from "./loc.js";
 
-const {
-  ParseSourceSpan,
-  ParseLocation,
-  ParseSourceFile,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
-const getLast = require("../utils/get-last.js");
-const createError = require("../common/parser-create-error.js");
-const { inferParserByLanguage } = require("../common/util.js");
-const HTML_TAGS = require("./utils/html-tag-names.js");
-const HTML_ELEMENT_ATTRIBUTES = require("./utils/html-elements-attributes.js");
-const isUnknownNamespace = require("./utils/is-unknown-namespace.js");
-const { hasPragma } = require("./pragma.js");
-const { Node } = require("./ast.js");
-const { parseIeConditionalComment } = require("./conditional-comment.js");
-const { locStart, locEnd } = require("./loc.js");
+const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -303,6 +299,12 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const {
+    ParseSourceSpan,
+    ParseLocation,
+    ParseSourceFile,
+  } = require("angular-html-parser/lib/compiler/src/parse_util.js");
+
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
   const end = start.moveBy(text.length);
@@ -401,7 +403,7 @@ function createParser({
   };
 }
 
-module.exports = {
+const parser = {
   parsers: {
     html: createParser({
       name: "html",
@@ -435,3 +437,5 @@ module.exports = {
     lwc: createParser({ name: "lwc" }),
   },
 };
+
+export default parser;

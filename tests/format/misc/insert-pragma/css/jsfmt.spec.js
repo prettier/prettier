@@ -1,1 +1,1 @@
-run_spec(__dirname, ["css"], { insertPragma: true });
+run_spec(import.meta, ["css"], { insertPragma: true });

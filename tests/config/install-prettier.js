@@ -1,11 +1,9 @@
-"use strict";
-
-const path = require("path");
-const fs = require("fs");
-const { outdent } = require("outdent");
-const { default: chalk } = require("../../vendors/chalk.js");
-const { default: tempy } = require("../../vendors/tempy.js");
-const { execaSync } = require("../../vendors/execa.js");
+import path from "node:path";
+import fs from "node:fs";
+import { outdent } from "outdent";
+import { execaSync } from "execa";
+import tempy from "tempy";
+import chalk from "chalk";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
@@ -40,7 +38,7 @@ function cleanUp() {
   }
 }
 
-module.exports = (packageDir) => {
+function installPrettier(packageDir) {
   const tmpDir = tempy.directory();
   directoriesToClean.add(tmpDir);
   const fileName = execaSync("npm", ["pack"], {
@@ -53,7 +51,7 @@ module.exports = (packageDir) => {
 
   const runNpmClient = (args) => execaSync(client, args, { cwd: tmpDir });
 
-  runNpmClient(["init", "-y"]);
+  runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
   switch (client) {
     case "npm":
@@ -73,7 +71,6 @@ module.exports = (packageDir) => {
   fs.unlinkSync(packed);
 
   const installed = path.join(tmpDir, "node_modules/prettier");
-
   console.log(
     chalk.green(
       outdent`
@@ -86,4 +83,6 @@ module.exports = (packageDir) => {
   );
 
   return installed;
-};
+}
+
+export default installPrettier;

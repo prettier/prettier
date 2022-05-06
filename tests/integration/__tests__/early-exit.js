@@ -1,7 +1,5 @@
-"use strict";
-
-const prettier = require("prettier-local");
-const runPrettier = require("../run-prettier.js");
+import prettier from "prettier-local";
+import runPrettier from "../run-prettier.js";
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({

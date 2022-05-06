@@ -1,12 +1,9 @@
-"use strict";
-
-const {
-  __debug: { formatAST },
-} = require("prettier-local");
+import prettier from "prettier-local";
+const { formatAST } = prettier.__debug;
 
 describe("formatAST", () => {
-  const formatExportSpecifier = (specifier) => {
-    const { formatted } = formatAST(
+  const formatExportSpecifier = async (specifier) => {
+    const { formatted } = await formatAST(
       {
         type: "Program",
         body: [
@@ -22,9 +19,9 @@ describe("formatAST", () => {
     return formatted;
   };
 
-  test("Shorthand specifier", () => {
+  test("Shorthand specifier", async () => {
     expect(
-      formatExportSpecifier({
+      await formatExportSpecifier({
         type: "ExportSpecifier",
         local: {
           type: "Identifier",
@@ -38,9 +35,9 @@ describe("formatAST", () => {
     ).toMatchSnapshot();
   });
 
-  test("Shorthand specifier 2", () => {
+  test("Shorthand specifier 2", async () => {
     expect(
-      formatExportSpecifier({
+      await formatExportSpecifier({
         type: "ExportSpecifier",
         local: {
           type: "Identifier",
@@ -56,9 +53,9 @@ describe("formatAST", () => {
     ).toMatchSnapshot();
   });
 
-  test("Shorthand specifier 3", () => {
+  test("Shorthand specifier 3", async () => {
     expect(
-      formatExportSpecifier({
+      await formatExportSpecifier({
         type: "ExportSpecifier",
         local: {
           type: "Literal",
@@ -75,9 +72,9 @@ describe("formatAST", () => {
     ).toMatchSnapshot();
   });
 
-  test("Shorthand specifier 4", () => {
+  test("Shorthand specifier 4", async () => {
     expect(
-      formatExportSpecifier({
+      await formatExportSpecifier({
         type: "ExportSpecifier",
         local: {
           type: "Literal",

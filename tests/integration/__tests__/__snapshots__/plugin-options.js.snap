@@ -32,11 +32,11 @@ Valid options:
   html             HTML
   angular          Angular
   lwc              Lightning Web Components
-  foo-parser       foo (plugin: ./plugin)
+  foo-parser       foo (plugin: ./plugin.cjs)
 "
 `;
 
-exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `Array []`;
+exports[`include plugin's parsers to the values of the \`parser\` option\` (write) 1`] = `[]`;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
 
@@ -54,7 +54,7 @@ Default: bar
 "
 `;
 
-exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `Array []`;
+exports[`show detailed external option with \`--help foo-option\` (write) 1`] = `[]`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:

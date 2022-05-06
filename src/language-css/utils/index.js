@@ -1,5 +1,3 @@
-"use strict";
-
 const colorAdjusterFunctions = new Set([
   "red",
   "green",
@@ -51,24 +49,18 @@ function getAncestorNode(path, typeOrTypes) {
 function getPropOfDeclNode(path) {
   const declAncestorNode = getAncestorNode(path, "css-decl");
 
-  return (
-    declAncestorNode &&
-    declAncestorNode.prop &&
-    declAncestorNode.prop.toLowerCase()
-  );
+  return declAncestorNode?.prop?.toLowerCase();
 }
 
+const wideKeywords = new Set(["initial", "inherit", "unset", "revert"]);
 function isWideKeywords(value) {
-  return ["initial", "inherit", "unset", "revert"].includes(
-    value.toLowerCase()
-  );
+  return wideKeywords.has(value.toLowerCase());
 }
 
 function isKeyframeAtRuleKeywords(path, value) {
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
   return (
-    atRuleAncestorNode &&
-    atRuleAncestorNode.name &&
+    atRuleAncestorNode?.name &&
     atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
     ["from", "to"].includes(value.toLowerCase())
   );
@@ -88,22 +80,16 @@ function maybeToLowerCase(value) {
 
 function insideValueFunctionNode(path, functionName) {
   const funcAncestorNode = getAncestorNode(path, "value-func");
-  return (
-    funcAncestorNode &&
-    funcAncestorNode.value &&
-    funcAncestorNode.value.toLowerCase() === functionName
-  );
+  return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
 function insideICSSRuleNode(path) {
   const ruleAncestorNode = getAncestorNode(path, "css-rule");
+  const selector = ruleAncestorNode?.raws?.selector;
 
   return (
-    ruleAncestorNode &&
-    ruleAncestorNode.raws &&
-    ruleAncestorNode.raws.selector &&
-    (ruleAncestorNode.raws.selector.startsWith(":import") ||
-      ruleAncestorNode.raws.selector.startsWith(":export"))
+    selector &&
+    (selector.startsWith(":import") || selector.startsWith(":export"))
   );
 }
 
@@ -124,8 +110,7 @@ function insideURLFunctionInImportAtRuleNode(path) {
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
-    atRuleAncestorNode &&
-    atRuleAncestorNode.name === "import" &&
+    atRuleAncestorNode?.name === "import" &&
     node.groups[0].value === "url" &&
     node.groups.length === 2
   );
@@ -136,28 +121,23 @@ function isURLFunctionNode(node) {
 }
 
 function isLastNode(path, node) {
-  const parentNode = path.getParentNode();
-
-  /* istanbul ignore next */
-  if (!parentNode) {
-    return false;
-  }
-  const { nodes } = parentNode;
+  const nodes = path.getParentNode()?.nodes;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
 }
 
 function isDetachedRulesetDeclarationNode(node) {
+  const { selector } = node;
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
   /* istanbul ignore next */
-  if (!node.selector) {
+  if (!selector) {
     return false;
   }
 
   return (
-    (typeof node.selector === "string" && /^@.+:.*$/.test(node.selector)) ||
-    (node.selector.value && /^@.+:.*$/.test(node.selector.value))
+    (typeof selector === "string" && /^@.+:.*$/.test(selector)) ||
+    (selector.value && /^@.+:.*$/.test(selector.value))
   );
 }
 
@@ -218,15 +198,16 @@ function isRelationalOperatorNode(node) {
   );
 }
 
-function isSCSSControlDirectiveNode(node) {
+function isSCSSControlDirectiveNode(node, options) {
   return (
+    options.parser === "scss" &&
     node.type === "css-atrule" &&
     ["if", "else", "for", "each", "while"].includes(node.name)
   );
 }
 
 function isDetachedRulesetCallNode(node) {
-  return node.raws && node.raws.params && /^\(\s*\)$/.test(node.raws.params);
+  return node.raws?.params && /^\(\s*\)$/.test(node.raws.params);
 }
 
 function isTemplatePlaceholderNode(node) {
@@ -241,56 +222,51 @@ function isPostcssSimpleVarNode(currentNode, nextNode) {
   return (
     currentNode.value === "$$" &&
     currentNode.type === "value-func" &&
-    nextNode &&
-    nextNode.type === "value-word" &&
+    nextNode?.type === "value-word" &&
     !nextNode.raws.before
   );
 }
 
 function hasComposesNode(node) {
   return (
-    node.value &&
-    node.value.type === "value-root" &&
-    node.value.group &&
-    node.value.group.type === "value-value" &&
+    node.value?.type === "value-root" &&
+    node.value.group?.type === "value-value" &&
     node.prop.toLowerCase() === "composes"
   );
 }
 
 function hasParensAroundNode(node) {
   return (
-    node.value &&
-    node.value.group &&
-    node.value.group.group &&
-    node.value.group.group.type === "value-paren_group" &&
+    node.value?.group?.group?.type === "value-paren_group" &&
     node.value.group.group.open !== null &&
     node.value.group.group.close !== null
   );
 }
 
 function hasEmptyRawBefore(node) {
-  return node.raws && node.raws.before === "";
+  return node.raws?.before === "";
 }
 
 function isKeyValuePairNode(node) {
   return (
     node.type === "value-comma_group" &&
-    node.groups &&
-    node.groups[1] &&
-    node.groups[1].type === "value-colon"
+    node.groups?.[1]?.type === "value-colon"
   );
 }
 
 function isKeyValuePairInParenGroupNode(node) {
   return (
     node.type === "value-paren_group" &&
-    node.groups &&
-    node.groups[0] &&
+    node.groups?.[0] &&
     isKeyValuePairNode(node.groups[0])
   );
 }
 
-function isSCSSMapItemNode(path) {
+function isSCSSMapItemNode(path, options) {
+  if (options.parser !== "scss") {
+    return false;
+  }
+
   const node = path.getValue();
 
   // Ignore empty item (i.e. `$key: ()`)
@@ -311,7 +287,7 @@ function isSCSSMapItemNode(path) {
   const declNode = getAncestorNode(path, "css-decl");
 
   // SCSS map declaration (i.e. `$map: (key: value, other-key: other-value)`)
-  if (declNode && declNode.prop && declNode.prop.startsWith("$")) {
+  if (declNode?.prop?.startsWith("$")) {
     return true;
   }
 
@@ -349,7 +325,7 @@ function isWordNode(node) {
 }
 
 function isColonNode(node) {
-  return node && node.type === "value-colon";
+  return node?.type === "value-colon";
 }
 
 function isKeyInValuePairNode(node, parentNode) {
@@ -385,18 +361,15 @@ function lastLineHasInlineComment(text) {
 
 function isAtWordPlaceholderNode(node) {
   return (
-    node &&
-    node.type === "value-atword" &&
+    node?.type === "value-atword" &&
     node.value.startsWith("prettier-placeholder-")
   );
 }
 
 function isConfigurationNode(node, parentNode) {
   if (
-    !node.open ||
-    node.open.value !== "(" ||
-    !node.close ||
-    node.close.value !== ")" ||
+    node.open?.value !== "(" ||
+    node.close?.value !== ")" ||
     node.groups.some((group) => group.type !== "value-comma_group")
   ) {
     return false;
@@ -405,8 +378,7 @@ function isConfigurationNode(node, parentNode) {
     const prevIdx = parentNode.groups.indexOf(node) - 1;
     const maybeWithNode = parentNode.groups[prevIdx];
     if (
-      maybeWithNode &&
-      maybeWithNode.type === "value-word" &&
+      maybeWithNode?.type === "value-word" &&
       maybeWithNode.value === "with"
     ) {
       return true;
@@ -418,14 +390,12 @@ function isConfigurationNode(node, parentNode) {
 function isParenGroupNode(node) {
   return (
     node.type === "value-paren_group" &&
-    node.open &&
-    node.open.value === "(" &&
-    node.close &&
-    node.close.value === ")"
+    node.open?.value === "(" &&
+    node.close?.value === ")"
   );
 }
 
-module.exports = {
+export {
   getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,

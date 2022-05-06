@@ -1,18 +1,14 @@
-"use strict";
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../../index.js");
-const {
-  optionsModule,
-  utils: { arrayify },
-} = require("../prettier-internal.js");
-const constant = require("../constant.js");
-const {
+import { getSupportInfo } from "../../index.js";
+import { optionsHiddenDefaults } from "../prettier-internal.js";
+import * as constant from "../constant.js";
+import { arrayify } from "../utils.js";
+import {
   normalizeDetailedOptionMap,
   createDetailedOptionMap,
-} = require("./option-map.js");
+} from "./option-map.js";
 
-function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = prettier.getSupportInfo({
+async function getContextOptions(plugins, pluginSearchDirs) {
+  const { options: supportOptions, languages } = await getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
@@ -27,7 +23,7 @@ function getContextOptions(plugins, pluginSearchDirs) {
   const detailedOptions = arrayify(detailedOptionMap, "name");
 
   const apiDefaultOptions = {
-    ...optionsModule.hiddenDefaults,
+    ...optionsHiddenDefaults,
     ...Object.fromEntries(
       supportOptions
         .filter(({ deprecated }) => !deprecated)
@@ -44,4 +40,4 @@ function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-module.exports = getContextOptions;
+export default getContextOptions;

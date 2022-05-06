@@ -3,7 +3,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 import fastGlob from "fast-glob";
-import prettier from "prettier";
+import { format } from "prettier";
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
 import {
@@ -39,7 +39,7 @@ async function buildPrettier() {
   });
 
   try {
-    await runYarn("build", ["--playground", "--no-babel", "--clean"], {
+    await runYarn("build", ["--playground", "--clean"], {
       cwd: PROJECT_ROOT,
     });
   } finally {
@@ -55,13 +55,14 @@ async function buildPlaygroundFiles() {
   const parsers = {};
   for (const fileName of files) {
     const file = path.join(PRETTIER_DIR, fileName);
-    await copyFile(file, path.join(PLAYGROUND_PRETTIER_DIR, fileName));
+    const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
+    await copyFile(file, dist);
 
     if (fileName === "standalone.js") {
       continue;
     }
 
-    const plugin = require(file);
+    const plugin = require(dist);
     // We add plugins to the global `prettierPlugins` object
     // the name after `parser-` is used as property
     // For example to get parsers in `parser-babel.js` via `prettierPlugins.babel`
@@ -75,7 +76,7 @@ async function buildPlaygroundFiles() {
 
   await writeFile(
     path.join(PLAYGROUND_PRETTIER_DIR, "parsers-location.js"),
-    prettier.format(
+    format(
       `
         "use strict";
 

@@ -1,31 +1,32 @@
-"use strict";
-
 /**
  * @typedef {import("../document").Doc} Doc
  */
 
-const {
-  builders: { fill, group, hardline, literalline },
-  utils: { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
-} = require("../document/index.js");
-const clean = require("./clean.js");
-const {
+import { fill, group, hardline, literalline } from "../document/builders.js";
+import {
+  cleanDoc,
+  getDocParts,
+  isConcat,
+  replaceTextEndOfLine,
+} from "../document/utils.js";
+import clean from "./clean.js";
+import {
   countChars,
   unescapeQuoteEntities,
   getTextValueParts,
-} = require("./utils/index.js");
-const preprocess = require("./print-preprocess.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const embed = require("./embed.js");
-const {
+} from "./utils/index.js";
+import preprocess from "./print-preprocess.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import embed from "./embed.js";
+import {
   printClosingTagSuffix,
   printClosingTagEnd,
   printOpeningTagPrefix,
   printOpeningTagStart,
-} = require("./print/tag.js");
-const { printElement } = require("./print/element.js");
-const { printChildren } = require("./print/children.js");
+} from "./print/tag.js";
+import { printElement } from "./print/element.js";
+import { printChildren } from "./print/children.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -124,10 +125,12 @@ function genericPrint(path, options, print) {
   }
 }
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   insertPragma,
   massageAstNode: clean,
   embed,
 };
+
+export default printer;

@@ -1,7 +1,6 @@
-"use strict";
+import prettier from "prettier-local";
+import { outdent } from "outdent";
 
-const prettier = require("prettier-local");
-const { outdent } = require("outdent");
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 

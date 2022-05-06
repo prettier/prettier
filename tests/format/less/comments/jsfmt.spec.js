@@ -1,1 +1,1 @@
-run_spec(__dirname, ["less"]);
+run_spec(import.meta, ["less"]);

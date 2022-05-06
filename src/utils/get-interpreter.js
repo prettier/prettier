@@ -1,7 +1,5 @@
-"use strict";
-
-const fs = require("fs");
-const readlines = require("n-readlines");
+import fs from "node:fs";
+import readlines from "n-readlines";
 
 function getInterpreter(filepath) {
   /* istanbul ignore next */
@@ -49,4 +47,4 @@ function getInterpreter(filepath) {
   }
 }
 
-module.exports = getInterpreter;
+export default getInterpreter;

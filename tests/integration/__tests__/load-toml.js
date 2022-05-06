@@ -1,7 +1,5 @@
-"use strict";
-
-const { outdent } = require("outdent");
-const loadToml = require("../../../src/utils/load-toml.js");
+import { outdent } from "outdent";
+import loadToml from "../../../src/utils/load-toml.js";
 
 describe("TOML", () => {
   const exampleFilePath = "example.toml";

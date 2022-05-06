@@ -5,5 +5,5 @@ const errors = {
   espree: true,
 };
 
-run_spec(__dirname, ["babel", "flow", "typescript"], { errors });
-run_spec(__dirname, ["babel", "flow", "typescript"], { semi: false, errors });
+run_spec(import.meta, ["babel", "flow", "typescript"], { errors });
+run_spec(import.meta, ["babel", "flow", "typescript"], { semi: false, errors });

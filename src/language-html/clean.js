@@ -1,6 +1,4 @@
-"use strict";
-
-const { isFrontMatterNode } = require("../common/util.js");
+import { isFrontMatterNode } from "../common/util.js";
 
 const ignoredProperties = new Set([
   "sourceSpan",
@@ -8,7 +6,6 @@ const ignoredProperties = new Set([
   "endSourceSpan",
   "nameSpan",
   "valueSpan",
-  "parent",
 ]);
 
 function clean(ast, newNode) {
@@ -32,4 +29,4 @@ function clean(ast, newNode) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;

@@ -1,18 +1,16 @@
-"use strict";
+import prettier from "prettier-local";
+import runPrettier from "../run-prettier.js";
 
-const prettier = require("prettier-local");
-const runPrettier = require("../run-prettier.js");
-
-test("API getSupportInfo()", () => {
-  expect(getCoreInfo()).toMatchSnapshot();
+test("API getSupportInfo()", async () => {
+  expect(await getCoreInfo()).toMatchSnapshot();
 });
 
 describe("CLI --support-info", () => {
   runPrettier("cli", "--support-info").test({ status: 0 });
 });
 
-function getCoreInfo() {
-  const supportInfo = prettier.getSupportInfo();
+async function getCoreInfo() {
+  const supportInfo = await prettier.getSupportInfo();
   const languages = Object.fromEntries(
     supportInfo.languages.map(({ name, parsers }) => [name, parsers])
   );

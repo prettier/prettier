@@ -1,12 +1,17 @@
-"use strict";
+import * as builders from "./builders.js";
+import * as printer from "./printer.js";
+import * as utils from "./utils.js";
+import * as debug from "./debug.js";
 
 /**
- * @typedef {import("./doc-builders").Doc} Doc
+ * @typedef {import("./builders").Doc} Doc
  */
 
-module.exports = {
-  builders: require("./doc-builders.js"),
-  printer: require("./doc-printer.js"),
-  utils: require("./doc-utils.js"),
-  debug: require("./doc-debug.js"),
+const doc = {
+  builders,
+  printer,
+  utils,
+  debug,
 };
+
+export default doc;

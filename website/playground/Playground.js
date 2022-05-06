@@ -8,7 +8,7 @@ import { shallowEqual } from "./helpers.js";
 import * as urlHash from "./urlHash.js";
 import formatMarkdown from "./markdown.js";
 import * as util from "./util.js";
-import getCodeSample from "./codeSamples.js";
+import getCodeSample from "./codeSamples.mjs";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components.js";
 import SidebarOptions from "./sidebar/SidebarOptions.js";

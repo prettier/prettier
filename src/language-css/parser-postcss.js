@@ -1,19 +1,18 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../common/parser-create-error.js";
+import getLast from "../utils/get-last.js";
+import parseFrontMatter from "../utils/front-matter/parse.js";
+import { hasPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import { calculateLoc, replaceQuotesInInlineComments } from "./loc.js";
+import hasSCSSInterpolation from "./utils/has-scss-interpolation.js";
+import hasStringOrFunction from "./utils/has-string-or-function.js";
+import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
+import isSCSSVariable from "./utils/is-scss-variable.js";
+import stringifyNode from "./utils/stringify-node.js";
+import isModuleRuleName from "./utils/is-module-rule-name.js";
 
-const createError = require("../common/parser-create-error.js");
-const getLast = require("../utils/get-last.js");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
-const { hasPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
-const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
-const hasStringOrFunction = require("./utils/has-string-or-function.js");
-const isLessParser = require("./utils/is-less-parser.js");
-const isSCSS = require("./utils/is-scss.js");
-const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
-const isSCSSVariable = require("./utils/is-scss-variable.js");
-const stringifyNode = require("./utils/stringify-node.js");
-const isModuleRuleName = require("./utils/is-module-rule-name.js");
+const require = createRequire(import.meta.url);
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -42,7 +41,7 @@ function parseValueNode(valueNode, options) {
     const node = nodes[i];
 
     if (
-      isSCSS(options.parser, node.value) &&
+      options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
       getLast(node.value) === "."
@@ -82,7 +81,8 @@ function parseValueNode(valueNode, options) {
       // Stringify if the value parser can't handle the content.
       if (
         hasSCSSInterpolation(groupList) ||
-        (!hasStringOrFunction(groupList) && !isSCSSVariable(groupList[0]))
+        (!hasStringOrFunction(groupList) &&
+          !isSCSSVariable(groupList[0], options))
       ) {
         const stringifiedContent = stringifyNode({
           groups: node.group.groups,
@@ -264,12 +264,12 @@ function parseSelector(selector) {
 }
 
 function parseMediaQuery(params) {
-  const mediaParser = require("postcss-media-query-parser").default;
+  const mediaParser = require("postcss-media-query-parser");
 
   let result = null;
 
   try {
-    result = mediaParser(params);
+    result = mediaParser.default(params);
   } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
@@ -300,6 +300,64 @@ function parseNestedCSS(node, options) {
     /* istanbul ignore next */
     if (!node.raws) {
       node.raws = {};
+    }
+
+    // Custom properties looks like declarations
+    if (
+      node.type === "css-decl" &&
+      typeof node.prop === "string" &&
+      node.prop.startsWith("--") &&
+      typeof node.value === "string" &&
+      node.value.startsWith("{")
+    ) {
+      let rules;
+      if (node.value.endsWith("}")) {
+        const textBefore = options.originalText.slice(
+          0,
+          node.source.start.offset
+        );
+        const nodeText =
+          "a".repeat(node.prop.length) +
+          options.originalText.slice(
+            node.source.start.offset + node.prop.length,
+            node.source.end.offset + 1
+          );
+        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
+        let parse;
+        if (options.parser === "scss") {
+          parse = parseScss;
+        } else if (options.parser === "less") {
+          parse = parseLess;
+        } else {
+          parse = parseCss;
+        }
+        let ast;
+        try {
+          ast = parse(fakeContent, [], { ...options });
+        } catch {
+          // noop
+        }
+        if (
+          ast &&
+          ast.nodes &&
+          ast.nodes.length === 1 &&
+          ast.nodes[0].type === "css-rule"
+        ) {
+          rules = ast.nodes[0].nodes;
+        }
+      }
+      if (rules) {
+        node.value = {
+          type: "css-rule",
+          nodes: rules,
+        };
+      } else {
+        node.value = {
+          type: "value-unknown",
+          value: node.raws.value.raw,
+        };
+      }
+      return node;
     }
 
     let selector = "";
@@ -372,7 +430,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Check on SCSS nested property
-      if (isSCSSNestedPropertyNode(node)) {
+      if (isSCSSNestedPropertyNode(node, options)) {
         node.isSCSSNesterProperty = true;
       }
 
@@ -415,7 +473,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (
-      isLessParser(options) &&
+      options.parser === "less" &&
       node.type === "css-decl" &&
       value.startsWith("extend(")
     ) {
@@ -432,7 +490,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule") {
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         // mixin
         if (node.mixin) {
           const source =
@@ -462,7 +520,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      if (isLessParser(options)) {
+      if (options.parser === "less") {
         // postcss-less doesn't recognize variables in some cases.
         // `@color: blue;` is recognized fine, but the cases below aren't:
 
@@ -593,7 +651,10 @@ function parseWithParser(parse, text, options) {
   let result;
 
   try {
-    result = parse(text);
+    result = parse(text, {
+      // Prevent file access https://github.com/postcss/postcss/blob/4f4e2932fc97e2c117e1a4b15f0272ed551ed59d/lib/previous-map.js#L18
+      map: false,
+    });
   } catch (error) {
     const { name, reason, line, column } = error;
     /* istanbul ignore next */
@@ -603,6 +664,7 @@ function parseWithParser(parse, text, options) {
     throw createError(`${name}: ${reason}`, { start: { line, column } });
   }
 
+  options.originalText = text;
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   calculateLoc(result, text);
@@ -618,42 +680,26 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
-// TODO: make this only work on css
 function parseCss(text, parsers, options = {}) {
-  const isSCSSParser = isSCSS(options.parser, text);
-  const parseFunctions = isSCSSParser
-    ? [parseScss, parseLess]
-    : [parseLess, parseScss];
-
-  let error;
-  for (const parse of parseFunctions) {
-    try {
-      return parse(text, parsers, options);
-    } catch (parseError) {
-      error = error || parseError;
-    }
-  }
-
-  /* istanbul ignore next */
-  if (error) {
-    throw error;
-  }
+  const postcss = require("postcss");
+  return parseWithParser(postcss.parse, text, options);
 }
 
 function parseLess(text, parsers, options = {}) {
-  const lessParser = require("postcss-less");
+  const less = require("postcss-less");
+
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
+    (text) => less.parse(replaceQuotesInInlineComments(text)),
     text,
     options
   );
 }
 
 function parseScss(text, parsers, options = {}) {
-  const { parse } = require("postcss-scss");
-  return parseWithParser(parse, text, options);
+  const scss = require("postcss-scss");
+  return parseWithParser(scss.parse, text, options);
 }
 
 const postCssParser = {
@@ -664,7 +710,7 @@ const postCssParser = {
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const postcssParser = {
   parsers: {
     css: {
       ...postCssParser,
@@ -680,3 +726,5 @@ module.exports = {
     },
   },
 };
+
+export default postcssParser;

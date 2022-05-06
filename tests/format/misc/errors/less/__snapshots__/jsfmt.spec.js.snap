@@ -14,7 +14,7 @@ exports[`inline-comment.less [less] format 1`] = `
 exports[`open-double-quote.less [less] format 1`] = `
 "CssSyntaxError: Unclosed string (2:17)
   1 | a {
-> 2 | background: url(\\"
+> 2 | background: url("
     |                 ^
   3 | }
   4 |"
@@ -27,4 +27,11 @@ exports[`open-sigle-quote.less [less] format 1`] = `
     |                 ^
   3 | }
   4 |"
+`;
+
+exports[`scss-syntax.scss [less] format 1`] = `
+"CssSyntaxError: Unknown word (1:15)
+> 1 | a {content: #{$foo}}
+    |               ^
+  2 |"
 `;

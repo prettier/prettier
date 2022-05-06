@@ -1,27 +1,25 @@
-"use strict";
-
-const {
-  isNonEmptyArray,
-  createGroupIdMapper,
-} = require("../../common/util.js");
-const {
-  printComments,
-  printDanglingComments,
-} = require("../../main/comments.js");
-const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document/index.js");
-const { hasComment, CommentCheckFlags } = require("../utils/index.js");
-const { getTypeParametersGroupId } = require("./type-parameters.js");
-const { printMethod } = require("./function.js");
-const {
+import { isNonEmptyArray, createGroupIdMapper } from "../../common/util.js";
+import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import { hasComment, CommentCheckFlags } from "../utils/index.js";
+import { getTypeParametersGroupId } from "./type-parameters.js";
+import { printMethod } from "./function.js";
+import {
   printOptionalToken,
   printTypeAnnotation,
   printDefiniteToken,
-} = require("./misc.js");
-const { printPropertyKey } = require("./property.js");
-const { printAssignment } = require("./assignment.js");
-const { printClassMemberDecorators } = require("./decorators.js");
+} from "./misc.js";
+import { printPropertyKey } from "./property.js";
+import { printAssignment } from "./assignment.js";
+import { printClassMemberDecorators } from "./decorators.js";
 
 function printClass(path, options, print) {
   const node = path.getValue();
@@ -234,7 +232,7 @@ function printClassProperty(path, options, print) {
   return [printAssignment(path, options, print, parts, " =", "value"), semi];
 }
 
-module.exports = {
+export {
   printClass,
   printClassMethod,
   printClassProperty,

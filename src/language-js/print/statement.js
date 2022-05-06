@@ -1,10 +1,6 @@
-"use strict";
-
-const {
-  builders: { hardline },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { hardline } from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxNode,
@@ -12,8 +8,8 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils/index.js");
-const { shouldPrintParamsWithoutParens } = require("./function.js");
+} from "../utils/index.js";
+import { shouldPrintParamsWithoutParens } from "./function.js";
 
 /**
  * @typedef {import("../../document").Doc} Doc
@@ -246,7 +242,4 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-module.exports = {
-  printBody,
-  printSwitchCaseConsequent,
-};
+export { printBody, printSwitchCaseConsequent };

@@ -1,7 +1,5 @@
-"use strict";
-
-const getLast = require("../utils/get-last.js");
-const { getOrderedListItemInfo, mapAst, splitText } = require("./utils.js");
+import getLast from "../utils/get-last.js";
+import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
 const isSingleCharRegex = /^.$/su;
@@ -271,4 +269,4 @@ function markAlignedList(ast, options) {
   }
 }
 
-module.exports = preprocess;
+export default preprocess;

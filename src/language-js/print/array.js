@@ -1,21 +1,25 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { line, softline, hardline, group, indent, ifBreak, fill },
-} = require("../../document/index.js");
-const { getLast, hasNewline } = require("../../common/util.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  softline,
+  hardline,
+  group,
+  indent,
+  ifBreak,
+  fill,
+} from "../../document/builders.js";
+import { getLast, hasNewline } from "../../common/util.js";
+import {
   shouldPrintComma,
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
   isNumericLiteral,
   isSignedNumericLiteral,
-} = require("../utils/index.js");
-const { locStart } = require("../loc.js");
+} from "../utils/index.js";
+import { locStart } from "../loc.js";
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
+import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 
 /** @typedef {import("../../document").Doc} Doc */
 
@@ -186,4 +190,4 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-module.exports = { printArray, printArrayItems, isConciselyPrintedArray };
+export { printArray, printArrayItems, isConciselyPrintedArray };

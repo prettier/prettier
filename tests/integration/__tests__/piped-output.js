@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("output with --check + unformatted differs when piped", () => {
   const cli0 = runPrettier(

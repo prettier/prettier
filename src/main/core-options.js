@@ -1,6 +1,4 @@
-"use strict";
-
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 const CATEGORY_CONFIG = "Config";
 const CATEGORY_EDITOR = "Editor";
@@ -14,7 +12,7 @@ const CATEGORY_SPECIAL = "Special";
  * @typedef {Object} OptionInfo
  * @property {string} [since] - available since version
  * @property {string} category
- * @property {'int' | 'boolean' | 'choice' | 'path'} type
+ * @property {'int' | 'boolean' | 'choice' | 'path' | 'string' | 'flag'} type
  * @property {boolean} [array] - indicate it's an array of the specified type
  * @property {OptionValueInfo} [default]
  * @property {OptionRangeInfo} [range] - for type int
@@ -266,7 +264,7 @@ const options = {
   },
 };
 
-module.exports = {
+export {
   CATEGORY_CONFIG,
   CATEGORY_EDITOR,
   CATEGORY_FORMAT,

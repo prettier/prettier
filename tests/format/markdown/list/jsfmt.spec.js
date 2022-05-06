@@ -7,10 +7,10 @@ const emptyListItemSnippets = [
 ];
 
 run_spec(
-  { dirname: __dirname, snippets: emptyListItemSnippets },
+  { importMeta: import.meta, snippets: emptyListItemSnippets },
   ["markdown"],
   { proseWrap: "always" }
 );
-run_spec(__dirname, ["markdown"], { proseWrap: "always", tabWidth: 4 });
-run_spec(__dirname, ["markdown"], { proseWrap: "always", tabWidth: 999 });
-run_spec(__dirname, ["markdown"], { proseWrap: "always", tabWidth: 0 });
+run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 4 });
+run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 999 });
+run_spec(import.meta, ["markdown"], { proseWrap: "always", tabWidth: 0 });

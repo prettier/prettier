@@ -1,6 +1,4 @@
-"use strict";
-
-const isBlockComment = require("./utils/is-block-comment.js");
+import isBlockComment from "./utils/is-block-comment.js";
 
 const ignoredProperties = new Set([
   "range",
@@ -177,15 +175,13 @@ function clean(ast, newObj, parent) {
     // we will not trim the comment value and we will expect exactly one space on
     // either side of the GraphQL string
     // Also see ./embed.js
-    const hasLanguageComment =
-      ast.leadingComments &&
-      ast.leadingComments.some(
-        (comment) =>
-          isBlockComment(comment) &&
-          ["GraphQL", "HTML"].some(
-            (languageName) => comment.value === ` ${languageName} `
-          )
-      );
+    const hasLanguageComment = ast.leadingComments?.some(
+      (comment) =>
+        isBlockComment(comment) &&
+        ["GraphQL", "HTML"].some(
+          (languageName) => comment.value === ` ${languageName} `
+        )
+    );
     if (
       hasLanguageComment ||
       (parent.type === "CallExpression" && parent.callee.name === "graphql") ||
@@ -212,4 +208,4 @@ function clean(ast, newObj, parent) {
 
 clean.ignoredProperties = ignoredProperties;
 
-module.exports = clean;
+export default clean;

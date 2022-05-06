@@ -1,19 +1,33 @@
 import createEsmUtils from "esm-utils";
 
-const { require } = createEsmUtils(import.meta);
+const { importModule } = createEsmUtils(import.meta);
 
 export default function esbuildPluginEvaluate() {
   return {
     name: "evaluate",
 
     setup(build) {
-      build.onLoad({ filter: /\.evaluate\.js$/ }, ({ path }) => {
-        const json = JSON.stringify(require(path), (_, v) => {
-          if (typeof v === "function") {
-            throw new TypeError("Cannot evaluate functions.");
+      build.onLoad({ filter: /\.evaluate\.js$/ }, async ({ path }) => {
+        let data = await importModule(path);
+
+        if (Object.prototype.hasOwnProperty.call(data, "default")) {
+          if (Object.keys(data).length !== 1) {
+            throw new TypeError("Mixed export not allowed.");
           }
-          return v;
-        });
+
+          data = data.default;
+        }
+
+        const json = JSON.stringify(
+          data,
+          (_, v) => {
+            if (typeof v === "function") {
+              throw new TypeError("Cannot evaluate functions.");
+            }
+            return v;
+          },
+          2
+        );
 
         return { loader: "json", contents: json };
       });

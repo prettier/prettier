@@ -1,31 +1,25 @@
-"use strict";
+/** @typedef {import("../../document/builders").Doc} Doc */
 
-/** @typedef {import("../../document/doc-builders").Doc} Doc */
-
-const assert = require("assert");
-const {
+import assert from "node:assert";
+import {
   printDanglingComments,
   printCommentsSeparately,
-} = require("../../main/comments.js");
-const getLast = require("../../utils/get-last.js");
-const {
-  getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util.js");
-const {
-  builders: {
-    line,
-    softline,
-    group,
-    indent,
-    ifBreak,
-    hardline,
-    join,
-    indentIfBreak,
-  },
-  utils: { removeLines, willBreak },
-} = require("../../document/index.js");
-const { ArgExpansionBailout } = require("../../common/errors.js");
-const {
+} from "../../main/comments.js";
+import getLast from "../../utils/get-last.js";
+import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+  hardline,
+  join,
+  indentIfBreak,
+} from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
+import { ArgExpansionBailout } from "../../common/errors.js";
+import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
   isFlowAnnotationComment,
@@ -43,14 +37,14 @@ const {
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
-} = require("../utils/index.js");
-const { locEnd } = require("../loc.js");
-const {
+} from "../utils/index.js";
+import { locEnd } from "../loc.js";
+import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters.js");
-const { printPropertyKey } = require("./property.js");
-const { printFunctionTypeParameters } = require("./misc.js");
+} from "./function-parameters.js";
+import { printPropertyKey } from "./property.js";
+import { printFunctionTypeParameters } from "./misc.js";
 
 function printFunction(path, print, options, args) {
   const node = path.getValue();
@@ -528,7 +522,7 @@ function returnArgumentHasLeadingComment(options, argument) {
   return false;
 }
 
-module.exports = {
+export {
   printFunction,
   printArrowFunction,
   printMethod,

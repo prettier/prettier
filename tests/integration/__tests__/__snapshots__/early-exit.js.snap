@@ -9,7 +9,7 @@ exports[`show detailed usage with --help l (alias) (stdout) 1`] = `
 "
 `;
 
-exports[`show detailed usage with --help l (alias) (write) 1`] = `Array []`;
+exports[`show detailed usage with --help l (alias) (write) 1`] = `[]`;
 
 exports[`show detailed usage with plugin options (automatic resolution) (stderr) 1`] = `""`;
 
@@ -24,7 +24,7 @@ Plugin defaults:
 "
 `;
 
-exports[`show detailed usage with plugin options (automatic resolution) (write) 1`] = `Array []`;
+exports[`show detailed usage with plugin options (automatic resolution) (write) 1`] = `[]`;
 
 exports[`show detailed usage with plugin options (manual resolution) (stderr) 1`] = `""`;
 
@@ -39,7 +39,7 @@ Plugin defaults:
 "
 `;
 
-exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `Array []`;
+exports[`show detailed usage with plugin options (manual resolution) (write) 1`] = `[]`;
 
 exports[`show usage with --help (stderr) 1`] = `""`;
 
@@ -165,14 +165,14 @@ Other options:
 "
 `;
 
-exports[`show usage with --help (write) 1`] = `Array []`;
+exports[`show usage with --help (write) 1`] = `[]`;
 
 exports[`show version with --version (stderr) 1`] = `""`;
 
-exports[`show version with --version (write) 1`] = `Array []`;
+exports[`show version with --version (write) 1`] = `[]`;
 
 exports[`show warning with --help not-found (typo) (stderr) 1`] = `
-"[warn] Unknown flag \\"parserr\\", did you mean \\"parser\\"?
+"[warn] Unknown flag "parserr", did you mean "parser"?
 "
 `;
 
@@ -209,7 +209,7 @@ Valid options:
 "
 `;
 
-exports[`show warning with --help not-found (typo) (write) 1`] = `Array []`;
+exports[`show warning with --help not-found (typo) (write) 1`] = `[]`;
 
 exports[`throw error and show usage with something unexpected (stderr) 1`] = `""`;
 
@@ -335,7 +335,7 @@ Other options:
 "
 `;
 
-exports[`throw error and show usage with something unexpected (write) 1`] = `Array []`;
+exports[`throw error and show usage with something unexpected (write) 1`] = `[]`;
 
 exports[`throw error with --check + --list-different (stderr) 1`] = `
 "[error] Cannot use --check and --list-different together.
@@ -344,7 +344,7 @@ exports[`throw error with --check + --list-different (stderr) 1`] = `
 
 exports[`throw error with --check + --list-different (stdout) 1`] = `""`;
 
-exports[`throw error with --check + --list-different (write) 1`] = `Array []`;
+exports[`throw error with --check + --list-different (write) 1`] = `[]`;
 
 exports[`throw error with --file-info + multiple files (stderr) 1`] = `
 "[error] Cannot use --file-info with multiple files
@@ -353,7 +353,7 @@ exports[`throw error with --file-info + multiple files (stderr) 1`] = `
 
 exports[`throw error with --file-info + multiple files (stdout) 1`] = `""`;
 
-exports[`throw error with --file-info + multiple files (write) 1`] = `Array []`;
+exports[`throw error with --file-info + multiple files (write) 1`] = `[]`;
 
 exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 "[error] Cannot use --find-config-path with multiple files
@@ -362,16 +362,16 @@ exports[`throw error with --find-config-path + multiple files (stderr) 1`] = `
 
 exports[`throw error with --find-config-path + multiple files (stdout) 1`] = `""`;
 
-exports[`throw error with --find-config-path + multiple files (write) 1`] = `Array []`;
+exports[`throw error with --find-config-path + multiple files (write) 1`] = `[]`;
 
 exports[`throw error with --help not-found (stderr) 1`] = `
-"[error] Invalid --help value. Expected a flag, but received \\"not-found\\".
+"[error] Invalid --help value. Expected a flag, but received "not-found".
 "
 `;
 
 exports[`throw error with --help not-found (stdout) 1`] = `""`;
 
-exports[`throw error with --help not-found (write) 1`] = `Array []`;
+exports[`throw error with --help not-found (write) 1`] = `[]`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
 "[error] Cannot use --write and --debug-check together.
@@ -380,4 +380,4 @@ exports[`throw error with --write + --debug-check (stderr) 1`] = `
 
 exports[`throw error with --write + --debug-check (stdout) 1`] = `""`;
 
-exports[`throw error with --write + --debug-check (write) 1`] = `Array []`;
+exports[`throw error with --write + --debug-check (write) 1`] = `[]`;

@@ -1,6 +1,4 @@
-"use strict";
-
-const sharedUtil = require("../../../src/common/util-shared.js");
+import * as sharedUtil from "../../../src/common/util-shared.js";
 
 test("shared util has correct structure", () => {
   expect(typeof sharedUtil.getMaxContinuousCount).toBe("function");

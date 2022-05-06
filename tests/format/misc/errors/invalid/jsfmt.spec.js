@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: ["for each (a in b) {}", "class switch() {}"],
   },
   [
@@ -17,7 +17,7 @@ run_spec(
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "(a = b) = 1",
       "a = 1 = 2",

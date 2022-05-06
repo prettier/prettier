@@ -1,5 +1,3 @@
-"use strict";
-
 const frontMatterRegex = new RegExp(
   "^(?<startDelimiter>-{3}|\\+{3})" +
     // trailing spaces after delimiters are allowed
@@ -47,4 +45,4 @@ function parse(text) {
   };
 }
 
-module.exports = parse;
+export default parse;

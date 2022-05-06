@@ -1,14 +1,10 @@
-"use strict";
+import { hasNewline } from "../../common/util.js";
+import { join, hardline } from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 
-const { hasNewline } = require("../../common/util.js");
-const {
-  builders: { join, hardline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-
-const { isLineComment } = require("../utils/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const isBlockComment = require("../utils/is-block-comment.js");
+import { isLineComment } from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import isBlockComment from "../utils/is-block-comment.js";
 
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
@@ -77,4 +73,4 @@ function printIndentableBlockComment(comment) {
   ];
 }
 
-module.exports = { printComment };
+export { printComment };

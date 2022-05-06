@@ -1,19 +1,18 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+import createEsmUtils from "esm-utils";
+import checkParsers from "./utils/check-parsers.js";
+import createSnapshot from "./utils/create-snapshot.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 
-const { TEST_STANDALONE } = process.env;
+const { __dirname } = createEsmUtils(import.meta);
 
-const fs = require("fs");
-const path = require("path");
-const prettier = !TEST_STANDALONE
-  ? require("prettier-local")
-  : require("prettier-standalone");
-const checkParsers = require("./utils/check-parsers.js");
-const createSnapshot = require("./utils/create-snapshot.js");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line.js");
-const consistentEndOfLine = require("./utils/consistent-end-of-line.js");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title.js");
+let prettier;
 
-const { FULL_TEST } = process.env;
+const { FULL_TEST, TEST_STANDALONE } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -120,9 +119,24 @@ const isTestDirectory = (dirname, name) =>
     path.join(__dirname, "../format", name) + path.sep
   );
 
+const ensurePromise = (value) => {
+  const isPromise = TEST_STANDALONE
+    ? // In standalone test, promise is from another context
+      Object.prototype.toString.call(value) === "[object Promise]"
+    : value instanceof Promise;
+
+  if (!isPromise) {
+    throw new TypeError("Expected value to be a 'Promise'.");
+  }
+
+  return value;
+};
+
 function runSpec(fixtures, parsers, options) {
-  let { dirname, snippets = [] } =
-    typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  let { importMeta, snippets = [] } = fixtures.importMeta
+    ? fixtures
+    : { importMeta: fixtures };
+  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -361,8 +375,8 @@ async function runTest({
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
     const { input, output } = formatResult;
-    const originalAst = parse(input, formatOptions);
-    const formattedAst = parse(output, formatOptions);
+    const originalAst = await parse(input, formatOptions);
+    const formattedAst = await parse(output, formatOptions);
     if (isAstUnstableTest) {
       expect(formattedAst).not.toEqual(originalAst);
     } else {
@@ -417,8 +431,13 @@ function shouldSkipEolTest(code, options) {
   return false;
 }
 
-function parse(source, options) {
-  return prettier.__debug.parse(source, options, /* massage */ true).ast;
+async function parse(source, options) {
+  const { ast } = await prettier.__debug.parse(
+    source,
+    options,
+    /* massage */ true
+  );
+  return ast;
 }
 
 const indexProperties = [
@@ -461,7 +480,6 @@ const insertCursor = (text, cursorOffset) =>
       CURSOR_PLACEHOLDER +
       text.slice(cursorOffset)
     : text;
-// eslint-disable-next-line require-await
 async function format(originalText, originalOptions) {
   const { text: input, options } = replacePlaceholders(
     originalText,
@@ -469,9 +487,8 @@ async function format(originalText, originalOptions) {
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
-  const { formatted: output, cursorOffset } = prettier.formatWithCursor(
-    input,
-    options
+  const { formatted: output, cursorOffset } = await ensurePromise(
+    prettier.formatWithCursor(input, options)
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
@@ -489,4 +506,13 @@ async function format(originalText, originalOptions) {
   };
 }
 
-module.exports = runSpec;
+Object.defineProperty(runSpec, "prettier", {
+  get() {
+    return prettier;
+  },
+  set(prettierModule) {
+    prettier = prettierModule;
+  },
+  configurable: true,
+});
+export default runSpec;

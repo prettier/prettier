@@ -133,10 +133,11 @@ async function createBundle(bundleConfig, options) {
 async function preparePackage() {
   const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
   packageJson.bin = "./bin-prettier.js";
-  packageJson.engines.node = ">=10.13.0";
+  packageJson.engines.node = ">=12.17.0";
   delete packageJson.dependencies;
   delete packageJson.devDependencies;
   delete packageJson.browserslist;
+  delete packageJson.type;
   packageJson.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
@@ -230,11 +231,6 @@ async function run(params) {
   }
 
   if (shouldSaveBundledPackagesLicenses) {
-    const vendorMeta = await readJson(
-      new URL("../vendors/vendor-meta.json", import.meta.url)
-    );
-    licenses.push(...vendorMeta.licenses);
-
     await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
   } else {
     console.warn(
@@ -245,14 +241,7 @@ async function run(params) {
 
 await run(
   minimist(process.argv.slice(2), {
-    boolean: [
-      "playground",
-      "print-size",
-      "compare-size",
-      "minify",
-      "babel",
-      "clean",
-    ],
+    boolean: ["playground", "print-size", "compare-size", "minify", "clean"],
     string: ["file", "save-as", "report"],
     default: {
       clean: false,
@@ -260,7 +249,6 @@ await run(
       printSize: false,
       compareSize: false,
       minify: null,
-      babel: true,
     },
     unknown(flag) {
       throw new Error(`Unknown flag ${chalk.red(flag)}`);

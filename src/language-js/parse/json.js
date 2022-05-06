@@ -1,9 +1,10 @@
-"use strict";
+import { createRequire } from "node:module";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import createError from "../../common/parser-create-error.js";
+import createParser from "./utils/create-parser.js";
+import createBabelParseError from "./utils/create-babel-parse-error.js";
 
-const isNonEmptyArray = require("../../utils/is-non-empty-array.js");
-const createError = require("../../common/parser-create-error.js");
-const createParser = require("./utils/create-parser.js");
-const createBabelParseError = require("./utils/create-babel-parse-error.js");
+const require = createRequire(import.meta.url);
 
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
@@ -145,4 +146,4 @@ const jsonParsers = {
   }),
 };
 
-module.exports = jsonParsers;
+export default jsonParsers;

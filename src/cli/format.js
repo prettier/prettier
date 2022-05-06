@@ -1,25 +1,22 @@
-"use strict";
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import chalk from "chalk";
+import * as prettier from "../index.js";
+import thirdParty from "../common/third-party.cjs";
+import { createIgnorer, errors } from "./prettier-internal.js";
+import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
+import getOptionsForFile from "./options/get-options-for-file.js";
+import isTTY from "./is-tty.js";
 
-const { promises: fs } = require("fs");
-const path = require("path");
+const { getStdin } = thirdParty;
 
-// eslint-disable-next-line no-restricted-modules
-const { default: chalk } = require("../../vendors/chalk.js");
+let createTwoFilesPatch;
+async function diff(a, b) {
+  if (!createTwoFilesPatch) {
+    ({ createTwoFilesPatch } = await import("diff"));
+  }
 
-// eslint-disable-next-line no-restricted-modules
-const prettier = require("../index.js");
-// eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party.js");
-
-const { createIgnorer, errors } = require("./prettier-internal.js");
-const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
-const getOptionsForFile = require("./options/get-options-for-file.js");
-const isTTY = require("./is-tty.js");
-
-function diff(a, b) {
-  return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2,
-  });
+  return createTwoFilesPatch("", "", a, b, "", "", { context: 2 });
 }
 
 function handleError(context, filename, error, printedFilename) {
@@ -79,7 +76,7 @@ function writeOutput(context, result, options) {
   }
 }
 
-function listDifferent(context, input, options, filename) {
+async function listDifferent(context, input, options, filename) {
   if (!context.argv.check && !context.argv.listDifferent) {
     return;
   }
@@ -90,7 +87,7 @@ function listDifferent(context, input, options, filename) {
         "No parser and no file path given, couldn't infer a parser."
       );
     }
-    if (!prettier.check(input, options)) {
+    if (!(await prettier.check(input, options))) {
       if (!context.argv.write) {
         context.logger.log(filename);
         process.exitCode = 1;
@@ -103,7 +100,7 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function format(context, input, opt) {
+async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
       "No parser and no file path given, couldn't infer a parser."
@@ -111,40 +108,43 @@ function format(context, input, opt) {
   }
 
   if (context.argv.debugPrintDoc) {
-    const doc = prettier.__debug.printToDoc(input, opt);
-    return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
+    const doc = await prettier.__debug.printToDoc(input, opt);
+    return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };
   }
 
   if (context.argv.debugPrintComments) {
     return {
-      formatted: prettier.format(
-        JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
+      formatted: await prettier.format(
+        JSON.stringify(
+          (await prettier.formatWithCursor(input, opt)).comments || []
+        ),
         { parser: "json" }
       ),
     };
   }
 
   if (context.argv.debugPrintAst) {
-    const { ast } = prettier.__debug.parse(input, opt);
+    const { ast } = await prettier.__debug.parse(input, opt);
     return {
       formatted: JSON.stringify(ast),
     };
   }
 
   if (context.argv.debugCheck) {
-    const pp = prettier.format(input, opt);
-    const pppp = prettier.format(pp, opt);
+    const pp = await prettier.format(input, opt);
+    const pppp = await prettier.format(pp, opt);
     if (pp !== pppp) {
       throw new errors.DebugError(
-        "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
+        "prettier(input) !== prettier(prettier(input))\n" +
+          (await diff(pp, pppp))
       );
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
-        prettier.__debug.parse(input, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(input, opt, /* massage */ true)).ast
       );
       const past = stringify(
-        prettier.__debug.parse(pp, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(pp, opt, /* massage */ true)).ast
       );
 
       /* istanbul ignore next */
@@ -153,12 +153,12 @@ function format(context, input, opt) {
         const astDiff =
           ast.length > MAX_AST_SIZE || past.length > MAX_AST_SIZE
             ? "AST diff too large to render"
-            : diff(ast, past);
+            : await diff(ast, past);
         throw new errors.DebugError(
           "ast(input) !== ast(prettier(input))\n" +
             astDiff +
             "\n" +
-            diff(input, pp)
+            (await diff(input, pp))
         );
       }
     }
@@ -170,7 +170,7 @@ function format(context, input, opt) {
     let benchmark;
     try {
       // eslint-disable-next-line import/no-extraneous-dependencies
-      benchmark = require("benchmark");
+      ({ default: benchmark } = await import("benchmark"));
     } catch {
       context.logger.debug(
         "'--debug-benchmark' requires the 'benchmark' package to be installed."
@@ -181,22 +181,28 @@ function format(context, input, opt) {
       "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
     );
     const suite = new benchmark.Suite();
-    suite
-      .add("format", () => {
-        prettier.formatWithCursor(input, opt);
-      })
-      .on("cycle", (event) => {
-        const results = {
-          benchmark: String(event.target),
-          hz: event.target.hz,
-          ms: event.target.times.cycle * 1000,
-        };
-        context.logger.debug(
-          "'--debug-benchmark' measurements for formatWithCursor: " +
-            JSON.stringify(results, null, 2)
-        );
-      })
-      .run({ async: false });
+    suite.add("format", {
+      defer: true,
+      async fn(deferred) {
+        await prettier.formatWithCursor(input, opt);
+        deferred.resolve();
+      },
+    });
+    const result = await new Promise((resolve) => {
+      suite
+        .on("complete", (event) => {
+          resolve({
+            benchmark: String(event.target),
+            hz: event.target.hz,
+            ms: event.target.times.cycle * 1000,
+          });
+        })
+        .run({ async: false });
+    });
+    context.logger.debug(
+      "'--debug-benchmark' measurements for formatWithCursor: " +
+        JSON.stringify(result, null, 2)
+    );
   } else if (context.argv.debugRepeat > 0) {
     const repeat = context.argv.debugRepeat;
     context.logger.debug(
@@ -208,7 +214,7 @@ function format(context, input, opt) {
     for (let i = 0; i < repeat; ++i) {
       // should be using `performance.now()`, but only `Date` is cross-platform enough
       const startMs = Date.now();
-      prettier.formatWithCursor(input, opt);
+      await prettier.formatWithCursor(input, opt);
       totalMs += Date.now() - startMs;
     }
     const averageMs = totalMs / repeat;
@@ -263,11 +269,21 @@ async function formatStdin(context) {
 
     const options = await getOptionsForFile(context, filepath);
 
-    if (listDifferent(context, input, options, "(stdin)")) {
+    if (await listDifferent(context, input, options, "(stdin)")) {
       return;
     }
 
-    writeOutput(context, format(context, input, options), options);
+    const formatted = await format(context, input, options);
+
+    const { performanceTestFlag } = context;
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag.name}' option found, skipped print code to screen.`
+      );
+      return;
+    }
+
+    writeOutput(context, formatted, options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -280,7 +296,7 @@ async function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv.check) {
+  if (context.argv.check && !context.performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
@@ -355,7 +371,7 @@ async function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, options);
+      result = await format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);
@@ -367,6 +383,14 @@ async function formatFiles(context) {
     if (printedFilename) {
       // Remove previously printed filename to log it with duration.
       printedFilename.clear();
+    }
+
+    const { performanceTestFlag } = context;
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag.name}' option found, skipped print code or write files.`
+      );
+      return;
     }
 
     if (context.argv.write) {
@@ -417,11 +441,21 @@ async function formatFiles(context) {
   if (context.argv.check) {
     if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
+    } else if (numberOfUnformattedFilesFound === 1) {
+      context.logger.warn(
+        context.argv.write
+          ? "Code style issues fixed in the above file."
+          : "Code style issues found in the above file. Forgot to run Prettier?"
+      );
     } else {
       context.logger.warn(
         context.argv.write
-          ? "Code style issues fixed in the above file(s)."
-          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+          ? "Code style issues found in " +
+              numberOfUnformattedFilesFound +
+              " files."
+          : "Code style issues found in " +
+              numberOfUnformattedFilesFound +
+              " files. Forgot to run Prettier?"
       );
     }
   }
@@ -437,4 +471,4 @@ async function formatFiles(context) {
   }
 }
 
-module.exports = { formatStdin, formatFiles };
+export { formatStdin, formatFiles };

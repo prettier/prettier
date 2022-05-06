@@ -1,9 +1,11 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import stripAnsi from "strip-ansi";
+import createEsmUtils from "esm-utils";
+import { prettierCli, thirdParty } from "./env.js";
 
-const fs = require("fs");
-const path = require("path");
-const { default: stripAnsi } = require("../../vendors/strip-ansi.js");
-const { prettierCli, thirdParty } = require("./env.js");
+const { __dirname, require, __filename } = createEsmUtils(import.meta);
+const { jest } = import.meta;
 
 async function run(dir, args, options) {
   args = Array.isArray(args) ? args : [args];
@@ -57,11 +59,11 @@ async function run(dir, args, options) {
     - Test file `./__tests__/plugin-virtual-directory.js`
     - Pull request #5819
   */
-  const originalStatSync = fs.statSync;
+  const originalStat = fs.promises.stat;
   jest
-    .spyOn(fs, "statSync")
+    .spyOn(fs.promises, "stat")
     .mockImplementation((filename) =>
-      originalStatSync(
+      originalStat(
         path.basename(filename) === "virtualDirectory" ? __filename : filename
       )
     );
@@ -98,19 +100,11 @@ async function run(dir, args, options) {
       })
     );
   jest
-    .spyOn(require(thirdParty), "cosmiconfigSync")
-    .mockImplementation((moduleName, options) =>
-      require("cosmiconfig").cosmiconfigSync(moduleName, {
-        ...options,
-        stopDir: path.join(__dirname, "cli"),
-      })
-    );
-  jest
     .spyOn(require(thirdParty), "findParentDir")
     .mockImplementation(() => process.cwd());
 
   try {
-    await require(prettierCli);
+    await require(prettierCli).promise;
     status = (status === undefined ? process.exitCode : status) || 0;
   } catch (error) {
     status = 1;
@@ -212,4 +206,4 @@ function normalizeDir(dir) {
   return isRelative ? path.resolve(__dirname, dir) : dir;
 }
 
-module.exports = runPrettier;
+export default runPrettier;

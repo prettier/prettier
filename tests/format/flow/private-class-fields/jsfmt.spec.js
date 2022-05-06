@@ -1,1 +1,1 @@
-run_spec(__dirname, ["flow"], { quoteProps: "consistent" });
+run_spec(import.meta, ["flow"], { quoteProps: "consistent" });

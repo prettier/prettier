@@ -1,12 +1,8 @@
-"use strict";
-
-const {
-  builders: { indent, join, hardline },
-} = require("../../document/index.js");
-const {
+import { indent, join, hardline } from "../../document/builders.js";
+import {
   escapeTemplateCharacters,
   printTemplateExpressions,
-} = require("../print/template-literal.js");
+} from "../print/template-literal.js";
 
 function format(path, print, textToDoc) {
   const node = path.getValue();
@@ -105,4 +101,4 @@ function printGraphqlComments(lines) {
   return parts.length === 0 ? null : join(hardline, parts);
 }
 
-module.exports = format;
+export default format;

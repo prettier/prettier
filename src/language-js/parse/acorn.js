@@ -1,9 +1,10 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import postprocess from "./postprocess/index.js";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const postprocess = require("./postprocess/index.js");
+const require = createRequire(import.meta.url);
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
@@ -78,4 +79,4 @@ function parse(text, parsers, options = {}) {
   return postprocess(ast, options);
 }
 
-module.exports = createParser(parse);
+export default createParser(parse);

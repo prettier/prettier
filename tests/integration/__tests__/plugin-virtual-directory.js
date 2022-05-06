@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 
 describe("plugin search should not crash when prettier isn't inside a directory", () => {
   runPrettier(

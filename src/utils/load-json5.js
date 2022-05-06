@@ -1,12 +1,12 @@
-"use strict";
+import json5 from "json5";
 
-const { parse } = require("json5");
-
-module.exports = function (filePath, content) {
+function loadJson5(filePath, content) {
   try {
-    return parse(content);
+    return json5.parse(content);
   } catch (error) {
     error.message = `JSON5 Error in ${filePath}:\n${error.message}`;
     throw error;
   }
-};
+}
+
+export default loadJson5;

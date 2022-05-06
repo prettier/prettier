@@ -215,6 +215,7 @@
         "neoclide",
         "neoformat",
         "neovim",
+        "nicolo",
         "nocheck",
         "nnoremap",
         "nonenumerable",
@@ -277,6 +278,7 @@
         "regexes",
         "Reimplement",
         "rhengles",
+        "ribaudo",
         "Roadmap",
         "Rubocop",
         "ruleset",
@@ -304,7 +306,6 @@
         "standalones",
         "Stankiewicz",
         "starturl",
-        "stringifier",
         "stylefmt",
         "styleguides",
         "stylelint",
@@ -395,10 +396,9 @@
         "*.{log,svg,snap,png}",
         "website/data/users.yml",
         "website/build/**",
-        "website/playground/codeSamples.js",
+        "website/playground/codeSamples.mjs",
         "website/pages/googlefe164a33bda4034b.html",
         "website/static/lib/**",
-        "website/static/playground.js",
-        "scripts/vendors/vendor-meta.json"
+        "website/static/playground.js"
     ]
 }

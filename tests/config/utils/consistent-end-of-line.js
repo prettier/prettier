@@ -1,5 +1,3 @@
-"use strict";
-
 function consistentEndOfLine(text) {
   let firstEndOfLine;
   return text.replace(/\r\n?|\n/g, (endOfLine) => {
@@ -10,4 +8,4 @@ function consistentEndOfLine(text) {
   });
 }
 
-module.exports = consistentEndOfLine;
+export default consistentEndOfLine;

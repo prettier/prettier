@@ -1,13 +1,16 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import createEsmUtils from "esm-utils";
+import fastGlob from "fast-glob";
+import { projectRoot } from "../env.js";
+import createSandBox from "../../config/utils/create-sandbox.cjs";
+import * as coreOptions from "../../../src/main/core-options.js";
+import codeSamples from "../../../website/playground/codeSamples.mjs";
+import jestPathSerializer from "../path-serializer.js";
 
-const path = require("path");
-const fs = require("fs");
-const fastGlob = require("fast-glob");
-const { projectRoot } = require("../env.js");
-const createSandBox = require("../../config/utils/create-sandbox.js");
-const coreOptions = require("../../../src/main/core-options.js");
-const codeSamples =
-  require("../../../website/playground/codeSamples.js").default;
+const { require } = createEsmUtils(import.meta);
+
+expect.addSnapshotSerializer(jestPathSerializer);
 
 const parserNames = coreOptions.options.parser.choices.map(
   ({ value }) => value
@@ -35,18 +38,23 @@ describe("standalone", () => {
     .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
-  const esmStandalone = require(path.join(
-    distDirectory,
-    "esm/standalone.mjs"
-  )).default;
-  const esmPlugins = fastGlob
-    .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
-    .map((file) => require(file).default);
+  let esmStandalone;
+  let esmPlugins;
+  beforeAll(async () => {
+    esmStandalone = await import(
+      path.join(distDirectory, "esm/standalone.mjs")
+    );
+    esmPlugins = await Promise.all(
+      fastGlob
+        .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
+        .map(async (file) => (await import(file)).default)
+    );
+  });
 
   for (const parser of parserNames) {
-    test(parser, () => {
+    test(parser, async () => {
       const input = codeSamples(parser);
-      const umdOutput = standalone.format(input, {
+      const umdOutput = await standalone.format(input, {
         parser,
         plugins,
       });
@@ -55,7 +63,7 @@ describe("standalone", () => {
       expect(typeof umdOutput).toBe("string");
       expect(umdOutput).not.toBe(input);
 
-      const esmOutput = esmStandalone.format(input, {
+      const esmOutput = await esmStandalone.format(input, {
         parser,
         plugins: esmPlugins,
       });

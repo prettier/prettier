@@ -442,7 +442,7 @@ const;
 `;
 
 exports[`errorOnInitializerInInterfaceProperty.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (2:17)
+"Unexpected token, expected ";" (2:17)
   1 | interface Foo {
 > 2 |     bar: number = 5;
     |                 ^

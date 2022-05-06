@@ -10,6 +10,7 @@ on:
       - "yarn.lock"
       # This workflow file
       - ".github/workflows/dev-package-test.yml"
+      - "tests/config/install-prettier.js"
 
 jobs:
   test:

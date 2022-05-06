@@ -1,6 +1,7 @@
-"use strict";
+import { createRequire } from "node:module";
+import { locStart, locEnd } from "../loc.js";
 
-const { locStart, locEnd } = require("../loc.js");
+const require = createRequire(import.meta.url);
 
 function createParser(_parse) {
   const parse = (text, parsers, options) => {
@@ -17,7 +18,7 @@ function createParser(_parse) {
   return { astFormat: "estree", parse, locStart, locEnd };
 }
 
-module.exports = {
+const parser = {
   parsers: {
     __ng_action: createParser((text, ng) => ng.parseAction(text)),
     __ng_binding: createParser((text, ng) => ng.parseBinding(text)),
@@ -25,3 +26,5 @@ module.exports = {
     __ng_directive: createParser((text, ng) => ng.parseTemplateBindings(text)),
   },
 };
+
+export default parser;

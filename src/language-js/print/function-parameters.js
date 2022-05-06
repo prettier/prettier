@@ -1,12 +1,15 @@
-"use strict";
-
-const { getNextNonSpaceNonCommentCharacter } = require("../../common/util.js");
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines, willBreak },
-} = require("../../document/index.js");
-const {
+import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
+import { printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
+import {
   getFunctionParameters,
   iterateFunctionParametersPath,
   isSimpleType,
@@ -18,10 +21,10 @@ const {
   shouldPrintComma,
   hasComment,
   isNextLineEmpty,
-} = require("../utils/index.js");
-const { locEnd } = require("../loc.js");
-const { ArgExpansionBailout } = require("../../common/errors.js");
-const { printFunctionTypeParameters } = require("./misc.js");
+} from "../utils/index.js";
+import { locEnd } from "../loc.js";
+import { ArgExpansionBailout } from "../../common/errors.js";
+import { printFunctionTypeParameters } from "./misc.js";
 
 function printFunctionParameters(
   path,
@@ -223,7 +226,7 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   );
 }
 
-module.exports = {
+export {
   printFunctionParameters,
   shouldHugFunctionParameters,
   shouldGroupFunctionParameters,

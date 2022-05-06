@@ -1,5 +1,3 @@
-"use strict";
-
 function mapObject(object, fn) {
   const newObject = Object.create(null);
   for (const [key, value] of Object.entries(object)) {
@@ -8,4 +6,4 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-module.exports = mapObject;
+export default mapObject;

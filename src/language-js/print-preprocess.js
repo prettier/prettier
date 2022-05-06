@@ -1,5 +1,3 @@
-"use strict";
-
 function preprocess(ast, options) {
   switch (options.parser) {
     case "json":
@@ -7,6 +5,7 @@ function preprocess(ast, options) {
     case "json-stringify":
     case "__js_expression":
     case "__vue_expression":
+    case "__vue_ts_expression":
       return {
         ...ast,
         type: options.parser.startsWith("__") ? "JsExpressionRoot" : "JsonRoot",
@@ -19,4 +18,4 @@ function preprocess(ast, options) {
   }
 }
 
-module.exports = preprocess;
+export default preprocess;

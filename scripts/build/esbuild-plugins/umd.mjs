@@ -2,7 +2,7 @@ import fs from "node:fs";
 import camelCase from "camelcase";
 import { outdent } from "outdent";
 
-function getUmdWrapper(name, build) {
+function getUmdWrapper({ name, interopDefault = false }, build) {
   const path = name.split(".");
   const { minify } = build.initialOptions;
   const temporaryName = minify ? "m" : camelCase(name);
@@ -12,7 +12,7 @@ function getUmdWrapper(name, build) {
   for (let index = 0; index < path.length; index++) {
     const object = ["root", ...path.slice(0, index + 1)].join(".");
     if (index === path.length - 1) {
-      globalObjectText.push(`${object} = factory();`);
+      globalObjectText.push(`${object}`);
     } else {
       globalObjectText.push(`${object} = ${object} || {};`);
     }
@@ -23,10 +23,17 @@ function getUmdWrapper(name, build) {
 
   let wrapper = outdent`
     (function (factory) {
+      function interopModuleDefault(factory) {
+        var module = factory();
+        return module${interopDefault ? ".default" : ""};
+      }
+
       if (typeof exports === "object" && typeof module === "object") {
-        module.exports = factory();
+        module.exports = interopModuleDefault(factory);
       } else if (typeof define === "function" && define.amd) {
-        define(factory);
+        define(function () {
+          return interopModuleDefault(factory)
+        });
       } else {
         var root =
           typeof globalThis !== "undefined"
@@ -36,7 +43,7 @@ function getUmdWrapper(name, build) {
             : typeof self !== "undefined"
             ? self
             : this || {};
-        ${globalObjectText.trimStart()}
+        ${globalObjectText.trimStart()} = interopModuleDefault(factory);
       }
     })(function() {
       "use strict";${placeholder}
@@ -57,30 +64,30 @@ function getUmdWrapper(name, build) {
     outro,
     expectedOutput: {
       start: minify
-        ? `"use strict";var ${temporaryName}=(()=>{`
-        : `"use strict";\nvar ${temporaryName} = (() => {`,
+        ? `var ${temporaryName}=(()=>{`
+        : `var ${temporaryName} = (() => {`,
       end: "})();",
     },
   };
 }
 
-export default function esbuildPluginUmd({ name }) {
+export default function esbuildPluginUmd(options) {
   return {
     name: "umd",
     setup(build) {
-      const options = build.initialOptions;
-      const { globalName, format, outfile } = options;
+      const esbuildOptions = build.initialOptions;
+      const { globalName, format, outfile } = esbuildOptions;
 
       if (globalName) {
-        throw new Error("'globalName' in options cannot be set.");
+        throw new Error("'globalName' in esbuildOptions cannot be set.");
       }
 
       if (format !== "umd") {
-        throw new Error("'format' options must be 'umd'.");
+        throw new Error("'format' esbuildOptions must be 'umd'.");
       }
 
       if (!outfile) {
-        throw new Error("'outfile' options is required.");
+        throw new Error("'outfile' esbuildOptions is required.");
       }
 
       const {
@@ -88,9 +95,9 @@ export default function esbuildPluginUmd({ name }) {
         intro,
         outro,
         expectedOutput,
-      } = getUmdWrapper(name, build);
-      options.globalName = temporaryName;
-      options.format = "iife";
+      } = getUmdWrapper(options, build);
+      esbuildOptions.globalName = temporaryName;
+      esbuildOptions.format = "iife";
 
       build.onEnd((result) => {
         if (result.errors.length > 0) {
@@ -100,7 +107,12 @@ export default function esbuildPluginUmd({ name }) {
         if (!fs.existsSync(outfile)) {
           throw new Error(`${outfile} not exists`);
         }
-        const text = fs.readFileSync(outfile, "utf8").trim();
+        let text = fs.readFileSync(outfile, "utf8").trim();
+        // We already insert `"use strict";` in the wrapper
+        if (text.startsWith('"use strict";')) {
+          text = text.slice('"use strict";'.length).trimStart();
+        }
+
         const actualOutput = {
           start: text.slice(0, expectedOutput.start.length),
           end: text.slice(-expectedOutput.end.length),

@@ -1,26 +1,28 @@
-"use strict";
-
-const path = require("path");
-const micromatch = require("micromatch");
-const thirdParty = require("../common/third-party.js");
-
-const loadToml = require("../utils/load-toml.js");
-const loadJson5 = require("../utils/load-json5.js");
-const resolve = require("../common/resolve.js");
-const { default: mem, memClear } = require("../../vendors/mem.js");
-const resolveEditorConfig = require("./resolve-config-editorconfig.js");
+import { createRequire } from "node:module";
+import path from "node:path";
+import micromatch from "micromatch";
+import mem, { memClear } from "mem";
+import thirdParty from "../common/third-party.cjs";
+import loadToml from "../utils/load-toml.js";
+import loadJson5 from "../utils/load-json5.js";
+import resolve from "../common/resolve.js";
+import partition from "../utils/partition.js";
+import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
 
 /**
- * @typedef {import("cosmiconfig/dist/Explorer").Explorer} Explorer
- * @typedef {{sync: boolean; cache: boolean }} Options
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
+ * @typedef {{cache?: boolean }} Options
  */
 
 /**
- * @type {(opts: Options) => Explorer}
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Explorer}
  */
 const getExplorerMemoized = mem(
   (opts) => {
-    const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+    const require = createRequire(import.meta.url);
+    const { cosmiconfig } = thirdParty;
     const explorer = cosmiconfig("prettier", {
       cache: opts.cache,
       transform: (result) => {
@@ -67,64 +69,53 @@ const getExplorerMemoized = mem(
 );
 
 /**
- * @param {Options} opts
+ * @param {Options} [options]
  * @return {Explorer}
  */
-function getExplorer(opts) {
-  // Normalize opts before passing to a memoized function
-  opts = { sync: false, cache: false, ...opts };
-  return getExplorerMemoized(opts);
+function getExplorer(options) {
+  return getExplorerMemoized(
+    // Normalize opts before passing to a memoized function
+    { cache: false, ...options }
+  );
 }
 
-function _resolveConfig(filePath, opts, sync) {
+async function resolveConfig(filePath, opts) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
     cache: Boolean(opts.useCache),
-    sync: Boolean(sync),
     editorconfig: Boolean(opts.editorconfig),
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
-  const arr = [
+
+  const [result, editorConfigured] = await Promise.all([
     opts.config ? load(opts.config) : search(filePath),
     loadEditorConfig(filePath),
-  ];
+  ]);
 
-  const unwrapAndMerge = ([result, editorConfigured]) => {
-    const merged = {
-      ...editorConfigured,
-      ...mergeOverrides(result, filePath),
-    };
-
-    for (const optionName of ["plugins", "pluginSearchDirs"]) {
-      if (Array.isArray(merged[optionName])) {
-        merged[optionName] = merged[optionName].map((value) =>
-          typeof value === "string" && value.startsWith(".") // relative path
-            ? path.resolve(path.dirname(result.filepath), value)
-            : value
-        );
-      }
-    }
-
-    if (!result && !editorConfigured) {
-      return null;
-    }
-
-    // We are not using this option
-    delete merged.insertFinalNewline;
-    return merged;
+  const merged = {
+    ...editorConfigured,
+    ...mergeOverrides(result, filePath),
   };
 
-  if (loadOpts.sync) {
-    return unwrapAndMerge(arr);
+  for (const optionName of ["plugins", "pluginSearchDirs"]) {
+    if (Array.isArray(merged[optionName])) {
+      merged[optionName] = merged[optionName].map((value) =>
+        typeof value === "string" && value.startsWith(".") // relative path
+          ? path.resolve(path.dirname(result.filepath), value)
+          : value
+      );
+    }
   }
 
-  return Promise.all(arr).then(unwrapAndMerge);
+  if (!result && !editorConfigured) {
+    return null;
+  }
+
+  // We are not using this option
+  delete merged.insertFinalNewline;
+  return merged;
 }
-
-const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
-
-resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
   memClear(getExplorerMemoized);
@@ -132,16 +123,10 @@ function clearCache() {
 }
 
 async function resolveConfigFile(filePath) {
-  const { search } = getExplorer({ sync: false });
+  const { search } = getExplorer();
   const result = await search(filePath);
   return result ? result.filepath : null;
 }
-
-resolveConfigFile.sync = (filePath) => {
-  const { search } = getExplorer({ sync: true });
-  const result = search(filePath);
-  return result ? result.filepath : null;
-};
 
 function mergeOverrides(configResult, filePath) {
   const { config, filepath: configPath } = configResult || {};
@@ -169,15 +154,10 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = Array.isArray(patterns) ? patterns : [patterns];
   // micromatch always matches against basename when the option is enabled
   // use only patterns without slashes with it to match minimatch behavior
-  const withSlashes = [];
-  const withoutSlashes = [];
-  for (const pattern of patternList) {
-    if (pattern.includes("/")) {
-      withSlashes.push(pattern);
-    } else {
-      withoutSlashes.push(pattern);
-    }
-  }
+  const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
+    pattern.includes("/")
+  );
+
   return (
     micromatch.isMatch(filePath, withoutSlashes, {
       ignore: excludedPatterns,
@@ -192,8 +172,4 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   );
 }
 
-module.exports = {
-  resolveConfig,
-  resolveConfigFile,
-  clearCache,
-};
+export { resolveConfig, resolveConfigFile, clearCache };

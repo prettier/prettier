@@ -1,6 +1,4 @@
-"use strict";
-
-const runPrettier = require("../run-prettier.js");
+import runPrettier from "../run-prettier.js";
 const EOL = "\n";
 
 describe("automatically loads 'prettier-plugin-*'", () => {
@@ -102,7 +100,7 @@ describe("does not crash when --plugin-search-dir does not contain node_modules"
       "file.foo",
       "--end-of-line",
       "lf",
-      "--plugin=./plugin",
+      "--plugin=./plugin.cjs",
       "--plugin-search-dir=.",
     ],
     { ignoreLineEndings: true }
@@ -261,12 +259,12 @@ test("--no-plugin-search together with --plugin-search-dir", async () => {
   ]);
 
   expect(result1).toMatchInlineSnapshot(`
-    Object {
+    {
       "status": 1,
       "stderr": "[error] Cannot use --no-plugin-search and --plugin-search-dir together.
     ",
       "stdout": "",
-      "write": Array [],
+      "write": [],
     }
   `);
   expect(result2).toEqual(result1);

@@ -1,77 +1,23 @@
-import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import * as babel from "@babel/core";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
-import { vendorMetaFile, vendorsDirectory } from "../vendors/utils.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
 import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
+import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
+import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
-const vendorsReplacements = Object.entries(readJsonSync(vendorMetaFile).entries)
-  .filter(([, entry]) => !entry.endsWith(".json"))
-  .map(([vendorName, entry]) => ({
-    module: path.join(vendorsDirectory, entry),
-    path: require.resolve(vendorName),
-  }));
-
-function getBabelConfig(bundle) {
-  const config = {
-    babelrc: false,
-    assumptions: {
-      setSpreadProperties: true,
-    },
-    sourceType: "unambiguous",
-    plugins: bundle.babelPlugins || [],
-    compact: false,
-    exclude: [/\/core-js\//],
-  };
-  const targets = { node: "10" };
-  if (bundle.target === "universal") {
-    targets.browsers = packageJson.browserslist;
-  }
-  config.presets = [
-    [
-      "@babel/preset-env",
-      {
-        targets,
-        exclude: [
-          "es.array.unscopables.flat",
-          "es.array.unscopables.flat-map",
-          "es.array.sort",
-          "es.promise",
-          "es.promise.finally",
-          "es.string.replace",
-          "es.symbol.description",
-          "es.typed-array.*",
-          "web.*",
-        ],
-        modules: false,
-        useBuiltIns: "usage",
-        corejs: {
-          version: 3,
-        },
-        debug: false,
-      },
-    ],
-  ];
-  config.plugins.push([
-    "@babel/plugin-proposal-object-rest-spread",
-    { useBuiltIns: true },
-  ]);
-  return config;
-}
 
 const bundledFiles = [
   ...bundles,
@@ -83,11 +29,36 @@ const bundledFiles = [
 
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = [
-    ...vendorsReplacements,
+    // Use `require` directly
+    {
+      module: "*",
+      find: "const require = createRequire(import.meta.url);",
+      replacement: "",
+    },
+    // Use `__dirname` directly
+    {
+      module: "*",
+      find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
+      replacement: "",
+    },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),
       path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
+    },
+    // https://github.com/evanw/esbuild/issues/2103
+    {
+      module: path.join(
+        path.dirname(require.resolve("outdent/package.json")),
+        "lib-module/index.js"
+      ),
+      process(text) {
+        const index = text.indexOf('if (typeof module !== "undefined") {');
+        if (index === -1) {
+          throw new Error("Unexpected code");
+        }
+        return text.slice(0, index);
+      },
     },
   ];
 
@@ -122,39 +93,91 @@ function* getEsbuildOptions(bundle, buildOptions) {
     for (const { input, output } of bundledFiles) {
       replaceModule.push({ module: input, external: output });
     }
+
+    // Transform import declaration into inline `require()`
+    for (const file of [
+      "src/language-css/parsers.js",
+      "src/language-graphql/parsers.js",
+      "src/language-html/parsers.js",
+      "src/language-handlebars/parsers.js",
+      "src/language-js/parse/parsers.js",
+      "src/language-markdown/parsers.js",
+      "src/language-yaml/parsers.js",
+    ]) {
+      replaceModule.push({
+        module: path.join(PROJECT_ROOT, file),
+        process(text) {
+          const importDeclarations = text.matchAll(
+            /(?<declaration>import (?<variableName>[A-Za-z]+) from "(?<source>\..*)";)/g
+          );
+
+          for (const {
+            groups: { declaration, variableName, source },
+          } of importDeclarations) {
+            text = text.replace(declaration, "");
+            text = text.replaceAll(
+              `return ${variableName}.parsers`,
+              `return require("${source}").parsers`
+            );
+          }
+
+          return text;
+        },
+      });
+    }
   } else {
-    // Universal bundle only use version info from package.json
-    // Replace package.json with `{version: "{VERSION}"}`
-    replaceModule.push({
-      module: path.join(PROJECT_ROOT, "package.json"),
-      text: JSON.stringify({ version: packageJson.version }),
-      loader: "json",
-    });
+    replaceModule.push(
+      // Universal bundle only use version info from package.json
+      // Replace package.json with `{version: "{VERSION}"}`
+      {
+        module: path.join(PROJECT_ROOT, "package.json"),
+        text: JSON.stringify({ version: packageJson.version }),
+        loader: "json",
+      },
+      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
+      {
+        module: "*",
+        find: 'import { createRequire } from "node:module";',
+        replacement: "",
+      },
+      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+      {
+        module: "assert",
+        path: path.join(dirname, "./shims/assert.js"),
+      },
+      // `esbuildPluginNodeModulePolyfills` didn't shim this module
+      {
+        module: "module",
+        text: "export const createRequire = () => {};",
+      }
+    );
 
     // Replace parser getters with `undefined`
     for (const file of [
       "src/language-css/parsers.js",
       "src/language-graphql/parsers.js",
-      "src/language-handlebars/parsers.js",
       "src/language-html/parsers.js",
+      "src/language-handlebars/parsers.js",
       "src/language-js/parse/parsers.js",
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
+      // This module requires file access, should not include in universal bundle
+      "src/utils/get-interpreter.js",
     ]) {
-      replaceModule.push({ module: path.join(PROJECT_ROOT, file), text: "" });
+      replaceModule.push({
+        module: path.join(PROJECT_ROOT, file),
+        text: "export default undefined;",
+      });
     }
-
-    // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-    replaceModule.push({
-      module: "assert",
-      path: require.resolve("./shims/assert.cjs"),
-    });
   }
 
   let shouldMinify = buildOptions.minify;
   if (typeof shouldMinify !== "boolean") {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
+
+  const interopDefault =
+    !bundle.input.endsWith(".cjs") && bundle.interopDefault !== false;
 
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
@@ -163,6 +186,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     metafile: true,
     plugins: [
       esbuildPluginEvaluate(),
+      esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({
         replacements: [...replaceModule, ...(bundle.replaceModule ?? [])],
       }),
@@ -183,8 +207,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
     legalComments: "none",
     external: ["pnpapi", ...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
-    tsconfig: path.join(__dirname, "empty-tsconfig.json"),
-    target: [...(bundle.esbuildTarget ?? ["node10"])],
+    tsconfig: path.join(dirname, "empty-tsconfig.json"),
+    target: [...(bundle.esbuildTarget ?? ["node12"])],
     logLevel: "error",
   };
 
@@ -197,7 +221,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
       ...esbuildOptions,
       outfile: bundle.output,
       plugins: [
-        esbuildPluginUmd({ name: bundle.name }),
+        esbuildPluginUmd({
+          name: bundle.name,
+          interopDefault,
+        }),
         ...esbuildOptions.plugins,
       ],
       format: "umd",
@@ -214,6 +241,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
+    if (interopDefault) {
+      esbuildOptions.plugins.push(esbuildPluginInteropDefault());
+    }
+
     yield {
       ...esbuildOptions,
       outfile: bundle.output,
@@ -222,39 +253,8 @@ function* getEsbuildOptions(bundle, buildOptions) {
   }
 }
 
-async function runBuild(bundle, esbuildOptions, buildOptions) {
-  if (!buildOptions.babel || bundle.skipBabel) {
-    await esbuild.build(esbuildOptions);
-    return;
-  }
-
-  const { format, plugins, outfile } = esbuildOptions;
-
-  await esbuild.build({
-    ...esbuildOptions,
-    plugins: plugins.filter(({ name }) => name !== "umd"),
-    format: format === "umd" ? "cjs" : format,
-    minify: false,
-    target: undefined,
-  });
-
-  const text = await fs.readFile(outfile);
-
-  const { code } = await babel.transformAsync(text, {
-    filename: outfile,
-    ...getBabelConfig(bundle),
-  });
-  await fs.writeFile(outfile, code);
-
-  await esbuild.build({
-    ...esbuildOptions,
-    define: {},
-    plugins: plugins.filter(
-      ({ name }) => name === "umd" || name === "throw-warnings"
-    ),
-    entryPoints: [outfile],
-    allowOverwrite: true,
-  });
+async function runBuild(bundle, esbuildOptions) {
+  await esbuild.build(esbuildOptions);
 }
 
 async function* createBundle(bundle, buildOptions) {

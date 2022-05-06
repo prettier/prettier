@@ -1,8 +1,6 @@
-"use strict";
-
-const path = require("path");
-const { promises: fs } = require("fs");
-const fastGlob = require("fast-glob");
+import path from "node:path";
+import { promises as fs } from "node:fs";
+import fastGlob from "fast-glob";
 
 /** @typedef {import('./context').Context} Context */
 
@@ -217,7 +215,4 @@ function fixWindowsSlashes(pattern) {
   return isWindows ? pattern.replace(/\\/g, "/") : pattern;
 }
 
-module.exports = {
-  expandPatterns,
-  fixWindowsSlashes,
-};
+export { expandPatterns, fixWindowsSlashes };

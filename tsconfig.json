@@ -3,9 +3,11 @@
     "allowJs": true,
     "checkJs": true,
     "noEmit": true,
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     // TBD it is desired to enabled strict type checking at some point:
     "strict": false,
     "typeRoots": ["./types", "./node_modules/@types"]
@@ -13,7 +15,7 @@
   "exclude": [
     "coverage/",
     "test*.*",
-    "vendors/*.js",
+    "jest.config.mjs",
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",
