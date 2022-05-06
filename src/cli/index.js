@@ -14,15 +14,16 @@ async function run(rawArguments) {
   let logger = createLogger();
 
   try {
-    const logLevel = parseArgvWithoutPlugins(
+    const { loglevel: logLevel } = await parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"
-    ).loglevel;
+    );
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
     }
     const context = new Context({ rawArguments, logger });
+    await context.init();
     if (logger.logLevel !== "debug" && context.performanceTestFlag) {
       context.logger = createLogger("debug");
     }
@@ -80,10 +81,9 @@ async function main(context) {
   }
 
   if (context.argv.supportInfo) {
+    const supportInfo = await prettier.getSupportInfo();
     printToScreen(
-      await prettier.format(stringify(prettier.getSupportInfo()), {
-        parser: "json",
-      })
+      await prettier.format(stringify(supportInfo), { parser: "json" })
     );
     return;
   }

@@ -7,15 +7,15 @@ import {
   normalizeDetailedOptionMap,
 } from "../../../src/cli/options/option-map.js";
 
+const supportInfo = await prettier.getSupportInfo({
+  showDeprecated: true,
+  showUnreleased: true,
+  showInternal: true,
+});
+
 for (const option of arrayify(
   {
-    ...createDetailedOptionMap(
-      prettier.getSupportInfo({
-        showDeprecated: true,
-        showUnreleased: true,
-        showInternal: true,
-      }).options
-    ),
+    ...createDetailedOptionMap(supportInfo.options),
     ...normalizeDetailedOptionMap(constant.options),
   },
   "name"

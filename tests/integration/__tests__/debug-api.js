@@ -27,8 +27,8 @@ describe("API", () => {
     expect(Array.isArray(ast.program.body)).toBe(true);
   });
 
-  test("prettier.formatAST", () => {
-    const { formatted: formatResultFromAST } = formatAST(ast, options);
+  test("prettier.formatAST", async () => {
+    const { formatted: formatResultFromAST } = await formatAST(ast, options);
     expect(formatResultFromAST).toBe(formatted);
   });
 
@@ -41,8 +41,8 @@ describe("API", () => {
     done();
   });
 
-  test("prettier.printDocToString", () => {
-    const { formatted: stringFromDoc } = printDocToString(doc, options);
+  test("prettier.printDocToString", async () => {
+    const { formatted: stringFromDoc } = await printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);
   });
 
@@ -55,7 +55,7 @@ describe("API", () => {
       `return ${formatResultFromDoc}`
     )(builders);
 
-    const { formatted: stringFromDoc2 } = printDocToString(doc2, options);
+    const { formatted: stringFromDoc2 } = await printDocToString(doc2, options);
     expect(stringFromDoc2).toBe(formatted);
 
     const formatResultFromDoc2 = await formatDoc(doc2, options);
