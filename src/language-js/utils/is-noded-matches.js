@@ -1,6 +1,10 @@
 "use strict";
 
 /**
+ * @typedef {import("../types/estree").Node} Node
+ */
+
+/**
 Check if node matches object name or key path.
 
 @param {Node} node - The AST node to check.
