@@ -1,10 +1,11 @@
 import { createRequire } from "node:module";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
-import languages from "./languages.js";
+import * as languages from "./languages.js";
 
 const require = createRequire(import.meta.url);
 const { version } = require("../package.json");
+const builtinPlugins = Object.values(languages);
 
 function withPlugins(
   fn,
@@ -19,7 +20,7 @@ function withPlugins(
     args[optsArgIdx] = {
       ...opts,
       plugins: [
-        ...languages,
+        ...builtinPlugins,
         ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
       ],
     };
