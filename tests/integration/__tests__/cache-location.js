@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs/promises");
+const { promises: fs } = require("fs");
 
 const { default: stripAnsi } = require("../../../vendors/strip-ansi.js");
 
