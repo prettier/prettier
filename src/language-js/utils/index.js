@@ -504,9 +504,9 @@ function isTestCall(node, parent) {
     }
   } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      isTestCallCallee(node.callee) &&
       (node.arguments[0].type === "TemplateLiteral" ||
-        isStringLiteral(node.arguments[0]))
+        isStringLiteral(node.arguments[0])) &&
+      isTestCallCallee(node.callee)
     ) {
       // it("name", () => { ... }, 2500)
       if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
