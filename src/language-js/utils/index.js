@@ -459,32 +459,33 @@ function isUnitTestSetUp(node) {
   );
 }
 
+const patterns = [
+  "it",
+  "it.only",
+  "it.skip",
+  "describe",
+  "describe.only",
+  "describe.skip",
+  "test",
+  "test.only",
+  "test.skip",
+  "test.step",
+  "test.describe",
+  "test.describe.only",
+  "test.describe.parallel",
+  "test.describe.parallel.only",
+  "test.describe.serial",
+  "test.describe.serial.only",
+  "skip",
+  "xit",
+  "xdescribe",
+  "xtest",
+  "fit",
+  "fdescribe",
+  "ftest",
+];
+
 function isTestCallCallee(node) {
-  const patterns = [
-    "it",
-    "it.only",
-    "it.skip",
-    "describe",
-    "describe.only",
-    "describe.skip",
-    "test",
-    "test.only",
-    "test.skip",
-    "test.step",
-    "test.describe",
-    "test.describe.only",
-    "test.describe.parallel",
-    "test.describe.parallel.only",
-    "test.describe.serial",
-    "test.describe.serial.only",
-    "skip",
-    "xit",
-    "xdescribe",
-    "xtest",
-    "fit",
-    "fdescribe",
-    "ftest",
-  ];
   return isNodeMatches(node, patterns);
 }
 
