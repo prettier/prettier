@@ -65,7 +65,7 @@ function installPrettier(packageDir) {
     default:
       // yarn fails when engine requirement not compatible by default
       runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
-      runNpmClient(["add", packed]);
+      runNpmClient(["add", `file:${packed}`]);
   }
 
   fs.unlinkSync(packed);
