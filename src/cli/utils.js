@@ -1,5 +1,7 @@
 "use strict";
 
+const crypto = require("crypto");
+
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
 
@@ -38,4 +40,12 @@ function pick(object, keys) {
   return Object.fromEntries(entries);
 }
 
-module.exports = { printToScreen, groupBy, pick };
+/**
+ * @param {string} source
+ * @returns {string}
+ */
+function createHash(source) {
+  return crypto.createHash("md5").update(source).digest("hex");
+}
+
+module.exports = { printToScreen, groupBy, pick, createHash };
