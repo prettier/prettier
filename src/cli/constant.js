@@ -71,6 +71,16 @@ const categoryOrder = [
  */
 /* eslint sort-keys: "error" */
 const options = {
+  cache: {
+    type: "boolean",
+    default: false,
+    description: "Only format changed files",
+  },
+  "cache-location": {
+    type: "path",
+    description: "Path to the cache file or directory",
+    default: ".prettiercache",
+  },
   check: {
     alias: "c",
     category: coreOptions.CATEGORY_OUTPUT,
