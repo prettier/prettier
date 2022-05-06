@@ -12,18 +12,12 @@ Check if node matches object name or key path.
 @returns {boolean}
 */
 function isNodeMatchesNameOrPath(node, nameOrPath) {
-  const names = nameOrPath.trim().split(".");
+  const names = nameOrPath.split(".");
   for (let index = names.length - 1; index >= 0; index--) {
     const name = names[index];
-    if (!name) {
-      return false;
-    }
 
     if (index === 0) {
-      return (
-        (node.type === "Identifier" && node.name === name) ||
-        (name === "this" && node.type === "ThisExpression")
-      );
+      return node.type === "Identifier" && node.name === name;
     }
 
     if (
@@ -53,7 +47,4 @@ function isNodeMatches(node, nameOrPaths) {
   );
 }
 
-module.exports = {
-  isNodeMatchesNameOrPath,
-  isNodeMatches,
-};
+module.exports = isNodeMatches;
