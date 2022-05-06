@@ -10,6 +10,7 @@ const {
   getStringWidth,
 } = require("../../common/util.js");
 const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
+const { isNodeMatches } = require("./is-noded-matches.js");
 const isBlockComment = require("./is-block-comment.js");
 
 /**
@@ -458,81 +459,33 @@ function isUnitTestSetUp(node) {
   );
 }
 
-/**
- * The `patterns` will match these Identifier or Member Expressions
- *
- * it|describe
- *            .only
- *            .skip
- * test
- *     .step
- *     .skip
- *     .only
- *     .describe
- *              .only
- *              .parallel
- *                       .only
- *              .serial
- *                     .only
- * skip
- * [xf](it|test|describe)
- */
-
-const patterns = [
-  {
-    regex: /^(?:describe|it)$/,
-    next: [
-      {
-        regex: /^(?:only|skip)$/,
-        next: [],
-      },
-    ],
-  },
-  {
-    regex: /^test$/,
-    next: [
-      {
-        regex: /^(?:step|only|skip)$/,
-        next: [],
-      },
-      {
-        regex: /^describe$/,
-        next: [
-          { regex: /^only$/, next: [] },
-          {
-            regex: /^(?:parallel|serial)$/,
-            next: [{ regex: /^only$/, next: [] }],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    regex: /^(?:[fx](?:test|describe|it)|skip)$/,
-    next: [],
-  },
-];
-
-function collateCalleeMember(node) {
-  if (node.type === "Identifier") {
-    return patterns.find((pattern) => pattern.regex.test(node.name))?.next;
-  }
-
-  if (node.type === "MemberExpression") {
-    const nextPatterns = collateCalleeMember(node.object);
-    if (!nextPatterns) {
-      return false;
-    }
-    return nextPatterns.find((pattern) =>
-      pattern.regex.test(node.property.name)
-    )?.next;
-  }
-
-  return false;
-}
-
 function isTestCallCallee(node) {
-  return Boolean(collateCalleeMember(node));
+  const patterns = [
+    "it",
+    "it.only",
+    "it.skip",
+    "describe",
+    "describe.only",
+    "describe.skip",
+    "test",
+    "test.only",
+    "test.skip",
+    "test.step",
+    "test.describe",
+    "test.describe.only",
+    "test.describe.parallel",
+    "test.describe.parallel.only",
+    "test.describe.serial",
+    "test.describe.serial.only",
+    "skip",
+    "xit",
+    "xdescribe",
+    "xtest",
+    "fit",
+    "fdescribe",
+    "ftest",
+  ];
+  return isNodeMatches(node, patterns);
 }
 
 // eg; `describe("some string", (done) => {})`
