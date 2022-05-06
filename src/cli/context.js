@@ -26,14 +26,18 @@ class Context {
     this.rawArguments = rawArguments;
     this.logger = logger;
     this.stack = [];
+  }
 
-    const { plugins, pluginSearchDirs } = parseArgvWithoutPlugins(
+  async init() {
+    const { rawArguments, logger } = this;
+
+    const { plugins, pluginSearchDirs } = await parseArgvWithoutPlugins(
       rawArguments,
       logger,
       ["plugin", "plugin-search-dir"]
     );
 
-    this.pushContextPlugins(plugins, pluginSearchDirs);
+    await this.pushContextPlugins(plugins, pluginSearchDirs);
 
     const argv = parseArgv(rawArguments, this.detailedOptions, logger);
     this.argv = argv;
@@ -44,8 +48,8 @@ class Context {
    * @param {string[]} plugins
    * @param {string[]=} pluginSearchDirs
    */
-  pushContextPlugins(plugins, pluginSearchDirs) {
-    const options = getContextOptions(plugins, pluginSearchDirs);
+  async pushContextPlugins(plugins, pluginSearchDirs) {
+    const options = await getContextOptions(plugins, pluginSearchDirs);
     this.stack.push(options);
     Object.assign(this, options);
   }

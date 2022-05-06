@@ -1,8 +1,7 @@
 import * as prettier from "../../../../index.js";
 
-const parsers = prettier
-  .getSupportInfo()
-  .options.find((option) => option.name === "parser")
+const parsers = (await prettier.getSupportInfo()).options
+  .find((option) => option.name === "parser")
   .choices.filter((choice) => !choice.deprecated)
   .map((choice) => choice.value);
 

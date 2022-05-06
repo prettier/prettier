@@ -59,11 +59,11 @@ async function run(dir, args, options) {
     - Test file `./__tests__/plugin-virtual-directory.js`
     - Pull request #5819
   */
-  const originalStatSync = fs.statSync;
+  const originalStat = fs.promises.stat;
   jest
-    .spyOn(fs, "statSync")
+    .spyOn(fs.promises, "stat")
     .mockImplementation((filename) =>
-      originalStatSync(
+      originalStat(
         path.basename(filename) === "virtualDirectory" ? __filename : filename
       )
     );

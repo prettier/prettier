@@ -107,7 +107,7 @@ async function getOptionsForFile(context, filepath) {
 
   const hasPlugins = options && options.plugins;
   if (hasPlugins) {
-    context.pushContextPlugins(options.plugins);
+    await context.pushContextPlugins(options.plugins);
   }
 
   const appliedOptions = {

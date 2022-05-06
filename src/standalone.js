@@ -10,7 +10,9 @@ function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
 ) {
-  return (...args) => {
+  // Returns Promises to consistent with functions in `index.js`
+  // eslint-disable-next-line require-await
+  return async (...args) => {
     const opts = args[optsArgIdx] || {};
     const plugins = opts.plugins || [];
 

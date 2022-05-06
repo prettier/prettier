@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import fs from "node:fs";
+import { promises as fsPromises } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
@@ -19,7 +19,7 @@ const clearCache = () => {
   memClear(memoizedSearch);
 };
 
-function load(plugins, pluginSearchDirs) {
+async function load(plugins, pluginSearchDirs) {
   if (!plugins) {
     plugins = [];
   }
@@ -61,36 +61,42 @@ function load(plugins, pluginSearchDirs) {
     }
   );
 
-  const externalAutoLoadPluginInfos = pluginSearchDirs.flatMap(
-    (pluginSearchDir) => {
-      const resolvedPluginSearchDir = path.resolve(
-        process.cwd(),
-        pluginSearchDir
-      );
-
-      const nodeModulesDir = path.resolve(
-        resolvedPluginSearchDir,
-        "node_modules"
-      );
-
-      // In some fringe cases (ex: files "mounted" as virtual directories), the
-      // isDirectory(resolvedPluginSearchDir) check might be false even though
-      // the node_modules actually exists.
-      if (
-        !isDirectory(nodeModulesDir) &&
-        !isDirectory(resolvedPluginSearchDir)
-      ) {
-        throw new Error(
-          `${pluginSearchDir} does not exist or is not a directory`
+  const externalAutoLoadPluginInfos = (
+    await Promise.all(
+      pluginSearchDirs.map(async (pluginSearchDir) => {
+        const resolvedPluginSearchDir = path.resolve(
+          process.cwd(),
+          pluginSearchDir
         );
-      }
 
-      return memoizedSearch(nodeModulesDir).map((pluginName) => ({
-        name: pluginName,
-        requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
-      }));
-    }
-  );
+        const nodeModulesDir = path.resolve(
+          resolvedPluginSearchDir,
+          "node_modules"
+        );
+
+        // In some fringe cases (ex: files "mounted" as virtual directories), the
+        // isDirectory(resolvedPluginSearchDir) check might be false even though
+        // the node_modules actually exists.
+        if (
+          !(await isDirectory(nodeModulesDir)) &&
+          !(await isDirectory(resolvedPluginSearchDir))
+        ) {
+          throw new Error(
+            `${pluginSearchDir} does not exist or is not a directory`
+          );
+        }
+
+        const pluginNames = await memoizedSearch(nodeModulesDir);
+
+        return pluginNames.map((pluginName) => ({
+          name: pluginName,
+          requirePath: resolve(pluginName, {
+            paths: [resolvedPluginSearchDir],
+          }),
+        }));
+      })
+    )
+  ).flat();
 
   const externalPlugins = [
     ...uniqByKey(
@@ -106,8 +112,8 @@ function load(plugins, pluginSearchDirs) {
   return externalPlugins;
 }
 
-function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackageJsonPaths = fastGlob.sync(
+async function findPluginsInNodeModules(nodeModulesDir) {
+  const pluginPackageJsonPaths = await fastGlob(
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
@@ -120,12 +126,16 @@ function findPluginsInNodeModules(nodeModulesDir) {
   return pluginPackageJsonPaths.map(path.dirname);
 }
 
-function isDirectory(dir) {
+async function isDirectory(dir) {
+  let stat;
+
   try {
-    return fs.statSync(dir).isDirectory();
+    stat = await fsPromises.stat(dir);
   } catch {
     return false;
   }
+
+  return stat.isDirectory();
 }
 
 export { memoizedLoad as loadPlugins, clearCache };

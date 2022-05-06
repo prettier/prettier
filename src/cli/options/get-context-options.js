@@ -7,8 +7,8 @@ import {
   createDetailedOptionMap,
 } from "./option-map.js";
 
-function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = getSupportInfo({
+async function getContextOptions(plugins, pluginSearchDirs) {
+  const { options: supportOptions, languages } = await getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
