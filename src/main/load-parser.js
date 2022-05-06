@@ -22,4 +22,4 @@ function requireParser(parser) {
   }
 }
 
-export default requireParser
+export default requireParser;
