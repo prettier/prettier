@@ -11,7 +11,7 @@ const {
 } = require("../../common/util.js");
 const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
 const isBlockComment = require("./is-block-comment.js");
-const isNodeMatches = require("./is-noded-matches.js");
+const isNodeMatches = require("./is-node-matches.js");
 
 /**
  * @typedef {import("../types/estree").Node} Node
