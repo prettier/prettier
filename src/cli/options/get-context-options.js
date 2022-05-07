@@ -1,6 +1,6 @@
 import dashify from "dashify";
 import { getSupportInfo } from "../../index.js";
-import { optionsHiddenDefaults, coreOptions } from "../prettier-internal.js";
+import { coreOptions } from "../prettier-internal.js";
 import { options as cliOptionsMap } from "../constant.js";
 import { arrayify } from "../utils.js";
 
@@ -59,7 +59,7 @@ async function getContextOptions(plugins, pluginSearchDirs) {
   const detailedOptions = [
     ...detailedCliOptions,
     ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
-  ].sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
+  ];
 
   return {
     supportOptions,
