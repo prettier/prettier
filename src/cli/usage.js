@@ -23,11 +23,7 @@ function getOptionDefaultValue(context, optionName) {
     ({ name }) => name === optionName
   );
 
-  if (!option) {
-    return;
-  }
-
-  if (option.default !== undefined) {
+  if (option?.default !== undefined) {
     return option.default;
   }
 
@@ -117,18 +113,19 @@ function getOptionsWithOpposites(options) {
 }
 
 function createUsage(context) {
-  const options = getOptionsWithOpposites(context.detailedOptions)
-    .filter(
-      // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
-      (option) =>
-        !(
-          option.type === "boolean" &&
-          option.oppositeDescription &&
-          !option.name.startsWith("no-")
-        )
-    )
-    .sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
+  const sortedOptions = context.detailedOptions.sort((optionA, optionB) =>
+    optionA.name.localeCompare(optionB.name)
+  );
 
+  const options = getOptionsWithOpposites(sortedOptions).filter(
+    // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
+    (option) =>
+      !(
+        option.type === "boolean" &&
+        option.oppositeDescription &&
+        !option.name.startsWith("no-")
+      )
+  );
   const groupedOptions = groupBy(options, (option) => option.category);
 
   const firstCategories = constant.categoryOrder.slice(0, -1);
