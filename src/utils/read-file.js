@@ -2,18 +2,18 @@ import { promises as fsPromises } from "node:fs";
 
 /**
  * @param {string} filename
- * @returns {Promise<null | string>}
+ * @returns {Promise<undefined | string>}
  */
-async function getFileContentOrNull(filename) {
+async function readFile(filename) {
   try {
     return await fsPromises.readFile(filename, "utf8");
   } catch (error) {
-    if (error && error.code === "ENOENT") {
-      return null;
+    if (error.code === "ENOENT") {
+      return;
     }
 
     throw new Error(`Unable to read ${filename}: ${error.message}`);
   }
 }
 
-export default getFileContentOrNull;
+export default readFile;
