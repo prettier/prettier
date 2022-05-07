@@ -77,8 +77,8 @@ const options = {
     type: "boolean",
   },
   "cache-location": {
-    default: ".prettiercache",
-    description: "Path to the cache file or directory",
+    description:
+      "Path to the cache file or directory\nDefaults to node_modules/.cache/prettier/.prettiercache",
     type: "path",
   },
   check: {
