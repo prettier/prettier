@@ -84,6 +84,7 @@ const sharedWithCli = {
   optionsHiddenDefaults,
   normalizeApiOptions,
   normalizeCliOptions,
+  getSupportInfoWithoutPlugins,
   utils: {
     arrayify,
     getLast,

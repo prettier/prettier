@@ -1,5 +1,8 @@
 import { getSupportInfo } from "../../index.js";
-import { optionsHiddenDefaults } from "../prettier-internal.js";
+import {
+  optionsHiddenDefaults,
+  getSupportInfoWithoutPlugins,
+} from "../prettier-internal.js";
 import * as constant from "../constant.js";
 import { arrayify } from "../utils.js";
 import {
@@ -7,14 +10,7 @@ import {
   createDetailedOptionMap,
 } from "./option-map.js";
 
-async function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = await getSupportInfo({
-    showDeprecated: true,
-    showUnreleased: true,
-    showInternal: true,
-    plugins,
-    pluginSearchDirs,
-  });
+function supportInfoToContextOptions({ options: supportOptions, languages }) {
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
     ...constant.options,
@@ -40,4 +36,21 @@ async function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-export default getContextOptions;
+async function getContextOptions(plugins, pluginSearchDirs) {
+  const supportInfo = await getSupportInfo({
+    showDeprecated: true,
+    showUnreleased: true,
+    showInternal: true,
+    plugins,
+    pluginSearchDirs,
+  });
+
+  return supportInfoToContextOptions(supportInfo);
+}
+
+function getContextOptionsWithoutPlugins() {
+  const supportInfo = getSupportInfoWithoutPlugins();
+  return supportInfoToContextOptions(supportInfo);
+}
+
+export { getContextOptions, getContextOptionsWithoutPlugins };

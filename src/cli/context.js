@@ -1,5 +1,5 @@
 import { getLast } from "./utils.js";
-import getContextOptions from "./options/get-context-options.js";
+import { getContextOptions } from "./options/get-context-options.js";
 import {
   parseArgv,
   parseArgvWithoutPlugins,
@@ -31,7 +31,7 @@ class Context {
   async init() {
     const { rawArguments, logger } = this;
 
-    const { plugins, pluginSearchDirs } = await parseArgvWithoutPlugins(
+    const { plugins, pluginSearchDirs } = parseArgvWithoutPlugins(
       rawArguments,
       logger,
       ["plugin", "plugin-search-dir"]

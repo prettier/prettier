@@ -1,6 +1,6 @@
 import camelCase from "camelcase";
 import { pick } from "../utils.js";
-import getContextOptions from "./get-context-options.js";
+import { getContextOptionsWithoutPlugins } from "./get-context-options.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
@@ -39,13 +39,8 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
   };
 }
 
-let detailedOptionsWithoutPlugins;
-async function parseArgvWithoutPlugins(rawArguments, logger, keys) {
-  if (!detailedOptionsWithoutPlugins) {
-    ({ detailedOptions: detailedOptionsWithoutPlugins } =
-      await getContextOptions([], false));
-  }
-
+const detailedOptionsWithoutPlugins = getContextOptionsWithoutPlugins();
+function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   return parseArgv(
     rawArguments,
     detailedOptionsWithoutPlugins,
