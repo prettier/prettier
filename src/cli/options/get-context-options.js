@@ -1,8 +1,12 @@
 import dashify from "dashify";
 import { getSupportInfo } from "../../index.js";
 import { optionsHiddenDefaults, coreOptions } from "../prettier-internal.js";
-import { options as cliOptions } from "../constant.js";
+import { options as cliOptionsMap } from "../constant.js";
 import { arrayify } from "../utils.js";
+
+const detailedCliOptions = arrayify(cliOptionsMap, "name").map((option) =>
+  normalizeDetailedOption(option)
+);
 
 function apiOptionToCliOption(apiOption) {
   const cliOption = {
@@ -21,27 +25,25 @@ function apiOptionToCliOption(apiOption) {
     cliOption.deprecated = true;
   }
 
-  return cliOption;
+  return normalizeDetailedOption(cliOption);
 }
 
 function normalizeDetailedOption(option) {
   return {
     category: coreOptions.CATEGORY_OTHER,
     ...option,
-    choices:
-      option.choices &&
-      option.choices.map((choice) => {
-        const newChoice = {
-          description: "",
-          deprecated: false,
-          ...(typeof choice === "object" ? choice : { value: choice }),
-        };
-        /* istanbul ignore next */
-        if (newChoice.value === true) {
-          newChoice.value = ""; // backward compatibility for original boolean option
-        }
-        return newChoice;
-      }),
+    choices: option.choices?.map((choice) => {
+      const newChoice = {
+        description: "",
+        deprecated: false,
+        ...(typeof choice === "object" ? choice : { value: choice }),
+      };
+      /* istanbul ignore next */
+      if (newChoice.value === true) {
+        newChoice.value = ""; // backward compatibility for original boolean option
+      }
+      return newChoice;
+    }),
   };
 }
 
@@ -56,11 +58,8 @@ async function getContextOptions(plugins, pluginSearchDirs) {
 
   const detailedOptions = [
     ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
-    ...arrayify(cliOptions, "name"),
-  ]
-    .map((option) => normalizeDetailedOption(option))
-    .sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
-
+    ...detailedCliOptions,
+  ].sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
 
   const apiDefaultOptions = {
     ...optionsHiddenDefaults,
