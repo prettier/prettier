@@ -2,6 +2,7 @@
 
 const path = require("path");
 const { promises: fs } = require("fs");
+const rimraf = require("rimraf");
 
 const { default: stripAnsi } = require("../../../vendors/strip-ansi.js");
 
@@ -20,31 +21,15 @@ function isJson(str) {
   }
 }
 
-async function rm(file) {
-  try {
-    await fs.rm(file);
-  } catch {
-    // noop
-  }
-}
-
-async function rmdir(dirPath) {
-  try {
-    await await fs.rm(dirPath, { recursive: true, force: true });
-  } catch {
-    // noop
-  }
-}
-
 describe("--cache-location option", () => {
   const dir = resolveDir("cli/cache-location");
   const defaultCacheFile = path.join(dir, ".prettiercache");
   const newCacheFile = path.join(dir, ".new_prettiercache");
   const newCacheDir = path.join(dir, "cache-dir");
 
-  afterEach(async () => {
-    await rm(newCacheFile);
-    await rmdir(newCacheDir);
+  afterEach(() => {
+    rimraf.sync(newCacheFile);
+    rimraf.sync(newCacheDir);
   });
 
   it("doesn't create `.prettiercache` file when `--cache-location` is used.", async () => {

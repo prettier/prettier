@@ -2,6 +2,7 @@
 
 const path = require("path");
 const { promises: fs } = require("fs");
+const rimraf = require("rimraf");
 const { default: stripAnsi } = require("../../../vendors/strip-ansi.js");
 
 const runPrettier = require("../run-prettier.js");
@@ -23,7 +24,7 @@ describe("--cache option", () => {
   });
 
   afterEach(async () => {
-    await fs.rm(defaultCacheFile);
+    rimraf.sync(defaultCacheFile);
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
