@@ -5872,6 +5872,11 @@ scslre@^0.1.6:
     regexp-ast-analysis "^0.2.3"
     regexpp "^3.2.0"
 
+sdbm@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/sdbm/-/sdbm-2.0.0.tgz#23828c1195e341d0f5810c59dfa60d86278f8718"
+  integrity sha512-dspMGxvHiwSTgyrmm90jHQV2sDqK46ssbDK+bQAlJ5aRuPo3C7So108V6rCuCDbm1CrNWuPeMpmTNQKPl7vO+A==
+
 semver-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"

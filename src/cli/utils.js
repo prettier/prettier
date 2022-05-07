@@ -1,6 +1,7 @@
 "use strict";
 
-const crypto = require("crypto");
+// eslint-disable-next-line no-restricted-modules
+const { default: sdbm } = require("../../vendors/sdbm.js");
 
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
@@ -45,7 +46,7 @@ function pick(object, keys) {
  * @returns {string}
  */
 function createHash(source) {
-  return crypto.createHash("md5").update(source).digest("hex");
+  return sdbm(source).toString();
 }
 
 module.exports = { printToScreen, groupBy, pick, createHash };
