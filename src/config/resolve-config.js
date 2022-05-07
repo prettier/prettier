@@ -112,8 +112,6 @@ async function resolveConfig(filePath, opts) {
     return null;
   }
 
-  // We are not using this option
-  delete merged.insertFinalNewline;
   return merged;
 }
 
