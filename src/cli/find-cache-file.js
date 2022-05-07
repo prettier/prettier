@@ -1,6 +1,7 @@
 "use strict";
 
 const { promises: fs } = require("fs");
+const os = require("os");
 const path = require("path");
 const findCacheDir = require("find-cache-dir");
 const { createHash } = require("./utils.js");
@@ -9,8 +10,9 @@ const { createHash } = require("./utils.js");
  * Find default cache file (`./node_modules/.cache/prettier/.prettiercache`) using https://github.com/avajs/find-cache-dir
  */
 function findDefaultCacheFile() {
-  const cacheDirThunk = findCacheDir({ name: "prettier", thunk: true });
-  const cacheFilePath = cacheDirThunk(".prettiercache");
+  const cacheDir =
+    findCacheDir({ name: "prettier", create: true }) || os.tmpdir();
+  const cacheFilePath = path.join(cacheDir, ".prettiercache");
   return cacheFilePath;
 }
 
