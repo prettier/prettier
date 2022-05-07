@@ -1,25 +1,9 @@
-import prettier from "prettier-local";
 import runPrettier from "../run-prettier.js";
-import * as constant from "../../../src/cli/constant.js";
-import arrayify from "../../../src/utils/arrayify.js";
-import {
-  createDetailedOptionMap,
-  normalizeDetailedOptionMap,
-} from "../../../src/cli/options/option-map.js";
+import getContextOptions from "../../../src/cli/options/get-context-options.js";
 
-const supportInfo = await prettier.getSupportInfo({
-  showDeprecated: true,
-  showUnreleased: true,
-  showInternal: true,
-});
+const {detailedOptions} = await getContextOptions();
 
-for (const option of arrayify(
-  {
-    ...createDetailedOptionMap(supportInfo.options),
-    ...normalizeDetailedOptionMap(constant.options),
-  },
-  "name"
-)) {
+for (const option of detailedOptions) {
   const optionNames = [
     option.description ? option.name : null,
     option.oppositeDescription ? `no-${option.name}` : null,
