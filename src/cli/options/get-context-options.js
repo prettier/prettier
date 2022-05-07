@@ -57,24 +57,14 @@ async function getContextOptions(plugins, pluginSearchDirs) {
   });
 
   const detailedOptions = [
-    ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
     ...detailedCliOptions,
+    ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
   ].sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
-
-  const apiDefaultOptions = {
-    ...optionsHiddenDefaults,
-    ...Object.fromEntries(
-      supportOptions
-        .filter(({ deprecated }) => !deprecated)
-        .map((option) => [option.name, option.default])
-    ),
-  };
 
   return {
     supportOptions,
-    detailedOptions,
-    apiDefaultOptions,
     languages,
+    detailedOptions,
   };
 }
 
