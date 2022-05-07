@@ -1,6 +1,7 @@
 import camelCase from "camelcase";
 import * as constant from "./constant.js";
 import { groupBy } from "./utils.js";
+import { optionsHiddenDefaults } from "./prettier-internal.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -18,7 +19,9 @@ function createDefaultValueDisplay(value) {
 
 function getOptionDefaultValue(context, optionName) {
   // --no-option
-  const option = context.detailedOptions.find(({name}) => name === optionName)
+  const option = context.detailedOptions.find(
+    ({ name }) => name === optionName
+  );
 
   if (!option) {
     return;
@@ -29,9 +32,12 @@ function getOptionDefaultValue(context, optionName) {
   }
 
   const optionCamelName = camelCase(optionName);
-  if (optionCamelName in context.apiDefaultOptions) {
-    return context.apiDefaultOptions[optionCamelName];
-  }
+  return (
+    optionsHiddenDefaults[optionCamelName] ??
+    context.supportOptions.find(
+      (option) => !option.deprecated && option.name === optionCamelName
+    )?.default
+  );
 }
 
 function createOptionUsageHeader(option) {

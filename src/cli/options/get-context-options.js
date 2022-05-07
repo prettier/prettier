@@ -9,7 +9,7 @@ function apiOptionToCliOption(apiOption) {
     ...apiOption,
     name: apiOption.cliName || dashify(apiOption.name),
     description: apiOption.cliDescription || apiOption.description,
-    category: apiOption.cliCategory || apiOption.CATEGORY_FORMAT,
+    category: apiOption.cliCategory || coreOptions.CATEGORY_FORMAT,
     forwardToApi: apiOption.name,
   };
 
@@ -60,6 +60,7 @@ async function getContextOptions(plugins, pluginSearchDirs) {
   ]
     .map((option) => normalizeDetailedOption(option))
     .sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
+
 
   const apiDefaultOptions = {
     ...optionsHiddenDefaults,
