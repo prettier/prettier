@@ -63,8 +63,7 @@ exports[`show detailed usage with --help cache-location (stdout) 1`] = `
 "--cache-location <path>
 
   Path to the cache file or directory
-
-Default: .prettiercache
+  Defaults to node_modules/.cache/prettier/.prettiercache
 "
 `;
 
