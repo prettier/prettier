@@ -72,14 +72,14 @@ const categoryOrder = [
 /* eslint sort-keys: "error" */
 const options = {
   cache: {
-    type: "boolean",
     default: false,
     description: "Only format changed files",
+    type: "boolean",
   },
   "cache-location": {
-    type: "path",
-    description: "Path to the cache file or directory",
     default: ".prettiercache",
+    description: "Path to the cache file or directory",
+    type: "path",
   },
   check: {
     alias: "c",
