@@ -11,6 +11,7 @@ const {
 } = require("../../common/util.js");
 const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
 const isBlockComment = require("./is-block-comment.js");
+const isNodeMatches = require("./is-node-matches.js");
 
 /**
  * @typedef {import("../types/estree").Node} Node
@@ -445,23 +446,6 @@ function isSimpleType(node) {
   return false;
 }
 
-const unitTestRe = /^(?:skip|[fx]?(?:it|describe|test))$/;
-
-/**
- * @param {{callee: MemberExpression | OptionalMemberExpression}} node
- * @returns {boolean}
- */
-function isSkipOrOnlyBlock(node) {
-  return (
-    isMemberExpression(node.callee) &&
-    node.callee.object.type === "Identifier" &&
-    node.callee.property.type === "Identifier" &&
-    unitTestRe.test(node.callee.object.name) &&
-    (node.callee.property.name === "only" ||
-      node.callee.property.name === "skip")
-  );
-}
-
 /**
  * @param {CallExpression} node
  * @returns {boolean}
@@ -473,6 +457,36 @@ function isUnitTestSetUp(node) {
     unitTestSetUpRe.test(node.callee.name) &&
     node.arguments.length === 1
   );
+}
+
+const testCallCalleePatterns = [
+  "it",
+  "it.only",
+  "it.skip",
+  "describe",
+  "describe.only",
+  "describe.skip",
+  "test",
+  "test.only",
+  "test.skip",
+  "test.step",
+  "test.describe",
+  "test.describe.only",
+  "test.describe.parallel",
+  "test.describe.parallel.only",
+  "test.describe.serial",
+  "test.describe.serial.only",
+  "skip",
+  "xit",
+  "xdescribe",
+  "xtest",
+  "fit",
+  "fdescribe",
+  "ftest",
+];
+
+function isTestCallCallee(node) {
+  return isNodeMatches(node, testCallCalleePatterns);
 }
 
 // eg; `describe("some string", (done) => {})`
@@ -490,11 +504,9 @@ function isTestCall(node, parent) {
     }
   } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      ((node.callee.type === "Identifier" &&
-        unitTestRe.test(node.callee.name)) ||
-        isSkipOrOnlyBlock(node)) &&
       (node.arguments[0].type === "TemplateLiteral" ||
-        isStringLiteral(node.arguments[0]))
+        isStringLiteral(node.arguments[0])) &&
+      isTestCallCallee(node.callee)
     ) {
       // it("name", () => { ... }, 2500)
       if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
