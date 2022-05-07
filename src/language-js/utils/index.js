@@ -459,7 +459,7 @@ function isUnitTestSetUp(node) {
   );
 }
 
-const patterns = [
+const testCallCalleePatterns = [
   "it",
   "it.only",
   "it.skip",
@@ -486,7 +486,7 @@ const patterns = [
 ];
 
 function isTestCallCallee(node) {
-  return isNodeMatches(node, patterns);
+  return isNodeMatches(node, testCallCalleePatterns);
 }
 
 // eg; `describe("some string", (done) => {})`
