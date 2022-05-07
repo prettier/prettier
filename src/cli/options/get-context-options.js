@@ -24,7 +24,7 @@ function apiOptionToCliOption(apiOption) {
   return cliOption;
 }
 
-function normalizeDetailedOption(name, option) {
+function normalizeDetailedOption(option) {
   return {
     category: coreOptions.CATEGORY_OTHER,
     ...option,
@@ -56,9 +56,9 @@ async function getContextOptions(plugins, pluginSearchDirs) {
 
   const detailedOptions = [
     ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
-    ...arrayify(cliOptions),
+    ...arrayify(cliOptions, "name"),
   ]
-    .map((options) => normalizeDetailedOption(options))
+    .map((option) => normalizeDetailedOption(option))
     .sort((optionA, optionB) => optionA.name.localeCompare(optionB.name));
 
   const apiDefaultOptions = {
