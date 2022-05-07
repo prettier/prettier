@@ -18,11 +18,11 @@ function createDefaultValueDisplay(value) {
 
 function getOptionDefaultValue(context, optionName) {
   // --no-option
-  if (!(optionName in context.detailedOptionMap)) {
+  const option = context.detailedOptions.find(({name}) => name === optionName)
+
+  if (!option) {
     return;
   }
-
-  const option = context.detailedOptionMap[optionName];
 
   if (option.default !== undefined) {
     return option.default;

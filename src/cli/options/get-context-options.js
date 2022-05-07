@@ -70,12 +70,9 @@ async function getContextOptions(plugins, pluginSearchDirs) {
     ),
   };
 
-  const detailedOptionMap = Object.create(detailedOptions.map(option => [option.name, option]));
-
   return {
     supportOptions,
     detailedOptions,
-    detailedOptionMap,
     apiDefaultOptions,
     languages,
   };
