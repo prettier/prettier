@@ -23,7 +23,10 @@ function isJson(str) {
 
 describe("--cache-location option", () => {
   const dir = resolveDir("cli/cache-location");
-  const defaultCacheFile = path.join(dir, ".prettiercache");
+  const defaultCacheFile = path.join(
+    dir,
+    "node_modules/.cache/prettier/.prettiercache"
+  );
   const newCacheFile = path.join(dir, ".new_prettiercache");
   const newCacheDir = path.join(dir, "cache-dir");
 
@@ -32,7 +35,7 @@ describe("--cache-location option", () => {
     rimraf.sync(newCacheDir);
   });
 
-  it("doesn't create `.prettiercache` file when `--cache-location` is used.", async () => {
+  it("doesn't create default cache file when `--cache-location` is used.", async () => {
     await runPrettier(dir, [
       "--cache",
       "--cache-location=.new_prettiercache",

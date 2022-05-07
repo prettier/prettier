@@ -13,7 +13,10 @@ function resolveDir(dir) {
 
 describe("--cache option", () => {
   const dir = resolveDir("cli/cache");
-  const defaultCacheFile = path.join(dir, ".prettiercache");
+  const defaultCacheFile = path.join(
+    dir,
+    "node_modules/.cache/prettier/.prettiercache"
+  );
 
   let contentA;
   let contentB;
@@ -24,12 +27,12 @@ describe("--cache option", () => {
   });
 
   afterEach(async () => {
-    rimraf.sync(defaultCacheFile);
+    rimraf.sync(path.join(dir, "node_modules"));
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
 
-  it("creates default cache file named `.prettiercache`", async () => {
+  it("creates default cache file named `node_modules/.cache/prettier/.prettiercache`", async () => {
     await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
       "code",
       "ENOENT"
