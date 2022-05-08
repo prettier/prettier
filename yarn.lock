@@ -2768,6 +2768,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eastasianwidth@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "eastasianwidth@npm:0.2.0"
+  checksum: 7d00d7cd8e49b9afa762a813faac332dee781932d6f2c848dc348939c4253f1d4564341b7af1d041853bc3f32c2ef141b58e0a4d9862c17a7f08f68df1e0f1ed
+  languageName: node
+  linkType: hard
+
 "editorconfig-to-prettier@npm:0.2.0":
   version: 0.2.0
   resolution: "editorconfig-to-prettier@npm:0.2.0"
@@ -4394,13 +4401,6 @@ __metadata:
   version: 3.0.0
   resolution: "is-fullwidth-code-point@npm:3.0.0"
   checksum: 44a30c29457c7fb8f00297bce733f0a64cd22eca270f83e58c105e0d015e45c019491a4ab2faef91ab51d4738c670daff901c799f6a700e27f7314029e99e348
-  languageName: node
-  linkType: hard
-
-"is-fullwidth-code-point@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "is-fullwidth-code-point@npm:4.0.0"
-  checksum: 8ae89bf5057bdf4f57b346fb6c55e9c3dd2549983d54191d722d5c739397a903012cc41a04ee3403fd872e811243ef91a7c5196da7b5841dc6b6aae31a264a8d
   languageName: node
   linkType: hard
 
@@ -6658,7 +6658,7 @@ __metadata:
     rollup-plugin-license: 2.7.0
     semver: 7.3.7
     snapshot-diff: 0.9.0
-    string-width: 5.0.1
+    string-width: 5.1.2
     strip-ansi: 7.0.1
     tempy: 2.0.0
     typescript: 4.6.4
@@ -7493,14 +7493,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:5.0.1":
-  version: 5.0.1
-  resolution: "string-width@npm:5.0.1"
+"string-width@npm:5.1.2":
+  version: 5.1.2
+  resolution: "string-width@npm:5.1.2"
   dependencies:
+    eastasianwidth: ^0.2.0
     emoji-regex: ^9.2.2
-    is-fullwidth-code-point: ^4.0.0
     strip-ansi: ^7.0.1
-  checksum: 2a7cbd6a4180f8215553fc0dfe8fe62d2ba76d141b0a6fca44df7b81f0089613d0b115bd67bb293ea7e8c5f8295525014a3562cce28d0e06caa6f626980e9c7e
+  checksum: 7369deaa29f21dda9a438686154b62c2c5f661f8dda60449088f9f980196f7908fc39fdd1803e3e01541970287cf5deae336798337e9319a7055af89dafa7193
   languageName: node
   linkType: hard
 
