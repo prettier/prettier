@@ -2,16 +2,6 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   labels: ["scope:dependency"],
   baseBranches: ["next"],
-  schedule: ["at 01:00 on sunday"],
-  packageRules: [
-    {
-      matchPaths: [
-        "package.json",
-        "website/package.json",
-        "scripts/release/package.json",
-        "scripts/tools/bundle-test/package.json",
-        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
-      ],
-    },
-  ],
+  // TODO: enable this
+  // schedule: ["after 01:00 on sunday"],
 }
