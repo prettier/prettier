@@ -43,7 +43,7 @@
     "editorconfig": "0.15.3",
     "editorconfig-to-prettier": "0.2.0",
     "escape-string-regexp": "5.0.0",
-    "espree": "9.3.1",
+    "espree": "9.3.2",
     "esutils": "2.0.3",
     "fast-glob": "3.2.11",
     "fast-json-stable-stringify": "2.1.0",
