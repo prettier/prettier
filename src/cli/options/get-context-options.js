@@ -49,7 +49,7 @@ async function getContextOptions(plugins, pluginSearchDirs) {
 }
 
 function getContextOptionsWithoutPlugins() {
-  const supportInfo = getSupportInfoWithoutPlugins();
+  const supportInfo = getSupportInfoWithoutPlugins({ showInternal: true });
   return supportInfoToContextOptions(supportInfo);
 }
 
