@@ -3047,14 +3047,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipboard@npm:2.0.10":
-  version: 2.0.10
-  resolution: "clipboard@npm:2.0.10"
+"clipboard@npm:2.0.11":
+  version: 2.0.11
+  resolution: "clipboard@npm:2.0.11"
   dependencies:
     good-listener: ^1.2.2
     select: ^1.1.2
     tiny-emitter: ^2.0.0
-  checksum: 401ae9f27c9cb8f03f7a33e1a06ad8f1208a75dc36d037cc6542708c8e4a43974c4e4186d9154e0161541934bb2073ee2e078db80e5c7df3f0544aad2508262c
+  checksum: 413055a6038e43898e0e895216b58ed54fbf386f091cb00188875ef35b186cefbd258acdf4cb4b0ac87cbc00de936f41b45dde9fe1fd1a57f7babb28363b8748
   languageName: node
   linkType: hard
 
@@ -9284,7 +9284,7 @@ __metadata:
     "@babel/preset-react": 7.16.7
     "@sandhose/prettier-animated-logo": 1.0.3
     babel-loader: 8.2.5
-    clipboard: 2.0.10
+    clipboard: 2.0.11
     codemirror-graphql: 1.2.15
     concurrently: 7.1.0
     docusaurus: 1.14.7
