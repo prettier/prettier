@@ -52,15 +52,11 @@ function serializeAst(ast) {
 
 async function handleMessage(message) {
   if (message.type === "meta") {
+    const supportInfo = await prettier.getSupportInfo({ showUnreleased: true });
+
     return {
       type: "meta",
-      supportInfo: JSON.parse(
-        JSON.stringify(
-          prettier.getSupportInfo({
-            showUnreleased: true,
-          })
-        )
-      ),
+      supportInfo: JSON.parse(JSON.stringify(supportInfo)),
       version: prettier.version,
     };
   }

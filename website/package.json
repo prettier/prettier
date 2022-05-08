@@ -7,8 +7,8 @@
     "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
   "dependencies": {
-    "clipboard": "2.0.10",
-    "codemirror-graphql": "1.2.15",
+    "clipboard": "2.0.11",
+    "codemirror-graphql": "1.3.0",
     "lz-string": "1.4.4",
     "prop-types": "15.8.1",
     "react": "18.1.0",
