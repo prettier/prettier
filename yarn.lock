@@ -3999,10 +3999,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:15.6.1":
-  version: 15.6.1
-  resolution: "graphql@npm:15.6.1"
-  checksum: 4c6dcf385f7a87a5103fcb7640394244ae8d1d4ede521085192a1cf1e60115c4f6285d783961575d908709f7ee3e4cdd16b3f7c54eb37499c0420c6301e98968
+"graphql@npm:15.8.0":
+  version: 15.8.0
+  resolution: "graphql@npm:15.8.0"
+  checksum: 423325271db8858428641b9aca01699283d1fe5b40ef6d4ac622569ecca927019fce8196208b91dd1d8eb8114f00263fe661d241d0eb40c10e5bfd650f86ec5e
   languageName: node
   linkType: hard
 
@@ -6624,7 +6624,7 @@ __metadata:
     find-parent-dir: 0.3.1
     flow-parser: 0.176.3
     get-stdin: 8.0.0
-    graphql: 15.6.1
+    graphql: 15.8.0
     html-element-attributes: 3.1.0
     html-styles: 1.0.0
     html-tag-names: 2.0.1
