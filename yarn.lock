@@ -2043,6 +2043,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"builtins@npm:^4.0.0":
+  version: 4.1.0
+  resolution: "builtins@npm:4.1.0"
+  dependencies:
+    semver: ^7.0.0
+  checksum: 3524f5a5898c3f77a73fee2e0046e676abbb0acc18db1e495676ee07fbef1537134b0e9c4da525f4cb12ba3cd1b430a26c373d32b59b80a5c048f8ace31b595f
+  languageName: node
+  linkType: hard
+
 "c8@npm:7.11.2":
   version: 7.11.2
   resolution: "c8@npm:7.11.2"
@@ -3421,12 +3430,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-utils@npm:3.1.1":
-  version: 3.1.1
-  resolution: "esm-utils@npm:3.1.1"
+"esm-utils@npm:4.0.0":
+  version: 4.0.0
+  resolution: "esm-utils@npm:4.0.0"
   dependencies:
+    import-meta-resolve: 1.1.1
     url-or-path: 2.1.0
-  checksum: a8978f39e956cd1d57fb5dc14888735412fff703fdfda46b62900a83b2b00b3b1c5d4d4846a684d3a9eb1b8d60cc5c926733e20b10e4724c4d565312ab682124
+  checksum: 17560812035a50017b39bfffc39b7666baa751d43295cbe46ce290c19fec2246672fa61f507e328b32b38c9936a2d9d068c5bbf4bc96231d576cb53975af3a30
   languageName: node
   linkType: hard
 
@@ -4221,6 +4231,15 @@ __metadata:
   bin:
     import-local-fixture: fixtures/cli.js
   checksum: bfcdb63b5e3c0e245e347f3107564035b128a414c4da1172a20dc67db2504e05ede4ac2eee1252359f78b0bfd7b19ef180aec427c2fce6493ae782d73a04cddd
+  languageName: node
+  linkType: hard
+
+"import-meta-resolve@npm:1.1.1":
+  version: 1.1.1
+  resolution: "import-meta-resolve@npm:1.1.1"
+  dependencies:
+    builtins: ^4.0.0
+  checksum: 2024161e169c45ed25a9f51d984a432a9cc342c35737f9410266bab237ca2f756c1f80c15e2297df83c92f585743d5105291f2ad24094a513f804c6023ea1472
   languageName: node
   linkType: hard
 
@@ -6615,7 +6634,7 @@ __metadata:
     eslint-plugin-react: 7.29.4
     eslint-plugin-regexp: 1.7.0
     eslint-plugin-unicorn: 42.0.0
-    esm-utils: 3.1.1
+    esm-utils: 4.0.0
     espree: 9.3.1
     esutils: 2.0.3
     execa: 6.1.0
@@ -7189,7 +7208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.3.7, semver@npm:^7.3.2, semver@npm:^7.3.5, semver@npm:^7.3.7":
+"semver@npm:7.3.7, semver@npm:^7.0.0, semver@npm:^7.3.2, semver@npm:^7.3.5, semver@npm:^7.3.7":
   version: 7.3.7
   resolution: "semver@npm:7.3.7"
   dependencies:
