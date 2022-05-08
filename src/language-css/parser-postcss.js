@@ -354,7 +354,7 @@ function parseNestedCSS(node, options) {
       } else {
         node.value = {
           type: "value-unknown",
-          value: node.raws.value.raw,
+          value: node.raws.value?.raw ?? node.value,
         };
       }
       return node;
