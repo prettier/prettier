@@ -1,6 +1,5 @@
 import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
-import tryCombinations from "../utils/try-combinations.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 
