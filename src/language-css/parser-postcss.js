@@ -311,7 +311,7 @@ function parseNestedCSS(node, options) {
       node.value.startsWith("{")
     ) {
       let rules;
-      if (node.value.endsWith("}")) {
+      if (node.value.trimEnd().endsWith("}")) {
         const textBefore = options.originalText.slice(
           0,
           node.source.start.offset
@@ -354,7 +354,7 @@ function parseNestedCSS(node, options) {
       } else {
         node.value = {
           type: "value-unknown",
-          value: node.raws.value?.raw ?? node.value,
+          value: node.raws.value.raw,
         };
       }
       return node;

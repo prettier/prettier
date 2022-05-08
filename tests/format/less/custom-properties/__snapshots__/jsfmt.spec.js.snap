@@ -52,8 +52,9 @@ printWidth: 80
 }
 
 :root {
-  --without-semi: {color:red;}
-;
+  --without-semi: {
+    color: red;
+  };
 }
 
 :root {
