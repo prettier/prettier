@@ -1,6 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  labels: ["scope:dependency"],
+  labels: ["dependency"],
   baseBranches: ["next"],
   schedule: ["after 01:00 on sunday"],
   postUpdateOptions: ["yarnDedupeHighest"],
@@ -12,7 +12,7 @@
     {
       branchPrefix: "renovate/website/",
       matchPaths: ["website/package.json"],
-      labels: ["area:website"],
+      labels: ["dependency:website"],
     },
     {
       branchPrefix: "renovate/scripts/",
@@ -21,7 +21,7 @@
         "scripts/tools/bundle-test/package.json",
         "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
       ],
-      labels: ["type:meta"],
+      labels: ["dependency:tools"],
     },
   ],
 }
