@@ -3,6 +3,25 @@
   labels: ["scope:dependency"],
   baseBranches: ["next"],
   schedule: ["after 01:00 on sunday"],
-  rebaseStalePrs: "behind-base-branch",
   postUpdateOptions: ["yarnDedupeHighest"],
+  packageRules: [
+    {
+      matchPackageNames: ["react", "react-dom"],
+      groupName: "react",
+    },
+    {
+      branchPrefix: "renovate/website/",
+      matchPaths: ["website/package.json"],
+      labels: ["area:website"],
+    },
+    {
+      branchPrefix: "renovate/scripts/",
+      matchPaths: [
+        "scripts/release/package.json",
+        "scripts/tools/bundle-test/package.json",
+        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
+      ],
+      labels: ["type:meta"],
+    },
+  ],
 }
