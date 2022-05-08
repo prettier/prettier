@@ -930,7 +930,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/core@npm:^28.0.3, @jest/core@npm:^28.1.0":
+"@jest/core@npm:^28.1.0":
   version: 28.1.0
   resolution: "@jest/core@npm:28.1.0"
   dependencies:
@@ -4680,7 +4680,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^28.0.3":
+"jest-cli@npm:^28.1.0":
   version: 28.1.0
   resolution: "jest-cli@npm:28.1.0"
   dependencies:
@@ -5258,13 +5258,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:28.0.3":
-  version: 28.0.3
-  resolution: "jest@npm:28.0.3"
+"jest@npm:28.1.0":
+  version: 28.1.0
+  resolution: "jest@npm:28.1.0"
   dependencies:
-    "@jest/core": ^28.0.3
+    "@jest/core": ^28.1.0
     import-local: ^3.0.2
-    jest-cli: ^28.0.3
+    jest-cli: ^28.1.0
   peerDependencies:
     node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
   peerDependenciesMeta:
@@ -5272,7 +5272,7 @@ __metadata:
       optional: true
   bin:
     jest: bin/jest.js
-  checksum: 2596927a56610b0e41b2eb6a41234ae5fa04208f535b2e36392184a2cc5b3d28a49ac1b9cf3ebd75604210a5fe5cea534ba0b8381a6698faccb4b4c462a44650
+  checksum: f025164c408cf5ddb6e74dac1e8cbaf94c1c31dd1c67aba4ceee5989b2d8a77886db8ed1fb88853b45cf194b14cd802b454bbbe6b278a1e2140250297dc100d3
   languageName: node
   linkType: hard
 
@@ -6630,7 +6630,7 @@ __metadata:
     html-tag-names: 2.0.1
     html-void-elements: 2.0.1
     ignore: 5.2.0
-    jest: 28.0.3
+    jest: 28.1.0
     jest-docblock: 28.0.2
     jest-light-runner: 0.2.1
     jest-snapshot-serializer-ansi: 1.0.0
