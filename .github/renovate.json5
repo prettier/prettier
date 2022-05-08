@@ -15,7 +15,7 @@
       labels: ["dependency:website"],
     },
     {
-      branchPrefix: "renovate/scripts/",
+      branchPrefix: "renovate/tools/",
       matchPaths: [
         "scripts/release/package.json",
         "scripts/tools/bundle-test/package.json",
