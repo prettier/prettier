@@ -2591,6 +2591,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cssesc@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "cssesc@npm:3.0.0"
+  bin:
+    cssesc: bin/cssesc
+  checksum: f8c4ababffbc5e2ddf2fa9957dda1ee4af6048e22aeda1869d0d00843223c1b13ad3f5d88b51caa46c994225eacb636b764eb807a8883e2fb6f99b4f4e8c48b2
+  languageName: node
+  linkType: hard
+
 "dashify@npm:2.0.0":
   version: 2.0.0
   resolution: "dashify@npm:2.0.0"
@@ -6506,14 +6515,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:2.2.3":
-  version: 2.2.3
-  resolution: "postcss-selector-parser@npm:2.2.3"
+"postcss-selector-parser@npm:6.0.10":
+  version: 6.0.10
+  resolution: "postcss-selector-parser@npm:6.0.10"
   dependencies:
-    flatten: ^1.0.2
-    indexes-of: ^1.0.1
-    uniq: ^1.0.1
-  checksum: ea5aba10ffb4d3f0804f1d6b46cef121bcfba9b14b78beba89f38a4520a3000384458dbc52a8453b17a56fa83414572972e897735519c52c9a218dd5e3ccf11f
+    cssesc: ^3.0.0
+    util-deprecate: ^1.0.2
+  checksum: 46afaa60e3d1998bd7adf6caa374baf857cc58d3ff944e29459c9a9e4680a7fe41597bd5b755fc81d7c388357e9bf67c0251d047c640a09f148e13606b8a8608
   languageName: node
   linkType: hard
 
@@ -6645,7 +6653,7 @@ __metadata:
     postcss-less: 6.0.0
     postcss-media-query-parser: 0.2.3
     postcss-scss: 4.0.4
-    postcss-selector-parser: 2.2.3
+    postcss-selector-parser: 6.0.10
     postcss-values-parser: 2.0.1
     prettier: 2.6.2
     pretty-bytes: 6.0.0
@@ -8105,7 +8113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"util-deprecate@npm:^1.0.1":
+"util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
