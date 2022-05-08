@@ -1,5 +1,9 @@
 # Prettier Build Script
 
+## Requirements
+
+- Node.js version `>= 14.18`.
+
 ## Usage
 
 ```sh
@@ -8,12 +12,12 @@ yarn build
 
 ## Flags
 
-### `--no-cache` flag
+### `--clean`
 
-Run script with `--no-cache` flag will clean up the cache directory (`.cache` in project root) before bundling files.
+Remove `dist` directory before bundle files.
 
 ```sh
-yarn build --no-cache
+yarn build --clean
 ```
 
 ### `--playground`
@@ -32,13 +36,50 @@ To print the bundled file sizes:
 yarn build --print-size
 ```
 
-### `--file`
+### `--compare-size`
 
-To build a single file:
+Print the file size changes compare to the last released version:
 
 ```sh
-yarn build --file=parser-babel.js
+yarn build --compare-size
 ```
+
+### `--file`
+
+To build specific file(s):
+
+```sh
+yarn build --file=esm/parser-babel.mjs
+```
+
+```sh
+yarn build --file=standalone.js --file=parser-meriyah.js
+```
+
+### `--save-as`
+
+To save bundled file to a different location, this flag can only use together with ONE `--file` flag
+
+```sh
+yarn build --file=parser-babel.js --save-as=babel-for-test.js
+```
+
+### `--report`
+
+Visualize and analyze your esbuild bundle to see which modules are taking up space.
+
+Available reporter formats:
+
+- `html` Generate a HTML report file, saved next to the bundled file with `.report.html` suffix.
+- `text` Generate a plain text report file, saved next to the bundled file with `.report.txt` suffix.
+- `stdout` Log report information in console.
+
+```sh
+yarn build --report
+yarn build --report=stdout --report=text --report=html
+```
+
+**`--report` equals to `--report=html`**
 
 ### `--minify` and `--no-minify`
 

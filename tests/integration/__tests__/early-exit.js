@@ -1,5 +1,5 @@
 import prettier from "prettier-local";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
@@ -86,27 +86,4 @@ describe("throw error and show usage with something unexpected", () => {
   runPrettier("cli", [], { isTTY: true }).test({
     status: "non-zero",
   });
-});
-
-test("node version error", async () => {
-  const originalProcessVersion = process.version;
-
-  try {
-    Object.defineProperty(process, "version", {
-      value: "v8.0.0",
-      writable: false,
-    });
-    const result = runPrettier("cli", ["--help"]);
-    expect(await result.status).toBe(1);
-    expect(await result.stderr).toBe(
-      "prettier requires at least version 12.17.0 of Node, please upgrade\n"
-    );
-    expect(await result.stdout).toBe("");
-    expect(await result.write).toEqual([]);
-  } finally {
-    Object.defineProperty(process, "version", {
-      value: originalProcessVersion,
-      writable: false,
-    });
-  }
 });

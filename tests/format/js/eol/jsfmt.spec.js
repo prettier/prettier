@@ -1,4 +1,4 @@
-run_spec(__dirname, ["babel"], { endOfLine: "lf" });
-run_spec(__dirname, ["babel"], { endOfLine: "crlf" });
-run_spec(__dirname, ["babel"], { endOfLine: "cr" });
-run_spec(__dirname, ["babel"], { endOfLine: "auto" });
+run_spec(import.meta, ["babel"], { endOfLine: "lf" });
+run_spec(import.meta, ["babel"], { endOfLine: "crlf" });
+run_spec(import.meta, ["babel"], { endOfLine: "cr" });
+run_spec(import.meta, ["babel"], { endOfLine: "auto" });

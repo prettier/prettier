@@ -1,25 +1,21 @@
-"use strict";
+/** @typedef {import("../document/builders.js").Doc} Doc */
 
-/** @typedef {import("../document").Doc} Doc */
-
-const {
-  builders: {
-    breakParent,
-    fill,
-    group,
-    hardline,
-    join,
-    line,
-    lineSuffix,
-    literalline,
-  },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
-const { isPreviousLineEmpty } = require("../common/util.js");
-const { insertPragma, isPragma } = require("./pragma.js");
-const { locStart } = require("./loc.js");
-const embed = require("./embed.js");
-const {
+import {
+  breakParent,
+  fill,
+  group,
+  hardline,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+} from "../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
+import { isPreviousLineEmpty } from "../common/util.js";
+import { insertPragma, isPragma } from "./pragma.js";
+import { locStart } from "./loc.js";
+import embed from "./embed.js";
+import {
   getFlowScalarLineContents,
   getLastDescendantNode,
   hasLeadingComments,
@@ -30,19 +26,19 @@ const {
   isLastDescendantNode,
   isNode,
   isInlineNode,
-} = require("./utils.js");
-const preprocess = require("./print-preprocess.js");
-const {
+} from "./utils.js";
+import preprocess from "./print-preprocess.js";
+import {
   alignWithSpaces,
   printNextEmptyLine,
   shouldPrintEndComments,
-} = require("./print/misc.js");
-const {
+} from "./print/misc.js";
+import {
   printFlowMapping,
   printFlowSequence,
-} = require("./print/flow-mapping-sequence.js");
-const printMappingItem = require("./print/mapping-item.js");
-const printBlock = require("./print/block.js");
+} from "./print/flow-mapping-sequence.js";
+import printMappingItem from "./print/mapping-item.js";
+import printBlock from "./print/block.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -329,7 +325,7 @@ function printNode(node, parentNode, path, options, print) {
     case "sequence":
       return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return ["- ", alignWithSpaces(2, !node.content ? "" : print("content"))];
+      return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":
     case "mappingValue":
       return !node.content ? "" : print("content");
@@ -443,10 +439,12 @@ function clean(node, newNode /*, parent */) {
   }
 }
 
-module.exports = {
+const printer = {
   preprocess,
   embed,
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
 };
+
+export default printer;

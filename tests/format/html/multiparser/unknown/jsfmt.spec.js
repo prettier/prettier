@@ -1,1 +1,1 @@
-run_spec(__dirname, ["html"]);
+run_spec(import.meta, ["html"]);

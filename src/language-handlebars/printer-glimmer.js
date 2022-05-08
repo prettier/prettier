@@ -1,23 +1,19 @@
-"use strict";
-
-const {
-  builders: {
-    dedent,
-    fill,
-    group,
-    hardline,
-    ifBreak,
-    indent,
-    join,
-    line,
-    softline,
-  },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
-const { getPreferredQuote, isNonEmptyArray } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const clean = require("./clean.js");
-const {
+import {
+  dedent,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  softline,
+} from "../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
+import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
+import { locStart, locEnd } from "./loc.js";
+import clean from "./clean.js";
+import {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
@@ -28,7 +24,7 @@ const {
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
-} = require("./utils.js");
+} from "./utils.js";
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -735,14 +731,14 @@ function needsOppositeQuote(path) {
 /* SubExpression print helpers */
 
 function printSubExpressionPathAndParams(path, print) {
-  const p = printPath(path, print);
+  const printed = printPath(path, print);
   const params = printParams(path, print);
 
   if (!params) {
-    return p;
+    return printed;
   }
 
-  return indent([p, line, group(params)]);
+  return indent([printed, line, group(params)]);
 }
 
 /* misc. print helpers */
@@ -787,7 +783,9 @@ function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
 }
 
-module.exports = {
+const printer = {
   print,
   massageAstNode: clean,
 };
+
+export default printer;

@@ -1,6 +1,6 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 const { __dirname } = createEsmUtils(import.meta);
 

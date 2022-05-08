@@ -5,8 +5,8 @@ exports[`--write with --loglevel=silent doesn't log filenames (stderr) 1`] = `""
 exports[`--write with --loglevel=silent doesn't log filenames (stdout) 1`] = `""`;
 
 exports[`--write with --loglevel=silent doesn't log filenames (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",
@@ -15,6 +15,6 @@ Array [
 `;
 
 exports[`Should use default level logger to log \`--loglevel\` error (stderr) 1`] = `
-"[error] Invalid --loglevel value. Expected \\"debug\\", \\"error\\", \\"log\\", \\"silent\\" or \\"warn\\", but received \\"a-unknown-log-level\\".
+"[error] Invalid --loglevel value. Expected "debug", "error", "log", "silent" or "warn", but received "a-unknown-log-level".
 "
 `;

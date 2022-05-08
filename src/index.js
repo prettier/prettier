@@ -1,88 +1,120 @@
-"use strict";
+import { createRequire } from "node:module";
+import core from "./main/core.js";
+import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
+import getFileInfoWithoutPlugins from "./common/get-file-info.js";
+import {
+  loadPlugins,
+  clearCache as clearPluginCache,
+} from "./common/load-plugins.js";
+import {
+  resolveConfig,
+  resolveConfigFile,
+  clearCache as clearConfigCache,
+} from "./config/resolve-config.js";
+import languages from "./languages.js";
+
+import * as errors from "./common/errors.js";
+import * as coreOptions from "./main/core-options.js";
+import createIgnorer from "./common/create-ignorer.js";
+import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
+import {
+  normalizeApiOptions,
+  normalizeCliOptions,
+} from "./main/options-normalizer.js";
+import arrayify from "./utils/arrayify.js";
+import getLast from "./utils/get-last.js";
+import partition from "./utils/partition.js";
+import { isNonEmptyArray } from "./common/util.js";
+
+const require = createRequire(import.meta.url);
 
 const { version } = require("../package.json");
 
-const core = require("./main/core.js");
-const { getSupportInfo } = require("./main/support.js");
-const getFileInfo = require("./common/get-file-info.js");
-const sharedUtil = require("./common/util-shared.js");
-const plugins = require("./common/load-plugins.js");
-const config = require("./config/resolve-config.js");
-const doc = require("./document/index.js");
-
-function _withPlugins(
+/**
+ * @param {*} fn
+ * @param {*} optsArgIdx
+ * @returns {*}
+ */
+function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
 ) {
-  return (...args) => {
+  return async (...args) => {
     const opts = args[optsArgIdx] || {};
+
     args[optsArgIdx] = {
       ...opts,
-      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
+      plugins: [
+        ...languages,
+        ...(await loadPlugins(opts.plugins, opts.pluginSearchDirs)),
+      ],
     };
     return fn(...args);
   };
 }
 
-function withPlugins(fn, optsArgIdx) {
-  const resultingFn = _withPlugins(fn, optsArgIdx);
-  if (fn.sync) {
-    // @ts-expect-error
-    resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
-  }
-  return resultingFn;
-}
-
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-module.exports = {
-  formatWithCursor,
+async function format(text, options) {
+  const { formatted } = await formatWithCursor(text, {
+    ...options,
+    cursorOffset: -1,
+  });
+  return formatted;
+}
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
-  },
+async function check(text, options) {
+  return (await format(text, options)) === text;
+}
 
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
-    return formatted === text;
-  },
+function clearCache() {
+  clearConfigCache();
+  clearPluginCache();
+}
 
-  doc,
+/** @type {typeof getFileInfoWithoutPlugins} */
+const getFileInfo = withPlugins(getFileInfoWithoutPlugins);
 
-  resolveConfig: config.resolveConfig,
-  resolveConfigFile: config.resolveConfigFile,
-  clearConfigCache() {
-    config.clearCache();
-    plugins.clearCache();
-  },
+/** @type {typeof getSupportInfoWithoutPlugins} */
+const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
-  /** @type {typeof getFileInfo} */
-  getFileInfo: withPlugins(getFileInfo),
-  /** @type {typeof getSupportInfo} */
-  getSupportInfo: withPlugins(getSupportInfo, 0),
-
-  version,
-
-  util: sharedUtil,
-
-  // Internal shared
-  __internal: {
-    errors: require("./common/errors.js"),
-    coreOptions: require("./main/core-options.js"),
-    createIgnorer: require("./common/create-ignorer.js"),
-    optionsModule: require("./main/options.js"),
-    optionsNormalizer: require("./main/options-normalizer.js"),
-    utils: {
-      arrayify: require("./utils/arrayify.js"),
-    },
-  },
-
-  /* istanbul ignore next */
-  __debug: {
-    parse: withPlugins(core.parse),
-    formatAST: withPlugins(core.formatAST),
-    formatDoc: withPlugins(core.formatDoc),
-    printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
+// Internal shared with cli
+const sharedWithCli = {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsHiddenDefaults,
+  normalizeApiOptions,
+  normalizeCliOptions,
+  utils: {
+    arrayify,
+    getLast,
+    isNonEmptyArray,
+    partition,
   },
 };
+
+const debugApis = {
+  parse: withPlugins(core.parse),
+  formatAST: withPlugins(core.formatAST),
+  formatDoc: withPlugins(core.formatDoc),
+  printToDoc: withPlugins(core.printToDoc),
+  printDocToString: withPlugins(core.printDocToString),
+};
+
+export {
+  version,
+  formatWithCursor,
+  format,
+  check,
+  resolveConfig,
+  resolveConfigFile,
+  // TODO: Expose this as `clearCache` in v3
+  clearCache as clearConfigCache,
+  getFileInfo,
+  getSupportInfo,
+  sharedWithCli as __internal,
+  debugApis as __debug,
+};
+export * as util from "./common/util-shared.js";
+export * as doc from "./document/index.js";

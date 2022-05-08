@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("doesn't crash when --debug-check is passed", () => {
   runPrettier("cli/with-shebang", ["issue1890.js", "--debug-check"]).test({
@@ -25,7 +25,7 @@ describe("show diff for 2+ error files with --debug-check", () => {
     "*.debug-check",
     "--debug-check",
     "--plugin",
-    "./plugin-for-testing-debug-check",
+    "./plugin-for-testing-debug-check.cjs",
   ]).test({
     status: "non-zero",
   });

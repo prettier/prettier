@@ -1,20 +1,16 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { hardline, indent },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import { isNonEmptyArray } from "../../common/util.js";
+import { hardline, indent } from "../../document/builders.js";
+import {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
-const { printHardlineAfterHeritage } = require("./class.js");
+} from "../utils/index.js";
+import { printHardlineAfterHeritage } from "./class.js";
 
-const { printBody } = require("./statement.js");
+import { printBody } from "./statement.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function printBlock(path, options, print) {
   const node = path.getValue();
@@ -107,4 +103,4 @@ function printBlockBody(path, options, print) {
   return parts;
 }
 
-module.exports = { printBlock, printBlockBody };
+export { printBlock, printBlockBody };

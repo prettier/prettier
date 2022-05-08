@@ -1,12 +1,12 @@
 import snapshotDiff from "snapshot-diff";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 test("show external options with `--help`", async () => {
   const originalStdout = await runPrettier("plugins/options", ["--help"])
     .stdout;
   const pluggedStdout = await runPrettier("plugins/options", [
     "--help",
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
   ]).stdout;
 
   expect(snapshotDiff(originalStdout, pluggedStdout)).toMatchSnapshot();
@@ -14,7 +14,7 @@ test("show external options with `--help`", async () => {
 
 describe("show detailed external option with `--help foo-option`", () => {
   runPrettier("plugins/options", [
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
     "--help",
     "foo-option",
   ]).test({
@@ -24,7 +24,7 @@ describe("show detailed external option with `--help foo-option`", () => {
 
 describe("include plugin's parsers to the values of the `parser` option`", () => {
   runPrettier("plugins/options", [
-    "--plugin=./plugin",
+    "--plugin=./plugin.cjs",
     "--help",
     "parser",
   ]).test({
@@ -36,7 +36,7 @@ describe("external options from CLI should work", () => {
   runPrettier(
     "plugins/options",
     [
-      "--plugin=./plugin",
+      "--plugin=./plugin.cjs",
       "--stdin-filepath",
       "example.foo",
       "--foo-option",

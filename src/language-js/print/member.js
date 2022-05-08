@@ -1,14 +1,10 @@
-"use strict";
-
-const {
-  builders: { softline, group, indent, label },
-} = require("../../document/index.js");
-const {
+import { softline, group, indent, label } from "../../document/builders.js";
+import {
   isNumericLiteral,
   isMemberExpression,
   isCallExpression,
-} = require("../utils.js");
-const { printOptionalToken } = require("./misc.js");
+} from "../utils/index.js";
+import { printOptionalToken } from "./misc.js";
 
 function printMemberExpression(path, options, print) {
   const node = path.getValue();
@@ -68,4 +64,4 @@ function printMemberLookup(path, options, print) {
   return group([optional, "[", indent([softline, property]), softline, "]"]);
 }
 
-module.exports = { printMemberExpression, printMemberLookup };
+export { printMemberExpression, printMemberLookup };

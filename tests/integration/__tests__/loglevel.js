@@ -1,5 +1,5 @@
 import stripAnsi from "strip-ansi";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 test("do not show logs with --loglevel silent", async () => {
   await runPrettierWithLogLevel("silent", null);
@@ -35,8 +35,87 @@ describe("Should use default level logger to log `--loglevel` error", () => {
   });
 });
 
+describe("loglevel should not effect information print", () => {
+  for (const { argv, runOptions, assertOptions } of [
+    {
+      argv: ["--version"],
+      assertOptions: {
+        stdout(value) {
+          expect(value).not.toBe("");
+        },
+      },
+    },
+    {
+      argv: ["--help"],
+      assertOptions: {
+        stdout(value) {
+          expect(value.includes("-v, --version")).toBe(true);
+        },
+      },
+    },
+    {
+      argv: ["--help", "write"],
+      assertOptions: {
+        stdout(value) {
+          expect(value.startsWith("-w, --write")).toBe(true);
+        },
+      },
+    },
+    {
+      argv: ["--support-info"],
+      assertOptions: {
+        stdout(value) {
+          expect(JSON.parse(value)).toBeDefined();
+        },
+      },
+    },
+    {
+      argv: ["--find-config-path", "any-file"],
+      assertOptions: {
+        stdout: ".prettierrc\n",
+      },
+    },
+    {
+      argv: ["--file-info", "any-js-file.js"],
+      assertOptions: {
+        stdout(value) {
+          expect(JSON.parse(value)).toEqual({
+            ignored: false,
+            inferredParser: "babel",
+          });
+        },
+      },
+    },
+    {
+      argv: [],
+      runOptions: { isTTY: true },
+      assertOptions: {
+        status: "non-zero",
+        stdout(value) {
+          expect(value.includes("-v, --version")).toBe(true);
+        },
+      },
+    },
+    {
+      argv: ["--parser", "babel"],
+      runOptions: { input: "foo" },
+      assertOptions: { stdout: "foo;\n" },
+    },
+  ]) {
+    runPrettier("cli/loglevel", ["--loglevel", "silent", ...argv], {
+      ...runOptions,
+      title: argv.join(" "),
+    }).test({
+      stderr: "",
+      status: 0,
+      write: [],
+      ...assertOptions,
+    });
+  }
+});
+
 async function runPrettierWithLogLevel(logLevel, patterns) {
-  const result = runPrettier("cli/loglevel", [
+  const result = await runPrettier("cli/loglevel", [
     "--loglevel",
     logLevel,
     "--unknown-option",
@@ -45,9 +124,9 @@ async function runPrettierWithLogLevel(logLevel, patterns) {
     "not-found.js",
   ]);
 
-  expect(await result.status).toBe(2);
+  expect(result.status).toBe(2);
 
-  const stderr = stripAnsi(await result.stderr);
+  const stderr = stripAnsi(result.stderr);
 
   if (patterns) {
     for (const pattern of patterns) {

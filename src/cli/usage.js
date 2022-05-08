@@ -1,8 +1,6 @@
-"use strict";
-
-const groupBy = require("lodash/groupBy");
-const camelCase = require("camelcase");
-const constant = require("./constant.js");
+import camelCase from "camelcase";
+import * as constant from "./constant.js";
+import { groupBy } from "./utils.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -180,7 +178,4 @@ function createDetailedUsage(context, flag) {
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
-module.exports = {
-  createUsage,
-  createDetailedUsage,
-};
+export { createUsage, createDetailedUsage };

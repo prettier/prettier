@@ -1,7 +1,5 @@
-"use strict";
-
-const { isFrontMatterNode } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
+import { isFrontMatterNode } from "../common/util.js";
+import getLast from "../utils/get-last.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -169,6 +167,23 @@ function clean(ast, newObj, parent) {
   if (ast.type === "selector-unknown") {
     delete newObj.value;
   }
+
+  // Workaround for SCSS arbitrary arguments
+  if (ast.type === "value-comma_group") {
+    const index = ast.groups.findIndex(
+      (node) => node.type === "value-number" && node.unit === "..."
+    );
+
+    if (index !== -1) {
+      newObj.groups[index].unit = "";
+      newObj.groups.splice(index + 1, 0, {
+        type: "value-word",
+        value: "...",
+        isColor: false,
+        isHex: false,
+      });
+    }
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;
@@ -177,4 +192,4 @@ function cleanCSSStrings(value) {
   return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
 }
 
-module.exports = clean;
+export default clean;

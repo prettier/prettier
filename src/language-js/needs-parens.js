@@ -1,7 +1,6 @@
-"use strict";
-
-const getLast = require("../utils/get-last.js");
-const {
+import getLast from "../utils/get-last.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import {
   getFunctionParameters,
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
@@ -14,7 +13,7 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("./utils.js");
+} from "./utils/index.js";
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -95,7 +94,6 @@ function needsParens(path, options) {
           node.type === "LogicalExpression" ||
           node.type === "NewExpression" ||
           node.type === "ObjectExpression" ||
-          node.type === "ParenthesizedExpression" ||
           node.type === "SequenceExpression" ||
           node.type === "TaggedTemplateExpression" ||
           node.type === "UnaryExpression" ||
@@ -668,6 +666,10 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
+      if (isNonEmptyArray(node.decorators)) {
+        return true;
+      }
+
       switch (parent.type) {
         case "NewExpression":
           return name === "callee";
@@ -943,4 +945,4 @@ function shouldWrapFunctionForExportDefault(path, options) {
   );
 }
 
-module.exports = needsParens;
+export default needsParens;

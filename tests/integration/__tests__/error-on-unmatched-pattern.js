@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("no error on unmatched pattern", () => {
   runPrettier("cli/error-on-unmatched-pattern", [

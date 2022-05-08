@@ -1,3 +1,4 @@
+.tmp
 dist/
 .cache/
 coverage/
@@ -9,5 +10,4 @@ coverage/
 /website/build/
 /website/static/lib/
 /website/static/playground.js
-cspell.json
 .nyc_output

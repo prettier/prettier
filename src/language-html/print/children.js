@@ -1,18 +1,21 @@
-"use strict";
-
-const {
-  builders: { breakParent, group, ifBreak, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
+import {
+  breakParent,
+  group,
+  ifBreak,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
+import { locStart, locEnd } from "../loc.js";
+import {
   forceBreakChildren,
   forceNextEmptyLine,
   isTextLikeNode,
   hasPrettierIgnore,
   preferHardlineAsLeadingSpaces,
-} = require("../utils.js");
-const {
+} from "../utils/index.js";
+import {
   printOpeningTagPrefix,
   needsToBorrowNextOpeningTagStartMarker,
   printOpeningTagStartMarker,
@@ -20,7 +23,7 @@ const {
   printClosingTagEndMarker,
   printClosingTagSuffix,
   needsToBorrowParentClosingTagStartMarker,
-} = require("./tag.js");
+} from "./tag.js";
 
 function printChild(childPath, options, print) {
   const child = childPath.getValue();
@@ -207,4 +210,4 @@ function printChildren(path, options, print) {
   }, "children");
 }
 
-module.exports = { printChildren };
+export { printChildren };

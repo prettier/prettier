@@ -1,11 +1,13 @@
-"use strict";
-
-const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
-const {
-  builders: { line, group, indent, indentIfBreak },
-  utils: { cleanDoc, willBreak, canBreak },
-} = require("../../document/index.js");
-const {
+import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
+import {
+  line,
+  group,
+  indent,
+  indentIfBreak,
+  lineSuffixBoundary,
+} from "../../document/builders.js";
+import { cleanDoc, willBreak, canBreak } from "../../document/utils.js";
+import {
   hasLeadingOwnLineComment,
   isBinaryish,
   isStringLiteral,
@@ -18,9 +20,9 @@ const {
   hasComment,
   isSignedNumericLiteral,
   isObjectProperty,
-} = require("../utils.js");
-const { shouldInlineLogicalExpression } = require("./binaryish.js");
-const { printCallExpression } = require("./call-expression.js");
+} from "../utils/index.js";
+import { shouldInlineLogicalExpression } from "./binaryish.js";
+import { printCallExpression } from "./call-expression.js";
 
 function printAssignment(
   path,
@@ -50,6 +52,7 @@ function printAssignment(
         group(leftDoc),
         operator,
         group(indent(line), { id: groupId }),
+        lineSuffixBoundary,
         indentIfBreak(rightDoc, { groupId }),
       ]);
     }
@@ -440,7 +443,9 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
         firstArg.type === "TSUnionType" ||
         firstArg.type === "UnionTypeAnnotation" ||
         firstArg.type === "TSIntersectionType" ||
-        firstArg.type === "IntersectionTypeAnnotation"
+        firstArg.type === "IntersectionTypeAnnotation" ||
+        firstArg.type === "TSTypeLiteral" ||
+        firstArg.type === "ObjectTypeAnnotation"
       ) {
         return true;
       }
@@ -462,7 +467,7 @@ function getTypeArgumentsFromCallExpression(node) {
   );
 }
 
-module.exports = {
+export {
   printVariableDeclarator,
   printAssignmentExpression,
   printAssignment,

@@ -1,19 +1,18 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../common/parser-create-error.js";
+import getLast from "../utils/get-last.js";
+import parseFrontMatter from "../utils/front-matter/parse.js";
+import { hasPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import { calculateLoc, replaceQuotesInInlineComments } from "./loc.js";
+import hasSCSSInterpolation from "./utils/has-scss-interpolation.js";
+import hasStringOrFunction from "./utils/has-string-or-function.js";
+import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
+import isSCSSVariable from "./utils/is-scss-variable.js";
+import stringifyNode from "./utils/stringify-node.js";
+import isModuleRuleName from "./utils/is-module-rule-name.js";
 
-const createError = require("../common/parser-create-error.js");
-const getLast = require("../utils/get-last.js");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
-const { hasPragma } = require("./pragma.js");
-const {
-  hasSCSSInterpolation,
-  hasStringOrFunction,
-  isSCSSNestedPropertyNode,
-  isSCSSVariable,
-  stringifyNode,
-  isModuleRuleName,
-} = require("./utils.js");
-const { locStart, locEnd } = require("./loc.js");
-const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
+const require = createRequire(import.meta.url);
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -265,12 +264,12 @@ function parseSelector(selector) {
 }
 
 function parseMediaQuery(params) {
-  const mediaParser = require("postcss-media-query-parser").default;
+  const mediaParser = require("postcss-media-query-parser");
 
   let result = null;
 
   try {
-    result = mediaParser(params);
+    result = mediaParser.default(params);
   } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
@@ -283,8 +282,8 @@ function parseMediaQuery(params) {
   return addTypePrefix(addMissingType(result), "media-");
 }
 
-const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
-const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
+const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
+const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
 function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
@@ -512,7 +511,7 @@ function parseNestedCSS(node, options) {
 
       // only css support custom-selector
       if (options.parser === "css" && node.name === "custom-selector") {
-        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
         node.selector = parseSelector(
           node.params.slice(customSelector.length).trim()
@@ -609,9 +608,11 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
+        // Move spaces after the `...`, so we can keep the range correct
+        params = params.replace(/(\$\S+?)(\s+)?\.{3}/, "$1...$2");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
-        params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
+        // Move spaces after the `(`, so we can keep the range correct
+        params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
         node.value = parseValue(params, options);
         delete node.params;
@@ -680,24 +681,25 @@ function parseWithParser(parse, text, options) {
 }
 
 function parseCss(text, parsers, options = {}) {
-  const { parse } = require("postcss");
-  return parseWithParser(parse, text, options);
+  const postcss = require("postcss");
+  return parseWithParser(postcss.parse, text, options);
 }
 
 function parseLess(text, parsers, options = {}) {
-  const lessParser = require("postcss-less");
+  const less = require("postcss-less");
+
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
     // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
+    (text) => less.parse(replaceQuotesInInlineComments(text)),
     text,
     options
   );
 }
 
 function parseScss(text, parsers, options = {}) {
-  const { parse } = require("postcss-scss");
-  return parseWithParser(parse, text, options);
+  const scss = require("postcss-scss");
+  return parseWithParser(scss.parse, text, options);
 }
 
 const postCssParser = {
@@ -708,7 +710,7 @@ const postCssParser = {
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const postcssParser = {
   parsers: {
     css: {
       ...postCssParser,
@@ -724,3 +726,5 @@ module.exports = {
     },
   },
 };
+
+export default postcssParser;

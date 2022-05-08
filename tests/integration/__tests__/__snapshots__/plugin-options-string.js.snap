@@ -11,7 +11,7 @@ Default: bar
 "
 `;
 
-exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `Array []`;
+exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `[]`;
 
 exports[`show external options with \`--help\` 1`] = `
 "Snapshot Diff:
@@ -31,8 +31,8 @@ exports[`show external options with \`--help\` 1`] = `
                              Defaults to css.
     --jsx-single-quote       Use single quotes in JSX.
                              Defaults to false.
--   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
-+   --parser <flow|babel|babel-flow|babel-ts|typescript|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
+-   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc>
++   --parser <flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|foo-parser>
                              Which parser to use.
     --print-width <int>      The line length where Prettier will try wrap.
                              Defaults to 80.

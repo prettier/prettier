@@ -1,9 +1,5 @@
-"use strict";
-
-const parseSrcset = require("parse-srcset");
-const {
-  builders: { ifBreak, join, line },
-} = require("../document/index.js");
+import parseSrcset from "parse-srcset";
+import { ifBreak, join, line } from "../document/builders.js";
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {
@@ -63,7 +59,4 @@ function printClassNames(value) {
   return value.trim().split(/\s+/).join(" ");
 }
 
-module.exports = {
-  printImgSrcset,
-  printClassNames,
-};
+export { printImgSrcset, printClassNames };

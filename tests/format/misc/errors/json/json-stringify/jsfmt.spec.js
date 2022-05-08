@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       '/* comment */{"foo": 1}',
       '// comment\n{"foo": 1}',

@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("ignore-unknown dir", () => {
   runPrettier("cli/ignore-unknown", [

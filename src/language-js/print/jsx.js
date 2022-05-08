@@ -1,27 +1,20 @@
-"use strict";
+import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  conditionalGroup,
+  fill,
+  ifBreak,
+  lineSuffixBoundary,
+  join,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
 
-const {
-  printComments,
-  printDanglingComments,
-} = require("../../main/comments.js");
-const {
-  builders: {
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    fill,
-    ifBreak,
-    lineSuffixBoundary,
-    join,
-  },
-  utils: { willBreak },
-} = require("../../document/index.js");
-
-const { getLast, getPreferredQuote } = require("../../common/util.js");
-const {
+import { getLast, getPreferredQuote } from "../../common/util.js";
+import {
   isJsxNode,
   rawText,
   isLiteral,
@@ -31,15 +24,15 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { willPrintOwnComments } = require("../comments.js");
+} from "../utils/index.js";
+import pathNeedsParens from "../needs-parens.js";
+import { willPrintOwnComments } from "../comments.js";
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
 
 /**
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  * @typedef {import("../types/estree").Node} Node
  * @typedef {import("../types/estree").JSXElement} JSXElement
  */
@@ -502,24 +495,25 @@ function printJsxAttribute(path, options, print) {
 
 function printJsxExpressionContainer(path, options, print) {
   const node = path.getValue();
-  const parent = path.getParentNode(0);
 
-  const shouldInline =
-    node.expression.type === "JSXEmptyExpression" ||
-    (!hasComment(node.expression) &&
-      (node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression" ||
-        node.expression.type === "ArrowFunctionExpression" ||
-        isCallExpression(node.expression) ||
-        node.expression.type === "FunctionExpression" ||
-        node.expression.type === "TemplateLiteral" ||
-        node.expression.type === "TaggedTemplateExpression" ||
-        node.expression.type === "DoExpression" ||
+  const shouldInline = (node, parent) =>
+    node.type === "JSXEmptyExpression" ||
+    (!hasComment(node) &&
+      (node.type === "ArrayExpression" ||
+        node.type === "ObjectExpression" ||
+        node.type === "ArrowFunctionExpression" ||
+        (node.type === "AwaitExpression" &&
+          (shouldInline(node.argument, node) ||
+            node.argument.type === "JSXElement")) ||
+        isCallExpression(node) ||
+        node.type === "FunctionExpression" ||
+        node.type === "TemplateLiteral" ||
+        node.type === "TaggedTemplateExpression" ||
+        node.type === "DoExpression" ||
         (isJsxNode(parent) &&
-          (node.expression.type === "ConditionalExpression" ||
-            isBinaryish(node.expression)))));
+          (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
-  if (shouldInline) {
+  if (shouldInline(node.expression, path.getParentNode(0))) {
     return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 
@@ -605,12 +599,17 @@ function printJsxOpeningElement(path, options, print) {
         attr.value.value.includes("\n")
     );
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attributes.length > 1
+      ? hardline
+      : line;
+
   return group(
     [
       "<",
       print("name"),
       print("typeParameters"),
-      indent(path.map(() => [line, print()], "attributes")),
+      indent(path.map(() => [attributeLine, print()], "attributes")),
       node.selfClosing ? line : bracketSameLine ? ">" : softline,
       node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
     ],
@@ -843,7 +842,4 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
-module.exports = {
-  hasJsxIgnoreComment,
-  printJsx,
-};
+export { hasJsxIgnoreComment, printJsx };

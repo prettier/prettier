@@ -1,28 +1,24 @@
-"use strict";
-
-const getLast = require("../../utils/get-last.js");
-const { getStringWidth, getIndentSize } = require("../../common/util.js");
-const {
-  builders: {
-    join,
-    hardline,
-    softline,
-    group,
-    indent,
-    align,
-    lineSuffixBoundary,
-    addAlignmentToDoc,
-  },
-  printer: { printDocToString },
-  utils: { mapDoc },
-} = require("../../document/index.js");
-const {
+import getLast from "../../utils/get-last.js";
+import { getStringWidth, getIndentSize } from "../../common/util.js";
+import {
+  join,
+  hardline,
+  softline,
+  group,
+  indent,
+  align,
+  lineSuffixBoundary,
+  addAlignmentToDoc,
+} from "../../document/builders.js";
+import { printDocToString } from "../../document/printer.js";
+import { mapDoc } from "../../document/utils.js";
+import {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
-} = require("../utils.js");
+} from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
@@ -232,7 +228,7 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
-module.exports = {
+export {
   printTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,

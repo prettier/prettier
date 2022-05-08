@@ -1,46 +1,43 @@
-"use strict";
+import path from "node:path";
 
-const path = require("path");
-
-const editorconfig = require("editorconfig");
-const mem = require("mem");
-const editorConfigToPrettier = require("editorconfig-to-prettier");
-const findProjectRoot = require("./find-project-root.js");
+import editorconfig from "editorconfig";
+import editorConfigToPrettier from "editorconfig-to-prettier";
+import mem, { memClear } from "mem";
+import findProjectRoot from "./find-project-root.js";
 
 const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
 
-const maybeParse = (filePath, parse) =>
-  filePath &&
-  parse(filePath, {
+const memoizedLoadEditorConfig = jsonStringifyMem(loadEditorConfig);
+
+async function loadEditorConfig(filePath) {
+  if (!filePath) {
+    return;
+  }
+
+  const editorConfig = await editorconfig.parse(filePath, {
     root: findProjectRoot(path.dirname(path.resolve(filePath))),
   });
 
-const editorconfigAsyncNoCache = async (filePath) =>
-  editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
-const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
+  const config = editorConfigToPrettier(editorConfig);
 
-const editorconfigSyncNoCache = (filePath) =>
-  editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
-const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
+  if (config) {
+    // We are not using this option
+    delete config.insertFinalNewline;
+  }
+
+  return config;
+}
 
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {
-    return () => null;
+    return () => {};
   }
 
-  if (opts.sync) {
-    return opts.cache ? editorconfigSyncWithCache : editorconfigSyncNoCache;
-  }
-
-  return opts.cache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache;
+  return opts.cache ? memoizedLoadEditorConfig : loadEditorConfig;
 }
 
 function clearCache() {
-  mem.clear(editorconfigSyncWithCache);
-  mem.clear(editorconfigAsyncWithCache);
+  memClear(memoizedLoadEditorConfig);
 }
 
-module.exports = {
-  getLoadFunction,
-  clearCache,
-};
+export { getLoadFunction, clearCache };

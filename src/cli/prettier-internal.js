@@ -1,4 +1,10 @@
-"use strict";
+import { __internal as sharedWithCli } from "../index.js";
 
-// eslint-disable-next-line no-restricted-modules
-module.exports = require("../index.js").__internal;
+export const {
+  errors,
+  coreOptions,
+  createIgnorer,
+  optionsHiddenDefaults,
+  normalizeApiOptions,
+  normalizeCliOptions,
+} = sharedWithCli;

@@ -1,19 +1,18 @@
-"use strict";
+import fs from "node:fs";
+import path from "node:path";
+import url from "node:url";
+import createEsmUtils from "esm-utils";
+import checkParsers from "./utils/check-parsers.js";
+import createSnapshot from "./utils/create-snapshot.js";
+import visualizeEndOfLine from "./utils/visualize-end-of-line.js";
+import consistentEndOfLine from "./utils/consistent-end-of-line.js";
+import stringifyOptionsForTitle from "./utils/stringify-options-for-title.js";
 
-const { TEST_STANDALONE } = process.env;
+const { __dirname } = createEsmUtils(import.meta);
 
-const fs = require("fs");
-const path = require("path");
-const prettier = !TEST_STANDALONE
-  ? require("prettier-local")
-  : require("prettier-standalone");
-const checkParsers = require("./utils/check-parsers.js");
-const createSnapshot = require("./utils/create-snapshot.js");
-const visualizeEndOfLine = require("./utils/visualize-end-of-line.js");
-const consistentEndOfLine = require("./utils/consistent-end-of-line.js");
-const stringifyOptionsForTitle = require("./utils/stringify-options-for-title.js");
+let prettier;
 
-const { FULL_TEST } = process.env;
+const { FULL_TEST, TEST_STANDALONE } = process.env;
 const BOM = "\uFEFF";
 
 const CURSOR_PLACEHOLDER = "<|>";
@@ -39,6 +38,7 @@ const unstableTests = new Map(
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
     "js/comments/html-like/comment.js",
+    "js/for/continue-and-break-comment-without-blocks.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -55,7 +55,29 @@ const espreeDisabledTests = new Set(
     "comments-closure-typecast",
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
-const meriyahDisabledTests = espreeDisabledTests;
+const acornDisabledTests = espreeDisabledTests;
+const meriyahDisabledTests = new Set([
+  ...espreeDisabledTests,
+  // Meriyah does not support decorator auto accessors syntax.
+  // But meriyah can parse it as an ordinary class property.
+  // So meriyah does not throw parsing error for it.
+  ...[
+    "basic.js",
+    "computed.js",
+    "private.js",
+    "static-computed.js",
+    "static-private.js",
+    "static.js",
+    "with-semicolon-1.js",
+    "with-semicolon-2.js",
+  ].map((filename) =>
+    path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
+  ),
+  path.join(
+    __dirname,
+    "../format/js/babel-plugins/decorator-auto-accessors.js"
+  ),
+]);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -97,9 +119,24 @@ const isTestDirectory = (dirname, name) =>
     path.join(__dirname, "../format", name) + path.sep
   );
 
+const ensurePromise = (value) => {
+  const isPromise = TEST_STANDALONE
+    ? // In standalone test, promise is from another context
+      Object.prototype.toString.call(value) === "[object Promise]"
+    : value instanceof Promise;
+
+  if (!isPromise) {
+    throw new TypeError("Expected value to be a 'Promise'.");
+  }
+
+  return value;
+};
+
 function runSpec(fixtures, parsers, options) {
-  let { dirname, snippets = [] } =
-    typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  let { importMeta, snippets = [] } = fixtures.importMeta
+    ? fixtures
+    : { importMeta: fixtures };
+  const dirname = path.dirname(url.fileURLToPath(importMeta.url));
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
@@ -185,6 +222,9 @@ function runSpec(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
+      }
     }
 
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {
@@ -202,31 +242,59 @@ function runSpec(fixtures, parsers, options) {
     describe(title, () => {
       const formatOptions = {
         printWidth: 80,
+        // Should not search plugins by default
+        pluginSearchDirs: false,
         ...options,
         filepath: filename,
         parser,
       };
-      const mainParserFormatResult = shouldThrowOnFormat(name, formatOptions)
-        ? { options: formatOptions, error: true }
-        : format(code, formatOptions);
+      const shouldThrowOnMainParserFormat = shouldThrowOnFormat(
+        name,
+        formatOptions
+      );
+
+      let mainParserFormatResult;
+      if (shouldThrowOnMainParserFormat) {
+        mainParserFormatResult = { options: formatOptions, error: true };
+      } else {
+        beforeAll(async () => {
+          mainParserFormatResult = await format(code, formatOptions);
+        });
+      }
 
       for (const currentParser of allParsers) {
-        runTest({
-          parsers,
-          name,
-          filename,
-          code,
-          output,
-          parser: currentParser,
-          mainParserFormatResult,
-          mainParserFormatOptions: formatOptions,
+        if (
+          (currentParser === "espree" && espreeDisabledTests.has(filename)) ||
+          (currentParser === "meriyah" && meriyahDisabledTests.has(filename)) ||
+          (currentParser === "acorn" && acornDisabledTests.has(filename))
+        ) {
+          continue;
+        }
+
+        const testTitle =
+          shouldThrowOnMainParserFormat ||
+          formatOptions.parser !== currentParser
+            ? `[${currentParser}] format`
+            : "format";
+
+        test(testTitle, async () => {
+          await runTest({
+            parsers,
+            name,
+            filename,
+            code,
+            output,
+            parser: currentParser,
+            mainParserFormatResult,
+            mainParserFormatOptions: formatOptions,
+          });
         });
       }
     });
   }
 }
 
-function runTest({
+async function runTest({
   parsers,
   name,
   filename,
@@ -238,52 +306,46 @@ function runTest({
 }) {
   let formatOptions = mainParserFormatOptions;
   let formatResult = mainParserFormatResult;
-  let formatTestTitle = "format";
 
   // Verify parsers or error tests
   if (
     mainParserFormatResult.error ||
     mainParserFormatOptions.parser !== parser
   ) {
-    formatTestTitle = `[${parser}] format`;
     formatOptions = { ...mainParserFormatResult.options, parser };
     const runFormat = () => format(code, formatOptions);
 
     if (shouldThrowOnFormat(name, formatOptions)) {
-      test(formatTestTitle, () => {
-        expect(runFormat).toThrowErrorMatchingSnapshot();
-      });
+      await expect(runFormat()).rejects.toThrowErrorMatchingSnapshot();
       return;
     }
 
     // Verify parsers format result should be the same as main parser
     output = mainParserFormatResult.outputWithCursor;
-    formatResult = runFormat();
+    formatResult = await runFormat();
   }
 
-  test(formatTestTitle, () => {
-    // Make sure output has consistent EOL
+  // Make sure output has consistent EOL
+  expect(formatResult.eolVisualizedOutput).toEqual(
+    visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor))
+  );
+
+  // The result is assert to equals to `output`
+  if (typeof output === "string") {
     expect(formatResult.eolVisualizedOutput).toEqual(
-      visualizeEndOfLine(consistentEndOfLine(formatResult.outputWithCursor))
+      visualizeEndOfLine(output)
     );
+    return;
+  }
 
-    // The result is assert to equals to `output`
-    if (typeof output === "string") {
-      expect(formatResult.eolVisualizedOutput).toEqual(
-        visualizeEndOfLine(output)
-      );
-      return;
-    }
-
-    // All parsers have the same result, only snapshot the result from main parser
-    expect(
-      createSnapshot(formatResult, {
-        parsers,
-        formatOptions,
-        CURSOR_PLACEHOLDER,
-      })
-    ).toMatchSnapshot();
-  });
+  // All parsers have the same result, only snapshot the result from main parser
+  expect(
+    createSnapshot(formatResult, {
+      parsers,
+      formatOptions,
+      CURSOR_PLACEHOLDER,
+    })
+  ).toMatchSnapshot();
 
   if (!FULL_TEST) {
     return;
@@ -295,63 +357,58 @@ function runTest({
     // No range and cursor
     formatResult.input === code
   ) {
-    test(`[${parser}] second format`, () => {
-      const { eolVisualizedOutput: firstOutput, output } = formatResult;
-      const { eolVisualizedOutput: secondOutput } = format(
-        output,
-        formatOptions
-      );
-      if (isUnstableTest) {
-        // To keep eye on failed tests, this assert never supposed to pass,
-        // if it fails, just remove the file from `unstableTests`
-        expect(secondOutput).not.toEqual(firstOutput);
-      } else {
-        expect(secondOutput).toEqual(firstOutput);
-      }
-    });
+    const { eolVisualizedOutput: firstOutput, output } = formatResult;
+    const { eolVisualizedOutput: secondOutput } = await format(
+      output,
+      formatOptions
+    );
+    if (isUnstableTest) {
+      // To keep eye on failed tests, this assert never supposed to pass,
+      // if it fails, just remove the file from `unstableTests`
+      expect(secondOutput).not.toEqual(firstOutput);
+    } else {
+      expect(secondOutput).toEqual(firstOutput);
+    }
   }
 
   const isAstUnstableTest = isAstUnstable(filename, formatOptions);
   // Some parsers skip parsing empty files
   if (formatResult.changed && code.trim()) {
-    test(`[${parser}] compare AST`, () => {
-      const { input, output } = formatResult;
-      const originalAst = parse(input, formatOptions);
-      const formattedAst = parse(output, formatOptions);
-      if (isAstUnstableTest) {
-        expect(formattedAst).not.toEqual(originalAst);
-      } else {
-        expect(formattedAst).toEqual(originalAst);
-      }
-    });
+    const { input, output } = formatResult;
+    const originalAst = await parse(input, formatOptions);
+    const formattedAst = await parse(output, formatOptions);
+    if (isAstUnstableTest) {
+      expect(formattedAst).not.toEqual(originalAst);
+    } else {
+      expect(formattedAst).toEqual(originalAst);
+    }
   }
 
   if (!shouldSkipEolTest(code, formatResult.options)) {
     for (const eol of ["\r\n", "\r"]) {
-      test(`[${parser}] EOL ${JSON.stringify(eol)}`, () => {
-        const output = format(
-          code.replace(/\n/g, eol),
-          formatOptions
-        ).eolVisualizedOutput;
-        // Only if `endOfLine: "auto"` the result will be different
-        const expected =
-          formatOptions.endOfLine === "auto"
-            ? visualizeEndOfLine(
-                // All `code` use `LF`, so the `eol` of result is always `LF`
-                formatResult.outputWithCursor.replace(/\n/g, eol)
-              )
-            : formatResult.eolVisualizedOutput;
-        expect(output).toEqual(expected);
-      });
+      const { eolVisualizedOutput: output } = await format(
+        code.replace(/\n/g, eol),
+        formatOptions
+      );
+      // Only if `endOfLine: "auto"` the result will be different
+      const expected =
+        formatOptions.endOfLine === "auto"
+          ? visualizeEndOfLine(
+              // All `code` use `LF`, so the `eol` of result is always `LF`
+              formatResult.outputWithCursor.replace(/\n/g, eol)
+            )
+          : formatResult.eolVisualizedOutput;
+      expect(output).toEqual(expected);
     }
   }
 
   if (code.charAt(0) !== BOM) {
-    test(`[${parser}] BOM`, () => {
-      const output = format(BOM + code, formatOptions).eolVisualizedOutput;
-      const expected = BOM + formatResult.eolVisualizedOutput;
-      expect(output).toEqual(expected);
-    });
+    const { eolVisualizedOutput: output } = await format(
+      BOM + code,
+      formatOptions
+    );
+    const expected = BOM + formatResult.eolVisualizedOutput;
+    expect(output).toEqual(expected);
   }
 }
 
@@ -374,8 +431,13 @@ function shouldSkipEolTest(code, options) {
   return false;
 }
 
-function parse(source, options) {
-  return prettier.__debug.parse(source, options, /* massage */ true).ast;
+async function parse(source, options) {
+  const { ast } = await prettier.__debug.parse(
+    source,
+    options,
+    /* massage */ true
+  );
+  return ast;
 }
 
 const indexProperties = [
@@ -418,16 +480,15 @@ const insertCursor = (text, cursorOffset) =>
       CURSOR_PLACEHOLDER +
       text.slice(cursorOffset)
     : text;
-function format(originalText, originalOptions) {
+async function format(originalText, originalOptions) {
   const { text: input, options } = replacePlaceholders(
     originalText,
     originalOptions
   );
   const inputWithCursor = insertCursor(input, options.cursorOffset);
 
-  const { formatted: output, cursorOffset } = prettier.formatWithCursor(
-    input,
-    options
+  const { formatted: output, cursorOffset } = await ensurePromise(
+    prettier.formatWithCursor(input, options)
   );
   const outputWithCursor = insertCursor(output, cursorOffset);
   const eolVisualizedOutput = visualizeEndOfLine(outputWithCursor);
@@ -445,4 +506,13 @@ function format(originalText, originalOptions) {
   };
 }
 
-module.exports = runSpec;
+Object.defineProperty(runSpec, "prettier", {
+  get() {
+    return prettier;
+  },
+  set(prettierModule) {
+    prettier = prettierModule;
+  },
+  configurable: true,
+});
+export default runSpec;

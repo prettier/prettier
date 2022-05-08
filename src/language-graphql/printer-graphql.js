@@ -1,11 +1,15 @@
-"use strict";
-
-const {
-  builders: { join, hardline, line, softline, group, indent, ifBreak },
-} = require("../document/index.js");
-const { isNextLineEmpty, isNonEmptyArray } = require("../common/util.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
+import {
+  join,
+  hardline,
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../document/builders.js";
+import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -91,13 +95,7 @@ function genericPrint(path, options, print) {
         "{",
         indent([
           hardline,
-          join(
-            hardline,
-            path.call(
-              (selectionsPath) => printSequence(selectionsPath, options, print),
-              "selections"
-            )
-          ),
+          join(hardline, printSequence(path, options, print, "selections")),
         ]),
         hardline,
         "}",
@@ -114,10 +112,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -134,13 +129,15 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (node.block) {
-        return [
-          '"""',
+        const lines = node.value.replace(/"""/g, "\\$&").split("\n");
+        if (lines.length === 1) {
+          lines[0] = lines[0].trim();
+        }
+
+        return join(
           hardline,
-          join(hardline, node.value.replace(/"""/g, "\\$&").split("\n")),
-          hardline,
-          '"""',
-        ];
+          ['"""', ...(lines.length > 0 ? lines : []), '"""'].filter(Boolean)
+        );
       }
       return [
         '"',
@@ -205,10 +202,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -249,13 +243,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (fieldsPath) => printSequence(fieldsPath, options, print),
-                    "fields"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -276,10 +264,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -306,10 +291,7 @@ function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  path.call(
-                    (argsPath) => printSequence(argsPath, options, print),
-                    "arguments"
-                  )
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -337,13 +319,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (valuesPath) => printSequence(valuesPath, options, print),
-                    "values"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "values")),
               ]),
               hardline,
               "}",
@@ -387,13 +363,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (fieldsPath) => printSequence(fieldsPath, options, print),
-                    "fields"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -402,8 +372,30 @@ function genericPrint(path, options, print) {
       ];
     }
 
+    case "SchemaExtension": {
+      return [
+        "extend schema",
+        printDirectives(path, print, node),
+        ...(node.operationTypes.length > 0
+          ? [
+              " {",
+              indent([
+                hardline,
+                join(
+                  hardline,
+                  printSequence(path, options, print, "operationTypes")
+                ),
+              ]),
+              hardline,
+              "}",
+            ]
+          : []),
+      ];
+    }
     case "SchemaDefinition": {
       return [
+        print("description"),
+        node.description ? hardline : "",
         "schema",
         printDirectives(path, print, node),
         " {",
@@ -412,10 +404,7 @@ function genericPrint(path, options, print) {
               hardline,
               join(
                 hardline,
-                path.call(
-                  (opsPath) => printSequence(opsPath, options, print),
-                  "operationTypes"
-                )
+                printSequence(path, options, print, "operationTypes")
               ),
             ])
           : "",
@@ -445,13 +434,7 @@ function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  path.call(
-                    (fieldsPath) => printSequence(fieldsPath, options, print),
-                    "fields"
-                  )
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -541,21 +524,19 @@ function printDirectives(path, print, node) {
   return [" ", group(indent([softline, printed]))];
 }
 
-function printSequence(sequencePath, options, print) {
-  const count = sequencePath.getValue().length;
-
-  return sequencePath.map((path, i) => {
+function printSequence(path, options, print, property) {
+  return path.map((path, index, sequence) => {
     const printed = print();
 
     if (
-      isNextLineEmpty(options.originalText, path.getValue(), locEnd) &&
-      i < count - 1
+      index < sequence.length - 1 &&
+      isNextLineEmpty(options.originalText, path.getValue(), locEnd)
     ) {
       return [printed, hardline];
     }
 
     return printed;
-  });
+  }, property);
 }
 
 function canAttachComment(node) {
@@ -596,19 +577,23 @@ function printInterfaces(path, options, print) {
   return parts;
 }
 
-function clean(/*node, newNode , parent*/) {}
+function clean(node, newNode /* , parent */) {
+  // We print single line `""" string """` as multiple line string,
+  // and the parser ignores space in multiple line string
+  if (node.kind === "StringValue" && node.block && !node.value.includes("\n")) {
+    newNode.value = newNode.value.trim();
+  }
+}
 clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-  return (
-    node &&
-    Array.isArray(node.comments) &&
-    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+  return node?.comments?.some(
+    (comment) => comment.value.trim() === "prettier-ignore"
   );
 }
 
-module.exports = {
+const printer = {
   print: genericPrint,
   massageAstNode: clean,
   hasPrettierIgnore,
@@ -616,3 +601,5 @@ module.exports = {
   printComment,
   canAttachComment,
 };
+
+export default printer;

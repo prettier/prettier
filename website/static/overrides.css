@@ -415,10 +415,15 @@ em {
 }
 
 .ecosystemSubSection p {
-  padding-top: 4px !important;
+  padding-top: 0 !important;
   font-size: 0.9em;
   color: rgb(176, 196, 206) !important;
   line-height: 1.2em !important;
+}
+
+.ecosystemSubSection ul,
+.ecosystemSubSection ul a {
+  color: rgb(176, 196, 206) !important;
 }
 
 .growOnHover {

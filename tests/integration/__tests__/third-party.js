@@ -4,7 +4,7 @@ import { thirdParty } from "../env.js";
 import jestPathSerializer from "../path-serializer.js";
 
 const { require, __dirname } = createEsmUtils(import.meta);
-const { cosmiconfig, cosmiconfigSync, isCI } = require(thirdParty);
+const { cosmiconfig, isCI } = require(thirdParty);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
@@ -13,9 +13,9 @@ expect.addSnapshotSerializer(jestPathSerializer);
 describe("cosmiconfig", () => {
   const configs = [
     {
-      title: "prettier.config.js",
+      title: "prettier.config.cjs",
       dirname: path.join(__dirname, "../cli/config/js/"),
-      file: path.join(__dirname, "../cli/config/js/prettier.config.js"),
+      file: path.join(__dirname, "../cli/config/js/prettier.config.cjs"),
       value: {
         endOfLine: "auto",
         tabWidth: 8,
@@ -47,21 +47,15 @@ describe("cosmiconfig", () => {
       expect(config).toEqual(value);
       expect(filepath).toBe(file);
     });
-
-    test(`sync version ${title}`, () => {
-      const { config, filepath } = cosmiconfigSync("prettier").search(dirname);
-      expect(config).toEqual(value);
-      expect(filepath).toBe(file);
-    });
   }
 
   // #8815, please make sure this error contains code frame
-  test("Invalid json file", () => {
-    expect(() => {
-      cosmiconfigSync("prettier").search(
+  test("Invalid json file", async () => {
+    await expect(
+      cosmiconfig("prettier").search(
         path.join(__dirname, "../cli/config/invalid/broken-json")
-      );
-    }).toThrowErrorMatchingSnapshot();
+      )
+    ).rejects.toThrowErrorMatchingSnapshot();
   });
 });
 

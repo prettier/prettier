@@ -1,57 +1,65 @@
-run_spec(__dirname, ["babel", "typescript", "flow"]);
+import { outdent } from "outdent";
+// TODO: Use this when we drop support for Node.js 12
+// import prettier from "../../../config/prettier-entry.js";
+const { prettier } = run_spec;
 
-const prettier = require("prettier-local");
+run_spec(import.meta, ["babel", "typescript", "flow"]);
 
-test("translates cursor correctly in basic case", () => {
+test("translates cursor correctly in basic case", async () => {
   expect(
-    prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
+    await prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
   ).toMatchObject({
     formatted: "1;\n",
     cursorOffset: 1,
   });
 });
 
-test("positions cursor relative to closest node, not SourceElement", () => {
+test("positions cursor relative to closest node, not SourceElement", async () => {
   const code = "return         15";
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
+    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
   ).toMatchObject({
     formatted: "return 15;\n",
     cursorOffset: 7,
   });
 });
 
-test("keeps cursor inside formatted node", () => {
+test("keeps cursor inside formatted node", async () => {
   const code = "return         15";
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
+    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
   ).toMatchObject({
     formatted: "return 15;\n",
     cursorOffset: 7,
   });
 });
 
-test("doesn't insert second placeholder for nonexistent TypeAnnotation", () => {
-  const code = `
-foo('bar', cb => {
-  console.log('stuff')
-})`;
+test("doesn't insert second placeholder for nonexistent TypeAnnotation", async () => {
+  const code =
+    "\n" +
+    outdent`
+      foo('bar', cb => {
+        console.log('stuff')
+      })
+    `;
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
+    await prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toMatchObject({
-    formatted: `foo("bar", (cb) => {
-  console.log("stuff");
-});
-`,
+    formatted:
+      outdent`
+        foo("bar", (cb) => {
+          console.log("stuff");
+        });
+      ` + "\n",
     cursorOffset: 25,
   });
 });
 
-test("cursorOffset === rangeStart", () => {
+test("cursorOffset === rangeStart", async () => {
   const code = "1.0000\n2.0000\n3.0000";
 
   expect(
-    prettier.formatWithCursor(code, {
+    await prettier.formatWithCursor(code, {
       parser: "babel",
       cursorOffset: 7,
       rangeStart: 7,

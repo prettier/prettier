@@ -14,7 +14,7 @@ import {
 const outdentString = outdent.string;
 
 function writeChangelog(params) {
-  const changelog = fs.readFileSync("CHANGELOG.md", "utf-8");
+  const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
   const newEntry = `# ${params.version}\n\n` + getChangelogContent(params);
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }

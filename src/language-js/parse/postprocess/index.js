@@ -1,10 +1,9 @@
-"use strict";
-
-const { getLast } = require("../../../common/util.js");
-const { locStart, locEnd } = require("../../loc.js");
-const { isTypeCastComment } = require("../../comments.js");
-const visitNode = require("./visitNode.js");
-const { throwErrorForInvalidNodes } = require("./typescript.js");
+import { locStart, locEnd } from "../../loc.js";
+import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
+import isTypeCastComment from "../../utils/is-type-cast-comment.js";
+import getLast from "../../../utils/get-last.js";
+import visitNode from "./visit-node.js";
+import { throwErrorForInvalidNodes } from "./typescript.js";
 
 function postprocess(ast, options) {
   if (
@@ -19,6 +18,7 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
+    options.parser !== "acorn" &&
     options.parser !== "espree" &&
     options.parser !== "meriyah"
   ) {
@@ -79,7 +79,14 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        node.typeAnnotation.range = [locStart(node), locEnd(node)];
+        if (
+          !(
+            isTsKeywordType(node.typeAnnotation) ||
+            node.typeAnnotation.type === "TSThisType"
+          )
+        ) {
+          node.typeAnnotation.range = [locStart(node), locEnd(node)];
+        }
         return node.typeAnnotation;
       }
       case "TSTypeParameter":
@@ -106,6 +113,29 @@ function postprocess(ast, options) {
       case "TopicReference":
         options.__isUsingHackPipeline = true;
         break;
+      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
+      case "ExportAllDeclaration": {
+        const { exported } = node;
+        if (
+          options.parser === "meriyah" &&
+          exported &&
+          exported.type === "Identifier"
+        ) {
+          const raw = options.originalText.slice(
+            locStart(exported),
+            locEnd(exported)
+          );
+          if (raw.startsWith('"') || raw.startsWith("'")) {
+            node.exported = {
+              ...node.exported,
+              type: "Literal",
+              value: node.exported.name,
+              raw,
+            };
+          }
+        }
+        break;
+      }
     }
   });
 
@@ -126,21 +156,25 @@ function postprocess(ast, options) {
   }
 }
 
-// This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
-// and `typescript` into `babel` shape AST, we should do the opposite,
+// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
+// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
 // since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {
-  if (node.type === "CallExpression") {
-    node.type = "OptionalCallExpression";
-    node.callee = transformChainExpression(node.callee);
-  } else if (node.type === "MemberExpression") {
-    node.type = "OptionalMemberExpression";
-    node.object = transformChainExpression(node.object);
-  }
-  // typescript
-  else if (node.type === "TSNonNullExpression") {
-    node.expression = transformChainExpression(node.expression);
+  switch (node.type) {
+    case "CallExpression":
+      node.type = "OptionalCallExpression";
+      node.callee = transformChainExpression(node.callee);
+      break;
+    case "MemberExpression":
+      node.type = "OptionalMemberExpression";
+      node.object = transformChainExpression(node.object);
+      break;
+    // typescript
+    case "TSNonNullExpression":
+      node.expression = transformChainExpression(node.expression);
+      break;
+    // No default
   }
   return node;
 }
@@ -173,4 +207,4 @@ function rebalanceLogicalTree(node) {
   });
 }
 
-module.exports = postprocess;
+export default postprocess;

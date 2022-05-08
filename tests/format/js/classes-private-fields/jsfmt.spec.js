@@ -1,11 +1,12 @@
 const errors = {
-  meriyah: ["optional-chaining.js"],
+  acorn: ["optional-chaining.js"],
   espree: ["optional-chaining.js"],
+  meriyah: ["optional-chaining.js"],
 };
-run_spec(__dirname, ["babel"], {
+run_spec(import.meta, ["babel"], {
   errors,
 });
-run_spec(__dirname, ["babel"], {
+run_spec(import.meta, ["babel"], {
   semi: false,
   errors,
 });

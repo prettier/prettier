@@ -1,2 +1,2 @@
-run_spec(__dirname, ["scss"]);
-run_spec(__dirname, ["scss"], { singleQuote: true });
+run_spec(import.meta, ["scss"]);
+run_spec(import.meta, ["scss"], { singleQuote: true });

@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "for (let.foo of []);",
       "for (let().bar of []);",
@@ -21,11 +21,12 @@ run_spec(
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: ["for (async of []);"],
   },
   [
     "babel",
+    "acorn",
     "espree",
     // `meriyah` didn't throw https://github.com/meriyah/meriyah/issues/190
     // "meriyah",

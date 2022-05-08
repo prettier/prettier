@@ -70,7 +70,7 @@ Console output if some of the files require re-formatting:
 Checking formatting...
 [warn] src/fileA.js
 [warn] src/fileB.js
-[warn] Code style issues found in the above file(s). Forgot to run Prettier?
+[warn] Code style issues found in 2 files. Forgot to run Prettier?
 ```
 
 The command will return exit code `1` in the second case, which is helpful inside the CI pipelines.
@@ -201,3 +201,7 @@ $ prettier "**/*" --write --ignore-unknown
 ## `--no-error-on-unmatched-pattern`
 
 Prevent errors when pattern is unmatched.
+
+## `--no-plugin-search`
+
+Disable plugin autoloading.

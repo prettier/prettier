@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 import { projectRoot } from "../env.js";
 
@@ -33,7 +33,7 @@ testPatterns("1", ["dir1", "dir2"]);
 testPatterns("1a - with *.foo plugin", [
   "dir1",
   "dir2",
-  "--plugin=../../plugins/extensions/plugin",
+  "--plugin=../../plugins/extensions/plugin.cjs",
 ]);
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
   stdout: expect.stringMatching(/!dir[/\\]a\.js/),

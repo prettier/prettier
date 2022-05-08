@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`indexer.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare class A {
+  [number]: boolean;
+  static [string]: boolean;
+}
+
+// Read-only
+declare class B {
+  +[number]: boolean;
+  static +[string]: boolean;
+}
+
+=====================================output=====================================
+declare class A {
+  [number]: boolean;
+  static [string]: boolean;
+}
+
+// Read-only
+declare class B {
+  +[number]: boolean;
+  static +[string]: boolean;
+}
+
+================================================================================
+`;

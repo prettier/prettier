@@ -2,15 +2,14 @@
 
 import path from "node:path";
 import fs from "node:fs/promises";
-import globby from "globby";
-import prettier from "prettier";
+import fastGlob from "fast-glob";
+import { format } from "prettier";
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
 import {
   PROJECT_ROOT,
   DIST_DIR,
   WEBSITE_DIR,
-  readJson,
   writeJson,
   copyFile,
   writeFile,
@@ -32,35 +31,38 @@ const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 async function buildPrettier() {
   // --- Build prettier for PR ---
   const packageJsonFile = path.join(PROJECT_ROOT, "package.json");
-  const content = await fs.readFile(packageJsonFile);
-  const packageJson = await readJson(packageJsonFile);
+  const packageJsonContent = await fs.readFile(packageJsonFile);
+  const packageJson = JSON.parse(packageJsonContent);
   await writeJson(packageJsonFile, {
     ...packageJson,
     version: `999.999.999-pr.${process.env.REVIEW_ID}`,
   });
 
   try {
-    await runYarn("build", ["--playground"], { cwd: PROJECT_ROOT });
+    await runYarn("build", ["--playground", "--clean"], {
+      cwd: PROJECT_ROOT,
+    });
   } finally {
     // restore
-    await writeFile(packageJsonFile, content);
+    await writeFile(packageJsonFile, packageJsonContent);
   }
 }
 
 async function buildPlaygroundFiles() {
-  const files = await globby(["standalone.js", "parser-*.js"], {
+  const files = await fastGlob(["standalone.js", "parser-*.js"], {
     cwd: PRETTIER_DIR,
   });
   const parsers = {};
   for (const fileName of files) {
     const file = path.join(PRETTIER_DIR, fileName);
-    await copyFile(file, path.join(PLAYGROUND_PRETTIER_DIR, fileName));
+    const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
+    await copyFile(file, dist);
 
     if (fileName === "standalone.js") {
       continue;
     }
 
-    const plugin = require(file);
+    const plugin = require(dist);
     // We add plugins to the global `prettierPlugins` object
     // the name after `parser-` is used as property
     // For example to get parsers in `parser-babel.js` via `prettierPlugins.babel`
@@ -74,7 +76,7 @@ async function buildPlaygroundFiles() {
 
   await writeFile(
     path.join(PLAYGROUND_PRETTIER_DIR, "parsers-location.js"),
-    prettier.format(
+    format(
       `
         "use strict";
 
@@ -85,19 +87,17 @@ async function buildPlaygroundFiles() {
   );
 }
 
-(async () => {
-  if (IS_PULL_REQUEST) {
-    console.log("Building prettier...");
-    await buildPrettier();
-  }
+if (IS_PULL_REQUEST) {
+  console.log("Building prettier...");
+  await buildPrettier();
+}
 
-  console.log("Preparing files for playground...");
-  await buildPlaygroundFiles();
+console.log("Preparing files for playground...");
+await buildPlaygroundFiles();
 
-  // --- Site ---
-  console.log("Installing website dependencies...");
-  await runYarn("install", [], { cwd: WEBSITE_DIR });
+// --- Site ---
+console.log("Installing website dependencies...");
+await runYarn("install", [], { cwd: WEBSITE_DIR });
 
-  console.log("Building website...");
-  await runYarn("build", [], { cwd: WEBSITE_DIR });
-})();
+console.log("Building website...");
+await runYarn("build", [], { cwd: WEBSITE_DIR });

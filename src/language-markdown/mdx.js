@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * modified from https://github.com/mdx-js/mdx/blob/master/packages/mdx
  *
@@ -75,8 +73,4 @@ function esSyntax() {
   inlineMethods.splice(inlineMethods.indexOf("text"), 0, "esComment");
 }
 
-module.exports = {
-  esSyntax,
-  BLOCKS_REGEX,
-  COMMENT_REGEX,
-};
+export { esSyntax, BLOCKS_REGEX, COMMENT_REGEX };

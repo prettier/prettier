@@ -2,6 +2,7 @@
 
 module.exports = {
   rules: {
+    "await-cli-tests": require("./await-cli-tests.js"),
     "better-parent-property-check-in-needs-parens": require("./better-parent-property-check-in-needs-parens.js"),
     "consistent-negative-index-access": require("./consistent-negative-index-access.js"),
     "directly-loc-start-end": require("./directly-loc-start-end.js"),
@@ -9,8 +10,10 @@ module.exports = {
     "jsx-identifier-case": require("./jsx-identifier-case.js"),
     "no-conflicting-comment-check-flags": require("./no-conflicting-comment-check-flags.js"),
     "no-doc-builder-concat": require("./no-doc-builder-concat.js"),
+    "no-doc-index-import": require("./no-doc-index-import.js"),
     "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break.js"),
     "no-identifier-n": require("./no-identifier-n.js"),
+    "no-legacy-format-test-fixtures": require("./no-legacy-format-test-fixtures.js"),
     "no-node-comments": require("./no-node-comments.js"),
     "no-unnecessary-ast-path-call": require("./no-unnecessary-ast-path-call.js"),
     "prefer-ast-path-each": require("./prefer-ast-path-each.js"),

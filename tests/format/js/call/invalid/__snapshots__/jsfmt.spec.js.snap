@@ -5,7 +5,16 @@ exports[`null-arguments-item.js [__babel_estree] format 1`] = `
 > 1 | foor('a', , 'b');
     |            ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
-  3 | foo(\\"a\\",
+  3 | foo("a",
+  4 |     //1"
+`;
+
+exports[`null-arguments-item.js [acorn] format 1`] = `
+"Unexpected token (1:11)
+> 1 | foor('a', , 'b');
+    |           ^
+  2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
+  3 | foo("a",
   4 |     //1"
 `;
 
@@ -14,7 +23,7 @@ exports[`null-arguments-item.js [babel] format 1`] = `
 > 1 | foor('a', , 'b');
     |            ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
-  3 | foo(\\"a\\",
+  3 | foo("a",
   4 |     //1"
 `;
 
@@ -23,15 +32,15 @@ exports[`null-arguments-item.js [espree] format 1`] = `
 > 1 | foor('a', , 'b');
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
-  3 | foo(\\"a\\",
+  3 | foo("a",
   4 |     //1"
 `;
 
 exports[`null-arguments-item.js [meriyah] format 1`] = `
-"[1:11]: Unexpected token: ',' (1:11)
+"Unexpected token: ',' (1:11)
 > 1 | foor('a', , 'b');
     |           ^
   2 | foo('looooooooooooooooooooooooooooooooooooooooooooooong', , 'looooooooooooooooooooooooooooooooooooooooooooooong');
-  3 | foo(\\"a\\",
+  3 | foo("a",
   4 |     //1"
 `;

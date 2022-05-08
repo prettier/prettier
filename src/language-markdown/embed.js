@@ -1,15 +1,11 @@
-"use strict";
-
-const {
+import {
   inferParserByLanguage,
   getMaxContinuousCount,
-} = require("../common/util.js");
-const {
-  builders: { hardline, markAsRoot },
-  utils: { replaceEndOfLine },
-} = require("../document/index.js");
-const printFrontMatter = require("../utils/front-matter/print.js");
-const { getFencedCodeBlockValue } = require("./utils.js");
+} from "../common/util.js";
+import { hardline, markAsRoot } from "../document/builders.js";
+import { replaceEndOfLine } from "../document/utils.js";
+import printFrontMatter from "../utils/front-matter/print.js";
+import { getFencedCodeBlockValue } from "./utils.js";
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -70,4 +66,4 @@ function embed(path, print, textToDoc, options) {
   return null;
 }
 
-module.exports = embed;
+export default embed;

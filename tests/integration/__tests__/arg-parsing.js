@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 
 expect.addSnapshotSerializer(jestPathSerializer);
@@ -93,4 +93,17 @@ describe("deprecated option values are warned", () => {
   runPrettier("cli/arg-parsing", ["file.js", "--jsx-bracket-same-line"]).test({
     status: 0,
   });
+});
+
+describe("options with `cliName` should not allow to pass directly", () => {
+  // `filepath` can only pass through `--stdin-filepath`
+  // `plugins` and `pluginSearchDirs` works the same
+  runPrettier("cli/arg-parsing", ["--stdin-filepath", "file.js"], {
+    isTTY: false,
+    input: "prettier()",
+  }).test({ status: 0, stderr: "", write: [] });
+  runPrettier("cli/arg-parsing", ["--filepath", "file.js"], {
+    isTTY: false,
+    input: "prettier()",
+  }).test({ status: 2, write: [] });
 });

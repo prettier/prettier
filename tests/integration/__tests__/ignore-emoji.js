@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
 
 expect.addSnapshotSerializer(jestPathSerializer);

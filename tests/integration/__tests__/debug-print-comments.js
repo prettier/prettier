@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("prints information for debugging comment attachment with --debug-print-comments", () => {
   runPrettier(

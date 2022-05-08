@@ -1,10 +1,6 @@
-"use strict";
-
-const {
-  builders: { hardline },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { hardline } from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxNode,
@@ -12,12 +8,12 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
-const { shouldPrintParamsWithoutParens } = require("./function.js");
+} from "../utils/index.js";
+import { shouldPrintParamsWithoutParens } from "./function.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
 function printStatementSequence(path, options, print, property) {
@@ -167,7 +163,8 @@ function printSwitchCaseConsequent(path, options, print) {
 const isClassProperty = ({ type }) =>
   type === "ClassProperty" ||
   type === "PropertyDefinition" ||
-  type === "ClassPrivateProperty";
+  type === "ClassPrivateProperty" ||
+  type === "ClassAccessorProperty";
 /**
  * @returns {boolean}
  */
@@ -245,7 +242,4 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-module.exports = {
-  printBody,
-  printSwitchCaseConsequent,
-};
+export { printBody, printSwitchCaseConsequent };

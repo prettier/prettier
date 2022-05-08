@@ -1,28 +1,29 @@
-"use strict";
-
-const {
-  printComments,
-  printDanglingComments,
-} = require("../../main/comments.js");
-const { getLast, isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { locStart } = require("../loc.js");
-const {
+import { printComments, printDanglingComments } from "../../main/comments.js";
+import { isNonEmptyArray } from "../../common/util.js";
+import {
+  group,
+  join,
+  line,
+  softline,
+  indent,
+  align,
+  ifBreak,
+} from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import { locStart } from "../loc.js";
+import {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils.js");
-const { printAssignment } = require("./assignment.js");
-const {
+} from "../utils/index.js";
+import { printAssignment } from "./assignment.js";
+import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters.js");
-const { printArrayItems } = require("./array.js");
+} from "./function-parameters.js";
+import { printArrayItems } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -289,7 +290,6 @@ function printTupleType(path, options, print) {
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
   const isNonEmptyTuple = isNonEmptyArray(types);
-  const hasRest = isNonEmptyTuple && getLast(types).type === "TSRestType";
   const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
   return group([
     "[",
@@ -297,9 +297,7 @@ function printTupleType(path, options, print) {
       bracketsDelimiterLine,
       printArrayItems(path, options, typesField, print),
     ]),
-    ifBreak(
-      isNonEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
-    ),
+    ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
     printDanglingComments(path, options, /* sameIndent */ true),
     bracketsDelimiterLine,
     "]",
@@ -314,7 +312,7 @@ function printIndexedAccessType(path, options, print) {
   return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
-module.exports = {
+export {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,

@@ -30,6 +30,41 @@ switch(x) {
   }
 }
 
+switch(x) {
+  default: // comment
+    break;
+}
+
+switch(x) {
+  default: // comment
+    {break;}
+}
+
+switch(x) {
+  default: {// comment
+    break;}
+}
+
+switch(x) {
+  default: /* comment */
+    break;
+}
+
+switch(x) {
+  default: /* comment */
+    {break;}
+}
+
+switch(x) {
+  default: {/* comment */
+    break;}
+}
+
+switch(x) {
+  default: /* comment */ {
+    break;}
+}
+
 =====================================output=====================================
 switch (true) {
   case true:
@@ -52,6 +87,49 @@ switch (x) {
   // other
 
   case y: {
+  }
+}
+
+switch (x) {
+  default: // comment
+    break;
+}
+
+switch (x) {
+  default: {
+    // comment
+    break;
+  }
+}
+
+switch (x) {
+  default: {
+    // comment
+    break;
+  }
+}
+
+switch (x) {
+  default: /* comment */
+    break;
+}
+
+switch (x) {
+  default: /* comment */ {
+    break;
+  }
+}
+
+switch (x) {
+  default: {
+    /* comment */
+    break;
+  }
+}
+
+switch (x) {
+  default: /* comment */ {
+    break;
   }
 }
 

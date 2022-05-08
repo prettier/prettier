@@ -1,8 +1,4 @@
-"use strict";
-
-const {
-  builders: { hardline, markAsRoot },
-} = require("../../document/index.js");
+import { hardline, markAsRoot } from "../../document/builders.js";
 
 function print(node, textToDoc) {
   if (node.lang === "yaml") {
@@ -20,4 +16,4 @@ function print(node, textToDoc) {
   }
 }
 
-module.exports = print;
+export default print;

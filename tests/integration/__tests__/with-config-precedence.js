@@ -1,4 +1,4 @@
-import runPrettier from "../runPrettier.js";
+import runPrettier from "../run-prettier.js";
 
 describe("CLI overrides take precedence without --config-precedence", () => {
   runPrettier("cli/config/", [

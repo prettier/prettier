@@ -1,5 +1,3 @@
-const flat = require("lodash/flatten");
-
 const urls = [
   "http://www.example.com:80/_a",
   "http://www.example.com:80/_a_",
@@ -68,11 +66,11 @@ const wrappers = [
   // (url) => `_* ${url} _*`,
 ];
 
-const cases = flat(urls.map((url) => wrappers.map((fn) => fn(url))));
+const cases = urls.flatMap((url) => wrappers.map((fn) => fn(url)));
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: cases.map((code) => ({ code, name: code })),
   },
   ["markdown"]

@@ -14,7 +14,7 @@ exports[`inline-comment.less [less] format 1`] = `
 exports[`open-double-quote.less [less] format 1`] = `
 "CssSyntaxError: Unclosed string (2:17)
   1 | a {
-> 2 | background: url(\\"
+> 2 | background: url("
     |                 ^
   3 | }
   4 |"

@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babel"], { errors: { meriyah: true } });
+run_spec(import.meta, ["babel"], { errors: { meriyah: true } });

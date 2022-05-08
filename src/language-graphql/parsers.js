@@ -1,7 +1,9 @@
-"use strict";
+import graphqlParser from "./parser-graphql.js";
 
-module.exports = {
+const parsers = {
   get graphql() {
-    return require("./parser-graphql.js").parsers.graphql;
+    return graphqlParser.parsers.graphql;
   },
 };
+
+export default parsers;

@@ -2,7 +2,7 @@
 
 exports[`default-escaped.ts [typescript] format 1`] = `
 "Declaration or statement expected. (1:1)
-> 1 | export asyn\\\\u{63} from \\"async\\";
+> 1 | export asyn\\u{63} from "async";
     | ^
   2 |"
 `;
@@ -23,11 +23,9 @@ exports[`invalid-jsx-1.ts [typescript] format 1`] = `
   4 |"
 `;
 
-exports[`issue-8773.ts [typescript] format 1`] = `"Comment \\"comment\\" was not printed. Please report this error!"`;
-
 exports[`module-attributes-static.ts [typescript] format 1`] = `
 "';' expected. (1:28)
-> 1 | import foo from \\"foo.json\\" with type: \\"json\\";
+> 1 | import foo from "foo.json" with type: "json";
     |                            ^
   2 |"
 `;
@@ -54,25 +52,25 @@ exports[`snippet: #1 [typescript] format 1`] = `
 
 exports[`snippet: #2 [typescript] format 1`] = `
 "':' expected. (1:21)
-> 1 | let x3 = <div>{\\"foo\\"}}</div>;
+> 1 | let x3 = <div>{"foo"}}</div>;
     |                     ^"
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
 "':' expected. (1:21)
-> 1 | let x4 = <div>{\\"foo\\"}></div>;
+> 1 | let x4 = <div>{"foo"}></div>;
     |                     ^"
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
 "Expression expected. (1:15)
-> 1 | let x5 = <div>}{\\"foo\\"}</div>;
+> 1 | let x5 = <div>}{"foo"}</div>;
     |               ^"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
 "Expression expected. (1:15)
-> 1 | let x6 = <div>>{\\"foo\\"}</div>;
+> 1 | let x6 = <div>>{"foo"}</div>;
     |               ^"
 `;
 

@@ -1,11 +1,13 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../../common/parser-create-error.js";
+import createParser from "./utils/create-parser.js";
+import replaceHashbang from "./utils/replace-hashbang.js";
+import postprocess from "./postprocess/index.js";
 
-const createError = require("../../common/parser-create-error.js");
-const createParser = require("./utils/create-parser.js");
-const replaceHashbang = require("./utils/replace-hashbang.js");
-const postprocess = require("./postprocess/index.js");
+const require = createRequire(import.meta.url);
 
-// https://github.com/facebook/flow/tree/master/packages/flow-parser#options
+// https://github.com/facebook/flow/tree/main/packages/flow-parser#options
+// Keep this sync with `/scripts/sync-flow-test.js`
 const parseOptions = {
   // `all_comments` (boolean, default `true`) - include a list of all comments from the whole program
   // all_comments: true,
@@ -13,23 +15,15 @@ const parseOptions = {
   comments: false,
   // `enums` (boolean, default `false`) - enable parsing of Flow enums
   enums: true,
-  // `esproposal_class_instance_fields` (boolean, default `false`) - enable parsing of class instance fields
-  esproposal_class_instance_fields: true,
-  // `esproposal_class_static_fields` (boolean, default `false`) - enable parsing of class static fields
-  esproposal_class_static_fields: true,
   // `esproposal_decorators` (boolean, default `false`) - enable parsing of decorators
   esproposal_decorators: true,
   // `esproposal_export_star_as` (boolean, default `false`) - enable parsing of `export * as` syntax
   esproposal_export_star_as: true,
-  // `esproposal_nullish_coalescing` (boolean, default `false`) - enable parsing of nullish coalescing (`??`)
-  esproposal_nullish_coalescing: true,
-  // `esproposal_optional_chaining` (boolean, default `false`) - enable parsing of optional chaining (`?.`)
-  esproposal_optional_chaining: true,
   // `types` (boolean, default `true`) - enable parsing of Flow types
   // types: true,
   // `use_strict` (boolean, default `false`) - treat the file as strict, without needing a "use strict" directive
   // use_strict: false,
-  // Not documented
+  // `tokens` (boolean, default `false`) - include a list of all parsed tokens in a top-level `tokens` property
   tokens: true,
 };
 
@@ -47,8 +41,8 @@ function createParseError(error) {
 
 function parse(text, parsers, options = {}) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("flow-parser");
-  const ast = parse(replaceHashbang(text), parseOptions);
+  const flow = require("flow-parser");
+  const ast = flow.parse(replaceHashbang(text), parseOptions);
   const [error] = ast.errors;
   if (error) {
     throw createParseError(error);
@@ -59,8 +53,10 @@ function parse(text, parsers, options = {}) {
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
-module.exports = {
+const parser = {
   parsers: {
     flow: createParser(parse),
   },
 };
+
+export default parser;

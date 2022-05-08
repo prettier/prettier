@@ -1,12 +1,17 @@
-/.cache
+# node_modules
+# We have `node_modules` directory for tests, don't ignore them all
 /node_modules
+/website/node_modules
 /scripts/release/node_modules
+/scripts/tools/bundle-test/node_modules
+/scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
+
+.tmp
 *.log
 /errors
 /test*.*
 /.vscode
 /dist
-/website/node_modules
 /website/build
 /website/i18n
 /website/static/playground.js
@@ -15,12 +20,15 @@
 /coverage
 .idea
 package-lock.json
-.yarn/*
+**/.yarn/*
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
 .nyc_output
-/scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
 .devcontainer
+
+# Temporarily ignore these files to avoid conflicts between next and main branch
+/vendors
+/scripts/vendors

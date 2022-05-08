@@ -1,30 +1,26 @@
-"use strict";
-
-const { hasNewlineInRange } = require("../../common/util.js");
-const {
+import { hasNewlineInRange } from "../../common/util.js";
+import {
   isJsxNode,
-  isBlockComment,
   getComments,
   isCallExpression,
   isMemberExpression,
-} = require("../utils.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
-  builders: {
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    dedent,
-    breakParent,
-  },
-} = require("../../document/index.js");
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import isBlockComment from "../utils/is-block-comment.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  ifBreak,
+  dedent,
+  breakParent,
+} from "../../document/builders.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)
  */
@@ -352,4 +348,4 @@ function printTernary(path, options, print) {
     : result;
 }
 
-module.exports = { printTernary };
+export { printTernary };

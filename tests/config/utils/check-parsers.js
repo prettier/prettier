@@ -1,7 +1,8 @@
-"use strict";
+import path from "node:path";
+import { outdent } from "outdent";
+import createEsmUtils from "esm-utils";
 
-const path = require("path");
-const { outdent } = require("outdent");
+const { __dirname, __filename } = createEsmUtils(import.meta);
 
 const TESTS_ROOT = path.join(__dirname, "../../format");
 
@@ -50,11 +51,12 @@ const categoryParsers = new Map([
   [
     "js",
     {
-      parsers: ["babel", "meriyah", "espree"],
+      parsers: ["babel", "acorn", "espree", "meriyah"],
       verifyParsers: [
         "babel",
-        "meriyah",
+        "acorn",
         "espree",
+        "meriyah",
         "flow",
         "babel-flow",
         "typescript",
@@ -162,13 +164,13 @@ const checkParser = ({ dirname, files }, parsers = []) => {
       suggestCategories.length === 0
         ? ""
         : outdent`
-            Suggest move your tests to:
-            ${suggestCategories
-              .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
-              .join("\n")}
+          Suggest move your tests to:
+          ${suggestCategories
+            .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
+            .join("\n")}
 
-            Or config to allow use this parser in "${__filename}".
-          `;
+          Or config to allow use this parser in "${__filename}".
+        `;
 
     throw new Error(
       `Parser "${parser}" should not used in "${dirname}".${
@@ -204,4 +206,4 @@ const checkParser = ({ dirname, files }, parsers = []) => {
   }
 };
 
-module.exports = checkParser;
+export default checkParser;

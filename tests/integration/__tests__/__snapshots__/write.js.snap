@@ -27,8 +27,8 @@ exports[`write file with --write + unformatted file (stdout) 1`] = `
 `;
 
 exports[`write file with --write + unformatted file (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",
@@ -44,8 +44,8 @@ exports[`write file with -w + unformatted file (stdout) 1`] = `
 `;
 
 exports[`write file with -w + unformatted file (write) 1`] = `
-Array [
-  Object {
+[
+  {
     "content": "var x = 1;
 ",
     "filename": "unformatted.js",

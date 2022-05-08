@@ -1,37 +1,33 @@
-"use strict";
-
-const {
+import {
   getLast,
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
   isNonEmptyArray,
-} = require("../common/util.js");
-const {
-  builders: {
-    breakParent,
-    join,
-    line,
-    literalline,
-    markAsRoot,
-    hardline,
-    softline,
-    ifBreak,
-    fill,
-    align,
-    indent,
-    group,
-    hardlineWithoutBreakParent,
-  },
-  utils: { normalizeDoc, replaceTextEndOfLine },
-  printer: { printDocToString },
-} = require("../document/index.js");
-const embed = require("./embed.js");
-const { insertPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
-const preprocess = require("./print-preprocess.js");
-const clean = require("./clean.js");
-const {
+} from "../common/util.js";
+import {
+  breakParent,
+  join,
+  line,
+  literalline,
+  markAsRoot,
+  hardline,
+  softline,
+  ifBreak,
+  fill,
+  align,
+  indent,
+  group,
+  hardlineWithoutBreakParent,
+} from "../document/builders.js";
+import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { printDocToString } from "../document/printer.js";
+import embed from "./embed.js";
+import { insertPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
+import preprocess from "./print-preprocess.js";
+import clean from "./clean.js";
+import {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
   splitText,
@@ -39,10 +35,10 @@ const {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-} = require("./utils.js");
+} from "./utils.js";
 
 /**
- * @typedef {import("../document").Doc} Doc
+ * @typedef {import("../document/builders.js").Doc} Doc
  */
 
 const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
@@ -782,7 +778,7 @@ function isPrettierIgnore(node) {
     }
   }
 
-  return match ? (match[1] ? match[1] : "next") : false;
+  return match ? match[1] || "next" : false;
 }
 
 function shouldPrePrintHardline(node, data) {
@@ -804,21 +800,19 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.parentNode.type === "listItem" && !data.parentNode.loose;
 
   const isPrevNodeLooseListItem =
-    data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
+    data.prevNode?.type === "listItem" && data.prevNode.loose;
 
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
-    data.prevNode &&
-    data.prevNode.type === "html" &&
+    data.prevNode?.type === "html" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
     data.parentNode.type === "listItem" &&
-    data.prevNode &&
-    data.prevNode.type === "paragraph" &&
+    data.prevNode?.type === "paragraph" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
   return (
@@ -915,7 +909,7 @@ function hasPrettierIgnore(path) {
   return isPrettierIgnore(prevNode) === "next";
 }
 
-module.exports = {
+const printer = {
   preprocess,
   print: genericPrint,
   embed,
@@ -923,3 +917,5 @@ module.exports = {
   hasPrettierIgnore,
   insertPragma,
 };
+
+export default printer;

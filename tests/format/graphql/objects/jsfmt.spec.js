@@ -1,1 +1,1 @@
-run_spec(__dirname, ["graphql"]);
+run_spec(import.meta, ["graphql"]);

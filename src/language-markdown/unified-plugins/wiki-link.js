@@ -1,5 +1,3 @@
-"use strict";
-
 function wikiLink() {
   const entityType = "wikiLink";
   const wikiLinkRegex = /^\[\[(?<linkContents>.+?)]]/s;
@@ -26,4 +24,4 @@ function wikiLink() {
   };
 }
 
-module.exports = wikiLink;
+export default wikiLink;

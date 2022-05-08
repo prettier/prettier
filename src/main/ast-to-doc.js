@@ -1,12 +1,8 @@
-"use strict";
-
-const AstPath = require("../common/ast-path.js");
-const {
-  builders: { hardline, addAlignmentToDoc },
-  utils: { propagateBreaks },
-} = require("../document/index.js");
-const { printComments } = require("./comments.js");
-const multiparser = require("./multiparser.js");
+import AstPath from "../common/ast-path.js";
+import { hardline, addAlignmentToDoc } from "../document/builders.js";
+import { propagateBreaks } from "../document/utils.js";
+import { printComments } from "./comments.js";
+import { printSubtree } from "./multiparser.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -119,7 +115,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
     if (node) {
       try {
         // Potentially switch to a different parser
-        doc = multiparser.printSubtree(path, printPath, options, printAstToDoc);
+        doc = printSubtree(path, printPath, options, printAstToDoc);
       } catch (error) {
         /* istanbul ignore if */
         if (process.env.PRETTIER_DEBUG) {
@@ -148,4 +144,4 @@ function callPluginPrintFunction(path, options, printPath, args) {
   return doc;
 }
 
-module.exports = printAstToDoc;
+export default printAstToDoc;

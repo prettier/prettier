@@ -1,23 +1,25 @@
-"use strict";
-
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-const assert = require("assert");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line, softline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
+import assert from "node:assert";
+import { isNonEmptyArray } from "../../common/util.js";
+import {
+  indent,
+  join,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
+import { locStart, locEnd } from "../loc.js";
+import {
   isTextLikeNode,
   getLastDescendant,
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
-} = require("../utils.js");
+} from "../utils/index.js";
 
 function printClosingTag(node, options) {
   return [
@@ -251,11 +253,14 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
+  const attributeLine =
+    options.singleAttributePerLine && node.attrs.length > 1 ? hardline : line;
+
   /** @type {Doc[]} */
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
-      join(line, printedAttributes),
+      join(attributeLine, printedAttributes),
     ]),
   ];
 
@@ -361,7 +366,7 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-module.exports = {
+export {
   printClosingTag,
   printClosingTagStart,
   printClosingTagStartMarker,
