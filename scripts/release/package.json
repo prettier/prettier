@@ -5,7 +5,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
-    "chalk": "4.1.2",
+    "chalk": "5.0.1",
     "enquirer": "2.3.6",
     "execa": "6.1.0",
     "minimist": "1.2.6",
