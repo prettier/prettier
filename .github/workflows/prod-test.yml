@@ -138,7 +138,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.2
 
       - name: Setup Node.js
         uses: actions/setup-node@v2.5.1
