@@ -3421,12 +3421,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-utils@npm:3.1.1":
-  version: 3.1.1
-  resolution: "esm-utils@npm:3.1.1"
+"esm-utils@npm:3.2.0":
+  version: 3.2.0
+  resolution: "esm-utils@npm:3.2.0"
   dependencies:
     url-or-path: 2.1.0
-  checksum: a8978f39e956cd1d57fb5dc14888735412fff703fdfda46b62900a83b2b00b3b1c5d4d4846a684d3a9eb1b8d60cc5c926733e20b10e4724c4d565312ab682124
+  checksum: 62f703653d8f6a99edd29ec67933378b4850f0dcb448711223e4f3813d34a73ed72a41d8d215b1d9fbe8fa71cb72f0d33f25a9561dc80195ddc7d72d4f7b9d7e
   languageName: node
   linkType: hard
 
@@ -6604,7 +6604,7 @@ __metadata:
     eslint-plugin-react: 7.29.4
     eslint-plugin-regexp: 1.7.0
     eslint-plugin-unicorn: 42.0.0
-    esm-utils: 3.1.1
+    esm-utils: 3.2.0
     espree: 9.3.1
     esutils: 2.0.3
     execa: 6.1.0
