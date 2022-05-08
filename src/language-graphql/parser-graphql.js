@@ -59,19 +59,7 @@ function createParseError(error) {
 
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
-<<<<<<< HEAD
   const { parse } = require("graphql/language/parser");
-=======
-  const { parse: parseGraphql } = require("graphql/language/parser");
-  const { result: ast, error } = tryCombinations(
-    () => parseGraphql(text, { ...parseOptions }),
-    () =>
-      parseGraphql(text, {
-        ...parseOptions,
-        allowLegacySDLImplementsInterfaces: true,
-      })
-  );
->>>>>>> remotes/upstream/renovate/graphql-16.x
 
   /** @type {any} */
   let ast;
