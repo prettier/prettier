@@ -3,4 +3,6 @@
   labels: ["scope:dependency"],
   baseBranches: ["next"],
   schedule: ["after 01:00 on sunday"],
+  rebaseStalePrs: "behind-base-branch",
+  postUpdateOptions: ["yarnDedupeHighest"],
 }
