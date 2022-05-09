@@ -9,7 +9,7 @@ const stringify = require("fast-json-stable-stringify");
 const { version: prettierVersion } = require("../index.js");
 const { createHash } = require("./utils.js");
 
-const configHashCache = new WeakMap();
+const optionsHashCache = new WeakMap();
 const nodeVersion = process && process.version;
 
 /**
@@ -17,10 +17,14 @@ const nodeVersion = process && process.version;
  * @returns {string}
  */
 function getHashOfOptions(options) {
-  if (configHashCache.has(options)) {
-    return configHashCache.get(options);
+  if (optionsHashCache.has(options)) {
+    return optionsHashCache.get(options);
   }
-  return createHash(`${prettierVersion}_${nodeVersion}_${stringify(options)}`);
+  const hash = createHash(
+    `${prettierVersion}_${nodeVersion}_${stringify(options)}`
+  );
+  optionsHashCache.set(options, hash);
+  return hash;
 }
 
 /**
