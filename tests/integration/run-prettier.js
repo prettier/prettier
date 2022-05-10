@@ -1,138 +1,92 @@
-import fs from "node:fs";
 import path from "node:path";
+import { Worker } from "node:worker_threads";
 import stripAnsi from "strip-ansi";
 import createEsmUtils from "esm-utils";
 import { prettierCli, thirdParty } from "./env.js";
 
-const { __dirname, require, __filename } = createEsmUtils(import.meta);
-const { jest } = import.meta;
+const { __dirname, require } = createEsmUtils(import.meta);
+const CLI_WORKER_FILE = require.resolve("./cli-worker.js");
 
-async function run(dir, args, options) {
-  args = Array.isArray(args) ? args : [args];
+const streamToString = (stream) =>
+  new Promise((resolve, reject) => {
+    let result = "";
 
-  let status;
-  let stdout = "";
-  let stderr = "";
+    stream.on("data", (data) => {
+      result += data.toString();
+    });
 
-  jest.spyOn(process, "exit").mockImplementation((exitCode) => {
-    if (status === undefined) {
-      status = exitCode || 0;
+    stream.on("end", () => {
+      resolve(result);
+    });
+
+    stream.on("error", (error) => {
+      reject(error);
+    });
+  });
+
+function runCliWorker(dir, args, options) {
+  const result = {
+    status: undefined,
+    stdout: "",
+    stderr: "",
+    write: [],
+  };
+
+  const worker = new Worker(CLI_WORKER_FILE, {
+    argv: args,
+    execArgv: ["--trace-deprecation"],
+    stdout: true,
+    stderr: true,
+    env: {
+      PRETTIER_DIR: process.env.PRETTIER_DIR,
+    },
+    workerData: {
+      dir,
+      prettierCli,
+      thirdParty,
+      options,
+    },
+    trackUnmanagedFds: false,
+  });
+
+  worker.on("message", ({ action, data }) => {
+    if (action === "write-file") {
+      result.write.push(data);
     }
   });
 
-  jest
-    .spyOn(process.stdout, "write")
-    .mockImplementation((text) => appendStdout(text));
-
-  jest
-    .spyOn(process.stderr, "write")
-    .mockImplementation((text) => appendStderr(text));
-
-  jest
-    .spyOn(console, "log")
-    .mockImplementation((text) => appendStdout(text + "\n"));
-
-  jest
-    .spyOn(console, "warn")
-    .mockImplementation((text) => appendStderr(text + "\n"));
-
-  jest
-    .spyOn(console, "error")
-    .mockImplementation((text) => appendStderr(text + "\n"));
-
-  jest.spyOn(Date, "now").mockImplementation(() => 0);
-
-  const write = [];
-
-  jest
-    .spyOn(fs.promises, "writeFile")
-    // eslint-disable-next-line require-await
-    .mockImplementation(async (filename, content) => {
-      write.push({ filename, content });
+  return new Promise((resolve, reject) => {
+    worker.on("exit", async (code) => {
+      result.status = code;
+      result.stdout = await streamToString(worker.stdout);
+      result.stderr = await streamToString(worker.stderr);
+      resolve(result);
     });
 
-  /*
-    A fake non-existing directory to test plugin search won't crash.
+    worker.on("error", (error) => {
+      reject(error);
+    });
 
-    See:
-    - `isDirectory` function in `src/common/load-plugins.js`
-    - Test file `./__tests__/plugin-virtual-directory.js`
-    - Pull request #5819
-  */
-  const originalStat = fs.promises.stat;
-  jest
-    .spyOn(fs.promises, "stat")
-    .mockImplementation((filename) =>
-      originalStat(
-        path.basename(filename) === "virtualDirectory" ? __filename : filename
-      )
-    );
+    worker.postMessage("run");
+  });
+}
 
-  const originalCwd = process.cwd();
-  const originalArgv = process.argv;
-  const originalExitCode = process.exitCode;
-  const originalStdinIsTTY = process.stdin.isTTY;
-  const originalStdoutIsTTY = process.stdout.isTTY;
+async function run(dir, args, options) {
+  dir = normalizeDir(dir);
+  args = Array.isArray(args) ? args : [args];
 
-  process.chdir(normalizeDir(dir));
-  process.stdin.isTTY = Boolean(options.isTTY);
-  process.stdout.isTTY = Boolean(options.stdoutIsTTY);
-  process.argv = ["path/to/node", "path/to/prettier/bin", ...args];
-
-  jest.resetModules();
-
-  // We cannot use `jest.setMock("get-stream", impl)` here, because in the
-  // production build everything is bundled into one file so there is no
-  // "get-stream" module to mock.
-  jest
-    .spyOn(require(thirdParty), "getStdin")
-    // eslint-disable-next-line require-await
-    .mockImplementation(async () => options.input || "");
-  jest
-    .spyOn(require(thirdParty), "isCI")
-    .mockImplementation(() => Boolean(options.ci));
-  jest
-    .spyOn(require(thirdParty), "cosmiconfig")
-    .mockImplementation((moduleName, options) =>
-      require("cosmiconfig").cosmiconfig(moduleName, {
-        ...options,
-        stopDir: path.join(__dirname, "cli"),
-      })
-    );
-  jest
-    .spyOn(require(thirdParty), "findParentDir")
-    .mockImplementation(() => process.cwd());
+  // Worker doesn't support `chdir`
+  const cwd = process.cwd();
+  process.chdir(dir);
 
   try {
-    await require(prettierCli).promise;
-    status = (status === undefined ? process.exitCode : status) || 0;
-  } catch (error) {
-    status = 1;
-    stderr += error.message;
+    return await runCliWorker(dir, args, options, cwd);
   } finally {
-    process.chdir(originalCwd);
-    process.argv = originalArgv;
-    process.exitCode = originalExitCode;
-    process.stdin.isTTY = originalStdinIsTTY;
-    process.stdout.isTTY = originalStdoutIsTTY;
-    jest.restoreAllMocks();
-  }
-
-  return { status, stdout, stderr, write };
-
-  function appendStdout(text) {
-    if (status === undefined) {
-      stdout += text;
-    }
-  }
-  function appendStderr(text) {
-    if (status === undefined) {
-      stderr += text;
-    }
+    process.chdir(cwd);
   }
 }
 
-let hasRunningCli = false;
+let runningCli;
 function runPrettier(dir, args = [], options = {}) {
   let promise;
   const getters = {
@@ -157,15 +111,15 @@ function runPrettier(dir, args = [], options = {}) {
   return getters;
 
   function runCli() {
-    if (hasRunningCli) {
+    if (runningCli) {
       throw new Error("Please wait for previous CLI to exit.");
     }
 
     if (!promise) {
-      hasRunningCli = true;
       promise = run(dir, args, options).finally(() => {
-        hasRunningCli = false;
+        runningCli = undefined;
       });
+      runningCli = promise;
     }
     return promise;
   }
