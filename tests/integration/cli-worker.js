@@ -1,6 +1,7 @@
 import { workerData, parentPort } from "node:worker_threads";
 import fs from "node:fs";
 import path from "node:path";
+import url from "node:url";
 import createEsmUtils from "esm-utils";
 
 const { __dirname, require } = createEsmUtils(import.meta);
@@ -51,7 +52,7 @@ async function run() {
     });
   thirdParty.findParentDir = () => process.cwd();
 
-  const { promise } = await import(prettierCli);
+  const { promise } = await import(url.pathToFileURL(prettierCli));
   await promise;
 }
 
