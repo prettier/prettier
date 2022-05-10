@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
+import resolveCwd from "resolve-cwd";
 import partition from "../utils/partition.js";
 import uniqByKey from "../utils/uniq-by-key.js";
 import thirdParty from "./third-party.cjs";
@@ -48,12 +49,10 @@ async function load(plugins, pluginSearchDirs) {
       let requirePath;
       try {
         // try local files
-        requirePath = resolve(path.resolve(process.cwd(), pluginName), {
-          paths: [process.cwd()],
-        });
+        requirePath = resolveCwd(path.resolve(process.cwd(), pluginName));
       } catch {
         // try node modules
-        requirePath = resolve(pluginName, { paths: [process.cwd()] });
+        requirePath = resolveCwd(pluginName);
       }
 
       return {

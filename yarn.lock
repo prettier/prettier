@@ -6673,6 +6673,7 @@ __metadata:
     remark-math: 3.0.1
     remark-parse: 8.0.3
     resolve: 1.22.0
+    resolve-cwd: 3.0.0
     rimraf: 3.0.2
     rollup-plugin-license: 2.7.0
     semver: 7.3.7
@@ -6962,7 +6963,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve-cwd@npm:^3.0.0":
+"resolve-cwd@npm:3.0.0, resolve-cwd@npm:^3.0.0":
   version: 3.0.0
   resolution: "resolve-cwd@npm:3.0.0"
   dependencies:
