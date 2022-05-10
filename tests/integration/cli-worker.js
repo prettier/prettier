@@ -35,6 +35,7 @@ async function run() {
 
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
+  process.cwd = () => workerData.dir;
 
   const thirdParty = require(thirdPartyModuleFile);
 
