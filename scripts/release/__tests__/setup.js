@@ -1,4 +1,4 @@
-import { jest } from "@jest/globals";
+const { jest } = import.meta;
 
 jest.unstable_mockModule("../get-formatted-date", () => ({
   default: () => ({

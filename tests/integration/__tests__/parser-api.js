@@ -2,8 +2,8 @@
 import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 
-test("allows custom parser provided as object", () => {
-  const output = prettier.format("1", {
+test("allows custom parser provided as object", async () => {
+  const output = await prettier.format("1", {
     parser(text) {
       expect(text).toBe("1");
       return {
@@ -16,8 +16,8 @@ test("allows custom parser provided as object", () => {
   expect(output).toBe("2");
 });
 
-test("allows usage of prettier's supported parsers", () => {
-  const output = prettier.format("foo ( )", {
+test("allows usage of prettier's supported parsers", async () => {
+  const output = await prettier.format("foo ( )", {
     parser(text, parsers) {
       expect(typeof parsers.babel).toBe("function");
       const ast = parsers.babel(text);
@@ -28,10 +28,10 @@ test("allows usage of prettier's supported parsers", () => {
   expect(output).toBe("bar();\n");
 });
 
-test("parsers should allow omit optional arguments", () => {
+test("parsers should allow omit optional arguments", async () => {
   let parsers;
   try {
-    prettier.format("{}", {
+    await prettier.format("{}", {
       parser(text, builtinParsers) {
         parsers = builtinParsers;
       },
@@ -55,8 +55,8 @@ test("parsers should allow omit optional arguments", () => {
   }
 });
 
-test("allows add empty `trailingComments` array", () => {
-  const output = prettier.format("(foo /* comment */)( )", {
+test("allows add empty `trailingComments` array", async () => {
+  const output = await prettier.format("(foo /* comment */)( )", {
     parser(text, parsers) {
       const ast = parsers.babel(text);
 

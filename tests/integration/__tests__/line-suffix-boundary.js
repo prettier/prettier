@@ -7,7 +7,7 @@ const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;
 
 describe("lineSuffixBoundary", () => {
-  test("should be correctly treated as a potential line break in `fits`", () => {
+  test("should be correctly treated as a potential line break in `fits`", async () => {
     const doc = group([
       "let foo = [",
       indent([
@@ -30,6 +30,6 @@ describe("lineSuffixBoundary", () => {
       ];
     `;
 
-    expect(printDoc(doc)).toBe(expected);
+    expect(await printDoc(doc)).toBe(expected);
   });
 });

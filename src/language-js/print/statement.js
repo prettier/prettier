@@ -1,4 +1,4 @@
-import doc from "../../document/index.js";
+import { hardline } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getLeftSidePathName,
@@ -11,13 +11,9 @@ import {
 } from "../utils/index.js";
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
-const {
-  builders: { hardline },
-} = doc;
-
 /**
- * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
 function printStatementSequence(path, options, print, property) {

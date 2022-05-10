@@ -1,15 +1,14 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import chalk from "chalk";
-import prettier from "../index.js";
+import * as prettier from "../index.js";
 import thirdParty from "../common/third-party.cjs";
-import prettierInternal from "./prettier-internal.js";
+import { createIgnorer, errors } from "./prettier-internal.js";
 import { expandPatterns, fixWindowsSlashes } from "./expand-patterns.js";
 import getOptionsForFile from "./options/get-options-for-file.js";
 import isTTY from "./is-tty.js";
 
 const { getStdin } = thirdParty;
-const { createIgnorer, errors } = prettierInternal;
 
 let createTwoFilesPatch;
 async function diff(a, b) {
@@ -77,7 +76,7 @@ function writeOutput(context, result, options) {
   }
 }
 
-function listDifferent(context, input, options, filename) {
+async function listDifferent(context, input, options, filename) {
   if (!context.argv.check && !context.argv.listDifferent) {
     return;
   }
@@ -88,7 +87,7 @@ function listDifferent(context, input, options, filename) {
         "No parser and no file path given, couldn't infer a parser."
       );
     }
-    if (!prettier.check(input, options)) {
+    if (!(await prettier.check(input, options))) {
       if (!context.argv.write) {
         context.logger.log(filename);
         process.exitCode = 1;
@@ -101,16 +100,6 @@ function listDifferent(context, input, options, filename) {
   return true;
 }
 
-function getPerformanceTestFlag(context) {
-  if (context.argv.debugBenchmark) {
-    return "--debug-benchmark";
-  }
-
-  if (context.argv.debugRepeat > 0) {
-    return "--debug-repeat";
-  }
-}
-
 async function format(context, input, opt) {
   if (!opt.parser && !opt.filepath) {
     throw new errors.UndefinedParserError(
@@ -119,29 +108,31 @@ async function format(context, input, opt) {
   }
 
   if (context.argv.debugPrintDoc) {
-    const doc = prettier.__debug.printToDoc(input, opt);
-    return { formatted: prettier.__debug.formatDoc(doc) + "\n" };
+    const doc = await prettier.__debug.printToDoc(input, opt);
+    return { formatted: (await prettier.__debug.formatDoc(doc)) + "\n" };
   }
 
   if (context.argv.debugPrintComments) {
     return {
-      formatted: prettier.format(
-        JSON.stringify(prettier.formatWithCursor(input, opt).comments || []),
+      formatted: await prettier.format(
+        JSON.stringify(
+          (await prettier.formatWithCursor(input, opt)).comments || []
+        ),
         { parser: "json" }
       ),
     };
   }
 
   if (context.argv.debugPrintAst) {
-    const { ast } = prettier.__debug.parse(input, opt);
+    const { ast } = await prettier.__debug.parse(input, opt);
     return {
       formatted: JSON.stringify(ast),
     };
   }
 
   if (context.argv.debugCheck) {
-    const pp = prettier.format(input, opt);
-    const pppp = prettier.format(pp, opt);
+    const pp = await prettier.format(input, opt);
+    const pppp = await prettier.format(pp, opt);
     if (pp !== pppp) {
       throw new errors.DebugError(
         "prettier(input) !== prettier(prettier(input))\n" +
@@ -150,10 +141,10 @@ async function format(context, input, opt) {
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
-        prettier.__debug.parse(input, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(input, opt, /* massage */ true)).ast
       );
       const past = stringify(
-        prettier.__debug.parse(pp, opt, /* massage */ true).ast
+        (await prettier.__debug.parse(pp, opt, /* massage */ true)).ast
       );
 
       /* istanbul ignore next */
@@ -190,22 +181,28 @@ async function format(context, input, opt) {
       "'--debug-benchmark' option found, measuring formatWithCursor with 'benchmark' module."
     );
     const suite = new benchmark.Suite();
-    suite
-      .add("format", () => {
-        prettier.formatWithCursor(input, opt);
-      })
-      .on("cycle", (event) => {
-        const results = {
-          benchmark: String(event.target),
-          hz: event.target.hz,
-          ms: event.target.times.cycle * 1000,
-        };
-        context.logger.debug(
-          "'--debug-benchmark' measurements for formatWithCursor: " +
-            JSON.stringify(results, null, 2)
-        );
-      })
-      .run({ async: false });
+    suite.add("format", {
+      defer: true,
+      async fn(deferred) {
+        await prettier.formatWithCursor(input, opt);
+        deferred.resolve();
+      },
+    });
+    const result = await new Promise((resolve) => {
+      suite
+        .on("complete", (event) => {
+          resolve({
+            benchmark: String(event.target),
+            hz: event.target.hz,
+            ms: event.target.times.cycle * 1000,
+          });
+        })
+        .run({ async: false });
+    });
+    context.logger.debug(
+      "'--debug-benchmark' measurements for formatWithCursor: " +
+        JSON.stringify(result, null, 2)
+    );
   } else if (context.argv.debugRepeat > 0) {
     const repeat = context.argv.debugRepeat;
     context.logger.debug(
@@ -217,7 +214,7 @@ async function format(context, input, opt) {
     for (let i = 0; i < repeat; ++i) {
       // should be using `performance.now()`, but only `Date` is cross-platform enough
       const startMs = Date.now();
-      prettier.formatWithCursor(input, opt);
+      await prettier.formatWithCursor(input, opt);
       totalMs += Date.now() - startMs;
     }
     const averageMs = totalMs / repeat;
@@ -272,16 +269,16 @@ async function formatStdin(context) {
 
     const options = await getOptionsForFile(context, filepath);
 
-    if (listDifferent(context, input, options, "(stdin)")) {
+    if (await listDifferent(context, input, options, "(stdin)")) {
       return;
     }
 
     const formatted = await format(context, input, options);
 
-    const performanceTestFlag = getPerformanceTestFlag(context);
+    const { performanceTestFlag } = context;
     if (performanceTestFlag) {
       context.logger.log(
-        `'${performanceTestFlag}' option found, skipped print code to screen.`
+        `'${performanceTestFlag.name}' option found, skipped print code to screen.`
       );
       return;
     }
@@ -299,7 +296,7 @@ async function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv.check && !getPerformanceTestFlag(context)) {
+  if (context.argv.check && !context.performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
@@ -388,10 +385,10 @@ async function formatFiles(context) {
       printedFilename.clear();
     }
 
-    const performanceTestFlag = getPerformanceTestFlag(context);
+    const { performanceTestFlag } = context;
     if (performanceTestFlag) {
       context.logger.log(
-        `'${performanceTestFlag}' option found, skipped print code or write files.`
+        `'${performanceTestFlag.name}' option found, skipped print code or write files.`
       );
       return;
     }

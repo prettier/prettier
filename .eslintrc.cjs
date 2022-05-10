@@ -20,9 +20,6 @@ module.exports = {
     "unicorn",
     "@typescript-eslint",
   ],
-  settings: {
-    "import/internal-regex": "^linguist-languages/",
-  },
   rules: {
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
@@ -104,7 +101,12 @@ module.exports = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        devDependencies: ["jest.config.mjs", "tests/**", "scripts/**"],
+        devDependencies: [
+          "jest.config.mjs",
+          "tests/**",
+          "scripts/**",
+          "website/**/*",
+        ],
       },
     ],
     "import/order": "error",
@@ -144,6 +146,12 @@ module.exports = {
     ],
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-export-from": [
+      "error",
+      {
+        ignoreUsedVariables: true,
+      },
+    ],
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-json-parse-buffer": "error",
     "unicorn/prefer-module": "error",
@@ -161,24 +169,7 @@ module.exports = {
     "unicorn/text-encoding-identifier-case": "error",
   },
   overrides: [
-    {
-      files: [
-        "scripts/**/*.js",
-        "scripts/**/*.cjs",
-        "scripts/**/*.mjs",
-        "tests/config/install-prettier.js",
-      ],
-      rules: {
-        "no-console": "off",
-      },
-    },
     // CommonJS modules
-    {
-      files: ["scripts/**/*.mjs"],
-      rules: {
-        "unicorn/prefer-top-level-await": "error",
-      },
-    },
     {
       files: [
         "**/*.cjs",
@@ -192,6 +183,18 @@ module.exports = {
       rules: {
         strict: "error",
         "unicorn/prefer-module": "off",
+      },
+    },
+    {
+      files: ["scripts/**/*", "tests/config/install-prettier.js"],
+      rules: {
+        "no-console": "off",
+      },
+    },
+    {
+      files: ["scripts/**/*.mjs"],
+      rules: {
+        "unicorn/prefer-top-level-await": "error",
       },
     },
     {
@@ -230,7 +233,6 @@ module.exports = {
     {
       files: ["tests/**/*.js"],
       rules: {
-        "import/no-extraneous-dependencies": "off",
         "unicorn/prefer-array-flat": "off",
         "unicorn/prefer-array-flat-map": "off",
       },
@@ -274,6 +276,7 @@ module.exports = {
         "prettier-internal-rules/consistent-negative-index-access": "error",
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
+        "prettier-internal-rules/no-doc-index-import": "error",
         "prettier-internal-rules/no-doc-builder-concat": "error",
         "prettier-internal-rules/no-empty-flat-contents-for-if-break": "error",
         "prettier-internal-rules/no-unnecessary-ast-path-call": "error",
@@ -315,11 +318,10 @@ module.exports = {
       extends: ["plugin:react/recommended"],
       settings: {
         react: {
-          version: "17",
+          version: "18",
         },
       },
       rules: {
-        "import/no-extraneous-dependencies": "off",
         "react/display-name": "off",
         "react/no-deprecated": "off",
         "react/prop-types": "off",
@@ -330,12 +332,6 @@ module.exports = {
       files: ["website/playground/**/*"],
       parserOptions: {
         sourceType: "module",
-      },
-    },
-    {
-      files: ["scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js"],
-      rules: {
-        "import/no-extraneous-dependencies": "error",
       },
     },
     {

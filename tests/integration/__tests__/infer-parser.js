@@ -1,6 +1,8 @@
 import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 
+const { jest } = import.meta;
+
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
     runPrettier("cli/infer-parser/", [], { input: "foo" }).test({
@@ -178,14 +180,14 @@ describe("API with no path and no parser", () => {
     global.console = _console;
   });
 
-  test("prettier.format", () => {
-    expect(prettier.format(" foo  (  )")).toBe("foo();\n");
+  test("prettier.format", async () => {
+    expect(await prettier.format(" foo  (  )")).toBe("foo();\n");
     expect(global.console.warn).toHaveBeenCalledTimes(1);
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });
 
-  test("prettier.check", () => {
-    expect(prettier.check(" foo (  )")).toBe(false);
+  test("prettier.check", async () => {
+    expect(await prettier.check(" foo (  )")).toBe(false);
     expect(global.console.warn).toHaveBeenCalledTimes(1);
     expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
   });

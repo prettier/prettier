@@ -49,24 +49,26 @@ function installPrettier(packageDir) {
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  execaSync(client, ["init", "-y"], { cwd: tmpDir });
+  const runNpmClient = (args) => execaSync(client, args, { cwd: tmpDir });
 
-  let installArguments = [];
+  runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
+
   switch (client) {
     case "npm":
       // npm fails when engine requirement only with `--engine-strict`
-      installArguments = ["install", packed, "--engine-strict"];
+      runNpmClient(["install", packed, "--engine-strict"]);
       break;
     case "pnpm":
       // Note: current pnpm can't work with `--engine-strict` and engineStrict setting in `.npmrc`
-      installArguments = ["add", packed, "--engine-strict"];
+      runNpmClient(["add", packed, "--engine-strict"]);
       break;
-    default:
+    case "yarn":
       // yarn fails when engine requirement not compatible by default
-      installArguments = ["add", packed];
+      runNpmClient(["config", "set", "nodeLinker", "node-modules"]);
+      runNpmClient(["add", `prettier@file:${packed}`]);
+    // No default
   }
 
-  execaSync(client, installArguments, { cwd: tmpDir });
   fs.unlinkSync(packed);
 
   const installed = path.join(tmpDir, "node_modules/prettier");

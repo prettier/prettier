@@ -1,8 +1,8 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
-import { fill, cursor, indent } from "./doc-builders.js";
-import { isConcat, getDocParts } from "./doc-utils.js";
+import { fill, cursor, indent } from "./builders.js";
+import { isConcat, getDocParts } from "./utils.js";
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;

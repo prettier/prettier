@@ -1,8 +1,4 @@
-import doc from "../../document/index.js";
-
-const {
-  builders: { hardline, markAsRoot },
-} = doc;
+import { hardline, markAsRoot } from "../../document/builders.js";
 
 function print(node, textToDoc) {
   if (node.lang === "yaml") {
