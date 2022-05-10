@@ -135,7 +135,7 @@
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
     "test:integration": "echo \"Disabled temporary\" && exit 1",
     "test:format": "yarn test --config=jest-format-test.config.mjs",
     "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
