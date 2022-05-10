@@ -1,5 +1,3 @@
-import runPrettier from "../run-prettier.js";
-
 describe("should not write file or print code when `--debug-benchmark` or `--debug-repeat` found", () => {
   const assertStderr = (message) => {
     expect(

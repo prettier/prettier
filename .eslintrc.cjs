@@ -237,7 +237,8 @@ module.exports = {
         "unicorn/prefer-array-flat-map": "off",
       },
       globals: {
-        run_spec: false,
+        run_spec: "readonly",
+        runPrettier: "readonly"
       },
     },
     {
