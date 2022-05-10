@@ -48,7 +48,9 @@ async function load(plugins, pluginSearchDirs) {
       let requirePath;
       try {
         // try local files
-        requirePath = resolve(path.resolve(process.cwd(), pluginName));
+        requirePath = resolve(path.resolve(process.cwd(), pluginName), {
+          paths: [process.cwd()],
+        });
       } catch {
         // try node modules
         requirePath = resolve(pluginName, { paths: [process.cwd()] });
