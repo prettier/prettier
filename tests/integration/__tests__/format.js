@@ -1,4 +1,3 @@
-
 import { outdent } from "outdent";
 import prettier from "../../config/prettier-entry.js";
 import fooPlugin from "../plugins/defaultOptions/plugin.cjs";

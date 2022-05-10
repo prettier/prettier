@@ -1,4 +1,3 @@
-
 import prettier from "../../config/prettier-entry.js";
 import generateSchema from "../../../scripts/utils/generate-schema.mjs";
 

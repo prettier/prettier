@@ -1,4 +1,3 @@
-
 import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 

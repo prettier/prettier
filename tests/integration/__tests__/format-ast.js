@@ -1,4 +1,3 @@
-
 import prettier from "../../config/prettier-entry.js";
 const { formatAST } = prettier.__debug;
 
