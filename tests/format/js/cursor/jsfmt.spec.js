@@ -1,9 +1,12 @@
 import { outdent } from "outdent";
-// TODO: Use this when we drop support for Node.js 12
-// import prettier from "../../../config/prettier-entry.js";
-const { prettier } = run_spec;
+import getPrettier from "../../../config/get-prettier.js";
 
 run_spec(import.meta, ["babel", "typescript", "flow"]);
+
+let prettier;
+beforeAll(async () => {
+  prettier = await getPrettier();
+});
 
 test("translates cursor correctly in basic case", async () => {
   expect(
