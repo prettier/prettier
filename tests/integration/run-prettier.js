@@ -24,7 +24,10 @@ const streamToString = (stream) =>
     });
   });
 
-function runCliWorker(dir, args, options) {
+function run(dir, args, options) {
+  dir = normalizeDir(dir);
+  args = Array.isArray(args) ? args : [args];
+
   const result = {
     status: undefined,
     stdout: "",
@@ -69,21 +72,6 @@ function runCliWorker(dir, args, options) {
 
     worker.postMessage("run");
   });
-}
-
-async function run(dir, args, options) {
-  dir = normalizeDir(dir);
-  args = Array.isArray(args) ? args : [args];
-
-  // Worker doesn't support `chdir`
-  const cwd = process.cwd();
-  process.chdir(dir);
-
-  try {
-    return await runCliWorker(dir, args, options, cwd);
-  } finally {
-    process.chdir(cwd);
-  }
 }
 
 let runningCli;
