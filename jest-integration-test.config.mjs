@@ -8,6 +8,7 @@ const config = {
     ...baseConfig.moduleNameMapper,
     "prettier-local": "<rootDir>/tests/config/prettier-entry.common.cjs",
   },
+  testTimeout: 30_000,
 };
 
 export default config;
