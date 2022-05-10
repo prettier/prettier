@@ -25,9 +25,9 @@ async function run() {
     - Test file `./__tests__/plugin-virtual-directory.js`
     - Pull request #5819
   */
-  const originalStatSync = fs.statSync;
-  fs.statSync = (filename) =>
-    originalStatSync(
+  const originalStat = fs.promises.stat;
+  fs.promises.statSync = (filename) =>
+    originalStat(
       path.basename(filename) === "virtualDirectory"
         ? import.meta.url
         : filename
@@ -46,11 +46,6 @@ async function run() {
   thirdParty.isCI = () => Boolean(options.ci);
   thirdParty.cosmiconfig = (moduleName, options) =>
     require("cosmiconfig").cosmiconfig(moduleName, {
-      ...options,
-      stopDir: path.join(__dirname, "cli"),
-    });
-  thirdParty.cosmiconfigSync = (moduleName, options) =>
-    require("cosmiconfig").cosmiconfigSync(moduleName, {
       ...options,
       stopDir: path.join(__dirname, "cli"),
     });

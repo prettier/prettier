@@ -1,5 +1,12 @@
 import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  line,
+  group,
+  indent,
+  indentIfBreak,
+  lineSuffixBoundary,
+} from "../../document/builders.js";
+import { cleanDoc, willBreak, canBreak } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -16,11 +23,6 @@ import {
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
-
-const {
-  builders: { line, group, indent, indentIfBreak, lineSuffixBoundary },
-  utils: { cleanDoc, willBreak, canBreak },
-} = doc;
 
 function printAssignment(
   path,

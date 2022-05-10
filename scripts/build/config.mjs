@@ -109,6 +109,12 @@ const parsers = [
           );
         },
       },
+      // yarn pnp
+      {
+        module: require.resolve("typescript"),
+        find: "process.versions.pnp",
+        replacement: "undefined",
+      },
 
       ...Object.entries({
         // `typescript/lib/typescript.js` expose extra global objects
@@ -261,6 +267,7 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@iarna/toml/lib/toml-parser.js"),
@@ -289,6 +296,7 @@ const coreBundles = [
   },
   {
     input: "src/document/index.js",
+    interopDefault: false,
     name: "doc",
     output: "doc.js",
     target: "universal",
@@ -297,6 +305,7 @@ const coreBundles = [
   },
   {
     input: "src/standalone.js",
+    interopDefault: false,
     name: "prettier",
     target: "universal",
     replaceModule: [
@@ -310,9 +319,8 @@ const coreBundles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
-        module: path.join(PROJECT_ROOT, "src/main/parser.js"),
-        find: "return requireParser(opts.parser);",
-        replacement: "",
+        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
+        text: "export default () => {};",
       },
     ],
   },

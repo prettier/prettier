@@ -1,11 +1,9 @@
 import dashify from "dashify";
-import prettier from "../../index.js";
-import prettierInternal from "../prettier-internal.js";
+import { resolveConfig } from "../../index.js";
+import { normalizeApiOptions } from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
-
-const { optionsNormalizer } = prettierInternal;
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -70,7 +68,7 @@ async function getOptionsOrDie(context, filePath) {
         : `resolve config from '${filePath}'`
     );
 
-    const options = await prettier.resolveConfig(filePath, {
+    const options = await resolveConfig(filePath, {
       editorconfig: context.argv.editorconfig,
       config: context.argv.config,
     });
@@ -109,7 +107,7 @@ async function getOptionsForFile(context, filepath) {
 
   const hasPlugins = options && options.plugins;
   if (hasPlugins) {
-    context.pushContextPlugins(options.plugins);
+    await context.pushContextPlugins(options.plugins);
   }
 
   const appliedOptions = {
@@ -117,7 +115,7 @@ async function getOptionsForFile(context, filepath) {
     ...applyConfigPrecedence(
       context,
       options &&
-        optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
+        normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger,
         })
     ),

@@ -1,6 +1,16 @@
 import { printComments } from "../../main/comments.js";
 import { getLast } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  join,
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  ifBreak,
+  indentIfBreak,
+} from "../../document/builders.js";
+import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -14,21 +24,7 @@ import {
   isEnabledHackPipeline,
 } from "../utils/index.js";
 
-const {
-  builders: {
-    join,
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    indentIfBreak,
-  },
-  utils: { cleanDoc, getDocParts, isConcat },
-} = doc;
-
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {

@@ -24,7 +24,7 @@ jobs:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build Package
         run: yarn build
@@ -44,10 +44,10 @@ jobs:
         working-directory: scripts/tools/bundle-test
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.5.1
+        uses: actions/setup-node@v3.1.1
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
@@ -56,7 +56,7 @@ jobs:
           path: dist
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Test
         run: yarn test

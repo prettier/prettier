@@ -14,13 +14,13 @@ const prettier = require("prettier");
 `format` is used to format text using Prettier. `options.parser` must be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.
 
 ```js
-prettier.format("foo ( );", { semi: false, parser: "babel" });
+await prettier.format("foo ( );", { semi: false, parser: "babel" });
 // -> "foo()"
 ```
 
 ## `prettier.check(source [, options])`
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Promise<boolean>`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.formatWithCursor(source [, options])`
 
@@ -29,7 +29,7 @@ prettier.format("foo ( );", { semi: false, parser: "babel" });
 The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
 ```js
-prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
+await prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
@@ -58,8 +58,6 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editor
 - `indent_size`/`tab_width`
 - `max_line_length`
 
-Use `prettier.resolveConfig.sync(filePath [, options])` if you’d like to use sync version.
-
 ## `prettier.resolveConfigFile([filePath])`
 
 `resolveConfigFile` can be used to find the path of the Prettier configuration file that will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
@@ -76,8 +74,6 @@ prettier.resolveConfigFile(filePath).then((configFile) => {
   // you got the path of the configuration file
 });
 ```
-
-Use `prettier.resolveConfigFile.sync([filePath])` if you’d like to use sync version.
 
 ## `prettier.clearConfigCache()`
 
@@ -104,11 +100,9 @@ Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps ext
 
 When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will resolve the configuration for the given `filePath`. This is useful, for example, when the `inferredParser` might be overridden for a subset of files.
 
-Use `prettier.getFileInfo.sync(filePath [, options])` if you’d like to use sync version.
-
 ## `prettier.getSupportInfo()`
 
-Returns an object representing the options, parsers, languages and file types Prettier supports.
+Returns a promise which resolves to an object representing the options, parsers, languages and file types Prettier supports.
 
 The support information looks like this:
 

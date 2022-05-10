@@ -1,6 +1,6 @@
 import path from "node:path";
 import { inferParser } from "../main/options.js";
-import * as config from "../config/resolve-config.js";
+import { resolveConfig } from "../config/resolve-config.js";
 import createIgnorer from "./create-ignorer.js";
 
 /**
@@ -10,112 +10,52 @@ import createIgnorer from "./create-ignorer.js";
 
 /**
  * @param {string} filePath
- * @param {FileInfoOptions} opts
+ * @param {FileInfoOptions} options
  * @returns {Promise<FileInfoResult>}
  *
- * Please note that prettier.getFileInfo() expects opts.plugins to be an array of paths,
+ * Please note that prettier.getFileInfo() expects options.plugins to be an array of paths,
  * not an object. A transformation from this array to an object is automatically done
  * internally by the method wrapper. See withPlugins() in index.js.
  */
-async function getFileInfo(filePath, opts) {
+async function getFileInfo(filePath, options) {
   if (typeof filePath !== "string") {
     throw new TypeError(
       `expect \`filePath\` to be a string, got \`${typeof filePath}\``
     );
   }
 
-  const ignorer = await createIgnorer(opts.ignorePath, opts.withNodeModules);
-  return _getFileInfo({
-    ignorer,
-    filePath,
-    plugins: opts.plugins,
-    resolveConfig: opts.resolveConfig,
-    ignorePath: opts.ignorePath,
-    sync: false,
-  });
-}
+  const ignored = await isIgnored(filePath, options);
 
-/**
- * @param {string} filePath
- * @param {FileInfoOptions} opts
- * @returns {FileInfoResult}
- */
-getFileInfo.sync = function (filePath, opts) {
-  if (typeof filePath !== "string") {
-    throw new TypeError(
-      `expect \`filePath\` to be a string, got \`${typeof filePath}\``
-    );
+  let inferredParser;
+  if (!ignored) {
+    inferredParser = await getParser(filePath, options);
   }
 
-  const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
-  return _getFileInfo({
-    ignorer,
-    filePath,
-    plugins: opts.plugins,
-    resolveConfig: opts.resolveConfig,
-    ignorePath: opts.ignorePath,
-    sync: true,
-  });
-};
-
-function getFileParser(resolvedConfig, filePath, plugins) {
-  if (resolvedConfig && resolvedConfig.parser) {
-    return resolvedConfig.parser;
-  }
-
-  const inferredParser = inferParser(filePath, plugins);
-
-  if (inferredParser) {
-    return inferredParser;
-  }
-
-  return null;
-}
-
-function _getFileInfo({
-  ignorer,
-  filePath,
-  plugins,
-  resolveConfig = false,
-  ignorePath,
-  sync = false,
-}) {
-  const normalizedFilePath = normalizeFilePath(filePath, ignorePath);
-
-  const fileInfo = {
-    ignored: ignorer.ignores(normalizedFilePath),
-    inferredParser: null,
+  return {
+    ignored,
+    inferredParser: inferredParser ?? null,
   };
-
-  if (fileInfo.ignored) {
-    return fileInfo;
-  }
-
-  let resolvedConfig;
-
-  if (resolveConfig) {
-    if (sync) {
-      resolvedConfig = config.resolveConfig.sync(filePath);
-    } else {
-      return config.resolveConfig(filePath).then((resolvedConfig) => {
-        fileInfo.inferredParser = getFileParser(
-          resolvedConfig,
-          filePath,
-          plugins
-        );
-        return fileInfo;
-      });
-    }
-  }
-
-  fileInfo.inferredParser = getFileParser(resolvedConfig, filePath, plugins);
-  return fileInfo;
 }
 
-function normalizeFilePath(filePath, ignorePath) {
-  return ignorePath
+async function getParser(filePath, options) {
+  let config;
+  if (options.resolveConfig) {
+    config = await resolveConfig(filePath);
+  }
+
+  return config?.parser ?? inferParser(filePath, options.plugins);
+}
+
+async function isIgnored(filePath, options) {
+  const { ignorePath, withNodeModules } = options;
+
+  const ignorer = await createIgnorer(ignorePath, withNodeModules);
+
+  const normalizedFilePath = ignorePath
     ? path.relative(path.dirname(ignorePath), filePath)
     : filePath;
+
+  return ignorer.ignores(normalizedFilePath);
 }
 
 export default getFileInfo;

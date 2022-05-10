@@ -1,9 +1,9 @@
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 import assert from "node:assert";
 import { printDanglingComments } from "../../main/comments.js";
 import { printString, printNumber } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { hardline, softline, group, indent } from "../../document/builders.js";
 import {
   getParentExportDeclaration,
   isFunctionNotation,
@@ -33,10 +33,6 @@ import {
   printTypeAnnotation,
   printRestSpread,
 } from "./misc.js";
-
-const {
-  builders: { hardline, softline, group, indent },
-} = doc;
 
 function printFlow(path, options, print) {
   const node = path.getValue();

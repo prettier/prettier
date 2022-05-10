@@ -1,6 +1,16 @@
-/** @typedef {import("../document").Doc} Doc */
+/** @typedef {import("../document/builders.js").Doc} Doc */
 
-import doc from "../document/index.js";
+import {
+  breakParent,
+  fill,
+  group,
+  hardline,
+  join,
+  line,
+  lineSuffix,
+  literalline,
+} from "../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
@@ -29,20 +39,6 @@ import {
 } from "./print/flow-mapping-sequence.js";
 import printMappingItem from "./print/mapping-item.js";
 import printBlock from "./print/block.js";
-
-const {
-  builders: {
-    breakParent,
-    fill,
-    group,
-    hardline,
-    join,
-    line,
-    lineSuffix,
-    literalline,
-  },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

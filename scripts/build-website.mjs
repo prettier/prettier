@@ -3,7 +3,7 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 import fastGlob from "fast-glob";
-import prettier from "prettier";
+import { format } from "prettier";
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
 import {
@@ -76,7 +76,7 @@ async function buildPlaygroundFiles() {
 
   await writeFile(
     path.join(PLAYGROUND_PRETTIER_DIR, "parsers-location.js"),
-    prettier.format(
+    format(
       `
         "use strict";
 

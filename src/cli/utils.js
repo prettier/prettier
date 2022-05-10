@@ -1,3 +1,7 @@
+import { __internal as sharedWithCli } from "../index.js";
+
+const { arrayify, getLast, isNonEmptyArray, partition } = sharedWithCli.utils;
+
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
 
@@ -36,4 +40,12 @@ function pick(object, keys) {
   return Object.fromEntries(entries);
 }
 
-export { printToScreen, groupBy, pick };
+export {
+  arrayify,
+  getLast,
+  isNonEmptyArray,
+  partition,
+  printToScreen,
+  groupBy,
+  pick,
+};
