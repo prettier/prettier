@@ -15,7 +15,7 @@ describe("--cache option", () => {
   const dir = resolveDir("cli/cache");
   const defaultCacheFile = path.join(
     dir,
-    "node_modules/.cache/prettier/.prettiercache"
+    "node_modules/.cache/prettier/.prettier-cache"
   );
 
   let contentA;
@@ -32,7 +32,7 @@ describe("--cache option", () => {
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
 
-  it("creates default cache file named `node_modules/.cache/prettier/.prettiercache`", async () => {
+  it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
     await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
       "code",
       "ENOENT"
