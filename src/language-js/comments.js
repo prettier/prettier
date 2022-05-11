@@ -61,7 +61,7 @@ function handleOwnLineComment(context) {
     handleWhileComments,
     handleTryStatementComments,
     handleClassComments,
-    handleImportAndExportSpecifierComments,
+    handleModuleSpecifierComments,
     handleForComments,
     handleUnionTypeComments,
     handleOnlyComments,
@@ -82,7 +82,7 @@ function handleEndOfLineComment(context) {
     handleClosureTypeCastComments,
     handleLastFunctionArgComments,
     handleConditionalExpressionComments,
-    handleImportAndExportSpecifierComments,
+    handleModuleSpecifierComments,
     handleIfStatementComments,
     handleWhileComments,
     handleTryStatementComments,
@@ -623,7 +623,7 @@ function handleLastFunctionArgComments({
   return false;
 }
 
-function handleImportAndExportSpecifierComments({ comment, enclosingNode }) {
+function handleModuleSpecifierComments({ comment, enclosingNode }) {
   if (
     enclosingNode?.type === "ImportSpecifier" ||
     enclosingNode?.type === "ExportSpecifier"
