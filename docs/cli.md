@@ -212,15 +212,3 @@ When you want to format only changed files, you can run Prettier with `--cache` 
 ```bash
 prettier --write --cache src
 ```
-
-## `--cache-location`
-
-Path to the cache file or directory location used by `--cache` flag. If you don't explicit `--cache-location`, Prettier saves cache file at `./node_modules/.cache/prettier/.prettiercache`.
-
-```bash
-prettier --write --cache --cache-location=my_cache_file src
-```
-
-```bash
-prettier --write --cache --cache-location=my_cache_dir/ src
-```

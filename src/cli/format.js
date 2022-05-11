@@ -298,7 +298,7 @@ async function formatFiles(context) {
   }
 
   const formatResultsCache = context.argv.cache
-    ? new FormatResultsCache(await findCacheFile(context.argv.cacheLocation))
+    ? new FormatResultsCache(findCacheFile())
     : undefined;
 
   for await (const pathOrError of expandPatterns(context)) {

@@ -141,8 +141,6 @@ Other options:
 
   --cache                  Only format changed files
                            Defaults to false.
-  --cache-location <path>  Path to the cache file or directory
-                           Defaults to node_modules/.cache/prettier/.prettiercache
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
                            Prevent errors when pattern is unmatched.
@@ -315,8 +313,6 @@ Other options:
 
   --cache                  Only format changed files
                            Defaults to false.
-  --cache-location <path>  Path to the cache file or directory
-                           Defaults to node_modules/.cache/prettier/.prettiercache
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
                            Prevent errors when pattern is unmatched.

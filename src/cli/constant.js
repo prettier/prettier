@@ -76,11 +76,6 @@ const options = {
     description: "Only format changed files",
     type: "boolean",
   },
-  "cache-location": {
-    description:
-      "Path to the cache file or directory\nDefaults to node_modules/.cache/prettier/.prettiercache",
-    type: "path",
-  },
   check: {
     alias: "c",
     category: coreOptions.CATEGORY_OUTPUT,

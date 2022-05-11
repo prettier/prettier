@@ -57,18 +57,6 @@ Default: false
 
 exports[`show detailed usage with --help cache (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help cache-location (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help cache-location (stdout) 1`] = `
-"--cache-location <path>
-
-  Path to the cache file or directory
-  Defaults to node_modules/.cache/prettier/.prettiercache
-"
-`;
-
-exports[`show detailed usage with --help cache-location (write) 1`] = `[]`;
-
 exports[`show detailed usage with --help check (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help check (stdout) 1`] = `
