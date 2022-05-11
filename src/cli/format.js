@@ -17,6 +17,7 @@ const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
 const findCacheFile = require("./find-cache-file.js");
 const FormatResultsCache = require("./format-results-cache.js");
+const { statSafe } = require("./utils.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -297,9 +298,16 @@ async function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  const formatResultsCache = context.argv.cache
-    ? new FormatResultsCache(findCacheFile())
-    : undefined;
+  let formatResultsCache;
+  const cacheFilePath = findCacheFile();
+  if (context.argv.cache) {
+    formatResultsCache = new FormatResultsCache(cacheFilePath);
+  } else {
+    const stat = await statSafe(cacheFilePath);
+    if (stat) {
+      await fs.unlink(cacheFilePath);
+    }
+  }
 
   for await (const pathOrError of expandPatterns(context)) {
     if (typeof pathOrError === "object") {

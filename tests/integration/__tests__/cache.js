@@ -124,4 +124,11 @@ describe("--cache option", () => {
       ])
     );
   });
+
+  it("removes cache file when run Prettier without `--cache` option", async () => {
+    await runPrettier(dir, ["--cache", "--write", "."]);
+    await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+    await runPrettier(dir, ["--write", "."]);
+    await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+  });
 });
