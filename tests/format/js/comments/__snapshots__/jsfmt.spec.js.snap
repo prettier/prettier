@@ -1474,6 +1474,24 @@ export {
   barr, // comment
 }
 
+const foooo = ''
+const barrr = ''
+export {
+  foooo,
+
+  barrr as  // comment
+		 baz,
+} from 'foo'
+
+const fooooo = ''
+const barrrr = ''
+export {
+  fooooo,
+
+  barrrr as  // comment
+		 bazz,
+}
+
 =====================================output=====================================
 export //comment
  {}
@@ -1496,6 +1514,22 @@ const barr = ""
 export {
   fooo, // comment
   barr, // comment
+}
+
+const foooo = ""
+const barrr = ""
+export {
+  foooo,
+  // comment
+  barrr as baz,
+} from "foo"
+
+const fooooo = ""
+const barrrr = ""
+export {
+  fooooo,
+  // comment
+  barrrr as bazz,
 }
 
 ================================================================================
@@ -1530,6 +1564,24 @@ export {
   barr, // comment
 }
 
+const foooo = ''
+const barrr = ''
+export {
+  foooo,
+
+  barrr as  // comment
+		 baz,
+} from 'foo'
+
+const fooooo = ''
+const barrrr = ''
+export {
+  fooooo,
+
+  barrrr as  // comment
+		 bazz,
+}
+
 =====================================output=====================================
 export //comment
  {};
@@ -1552,6 +1604,22 @@ const barr = "";
 export {
   fooo, // comment
   barr, // comment
+};
+
+const foooo = "";
+const barrr = "";
+export {
+  foooo,
+  // comment
+  barrr as baz,
+} from "foo";
+
+const fooooo = "";
+const barrrr = "";
+export {
+  fooooo,
+  // comment
+  barrrr as bazz,
 };
 
 ================================================================================
