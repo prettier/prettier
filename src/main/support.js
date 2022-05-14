@@ -105,7 +105,7 @@ function getSupportInfo({
     if (showInternal) {
       return object;
     }
-    const { cliName, cliCategory, cliDescription, ...newObject } = object;
+    const { ...newObject } = object;
     return newObject;
   }
 }

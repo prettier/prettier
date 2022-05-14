@@ -18,11 +18,13 @@ module.exports = {
     "regexp",
     "unicorn",
     "@typescript-eslint",
+    "unused-imports",
   ],
   settings: {
     "import/internal-regex": "^linguist-languages/",
   },
   rules: {
+    "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
@@ -45,10 +47,13 @@ module.exports = {
     "no-return-await": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
-    "no-unused-vars": [
-      "error",
+    "no-unused-vars": ["off"],
+    "unused-imports/no-unused-vars": [
+      "warn",
       {
-        ignoreRestSiblings: true,
+        vars: "all",
+        args: "after-used",
+        argsIgnorePattern: "^_",
       },
     ],
     "no-var": "error",

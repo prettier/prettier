@@ -78,7 +78,7 @@ function normalizeOptions(
   const unknown = !passThrough
     ? (key, value, options) => {
         // Don't suggest `_` for unknown flags
-        const { _, ...schemas } = options.schemas;
+        const { ...schemas } = options.schemas;
         return vnopts.levenUnknownHandler(key, value, {
           ...options,
           schemas,
