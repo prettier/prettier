@@ -105,7 +105,8 @@ function getSupportInfo({
     if (showInternal) {
       return object;
     }
-    const { ...newObject } = object;
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
   }
 }
