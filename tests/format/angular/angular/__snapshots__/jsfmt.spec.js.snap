@@ -485,16 +485,19 @@ printWidth: 80
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
   *ngFor="let hero of heroes"
-  *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i = nde
+  "
   *ngFor="let hero of heroes; trackBy: trackByHeroes"
   *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="  let    hero     of heroes; let i  =  index"
+  *ngFor="let hero of heroes; let i = nde"
   *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
   *directive="let hero"
-  *directive=" let hero = hello "
+  *directive="let hero = ell"
   *directive="let hero of heroes"
   *directive="let hero of heroes"
   *directive="a"
@@ -753,16 +756,19 @@ printWidth: 80
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
   *ngFor="let hero of heroes"
-  *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i = nde
+  "
   *ngFor="let hero of heroes; trackBy: trackByHeroes"
   *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="  let    hero     of heroes; let i  =  index"
+  *ngFor="let hero of heroes; let i = nde"
   *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
   *directive="let hero"
-  *directive=" let hero = hello "
+  *directive="let hero = ell"
   *directive="let hero of heroes"
   *directive="let hero of heroes"
   *directive="a"
@@ -1154,7 +1160,15 @@ printWidth: 1
   *ngFor="
     let hero of heroes
   "
-  *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+  *ngFor="
+    let hero of [
+      1,
+      2,
+      3,
+      666666666666666666666666666666666666
+    ];
+    let i = nde
+  "
   *ngFor="
     let hero of heroes;
     trackBy: trackByHeroes
@@ -1164,7 +1178,10 @@ printWidth: 1
     index as i;
     trackBy: trackByFn
   "
-  *ngFor="  let    hero     of heroes; let i  =  index"
+  *ngFor="
+    let hero of heroes;
+    let i = nde
+  "
   *ngFor="
     let hero of heroes;
     value: myValue
@@ -1185,7 +1202,9 @@ printWidth: 1
   *directive="
     let hero
   "
-  *directive=" let hero = hello "
+  *directive="
+    let hero = ell
+  "
   *directive="
     let hero of heroes
   "
@@ -1608,16 +1627,19 @@ trailingComma: "none"
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
   *ngFor="let hero of heroes"
-  *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i = nde
+  "
   *ngFor="let hero of heroes; trackBy: trackByHeroes"
   *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="  let    hero     of heroes; let i  =  index"
+  *ngFor="let hero of heroes; let i = nde"
   *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
   *directive="let hero"
-  *directive=" let hero = hello "
+  *directive="let hero = ell"
   *directive="let hero of heroes"
   *directive="let hero of heroes"
   *directive="a"
@@ -1875,16 +1897,19 @@ printWidth: 80
   *ngIf="something ? true : false"
   *ngIf="a | pipe"
   *ngFor="let hero of heroes"
-  *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i = nde
+  "
   *ngFor="let hero of heroes; trackBy: trackByHeroes"
   *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="  let    hero     of heroes; let i  =  index"
+  *ngFor="let hero of heroes; let i = nde"
   *ngFor="let hero of heroes; value: myValue"
   *ngIf="condition; else elseBlock"
   *ngIf="condition; then thenBlock; else elseBlock"
   *ngIf="condition as value; else elseBlock"
   *directive="let hero"
-  *directive=" let hero = hello "
+  *directive="let hero = ell"
   *directive="let hero of heroes"
   *directive="let hero of heroes"
   *directive="a"
@@ -5122,7 +5147,7 @@ bindon-ngModel
 <h4 id="ngFor-index">*ngFor with index</h4>
 <p>with <i>semi-colon</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes; let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -5130,7 +5155,7 @@ bindon-ngModel
 <p>with <i>comma</i> separator</p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
-  <div *ngFor="let hero of heroes, let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -6748,7 +6773,7 @@ bindon-ngModel
   separator
 </p>
 <div class="box">
-  <div *ngFor="let hero of heroes; let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -6760,7 +6785,7 @@ bindon-ngModel
 </p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
-  <div *ngFor="let hero of heroes, let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -9603,7 +9628,10 @@ bindon-ngModel
   class="box"
 >
   <div
-    *ngFor="let hero of heroes; let i=index"
+    *ngFor="
+      let hero of heroes;
+      let i = nde
+    "
   >
     {{
       i +
@@ -9628,7 +9656,10 @@ bindon-ngModel
 >
   <!-- Ex: "1 - Hercules" -->
   <div
-    *ngFor="let hero of heroes, let i=index"
+    *ngFor="
+      let hero of heroes;
+      let i = nde
+    "
   >
     {{
       i +
@@ -11731,7 +11762,7 @@ bindon-ngModel
 <h4 id="ngFor-index">*ngFor with index</h4>
 <p>with <i>semi-colon</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes; let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -11739,7 +11770,7 @@ bindon-ngModel
 <p>with <i>comma</i> separator</p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
-  <div *ngFor="let hero of heroes, let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -13257,7 +13288,7 @@ bindon-ngModel
 <h4 id="ngFor-index">*ngFor with index</h4>
 <p>with <i>semi-colon</i> separator</p>
 <div class="box">
-  <div *ngFor="let hero of heroes; let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -13265,7 +13296,7 @@ bindon-ngModel
 <p>with <i>comma</i> separator</p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
-  <div *ngFor="let hero of heroes, let i=index">
+  <div *ngFor="let hero of heroes; let i = nde">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
@@ -13565,7 +13596,10 @@ printWidth: 80
   </HEAD>
   <body>
     <ng-container
-      *ngFor="let zaijeh of state.zaijeh | keyvalue | slice: 0:12; let i = 'index+1'"
+      *ngFor="
+        let zaijeh of state.zaijeh | keyvalue | slice: 0:12;
+        let i = index+1
+      "
     >
     </ng-container>
   </body>
@@ -13605,7 +13639,10 @@ printWidth: 80
   </HEAD>
   <body>
     <ng-container
-      *ngFor="let zaijeh of state.zaijeh | keyvalue | slice: 0:12; let i = 'index+1'"
+      *ngFor="
+        let zaijeh of state.zaijeh | keyvalue | slice: 0:12;
+        let i = index+1
+      "
     ></ng-container>
   </body>
 </HTML>
@@ -13653,7 +13690,14 @@ printWidth: 1
   </HEAD>
   <body>
     <ng-container
-      *ngFor="let zaijeh of state.zaijeh | keyvalue | slice: 0:12; let i = 'index+1'"
+      *ngFor="
+        let zaijeh of state.zaijeh
+          | keyvalue
+          | slice
+            : 0
+            : 12;
+        let i = index+1
+      "
     >
     </ng-container>
   </body>
@@ -13693,7 +13737,10 @@ trailingComma: "none"
   </HEAD>
   <body>
     <ng-container
-      *ngFor="let zaijeh of state.zaijeh | keyvalue | slice: 0:12; let i = 'index+1'"
+      *ngFor="
+        let zaijeh of state.zaijeh | keyvalue | slice: 0:12;
+        let i = index+1
+      "
     >
     </ng-container>
   </body>
@@ -13732,7 +13779,10 @@ printWidth: 80
   </HEAD>
   <body>
     <ng-container
-      *ngFor="let zaijeh of state.zaijeh | keyvalue | slice: 0:12; let i = 'index+1'"
+      *ngFor="
+        let zaijeh of state.zaijeh | keyvalue | slice: 0:12;
+        let i = index+1
+      "
     >
     </ng-container>
   </body>

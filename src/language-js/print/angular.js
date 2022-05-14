@@ -89,8 +89,10 @@ function printAngular(path, options, print) {
           ? ""
           : [
               " = ",
-              node.replace(/&quot;/g, "'"),
-              print("value").replace(/&quot;/g, "'"),
+              print("value")
+                .slice(1, -1)
+                .replace(/&apos;/g, "'")
+                .replace(/&quot;/g, '"'),
             ],
       ];
     case "NGMicrosyntaxAs":
