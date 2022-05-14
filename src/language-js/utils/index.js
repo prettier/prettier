@@ -11,6 +11,7 @@ const {
 } = require("../../common/util.js");
 const { locStart, locEnd, hasSameLocStart } = require("../loc.js");
 const isBlockComment = require("./is-block-comment.js");
+const isNodeMatches = require("./is-node-matches.js");
 
 /**
  * @typedef {import("../types/estree").Node} Node
@@ -53,10 +54,8 @@ function hasFlowShorthandAnnotationComment(node) {
   // Syntax example: const r = new (window.Request /*: Class<Request> */)("");
 
   return (
-    node.extra &&
-    node.extra.parenthesized &&
-    isNonEmptyArray(node.trailingComments) &&
-    isBlockComment(node.trailingComments[0]) &&
+    node.extra?.parenthesized &&
+    isBlockComment(node.trailingComments?.[0]) &&
     FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
   );
 }
@@ -66,10 +65,9 @@ function hasFlowShorthandAnnotationComment(node) {
  * @returns {boolean}
  */
 function hasFlowAnnotationComment(comments) {
+  const firstComment = comments?.[0];
   return (
-    isNonEmptyArray(comments) &&
-    isBlockComment(comments[0]) &&
-    FLOW_ANNOTATION.test(comments[0].value)
+    isBlockComment(firstComment) && FLOW_ANNOTATION.test(firstComment.value)
   );
 }
 
@@ -118,12 +116,12 @@ function getLeftSide(node) {
     return node.expressions[0];
   }
   return (
-    node.left ||
-    node.test ||
-    node.callee ||
-    node.object ||
-    node.tag ||
-    node.argument ||
+    node.left ??
+    node.test ??
+    node.callee ??
+    node.object ??
+    node.tag ??
+    node.argument ??
     node.expression
   );
 }
@@ -156,37 +154,36 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side.");
 }
 
+function createTypeCheckFunction(types) {
+  types = new Set(types);
+  return (node) => types.has(node?.type);
+}
+
 /**
  * @param {Comment} comment
  * @returns {boolean}
  */
-function isLineComment(comment) {
-  return (
-    comment.type === "Line" ||
-    comment.type === "CommentLine" ||
-    // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
-    comment.type === "SingleLine" ||
-    comment.type === "HashbangComment" ||
-    comment.type === "HTMLOpen" ||
-    comment.type === "HTMLClose"
-  );
-}
-
-const exportDeclarationTypes = new Set([
-  "ExportDefaultDeclaration",
-  "ExportDefaultSpecifier",
-  "DeclareExportDeclaration",
-  "ExportNamedDeclaration",
-  "ExportAllDeclaration",
+const isLineComment = createTypeCheckFunction([
+  "Line",
+  "CommentLine",
+  // `meriyah` has `SingleLine`, `HashbangComment`, `HTMLOpen`, and `HTMLClose`
+  "SingleLine",
+  "HashbangComment",
+  "HTMLOpen",
+  "HTMLClose",
 ]);
 
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isExportDeclaration(node) {
-  return node && exportDeclarationTypes.has(node.type);
-}
+const isExportDeclaration = createTypeCheckFunction([
+  "ExportDefaultDeclaration",
+  "ExportDefaultSpecifier",
+  "DeclareExportDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration",
+]);
 
 /**
  * @param {AstPath} path
@@ -205,22 +202,20 @@ function getParentExportDeclaration(path) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isLiteral(node) {
-  return (
-    node.type === "BooleanLiteral" ||
-    node.type === "DirectiveLiteral" ||
-    node.type === "Literal" ||
-    node.type === "NullLiteral" ||
-    node.type === "NumericLiteral" ||
-    node.type === "BigIntLiteral" ||
-    node.type === "DecimalLiteral" ||
-    node.type === "RegExpLiteral" ||
-    node.type === "StringLiteral" ||
-    node.type === "TemplateLiteral" ||
-    node.type === "TSTypeLiteral" ||
-    node.type === "JSXText"
-  );
-}
+const isLiteral = createTypeCheckFunction([
+  "BooleanLiteral",
+  "DirectiveLiteral",
+  "Literal",
+  "NullLiteral",
+  "NumericLiteral",
+  "BigIntLiteral",
+  "DecimalLiteral",
+  "RegExpLiteral",
+  "StringLiteral",
+  "TemplateLiteral",
+  "TSTypeLiteral",
+  "JSXText",
+]);
 
 /**
  * @param {Node} node
@@ -256,24 +251,20 @@ function isStringLiteral(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isObjectType(node) {
-  return (
-    node.type === "ObjectTypeAnnotation" ||
-    node.type === "TSTypeLiteral" ||
-    node.type === "TSMappedType"
-  );
-}
+const isObjectType = createTypeCheckFunction([
+  "ObjectTypeAnnotation",
+  "TSTypeLiteral",
+  "TSMappedType",
+]);
 
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isFunctionOrArrowExpression(node) {
-  return (
-    node.type === "FunctionExpression" ||
-    node.type === "ArrowFunctionExpression"
-  );
-}
+const isFunctionOrArrowExpression = createTypeCheckFunction([
+  "FunctionExpression",
+  "ArrowFunctionExpression",
+]);
 
 /**
  * @param {Node} node
@@ -285,14 +276,6 @@ function isFunctionOrArrowExpressionWithBody(node) {
     (node.type === "ArrowFunctionExpression" &&
       node.body.type === "BlockStatement")
   );
-}
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function isTemplateLiteral(node) {
-  return node.type === "TemplateLiteral";
 }
 
 /**
@@ -317,9 +300,7 @@ function isAngularTestWrapper(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isJsxNode(node) {
-  return node.type === "JSXElement" || node.type === "JSXFragment";
-}
+const isJsxNode = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
 function isTheOnlyJsxElementInMarkdown(options, path) {
   if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
@@ -376,19 +357,15 @@ function isTypeAnnotationAFunction(node) {
   );
 }
 
-const binaryishNodeTypes = new Set([
-  "BinaryExpression",
-  "LogicalExpression",
-  "NGPipeExpression",
-]);
-
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isBinaryish(node) {
-  return binaryishNodeTypes.has(node.type);
-}
+const isBinaryish = createTypeCheckFunction([
+  "BinaryExpression",
+  "LogicalExpression",
+  "NGPipeExpression",
+]);
 
 /**
  * @param {Node} node
@@ -469,23 +446,6 @@ function isSimpleType(node) {
   return false;
 }
 
-const unitTestRe = /^(?:skip|[fx]?(?:it|describe|test))$/;
-
-/**
- * @param {{callee: MemberExpression | OptionalMemberExpression}} node
- * @returns {boolean}
- */
-function isSkipOrOnlyBlock(node) {
-  return (
-    isMemberExpression(node.callee) &&
-    node.callee.object.type === "Identifier" &&
-    node.callee.property.type === "Identifier" &&
-    unitTestRe.test(node.callee.object.name) &&
-    (node.callee.property.name === "only" ||
-      node.callee.property.name === "skip")
-  );
-}
-
 /**
  * @param {CallExpression} node
  * @returns {boolean}
@@ -497,6 +457,36 @@ function isUnitTestSetUp(node) {
     unitTestSetUpRe.test(node.callee.name) &&
     node.arguments.length === 1
   );
+}
+
+const testCallCalleePatterns = [
+  "it",
+  "it.only",
+  "it.skip",
+  "describe",
+  "describe.only",
+  "describe.skip",
+  "test",
+  "test.only",
+  "test.skip",
+  "test.step",
+  "test.describe",
+  "test.describe.only",
+  "test.describe.parallel",
+  "test.describe.parallel.only",
+  "test.describe.serial",
+  "test.describe.serial.only",
+  "skip",
+  "xit",
+  "xdescribe",
+  "xtest",
+  "fit",
+  "fdescribe",
+  "ftest",
+];
+
+function isTestCallCallee(node) {
+  return isNodeMatches(node, testCallCalleePatterns);
 }
 
 // eg; `describe("some string", (done) => {})`
@@ -514,11 +504,9 @@ function isTestCall(node, parent) {
     }
   } else if (node.arguments.length === 2 || node.arguments.length === 3) {
     if (
-      ((node.callee.type === "Identifier" &&
-        unitTestRe.test(node.callee.name)) ||
-        isSkipOrOnlyBlock(node)) &&
-      (isTemplateLiteral(node.arguments[0]) ||
-        isStringLiteral(node.arguments[0]))
+      (node.arguments[0].type === "TemplateLiteral" ||
+        isStringLiteral(node.arguments[0])) &&
+      isTestCallCallee(node.callee)
     ) {
       // it("name", () => { ... }, 2500)
       if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
@@ -540,24 +528,19 @@ function isTestCall(node, parent) {
  * @param {Node} node
  * @returns {boolean}
  */
-function isCallExpression(node) {
-  return (
-    node &&
-    (node.type === "CallExpression" || node.type === "OptionalCallExpression")
-  );
-}
+const isCallExpression = createTypeCheckFunction([
+  "CallExpression",
+  "OptionalCallExpression",
+]);
 
 /**
  * @param {Node} node
  * @returns {boolean}
  */
-function isMemberExpression(node) {
-  return (
-    node &&
-    (node.type === "MemberExpression" ||
-      node.type === "OptionalMemberExpression")
-  );
-}
+const isMemberExpression = createTypeCheckFunction([
+  "MemberExpression",
+  "OptionalMemberExpression",
+]);
 
 /**
  *
@@ -621,12 +604,8 @@ function isSimpleTemplateLiteral(node) {
  * @returns {string}
  */
 function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
-  if (tokenNode === "+") {
-    return "+" + keyword;
-  }
-
-  if (tokenNode === "-") {
-    return "-" + keyword;
+  if (tokenNode === "+" || tokenNode === "-") {
+    return tokenNode + keyword;
   }
 
   return keyword;
@@ -919,7 +898,7 @@ function isSimpleCallArgument(node, depth) {
 }
 
 function rawText(node) {
-  return node.extra ? node.extra.raw : node.raw;
+  return node.extra?.raw ?? node.raw;
 }
 
 function identity(x) {
@@ -1072,29 +1051,27 @@ function shouldFlatten(parentOp, nodeOp) {
   return true;
 }
 
-const PRECEDENCE = {};
-for (const [i, tier] of [
-  ["|>"],
-  ["??"],
-  ["||"],
-  ["&&"],
-  ["|"],
-  ["^"],
-  ["&"],
-  ["==", "===", "!=", "!=="],
-  ["<", ">", "<=", ">=", "in", "instanceof"],
-  [">>", "<<", ">>>"],
-  ["+", "-"],
-  ["*", "/", "%"],
-  ["**"],
-].entries()) {
-  for (const op of tier) {
-    PRECEDENCE[op] = i;
-  }
-}
-
-function getPrecedence(op) {
-  return PRECEDENCE[op];
+const PRECEDENCE = new Map(
+  [
+    ["|>"],
+    ["??"],
+    ["||"],
+    ["&&"],
+    ["|"],
+    ["^"],
+    ["&"],
+    ["==", "===", "!=", "!=="],
+    ["<", ">", "<=", ">=", "in", "instanceof"],
+    [">>", "<<", ">>>"],
+    ["+", "-"],
+    ["*", "/", "%"],
+    ["**"],
+  ].flatMap((operators, index) =>
+    operators.map((operator) => [operator, index])
+  )
+);
+function getPrecedence(operator) {
+  return PRECEDENCE.get(operator);
 }
 
 function getLeftMost(node) {
@@ -1118,7 +1095,7 @@ function hasRestParameter(node) {
     return true;
   }
   const parameters = getFunctionParameters(node);
-  return parameters.length > 0 && getLast(parameters).type === "RestElement";
+  return getLast(parameters)?.type === "RestElement";
 }
 
 const functionParametersCache = new WeakMap();
@@ -1256,7 +1233,7 @@ const getCommentTestFunction = (flags, fn) => {
  * @returns {boolean}
  */
 function hasComment(node, flags, fn) {
-  if (!node || !isNonEmptyArray(node.comments)) {
+  if (!isNonEmptyArray(node?.comments)) {
     return false;
   }
   const test = getCommentTestFunction(flags, fn);
@@ -1270,7 +1247,7 @@ function hasComment(node, flags, fn) {
  * @returns {Comment[]}
  */
 function getComments(node, flags, fn) {
-  if (!node || !Array.isArray(node.comments)) {
+  if (!Array.isArray(node?.comments)) {
     return [];
   }
   const test = getCommentTestFunction(flags, fn);

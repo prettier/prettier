@@ -1,40 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`API getSupportInfo() 1`] = `
-Object {
-  "languages": Object {
-    "Angular": Array [
+{
+  "languages": {
+    "Angular": [
       "angular",
     ],
-    "CSS": Array [
+    "CSS": [
       "css",
     ],
-    "Flow": Array [
+    "Flow": [
       "flow",
       "babel-flow",
     ],
-    "GraphQL": Array [
+    "GraphQL": [
       "graphql",
     ],
-    "HTML": Array [
+    "HTML": [
       "html",
     ],
-    "Handlebars": Array [
+    "Handlebars": [
       "glimmer",
     ],
-    "JSON": Array [
+    "JSON": [
       "json",
     ],
-    "JSON with Comments": Array [
+    "JSON with Comments": [
       "json",
     ],
-    "JSON.stringify": Array [
+    "JSON.stringify": [
       "json-stringify",
     ],
-    "JSON5": Array [
+    "JSON5": [
       "json5",
     ],
-    "JSX": Array [
+    "JSX": [
       "babel",
       "babel-flow",
       "babel-ts",
@@ -43,7 +43,7 @@ Object {
       "espree",
       "meriyah",
     ],
-    "JavaScript": Array [
+    "JavaScript": [
       "babel",
       "acorn",
       "espree",
@@ -53,75 +53,75 @@ Object {
       "flow",
       "typescript",
     ],
-    "Less": Array [
+    "Less": [
       "less",
     ],
-    "Lightning Web Components": Array [
+    "Lightning Web Components": [
       "lwc",
     ],
-    "MDX": Array [
+    "MDX": [
       "mdx",
     ],
-    "Markdown": Array [
+    "Markdown": [
       "markdown",
     ],
-    "PostCSS": Array [
+    "PostCSS": [
       "css",
     ],
-    "SCSS": Array [
+    "SCSS": [
       "scss",
     ],
-    "TSX": Array [
+    "TSX": [
       "typescript",
       "babel-ts",
     ],
-    "TypeScript": Array [
+    "TypeScript": [
       "typescript",
       "babel-ts",
     ],
-    "Vue": Array [
+    "Vue": [
       "vue",
     ],
-    "YAML": Array [
+    "YAML": [
       "yaml",
     ],
   },
-  "options": Object {
-    "arrowParens": Object {
-      "choices": Array [
+  "options": {
+    "arrowParens": {
+      "choices": [
         "always",
         "avoid",
       ],
       "default": "always",
       "type": "choice",
     },
-    "bracketSameLine": Object {
+    "bracketSameLine": {
       "default": false,
       "type": "boolean",
     },
-    "bracketSpacing": Object {
+    "bracketSpacing": {
       "default": true,
       "type": "boolean",
     },
-    "cursorOffset": Object {
+    "cursorOffset": {
       "default": -1,
-      "range": Object {
+      "range": {
         "end": Infinity,
         "start": -1,
         "step": 1,
       },
       "type": "int",
     },
-    "embeddedLanguageFormatting": Object {
-      "choices": Array [
+    "embeddedLanguageFormatting": {
+      "choices": [
         "auto",
         "off",
       ],
       "default": "auto",
       "type": "choice",
     },
-    "endOfLine": Object {
-      "choices": Array [
+    "endOfLine": {
+      "choices": [
         "lf",
         "crlf",
         "cr",
@@ -130,12 +130,12 @@ Object {
       "default": "lf",
       "type": "choice",
     },
-    "filepath": Object {
+    "filepath": {
       "default": undefined,
       "type": "path",
     },
-    "htmlWhitespaceSensitivity": Object {
-      "choices": Array [
+    "htmlWhitespaceSensitivity": {
+      "choices": [
         "css",
         "strict",
         "ignore",
@@ -143,16 +143,16 @@ Object {
       "default": "css",
       "type": "choice",
     },
-    "insertPragma": Object {
+    "insertPragma": {
       "default": false,
       "type": "boolean",
     },
-    "jsxSingleQuote": Object {
+    "jsxSingleQuote": {
       "default": false,
       "type": "boolean",
     },
-    "parser": Object {
-      "choices": Array [
+    "parser": {
+      "choices": [
         "flow",
         "babel",
         "babel-flow",
@@ -180,25 +180,25 @@ Object {
       "default": undefined,
       "type": "choice",
     },
-    "pluginSearchDirs": Object {
-      "default": Array [],
+    "pluginSearchDirs": {
+      "default": [],
       "type": "path",
     },
-    "plugins": Object {
-      "default": Array [],
+    "plugins": {
+      "default": [],
       "type": "path",
     },
-    "printWidth": Object {
+    "printWidth": {
       "default": 80,
-      "range": Object {
+      "range": {
         "end": Infinity,
         "start": 0,
         "step": 1,
       },
       "type": "int",
     },
-    "proseWrap": Object {
-      "choices": Array [
+    "proseWrap": {
+      "choices": [
         "always",
         "never",
         "preserve",
@@ -206,8 +206,8 @@ Object {
       "default": "preserve",
       "type": "choice",
     },
-    "quoteProps": Object {
-      "choices": Array [
+    "quoteProps": {
+      "choices": [
         "as-needed",
         "consistent",
         "preserve",
@@ -215,51 +215,51 @@ Object {
       "default": "as-needed",
       "type": "choice",
     },
-    "rangeEnd": Object {
+    "rangeEnd": {
       "default": Infinity,
-      "range": Object {
+      "range": {
         "end": Infinity,
         "start": 0,
         "step": 1,
       },
       "type": "int",
     },
-    "rangeStart": Object {
+    "rangeStart": {
       "default": 0,
-      "range": Object {
+      "range": {
         "end": Infinity,
         "start": 0,
         "step": 1,
       },
       "type": "int",
     },
-    "requirePragma": Object {
+    "requirePragma": {
       "default": false,
       "type": "boolean",
     },
-    "semi": Object {
+    "semi": {
       "default": true,
       "type": "boolean",
     },
-    "singleAttributePerLine": Object {
+    "singleAttributePerLine": {
       "default": false,
       "type": "boolean",
     },
-    "singleQuote": Object {
+    "singleQuote": {
       "default": false,
       "type": "boolean",
     },
-    "tabWidth": Object {
+    "tabWidth": {
       "default": 2,
-      "range": Object {
+      "range": {
         "end": Infinity,
         "start": 0,
         "step": 1,
       },
       "type": "int",
     },
-    "trailingComma": Object {
-      "choices": Array [
+    "trailingComma": {
+      "choices": [
         "es5",
         "none",
         "all",
@@ -267,11 +267,11 @@ Object {
       "default": "es5",
       "type": "choice",
     },
-    "useTabs": Object {
+    "useTabs": {
       "default": false,
       "type": "boolean",
     },
-    "vueIndentScriptAndStyle": Object {
+    "vueIndentScriptAndStyle": {
       "default": false,
       "type": "boolean",
     },
@@ -1145,4 +1145,4 @@ exports[`CLI --support-info (stdout) 1`] = `
 "
 `;
 
-exports[`CLI --support-info (write) 1`] = `Array []`;
+exports[`CLI --support-info (write) 1`] = `[]`;

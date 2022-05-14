@@ -176,9 +176,37 @@ If you’d like a JSON schema to validate your configuration, one is available h
 
 ## EditorConfig
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc.
 
-- `end_of_line`
-- `indent_style`
-- `indent_size`/`tab_width`
-- `max_line_length`
+Here’s an annotated description of how different properties map to Prettier’s behavior:
+
+```ini
+# Stop the editor from looking for .editorconfig files in the parent directories
+# root = true
+
+[*]
+# Non-configurable Prettier behaviors
+charset = utf-8
+insert_final_newline = true
+# Caveat: Prettier won’t trim trailing whitespace inside template strings, but your editor might.
+# trim_trailing_whitespace = true
+
+# Configurable Prettier behaviors
+# (change these if your Prettier config differs)
+end_of_line = lf
+indent_style = space
+indent_size = 2
+max_line_length = 80
+```
+
+Here’s a copy+paste-ready `.editorconfig` file if you use the default options:
+
+```ini
+[*]
+charset = utf-8
+insert_final_newline = true
+end_of_line = lf
+indent_style = space
+indent_size = 2
+max_line_length = 80
+```

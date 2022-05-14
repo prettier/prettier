@@ -1,5 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+""" Customer """
+type Person {name: String}
+
+""" Customer """
+type Person {name: String}
+
+"""
+
+    Customer
+
+
+"""
+type Person {name: String}
+
+""""""
+type Person {name: String}
+
+"""    """
+type Person {name: String}
+
+"""
+    1
+  2
+"""
+type Person {name: String}
+
+=====================================output=====================================
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+"""
+type Person {
+  name: String
+}
+
+"""
+"""
+type Person {
+  name: String
+}
+
+"""
+  1
+2
+"""
+type Person {
+  name: String
+}
+
+================================================================================
+`;
+
 exports[`string.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
@@ -57,6 +134,14 @@ one: string
 
 {
   foo(input: {multiline: "ab\\ncd"}) { id }
+}
+
+{
+  foo(input: {multiline: """    foo    """}) { id }
+}
+
+{
+  foo(input: {multiline: """    """}) { id }
 }
 
 =====================================output=====================================
@@ -125,6 +210,29 @@ input Input {
 
 {
   foo(input: { multiline: "ab\\ncd" }) {
+    id
+  }
+}
+
+{
+  foo(
+    input: {
+      multiline: """
+      foo
+      """
+    }
+  ) {
+    id
+  }
+}
+
+{
+  foo(
+    input: {
+      multiline: """
+      """
+    }
+  ) {
     id
   }
 }

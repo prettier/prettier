@@ -261,12 +261,12 @@ test("--no-plugin-search together with --plugin-search-dir", async () => {
   ]);
 
   expect(result1).toMatchInlineSnapshot(`
-    Object {
+    {
       "status": 1,
       "stderr": "[error] Cannot use --no-plugin-search and --plugin-search-dir together.
     ",
       "stdout": "",
-      "write": Array [],
+      "write": [],
     }
   `);
   expect(result2).toEqual(result1);

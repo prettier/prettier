@@ -50,3 +50,11 @@ one: string
 {
   foo(input: {multiline: "ab\ncd"}) { id }
 }
+
+{
+  foo(input: {multiline: """    foo    """}) { id }
+}
+
+{
+  foo(input: {multiline: """    """}) { id }
+}

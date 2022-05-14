@@ -1,274 +1,274 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`schema 1`] = `
-Object {
+{
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": Object {
-    "optionsDefinition": Object {
-      "properties": Object {
-        "arrowParens": Object {
+  "definitions": {
+    "optionsDefinition": {
+      "properties": {
+        "arrowParens": {
           "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Always include parens. Example: \`(x) => x\`",
-              "enum": Array [
+              "enum": [
                 "always",
               ],
             },
-            Object {
+            {
               "description": "Omit parens when possible. Example: \`x => x\`",
-              "enum": Array [
+              "enum": [
                 "avoid",
               ],
             },
           ],
         },
-        "bracketSameLine": Object {
+        "bracketSameLine": {
           "default": false,
           "description": "Put > of opening tags on the last line instead of on a new line.",
           "type": "boolean",
         },
-        "bracketSpacing": Object {
+        "bracketSpacing": {
           "default": true,
           "description": "Print spaces between brackets.",
           "type": "boolean",
         },
-        "cursorOffset": Object {
+        "cursorOffset": {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.
 This option cannot be used with --range-start and --range-end.",
           "type": "integer",
         },
-        "embeddedLanguageFormatting": Object {
+        "embeddedLanguageFormatting": {
           "default": "auto",
           "description": "Control how Prettier formats quoted code embedded in the file.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Format embedded code if Prettier can automatically identify it.",
-              "enum": Array [
+              "enum": [
                 "auto",
               ],
             },
-            Object {
+            {
               "description": "Never automatically format embedded code.",
-              "enum": Array [
+              "enum": [
                 "off",
               ],
             },
           ],
         },
-        "endOfLine": Object {
+        "endOfLine": {
           "default": "lf",
           "description": "Which end of line characters to apply.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Line Feed only (\\n), common on Linux and macOS as well as inside git repos",
-              "enum": Array [
+              "enum": [
                 "lf",
               ],
             },
-            Object {
+            {
               "description": "Carriage Return + Line Feed characters (\\r\\n), common on Windows",
-              "enum": Array [
+              "enum": [
                 "crlf",
               ],
             },
-            Object {
+            {
               "description": "Carriage Return character only (\\r), used very rarely",
-              "enum": Array [
+              "enum": [
                 "cr",
               ],
             },
-            Object {
+            {
               "description": "Maintain existing
 (mixed values within one file are normalised by looking at what's used after the first line)",
-              "enum": Array [
+              "enum": [
                 "auto",
               ],
             },
           ],
         },
-        "filepath": Object {
+        "filepath": {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
         },
-        "htmlWhitespaceSensitivity": Object {
+        "htmlWhitespaceSensitivity": {
           "default": "css",
           "description": "How to handle whitespaces in HTML.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Respect the default value of CSS display property.",
-              "enum": Array [
+              "enum": [
                 "css",
               ],
             },
-            Object {
+            {
               "description": "Whitespaces are considered sensitive.",
-              "enum": Array [
+              "enum": [
                 "strict",
               ],
             },
-            Object {
+            {
               "description": "Whitespaces are considered insensitive.",
-              "enum": Array [
+              "enum": [
                 "ignore",
               ],
             },
           ],
         },
-        "insertPragma": Object {
+        "insertPragma": {
           "default": false,
           "description": "Insert @format pragma into file's first docblock comment.",
           "type": "boolean",
         },
-        "jsxSingleQuote": Object {
+        "jsxSingleQuote": {
           "default": false,
           "description": "Use single quotes in JSX.",
           "type": "boolean",
         },
-        "parser": Object {
-          "anyOf": Array [
-            Object {
+        "parser": {
+          "anyOf": [
+            {
               "description": "Flow",
-              "enum": Array [
+              "enum": [
                 "flow",
               ],
             },
-            Object {
+            {
               "description": "JavaScript",
-              "enum": Array [
+              "enum": [
                 "babel",
               ],
             },
-            Object {
+            {
               "description": "Flow",
-              "enum": Array [
+              "enum": [
                 "babel-flow",
               ],
             },
-            Object {
+            {
               "description": "TypeScript",
-              "enum": Array [
+              "enum": [
                 "babel-ts",
               ],
             },
-            Object {
+            {
               "description": "TypeScript",
-              "enum": Array [
+              "enum": [
                 "typescript",
               ],
             },
-            Object {
+            {
               "description": "JavaScript",
-              "enum": Array [
+              "enum": [
                 "acorn",
               ],
             },
-            Object {
+            {
               "description": "JavaScript",
-              "enum": Array [
+              "enum": [
                 "espree",
               ],
             },
-            Object {
+            {
               "description": "JavaScript",
-              "enum": Array [
+              "enum": [
                 "meriyah",
               ],
             },
-            Object {
+            {
               "description": "CSS",
-              "enum": Array [
+              "enum": [
                 "css",
               ],
             },
-            Object {
+            {
               "description": "Less",
-              "enum": Array [
+              "enum": [
                 "less",
               ],
             },
-            Object {
+            {
               "description": "SCSS",
-              "enum": Array [
+              "enum": [
                 "scss",
               ],
             },
-            Object {
+            {
               "description": "JSON",
-              "enum": Array [
+              "enum": [
                 "json",
               ],
             },
-            Object {
+            {
               "description": "JSON5",
-              "enum": Array [
+              "enum": [
                 "json5",
               ],
             },
-            Object {
+            {
               "description": "JSON.stringify",
-              "enum": Array [
+              "enum": [
                 "json-stringify",
               ],
             },
-            Object {
+            {
               "description": "GraphQL",
-              "enum": Array [
+              "enum": [
                 "graphql",
               ],
             },
-            Object {
+            {
               "description": "Markdown",
-              "enum": Array [
+              "enum": [
                 "markdown",
               ],
             },
-            Object {
+            {
               "description": "MDX",
-              "enum": Array [
+              "enum": [
                 "mdx",
               ],
             },
-            Object {
+            {
               "description": "Vue",
-              "enum": Array [
+              "enum": [
                 "vue",
               ],
             },
-            Object {
+            {
               "description": "YAML",
-              "enum": Array [
+              "enum": [
                 "yaml",
               ],
             },
-            Object {
+            {
               "description": "Ember / Handlebars",
-              "enum": Array [
+              "enum": [
                 "glimmer",
               ],
             },
-            Object {
+            {
               "description": "HTML",
-              "enum": Array [
+              "enum": [
                 "html",
               ],
             },
-            Object {
+            {
               "description": "Angular",
-              "enum": Array [
+              "enum": [
                 "angular",
               ],
             },
-            Object {
+            {
               "description": "Lightning Web Components",
-              "enum": Array [
+              "enum": [
                 "lwc",
               ],
             },
-            Object {
+            {
               "description": "Custom parser",
               "type": "string",
             },
@@ -276,157 +276,157 @@ This option cannot be used with --range-start and --range-end.",
           "default": undefined,
           "description": "Which parser to use.",
         },
-        "pluginSearchDirs": Object {
-          "default": Array [],
+        "pluginSearchDirs": {
+          "default": [],
           "description": "Custom directory that contains prettier plugins in node_modules subdirectory.
 Overrides default behavior when plugins are searched relatively to the location of Prettier.
 Multiple values are accepted.",
-          "oneOf": Array [
-            Object {
-              "items": Object {
+          "oneOf": [
+            {
+              "items": {
                 "type": "string",
               },
               "type": "array",
             },
-            Object {
+            {
               "description": "Disable plugin autoloading.",
-              "enum": Array [
+              "enum": [
                 false,
               ],
             },
           ],
         },
-        "plugins": Object {
-          "default": Array [],
+        "plugins": {
+          "default": [],
           "description": "Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.",
-          "items": Object {
+          "items": {
             "type": "string",
           },
           "type": "array",
         },
-        "printWidth": Object {
+        "printWidth": {
           "default": 80,
           "description": "The line length where Prettier will try wrap.",
           "type": "integer",
         },
-        "proseWrap": Object {
+        "proseWrap": {
           "default": "preserve",
           "description": "How to wrap prose.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Wrap prose if it exceeds the print width.",
-              "enum": Array [
+              "enum": [
                 "always",
               ],
             },
-            Object {
+            {
               "description": "Do not wrap prose.",
-              "enum": Array [
+              "enum": [
                 "never",
               ],
             },
-            Object {
+            {
               "description": "Wrap prose as-is.",
-              "enum": Array [
+              "enum": [
                 "preserve",
               ],
             },
           ],
         },
-        "quoteProps": Object {
+        "quoteProps": {
           "default": "as-needed",
           "description": "Change when properties in objects are quoted.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Only add quotes around object properties where required.",
-              "enum": Array [
+              "enum": [
                 "as-needed",
               ],
             },
-            Object {
+            {
               "description": "If at least one property in an object requires quotes, quote all properties.",
-              "enum": Array [
+              "enum": [
                 "consistent",
               ],
             },
-            Object {
+            {
               "description": "Respect the input use of quotes in object properties.",
-              "enum": Array [
+              "enum": [
                 "preserve",
               ],
             },
           ],
         },
-        "rangeEnd": Object {
+        "rangeEnd": {
           "default": Infinity,
           "description": "Format code ending at a given character offset (exclusive).
 The range will extend forwards to the end of the selected statement.
 This option cannot be used with --cursor-offset.",
           "type": "integer",
         },
-        "rangeStart": Object {
+        "rangeStart": {
           "default": 0,
           "description": "Format code starting at a given character offset.
 The range will extend backwards to the start of the first line containing the selected statement.
 This option cannot be used with --cursor-offset.",
           "type": "integer",
         },
-        "requirePragma": Object {
+        "requirePragma": {
           "default": false,
           "description": "Require either '@prettier' or '@format' to be present in the file's first docblock comment
 in order for it to be formatted.",
           "type": "boolean",
         },
-        "semi": Object {
+        "semi": {
           "default": true,
           "description": "Print semicolons.",
           "type": "boolean",
         },
-        "singleAttributePerLine": Object {
+        "singleAttributePerLine": {
           "default": false,
           "description": "Enforce single attribute per line in HTML, Vue and JSX.",
           "type": "boolean",
         },
-        "singleQuote": Object {
+        "singleQuote": {
           "default": false,
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
-        "tabWidth": Object {
+        "tabWidth": {
           "default": 2,
           "description": "Number of spaces per indentation level.",
           "type": "integer",
         },
-        "trailingComma": Object {
+        "trailingComma": {
           "default": "es5",
           "description": "Print trailing commas wherever possible when multi-line.",
-          "oneOf": Array [
-            Object {
+          "oneOf": [
+            {
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
-              "enum": Array [
+              "enum": [
                 "es5",
               ],
             },
-            Object {
+            {
               "description": "No trailing commas.",
-              "enum": Array [
+              "enum": [
                 "none",
               ],
             },
-            Object {
+            {
               "description": "Trailing commas wherever possible (including function arguments).",
-              "enum": Array [
+              "enum": [
                 "all",
               ],
             },
           ],
         },
-        "useTabs": Object {
+        "useTabs": {
           "default": false,
           "description": "Indent with tabs instead of spaces.",
           "type": "boolean",
         },
-        "vueIndentScriptAndStyle": Object {
+        "vueIndentScriptAndStyle": {
           "default": false,
           "description": "Indent script and style tags in Vue files.",
           "type": "boolean",
@@ -434,48 +434,48 @@ in order for it to be formatted.",
       },
       "type": "object",
     },
-    "overridesDefinition": Object {
-      "properties": Object {
-        "overrides": Object {
+    "overridesDefinition": {
+      "properties": {
+        "overrides": {
           "description": "Provide a list of patterns to override prettier configuration.",
-          "items": Object {
+          "items": {
             "additionalProperties": false,
-            "properties": Object {
-              "excludeFiles": Object {
+            "properties": {
+              "excludeFiles": {
                 "description": "Exclude these files from this override.",
-                "oneOf": Array [
-                  Object {
+                "oneOf": [
+                  {
                     "type": "string",
                   },
-                  Object {
-                    "items": Object {
+                  {
+                    "items": {
                       "type": "string",
                     },
                     "type": "array",
                   },
                 ],
               },
-              "files": Object {
+              "files": {
                 "description": "Include these files in this override.",
-                "oneOf": Array [
-                  Object {
+                "oneOf": [
+                  {
                     "type": "string",
                   },
-                  Object {
-                    "items": Object {
+                  {
+                    "items": {
                       "type": "string",
                     },
                     "type": "array",
                   },
                 ],
               },
-              "options": Object {
+              "options": {
                 "$ref": "#/definitions/optionsDefinition",
                 "description": "The options to apply for this override.",
                 "type": "object",
               },
             },
-            "required": Array [
+            "required": [
               "files",
             ],
             "type": "object",
@@ -486,19 +486,19 @@ in order for it to be formatted.",
       "type": "object",
     },
   },
-  "oneOf": Array [
-    Object {
-      "allOf": Array [
-        Object {
+  "oneOf": [
+    {
+      "allOf": [
+        {
           "$ref": "#/definitions/optionsDefinition",
         },
-        Object {
+        {
           "$ref": "#/definitions/overridesDefinition",
         },
       ],
       "type": "object",
     },
-    Object {
+    {
       "type": "string",
     },
   ],

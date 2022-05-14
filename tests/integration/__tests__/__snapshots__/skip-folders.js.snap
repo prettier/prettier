@@ -6,7 +6,7 @@ b/file.js
 "
 `;
 
-exports[`skip folders passed specifically (write) 1`] = `Array []`;
+exports[`skip folders passed specifically (write) 1`] = `[]`;
 
 exports[`skips folders in glob (stdout) 1`] = `
 "a/file.js
@@ -14,4 +14,4 @@ b/file.js
 "
 `;
 
-exports[`skips folders in glob (write) 1`] = `Array []`;
+exports[`skips folders in glob (write) 1`] = `[]`;

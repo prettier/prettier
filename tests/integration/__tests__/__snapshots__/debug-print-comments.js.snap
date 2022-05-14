@@ -48,4 +48,4 @@ exports[`prints information for debugging comment attachment with --debug-print-
 "
 `;
 
-exports[`prints information for debugging comment attachment with --debug-print-comments (write) 1`] = `Array []`;
+exports[`prints information for debugging comment attachment with --debug-print-comments (write) 1`] = `[]`;
