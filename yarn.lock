@@ -2250,10 +2250,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:3.3.0, ci-info@npm:^3.2.0, ci-info@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "ci-info@npm:3.3.0"
-  checksum: c3d86fe374938ecda5093b1ba39acb535d8309185ba3f23587747c6a057e63f45419b406d880304dbc0e1d72392c9a33e42fe9a1e299209bc0ded5efaa232b66
+"ci-info@npm:3.3.1, ci-info@npm:^3.2.0, ci-info@npm:^3.3.0":
+  version: 3.3.1
+  resolution: "ci-info@npm:3.3.1"
+  checksum: 244546317cca96955860d2cb8d0bf47dd66d9078bbe83a215fa87464ab24b352c6fc6f56027d1c82f002e3f833be253f1320d35ed7199bd81134f7788c657f3a
   languageName: node
   linkType: hard
 
@@ -6634,7 +6634,7 @@ __metadata:
     c8: 7.11.2
     camelcase: 6.3.0
     chalk: 5.0.1
-    ci-info: 3.3.0
+    ci-info: 3.3.1
     cjk-regex: 2.0.1
     cosmiconfig: 7.0.1
     cross-env: 7.0.3
