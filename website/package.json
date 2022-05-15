@@ -20,7 +20,7 @@
     "@babel/preset-react": "7.16.7",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.2.5",
-    "concurrently": "7.1.0",
+    "concurrently": "7.2.0",
     "docusaurus": "1.14.7",
     "js-yaml": "4.1.0",
     "webpack": "5.72.0",
