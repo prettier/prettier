@@ -59,7 +59,6 @@ class Footer extends React.Component {
             >
               Stack Overflow
             </a>
-            <a href="https://gitter.im/jlongster/prettier">Chat on Gitter</a>
             <a href="https://twitter.com/PrettierCode">
               @PrettierCode on Twitter
             </a>
