@@ -364,7 +364,10 @@ function _inferScriptParser(node) {
     return "html";
   }
 
-  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
+  if (
+    (type && (type.endsWith("json") || type.endsWith("importmap"))) ||
+    type === "speculationrules"
+  ) {
     return "json";
   }
 
