@@ -49,7 +49,7 @@ module.exports = {
     "no-useless-return": "error",
     "no-unused-vars": ["off"],
     "unused-imports/no-unused-vars": [
-      "warn",
+      "error",
       {
         vars: "all",
         args: "after-used",
