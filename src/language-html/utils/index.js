@@ -674,6 +674,7 @@ module.exports = {
   isVueScriptTag,
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
+  isVueSfcBlock,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
