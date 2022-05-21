@@ -520,6 +520,8 @@ function printTypescript(path, options, print) {
       return ["?", print("typeAnnotation")];
     case "TSJSDocNonNullableType":
       return ["!", print("typeAnnotation")];
+    case "TSInstantiationExpression":
+      return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
       throw new Error(
