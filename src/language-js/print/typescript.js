@@ -202,7 +202,7 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSTypeQuery":
-      return ["typeof ", print("exprName")];
+      return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
