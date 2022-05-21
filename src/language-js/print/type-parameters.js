@@ -127,6 +127,14 @@ function printTypeParameter(path, options, print) {
     parts.push(print("variance"));
   }
 
+  if (node.in) {
+    parts.push("in ");
+  }
+
+  if (node.out) {
+    parts.push("out ");
+  }
+
   parts.push(print("name"));
 
   if (node.bound) {
