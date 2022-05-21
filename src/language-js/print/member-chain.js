@@ -325,13 +325,12 @@ function printMemberChain(path, options, print) {
   const oneLine = printedGroups;
 
   const cutoff = shouldMerge ? 3 : 2;
-  const flatGroups = groups.flat();
 
   const nodeHasComment =
-    flatGroups
+    printedNodes
       .slice(1, -1)
       .some((node) => hasComment(node.node, CommentCheckFlags.Leading)) ||
-    flatGroups
+    printedNodes
       .slice(0, -1)
       .some((node) => hasComment(node.node, CommentCheckFlags.Trailing)) ||
     (groups[cutoff] &&
