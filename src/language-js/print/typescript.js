@@ -202,7 +202,7 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSTypeQuery":
-      return ["typeof ", print("exprName")];
+      return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
@@ -520,6 +520,8 @@ function printTypescript(path, options, print) {
       return ["?", print("typeAnnotation")];
     case "TSJSDocNonNullableType":
       return ["!", print("typeAnnotation")];
+    case "TSInstantiationExpression":
+      return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
       throw new Error(

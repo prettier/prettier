@@ -218,6 +218,34 @@ type X9<U, T> = T extends (infer U extends number ? U : T) ? U : T;
 ================================================================================
 `;
 
+exports[`ts-4.7-instantiation-expression.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// basic
+const foo = bar<T>;
+
+// typeof
+let x: typeof y.z<w>;
+
+// new
+new A<T>;
+
+=====================================output=====================================
+// basic
+const foo = bar<T>;
+
+// typeof
+let x: typeof y.z<w>;
+
+// new
+new A<T>();
+
+================================================================================
+`;
+
 exports[`tuple-labeled-ts.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
