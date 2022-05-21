@@ -1,5 +1,3 @@
-import runPrettier from "../run-prettier.js";
-
 describe("write cursorOffset to stderr with --cursor-offset <int>", () => {
   runPrettier("cli", ["--cursor-offset", "2", "--parser", "babel"], {
     input: " 1",

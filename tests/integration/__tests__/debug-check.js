@@ -1,5 +1,3 @@
-import runPrettier from "../run-prettier.js";
-
 describe("doesn't crash when --debug-check is passed", () => {
   runPrettier("cli/with-shebang", ["issue1890.js", "--debug-check"]).test({
     stdout: "issue1890.js\n",
