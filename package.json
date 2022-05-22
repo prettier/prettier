@@ -99,7 +99,7 @@
     "@typescript-eslint/eslint-plugin": "5.25.0",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
-    "c8": "7.11.2",
+    "c8": "7.11.3",
     "cross-env": "7.0.3",
     "cspell": "5.20.0",
     "enquirer": "2.3.6",
