@@ -47,13 +47,10 @@ module.exports = {
     "no-return-await": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
-    "no-unused-vars": ["off"],
-    "unused-imports/no-unused-vars": [
+    "no-unused-vars": [
       "error",
       {
-        vars: "all",
-        args: "after-used",
-        argsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
       },
     ],
     "no-var": "error",

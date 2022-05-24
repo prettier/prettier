@@ -78,7 +78,6 @@ function normalizeOptions(
   const unknown = !passThrough
     ? (key, value, options) => {
         // Don't suggest `_` for unknown flags
-        // eslint-disable-next-line unused-imports/no-unused-vars
         const { _, ...schemas } = options.schemas;
         return vnopts.levenUnknownHandler(key, value, {
           ...options,
