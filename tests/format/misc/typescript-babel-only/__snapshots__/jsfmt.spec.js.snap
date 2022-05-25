@@ -224,24 +224,12 @@ parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// basic
-const foo = bar<T>;
-
 // typeof
 let x: typeof y.z<w>;
-
-// new
-new A<T>;
 
 =====================================output=====================================
-// basic
-const foo = bar<T>;
-
 // typeof
 let x: typeof y.z<w>;
-
-// new
-new A<T>();
 
 ================================================================================
 `;
