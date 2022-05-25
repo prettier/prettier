@@ -15,7 +15,7 @@
     "react-dom": "18.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.17.10",
+    "@babel/core": "7.18.2",
     "@babel/preset-env": "7.18.0",
     "@babel/preset-react": "7.16.7",
     "@sandhose/prettier-animated-logo": "1.0.3",
