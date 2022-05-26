@@ -49,6 +49,7 @@ const {
   printFunctionType,
   printTupleType,
   printIndexedAccessType,
+  printJSDocType,
 } = require("./type-annotation.js");
 
 function printTypescript(path, options, print) {
@@ -517,9 +518,9 @@ function printTypescript(path, options, print) {
     case "TSJSDocUnknownType":
       return "?";
     case "TSJSDocNullableType":
-      return ["?", print("typeAnnotation")];
+      return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
-      return ["!", print("typeAnnotation")];
+      return printJSDocType(path, print, /* token */ "!");
     case "TSInstantiationExpression":
       return [print("expression"), print("typeParameters")];
     default:
