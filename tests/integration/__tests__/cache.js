@@ -110,6 +110,37 @@ describe("--cache option", () => {
       );
     });
 
+    it("re-formats when timestamp has been updated", async () => {
+      const { stdout: firstStdout } = await runPrettier(dir, [
+        "--cache",
+        "--write",
+        ".",
+      ]);
+      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms$/),
+        ])
+      );
+
+      // update timestamp
+      const time = new Date();
+      await fs.utimes(path.join(dir, "a.js"), time, time);
+
+      const { stdout: secondStdout } = await runPrettier(dir, [
+        "--cache",
+        "--write",
+        ".",
+      ]);
+      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+        // the cache of `b.js` is only available.
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+        ])
+      );
+    });
+
     it("re-formats when options has been updated.", async () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
