@@ -212,3 +212,11 @@ When you want to format only changed files, you can run Prettier with `--cache` 
 ```bash
 prettier --write --cache src
 ```
+
+## `--cache-strategy`
+
+Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. If no strategy is specified, metadata will be used.
+
+```bash
+prettier --write --cache --cache-strategy content src
+```
