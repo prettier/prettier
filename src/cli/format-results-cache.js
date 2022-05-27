@@ -39,6 +39,7 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 }
 
 const cacheStrategies = ["metadata", "content"];
+const cacheStrategiesSet = new Set(cacheStrategies);
 
 /**
  * @typedef {"metadata" | "content"} CacheStrategy
@@ -47,7 +48,7 @@ const cacheStrategies = ["metadata", "content"];
  * @returns {value is CacheStrategy}
  */
 function isValidCacheStrategy(value) {
-  return cacheStrategies.includes(value);
+  return cacheStrategiesSet.has(value);
 }
 
 class FormatResultsCache {
