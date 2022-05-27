@@ -301,7 +301,12 @@ async function formatFiles(context) {
   let formatResultsCache;
   const cacheFilePath = findCacheFile();
   if (context.argv.cache) {
-    formatResultsCache = new FormatResultsCache(cacheFilePath);
+    try {
+      formatResultsCache = new FormatResultsCache(cacheFilePath);
+    } catch (error) {
+      context.logger.error(error.message);
+      process.exit(2);
+    }
   } else {
     const stat = await statSafe(cacheFilePath);
     if (stat) {

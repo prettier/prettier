@@ -76,6 +76,12 @@ const options = {
     description: "Only format changed files",
     type: "boolean",
   },
+  "cache-strategy": {
+    default: "metadata",
+    describe:
+      "Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. ",
+    type: "string",
+  },
   check: {
     alias: "c",
     category: coreOptions.CATEGORY_OUTPUT,

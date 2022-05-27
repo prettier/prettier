@@ -38,14 +38,38 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
 }
 
+const cacheStrategies = ["metadata", "content"];
+
+/**
+ * @typedef {"metadata" | "content"} CacheStrategy
+ *
+ * @param {string} value
+ * @returns {value is CacheStrategy}
+ */
+function isValidCacheStrategy(value) {
+  return cacheStrategies.includes(value);
+}
+
 class FormatResultsCache {
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `.prettiercache`)
+   * @param {string} cacheStrategy
    */
-  constructor(cacheFileLocation) {
+  constructor(cacheFileLocation, cacheStrategy) {
+    if (!isValidCacheStrategy(cacheStrategy)) {
+      const errorMessage = `Cache strategy must beone of : ${cacheStrategies
+        .map((strategy) => `"${strategy}"`)
+        .join(", ")}`;
+      throw new Error(errorMessage);
+    }
+
+    const useChecksum = cacheStrategy === "content";
+
     this.cacheFileLocation = cacheFileLocation;
     this.fileEntryCache = fileEntryCache.create(
-      /* cacheId */ cacheFileLocation
+      /* cacheId */ cacheFileLocation,
+      /* directory */ undefined,
+      useChecksum
     );
   }
 
