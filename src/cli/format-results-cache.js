@@ -52,7 +52,7 @@ function isValidCacheStrategy(value) {
 
 class FormatResultsCache {
   /**
-   * @param {string} cacheFileLocation The path of cache file location. (default: `.prettiercache`)
+   * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/prettier-cache`)
    * @param {string} cacheStrategy
    */
   constructor(cacheFileLocation, cacheStrategy) {
