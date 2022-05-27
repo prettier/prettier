@@ -414,7 +414,12 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSEnumMember":
-      parts.push(print("id"));
+      if (node.computed) {
+        parts.push("[", print("id"), "]");
+      } else {
+        parts.push(print("id"));
+      }
+
       if (node.initializer) {
         parts.push(" = ", print("initializer"));
       }
