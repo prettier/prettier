@@ -131,4 +131,16 @@ describe("--cache option", () => {
     await runPrettier(dir, ["--write", "."]);
     await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
   });
+
+  it("throw error when cache-strategy is invalid", async () => {
+    const { stderr } = await runPrettier(dir, [
+      "--cache",
+      "--cache-strategy",
+      "invalid",
+      ".",
+    ]);
+    expect(stripAnsi(stderr.trim())).toBe(
+      '[error] Cache strategy must be one of: "metadata", "content"'
+    );
+  });
 });

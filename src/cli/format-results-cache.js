@@ -57,7 +57,7 @@ class FormatResultsCache {
    */
   constructor(cacheFileLocation, cacheStrategy) {
     if (!isValidCacheStrategy(cacheStrategy)) {
-      const errorMessage = `Cache strategy must beone of : ${cacheStrategies
+      const errorMessage = `Cache strategy must be one of: ${cacheStrategies
         .map((strategy) => `"${strategy}"`)
         .join(", ")}`;
       throw new Error(errorMessage);
