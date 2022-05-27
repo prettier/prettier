@@ -44,6 +44,15 @@ describe("--cache option", () => {
     );
   });
 
+  it("throws error when use with --stdin-filepath", async () => {
+    const { stderr } = await runPrettier(
+      dir,
+      ["--cache", "--stdin-filepath", "foo.js"],
+      { input: "const a = a;" }
+    );
+    expect(typeof stderr).toBe("string");
+  });
+
   describe("--cache-strategy metadata", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(

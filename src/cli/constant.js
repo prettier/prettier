@@ -73,7 +73,7 @@ const categoryOrder = [
 const options = {
   cache: {
     default: false,
-    description: "Only format changed files",
+    description: "Only format changed files. Cannot use with --stdin-filepath.",
     type: "boolean",
   },
   "cache-strategy": {
