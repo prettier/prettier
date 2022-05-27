@@ -139,7 +139,7 @@ Editor options:
 
 Other options:
 
-  --cache                  Only format changed files
+  --cache                  Only format changed files. Cannot use with --stdin-filepath.
                            Defaults to false.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
@@ -311,7 +311,7 @@ Editor options:
 
 Other options:
 
-  --cache                  Only format changed files
+  --cache                  Only format changed files. Cannot use with --stdin-filepath.
                            Defaults to false.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern

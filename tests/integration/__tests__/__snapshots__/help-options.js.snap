@@ -49,7 +49,7 @@ exports[`show detailed usage with --help cache (stderr) 1`] = `""`;
 exports[`show detailed usage with --help cache (stdout) 1`] = `
 "--cache
 
-  Only format changed files
+  Only format changed files. Cannot use with --stdin-filepath.
 
 Default: false
 "
