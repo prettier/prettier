@@ -384,7 +384,7 @@ async function formatFiles(context) {
 
     const start = Date.now();
 
-    const existsCache = formatResultsCache?.existsAvailableFormatResultsCache(
+    const isCacheExists = formatResultsCache?.existsAvailableFormatResultsCache(
       filename,
       options
     );
@@ -393,7 +393,7 @@ async function formatFiles(context) {
     let output;
 
     try {
-      if (existsCache) {
+      if (isCacheExists) {
         result = { formatted: input };
       } else {
         result = format(context, input, options);
@@ -442,7 +442,7 @@ async function formatFiles(context) {
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${chalk.grey(filename)} ${Date.now() - start}ms`;
-        if (existsCache) {
+        if (isCacheExists) {
           context.logger.log(`${message} (cached)`);
         } else {
           context.logger.log(message);
@@ -469,9 +469,7 @@ async function formatFiles(context) {
     }
   }
 
-  if (formatResultsCache) {
-    formatResultsCache.reconcile();
-  }
+  formatResultsCache?.reconcile();
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
