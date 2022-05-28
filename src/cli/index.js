@@ -96,15 +96,17 @@ async function main(context) {
 
   const hasFilePatterns = context.filePatterns.length > 0;
   const useStdin =
-    !hasFilePatterns &&
-    (!process.stdin.isTTY || context.argv.filePath) &&
-    !context.argv.cache;
+    !hasFilePatterns && (!process.stdin.isTTY || context.argv.filePath);
 
   if (context.argv.findConfigPath) {
     await logResolvedConfigPathOrDie(context);
   } else if (context.argv.fileInfo) {
     await logFileInfoOrDie(context);
   } else if (useStdin) {
+    if (context.argv.cache) {
+      context.logger.error("`--cache` cannot be used with stdin.");
+      process.exit(2);
+    }
     await formatStdin(context);
   } else if (hasFilePatterns) {
     await formatFiles(context);

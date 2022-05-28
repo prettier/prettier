@@ -50,7 +50,9 @@ describe("--cache option", () => {
       ["--cache", "--stdin-filepath", "foo.js"],
       { input: "const a = a;" }
     );
-    expect(typeof stderr).toBe("string");
+    expect(stripAnsi(stderr.trim())).toBe(
+      "[error] `--cache` cannot be used with stdin."
+    );
   });
 
   describe("--cache-strategy metadata", () => {
