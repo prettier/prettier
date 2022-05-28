@@ -54,6 +54,7 @@ const getExplorerMemoized = mem(
         ".prettierrc.yml",
         ".prettierrc.json5",
         ".prettierrc.js",
+        ".prettierrc.ts",
         ".prettierrc.cjs",
         "prettier.config.js",
         "prettier.config.cjs",

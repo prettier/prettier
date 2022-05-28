@@ -9,7 +9,7 @@ Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for co
 - A `"prettier"` key in your `package.json` file.
 - A `.prettierrc` file written in JSON or YAML.
 - A `.prettierrc.json`, `.prettierrc.yml`, `.prettierrc.yaml`, or `.prettierrc.json5` file.
-- A `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js`, or `prettier.config.cjs` file that exports an object using `module.exports`.
+- A `.prettierrc.js`, `.prettierrc.ts`, `.prettierrc.cjs`, `prettier.config.js`, or `prettier.config.cjs` file that exports an object using `module.exports`.
 - A `.prettierrc.toml` file.
 
 The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found.
@@ -34,7 +34,7 @@ JSON:
 JS:
 
 ```js
-// prettier.config.js or .prettierrc.js
+// prettier.config.js or .prettierrc.js or .prettierrc.ts
 module.exports = {
   trailingComma: "es5",
   tabWidth: 4,
@@ -135,6 +135,16 @@ An example configuration repository is available [here](https://github.com/azz/p
 >   ...require("@company/prettier-config"),
 >   semi: false,
 > };
+> ```
+
+> Note: You can also import the file in a `.prettierrc.ts` and export the modifications.
+>
+> ```ts
+> module.exports = {
+>   ...require("@company/prettier-config"),
+>   semi: false,
+> };
+> ``;
 > ```
 
 ## Setting the [parser](options.md#parser) option
