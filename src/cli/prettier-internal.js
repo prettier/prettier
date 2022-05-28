@@ -7,4 +7,5 @@ export const {
   optionsHiddenDefaults,
   normalizeApiOptions,
   normalizeCliOptions,
+  getSupportInfoWithoutPlugins,
 } = sharedWithCli;
