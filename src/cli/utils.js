@@ -48,7 +48,7 @@ function pick(object, keys) {
  * @returns {string}
  */
 function createHash(source) {
-  return sdbm(source).toString();
+  return String(sdbm(source));
 }
 
 /**
