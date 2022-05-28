@@ -1,6 +1,6 @@
 "use strict";
 
-const createPlugin = require("../../utils/create-plugin.js");
+const createPlugin = require("../../utils/create-plugin.cjs");
 
 const COMMENT = "/* Formatted by stylus plugin */";
 
