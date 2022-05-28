@@ -1,5 +1,3 @@
-"use strict";
-
 // Copied from https://github.com/sindresorhus/eslint-plugin-unicorn/blob/d53d935951aa815c763fc9441aa452c763294715/rules/utils/is-node-matches.js
 
 /**
@@ -49,4 +47,4 @@ function isNodeMatches(node, nameOrPaths) {
   );
 }
 
-module.exports = isNodeMatches;
+export default isNodeMatches;
