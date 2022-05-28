@@ -2,7 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   labels: ["scope:dependency"],
   baseBranches: ["next"],
-  schedule: ["at 01:00 on sunday"],
+  // schedule: ["at 01:00 on sunday"],
   packageRules: [
     {
       matchPaths: [

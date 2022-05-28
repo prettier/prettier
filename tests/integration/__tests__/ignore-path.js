@@ -1,8 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
 import createEsmUtils from "esm-utils";
-import runPrettier from "../run-prettier.js";
-
 const { __dirname } = createEsmUtils(import.meta);
 
 fs.writeFileSync(

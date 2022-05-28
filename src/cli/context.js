@@ -13,8 +13,6 @@ import {
  * @property {string[]} filePatterns
  * @property {any[]} supportOptions
  * @property detailedOptions
- * @property detailedOptionMap
- * @property apiDefaultOptions
  * @property languages
  * @property {Partial<Context>[]} stack
  * @property pushContextPlugins
