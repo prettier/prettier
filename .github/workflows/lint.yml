@@ -45,6 +45,9 @@ jobs:
       - name: Lint workflow files
         run: yarn lint:actionlint
 
+      - name: Validate renovate config
+        run: npx --package renovate -c renovate-config-validator
+
       - name: Run yarn (/)
         run: |
           yarn
