@@ -2954,9 +2954,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"concurrently@npm:7.2.0":
-  version: 7.2.0
-  resolution: "concurrently@npm:7.2.0"
+"concurrently@npm:7.2.1":
+  version: 7.2.1
+  resolution: "concurrently@npm:7.2.1"
   dependencies:
     chalk: ^4.1.0
     date-fns: ^2.16.1
@@ -2969,7 +2969,7 @@ __metadata:
     yargs: ^17.3.1
   bin:
     concurrently: dist/bin/concurrently.js
-  checksum: 363506e777c623f922b0cb370e80a776e1ee37a0970aae9862ed51cc613d74b224122ac66829115cc2ee876427e820ae0989a89f1f081575516b9a6739517b51
+  checksum: 384e9f48f2c53a7c46b1bb1143b9dba734953c587e0c080db0c6e71dd4a58f556d096fe4fd9d2d9c601ba7ae8e6c06d452c162bbc2b6a4b16c080c1c4b8e81b4
   languageName: node
   linkType: hard
 
@@ -8703,7 +8703,7 @@ __metadata:
     babel-loader: 8.2.5
     clipboard: 2.0.11
     codemirror-graphql: 1.3.0
-    concurrently: 7.2.0
+    concurrently: 7.2.1
     docusaurus: 1.14.7
     js-yaml: 4.1.0
     lz-string: 1.4.4
