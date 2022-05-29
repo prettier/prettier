@@ -364,7 +364,10 @@ function _inferScriptParser(node) {
     return "html";
   }
 
-  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
+  if (
+    (type && (type.endsWith("json") || type.endsWith("importmap"))) ||
+    type === "speculationrules"
+  ) {
     return "json";
   }
 
@@ -373,7 +376,7 @@ function _inferScriptParser(node) {
   }
 }
 
-function inferStyleParser(node) {
+function inferStyleParser(node, options) {
   const { lang } = node.attrMap;
   if (!lang || lang === "postcss" || lang === "css") {
     return "css";
@@ -386,6 +389,13 @@ function inferStyleParser(node) {
   if (lang === "less") {
     return "less";
   }
+
+  // Prettier does not officially support stylus.
+  // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
+  // https://github.com/prettier/prettier/pull/12707
+  if (lang === "stylus") {
+    return inferParserByLanguage("stylus", options);
+  }
 }
 
 function inferScriptParser(node, options) {
@@ -397,7 +407,7 @@ function inferScriptParser(node, options) {
   }
 
   if (node.name === "style") {
-    return inferStyleParser(node);
+    return inferStyleParser(node, options);
   }
 
   if (options && isVueNonHtmlBlock(node, options)) {
@@ -638,6 +648,10 @@ function getTextValueParts(node, value = node.value) {
     : getDocParts(join(line, splitByHtmlWhitespace(value)));
 }
 
+function isVueScriptTag(node, options) {
+  return isVueSfcBlock(node, options) && node.name === "script";
+}
+
 module.exports = {
   htmlTrim,
   htmlTrimPreserveIndentation,
@@ -657,6 +671,7 @@ module.exports = {
   inferScriptParser,
   isVueCustomBlock,
   isVueNonHtmlBlock,
+  isVueScriptTag,
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   isDanglingSpaceSensitiveNode,

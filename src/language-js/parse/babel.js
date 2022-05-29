@@ -170,6 +170,11 @@ const parseEstree = createParse(
 );
 const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
 
+const parseTSExpression = createParse(
+  "parseExpression",
+  appendPlugins(["typescript"])
+);
+
 // Error codes are defined in
 //  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/parser/error-message.js
 //  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/plugins/typescript/index.js#L69-L153
@@ -228,21 +233,27 @@ const allowedMessageCodes = new Set([
 ]);
 
 const babel = createParser(parse);
+const babelTs = createParser(parseTypeScript);
 const babelExpression = createParser(parseExpression);
+const babelTSExpression = createParser(parseTSExpression);
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
     babel,
     "babel-flow": createParser(parseFlow),
-    "babel-ts": createParser(parseTypeScript),
+    "babel-ts": babelTs,
     ...jsonParsers,
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */
     __vue_expression: babelExpression,
+    /** for vue filter written in TS */
+    __vue_ts_expression: babelTSExpression,
     /** for vue event binding to handle semicolon */
     __vue_event_binding: babel,
+    /** for vue event binding written in TS to handle semicolon */
+    __vue_ts_event_binding: babelTs,
     /** verify that we can print this AST */
     __babel_estree: createParser(parseEstree),
   },

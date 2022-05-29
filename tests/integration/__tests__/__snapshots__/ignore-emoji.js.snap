@@ -7,10 +7,10 @@ exports[`ignores file name contains emoji (stdout) 1`] = `
 "
 `;
 
-exports[`ignores file name contains emoji (write) 1`] = `Array []`;
+exports[`ignores file name contains emoji (write) 1`] = `[]`;
 
 exports[`stdin (stderr) 1`] = `""`;
 
 exports[`stdin (stdout) 1`] = `".name {                         display: none; }"`;
 
-exports[`stdin (write) 1`] = `Array []`;
+exports[`stdin (write) 1`] = `[]`;

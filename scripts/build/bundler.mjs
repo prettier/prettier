@@ -6,6 +6,7 @@ import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
+import { vendorMetaFile, vendorsDirectory } from "../vendors/utils.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
@@ -18,6 +19,12 @@ const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const umdTarget = browserslistToEsbuild(packageJson.browserslist);
+const vendorsReplacements = Object.entries(readJsonSync(vendorMetaFile).entries)
+  .filter(([, entry]) => !entry.endsWith(".json"))
+  .map(([vendorName, entry]) => ({
+    module: path.join(vendorsDirectory, entry),
+    path: require.resolve(vendorName),
+  }));
 
 function getBabelConfig(bundle) {
   const config = {
@@ -76,6 +83,7 @@ const bundledFiles = [
 
 function* getEsbuildOptions(bundle, buildOptions) {
   const replaceModule = [
+    ...vendorsReplacements,
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
       module: require.resolve("tslib"),

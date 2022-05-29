@@ -44,5 +44,8 @@ jobs:
       - name: Lint workflow files
         run: yarn lint:actionlint
 
+      - name: Validate renovate config
+        run: npx --package renovate -c renovate-config-validator
+
       - name: Check Lock File Changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."

@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`computed-members.ts [babel-ts] format 1`] = `
+"Unexpected token (2:3)
+  1 | enum A {
+> 2 |   [i++],
+    |   ^
+  3 | }
+  4 |
+  5 | const bar = "bar""
+`;
+
+exports[`computed-members.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+enum A {
+  [i++],
+}
+
+const bar = "bar"
+enum B {
+  [bar] = 2,
+}
+
+const foo = () => "foo";
+enum C {
+  [foo()] = 2,
+}
+
+=====================================output=====================================
+enum A {
+  [i++],
+}
+
+const bar = "bar";
+enum B {
+  [bar] = 2,
+}
+
+const foo = () => "foo";
+enum C {
+  [foo()] = 2,
+}
+
+================================================================================
+`;
+
 exports[`enum.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

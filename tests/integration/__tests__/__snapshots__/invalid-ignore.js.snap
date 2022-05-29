@@ -7,4 +7,4 @@ exports[`throw error with invalid ignore (stderr) 1`] = `
 
 exports[`throw error with invalid ignore (stdout) 1`] = `""`;
 
-exports[`throw error with invalid ignore (write) 1`] = `Array []`;
+exports[`throw error with invalid ignore (write) 1`] = `[]`;

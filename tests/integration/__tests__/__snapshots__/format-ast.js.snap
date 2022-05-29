@@ -11,11 +11,11 @@ exports[`formatAST Shorthand specifier 2 1`] = `
 `;
 
 exports[`formatAST Shorthand specifier 3 1`] = `
-"export { \\"specifier\\" as specifier };
+"export { "specifier" as specifier };
 "
 `;
 
 exports[`formatAST Shorthand specifier 4 1`] = `
-"export { \\"specifier\\" as \\"specifier\\" };
+"export { "specifier" as "specifier" };
 "
 `;

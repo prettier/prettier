@@ -165,8 +165,8 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore next */
-  if (context.argv.debugBenchmark) {
+  const { performanceTestFlag } = context;
+  if (performanceTestFlag?.debugBenchmark) {
     let benchmark;
     try {
       // eslint-disable-next-line import/no-extraneous-dependencies
@@ -197,7 +197,7 @@ function format(context, input, opt) {
         );
       })
       .run({ async: false });
-  } else if (context.argv.debugRepeat > 0) {
+  } else if (performanceTestFlag?.debugRepeat) {
     const repeat = context.argv.debugRepeat;
     context.logger.debug(
       "'--debug-repeat' option found, running formatWithCursor " +
@@ -267,7 +267,17 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, format(context, input, options), options);
+    const formatted = format(context, input, options);
+
+    const { performanceTestFlag } = context;
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag.name}' option found, skipped print code to screen.`
+      );
+      return;
+    }
+
+    writeOutput(context, formatted, options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
@@ -279,8 +289,9 @@ async function formatFiles(context) {
   const ignorer = await createIgnorerFromContextOrDie(context);
 
   let numberOfUnformattedFilesFound = 0;
+  const { performanceTestFlag } = context;
 
-  if (context.argv.check) {
+  if (context.argv.check && !performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
@@ -369,6 +380,13 @@ async function formatFiles(context) {
       printedFilename.clear();
     }
 
+    if (performanceTestFlag) {
+      context.logger.log(
+        `'${performanceTestFlag.name}' option found, skipped print code or write files.`
+      );
+      return;
+    }
+
     if (context.argv.write) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
@@ -417,11 +435,21 @@ async function formatFiles(context) {
   if (context.argv.check) {
     if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
+    } else if (numberOfUnformattedFilesFound === 1) {
+      context.logger.warn(
+        context.argv.write
+          ? "Code style issues fixed in the above file."
+          : "Code style issues found in the above file. Forgot to run Prettier?"
+      );
     } else {
       context.logger.warn(
         context.argv.write
-          ? "Code style issues fixed in the above file(s)."
-          : "Code style issues found in the above file(s). Forgot to run Prettier?"
+          ? "Code style issues found in " +
+              numberOfUnformattedFilesFound +
+              " files."
+          : "Code style issues found in " +
+              numberOfUnformattedFilesFound +
+              " files. Forgot to run Prettier?"
       );
     }
   }
