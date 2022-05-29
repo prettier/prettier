@@ -217,12 +217,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.18.0, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.16.7, @babel/parser@npm:^7.17.10":
-  version: 7.18.0
-  resolution: "@babel/parser@npm:7.18.0"
+"@babel/parser@npm:7.18.3, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.16.7, @babel/parser@npm:^7.17.10":
+  version: 7.18.3
+  resolution: "@babel/parser@npm:7.18.3"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 253b5828bf4a0b443301baedc5993d6f7f35aa0d81cf8f2f2f53940904b7067eab7bd2380aee4b3be1d8efd5ae1008eb0fad19bde28f5fbc213c0fdf9a414466
+  checksum: 6894b3266f84b6c6b52bf09e7f61526efc35d8afa72ff0ad9aecb27a4b6de02d1ebc7f61fc3ae7c0fd8ecb5ac17083d1f27c1b3176e5eac41131d7160a9a7d88
   languageName: node
   linkType: hard
 
@@ -6658,7 +6658,7 @@ __metadata:
   dependencies:
     "@angular/compiler": 12.2.16
     "@babel/code-frame": 7.16.7
-    "@babel/parser": 7.18.0
+    "@babel/parser": 7.18.3
     "@babel/types": 7.18.0
     "@esbuild-plugins/node-modules-polyfill": 0.1.4
     "@glimmer/reference": 0.84.2
