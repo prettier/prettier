@@ -5,7 +5,7 @@ import { printToScreen } from "./utils.js";
 async function printSupportInfo() {
   const supportInfo = await getSupportInfo();
 
-  supportInfo.languages = supportInfo.languages.sort((languageA, languageB) =>
+  supportInfo.languages.sort((languageA, languageB) =>
     (languageA.name ?? "").toLowerCase().localeCompare(languageB.name ?? "")
   );
 
