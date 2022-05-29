@@ -96,7 +96,7 @@
     "@glimmer/reference": "0.84.2",
     "@types/estree": "0.0.51",
     "@types/jest": "27.5.1",
-    "@typescript-eslint/eslint-plugin": "5.25.0",
+    "@typescript-eslint/eslint-plugin": "5.26.0",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
     "c8": "7.11.3",
