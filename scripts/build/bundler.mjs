@@ -229,6 +229,7 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
   }
 
   const { format, plugins, outfile } = esbuildOptions;
+  const temporaryFile = path.join(path.join(DIST_DIR, `_${bundle.output}`));
 
   await esbuild.build({
     ...esbuildOptions,
@@ -236,15 +237,16 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
     format: format === "umd" ? "cjs" : format,
     minify: false,
     target: undefined,
+    outfile: temporaryFile,
   });
 
-  const text = await fs.readFile(outfile);
+  const text = await fs.readFile(temporaryFile);
 
   const { code } = await babel.transformAsync(text, {
     filename: outfile,
     ...getBabelConfig(bundle),
   });
-  await fs.writeFile(outfile, code);
+  await fs.writeFile(temporaryFile, code);
 
   await esbuild.build({
     ...esbuildOptions,
@@ -252,9 +254,10 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
     plugins: plugins.filter(
       ({ name }) => name === "umd" || name === "throw-warnings"
     ),
-    entryPoints: [outfile],
-    allowOverwrite: true,
+    entryPoints: [temporaryFile],
   });
+
+  await fs.unlink(temporaryFile);
 }
 
 async function* createBundle(bundle, buildOptions) {

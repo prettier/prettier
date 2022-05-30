@@ -52,7 +52,7 @@ export default function esbuildPluginThrowWarnings() {
           if (
             (warning.location.file ===
               "node_modules/flow-parser/flow_parser.js" ||
-              warning.location.file.startsWith("dist/")) &&
+              warning.location.file.startsWith("dist/_parser-flow.js")) &&
             warning.text ===
               "This case clause will never be evaluated because it duplicates an earlier case clause"
           ) {
