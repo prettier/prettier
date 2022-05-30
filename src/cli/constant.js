@@ -88,8 +88,7 @@ const options = {
       },
     ],
     default: "metadata",
-    describe:
-      "Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. ",
+    description: "Strategy for the cache to use for detecting changed files.",
     type: "choice",
   },
   check: {

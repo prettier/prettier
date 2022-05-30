@@ -141,6 +141,9 @@ Other options:
 
   --cache                  Only format changed files. Cannot use with --stdin-filepath.
                            Defaults to false.
+  --cache-strategy <metadata|content>
+                           Strategy for the cache to use for detecting changed files.
+                           Defaults to metadata.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
                            Prevent errors when pattern is unmatched.
@@ -313,6 +316,9 @@ Other options:
 
   --cache                  Only format changed files. Cannot use with --stdin-filepath.
                            Defaults to false.
+  --cache-strategy <metadata|content>
+                           Strategy for the cache to use for detecting changed files.
+                           Defaults to metadata.
   --no-color               Do not colorize error messages.
   --no-error-on-unmatched-pattern
                            Prevent errors when pattern is unmatched.

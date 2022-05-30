@@ -57,6 +57,24 @@ Default: false
 
 exports[`show detailed usage with --help cache (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help cache-strategy (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help cache-strategy (stdout) 1`] = `
+"--cache-strategy <metadata|content>
+
+  Strategy for the cache to use for detecting changed files.
+
+Valid options:
+
+  metadata   Use the file metadata such as timestamps as cache keys
+  content    Use the file content as cache keys
+
+Default: metadata
+"
+`;
+
+exports[`show detailed usage with --help cache-strategy (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help check (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help check (stdout) 1`] = `
