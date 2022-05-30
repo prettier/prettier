@@ -3264,9 +3264,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:26.4.2":
-  version: 26.4.2
-  resolution: "eslint-plugin-jest@npm:26.4.2"
+"eslint-plugin-jest@npm:26.4.6":
+  version: 26.4.6
+  resolution: "eslint-plugin-jest@npm:26.4.6"
   dependencies:
     "@typescript-eslint/utils": ^5.10.0
   peerDependencies:
@@ -3277,7 +3277,7 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: d43706e1ba5b23b3f567dc7fede7cdf96b4ff05ae5cc306d5a1a0c96a000c1f2055302bb2a58d0d7e21ab3e337bc58dd9d7c59b594d5580f09ad7d2f506efd8d
+  checksum: 1d4c35282abecbc3656f9a355c3e63df0b4134fae208ceb9ee75421ed95f6a108753ac86b54d9302f4ae192227c41b45a50034854e75fad3691868eaab8394a2
   languageName: node
   linkType: hard
 
@@ -6661,7 +6661,7 @@ __metadata:
     eslint-formatter-friendly: 7.0.0
     eslint-plugin-compat: 4.0.2
     eslint-plugin-import: 2.26.0
-    eslint-plugin-jest: 26.4.2
+    eslint-plugin-jest: 26.4.6
     eslint-plugin-prettier-internal-rules: 2.0.1
     eslint-plugin-react: 7.30.0
     eslint-plugin-regexp: 1.7.0
