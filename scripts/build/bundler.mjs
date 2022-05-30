@@ -25,6 +25,40 @@ const vendorsReplacements = Object.entries(readJsonSync(vendorMetaFile).entries)
     module: path.join(vendorsDirectory, entry),
     path: require.resolve(vendorName),
   }));
+// https://github.com/evanw/esbuild/commit/1916318ca7f803253dbdae0942af1c9a6d3a6910
+const ESBUILD_MESSAGE_IDS = [
+  "assign-to-constant",
+  "call-import-namespace",
+  "commonjs-variable-in-esm",
+  "delete-super-property",
+  "direct-eval",
+  "duplicate-case",
+  "duplicate-object-key",
+  "empty-import-meta",
+  "equals-nan",
+  "equals-negative-zero",
+  "equals-new-object",
+  "html-comment-in-js",
+  "impossible-typeof",
+  "private-name-will-throw",
+  "semicolon-after-return",
+  "suspicious-boolean-not",
+  "this-is-undefined-in-esm",
+  "unsupported-dynamic-import",
+  "unsupported-jsx-comment",
+  "unsupported-regexp",
+  "unsupported-require-call",
+  "different-path-case",
+  "ignored-bare-import",
+  "ignored-dynamic-import",
+  "import-is-undefined",
+  "package.json",
+  "require-resolve-not-external",
+  "tsconfig.json",
+];
+const LogOverride = Object.fromEntries(
+  ESBUILD_MESSAGE_IDS.map((id) => [id, "error"])
+);
 
 function getBabelConfig(bundle) {
   const config = {
@@ -186,6 +220,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     target: [...(bundle.esbuildTarget ?? ["node10"])],
     logLevel: "error",
+    LogOverride,
   };
 
   if (bundle.target === "universal") {
