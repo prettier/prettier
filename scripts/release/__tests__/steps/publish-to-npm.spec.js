@@ -1,4 +1,4 @@
-import { getReleaseUrl } from "../../steps/publish-to-npm.js";
+import { getReleaseUrl } from "../../steps/show-instructions-after-npm-publish.js";
 
 describe("publish-to-npm", () => {
   describe("getReleaseUrl", () => {
