@@ -177,7 +177,9 @@ function* getEsbuildOptions(bundle, buildOptions) {
         }),
       buildOptions.reports &&
         esbuildPluginVisualizer({ formats: buildOptions.reports }),
-      esbuildPluginThrowWarnings(),
+      esbuildPluginThrowWarnings({
+        allowDynamicRequire: bundle.target === "node",
+      }),
     ].filter(Boolean),
     minify: shouldMinify,
     legalComments: "none",

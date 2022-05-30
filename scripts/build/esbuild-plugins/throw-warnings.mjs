@@ -20,7 +20,7 @@ const ESBUILD_MESSAGE_IDS = [
   "unsupported-dynamic-import",
   "unsupported-jsx-comment",
   "unsupported-regexp",
-  // "unsupported-require-call",
+  "unsupported-require-call",
   "different-path-case",
   "ignored-bare-import",
   "ignored-dynamic-import",
@@ -33,7 +33,7 @@ const logOverride = Object.fromEntries(
   ESBUILD_MESSAGE_IDS.map((id) => [id, "warning"])
 );
 
-export default function esbuildPluginThrowWarnings() {
+export default function esbuildPluginThrowWarnings({ allowDynamicRequire }) {
   return {
     name: "throw-warnings",
     setup(build) {
@@ -49,6 +49,14 @@ export default function esbuildPluginThrowWarnings() {
         }
 
         for (const warning of result.warnings) {
+          if (
+            allowDynamicRequire &&
+            warning.text ===
+              'This call to "require" will not be bundled because the argument is not a string literal'
+          ) {
+            continue;
+          }
+
           if (
             (warning.location.file ===
               "node_modules/flow-parser/flow_parser.js" ||
