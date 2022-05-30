@@ -40,7 +40,7 @@ describe("--cache option", () => {
       ".",
     ]);
     expect(stripAnsi(stderr.trim())).toBe(
-      '[error] Cache strategy must be one of: "metadata", "content"'
+      '[error] Invalid --cache-strategy value. Expected "content" or "metadata", but received "invalid".'
     );
   });
 

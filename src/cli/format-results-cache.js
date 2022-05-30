@@ -38,32 +38,12 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
   return fileDescriptor.meta;
 }
 
-const cacheStrategies = ["metadata", "content"];
-const cacheStrategiesSet = new Set(cacheStrategies);
-
-/**
- * @typedef {"metadata" | "content"} CacheStrategy
- *
- * @param {string} value
- * @returns {value is CacheStrategy}
- */
-function isValidCacheStrategy(value) {
-  return cacheStrategiesSet.has(value);
-}
-
 class FormatResultsCache {
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/prettier-cache`)
    * @param {string} cacheStrategy
    */
   constructor(cacheFileLocation, cacheStrategy) {
-    if (!isValidCacheStrategy(cacheStrategy)) {
-      const errorMessage = `Cache strategy must be one of: ${cacheStrategies
-        .map((strategy) => `"${strategy}"`)
-        .join(", ")}`;
-      throw new Error(errorMessage);
-    }
-
     const useChecksum = cacheStrategy === "content";
 
     this.cacheFileLocation = cacheFileLocation;

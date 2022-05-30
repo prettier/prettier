@@ -77,10 +77,20 @@ const options = {
     type: "boolean",
   },
   "cache-strategy": {
+    choices: [
+      {
+        description: "Use the file metadata such as timestamps as cache keys",
+        value: "metadata",
+      },
+      {
+        description: "Use the file content as cache keys",
+        value: "content",
+      },
+    ],
     default: "metadata",
     describe:
       "Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. ",
-    type: "string",
+    type: "choice",
   },
   check: {
     alias: "c",
