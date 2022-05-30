@@ -56,7 +56,7 @@ const ESBUILD_MESSAGE_IDS = [
   "require-resolve-not-external",
   "tsconfig.json",
 ];
-const LogOverride = Object.fromEntries(
+const logOverride = Object.fromEntries(
   ESBUILD_MESSAGE_IDS.map((id) => [id, "error"])
 );
 
@@ -220,7 +220,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     tsconfig: path.join(__dirname, "empty-tsconfig.json"),
     target: [...(bundle.esbuildTarget ?? ["node10"])],
     logLevel: "error",
-    LogOverride,
+    logOverride,
   };
 
   if (bundle.target === "universal") {
