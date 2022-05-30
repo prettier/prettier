@@ -47,7 +47,7 @@ const ESBUILD_MESSAGE_IDS = [
   "unsupported-dynamic-import",
   "unsupported-jsx-comment",
   "unsupported-regexp",
-  "unsupported-require-call",
+  // "unsupported-require-call",
   "different-path-case",
   "ignored-bare-import",
   "ignored-dynamic-import",
