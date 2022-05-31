@@ -60,13 +60,14 @@ export default function esbuildPluginThrowWarnings({ allowDynamicRequire }) {
           if (
             (warning.location.file ===
               "node_modules/flow-parser/flow_parser.js" ||
-              warning.location.file.startsWith("dist/_parser-flow.js")) &&
+              warning.location.file === "dist/_parser-flow.js") &&
             warning.text ===
               "This case clause will never be evaluated because it duplicates an earlier case clause"
           ) {
             continue;
           }
 
+          console.log(warning);
           throw new Error(warning.text);
         }
       });
