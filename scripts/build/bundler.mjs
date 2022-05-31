@@ -231,7 +231,7 @@ async function runBuild(bundle, esbuildOptions, buildOptions) {
   }
 
   const { format, plugins, outfile } = esbuildOptions;
-  const temporaryFile = path.join(path.join(DIST_DIR, `_${bundle.output}`));
+  const temporaryFile = path.join(DIST_DIR, `_${bundle.output}`);
 
   await esbuild.build({
     ...esbuildOptions,
