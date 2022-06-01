@@ -58,9 +58,11 @@ export default function esbuildPluginThrowWarnings({ allowDynamicRequire }) {
           }
 
           if (
-            (warning.location.file ===
-              "node_modules/flow-parser/flow_parser.js" ||
-              warning.location.file === "dist/_parser-flow.js") &&
+            [
+              "node_modules/flow-parser/flow_parser.js",
+              "dist/_parser-flow.js.umd.js",
+              "dist/_parser-flow.js.esm.mjs",
+            ].includes(warning.location.file) &&
             warning.text ===
               "This case clause will never be evaluated because it duplicates an earlier case clause"
           ) {
