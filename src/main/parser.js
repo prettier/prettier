@@ -1,8 +1,8 @@
 "use strict";
 
-const path = require("path");
 const { ConfigError } = require("../common/errors.js");
 const jsLoc = require("../language-js/loc.js");
+const loadParser = require("./load-parser.js");
 
 const { locStart, locEnd } = jsLoc;
 
@@ -50,22 +50,7 @@ function resolveParser(opts, parsers = getParsers(opts)) {
       );
     }
 
-    // This line of code will be removed when bundling `standalone.js`
-    return requireParser(opts.parser);
-  }
-}
-
-function requireParser(parser) {
-  try {
-    return {
-      parse: require(path.resolve(process.cwd(), parser)),
-      astFormat: "estree",
-      locStart,
-      locEnd,
-    };
-  } catch {
-    /* istanbul ignore next */
-    throw new ConfigError(`Couldn't resolve parser "${parser}"`);
+    return loadParser(opts.parser);
   }
 }
 
