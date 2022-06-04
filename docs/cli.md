@@ -207,7 +207,12 @@ Disable plugin autoloading.
 
 ## `--cache`
 
-When you want to format only changed files, you can run Prettier with `--cache` flag. Enabling this flag can dramatically improve running time.
+If this option is enabled, the following values are used as cache keys and the file is formatted only if one of them is changed.
+
+- Options
+- Node.js version
+- (if `--cache-strategy` is `metadata`) file metadata, such as timestamps
+- (if `--cache-strategy` is `content`) content of the file
 
 ```bash
 prettier --write --cache src
@@ -215,7 +220,7 @@ prettier --write --cache src
 
 ## `--cache-strategy`
 
-Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. If no strategy is specified, metadata will be used.
+Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. If no strategy is specified, `metadata` will be used.
 
 ```bash
 prettier --write --cache --cache-strategy content src
