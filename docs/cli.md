@@ -221,7 +221,7 @@ prettier --write --cache src
 
 Running Prettier without `--cache` will delete the cache.
 
-Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm -f . /node_modules/.cache/prettier/.prettier-cache` to remove them manually.
+Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
 
 :::caution
 
