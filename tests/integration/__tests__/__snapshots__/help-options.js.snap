@@ -68,8 +68,6 @@ Valid options:
 
   metadata   Use the file metadata such as timestamps as cache keys
   content    Use the file content as cache keys
-
-Default: metadata
 "
 `;
 
