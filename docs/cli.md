@@ -209,6 +209,7 @@ Disable plugin autoloading.
 
 If this option is enabled, the following values are used as cache keys and the file is formatted only if one of them is changed.
 
+- Prettier version
 - Options
 - Node.js version
 - (if `--cache-strategy` is `metadata`) file metadata, such as timestamps
@@ -217,6 +218,16 @@ If this option is enabled, the following values are used as cache keys and the f
 ```bash
 prettier --write --cache src
 ```
+
+Running Prettier without `--cache` will delete the cache.
+
+Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm -f . /node_modules/.cache/prettier/.prettier-cache` to remove them manually.
+
+:::caution
+
+Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
+
+:::
 
 ## `--cache-strategy`
 
