@@ -87,7 +87,6 @@ const options = {
         value: "content",
       },
     ],
-    default: "metadata",
     description: "Strategy for the cache to use for detecting changed files.",
     type: "choice",
   },

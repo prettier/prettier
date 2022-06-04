@@ -55,6 +55,19 @@ describe("--cache option", () => {
     );
   });
 
+  it("throws error when use `--cache-strategy` without `--cache`.", async () => {
+    const { stderr } = await runPrettier(
+      dir,
+      ["foo.js", "--cache-strategy", "content"],
+      {
+        input: "const a = a;",
+      }
+    );
+    expect(stripAnsi(stderr.trim())).toBe(
+      "[error] `--cache-strategy` is cannot be used without `--cache`."
+    );
+  });
+
   describe("--cache-strategy metadata", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(

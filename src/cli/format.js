@@ -303,9 +303,15 @@ async function formatFiles(context) {
   if (context.argv.cache) {
     formatResultsCache = new FormatResultsCache(
       cacheFilePath,
-      context.argv.cacheStrategy
+      context.argv.cacheStrategy || "metadata"
     );
   } else {
+    if (context.argv.cacheStrategy) {
+      context.logger.error(
+        "`--cache-strategy` is cannot be used without `--cache`."
+      );
+      process.exit(2);
+    }
     const stat = await statSafe(cacheFilePath);
     if (stat) {
       await fs.unlink(cacheFilePath);
