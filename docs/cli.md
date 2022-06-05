@@ -223,11 +223,7 @@ Running Prettier without `--cache` will delete the cache.
 
 Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
 
-:::caution
-
-Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
-
-:::
+> Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
 
 ## `--cache-strategy`
 
