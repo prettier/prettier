@@ -308,7 +308,7 @@ async function formatFiles(context) {
   } else {
     if (context.argv.cacheStrategy) {
       context.logger.error(
-        "`--cache-strategy` is cannot be used without `--cache`."
+        "`--cache-strategy` cannot be used without `--cache`."
       );
       process.exit(2);
     }

@@ -64,7 +64,7 @@ describe("--cache option", () => {
       }
     );
     expect(stripAnsi(stderr.trim())).toBe(
-      "[error] `--cache-strategy` is cannot be used without `--cache`."
+      "[error] `--cache-strategy` cannot be used without `--cache`."
     );
   });
 
