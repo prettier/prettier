@@ -1405,13 +1405,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:27.5.1":
-  version: 27.5.1
-  resolution: "@types/jest@npm:27.5.1"
+"@types/jest@npm:27.5.2":
+  version: 27.5.2
+  resolution: "@types/jest@npm:27.5.2"
   dependencies:
     jest-matcher-utils: ^27.0.0
     pretty-format: ^27.0.0
-  checksum: be20e39f7aaf17179109c0060d0a0489cec2034d4e2e28a631284c7ecd13c5ae52f62697a33a0e89b03b6cfe54e9d5e8c2bd387ab2bd90d6071d68c63b86d1e3
+  checksum: 7e11c6826aa429ad990dc262e4e4b54aa36573287fddf15773e4137f07d11d3105f0dd9f1baff73252160a057df23f5529bb83b1bf83cd3f45f9460a5ca5c22e
   languageName: node
   linkType: hard
 
@@ -6630,7 +6630,7 @@ __metadata:
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
     "@types/estree": 0.0.51
-    "@types/jest": 27.5.1
+    "@types/jest": 27.5.2
     "@typescript-eslint/eslint-plugin": 5.26.0
     "@typescript-eslint/typescript-estree": 5.26.0
     acorn: 8.7.1
