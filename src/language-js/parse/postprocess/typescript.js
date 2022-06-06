@@ -73,9 +73,10 @@ function throwErrorForInvalidNodes(ast, options) {
     if (esTreeNode !== node) {
       return;
     }
+
     throwErrorForInvalidDecorator(tsNode, esTreeNode, tsNodeToESTreeNodeMap);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
   });
 }
 
-module.exports = { throwErrorForInvalidNodes };
+module.exports = { throwErrorForInvalidNodes, throwSyntaxError };
