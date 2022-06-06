@@ -1,4 +1,3 @@
-import stringify from "fast-json-stable-stringify";
 import * as prettier from "../index.js";
 import createLogger from "./logger.js";
 import Context from "./context.js";
@@ -8,6 +7,7 @@ import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
 import { printToScreen, isNonEmptyArray } from "./utils.js";
+import printSupportInfo from "./print-support-info.js";
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -81,11 +81,7 @@ async function main(context) {
   }
 
   if (context.argv.supportInfo) {
-    const supportInfo = await prettier.getSupportInfo();
-    printToScreen(
-      await prettier.format(stringify(supportInfo), { parser: "json" })
-    );
-    return;
+    return printSupportInfo();
   }
 
   const hasFilePatterns = context.filePatterns.length > 0;
