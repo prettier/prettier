@@ -113,7 +113,9 @@ function postprocess(ast, options) {
               property.type === "Property" &&
               property.value.type === "TSEmptyBodyFunctionExpression"
           );
-          throwSyntaxError(invalidProperty.value, "Unexpected token.");
+          if (invalidProperty) {
+            throwSyntaxError(invalidProperty.value, "Unexpected token.");
+          }
         }
         break;
 
