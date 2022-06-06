@@ -25,7 +25,7 @@ import {
 } from "./decorators.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 function printImportDeclaration(path, options, print) {

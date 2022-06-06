@@ -109,6 +109,12 @@ const parsers = [
           );
         },
       },
+      // yarn pnp
+      {
+        module: require.resolve("typescript"),
+        find: "process.versions.pnp",
+        replacement: "undefined",
+      },
 
       ...Object.entries({
         // `typescript/lib/typescript.js` expose extra global objects
@@ -280,11 +286,17 @@ const coreBundles = [
           };
         `,
       },
+      {
+        module: require.resolve("n-readlines"),
+        find: "const readBuffer = new Buffer(this.options.readChunk);",
+        replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
+      },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
   },
   {
     input: "src/document/index.js",
+    interopDefault: false,
     name: "doc",
     output: "doc.js",
     target: "universal",
@@ -307,9 +319,8 @@ const coreBundles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
-        module: path.join(PROJECT_ROOT, "src/main/parser.js"),
-        find: "return requireParser(opts.parser);",
-        replacement: "",
+        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
+        text: "export default () => {};",
       },
     ],
   },

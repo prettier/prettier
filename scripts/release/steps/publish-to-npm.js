@@ -1,16 +1,6 @@
-import chalk from "chalk";
-import outdent from "outdent";
 import { execa } from "execa";
-import semver from "semver";
 import enquirer from "enquirer";
-import {
-  getBlogPostInfo,
-  getChangelogContent,
-  logPromise,
-  waitForEnter,
-} from "../utils.js";
-
-const outdentString = outdent.string;
+import { logPromise } from "../utils.js";
 
 /**
  * Retry "npm publish" when to enter OTP is failed.
@@ -37,53 +27,10 @@ async function retryNpmPublish() {
   }
 }
 
-export function getReleaseUrl(version, previousVersion) {
-  const semverDiff = semver.diff(version, previousVersion);
-  const isPatch = semverDiff === "patch";
-  let body;
-  if (isPatch) {
-    const urlToChangelog =
-      "https://github.com/prettier/prettier/blob/main/CHANGELOG.md#" +
-      version.split(".").join("");
-    body = `🔗 [Changelog](${urlToChangelog})`;
-  } else {
-    const blogPostInfo = getBlogPostInfo(version);
-    body = getChangelogContent({
-      version,
-      previousVersion,
-      body: `🔗 [Release note](https://prettier.io/${blogPostInfo.path})`,
-    });
-  }
-  body = encodeURIComponent(body);
-  return `https://github.com/prettier/prettier/releases/new?tag=${version}&title=${version}&body=${body}`;
-}
-
-export default async function publishToNpm({ dry, version, previousVersion }) {
+export default async function publishToNpm({ dry }) {
   if (dry) {
     return;
   }
 
   await logPromise("Publishing to npm", retryNpmPublish());
-
-  const releaseUrl = getReleaseUrl(version, previousVersion);
-
-  console.log(
-    outdentString(chalk`
-      {green.bold Prettier ${version} published!}
-
-      {yellow.bold Some manual steps are necessary.}
-
-      {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline ${releaseUrl}}
-      - Press {bgGreen.black  Publish release }
-
-      {bold.underline Test the new release}
-      - In a new session, run {yellow npm i prettier@latest} in another directory
-      - Test the API and CLI
-
-      After that, we can proceed to bump this repo's Prettier dependency.
-      Press ENTER to continue.
-    `)
-  );
-  await waitForEnter();
 }

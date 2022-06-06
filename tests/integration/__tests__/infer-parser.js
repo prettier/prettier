@@ -1,6 +1,4 @@
 import prettier from "prettier-local";
-import runPrettier from "../run-prettier.js";
-
 const { jest } = import.meta;
 
 describe("stdin no path and no parser", () => {

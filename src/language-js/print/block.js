@@ -10,7 +10,7 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 import { printBody } from "./statement.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function printBlock(path, options, print) {
   const node = path.getValue();

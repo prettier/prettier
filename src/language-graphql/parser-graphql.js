@@ -1,6 +1,5 @@
 import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
-import tryCombinations from "../utils/try-combinations.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 
@@ -39,8 +38,7 @@ function removeTokens(node) {
 }
 
 const parseOptions = {
-  allowLegacySDLImplementsInterfaces: false,
-  experimentalFragmentVariables: true,
+  allowLegacyFragmentVariables: true,
 };
 
 function createParseError(error) {
@@ -60,17 +58,13 @@ function createParseError(error) {
 
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
-  const { parse: parseGraphql } = require("graphql/language/parser");
-  const { result: ast, error } = tryCombinations(
-    () => parseGraphql(text, { ...parseOptions }),
-    () =>
-      parseGraphql(text, {
-        ...parseOptions,
-        allowLegacySDLImplementsInterfaces: true,
-      })
-  );
+  const { parse } = require("graphql/language/parser");
 
-  if (!ast) {
+  /** @type {any} */
+  let ast;
+  try {
+    ast = parse(text, parseOptions);
+  } catch (error) {
     throw createParseError(error);
   }
 

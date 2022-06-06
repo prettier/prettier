@@ -1,0 +1,25 @@
+# https://gitpod.io/#https://github.com/prettier/prettier
+
+tasks:
+  - init: |
+      yarn
+      yarn build
+
+github:
+  # https://www.gitpod.io/docs/prebuilds/#configure-prebuilds
+  prebuilds:
+    master: true # enable for the default branch (even if it's not named "master")
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: false
+    addBadge: true
+    addLabel: false
+
+vscode:
+  extensions:
+    - esbenp.prettier-vscode
+    - dbaeumer.vscode-eslint
+    - editorconfig.editorconfig
+    - streetsidesoftware.code-spell-checker

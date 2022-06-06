@@ -1,5 +1,3 @@
-import runPrettier from "../run-prettier.js";
-
 describe("plugin default options should work", () => {
   runPrettier(
     "plugins/defaultOptions",

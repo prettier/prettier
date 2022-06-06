@@ -4,6 +4,7 @@ const { require } = createEsmUtils(import.meta);
 
 const plugins = [
   require("../../../config/prettier-plugins/prettier-plugin-uppercase-rocks/index.cjs"),
+  require("../../../config/prettier-plugins/prettier-plugin-dummy-stylus/index.cjs"),
 ];
 
 run_spec(import.meta, ["vue"], { plugins });

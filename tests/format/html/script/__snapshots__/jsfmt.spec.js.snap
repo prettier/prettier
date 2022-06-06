@@ -171,6 +171,15 @@ End Function
 
 <script lang="unknown">
 </script>
+
+<script type="speculationrules">
+  {
+   "prerender": [
+  {"source": "list", "urls": ["https://a.test/foo"]}
+  ]
+  }
+  </script>
+
 =====================================output=====================================
 <script type="application/ld+json">
   { "json": true }
@@ -207,6 +216,12 @@ End Function
 </script>
 
 <script lang="unknown"></script>
+
+<script type="speculationrules">
+  {
+    "prerender": [{ "source": "list", "urls": ["https://a.test/foo"] }]
+  }
+</script>
 
 ================================================================================
 `;

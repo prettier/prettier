@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
-import path from "node:path";
 import { ConfigError } from "../common/errors.js";
 import { locStart, locEnd } from "../language-js/loc.js";
+import loadParser from "./load-parser.js";
 
 const require = createRequire(import.meta.url);
 
@@ -49,22 +49,7 @@ function resolveParser(opts, parsers = getParsers(opts)) {
       );
     }
 
-    // This line of code will be removed when bundling `standalone.js`
-    return requireParser(opts.parser);
-  }
-}
-
-function requireParser(parser) {
-  try {
-    return {
-      parse: require(path.resolve(process.cwd(), parser)),
-      astFormat: "estree",
-      locStart,
-      locEnd,
-    };
-  } catch {
-    /* istanbul ignore next */
-    throw new ConfigError(`Couldn't resolve parser "${parser}"`);
+    return loadParser(opts.parser);
   }
 }
 

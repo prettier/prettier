@@ -54,14 +54,16 @@ function withPlugins(
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-async function format(text, opts) {
-  const { formatted } = await formatWithCursor(text, opts);
+async function format(text, options) {
+  const { formatted } = await formatWithCursor(text, {
+    ...options,
+    cursorOffset: -1,
+  });
   return formatted;
 }
 
-async function check(text, opts) {
-  const { formatted } = await formatWithCursor(text, opts);
-  return formatted === text;
+async function check(text, options) {
+  return (await format(text, options)) === text;
 }
 
 function clearCache() {
@@ -83,6 +85,7 @@ const sharedWithCli = {
   optionsHiddenDefaults,
   normalizeApiOptions,
   normalizeCliOptions,
+  getSupportInfoWithoutPlugins,
   utils: {
     arrayify,
     getLast,
@@ -114,4 +117,4 @@ export {
   debugApis as __debug,
 };
 export * as util from "./common/util-shared.js";
-export { default as doc } from "./document/index.js";
+export * as doc from "./document/index.js";

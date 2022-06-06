@@ -1,4 +1,4 @@
-/** @typedef {import("../document").Doc} Doc */
+/** @typedef {import("../document/builders.js").Doc} Doc */
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 import { printDanglingComments } from "../main/comments.js";

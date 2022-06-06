@@ -165,8 +165,8 @@ async function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore next */
-  if (context.argv.debugBenchmark) {
+  const { performanceTestFlag } = context;
+  if (performanceTestFlag?.debugBenchmark) {
     let benchmark;
     try {
       // eslint-disable-next-line import/no-extraneous-dependencies
@@ -203,7 +203,7 @@ async function format(context, input, opt) {
       "'--debug-benchmark' measurements for formatWithCursor: " +
         JSON.stringify(result, null, 2)
     );
-  } else if (context.argv.debugRepeat > 0) {
+  } else if (performanceTestFlag?.debugRepeat) {
     const repeat = context.argv.debugRepeat;
     context.logger.debug(
       "'--debug-repeat' option found, running formatWithCursor " +
@@ -295,8 +295,9 @@ async function formatFiles(context) {
   const ignorer = await createIgnorerFromContextOrDie(context);
 
   let numberOfUnformattedFilesFound = 0;
+  const { performanceTestFlag } = context;
 
-  if (context.argv.check && !context.performanceTestFlag) {
+  if (context.argv.check && !performanceTestFlag) {
     context.logger.log("Checking formatting...");
   }
 
@@ -385,7 +386,6 @@ async function formatFiles(context) {
       printedFilename.clear();
     }
 
-    const { performanceTestFlag } = context;
     if (performanceTestFlag) {
       context.logger.log(
         `'${performanceTestFlag.name}' option found, skipped print code or write files.`
