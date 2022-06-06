@@ -108,12 +108,12 @@ function postprocess(ast, options) {
       case "ObjectExpression":
         // #12963
         if (options.parser === "typescript") {
-          const invalidNode = node.properties.find(
+          const invalidProperty = node.properties.find(
             (property) =>
               property.type === "Property" &&
               property.value.type === "TSEmptyBodyFunctionExpression"
           );
-          throwSyntaxError(invalidNode.value, "Unexpected token.");
+          throwSyntaxError(invalidProperty.value, "Unexpected token.");
         }
         break;
 
