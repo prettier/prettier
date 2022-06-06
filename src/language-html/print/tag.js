@@ -19,6 +19,7 @@ import {
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
+  isVueSfcBlock,
 } from "../utils/index.js";
 
 function printClosingTag(node, options) {
@@ -253,8 +254,11 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
-  const attributeLine =
-    options.singleAttributePerLine && node.attrs.length > 1 ? hardline : line;
+  const shouldPrintAttributePerLine =
+    options.singleAttributePerLine &&
+    node.attrs.length > 1 &&
+    !isVueSfcBlock(node, options);
+  const attributeLine = shouldPrintAttributePerLine ? hardline : line;
 
   /** @type {Doc[]} */
   const parts = [

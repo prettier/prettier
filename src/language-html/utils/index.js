@@ -667,6 +667,7 @@ export {
   isVueScriptTag,
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
+  isVueSfcBlock,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
