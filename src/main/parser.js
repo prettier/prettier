@@ -57,7 +57,11 @@ function callPluginParseFunction(originalText, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
+  // the parsers getters when actually calling the parser `parse` function.
   const parsersForCustomParserApi = Object.defineProperties(
+    {},
+    Object.fromEntries(
+      Object.keys(parsers).map((parserName) => [
         parserName,
         {
           enumerable: true,
