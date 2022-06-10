@@ -127,7 +127,7 @@ exports[`snippet: #1 [espree] format 1`] = `
 `;
 
 exports[`snippet: #1 [flow] format 1`] = `
-"Unexpected token \`switch\` (1:7)
+"Unexpected token \`switch\`, expected an identifier (1:7)
 > 1 | class switch() {}
     |       ^^^^^^"
 `;
