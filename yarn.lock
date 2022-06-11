@@ -1878,10 +1878,10 @@ ajv@^6.10.0, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-angular-estree-parser@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.5.0.tgz#b2d05b54cc765c8181245c823fb9b4ef75dc5483"
-  integrity sha512-0OLRBYPkdlJHzRKL1PQVWLYnSXvAE7nnOVHhfVlqbdyAMg3rbk8U3Z4vk+5GG4x8ooT88T/89jtsOoGPzjKUbA==
+angular-estree-parser@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.5.1.tgz#a08791f64f1a9453ecb99be5379f7f282e46c6ca"
+  integrity sha512-QP+1HEp9sUV3/ADU02IRc+Vn9vvWZS2rRkxiXCpSpZZx3BqcYTm2Eg/gWwLG3H9XASXnf9i1KyNOIYyRy5Ja+w==
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^2.0.3"
