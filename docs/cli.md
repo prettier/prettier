@@ -227,7 +227,11 @@ Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettie
 
 ## `--cache-strategy`
 
-Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. If no strategy is specified, `content` will be used.
+Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. 
+
+In general, `metadata` is faster. However, `content` is useful for updating the timestamp without changing the file content. This can happen, for example, during git operations such as `git clone`, because it does not track file modification times.
+
+If no strategy is specified, `content` will be used.
 
 ```bash
 prettier --write --cache --cache-strategy metadata src
