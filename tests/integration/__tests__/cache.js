@@ -74,7 +74,7 @@ describe("--cache option", () => {
         "code",
         "ENOENT"
       );
-      await runPrettier(dir, ["--cache", "."]);
+      await runPrettier(dir, ["--cache", "--cache-strategy", "metadata", "."]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
@@ -82,6 +82,8 @@ describe("--cache option", () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
@@ -94,6 +96,8 @@ describe("--cache option", () => {
       const { stdout: secondStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
@@ -108,6 +112,8 @@ describe("--cache option", () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
@@ -123,6 +129,8 @@ describe("--cache option", () => {
       const { stdout: secondStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
@@ -138,6 +146,8 @@ describe("--cache option", () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
@@ -154,6 +164,8 @@ describe("--cache option", () => {
       const { stdout: secondStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
@@ -169,6 +181,8 @@ describe("--cache option", () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
+        "--cache-strategy",
+        "metadata",
         ".",
       ]);
       expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
@@ -180,6 +194,8 @@ describe("--cache option", () => {
 
       const { stdout: secondStdout } = await runPrettier(dir, [
         "--cache",
+        "--cache-strategy",
+        "metadata",
         "--write",
         "--trailing-comma",
         "all",
@@ -194,7 +210,13 @@ describe("--cache option", () => {
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
-      await runPrettier(dir, ["--cache", "--write", "."]);
+      await runPrettier(dir, [
+        "--cache",
+        "--write",
+        "--cache-strategy",
+        "metadata",
+        ".",
+      ]);
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
       await runPrettier(dir, ["--write", "."]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();

@@ -227,8 +227,8 @@ Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettie
 
 ## `--cache-strategy`
 
-Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. If no strategy is specified, `metadata` will be used.
+Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`. If no strategy is specified, `content` will be used.
 
 ```bash
-prettier --write --cache --cache-strategy content src
+prettier --write --cache --cache-strategy metadata src
 ```

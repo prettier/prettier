@@ -303,7 +303,7 @@ async function formatFiles(context) {
   if (context.argv.cache) {
     formatResultsCache = new FormatResultsCache(
       cacheFilePath,
-      context.argv.cacheStrategy || "metadata"
+      context.argv.cacheStrategy || "content"
     );
   } else {
     if (context.argv.cacheStrategy) {
