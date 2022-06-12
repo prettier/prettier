@@ -1,15 +1,7 @@
 "use strict";
 
-const createError = require("../../../common/parser-create-error.js");
 const visitNode = require("./visit-node.js");
-
-function throwSyntaxError(node, message) {
-  const { start, end } = node.loc;
-  throw createError(message, {
-    start: { line: start.line, column: start.column + 1 },
-    end: { line: end.line, column: end.column + 1 },
-  });
-}
+const throwSyntaxError = require("./throw-syntax-error.js");
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
@@ -79,4 +71,4 @@ function throwErrorForInvalidNodes(ast, options) {
   });
 }
 
-module.exports = { throwErrorForInvalidNodes, throwSyntaxError };
+module.exports = { throwErrorForInvalidNodes };

@@ -5,10 +5,8 @@ const isTsKeywordType = require("../../utils/is-ts-keyword-type.js");
 const isTypeCastComment = require("../../utils/is-type-cast-comment.js");
 const getLast = require("../../../utils/get-last.js");
 const visitNode = require("./visit-node.js");
-const {
-  throwErrorForInvalidNodes,
-  throwSyntaxError,
-} = require("./typescript.js");
+const { throwErrorForInvalidNodes } = require("./typescript.js");
+const throwSyntaxError = require("./throw-syntax-error.js");
 
 function postprocess(ast, options) {
   if (
