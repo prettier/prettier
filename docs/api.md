@@ -115,20 +115,20 @@ The support information looks like this:
 ```typescript
 {
   languages: Array<{
-    name: string,
-    since?: string,
-    parsers: string[],
-    group?: string,
-    tmScope?: string,
-    aceMode?: string,
-    codemirrorMode?: string,
-    codemirrorMimeType?: string,
-    aliases?: string[],
-    extensions?: string[],
-    filenames?: string[],
-    linguistLanguageId?: number,
-    vscodeLanguageIds?: string[],
-  }>
+    name: string;
+    since?: string;
+    parsers: string[];
+    group?: string;
+    tmScope?: string;
+    aceMode?: string;
+    codemirrorMode?: string;
+    codemirrorMimeType?: string;
+    aliases?: string[];
+    extensions?: string[];
+    filenames?: string[];
+    linguistLanguageId?: number;
+    vscodeLanguageIds?: string[];
+  }>;
 }
 ```
 
