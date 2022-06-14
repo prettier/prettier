@@ -40,11 +40,11 @@ async function run() {
       "./steps/validate-new-version.js",
       "./steps/check-git-status.js",
       // "./steps/install-dependencies.js",s
-      params.manual && "./steps/run-tests.js",
-      "./steps/update-version.js",
-      params.manual && "./steps/generate-bundles.js",
-      "./steps/update-changelog.js",
-      "./steps/push-to-git.js",
+      // params.manual && "./steps/run-tests.js",
+      // "./steps/update-version.js",
+      // params.manual && "./steps/generate-bundles.js",
+      // "./steps/update-changelog.js",
+      // "./steps/push-to-git.js",
       params.manual
         ? "./steps/publish-to-npm.js"
         : "./steps/wait-for-bot-release.js",
