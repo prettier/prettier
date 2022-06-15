@@ -125,15 +125,20 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (node.block) {
-        const lines = node.value.replace(/"""/g, "\\$&").split("\n");
+        let lines = node.value.replace(/"""/g, "\\$&").split("\n");
         if (lines.length === 1) {
           lines[0] = lines[0].trim();
         }
 
-        return join(
-          hardline,
-          ['"""', ...(lines.length > 0 ? lines : []), '"""'].filter(Boolean)
-        );
+        if (lines.every((line) => line === "")) {
+          lines = lines.filter(Boolean);
+        }
+
+        return join(hardline, [
+          '"""',
+          ...(lines.length > 0 ? lines : []),
+          '"""',
+        ]);
       }
       return [
         '"',

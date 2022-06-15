@@ -23,3 +23,10 @@ type Person {name: String}
   2
 """
 type Person {name: String}
+
+"""
+First line
+
+Second Line
+"""
+type Person {name: String}
