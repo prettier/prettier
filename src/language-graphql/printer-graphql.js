@@ -134,7 +134,7 @@ function genericPrint(path, options, print) {
           lines.length = 0;
         }
 
-        return join(hardline, ['"""', ...lines, '"""', ]);
+        return join(hardline, ['"""', ...lines, '"""']);
       }
       return [
         '"',
