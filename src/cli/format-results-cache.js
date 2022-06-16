@@ -85,6 +85,13 @@ class FormatResultsCache {
     }
   }
 
+  /**
+   * @param {string} filePath
+   */
+  removeFormatResultsCache(filePath) {
+    this.fileEntryCache.removeEntry(filePath);
+  }
+
   reconcile() {
     this.fileEntryCache.reconcile();
   }
