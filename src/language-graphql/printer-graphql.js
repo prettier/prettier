@@ -125,13 +125,13 @@ function genericPrint(path, options, print) {
     }
     case "StringValue": {
       if (node.block) {
-        let lines = node.value.replace(/"""/g, "\\$&").split("\n");
+        const lines = node.value.replace(/"""/g, "\\$&").split("\n");
         if (lines.length === 1) {
           lines[0] = lines[0].trim();
         }
 
         if (lines.every((line) => line === "")) {
-          lines = lines.filter(Boolean);
+          lines.length = 0;
         }
 
         return join(hardline, [
