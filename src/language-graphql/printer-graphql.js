@@ -130,10 +130,11 @@ function genericPrint(path, options, print) {
           lines[0] = lines[0].trim();
         }
 
-        return join(
-          hardline,
-          ['"""', ...(lines.length > 0 ? lines : []), '"""'].filter(Boolean)
-        );
+        if (lines.every((line) => line === "")) {
+          lines.length = 0;
+        }
+
+        return join(hardline, ['"""', ...lines, '"""']);
       }
       return [
         '"',
