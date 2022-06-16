@@ -14,10 +14,15 @@ async function run() {
   const { runGit, readJson } = await import("./utils.js");
 
   const params = minimist(process.argv.slice(2), {
-    string: ["version"],
-    boolean: ["dry", "manual"],
+    string: ["version", "repo"],
+    boolean: ["dry", "manual", "skip-dependencies-install"],
     alias: { v: "version" },
-    default: { manual: false },
+    default: {
+      manual: false,
+      dry: false,
+      "skip-dependencies-install": false,
+      repo: "git@github.com:prettier/prettier.git",
+    },
   });
 
   const { stdout: previousVersion } = await runGit([
