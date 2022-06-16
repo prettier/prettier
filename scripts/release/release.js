@@ -44,7 +44,7 @@ async function run() {
     [
       "./steps/validate-new-version.js",
       "./steps/check-git-status.js",
-      "./steps/install-dependencies.js",
+      !params["skip-dependencies-install"] && "./steps/install-dependencies.js",
       params.manual && "./steps/run-tests.js",
       "./steps/update-version.js",
       params.manual && "./steps/generate-bundles.js",
