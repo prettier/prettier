@@ -96,7 +96,7 @@ describe("--cache option", () => {
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
-    it("does'nt format when cache is available", async () => {
+    it("doesn't format when cache is available", async () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--write",
@@ -251,7 +251,7 @@ describe("--cache option", () => {
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
     });
 
-    it("does'nt format when cache is available", async () => {
+    it("doesn't format when cache is available", async () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--cache-strategy",
@@ -315,7 +315,7 @@ describe("--cache option", () => {
       );
     });
 
-    it("does'nt re-format when timestamp has been updated", async () => {
+    it("doesn't re-format when timestamp has been updated", async () => {
       const { stdout: firstStdout } = await runPrettier(dir, [
         "--cache",
         "--cache-strategy",
