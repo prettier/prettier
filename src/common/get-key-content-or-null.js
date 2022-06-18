@@ -8,7 +8,7 @@ const { findParentDir } = require("./third-party.js");
  * @param {string?} filePath
  * @param {string?} key
  * @param {string=} filename
- * @returns {Promise<null | string | readonly string[]>}
+ * @returns {Promise<null | readonly string[]>}
  */
 async function getKeyContentOrNull(filePath, key, filename = "package.json") {
   if (!filePath || !key) {
@@ -18,11 +18,15 @@ async function getKeyContentOrNull(filePath, key, filename = "package.json") {
   const cache = [];
 
   do {
+    const file = await getFileContentOrNull(path.resolve(filePath, filename));
+
     try {
-      const file = await getFileContentOrNull(path.resolve(filePath, filename));
       const content = JSON.parse(file)?.[key];
 
-      if (content) {
+      if (
+        Array.isArray(content) &&
+        content.every((entry) => typeof entry === "string")
+      ) {
         return content;
       }
     } catch {
@@ -40,7 +44,7 @@ async function getKeyContentOrNull(filePath, key, filename = "package.json") {
  * @param {string?} filePath
  * @param {string?} key
  * @param {string=} filename
- * @returns {null | string | readonly string[]}
+ * @returns {null | readonly string[]}
  */
 getKeyContentOrNull.sync = function (filePath, key, filename = "package.json") {
   if (!filePath || !key) {
@@ -55,7 +59,10 @@ getKeyContentOrNull.sync = function (filePath, key, filename = "package.json") {
     try {
       const content = JSON.parse(file)?.[key];
 
-      if (content) {
+      if (
+        Array.isArray(content) &&
+        content.every((entry) => typeof entry === "string")
+      ) {
         return content;
       }
     } catch {
