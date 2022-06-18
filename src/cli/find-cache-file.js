@@ -13,6 +13,15 @@ function findDefaultCacheFile() {
   return cacheFilePath;
 }
 
+/**
+ * If a file path is passed, that file is used as the cache file.
+ * If a directory path is passed,
+ *    a file with the name hashed process.cwd() is created in that directory and used as a cache file.
+ *    e.g. For `--cache-location=foo/`, cache file: `./foo/.cache_139328449`
+ *
+ * @param {string} cacheLocation
+ * @returns {Promise<string>}
+ */
 async function findCacheFileFromOption(cacheLocation) {
   const cwd = process.cwd();
   const normalizedCacheLocation = path.normalize(cacheLocation);
