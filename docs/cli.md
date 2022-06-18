@@ -227,7 +227,7 @@ Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettie
 
 ## `--cache-location`
 
-Path to the cache file or directory location used by `--cache` flag. If you don't explicit `--cache-location`, Prettier saves cache file at `./node_modules/.cache/prettier/.prettiercache`.
+Path to the cache file or directory location used by `--cache` flag. If you don't explicit `--cache-location`, Prettier saves cache file at `./node_modules/.cache/prettier/.prettier-cache`.
 
 ```bash
 prettier --write --cache --cache-location=my_cache_file src
