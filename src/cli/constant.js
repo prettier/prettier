@@ -76,6 +76,10 @@ const options = {
     description: "Only format changed files. Cannot use with --stdin-filepath.",
     type: "boolean",
   },
+  "cache-location": {
+    description: "Path to the cache file or directory",
+    type: "path",
+  },
   "cache-strategy": {
     choices: [
       {

@@ -299,7 +299,7 @@ async function formatFiles(context) {
   }
 
   let formatResultsCache;
-  const cacheFilePath = findCacheFile();
+  const cacheFilePath = await findCacheFile(context.argv.cacheLocation);
   if (context.argv.cache) {
     formatResultsCache = new FormatResultsCache(
       cacheFilePath,
