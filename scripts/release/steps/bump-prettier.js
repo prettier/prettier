@@ -7,7 +7,7 @@ async function format() {
   await runYarn(["lint:prettier", "--write"]);
 }
 
-async function commit({version, repo}) {
+async function commit({ version, repo }) {
   await runGit(["commit", "-am", `Bump Prettier dependency to ${version}`]);
 
   // Add rev to `.git-blame-ignore-revs` file
