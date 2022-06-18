@@ -225,6 +225,18 @@ Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettie
 
 > Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
 
+## `--cache-location`
+
+Path to the cache file or directory location used by `--cache` flag. If you don't explicit `--cache-location`, Prettier saves cache file at `./node_modules/.cache/prettier/.prettiercache`.
+
+```bash
+prettier --write --cache --cache-location=my_cache_file src
+```
+
+```bash
+prettier --write --cache --cache-location=my_cache_dir/ src
+```
+
 ## `--cache-strategy`
 
 Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`.
