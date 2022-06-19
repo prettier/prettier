@@ -94,3 +94,27 @@ export function getAstAutoFold(parser) {
       return astAutoFold.glimmer;
   }
 }
+
+/**
+ * Copied from https://github.com/prettier/prettier/blob/6fe21780115cf5f74f83876d64b03a727fbab220/src/cli/utils.js#L6-L27
+ * @template Obj
+ * @template Key
+ * @param {Array<Obj>} array
+ * @param {(value: Obj) => Key} iteratee
+ * @returns {{[p in Key]: T}}
+ */
+export function groupBy(array, iteratee) {
+  const result = Object.create(null);
+
+  for (const value of array) {
+    const key = iteratee(value);
+
+    if (Array.isArray(result[key])) {
+      result[key].push(value);
+    } else {
+      result[key] = [value];
+    }
+  }
+
+  return result;
+}

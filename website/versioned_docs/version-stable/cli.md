@@ -205,3 +205,35 @@ Prevent errors when pattern is unmatched.
 ## `--no-plugin-search`
 
 Disable plugin autoloading.
+
+## `--cache`
+
+If this option is enabled, the following values are used as cache keys and the file is formatted only if one of them is changed.
+
+- Prettier version
+- Options
+- Node.js version
+- (if `--cache-strategy` is `metadata`) file metadata, such as timestamps
+- (if `--cache-strategy` is `content`) content of the file
+
+```bash
+prettier --write --cache src
+```
+
+Running Prettier without `--cache` will delete the cache.
+
+Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
+
+> Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
+
+## `--cache-strategy`
+
+Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`.
+
+In general, `metadata` is faster. However, `content` is useful for updating the timestamp without changing the file content. This can happen, for example, during git operations such as `git clone`, because it does not track file modification times.
+
+If no strategy is specified, `content` will be used.
+
+```bash
+prettier --write --cache --cache-strategy metadata src
+```

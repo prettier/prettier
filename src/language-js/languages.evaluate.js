@@ -64,7 +64,6 @@ const languages = [
     since: "1.4.0",
     parsers: ["typescript", "babel-ts"],
     vscodeLanguageIds: ["typescript"],
-    extensions: [...data.extensions, ".mts", ".cts"],
   })),
   createLanguage(linguistLanguages.TSX, () => ({
     since: "1.4.0",

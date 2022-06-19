@@ -1,3 +1,48 @@
+# 2.7.1
+
+[diff](https://github.com/prettier/prettier/compare/2.7.0...2.7.1)
+
+#### Keep useful empty lines in description ([#13013](https://github.com/prettier/prettier/pull/13013) by [@chimurai](https://github.com/chimurai))
+
+<!-- prettier-ignore -->
+```graphql
+# Input
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+
+# Prettier 2.7.0
+"""
+First line
+Second Line
+"""
+type Person {
+  name: String
+}
+
+
+# Prettier 2.7.1
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+```
+
+# 2.7.0
+
+[diff](https://github.com/prettier/prettier/compare/2.6.2...2.7.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2022/06/14/2.7.0.html)
+
 # 2.6.2
 
 [diff](https://github.com/prettier/prettier/compare/2.6.1...2.6.2)

@@ -51,6 +51,17 @@ export default async function waitForBotRelease({ dry, version }) {
 
   console.log(
     outdentString(chalk/* indent */ `
+      1. Go to {green.underline https://www.npmjs.com/package/prettier/access}
+      2. Make sure "{yellow Publishing access}" section is set to "{yellow Require two-factor authentication or automation tokens}".
+
+      Press ENTER to continue.
+    `)
+  );
+
+  await waitForEnter();
+
+  console.log(
+    outdentString(chalk/* indent */ `
       1. Go to {green.underline https://github.com/prettier/release-workflow/actions/workflows/release.yml}
       2. Click "{green Run workflow}" button, type "{yellow.underline ${version}}" in "Version to release", uncheck all checkboxes, hit the "{bgGreen Run workflow}" button.
 
