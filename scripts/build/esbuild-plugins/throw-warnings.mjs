@@ -1,10 +1,18 @@
-// https://github.com/evanw/esbuild/commit/1916318ca7f803253dbdae0942af1c9a6d3a6910
+/*
+Open https://esbuild.github.io/api/#log-override, run
+
+```js
+[...document.querySelectorAll('details > summary > code')].map(code => code.textContent)
+```
+
+in console to get all message ids.
+*/
 const ESBUILD_MESSAGE_IDS = [
   "assign-to-constant",
+  "assign-to-import",
   "call-import-namespace",
   "commonjs-variable-in-esm",
   "delete-super-property",
-  "direct-eval",
   "duplicate-case",
   "duplicate-object-key",
   "empty-import-meta",
@@ -13,6 +21,7 @@ const ESBUILD_MESSAGE_IDS = [
   "equals-new-object",
   "html-comment-in-js",
   "impossible-typeof",
+  "indirect-require",
   "private-name-will-throw",
   "semicolon-after-return",
   "suspicious-boolean-not",
@@ -21,13 +30,27 @@ const ESBUILD_MESSAGE_IDS = [
   "unsupported-jsx-comment",
   "unsupported-regexp",
   "unsupported-require-call",
+  "css-syntax-error",
+  "invalid-@charset",
+  "invalid-@import",
+  "invalid-@nest",
+  "invalid-@layer",
+  "invalid-calc",
+  "js-comment-in-css",
+  "unsupported-@charset",
+  "unsupported-@namespace",
+  "unsupported-css-property",
+  "ambiguous-reexport",
   "different-path-case",
   "ignored-bare-import",
   "ignored-dynamic-import",
   "import-is-undefined",
-  "indirect-require",
-  "package.json",
   "require-resolve-not-external",
+  "invalid-source-mappings",
+  "sections-in-source-map",
+  "missing-source-map",
+  "unsupported-source-map-comment",
+  "package.json",
   "tsconfig.json",
 ];
 const logOverride = Object.fromEntries(
