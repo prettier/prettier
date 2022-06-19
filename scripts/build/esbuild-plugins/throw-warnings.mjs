@@ -75,8 +75,9 @@ export default function esbuildPluginThrowWarnings({ allowDynamicRequire }) {
         for (const warning of result.warnings) {
           if (
             allowDynamicRequire &&
-            warning.text ===
-              'This call to "require" will not be bundled because the argument is not a string literal'
+            ["unsupported-require-call", "indirect-require"].includes(
+              warning.id
+            )
           ) {
             continue;
           }
@@ -87,8 +88,7 @@ export default function esbuildPluginThrowWarnings({ allowDynamicRequire }) {
               "dist/_parser-flow.js.umd.js",
               "dist/_parser-flow.js.esm.mjs",
             ].includes(warning.location.file) &&
-            warning.text ===
-              "This case clause will never be evaluated because it duplicates an earlier case clause"
+            warning.id === "duplicate-case"
           ) {
             continue;
           }

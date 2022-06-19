@@ -103,10 +103,18 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
-          return text.replace(
+          // Remove useless `ts.sys`
+          text = text.replace(
+            /(?<=\n)(?<indentString>\s+)ts\.sys = \(function \(\) {.*?\n\k<indentString>}\)\(\);(?=\n)/s,
+            ""
+          );
+
+          text = text.replace(
             /(?<=\n)(?<indentString>\s+)function tryGetNodePerformanceHooks\(\) {.*?\n\k<indentString>}(?=\n)/s,
             "function tryGetNodePerformanceHooks() {}"
           );
+
+          return text;
         },
       },
       // yarn pnp
@@ -124,8 +132,6 @@ const parsers = [
 
         "_fs.realpathSync.native":
           "_fs.realpathSync && _fs.realpathSync.native",
-        // Remove useless `ts.sys`
-        "ts.sys = ": "ts.sys = undefined && ",
 
         // Remove useless language service
         "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
