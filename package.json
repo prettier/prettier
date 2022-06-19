@@ -102,7 +102,7 @@
     "@types/find-cache-dir": "3.2.1",
     "@types/jest": "28.1.1",
     "@typescript-eslint/eslint-plugin": "5.26.0",
-    "babel-jest": "27.5.1",
+    "babel-jest": "28.1.1",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
     "c8": "7.11.3",
