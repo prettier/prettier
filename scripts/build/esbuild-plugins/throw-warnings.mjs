@@ -25,6 +25,7 @@ const ESBUILD_MESSAGE_IDS = [
   "ignored-bare-import",
   "ignored-dynamic-import",
   "import-is-undefined",
+  "indirect-require",
   "package.json",
   "require-resolve-not-external",
   "tsconfig.json",
