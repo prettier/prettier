@@ -1,5 +1,4 @@
-"use strict";
-const createError = require("../../../common/parser-create-error.js");
+import createError from "../../../common/parser-create-error.js";
 
 function throwSyntaxError(node, message) {
   const { start, end } = node.loc;
@@ -9,4 +8,4 @@ function throwSyntaxError(node, message) {
   });
 }
 
-module.exports = throwSyntaxError;
+export default throwSyntaxError;

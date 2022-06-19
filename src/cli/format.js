@@ -400,15 +400,11 @@ async function formatFiles(context) {
     let output;
 
     try {
-<<<<<<< HEAD
-      result = await format(context, input, options);
-=======
       if (isCacheExists) {
         result = { formatted: input };
       } else {
-        result = format(context, input, options);
+        result = await format(context, input, options);
       }
->>>>>>> main
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error, printedFilename);

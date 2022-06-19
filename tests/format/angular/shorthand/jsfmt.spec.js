@@ -1,1 +1,1 @@
-run_spec(__dirname, ["angular"]);
+run_spec(import.meta, ["angular"]);

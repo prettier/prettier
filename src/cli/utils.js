@@ -1,11 +1,8 @@
+import { promises as fs } from "node:fs";
+import sdbm from "sdbm";
 import { __internal as sharedWithCli } from "../index.js";
 
 const { arrayify, getLast, isNonEmptyArray, partition } = sharedWithCli.utils;
-
-const { promises: fs } = require("fs");
-
-// eslint-disable-next-line no-restricted-modules
-const { default: sdbm } = require("../../vendors/sdbm.js");
 
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
@@ -77,5 +74,6 @@ export {
   printToScreen,
   groupBy,
   pick,
-createHash, statSafe
+  createHash,
+  statSafe,
 };

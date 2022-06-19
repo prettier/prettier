@@ -1,14 +1,11 @@
-"use strict";
-
-const path = require("path");
-const { promises: fs } = require("fs");
-const rimraf = require("rimraf");
-const { default: stripAnsi } = require("../../../vendors/strip-ansi.js");
-
-const runPrettier = require("../run-prettier.js");
+import path from "node:path";
+import { promises as fs } from "node:fs";
+import { fileURLToPath } from "node:url";
+import rimraf from "rimraf";
+import stripAnsi from "strip-ansi";
 
 function resolveDir(dir) {
-  return path.join(__dirname, "..", dir);
+  return fileURLToPath(new URL(`../${dir}/`, import.meta.url));
 }
 
 describe("--cache option", () => {

@@ -1,8 +1,6 @@
-"use strict";
-
-const os = require("os");
-const path = require("path");
-const findCacheDir = require("find-cache-dir");
+import os from "node:os";
+import path from "node:path";
+import findCacheDir from "find-cache-dir";
 
 /**
  * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/avajs/find-cache-dir
@@ -16,4 +14,4 @@ function findCacheFile() {
   return cacheFilePath;
 }
 
-module.exports = findCacheFile;
+export default findCacheFile;

@@ -1,6 +1,6 @@
 import path from "node:path";
 import fastGlob from "fast-glob";
-import {statSafe} from "./utils.js"
+import { statSafe } from "./utils.js";
 
 /** @typedef {import('./context').Context} Context */
 

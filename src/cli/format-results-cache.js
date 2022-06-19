@@ -1,13 +1,10 @@
-"use strict";
-
 // Inspired by LintResultsCache from ESLint
 // https://github.com/eslint/eslint/blob/c2d0a830754b6099a3325e6d3348c3ba983a677a/lib/cli-engine/lint-result-cache.js
 
-const fileEntryCache = require("file-entry-cache");
-const stringify = require("fast-json-stable-stringify");
-// eslint-disable-next-line no-restricted-modules
-const { version: prettierVersion } = require("../index.js");
-const { createHash } = require("./utils.js");
+import fileEntryCache from "file-entry-cache";
+import stringify from "fast-json-stable-stringify";
+import { version as prettierVersion } from "../index.js";
+import { createHash } from "./utils.js";
 
 const optionsHashCache = new WeakMap();
 const nodeVersion = process && process.version;
@@ -93,4 +90,4 @@ class FormatResultsCache {
   }
 }
 
-module.exports = FormatResultsCache;
+export default FormatResultsCache;
