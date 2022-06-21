@@ -177,27 +177,27 @@ assert({ type: "json" });
 `;
 
 exports[`re-export.js [acorn] format 1`] = `
-"Unexpected token (1:33)
-> 1 | export { foo2 } from "foo.json" assert { type: "json" };
-    |                                 ^
+"Unexpected token (1:44)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                            ^
   2 | export * from "foo.json" assert { type: "json" };
   3 | export * as foo3 from "foo.json" assert { type: "json" };
   4 |"
 `;
 
 exports[`re-export.js [espree] format 1`] = `
-"Unexpected token assert (1:33)
-> 1 | export { foo2 } from "foo.json" assert { type: "json" };
-    |                                 ^
+"Unexpected token assert (1:44)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                            ^
   2 | export * from "foo.json" assert { type: "json" };
   3 | export * as foo3 from "foo.json" assert { type: "json" };
   4 |"
 `;
 
 exports[`re-export.js [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:38)
-> 1 | export { foo2 } from "foo.json" assert { type: "json" };
-    |                                      ^
+"Unexpected token: 'identifier' (1:49)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                                 ^
   2 | export * from "foo.json" assert { type: "json" };
   3 | export * as foo3 from "foo.json" assert { type: "json" };
   4 |"
@@ -209,12 +209,12 @@ parsers: ["babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export { foo2 } from "foo.json" assert { type: "json" };
+export { default as foo2 } from "foo.json" assert { type: "json" };
 export * from "foo.json" assert { type: "json" };
 export * as foo3 from "foo.json" assert { type: "json" };
 
 =====================================output=====================================
-export { foo2 } from "foo.json" assert { type: "json" };
+export { default as foo2 } from "foo.json" assert { type: "json" };
 export * from "foo.json" assert { type: "json" };
 export * as foo3 from "foo.json" assert { type: "json" };
 
