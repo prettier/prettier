@@ -69,23 +69,23 @@ export * as bar from "bar.json";
 `;
 
 exports[`re-export.js - {"bracketSpacing":false} [acorn] format 1`] = `
-"Unexpected token (1:33)
-> 1 | export { foo2 } from "foo.json" assert { type: "json" };
-    |                                 ^
+"Unexpected token (1:44)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                            ^
   2 |"
 `;
 
 exports[`re-export.js - {"bracketSpacing":false} [espree] format 1`] = `
-"Unexpected token assert (1:33)
-> 1 | export { foo2 } from "foo.json" assert { type: "json" };
-    |                                 ^
+"Unexpected token assert (1:44)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                            ^
   2 |"
 `;
 
 exports[`re-export.js - {"bracketSpacing":false} [meriyah] format 1`] = `
-"Unexpected token: 'identifier' (1:38)
-> 1 | export { foo2 } from "foo.json" assert { type: "json" };
-    |                                      ^
+"Unexpected token: 'identifier' (1:49)
+> 1 | export { default as foo2 } from "foo.json" assert { type: "json" };
+    |                                                 ^
   2 |"
 `;
 
@@ -96,10 +96,10 @@ parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export { foo2 } from "foo.json" assert { type: "json" };
+export { default as foo2 } from "foo.json" assert { type: "json" };
 
 =====================================output=====================================
-export {foo2} from "foo.json" assert {type: "json"};
+export {default as foo2} from "foo.json" assert {type: "json"};
 
 ================================================================================
 `;
