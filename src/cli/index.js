@@ -10,6 +10,7 @@ const { createDetailedUsage, createUsage } = require("./usage.js");
 const { formatStdin, formatFiles } = require("./format.js");
 const logFileInfoOrDie = require("./file-info.js");
 const logResolvedConfigPathOrDie = require("./find-config-path.js");
+const findIgnorePath = require("./find-ignore-path.js");
 const {
   utils: { isNonEmptyArray },
 } = require("./prettier-internal.js");
@@ -67,6 +68,10 @@ async function main(context) {
     throw new Error("Cannot use --find-config-path with multiple files");
   }
 
+  if (context.argv.findIgnorePath && context.filePatterns.length > 0) {
+    throw new Error("Cannot use --find-ignore-path with multiple files");
+  }
+
   if (context.argv.fileInfo && context.filePatterns.length > 0) {
     throw new Error("Cannot use --file-info with multiple files");
   }
@@ -100,6 +105,8 @@ async function main(context) {
 
   if (context.argv.findConfigPath) {
     await logResolvedConfigPathOrDie(context);
+  } else if (context.argv.findIgnorePath) {
+    await findIgnorePath(context);
   } else if (context.argv.fileInfo) {
     await logFileInfoOrDie(context);
   } else if (useStdin) {

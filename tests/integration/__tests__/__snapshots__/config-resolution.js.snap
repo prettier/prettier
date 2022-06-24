@@ -26,6 +26,11 @@ function f() {
 console.log(
   "should have no semi"
 )
+function config() {
+  console.log(
+    "ignore/file.js should have a path"
+  )
+}
 console.log(
   "jest/__best-tests__/.file.js should have semi"
 );
@@ -53,6 +58,11 @@ module.exports =
 function noConfigJs() {
   console.log(
     "no-config/file.js should have no semicolons"
+  )
+}
+function noConfig() {
+  console.log(
+    "ignore/file.js should not have a path"
   )
 }
 function packageJs() {
@@ -140,6 +150,9 @@ function f() {
   )
 }
 console.log("should have no semi")
+function config() {
+  console.log("ignore/file.js should have a path")
+}
 console.log("jest/__best-tests__/.file.js should have semi");
 console.log("jest/__best-tests__/file.js should have semi");
 console.log("jest/Component.js should not have semi")
@@ -155,6 +168,9 @@ module.exports = {
 };
 function noConfigJs() {
   console.log("no-config/file.js should have no semicolons")
+}
+function noConfig() {
+  console.log("ignore/file.js should not have a path")
 }
 function packageJs() {
    console.log("package/file.js should have tab width 3");

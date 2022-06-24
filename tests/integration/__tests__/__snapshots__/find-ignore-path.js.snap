@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test with multiple files (stderr) 1`] = `
+"[error] Cannot use --find-ignore-path with multiple files
+"
+`;
+
+exports[`Test with multiple files (stdout) 1`] = `""`;
+
+exports[`Test with multiple files (write) 1`] = `[]`;
+
+exports[`no print path for prettier ignore (stderr) 1`] = `""`;
+
+exports[`no print path for prettier ignore (stdout) 1`] = `""`;
+
+exports[`no print path for prettier ignore (write) 1`] = `[]`;
+
+exports[`print path of prettier ignore (stderr) 1`] = `""`;
+
+exports[`print path of prettier ignore (stdout) 1`] = `""`;
+
+exports[`print path of prettier ignore (write) 1`] = `[]`;
+
+exports[`print path when ignore file found (stderr) 1`] = `""`;
+
+exports[`print path when ignore file found (stdout) 1`] = `
+"..\\.prettierrc
+"
+`;
+
+exports[`print path when ignore file found (write) 1`] = `[]`;
+
+exports[`prints error message when no file found with --find-ignore-path (stderr) 1`] = `""`;
+
+exports[`prints error message when no file found with --find-ignore-path (write) 1`] = `[]`;

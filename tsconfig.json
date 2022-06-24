@@ -27,6 +27,7 @@
     "src/cli/expand-patterns.js",
     "src/cli/file-info.js",
     "src/cli/find-config-path.js",
+    "src/cli/find-ignore-path.js",
     "src/cli/context.js",
     "src/cli/format.js",
     "src/cli/options/get-context-options.js",

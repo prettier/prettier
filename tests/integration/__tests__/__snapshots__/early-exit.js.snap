@@ -112,6 +112,8 @@ Config options:
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
+  --find-ignore-path <path>
+                           Find and print the path to a ignore file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.
@@ -286,6 +288,8 @@ Config options:
   --no-editorconfig        Don't take .editorconfig into account when parsing configuration.
   --find-config-path <path>
                            Find and print the path to a configuration file for the given input file.
+  --find-ignore-path <path>
+                           Find and print the path to a ignore file for the given input file.
   --ignore-path <path>     Path to a file with patterns describing files to ignore.
                            Defaults to .prettierignore.
   --plugin <path>          Add a plugin. Multiple plugins can be passed as separate \`--plugin\`s.

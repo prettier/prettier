@@ -219,6 +219,17 @@ exports[`show detailed usage with --help find-config-path (stdout) 1`] = `
 
 exports[`show detailed usage with --help find-config-path (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help find-ignore-path (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help find-ignore-path (stdout) 1`] = `
+"--find-ignore-path <path>
+
+  Find and print the path to a ignore file for the given input file.
+"
+`;
+
+exports[`show detailed usage with --help find-ignore-path (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help help (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help help (stdout) 1`] = `

@@ -189,6 +189,12 @@ const options = {
       "Find and print the path to a configuration file for the given input file.",
     type: "path",
   },
+  "find-ignore-path": {
+    category: coreOptions.CATEGORY_CONFIG,
+    description:
+      "Find and print the path to a ignore file for the given input file.",
+    type: "path",
+  },
   help: {
     alias: "h",
     description: outdent`
