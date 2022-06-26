@@ -3331,9 +3331,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.30.0":
-  version: 7.30.0
-  resolution: "eslint-plugin-react@npm:7.30.0"
+"eslint-plugin-react@npm:7.30.1":
+  version: 7.30.1
+  resolution: "eslint-plugin-react@npm:7.30.1"
   dependencies:
     array-includes: ^3.1.5
     array.prototype.flatmap: ^1.3.0
@@ -3351,7 +3351,7 @@ __metadata:
     string.prototype.matchall: ^4.0.7
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 729b7682a0fe6eab068171c159503ac57120ecc7b20067e76300b08879745c16a687e2033378ab45d9a3182da8844d06197a89081be83e1eb21fcceb76e79214
+  checksum: 553fb9ece6beb7c14cf6f84670c786c8ac978c2918421994dcc4edd2385302022e5d5ac4a39fafdb35954e29cecddefed61758040c3c530cafcf651f674a9d51
   languageName: node
   linkType: hard
 
@@ -6728,7 +6728,7 @@ __metadata:
     eslint-plugin-import: 2.26.0
     eslint-plugin-jest: 26.5.3
     eslint-plugin-prettier-internal-rules: 2.0.1
-    eslint-plugin-react: 7.30.0
+    eslint-plugin-react: 7.30.1
     eslint-plugin-regexp: 1.7.0
     eslint-plugin-unicorn: 42.0.0
     esm-utils: 4.0.0
