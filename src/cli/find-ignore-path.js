@@ -7,12 +7,19 @@ const prettier = require("../index.js");
 const { printToScreen } = require("./utils.js");
 
 async function findIgnorePath(context) {
-  const file = context.argv.findIgnorePath;
-  const configFile = await prettier.resolveConfigFile(file);
-  if (configFile) {
-    printToScreen(path.relative(process.cwd(), configFile));
+  const prettierIgnorePath = path.join(process.cwd(), ".prettierignore");
+  const prettierIgnoreExists = await prettier.resolveConfig(
+    prettierIgnorePath,
+    {
+      editorconfig: false,
+      config: false,
+      ignorePath: true,
+    }
+  );
+  if (prettierIgnoreExists) {
+    printToScreen(prettierIgnorePath);
   } else {
-    throw new Error(`Can not find ignore file for "${file}"`);
+    throw new Error(`Can not find ignore file for "${context.cwd}"`);
   }
 }
 

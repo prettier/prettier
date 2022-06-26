@@ -24,7 +24,7 @@ exports[`print path of prettier ignore (write) 1`] = `[]`;
 exports[`print path when ignore file found (stderr) 1`] = `""`;
 
 exports[`print path when ignore file found (stdout) 1`] = `
-"..\\.prettierrc
+"E:\\Programming\\prettier\\tests\\integration\\cli\\config\\ignore\\.prettierignore
 "
 `;
 
