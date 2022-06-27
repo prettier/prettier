@@ -1,6 +1,7 @@
 ---
-id: cli
+id: version-stable-cli
 title: CLI
+original_id: cli
 ---
 
 Use the `prettier` command to run Prettier from the command line.
