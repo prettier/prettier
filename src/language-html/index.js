@@ -17,7 +17,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/HTML.json"), (data) => ({
     since: "1.15.0",
     parsers: ["html"],
-    vscodeLanguageIds: ["html"],
+    vscodeLanguageIds: ["html", "axml"],
     extensions: [
       ...data.extensions,
       ".mjml", // MJML is considered XML in Linguist but it should be formatted as HTML
