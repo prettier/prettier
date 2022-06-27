@@ -110,6 +110,17 @@ You can also use `--config` if your configuration file lives somewhere where Pre
 
 If you don’t have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
 
+## `--find-ignore-path`
+
+This command finds the path to the `.prettierignore` file for the given input file.
+
+```bash
+prettier --find-ignore-path ./my/file.js
+./my/.prettierignore
+```
+
+This will output an ignore file path which the inputted file was using.
+
 ## `--ignore-path`
 
 Path to a file containing patterns that describe files to ignore. By default, Prettier looks for `./.prettierignore`.

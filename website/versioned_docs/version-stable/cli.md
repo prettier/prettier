@@ -1,7 +1,6 @@
 ---
-id: version-stable-cli
+id: cli
 title: CLI
-original_id: cli
 ---
 
 Use the `prettier` command to run Prettier from the command line.
@@ -110,6 +109,17 @@ prettier --config ./my/.prettierrc --write ./my/file.js
 You can also use `--config` if your configuration file lives somewhere where Prettier cannot find it, such as a `config/` directory.
 
 If you don’t have a configuration file, or want to ignore it if it does exist, you can pass `--no-config` instead.
+
+## `--find-ignore-path`
+
+This command finds the path to the `.prettierignore` file for the given input file.
+
+```bash
+prettier --find-ignore-path ./my/file.js
+./my/.prettierignore
+```
+
+This will output an ignore file path which the inputted file was using.
 
 ## `--ignore-path`
 
