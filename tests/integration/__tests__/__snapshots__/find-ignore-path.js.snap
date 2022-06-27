@@ -8,14 +8,3 @@ exports[`Test with multiple files (stderr) 1`] = `
 exports[`Test with multiple files (stdout) 1`] = `""`;
 
 exports[`Test with multiple files (write) 1`] = `[]`;
-
-exports[`print path when ignore file found (status) 1`] = `0`;
-
-exports[`print path when ignore file found (stderr) 1`] = `""`;
-
-exports[`print path when ignore file found (stdout) 1`] = `
-"/workspaces/prettier/tests/integration/cli/config/ignore/.prettierignore
-"
-`;
-
-exports[`print path when ignore file found (write) 1`] = `[]`;
