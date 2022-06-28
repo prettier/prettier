@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Prettier should not output a .prettierignore file (status) 1`] = `1`;
+
+exports[`Prettier should not output a .prettierignore file (stderr) 1`] = `
+"[error] Can not find ignore file for "./no-ignore/.prettierignore"
+"
+`;
+
+exports[`Prettier should not output a .prettierignore file (stdout) 1`] = `""`;
+
+exports[`Prettier should not output a .prettierignore file (write) 1`] = `[]`;
+
+exports[`Prettier should output the .prettierignore path (status) 1`] = `1`;
+
+exports[`Prettier should output the .prettierignore path (stderr) 1`] = `
+"[error] Can not find ignore file for "./ignore/.prettierignore"
+"
+`;
+
+exports[`Prettier should output the .prettierignore path (stdout) 1`] = `
+"./ignore/.prettierignore
+"
+`;
+
+exports[`Prettier should output the .prettierignore path (write) 1`] = `[]`;
+
 exports[`Test with multiple files (stderr) 1`] = `
 "[error] Cannot use --find-ignore-path with multiple files
 "

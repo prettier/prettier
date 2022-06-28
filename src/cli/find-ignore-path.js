@@ -7,6 +7,17 @@ const { printToScreen } = require("./utils.js");
 
 let prettierIgnoreExists = false;
 
+function cleanPrettierIgnorePath() {
+  let prettierIgnorePath = path.join(process.cwd(), ".prettierignore");
+  prettierIgnorePath = path.relative(
+    path.join(process.cwd(), ".."),
+    prettierIgnorePath
+  );
+  prettierIgnorePath = `./${prettierIgnorePath}`;
+  prettierIgnorePath = prettierIgnorePath.replace("\\", "/");
+  return prettierIgnorePath;
+}
+
 function findIgnorePath() {
   const folder = process.cwd();
   for (const file of fs.readdirSync(folder)) {
@@ -14,13 +25,12 @@ function findIgnorePath() {
       prettierIgnoreExists = true;
     }
   }
-
   if (prettierIgnoreExists) {
-    const prettierIgnorePath = path.join(process.cwd(), ".prettierignore");
-    return printToScreen(prettierIgnorePath);
+    const path = cleanPrettierIgnorePath();
+    printToScreen(path);
   }
-  new Error(`Can not find ignore file for "${process.cwd()}"`);
-  return process.exit(1);
+  const errorPath = cleanPrettierIgnorePath();
+  throw new Error(`Can not find ignore file for "${errorPath}"`);
 }
 
 module.exports = findIgnorePath;
