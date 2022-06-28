@@ -20,7 +20,7 @@ window.addEventListener("load", () => {
     });
   }
 
-  logoWrapper.setAttribute("draggable", "true", { passive: true });
+  logoWrapper.addEventListener("draggable", "true", { passive: true });
   logoWrapper.addEventListener("touchstart", handleLogoDrag, { passive: true });
   logoWrapper.addEventListener("dragstart", handleLogoDrag, { passive: true });
 
