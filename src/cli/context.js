@@ -39,7 +39,7 @@ class Context {
 
     const argv = parseArgv(rawArguments, this.detailedOptions, logger);
     this.argv = argv;
-    this.filePatterns = argv._.map(String);
+    this.filePatterns = argv._;
   }
 
   /**
