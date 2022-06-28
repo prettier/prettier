@@ -11,8 +11,7 @@ import {
   resolveConfigFile,
   clearCache as clearConfigCache,
 } from "./config/resolve-config.js";
-import languages from "./languages.js";
-
+import * as languages from "./languages.js";
 import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.js";
 import createIgnorer from "./common/create-ignorer.js";
@@ -27,8 +26,8 @@ import partition from "./utils/partition.js";
 import { isNonEmptyArray } from "./common/util.js";
 
 const require = createRequire(import.meta.url);
-
 const { version } = require("../package.json");
+const builtinPlugins = Object.values(languages);
 
 /**
  * @param {*} fn
@@ -45,7 +44,7 @@ function withPlugins(
     args[optsArgIdx] = {
       ...opts,
       plugins: [
-        ...languages,
+        ...builtinPlugins,
         ...(await loadPlugins(opts.plugins, opts.pluginSearchDirs)),
       ],
     };
