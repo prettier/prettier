@@ -53,27 +53,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      # - name: Run Integration Tests (macOS)
-      #   if: ${{ matrix.os == 'macos-latest' }}
-      #   run: yarn test:integration --maxWorkers=4
-
-      # - name: Run Integration Tests (Linux and Windows)
-      #   if: ${{ matrix.os != 'macos-latest' }}
-      #   run: yarn test:integration --maxWorkers=2
-
-      # - name: Upload Coverage
-      #   uses: codecov/codecov-action@v2.1.0
-      #   if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-      #   with:
-      #     fail_ci_if_error: true
-
-      - name: Run Format Tests (macOS)
+      - name: Run Tests
         if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test:format --maxWorkers=4
-
-      - name: Run Format Tests (Linux and Windows)
-        if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn c8 yarn test:format --maxWorkers=2
+        run: yarn test
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v3.1.0
