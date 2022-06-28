@@ -54,8 +54,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Tests
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test
+        run: yarn c8 yarn test
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v3.1.0

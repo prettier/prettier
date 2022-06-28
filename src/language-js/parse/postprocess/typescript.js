@@ -1,13 +1,5 @@
-import createError from "../../../common/parser-create-error.js";
 import visitNode from "./visit-node.js";
-
-function throwSyntaxError(node, message) {
-  const { start, end } = node.loc;
-  throw createError(message, {
-    start: { line: start.line, column: start.column + 1 },
-    end: { line: end.line, column: end.column + 1 },
-  });
-}
+import throwSyntaxError from "./throw-syntax-error.js";
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
@@ -39,7 +31,7 @@ function throwErrorForInvalidDecorator(
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
-  const SYNTAX_KIND_PROPERTY_DEFINITION = 166;
+  const SYNTAX_KIND_PROPERTY_DEFINITION = 167;
   const SYNTAX_KIND_ABSTRACT_KEYWORD = 126;
   if (
     tsNode.kind !== SYNTAX_KIND_PROPERTY_DEFINITION ||
@@ -71,6 +63,7 @@ function throwErrorForInvalidNodes(ast, options) {
     if (esTreeNode !== node) {
       return;
     }
+
     throwErrorForInvalidDecorator(tsNode, esTreeNode, tsNodeToESTreeNodeMap);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
   });

@@ -1,6 +1,4 @@
-
 import prettier from "../../config/prettier-entry.js";
-import runPrettier from "../run-prettier.js";
 
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({

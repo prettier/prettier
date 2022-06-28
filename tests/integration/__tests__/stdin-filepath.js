@@ -1,7 +1,5 @@
 import { isCI } from "ci-info";
 import { outdent } from "outdent";
-import runPrettier from "../run-prettier.js";
-
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
   runPrettier(
     "cli",

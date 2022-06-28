@@ -4,6 +4,7 @@ import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import getLast from "../../../utils/get-last.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
+import throwSyntaxError from "./throw-syntax-error.js";
 
 function postprocess(ast, options) {
   if (
@@ -100,6 +101,20 @@ function postprocess(ast, options) {
           };
         }
         break;
+      case "ObjectExpression":
+        // #12963
+        if (options.parser === "typescript") {
+          const invalidProperty = node.properties.find(
+            (property) =>
+              property.type === "Property" &&
+              property.value.type === "TSEmptyBodyFunctionExpression"
+          );
+          if (invalidProperty) {
+            throwSyntaxError(invalidProperty.value, "Unexpected token.");
+          }
+        }
+        break;
+
       case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
         const lastExpression = getLast(node.expressions);

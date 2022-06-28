@@ -1,6 +1,9 @@
 import dashify from "dashify";
 import { getSupportInfo } from "../../index.js";
-import { coreOptions } from "../prettier-internal.js";
+import {
+  coreOptions,
+  getSupportInfoWithoutPlugins,
+} from "../prettier-internal.js";
 import { options as cliOptionsMap } from "../constant.js";
 import { arrayify } from "../utils.js";
 
@@ -47,15 +50,7 @@ function normalizeDetailedOption(option) {
   };
 }
 
-async function getContextOptions(plugins, pluginSearchDirs) {
-  const { options: supportOptions, languages } = await getSupportInfo({
-    showDeprecated: true,
-    showUnreleased: true,
-    showInternal: true,
-    plugins,
-    pluginSearchDirs,
-  });
-
+function supportInfoToContextOptions({ options: supportOptions, languages }) {
   const detailedOptions = [
     ...detailedCliOptions,
     ...supportOptions.map((apiOption) => apiOptionToCliOption(apiOption)),
@@ -68,4 +63,21 @@ async function getContextOptions(plugins, pluginSearchDirs) {
   };
 }
 
-export default getContextOptions;
+async function getContextOptions(plugins, pluginSearchDirs) {
+  const supportInfo = await getSupportInfo({
+    showDeprecated: true,
+    showUnreleased: true,
+    showInternal: true,
+    plugins,
+    pluginSearchDirs,
+  });
+
+  return supportInfoToContextOptions(supportInfo);
+}
+
+function getContextOptionsWithoutPlugins() {
+  const supportInfo = getSupportInfoWithoutPlugins({ showInternal: true });
+  return supportInfoToContextOptions(supportInfo);
+}
+
+export { getContextOptions, getContextOptionsWithoutPlugins };

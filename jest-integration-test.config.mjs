@@ -4,6 +4,7 @@ const config = {
   ...baseConfig,
   runner: "jest-light-runner",
   testRegex: "tests/integration/__tests__/.*\\.js$",
+  setupFiles: ["<rootDir>/tests/integration/integration-test-setup.js"],
   projects: [],
   moduleNameMapper: {
     ...baseConfig.moduleNameMapper,
