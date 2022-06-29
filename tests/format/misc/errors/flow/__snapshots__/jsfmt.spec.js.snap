@@ -9,7 +9,7 @@ exports[`async-arrow-invalid.js [flow] format 1`] = `
 `;
 
 exports[`default-escaped.js [flow] format 1`] = `
-"Unexpected identifier, expected the token \`{\` (1:8)
+"Unexpected token \`async\`, expected a declaration, statement or export specifiers (1:8)
 > 1 | export asyn\\u{63} from "async";
     |        ^^^^^^^^^^
   2 |"

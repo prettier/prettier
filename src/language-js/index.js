@@ -68,15 +68,11 @@ const languages = [
     codemirrorMimeType: "text/jsx",
     color: undefined,
   })),
-  createLanguage(
-    require("linguist-languages/data/TypeScript.json"),
-    (data) => ({
-      since: "1.4.0",
-      parsers: ["typescript", "babel-ts"],
-      vscodeLanguageIds: ["typescript"],
-      extensions: [...data.extensions, ".mts", ".cts"],
-    })
-  ),
+  createLanguage(require("linguist-languages/data/TypeScript.json"), () => ({
+    since: "1.4.0",
+    parsers: ["typescript", "babel-ts"],
+    vscodeLanguageIds: ["typescript"],
+  })),
   createLanguage(require("linguist-languages/data/TSX.json"), () => ({
     since: "1.4.0",
     parsers: ["typescript", "babel-ts"],

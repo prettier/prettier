@@ -1,8 +1,9 @@
 "use strict";
 
 const path = require("path");
-const { promises: fs } = require("fs");
 const fastGlob = require("fast-glob");
+
+const { statSafe } = require("./utils.js");
 
 /** @typedef {import('./context').Context} Context */
 
@@ -171,22 +172,6 @@ function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
  */
 function sortPaths(paths) {
   return paths.sort((a, b) => a.localeCompare(b));
-}
-
-/**
- * Get stats of a given path.
- * @param {string} filePath The path to target file.
- * @returns {Promise<import('fs').Stats | undefined>} The stats.
- */
-async function statSafe(filePath) {
-  try {
-    return await fs.stat(filePath);
-  } catch (error) {
-    /* istanbul ignore next */
-    if (error.code !== "ENOENT") {
-      throw error;
-    }
-  }
 }
 
 /**

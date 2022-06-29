@@ -311,6 +311,16 @@ function printIndexedAccessType(path, options, print) {
   return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
+// `TSJSDocNullableType`, `TSJSDocNonNullableType`
+function printJSDocType(path, print, token) {
+  const node = path.getValue();
+  return [
+    node.postfix ? "" : token,
+    print("typeAnnotation"),
+    node.postfix ? token : "",
+  ];
+}
+
 module.exports = {
   printOpaqueType,
   printTypeAlias,
@@ -320,4 +330,5 @@ module.exports = {
   printTupleType,
   printIndexedAccessType,
   shouldHugType,
+  printJSDocType,
 };

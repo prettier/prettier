@@ -33,8 +33,8 @@ See below for examples.
 ### Global
 
 ```html
-<script src="https://unpkg.com/prettier@2.6.2/standalone.js"></script>
-<script src="https://unpkg.com/prettier@2.6.2/parser-graphql.js"></script>
+<script src="https://unpkg.com/prettier@2.7.1/standalone.js"></script>
+<script src="https://unpkg.com/prettier@2.7.1/parser-graphql.js"></script>
 <script>
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -49,8 +49,8 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
-  import parserGraphql from "https://unpkg.com/prettier@2.6.2/esm/parser-graphql.mjs";
+  import prettier from "https://unpkg.com/prettier@2.7.1/esm/standalone.mjs";
+  import parserGraphql from "https://unpkg.com/prettier@2.7.1/esm/parser-graphql.mjs";
 
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -63,8 +63,8 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 
 ```js
 define([
-  "https://unpkg.com/prettier@2.6.2/standalone.js",
-  "https://unpkg.com/prettier@2.6.2/parser-graphql.js",
+  "https://unpkg.com/prettier@2.7.1/standalone.js",
+  "https://unpkg.com/prettier@2.7.1/parser-graphql.js",
 ], (prettier, ...plugins) => {
   prettier.format("type Query { hello: String }", {
     parser: "graphql",
@@ -89,8 +89,8 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ### Worker
 
 ```js
-importScripts("https://unpkg.com/prettier@2.6.2/standalone.js");
-importScripts("https://unpkg.com/prettier@2.6.2/parser-graphql.js");
+importScripts("https://unpkg.com/prettier@2.7.1/standalone.js");
+importScripts("https://unpkg.com/prettier@2.7.1/parser-graphql.js");
 prettier.format("type Query { hello: String }", {
   parser: "graphql",
   plugins: prettierPlugins,
@@ -103,8 +103,8 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.6.2/esm/parser-babel.mjs";
+  import prettier from "https://unpkg.com/prettier@2.7.1/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.7.1/esm/parser-babel.mjs";
 
   console.log(
     prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
@@ -120,9 +120,9 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
 
 ```html
 <script type="module">
-  import prettier from "https://unpkg.com/prettier@2.6.2/esm/standalone.mjs";
-  import parserBabel from "https://unpkg.com/prettier@2.6.2/esm/parser-babel.mjs";
-  import parserHtml from "https://unpkg.com/prettier@2.6.2/esm/parser-html.mjs";
+  import prettier from "https://unpkg.com/prettier@2.7.1/esm/standalone.mjs";
+  import parserBabel from "https://unpkg.com/prettier@2.7.1/esm/parser-babel.mjs";
+  import parserHtml from "https://unpkg.com/prettier@2.7.1/esm/parser-html.mjs";
 
   console.log(
     prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {

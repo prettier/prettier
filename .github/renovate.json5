@@ -10,6 +10,11 @@
       groupName: "react",
     },
     {
+      matchPackagePrefixes: ["@babel/"],
+      excludePackageNames: ["@babel/parser"],
+      groupName: "babel",
+    },
+    {
       branchPrefix: "renovate/website/",
       matchPaths: ["website/package.json"],
       labels: ["dependency:website"],
