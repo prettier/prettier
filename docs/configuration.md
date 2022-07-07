@@ -186,18 +186,19 @@ Here’s an annotated description of how different properties map to Prettier’
 
 # Copied from: https://prettier.io/docs/en/configuration.html#editorconfig
 [*]
-  # Non-configurable Prettier behaviors
+  # Non-configurable Prettier behaviors:
+  #  (changing these can cause conflicts with prettier)
   charset = utf-8
   insert_final_newline = true
 
-  # Caveat: Prettier won’t trim trailing whitespace inside template strings, but your editor might.
+  # Prettier won’t trim trailing whitespace inside template strings, but your editor might.
   # Ideally we don't enable this, and let prettier do the smart thing.
   # trim_trailing_whitespace = true
 
-  # Configurable Prettier behaviors
-  # (change these if your Prettier config differs)
+  # Match prettier defaults, customize to your hearts content:
   end_of_line = lf
   indent_style = space
   indent_size = 2
   max_line_length = 80
+
 ```
