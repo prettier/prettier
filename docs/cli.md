@@ -235,12 +235,6 @@ If a file path is passed, that file is used as the cache file.
 prettier --write --cache --cache-location=my_cache_file src
 ```
 
-If a directory path is passed, a file with the name hashed process.cwd() is created in that directory and used as a cache file. e.g. For `--cache-location=./my_cache_dir/`, cache file: `./my_cache_dir/.cache_139328449` for current folder `foo`.
-
-```bash
-prettier --write --cache --cache-location=my_cache_dir/ src
-```
-
 ## `--cache-strategy`
 
 Strategy for the cache to use for detecting changed files. Can be either `metadata` or `content`.
