@@ -606,7 +606,7 @@ function printEndOfOpeningTag(node, options, nameHasComments) {
   if (node.selfClosing) {
     return [line, "/>"];
   }
-  const bracketSameLine = shouldPrintBracketSameline(
+  const bracketSameLine = shouldPrintBracketSameLine(
     node,
     options,
     nameHasComments
@@ -617,7 +617,7 @@ function printEndOfOpeningTag(node, options, nameHasComments) {
   return [softline, ">"];
 }
 
-function shouldPrintBracketSameline(node, options, nameHasComments) {
+function shouldPrintBracketSameLine(node, options, nameHasComments) {
   const lastAttrHasTrailingComments =
     node.attributes.length > 0 &&
     hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
