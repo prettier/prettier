@@ -774,7 +774,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         "CITATION.cff",
         "glide.lock",
         ".prettierrc",
-        ".stylelintrc"
+        ".stylelintrc",
+        ".lintstagedrc"
       ],
       "linguistLanguageId": 407,
       "name": "YAML",
