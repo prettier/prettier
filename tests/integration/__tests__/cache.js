@@ -16,8 +16,8 @@ describe("--cache option", () => {
 
   const defaultCacheFile = {
     nodeModules: path.join(dir, "node_modules/.cache/prettier/.prettier-cache"),
-    pnpv1: path.join(dir, ".yarn/.cache/prettier/.prettier-cache"),
-    pnpv2: path.join(dir, ".pnp/.cache/prettier/.prettier-cache"),
+    pnpv1: path.join(dir, ".pnp/.cache/prettier/.prettier-cache"),
+    pnpv3: path.join(dir, ".yarn/.cache/prettier/.prettier-cache"),
   };
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
@@ -34,6 +34,9 @@ describe("--cache option", () => {
   afterEach(async () => {
     rimraf.sync(path.join(dir, "node_modules"));
     rimraf.sync(nonDefaultCacheFilePath);
+    rimraf.sync(path.join(dir, ".pnp"));
+    rimraf.sync(path.join(dir, ".yarn"));
+
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
@@ -97,6 +100,46 @@ describe("--cache option", () => {
       await expect(
         fs.stat(defaultCacheFile.nodeModules)
       ).resolves.not.toThrowError();
+    });
+
+    it("creates default cache file named `.pnp/.cache/prettier/.prettier-cache`", async () => {
+      await expect(fs.stat(defaultCacheFile.pnpv1)).rejects.toHaveProperty(
+        "code",
+        "ENOENT"
+      );
+      const oldPnpVersion = process.versions.pnp;
+      process.versions.pnp = "1";
+      try {
+        await runPrettier(dir, [
+          "--cache",
+          "--cache-strategy",
+          "metadata",
+          ".",
+        ]);
+      } finally {
+        process.versions.pnp = oldPnpVersion;
+      }
+      await expect(fs.stat(defaultCacheFile.pnpv1)).resolves.not.toThrowError();
+    });
+
+    it("creates default cache file named `.yarn/.cache/prettier/.prettier-cache`", async () => {
+      await expect(fs.stat(defaultCacheFile.pnpv3)).rejects.toHaveProperty(
+        "code",
+        "ENOENT"
+      );
+      const oldPnpVersion = process.versions.pnp;
+      process.versions.pnp = "3";
+      try {
+        await runPrettier(dir, [
+          "--cache",
+          "--cache-strategy",
+          "metadata",
+          ".",
+        ]);
+      } finally {
+        process.versions.pnp = oldPnpVersion;
+      }
+      await expect(fs.stat(defaultCacheFile.pnpv3)).resolves.not.toThrowError();
     });
 
     it("does'nt format when cache is available", async () => {
@@ -257,6 +300,36 @@ describe("--cache option", () => {
       await expect(
         fs.stat(defaultCacheFile.nodeModules)
       ).resolves.not.toThrowError();
+    });
+
+    it("creates default cache file named `.pnp/.cache/prettier/.prettier-cache`", async () => {
+      await expect(fs.stat(defaultCacheFile.pnpv1)).rejects.toHaveProperty(
+        "code",
+        "ENOENT"
+      );
+      const oldPnpVersion = process.versions.pnp;
+      process.versions.pnp = "1";
+      try {
+        await runPrettier(dir, ["--cache", "--cache-strategy", "content", "."]);
+      } finally {
+        process.versions.pnp = oldPnpVersion;
+      }
+      await expect(fs.stat(defaultCacheFile.pnpv1)).resolves.not.toThrowError();
+    });
+
+    it("creates default cache file named `.yarn/.cache/prettier/.prettier-cache`", async () => {
+      await expect(fs.stat(defaultCacheFile.pnpv3)).rejects.toHaveProperty(
+        "code",
+        "ENOENT"
+      );
+      const oldPnpVersion = process.versions.pnp;
+      process.versions.pnp = "3";
+      try {
+        await runPrettier(dir, ["--cache", "--cache-strategy", "content", "."]);
+      } finally {
+        process.versions.pnp = oldPnpVersion;
+      }
+      await expect(fs.stat(defaultCacheFile.pnpv3)).resolves.not.toThrowError();
     });
 
     it("does'nt format when cache is available", async () => {
