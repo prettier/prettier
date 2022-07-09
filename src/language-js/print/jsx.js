@@ -596,13 +596,13 @@ function printJsxOpeningElement(path, options, print) {
       print("name"),
       print("typeParameters"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
-      ...printClosing(node, options, nameHasComments),
+      ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak }
   );
 }
 
-function printClosing(node, options, nameHasComments) {
+function printEndOfOpeningTag(node, options, nameHasComments) {
   if (node.selfClosing) {
     return [line, "/>"];
   }
