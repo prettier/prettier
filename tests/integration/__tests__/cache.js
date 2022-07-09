@@ -444,55 +444,5 @@ describe("--cache option", () => {
         );
       });
     });
-
-    describe("dir", () => {
-      it("creates the cache file at location specified by `--cache-location`", async () => {
-        await expect(fs.stat(nonDefaultCacheDirPath)).rejects.toHaveProperty(
-          "code",
-          "ENOENT"
-        );
-        await runPrettier(dir, [
-          "--cache",
-          "--cache-location",
-          `${nonDefaultCacheDirName}/`,
-          ".",
-        ]);
-        const stat = await fs.stat(nonDefaultCacheDirPath);
-        expect(stat.isDirectory()).toBe(true);
-        const filesInCacheDir = await fs.readdir(nonDefaultCacheDirPath);
-        expect(filesInCacheDir.length).toBe(1);
-        expect(filesInCacheDir[0].startsWith(".cache")).toBe(true);
-      });
-
-      it("does'nt format when cache is available", async () => {
-        const { stdout: firstStdout } = await runPrettier(dir, [
-          "--cache",
-          "--write",
-          "--cache-location",
-          `${nonDefaultCacheDirName}/`,
-          ".",
-        ]);
-        expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
-          expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms$/),
-            expect.stringMatching(/^b\.js .+ms$/),
-          ])
-        );
-
-        const { stdout: secondStdout } = await runPrettier(dir, [
-          "--cache",
-          "--write",
-          "--cache-location",
-          `${nonDefaultCacheDirName}/`,
-          ".",
-        ]);
-        expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
-          expect.arrayContaining([
-            expect.stringMatching(/^a\.js .+ms \(cached\)$/),
-            expect.stringMatching(/^b\.js .+ms \(cached\)$/),
-          ])
-        );
-      });
-    });
   });
 });
