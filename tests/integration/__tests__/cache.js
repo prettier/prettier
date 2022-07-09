@@ -21,9 +21,6 @@ describe("--cache option", () => {
   const nonDefaultCacheFileName = ".non-default-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
 
-  const nonDefaultCacheDirName = "non-default-cache-dir";
-  const nonDefaultCacheDirPath = path.join(dir, nonDefaultCacheDirName);
-
   let contentA;
   let contentB;
 
@@ -35,7 +32,6 @@ describe("--cache option", () => {
   afterEach(async () => {
     rimraf.sync(path.join(dir, "node_modules"));
     rimraf.sync(nonDefaultCacheFilePath);
-    rimraf.sync(nonDefaultCacheDirPath);
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
