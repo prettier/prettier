@@ -13,10 +13,12 @@ function resolveDir(dir) {
 
 describe("--cache option", () => {
   const dir = resolveDir("cli/cache");
-  const defaultCacheFile = path.join(
-    dir,
-    "node_modules/.cache/prettier/.prettier-cache"
-  );
+
+  const defaultCacheFile = {
+    nodeModules: path.join(dir, "node_modules/.cache/prettier/.prettier-cache"),
+    pnpv1: path.join(dir, ".yarn/.cache/prettier/.prettier-cache"),
+    pnpv2: path.join(dir, ".pnp/.cache/prettier/.prettier-cache"),
+  };
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
   const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
@@ -88,12 +90,13 @@ describe("--cache option", () => {
 
   describe("--cache-strategy metadata", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
-      await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
-        "code",
-        "ENOENT"
-      );
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).rejects.toHaveProperty("code", "ENOENT");
       await runPrettier(dir, ["--cache", "--cache-strategy", "metadata", "."]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).resolves.not.toThrowError();
     });
 
     it("does'nt format when cache is available", async () => {
@@ -235,20 +238,25 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).resolves.not.toThrowError();
       await runPrettier(dir, ["--write", "."]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).rejects.toThrowError();
     });
   });
 
   describe("--cache-strategy content", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
-      await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
-        "code",
-        "ENOENT"
-      );
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).rejects.toHaveProperty("code", "ENOENT");
       await runPrettier(dir, ["--cache", "--cache-strategy", "content", "."]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).resolves.not.toThrowError();
     });
 
     it("does'nt format when cache is available", async () => {
@@ -383,9 +391,13 @@ describe("--cache option", () => {
 
     it("removes cache file when run Prettier without `--cache` option", async () => {
       await runPrettier(dir, ["--cache", "--write", "."]);
-      await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).resolves.not.toThrowError();
       await runPrettier(dir, ["--write", "."]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).rejects.toThrowError();
     });
   });
 
