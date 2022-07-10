@@ -3,6 +3,7 @@
 const os = require("os");
 const path = require("path");
 const findCacheDir = require("find-cache-dir");
+const { statSafe } = require("./utils.js");
 
 function findDefaultCacheFile() {
   const cacheDir =
@@ -11,19 +12,30 @@ function findDefaultCacheFile() {
   return cacheFilePath;
 }
 
+async function findCacheFileFromOption(cacheLocation) {
+  const cwd = process.cwd();
+  const normalized = path.normalize(cacheLocation);
+  const cacheFile = path.join(cwd, normalized);
+
+  const stat = await statSafe(cacheFile);
+  if (stat && stat.isDirectory()) {
+    throw new Error(`Resolved --cache-location '${cacheFile}' is a directory`);
+  }
+  return cacheFile;
+}
+
 /**
  * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/avajs/find-cache-dir
  *
  * @param {string | undefined} cacheLocation
- * @returns {string}
+ * @returns {Promise<string>}
  */
-function findCacheFile(cacheLocation) {
+async function findCacheFile(cacheLocation) {
   if (!cacheLocation) {
     return findDefaultCacheFile();
   }
-  const cwd = process.cwd();
-  const normalized = path.normalize(cacheLocation);
-  return path.join(cwd, normalized);
+  const cacheFile = await findCacheFileFromOption(cacheLocation);
+  return cacheFile;
 }
 
 module.exports = findCacheFile;

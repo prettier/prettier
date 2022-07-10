@@ -72,6 +72,20 @@ describe("--cache option", () => {
     );
   });
 
+  it("throws error when `--cache-location` is a directory.", async () => {
+    const { stderr } = await runPrettier(dir, [
+      "foo.js",
+      "--cache",
+      "--cache-location",
+      "dir",
+    ]);
+    expect(stripAnsi(stderr.trim())).toEqual(
+      expect.stringMatching(
+        /\[error] Resolved --cache-location '.+' is a directory/
+      )
+    );
+  });
+
   describe("--cache-strategy metadata", () => {
     it("creates default cache file named `node_modules/.cache/prettier/.prettier-cache`", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
