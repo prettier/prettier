@@ -5,6 +5,9 @@ const path = require("path");
 const findCacheDir = require("find-cache-dir");
 const { statSafe } = require("./utils.js");
 
+/**
+ * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/avajs/find-cache-dir
+ */
 function findDefaultCacheFile() {
   const cacheDir =
     findCacheDir({ name: "prettier", create: true }) || os.tmpdir();
@@ -25,8 +28,6 @@ async function findCacheFileFromOption(cacheLocation) {
 }
 
 /**
- * Find default cache file (`./node_modules/.cache/prettier/.prettier-cache`) using https://github.com/avajs/find-cache-dir
- *
  * @param {string | undefined} cacheLocation
  * @returns {Promise<string>}
  */
