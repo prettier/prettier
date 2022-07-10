@@ -77,7 +77,7 @@ const options = {
     type: "boolean",
   },
   "cache-location": {
-    description: "Path to the cache file or directory",
+    description: "Path to the cache file.",
     type: "path",
   },
   "cache-strategy": {
