@@ -37,7 +37,9 @@ async function run() {
   process.stdin.isTTY = Boolean(options.isTTY);
   process.stdout.isTTY = Boolean(options.stdoutIsTTY);
 
-  const {default: thirdParty} = await import(url.pathToFileURL(thirdPartyModuleFile));
+  const { default: thirdParty } = await import(
+    url.pathToFileURL(thirdPartyModuleFile)
+  );
 
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
