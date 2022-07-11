@@ -6,7 +6,7 @@ import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
 import uniqByKey from "../utils/uniq-by-key.js";
-import thirdParty from "./third-party.cjs";
+import thirdParty from "./third-party.js";
 import resolve from "./resolve.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

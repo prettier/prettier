@@ -3,14 +3,18 @@ import createEsmUtils from "esm-utils";
 import { thirdParty } from "../env.js";
 import jestPathSerializer from "../path-serializer.js";
 
-const { require, __dirname } = createEsmUtils(import.meta);
-const { cosmiconfig, isCI } = require(thirdParty);
+const {  __dirname, importModule } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`
 describe("cosmiconfig", () => {
+let cosmiconfig
+   beforeAll(async () => {
+      ({ cosmiconfig } = await importModule(thirdParty));
+    })
+
   const configs = [
     {
       title: "prettier.config.cjs",
@@ -59,6 +63,7 @@ describe("cosmiconfig", () => {
   });
 });
 
-test("isCI", () => {
+test("isCI", async () => {
+const {isCI} =  await importModule(thirdParty)
   expect(typeof isCI()).toBe("boolean");
 });
