@@ -33,6 +33,7 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
         return [option.forwardToApi || camelCase(key), value];
       })
     ),
+    _: normalized._?.map(String),
     get __raw() {
       return argv;
     },
