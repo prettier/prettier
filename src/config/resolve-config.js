@@ -2,7 +2,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
-import thirdParty from "../common/third-party.cjs";
+import thirdParty from "../common/third-party.js";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
 import resolve from "../common/resolve.js";

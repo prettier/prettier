@@ -1,4 +1,4 @@
-import thirdParty from "../common/third-party.cjs";
+import thirdParty from "../common/third-party.js";
 
 // Some CI pipelines incorrectly report process.stdout.isTTY status,
 // which causes unwanted lines in the output. An additional check for isCI() helps.
