@@ -18,12 +18,16 @@ export default function esbuildPluginEvaluate() {
           data = data.default;
         }
 
-        const json = JSON.stringify(data, (_, v) => {
-          if (typeof v === "function") {
-            throw new TypeError("Cannot evaluate functions.");
-          }
-          return v;
-        });
+        const json = JSON.stringify(
+          data,
+          (_, v) => {
+            if (typeof v === "function") {
+              throw new TypeError("Cannot evaluate functions.");
+            }
+            return v;
+          },
+          2
+        );
 
         return { loader: "json", contents: json };
       });

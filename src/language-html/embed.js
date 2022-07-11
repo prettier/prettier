@@ -1,4 +1,13 @@
-import doc from "../document/index.js";
+import {
+  breakParent,
+  group,
+  hardline,
+  indent,
+  line,
+  fill,
+  softline,
+} from "../document/builders.js";
+import { mapDoc, replaceTextEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import {
   printClosingTag,
@@ -25,11 +34,6 @@ import {
   getTextValueParts,
 } from "./utils/index.js";
 import getNodeContent from "./get-node-content.js";
-
-const {
-  builders: { breakParent, group, hardline, indent, line, fill, softline },
-  utils: { mapDoc, replaceTextEndOfLine },
-} = doc;
 
 function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
@@ -283,7 +287,7 @@ function embed(path, print, textToDoc, options) {
     }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent);
+        const parser = inferScriptParser(node.parent, options);
         if (parser) {
           const value =
             parser === "markdown"

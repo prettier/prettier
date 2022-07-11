@@ -1,6 +1,7 @@
 import { diffArrays } from "diff";
 
-import doc from "../document/index.js";
+import { printDocToString } from "../document/printer.js";
+import { printDocToDebug } from "../document/debug.js";
 import { getAlignmentSize } from "../common/util.js";
 import {
   guessEndOfLine,
@@ -14,11 +15,6 @@ import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
 import { calculateRange, findNodeAtOffset } from "./range-util.js";
-
-const {
-  printer: { printDocToString },
-  debug: { printDocToDebug },
-} = doc;
 
 const BOM = "\uFEFF";
 
@@ -36,12 +32,12 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(originalText, opts, addAlignmentSize = 0) {
+async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   if (!originalText || originalText.trim().length === 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  const { ast, text } = parse(originalText, opts);
+  const { ast, text } = await parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
@@ -144,8 +140,8 @@ function coreFormat(originalText, opts, addAlignmentSize = 0) {
   };
 }
 
-function formatRange(originalText, opts) {
-  const { ast, text } = parse(originalText, opts);
+async function formatRange(originalText, opts) {
+  const { ast, text } = await parse(originalText, opts);
   const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
@@ -160,7 +156,7 @@ function formatRange(originalText, opts) {
 
   const alignmentSize = getAlignmentSize(indentString, opts.tabWidth);
 
-  const rangeResult = coreFormat(
+  const rangeResult = await coreFormat(
     rangeString,
     {
       ...opts,
@@ -279,7 +275,7 @@ function hasPragma(text, options) {
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
-function formatWithCursor(originalText, originalOptions) {
+async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
     normalizeOptions(originalOptions)
@@ -299,7 +295,7 @@ function formatWithCursor(originalText, originalOptions) {
   let result;
 
   if (options.rangeStart > 0 || options.rangeEnd < text.length) {
-    result = formatRange(text, options);
+    result = await formatRange(text, options);
   } else {
     if (
       !options.requirePragma &&
@@ -309,7 +305,7 @@ function formatWithCursor(originalText, originalOptions) {
     ) {
       text = options.printer.insertPragma(text);
     }
-    result = coreFormat(text, options);
+    result = await coreFormat(text, options);
   }
 
   if (hasBOM) {
@@ -326,12 +322,12 @@ function formatWithCursor(originalText, originalOptions) {
 const prettier = {
   formatWithCursor,
 
-  parse(originalText, originalOptions, massage) {
+  async parse(originalText, originalOptions, massage) {
     const { text, options } = normalizeInputAndOptions(
       originalText,
       normalizeOptions(originalOptions)
     );
-    const parsed = parse(text, options);
+    const parsed = await parse(text, options);
     if (massage) {
       parsed.ast = massageAST(parsed.ast, options);
     }
@@ -345,16 +341,19 @@ const prettier = {
   },
 
   // Doesn't handle shebang for now
-  formatDoc(doc, options) {
-    return formatWithCursor(printDocToDebug(doc), {
+  async formatDoc(doc, options) {
+    const text = printDocToDebug(doc);
+    const { formatted } = await formatWithCursor(text, {
       ...options,
       parser: "__js_expression",
-    }).formatted;
+    });
+
+    return formatted;
   },
 
-  printToDoc(originalText, options) {
+  async printToDoc(originalText, options) {
     options = normalizeOptions(options);
-    const { ast, text } = parse(originalText, options);
+    const { ast, text } = await parse(originalText, options);
     attachComments(text, ast, options);
     return printAstToDoc(ast, options);
   },

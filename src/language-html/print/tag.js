@@ -1,10 +1,17 @@
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 import assert from "node:assert";
 import { isNonEmptyArray } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  indent,
+  join,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   isTextLikeNode,
@@ -12,12 +19,8 @@ import {
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
+  isVueSfcBlock,
 } from "../utils/index.js";
-
-const {
-  builders: { indent, join, line, softline, hardline },
-  utils: { replaceTextEndOfLine },
-} = doc;
 
 function printClosingTag(node, options) {
   return [
@@ -251,8 +254,11 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
-  const attributeLine =
-    options.singleAttributePerLine && node.attrs.length > 1 ? hardline : line;
+  const shouldPrintAttributePerLine =
+    options.singleAttributePerLine &&
+    node.attrs.length > 1 &&
+    !isVueSfcBlock(node, options);
+  const attributeLine = shouldPrintAttributePerLine ? hardline : line;
 
   /** @type {Doc[]} */
   const parts = [

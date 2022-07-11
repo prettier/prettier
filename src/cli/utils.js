@@ -1,3 +1,9 @@
+import { promises as fs } from "node:fs";
+import sdbm from "sdbm";
+import { __internal as sharedWithCli } from "../index.js";
+
+const { arrayify, getLast, isNonEmptyArray, partition } = sharedWithCli.utils;
+
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
 
@@ -36,4 +42,38 @@ function pick(object, keys) {
   return Object.fromEntries(entries);
 }
 
-export { printToScreen, groupBy, pick };
+/**
+ * @param {string} source
+ * @returns {string}
+ */
+function createHash(source) {
+  return String(sdbm(source));
+}
+
+/**
+ * Get stats of a given path.
+ * @param {string} filePath The path to target file.
+ * @returns {Promise<import('fs').Stats | undefined>} The stats.
+ */
+async function statSafe(filePath) {
+  try {
+    return await fs.stat(filePath);
+  } catch (error) {
+    /* istanbul ignore next */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}
+
+export {
+  arrayify,
+  getLast,
+  isNonEmptyArray,
+  partition,
+  printToScreen,
+  groupBy,
+  pick,
+  createHash,
+  statSafe,
+};

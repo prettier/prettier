@@ -14,9 +14,15 @@ async function run() {
   const { runGit, readJson } = await import("./utils.js");
 
   const params = minimist(process.argv.slice(2), {
-    string: ["version"],
-    boolean: ["dry"],
+    string: ["version", "repo"],
+    boolean: ["dry", "manual", "skip-dependencies-install"],
     alias: { v: "version" },
+    default: {
+      manual: false,
+      dry: false,
+      "skip-dependencies-install": false,
+      repo: "git@github.com:prettier/prettier.git",
+    },
   });
 
   const { stdout: previousVersion } = await runGit([
@@ -38,17 +44,22 @@ async function run() {
     [
       "./steps/validate-new-version.js",
       "./steps/check-git-status.js",
-      "./steps/install-dependencies.js",
-      "./steps/run-tests.js",
+      !params["skip-dependencies-install"] && "./steps/install-dependencies.js",
+      params.manual && "./steps/run-tests.js",
       "./steps/update-version.js",
-      "./steps/generate-bundles.js",
+      params.manual && "./steps/generate-bundles.js",
       "./steps/update-changelog.js",
       "./steps/push-to-git.js",
-      "./steps/publish-to-npm.js",
+      params.manual
+        ? "./steps/publish-to-npm.js"
+        : "./steps/wait-for-bot-release.js",
+      "./steps/show-instructions-after-npm-publish.js",
       "./steps/update-dependents-count.js",
       "./steps/bump-prettier.js",
       "./steps/post-publish-steps.js",
-    ].map((step) => importDefault(step))
+    ]
+      .filter(Boolean)
+      .map((step) => importDefault(step))
   );
 
   try {

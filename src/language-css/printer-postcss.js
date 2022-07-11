@@ -7,7 +7,19 @@ import {
   isNextLineEmpty,
   isNonEmptyArray,
 } from "../common/util.js";
-import doc from "../document/index.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  fill,
+  indent,
+  dedent,
+  ifBreak,
+  breakParent,
+} from "../document/builders.js";
+import { removeLines, getDocParts } from "../document/utils.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
@@ -61,22 +73,6 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
-
-const {
-  builders: {
-    join,
-    line,
-    hardline,
-    softline,
-    group,
-    fill,
-    indent,
-    dedent,
-    ifBreak,
-    breakParent,
-  },
-  utils: { removeLines, getDocParts },
-} = doc;
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -423,7 +419,7 @@ function genericPrint(path, options, print) {
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
         node.attribute.trim(),
-        node.operator ? node.operator : "",
+        node.operator ?? "",
         node.value
           ? quoteAttributeValue(
               adjustStrings(node.value.trim(), options),

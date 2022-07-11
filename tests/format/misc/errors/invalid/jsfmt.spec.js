@@ -1,7 +1,13 @@
 run_spec(
   {
     importMeta: import.meta,
-    snippets: ["for each (a in b) {}", "class switch() {}"],
+    snippets: [
+      "for each (a in b) {}",
+      "class switch() {}",
+      "({ method() })",
+      "({ method({}) })",
+      "({ method(parameter,) })",
+    ],
   },
   [
     "babel",

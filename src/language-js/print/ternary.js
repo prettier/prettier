@@ -7,23 +7,19 @@ import {
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
-import doc from "../../document/index.js";
-
-const {
-  builders: {
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    dedent,
-    breakParent,
-  },
-} = doc;
+import {
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  ifBreak,
+  dedent,
+  breakParent,
+} from "../../document/builders.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  * @typedef {import("../../common/ast-path.js").default} AstPath
  *
  * @typedef {any} Options - Prettier options (TBD ...)

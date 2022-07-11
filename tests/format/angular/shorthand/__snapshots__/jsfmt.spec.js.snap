@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<ng-container *ngTemplateOutlet="someTmpl; context: {app}"></ng-container>
+
+=====================================output=====================================
+<ng-container *ngTemplateOutlet="someTmpl; context: { app }"></ng-container>
+
+================================================================================
+`;

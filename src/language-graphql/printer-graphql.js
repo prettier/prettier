@@ -1,11 +1,15 @@
-import doc from "../document/index.js";
+import {
+  join,
+  hardline,
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
-
-const {
-  builders: { join, hardline, line, softline, group, indent, ifBreak },
-} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -130,10 +134,11 @@ function genericPrint(path, options, print) {
           lines[0] = lines[0].trim();
         }
 
-        return join(
-          hardline,
-          ['"""', ...(lines.length > 0 ? lines : []), '"""'].filter(Boolean)
-        );
+        if (lines.every((line) => line === "")) {
+          lines.length = 0;
+        }
+
+        return join(hardline, ['"""', ...lines, '"""']);
       }
       return [
         '"',
@@ -565,9 +570,8 @@ function printInterfaces(path, options, print) {
         nextInterfaceNode.loc.start
       );
       const hasComment = textBetween.includes("#");
-      const separator = textBetween.replace(/#.*/g, "").trim();
 
-      parts.push(separator === "," ? "," : " &", hasComment ? line : " ");
+      parts.push(" &", hasComment ? line : " ");
     }
   }
 

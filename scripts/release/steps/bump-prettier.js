@@ -7,7 +7,7 @@ async function format() {
   await runYarn(["lint:prettier", "--write"]);
 }
 
-async function commit(version) {
+async function commit({ version, repo }) {
   await runGit(["commit", "-am", `Bump Prettier dependency to ${version}`]);
 
   // Add rev to `.git-blame-ignore-revs` file
@@ -19,7 +19,7 @@ async function commit(version) {
   fs.writeFileSync(file, text);
   await runGit(["commit", "-am", `Git blame ignore ${version}`]);
 
-  await runGit(["push"]);
+  await runGit(["push", "--repo", repo]);
 }
 
 async function bump({
@@ -50,5 +50,5 @@ export default async function bumpPrettier(params) {
 
   await logPromise("Updating files", format());
   await logPromise("Bump default branch version", bump(params));
-  await logPromise("Committing changed files", commit(version));
+  await logPromise("Committing changed files", commit(params));
 }

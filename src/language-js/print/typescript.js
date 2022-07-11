@@ -1,6 +1,15 @@
 import { printDanglingComments } from "../../main/comments.js";
 import { hasNewlineInRange } from "../../common/util.js";
-import doc from "../../document/index.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  conditionalGroup,
+  ifBreak,
+} from "../../document/builders.js";
 import {
   isLiteral,
   getTypeScriptMappedTypeModifier,
@@ -33,20 +42,8 @@ import {
   printFunctionType,
   printTupleType,
   printIndexedAccessType,
+  printJSDocType,
 } from "./type-annotation.js";
-
-const {
-  builders: {
-    join,
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    ifBreak,
-  },
-} = doc;
 
 function printTypescript(path, options, print) {
   const node = path.getValue();
@@ -199,7 +196,7 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSTypeQuery":
-      return ["typeof ", print("exprName")];
+      return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
@@ -410,7 +407,12 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSEnumMember":
-      parts.push(print("id"));
+      if (node.computed) {
+        parts.push("[", print("id"), "]");
+      } else {
+        parts.push(print("id"));
+      }
+
       if (node.initializer) {
         parts.push(" = ", print("initializer"));
       }
@@ -514,9 +516,11 @@ function printTypescript(path, options, print) {
     case "TSJSDocUnknownType":
       return "?";
     case "TSJSDocNullableType":
-      return ["?", print("typeAnnotation")];
+      return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
-      return ["!", print("typeAnnotation")];
+      return printJSDocType(path, print, /* token */ "!");
+    case "TSInstantiationExpression":
+      return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
       throw new Error(

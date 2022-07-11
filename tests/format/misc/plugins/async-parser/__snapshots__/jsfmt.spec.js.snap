@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`async-parser.txt format 1`] = `
+====================================options=====================================
+parsers: ["async-parser"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+A text will format as "Formatted by async-parser plugin".
+
+=====================================output=====================================
+Formatted by async-parser plugin
+================================================================================
+`;

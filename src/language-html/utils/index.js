@@ -3,7 +3,8 @@
  */
 
 import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
-import doc from "../../document/index.js";
+import { line, hardline, join } from "../../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../../document/utils.js";
 import {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -11,11 +12,6 @@ import {
   CSS_WHITE_SPACE_DEFAULT,
 } from "../constants.evaluate.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
-
-const {
-  builders: { line, hardline, join },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = doc;
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
@@ -361,7 +357,10 @@ function _inferScriptParser(node) {
     return "html";
   }
 
-  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
+  if (
+    (type && (type.endsWith("json") || type.endsWith("importmap"))) ||
+    type === "speculationrules"
+  ) {
     return "json";
   }
 
@@ -370,7 +369,7 @@ function _inferScriptParser(node) {
   }
 }
 
-function inferStyleParser(node) {
+function inferStyleParser(node, options) {
   const { lang } = node.attrMap;
   if (!lang || lang === "postcss" || lang === "css") {
     return "css";
@@ -383,6 +382,13 @@ function inferStyleParser(node) {
   if (lang === "less") {
     return "less";
   }
+
+  // Prettier does not officially support stylus.
+  // But, we need to handle `"stylus"` here for printing a style block in Vue SFC as stylus code by external plugin.
+  // https://github.com/prettier/prettier/pull/12707
+  if (lang === "stylus") {
+    return inferParserByLanguage("stylus", options);
+  }
 }
 
 function inferScriptParser(node, options) {
@@ -394,7 +400,7 @@ function inferScriptParser(node, options) {
   }
 
   if (node.name === "style") {
-    return inferStyleParser(node);
+    return inferStyleParser(node, options);
   }
 
   if (options && isVueNonHtmlBlock(node, options)) {
@@ -661,6 +667,7 @@ export {
   isVueScriptTag,
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
+  isVueSfcBlock,
   isDanglingSpaceSensitiveNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,

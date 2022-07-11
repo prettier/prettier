@@ -1,5 +1,17 @@
 import { printComments, printDanglingComments } from "../../main/comments.js";
-import doc from "../../document/index.js";
+import {
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  conditionalGroup,
+  fill,
+  ifBreak,
+  lineSuffixBoundary,
+  join,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
 
 import { getLast, getPreferredQuote } from "../../common/util.js";
 import {
@@ -15,22 +27,6 @@ import {
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments.js";
-
-const {
-  builders: {
-    line,
-    hardline,
-    softline,
-    group,
-    indent,
-    conditionalGroup,
-    fill,
-    ifBreak,
-    lineSuffixBoundary,
-    join,
-  },
-  utils: { willBreak },
-} = doc;
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -571,27 +567,6 @@ function printJsxOpeningElement(path, options, print) {
     ]);
   }
 
-  const lastAttrHasTrailingComments =
-    node.attributes.length > 0 &&
-    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
-
-  const bracketSameLine =
-    // Simple tags (no attributes and no comment in tag name) should be
-    // kept unbroken regardless of `bracketSameLine`.
-    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
-    // but is still needed for backwards compatibility.
-    (node.attributes.length === 0 && !nameHasComments) ||
-    ((options.bracketSameLine || options.jsxBracketSameLine) &&
-      // We should print the bracket in a new line for the following cases:
-      // <div
-      //   // comment
-      // >
-      // <div
-      //   attr // comment
-      // >
-      (!nameHasComments || node.attributes.length > 0) &&
-      !lastAttrHasTrailingComments);
-
   // We should print the opening element expanded if any prop value is a
   // string literal with newlines
   const shouldBreak =
@@ -614,10 +589,47 @@ function printJsxOpeningElement(path, options, print) {
       print("name"),
       print("typeParameters"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
-      node.selfClosing ? line : bracketSameLine ? ">" : softline,
-      node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
+      ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak }
+  );
+}
+
+function printEndOfOpeningTag(node, options, nameHasComments) {
+  if (node.selfClosing) {
+    return [line, "/>"];
+  }
+  const bracketSameLine = shouldPrintBracketSameLine(
+    node,
+    options,
+    nameHasComments
+  );
+  if (bracketSameLine) {
+    return [">"];
+  }
+  return [softline, ">"];
+}
+
+function shouldPrintBracketSameLine(node, options, nameHasComments) {
+  const lastAttrHasTrailingComments =
+    node.attributes.length > 0 &&
+    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
+  return (
+    // Simple tags (no attributes and no comment in tag name) should be
+    // kept unbroken regardless of `bracketSameLine`.
+    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
+    // but is still needed for backwards compatibility.
+    (node.attributes.length === 0 && !nameHasComments) ||
+    ((options.bracketSameLine || options.jsxBracketSameLine) &&
+      // We should print the bracket in a new line for the following cases:
+      // <div
+      //   // comment
+      // >
+      // <div
+      //   attr // comment
+      // >
+      (!nameHasComments || node.attributes.length > 0) &&
+      !lastAttrHasTrailingComments)
   );
 }
 

@@ -1,5 +1,4 @@
-import stringify from "fast-json-stable-stringify";
-import prettier from "../index.js";
+import * as prettier from "../index.js";
 import createLogger from "./logger.js";
 import Context from "./context.js";
 import { parseArgvWithoutPlugins } from "./options/parse-cli-arguments.js";
@@ -7,38 +6,37 @@ import { createDetailedUsage, createUsage } from "./usage.js";
 import { formatStdin, formatFiles } from "./format.js";
 import logFileInfoOrDie from "./file-info.js";
 import logResolvedConfigPathOrDie from "./find-config-path.js";
-import prettierInternal from "./prettier-internal.js";
-import { printToScreen } from "./utils.js";
-
-const {
-  utils: { isNonEmptyArray },
-} = prettierInternal;
+import { printToScreen, isNonEmptyArray } from "./utils.js";
+import printSupportInfo from "./print-support-info.js";
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
   let logger = createLogger();
 
   try {
-    const logLevel = parseArgvWithoutPlugins(
+    const { loglevel: logLevel } = parseArgvWithoutPlugins(
       rawArguments,
       logger,
       "loglevel"
-    ).loglevel;
+    );
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
     }
+    const context = new Context({ rawArguments, logger });
+    await context.init();
+    if (logger.logLevel !== "debug" && context.performanceTestFlag) {
+      context.logger = createLogger("debug");
+    }
 
-    await main(rawArguments, logger);
+    await main(context);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-async function main(rawArguments, logger) {
-  const context = new Context({ rawArguments, logger });
-
-  logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+async function main(context) {
+  context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
   if (context.argv.pluginSearch === false) {
     const rawPluginSearchDirs = context.argv.__raw["plugin-search-dir"];
@@ -83,12 +81,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.supportInfo) {
-    printToScreen(
-      prettier.format(stringify(prettier.getSupportInfo()), {
-        parser: "json",
-      })
-    );
-    return;
+    return printSupportInfo();
   }
 
   const hasFilePatterns = context.filePatterns.length > 0;
@@ -100,6 +93,10 @@ async function main(rawArguments, logger) {
   } else if (context.argv.fileInfo) {
     await logFileInfoOrDie(context);
   } else if (useStdin) {
+    if (context.argv.cache) {
+      context.logger.error("`--cache` cannot be used with stdin.");
+      process.exit(2);
+    }
     await formatStdin(context);
   } else if (hasFilePatterns) {
     await formatFiles(context);

@@ -1,8 +1,14 @@
 /**
- * @typedef {import("../document").Doc} Doc
+ * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-import doc from "../document/index.js";
+import { fill, group, hardline, literalline } from "../document/builders.js";
+import {
+  cleanDoc,
+  getDocParts,
+  isConcat,
+  replaceTextEndOfLine,
+} from "../document/utils.js";
 import clean from "./clean.js";
 import {
   countChars,
@@ -21,11 +27,6 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
-
-const {
-  builders: { fill, group, hardline, literalline },
-  utils: { cleanDoc, getDocParts, isConcat, replaceTextEndOfLine },
-} = doc;
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

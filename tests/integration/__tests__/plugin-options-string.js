@@ -1,6 +1,4 @@
 import snapshotDiff from "snapshot-diff";
-import runPrettier from "../run-prettier.js";
-
 test("show external options with `--help`", async () => {
   const originalStdout = await runPrettier("plugins/options-string", ["--help"])
     .stdout;
@@ -61,7 +59,7 @@ describe("Non exists plugin", () => {
   ).test({
     stdout: "",
     stderr: expect.stringMatching(
-      /Cannot (?:resolve|find) module '--invalid--' from/
+      /Cannot (?:resolve|find) module '--invalid--'/
     ),
     status: 1,
     write: [],

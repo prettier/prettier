@@ -7,35 +7,37 @@ import findProjectRoot from "./find-project-root.js";
 
 const jsonStringifyMem = (fn) => mem(fn, { cacheKey: JSON.stringify });
 
-const maybeParse = (filePath, parse) =>
-  filePath &&
-  parse(filePath, {
+const memoizedLoadEditorConfig = jsonStringifyMem(loadEditorConfig);
+
+async function loadEditorConfig(filePath) {
+  if (!filePath) {
+    return;
+  }
+
+  const editorConfig = await editorconfig.parse(filePath, {
     root: findProjectRoot(path.dirname(path.resolve(filePath))),
   });
 
-const editorconfigAsyncNoCache = async (filePath) =>
-  editorConfigToPrettier(await maybeParse(filePath, editorconfig.parse));
-const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
+  const config = editorConfigToPrettier(editorConfig);
 
-const editorconfigSyncNoCache = (filePath) =>
-  editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
-const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
+  if (config) {
+    // We are not using this option
+    delete config.insertFinalNewline;
+  }
+
+  return config;
+}
 
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {
-    return () => null;
+    return () => {};
   }
 
-  if (opts.sync) {
-    return opts.cache ? editorconfigSyncWithCache : editorconfigSyncNoCache;
-  }
-
-  return opts.cache ? editorconfigAsyncWithCache : editorconfigAsyncNoCache;
+  return opts.cache ? memoizedLoadEditorConfig : loadEditorConfig;
 }
 
 function clearCache() {
-  memClear(editorconfigSyncWithCache);
-  memClear(editorconfigAsyncWithCache);
+  memClear(memoizedLoadEditorConfig);
 }
 
 export { getLoadFunction, clearCache };

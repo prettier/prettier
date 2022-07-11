@@ -1,6 +1,6 @@
 import camelCase from "camelcase";
 import { pick } from "../utils.js";
-import getContextOptions from "./get-context-options.js";
+import { getContextOptionsWithoutPlugins } from "./get-context-options.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
@@ -33,16 +33,15 @@ function parseArgv(rawArguments, detailedOptions, logger, keys) {
         return [option.forwardToApi || camelCase(key), value];
       })
     ),
+    _: normalized._?.map(String),
     get __raw() {
       return argv;
     },
   };
 }
 
-const detailedOptionsWithoutPlugins = getContextOptions(
-  [],
-  false
-).detailedOptions;
+const { detailedOptions: detailedOptionsWithoutPlugins } =
+  getContextOptionsWithoutPlugins();
 function parseArgvWithoutPlugins(rawArguments, logger, keys) {
   return parseArgv(
     rawArguments,

@@ -1,5 +1,13 @@
 import { printDanglingComments } from "../../main/comments.js";
-import doc from "../../document/index.js";
+import {
+  line,
+  softline,
+  hardline,
+  group,
+  indent,
+  ifBreak,
+  fill,
+} from "../../document/builders.js";
 import { getLast, hasNewline } from "../../common/util.js";
 import {
   shouldPrintComma,
@@ -13,11 +21,7 @@ import { locStart } from "../loc.js";
 
 import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 
-const {
-  builders: { line, softline, hardline, group, indent, ifBreak, fill },
-} = doc;
-
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function printArray(path, options, print) {
   const node = path.getValue();

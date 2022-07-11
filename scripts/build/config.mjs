@@ -103,11 +103,25 @@ const parsers = [
       {
         module: require.resolve("typescript"),
         process(text) {
-          return text.replace(
+          // Remove useless `ts.sys`
+          text = text.replace(
+            /(?<=\n)(?<indentString>\s+)ts\.sys = \(function \(\) {.*?\n\k<indentString>}\)\(\);(?=\n)/s,
+            ""
+          );
+
+          text = text.replace(
             /(?<=\n)(?<indentString>\s+)function tryGetNodePerformanceHooks\(\) {.*?\n\k<indentString>}(?=\n)/s,
             "function tryGetNodePerformanceHooks() {}"
           );
+
+          return text;
         },
+      },
+      // yarn pnp
+      {
+        module: require.resolve("typescript"),
+        find: "process.versions.pnp",
+        replacement: "undefined",
       },
 
       ...Object.entries({
@@ -118,8 +132,6 @@ const parsers = [
 
         "_fs.realpathSync.native":
           "_fs.realpathSync && _fs.realpathSync.native",
-        // Remove useless `ts.sys`
-        "ts.sys = ": "ts.sys = undefined && ",
 
         // Remove useless language service
         "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
@@ -261,6 +273,7 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@iarna/toml/lib/toml-parser.js"),
@@ -279,11 +292,17 @@ const coreBundles = [
           };
         `,
       },
+      {
+        module: require.resolve("n-readlines"),
+        find: "const readBuffer = new Buffer(this.options.readChunk);",
+        replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
+      },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
   },
   {
     input: "src/document/index.js",
+    interopDefault: false,
     name: "doc",
     output: "doc.js",
     target: "universal",
@@ -292,6 +311,7 @@ const coreBundles = [
   },
   {
     input: "src/standalone.js",
+    interopDefault: false,
     name: "prettier",
     target: "universal",
     replaceModule: [
@@ -305,9 +325,8 @@ const coreBundles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
       {
-        module: path.join(PROJECT_ROOT, "src/main/parser.js"),
-        find: "return requireParser(opts.parser);",
-        replacement: "",
+        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
+        text: "export default () => {};",
       },
     ],
   },

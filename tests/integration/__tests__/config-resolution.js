@@ -80,148 +80,84 @@ describe("CLI overrides take precedence", () => {
   });
 });
 
-test("API resolveConfig with no args", () =>
-  prettier.resolveConfig().then((result) => {
-    expect(result).toEqual({});
-  }));
-
-test("API resolveConfig.sync with no args", () => {
-  expect(prettier.resolveConfig.sync()).toEqual({});
+test("API resolveConfig with no args", async () => {
+  await expect(prettier.resolveConfig()).resolves.toEqual({});
 });
 
-test("API resolveConfig with file arg", () => {
+test("API resolveConfig with file arg", async () => {
   const file = path.resolve(path.join(__dirname, "../cli/config/js/file.js"));
-  return prettier.resolveConfig(file).then((result) => {
-    expect(result).toMatchObject({
-      tabWidth: 8,
-    });
-  });
-});
-
-test("API resolveConfig.sync with file arg", () => {
-  const file = path.resolve(path.join(__dirname, "../cli/config/js/file.js"));
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     tabWidth: 8,
   });
 });
 
-test("API resolveConfig with file arg and extension override", () => {
+test("API resolveConfig with file arg and extension override", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/no-config/file.ts")
   );
-  return prettier.resolveConfig(file).then((result) => {
-    expect(result).toMatchObject({
-      semi: true,
-    });
-  });
-});
-
-test("API resolveConfig.sync with file arg and extension override", () => {
-  const file = path.resolve(
-    path.join(__dirname, "../cli/config/no-config/file.ts")
-  );
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     semi: true,
   });
 });
 
-test("API resolveConfig with file arg and .editorconfig", () => {
-  const file = path.resolve(
-    path.join(__dirname, "../cli/config/editorconfig/file.js")
-  );
-  return prettier.resolveConfig(file, { editorconfig: true }).then((result) => {
-    expect(result).toMatchObject({
-      useTabs: true,
-      tabWidth: 8,
-      printWidth: 100,
-    });
-  });
-});
-
-test("API resolveConfig.sync with file arg and .editorconfig", () => {
+test("API resolveConfig with file arg and .editorconfig", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/file.js")
   );
 
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     semi: false,
   });
 
-  expect(
-    prettier.resolveConfig.sync(file, { editorconfig: true })
-  ).toMatchObject({
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true })
+  ).resolves.toMatchObject({
     useTabs: true,
     tabWidth: 8,
     printWidth: 100,
   });
 });
 
-test("API resolveConfig.sync with file arg and .editorconfig (key = unset)", () => {
+test("API resolveConfig with file arg and .editorconfig (key = unset)", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/tab_width=unset.js")
   );
 
-  expect(
-    prettier.resolveConfig.sync(file, { editorconfig: true })
-  ).not.toMatchObject({ tabWidth: "unset" });
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true })
+  ).resolves.not.toMatchObject({ tabWidth: "unset" });
 });
 
-test("API resolveConfig with nested file arg and .editorconfig", () => {
-  const file = path.resolve(
-    path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
-  );
-  return prettier.resolveConfig(file, { editorconfig: true }).then((result) => {
-    expect(result).toMatchObject({
-      useTabs: false,
-      tabWidth: 2,
-      printWidth: 100,
-    });
-  });
-});
-
-test("API resolveConfig.sync with nested file arg and .editorconfig", () => {
+test("API resolveConfig with nested file arg and .editorconfig", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/file.js")
   );
 
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     semi: false,
   });
 
-  expect(
-    prettier.resolveConfig.sync(file, { editorconfig: true })
-  ).toMatchObject({
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true })
+  ).resolves.toMatchObject({
     useTabs: false,
     tabWidth: 2,
     printWidth: 100,
   });
 });
 
-test("API resolveConfig with nested file arg and .editorconfig and indent_size = tab", () => {
-  const file = path.resolve(
-    path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
-  );
-  return prettier.resolveConfig(file, { editorconfig: true }).then((result) => {
-    expect(result).toMatchObject({
-      useTabs: false,
-      tabWidth: 8,
-      printWidth: 100,
-    });
-  });
-});
-
-test("API resolveConfig.sync with nested file arg and .editorconfig and indent_size = tab", () => {
+test("API resolveConfig with nested file arg and .editorconfig and indent_size = tab", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/editorconfig/lib/indent_size=tab.js")
   );
 
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     semi: false,
   });
 
-  expect(
-    prettier.resolveConfig.sync(file, { editorconfig: true })
-  ).toMatchObject({
+  await expect(
+    prettier.resolveConfig(file, { editorconfig: true })
+  ).resolves.toMatchObject({
     useTabs: false,
     tabWidth: 8,
     printWidth: 100,
@@ -241,20 +177,20 @@ test("API resolveConfig overrides work with dotfiles", async () => {
   });
 });
 
-test("API resolveConfig.sync overrides work with absolute paths", () => {
+test("API resolveConfig overrides work with absolute paths", async () => {
   // Absolute path
   const file = path.join(__dirname, "../cli/config/filepath/subfolder/file.js");
-  expect(prettier.resolveConfig.sync(file)).toMatchObject({
+  await expect(prettier.resolveConfig(file)).resolves.toMatchObject({
     tabWidth: 6,
   });
 });
 
-test("API resolveConfig.sync overrides excludeFiles", () => {
+test("API resolveConfig overrides excludeFiles", async () => {
   const notOverride = path.join(
     __dirname,
     "../cli/config/overrides-exclude-files/foo"
   );
-  expect(prettier.resolveConfig.sync(notOverride)).toMatchObject({
+  await expect(prettier.resolveConfig(notOverride)).resolves.toMatchObject({
     singleQuote: true,
     trailingComma: "all",
   });
@@ -263,7 +199,7 @@ test("API resolveConfig.sync overrides excludeFiles", () => {
     __dirname,
     "../cli/config/overrides-exclude-files/single-quote.js"
   );
-  expect(prettier.resolveConfig.sync(singleQuote)).toMatchObject({
+  await expect(prettier.resolveConfig(singleQuote)).resolves.toMatchObject({
     singleQuote: true,
     trailingComma: "es5",
   });
@@ -272,52 +208,45 @@ test("API resolveConfig.sync overrides excludeFiles", () => {
     __dirname,
     "../cli/config/overrides-exclude-files/double-quote.js"
   );
-  expect(prettier.resolveConfig.sync(doubleQuote)).toMatchObject({
+  await expect(prettier.resolveConfig(doubleQuote)).resolves.toMatchObject({
     singleQuote: false,
     trailingComma: "es5",
   });
 });
 
-test("API resolveConfig removes $schema option", () => {
+test("API resolveConfig removes $schema option", async () => {
   const file = path.resolve(
     path.join(__dirname, "../cli/config/$schema/index.js")
   );
-  return prettier.resolveConfig(file).then((result) => {
-    expect(result).toEqual({
-      tabWidth: 42,
-    });
-  });
-});
-
-test("API resolveConfig.sync removes $schema option", () => {
-  const file = path.resolve(
-    path.join(__dirname, "../cli/config/$schema/index.js")
-  );
-  expect(prettier.resolveConfig.sync(file)).toEqual({
+  await expect(prettier.resolveConfig(file)).resolves.toEqual({
     tabWidth: 42,
   });
 });
 
-test("API resolveConfig resolves relative path values based on config filepath", () => {
+test("API resolveConfig resolves relative path values based on config filepath", async () => {
   const currentDir = path.join(__dirname, "../cli/config/resolve-relative");
   const parentDir = path.resolve(currentDir, "..");
-  expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toMatchObject({
+  await expect(
+    prettier.resolveConfig(`${currentDir}/index.js`)
+  ).resolves.toMatchObject({
     plugins: [path.join(parentDir, "path-to-plugin")],
     pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")],
   });
 
-  expect(
-    prettier.resolveConfig.sync(
+  await expect(
+    prettier.resolveConfig(
       path.join(__dirname, "../cli/config/plugin-search-dirs/index.js")
     )
-  ).toMatchObject({
+  ).resolves.toMatchObject({
     pluginSearchDirs: false,
   });
 });
 
-test("API resolveConfig de-references to an external module", () => {
+test("API resolveConfig de-references to an external module", async () => {
   const currentDir = path.join(__dirname, "../cli/config/external-config");
-  expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toEqual({
+  await expect(
+    prettier.resolveConfig(`${currentDir}/index.js`)
+  ).resolves.toEqual({
     printWidth: 77,
     semi: false,
   });
@@ -341,7 +270,6 @@ test(".cjs config file", async () => {
   ]) {
     const file = path.join(parentDirectory, directoryName, "foo.js");
 
-    expect(prettier.resolveConfig.sync(file)).toEqual(config);
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 });
@@ -355,7 +283,6 @@ test(".json5 config file", async () => {
   };
   const file = path.join(parentDirectory, "json5/foo.js");
 
-  expect(prettier.resolveConfig.sync(file)).toEqual(config);
   await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
 });
 
@@ -364,8 +291,5 @@ test(".json5 config file(invalid)", async () => {
   const file = path.join(parentDirectory, "invalid/foo.js");
   const error = /JSON5: invalid end of input at 2:1/;
 
-  expect(() => {
-    prettier.resolveConfig.sync(file);
-  }).toThrowError(error);
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });

@@ -1474,6 +1474,24 @@ export {
   barr, // comment
 }
 
+const foooo = ''
+const barrr = ''
+export {
+  foooo,
+
+  barrr as  // comment
+		 baz,
+} from 'foo'
+
+const fooooo = ''
+const barrrr = ''
+export {
+  fooooo,
+
+  barrrr as  // comment
+		 bazz,
+}
+
 =====================================output=====================================
 export //comment
  {}
@@ -1496,6 +1514,22 @@ const barr = ""
 export {
   fooo, // comment
   barr, // comment
+}
+
+const foooo = ""
+const barrr = ""
+export {
+  foooo,
+  // comment
+  barrr as baz,
+} from "foo"
+
+const fooooo = ""
+const barrrr = ""
+export {
+  fooooo,
+  // comment
+  barrrr as bazz,
 }
 
 ================================================================================
@@ -1530,6 +1564,24 @@ export {
   barr, // comment
 }
 
+const foooo = ''
+const barrr = ''
+export {
+  foooo,
+
+  barrr as  // comment
+		 baz,
+} from 'foo'
+
+const fooooo = ''
+const barrrr = ''
+export {
+  fooooo,
+
+  barrrr as  // comment
+		 bazz,
+}
+
 =====================================output=====================================
 export //comment
  {};
@@ -1553,6 +1605,141 @@ export {
   fooo, // comment
   barr, // comment
 };
+
+const foooo = "";
+const barrr = "";
+export {
+  foooo,
+  // comment
+  barrr as baz,
+} from "foo";
+
+const fooooo = "";
+const barrrr = "";
+export {
+  fooooo,
+  // comment
+  barrrr as bazz,
+};
+
+================================================================================
+`;
+
+exports[`export-and-import.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// These are tests to compare comment formats in \`export\` and \`import\`.
+
+export {
+  foo,
+
+  bar as  // comment
+		 baz,
+} from 'foo'
+
+const fooo = ""
+const barr = ""
+
+export {
+  fooo,
+
+  barr as  // comment
+		 bazz,
+}
+
+import {
+  foo,
+
+  bar as  // comment
+		 baz,
+} from 'foo'
+
+=====================================output=====================================
+// These are tests to compare comment formats in \`export\` and \`import\`.
+
+export {
+  foo,
+  // comment
+  bar as baz,
+} from "foo"
+
+const fooo = ""
+const barr = ""
+
+export {
+  fooo,
+  // comment
+  barr as bazz,
+}
+
+import {
+  foo,
+  // comment
+  bar as baz,
+} from "foo"
+
+================================================================================
+`;
+
+exports[`export-and-import.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// These are tests to compare comment formats in \`export\` and \`import\`.
+
+export {
+  foo,
+
+  bar as  // comment
+		 baz,
+} from 'foo'
+
+const fooo = ""
+const barr = ""
+
+export {
+  fooo,
+
+  barr as  // comment
+		 bazz,
+}
+
+import {
+  foo,
+
+  bar as  // comment
+		 baz,
+} from 'foo'
+
+=====================================output=====================================
+// These are tests to compare comment formats in \`export\` and \`import\`.
+
+export {
+  foo,
+  // comment
+  bar as baz,
+} from "foo";
+
+const fooo = "";
+const barr = "";
+
+export {
+  fooo,
+  // comment
+  barr as bazz,
+};
+
+import {
+  foo,
+  // comment
+  bar as baz,
+} from "foo";
 
 ================================================================================
 `;
