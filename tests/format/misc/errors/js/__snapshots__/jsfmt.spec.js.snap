@@ -12,9 +12,9 @@ exports[`html-like-comments.js [babel] format 1`] = `
 `;
 
 exports[`import-assertions-for-export-without-from.js [babel] format 1`] = `
-"Missing semicolon. (1:15)
-> 1 | export { foo } assert { type: "json" };
-    |               ^
+"Missing semicolon. (1:26)
+> 1 | export { default as foo } assert { type: "json" };
+    |                          ^
   2 |"
 `;
 
