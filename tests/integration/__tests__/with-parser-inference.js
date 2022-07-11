@@ -70,4 +70,29 @@ describe("infers parser from filename", () => {
       ` + "\n"
     );
   });
+
+  test("json from .lintstagedrc", () => {
+    expect(
+      prettier.format("  {  '*':   'your-cmd'  }  ", {
+        filepath: "/path/to/.lintstagedrc",
+      })
+    ).toBe('{ "*": "your-cmd" }\n');
+  });
+
+  test("yaml from .lintstagedrc", () => {
+    expect(
+      prettier.format(
+        /* indent */ `
+          '*':
+                 - your-cmd
+        `,
+        { filepath: "/path/to/.lintstagedrc" }
+      )
+    ).toBe(
+      outdent`
+        "*":
+          - your-cmd
+      ` + "\n"
+    );
+  });
 });

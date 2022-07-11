@@ -154,6 +154,7 @@ module.exports = {
     ],
     "unicorn/prefer-includes": "error",
     "unicorn/prefer-json-parse-buffer": "error",
+    "unicorn/prefer-logical-operator-over-ternary": "error",
     "unicorn/prefer-module": "error",
     "unicorn/prefer-native-coercion-functions": "error",
     "unicorn/prefer-node-protocol": "error",
