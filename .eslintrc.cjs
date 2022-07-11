@@ -183,6 +183,7 @@ module.exports = {
       rules: {
         strict: "error",
         "unicorn/prefer-module": "off",
+        "unicorn/prefer-node-protocol": "off",
       },
     },
     {
