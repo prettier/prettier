@@ -2,9 +2,6 @@ import { workerData, parentPort } from "node:worker_threads";
 import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
-import createEsmUtils from "esm-utils";
-
-const { __dirname, require } = createEsmUtils(import.meta);
 
 async function run() {
   const { options, thirdParty: thirdPartyModuleFile, prettierCli } = workerData;
@@ -47,11 +44,13 @@ async function run() {
   // eslint-disable-next-line require-await
   thirdParty.getStdin = async () => options.input || "";
   thirdParty.isCI = () => Boolean(options.ci);
-  thirdParty.cosmiconfig = (moduleName, options) =>
-    require("cosmiconfig").cosmiconfig(moduleName, {
+  thirdParty.cosmiconfig = async (moduleName, options) => {
+    const { cosmiconfig } = await import("cosmiconfig");
+    return cosmiconfig(moduleName, {
       ...options,
-      stopDir: path.join(__dirname, "cli"),
+      stopDir: url.fileURLToPath(new URL("./cli/", import.meta.url)),
     });
+  };
   thirdParty.findParentDir = () => process.cwd();
 
   const { promise } = await import(url.pathToFileURL(prettierCli));
