@@ -4064,7 +4064,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-stdin@npm:8.0.0, get-stdin@npm:^8.0.0":
+"get-stdin@npm:9.0.0":
+  version: 9.0.0
+  resolution: "get-stdin@npm:9.0.0"
+  checksum: 5972bc34d05932b45512c8e2d67b040f1c1ca8afb95c56cbc480985f2d761b7e37fe90dc8abd22527f062cc5639a6930ff346e9952ae4c11a2d4275869459594
+  languageName: node
+  linkType: hard
+
+"get-stdin@npm:^8.0.0":
   version: 8.0.0
   resolution: "get-stdin@npm:8.0.0"
   checksum: 40128b6cd25781ddbd233344f1a1e4006d4284906191ed0a7d55ec2c1a3e44d650f280b2c9eeab79c03ac3037da80257476c0e4e5af38ddfb902d6ff06282d77
@@ -6864,7 +6871,7 @@ __metadata:
     find-cache-dir: 3.3.2
     find-parent-dir: 0.3.1
     flow-parser: 0.182.0
-    get-stdin: 8.0.0
+    get-stdin: 9.0.0
     graphql: 16.5.0
     html-element-attributes: 3.1.0
     html-styles: 1.0.0
