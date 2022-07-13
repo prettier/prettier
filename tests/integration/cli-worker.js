@@ -48,7 +48,7 @@ async function run() {
   thirdParty.cosmiconfig = (moduleName, options) =>
     cosmiconfig(moduleName, {
       ...options,
-      stopDir: url.fileURLToPath(new URL("./cli/", import.meta.url)),
+      stopDir: url.fileURLToPath(new URL("./cli", import.meta.url)),
     });
   thirdParty.findParentDir = () => process.cwd();
 
