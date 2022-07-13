@@ -12,7 +12,7 @@ import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
-import esbuildPluginShimRequire from "./esbuild-plugins/shim-require.mjs";
+import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
 import bundles from "./config.mjs";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -254,7 +254,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
 
     // https://github.com/evanw/esbuild/issues/1921
     if (bundle.format === "esm") {
-      esbuildOptions.plugins.push(esbuildPluginShimRequire());
+      esbuildOptions.plugins.push(esbuildPluginShimCommonjsObjects());
     }
 
     yield {
