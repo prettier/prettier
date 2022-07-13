@@ -23,7 +23,7 @@ async function format(path, print, textToDoc, options, { parser }) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = await printTemplateExpressions(path, print);
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
   }

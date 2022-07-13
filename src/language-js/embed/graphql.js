@@ -12,7 +12,7 @@ async function format(path, print, textToDoc) {
     return "``";
   }
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = await printTemplateExpressions(path, print);
   const parts = [];
 
   for (let i = 0; i < numQuasis; i++) {
