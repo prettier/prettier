@@ -75,6 +75,25 @@ class AstPath {
     return result;
   }
 
+  eachSync(callback, ...names) {
+    const { stack } = this;
+    const { length } = stack;
+    let value = getLast(stack);
+
+    for (const name of names) {
+      value = value[name];
+      stack.push(name, value);
+    }
+
+    for (let i = 0; i < value.length; ++i) {
+      stack.push(i, value[i]);
+      callback(this, i, value);
+      stack.length -= 2;
+    }
+
+    stack.length = length;
+  }
+
   // Similar to AstPath.prototype.call, except that the value obtained by
   // accessing this.getValue()[name1][name2]... should be array. The
   // callback will be called with a reference to this path object for each
