@@ -52,7 +52,7 @@ async function textToDoc(
   // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
 
-  const doc = printAstToDoc(ast, nextOptions);
+  const doc = await printAstToDoc(ast, nextOptions);
   ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {
