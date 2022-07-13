@@ -161,7 +161,7 @@ async function printClassMethod(path, options, print) {
   const parts = [];
 
   if (isNonEmptyArray(node.decorators)) {
-    parts.push(printClassMemberDecorators(path, options, print));
+    parts.push(await printClassMemberDecorators(path, options, print));
   }
   if (node.accessibility) {
     parts.push(node.accessibility + " ");
