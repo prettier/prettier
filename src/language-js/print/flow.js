@@ -41,7 +41,7 @@ async function printFlow(path, options, print) {
   const parts = [];
   switch (node.type) {
     case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, options, print));
+      return printFlowDeclaration(path, await printClass(path, options, print));
     case "DeclareFunction":
       return printFlowDeclaration(path, [
         "function ",
