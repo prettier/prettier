@@ -241,10 +241,10 @@ function printBinaryishExpressions(
     node.type === "NGPipeExpression" && node.arguments.length > 0
       ? group(
           indent([
-            softline,
+            line,
             ": ",
             join(
-              [softline, ":", ifBreak(" ")],
+              [line, ": "],
               path.map(print, "arguments").map((arg) => align(2, group(arg)))
             ),
           ])
