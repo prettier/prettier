@@ -275,7 +275,7 @@ async function embed(path, print, textToDoc, options) {
 
         return [
           printOpeningTagPrefix(node, options),
-          group(printOpeningTag(path, options, print)),
+          group(await printOpeningTag(path, options, print)),
           isEmpty ? "" : hardline,
           doc,
           isEmpty ? "" : hardline,
