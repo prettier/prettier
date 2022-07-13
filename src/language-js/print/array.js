@@ -23,7 +23,7 @@ import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printArray(path, options, print) {
+async function printArray(path, options, print) {
   const node = path.getValue();
   /** @type{Doc[]} */
   const parts = [];
@@ -103,9 +103,9 @@ function printArray(path, options, print) {
           indent([
             softline,
             shouldUseConciseFormatting
-              ? printArrayItemsConcisely(path, options, print, trailingComma)
+              ? await printArrayItemsConcisely(path, options, print, trailingComma)
               : [
-                  printArrayItems(path, options, "elements", print),
+                  await printArrayItems(path, options, "elements", print),
                   trailingComma,
                 ],
             printDanglingComments(path, options, /* sameIndent */ true),
@@ -120,7 +120,7 @@ function printArray(path, options, print) {
 
   parts.push(
     printOptionalToken(path),
-    printTypeAnnotation(path, options, print)
+    await printTypeAnnotation(path, options, print)
   );
 
   return parts;
@@ -146,12 +146,12 @@ function isConciselyPrintedArray(node, options) {
   );
 }
 
-function printArrayItems(path, options, printPath, print) {
+async function printArrayItems(path, options, printPath, print) {
   const printedElements = [];
   let separatorParts = [];
 
-  path.each((childPath) => {
-    printedElements.push(separatorParts, group(print()));
+  await path.each(async (childPath) => {
+    printedElements.push(separatorParts, group(await print()));
 
     separatorParts = [",", line];
     if (
@@ -165,13 +165,13 @@ function printArrayItems(path, options, printPath, print) {
   return printedElements;
 }
 
-function printArrayItemsConcisely(path, options, print, trailingComma) {
+async function printArrayItemsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.each((childPath, i, elements) => {
+  await path.each(async (childPath, i, elements) => {
     const isLast = i === elements.length - 1;
 
-    parts.push([print(), isLast ? trailingComma : ","]);
+    parts.push([await print(), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(

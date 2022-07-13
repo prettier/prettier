@@ -132,11 +132,11 @@ class AstPath {
    * @param {() => void} callback
    * @internal Unstable API. Don't use in plugins for now.
    */
-  try(callback) {
+  async try(callback) {
     const { stack } = this;
     const stackBackup = [...stack];
     try {
-      return callback();
+      return await callback();
     } finally {
       stack.length = 0;
       stack.push(...stackBackup);

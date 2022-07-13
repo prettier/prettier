@@ -1156,16 +1156,16 @@ function getCallArguments(node) {
   return args;
 }
 
-function iterateCallArgumentsPath(path, iteratee) {
+async function iterateCallArgumentsPath(path, iteratee) {
   const node = path.getValue();
   if (node.type === "ImportExpression") {
-    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+    await path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
     if (node.attributes) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
+      await path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
     }
   } else {
-    path.each(iteratee, "arguments");
+    await path.each(iteratee, "arguments");
   }
 }
 

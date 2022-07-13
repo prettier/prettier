@@ -24,7 +24,7 @@ import {
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
-function printAssignment(
+async function printAssignment(
   path,
   options,
   print,
@@ -32,9 +32,9 @@ function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
+  const layout = await chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
-  const rightDoc = print(rightPropertyName, { assignmentLayout: layout });
+  const rightDoc = await print(rightPropertyName, { assignmentLayout: layout });
 
   switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
@@ -76,23 +76,23 @@ function printAssignment(
   }
 }
 
-function printAssignmentExpression(path, options, print) {
+async function printAssignmentExpression(path, options, print) {
   const node = path.getValue();
   return printAssignment(
     path,
     options,
     print,
-    print("left"),
+    await print("left"),
     [" ", node.operator],
     "right"
   );
 }
 
-function printVariableDeclarator(path, options, print) {
-  return printAssignment(path, options, print, print("id"), " =", "init");
+async function printVariableDeclarator(path, options, print) {
+  return printAssignment(path, options, print, await print("id"), " =", "init");
 }
 
-function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
+async function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   const node = path.getValue();
   const rightNode = node[rightPropertyName];
 
@@ -153,7 +153,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   const hasShortKey = isObjectPropertyWithShortKey(node, leftDoc, options);
 
   if (
-    path.call(
+    await path.call(
       () => shouldBreakAfterOperator(path, options, print, hasShortKey),
       rightPropertyName
     )
@@ -175,7 +175,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   return "fluid";
 }
 
-function shouldBreakAfterOperator(path, options, print, hasShortKey) {
+async function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   const rightNode = path.getValue();
 
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
@@ -213,7 +213,7 @@ function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   }
   if (
     isStringLiteral(node) ||
-    path.call(
+    await path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
       ...propertiesForPath
     )
@@ -328,7 +328,7 @@ function isTypeReference(node) {
  * A chain with no calls at all or whose calls are all without arguments or with lone short arguments,
  * excluding chains printed by `printMemberChain`
  */
-function isPoorlyBreakableMemberOrCallChain(
+async function isPoorlyBreakableMemberOrCallChain(
   path,
   options,
   print,
@@ -344,7 +344,7 @@ function isPoorlyBreakableMemberOrCallChain(
 
   if (isCallExpression(node)) {
     /** @type {any} TODO */
-    const doc = printCallExpression(path, options, print);
+    const doc = await printCallExpression(path, options, print);
     if (doc.label === "member-chain") {
       return false;
     }
@@ -357,7 +357,7 @@ function isPoorlyBreakableMemberOrCallChain(
       return false;
     }
 
-    if (isCallExpressionWithComplexTypeArguments(node, print)) {
+    if (await isCallExpressionWithComplexTypeArguments(node, print)) {
       return false;
     }
 
@@ -431,7 +431,7 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   );
 }
 
-function isCallExpressionWithComplexTypeArguments(node, print) {
+async function isCallExpressionWithComplexTypeArguments(node, print) {
   const typeArgs = getTypeArgumentsFromCallExpression(node);
   if (isNonEmptyArray(typeArgs)) {
     if (typeArgs.length > 1) {
@@ -453,7 +453,7 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
     const typeArgsKeyName = node.typeParameters
       ? "typeParameters"
       : "typeArguments";
-    if (willBreak(print(typeArgsKeyName))) {
+    if (willBreak(await print(typeArgsKeyName))) {
       return true;
     }
   }

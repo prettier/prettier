@@ -21,7 +21,7 @@ import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 
-function printClass(path, options, print) {
+async function printClass(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
@@ -50,17 +50,17 @@ function printClass(path, options, print) {
   const extendsParts = [];
 
   if (node.id) {
-    partsGroup.push(" ", print("id"));
+    partsGroup.push(" ", await print("id"));
   }
 
-  partsGroup.push(print("typeParameters"));
+  partsGroup.push(await print("typeParameters"));
 
   if (node.superClass) {
     const printed = [
-      printSuperClass(path, options, print),
-      print("superTypeParameters"),
+      await printSuperClass(path, options, print),
+      await print("superTypeParameters"),
     ];
-    const printedWithComments = path.call(
+    const printedWithComments = await path.call(
       (superClass) => ["extends ", printComments(superClass, printed, options)],
       "superClass"
     );
@@ -70,12 +70,12 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(printList(path, options, print, "extends"));
+    extendsParts.push(await printList(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    printList(path, options, print, "mixins"),
-    printList(path, options, print, "implements")
+    await printList(path, options, print, "mixins"),
+    await printList(path, options, print, "implements")
   );
 
   if (groupMode) {
@@ -90,7 +90,7 @@ function printClass(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", print("body"));
+  parts.push(" ", await print("body"));
 
   return parts;
 }
@@ -120,7 +120,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printList(path, options, print, listName) {
+async function printList(path, options, print, listName) {
   const node = path.getValue();
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -141,12 +141,12 @@ function printList(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(indent([line, join([",", line], path.map(print, listName))])),
+    group(indent([line, join([",", line], await path.map(print, listName))])),
   ];
 }
 
-function printSuperClass(path, options, print) {
-  const printed = print("superClass");
+async function printSuperClass(path, options, print) {
+  const printed = await print("superClass");
   const parent = path.getParentNode();
   if (parent.type === "AssignmentExpression") {
     return group(
@@ -156,7 +156,7 @@ function printSuperClass(path, options, print) {
   return printed;
 }
 
-function printClassMethod(path, options, print) {
+async function printClassMethod(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
@@ -185,18 +185,18 @@ function printClassMethod(path, options, print) {
     parts.push("override ");
   }
 
-  parts.push(printMethod(path, options, print));
+  parts.push(await printMethod(path, options, print));
 
   return parts;
 }
 
-function printClassProperty(path, options, print) {
+async function printClassProperty(path, options, print) {
   const node = path.getValue();
   const parts = [];
   const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(node.decorators)) {
-    parts.push(printClassMemberDecorators(path, options, print));
+    parts.push(await printClassMemberDecorators(path, options, print));
   }
   if (node.accessibility) {
     parts.push(node.accessibility + " ");
@@ -217,19 +217,19 @@ function printClassProperty(path, options, print) {
     parts.push("readonly ");
   }
   if (node.variance) {
-    parts.push(print("variance"));
+    parts.push(await print("variance"));
   }
   if (node.type === "ClassAccessorProperty") {
     parts.push("accessor ");
   }
   parts.push(
-    printPropertyKey(path, options, print),
-    printOptionalToken(path),
-    printDefiniteToken(path),
-    printTypeAnnotation(path, options, print)
+    await printPropertyKey(path, options, print),
+    await printOptionalToken(path),
+    await printDefiniteToken(path),
+    await printTypeAnnotation(path, options, print)
   );
 
-  return [printAssignment(path, options, print, parts, " =", "value"), semi];
+  return [await printAssignment(path, options, print, parts, " =", "value"), semi];
 }
 
 export {

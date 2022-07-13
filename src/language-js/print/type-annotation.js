@@ -56,18 +56,18 @@ function shouldHugType(node) {
   return false;
 }
 
-function printOpaqueType(path, options, print) {
+async function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
   const parts = [];
-  parts.push("opaque type ", print("id"), print("typeParameters"));
+  parts.push("opaque type ", await print("id"), await print("typeParameters"));
 
   if (node.supertype) {
-    parts.push(": ", print("supertype"));
+    parts.push(": ", await print("supertype"));
   }
 
   if (node.impltype) {
-    parts.push(" = ", print("impltype"));
+    parts.push(" = ", await print("impltype"));
   }
 
   parts.push(semi);
@@ -75,26 +75,26 @@ function printOpaqueType(path, options, print) {
   return parts;
 }
 
-function printTypeAlias(path, options, print) {
+async function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
   const parts = [];
   if (node.declare) {
     parts.push("declare ");
   }
-  parts.push("type ", print("id"), print("typeParameters"));
+  parts.push("type ", await print("id"), await print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
-    printAssignment(path, options, print, parts, " =", rightPropertyName),
+    await printAssignment(path, options, print, parts, " =", rightPropertyName),
     semi,
   ];
 }
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
-function printIntersectionType(path, options, print) {
+async function printIntersectionType(path, options, print) {
   const node = path.getValue();
-  const types = path.map(print, "types");
+  const types = await path.map(print, "types");
   const result = [];
   let wasIndented = false;
   for (let i = 0; i < types.length; ++i) {
@@ -121,7 +121,7 @@ function printIntersectionType(path, options, print) {
 }
 
 // `TSUnionType` and `UnionTypeAnnotation`
-function printUnionType(path, options, print) {
+async function printUnionType(path, options, print) {
   const node = path.getValue();
   // single-line variation
   // A | B | C
@@ -164,8 +164,8 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((typePath) => {
-    let printedType = print();
+  const printed = await path.map(async (typePath) => {
+    let printedType = await print();
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
@@ -203,7 +203,7 @@ function printUnionType(path, options, print) {
 }
 
 // `TSFunctionType` and `FunctionTypeAnnotation`
-function printFunctionType(path, options, print) {
+async function printFunctionType(path, options, print) {
   const node = path.getValue();
   const parts = [];
   // FunctionTypeAnnotation is ambiguous:
@@ -246,7 +246,7 @@ function printFunctionType(path, options, print) {
     parts.push("(");
   }
 
-  const parametersDoc = printFunctionParameters(
+  const parametersDoc = await printFunctionParameters(
     path,
     print,
     options,
@@ -260,9 +260,9 @@ function printFunctionType(path, options, print) {
     node.returnType || node.predicate || node.typeAnnotation
       ? [
           isArrowFunctionTypeAnnotation ? " => " : ": ",
-          print("returnType"),
-          print("predicate"),
-          print("typeAnnotation"),
+          await print("returnType"),
+          await print("predicate"),
+          await print("typeAnnotation"),
         ]
       : "";
 
@@ -285,7 +285,7 @@ function printFunctionType(path, options, print) {
 }
 
 // `TSTupleType` and `TupleTypeAnnotation`
-function printTupleType(path, options, print) {
+async function printTupleType(path, options, print) {
   const node = path.getValue();
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
@@ -295,7 +295,7 @@ function printTupleType(path, options, print) {
     "[",
     indent([
       bracketsDelimiterLine,
-      printArrayItems(path, options, typesField, print),
+      await printArrayItems(path, options, typesField, print),
     ]),
     ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
     printDanglingComments(path, options, /* sameIndent */ true),
@@ -305,19 +305,19 @@ function printTupleType(path, options, print) {
 }
 
 // `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
-function printIndexedAccessType(path, options, print) {
+async function printIndexedAccessType(path, options, print) {
   const node = path.getValue();
   const leftDelimiter =
     node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
-  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
+  return [await print("objectType"), leftDelimiter, await print("indexType"), "]"];
 }
 
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
-function printJSDocType(path, print, token) {
+async function printJSDocType(path, print, token) {
   const node = path.getValue();
   return [
     node.postfix ? "" : token,
-    print("typeAnnotation"),
+    await print("typeAnnotation"),
     node.postfix ? token : "",
   ];
 }

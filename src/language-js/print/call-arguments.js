@@ -31,7 +31,7 @@ import { willBreak } from "../../document/utils.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { isConciselyPrintedArray } from "./array.js";
 
-function printCallArguments(path, options, print) {
+async function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
 
@@ -46,16 +46,16 @@ function printCallArguments(path, options, print) {
 
   // useEffect(() => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
+    return ["(", await print(["arguments", 0]), ", ", await print(["arguments", 1]), ")"];
   }
 
   let anyArgEmptyLine = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
-  iterateCallArgumentsPath(path, (argPath, index) => {
+  await iterateCallArgumentsPath(path, async (argPath, index) => {
     const arg = argPath.getNode();
-    const parts = [print()];
+    const parts = [await print()];
 
     if (index === lastArgIndex) {
       // do nothing
@@ -110,12 +110,12 @@ function printCallArguments(path, options, print) {
     let printedExpanded = [];
 
     try {
-      path.try(() => {
-        iterateCallArgumentsPath(path, (argPath, i) => {
+      await path.try(async () => {
+        await iterateCallArgumentsPath(path, async (argPath, i) => {
           if (shouldGroupFirst && i === 0) {
             printedExpanded = [
               [
-                print([], { expandFirstArg: true }),
+                await print([], { expandFirstArg: true }),
                 printedArguments.length > 1 ? "," : "",
                 hasEmptyLineFollowingFirstArg ? hardline : line,
                 hasEmptyLineFollowingFirstArg ? hardline : "",
@@ -126,7 +126,7 @@ function printCallArguments(path, options, print) {
           if (shouldGroupLast && i === lastArgIndex) {
             printedExpanded = [
               ...printedArguments.slice(0, -1),
-              print([], { expandLastArg: true }),
+              await print([], { expandLastArg: true }),
             ];
           }
         });
