@@ -15,6 +15,7 @@ function getNodeStackIndexHelper(stack, count) {
   return -1;
 }
 
+const isPromise = object => Promise.resolve(object) === object
 class AstPath {
   constructor(value) {
     this.stack = [value];
@@ -53,7 +54,7 @@ class AstPath {
   // reference to this (modified) AstPath object. Note that the stack will
   // be restored to its original state after the callback is finished, so it
   // is probably a mistake to retain a reference to the path.
-  async call(callback, ...names) {
+  call(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
     let value = getLast(stack);
@@ -62,16 +63,32 @@ class AstPath {
       value = value[name];
       stack.push(name, value);
     }
-    const result = await callback(this);
-    stack.length = length;
+    const result = callback(this);
+
+    if (isPromise(result)) {
+      result.then(() => {
+        stack.length = length
+      })
+    } else {
+      stack.length = length
+    }
+
     return result;
   }
 
-  async callParent(callback, count = 0) {
+  callParent(callback, count = 0) {
     const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
-    const result = await callback(this);
-    this.stack.push(...parentValues);
+    const result = callback(this);
+
+    if (isPromise(result)) {
+      result.then(() => {
+        this.stack.push(...parentValues);
+      })
+    } else {
+      this.stack.push(...parentValues);
+    }
+
     return result;
   }
 
