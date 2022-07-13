@@ -35,7 +35,7 @@ import {
 } from "./utils/index.js";
 import getNodeContent from "./get-node-content.js";
 
-function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
+async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -245,7 +245,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   return null;
 }
 
-function embed(path, print, textToDoc, options) {
+async function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -265,7 +265,7 @@ function embed(path, print, textToDoc, options) {
         let isEmpty = /^\s*$/.test(content);
         let doc = "";
         if (!isEmpty) {
-          doc = textToDoc(
+          doc = await textToDoc(
             htmlTrimPreserveIndentation(content),
             { parser, __embeddedInHtml: true },
             { stripTrailingHardline: true }
@@ -310,7 +310,7 @@ function embed(path, print, textToDoc, options) {
           return [
             breakParent,
             printOpeningTagPrefix(node, options),
-            textToDoc(value, textToDocOptions, {
+            await textToDoc(value, textToDocOptions, {
               stripTrailingHardline: true,
             }),
             printClosingTagSuffix(node, options),
@@ -334,7 +334,7 @@ function embed(path, print, textToDoc, options) {
         return [
           indent([
             line,
-            textToDoc(node.value, textToDocOptions, {
+            await textToDoc(node.value, textToDocOptions, {
               stripTrailingHardline: true,
             }),
           ]),
@@ -378,7 +378,7 @@ function embed(path, print, textToDoc, options) {
         }
       }
 
-      const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
+      const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
