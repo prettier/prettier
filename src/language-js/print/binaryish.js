@@ -3,16 +3,7 @@
 const { printComments } = require("../../main/comments.js");
 const { getLast } = require("../../common/util.js");
 const {
-  builders: {
-    join,
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    indentIfBreak,
-  },
+  builders: { join, line, softline, group, indent, align, indentIfBreak },
   utils: { cleanDoc, getDocParts, isConcat },
 } = require("../../document/index.js");
 const {
