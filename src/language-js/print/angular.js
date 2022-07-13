@@ -39,13 +39,13 @@ async function printAngular(path, options, print) {
       return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.map(
-        (childPath, index) => [
+        async (childPath, index) => [
           index === 0
             ? ""
             : isNgForOf(childPath.getValue(), index, node)
             ? " "
             : [";", line],
-          print(),
+          await print(),
         ],
         "body"
       );
