@@ -25,7 +25,7 @@ async function format(path, print, textToDoc) {
     { parser: "scss" },
     { stripTrailingHardline: true }
   );
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = await printTemplateExpressions(path, print);
   return transformCssDoc(doc, node, expressionDocs);
 }
 
