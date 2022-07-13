@@ -53,7 +53,7 @@ class AstPath {
   // reference to this (modified) AstPath object. Note that the stack will
   // be restored to its original state after the callback is finished, so it
   // is probably a mistake to retain a reference to the path.
-  call(callback, ...names) {
+  async call(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
     let value = getLast(stack);
@@ -62,15 +62,15 @@ class AstPath {
       value = value[name];
       stack.push(name, value);
     }
-    const result = callback(this);
+    const result = await callback(this);
     stack.length = length;
     return result;
   }
 
-  callParent(callback, count = 0) {
+  async callParent(callback, count = 0) {
     const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
-    const result = callback(this);
+    const result = await callback(this);
     this.stack.push(...parentValues);
     return result;
   }
@@ -79,7 +79,7 @@ class AstPath {
   // accessing this.getValue()[name1][name2]... should be array. The
   // callback will be called with a reference to this path object for each
   // element of the array.
-  each(callback, ...names) {
+  async each(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
     let value = getLast(stack);
@@ -91,7 +91,7 @@ class AstPath {
 
     for (let i = 0; i < value.length; ++i) {
       stack.push(i, value[i]);
-      callback(this, i, value);
+      await callback(this, i, value);
       stack.length -= 2;
     }
 
@@ -101,10 +101,10 @@ class AstPath {
   // Similar to AstPath.prototype.each, except that the results of the
   // callback function invocations are stored in an array and returned at
   // the end of the iteration.
-  map(callback, ...names) {
+  async map(callback, ...names) {
     const result = [];
-    this.each((path, index, value) => {
-      result[index] = callback(path, index, value);
+    await this.each(async (path, index, value) => {
+      result[index] = await callback(path, index, value);
     }, ...names);
     return result;
   }
