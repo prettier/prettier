@@ -46,11 +46,10 @@ async function run() {
   thirdParty.getStdin = async () => options.input || "";
   thirdParty.isCI = () => Boolean(options.ci);
   thirdParty.cosmiconfig = (moduleName, options) =>
-     cosmiconfig(moduleName, {
+    cosmiconfig(moduleName, {
       ...options,
       stopDir: url.fileURLToPath(new URL("./cli/", import.meta.url)),
-    })
-  ;
+    });
   thirdParty.findParentDir = () => process.cwd();
 
   const { promise } = await import(url.pathToFileURL(prettierCli));
