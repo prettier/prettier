@@ -95,7 +95,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        attributeTextToDoc(value, {
+        await attributeTextToDoc(value, {
           parser: "css",
           __isHTMLStyleAttribute: true,
         })
@@ -137,7 +137,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
       return printMaybeHug(
-        attributeTextToDoc(value, {
+        await attributeTextToDoc(value, {
           parser,
         })
       );
@@ -145,13 +145,13 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__vue_expression" })
+        await attributeTextToDoc(getValue(), { parser: "__vue_expression" })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__js_expression" })
+        await attributeTextToDoc(getValue(), { parser: "__js_expression" })
       );
     }
   }
@@ -189,11 +189,11 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
+      return printMaybeHug(await ngTextToDoc(getValue(), { parser: "__ng_action" }));
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+      return printMaybeHug(await ngTextToDoc(getValue(), { parser: "__ng_binding" }));
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
@@ -206,7 +206,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
       return printMaybeHug(
-        ngTextToDoc(getValue(), { parser: "__ng_directive" })
+        await ngTextToDoc(getValue(), { parser: "__ng_directive" })
       );
     }
 
@@ -224,7 +224,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
                 "{{",
                 indent([
                   line,
-                  ngTextToDoc(part, {
+                  await ngTextToDoc(part, {
                     parser: "__ng_interpolation",
                     __isInHtmlInterpolation: true, // to avoid unexpected `}}`
                   }),
