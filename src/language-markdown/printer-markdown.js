@@ -405,7 +405,7 @@ async function genericPrint(path, options, print) {
           : group([
               align(
                 " ".repeat(4),
-                printChildren(path, options, print, {
+                await printChildren(path, options, print, {
                   processor: async (childPath, index) =>
                     index === 0 ? group([softline, await print()]) : print(),
                 })
