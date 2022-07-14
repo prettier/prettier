@@ -32,16 +32,6 @@ const tryFinally = (fn, onSettled) => {
   onSettled();
   return result;
 };
-const queueTasks = (tasks) => {
-  for (let index = 0; index < tasks.length; ++index) {
-    const result = tasks[index]();
-    if (isThenable(result)) {
-      return tasks
-        .slice(index + 1)
-        .reduce((promise, task) => promise.then(task), result);
-    }
-  }
-};
 
 class AstPath {
   constructor(value) {
@@ -125,23 +115,28 @@ class AstPath {
       stack.push(name, value);
     }
 
-    const tasks = [];
-    for (let i = 0; i < value.length; ++i) {
-      tasks.push(() =>
-        tryFinally(
-          () => {
-            stack.push(i, value[i]);
-            return callback(this, i, value);
-          },
-          () => {
-            stack.length -= 2;
-          }
-        )
-      );
-    }
+    const iteratee = (index) =>
+      this.call(() => callback(this, index, value), index);
 
     return tryFinally(
-      () => queueTasks(tasks),
+      () => {
+        let promise;
+
+        for (let index = 0; index < value.length; index++) {
+          if (promise) {
+            promise = promise.then(() => iteratee(index));
+            continue;
+          }
+
+          const result = iteratee(index);
+
+          if (isThenable(result)) {
+            promise = result;
+          }
+        }
+
+        return promise;
+      },
       () => {
         stack.length = length;
       }
