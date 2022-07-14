@@ -6,7 +6,7 @@ import {
   indent,
 } from "../../document/builders.js";
 
-async function printHtmlBinding(path, options, print) {
+function printHtmlBinding(path, options, print) {
   const node = path.getValue();
 
   if (options.__onHtmlBindingRoot && path.getName() === null) {

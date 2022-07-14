@@ -631,7 +631,7 @@ async function printTable(path, options, print) {
   }
 }
 
-async function printRoot(path, options, print) {
+function printRoot(path, options, print) {
   /** @typedef {{ index: number, offset: number }} IgnorePosition */
   /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
   const ignoreRanges = [];

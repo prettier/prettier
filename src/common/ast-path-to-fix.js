@@ -15,7 +15,24 @@ function getNodeStackIndexHelper(stack, count) {
   return -1;
 }
 
-const isPromise = (object) => Promise.resolve(object) === object;
+const isThenable = (object) => typeof object?.then === "function";
+const runAfterSettled = (fn, onSettled) => {
+  let result;
+  try {
+    result = fn();
+  } catch (error) {
+    onSettled();
+    throw error;
+  }
+
+  if (isThenable(result)) {
+    return result.finally(onSettled);
+  }
+
+  onSettled();
+  return result;
+};
+
 class AstPath {
   constructor(value) {
     this.stack = [value];
@@ -63,33 +80,25 @@ class AstPath {
       value = value[name];
       stack.push(name, value);
     }
-    const result = callback(this);
 
-    if (isPromise(result)) {
-      result.then(() => {
+    return runAfterSettled(
+      () => callback(this),
+      () => {
         stack.length = length;
-      });
-    } else {
-      stack.length = length;
-    }
-
-    return result;
+      }
+    );
   }
 
   callParent(callback, count = 0) {
     const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
-    const result = callback(this);
 
-    if (isPromise(result)) {
-      result.then(() => {
+    return runAfterSettled(
+      () => callback(this),
+      () => {
         this.stack.push(...parentValues);
-      });
-    } else {
-      this.stack.push(...parentValues);
-    }
-
-    return result;
+      }
+    );
   }
 
   eachSync(callback, ...names) {
