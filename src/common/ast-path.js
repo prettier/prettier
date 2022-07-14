@@ -32,6 +32,16 @@ const tryFinally = (fn, onSettled) => {
   onSettled();
   return result;
 };
+const queueTasks = (tasks) => {
+  for (let index = 0; index < tasks.length; ++index) {
+    const result = tasks[index]();
+    if (isThenable(result)) {
+      return tasks
+        .slice(index + 1)
+        .reduce((promise, task) => promise.then(task), result);
+    }
+  }
+};
 
 class AstPath {
   constructor(value) {
@@ -101,38 +111,11 @@ class AstPath {
     );
   }
 
-  eachSync(callback, ...names) {
-    const { stack } = this;
-    const { length } = stack;
-    let value = getLast(stack);
-
-    for (const name of names) {
-      value = value[name];
-      stack.push(name, value);
-    }
-
-    for (let i = 0; i < value.length; ++i) {
-      stack.push(i, value[i]);
-      callback(this, i, value);
-      stack.length -= 2;
-    }
-
-    stack.length = length;
-  }
-
-  mapSync(callback, ...names) {
-    const result = [];
-    this.eachSync((path, index, value) => {
-      result[index] = callback(path, index, value);
-    }, ...names);
-    return result;
-  }
-
   // Similar to AstPath.prototype.call, except that the value obtained by
   // accessing this.getValue()[name1][name2]... should be array. The
   // callback will be called with a reference to this path object for each
   // element of the array.
-  async each(callback, ...names) {
+  each(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
     let value = getLast(stack);
@@ -142,13 +125,27 @@ class AstPath {
       stack.push(name, value);
     }
 
+    const tasks = [];
     for (let i = 0; i < value.length; ++i) {
-      stack.push(i, value[i]);
-      await callback(this, i, value);
-      stack.length -= 2;
+      tasks.push(() =>
+        tryFinally(
+          () => {
+            stack.push(i, value[i]);
+            return callback(this, i, value);
+          },
+          () => {
+            stack.length -= 2;
+          }
+        )
+      );
     }
 
-    stack.length = length;
+    return tryFinally(
+      () => queueTasks(tasks),
+      () => {
+        stack.length = length;
+      }
+    );
   }
 
   // Similar to AstPath.prototype.each, except that the results of the

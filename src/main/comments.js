@@ -523,7 +523,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
-  path.eachSync(() => {
+  path.each(() => {
     const comment = path.getValue();
     if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
       parts.push(printComment(path, options));
@@ -559,7 +559,7 @@ function printCommentsSeparately(path, options, ignored) {
 
   const leadingParts = [];
   const trailingParts = [];
-  path.eachSync(() => {
+  path.each(() => {
     const comment = path.getValue();
     if (ignored && ignored.has(comment)) {
       return;
