@@ -245,7 +245,7 @@ async function printTypescript(path, options, print) {
         "import(",
         await print(node.parameter ? "parameter" : "argument"),
         ")",
-        !node.qualifier ? "" : [".", print("qualifier")],
+        !node.qualifier ? "" : [".", await print("qualifier")],
         await printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSLiteralType":
