@@ -116,7 +116,15 @@ class AstPath {
     }
 
     const iteratee = (index) =>
-      this.call(() => callback(this, index, value), index);
+      tryFinally(
+        () => {
+          stack.push(index, value[index]);
+          return callback(this, index, value);
+        },
+        () => {
+          stack.length -= 2;
+        }
+      );
 
     return tryFinally(
       () => {
