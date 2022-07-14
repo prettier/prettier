@@ -58,7 +58,10 @@ async function printTypeAnnotation(path, options, print) {
     return [" /*: ", await print("typeAnnotation"), " */"];
   }
 
-  return [isFunctionDeclarationIdentifier ? "" : ": ", await print("typeAnnotation")];
+  return [
+    isFunctionDeclarationIdentifier ? "" : ": ",
+    await print("typeAnnotation"),
+  ];
 }
 
 async function printBindExpressionCallee(path, options, print) {
@@ -86,7 +89,11 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 async function printRestSpread(path, options, print) {
-  return ["...", await print("argument"), await printTypeAnnotation(path, options, print)];
+  return [
+    "...",
+    await print("argument"),
+    await printTypeAnnotation(path, options, print),
+  ];
 }
 
 export {

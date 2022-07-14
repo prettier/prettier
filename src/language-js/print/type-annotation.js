@@ -309,7 +309,12 @@ async function printIndexedAccessType(path, options, print) {
   const node = path.getValue();
   const leftDelimiter =
     node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
-  return [await print("objectType"), leftDelimiter, await print("indexType"), "]"];
+  return [
+    await print("objectType"),
+    leftDelimiter,
+    await print("indexType"),
+    "]",
+  ];
 }
 
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`

@@ -120,6 +120,14 @@ class AstPath {
     stack.length = length;
   }
 
+  mapSync(callback, ...names) {
+    const result = [];
+    this.eachSync((path, index, value) => {
+      result[index] = callback(path, index, value);
+    }, ...names);
+    return result;
+  }
+
   // Similar to AstPath.prototype.call, except that the value obtained by
   // accessing this.getValue()[name1][name2]... should be array. The
   // callback will be called with a reference to this path object for each

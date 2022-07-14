@@ -46,7 +46,10 @@ async function genericPrint(path, options, print) {
   const parts = [];
 
   if (node.type !== "mappingValue" && hasLeadingComments(node)) {
-    parts.push([join(hardline, await path.map(print, "leadingComments")), hardline]);
+    parts.push([
+      join(hardline, await path.map(print, "leadingComments")),
+      hardline,
+    ]);
   }
 
   const { tag, anchor } = node;
@@ -315,7 +318,11 @@ async function printNode(node, parentNode, path, options, print) {
       }
 
       const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return [quote, await printFlowScalarContent(node.type, raw, options), quote];
+      return [
+        quote,
+        await printFlowScalarContent(node.type, raw, options),
+        quote,
+      ];
     }
     case "blockFolded":
     case "blockLiteral": {
@@ -325,7 +332,10 @@ async function printNode(node, parentNode, path, options, print) {
     case "sequence":
       return join(hardline, await path.map(print, "children"));
     case "sequenceItem":
-      return ["- ", alignWithSpaces(2, node.content ? await print("content") : "")];
+      return [
+        "- ",
+        alignWithSpaces(2, node.content ? await print("content") : ""),
+      ];
     case "mappingKey":
     case "mappingValue":
       return !node.content ? "" : print("content");

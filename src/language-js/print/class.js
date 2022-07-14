@@ -229,7 +229,10 @@ async function printClassProperty(path, options, print) {
     await printTypeAnnotation(path, options, print)
   );
 
-  return [await printAssignment(path, options, print, parts, " =", "value"), semi];
+  return [
+    await printAssignment(path, options, print, parts, " =", "value"),
+    semi,
+  ];
 }
 
 export {

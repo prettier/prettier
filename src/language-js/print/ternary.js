@@ -112,7 +112,13 @@ async function printTernaryTest(path, options, print) {
 
   const printed = isConditionalExpression
     ? await print("test")
-    : [await print("checkType"), " ", "extends", " ", await print("extendsType")];
+    : [
+        await print("checkType"),
+        " ",
+        "extends",
+        " ",
+        await print("extendsType"),
+      ];
   /**
    *     a
    *       ? b

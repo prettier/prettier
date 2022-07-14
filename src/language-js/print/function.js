@@ -143,7 +143,10 @@ async function printMethod(path, options, print) {
     parts.push(await printMethodInternal(path, options, print));
   } else if (value.type === "FunctionExpression") {
     parts.push(
-      await path.call((path) => printMethodInternal(path, options, print), "value")
+      await path.call(
+        (path) => printMethodInternal(path, options, print),
+        "value"
+      )
     );
   } else {
     parts.push(await print("value"));
@@ -451,7 +454,12 @@ async function printReturnOrThrowArgument(path, options, print) {
 
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([" (", indent([hardline, await print("argument")]), hardline, ")"]);
+      parts.push([
+        " (",
+        indent([hardline, await print("argument")]),
+        hardline,
+        ")",
+      ]);
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"

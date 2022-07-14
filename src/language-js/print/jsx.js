@@ -588,7 +588,9 @@ async function printJsxOpeningElement(path, options, print) {
       "<",
       await print("name"),
       await print("typeParameters"),
-      indent(await path.map(async () => [attributeLine, await print()], "attributes")),
+      indent(
+        await path.map(async () => [attributeLine, await print()], "attributes")
+      ),
       ...(await printEndOfOpeningTag(node, options, nameHasComments)),
     ],
     { shouldBreak }

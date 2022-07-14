@@ -142,7 +142,11 @@ async function printTypescript(path, options, print) {
     case "TSTypeParameter":
       return printTypeParameter(path, options, print);
     case "TSAsExpression": {
-      parts.push(await print("expression"), " as ", await print("typeAnnotation"));
+      parts.push(
+        await print("expression"),
+        " as ",
+        await print("typeAnnotation")
+      );
       const parent = path.getParentNode();
       if (
         (isCallExpression(parent) && parent.callee === node) ||
@@ -196,7 +200,11 @@ async function printTypescript(path, options, print) {
 
       return parts;
     case "TSTypeQuery":
-      return ["typeof ", await print("exprName"), await print("typeParameters")];
+      return [
+        "typeof ",
+        await print("exprName"),
+        await print("typeParameters"),
+      ];
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
@@ -349,7 +357,9 @@ async function printTypescript(path, options, print) {
         ? "returnType"
         : "typeAnnotation";
       const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode ? await print(returnTypePropertyName) : "";
+      const returnTypeDoc = returnTypeNode
+        ? await print(returnTypePropertyName)
+        : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc

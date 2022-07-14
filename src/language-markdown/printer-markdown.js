@@ -300,7 +300,10 @@ async function genericPrint(path, options, print) {
             childNode.children[0].position.start.column !==
               childNode.children[1].position.start.column
           ) {
-            return [prefix, await printListItem(childPath, options, print, prefix)];
+            return [
+              prefix,
+              await printListItem(childPath, options, print, prefix),
+            ];
           }
 
           return [

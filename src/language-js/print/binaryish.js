@@ -241,7 +241,9 @@ async function printBinaryishExpressions(
             ": ",
             join(
               [softline, ":", ifBreak(" ")],
-              (await path.map(print, "arguments")).map((arg) => align(2, group(arg)))
+              (await path.map(print, "arguments")).map((arg) =>
+                align(2, group(arg))
+              )
             ),
           ])
         )

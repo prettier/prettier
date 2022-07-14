@@ -46,7 +46,13 @@ async function printCallArguments(path, options, print) {
 
   // useEffect(() => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return ["(", await print(["arguments", 0]), ", ", await print(["arguments", 1]), ")"];
+    return [
+      "(",
+      await print(["arguments", 0]),
+      ", ",
+      await print(["arguments", 1]),
+      ")",
+    ];
   }
 
   let anyArgEmptyLine = false;

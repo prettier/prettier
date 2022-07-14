@@ -118,10 +118,7 @@ async function printTypeParameter(path, options, print) {
       parts.push(" in ", await print("constraint"));
     }
     if (parent.nameType) {
-      parts.push(
-        " as ",
-        await path.callParent( () =>  print("nameType"))
-      );
+      parts.push(" as ", await path.callParent(() => print("nameType")));
     }
     parts.push("]");
     return parts;

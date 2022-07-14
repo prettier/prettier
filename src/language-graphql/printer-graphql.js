@@ -95,7 +95,10 @@ async function genericPrint(path, options, print) {
         "{",
         indent([
           hardline,
-          join(hardline, await printSequence(path, options, print, "selections")),
+          join(
+            hardline,
+            await printSequence(path, options, print, "selections")
+          ),
         ]),
         hardline,
         "}",
@@ -244,7 +247,10 @@ async function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(hardline, await printSequence(path, options, print, "fields")),
+                join(
+                  hardline,
+                  await printSequence(path, options, print, "fields")
+                ),
               ]),
               hardline,
               "}",
@@ -320,7 +326,10 @@ async function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(hardline, await printSequence(path, options, print, "values")),
+                join(
+                  hardline,
+                  await printSequence(path, options, print, "values")
+                ),
               ]),
               hardline,
               "}",
@@ -364,7 +373,10 @@ async function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(hardline, await printSequence(path, options, print, "fields")),
+                join(
+                  hardline,
+                  await printSequence(path, options, print, "fields")
+                ),
               ]),
               hardline,
               "}",
@@ -435,7 +447,10 @@ async function genericPrint(path, options, print) {
               " {",
               indent([
                 hardline,
-                join(hardline, await printSequence(path, options, print, "fields")),
+                join(
+                  hardline,
+                  await printSequence(path, options, print, "fields")
+                ),
               ]),
               hardline,
               "}",
@@ -445,7 +460,11 @@ async function genericPrint(path, options, print) {
     }
 
     case "FragmentSpread": {
-      return ["...", await print("name"), await printDirectives(path, print, node)];
+      return [
+        "...",
+        await print("name"),
+        await printDirectives(path, print, node),
+      ];
     }
 
     case "InlineFragment": {

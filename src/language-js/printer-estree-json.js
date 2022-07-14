@@ -39,7 +39,10 @@ async function genericPrint(path, options, print) {
     case "ObjectProperty":
       return [await print("key"), ": ", await print("value")];
     case "UnaryExpression":
-      return [node.operator === "+" ? "" : node.operator, await print("argument")];
+      return [
+        node.operator === "+" ? "" : node.operator,
+        await print("argument"),
+      ];
     case "NullLiteral":
       return "null";
     case "BooleanLiteral":

@@ -125,7 +125,10 @@ async function genericPrint(path, options, print) {
                 : "",
               "{",
               node.nodes.length > 0
-                ? indent([hardline, await printNodeSequence(path, options, print)])
+                ? indent([
+                    hardline,
+                    await printNodeSequence(path, options, print),
+                  ])
                 : "",
               hardline,
               "}",

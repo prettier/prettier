@@ -189,11 +189,15 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(await ngTextToDoc(getValue(), { parser: "__ng_action" }));
+      return printMaybeHug(
+        await ngTextToDoc(getValue(), { parser: "__ng_action" })
+      );
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return printMaybeHug(await ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+      return printMaybeHug(
+        await ngTextToDoc(getValue(), { parser: "__ng_binding" })
+      );
     }
 
     if (isKeyMatched(ngI18nPatterns)) {

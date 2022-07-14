@@ -290,7 +290,10 @@ async function printPathNoParens(path, options, print, args) {
 
       parts.push(
         group(
-          indent([softline, await printBindExpressionCallee(path, options, print)])
+          indent([
+            softline,
+            await printBindExpressionCallee(path, options, print),
+          ])
         )
       );
 
@@ -440,7 +443,12 @@ async function printPathNoParens(path, options, print, args) {
 
       if (hasComment(node.argument)) {
         parts.push(
-          group(["(", indent([softline, await print("argument")]), softline, ")"])
+          group([
+            "(",
+            indent([softline, await print("argument")]),
+            softline,
+            ")",
+          ])
         );
       } else {
         parts.push(await print("argument"));
@@ -711,7 +719,7 @@ async function printPathNoParens(path, options, print, args) {
               hardline,
               join(
                 hardline,
-                await path.map(async(casePath, index, cases) => {
+                await path.map(async (casePath, index, cases) => {
                   const caseNode = casePath.getValue();
                   return [
                     await print(),
@@ -775,7 +783,11 @@ async function printPathNoParens(path, options, print, args) {
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
-      return [await print("tag"), await print("typeParameters"), await print("quasi")];
+      return [
+        await print("tag"),
+        await print("typeParameters"),
+        await print("quasi"),
+      ];
     case "PrivateIdentifier":
       return ["#", await print("name")];
     case "PrivateName":

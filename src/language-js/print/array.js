@@ -103,7 +103,12 @@ async function printArray(path, options, print) {
           indent([
             softline,
             shouldUseConciseFormatting
-              ? await printArrayItemsConcisely(path, options, print, trailingComma)
+              ? await printArrayItemsConcisely(
+                  path,
+                  options,
+                  print,
+                  trailingComma
+                )
               : [
                   await printArrayItems(path, options, "elements", print),
                   trailingComma,

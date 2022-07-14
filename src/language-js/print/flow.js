@@ -67,11 +67,20 @@ async function printFlow(path, options, print) {
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", await print("id"), semi]);
     case "DeclareOpaqueType":
-      return printFlowDeclaration(path, await printOpaqueType(path, options, print));
+      return printFlowDeclaration(
+        path,
+        await printOpaqueType(path, options, print)
+      );
     case "DeclareInterface":
-      return printFlowDeclaration(path, await printInterface(path, options, print));
+      return printFlowDeclaration(
+        path,
+        await printInterface(path, options, print)
+      );
     case "DeclareTypeAlias":
-      return printFlowDeclaration(path, await printTypeAlias(path, options, print));
+      return printFlowDeclaration(
+        path,
+        await printTypeAlias(path, options, print)
+      );
     case "DeclareExportDeclaration":
       return printFlowDeclaration(
         path,

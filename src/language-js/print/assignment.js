@@ -32,7 +32,13 @@ async function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const layout = await chooseLayout(path, options, print, leftDoc, rightPropertyName);
+  const layout = await chooseLayout(
+    path,
+    options,
+    print,
+    leftDoc,
+    rightPropertyName
+  );
 
   const rightDoc = await print(rightPropertyName, { assignmentLayout: layout });
 
@@ -213,10 +219,10 @@ async function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   }
   if (
     isStringLiteral(node) ||
-    await path.call(
+    (await path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
       ...propertiesForPath
-    )
+    ))
   ) {
     return true;
   }

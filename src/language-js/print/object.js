@@ -173,7 +173,11 @@ async function printObject(path, options, print) {
   let content;
   if (props.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [leftBrace, rightBrace, await printTypeAnnotation(path, options, print)];
+      return [
+        leftBrace,
+        rightBrace,
+        await printTypeAnnotation(path, options, print),
+      ];
     }
 
     content = group([

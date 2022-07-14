@@ -144,7 +144,11 @@ async function printChildren(path, options, print) {
         const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
         if (prevBetweenLine) {
           if (forceNextEmptyLine(childNode.prev)) {
-            return [hardline, hardline, await printChild(childPath, options, print)];
+            return [
+              hardline,
+              hardline,
+              await printChild(childPath, options, print),
+            ];
           }
           return [prevBetweenLine, await printChild(childPath, options, print)];
         }

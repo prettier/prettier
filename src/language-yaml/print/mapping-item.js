@@ -62,9 +62,10 @@ async function printMappingItem(node, parentNode, path, print, options) {
       hardline,
       join(
         "",
-        (await path
-          .map(print, "value", "leadingComments"))
-          .map((comment) => [comment, hardline])
+        (await path.map(print, "value", "leadingComments")).map((comment) => [
+          comment,
+          hardline,
+        ])
       ),
       ": ",
       alignWithSpaces(2, printedValue),

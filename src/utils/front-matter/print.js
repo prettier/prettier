@@ -4,7 +4,11 @@ async function print(node, textToDoc) {
   if (node.lang === "yaml") {
     const value = node.value.trim();
     const doc = value
-      ? await textToDoc(value, { parser: "yaml" }, { stripTrailingHardline: true })
+      ? await textToDoc(
+          value,
+          { parser: "yaml" },
+          { stripTrailingHardline: true }
+        )
       : "";
     return markAsRoot([
       node.startDelimiter,
