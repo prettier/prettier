@@ -415,7 +415,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   return false;
 }
 
-/** @returns {Doc} */
+/** @returns {Promise<Doc>} */
 async function printReturnType(path, print, options) {
   const node = path.getValue();
   const returnType = await print("returnType");

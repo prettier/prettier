@@ -185,7 +185,7 @@ function shouldExtraIndentForConditionalExpression(path) {
  * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
- * @returns {Doc}
+ * @returns {Promise<Doc>}
  */
 async function printTernary(path, options, print) {
   const node = path.getValue();
