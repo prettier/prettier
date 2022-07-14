@@ -151,12 +151,16 @@ class AstPath {
   // Similar to AstPath.prototype.each, except that the results of the
   // callback function invocations are stored in an array and returned at
   // the end of the iteration.
-  async map(callback, ...names) {
-    const result = [];
-    await this.each(async (path, index, value) => {
-      result[index] = await callback(path, index, value);
+  map(callback, ...names) {
+    const array = [];
+    const maybePromise = this.each((path, index, value) => {
+      const result = callback(path, index, value);
+      array[index] = result;
+      return result;
     }, ...names);
-    return result;
+    return isThenable(maybePromise)
+      ? maybePromise.then(() => Promise.all(array))
+      : array;
   }
 
   /**
