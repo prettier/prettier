@@ -78,12 +78,8 @@ jobs:
         exclude:
           - os: "macos-latest"
             node: "16"
-          - os: "macos-latest"
-            node: "14"
           - os: "windows-latest"
             node: "16"
-          - os: "windows-latest"
-            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
