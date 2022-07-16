@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Node.js version `>= 14.18`.
+- Node.js version `>= 16.16`.
 
 ## Usage
 
