@@ -71,7 +71,6 @@ jobs:
           - "18"
           - "16"
           - "14"
-          - "12"
         include:
           - os: "ubuntu-latest"
             node: "18"
@@ -79,12 +78,8 @@ jobs:
         exclude:
           - os: "macos-latest"
             node: "16"
-          - os: "macos-latest"
-            node: "14"
           - os: "windows-latest"
             node: "16"
-          - os: "windows-latest"
-            node: "14"
     env:
       FULL_TEST: ${{ matrix.FULL_TEST }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
@@ -155,4 +150,4 @@ jobs:
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 12.17.0 of Node, please upgrade" || exit 1
+        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 14 of Node, please upgrade" || exit 1
