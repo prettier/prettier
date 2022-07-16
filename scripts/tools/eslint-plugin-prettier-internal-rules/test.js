@@ -534,3 +534,25 @@ test("no-unnecessary-ast-path-call", {
     },
   ],
 });
+
+test("prefer-fs-promises", {
+  valid: [
+    "import fs from 'node:fs';",
+    "import fs from 'node:fs/promises';",
+    "import fs, { promises as fsPromises } from 'node:fs';",
+    "import { promises as fs, statSync } from 'node:fs';",
+  ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
+  invalid: [
+    {
+      code: "import { promises as fsPromises } from 'node:fs';",
+      errors: 1,
+    },
+    {
+      code: "import { promises as fs } from 'node:fs';",
+      errors: 1,
+    },
+  ].map((testCase) => ({
+    ...testCase,
+    parserOptions: { sourceType: "module" },
+  })),
+});
