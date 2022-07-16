@@ -286,6 +286,7 @@ module.exports = {
         "prettier-internal-rules/prefer-ast-path-each": "error",
         "prettier-internal-rules/prefer-indent-if-break": "error",
         "prettier-internal-rules/prefer-is-non-empty-array": "error",
+        "prettier-internal-rules/prefer-fs-promises": "error",
       },
     },
     {

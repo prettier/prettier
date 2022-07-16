@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import { promises as fsPromises } from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
@@ -130,7 +130,7 @@ async function isDirectory(dir) {
   let stat;
 
   try {
-    stat = await fsPromises.stat(dir);
+    stat = await fs.stat(dir);
   } catch {
     return false;
   }
