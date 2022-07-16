@@ -885,7 +885,7 @@ function isSimpleCallArgument(node, depth) {
 
   if (
     node.type === "UnaryExpression" &&
-    (node.operator === "!" || node.operator === "-")
+    (node.operator === "!" || node.operator === "-" || node.operator === "+")
   ) {
     return isSimpleCallArgument(node.argument, depth);
   }
