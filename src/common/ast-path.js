@@ -155,15 +155,15 @@ class AstPath {
   // callback function invocations are stored in an array and returned at
   // the end of the iteration.
   map(callback, ...names) {
-    const array = [];
+    const results = [];
     const maybePromise = this.each((path, index, value) => {
       const result = callback(path, index, value);
-      array[index] = result;
+      results[index] = result;
       return result;
     }, ...names);
     return isThenable(maybePromise)
-      ? maybePromise.then(() => Promise.all(array))
-      : array;
+      ? maybePromise.then(() => Promise.all(results))
+      : results;
   }
 
   /**
