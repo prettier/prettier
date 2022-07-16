@@ -407,6 +407,18 @@ describe("--cache option", () => {
       );
     });
 
+    it("throws error for invalid JSON file", async () => {
+      const { stderr } = await runPrettier(dir, [
+        "--cache",
+        "--cache-location",
+        "a.js",
+        ".",
+      ]);
+      expect(stripAnsi(stderr).trim()).toEqual(
+        expect.stringMatching(/\[error] '.+' isn't a valid JSON file/)
+      );
+    });
+
     describe("file", () => {
       it("creates the cache file at location specified by `--cache-location`", async () => {
         await expect(fs.stat(nonDefaultCacheFilePath)).rejects.toHaveProperty(
