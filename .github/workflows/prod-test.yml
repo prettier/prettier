@@ -71,7 +71,6 @@ jobs:
           - "18"
           - "16"
           - "14"
-          - "12"
         include:
           - os: "ubuntu-latest"
             node: "18"
@@ -155,4 +154,4 @@ jobs:
         run: node -v | grep "v0.10.48" || exit 1
 
       - name: Run CLI on Node.js v0.10.48
-        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 12.17.0 of Node, please upgrade" || exit 1
+        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 14.20.0 of Node, please upgrade" || exit 1
