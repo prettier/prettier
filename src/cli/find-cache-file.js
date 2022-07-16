@@ -17,9 +17,7 @@ function findDefaultCacheFile() {
 }
 
 async function findCacheFileFromOption(cacheLocation) {
-  const cwd = process.cwd();
-  const normalized = path.normalize(cacheLocation);
-  const cacheFile = path.join(cwd, normalized);
+  const cacheFile = path.resolve(cacheLocation);
 
   const stat = await statSafe(cacheFile);
   if (stat) {
