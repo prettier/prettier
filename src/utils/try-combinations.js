@@ -1,8 +1,8 @@
-function tryCombinations(...combinations) {
+async function tryCombinations(...combinations) {
   let firstError;
   for (const [index, fn] of combinations.entries()) {
     try {
-      return { result: fn() };
+      return { result: await fn() };
     } catch (error) {
       if (index === 0) {
         firstError = error;

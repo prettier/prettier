@@ -1,21 +1,24 @@
-import { createRequire } from "node:module";
 import { locStart, locEnd } from "../loc.js";
 
-const require = createRequire(import.meta.url);
-
+let ngEstreeParser;
 function createParser(_parse) {
-  const parse = (text, parsers, options) => {
-    const ngEstreeParser = require("angular-estree-parser");
-    const node = _parse(text, ngEstreeParser);
-    return {
-      type: "NGRoot",
-      node:
-        options.parser === "__ng_action" && node.type !== "NGChainedExpression"
-          ? { ...node, type: "NGChainedExpression", expressions: [node] }
-          : node,
-    };
+  return {
+    astFormat: "estree",
+    async parse(text, parsers, options) {
+      ngEstreeParser ??= await import("angular-estree-parser");
+      const node = _parse(text, ngEstreeParser);
+      return {
+        type: "NGRoot",
+        node:
+          options.parser === "__ng_action" &&
+          node.type !== "NGChainedExpression"
+            ? { ...node, type: "NGChainedExpression", expressions: [node] }
+            : node,
+      };
+    },
+    locStart,
+    locEnd,
   };
-  return { astFormat: "estree", parse, locStart, locEnd };
 }
 
 const parser = {

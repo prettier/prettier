@@ -42,8 +42,11 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(text, module) {
-  const { parse: meriyahParse } = require("meriyah");
+let meriyahParse;
+async function parseWithOptions(text, module) {
+  if (!meriyahParse) {
+    ({ parse: meriyahParse } = await import("meriyah"));
+  }
   const comments = [];
   const tokens = [];
 
@@ -85,8 +88,8 @@ function createParseError(error) {
   return createError(message, { start: { line, column } });
 }
 
-function parse(text, parsers, options = {}) {
-  const { result: ast, error: moduleParseError } = tryCombinations(
+async function parse(text, parsers, options = {}) {
+  const { result: ast, error: moduleParseError } = await tryCombinations(
     () => parseWithOptions(text, /* module */ true),
     () => parseWithOptions(text, /* module */ false)
   );

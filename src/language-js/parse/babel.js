@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
@@ -6,8 +5,6 @@ import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
 import jsonParsers from "./json.js";
-
-const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
@@ -86,10 +83,12 @@ function isFlowFile(text, options) {
   return FLOW_PRAGMA_REGEX.test(text);
 }
 
-function parseWithOptions(parseMethod, text, options) {
+let babelParser;
+async function parseWithOptions(parseMethod, text, options) {
   // Inline the require to avoid loading all the JS if we don't use it
   /** @type {Parse} */
-  const parse = require("@babel/parser")[parseMethod];
+  babelParser ??= await import("@babel/parser");
+  const parse = babelParser[parseMethod];
   const ast = parse(text, options);
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)
@@ -101,7 +100,7 @@ function parseWithOptions(parseMethod, text, options) {
 }
 
 function createParse(parseMethod, ...optionsCombinations) {
-  return (text, parsers, opts = {}) => {
+  return async (text, parsers, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
@@ -140,7 +139,7 @@ function createParse(parseMethod, ...optionsCombinations) {
       );
     }
 
-    const { result: ast, error } = tryCombinations(
+    const { result: ast, error } = await tryCombinations(
       ...combinations.map(
         (options) => () => parseWithOptions(parseMethod, text, options)
       )

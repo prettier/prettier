@@ -33,12 +33,14 @@ function createParseError(error) {
   });
 }
 
-function parse(text, parsers, options = {}) {
+let typescriptEstree;
+async function parse(text, parsers, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
-  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
-  const { result, error: firstError } = tryCombinations(
+  typescriptEstree ??= await import("@typescript-eslint/typescript-estree");
+  const { parseWithNodeMaps } = typescriptEstree;
+  const { result, error: firstError } = await tryCombinations(
     // Try passing with our best guess first.
     () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
     // But if we get it wrong, try the opposite.
