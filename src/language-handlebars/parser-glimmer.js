@@ -1,9 +1,6 @@
-import { createRequire } from "node:module";
 import { LinesAndColumns } from "lines-and-columns";
 import createError from "../common/parser-create-error.js";
 import { locStart, locEnd } from "./loc.js";
-
-const require = createRequire(import.meta.url);
 
 /* from the following template: `non-escaped mustache \\{{helper}}`
  * glimmer parser will produce an AST missing a backslash
@@ -50,8 +47,12 @@ function addOffset(text) {
   });
 }
 
-function parse(text) {
-  const { preprocess: glimmer } = require("@glimmer/syntax");
+let glimmer;
+async function parse(text) {
+  if (!glimmer) {
+    ({ preprocess: glimmer } = await import("@glimmer/syntax"));
+  }
+
   let ast;
   try {
     ast = glimmer(text, {
