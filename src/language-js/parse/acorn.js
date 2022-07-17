@@ -38,6 +38,7 @@ function createParseError(error) {
 let parser;
 const getParser = () => {
   if (!parser) {
+    // We can't use `import()` here, https://github.com/acornjs/acorn-jsx/issues/133
     const { Parser: AcornParser } = require("acorn");
     const acornJsx = require("acorn-jsx");
     parser = AcornParser.extend(acornJsx());
