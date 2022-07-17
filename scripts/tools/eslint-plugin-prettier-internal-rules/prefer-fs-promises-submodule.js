@@ -9,13 +9,13 @@ const selector = [
   '[imported.name="promises"]',
 ].join("");
 
-const messageId = "prefer-fs-promises";
+const messageId = "prefer-fs-promises-submodule";
 
 module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-fs-promises.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-fs-promises-submodule.js",
     },
     messages: {
       [messageId]:

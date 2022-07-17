@@ -535,7 +535,7 @@ test("no-unnecessary-ast-path-call", {
   ],
 });
 
-test("prefer-fs-promises", {
+test("prefer-fs-promises-submodule", {
   valid: [
     "import fs from 'node:fs';",
     "import fs from 'node:fs/promises';",
