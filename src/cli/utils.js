@@ -1,4 +1,4 @@
-import { promises as fs } from "node:fs";
+import fs from "node:fs/promises";
 import sdbm from "sdbm";
 import { __internal as sharedWithCli } from "../index.js";
 
