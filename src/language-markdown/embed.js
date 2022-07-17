@@ -7,7 +7,7 @@ import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
-function embed(path, print, textToDoc, options) {
+async function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
@@ -21,7 +21,7 @@ function embed(path, print, textToDoc, options) {
       if (node.lang === "tsx") {
         newOptions.filepath = "dummy.tsx";
       }
-      const doc = textToDoc(
+      const doc = await textToDoc(
         getFencedCodeBlockValue(node, options.originalText),
         newOptions,
         { stripTrailingHardline: true }
@@ -45,7 +45,7 @@ function embed(path, print, textToDoc, options) {
     // MDX
     case "importExport":
       return [
-        textToDoc(
+        await textToDoc(
           node.value,
           { parser: "babel" },
           { stripTrailingHardline: true }

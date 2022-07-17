@@ -28,7 +28,7 @@ import {
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
 
-function genericPrint(path, options, print) {
+async function genericPrint(path, options, print) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -39,7 +39,7 @@ function genericPrint(path, options, print) {
         options.__onHtmlRoot(node);
       }
       // use original concat to not break stripTrailingHardline
-      return [group(printChildren(path, options, print)), hardline];
+      return [group(await printChildren(path, options, print)), hardline];
     case "element":
     case "ieConditionalComment": {
       return printElement(path, options, print);
@@ -50,7 +50,7 @@ function genericPrint(path, options, print) {
     case "interpolation":
       return [
         printOpeningTagStart(node, options),
-        ...path.map(print, "children"),
+        ...(await path.map(print, "children")),
         printClosingTagEnd(node, options),
       ];
     case "text": {

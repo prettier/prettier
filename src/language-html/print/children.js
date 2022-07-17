@@ -110,14 +110,14 @@ function printBetweenLine(prevNode, nextNode) {
     : softline;
 }
 
-function printChildren(path, options, print) {
+async function printChildren(path, options, print) {
   const node = path.getValue();
 
   if (forceBreakChildren(node)) {
     return [
       breakParent,
 
-      ...path.map((childPath) => {
+      ...(await path.map(async (childPath) => {
         const childNode = childPath.getValue();
         const prevBetweenLine = !childNode.prev
           ? ""
@@ -129,14 +129,14 @@ function printChildren(path, options, print) {
                 prevBetweenLine,
                 forceNextEmptyLine(childNode.prev) ? hardline : "",
               ],
-          printChild(childPath, options, print),
+          await printChild(childPath, options, print),
         ];
-      }, "children"),
+      }, "children")),
     ];
   }
 
   const groupIds = node.children.map(() => Symbol(""));
-  return path.map((childPath, childIndex) => {
+  return path.map(async (childPath, childIndex) => {
     const childNode = childPath.getValue();
 
     if (isTextLikeNode(childNode)) {
@@ -144,9 +144,13 @@ function printChildren(path, options, print) {
         const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
         if (prevBetweenLine) {
           if (forceNextEmptyLine(childNode.prev)) {
-            return [hardline, hardline, printChild(childPath, options, print)];
+            return [
+              hardline,
+              hardline,
+              await printChild(childPath, options, print),
+            ];
           }
-          return [prevBetweenLine, printChild(childPath, options, print)];
+          return [prevBetweenLine, await printChild(childPath, options, print)];
         }
       }
       return printChild(childPath, options, print);
@@ -201,7 +205,7 @@ function printChildren(path, options, print) {
       ...prevParts,
       group([
         ...leadingParts,
-        group([printChild(childPath, options, print), ...trailingParts], {
+        group([await printChild(childPath, options, print), ...trailingParts], {
           id: groupIds[childIndex],
         }),
       ]),

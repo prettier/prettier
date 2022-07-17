@@ -16,13 +16,13 @@ import { shouldPrintParamsWithoutParens } from "./function.js";
  * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
-function printStatementSequence(path, options, print, property) {
+async function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
   const parts = [];
   const isClassBody = node.type === "ClassBody";
   const lastStatement = getLastStatement(node[property]);
 
-  path.each((path, index, statements) => {
+  await path.each(async (path, index, statements) => {
     const node = path.getValue();
 
     // Skip printing EmptyStatement nodes to avoid leaving stray
@@ -31,7 +31,7 @@ function printStatementSequence(path, options, print, property) {
       return;
     }
 
-    const printed = print();
+    const printed = await print();
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     // don't prepend the only JSX element in a program with semicolon
@@ -42,7 +42,7 @@ function printStatementSequence(path, options, print, property) {
       statementNeedsASIProtection(path, options)
     ) {
       if (hasComment(node, CommentCheckFlags.Leading)) {
-        parts.push(print([], { needsSemi: true }));
+        parts.push(await print([], { needsSemi: true }));
       } else {
         parts.push(";", printed);
       }

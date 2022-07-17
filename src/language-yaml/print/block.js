@@ -20,7 +20,7 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-function printBlock(path, print, options) {
+async function printBlock(path, print, options) {
   const node = path.getValue();
   const parentIndent = getAncestorCount(path, (ancestorNode) =>
     isNode(ancestorNode, ["sequence", "mapping"])
@@ -37,7 +37,7 @@ function printBlock(path, print, options) {
   }
 
   if (hasIndicatorComment(node)) {
-    parts.push(" ", print("indicatorComment"));
+    parts.push(" ", await print("indicatorComment"));
   }
 
   const lineContents = getBlockValueLineContents(node, {
