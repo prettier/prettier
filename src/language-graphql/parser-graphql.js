@@ -1,9 +1,6 @@
-import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
-
-const require = createRequire(import.meta.url);
 
 function parseComments(ast) {
   const comments = [];
@@ -41,8 +38,11 @@ const parseOptions = {
   allowLegacyFragmentVariables: true,
 };
 
-function createParseError(error) {
-  const { GraphQLError } = require("graphql/error/GraphQLError");
+let GraphQLError;
+async function createParseError(error) {
+  if (!GraphQLError) {
+    ({ GraphQLError } = await import("graphql/error/GraphQLError"));
+  }
 
   if (error instanceof GraphQLError) {
     const {
@@ -56,16 +56,19 @@ function createParseError(error) {
   return error;
 }
 
-function parse(text /*, parsers, opts*/) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("graphql/language/parser");
+let graphqlParse;
+async function parse(text /*, parsers, opts*/) {
+  if (!graphqlParse) {
+    // Inline the require to avoid loading all the JS if we don't use it
+    ({ parse: graphqlParse } = await import("graphql/language/parser"));
+  }
 
   /** @type {any} */
   let ast;
   try {
-    ast = parse(text, parseOptions);
+    ast = graphqlParse(text, parseOptions);
   } catch (error) {
-    throw createParseError(error);
+    throw await createParseError(error);
   }
 
   ast.comments = parseComments(ast);
