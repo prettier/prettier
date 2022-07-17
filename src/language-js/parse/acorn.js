@@ -66,7 +66,7 @@ function parseWithOptions(text, sourceType) {
 }
 
 function parse(text, parsers, options = {}) {
-  const { result: ast, error: moduleParseError } = tryCombinations(
+  const { result: ast, error: moduleParseError } = tryCombinations.sync(
     () => parseWithOptions(text, /* sourceType */ "module"),
     () => parseWithOptions(text, /* sourceType */ "script")
   );
