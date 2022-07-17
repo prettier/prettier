@@ -33,14 +33,11 @@ function createParseError(error) {
   return createError(message, { start: { line: lineNumber, column } });
 }
 
-let espreeParse;
-async function parse(originalText, parsers, options = {}) {
-  if (!espreeParse) {
-    ({ parse: espreeParse } = await import("espree"));
-  }
+function parse(originalText, parsers, options = {}) {
+  const { parse: espreeParse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);
-  const { result: ast, error: moduleParseError } = await tryCombinations(
+  const { result: ast, error: moduleParseError } = tryCombinations(
     () => espreeParse(textToParse, { ...parseOptions, sourceType: "module" }),
     () => espreeParse(textToParse, { ...parseOptions, sourceType: "script" })
   );

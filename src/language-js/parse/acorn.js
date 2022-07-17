@@ -1,7 +1,10 @@
+import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+
+const require = createRequire(import.meta.url);
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
@@ -32,20 +35,24 @@ function createParseError(error) {
   });
 }
 
-let acornParse;
-async function parseWithOptions(text, sourceType) {
-  if (!acornParse) {
-    const { Parser: AcornParser } = await import("acorn");
-    const { default: acornJsx } = await import("acorn-jsx");
-    const acornParser = AcornParser.extend(acornJsx());
-    acornParse = acornParse.parse.bind(acornParser);
+let parser;
+const getParser = () => {
+  if (!parser) {
+    const { Parser: AcornParser } = require("acorn");
+    const acornJsx = require("acorn-jsx");
+    parser = AcornParser.extend(acornJsx());
   }
+  return parser;
+};
+
+function parseWithOptions(text, sourceType) {
+  const parser = getParser();
 
   const comments = [];
   const tokens = [];
 
   /** @type {any} */
-  const ast = acornParse(text, {
+  const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
     onComment: comments,
@@ -57,8 +64,8 @@ async function parseWithOptions(text, sourceType) {
   return ast;
 }
 
-async function parse(text, parsers, options = {}) {
-  const { result: ast, error: moduleParseError } = await tryCombinations(
+function parse(text, parsers, options = {}) {
+  const { result: ast, error: moduleParseError } = tryCombinations(
     () => parseWithOptions(text, /* sourceType */ "module"),
     () => parseWithOptions(text, /* sourceType */ "script")
   );
