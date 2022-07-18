@@ -40,7 +40,7 @@ function createParse({ isMDX }) {
       .use(isMDX ? htmlToJsx : identity)
       .use(wikiLink)
       .use(looseItems);
-    return processor.parse(text);
+    return processor.run(processor.parse(text));
   };
 }
 
