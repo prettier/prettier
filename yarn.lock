@@ -5090,9 +5090,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.2.2":
-  version: 0.2.2
-  resolution: "jest-light-runner@npm:0.2.2"
+"jest-light-runner@fisker/jest-light-runner#fix-addSnapshotSerializer":
+  version: 0.2.1
+  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=52d608b7f2013e20b7a33fbf5249baccfc4e0ceb"
   dependencies:
     "@jest/expect": ^28.0.2
     jest-circus: ^28.0.0
@@ -5103,7 +5103,7 @@ __metadata:
     supports-color: ^9.2.1
   peerDependencies:
     jest: ^27.0.0 || ^28.0.0
-  checksum: cf837fc1fbd1bb370dcf93f346d500118ba53b968594a36752cd67c1e57c0262334897919ccd188943b13b4262e5194502de5eca20c79c76f33c4ccabb01dd00
+  checksum: 4fd33cd80f0807a566d8ab6bc6b682ffe9cf386fd0ae0650dd1b3bd424f6797ff98759806c9aec4f890f8f073b0705171134b0d9e34497f8c253820003239e11
   languageName: node
   linkType: hard
 
@@ -6880,7 +6880,7 @@ __metadata:
     ignore: 5.2.0
     jest: 28.1.0
     jest-docblock: 28.1.1
-    jest-light-runner: 0.2.2
+    jest-light-runner: "fisker/jest-light-runner#fix-addSnapshotSerializer"
     jest-snapshot-serializer-ansi: 1.0.0
     jest-snapshot-serializer-raw: 1.2.0
     jest-watch-typeahead: 1.1.0
