@@ -71,4 +71,29 @@ describe("infers parser from filename", () => {
       ` + "\n"
     );
   });
+
+  test("json from .lintstagedrc", async () => {
+    expect(
+      await prettier.format("  {  '*':   'your-cmd'  }  ", {
+        filepath: "/path/to/.lintstagedrc",
+      })
+    ).toBe('{ "*": "your-cmd" }\n');
+  });
+
+  test("yaml from .lintstagedrc", async () => {
+    expect(
+      await prettier.format(
+        /* indent */ `
+          '*':
+                 - your-cmd
+        `,
+        { filepath: "/path/to/.lintstagedrc" }
+      )
+    ).toBe(
+      outdent`
+        "*":
+          - your-cmd
+      ` + "\n"
+    );
+  });
 });

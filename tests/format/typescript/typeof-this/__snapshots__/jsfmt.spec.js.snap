@@ -1,40 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-parser.txt format 1`] = `
+exports[`decorators.ts format 1`] = `
 ====================================options=====================================
-parsers: ["async-parser"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-A text will format as "Formatted by async-parser plugin".
+// https://github.com/typescript-eslint/typescript-eslint/pull/4382
+function decorator() {}
+@decorator
+class Foo {
+  bar(baz: typeof this) {}
+}
 
 =====================================output=====================================
-Formatted by async-parser plugin
+// https://github.com/typescript-eslint/typescript-eslint/pull/4382
+function decorator() {}
+@decorator
+class Foo {
+  bar(baz: typeof this) {}
+}
+
 ================================================================================
 `;
 
-exports[`with-aync-parser-code-block.md format 1`] = `
+exports[`typeof-this.ts format 1`] = `
 ====================================options=====================================
-parsers: ["markdown"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-\`\`\`async-parser
-Since we don't allow async parser in embed format, so this will not be changed.
-\`\`\`
-
-\`\`\`uppercase-rocks
-This text should be uppercased.
-\`\`\`
+// https://github.com/typescript-eslint/typescript-eslint/pull/4382
+let self: typeof this;
+let foo: typeof this.foo;
 
 =====================================output=====================================
-\`\`\`async-parser
-Since we don't allow async parser in embed format, so this will not be changed.
-\`\`\`
-
-\`\`\`uppercase-rocks
-THIS TEXT SHOULD BE UPPERCASED.
-\`\`\`
+// https://github.com/typescript-eslint/typescript-eslint/pull/4382
+let self: typeof this;
+let foo: typeof this.foo;
 
 ================================================================================
 `;

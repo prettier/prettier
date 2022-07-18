@@ -1,17 +1,18 @@
 import { hardline, indent, join } from "../document/builders.js";
 import preprocess from "./print-preprocess.js";
 
-function genericPrint(path, options, print) {
+async function genericPrint(path, options, print) {
   const node = path.getValue();
+
   switch (node.type) {
     case "JsonRoot":
-      return [print("node"), hardline];
+      return [await print("node"), hardline];
     case "ArrayExpression": {
       if (node.elements.length === 0) {
         return "[]";
       }
 
-      const printed = path.map(
+      const printed = await path.map(
         () => (path.getValue() === null ? "null" : print()),
         "elements"
       );
@@ -30,15 +31,18 @@ function genericPrint(path, options, print) {
             "{",
             indent([
               hardline,
-              join([",", hardline], path.map(print, "properties")),
+              join([",", hardline], await path.map(print, "properties")),
             ]),
             hardline,
             "}",
           ];
     case "ObjectProperty":
-      return [print("key"), ": ", print("value")];
+      return [await print("key"), ": ", await print("value")];
     case "UnaryExpression":
-      return [node.operator === "+" ? "" : node.operator, print("argument")];
+      return [
+        node.operator === "+" ? "" : node.operator,
+        await print("argument"),
+      ];
     case "NullLiteral":
       return "null";
     case "BooleanLiteral":

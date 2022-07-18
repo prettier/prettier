@@ -1,16 +1,23 @@
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import createEsmUtils from "esm-utils";
 import { thirdParty } from "../env.js";
 import jestPathSerializer from "../path-serializer.js";
 
-const { require, __dirname } = createEsmUtils(import.meta);
-const { cosmiconfig, isCI } = require(thirdParty);
+const { __dirname } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
 // Because we are testing with default `cosmiconfigOptions`
 describe("cosmiconfig", () => {
+  let cosmiconfig;
+  beforeAll(async () => {
+    ({
+      default: { cosmiconfig },
+    } = await import(pathToFileURL(thirdParty)));
+  });
+
   const configs = [
     {
       title: "prettier.config.cjs",
@@ -59,6 +66,9 @@ describe("cosmiconfig", () => {
   });
 });
 
-test("isCI", () => {
+test("isCI", async () => {
+  const {
+    default: { isCI },
+  } = await import(pathToFileURL(thirdParty));
   expect(typeof isCI()).toBe("boolean");
 });

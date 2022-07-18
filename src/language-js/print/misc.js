@@ -43,7 +43,7 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printTypeAnnotation(path, options, print) {
+async function printTypeAnnotation(path, options, print) {
   const node = path.getValue();
   if (!node.typeAnnotation) {
     return "";
@@ -55,22 +55,25 @@ function printTypeAnnotation(path, options, print) {
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
   if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return [" /*: ", print("typeAnnotation"), " */"];
+    return [" /*: ", await print("typeAnnotation"), " */"];
   }
 
-  return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
+  return [
+    isFunctionDeclarationIdentifier ? "" : ": ",
+    await print("typeAnnotation"),
+  ];
 }
 
-function printBindExpressionCallee(path, options, print) {
-  return ["::", print("callee")];
+async function printBindExpressionCallee(path, options, print) {
+  return ["::", await print("callee")];
 }
 
-function printTypeScriptModifiers(path, options, print) {
+async function printTypeScriptModifiers(path, options, print) {
   const node = path.getValue();
   if (!isNonEmptyArray(node.modifiers)) {
     return "";
   }
-  return [join(" ", path.map(print, "modifiers")), " "];
+  return [join(" ", await path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -85,8 +88,12 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, options, print) {
-  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+async function printRestSpread(path, options, print) {
+  return [
+    "...",
+    await print("argument"),
+    await printTypeAnnotation(path, options, print),
+  ];
 }
 
 export {

@@ -1,12 +1,12 @@
 import { createRequire } from "node:module";
-import { promises as fsPromises } from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
 import uniqByKey from "../utils/uniq-by-key.js";
-import thirdParty from "./third-party.cjs";
+import thirdParty from "./third-party.js";
 import resolve from "./resolve.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -130,7 +130,7 @@ async function isDirectory(dir) {
   let stat;
 
   try {
-    stat = await fsPromises.stat(dir);
+    stat = await fs.stat(dir);
   } catch {
     return false;
   }

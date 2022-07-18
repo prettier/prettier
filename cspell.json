@@ -176,6 +176,8 @@
         "linearize",
         "linebreak",
         "linebreaks",
+        "lintstaged",
+        "lintstagedrc",
         "literalline",
         "loglevel",
         "lowercased",
