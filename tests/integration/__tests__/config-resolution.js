@@ -274,6 +274,28 @@ test(".cjs config file", async () => {
   }
 });
 
+test(".mjs config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-mjs");
+
+  const config = {
+    trailingComma: "all",
+    singleQuote: true,
+  };
+
+  for (const directoryName of [
+    "prettierrc-mjs-in-type-module",
+    "prettierrc-mjs-in-type-commonjs",
+    "prettierrc-mjs-in-type-none",
+    "prettier-config-mjs-in-type-commonjs",
+    "prettier-config-mjs-in-type-none",
+    "prettier-config-mjs-in-type-module",
+  ]) {
+    const file = path.join(parentDirectory, directoryName, "foo.js");
+
+    await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+  }
+});
+
 test(".json5 config file", async () => {
   const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
   const config = {
