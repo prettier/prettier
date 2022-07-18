@@ -1,7 +1,7 @@
 import { pathToFileURL } from "node:url";
 import path from "node:path";
 
-function getPrettierInternal() {
+async function getPrettierInternal() {
   if (process.env.TEST_STANDALONE) {
     const entry = new URL("./require-standalone.cjs", import.meta.url);
     return import(entry).then((module) => module.default);

@@ -17,7 +17,7 @@ module.exports = {
   printers: {
     "foo-ast": {
       async print(path) {
-        const prettier = await import("../../../config/prettier-entry.js");
+        const {default: prettier}= await import("../../../config/prettier-entry.js");
         const { lineSuffix } = prettier.doc.builders;
         return lineSuffix(path.getValue().text.trim());
       },
