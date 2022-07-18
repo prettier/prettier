@@ -1,9 +1,12 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
+import resolve from "../common/resolve.js";
 import thirdParty from "../common/third-party.js";
 
+const require = createRequire(import.meta.url);
 const { cosmiconfig } = thirdParty;
 
 const searchPlaces = [
@@ -35,8 +38,22 @@ async function importModuleDefault(url, ignoreNotFoundError = false) {
   }
 }
 
-async function loadStringConfig(config, filepath) {
+async function loadExternalConfig(config, filepath) {
   const directory = path.dirname(filepath);
+
+  /*
+  Try `require()` first, this is how it works in Prettier v2.
+  Kept this because the external config path or package may can't load with `import()`:
+  1. is JSON file or package
+  2. is CommonJS file without extension
+  3. is a dirname with index.js inside
+  */
+  try {
+    const modulePath = resolve(config, { paths: [directory] });
+    return require(modulePath);
+  } catch {
+    // No op
+  }
 
   const result = await importModuleDefault(
     new URL(config, pathToFileURL(directory + "/")),
@@ -66,7 +83,7 @@ async function transform(result) {
   const { config, filepath } = result;
 
   if (typeof config === "string") {
-    result.config = await loadStringConfig(config, filepath);
+    result.config = await loadExternalConfig(config, filepath);
   }
 
   if (typeof config !== "object") {
