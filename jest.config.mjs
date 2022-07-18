@@ -40,7 +40,10 @@ if (SKIP_TESTS_WITH_NEW_SYNTAX) {
 }
 
 const config = {
-  setupFiles: ["<rootDir>/tests/config/format-test-setup.js", "<rootDir>/tests/integration/integration-test-setup.js"],
+  setupFiles: [
+    "<rootDir>/tests/config/format-test-setup.js",
+    "<rootDir>/tests/integration/integration-test-setup.js",
+  ],
   runner: "jest-light-runner",
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
