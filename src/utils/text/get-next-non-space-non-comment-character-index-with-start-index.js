@@ -1,9 +1,6 @@
 "use strict";
 
-const skipInlineComment = require("./skip-inline-comment.js");
-const skipNewline = require("./skip-newline.js");
-const skipTrailingComment = require("./skip-trailing-comment.js");
-const { skipSpaces } = require("./skip.js");
+const getClosestNonSpaceNonCommentCharacterIndexWithStartIndex = require("./get-closest-non-space-non-comment-character-index-with-start-index.js");
 
 /**
  * @param {string} text
@@ -11,18 +8,7 @@ const { skipSpaces } = require("./skip.js");
  * @returns {number | false}
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
-  let nextIdx = idx;
-  while (nextIdx !== oldIdx) {
-    oldIdx = nextIdx;
-    nextIdx = skipSpaces(text, nextIdx);
-    nextIdx = skipInlineComment(text, nextIdx);
-    nextIdx = skipTrailingComment(text, nextIdx);
-    nextIdx = skipNewline(text, nextIdx);
-  }
-  return nextIdx;
+  return getClosestNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx, { backwards: false });
 }
 
 module.exports = getNextNonSpaceNonCommentCharacterIndexWithStartIndex;

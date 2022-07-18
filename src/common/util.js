@@ -17,6 +17,7 @@ const skipInlineComment = require("../utils/text/skip-inline-comment.js");
 const skipTrailingComment = require("../utils/text/skip-trailing-comment.js");
 const skipNewline = require("../utils/text/skip-newline.js");
 const getNextNonSpaceNonCommentCharacterIndexWithStartIndex = require("../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js");
+const getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex = require("../utils/text/get-previous-non-space-non-comment-character-index-with-start-index.js");
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -167,6 +168,34 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
     // @ts-expect-error => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
+  );
+}
+
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {number | false}
+ */
+function getPreviousNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+  return getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    locEnd(node)
+  );
+}
+
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {string}
+ */
+function getPreviousNonSpaceNonCommentCharacter(text, node, locEnd) {
+  return text.charAt(
+    // @ts-expect-error => TBD: can return false, should we define a fallback?
+    getPreviousNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
 
@@ -491,6 +520,9 @@ module.exports = {
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
+  getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getPreviousNonSpaceNonCommentCharacterIndex,
+  getPreviousNonSpaceNonCommentCharacter,
   skip,
   skipWhitespace,
   skipSpaces,

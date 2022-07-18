@@ -5,6 +5,8 @@ const {
   hasNewline,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacter,
+  getPreviousNonSpaceNonCommentCharacterIndex,
+  getPreviousNonSpaceNonCommentCharacter,
   hasNewlineInRange,
   addLeadingComment,
   addTrailingComment,
@@ -176,7 +178,42 @@ function handleIfStatementComments({
   followingNode,
   text,
 }) {
-  if (enclosingNode?.type !== "IfStatement" || !followingNode) {
+  if (enclosingNode?.type !== "IfStatement") {
+    return false;
+  }
+
+  if (!followingNode) {
+    // We unfortunately have no way using the AST or location of nodes to know
+    // if the comment is positioned after the condition parenthesis:
+    //   if (a) /* comment */;
+    // The only workaround I found is to look at the previous character to see
+    // if it is a ).
+    const previousCharacter = getPreviousNonSpaceNonCommentCharacter(
+      text,
+      comment,
+      (node, opts) => locStart(node, opts) - 1
+    );
+    if (previousCharacter === ")") {
+      addDanglingComment(enclosingNode?.consequent, comment);
+      return true;
+    }
+
+    // We unfortunately have no way using the AST or location of nodes to know
+    // if the comment is positioned after the else statement:
+    //   if (a);
+    //   else /* comment */;
+    // The only workaround I found is to look at the previous four characters
+    // to see if they are "else".
+    const index = getPreviousNonSpaceNonCommentCharacterIndex(
+      text,
+      comment,
+      (node, opts) => locStart(node, opts) - 1
+    );
+    if (index !== false && text.slice(index - 3, index + 1) === "else") {
+      addDanglingComment(enclosingNode?.alternate, comment);
+      return true;
+    }
+
     return false;
   }
 

@@ -210,8 +210,14 @@ function printPathNoParens(path, options, print, args) {
     case "Program":
       return printBlockBody(path, options, print);
     // Babel extension.
-    case "EmptyStatement":
-      return "";
+    case "EmptyStatement": {
+      const danglingComment = printDanglingComments(
+        path,
+        options,
+        true
+      );
+      return danglingComment ? [danglingComment, ";"] : ";";
+    }
     case "ExpressionStatement": {
       // Detect Flow and TypeScript directives
       if (node.directive) {
