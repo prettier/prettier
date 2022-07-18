@@ -1,11 +1,9 @@
-import { createRequire } from "node:module";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
-import resolve from "../common/resolve.js";
 import thirdParty from "../common/third-party.js";
 
-const require = createRequire(import.meta.url);
 const { cosmiconfig } = thirdParty;
 
 const searchPlaces = [
@@ -16,26 +14,60 @@ const searchPlaces = [
   ".prettierrc.yml",
   ".prettierrc.json5",
   ".prettierrc.js",
+  ".prettierrc.mjs",
   ".prettierrc.cjs",
   "prettier.config.js",
+  "prettier.config.mjs",
   "prettier.config.cjs",
   ".prettierrc.toml",
 ];
 
-const loaders = { ".toml": loadToml, ".json5": loadJson5 };
+async function importModuleDefault(url, ignoreNotFoundError = false) {
+  try {
+    const { default: config } = await import(url);
+    return config;
+  } catch (error) {
+    if (ignoreNotFoundError && error?.code === "ERR_MODULE_NOT_FOUND") {
+      return;
+    }
 
-function transform(result) {
+    throw error;
+  }
+}
+
+async function loadStringConfig(config, filepath) {
+  const directory = path.dirname(filepath);
+
+  const result = await importModuleDefault(
+    new URL(config, pathToFileURL(directory + "/")),
+    /* ignoreNotFoundError */ true
+  );
+
+  return result ?? importModuleDefault(config);
+}
+
+
+function jsConfigLoader(filepath /*, content*/) {
+  return importModuleDefault(pathToFileURL(filepath));
+}
+
+const loaders = {
+  ".toml": loadToml,
+  ".json5": loadJson5,
+  ".js": jsConfigLoader,
+  ".mjs": jsConfigLoader,
+  ".cjs": jsConfigLoader,
+};
+
+async function transform(result) {
   if (!result?.config) {
     return result;
   }
 
-  let { config, filepath } = result;
+  const { config, filepath } = result;
 
   if (typeof config === "string") {
-    const directory = path.dirname(filepath);
-    const modulePath = resolve(config, { paths: [directory] });
-    config = require(modulePath);
-    result.config = config;
+    result.config = await loadStringConfig(config, filepath);
   }
 
   if (typeof config !== "object") {
@@ -46,7 +78,6 @@ function transform(result) {
   }
 
   delete config.$schema;
-
   return result;
 }
 
