@@ -6,9 +6,11 @@ coverage/
 !/tests/format/**/jsfmt.spec.js
 /tests/integration/cli/
 /tests/integration/plugins/
+!tests/integration/plugins/automatic/node_modules/@prettier/plugin-foo/index.js
 !tests/integration/plugins/automatic/node_modules/@user/prettier-plugin-foobar/index.js
 !tests/integration/plugins/automatic/node_modules/prettier-plugin-bar/index.js
 !tests/integration/plugins/automatic/prettier-plugin-bar.js
+!tests/integration/plugins/bespoke/node_modules/@company/prettier-plugin-bespoke/main.js
 !tests/integration/plugins/defaultOptions/plugin.cjs
 !tests/integration/plugins/extensions/plugin.cjs
 !tests/integration/plugins/flushLineSuffix/plugin.cjs
