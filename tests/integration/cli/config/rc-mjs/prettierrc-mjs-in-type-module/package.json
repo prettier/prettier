@@ -1,5 +1,5 @@
 {
-  "name": "prettierrc-cjs-in-type-module",
+  "name": "prettierrc-mjs-in-type-module",
   "private": true,
   "type": "module"
 }

@@ -252,6 +252,47 @@ test("API resolveConfig de-references to an external module", async () => {
   });
 });
 
+test(".js config file", async () => {
+  const parentDirectory = path.join(__dirname, "../cli/config/rc-js");
+
+  const config = {
+    trailingComma: "all",
+    singleQuote: true,
+  };
+
+  for (const directoryName of [
+    "cjs-prettier-config-js-in-type-commonjs",
+    "cjs-prettier-config-js-in-type-none",
+    "cjs-prettierrc-js-in-type-commonjs",
+    "cjs-prettierrc-js-in-type-none",
+    "mjs-prettier-config-js-in-type-module",
+    "mjs-prettierrc-js-in-type-module",
+  ]) {
+    const file = path.join(parentDirectory, directoryName, "foo.js");
+    await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
+  }
+
+  const cjsError = /module is not defined in ES module scope/;
+  for (const directoryName of [
+    "cjs-prettier-config-js-in-type-module",
+    "cjs-prettierrc-js-in-type-module",
+  ]) {
+    const file = path.join(parentDirectory, directoryName, "foo.js");
+    await expect(prettier.resolveConfig(file)).rejects.toThrow(cjsError);
+  }
+
+  const mjsError = /Unexpected token 'export'/
+  for (const directoryName of [
+    "mjs-prettier-config-js-in-type-commonjs",
+    "mjs-prettier-config-js-in-type-none",
+    "mjs-prettierrc-js-in-type-commonjs",
+    "mjs-prettierrc-js-in-type-none",
+  ]) {
+    const file = path.join(parentDirectory, directoryName, "foo.js");
+    await expect(prettier.resolveConfig(file)).rejects.toThrow(mjsError);
+  }
+});
+
 test(".cjs config file", async () => {
   const parentDirectory = path.join(__dirname, "../cli/config/rc-cjs");
 
@@ -269,7 +310,6 @@ test(".cjs config file", async () => {
     "prettier-config-cjs-in-type-module",
   ]) {
     const file = path.join(parentDirectory, directoryName, "foo.js");
-
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 });
@@ -291,7 +331,6 @@ test(".mjs config file", async () => {
     "prettier-config-mjs-in-type-module",
   ]) {
     const file = path.join(parentDirectory, directoryName, "foo.js");
-
     await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
   }
 });
@@ -304,7 +343,6 @@ test(".json5 config file", async () => {
     tabWidth: 3,
   };
   const file = path.join(parentDirectory, "json5/foo.js");
-
   await expect(prettier.resolveConfig(file)).resolves.toMatchObject(config);
 });
 
@@ -312,6 +350,5 @@ test(".json5 config file(invalid)", async () => {
   const parentDirectory = path.join(__dirname, "../cli/config/rc-json5");
   const file = path.join(parentDirectory, "invalid/foo.js");
   const error = /JSON5: invalid end of input at 2:1/;
-
   await expect(prettier.resolveConfig(file)).rejects.toThrow(error);
 });

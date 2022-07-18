@@ -1,5 +1,5 @@
 {
-  "name": "prettierrc-cjs-in-type-commonjs",
+  "name": "prettierrc-mjs-in-type-commonjs",
   "private": true,
   "type": "commonjs"
 }
