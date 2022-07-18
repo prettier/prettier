@@ -40,10 +40,8 @@ if (SKIP_TESTS_WITH_NEW_SYNTAX) {
 }
 
 const config = {
-  projects: [
-    "<rootDir>/jest-format-test.config.mjs",
-    "<rootDir>/jest-integration-test.config.mjs",
-  ],
+  setupFiles: ["<rootDir>/tests/config/format-test-setup.js", "<rootDir>/tests/integration/integration-test-setup.js"],
+  runner: "jest-light-runner",
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
@@ -52,6 +50,7 @@ const config = {
     escapeString: false,
     printBasicPrototype: false,
   },
+  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],

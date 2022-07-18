@@ -1,8 +1,5 @@
 "use strict";
 
-const prettier = require("../../../config/prettier-entry.common.cjs");
-const { concat } = prettier.doc.builders;
-
 module.exports = {
   languages: [
     {
@@ -19,7 +16,12 @@ module.exports = {
   },
   printers: {
     "foo-ast": {
-      print: path => concat(["!", path.getValue().text])
+      async print(path) {
+
+        const prettier = await import("../../../config/prettier-entry.js")
+const { concat } = prettier.doc.builders;
+return concat(["!", path.getValue().text])
+      }
     }
   }
 };
