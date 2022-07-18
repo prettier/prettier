@@ -46,7 +46,6 @@ async function loadStringConfig(config, filepath) {
   return result ?? importModuleDefault(config);
 }
 
-
 function jsConfigLoader(filepath /*, content*/) {
   return importModuleDefault(pathToFileURL(filepath));
 }

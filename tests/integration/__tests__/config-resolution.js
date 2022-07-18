@@ -281,7 +281,7 @@ test(".js config file", async () => {
     await expect(prettier.resolveConfig(file)).rejects.toThrow(cjsError);
   }
 
-  const mjsError = /Unexpected token 'export'/
+  const mjsError = /Unexpected token 'export'/;
   for (const directoryName of [
     "mjs-prettier-config-js-in-type-commonjs",
     "mjs-prettier-config-js-in-type-none",

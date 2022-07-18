@@ -57,7 +57,10 @@ const logOverride = Object.fromEntries(
   ESBUILD_MESSAGE_IDS.map((id) => [id, "warning"])
 );
 
-export default function esbuildPluginThrowWarnings({ allowDynamicRequire, allowDynamicImport }) {
+export default function esbuildPluginThrowWarnings({
+  allowDynamicRequire,
+  allowDynamicImport,
+}) {
   return {
     name: "throw-warnings",
     setup(build) {
