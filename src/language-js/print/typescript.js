@@ -20,7 +20,8 @@ const {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
-} = require("../utils.js");
+} = require("../utils/index.js");
+const isTsKeywordType = require("../utils/is-ts-keyword-type.js");
 const { locStart, locEnd } = require("../loc.js");
 
 const { printOptionalToken, printTypeScriptModifiers } = require("./misc.js");
@@ -48,6 +49,7 @@ const {
   printFunctionType,
   printTupleType,
   printIndexedAccessType,
+  printJSDocType,
 } = require("./type-annotation.js");
 
 function printTypescript(path, options, print) {
@@ -58,7 +60,7 @@ function printTypescript(path, options, print) {
     return;
   }
 
-  if (node.type.endsWith("Keyword")) {
+  if (isTsKeywordType(node)) {
     return node.type.slice(2, -7).toLowerCase();
   }
 
@@ -201,7 +203,7 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSTypeQuery":
-      return ["typeof ", print("exprName")];
+      return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
@@ -412,7 +414,12 @@ function printTypescript(path, options, print) {
 
       return parts;
     case "TSEnumMember":
-      parts.push(print("id"));
+      if (node.computed) {
+        parts.push("[", print("id"), "]");
+      } else {
+        parts.push(print("id"));
+      }
+
       if (node.initializer) {
         parts.push(" = ", print("initializer"));
       }
@@ -516,9 +523,11 @@ function printTypescript(path, options, print) {
     case "TSJSDocUnknownType":
       return "?";
     case "TSJSDocNullableType":
-      return ["?", print("typeAnnotation")];
+      return printJSDocType(path, print, /* token */ "?");
     case "TSJSDocNonNullableType":
-      return ["!", print("typeAnnotation")];
+      return printJSDocType(path, print, /* token */ "!");
+    case "TSInstantiationExpression":
+      return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
       throw new Error(

@@ -6,6 +6,7 @@ const prettier = require("../../index.js");
 const { optionsNormalizer } = require("../prettier-internal.js");
 const minimist = require("./minimist.js");
 const createMinimistOptions = require("./create-minimist-options.js");
+const normalizeCliOptions = require("./normalize-cli-options.js");
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -42,7 +43,7 @@ function parseArgsToOptions(context, overrideDefaults) {
     context.detailedOptions
   );
   return getOptions(
-    optionsNormalizer.normalizeCliOptions(
+    normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,

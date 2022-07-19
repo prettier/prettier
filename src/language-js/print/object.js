@@ -16,7 +16,7 @@ const {
   getComments,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
 
 const { printOptionalToken, printTypeAnnotation } = require("./misc.js");

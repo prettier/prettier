@@ -1,43 +1,49 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../common/util.js");
-const getLast = require("../utils/get-last.js");
-
 const NODES_KEYS = {
   attrs: true,
   children: true,
 };
 
+const NON_ENUMERABLE_PROPERTIES = new Set(["parent"]);
+
 // TODO: typechecking is problematic for this class because of this issue:
 // https://github.com/microsoft/TypeScript/issues/26811
 
 class Node {
-  constructor(props = {}) {
-    for (const [key, value] of Object.entries(props)) {
-      if (key in NODES_KEYS) {
-        this._setNodes(key, value);
-      } else {
-        this[key] = value;
-      }
+  constructor(nodeOrProperties = {}) {
+    for (const property of new Set([
+      ...NON_ENUMERABLE_PROPERTIES,
+      ...Object.keys(nodeOrProperties),
+    ])) {
+      this.setProperty(property, nodeOrProperties[property]);
     }
   }
 
-  _setNodes(key, nodes) {
-    if (nodes !== this[key]) {
-      this[key] = cloneAndUpdateNodes(nodes, this);
-      if (key === "attrs") {
-        setNonEnumerableProperties(this, {
-          attrMap: Object.fromEntries(
-            this[key].map((attr) => [attr.fullName, attr.value])
-          ),
-        });
-      }
+  setProperty(property, value) {
+    if (this[property] === value) {
+      return;
     }
+
+    if (property in NODES_KEYS) {
+      value = value.map((node) => this.createChild(node));
+    }
+
+    if (!NON_ENUMERABLE_PROPERTIES.has(property)) {
+      this[property] = value;
+      return;
+    }
+
+    Object.defineProperty(this, property, {
+      value,
+      enumerable: false,
+      configurable: true,
+    });
   }
 
   map(fn) {
     /** @type{any} */
-    let newNode = null;
+    let newNode;
 
     for (const NODES_KEY in NODES_KEYS) {
       const nodes = this[NODES_KEY];
@@ -45,9 +51,10 @@ class Node {
         const mappedNodes = mapNodesIfChanged(nodes, (node) => node.map(fn));
         if (newNode !== nodes) {
           if (!newNode) {
-            newNode = new Node();
+            // @ts-expect-error
+            newNode = new Node({ parent: this.parent });
           }
-          newNode._setNodes(NODES_KEY, mappedNodes);
+          newNode.setProperty(NODES_KEY, mappedNodes);
         }
       }
     }
@@ -58,15 +65,6 @@ class Node {
           newNode[key] = this[key];
         }
       }
-      // @ts-expect-error
-      const { index, siblings, prev, next, parent } = this;
-      setNonEnumerableProperties(newNode, {
-        index,
-        siblings,
-        prev,
-        next,
-        parent,
-      });
     }
 
     return fn(newNode || this);
@@ -84,28 +82,68 @@ class Node {
     fn(this);
   }
 
-  /**
-   * @param {Object} [overrides]
-   */
-  clone(overrides) {
-    return new Node(overrides ? { ...this, ...overrides } : this);
+  createChild(nodeOrProperties) {
+    const node =
+      nodeOrProperties instanceof Node
+        ? nodeOrProperties.clone()
+        : new Node(nodeOrProperties);
+    node.setProperty("parent", this);
+    return node;
   }
 
   /**
-   * @param {Array} [children]
+   * @param {Node} [target]
+   * @param {Object} [node]
    */
-  setChildren(children) {
-    this._setNodes("children", children);
+  insertChildBefore(target, node) {
+    // @ts-expect-error
+    this.children.splice(
+      // @ts-expect-error
+      this.children.indexOf(target),
+      0,
+      this.createChild(node)
+    );
+  }
+
+  /**
+   * @param {Node} [child]
+   */
+  removeChild(child) {
+    // @ts-expect-error
+    this.children.splice(this.children.indexOf(child), 1);
+  }
+
+  /**
+   * @param {Node} [target]
+   * @param {Object} [node]
+   */
+  replaceChild(target, node) {
+    // @ts-expect-error
+    this.children[this.children.indexOf(target)] = this.createChild(node);
+  }
+
+  clone() {
+    return new Node(this);
   }
 
   get firstChild() {
     // @ts-expect-error
-    return isNonEmptyArray(this.children) ? this.children[0] : null;
+    return this.children?.[0];
   }
 
   get lastChild() {
     // @ts-expect-error
-    return isNonEmptyArray(this.children) ? getLast(this.children) : null;
+    return this.children?.[this.children.length - 1];
+  }
+
+  get prev() {
+    // @ts-expect-error
+    return this.parent?.children[this.parent.children.indexOf(this) - 1];
+  }
+
+  get next() {
+    // @ts-expect-error
+    return this.parent?.children[this.parent.children.indexOf(this) + 1];
   }
 
   // for element and attribute
@@ -113,9 +151,17 @@ class Node {
     // @ts-expect-error
     return this.hasExplicitNamespace ? this.fullName : this.name;
   }
+
   get fullName() {
     // @ts-expect-error
     return this.namespace ? this.namespace + ":" + this.name : this.name;
+  }
+
+  get attrMap() {
+    return Object.fromEntries(
+      // @ts-expect-error
+      this.attrs.map((attr) => [attr.fullName, attr.value])
+    );
   }
 }
 
@@ -124,42 +170,6 @@ function mapNodesIfChanged(nodes, fn) {
   return newNodes.some((newNode, index) => newNode !== nodes[index])
     ? newNodes
     : nodes;
-}
-
-function cloneAndUpdateNodes(nodes, parent) {
-  const siblings = nodes.map((node) =>
-    node instanceof Node ? node.clone() : new Node(node)
-  );
-
-  let prev = null;
-  let current = siblings[0];
-  let next = siblings[1] || null;
-
-  for (let index = 0; index < siblings.length; index++) {
-    setNonEnumerableProperties(current, {
-      index,
-      siblings,
-      prev,
-      next,
-      parent,
-    });
-    prev = current;
-    current = next;
-    next = siblings[index + 2] || null;
-  }
-
-  return siblings;
-}
-
-function setNonEnumerableProperties(obj, props) {
-  const descriptors = Object.fromEntries(
-    Object.entries(props).map(([key, value]) => [
-      key,
-      { value, enumerable: false },
-    ])
-  );
-
-  Object.defineProperties(obj, descriptors);
 }
 
 module.exports = {

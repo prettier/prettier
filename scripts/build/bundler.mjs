@@ -1,58 +1,30 @@
+import fs from "node:fs/promises";
 import path from "node:path";
-import fs from "node:fs";
-import { rollup } from "rollup";
-import webpack from "webpack";
-import { nodeResolve as rollupPluginNodeResolve } from "@rollup/plugin-node-resolve";
-import rollupPluginAlias from "@rollup/plugin-alias";
-import rollupPluginCommonjs from "@rollup/plugin-commonjs";
-import rollupPluginPolyfillNode from "rollup-plugin-polyfill-node";
-import rollupPluginJson from "@rollup/plugin-json";
-import rollupPluginReplace from "@rollup/plugin-replace";
-import { terser as rollupPluginTerser } from "rollup-plugin-terser";
-import { babel as rollupPluginBabel } from "@rollup/plugin-babel";
-import WebpackPluginTerser from "terser-webpack-plugin";
 import createEsmUtils from "esm-utils";
-import builtinModules from "builtin-modules";
+import * as babel from "@babel/core";
+import esbuild from "esbuild";
+import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
+import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
-import rollupPluginExecutable from "./rollup-plugins/executable.mjs";
-import rollupPluginEvaluate from "./rollup-plugins/evaluate.mjs";
-import rollupPluginReplaceModule from "./rollup-plugins/replace-module.mjs";
+import { vendorMetaFile, vendorsDirectory } from "../vendors/utils.mjs";
+import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
+import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
+import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
+import esbuildPluginUmd from "./esbuild-plugins/umd.mjs";
+import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
+import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import bundles from "./config.mjs";
 
-const { __dirname, json } = createEsmUtils(import.meta);
-const packageJson = json.loadSync("../../package.json");
+const { __dirname, readJsonSync, require } = createEsmUtils(import.meta);
+const packageJson = readJsonSync("../../package.json");
 
-const entries = [
-  // Force using the CJS file, instead of ESM; i.e. get the file
-  // from `"main"` instead of `"module"` (rollup default) of package.json
-  {
-    find: "@angular/compiler/src",
-    replacement: path.resolve(
-      `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-    ),
-  },
-];
-
-function webpackNativeShims(config, modules) {
-  if (!config.resolve) {
-    config.resolve = {};
-  }
-  const { resolve } = config;
-  resolve.alias = resolve.alias || {};
-  resolve.fallback = resolve.fallback || {};
-  for (const module of modules) {
-    if (module in resolve.alias || module in resolve.fallback) {
-      throw new Error(`fallback/alias for "${module}" already exists.`);
-    }
-    const file = path.join(__dirname, `shims/${module}.mjs`);
-    if (fs.existsSync(file)) {
-      resolve.alias[module] = file;
-    } else {
-      resolve.fallback[module] = false;
-    }
-  }
-  return config;
-}
+const umdTarget = browserslistToEsbuild(packageJson.browserslist);
+const vendorsReplacements = Object.entries(readJsonSync(vendorMetaFile).entries)
+  .filter(([, entry]) => !entry.endsWith(".json"))
+  .map(([vendorName, entry]) => ({
+    module: path.join(vendorsDirectory, entry),
+    path: require.resolve(vendorName),
+  }));
 
 function getBabelConfig(bundle) {
   const config = {
@@ -62,7 +34,7 @@ function getBabelConfig(bundle) {
     },
     sourceType: "unambiguous",
     plugins: bundle.babelPlugins || [],
-    compact: bundle.type === "plugin" ? false : "auto",
+    compact: false,
     exclude: [/\/core-js\//],
   };
   const targets = { node: "10" };
@@ -75,7 +47,9 @@ function getBabelConfig(bundle) {
       {
         targets,
         exclude: [
+          "es.array.unscopables.flat",
           "es.array.unscopables.flat-map",
+          "es.array.sort",
           "es.promise",
           "es.promise.finally",
           "es.string.replace",
@@ -99,82 +73,63 @@ function getBabelConfig(bundle) {
   return config;
 }
 
-function getRollupConfig(bundle) {
-  const config = {
-    input: path.join(PROJECT_ROOT, bundle.input),
-    onwarn(warning) {
-      if (
-        // ignore `MIXED_EXPORTS` warn
-        warning.code === "MIXED_EXPORTS" ||
-        (warning.code === "CIRCULAR_DEPENDENCY" &&
-          (warning.importer.startsWith("node_modules") ||
-            warning.importer.startsWith("\x00polyfill-node."))) ||
-        warning.code === "SOURCEMAP_ERROR" ||
-        warning.code === "THIS_IS_UNDEFINED"
-      ) {
-        return;
-      }
+const bundledFiles = [
+  ...bundles,
+  { input: "package.json", output: "package.json" },
+].map(({ input, output }) => ({
+  input: path.join(PROJECT_ROOT, input),
+  output: `./${output}`,
+}));
 
-      // web bundle can't have external requires
-      if (
-        warning.code === "UNRESOLVED_IMPORT" &&
-        bundle.target === "universal"
-      ) {
-        throw new Error(
-          `Unresolved dependency in universal bundle: ${warning.source}`
-        );
-      }
-
-      console.warn(warning);
+function* getEsbuildOptions(bundle, buildOptions) {
+  const replaceModule = [
+    ...vendorsReplacements,
+    // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
+    {
+      module: require.resolve("tslib"),
+      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
     },
-    external: [],
-  };
+  ];
 
-  const replaceStrings = {
+  const define = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
     "process.env.NODE_ENV": JSON.stringify("production"),
   };
+
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
-    replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
-    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
-    // `parser-typescript.js` will contain a path of working directory
+    replaceModule.push({
+      module: "*",
+      find: "process.env.PRETTIER_DEBUG",
+      replacement: "globalThis.PRETTIER_DEBUG",
+    });
+
+    define.process = JSON.stringify({ env: {}, argv: [] });
+
+    // Replace `__dirname` and `__filename` with a fake value
+    // So `parser-typescript.js` won't contain a path of working directory
     // See #8268
-    replaceStrings.__filename = JSON.stringify(
+    define.__filename = JSON.stringify(
       "/prettier-security-filename-placeholder.js"
     );
-    replaceStrings.__dirname = JSON.stringify(
-      "/prettier-security-dirname-placeholder"
-    );
+    define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
   }
-  Object.assign(replaceStrings, bundle.replace);
 
-  const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
-
-  const alias = { ...bundle.alias };
-  alias.entries = [...entries, ...(alias.entries || [])];
-
-  const replaceModule = {};
   // Replace other bundled files
   if (bundle.target === "node") {
-    // Replace package.json with dynamic `require("./package.json")`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = "./package.json";
-
-    // Dynamic require bundled files
-    for (const item of bundles) {
-      if (item.input !== bundle.input) {
-        replaceModule[path.join(PROJECT_ROOT, item.input)] = `./${item.output}`;
-      }
+    // Replace bundled files and `package.json` with dynamic `require()`
+    for (const { input, output } of bundledFiles) {
+      replaceModule.push({ module: input, external: output });
     }
   } else {
     // Universal bundle only use version info from package.json
     // Replace package.json with `{version: "{VERSION}"}`
-    replaceModule[path.join(PROJECT_ROOT, "package.json")] = {
-      code: `export default ${JSON.stringify({
-        version: packageJson.version,
-      })};`,
-    };
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, "package.json"),
+      text: JSON.stringify({ version: packageJson.version }),
+      loader: "json",
+    });
 
     // Replace parser getters with `undefined`
     for (const file of [
@@ -186,241 +141,153 @@ function getRollupConfig(bundle) {
       "src/language-markdown/parsers.js",
       "src/language-yaml/parsers.js",
     ]) {
-      replaceModule[path.join(PROJECT_ROOT, file)] = {
-        code: "export default undefined;",
-      };
+      replaceModule.push({ module: path.join(PROJECT_ROOT, file), text: "" });
     }
+
+    // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
+    replaceModule.push({
+      module: "assert",
+      path: require.resolve("./shims/assert.cjs"),
+    });
   }
-
-  Object.assign(replaceModule, bundle.replaceModule);
-
-  config.plugins = [
-    rollupPluginReplace({
-      values: replaceStrings,
-      delimiters: ["", ""],
-      preventAssignment: true,
-    }),
-    rollupPluginExecutable(),
-    rollupPluginEvaluate(),
-    rollupPluginJson({
-      exclude: Object.keys(replaceModule)
-        .filter((file) => file.endsWith(".json"))
-        .map((file) => path.relative(PROJECT_ROOT, file)),
-    }),
-    rollupPluginAlias(alias),
-    rollupPluginNodeResolve({
-      extensions: [".js", ".json"],
-      preferBuiltins: bundle.target === "node",
-      mainFields: ["main"],
-    }),
-    rollupPluginCommonjs({
-      ignoreGlobal: bundle.target === "node",
-      ignore:
-        bundle.type === "plugin"
-          ? undefined
-          : (id) => /\.\/parser-.*?/.test(id),
-      requireReturnsDefault: "preferred",
-      ignoreDynamicRequires: true,
-      ignoreTryCatch: bundle.target === "node",
-      ...bundle.commonjs,
-    }),
-    rollupPluginReplaceModule(replaceModule),
-    bundle.target === "universal" && rollupPluginPolyfillNode(),
-    rollupPluginBabel(babelConfig),
-  ].filter(Boolean);
-
-  if (bundle.target === "node") {
-    config.external.push(...builtinModules);
-  }
-  if (bundle.external) {
-    config.external.push(...bundle.external);
-  }
-
-  return config;
-}
-
-function getRollupOutputOptions(bundle, buildOptions) {
-  const options = {
-    // Avoid warning form #8797
-    exports: "auto",
-    file: path.join(DIST_DIR, bundle.output),
-    name: bundle.name,
-    plugins: [],
-  };
 
   let shouldMinify = buildOptions.minify;
   if (typeof shouldMinify !== "boolean") {
     shouldMinify = bundle.minify !== false && bundle.target === "universal";
   }
 
-  if (shouldMinify) {
-    options.plugins.push(
-      rollupPluginTerser({
-        output: {
-          ascii_only: true,
-        },
-      })
-    );
-  }
-
-  if (bundle.target === "node") {
-    options.format = "cjs";
-  } else if (bundle.target === "universal") {
-    if (!bundle.format && bundle.bundler !== "webpack") {
-      return [
-        {
-          ...options,
-          format: "umd",
-        },
-        !buildOptions.playground && {
-          ...options,
-          format: "esm",
-          file: path.join(
-            DIST_DIR,
-            `esm/${bundle.output.replace(".js", ".mjs")}`
-          ),
-        },
-      ].filter(Boolean);
-    }
-    options.format = bundle.format;
-  }
-
-  if (buildOptions.playground && bundle.bundler !== "webpack") {
-    return { skipped: true };
-  }
-
-  return [options];
-}
-
-function getWebpackConfig(bundle, buildOptions) {
-  if (bundle.type !== "plugin" || bundle.target !== "universal") {
-    throw new Error("Must use rollup for this bundle");
-  }
-
-  const config = {
-    mode: "production",
-    performance: { hints: false },
-    entry: path.resolve(PROJECT_ROOT, bundle.input),
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          use: {
-            loader: "babel-loader",
-            options: getBabelConfig(bundle),
+  const esbuildOptions = {
+    entryPoints: [path.join(PROJECT_ROOT, bundle.input)],
+    define,
+    bundle: true,
+    metafile: true,
+    plugins: [
+      esbuildPluginEvaluate(),
+      esbuildPluginReplaceModule({
+        replacements: [...replaceModule, ...(bundle.replaceModule ?? [])],
+      }),
+      bundle.target === "universal" && esbuildPluginNodeModulePolyfills(),
+      buildOptions.onLicenseFound &&
+        esbuildPluginLicense({
+          cwd: PROJECT_ROOT,
+          thirdParty: {
+            includePrivate: true,
+            output: buildOptions.onLicenseFound,
           },
-        },
-        {
-          test: /\.js$/,
-          use: {
-            loader: "string-replace-loader",
-            options: {
-              multiple: Object.entries(bundle.replace).map(
-                ([search, replace]) => ({ search, replace })
-              ),
-            },
-          },
-        },
-      ],
-    },
-    output: {
-      path: DIST_DIR,
-      filename: bundle.output,
-      library: {
-        type: "umd",
-        name: bundle.name.split("."),
-      },
-      // https://github.com/webpack/webpack/issues/6642
-      globalObject: 'new Function("return this")()',
-    },
-    optimization: {},
-    resolve: {
-      // Webpack@5 can't resolve "postcss/lib/parser" and "postcss/lib/stringifier"" imported by `postcss-scss`
-      // Ignore `exports` field to fix bundle script
-      exportsFields: [],
-    },
+        }),
+      buildOptions.reports &&
+        esbuildPluginVisualizer({ formats: buildOptions.reports }),
+      esbuildPluginThrowWarnings({
+        allowDynamicRequire: bundle.target === "node",
+      }),
+    ].filter(Boolean),
+    minify: shouldMinify,
+    legalComments: "none",
+    external: [...(bundle.external ?? [])],
+    // Disable esbuild auto discover `tsconfig.json` file
+    tsconfig: path.join(__dirname, "empty-tsconfig.json"),
+    target: [...(bundle.esbuildTarget ?? ["node10"])],
+    logLevel: "error",
   };
 
-  let shouldMinify = buildOptions.minify;
-  if (typeof shouldMinify !== "boolean") {
-    shouldMinify = true;
-  }
+  if (bundle.target === "universal") {
+    if (!bundle.esbuildTarget) {
+      esbuildOptions.target.push(...umdTarget);
+    }
 
-  if (shouldMinify) {
-    config.optimization.minimizer = [
-      new WebpackPluginTerser({
-        // prevent terser generate extra .LICENSE file
-        extractComments: false,
-        terserOptions: {
-          // prevent U+FFFE in the output
-          output: {
-            ascii_only: true,
-          },
-        },
-      }),
-    ];
+    yield {
+      ...esbuildOptions,
+      outfile: bundle.output,
+      plugins: [
+        esbuildPluginUmd({ name: bundle.name }),
+        ...esbuildOptions.plugins,
+      ],
+      format: "umd",
+    };
+
+    if (/^(?:standalone|parser-.*)\.js$/.test(bundle.output)) {
+      yield {
+        ...esbuildOptions,
+        outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
+        format: "esm",
+      };
+    }
   } else {
-    config.optimization.minimize = false;
-  }
+    esbuildOptions.platform = "node";
+    esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
-  return webpackNativeShims(config, ["os", "path", "util", "url", "fs"]);
+    yield {
+      ...esbuildOptions,
+      outfile: bundle.output,
+      format: "cjs",
+    };
+  }
 }
 
-function runWebpack(config) {
-  return new Promise((resolve, reject) => {
-    webpack(config, (error, stats) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+async function runBuild(bundle, esbuildOptions, buildOptions) {
+  if (!buildOptions.babel || bundle.skipBabel) {
+    await esbuild.build(esbuildOptions);
+    return;
+  }
 
-      if (stats.hasErrors()) {
-        const { errors } = stats.toJson();
-        const error = new Error(errors[0].message);
-        error.errors = errors;
-        reject(error);
-        return;
-      }
+  const { format, plugins, outfile } = esbuildOptions;
+  const temporaryFile = path.join(
+    DIST_DIR,
+    `_${bundle.output}.${esbuildOptions.format}.${
+      esbuildOptions.format === "esm" ? "mjs" : "js"
+    }`
+  );
 
-      if (stats.hasWarnings()) {
-        const { warnings } = stats.toJson();
-        console.warn(warnings);
-      }
-
-      resolve();
-    });
+  await esbuild.build({
+    ...esbuildOptions,
+    plugins: plugins.filter(({ name }) => name !== "umd"),
+    format: format === "umd" ? "cjs" : format,
+    minify: false,
+    target: undefined,
+    outfile: temporaryFile,
   });
+
+  const text = await fs.readFile(temporaryFile);
+
+  const { code } = await babel.transformAsync(text, {
+    filename: outfile,
+    ...getBabelConfig(bundle),
+  });
+  await fs.writeFile(temporaryFile, code);
+
+  await esbuild.build({
+    ...esbuildOptions,
+    define: {},
+    plugins: plugins.filter(
+      ({ name }) => name === "umd" || name === "throw-warnings"
+    ),
+    entryPoints: [temporaryFile],
+  });
+
+  await fs.unlink(temporaryFile);
 }
 
-async function createBundle(bundle, cache, options) {
-  const inputOptions = getRollupConfig(bundle);
-  const outputOptions = getRollupOutputOptions(bundle, options);
+async function* createBundle(bundle, buildOptions) {
+  for (const esbuildOptions of getEsbuildOptions(bundle, buildOptions)) {
+    const { outfile: file } = esbuildOptions;
 
-  if (!Array.isArray(outputOptions) && outputOptions.skipped) {
-    return { skipped: true };
+    if (
+      (buildOptions.files && !buildOptions.files.has(file)) ||
+      (buildOptions.playground && esbuildOptions.format !== "umd")
+    ) {
+      yield { name: file, skipped: true };
+      continue;
+    }
+
+    const relativePath = buildOptions.saveAs || file;
+    const absolutePath = path.join(DIST_DIR, relativePath);
+
+    esbuildOptions.outfile = absolutePath;
+
+    yield { name: file, started: true };
+    await runBuild(bundle, esbuildOptions, buildOptions);
+    yield { name: file, relativePath, absolutePath };
   }
-
-  if (
-    cache &&
-    (
-      await Promise.all(
-        outputOptions.map((outputOption) =>
-          cache.isCached(inputOptions, outputOption)
-        )
-      )
-    ).every((cached) => cached)
-  ) {
-    return { cached: true };
-  }
-
-  if (bundle.bundler === "webpack") {
-    await runWebpack(getWebpackConfig(bundle, options));
-  } else {
-    const result = await rollup(inputOptions);
-    await Promise.all(outputOptions.map((option) => result.write(option)));
-  }
-
-  return { bundled: true };
 }
 
 export default createBundle;

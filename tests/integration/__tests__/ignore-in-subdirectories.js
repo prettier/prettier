@@ -1,6 +1,6 @@
 "use strict";
 
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
 
 expect.addSnapshotSerializer(require("../path-serializer.js"));
 
@@ -70,8 +70,7 @@ describe("formats files when executing in a subdirectory and using stdin", () =>
       input: "hello_world( );",
     }
   ).test({
-    stdout: `hello_world();
-`,
+    stdout: "hello_world();\n",
     status: 0,
   });
 });

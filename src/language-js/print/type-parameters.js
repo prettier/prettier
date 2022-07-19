@@ -12,7 +12,7 @@ const {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { createGroupIdMapper } = require("../../common/util.js");
 const { shouldHugType } = require("./type-annotation.js");
 const { isArrowFunctionVariableDeclarator } = require("./assignment.js");
@@ -125,6 +125,14 @@ function printTypeParameter(path, options, print) {
 
   if (node.variance) {
     parts.push(print("variance"));
+  }
+
+  if (node.in) {
+    parts.push("in ");
+  }
+
+  if (node.out) {
+    parts.push("out ");
   }
 
   parts.push(print("name"));

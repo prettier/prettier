@@ -7,4 +7,4 @@ exports[`support absolute filename (stdout) 1`] = `
 "
 `;
 
-exports[`support absolute filename (write) 1`] = `Array []`;
+exports[`support absolute filename (write) 1`] = `[]`;

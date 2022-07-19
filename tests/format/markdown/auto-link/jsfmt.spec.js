@@ -1,4 +1,10 @@
-const flat = require("lodash/flatten");
+/**
+ * @template T
+ * @param {Array<Array<T>>} array
+ * @returns {Array<T>}
+ */
+// eslint-disable-next-line unicorn/prefer-spread
+const flat = (array) => [].concat(...array);
 
 const urls = [
   "http://www.example.com:80/_a",

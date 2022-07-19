@@ -265,6 +265,7 @@ Valid options:
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
 - `"espree"` (via [espree](https://github.com/eslint/espree)) _First available in v2.2.0_
 - `"meriyah"` (via [meriyah](https://github.com/meriyah/meriyah)) _First available in v2.2.0_
+- `"acorn"` (via [acorn](https://github.com/acornjs/acorn)) _First available in v2.6.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_
 - `"scss"` (same parsers as `"css"`, prefers postcss-scss) _First available in v1.7.1_
 - `"less"` (same parsers as `"css"`, prefers postcss-less) _First available in v1.7.1_
@@ -350,13 +351,13 @@ Note that “in tandem” doesn’t mean “at the same time”. When the two op
 
 _First available in v1.8.2_
 
-By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer, e.g. GitHub comment and BitBucket. In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out with `"never"`.
+By default, Prettier will not change wrapping in markdown text since some services use a linebreak-sensitive renderer, e.g. GitHub comments and BitBucket. To have Prettier wrap prose to the print width, change this option to "always". If you want Prettier to force all prose blocks to be on a single line and rely on editor/viewer soft wrapping instead, you can use `"never"`.
 
 Valid options:
 
 - `"always"` - Wrap prose if it exceeds the print width.
-- `"never"` - Do not wrap prose.
-- `"preserve"` - Wrap prose as-is. _First available in v1.9.0_
+- `"never"` - Un-wrap each block of prose into one line.
+- `"preserve"` - Do nothing, leave prose as-is. _First available in v1.9.0_
 
 | Default      | CLI Override                                                | API Override                                                |
 | ------------ | ----------------------------------------------------------- | ----------------------------------------------------------- |

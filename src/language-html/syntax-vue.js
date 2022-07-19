@@ -40,8 +40,13 @@ function parseVueFor(value) {
   if (!inMatch) {
     return;
   }
+
   const res = {};
   res.for = inMatch[3].trim();
+  if (!res.for) {
+    return;
+  }
+
   const alias = inMatch[1].trim().replace(stripParensRE, "");
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
@@ -54,10 +59,18 @@ function parseVueFor(value) {
     res.alias = alias;
   }
 
+  const left = [res.alias, res.iterator1, res.iterator2];
+  if (
+    left.some(
+      (part, index) =>
+        !part && (index === 0 || left.slice(index + 1).some(Boolean))
+    )
+  ) {
+    return;
+  }
+
   return {
-    left: `${[res.alias, res.iterator1, res.iterator2]
-      .filter(Boolean)
-      .join(",")}`,
+    left: left.filter(Boolean).join(","),
     operator: inMatch[2],
     right: res.for,
   };

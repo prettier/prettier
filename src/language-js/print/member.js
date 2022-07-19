@@ -7,7 +7,7 @@ const {
   isNumericLiteral,
   isMemberExpression,
   isCallExpression,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { printOptionalToken } = require("./misc.js");
 
 function printMemberExpression(path, options, print) {

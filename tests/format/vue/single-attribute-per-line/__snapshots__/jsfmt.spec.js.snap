@@ -1,5 +1,152 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`sfc-blocks.vue - {"singleAttributePerLine":true} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+singleAttributePerLine: true
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts">
+console.log("hello")
+</script>
+
+<style scoped lang="scss">
+p {
+  color: red;
+}
+</style>
+
+<unknown-block foo bar="bar" baz long_long_long_long_attribute></unknown-block>
+
+<script lang="ts" src="./long_long_long_long_long_long_file_path.ts">
+</script>
+
+<script lang="ts" src="./long_long_long_long_long_long_long_file_path.ts">
+</script>
+
+<script lang="ts" src="./short">
+</script>
+
+<template lang="pug" src="./long_long_long_long_long_long_file_path.pug">
+</template>
+
+<template lang="pug" src="./long_long_long_long_long_long_long_long_file_path.pug">
+</template>
+
+<template lang="pug" src="./short">
+</template>
+
+=====================================output=====================================
+<script setup lang="ts">
+console.log("hello");
+</script>
+
+<style scoped lang="scss">
+p {
+  color: red;
+}
+</style>
+
+<unknown-block foo bar="bar" baz long_long_long_long_attribute></unknown-block>
+
+<script lang="ts" src="./long_long_long_long_long_long_file_path.ts"></script>
+
+<script
+  lang="ts"
+  src="./long_long_long_long_long_long_long_file_path.ts"
+></script>
+
+<script lang="ts" src="./short"></script>
+
+<template lang="pug" src="./long_long_long_long_long_long_file_path.pug">
+</template>
+
+<template
+  lang="pug"
+  src="./long_long_long_long_long_long_long_long_file_path.pug"
+>
+</template>
+
+<template lang="pug" src="./short">
+</template>
+
+================================================================================
+`;
+
+exports[`sfc-blocks.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts">
+console.log("hello")
+</script>
+
+<style scoped lang="scss">
+p {
+  color: red;
+}
+</style>
+
+<unknown-block foo bar="bar" baz long_long_long_long_attribute></unknown-block>
+
+<script lang="ts" src="./long_long_long_long_long_long_file_path.ts">
+</script>
+
+<script lang="ts" src="./long_long_long_long_long_long_long_file_path.ts">
+</script>
+
+<script lang="ts" src="./short">
+</script>
+
+<template lang="pug" src="./long_long_long_long_long_long_file_path.pug">
+</template>
+
+<template lang="pug" src="./long_long_long_long_long_long_long_long_file_path.pug">
+</template>
+
+<template lang="pug" src="./short">
+</template>
+
+=====================================output=====================================
+<script setup lang="ts">
+console.log("hello");
+</script>
+
+<style scoped lang="scss">
+p {
+  color: red;
+}
+</style>
+
+<unknown-block foo bar="bar" baz long_long_long_long_attribute></unknown-block>
+
+<script lang="ts" src="./long_long_long_long_long_long_file_path.ts"></script>
+
+<script
+  lang="ts"
+  src="./long_long_long_long_long_long_long_file_path.ts"
+></script>
+
+<script lang="ts" src="./short"></script>
+
+<template lang="pug" src="./long_long_long_long_long_long_file_path.pug">
+</template>
+
+<template
+  lang="pug"
+  src="./long_long_long_long_long_long_long_long_file_path.pug"
+>
+</template>
+
+<template lang="pug" src="./short">
+</template>
+
+================================================================================
+`;
+
 exports[`single-attribute-per-line.vue - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

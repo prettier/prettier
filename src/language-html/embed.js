@@ -28,10 +28,10 @@ const {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const getNodeContent = require("./get-node-content.js");
 
-function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
+function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -67,11 +67,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const attributeTextToDoc = (code, opts) =>
-    originalTextToDoc(
-      code,
-      { __onHtmlBindingRoot, __embeddedInHtml: true, ...opts },
-      { stripTrailingHardline: true }
-    );
+    htmlTextToDoc(code, {
+      __onHtmlBindingRoot,
+      __embeddedInHtml: true,
+      ...opts,
+    });
 
   if (
     node.fullName === "srcset" &&
@@ -127,11 +127,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
+      const parser = isVueEventBindingExpression(value)
+        ? "__js_expression"
+        : options.__should_parse_vue_template_with_ts
+        ? "__vue_ts_event_binding"
+        : "__vue_event_binding";
       return printMaybeHug(
         attributeTextToDoc(value, {
-          parser: isVueEventBindingExpression(value)
-            ? "__js_expression"
-            : "__vue_event_binding",
+          parser,
         })
       );
     }
@@ -280,7 +283,7 @@ function embed(path, print, textToDoc, options) {
     }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent);
+        const parser = inferScriptParser(node.parent, options);
         if (parser) {
           const value =
             parser === "markdown"
@@ -318,7 +321,9 @@ function embed(path, print, textToDoc, options) {
           textToDocOptions.parser = "__ng_interpolation";
           textToDocOptions.trailingComma = "none";
         } else if (options.parser === "vue") {
-          textToDocOptions.parser = "__vue_expression";
+          textToDocOptions.parser = options.__should_parse_vue_template_with_ts
+            ? "__vue_ts_expression"
+            : "__vue_expression";
         } else {
           textToDocOptions.parser = "__js_expression";
         }

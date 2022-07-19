@@ -1,6 +1,6 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util.js");
+const isNonEmptyArray = require("../../utils/is-non-empty-array.js");
 const createError = require("../../common/parser-create-error.js");
 const createParser = require("./utils/create-parser.js");
 const createBabelParseError = require("./utils/create-babel-parse-error.js");

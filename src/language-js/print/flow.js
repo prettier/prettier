@@ -14,7 +14,7 @@ const {
   isGetterOrSetter,
   rawText,
   shouldPrintComma,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
 const { printClass } = require("./class.js");
 const {
@@ -230,6 +230,7 @@ function printFlow(path, options, print) {
       return parts;
     case "ObjectTypeIndexer": {
       return [
+        node.static ? "static " : "",
         node.variance ? print("variance") : "",
         "[",
         print("id"),

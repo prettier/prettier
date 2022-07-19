@@ -1,7 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`snippet: #0 [acorn] format 1`] = `
+"Unexpected token (2:26)
+  1 | async function foo() {
+> 2 |   function bar(x = await 2) {}
+    |                          ^
+  3 | }"
+`;
+
+exports[`snippet: #0 [acorn] format 2`] = `
+"Await expression cannot be a default value (1:12)
+> 1 | async (x = await (2)) => {};
+    |            ^"
+`;
+
 exports[`snippet: #0 [babel] format 1`] = `
-"'await' is not allowed in async function parameters. (2:20)
+"'await' is only allowed within async functions and at the top levels of modules. (2:20)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
     |                    ^
@@ -37,11 +51,17 @@ exports[`snippet: #0 [flow] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"[2:24]: Await is only valid in async functions (2:24)
+"Await is only valid in async functions (2:24)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
     |                        ^
   3 | }"
+`;
+
+exports[`snippet: #1 [acorn] format 1`] = `
+"Await expression cannot be a default value (1:12)
+> 1 | async (x = await 2) => {};
+    |            ^"
 `;
 
 exports[`snippet: #1 [babel] format 1`] = `
@@ -63,9 +83,15 @@ exports[`snippet: #1 [flow] format 1`] = `
 `;
 
 exports[`snippet: #1 [meriyah] format 1`] = `
-"[1:22]: Await expression not allowed in formal parameter (1:22)
+"Await expression not allowed in formal parameter (1:22)
 > 1 | async (x = await 2) => {};
     |                      ^"
+`;
+
+exports[`snippet: #2 [acorn] format 1`] = `
+"Unexpected token (1:25)
+> 1 | f = async (a) => await a! ** 6;
+    |                         ^"
 `;
 
 exports[`snippet: #2 [babel] format 1`] = `
@@ -87,9 +113,15 @@ exports[`snippet: #2 [flow] format 1`] = `
 `;
 
 exports[`snippet: #2 [meriyah] format 1`] = `
-"[1:25]: Unexpected token: '!' (1:25)
+"Unexpected token: '!' (1:25)
 > 1 | f = async (a) => await a! ** 6;
     |                         ^"
+`;
+
+exports[`snippet: #3 [acorn] format 1`] = `
+"Unexpected token (1:14)
+> 1 | f = (a) => +a! ** 6;
+    |              ^"
 `;
 
 exports[`snippet: #3 [babel] format 1`] = `
@@ -111,13 +143,19 @@ exports[`snippet: #3 [flow] format 1`] = `
 `;
 
 exports[`snippet: #3 [meriyah] format 1`] = `
-"[1:14]: Unexpected token: '!' (1:14)
+"Unexpected token: '!' (1:14)
 > 1 | f = (a) => +a! ** 6;
     |              ^"
 `;
 
+exports[`snippet: #4 [acorn] format 1`] = `
+"Unexpected token (1:22)
+> 1 | async (a) => (await a!) ** 6;
+    |                      ^"
+`;
+
 exports[`snippet: #4 [babel] format 1`] = `
-"Unexpected token, expected \\",\\" (1:22)
+"Unexpected token, expected "," (1:22)
 > 1 | async (a) => (await a!) ** 6;
     |                      ^"
 `;
@@ -135,9 +173,15 @@ exports[`snippet: #4 [flow] format 1`] = `
 `;
 
 exports[`snippet: #4 [meriyah] format 1`] = `
-"[1:22]: Expected ')' (1:22)
+"Expected ')' (1:22)
 > 1 | async (a) => (await a!) ** 6;
     |                      ^"
+`;
+
+exports[`snippet: #5 [acorn] format 1`] = `
+"Unexpected token (1:6)
+> 1 | (-+5 ** 6);
+    |      ^"
 `;
 
 exports[`snippet: #5 [babel] format 1`] = `
@@ -159,9 +203,15 @@ exports[`snippet: #5 [flow] format 1`] = `
 `;
 
 exports[`snippet: #5 [meriyah] format 1`] = `
-"[1:7]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:7)
+"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:7)
 > 1 | (-+5 ** 6);
     |       ^"
+`;
+
+exports[`snippet: #6 [acorn] format 1`] = `
+"Unexpected token (1:25)
+> 1 | f = async () => await 5 ** 6;
+    |                         ^"
 `;
 
 exports[`snippet: #6 [babel] format 1`] = `
@@ -183,8 +233,14 @@ exports[`snippet: #6 [flow] format 1`] = `
 `;
 
 exports[`snippet: #6 [meriyah] format 1`] = `
-"[1:26]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:26)
+"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:26)
 > 1 | f = async () => await 5 ** 6;
+    |                          ^"
+`;
+
+exports[`snippet: #7 [acorn] format 1`] = `
+"Unexpected token (1:26)
+> 1 | f = async () => await -5 ** 6;
     |                          ^"
 `;
 
@@ -207,9 +263,15 @@ exports[`snippet: #7 [flow] format 1`] = `
 `;
 
 exports[`snippet: #7 [meriyah] format 1`] = `
-"[1:27]: Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:27)
+"Unary expressions as the left operand of an exponentiation expression must be disambiguated with parentheses (1:27)
 > 1 | f = async () => await -5 ** 6;
     |                           ^"
+`;
+
+exports[`snippet: #8 [acorn] format 1`] = `
+"Shorthand property assignments are valid only in destructuring patterns (1:15)
+> 1 | async({ foo33 = 1 });
+    |               ^"
 `;
 
 exports[`snippet: #8 [babel] format 1`] = `
@@ -231,7 +293,7 @@ exports[`snippet: #8 [flow] format 1`] = `
 `;
 
 exports[`snippet: #8 [meriyah] format 1`] = `
-"[1:21]: Invalid shorthand property initializer (1:21)
+"Invalid shorthand property initializer (1:21)
 > 1 | async({ foo33 = 1 });
     |                     ^"
 `;

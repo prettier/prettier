@@ -31,7 +31,7 @@ const {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const pathNeedsParens = require("../needs-parens.js");
 const { willPrintOwnComments } = require("../comments.js");
 
@@ -502,24 +502,25 @@ function printJsxAttribute(path, options, print) {
 
 function printJsxExpressionContainer(path, options, print) {
   const node = path.getValue();
-  const parent = path.getParentNode(0);
 
-  const shouldInline =
-    node.expression.type === "JSXEmptyExpression" ||
-    (!hasComment(node.expression) &&
-      (node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression" ||
-        node.expression.type === "ArrowFunctionExpression" ||
-        isCallExpression(node.expression) ||
-        node.expression.type === "FunctionExpression" ||
-        node.expression.type === "TemplateLiteral" ||
-        node.expression.type === "TaggedTemplateExpression" ||
-        node.expression.type === "DoExpression" ||
+  const shouldInline = (node, parent) =>
+    node.type === "JSXEmptyExpression" ||
+    (!hasComment(node) &&
+      (node.type === "ArrayExpression" ||
+        node.type === "ObjectExpression" ||
+        node.type === "ArrowFunctionExpression" ||
+        (node.type === "AwaitExpression" &&
+          (shouldInline(node.argument, node) ||
+            node.argument.type === "JSXElement")) ||
+        isCallExpression(node) ||
+        node.type === "FunctionExpression" ||
+        node.type === "TemplateLiteral" ||
+        node.type === "TaggedTemplateExpression" ||
+        node.type === "DoExpression" ||
         (isJsxNode(parent) &&
-          (node.expression.type === "ConditionalExpression" ||
-            isBinaryish(node.expression)))));
+          (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
-  if (shouldInline) {
+  if (shouldInline(node.expression, path.getParentNode(0))) {
     return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 
@@ -573,27 +574,6 @@ function printJsxOpeningElement(path, options, print) {
     ]);
   }
 
-  const lastAttrHasTrailingComments =
-    node.attributes.length > 0 &&
-    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
-
-  const bracketSameLine =
-    // Simple tags (no attributes and no comment in tag name) should be
-    // kept unbroken regardless of `bracketSameLine`.
-    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
-    // but is still needed for backwards compatibility.
-    (node.attributes.length === 0 && !nameHasComments) ||
-    ((options.bracketSameLine || options.jsxBracketSameLine) &&
-      // We should print the bracket in a new line for the following cases:
-      // <div
-      //   // comment
-      // >
-      // <div
-      //   attr // comment
-      // >
-      (!nameHasComments || node.attributes.length > 0) &&
-      !lastAttrHasTrailingComments);
-
   // We should print the opening element expanded if any prop value is a
   // string literal with newlines
   const shouldBreak =
@@ -616,10 +596,47 @@ function printJsxOpeningElement(path, options, print) {
       print("name"),
       print("typeParameters"),
       indent(path.map(() => [attributeLine, print()], "attributes")),
-      node.selfClosing ? line : bracketSameLine ? ">" : softline,
-      node.selfClosing ? "/>" : bracketSameLine ? "" : ">",
+      ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak }
+  );
+}
+
+function printEndOfOpeningTag(node, options, nameHasComments) {
+  if (node.selfClosing) {
+    return [line, "/>"];
+  }
+  const bracketSameLine = shouldPrintBracketSameLine(
+    node,
+    options,
+    nameHasComments
+  );
+  if (bracketSameLine) {
+    return [">"];
+  }
+  return [softline, ">"];
+}
+
+function shouldPrintBracketSameLine(node, options, nameHasComments) {
+  const lastAttrHasTrailingComments =
+    node.attributes.length > 0 &&
+    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
+  return (
+    // Simple tags (no attributes and no comment in tag name) should be
+    // kept unbroken regardless of `bracketSameLine`.
+    // jsxBracketSameLine is deprecated in favour of bracketSameLine,
+    // but is still needed for backwards compatibility.
+    (node.attributes.length === 0 && !nameHasComments) ||
+    ((options.bracketSameLine || options.jsxBracketSameLine) &&
+      // We should print the bracket in a new line for the following cases:
+      // <div
+      //   // comment
+      // >
+      // <div
+      //   attr // comment
+      // >
+      (!nameHasComments || node.attributes.length > 0) &&
+      !lastAttrHasTrailingComments)
   );
 }
 

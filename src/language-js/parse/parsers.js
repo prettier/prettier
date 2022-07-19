@@ -26,8 +26,14 @@ module.exports = {
   get __vue_expression() {
     return require("./babel.js").parsers.__vue_expression;
   },
+  get __vue_ts_expression() {
+    return require("./babel.js").parsers.__vue_ts_expression;
+  },
   get __vue_event_binding() {
     return require("./babel.js").parsers.__vue_event_binding;
+  },
+  get __vue_ts_event_binding() {
+    return require("./babel.js").parsers.__vue_ts_event_binding;
   },
   // JS - Flow
   get flow() {
@@ -53,9 +59,13 @@ module.exports = {
   get __ng_directive() {
     return require("./angular.js").parsers.__ng_directive;
   },
+  // JS - acorn
+  get acorn() {
+    return require("./acorn-and-espree.js").parsers.acorn;
+  },
   // JS - espree
   get espree() {
-    return require("./espree.js").parsers.espree;
+    return require("./acorn-and-espree.js").parsers.espree;
   },
   // JS - meriyah
   get meriyah() {

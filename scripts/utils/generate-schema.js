@@ -84,6 +84,19 @@ function optionToSchema(option) {
   }
   if (option.array) {
     schema = wrapWithArraySchema(schema);
+
+    // #10274
+    if (option.name === "pluginSearchDirs") {
+      schema = {
+        oneOf: [
+          schema,
+          {
+            enum: [false],
+            description: "Disable plugin autoloading.",
+          },
+        ],
+      };
+    }
   }
   return {
     description: option.description,

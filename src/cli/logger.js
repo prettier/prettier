@@ -1,9 +1,12 @@
 "use strict";
 
 const readline = require("readline");
-const chalk = require("chalk");
-const stripAnsi = require("strip-ansi");
 const wcwidth = require("wcwidth");
+
+// eslint-disable-next-line no-restricted-modules
+const { default: stripAnsi } = require("../../vendors/strip-ansi.js");
+// eslint-disable-next-line no-restricted-modules
+const { default: chalk, chalkStderr } = require("../../vendors/chalk.js");
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
@@ -42,8 +45,9 @@ function createLogger(logLevel = "log") {
       return () => emptyLogResult;
     }
 
-    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+    const chalkInstance = loggerName === "log" ? chalk : chalkStderr;
+    const prefix = color ? `[${chalkInstance[color](loggerName)}] ` : "";
 
     return (message, options) => {
       options = {

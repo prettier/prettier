@@ -9,4 +9,4 @@ level1-glob/shouldNotBeIgnored.js
 "
 `;
 
-exports[`support relative paths (write) 1`] = `Array []`;
+exports[`support relative paths (write) 1`] = `[]`;

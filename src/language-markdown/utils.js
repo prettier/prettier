@@ -221,15 +221,11 @@ function mapAst(ast, handler) {
 }
 
 function isAutolink(node) {
-  if (!node || node.type !== "link" || node.children.length !== 1) {
+  if (node?.type !== "link" || node.children.length !== 1) {
     return false;
   }
-  const child = node.children[0];
-  return (
-    child &&
-    locStart(node) === locStart(child) &&
-    locEnd(node) === locEnd(child)
-  );
+  const [child] = node.children;
+  return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
 module.exports = {

@@ -38,9 +38,7 @@ const {
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
   isWideKeywords,
-  isSCSS,
   isLastNode,
-  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -76,8 +74,11 @@ const {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
-} = require("./utils.js");
+} = require("./utils/index.js");
 const { locStart, locEnd } = require("./loc.js");
+const isLessParser = require("./utils/is-less-parser.js");
+const isSCSS = require("./utils/is-scss.js");
+const printUnit = require("./utils/print-unit.js");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -414,7 +415,7 @@ function genericPrint(path, options, print) {
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
         node.attribute.trim(),
-        node.operator ? node.operator : "",
+        node.operator ?? "",
         node.value
           ? quoteAttributeValue(
               adjustStrings(node.value.trim(), options),
@@ -493,8 +494,8 @@ function genericPrint(path, options, print) {
         grandParent.type === "value-func" &&
         grandParent.value === "selector"
       ) {
-        const start = locStart(parentNode.open) + 1;
-        const end = locEnd(parentNode.close) - 1;
+        const start = locEnd(parentNode.open) + 1;
+        const end = locStart(parentNode.close);
         const selector = options.originalText.slice(start, end).trim();
 
         return lastLineHasInlineComment(selector)
@@ -900,24 +901,39 @@ function genericPrint(path, options, print) {
           indent([
             softline,
             join(
-              [",", line],
-              path.map((childPath) => {
-                const node = childPath.getValue();
-                const printed = print();
+              [line],
+              path.map((childPath, index) => {
+                const child = childPath.getValue();
+                const isLast = index === node.groups.length - 1;
+                const printed = [print(), isLast ? "" : ","];
 
                 // Key/Value pair in open paren already indented
                 if (
-                  isKeyValuePairNode(node) &&
-                  node.type === "value-comma_group" &&
-                  node.groups &&
-                  node.groups[0].type !== "value-paren_group" &&
-                  node.groups[2] &&
-                  node.groups[2].type === "value-paren_group"
+                  isKeyValuePairNode(child) &&
+                  child.type === "value-comma_group" &&
+                  child.groups &&
+                  child.groups[0].type !== "value-paren_group" &&
+                  child.groups[2] &&
+                  child.groups[2].type === "value-paren_group"
                 ) {
-                  const parts = getDocParts(printed.contents.contents);
+                  const parts = getDocParts(printed[0].contents.contents);
                   parts[1] = group(parts[1]);
-
                   return group(dedent(printed));
+                }
+
+                if (
+                  !isLast &&
+                  child.type === "value-comma_group" &&
+                  isNonEmptyArray(child.groups)
+                ) {
+                  const last = getLast(child.groups);
+                  if (
+                    // `value-paren_group` missing location info
+                    last.source &&
+                    isNextLineEmpty(options.originalText, last, locEnd)
+                  ) {
+                    printed.push(hardline);
+                  }
                 }
 
                 return printed;
@@ -955,7 +971,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-number": {
-      return [printCssNumber(node.value), maybeToLowerCase(node.unit)];
+      return [printCssNumber(node.value), printUnit(node.unit)];
     }
     case "value-operator": {
       return node.value;

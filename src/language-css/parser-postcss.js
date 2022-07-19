@@ -4,18 +4,16 @@ const createError = require("../common/parser-create-error.js");
 const getLast = require("../utils/get-last.js");
 const parseFrontMatter = require("../utils/front-matter/parse.js");
 const { hasPragma } = require("./pragma.js");
-const {
-  hasSCSSInterpolation,
-  hasStringOrFunction,
-  isLessParser,
-  isSCSS,
-  isSCSSNestedPropertyNode,
-  isSCSSVariable,
-  stringifyNode,
-  isModuleRuleName,
-} = require("./utils.js");
 const { locStart, locEnd } = require("./loc.js");
 const { calculateLoc, replaceQuotesInInlineComments } = require("./loc.js");
+const hasSCSSInterpolation = require("./utils/has-scss-interpolation.js");
+const hasStringOrFunction = require("./utils/has-string-or-function.js");
+const isLessParser = require("./utils/is-less-parser.js");
+const isSCSS = require("./utils/is-scss.js");
+const isSCSSNestedPropertyNode = require("./utils/is-scss-nested-property-node.js");
+const isSCSSVariable = require("./utils/is-scss-variable.js");
+const stringifyNode = require("./utils/stringify-node.js");
+const isModuleRuleName = require("./utils/is-module-rule-name.js");
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
@@ -308,9 +306,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.selector === "string") {
       selector = node.raws.selector
-        ? node.raws.selector.scss
-          ? node.raws.selector.scss
-          : node.raws.selector.raw
+        ? node.raws.selector.scss ?? node.raws.selector.raw
         : node.selector;
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
@@ -324,9 +320,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.value === "string") {
       value = node.raws.value
-        ? node.raws.value.scss
-          ? node.raws.value.scss
-          : node.raws.value.raw
+        ? node.raws.value.scss ?? node.raws.value.raw
         : node.value;
 
       value = value.trim();
@@ -338,9 +332,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.params === "string") {
       params = node.raws.params
-        ? node.raws.params.scss
-          ? node.raws.params.scss
-          : node.raws.params.raw
+        ? node.raws.params.scss ?? node.raws.params.raw
         : node.params;
 
       if (node.raws.afterName && node.raws.afterName.trim().length > 0) {

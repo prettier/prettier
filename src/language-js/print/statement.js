@@ -12,7 +12,7 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
+} = require("../utils/index.js");
 const { shouldPrintParamsWithoutParens } = require("./function.js");
 
 /**
@@ -167,7 +167,8 @@ function printSwitchCaseConsequent(path, options, print) {
 const isClassProperty = ({ type }) =>
   type === "ClassProperty" ||
   type === "PropertyDefinition" ||
-  type === "ClassPrivateProperty";
+  type === "ClassPrivateProperty" ||
+  type === "ClassAccessorProperty";
 /**
  * @returns {boolean}
  */

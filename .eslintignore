@@ -1,3 +1,4 @@
+.tmp
 !/*.js
 /tests/format/**/*.js
 /tests/integration/cli/
@@ -11,3 +12,4 @@
 /website/build/
 /website/static/playground.js
 /website/static/lib/
+/vendors/

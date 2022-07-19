@@ -14,6 +14,32 @@ const test = (ruleId, tests) => {
   );
 };
 
+test("await-cli-tests", {
+  valid: [
+    "async () => await runPrettier()",
+    "runPrettier().test()",
+    "notRunPrettier()",
+    "async () => await runPrettier().stderr",
+    outdent`
+      async () => {
+        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+      }
+    `,
+  ],
+  invalid: [
+    {
+      code: "runPrettier()",
+      errors: [
+        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+      ],
+    },
+    {
+      code: "runPrettier().stderr",
+      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+    },
+  ],
+});
+
 test("better-parent-property-check-in-needs-parens", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
@@ -246,8 +272,8 @@ test("no-identifier-n", {
   valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
   invalid: [
     {
-      code: "const n = 1; alet(n)",
-      output: "const node = 1; alet(node)",
+      code: "const n = 1; alert(n)",
+      output: "const node = 1; alert(node)",
       errors: 1,
     },
     {

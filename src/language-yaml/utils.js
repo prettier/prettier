@@ -138,23 +138,23 @@ function hasComments(node) {
 }
 
 function hasLeadingComments(node) {
-  return node && isNonEmptyArray(node.leadingComments);
+  return isNonEmptyArray(node?.leadingComments);
 }
 
 function hasMiddleComments(node) {
-  return node && isNonEmptyArray(node.middleComments);
+  return isNonEmptyArray(node?.middleComments);
 }
 
 function hasIndicatorComment(node) {
-  return node && node.indicatorComment;
+  return node?.indicatorComment;
 }
 
 function hasTrailingComment(node) {
-  return node && node.trailingComment;
+  return node?.trailingComment;
 }
 
 function hasEndComments(node) {
-  return node && isNonEmptyArray(node.endComments);
+  return isNonEmptyArray(node?.endComments);
 }
 
 /**
@@ -253,12 +253,15 @@ function getBlockValueLineContents(
           // exclude open line `>` or `|`
           .match(/^[^\n]*\n(.*)$/s)[1];
 
-  const leadingSpaceCount =
-    node.indent === null
-      ? ((match) => (match ? match[1].length : Number.POSITIVE_INFINITY))(
-          content.match(/^( *)\S/m)
-        )
-      : node.indent - 1 + parentIndent;
+  let leadingSpaceCount;
+  if (node.indent === null) {
+    const matches = content.match(/^(?<leadingSpace> *)[^\n\r ]/m);
+    leadingSpaceCount = matches
+      ? matches.groups.leadingSpace.length
+      : Number.POSITIVE_INFINITY;
+  } else {
+    leadingSpaceCount = node.indent - 1 + parentIndent;
+  }
 
   const rawLineContents = content
     .split("\n")

@@ -1,9 +1,24 @@
 run_spec(
   {
     dirname: __dirname,
-    snippets: ["for each (a in b) {}", "class switch() {}"],
+    snippets: [
+      "for each (a in b) {}",
+      "class switch() {}",
+      "({ method() })",
+      "({ method({}) })",
+      "({ method(parameter,) })",
+    ],
   },
-  ["babel", "flow", "typescript", "babel-flow", "babel-ts", "espree", "meriyah"]
+  [
+    "babel",
+    "flow",
+    "typescript",
+    "babel-flow",
+    "babel-ts",
+    "acorn",
+    "espree",
+    "meriyah",
+  ]
 );
 
 run_spec(

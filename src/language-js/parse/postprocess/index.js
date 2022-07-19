@@ -1,10 +1,12 @@
 "use strict";
 
-const { getLast } = require("../../../common/util.js");
 const { locStart, locEnd } = require("../../loc.js");
-const { isTypeCastComment } = require("../../comments.js");
-const visitNode = require("./visitNode.js");
+const isTsKeywordType = require("../../utils/is-ts-keyword-type.js");
+const isTypeCastComment = require("../../utils/is-type-cast-comment.js");
+const getLast = require("../../../utils/get-last.js");
+const visitNode = require("./visit-node.js");
 const { throwErrorForInvalidNodes } = require("./typescript.js");
+const throwSyntaxError = require("./throw-syntax-error.js");
 
 function postprocess(ast, options) {
   if (
@@ -19,6 +21,7 @@ function postprocess(ast, options) {
   if (
     options.parser !== "typescript" &&
     options.parser !== "flow" &&
+    options.parser !== "acorn" &&
     options.parser !== "espree" &&
     options.parser !== "meriyah"
   ) {
@@ -79,7 +82,14 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        node.typeAnnotation.range = [locStart(node), locEnd(node)];
+        if (
+          !(
+            isTsKeywordType(node.typeAnnotation) ||
+            node.typeAnnotation.type === "TSThisType"
+          )
+        ) {
+          node.typeAnnotation.range = [locStart(node), locEnd(node)];
+        }
         return node.typeAnnotation;
       }
       case "TSTypeParameter":
@@ -93,6 +103,20 @@ function postprocess(ast, options) {
           };
         }
         break;
+      case "ObjectExpression":
+        // #12963
+        if (options.parser === "typescript") {
+          const invalidProperty = node.properties.find(
+            (property) =>
+              property.type === "Property" &&
+              property.value.type === "TSEmptyBodyFunctionExpression"
+          );
+          if (invalidProperty) {
+            throwSyntaxError(invalidProperty.value, "Unexpected token.");
+          }
+        }
+        break;
+
       case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
         const lastExpression = getLast(node.expressions);
@@ -106,6 +130,29 @@ function postprocess(ast, options) {
       case "TopicReference":
         options.__isUsingHackPipeline = true;
         break;
+      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
+      case "ExportAllDeclaration": {
+        const { exported } = node;
+        if (
+          options.parser === "meriyah" &&
+          exported &&
+          exported.type === "Identifier"
+        ) {
+          const raw = options.originalText.slice(
+            locStart(exported),
+            locEnd(exported)
+          );
+          if (raw.startsWith('"') || raw.startsWith("'")) {
+            node.exported = {
+              ...node.exported,
+              type: "Literal",
+              value: node.exported.name,
+              raw,
+            };
+          }
+        }
+        break;
+      }
     }
   });
 
@@ -126,8 +173,8 @@ function postprocess(ast, options) {
   }
 }
 
-// This is a workaround to transform `ChainExpression` from `espree`, `meriyah`,
-// and `typescript` into `babel` shape AST, we should do the opposite,
+// This is a workaround to transform `ChainExpression` from `acorn`, `espree`,
+// `meriyah`, and `typescript` into `babel` shape AST, we should do the opposite,
 // since `ChainExpression` is the standard `estree` AST for `optional chaining`
 // https://github.com/estree/estree/blob/master/es2020.md
 function transformChainExpression(node) {

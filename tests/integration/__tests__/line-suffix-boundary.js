@@ -2,11 +2,12 @@
 
 /** @type {import('prettier')} */
 const prettier = require("prettier-local");
+const { outdent } = require("outdent");
 
 const { group, indent, line, lineSuffix, lineSuffixBoundary, softline } =
   prettier.doc.builders;
 
-const printDoc = require("../printDoc.js");
+const printDoc = require("../print-doc.js");
 
 describe("lineSuffixBoundary", () => {
   test("should be correctly treated as a potential line break in `fits`", () => {
@@ -24,11 +25,13 @@ describe("lineSuffixBoundary", () => {
       "];",
     ]);
 
-    const expected = `let foo = [
-  item1,
-  item2, // comment
-  item3
-];`;
+    const expected = outdent`
+      let foo = [
+        item1,
+        item2, // comment
+        item3
+      ];
+    `;
 
     expect(printDoc(doc)).toBe(expected);
   });

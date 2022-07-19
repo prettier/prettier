@@ -48,7 +48,7 @@ function run_spec(
 Parameters:
 
 - **`fixtures`**: Must be set to `__dirname` or to an object of the shape `{ dirname: __dirname, ... }`. The object may have the `snippets` property to specify an array of extra input entries in addition to the files in the current directory. For each input entry (a file or a snippet), `run_spec` configures and runs a number of tests. The main check is that for a given input the output should match the snapshot (for snippets, the expected output can also be specified directly). [Additional checks](#deeper-testing) are controlled by options and environment variables.
-- **`parsers`**: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/format/js`, then `espree` and `meriyah` are included implicitly.
+- **`parsers`**: A list of parser names. The tests verify that the parsers in this list produce the same output. If the list includes `typescript`, then `babel-ts` is included implicitly. If the list includes `babel`, and the current directory is inside `tests/format/js`, then `acorn`, `espree`, and `meriyah` are included implicitly.
 - **`options`**: In addition to Prettier's formatting options, can contain the `errors` property to specify that it's expected that the formatting shouldn't be successful and an error should be thrown for all (`errors: true`) or some combinations of input entries and parsers.
 
 The implementation of `run_spec` can be found in [`tests/config/format-test.js`](tests/config/format-test.js).
@@ -78,24 +78,20 @@ If you want to know more about Prettier's GitHub labels, see the [Issue Labels](
 
 If you're contributing a performance improvement, the following Prettier CLI options can help:
 
-- `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
-- `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements. The measurements are printed at the debug log level, use `--loglevel debug` to see them.
+- `--debug-repeat N` uses a naïve loop to repeat the formatting `N` times and measures the average run duration. It can be useful to highlight hot functions in the profiler. This can also set by environment variable `PRETTIER_PERF_REPEAT`.
+- `--debug-benchmark` uses [`benchmark`](https://npm.im/benchmark) module to produce statistically significant duration measurements.
 
 For convenience, the following commands for profiling are available via `package.json` `scripts`.
 
-_Unfortunately, [`yarn` simply appends passed arguments to commands, cannot reference them by name](https://github.com/yarnpkg/yarn/issues/5207), so we have to use inline environment variables to pass them._
-
-- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf:repeat` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
-- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf:repeat-inspect` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
-- `PERF_FILE=<filename> yarn perf:benchmark` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
+- `PRETTIER_PERF_REPEAT=1000 yarn perf <filename>` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
+- `PRETTIER_PERF_REPEAT=1000 yarn perf:inspect <filename>` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
+- `yarn perf:benchmark <filename>` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
 
 In the above commands:
 
 - `yarn && yarn build` ensures the compiler-optimized version of Prettier is built prior to launching it. Prettier's own environment checks are defaulted to production and removed during the build. The build output is cached, so a rebuild will happen only if the source code changes.
 - `NODE_ENV=production` ensures Prettier and its dependencies run in production mode.
 - `node --inspect-brk` pauses the script execution until Inspector is connected to the Node process.
-- `--loglevel debug` ensures the `--debug-repeat` or `--debug-benchmark` measurements are printed to `stderr`.
-- `> /dev/null` ensures the formatted output is discarded.
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 

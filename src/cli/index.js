@@ -1,10 +1,5 @@
 "use strict";
 
-// eslint-disable-next-line no-restricted-modules
-const packageJson = require("../../package.json");
-require("please-upgrade-node")(packageJson);
-
-// eslint-disable-next-line import/order
 const stringify = require("fast-json-stable-stringify");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
@@ -15,6 +10,10 @@ const { createDetailedUsage, createUsage } = require("./usage.js");
 const { formatStdin, formatFiles } = require("./format.js");
 const logFileInfoOrDie = require("./file-info.js");
 const logResolvedConfigPathOrDie = require("./find-config-path.js");
+const {
+  utils: { isNonEmptyArray },
+} = require("./prettier-internal.js");
+const { printToScreen } = require("./utils.js");
 
 async function run(rawArguments) {
   // Create a default level logger, so we can log errors during `logLevel` parsing
@@ -29,18 +28,32 @@ async function run(rawArguments) {
     if (logLevel !== logger.logLevel) {
       logger = createLogger(logLevel);
     }
+    const context = new Context({ rawArguments, logger });
+    if (logger.logLevel !== "debug" && context.performanceTestFlag) {
+      context.logger = createLogger("debug");
+    }
 
-    await main(rawArguments, logger);
+    await main(context);
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
   }
 }
 
-async function main(rawArguments, logger) {
-  const context = new Context({ rawArguments, logger });
+async function main(context) {
+  context.logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
 
-  logger.debug(`normalized argv: ${JSON.stringify(context.argv)}`);
+  if (context.argv.pluginSearch === false) {
+    const rawPluginSearchDirs = context.argv.__raw["plugin-search-dir"];
+    if (
+      typeof rawPluginSearchDirs === "string" ||
+      isNonEmptyArray(rawPluginSearchDirs)
+    ) {
+      throw new Error(
+        "Cannot use --no-plugin-search and --plugin-search-dir together."
+      );
+    }
+  }
 
   if (context.argv.check && context.argv.listDifferent) {
     throw new Error("Cannot use --check and --list-different together.");
@@ -59,12 +72,12 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.version) {
-    logger.log(prettier.version);
+    printToScreen(prettier.version);
     return;
   }
 
   if (context.argv.help !== undefined) {
-    logger.log(
+    printToScreen(
       typeof context.argv.help === "string" && context.argv.help !== ""
         ? createDetailedUsage(context, context.argv.help)
         : createUsage(context)
@@ -73,7 +86,7 @@ async function main(rawArguments, logger) {
   }
 
   if (context.argv.supportInfo) {
-    logger.log(
+    printToScreen(
       prettier.format(stringify(prettier.getSupportInfo()), {
         parser: "json",
       })
@@ -90,12 +103,16 @@ async function main(rawArguments, logger) {
   } else if (context.argv.fileInfo) {
     await logFileInfoOrDie(context);
   } else if (useStdin) {
+    if (context.argv.cache) {
+      context.logger.error("`--cache` cannot be used with stdin.");
+      process.exit(2);
+    }
     await formatStdin(context);
   } else if (hasFilePatterns) {
     await formatFiles(context);
   } else {
-    logger.log(createUsage(context));
     process.exitCode = 1;
+    printToScreen(createUsage(context));
   }
 }
 

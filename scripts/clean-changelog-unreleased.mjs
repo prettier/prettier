@@ -2,13 +2,13 @@
 
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
-import globby from "globby";
+import fastGlob from "fast-glob";
 
 const changelogUnreleasedDir = fileURLToPath(
   new URL("../changelog_unreleased", import.meta.url)
 );
 
-const files = globby.sync(["blog-post-intro.md", "*/*.md"], {
+const files = fastGlob.sync(["blog-post-intro.md", "*/*.md"], {
   cwd: changelogUnreleasedDir,
   absolute: true,
 });

@@ -14,7 +14,7 @@ const CATEGORY_SPECIAL = "Special";
  * @typedef {Object} OptionInfo
  * @property {string} [since] - available since version
  * @property {string} category
- * @property {'int' | 'boolean' | 'choice' | 'path'} type
+ * @property {'int' | 'boolean' | 'choice' | 'path' | 'string' | 'flag'} type
  * @property {boolean} [array] - indicate it's an array of the specified type
  * @property {OptionValueInfo} [default]
  * @property {OptionRangeInfo} [range] - for type int
@@ -129,6 +129,7 @@ const options = {
       { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
+      { value: "acorn", since: "2.6.0", description: "JavaScript" },
       { value: "espree", since: "2.2.0", description: "JavaScript" },
       { value: "meriyah", since: "2.2.0", description: "JavaScript" },
       { value: "css", since: "1.7.1", description: "CSS" },

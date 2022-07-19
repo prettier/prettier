@@ -8,4 +8,4 @@ bar();
 "
 `;
 
-exports[`allows passing a string to resolve a parser (write) 1`] = `Array []`;
+exports[`allows passing a string to resolve a parser (write) 1`] = `[]`;

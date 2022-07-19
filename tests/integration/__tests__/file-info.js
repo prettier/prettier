@@ -2,11 +2,11 @@
 
 const path = require("path");
 const fs = require("fs");
-const tempy = require("tempy");
-const fromPairs = require("lodash/fromPairs");
 
 const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+const runPrettier = require("../run-prettier.js");
+
+const { default: tempy } = require("../../../vendors/tempy.js");
 
 expect.addSnapshotSerializer(require("../path-serializer.js"));
 
@@ -161,7 +161,7 @@ test("API getFileInfo.sync with filepath only", () => {
 });
 
 describe("API getFileInfo resolveConfig", () => {
-  const files = fromPairs(
+  const files = Object.fromEntries(
     ["foo", "js", "bar", "css"].map((ext) => [
       ext,
       path.resolve(
@@ -268,7 +268,7 @@ describe("API getFileInfo resolveConfig", () => {
 });
 
 describe("API getFileInfo resolveConfig when no config is present", () => {
-  const files = fromPairs(
+  const files = Object.fromEntries(
     ["foo", "js"].map((ext) => [
       ext,
       path.resolve(path.join(__dirname, `../cli/non-exists-dir/file.${ext}`)),

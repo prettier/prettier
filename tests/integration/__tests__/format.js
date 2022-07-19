@@ -1,6 +1,7 @@
 "use strict";
 
 const prettier = require("prettier-local");
+const { outdent } = require("outdent");
 const fooPlugin = require("../plugins/defaultOptions/plugin.js");
 
 test("yaml parser should handle CRLF correctly", () => {
@@ -14,15 +15,15 @@ test("yaml parser should handle CRLF correctly", () => {
 });
 
 test("typescript parser should throw the first error when both JSX and non-JSX mode failed", () => {
-  const input = `
-import React from "react";
+  const input = outdent`
+    import React from "react";
 
-const App = () => (
-  <div className="App">
-  </div>
-);
+    const App = () => (
+      <div className="App">
+      </div>
+    );
 
-label:
+    label:
   `;
   expect(() =>
     prettier.format(input, { parser: "typescript" })
@@ -55,9 +56,7 @@ test("should work with foo plugin instance", () => {
     JSON.stringify(
       prettier.format(input, { parser: "foo-parser", plugins: [fooPlugin] })
     )
-  ).toMatchInlineSnapshot(
-    '"\\"{\\\\\\"tabWidth\\\\\\":8,\\\\\\"bracketSpacing\\\\\\":false}\\""'
-  );
+  ).toMatchInlineSnapshot('""{\\"tabWidth\\":8,\\"bracketSpacing\\":false}""');
 });
 
 test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", () => {

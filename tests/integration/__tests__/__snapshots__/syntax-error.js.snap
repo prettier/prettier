@@ -9,4 +9,4 @@ exports[`exits with non-zero code when input has a syntax error (stderr) 1`] = `
 
 exports[`exits with non-zero code when input has a syntax error (stdout) 1`] = `""`;
 
-exports[`exits with non-zero code when input has a syntax error (write) 1`] = `Array []`;
+exports[`exits with non-zero code when input has a syntax error (write) 1`] = `[]`;
