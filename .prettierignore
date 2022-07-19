@@ -4,12 +4,12 @@ coverage/
 .nyc_output/
 .yarn/
 dist/
+node_modules/
 
 /tests/format/**/*.*
 !/tests/format/**/jsfmt.spec.js
 /tests/integration/cli/
-/tests/integration/plugins/
-# TODO: These are not correctly unignored
+/tests/integration/plugins/**/*.*
 !/tests/integration/plugins/automatic/node_modules/@prettier/plugin-foo/index.js
 !/tests/integration/plugins/automatic/node_modules/@user/prettier-plugin-foobar/index.js
 !/tests/integration/plugins/automatic/node_modules/prettier-plugin-bar/index.js
