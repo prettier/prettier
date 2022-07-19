@@ -78,7 +78,7 @@ async function parse(originalText, opts) {
     ? parser.preprocess(originalText, opts)
     : originalText;
 
-  let ast ;
+  let ast;
   try {
     ast = await parser.parse(text, parsersForCustomParserApi, opts);
   } catch (error) {
