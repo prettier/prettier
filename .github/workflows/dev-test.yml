@@ -59,7 +59,7 @@ jobs:
 
       - name: Run Tests (coverage)
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        run: yarn c8 test
+        run: yarn c8 yarn test
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v3.1.0
@@ -70,7 +70,7 @@ jobs:
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
         if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
-        run: yarn c8 test "tests/integration/__tests__/(config|plugin)"
+        run: yarn c8 yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           PRETTIER_FALLBACK_RESOLVE: true
 
