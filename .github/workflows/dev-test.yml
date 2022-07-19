@@ -69,7 +69,6 @@ jobs:
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
         run: yarn c8 yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           PRETTIER_FALLBACK_RESOLVE: true
