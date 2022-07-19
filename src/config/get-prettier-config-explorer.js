@@ -80,10 +80,11 @@ async function transform(result) {
     return result;
   }
 
-  const { config, filepath } = result;
+  let { config, filepath } = result;
 
   if (typeof config === "string") {
-    result.config = await loadExternalConfig(config, filepath);
+    config = await loadExternalConfig(config, filepath);
+    result.config = config;
   }
 
   if (typeof config !== "object") {
