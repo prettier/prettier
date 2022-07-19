@@ -5092,7 +5092,7 @@ __metadata:
 
 "jest-light-runner@fisker/jest-light-runner#fix-addSnapshotSerializer":
   version: 0.2.0
-  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=7be2a890ffd93d49caeefcf386422e0b6430bc02"
+  resolution: "jest-light-runner@https://github.com/fisker/jest-light-runner.git#commit=db8a4915393db339175e2feb09ebefdd78f9b540"
   dependencies:
     "@jest/expect": ^28.0.2
     jest-circus: ^28.0.0
@@ -5103,7 +5103,7 @@ __metadata:
     supports-color: ^9.2.1
   peerDependencies:
     jest: ^27.0.0 || ^28.0.0
-  checksum: f19c2f5bde07bc7fef4f46bcb899fb80ec2ea93d741355591ab3df0394b146c747facedc9b8769c283ee9c446252417cd111d48fa64f1edfd9999186feccb8c8
+  checksum: 93f42bb11850cc3c3a71d17b21c93106decb3c1f9514441ef7754ad44ba76f9c1a5fe6a3b58a2a3191e36e99c2f0ba11375cb64c8a2a1b54c3b818505d7b53a8
   languageName: node
   linkType: hard
 
