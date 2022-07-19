@@ -7,7 +7,6 @@ import {
   group,
   indent,
   align,
-  ifBreak,
   indentIfBreak,
 } from "../../document/builders.js";
 import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
@@ -240,7 +239,7 @@ async function printBinaryishExpressions(
             line,
             ": ",
             join(
-              [line, ":", ifBreak(" ")],
+              [line, ": "],
               (await path.map(print, "arguments")).map((arg) =>
                 align(2, group(arg))
               )
