@@ -1,7 +1,7 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
-import { parseSync } from "./parser.js";
+import { parse } from "./parser.js";
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -21,7 +21,7 @@ function printSubtree(path, print, options, printAstToDoc) {
   }
 }
 
-function textToDoc(
+async function textToDoc(
   text,
   partialNextOptions,
   parentOptions,
@@ -39,12 +39,8 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = parseSync(text, nextOptions);
+  const result = await parse(text, nextOptions);
   const { ast } = result;
-
-  if (typeof ast?.then === "function") {
-    throw new TypeError("async parse is not supported in embed");
-  }
 
   text = result.text;
 
@@ -56,7 +52,7 @@ function textToDoc(
   // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
 
-  const doc = printAstToDoc(ast, nextOptions);
+  const doc = await printAstToDoc(ast, nextOptions);
   ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {

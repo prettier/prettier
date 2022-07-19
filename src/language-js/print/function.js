@@ -46,7 +46,7 @@ import {
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
-function printFunction(path, print, options, args) {
+async function printFunction(path, print, options, args) {
   const node = path.getValue();
 
   let expandArg = false;
@@ -81,29 +81,29 @@ function printFunction(path, print, options, args) {
   }
 
   if (node.id) {
-    parts.push(print("id"));
+    parts.push(await print("id"));
   }
 
-  const parametersDoc = printFunctionParameters(
+  const parametersDoc = await printFunctionParameters(
     path,
     print,
     options,
     expandArg
   );
-  const returnTypeDoc = printReturnType(path, print, options);
+  const returnTypeDoc = await printReturnType(path, print, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc
   );
 
   parts.push(
-    printFunctionTypeParameters(path, options, print),
+    await printFunctionTypeParameters(path, options, print),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
     ]),
     node.body ? " " : "",
-    print("body")
+    await print("body")
   );
 
   if (options.semi && (node.declare || !node.body)) {
@@ -113,7 +113,7 @@ function printFunction(path, print, options, args) {
   return parts;
 }
 
-function printMethod(path, options, print) {
+async function printMethod(path, options, print) {
   const node = path.getNode();
   const { kind } = node;
   const value = node.value || node;
@@ -135,33 +135,36 @@ function printMethod(path, options, print) {
   }
 
   parts.push(
-    printPropertyKey(path, options, print),
+    await printPropertyKey(path, options, print),
     node.optional || node.key.optional ? "?" : ""
   );
 
   if (node === value) {
-    parts.push(printMethodInternal(path, options, print));
+    parts.push(await printMethodInternal(path, options, print));
   } else if (value.type === "FunctionExpression") {
     parts.push(
-      path.call((path) => printMethodInternal(path, options, print), "value")
+      await path.call(
+        (path) => printMethodInternal(path, options, print),
+        "value"
+      )
     );
   } else {
-    parts.push(print("value"));
+    parts.push(await print("value"));
   }
 
   return parts;
 }
 
-function printMethodInternal(path, options, print) {
+async function printMethodInternal(path, options, print) {
   const node = path.getNode();
-  const parametersDoc = printFunctionParameters(path, print, options);
-  const returnTypeDoc = printReturnType(path, print, options);
+  const parametersDoc = await printFunctionParameters(path, print, options);
+  const returnTypeDoc = await printReturnType(path, print, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc
   );
   const parts = [
-    printFunctionTypeParameters(path, options, print),
+    await printFunctionTypeParameters(path, options, print),
     group([
       shouldGroupParameters ? group(parametersDoc) : parametersDoc,
       returnTypeDoc,
@@ -169,7 +172,7 @@ function printMethodInternal(path, options, print) {
   ];
 
   if (node.body) {
-    parts.push(" ", print("body"));
+    parts.push(" ", await print("body"));
   } else {
     parts.push(options.semi ? ";" : "");
   }
@@ -177,7 +180,7 @@ function printMethodInternal(path, options, print) {
   return parts;
 }
 
-function printArrowFunctionSignature(path, options, print, args) {
+async function printArrowFunctionSignature(path, options, print, args) {
   const node = path.getValue();
   const parts = [];
 
@@ -186,10 +189,10 @@ function printArrowFunctionSignature(path, options, print, args) {
   }
 
   if (shouldPrintParamsWithoutParens(path, options)) {
-    parts.push(print(["params", 0]));
+    parts.push(await print(["params", 0]));
   } else {
     const expandArg = args && (args.expandLastArg || args.expandFirstArg);
-    let returnTypeDoc = printReturnType(path, print, options);
+    let returnTypeDoc = await printReturnType(path, print, options);
     if (expandArg) {
       if (willBreak(returnTypeDoc)) {
         throw new ArgExpansionBailout();
@@ -198,7 +201,7 @@ function printArrowFunctionSignature(path, options, print, args) {
     }
     parts.push(
       group([
-        printFunctionParameters(
+        await printFunctionParameters(
           path,
           print,
           options,
@@ -277,15 +280,15 @@ function printArrowChain(
   ]);
 }
 
-function printArrowFunction(path, options, print, args) {
+async function printArrowFunction(path, options, print, args) {
   let node = path.getValue();
   /** @type {Doc[]} */
   const signatures = [];
   const body = [];
   let chainShouldBreak = false;
 
-  (function rec() {
-    const doc = printArrowFunctionSignature(path, options, print, args);
+  await (async function rec() {
+    const doc = await printArrowFunctionSignature(path, options, print, args);
     if (signatures.length === 0) {
       signatures.push(doc);
     } else {
@@ -305,10 +308,10 @@ function printArrowFunction(path, options, print, args) {
       node.body.type !== "ArrowFunctionExpression" ||
       (args && args.expandLastArg)
     ) {
-      body.unshift(print("body", args));
+      body.unshift(await print("body", args));
     } else {
       node = node.body;
-      path.call(rec, "body");
+      await path.call(rec, "body");
     }
   })();
 
@@ -415,10 +418,10 @@ function shouldPrintParamsWithoutParens(path, options) {
   return false;
 }
 
-/** @returns {Doc} */
-function printReturnType(path, print, options) {
+/** @returns {Promise<Doc>} */
+async function printReturnType(path, print, options) {
   const node = path.getValue();
-  const returnType = print("returnType");
+  const returnType = await print("returnType");
 
   if (
     node.returnType &&
@@ -437,21 +440,26 @@ function printReturnType(path, print, options) {
   if (node.predicate) {
     // The return type will already add the colon, but otherwise we
     // need to do it ourselves
-    parts.push(node.returnType ? " " : ": ", print("predicate"));
+    parts.push(node.returnType ? " " : ": ", await print("predicate"));
   }
 
   return parts;
 }
 
 // `ReturnStatement` and `ThrowStatement`
-function printReturnOrThrowArgument(path, options, print) {
+async function printReturnOrThrowArgument(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   const parts = [];
 
   if (node.argument) {
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([" (", indent([hardline, print("argument")]), hardline, ")"]);
+      parts.push([
+        " (",
+        indent([hardline, await print("argument")]),
+        hardline,
+        ")",
+      ]);
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
@@ -459,13 +467,13 @@ function printReturnOrThrowArgument(path, options, print) {
       parts.push(
         group([
           ifBreak(" (", " "),
-          indent([softline, print("argument")]),
+          indent([softline, await print("argument")]),
           softline,
           ifBreak(")"),
         ])
       );
     } else {
-      parts.push(" ", print("argument"));
+      parts.push(" ", await print("argument"));
     }
   }
 
@@ -491,12 +499,12 @@ function printReturnOrThrowArgument(path, options, print) {
   return parts;
 }
 
-function printReturnStatement(path, options, print) {
-  return ["return", printReturnOrThrowArgument(path, options, print)];
+async function printReturnStatement(path, options, print) {
+  return ["return", await printReturnOrThrowArgument(path, options, print)];
 }
 
-function printThrowStatement(path, options, print) {
-  return ["throw", printReturnOrThrowArgument(path, options, print)];
+async function printThrowStatement(path, options, print) {
+  return ["throw", await printReturnOrThrowArgument(path, options, print)];
 }
 
 // This recurses the return argument, looking for the first token

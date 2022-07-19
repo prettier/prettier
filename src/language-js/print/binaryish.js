@@ -7,7 +7,6 @@ import {
   group,
   indent,
   align,
-  ifBreak,
   indentIfBreak,
 } from "../../document/builders.js";
 import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
@@ -27,7 +26,7 @@ import {
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 let uid = 0;
-function printBinaryishExpression(path, options, print) {
+async function printBinaryishExpression(path, options, print) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -40,7 +39,7 @@ function printBinaryishExpression(path, options, print) {
   const isHackPipeline =
     isEnabledHackPipeline(options) && node.operator === "|>";
 
-  const parts = printBinaryishExpressions(
+  const parts = await printBinaryishExpressions(
     path,
     print,
     options,
@@ -180,7 +179,7 @@ function printBinaryishExpression(path, options, print) {
 // precedence level and the AST is structured based on precedence
 // level, things are naturally broken up correctly, i.e. `&&` is
 // broken before `+`.
-function printBinaryishExpressions(
+async function printBinaryishExpressions(
   path,
   print,
   options,
@@ -191,7 +190,7 @@ function printBinaryishExpressions(
 
   // Simply print the node normally.
   if (!isBinaryish(node)) {
-    return [group(print())];
+    return [group(await print())];
   }
 
   /** @type{Doc[]} */
@@ -210,7 +209,7 @@ function printBinaryishExpressions(
   // which is unique in that it is right-associative.)
   if (shouldFlatten(node.operator, node.left.operator)) {
     // Flatten them out by recursively calling this function.
-    parts = path.call(
+    parts = await path.call(
       (left) =>
         printBinaryishExpressions(
           left,
@@ -222,7 +221,7 @@ function printBinaryishExpressions(
       "left"
     );
   } else {
-    parts.push(group(print("left")));
+    parts.push(group(await print("left")));
   }
 
   const shouldInline = shouldInlineLogicalExpression(node);
@@ -237,11 +236,13 @@ function printBinaryishExpressions(
     node.type === "NGPipeExpression" && node.arguments.length > 0
       ? group(
           indent([
-            softline,
+            line,
             ": ",
             join(
-              [softline, ":", ifBreak(" ")],
-              path.map(print, "arguments").map((arg) => align(2, group(arg)))
+              [line, ": "],
+              (await path.map(print, "arguments")).map((arg) =>
+                align(2, group(arg))
+              )
             ),
           ])
         )
@@ -250,10 +251,10 @@ function printBinaryishExpressions(
   /** @type {Doc} */
   let right;
   if (shouldInline) {
-    right = [operator, " ", print("right"), rightSuffix];
+    right = [operator, " ", await print("right"), rightSuffix];
   } else {
     const isHackPipeline = isEnabledHackPipeline(options) && operator === "|>";
-    const rightContent = isHackPipeline
+    const rightContent = await (isHackPipeline
       ? path.call(
           (left) =>
             printBinaryishExpressions(
@@ -265,7 +266,7 @@ function printBinaryishExpressions(
             ),
           "right"
         )
-      : print("right");
+      : print("right"));
     right = [
       lineBeforeOperator ? line : "",
       operator,

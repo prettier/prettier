@@ -1,97 +1,48 @@
-import { createRequire } from "node:module";
 import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
-import thirdParty from "../common/third-party.cjs";
-import loadToml from "../utils/load-toml.js";
-import loadJson5 from "../utils/load-json5.js";
-import resolve from "../common/resolve.js";
 import partition from "../utils/partition.js";
-import * as resolveEditorConfig from "./resolve-config-editorconfig.js";
+import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
+import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
 
-/**
- * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
- * @typedef {{cache?: boolean }} Options
- */
-
-/**
- * @template {Options} Opts
- * @param {Opts} opts
- * @return {Explorer}
- */
-const getExplorerMemoized = mem(
-  (opts) => {
-    const require = createRequire(import.meta.url);
-    const { cosmiconfig } = thirdParty;
-    const explorer = cosmiconfig("prettier", {
-      cache: opts.cache,
-      transform: (result) => {
-        if (result && result.config) {
-          if (typeof result.config === "string") {
-            const dir = path.dirname(result.filepath);
-            const modulePath = resolve(result.config, { paths: [dir] });
-            result.config = require(modulePath);
-          }
-
-          if (typeof result.config !== "object") {
-            throw new TypeError(
-              "Config is only allowed to be an object, " +
-                `but received ${typeof result.config} in "${result.filepath}"`
-            );
-          }
-
-          delete result.config.$schema;
-        }
-        return result;
-      },
-      searchPlaces: [
-        "package.json",
-        ".prettierrc",
-        ".prettierrc.json",
-        ".prettierrc.yaml",
-        ".prettierrc.yml",
-        ".prettierrc.json5",
-        ".prettierrc.js",
-        ".prettierrc.cjs",
-        "prettier.config.js",
-        "prettier.config.cjs",
-        ".prettierrc.toml",
-      ],
-      loaders: {
-        ".toml": loadToml,
-        ".json5": loadJson5,
-      },
-    });
-
-    return explorer;
-  },
-  { cacheKey: JSON.stringify }
-);
-
-/**
- * @param {Options} [options]
- * @return {Explorer}
- */
-function getExplorer(options) {
-  return getExplorerMemoized(
-    // Normalize opts before passing to a memoized function
-    { cache: false, ...options }
-  );
+const getPrettierConfigExplorer = mem(getPrettierConfigExplorerWithoutCache, {
+  cacheKey: ([options]) => options.cache,
+});
+const memoizedLoadEditorConfig = mem(loadEditorConfigWithoutCache);
+function clearCache() {
+  memClear(getPrettierConfigExplorer);
+  memClear(memoizedLoadEditorConfig);
 }
 
-async function resolveConfig(filePath, opts) {
-  opts = { useCache: true, ...opts };
-  const loadOpts = {
-    cache: Boolean(opts.useCache),
-    editorconfig: Boolean(opts.editorconfig),
-  };
-  const { load, search } = getExplorer(loadOpts);
-  const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
+function loadEditorConfig(filePath, options) {
+  if (!filePath || !options.editorconfig) {
+    return;
+  }
+
+  return (
+    options.useCache ? memoizedLoadEditorConfig : loadEditorConfigWithoutCache
+  )(filePath);
+}
+
+function loadPrettierConfig(filePath, options) {
+  const { useCache, config: configPath } = options;
+  const { load, search } = getPrettierConfigExplorer({
+    cache: Boolean(useCache),
+  });
+  return configPath ? load(configPath) : search(filePath);
+}
+
+async function resolveConfig(filePath, options) {
+  options = { useCache: true, ...options };
 
   const [result, editorConfigured] = await Promise.all([
-    opts.config ? load(opts.config) : search(filePath),
-    loadEditorConfig(filePath),
+    loadPrettierConfig(filePath, options),
+    loadEditorConfig(filePath, options),
   ]);
+
+  if (!result && !editorConfigured) {
+    return null;
+  }
 
   const merged = {
     ...editorConfigured,
@@ -108,20 +59,11 @@ async function resolveConfig(filePath, opts) {
     }
   }
 
-  if (!result && !editorConfigured) {
-    return null;
-  }
-
   return merged;
 }
 
-function clearCache() {
-  memClear(getExplorerMemoized);
-  resolveEditorConfig.clearCache();
-}
-
 async function resolveConfigFile(filePath) {
-  const { search } = getExplorer();
+  const { search } = getPrettierConfigExplorer({ cache: false });
   const result = await search(filePath);
   return result ? result.filepath : null;
 }

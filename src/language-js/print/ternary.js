@@ -101,7 +101,7 @@ function conditionalExpressionChainContainsJsx(node) {
   return false;
 }
 
-function printTernaryTest(path, options, print) {
+async function printTernaryTest(path, options, print) {
   const node = path.getValue();
   const isConditionalExpression = node.type === "ConditionalExpression";
   const alternateNodePropertyName = isConditionalExpression
@@ -111,8 +111,14 @@ function printTernaryTest(path, options, print) {
   const parent = path.getParentNode();
 
   const printed = isConditionalExpression
-    ? print("test")
-    : [print("checkType"), " ", "extends", " ", print("extendsType")];
+    ? await print("test")
+    : [
+        await print("checkType"),
+        " ",
+        "extends",
+        " ",
+        await print("extendsType"),
+      ];
   /**
    *     a
    *       ? b
@@ -185,9 +191,9 @@ function shouldExtraIndentForConditionalExpression(path) {
  * @param {AstPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
- * @returns {Doc}
+ * @returns {Promise<Doc>}
  */
-function printTernary(path, options, print) {
+async function printTernary(path, options, print) {
   const node = path.getValue();
   const isConditionalExpression = node.type === "ConditionalExpression";
   const consequentNodePropertyName = isConditionalExpression
@@ -264,12 +270,12 @@ function printTernary(path, options, print) {
     parts.push(
       " ? ",
       isNil(consequentNode)
-        ? print(consequentNodePropertyName)
-        : wrap(print(consequentNodePropertyName)),
+        ? await print(consequentNodePropertyName)
+        : wrap(await print(consequentNodePropertyName)),
       " : ",
       alternateNode.type === node.type || isNil(alternateNode)
-        ? print(alternateNodePropertyName)
-        : wrap(print(alternateNodePropertyName))
+        ? await print(alternateNodePropertyName)
+        : wrap(await print(alternateNodePropertyName))
     );
   } else {
     // normal mode
@@ -277,13 +283,13 @@ function printTernary(path, options, print) {
       line,
       "? ",
       consequentNode.type === node.type ? ifBreak("", "(") : "",
-      align(2, print(consequentNodePropertyName)),
+      align(2, await print(consequentNodePropertyName)),
       consequentNode.type === node.type ? ifBreak("", ")") : "",
       line,
       ": ",
       alternateNode.type === node.type
-        ? print(alternateNodePropertyName)
-        : align(2, print(alternateNodePropertyName)),
+        ? await print(alternateNodePropertyName)
+        : align(2, await print(alternateNodePropertyName)),
     ];
     parts.push(
       parent.type !== node.type ||
@@ -336,7 +342,7 @@ function printTernary(path, options, print) {
   const shouldExtraIndent = shouldExtraIndentForConditionalExpression(path);
 
   const result = maybeGroup([
-    printTernaryTest(path, options, print),
+    await printTernaryTest(path, options, print),
     forceNoIndent ? parts : indent(parts),
     isConditionalExpression && breakClosingParen && !shouldExtraIndent
       ? softline

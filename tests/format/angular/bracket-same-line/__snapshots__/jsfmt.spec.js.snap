@@ -28,7 +28,7 @@ printWidth: 80
 =====================================output=====================================
 <div
   ng-if="$ctrl.shouldShowWarning && !$ctrl.loading"
-  bindon-target="a | b: c"
+  bindon-target="a | b : c"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   [(ngModel)]="canSave"
@@ -37,7 +37,7 @@ printWidth: 80
 </div>
 <span
   ng-if="$ctrl.shouldShowWarning && !$ctrl.loading"
-  bindon-target="a | b: c"
+  bindon-target="a | b : c"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   [(ngModel)]="canSave"
@@ -45,7 +45,7 @@ printWidth: 80
 >
 <img
   ng-if="$ctrl.shouldShowWarning && !$ctrl.loading"
-  bindon-target="a | b: c"
+  bindon-target="a | b : c"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   [(ngModel)]="canSave"
@@ -93,7 +93,7 @@ printWidth: 80
 =====================================output=====================================
 <div
   ng-if="$ctrl.shouldShowWarning && !$ctrl.loading"
-  bindon-target="a | b: c"
+  bindon-target="a | b : c"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   [(ngModel)]="canSave">
@@ -101,7 +101,7 @@ printWidth: 80
 </div>
 <span
   ng-if="$ctrl.shouldShowWarning && !$ctrl.loading"
-  bindon-target="a | b: c"
+  bindon-target="a | b : c"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   [(ngModel)]="canSave"
@@ -109,7 +109,7 @@ printWidth: 80
 >
 <img
   ng-if="$ctrl.shouldShowWarning && !$ctrl.loading"
-  bindon-target="a | b: c"
+  bindon-target="a | b : c"
   (event)="(foo == $event)"
   *ngIf="something ? true : false"
   [(ngModel)]="canSave" />
