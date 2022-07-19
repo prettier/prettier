@@ -53,6 +53,18 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
+      - name: Run Tests (macOS)
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: yarn test --maxWorkers=4
+
+      - name: Run Tests (Linux and Windows)
+        if: ${{ matrix.os != 'macos-latest' && !matrix.ENABLE_CODE_COVERAGE }}
+        run: yarn test --maxWorkers=2
+
+      - name: Run Tests (coverage)
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        run: yarn c8 test --maxWorkers=2
+
       - name: Run Tests
         run: yarn c8 yarn test
 
@@ -62,14 +74,21 @@ jobs:
         with:
           fail_ci_if_error: true
 
-      # # #8073 test
-      # - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-      #   run: yarn test "tests/integration/__tests__/(config|plugin)"
-      #   env:
-      #     PRETTIER_FALLBACK_RESOLVE: true
+      # #8073 test
+      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
+        if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
+        env:
+          PRETTIER_FALLBACK_RESOLVE: true
 
-      # - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-      #   uses: codecov/codecov-action@v3.1.0
-      #   if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-      #   with:
-      #     fail_ci_if_error: true
+      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE, coverage)
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
+        env:
+          PRETTIER_FALLBACK_RESOLVE: true
+
+      - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
+        uses: codecov/codecov-action@v3.1.0
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        with:
+          fail_ci_if_error: true

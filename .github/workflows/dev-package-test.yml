@@ -50,4 +50,4 @@ jobs:
         run: npm install --global pnpm
 
       - name: Run Tests
-        run: yarn test:dev-package
+        run: yarn test:dev-package --maxWorkers=2
