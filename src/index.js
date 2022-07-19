@@ -109,7 +109,6 @@ export {
   check,
   resolveConfig,
   resolveConfigFile,
-  // TODO: Expose this as `clearCache` in v3
   clearCache as clearConfigCache,
   getFileInfo,
   getSupportInfo,
