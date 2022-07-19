@@ -53,7 +53,7 @@ function resolveParser(opts, parsers = getParsers(opts)) {
   }
 }
 
-function callPluginParseFunction(originalText, opts) {
+async function callPluginParseFunction(originalText, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -74,17 +74,14 @@ function callPluginParseFunction(originalText, opts) {
   );
 
   const parser = resolveParser(opts, parsers);
+  const text = parser.preprocess
+    ? parser.preprocess(originalText, opts)
+    : originalText;
 
-  try {
-    const text = parser.preprocess
-      ? parser.preprocess(originalText, opts)
-      : originalText;
-    const result = parser.parse(text, parsersForCustomParserApi, opts);
-
-    return { text, result };
-  } catch (error) {
-    handleParseError(error, originalText);
-  }
+  return {
+    text,
+    result: await parser.parse(text, parsersForCustomParserApi, opts),
+  };
 }
 
 function handleParseError(error, text) {
@@ -101,11 +98,9 @@ function handleParseError(error, text) {
   throw error.stack;
 }
 
-async function parse(originalText, opts) {
-  const { text, result } = callPluginParseFunction(originalText, opts);
-
+async function parse(originalText, options) {
   try {
-    return { text, ast: await result };
+    return await callPluginParseFunction(originalText, options);
   } catch (error) {
     handleParseError(error, originalText);
   }
