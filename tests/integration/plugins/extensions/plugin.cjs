@@ -17,7 +17,9 @@ module.exports = {
   printers: {
     "foo-ast": {
       async print(path) {
-        const {default: prettier} = await import("../../../config/prettier-entry.js");
+        const { default: prettier } = await import(
+          "../../../config/prettier-entry.js"
+        );
         const { concat } = prettier.doc.builders;
         return concat(["!", path.getValue().text]);
       },
