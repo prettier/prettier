@@ -211,11 +211,7 @@ function printPathNoParens(path, options, print, args) {
       return printBlockBody(path, options, print);
     // Babel extension.
     case "EmptyStatement": {
-      const danglingComment = printDanglingComments(
-        path,
-        options,
-        true
-      );
+      const danglingComment = printDanglingComments(path, options, true);
       return danglingComment ? [danglingComment, ";"] : ";";
     }
     case "ExpressionStatement": {

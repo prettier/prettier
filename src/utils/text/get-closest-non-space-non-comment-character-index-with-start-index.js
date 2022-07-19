@@ -13,7 +13,11 @@ const { skipSpaces } = require("./skip.js");
  * @param {SkipOptions=} opts
  * @returns {number | false}
  */
-function getClosestNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx, opts) {
+function getClosestNonSpaceNonCommentCharacterIndexWithStartIndex(
+  text,
+  idx,
+  opts
+) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */

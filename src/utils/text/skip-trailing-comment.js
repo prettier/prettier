@@ -17,7 +17,10 @@ function skipTrailingComment(text, index, opts) {
     return false;
   }
 
-  if (text.charAt(index) === "/" && text.charAt(index + (backwards ? -1 : 1)) === "/") {
+  if (
+    text.charAt(index) === "/" &&
+    text.charAt(index + (backwards ? -1 : 1)) === "/"
+  ) {
     return skipEverythingButNewLine(text, index);
   }
   return index;

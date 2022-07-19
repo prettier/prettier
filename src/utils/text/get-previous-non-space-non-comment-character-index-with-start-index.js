@@ -8,7 +8,9 @@ const getClosestNonSpaceNonCommentCharacterIndexWithStartIndex = require("./get-
  * @returns {number | false}
  */
 function getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
-  return getClosestNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx, { backwards: true });
+  return getClosestNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx, {
+    backwards: true,
+  });
 }
 
 module.exports = getPreviousNonSpaceNonCommentCharacterIndexWithStartIndex;
