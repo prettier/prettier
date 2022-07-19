@@ -1,5 +1,5 @@
 import readline from "node:readline";
-import chalk from "chalk";
+import chalk, { chalkStderr } from "chalk";
 import stripAnsi from "strip-ansi";
 import wcwidth from "wcwidth";
 
@@ -40,8 +40,9 @@ function createLogger(logLevel = "log") {
       return () => emptyLogResult;
     }
 
-    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+    const chalkInstance = loggerName === "log" ? chalk : chalkStderr;
+    const prefix = color ? `[${chalkInstance[color](loggerName)}] ` : "";
 
     return (message, options) => {
       options = {

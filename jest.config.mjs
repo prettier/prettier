@@ -9,7 +9,6 @@ const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 // When debugging production test, this flag can skip installing package
 const SKIP_PRODUCTION_INSTALL = Boolean(process.env.SKIP_PRODUCTION_INSTALL);
-const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("12.");
 
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
@@ -30,12 +29,6 @@ if (!isProduction) {
   // Only test bundles for production
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/bundle.js"
-  );
-}
-if (SKIP_TESTS_WITH_NEW_SYNTAX) {
-  testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/help-options.js",
-    "<rootDir>/tests/format/misc/empty/jsfmt.spec.js"
   );
 }
 
