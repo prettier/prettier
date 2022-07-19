@@ -53,27 +53,13 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
-      # - name: Run Integration Tests (macOS)
-      #   if: ${{ matrix.os == 'macos-latest' }}
-      #   run: yarn test:integration --maxWorkers=4
+      - name: Run Tests
+        if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
+        run: yarn test
 
-      # - name: Run Integration Tests (Linux and Windows)
-      #   if: ${{ matrix.os != 'macos-latest' }}
-      #   run: yarn test:integration --maxWorkers=2
-
-      # - name: Upload Coverage
-      #   uses: codecov/codecov-action@v2.1.0
-      #   if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-      #   with:
-      #     fail_ci_if_error: true
-
-      - name: Run Format Tests (macOS)
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: yarn test:format --maxWorkers=4
-
-      - name: Run Format Tests (Linux and Windows)
-        if: ${{ matrix.os != 'macos-latest' }}
-        run: yarn c8 yarn test:format --maxWorkers=2
+      - name: Run Tests (coverage)
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        run: yarn c8 yarn test
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v3.1.0
@@ -81,14 +67,14 @@ jobs:
         with:
           fail_ci_if_error: true
 
-      # # #8073 test
-      # - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-      #   run: yarn test "tests/integration/__tests__/(config|plugin)"
-      #   env:
-      #     PRETTIER_FALLBACK_RESOLVE: true
+      # #8073 test
+      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
+        run: yarn c8 yarn test "tests/integration/__tests__/(config|plugin)"
+        env:
+          PRETTIER_FALLBACK_RESOLVE: true
 
-      # - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-      #   uses: codecov/codecov-action@v3.1.0
-      #   if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-      #   with:
-      #     fail_ci_if_error: true
+      - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
+        uses: codecov/codecov-action@v3.1.0
+        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
+        with:
+          fail_ci_if_error: true

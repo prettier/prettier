@@ -7,7 +7,6 @@ import {
   group,
   indent,
   align,
-  ifBreak,
   indentIfBreak,
 } from "../../document/builders.js";
 import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
@@ -237,10 +236,10 @@ async function printBinaryishExpressions(
     node.type === "NGPipeExpression" && node.arguments.length > 0
       ? group(
           indent([
-            softline,
+            line,
             ": ",
             join(
-              [softline, ":", ifBreak(" ")],
+              [line, ": "],
               (await path.map(print, "arguments")).map((arg) =>
                 align(2, group(arg))
               )

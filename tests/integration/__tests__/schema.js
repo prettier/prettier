@@ -1,4 +1,4 @@
-import prettier from "prettier-local";
+import prettier from "../../config/prettier-entry.js";
 import generateSchema from "../../../scripts/utils/generate-schema.mjs";
 
 test("schema", async () => {

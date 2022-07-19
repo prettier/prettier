@@ -1,5 +1,5 @@
-import prettier from "prettier-local";
 import { outdent } from "outdent";
+import prettier from "../../config/prettier-entry.js";
 import fooPlugin from "../plugins/defaultOptions/plugin.cjs";
 
 test("yaml parser should handle CRLF correctly", async () => {
