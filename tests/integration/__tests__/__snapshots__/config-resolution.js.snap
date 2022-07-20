@@ -5,52 +5,52 @@ exports[`CLI overrides take precedence (stderr) 1`] = `""`;
 exports[`CLI overrides take precedence (stdout) 1`] = `
 "function f() {
 	console.log(
-		"should have tab width 8"
+		"should have tab width 8",
 	)
 }
 function f() {
   console.log(
-    "should have space width 2"
+    "should have space width 2",
   )
 }
 function f() {
         console.log(
-                "should have space width 8"
+                "should have space width 8",
         )
 }
 function f() {
   console.log(
-    "should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present"
+    "should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present",
   )
 }
 console.log(
-  "should have no semi"
+  "should have no semi",
 )
 console.log(
-  "jest/__best-tests__/.file.js should have semi"
+  "jest/__best-tests__/.file.js should have semi",
 );
 console.log(
-  "jest/__best-tests__/file.js should have semi"
+  "jest/__best-tests__/file.js should have semi",
 );
 console.log(
-  "jest/Component.js should not have semi"
+  "jest/Component.js should not have semi",
 )
 console.log(
-  "jest/Component.test.js should have semi"
+  "jest/Component.test.js should have semi",
 );
 function js() {
         console.log(
-                "js/file.js should have tab width 8 (1 if CLI)"
+                "js/file.js should have tab width 8 (1 if CLI)",
         );
 }
 function noConfigJs() {
   console.log(
-    "no-config/file.js should have no semicolons"
+    "no-config/file.js should have no semicolons",
   )
 }
 function packageJs() {
    console.log(
-      "package/file.js should have tab width 3"
+      "package/file.js should have tab width 3",
    );
 }
 function rcJson() {
@@ -129,7 +129,7 @@ function f() {
 }
 function f() {
   console.log(
-    "should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present"
+    "should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present",
   )
 }
 console.log("should have no semi")
@@ -177,12 +177,12 @@ exports[`resolves configuration from external files and overrides by extname (st
 exports[`resolves configuration from external files and overrides by extname (stdout) 1`] = `
 "function noConfigTs() {
   console.log(
-    "no-config/file.ts should have semicolons because it has a .ts extension"
+    "no-config/file.ts should have semicolons because it has a .ts extension",
   );
 }
 function packageTs() {
      console.log(
-          "package/file.ts should have tab width 5 because it has .ts extension"
+          "package/file.ts should have tab width 5 because it has .ts extension",
      );
 }
 "

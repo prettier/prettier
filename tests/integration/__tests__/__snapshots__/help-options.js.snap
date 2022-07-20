@@ -646,17 +646,17 @@ exports[`show detailed usage with --help tab-width (write) 1`] = `[]`;
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `
-"--trailing-comma <es5|none|all>
+"--trailing-comma <all|es5|none>
 
   Print trailing commas wherever possible when multi-line.
 
 Valid options:
 
+  all    Trailing commas wherever possible (including function arguments).
   es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
   none   No trailing commas.
-  all    Trailing commas wherever possible (including function arguments).
 
-Default: es5
+Default: all
 "
 `;
 
