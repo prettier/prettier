@@ -101,12 +101,12 @@
     "@types/file-entry-cache": "5.0.2",
     "@types/find-cache-dir": "3.2.1",
     "@types/jest": "28.1.1",
-    "@typescript-eslint/eslint-plugin": "5.30.5",
+    "@typescript-eslint/eslint-plugin": "5.30.7",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
     "c8": "7.11.3",
     "cross-env": "7.0.3",
-    "cspell": "6.2.3",
+    "cspell": "6.4.0",
     "enquirer": "2.3.6",
     "esbuild": "0.14.49",
     "esbuild-visualizer": "0.3.1",
@@ -136,7 +136,7 @@
     "rimraf": "3.0.2",
     "rollup-plugin-license": "2.8.1",
     "snapshot-diff": "0.9.0",
-    "tempy": "2.0.0"
+    "tempy": "3.0.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
