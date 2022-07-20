@@ -1,4 +1,5 @@
-import prettier from "prettier-local";
+import prettier from "../../config/prettier-entry.js";
+
 test("allows custom parser provided as object", async () => {
   const output = await prettier.format("1", {
     parser(text) {
