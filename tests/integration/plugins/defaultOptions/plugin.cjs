@@ -5,26 +5,26 @@ module.exports = {
     {
       name: "foo",
       parsers: ["foo-parser"],
-      extensions: [".foo"]
-    }
+      extensions: [".foo"],
+    },
   ],
   defaultOptions: {
     tabWidth: 8,
-    bracketSpacing: false
+    bracketSpacing: false,
   },
   parsers: {
     "foo-parser": {
-      parse: text => ({ text }),
-      astFormat: "foo-ast"
-    }
+      parse: (text) => ({ text }),
+      astFormat: "foo-ast",
+    },
   },
   printers: {
     "foo-ast": {
       print: (path, options) =>
         JSON.stringify({
           tabWidth: options.tabWidth,
-          bracketSpacing: options.bracketSpacing
-        })
-    }
-  }
+          bracketSpacing: options.bracketSpacing,
+        }),
+    },
+  },
 };

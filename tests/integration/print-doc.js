@@ -1,5 +1,5 @@
 /** @type {import('prettier')} */
-import prettier from "prettier-local";
+import prettier from "../config/prettier-entry.js";
 
 function printDoc(doc) {
   // This dummy plugin ignores the input and simply returns the given doc.
