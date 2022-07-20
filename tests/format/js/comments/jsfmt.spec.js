@@ -8,4 +8,6 @@ const fixtures = {
 
 run_spec(fixtures, ["babel", "flow", "typescript"]);
 run_spec(fixtures, ["babel", "flow", "typescript"], { semi: false });
-run_spec(import.meta, ["babel", "flow", "typescript"], { trailingComma: "es5",  });
+run_spec(import.meta, ["babel", "flow", "typescript"], {
+  trailingComma: "es5",
+});

@@ -4,7 +4,10 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
     espree: [],
   },
 });
-run_spec(import.meta, ["babel", "flow", "typescript"], { trailingComma: "es5", errors: {
-  acorn: [],
-  espree: []
-} });
+run_spec(import.meta, ["babel", "flow", "typescript"], {
+  trailingComma: "es5",
+  errors: {
+    acorn: [],
+    espree: [],
+  },
+});

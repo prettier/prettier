@@ -7,4 +7,7 @@ const errors = {
 
 run_spec(import.meta, ["babel", "flow", "typescript"], { errors });
 run_spec(import.meta, ["babel", "flow", "typescript"], { semi: false, errors });
-run_spec(import.meta, ["babel", "flow", "typescript"], { trailingComma: "es5", errors });
+run_spec(import.meta, ["babel", "flow", "typescript"], {
+  trailingComma: "es5",
+  errors,
+});

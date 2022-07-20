@@ -14,4 +14,6 @@ run_spec(import.meta, ["flow", "babel", "typescript"], {
   singleQuote: true,
   jsxSingleQuote: true,
 });
-run_spec(import.meta, ["flow", "babel", "typescript"], { trailingComma: "es5",  });
+run_spec(import.meta, ["flow", "babel", "typescript"], {
+  trailingComma: "es5",
+});
