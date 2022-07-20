@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+type Foo = {
+  method(
+    arg: number, // I belong with baz
+    qux: string
+  ) : void
+}
+
+=====================================output=====================================
+type Foo = {
+  method(
+    arg: number, // I belong with baz
+    qux: string
+  ): void,
+};
+
+================================================================================
+`;
+
 exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
@@ -17,9 +42,67 @@ type Foo = {
 type Foo = {
   method(
     arg: number, // I belong with baz
-    qux: string
+    qux: string,
   ): void,
 };
+
+================================================================================
+`;
+
+exports[`consistent-breaking.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class Foo1 {
+  flowParseFunctionTypeParams(
+    params: N.FlowFunctionTypeParam[] = [],
+  ): { params: N.FlowFunctionTypeParam[], rest: ?N.FlowFunctionTypeParam } {
+    // ...
+  }
+}
+
+type Foo2 = {
+  flowParseFunctionTypeParams(
+    params: N.FlowFunctionTypeParam[]
+  ): { params: N.FlowFunctionTypeParam[], rest: ?N.FlowFunctionTypeParam }
+}
+
+{
+  function flowParseFunctionTypeParams(
+    params: N.FlowFunctionTypeParam[]
+  ): { params: N.FlowFunctionTypeParam[], rest: ?N.FlowFunctionTypeParam } {
+    // ...
+  }
+}
+
+=====================================output=====================================
+class Foo1 {
+  flowParseFunctionTypeParams(params: N.FlowFunctionTypeParam[] = []): {
+    params: N.FlowFunctionTypeParam[],
+    rest: ?N.FlowFunctionTypeParam,
+  } {
+    // ...
+  }
+}
+
+type Foo2 = {
+  flowParseFunctionTypeParams(params: N.FlowFunctionTypeParam[]): {
+    params: N.FlowFunctionTypeParam[],
+    rest: ?N.FlowFunctionTypeParam,
+  },
+};
+
+{
+  function flowParseFunctionTypeParams(params: N.FlowFunctionTypeParam[]): {
+    params: N.FlowFunctionTypeParam[],
+    rest: ?N.FlowFunctionTypeParam,
+  } {
+    // ...
+  }
+}
 
 ================================================================================
 `;
@@ -76,6 +159,49 @@ type Foo2 = {
   } {
     // ...
   }
+}
+
+================================================================================
+`;
+
+exports[`method.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+type T = { method: () => void };
+type T2 = { method(): void };
+declare class X { method(): void }
+declare function f(): void;
+var f: () => void;
+
+declare class X {
+  static deserialize(): mixed,
+  static deserialize: () => mixed,
+}
+
+interface I {
+  static(): number;
+}
+
+=====================================output=====================================
+type T = { method: () => void };
+type T2 = { method(): void };
+declare class X {
+  method(): void;
+}
+declare function f(): void;
+var f: () => void;
+
+declare class X {
+  static deserialize(): mixed;
+  static deserialize: () => mixed;
+}
+
+interface I {
+  static(): number;
 }
 
 ================================================================================

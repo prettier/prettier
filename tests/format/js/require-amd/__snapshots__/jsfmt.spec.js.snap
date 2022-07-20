@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`named-amd-module.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+define("foo/title",
+    ["my/cart", "my/inventory"],
+    function(cart, inventory) {
+        //Define foo/title object in here.
+   }
+)
+
+=====================================output=====================================
+define("foo/title", ["my/cart", "my/inventory"], function (cart, inventory) {
+  //Define foo/title object in here.
+});
+
+================================================================================
+`;
+
 exports[`named-amd-module.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -21,10 +43,11 @@ define("foo/title", ["my/cart", "my/inventory"], function (cart, inventory) {
 ================================================================================
 `;
 
-exports[`non-amd-define.js format 1`] = `
+exports[`non-amd-define.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const someVariable = define(
@@ -43,10 +66,33 @@ const someVariable = define(
 ================================================================================
 `;
 
-exports[`require.js format 1`] = `
+exports[`non-amd-define.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const someVariable = define(
+  "some string literal",
+  anotherVariable,
+  yetAnotherVariable
+);
+
+=====================================output=====================================
+const someVariable = define(
+  "some string literal",
+  anotherVariable,
+  yetAnotherVariable,
+);
+
+================================================================================
+`;
+
+exports[`require.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 require(
@@ -124,6 +170,94 @@ define([
   Triangle,
   Circle,
   Star
+) {
+  console.log("some code");
+});
+
+================================================================================
+`;
+
+exports[`require.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+require(
+    [
+        'jquery',
+        'common/global.context',
+        'common/log.event',
+        'some_project/square',
+        'some_project/rectangle',
+        'some_project/triangle',
+        'some_project/circle',
+        'some_project/star',
+    ],
+    function($, Context, EventLogger, Square, Rectangle, Triangle, Circle, Star) {
+
+        console.log('some code')
+    }
+);
+
+define(
+    [
+        'jquery',
+        'common/global.context',
+        'common/log.event',
+        'some_project/square',
+        'some_project/rectangle',
+        'some_project/triangle',
+        'some_project/circle',
+        'some_project/star',
+    ],
+    function($, Context, EventLogger, Square, Rectangle, Triangle, Circle, Star) {
+
+        console.log('some code')
+    }
+);
+
+=====================================output=====================================
+require([
+  "jquery",
+  "common/global.context",
+  "common/log.event",
+  "some_project/square",
+  "some_project/rectangle",
+  "some_project/triangle",
+  "some_project/circle",
+  "some_project/star",
+], function (
+  $,
+  Context,
+  EventLogger,
+  Square,
+  Rectangle,
+  Triangle,
+  Circle,
+  Star,
+) {
+  console.log("some code");
+});
+
+define([
+  "jquery",
+  "common/global.context",
+  "common/log.event",
+  "some_project/square",
+  "some_project/rectangle",
+  "some_project/triangle",
+  "some_project/circle",
+  "some_project/star",
+], function (
+  $,
+  Context,
+  EventLogger,
+  Square,
+  Rectangle,
+  Triangle,
+  Circle,
+  Star,
 ) {
   console.log("some code");
 });

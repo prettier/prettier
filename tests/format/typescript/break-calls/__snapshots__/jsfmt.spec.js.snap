@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`type_args.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const response = something.$http.get<ThingamabobService.DetailsData>(
+  \`api/foo.ashx/foo-details/\${myId}\`,
+  { cache: quux.httpCache, timeout }
+);
+
+=====================================output=====================================
+const response = something.$http.get<ThingamabobService.DetailsData>(
+  \`api/foo.ashx/foo-details/\${myId}\`,
+  { cache: quux.httpCache, timeout }
+);
+
+================================================================================
+`;
+
 exports[`type_args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -14,7 +35,7 @@ const response = something.$http.get<ThingamabobService.DetailsData>(
 =====================================output=====================================
 const response = something.$http.get<ThingamabobService.DetailsData>(
   \`api/foo.ashx/foo-details/\${myId}\`,
-  { cache: quux.httpCache, timeout }
+  { cache: quux.httpCache, timeout },
 );
 
 ================================================================================

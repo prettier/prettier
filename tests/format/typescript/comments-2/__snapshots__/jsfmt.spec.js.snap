@@ -20,6 +20,26 @@ declare class Foo extends Qux<string> {
 ================================================================================
 `;
 
+exports[`dangling.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel", "flow"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+
+Thing?.(/* dangling */);
+declare class Foo extends Qux<string> {/* dangling */}
+
+=====================================output=====================================
+Thing?.(/* dangling */);
+declare class Foo extends Qux<string> {
+  /* dangling */
+}
+
+================================================================================
+`;
+
 exports[`dangling.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
@@ -56,6 +76,30 @@ function f(
 =====================================output=====================================
 function f(
   someReallyLongArgument: WithSomeLongType,
+  someReallyLongArgument2: WithSomeLongType,
+  // Trailing comment should stay after
+) {}
+
+================================================================================
+`;
+
+exports[`issues.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel", "flow"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+function f(
+  someReallyLongArgument: WithSomeLongType,
+  someReallyLongArgument2: WithSomeLongType,
+  // Trailing comment should stay after
+) {}
+
+
+=====================================output=====================================
+function f(
+  someReallyLongArgument: WithSomeLongType,
   someReallyLongArgument2: WithSomeLongType
   // Trailing comment should stay after
 ) {}
@@ -79,7 +123,7 @@ function f(
 =====================================output=====================================
 function f(
   someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType
+  someReallyLongArgument2: WithSomeLongType,
   // Trailing comment should stay after
 ) {}
 
@@ -149,34 +193,34 @@ class X2 {
 
 =====================================output=====================================
 type f1 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number
 
 f2 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number => {}
 
 f3 = (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {}
 
 f4 = function (
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {}
 
 class X {
   f(
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ) {}
 }
 
 function f5(
-  a: number
+  a: number,
   // some comment here
 ): number {
   return a + 1
@@ -185,7 +229,7 @@ function f5(
 var x = {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
+    sectionMetaData: SectionMetaData,
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {},
@@ -194,7 +238,7 @@ var x = {
 class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
+    sectionMetaData: SectionMetaData = ["unknown"],
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
@@ -203,10 +247,11 @@ class X2 {
 ================================================================================
 `;
 
-exports[`last-arg.ts format 1`] = `
+exports[`last-arg.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type f1 = (
@@ -311,6 +356,122 @@ class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
     sectionMetaData: SectionMetaData = ["unknown"]
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {}
+}
+
+================================================================================
+`;
+
+exports[`last-arg.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type f1 = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f2 = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f3 = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f4 = function(
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+
+class X {
+  f(
+    currentRequest: {a: number},
+    // TODO this is a very very very very long comment that makes it go > 80 columns
+  ) {}
+}
+
+function f5(
+  a: number
+// some comment here
+): number {
+  return a + 1;
+}
+
+var x = {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
+  }
+}
+
+class X2 {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData = ['unknown']
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
+  }
+}
+
+=====================================output=====================================
+type f1 = (
+  currentRequest: { a: number },
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f2 = (
+  currentRequest: { a: number },
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f3 = (
+  currentRequest: { a: number },
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f4 = function (
+  currentRequest: { a: number },
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+
+class X {
+  f(
+    currentRequest: { a: number },
+    // TODO this is a very very very very long comment that makes it go > 80 columns
+  ) {}
+}
+
+function f5(
+  a: number,
+  // some comment here
+): number {
+  return a + 1;
+}
+
+var x = {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData,
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {},
+};
+
+class X2 {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData = ["unknown"],
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}

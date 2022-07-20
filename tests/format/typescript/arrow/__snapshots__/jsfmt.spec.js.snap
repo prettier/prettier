@@ -32,7 +32,7 @@ const foo = (x: string): void =>
   bar(
     x,
     () => {},
-    () => {}
+    () => {},
   )
 
 app.get("/", (req, res): void => {
@@ -42,10 +42,11 @@ app.get("/", (req, res): void => {
 ================================================================================
 `;
 
-exports[`arrow_regression.ts format 1`] = `
+exports[`arrow_regression.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const bar = (...varargs:any[]) => {
@@ -83,6 +84,47 @@ app.get("/", (req, res): void => {
 ================================================================================
 `;
 
+exports[`arrow_regression.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const bar = (...varargs:any[]) => {
+  console.log(varargs);
+};
+
+const foo = (x:string):void => (
+  bar(
+    x,
+    () => {},
+    () => {}
+  )
+);
+
+app.get("/", (req, res): void => {
+  res.send("Hello world");
+});
+
+=====================================output=====================================
+const bar = (...varargs: any[]) => {
+  console.log(varargs);
+};
+
+const foo = (x: string): void =>
+  bar(
+    x,
+    () => {},
+    () => {},
+  );
+
+app.get("/", (req, res): void => {
+  res.send("Hello world");
+});
+
+================================================================================
+`;
+
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -109,6 +151,38 @@ const fn1 = () => {
 const fn2 = () => {
   return
 }
+
+// foo
+
+================================================================================
+`;
+
+exports[`comments.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const fn1 = () => {
+  return;
+} /* foo */;
+
+const fn2 = () => {
+  return;
+}
+
+// foo
+;
+
+=====================================output=====================================
+const fn1 = () => {
+  return;
+}; /* foo */
+
+const fn2 = () => {
+  return;
+};
 
 // foo
 
@@ -187,10 +261,59 @@ const getIconEngagementTypeFrom2 =
   (
     engagementTypes: Array<EngagementType>,
     secondArg: Something,
-    thirArg: SomethingElse
+    thirArg: SomethingElse,
   ) =>
   (iconEngagementType) =>
     engagementTypes.includes(iconEngagementType)
+
+================================================================================
+`;
+
+exports[`issue-6107-curry.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const getIconEngagementTypeFrom = (engagementTypes: Array<EngagementType>) =>
+  iconEngagementType => engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something
+  ) =>
+  iconEngagementType =>
+  engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something,
+    thirArg: SomethingElse
+  ) =>
+  iconEngagementType =>
+  engagementTypes.includes(iconEngagementType);
+
+=====================================output=====================================
+const getIconEngagementTypeFrom =
+  (engagementTypes: Array<EngagementType>) => (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (engagementTypes: Array<EngagementType>, secondArg: Something) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType);
+
+const getIconEngagementTypeFrom2 =
+  (
+    engagementTypes: Array<EngagementType>,
+    secondArg: Something,
+    thirArg: SomethingElse
+  ) =>
+  (iconEngagementType) =>
+    engagementTypes.includes(iconEngagementType);
 
 ================================================================================
 `;
@@ -235,7 +358,7 @@ const getIconEngagementTypeFrom2 =
   (
     engagementTypes: Array<EngagementType>,
     secondArg: Something,
-    thirArg: SomethingElse
+    thirArg: SomethingElse,
   ) =>
   (iconEngagementType) =>
     engagementTypes.includes(iconEngagementType);

@@ -41,6 +41,47 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
+exports[`trailing-comma.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string,
+      to: string,
+    }, // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+=====================================output=====================================
+export interface ShopQueryResult {
+  chic: boolean;
+  location: number[];
+  menus: Menu[];
+  openingDays: number[];
+  closingDays: [
+    {
+      from: string;
+      to: string;
+    } // <== this one
+  ];
+  shop: string;
+  distance: number;
+}
+
+================================================================================
+`;
+
 exports[`trailing-comma.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -113,7 +154,7 @@ export interface ShopQueryResult {
     {
       from: string;
       to: string;
-    } // <== this one
+    }, // <== this one
   ];
   shop: string;
   distance: number;
@@ -127,6 +168,28 @@ exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"all"} format 1`]
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
+
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [] ? Foo3 : Foo4;
+=====================================output=====================================
+type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong =
+  [];
+
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+================================================================================
+`;
+
+exports[`trailing-comma-for-empty-tuples.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong = []
@@ -216,6 +279,35 @@ type ValidateArgs = [
 ================================================================================
 `;
 
+exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+type ValidateArgs = [
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[],
+];
+
+=====================================output=====================================
+type ValidateArgs = [
+  {
+    [key: string]: any;
+  },
+  string,
+  string,
+  ...string[]
+];
+
+================================================================================
+`;
+
 exports[`trailing-comma-trailing-rest.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -267,7 +359,7 @@ type ValidateArgs = [
   },
   string,
   string,
-  ...string[]
+  ...string[],
 ];
 
 ================================================================================
@@ -298,6 +390,36 @@ export type SCMRawResource = [
   string[] /*icons: light, dark*/,
   boolean /*strike through*/,
   boolean /*faded*/,
+];
+
+================================================================================
+`;
+
+exports[`tuple.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+
+export type SCMRawResource = [
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/
+];
+
+=====================================output=====================================
+export type SCMRawResource = [
+  number /*handle*/,
+  string /*resourceUri*/,
+  modes.Command /*command*/,
+  string[] /*icons: light, dark*/,
+  boolean /*strike through*/,
+  boolean /*faded*/
 ];
 
 ================================================================================
@@ -356,7 +478,7 @@ export type SCMRawResource = [
   modes.Command /*command*/,
   string[] /*icons: light, dark*/,
   boolean /*strike through*/,
-  boolean /*faded*/
+  boolean /*faded*/,
 ];
 
 ================================================================================
@@ -367,6 +489,49 @@ exports[`tuple-labeled.ts - {"trailingComma":"all"} format 1`] = `
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]]
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11754
+
+type T = [x: A, y?: B, ...z: C];
+
+type T = [A, y: B];
+
+let x: [A: string, ...B: number[]];
+
+type T = [foo: string, bar?: number];
+
+type T = [x?: A, y: B];
+
+type T = [x: A, ...B];
+
+type T = [...B, x: A];
+
+================================================================================
+`;
+
+exports[`tuple-labeled.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 // https://github.com/babel/babel/pull/11754
@@ -495,6 +660,25 @@ exports[`tuple-rest-not-last.ts - {"trailingComma":"all"} format 1`] = `
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string]
+
+=====================================output=====================================
+// https://github.com/babel/babel/pull/11753
+
+let x: [...[number, string], string];
+
+================================================================================
+`;
+
+exports[`tuple-rest-not-last.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 // https://github.com/babel/babel/pull/11753

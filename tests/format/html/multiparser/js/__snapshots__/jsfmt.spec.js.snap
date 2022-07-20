@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`html-with-js-script.html - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    hello( 'world'
+    )
+    </script>
+</head>
+<body></body>
+</html>
+
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="text/javascript">
+      hello("world");
+    </script>
+  </head>
+  <body></body>
+</html>
+
+================================================================================
+`;
+
 exports[`html-with-js-script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
@@ -28,6 +61,49 @@ printWidth: 80
   </head>
   <body></body>
 </html>
+
+================================================================================
+`;
+
+exports[`script-tag-escaping.html - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<script>
+  document.write(/* HTML */ \`
+    <script>
+      document.write(/* HTML */ \\\`
+        <!-- foo1 -->
+        <script>
+          document.write(/* HTML */ \\\\\\\`<!-- bar1 --> bar <!-- bar2 -->\\\\\\\`);
+        <\\\\/script>
+        <!-- foo2 -->
+      \\\`);
+    <\\/script>
+  \`);
+</script>
+
+=====================================output=====================================
+<script>
+  document.write(/* HTML */ \`
+    <script>
+      document.write(/* HTML */ \\\`
+        <!-- foo1 -->
+        <script>
+          document.write(
+            /* HTML */ \\\\\\\`<!-- bar1 -->
+              bar
+              <!-- bar2 -->\\\\\\\`
+          );
+        <\\\\/script>
+        <!-- foo2 -->
+      \\\`);
+    <\\/script>
+  \`);
+</script>
 
 ================================================================================
 `;
@@ -62,7 +138,7 @@ printWidth: 80
           document.write(
             /* HTML */ \\\\\\\`<!-- bar1 -->
               bar
-              <!-- bar2 -->\\\\\\\`
+              <!-- bar2 -->\\\\\\\`,
           );
         <\\\\/script>
         <!-- foo2 -->

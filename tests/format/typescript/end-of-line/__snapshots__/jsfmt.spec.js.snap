@@ -45,15 +45,15 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
       console.log(<CR>
         "Multiline string\\<CR>
          Multiline string\\<CR>
-         Multiline string"<CR>
+         Multiline string",<CR>
       );<CR>
       console.log(<CR>
         \`Multiline \\n string\\<CR>
          Multiline string\\<CR>
-         Multiline string\`<CR>
+         Multiline string\`,<CR>
       );<CR>
     });<CR>
-  }<CR>
+  },<CR>
 );<CR>
 
 ================================================================================
@@ -104,15 +104,15 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CRLF>
       console.log(<CRLF>
         "Multiline string\\<CRLF>
          Multiline string\\<CRLF>
-         Multiline string"<CRLF>
+         Multiline string",<CRLF>
       );<CRLF>
       console.log(<CRLF>
         \`Multiline \\n string\\<CRLF>
          Multiline string\\<CRLF>
-         Multiline string\`<CRLF>
+         Multiline string\`,<CRLF>
       );<CRLF>
     });<CRLF>
-  }<CRLF>
+  },<CRLF>
 );<CRLF>
 
 ================================================================================
@@ -163,16 +163,75 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
       console.log(<LF>
         "Multiline string\\<LF>
          Multiline string\\<LF>
-         Multiline string"<LF>
+         Multiline string",<LF>
       );<LF>
       console.log(<LF>
         \`Multiline \\n string\\<LF>
          Multiline string\\<LF>
-         Multiline string\`<LF>
+         Multiline string\`,<LF>
       );<LF>
     });<LF>
-  }<LF>
+  },<LF>
 );<LF>
+
+================================================================================
+`;
+
+exports[`multiline.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+type IAmIncredibleLongParameterType = {};
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(
+  (_0: IAmIncredibleLongParameterType) => {
+    setTimeout(() => {
+      /*
+          Multiline comment
+          Multiline comment
+          Multiline comment
+      */
+      console.log(
+        'Multiline string\\
+         Multiline string\\
+         Multiline string'
+      );
+      console.log(
+        \`Multiline \\n string\\
+         Multiline string\\
+         Multiline string\`
+      );
+    });
+  }
+);
+
+=====================================output=====================================
+type IAmIncredibleLongParameterType = {};
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(
+  (_0: IAmIncredibleLongParameterType) => {
+    setTimeout(() => {
+      /*
+          Multiline comment
+          Multiline comment
+          Multiline comment
+      */
+      console.log(
+        "Multiline string\\
+         Multiline string\\
+         Multiline string"
+      );
+      console.log(
+        \`Multiline \\n string\\
+         Multiline string\\
+         Multiline string\`
+      );
+    });
+  }
+);
 
 ================================================================================
 `;

@@ -30,6 +30,21 @@ a = (b?) => c;
 ================================================================================
 `;
 
+exports[`arrow_function_expression.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+a = (b?) => c;
+
+=====================================output=====================================
+a = (b?) => c;
+
+================================================================================
+`;
+
 exports[`short_body.ts - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
@@ -49,7 +64,7 @@ const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
   testPath: string,
-  expand: boolean
+  expand: boolean,
 ) => new SnapshotState(testFile, update, testPath, expand);
 
 ================================================================================
@@ -60,6 +75,31 @@ exports[`short_body.ts - {"arrowParens":"avoid"} format 1`] = `
 arrowParens: "avoid"
 parsers: ["typescript", "babel"]
 printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean,
+) => new SnapshotState(testFile, update, testPath, expand);
+
+=====================================output=====================================
+const initializeSnapshotState = (
+  testFile: Path,
+  update: boolean,
+  testPath: string,
+  expand: boolean,
+) => new SnapshotState(testFile, update, testPath, expand);
+
+================================================================================
+`;
+
+exports[`short_body.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const initializeSnapshotState = (
@@ -100,6 +140,21 @@ exports[`type_params.ts - {"arrowParens":"avoid"} format 1`] = `
 arrowParens: "avoid"
 parsers: ["typescript", "babel"]
 printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<T>(a) => { }
+
+=====================================output=====================================
+<T>(a) => {};
+
+================================================================================
+`;
+
+exports[`type_params.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <T>(a) => { }

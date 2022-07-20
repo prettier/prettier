@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract-method.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  abstract foo();
+}
+
+abstract class Bar {
+  method() {
+    return class {
+      abstract m();
+    }
+  }
+}
+
+=====================================output=====================================
+class Foo {
+  abstract foo();
+}
+
+abstract class Bar {
+  method() {
+    return class {
+      abstract m();
+    };
+  }
+}
+
+================================================================================
+`;
+
 exports[`abstract-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -42,6 +77,65 @@ exports[`constructor.ts [babel-ts] format 1`] = `
   3 | }
   4 |
   5 | class foo {"
+`;
+
+exports[`constructor.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+"Unexpected token, expected "," (2:22)
+  1 | class foo {
+> 2 |   constructor(static a: number) {}
+    |                      ^
+  3 | }
+  4 |
+  5 | class foo {"
+`;
+
+exports[`constructor.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class foo {
+  constructor(static a: number) {}
+}
+
+class foo {
+  constructor(export a: number) {}
+}
+
+class A {
+    'constructor': typeof A
+    static Foo() {
+        return new A()
+    }
+}
+
+class B {
+  constructor<>() {}
+}
+
+=====================================output=====================================
+class foo {
+  constructor(static a: number) {}
+}
+
+class foo {
+  constructor(export a: number) {}
+}
+
+class A {
+  "constructor": typeof A;
+  static Foo() {
+    return new A();
+  }
+}
+
+class B {
+  constructor<>() {}
+}
+
+================================================================================
 `;
 
 exports[`constructor.ts format 1`] = `
@@ -92,6 +186,21 @@ class B {
 ================================================================================
 `;
 
+exports[`dunder.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class F<__T> {}
+
+=====================================output=====================================
+class F<__T> {}
+
+================================================================================
+`;
+
 exports[`dunder.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -102,6 +211,33 @@ class F<__T> {}
 
 =====================================output=====================================
 class F<__T> {}
+
+================================================================================
+`;
+
+exports[`duplicates-access-modifier.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  public public a;
+  private public b;
+  protected private c;
+  public protected d;
+  public protected private e;
+}
+
+=====================================output=====================================
+class Foo {
+  public a;
+  private b;
+  protected c;
+  public d;
+  public e;
+}
 
 ================================================================================
 `;
@@ -127,6 +263,39 @@ class Foo {
   protected c;
   public d;
   public e;
+}
+
+================================================================================
+`;
+
+exports[`empty-method-body.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+// #9324
+
+class foo1 {
+  bar() /* bat */;
+}
+
+// #9367
+class Test {
+  foo (/* 2 */) /* 3 */;
+}
+
+=====================================output=====================================
+// #9324
+
+class foo1 {
+  bar /* bat */();
+}
+
+// #9367
+class Test {
+  foo /* 3 */(/* 2 */);
 }
 
 ================================================================================
@@ -164,10 +333,11 @@ class Test {
 ================================================================================
 `;
 
-exports[`extends_implements.ts format 1`] = `
+exports[`extends_implements.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
@@ -319,6 +489,161 @@ class ImplementsInterfaceClassWithComments1<
 ================================================================================
 `;
 
+exports[`extends_implements.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces1 extends AbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces2
+  extends AAAAAAAAAAAAAAbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces3
+  extends AAAAAAAAAAAAAAbstractClass
+  implements
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7,
+    Interface8 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces4
+  extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7> {}
+
+class ExtendsAbstractClassAndImplementsInterfaces5
+  extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7>
+  implements
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7,
+    Interface8 {}
+
+class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
+  extends FOOOOOOOOOOOOOOOOO
+  implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
+
+class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO> implements Foo {}
+
+class ImplementsInterfaceAndExtendsAbstractClass2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  >
+   extends FOOOOOOOOOOOOOOOOOO implements BaseInterface {}
+
+class ImplementsInterfaceClass1<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  >
+    implements BaseInterface {}
+
+class ImplementsInterfaceClassWithComments1<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree
+  > // comments
+    implements BaseInterface {}
+
+=====================================output=====================================
+class Class
+  extends AbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces1
+  extends AbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces2
+  extends AAAAAAAAAAAAAAbstractClass
+  implements Interface1, Interface2, Interface3, Interface4 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces3
+  extends AAAAAAAAAAAAAAbstractClass
+  implements
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7,
+    Interface8 {}
+
+class ExtendsAbstractClassAndImplementsInterfaces4 extends AAAAAAAAAAAAAAbstractClass<
+  Type1,
+  Type2,
+  Type3,
+  Type4,
+  Type5,
+  Type6,
+  Type7
+> {}
+
+class ExtendsAbstractClassAndImplementsInterfaces5
+  extends AAAAAAAAAAAAAAbstractClass<
+    Type1,
+    Type2,
+    Type3,
+    Type4,
+    Type5,
+    Type6,
+    Type7
+  >
+  implements
+    Interface1,
+    Interface2,
+    Interface3,
+    Interface4,
+    Interface5,
+    Interface6,
+    Interface7,
+    Interface8 {}
+
+class ImplementsInterfaceAndExtendsAbstractClass1<Foo>
+  extends FOOOOOOOOOOOOOOOOO
+  implements FOOOOOOOOOOOOOOOOO, BARRRRRRRRRR {}
+
+class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO>
+  implements Foo {}
+
+class ImplementsInterfaceAndExtendsAbstractClass2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree,
+  >
+  extends FOOOOOOOOOOOOOOOOOO
+  implements BaseInterface {}
+
+class ImplementsInterfaceClass1<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree,
+> implements BaseInterface {}
+
+class ImplementsInterfaceClassWithComments1<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree,
+  > // comments
+  implements BaseInterface {}
+
+================================================================================
+`;
+
 exports[`generics.ts [babel-ts] format 1`] = `
 "A class name is required. (1:6)
 > 1 | class<T> implements Map<T> {}
@@ -326,6 +651,38 @@ exports[`generics.ts [babel-ts] format 1`] = `
   2 |
   3 | interface AudioBufferList {
   4 | 	mBuffers: interop.Reference<any /*AudioBuffer*/>;"
+`;
+
+exports[`generics.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+"A class name is required. (1:6)
+> 1 | class<T> implements Map<T> {}
+    |      ^
+  2 |
+  3 | interface AudioBufferList {
+  4 | 	mBuffers: interop.Reference<any /*AudioBuffer*/>;"
+`;
+
+exports[`generics.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class<T> implements Map<T> {}
+
+interface AudioBufferList {
+	mBuffers: interop.Reference<any /*AudioBuffer*/>;
+}
+
+=====================================output=====================================
+class<T> implements Map<T> {}
+
+interface AudioBufferList {
+  mBuffers: interop.Reference<any /*AudioBuffer*/>;
+}
+
+================================================================================
 `;
 
 exports[`generics.ts format 1`] = `
@@ -359,6 +716,52 @@ exports[`methods.ts [babel-ts] format 1`] = `
   7 | }
   8 |
   9 | export class Check {"
+`;
+
+exports[`methods.ts - {"trailingComma":"es5"} [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (6:10)
+  4 |
+  5 | interface Iterable<T> {
+> 6 |   export [Symbol.iterator](): Iterator<T>;
+    |          ^
+  7 | }
+  8 |
+  9 | export class Check {"
+`;
+
+exports[`methods.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class X {
+    optionalMethod?() {}
+}
+
+interface Iterable<T> {
+  export [Symbol.iterator](): Iterator<T>;
+}
+
+export class Check {
+  private static property = 'test';
+}
+
+=====================================output=====================================
+class X {
+  optionalMethod?() {}
+}
+
+interface Iterable<T> {
+  export [Symbol.iterator](): Iterator<T>;
+}
+
+export class Check {
+  private static property = "test";
+}
+
+================================================================================
 `;
 
 exports[`methods.ts format 1`] = `
@@ -395,6 +798,35 @@ export class Check {
 ================================================================================
 `;
 
+exports[`optional.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class X {
+  private foo? = undefined;
+  "a-prop"?: boolean;
+}
+
+class A {
+  protected [s]?() {}
+}
+
+=====================================output=====================================
+class X {
+  private foo? = undefined;
+  "a-prop"?: boolean;
+}
+
+class A {
+  protected [s]?() {}
+}
+
+================================================================================
+`;
+
 exports[`optional.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -423,6 +855,25 @@ class A {
 ================================================================================
 `;
 
+exports[`quoted-property.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class User {
+    "username": string;
+}
+
+=====================================output=====================================
+class User {
+  "username": string;
+}
+
+================================================================================
+`;
+
 exports[`quoted-property.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -436,6 +887,61 @@ class User {
 =====================================output=====================================
 class User {
   "username": string;
+}
+
+================================================================================
+`;
+
+exports[`standard_private_fields.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+class Square {
+    #sideLength: number;
+    readonly #area: number;
+    #unit?: string;
+
+    constructor(sideLength: number, unit?: string) {
+        this.#sideLength = sideLength;
+        this.#area = this.#sideLength ** 2;
+        if (unit) {
+          this.#unit = unit;
+        }
+    }
+
+    equals(other: any) {
+        return this.#sideLength === other.#sideLength;
+    }
+
+    getArea() {
+      return this.#area + (this.#unit ?? 'px') + '²';
+    }
+}
+
+=====================================output=====================================
+class Square {
+  #sideLength: number;
+  readonly #area: number;
+  #unit?: string;
+
+  constructor(sideLength: number, unit?: string) {
+    this.#sideLength = sideLength;
+    this.#area = this.#sideLength ** 2;
+    if (unit) {
+      this.#unit = unit;
+    }
+  }
+
+  equals(other: any) {
+    return this.#sideLength === other.#sideLength;
+  }
+
+  getArea() {
+    return this.#area + (this.#unit ?? "px") + "²";
+  }
 }
 
 ================================================================================

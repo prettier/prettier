@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.ts format 1`] = `
+exports[`break.ts - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 export default class AddAssetHtmlPlugin {
@@ -38,6 +39,77 @@ export default class AddAssetHtmlPlugin {
 ================================================================================
 `;
 
+exports[`break.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default class AddAssetHtmlPlugin {
+  apply(compiler: WebpackCompilerType) {
+    compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
+      compilation.plugin('html-webpack-plugin-before-html', (callback: Callback<any>) => {
+        addAllAssetsToCompilation(this.assets, compilation, htmlPluginData, callback);
+      });
+    });
+  }
+}
+
+=====================================output=====================================
+export default class AddAssetHtmlPlugin {
+  apply(compiler: WebpackCompilerType) {
+    compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
+      compilation.plugin(
+        "html-webpack-plugin-before-html",
+        (callback: Callback<any>) => {
+          addAllAssetsToCompilation(
+            this.assets,
+            compilation,
+            htmlPluginData,
+            callback,
+          );
+        },
+      );
+    });
+  }
+}
+
+================================================================================
+`;
+
+exports[`edge_case.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript", "babel", "flow"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+var listener = DOM.listen(
+  introCard,
+  'click',
+  sigil,
+  (event: JavelinEvent): void =>
+    BanzaiLogger.log(
+      config,
+      {...logData, ...DataStore.get(event.getNode(sigil))},
+    ),
+);
+
+=====================================output=====================================
+var listener = DOM.listen(
+  introCard,
+  "click",
+  sigil,
+  (event: JavelinEvent): void =>
+    BanzaiLogger.log(config, {
+      ...logData,
+      ...DataStore.get(event.getNode(sigil)),
+    })
+);
+
+================================================================================
+`;
+
 exports[`edge_case.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript", "babel", "flow"]
@@ -64,7 +136,7 @@ var listener = DOM.listen(
     BanzaiLogger.log(config, {
       ...logData,
       ...DataStore.get(event.getNode(sigil)),
-    })
+    }),
 );
 
 ================================================================================

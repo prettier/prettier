@@ -17,6 +17,23 @@ abstract interface I {}
 ================================================================================
 `;
 
+exports[`abstract.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+abstract interface I {
+
+}
+
+=====================================output=====================================
+abstract interface I {}
+
+================================================================================
+`;
+
 exports[`abstract.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -54,6 +71,27 @@ interface ScreenObject {
 ================================================================================
 `;
 
+exports[`comments.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+interface ScreenObject {
+	// I make things weird.
+	at(point: Point): Screen | undefined;
+}
+
+=====================================output=====================================
+interface ScreenObject {
+  // I make things weird.
+  at(point: Point): Screen | undefined;
+}
+
+================================================================================
+`;
+
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -79,6 +117,80 @@ exports[`comments-generic.ts - {"semi":false} format 1`] = `
 parsers: ["typescript"]
 printWidth: 80
 semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface ReallyReallyLongName<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+  TypeArgumentNumberOne,
+  TypeArgumentNumberTwo,
+  TypeArgumentNumberThree
+> // 1
+// 2
+extends BaseInterface // 3
+{}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> // comments
+  extends Foo {}
+
+=====================================output=====================================
+interface ReallyReallyLongName<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree,
+  > // 1
+  extends BaseInterface {}
+
+interface ReallyReallyLongName2<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree,
+  > // 1
+  // 2
+  extends BaseInterface {}
+
+interface ReallyReallyLongName3<
+    TypeArgumentNumberOne,
+    TypeArgumentNumberTwo,
+    TypeArgumentNumberThree,
+  > // 1
+  // 2
+  extends BaseInterface {
+  // 3
+}
+
+interface Foo<
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  > // comments
+  extends Foo {}
+
+================================================================================
+`;
+
+exports[`comments-generic.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 interface ReallyReallyLongName<
@@ -189,14 +301,14 @@ interface Foo<
 interface ReallyReallyLongName<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   extends BaseInterface {}
 
 interface ReallyReallyLongName2<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   // 2
   extends BaseInterface {}
@@ -204,7 +316,7 @@ interface ReallyReallyLongName2<
 interface ReallyReallyLongName3<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // 1
   // 2
   extends BaseInterface {
@@ -214,7 +326,7 @@ interface ReallyReallyLongName3<
 interface Foo<
     FOOOOOOOOOOOOOOOOOOOOOOOOOO,
     FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-    FOOOOOOOOOOOOOOOOOOOOOOOOOO
+    FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   > // comments
   extends Foo {}
 
@@ -226,6 +338,35 @@ exports[`generic.ts - {"semi":false} format 1`] = `
 parsers: ["typescript"]
 printWidth: 80
 semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+> extends Foo {}
+
+=====================================output=====================================
+interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
+  extends Foo {}
+
+interface Foo<
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
+> extends Foo {}
+
+================================================================================
+`;
+
+exports[`generic.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO,FOOOOOOOOOOOOOOOOOOOOOOO>
@@ -272,7 +413,7 @@ interface Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOO>
 interface Foo<
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
   FOOOOOOOOOOOOOOOOOOOOOOOOOO,
-  FOOOOOOOOOOOOOOOOOOOOOOOOOO
+  FOOOOOOOOOOOOOOOOOOOOOOOOOO,
 > extends Foo {}
 
 ================================================================================
@@ -453,6 +594,231 @@ interface I {
   // prettier-ignore
   x: y
   y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}
+
+================================================================================
+`;
+
+exports[`ignore.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+  prop: type;
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+  prop: type
+}
+
+interface foo extends bar {
+  // prettier-ignore
+  f(): void;
+  // prettier-ignore
+  g(): void;
+  h(): void;
+}
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new<T>(): T<T>;
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x
+}
+
+interface I {
+  // prettier-ignore
+  (): void;
+}
+
+interface I {
+  // prettier-ignore
+  (): void,
+}
+
+interface I {
+  // prettier-ignore
+  (): void
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void;
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void,
+}
+
+interface I {
+  // prettier-ignore
+  foo(): void
+}
+
+interface I {
+  // prettier-ignore
+  new ();
+}
+
+interface I {
+  // prettier-ignore
+  new (),
+}
+
+interface I {
+  // prettier-ignore
+  new ()
+}
+
+=====================================output=====================================
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+  prop: type;
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+  prop: type;
+}
+
+interface foo extends bar {
+  // prettier-ignore
+  f(): void;
+  // prettier-ignore
+  g(): void;
+  h(): void;
+}
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new <T>(): T<T>;
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+}
+
+interface I {
+  // prettier-ignore
+  x: y;
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  x: y,
+  y: x;
+}
+
+interface I {
+  // prettier-ignore
+  x: y
+  y: x;
 }
 
 interface I {
@@ -786,6 +1152,65 @@ export interface ThirdVeryLongAndBoringInterfaceName
 ================================================================================
 `;
 
+exports[`long-extends.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+export interface I extends A, B, C {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends AVeryLongAndBoringInterfaceName, AnotherVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBoringInterfaceName, B_AVeryLongAndBoringInterfaceName, C_AVeryLongAndBoringInterfaceName  {
+  c: string;
+}
+
+=====================================output=====================================
+export interface I extends A, B, C {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName,
+    AnotherLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends AVeryLongAndBoringInterfaceName,
+    AnotherVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends A_AVeryLongAndBoringInterfaceName,
+    B_AVeryLongAndBoringInterfaceName,
+    C_AVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+================================================================================
+`;
+
 exports[`long-extends.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -867,6 +1292,29 @@ interface B {
 ================================================================================
 `;
 
+exports[`pattern-parameters.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+=====================================output=====================================
+interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+================================================================================
+`;
+
 exports[`pattern-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -930,6 +1378,52 @@ export interface Edge {
 interface Test {
   one: string
   two: any[]
+}
+
+================================================================================
+`;
+
+exports[`separator.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+declare module 'selenium-webdriver' {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
+    alertIsPresent(): Condition<Alert>;
+  };
+}
+
+export interface Edge {
+  cursor: {};
+  node: {
+    id: {};
+  };
+}
+
+interface Test { one: string, two: any[] }
+
+=====================================output=====================================
+declare module "selenium-webdriver" {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
+    alertIsPresent(): Condition<Alert>;
+  };
+}
+
+export interface Edge {
+  cursor: {};
+  node: {
+    id: {};
+  };
+}
+
+interface Test {
+  one: string;
+  two: any[];
 }
 
 ================================================================================

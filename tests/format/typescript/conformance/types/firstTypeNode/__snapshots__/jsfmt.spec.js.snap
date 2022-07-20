@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`firstTypeNode.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+export function fooWithTypePredicate(a: any): a is number {
+    return true;
+}
+export function fooWithTypePredicateAndMulitpleParams(a: any, b: any, c: any): a is number {
+    return true;
+}
+export function fooWithTypeTypePredicateAndGeneric<T>(a: any): a is T {
+    return true;
+}
+export function fooWithTypeTypePredicateAndRestParam(a: any, ...rest): a is number {
+    return true;
+}
+
+=====================================output=====================================
+export function fooWithTypePredicate(a: any): a is number {
+  return true;
+}
+export function fooWithTypePredicateAndMulitpleParams(
+  a: any,
+  b: any,
+  c: any
+): a is number {
+  return true;
+}
+export function fooWithTypeTypePredicateAndGeneric<T>(a: any): a is T {
+  return true;
+}
+export function fooWithTypeTypePredicateAndRestParam(
+  a: any,
+  ...rest
+): a is number {
+  return true;
+}
+
+================================================================================
+`;
+
 exports[`firstTypeNode.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -26,7 +70,7 @@ export function fooWithTypePredicate(a: any): a is number {
 export function fooWithTypePredicateAndMulitpleParams(
   a: any,
   b: any,
-  c: any
+  c: any,
 ): a is number {
   return true;
 }

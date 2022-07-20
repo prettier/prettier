@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`escape-sequence-key.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+// #6235
+const a = {
+  '\\u2139': 'why "\\\\u2139" is converted to "i"?',
+};
+
+const b = {
+  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+};
+
+=====================================output=====================================
+// #6235
+const a = {
+  "\\u2139": 'why "\\\\u2139" is converted to "i"?',
+};
+
+const b = {
+  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+};
+
+================================================================================
+`;
+
 exports[`escape-sequence-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -24,6 +53,31 @@ const a = {
 const b = {
   "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
 };
+
+================================================================================
+`;
+
+exports[`expand.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const Component1 = ({ props }) => (
+  <Text>Test</Text>
+);
+
+const Component2 = ({
+  props
+}) => (
+  <Text>Test</Text>
+);
+
+=====================================output=====================================
+const Component1 = ({ props }) => <Text>Test</Text>;
+
+const Component2 = ({ props }) => <Text>Test</Text>;
 
 ================================================================================
 `;
@@ -96,6 +150,112 @@ exports[`expression.js [typescript] format 1`] = `
   8 | ({} = 0);"
 `;
 
+exports[`expression.js - {"trailingComma":"es5"} [acorn] format 1`] = `
+"Unexpected token (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js - {"trailingComma":"es5"} [espree] format 1`] = `
+"Unexpected token : (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js - {"trailingComma":"es5"} [meriyah] format 1`] = `
+"Expected ')' (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js - {"trailingComma":"es5"} [typescript] format 1`] = `
+"')' expected. (5:4)
+  3 | a = () => ({}).x;
+  4 | ({} && a, b);
+> 5 | ({}::b, 0);
+    |    ^
+  6 | ({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+  7 | ({}(), 0);
+  8 | ({} = 0);"
+`;
+
+exports[`expression.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+() => ({}\`\`);
+({})\`\`;
+a = () => ({}).x;
+({} && a, b);
+({}::b, 0);
+({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
+({}(), 0);
+({} = 0);
+(({} = 0), 1);
+
+const a1 = {
+  someKey:
+    (shortName, shortName)
+};
+
+const a2 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+};
+
+const a3 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
+};
+
+=====================================output=====================================
+() => ({}\`\`);
+({}\`\`);
+a = () => ({}.x);
+({} && a, b);
+({}::b, 0);
+({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
+({}(), 0);
+({} = 0);
+({} = 0), 1;
+
+const a1 = {
+  someKey: (shortName, shortName),
+};
+
+const a2 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName),
+};
+
+const a3 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName),
+};
+
+================================================================================
+`;
+
 exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -157,6 +317,31 @@ const a3 = {
 ================================================================================
 `;
 
+exports[`getter-setter.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+({ set x(foo) {} });
+({ get x() { return 1 } });
+({ set x(a) {} });
+({ get x() {} });
+
+=====================================output=====================================
+({ set x(foo) {} });
+({
+  get x() {
+    return 1;
+  },
+});
+({ set x(a) {} });
+({ get x() {} });
+
+================================================================================
+`;
+
 exports[`getter-setter.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -181,6 +366,21 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`method.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+a = { f() {} }
+
+=====================================output=====================================
+a = { f() {} };
+
+================================================================================
+`;
+
 exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
@@ -195,10 +395,11 @@ a = { f() {} };
 ================================================================================
 `;
 
-exports[`range.js format 1`] = `
+exports[`range.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 group(
@@ -229,6 +430,94 @@ group(
   ]),
   { shouldBreak: true }
 );
+
+================================================================================
+`;
+
+exports[`range.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+group(
+  concat([
+    "(",
+    indent(
+      options.tabWidth,
+      concat([line, join(concat([",", line]), printed)])
+    ),
+    options.trailingComma ? "," : "",
+    line,
+    ")"
+  ]),
+  {shouldBreak: true}
+)
+
+=====================================output=====================================
+group(
+  concat([
+    "(",
+    indent(
+      options.tabWidth,
+      concat([line, join(concat([",", line]), printed)]),
+    ),
+    options.trailingComma ? "," : "",
+    line,
+    ")",
+  ]),
+  { shouldBreak: true },
+);
+
+================================================================================
+`;
+
+exports[`right-break.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const blablah =
+  "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+  "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+  "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
+
+const k = {
+  blablah: "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+};
+
+somethingThatsAReallyLongPropName =
+  this.props.cardType === AwesomizerCardEnum.SEEFIRST;
+
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+};
+
+=====================================output=====================================
+const blablah =
+  "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+  "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+  "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
+
+const k = {
+  blablah:
+    "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
+    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
+};
+
+somethingThatsAReallyLongPropName =
+  this.props.cardType === AwesomizerCardEnum.SEEFIRST;
+
+const o = {
+  somethingThatsAReallyLongPropName:
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
+};
 
 ================================================================================
 `;

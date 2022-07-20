@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indent.js format 1`] = `
+exports[`indent.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
@@ -65,6 +66,82 @@ do {} while (
     someVeryLongArgB,
     someVeryLongArgC,
     someVeryLongArgD
+  )
+);
+
+while (0) 1;
+
+do 1;
+while (0);
+
+================================================================================
+`;
+
+exports[`indent.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
+while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD) {}
+do {}
+while (someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD);
+
+if (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD)) {}
+while (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD)) {}
+do {}
+while (someVeryLongFunc(someVeryLongArgA, someVeryLongArgB, someVeryLongArgC, someVeryLongArgD));
+
+while (0) 1;
+
+do 1;
+while (0);
+
+=====================================output=====================================
+if (
+  someVeryLongStringA &&
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
+) {
+}
+while (
+  someVeryLongStringA &&
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
+) {}
+do {} while (
+  someVeryLongStringA &&
+  someVeryLongStringB &&
+  someVeryLongStringC &&
+  someVeryLongStringD
+);
+
+if (
+  someVeryLongFunc(
+    someVeryLongArgA,
+    someVeryLongArgB,
+    someVeryLongArgC,
+    someVeryLongArgD,
+  )
+) {
+}
+while (
+  someVeryLongFunc(
+    someVeryLongArgA,
+    someVeryLongArgB,
+    someVeryLongArgC,
+    someVeryLongArgD,
+  )
+) {}
+do {} while (
+  someVeryLongFunc(
+    someVeryLongArgA,
+    someVeryLongArgB,
+    someVeryLongArgC,
+    someVeryLongArgD,
   )
 );
 

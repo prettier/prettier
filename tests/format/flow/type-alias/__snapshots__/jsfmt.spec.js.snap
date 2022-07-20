@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-100857.js format 1`] = `
+exports[`issue-100857.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type FieldLayoutWith<
@@ -66,6 +67,81 @@ type FieldLayoutWith<T: string> = {
 type FieldLayoutWith<
   T: stringgggggggggggggggggg,
   S: stringgggggggggggggggggg
+> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+================================================================================
+`;
+
+exports[`issue-100857.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type FieldLayoutWith<
+  T : string,
+  S : unknown = { xxxxxxxx: number; y: string; }
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : string,
+  S : unknown,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : string,
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+type FieldLayoutWith<
+  T : stringgggggggggggggggggg,
+  S : stringgggggggggggggggggg
+> = {
+  type: T;
+  code: string;
+  size: S;
+};
+
+=====================================output=====================================
+type FieldLayoutWith<
+  T: string,
+  S: unknown = { xxxxxxxx: number, y: string },
+> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<T: string, S: unknown> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<T: string> = {
+  type: T,
+  code: string,
+  size: S,
+};
+
+type FieldLayoutWith<
+  T: stringgggggggggggggggggg,
+  S: stringgggggggggggggggggg,
 > = {
   type: T,
   code: string,

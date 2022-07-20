@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+export class ViewTokensChangedEvent {
+  public readonly ranges: {
+    /**
+     * Start line number of range
+     */
+    readonly fromLineNumber: number;
+  }[];
+}
+
+=====================================output=====================================
+export class ViewTokensChangedEvent {
+  public readonly ranges: {
+    /**
+     * Start line number of range
+     */
+    readonly fromLineNumber: number;
+  }[];
+}
+
+================================================================================
+`;
+
 exports[`comment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -28,6 +57,27 @@ export class ViewTokensChangedEvent {
 ================================================================================
 `;
 
+exports[`key.ts - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+const subtractDuration = moment.duration(
+  subtractMap[interval][0],
+  subtractMap[interval][1] as unitOfTime.DurationConstructor
+);
+
+=====================================output=====================================
+const subtractDuration = moment.duration(
+  subtractMap[interval][0],
+  subtractMap[interval][1] as unitOfTime.DurationConstructor
+);
+
+================================================================================
+`;
+
 exports[`key.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -42,7 +92,7 @@ const subtractDuration = moment.duration(
 =====================================output=====================================
 const subtractDuration = moment.duration(
   subtractMap[interval][0],
-  subtractMap[interval][1] as unitOfTime.DurationConstructor
+  subtractMap[interval][1] as unitOfTime.DurationConstructor,
 );
 
 ================================================================================
