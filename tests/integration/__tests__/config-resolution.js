@@ -27,9 +27,21 @@ describe("accepts configuration from --config", () => {
   });
 });
 
-describe("resolves external configuration from package.json", () => {
-  runPrettier("cli/config/", ["external-config/index.js"]).test({
-    status: 0,
+describe("resolves external configuration from package.json (cjs package)", () => {
+  runPrettier("cli/config/external-config/cjs-package", ["index.js"]).test({status: 0,
+stderr: "",write:[]
+  });
+});
+
+describe("resolves external configuration from package.json (esm package)", () => {
+  runPrettier("cli/config/external-config/esm-package", ["index.js"]).test({status: 0,
+stderr: "",write:[]
+  });
+});
+
+describe("resolves external configuration from package.json (esm file)", () => {
+  runPrettier("cli/config/external-config/esm-package", ["index.js"]).test({status: 0,
+stderr: "",write:[]
   });
 });
 
@@ -232,13 +244,18 @@ test("API resolveConfig resolves relative path values based on config filepath",
 });
 
 test("API resolveConfig de-references to an external module", async () => {
-  const currentDir = path.join(__dirname, "../cli/config/external-config");
-  await expect(
-    prettier.resolveConfig(`${currentDir}/index.js`)
-  ).resolves.toEqual({
-    printWidth: 77,
+const config = {printWidth: 77,
     semi: false,
-  });
+  }
+  await expect(
+    prettier.resolveConfig(path.join(__dirname, "../cli/config/external-config/cjs-package/index.js",))
+  ).resolves.toEqual(config);
+  await expect(
+    prettier.resolveConfig(path.join(__dirname, "../cli/config/external-config/esm-package/index.js",))
+  ).resolves.toEqual(config);
+  await expect(
+    prettier.resolveConfig(path.join(__dirname, "../cli/config/external-config/esm-file/index.js",))
+  ).resolves.toEqual(config);
 });
 
 test(".js config file", async () => {

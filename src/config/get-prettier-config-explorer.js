@@ -4,6 +4,7 @@ import { pathToFileURL } from "node:url";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
 import thirdParty from "../common/third-party.js";
+import {importFromFile} from "./import-from.js"
 
 const { cosmiconfig } = thirdParty;
 
@@ -39,7 +40,7 @@ async function loadExternalConfig(config, filepath) {
   try {
     return createRequire(filepath)(config);
   } catch (error) {
-    if (error?.code !== "MODULE_NOT_FOUND") {
+    if (error?.code !== "MODULE_NOT_FOUND" && error?.code !== "ERR_REQUIRE_ESM" ) {
       throw error;
     }
   }
@@ -48,7 +49,7 @@ async function loadExternalConfig(config, filepath) {
 
   try {
     return await importModuleDefault(
-      new URL(config, pathToFileURL(directory + "/"))
+      new URL(config, pathToFileURL(directory + "/")).href
     );
   } catch (error) {
     if (error?.code !== "ERR_MODULE_NOT_FOUND") {
@@ -56,7 +57,8 @@ async function loadExternalConfig(config, filepath) {
     }
   }
 
-  return importModuleDefault(config);
+  const module = await importFromFile(config, filepath);
+  return module.default;
 }
 
 function jsConfigLoader(filepath /*, content*/) {
