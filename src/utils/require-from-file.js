@@ -5,4 +5,4 @@ function requireFromFile(id, parent) {
   return require(id);
 }
 
-export default requireFromFile
+export default requireFromFile;
