@@ -1,10 +1,8 @@
-import { createRequire } from "node:module";
-import path from "node:path";
 import { pathToFileURL } from "node:url";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
 import thirdParty from "../common/third-party.js";
-import {importFromFile} from "./import-from.js"
+import loadExternalConfig from "./load-external-config.js";
 
 const { cosmiconfig } = thirdParty;
 
@@ -24,53 +22,17 @@ const searchPlaces = [
   ".prettierrc.toml",
 ];
 
-async function importModuleDefault(url) {
-  const module = await import(url);
-  return module.default;
-}
-
-async function loadExternalConfig(config, filepath) {
-  /*
-  Try `require()` first, this is how it works in Prettier v2.
-  Kept this because the external config path or package may can't load with `import()`:
-  1. is JSON file or package
-  2. is CommonJS file without extension
-  3. is a dirname with index.js inside
-  */
-  try {
-    return createRequire(filepath)(config);
-  } catch (error) {
-    if (error?.code !== "MODULE_NOT_FOUND" && error?.code !== "ERR_REQUIRE_ESM" ) {
-      throw error;
-    }
-  }
-
-  const directory = path.dirname(filepath);
-
-  try {
-    return await importModuleDefault(
-      new URL(config, pathToFileURL(directory + "/")).href
-    );
-  } catch (error) {
-    if (error?.code !== "ERR_MODULE_NOT_FOUND") {
-      throw error;
-    }
-  }
-
-  const module = await importFromFile(config, filepath);
-  return module.default;
-}
-
-function jsConfigLoader(filepath /*, content*/) {
-  return importModuleDefault(pathToFileURL(filepath));
+async function loadJs(filepath /*, content*/) {
+  const { default: config } = await import(pathToFileURL(filepath));
+  return config;
 }
 
 const loaders = {
   ".toml": loadToml,
   ".json5": loadJson5,
-  ".js": jsConfigLoader,
-  ".mjs": jsConfigLoader,
-  ".cjs": jsConfigLoader,
+  ".js": loadJs,
+  ".mjs": loadJs,
+  ".cjs": loadJs,
 };
 
 async function transform(result) {
@@ -80,6 +42,15 @@ async function transform(result) {
 
   let { config, filepath } = result;
 
+  /*
+  We support external config
+
+  ```json
+  {
+    "prettier": "my-prettier-config-package-or-file"
+  }
+  ```
+  */
   if (typeof config === "string") {
     config = await loadExternalConfig(config, filepath);
     result.config = config;
