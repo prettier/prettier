@@ -1,5 +1,4 @@
 import { createRequire } from "node:module";
-import { pathToFileURL } from "node:url";
 import { importFromFile } from "./import-from.js";
 
 async function loadExternalConfig(config, filepath) {
