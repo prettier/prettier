@@ -1,5 +1,5 @@
-import prettier from "prettier-local";
 import { outdent } from "outdent";
+import prettier from "../../config/prettier-entry.js";
 
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;

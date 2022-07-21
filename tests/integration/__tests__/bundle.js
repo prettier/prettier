@@ -8,7 +8,7 @@ import * as coreOptions from "../../../src/main/core-options.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import jestPathSerializer from "../path-serializer.js";
 
-const { require } = createEsmUtils(import.meta);
+const { require, importModule } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
@@ -41,13 +41,13 @@ describe("standalone", () => {
   let esmStandalone;
   let esmPlugins;
   beforeAll(async () => {
-    esmStandalone = await import(
+    esmStandalone = await importModule(
       path.join(distDirectory, "esm/standalone.mjs")
     );
     esmPlugins = await Promise.all(
       fastGlob
         .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
-        .map(async (file) => (await import(file)).default)
+        .map(async (file) => (await importModule(file)).default)
     );
   });
 

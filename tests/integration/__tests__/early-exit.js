@@ -1,4 +1,5 @@
-import prettier from "prettier-local";
+import prettier from "../../config/prettier-entry.js";
+
 describe("show version with --version", () => {
   runPrettier("cli/with-shebang", ["--version"]).test({
     stdout: prettier.version + "\n",

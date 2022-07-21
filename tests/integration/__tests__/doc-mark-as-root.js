@@ -1,4 +1,4 @@
-import prettier from "prettier-local";
+import prettier from "../../config/prettier-entry.js";
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
