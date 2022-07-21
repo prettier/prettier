@@ -196,8 +196,7 @@ function printDocToDebug(doc) {
       return printedSymbols[id];
     }
 
-    // TODO: use Symbol.prototype.description instead of slice once Node 10 is dropped
-    const prefix = String(id).slice(7, -1) || "symbol";
+    const prefix = id.description || "symbol";
     for (let counter = 0; ; counter++) {
       const key = prefix + (counter > 0 ? ` #${counter}` : "");
       if (!usedKeysForSymbols.has(key)) {

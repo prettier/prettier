@@ -1,4 +1,5 @@
-import prettier from "prettier-local";
+import prettier from "../../config/prettier-entry.js";
+
 test("API getSupportInfo()", async () => {
   expect(await getCoreInfo()).toMatchSnapshot();
 });

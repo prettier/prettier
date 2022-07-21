@@ -1120,20 +1120,20 @@ function getFunctionParameters(node) {
   return parameters;
 }
 
-function iterateFunctionParametersPath(path, iteratee) {
+async function iterateFunctionParametersPath(path, iteratee) {
   const node = path.getValue();
   let index = 0;
   const callback = (childPath) => iteratee(childPath, index++);
   if (node.this) {
-    path.call(callback, "this");
+    await path.call(callback, "this");
   }
   if (Array.isArray(node.parameters)) {
-    path.each(callback, "parameters");
+    await path.each(callback, "parameters");
   } else if (Array.isArray(node.params)) {
-    path.each(callback, "params");
+    await path.each(callback, "params");
   }
   if (node.rest) {
-    path.call(callback, "rest");
+    await path.call(callback, "rest");
   }
 }
 
@@ -1156,16 +1156,16 @@ function getCallArguments(node) {
   return args;
 }
 
-function iterateCallArgumentsPath(path, iteratee) {
+async function iterateCallArgumentsPath(path, iteratee) {
   const node = path.getValue();
   if (node.type === "ImportExpression") {
-    path.call((sourcePath) => iteratee(sourcePath, 0), "source");
+    await path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
     if (node.attributes) {
-      path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
+      await path.call((sourcePath) => iteratee(sourcePath, 1), "attributes");
     }
   } else {
-    path.each(iteratee, "arguments");
+    await path.each(iteratee, "arguments");
   }
 }
 

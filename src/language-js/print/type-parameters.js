@@ -23,7 +23,7 @@ import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
-function printTypeParameters(path, options, print, paramsKey) {
+async function printTypeParameters(path, options, print, paramsKey) {
   const node = path.getValue();
 
   if (!node[paramsKey]) {
@@ -58,7 +58,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   if (shouldInline) {
     return [
       "<",
-      join(", ", path.map(print, paramsKey)),
+      join(", ", await path.map(print, paramsKey)),
       printDanglingCommentsForInline(path, options),
       ">",
     ];
@@ -82,7 +82,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   return group(
     [
       "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      indent([softline, join([",", line], await path.map(print, paramsKey))]),
       trailingComma,
       softline,
       ">",
@@ -108,27 +108,24 @@ function printDanglingCommentsForInline(path, options) {
   return [printed, hardline];
 }
 
-function printTypeParameter(path, options, print) {
+async function printTypeParameter(path, options, print) {
   const node = path.getValue();
   const parts = [];
   const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
-    parts.push("[", print("name"));
+    parts.push("[", await print("name"));
     if (node.constraint) {
-      parts.push(" in ", print("constraint"));
+      parts.push(" in ", await print("constraint"));
     }
     if (parent.nameType) {
-      parts.push(
-        " as ",
-        path.callParent(() => print("nameType"))
-      );
+      parts.push(" as ", await path.callParent(() => print("nameType")));
     }
     parts.push("]");
     return parts;
   }
 
   if (node.variance) {
-    parts.push(print("variance"));
+    parts.push(await print("variance"));
   }
 
   if (node.in) {
@@ -139,18 +136,18 @@ function printTypeParameter(path, options, print) {
     parts.push("out ");
   }
 
-  parts.push(print("name"));
+  parts.push(await print("name"));
 
   if (node.bound) {
-    parts.push(": ", print("bound"));
+    parts.push(": ", await print("bound"));
   }
 
   if (node.constraint) {
-    parts.push(" extends ", print("constraint"));
+    parts.push(" extends ", await print("constraint"));
   }
 
   if (node.default) {
-    parts.push(" = ", print("default"));
+    parts.push(" = ", await print("default"));
   }
 
   return parts;
