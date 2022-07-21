@@ -21,33 +21,6 @@ async function loadExternalConfig(config, filepath) {
     }
   }
 
-  /*
-  Try local file first
-
-  ```json
-  {
-    "prettier": "path/to/config/file"
-  }
-  ```
-  */
-  try {
-    const module = await import(new URL(config, pathToFileURL(filepath)));
-    return module.default;
-  } catch (error) {
-    if (error?.code !== "ERR_MODULE_NOT_FOUND") {
-      throw error;
-    }
-  }
-
-  /*
-  Try resolve
-
-  ```json
-  {
-    "prettier": "my-prettier-config-package"
-  }
-  ```
-  */
   const module = await importFromFile(config, filepath);
   return module.default;
 }
