@@ -1,11 +1,8 @@
 import { createRequire } from "node:module";
-import path from "node:path";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
-import resolve from "../common/resolve.js";
 import thirdParty from "../common/third-party.js";
 
-const require = createRequire(import.meta.url);
 const { cosmiconfig } = thirdParty;
 
 const searchPlaces = [
@@ -32,9 +29,7 @@ function transform(result) {
   let { config, filepath } = result;
 
   if (typeof config === "string") {
-    const directory = path.dirname(filepath);
-    const modulePath = resolve(config, { paths: [directory] });
-    config = require(modulePath);
+    config = createRequire(filepath)(config);
     result.config = config;
   }
 
