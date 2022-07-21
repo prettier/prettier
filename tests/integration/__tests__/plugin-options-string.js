@@ -59,7 +59,7 @@ describe("Non exists plugin", () => {
   ).test({
     stdout: "",
     stderr: expect.stringMatching(
-      /Cannot find (?:package|module) '--invalid--'/
+      /Cannot find module '--invalid--'/
     ),
     status: 1,
     write: [],
