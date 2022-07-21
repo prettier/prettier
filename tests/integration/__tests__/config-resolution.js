@@ -1,6 +1,5 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
-import { outdent } from "outdent";
 import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
@@ -68,32 +67,6 @@ describe("prints error message when no file found with --find-config-path", () =
     stdout: "",
     status: 1,
   });
-});
-
-test("CLI overrides take precedence", async () => {
-  const formatted = await runPrettier("cli/config/external-overrides", [
-    "foo.js",
-  ]).stdout;
-  expect(formatted).toBe(
-    outdent`
-      function foo() {
-      ${" ".repeat(3)}return bar
-      }
-    ` + "\n"
-  );
-
-  const formatted2 = await runPrettier("cli/config/external-overrides", [
-    "--tab-width",
-    "5",
-    "foo.js",
-  ]).stdout;
-  expect(formatted2).toBe(
-    outdent`
-      function foo() {
-      ${" ".repeat(5)}return bar
-      }
-    ` + "\n"
-  );
 });
 
 test("API resolveConfig with no args", async () => {
