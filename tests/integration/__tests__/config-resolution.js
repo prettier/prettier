@@ -1,5 +1,6 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
+import { outdent } from "outdent";
 import prettier from "../../config/prettier-entry.js";
 import runPrettier from "../run-prettier.js";
 import jestPathSerializer from "../path-serializer.js";
@@ -8,16 +9,17 @@ const { __dirname } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
-describe("resolves configuration from external files", () => {
-  runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({
-    status: 0,
-  });
-});
-
-describe("resolves configuration from external files and overrides by extname", () => {
-  runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.ts"]).test({
-    status: 0,
-  });
+test("resolves configuration from external files and overrides by extname", async () => {
+  await expect(
+    prettier.resolveConfig(
+      path.join(__dirname, "../cli/config/external-overrides/file.js")
+    )
+  ).resolves.toEqual({ tabWidth: 3, semi: false });
+  await expect(
+    prettier.resolveConfig(
+      path.join(__dirname, "../cli/config/external-overrides/file.ts")
+    )
+  ).resolves.toEqual({ tabWidth: 3, semi: true });
 });
 
 describe("accepts configuration from --config", () => {
@@ -68,16 +70,30 @@ describe("prints error message when no file found with --find-config-path", () =
   });
 });
 
-describe("CLI overrides take precedence", () => {
-  runPrettier("cli/config/", [
-    "--end-of-line",
-    "lf",
-    "--print-width",
-    "1",
-    "**/*.js",
-  ]).test({
-    status: 0,
-  });
+test("CLI overrides take precedence", async () => {
+  const formatted = await runPrettier("cli/config/external-overrides", [
+    "foo.js",
+  ]).stdout;
+  expect(formatted).toBe(
+    outdent`
+      function foo() {
+      ${" ".repeat(3)}return bar
+      }
+    ` + "\n"
+  );
+
+  const formatted2 = await runPrettier("cli/config/external-overrides", [
+    "--tab-width",
+    "5",
+    "foo.js",
+  ]).stdout;
+  expect(formatted2).toBe(
+    outdent`
+      function foo() {
+      ${" ".repeat(5)}return bar
+      }
+    ` + "\n"
+  );
 });
 
 test("API resolveConfig with no args", async () => {
