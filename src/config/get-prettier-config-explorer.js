@@ -3,10 +3,8 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
-import resolve from "../common/resolve.js";
 import thirdParty from "../common/third-party.js";
 
-const require = createRequire(import.meta.url);
 const { cosmiconfig } = thirdParty;
 
 const searchPlaces = [
@@ -25,22 +23,12 @@ const searchPlaces = [
   ".prettierrc.toml",
 ];
 
-async function importModuleDefault(url, ignoreNotFoundError = false) {
-  try {
-    const { default: config } = await import(url);
-    return config;
-  } catch (error) {
-    if (ignoreNotFoundError && error?.code === "ERR_MODULE_NOT_FOUND") {
-      return;
-    }
-
-    throw error;
-  }
+async function importModuleDefault(url) {
+  const module = await import(url);
+  return module.default;
 }
 
 async function loadExternalConfig(config, filepath) {
-  const directory = path.dirname(filepath);
-
   /*
   Try `require()` first, this is how it works in Prettier v2.
   Kept this because the external config path or package may can't load with `import()`:
@@ -49,18 +37,26 @@ async function loadExternalConfig(config, filepath) {
   3. is a dirname with index.js inside
   */
   try {
-    const modulePath = resolve(config, { paths: [directory] });
-    return require(modulePath);
-  } catch {
-    // No op
+    return createRequire(filepath)(config);
+  } catch (error) {
+    if (error?.code !== "MODULE_NOT_FOUND") {
+      throw error;
+    }
   }
 
-  const result = await importModuleDefault(
-    new URL(config, pathToFileURL(directory + "/")),
-    /* ignoreNotFoundError */ true
-  );
+  const directory = path.dirname(filepath);
 
-  return result ?? importModuleDefault(config);
+  try {
+    return await importModuleDefault(
+      new URL(config, pathToFileURL(directory + "/"))
+    );
+  } catch (error) {
+    if (error?.code !== "ERR_MODULE_NOT_FOUND") {
+      throw error;
+    }
+  }
+
+  return importModuleDefault(config);
 }
 
 function jsConfigLoader(filepath /*, content*/) {

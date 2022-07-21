@@ -1,5 +1,5 @@
-import prettier from "prettier-local";
 import { outdent } from "outdent";
+import prettier from "../../config/prettier-entry.js";
 
 const {
   __debug: { parse, formatAST, formatDoc, printToDoc, printDocToString },
