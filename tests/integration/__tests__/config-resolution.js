@@ -8,12 +8,14 @@ const { __dirname } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
-describe("resolves configuration from external files", () => {
+// TODO[@fisker]: Run test on single file instead of all files
+describe.skip("resolves configuration from external files", () => {
   runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({
     status: 0,
   });
 });
 
+// TODO[@fisker]: Run test on single file instead of all files
 describe("resolves configuration from external files and overrides by extname", () => {
   runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.ts"]).test({
     status: 0,
@@ -68,7 +70,8 @@ describe("prints error message when no file found with --find-config-path", () =
   });
 });
 
-describe("CLI overrides take precedence", () => {
+// TODO[@fisker]: Run test on single file instead of all files
+describe.skip("CLI overrides take precedence", () => {
   runPrettier("cli/config/", [
     "--end-of-line",
     "lf",
