@@ -23,8 +23,8 @@ const searchPlaces = [
 ];
 
 async function loadJs(filepath /*, content*/) {
-  const { default: config } = await import(pathToFileURL(filepath));
-  return config;
+  const module = await import(pathToFileURL(filepath).href);
+  return module.default;
 }
 
 const loaders = {
