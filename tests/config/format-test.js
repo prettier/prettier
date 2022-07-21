@@ -77,6 +77,12 @@ const meriyahDisabledTests = new Set([
     "../format/js/babel-plugins/decorator-auto-accessors.js"
   ),
 ]);
+const babelTsDisabledTest = new Set(
+  [
+    // Disabled temporarily https://github.com/babel/babel/issues/14777#issuecomment-1191474632
+    "instantiation-expression",
+  ].map((directory) => path.join(__dirname, "../format/typescript", directory))
+);
 
 const isUnstable = (filename, options) => {
   const testFunction = unstableTests.get(filename);
@@ -209,7 +215,8 @@ function runSpec(fixtures, parsers, options) {
     if (
       parsers.includes("typescript") &&
       !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST
+      !IS_TYPESCRIPT_ONLY_TEST &&
+      !babelTsDisabledTest.has(dirname)
     ) {
       allParsers.push("babel-ts");
     }
