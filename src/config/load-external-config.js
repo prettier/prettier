@@ -1,5 +1,5 @@
-import { createRequire } from "node:module";
-import { importFromFile } from "./import-from.js";
+import requireFromFile from "../utils/require-from-file.js";
+import importFromFile from "../utils/import-from.js";
 
 async function loadExternalConfig(config, filepath) {
   /*
@@ -10,7 +10,7 @@ async function loadExternalConfig(config, filepath) {
   3. is a dirname with index.js inside
   */
   try {
-    return createRequire(filepath)(config);
+    return requireFromFile(config, filepath);
   } catch (error) {
     if (
       error?.code !== "MODULE_NOT_FOUND" &&
