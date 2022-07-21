@@ -8,18 +8,17 @@ const { __dirname } = createEsmUtils(import.meta);
 
 expect.addSnapshotSerializer(jestPathSerializer);
 
-// TODO[@fisker]: Run test on single file instead of all files
-describe.skip("resolves configuration from external files", () => {
-  runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.js"]).test({
-    status: 0,
-  });
-});
-
-// TODO[@fisker]: Run test on single file instead of all files
-describe("resolves configuration from external files and overrides by extname", () => {
-  runPrettier("cli/config/", ["--end-of-line", "lf", "**/*.ts"]).test({
-    status: 0,
-  });
+test("resolves configuration from external files and overrides by extname", async () => {
+  await expect(
+    prettier.resolveConfig(
+      path.join(__dirname, "../cli/config/external-overrides/file.js")
+    )
+  ).resolves.toEqual({ tabWidth: 3, semi: false });
+  await expect(
+    prettier.resolveConfig(
+      path.join(__dirname, "../cli/config/external-overrides/file.ts")
+    )
+  ).resolves.toEqual({ tabWidth: 3, semi: true });
 });
 
 describe("accepts configuration from --config", () => {
@@ -67,19 +66,6 @@ describe("prints error message when no file found with --find-config-path", () =
   ]).test({
     stdout: "",
     status: 1,
-  });
-});
-
-// TODO[@fisker]: Run test on single file instead of all files
-describe.skip("CLI overrides take precedence", () => {
-  runPrettier("cli/config/", [
-    "--end-of-line",
-    "lf",
-    "--print-width",
-    "1",
-    "**/*.js",
-  ]).test({
-    status: 0,
   });
 });
 
