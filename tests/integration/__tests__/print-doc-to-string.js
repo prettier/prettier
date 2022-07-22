@@ -27,10 +27,10 @@ test("Throw error on invalid doc", () => {
     new Uint8Array(2),
   ]) {
     expect(() => printDocToString(doc, printDocToStringOptions)).toThrowError(
-      /is not a valid document/
+      /is not a valid document|Cannot read properties of/
     );
     expect(() => printDocToString([doc], printDocToStringOptions)).toThrowError(
-      /is not a valid document/
+      /is not a valid document|Cannot read properties of/
     );
   }
 });
