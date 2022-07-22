@@ -568,6 +568,7 @@ function printDocToString(doc, options) {
           cmds.push([ind, mode, doc.contents]);
           break;
         default:
+          throw new Error("Value " + JSON.stringify(doc) + " is not a valid document");
       }
     }
 
