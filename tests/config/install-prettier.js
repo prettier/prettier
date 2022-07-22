@@ -55,6 +55,7 @@ function installPrettier(packageDir) {
 
   switch (client) {
     case "npm":
+      runNpmClient(["set", "registry", "http://registry.npmjs.org/"]);
       // npm fails when engine requirement only with `--engine-strict`
       runNpmClient(["install", packed, "--engine-strict", "--loglevel", "verbose"]);
       break;

@@ -8,6 +8,7 @@
 
 .tmp
 *.log
+*.tgz
 /errors
 /test*.*
 /.vscode
@@ -28,7 +29,6 @@ package-lock.json
 .pnp.*
 .nyc_output
 .devcontainer
-*.tgz
 
 # Temporarily ignore these files to avoid conflicts between next and main branch
 /vendors
