@@ -7,9 +7,9 @@ import chalk from "chalk";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
 
-let client = process.env.NPM_CLIENT;
+const client = process.env.NPM_CLIENT;
 if (!allowedClients.has(client)) {
-  client = "yarn";
+  throw new Error(`Invalid npm client '${client}`);
 }
 
 const directoriesToClean = new Set();
@@ -49,7 +49,7 @@ function installPrettier(packageDir) {
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  const runNpmClient = (args) => execaSync(client, args, { cwd: tmpDir });
+  const runNpmClient = (args) => execaSync(client, args, { cwd: tmpDir, stdout:"inherit", stderr:"inherit"  });
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
