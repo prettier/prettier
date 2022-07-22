@@ -571,7 +571,9 @@ function printDocToString(doc, options) {
           // No op
           break;
         default:
-          throw new Error("Value " + JSON.stringify(doc) + " is not a valid document");
+          // eslint-disable-next-line no-console
+          console.log("Invalid doc:", doc);
+          throw new Error(`'${typeof doc}' is not a valid document`);
       }
     }
 
