@@ -567,6 +567,9 @@ function printDocToString(doc, options) {
         case "label":
           cmds.push([ind, mode, doc.contents]);
           break;
+        case "break-parent":
+          // No op
+          break;
         default:
           throw new Error("Value " + JSON.stringify(doc) + " is not a valid document");
       }
