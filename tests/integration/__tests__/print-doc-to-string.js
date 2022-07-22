@@ -1,6 +1,6 @@
 import prettier from "../../config/prettier-entry.js";
 
-const { printDocToString } = prettier.doc.prettier;
+const { printDocToString } = prettier.doc.printer;
 
 test("Throw error on invalid doc", () => {
   const printDocToStringOptions = { printWidth: 80, tabWidth: 2 };
