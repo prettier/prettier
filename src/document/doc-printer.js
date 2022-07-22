@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 "use strict";
 
 const { convertEndOfLineToChars } = require("../common/end-of-line.js");
@@ -146,7 +147,7 @@ function trim(out) {
   return trimCount;
 }
 
-function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
+function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
   let restIdx = restCommands.length;
   const cmds = [next];
   // `out` is only used for width counting because `trim` requires to look
@@ -157,118 +158,77 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
       if (restIdx === 0) {
         return true;
       }
-      cmds.push(restCommands[restIdx - 1]);
-
-      restIdx--;
-
+      cmds.push(restCommands[--restIdx]);
       continue;
     }
 
-    const [ind, mode, doc] = cmds.pop();
+    const [, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       out.push(doc);
-
       width -= getStringWidth(doc);
-    } else if (isConcat(doc)) {
+    } else if (isConcat(doc) || doc.type === "fill") {
       const parts = getDocParts(doc);
       for (let i = parts.length - 1; i >= 0; i--) {
-        cmds.push([ind, mode, parts[i]]);
+        cmds.push([, mode, parts[i]]);
       }
     } else {
       switch (doc.type) {
         case "indent":
-          cmds.push([makeIndent(ind, options), mode, doc.contents]);
-
-          break;
         case "align":
-          cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
-
+        case "indent-if-break":
+        case "label":
+          cmds.push([, mode, doc.contents]);
           break;
+
         case "trim":
           width += trim(out);
-
           break;
+
         case "group": {
           if (mustBeFlat && doc.break) {
             return false;
           }
           const groupMode = doc.break ? MODE_BREAK : mode;
-          cmds.push([
-            ind,
-            groupMode,
-            // The most expanded state takes up the least space on the current line.
+          // The most expanded state takes up the least space on the current line.
+          const contents =
             doc.expandedStates && groupMode === MODE_BREAK
               ? getLast(doc.expandedStates)
-              : doc.contents,
-          ]);
+              : doc.contents;
+          cmds.push([, groupMode, contents]);
           break;
         }
-        case "fill":
-          for (let i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
-          }
 
-          break;
-        case "if-break":
-        case "indent-if-break": {
+        case "if-break": {
           const groupMode = doc.groupId
             ? groupModeMap[doc.groupId] || MODE_FLAT
             : mode;
-          if (groupMode === MODE_BREAK) {
-            const breakContents =
-              doc.type === "if-break"
-                ? doc.breakContents
-                : doc.negate
-                ? doc.contents
-                : indent(doc.contents);
-            if (breakContents) {
-              cmds.push([ind, mode, breakContents]);
-            }
+          const contents =
+            groupMode === MODE_BREAK ? doc.breakContents : doc.flatContents;
+          if (contents) {
+            cmds.push([, mode, contents]);
           }
-          if (groupMode === MODE_FLAT) {
-            const flatContents =
-              doc.type === "if-break"
-                ? doc.flatContents
-                : doc.negate
-                ? indent(doc.contents)
-                : doc.contents;
-            if (flatContents) {
-              cmds.push([ind, mode, flatContents]);
-            }
-          }
-
           break;
         }
+
         case "line":
-          switch (mode) {
-            // fallthrough
-            case MODE_FLAT:
-              if (!doc.hard) {
-                if (!doc.soft) {
-                  out.push(" ");
-
-                  width -= 1;
-                }
-
-                break;
-              }
-              return true;
-
-            case MODE_BREAK:
-              return true;
+          if (mode === MODE_BREAK || doc.hard) {
+            return true;
+          }
+          if (!doc.soft) {
+            out.push(" ");
+            width--;
           }
           break;
+
         case "line-suffix":
           hasLineSuffix = true;
           break;
+
         case "line-suffix-boundary":
           if (hasLineSuffix) {
             return false;
           }
-          break;
-        case "label":
-          cmds.push([ind, mode, doc.contents]);
           break;
       }
     }
@@ -341,7 +301,7 @@ function printDocToString(doc, options) {
               const rem = width - pos;
               const hasLineSuffix = lineSuffix.length > 0;
 
-              if (!doc.break && fits(next, cmds, rem, options, hasLineSuffix)) {
+              if (!doc.break && fits(next, cmds, rem, hasLineSuffix)) {
                 cmds.push(next);
               } else {
                 // Expanded states are a rare case where a document
@@ -368,7 +328,7 @@ function printDocToString(doc, options) {
                         const state = doc.expandedStates[i];
                         const cmd = [ind, MODE_FLAT, state];
 
-                        if (fits(cmd, cmds, rem, options, hasLineSuffix)) {
+                        if (fits(cmd, cmds, rem, hasLineSuffix)) {
                           cmds.push(cmd);
 
                           break;
@@ -424,7 +384,6 @@ function printDocToString(doc, options) {
             contentFlatCmd,
             [],
             rem,
-            options,
             lineSuffix.length > 0,
             true
           );
@@ -469,7 +428,6 @@ function printDocToString(doc, options) {
             firstAndSecondContentFlatCmd,
             [],
             rem,
-            options,
             lineSuffix.length > 0,
             true
           );
