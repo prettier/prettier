@@ -20,6 +20,7 @@ import {
 } from "./constants.js";
 import { fill, cursor, indent, hardline } from "./builders.js";
 import { getDocParts, getDocType } from "./utils.js";
+import InvalidDocError from "./invalid-doc-error.js"
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -596,9 +597,7 @@ function printDocToString(doc, options) {
         // No op
         break;
       default:
-        // eslint-disable-next-line no-console
-        console.log("Invalid doc:", doc);
-        throw new Error(`'${typeof doc}' is not a valid document`);
+        throw new InvalidDocError(doc);
     }
 
     // Flush remaining line-suffix contents at the end of the document, in case
