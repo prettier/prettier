@@ -202,10 +202,6 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
               ? getLast(doc.expandedStates)
               : doc.contents,
           ]);
-
-          if (doc.id) {
-            groupModeMap[doc.id] = groupMode;
-          }
           break;
         }
         case "fill":
@@ -216,7 +212,9 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
           break;
         case "if-break":
         case "indent-if-break": {
-          const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+          const groupMode = doc.groupId
+            ? groupModeMap[doc.groupId] || MODE_FLAT
+            : mode;
           if (groupMode === MODE_BREAK) {
             const breakContents =
               doc.type === "if-break"
