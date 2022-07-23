@@ -1,8 +1,8 @@
 import getLast from "../utils/get-last.js";
 
-function getNodeHelper(path, count) {
-  const stackIndex = getNodeStackIndexHelper(path.stack, count);
-  return stackIndex === -1 ? null : path.stack[stackIndex];
+function getNodeHelper(stack, count) {
+  const stackIndex = getNodeStackIndexHelper(stack, count);
+  return stackIndex === -1 ? null : stack[stackIndex];
 }
 
 function getNodeStackIndexHelper(stack, count) {
@@ -34,14 +34,16 @@ const tryFinally = (fn, onSettled) => {
 };
 
 class AstPath {
+  #stack = [];
+
   constructor(value) {
-    this.stack = [value];
+    this.#stack.push(value);
   }
 
   // The name of the current property is always the penultimate element of
   // this.stack, and always a String.
   getName() {
-    const { stack } = this;
+    const stack = this.#stack;
     const { length } = stack;
     if (length > 1) {
       return stack[length - 2];
@@ -55,15 +57,15 @@ class AstPath {
   // The value of the current property is always the final element of
   // this.stack.
   getValue() {
-    return getLast(this.stack);
+    return getLast(this.#stack);
   }
 
   getNode(count = 0) {
-    return getNodeHelper(this, count);
+    return getNodeHelper(this.#stack, count);
   }
 
   getParentNode(count = 0) {
-    return getNodeHelper(this, count + 1);
+    return getNodeHelper(this.#stack, count + 1);
   }
 
   // Temporarily push properties named by string arguments given after the
@@ -72,7 +74,7 @@ class AstPath {
   // be restored to its original state after the callback is finished, so it
   // is probably a mistake to retain a reference to the path.
   call(callback, ...names) {
-    const { stack } = this;
+    const stack = this.#stack;
     const { length } = stack;
     let value = getLast(stack);
 
@@ -90,13 +92,14 @@ class AstPath {
   }
 
   callParent(callback, count = 0) {
-    const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
-    const parentValues = this.stack.splice(stackIndex + 1);
+    const stack = this.#stack;
+    const stackIndex = getNodeStackIndexHelper(stack, count + 1);
+    const parentValues = stack.splice(stackIndex + 1);
 
     return tryFinally(
       () => callback(this),
       () => {
-        this.stack.push(...parentValues);
+        stack.push(...parentValues);
       }
     );
   }
@@ -106,7 +109,7 @@ class AstPath {
   // callback will be called with a reference to this path object for each
   // element of the array.
   each(callback, ...names) {
-    const { stack } = this;
+    const stack = this.#stack;
     const { length } = stack;
     let value = getLast(stack);
 
@@ -171,7 +174,7 @@ class AstPath {
    * @internal Unstable API. Don't use in plugins for now.
    */
   try(callback) {
-    const { stack } = this;
+    const stack = this.#stack;
     const stackBackup = [...stack];
 
     return tryFinally(
@@ -190,10 +193,11 @@ class AstPath {
    * )} predicates
    */
   match(...predicates) {
-    let stackPointer = this.stack.length - 1;
+    const stack = this.#stack;
+    let stackPointer = stack.length - 1;
 
     let name = null;
-    let node = this.stack[stackPointer--];
+    let node = stack[stackPointer--];
 
     for (const predicate of predicates) {
       /* istanbul ignore next */
@@ -205,16 +209,16 @@ class AstPath {
       let number = null;
       if (typeof name === "number") {
         number = name;
-        name = this.stack[stackPointer--];
-        node = this.stack[stackPointer--];
+        name = stack[stackPointer--];
+        node = stack[stackPointer--];
       }
 
       if (predicate && !predicate(node, name, number)) {
         return false;
       }
 
-      name = this.stack[stackPointer--];
-      node = this.stack[stackPointer--];
+      name = stack[stackPointer--];
+      node = stack[stackPointer--];
     }
 
     return true;
@@ -228,26 +232,27 @@ class AstPath {
    * @internal Unstable API. Don't use in plugins for now.
    */
   findAncestor(predicate) {
-    let stackPointer = this.stack.length - 1;
+    const stack = this.#stack;
+    let stackPointer = stack.length - 1;
 
     let name = null;
-    let node = this.stack[stackPointer--];
+    let node = stack[stackPointer--];
 
     while (node) {
       // skip index/array
       let number = null;
       if (typeof name === "number") {
         number = name;
-        name = this.stack[stackPointer--];
-        node = this.stack[stackPointer--];
+        name = stack[stackPointer--];
+        node = stack[stackPointer--];
       }
 
       if (name !== null && predicate(node, name, number)) {
         return node;
       }
 
-      name = this.stack[stackPointer--];
-      node = this.stack[stackPointer--];
+      name = stack[stackPointer--];
+      node = stack[stackPointer--];
     }
   }
 }
