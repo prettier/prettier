@@ -433,7 +433,6 @@ function printDocToString(doc, options) {
           contentFlatCmd,
           [],
           rem,
-          options,
           lineSuffix.length > 0,
           true
         );
@@ -525,7 +524,7 @@ function printDocToString(doc, options) {
 
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
         if (lineSuffix.length > 0) {
-          cmds.push({ ind, mode, doc: { type: "line", hard: true } });
+          cmds.push({ ind, mode, doc: hardlineWithoutBreakParent });
         }
         break;
 
