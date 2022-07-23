@@ -337,13 +337,14 @@ class Playground extends React.Component {
                         this.state.needsClickForFirstRun ? (
                           <div className="editor disabled-output-panel">
                             <div className="explanation">
-                              <code>doc-explorer</code> involves running
-                              arbitrary code.
+                              <code>doc-explorer</code> involves running code
+                              provided by users.
                             </div>
                             <div className="explanation">
-                              To stay on the safe side and prevent abuse, we
-                              request an explicit user action when a link to a{" "}
-                              <code>doc-explorer</code> playground is opened.
+                              To stay on the safe side and prevent abuse, an
+                              explicit user action is required when a direct
+                              link to a <code>doc-explorer</code> playground is
+                              opened.
                             </div>
                             <div className="explanation">
                               Click the button below to start the playground.
