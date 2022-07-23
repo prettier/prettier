@@ -1,5 +1,6 @@
 import getLast from "../utils/get-last.js";
 import {
+  DOC_TYPE_STRING,
   DOC_TYPE_CONCAT,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
@@ -427,11 +428,11 @@ function canBreak(doc) {
 
 function getDocType(doc) {
   if (typeof doc === "string") {
-    return "string";
+    return DOC_TYPE_STRING;
   }
 
   if (Array.isArray(doc)) {
-    return "concat";
+    return DOC_TYPE_CONCAT;
   }
 
   return doc?.type;

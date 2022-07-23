@@ -102,7 +102,7 @@ function printDocToDebug(doc) {
       const afterHardline =
         Array.isArray(parentParts) &&
         parentParts[index - 1] &&
-        parentParts[index - 1].type === "line" &&
+        parentParts[index - 1].type === DOC_TYPE_LINE &&
         parentParts[index - 1].hard;
       return afterHardline ? undefined : "breakParent";
     }
