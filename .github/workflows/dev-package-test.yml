@@ -25,7 +25,8 @@ jobs:
           - "14"
         NPM_CLIENT:
           - "yarn"
-          - "npm"
+          # Disabled temporarily #13151
+          # - "npm"
           - "pnpm"
     env:
       INSTALL_PACKAGE: true
