@@ -18,9 +18,14 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import { fill, cursor, indent, hardline } from "./builders.js";
+import {
+  fill,
+  cursor,
+  indent,
+  hardlineWithoutBreakParent,
+} from "./builders.js";
 import { getDocParts, getDocType } from "./utils.js";
-import InvalidDocError from "./invalid-doc-error.js"
+import InvalidDocError from "./invalid-doc-error.js";
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -542,7 +547,7 @@ function printDocToString(doc, options) {
         break;
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
         if (lineSuffix.length > 0) {
-          cmds.push([ind, mode, hardline]);
+          cmds.push([ind, mode, hardlineWithoutBreakParent]);
         }
         break;
       case DOC_TYPE_LINE:
