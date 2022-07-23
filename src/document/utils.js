@@ -410,6 +410,18 @@ function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
 }
 
+function getDocType(doc) {
+  if (typeof doc === "string") {
+    return "string";
+  }
+
+  if (Array.isArray(doc)) {
+    return "concat";
+  }
+
+  return doc?.type;
+}
+
 export {
   isConcat,
   getDocParts,
@@ -426,4 +438,5 @@ export {
   replaceTextEndOfLine,
   replaceEndOfLine,
   canBreak,
+  getDocType,
 };

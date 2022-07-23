@@ -2,7 +2,7 @@ import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
 import { fill, cursor, indent } from "./builders.js";
-import { isConcat, getDocParts } from "./utils.js";
+import { isConcat, getDocParts, getDocType } from "./utils.js";
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -292,289 +292,294 @@ function printDocToString(doc, options) {
 
   while (cmds.length > 0) {
     const [ind, mode, doc] = cmds.pop();
+    const type = getDocType(doc);
 
-    if (typeof doc === "string") {
-      const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
-      out.push(formatted);
-      pos += getStringWidth(formatted);
-    } else if (isConcat(doc)) {
-      const parts = getDocParts(doc);
-      for (let i = parts.length - 1; i >= 0; i--) {
-        cmds.push([ind, mode, parts[i]]);
+    switch (type) {
+      case "string": {
+        const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
+        out.push(formatted);
+        pos += getStringWidth(formatted);
+
+        break;
       }
-    } else {
-      switch (doc.type) {
-        case "cursor":
-          out.push(cursor.placeholder);
+      case "concat": {
+        const parts = getDocParts(doc);
+        for (let i = parts.length - 1; i >= 0; i--) {
+          cmds.push([ind, mode, parts[i]]);
+        }
 
-          break;
-        case "indent":
-          cmds.push([makeIndent(ind, options), mode, doc.contents]);
+        break;
+      }
+      case "cursor":
+        out.push(cursor.placeholder);
 
-          break;
-        case "align":
-          cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
+        break;
+      case "indent":
+        cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
-          break;
-        case "trim":
-          pos -= trim(out);
+        break;
+      case "align":
+        cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
 
-          break;
-        case "group":
-          switch (mode) {
-            case MODE_FLAT:
-              if (!shouldRemeasure) {
-                cmds.push([
-                  ind,
-                  doc.break ? MODE_BREAK : MODE_FLAT,
-                  doc.contents,
-                ]);
+        break;
+      case "trim":
+        pos -= trim(out);
 
-                break;
-              }
-            // fallthrough
+        break;
+      case "group":
+        switch (mode) {
+          case MODE_FLAT:
+            if (!shouldRemeasure) {
+              cmds.push([
+                ind,
+                doc.break ? MODE_BREAK : MODE_FLAT,
+                doc.contents,
+              ]);
 
-            case MODE_BREAK: {
-              shouldRemeasure = false;
+              break;
+            }
+          // fallthrough
 
-              const next = [ind, MODE_FLAT, doc.contents];
-              const rem = width - pos;
-              const hasLineSuffix = lineSuffix.length > 0;
+          case MODE_BREAK: {
+            shouldRemeasure = false;
 
-              if (!doc.break && fits(next, cmds, rem, options, hasLineSuffix)) {
-                cmds.push(next);
-              } else {
-                // Expanded states are a rare case where a document
-                // can manually provide multiple representations of
-                // itself. It provides an array of documents
-                // going from the least expanded (most flattened)
-                // representation first to the most expanded. If a
-                // group has these, we need to manually go through
-                // these states and find the first one that fits.
-                if (doc.expandedStates) {
-                  const mostExpanded = getLast(doc.expandedStates);
+            const next = [ind, MODE_FLAT, doc.contents];
+            const rem = width - pos;
+            const hasLineSuffix = lineSuffix.length > 0;
 
-                  if (doc.break) {
-                    cmds.push([ind, MODE_BREAK, mostExpanded]);
+            if (!doc.break && fits(next, cmds, rem, options, hasLineSuffix)) {
+              cmds.push(next);
+            } else {
+              // Expanded states are a rare case where a document
+              // can manually provide multiple representations of
+              // itself. It provides an array of documents
+              // going from the least expanded (most flattened)
+              // representation first to the most expanded. If a
+              // group has these, we need to manually go through
+              // these states and find the first one that fits.
+              if (doc.expandedStates) {
+                const mostExpanded = getLast(doc.expandedStates);
 
-                    break;
-                  } else {
-                    for (let i = 1; i < doc.expandedStates.length + 1; i++) {
-                      if (i >= doc.expandedStates.length) {
-                        cmds.push([ind, MODE_BREAK, mostExpanded]);
+                if (doc.break) {
+                  cmds.push([ind, MODE_BREAK, mostExpanded]);
+
+                  break;
+                } else {
+                  for (let i = 1; i < doc.expandedStates.length + 1; i++) {
+                    if (i >= doc.expandedStates.length) {
+                      cmds.push([ind, MODE_BREAK, mostExpanded]);
+
+                      break;
+                    } else {
+                      const state = doc.expandedStates[i];
+                      const cmd = [ind, MODE_FLAT, state];
+
+                      if (fits(cmd, cmds, rem, options, hasLineSuffix)) {
+                        cmds.push(cmd);
 
                         break;
-                      } else {
-                        const state = doc.expandedStates[i];
-                        const cmd = [ind, MODE_FLAT, state];
-
-                        if (fits(cmd, cmds, rem, options, hasLineSuffix)) {
-                          cmds.push(cmd);
-
-                          break;
-                        }
                       }
                     }
                   }
-                } else {
-                  cmds.push([ind, MODE_BREAK, doc.contents]);
                 }
+              } else {
+                cmds.push([ind, MODE_BREAK, doc.contents]);
               }
-
-              break;
             }
-          }
 
-          if (doc.id) {
-            groupModeMap[doc.id] = getLast(cmds)[1];
+            break;
           }
+        }
+
+        if (doc.id) {
+          groupModeMap[doc.id] = getLast(cmds)[1];
+        }
+        break;
+      // Fills each line with as much code as possible before moving to a new
+      // line with the same indentation.
+      //
+      // Expects doc.parts to be an array of alternating content and
+      // whitespace. The whitespace contains the linebreaks.
+      //
+      // For example:
+      //   ["I", line, "love", line, "monkeys"]
+      // or
+      //   [{ type: group, ... }, softline, { type: group, ... }]
+      //
+      // It uses this parts structure to handle three main layout cases:
+      // * The first two content items fit on the same line without
+      //   breaking
+      //   -> output the first content item and the whitespace "flat".
+      // * Only the first content item fits on the line without breaking
+      //   -> output the first content item "flat" and the whitespace with
+      //   "break".
+      // * Neither content item fits on the line without breaking
+      //   -> output the first content item and the whitespace with "break".
+      case "fill": {
+        const rem = width - pos;
+
+        const { parts } = doc;
+        if (parts.length === 0) {
           break;
-        // Fills each line with as much code as possible before moving to a new
-        // line with the same indentation.
-        //
-        // Expects doc.parts to be an array of alternating content and
-        // whitespace. The whitespace contains the linebreaks.
-        //
-        // For example:
-        //   ["I", line, "love", line, "monkeys"]
-        // or
-        //   [{ type: group, ... }, softline, { type: group, ... }]
-        //
-        // It uses this parts structure to handle three main layout cases:
-        // * The first two content items fit on the same line without
-        //   breaking
-        //   -> output the first content item and the whitespace "flat".
-        // * Only the first content item fits on the line without breaking
-        //   -> output the first content item "flat" and the whitespace with
-        //   "break".
-        // * Neither content item fits on the line without breaking
-        //   -> output the first content item and the whitespace with "break".
-        case "fill": {
-          const rem = width - pos;
+        }
 
-          const { parts } = doc;
-          if (parts.length === 0) {
-            break;
-          }
+        const [content, whitespace] = parts;
+        const contentFlatCmd = [ind, MODE_FLAT, content];
+        const contentBreakCmd = [ind, MODE_BREAK, content];
+        const contentFits = fits(
+          contentFlatCmd,
+          [],
+          rem,
+          options,
+          lineSuffix.length > 0,
+          true
+        );
 
-          const [content, whitespace] = parts;
-          const contentFlatCmd = [ind, MODE_FLAT, content];
-          const contentBreakCmd = [ind, MODE_BREAK, content];
-          const contentFits = fits(
-            contentFlatCmd,
-            [],
-            rem,
-            options,
-            lineSuffix.length > 0,
-            true
-          );
-
-          if (parts.length === 1) {
-            if (contentFits) {
-              cmds.push(contentFlatCmd);
-            } else {
-              cmds.push(contentBreakCmd);
-            }
-            break;
-          }
-
-          const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace];
-          const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace];
-
-          if (parts.length === 2) {
-            if (contentFits) {
-              cmds.push(whitespaceFlatCmd, contentFlatCmd);
-            } else {
-              cmds.push(whitespaceBreakCmd, contentBreakCmd);
-            }
-            break;
-          }
-
-          // At this point we've handled the first pair (context, separator)
-          // and will create a new fill doc for the rest of the content.
-          // Ideally we wouldn't mutate the array here but copying all the
-          // elements to a new array would make this algorithm quadratic,
-          // which is unusable for large arrays (e.g. large texts in JSX).
-          parts.splice(0, 2);
-          const remainingCmd = [ind, mode, fill(parts)];
-
-          const secondContent = parts[0];
-
-          const firstAndSecondContentFlatCmd = [
-            ind,
-            MODE_FLAT,
-            [content, whitespace, secondContent],
-          ];
-          const firstAndSecondContentFits = fits(
-            firstAndSecondContentFlatCmd,
-            [],
-            rem,
-            options,
-            lineSuffix.length > 0,
-            true
-          );
-
-          if (firstAndSecondContentFits) {
-            cmds.push(remainingCmd, whitespaceFlatCmd, contentFlatCmd);
-          } else if (contentFits) {
-            cmds.push(remainingCmd, whitespaceBreakCmd, contentFlatCmd);
+        if (parts.length === 1) {
+          if (contentFits) {
+            cmds.push(contentFlatCmd);
           } else {
-            cmds.push(remainingCmd, whitespaceBreakCmd, contentBreakCmd);
+            cmds.push(contentBreakCmd);
           }
           break;
         }
-        case "if-break":
-        case "indent-if-break": {
-          const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
-          if (groupMode === MODE_BREAK) {
-            const breakContents =
-              doc.type === "if-break"
-                ? doc.breakContents
-                : doc.negate
-                ? doc.contents
-                : indent(doc.contents);
-            if (breakContents) {
-              cmds.push([ind, mode, breakContents]);
-            }
-          }
-          if (groupMode === MODE_FLAT) {
-            const flatContents =
-              doc.type === "if-break"
-                ? doc.flatContents
-                : doc.negate
-                ? indent(doc.contents)
-                : doc.contents;
-            if (flatContents) {
-              cmds.push([ind, mode, flatContents]);
-            }
-          }
 
+        const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace];
+        const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace];
+
+        if (parts.length === 2) {
+          if (contentFits) {
+            cmds.push(whitespaceFlatCmd, contentFlatCmd);
+          } else {
+            cmds.push(whitespaceBreakCmd, contentBreakCmd);
+          }
           break;
         }
-        case "line-suffix":
-          lineSuffix.push([ind, mode, doc.contents]);
-          break;
-        case "line-suffix-boundary":
-          if (lineSuffix.length > 0) {
-            cmds.push([ind, mode, { type: "line", hard: true }]);
-          }
-          break;
-        case "line":
-          switch (mode) {
-            case MODE_FLAT:
-              if (!doc.hard) {
-                if (!doc.soft) {
-                  out.push(" ");
 
-                  pos += 1;
-                }
+        // At this point we've handled the first pair (context, separator)
+        // and will create a new fill doc for the rest of the content.
+        // Ideally we wouldn't mutate the array here but copying all the
+        // elements to a new array would make this algorithm quadratic,
+        // which is unusable for large arrays (e.g. large texts in JSX).
+        parts.splice(0, 2);
+        const remainingCmd = [ind, mode, fill(parts)];
 
-                break;
-              } else {
-                // This line was forced into the output even if we
-                // were in flattened mode, so we need to tell the next
-                // group that no matter what, it needs to remeasure
-                // because the previous measurement didn't accurately
-                // capture the entire expression (this is necessary
-                // for nested groups)
-                shouldRemeasure = true;
-              }
-            // fallthrough
+        const secondContent = parts[0];
 
-            case MODE_BREAK:
-              if (lineSuffix.length > 0) {
-                cmds.push([ind, mode, doc], ...lineSuffix.reverse());
-                lineSuffix = [];
-                break;
-              }
+        const firstAndSecondContentFlatCmd = [
+          ind,
+          MODE_FLAT,
+          [content, whitespace, secondContent],
+        ];
+        const firstAndSecondContentFits = fits(
+          firstAndSecondContentFlatCmd,
+          [],
+          rem,
+          options,
+          lineSuffix.length > 0,
+          true
+        );
 
-              if (doc.literal) {
-                if (ind.root) {
-                  out.push(newLine, ind.root.value);
-                  pos = ind.root.length;
-                } else {
-                  out.push(newLine);
-                  pos = 0;
-                }
-              } else {
-                pos -= trim(out);
-                out.push(newLine + ind.value);
-                pos = ind.length;
-              }
-              break;
-          }
-          break;
-        case "label":
-          cmds.push([ind, mode, doc.contents]);
-          break;
-        case "break-parent":
-          // No op
-          break;
-        default:
-          // eslint-disable-next-line no-console
-          console.log("Invalid doc:", doc);
-          throw new Error(`'${typeof doc}' is not a valid document`);
+        if (firstAndSecondContentFits) {
+          cmds.push(remainingCmd, whitespaceFlatCmd, contentFlatCmd);
+        } else if (contentFits) {
+          cmds.push(remainingCmd, whitespaceBreakCmd, contentFlatCmd);
+        } else {
+          cmds.push(remainingCmd, whitespaceBreakCmd, contentBreakCmd);
+        }
+        break;
       }
+      case "if-break":
+      case "indent-if-break": {
+        const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+        if (groupMode === MODE_BREAK) {
+          const breakContents =
+            doc.type === "if-break"
+              ? doc.breakContents
+              : doc.negate
+              ? doc.contents
+              : indent(doc.contents);
+          if (breakContents) {
+            cmds.push([ind, mode, breakContents]);
+          }
+        }
+        if (groupMode === MODE_FLAT) {
+          const flatContents =
+            doc.type === "if-break"
+              ? doc.flatContents
+              : doc.negate
+              ? indent(doc.contents)
+              : doc.contents;
+          if (flatContents) {
+            cmds.push([ind, mode, flatContents]);
+          }
+        }
+
+        break;
+      }
+      case "line-suffix":
+        lineSuffix.push([ind, mode, doc.contents]);
+        break;
+      case "line-suffix-boundary":
+        if (lineSuffix.length > 0) {
+          cmds.push([ind, mode, { type: "line", hard: true }]);
+        }
+        break;
+      case "line":
+        switch (mode) {
+          case MODE_FLAT:
+            if (!doc.hard) {
+              if (!doc.soft) {
+                out.push(" ");
+
+                pos += 1;
+              }
+
+              break;
+            } else {
+              // This line was forced into the output even if we
+              // were in flattened mode, so we need to tell the next
+              // group that no matter what, it needs to remeasure
+              // because the previous measurement didn't accurately
+              // capture the entire expression (this is necessary
+              // for nested groups)
+              shouldRemeasure = true;
+            }
+          // fallthrough
+
+          case MODE_BREAK:
+            if (lineSuffix.length > 0) {
+              cmds.push([ind, mode, doc], ...lineSuffix.reverse());
+              lineSuffix = [];
+              break;
+            }
+
+            if (doc.literal) {
+              if (ind.root) {
+                out.push(newLine, ind.root.value);
+                pos = ind.root.length;
+              } else {
+                out.push(newLine);
+                pos = 0;
+              }
+            } else {
+              pos -= trim(out);
+              out.push(newLine + ind.value);
+              pos = ind.length;
+            }
+            break;
+        }
+        break;
+      case "label":
+        cmds.push([ind, mode, doc.contents]);
+        break;
+      case "break-parent":
+        // No op
+        break;
+      default:
+        // eslint-disable-next-line no-console
+        console.log("Invalid doc:", doc);
+        throw new Error(`'${typeof doc}' is not a valid document`);
     }
 
     // Flush remaining line-suffix contents at the end of the document, in case
