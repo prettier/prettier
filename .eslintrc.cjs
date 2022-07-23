@@ -12,7 +12,7 @@ module.exports = {
     sourceType: "module",
   },
   reportUnusedDisableDirectives: true,
-  extends: ["eslint:recommended", "prettier"],
+  extends: ["eslint:recommended", "prettier", "plugin:n/recommended-module"],
   plugins: [
     "prettier-internal-rules",
     "import",
@@ -21,7 +21,6 @@ module.exports = {
     "@typescript-eslint",
   ],
   rules: {
-    "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     "dot-notation": "error",
@@ -78,8 +77,6 @@ module.exports = {
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
-    "prettier-internal-rules/jsx-identifier-case": "error",
-    "prettier-internal-rules/no-identifier-n": "error",
     quotes: [
       "error",
       "double",
@@ -97,6 +94,14 @@ module.exports = {
       },
     ],
 
+    // Internal rules
+    "prettier-internal-rules/jsx-identifier-case": "error",
+    "prettier-internal-rules/no-identifier-n": "error",
+
+    // @typescript-eslint/eslint-plugin
+    "@typescript-eslint/prefer-ts-expect-error": "error",
+
+    // eslint-plugin-import
     "import/extensions": ["error", "ignorePackages"],
     "import/no-extraneous-dependencies": [
       "error",
@@ -112,6 +117,18 @@ module.exports = {
     "import/order": "error",
     "import/no-anonymous-default-export": "error",
 
+    // eslint-plugin-n
+    "n/no-process-exit": "off",
+    "n/no-unsupported-features/es-syntax": "off",
+    "n/no-unsupported-features/node-builtins": "off",
+    "n/shebang": "off",
+    "n/no-unpublished-require": "off",
+    "n/no-unpublished-import": "off",
+    "n/no-extraneous-require": "off",
+    "n/no-missing-require": "off",
+    "n/no-missing-import": "off",
+
+    // eslint-plugin-regexp
     "regexp/match-any": [
       "error",
       {
@@ -127,6 +144,7 @@ module.exports = {
     ],
     "regexp/no-useless-lazy": "error",
 
+    // eslint-plugin-unicorn
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
     "unicorn/filename-case": "error",
@@ -181,8 +199,15 @@ module.exports = {
       parserOptions: {
         sourceType: "script",
       },
+      globals: {
+        __dirname: "readonly",
+        __filename: "readonly",
+        exports: "readonly",
+        module: "readonly",
+        require: "readonly",
+      },
       rules: {
-        strict: "error",
+        strict: ["error", "global"],
         "unicorn/prefer-module": "off",
         "unicorn/prefer-node-protocol": "off",
       },
