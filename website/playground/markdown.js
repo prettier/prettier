@@ -41,6 +41,7 @@ function getMarkdownSyntax(options) {
     case "acorn":
     case "espree":
     case "meriyah":
+    case "doc-explorer":
       return "jsx";
     case "babel-ts":
     case "typescript":

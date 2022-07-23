@@ -12,6 +12,7 @@ export default class PrettierFormat extends React.Component {
 
   componentDidUpdate(prevProps) {
     for (const key of [
+      "enabled",
       "code",
       "options",
       "debugAst",
@@ -28,6 +29,7 @@ export default class PrettierFormat extends React.Component {
 
   format() {
     const {
+      enabled,
       worker,
       code,
       options,
@@ -36,6 +38,10 @@ export default class PrettierFormat extends React.Component {
       debugComments: comments,
       reformat,
     } = this.props;
+
+    if (!enabled) {
+      return;
+    }
 
     worker
       .format(code, options, { ast, doc, comments, reformat })

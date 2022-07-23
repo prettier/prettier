@@ -308,6 +308,24 @@ export default function getCodeSamples(parser) {
         "  </body>",
         "</HTML>",
       ].join("\n");
+    case "doc-explorer":
+      return [
+        "group([",
+        '  "(*",',
+        "  indent([",
+        "    line,",
+        '    "Prettier:",',
+        "    line,",
+        '    "Opinionated,",',
+        "    line,",
+        '    "Code,",',
+        "    line,",
+        '    "Formatter",',
+        "  ]),",
+        "  line,",
+        '  "*)",',
+        "])",
+      ].join("\n");
     default:
       return "";
   }
