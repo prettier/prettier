@@ -47,6 +47,7 @@ function getDocErrorMessage(doc) {
   }
 
   const docType = getDocType(doc);
+  /* istanbul ignore next */
   if (
     docType === DOC_TYPE_STRING ||
     docType === DOC_TYPE_CONCAT ||
