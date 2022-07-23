@@ -1,8 +1,25 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
 import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
+import {
+  DOC_TYPE_STRING,
+  DOC_TYPE_CONCAT,
+  DOC_TYPE_CURSOR,
+  DOC_TYPE_INDENT,
+  DOC_TYPE_ALIGN,
+  DOC_TYPE_TRIM,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_FILL,
+  DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LINE_SUFFIX,
+  DOC_TYPE_LINE_SUFFIX_BOUNDARY,
+  DOC_TYPE_LINE,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_BREAK_PARENT,
+} from "./constants.js";
 import { fill, cursor, indent } from "./builders.js";
-import { isConcat, getDocParts, getDocType } from "./utils.js";
+import { getDocParts, getDocType } from "./utils.js";
 
 /** @type {Record<symbol, typeof MODE_BREAK | typeof MODE_FLAT>} */
 let groupModeMap;
@@ -164,113 +181,115 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
 
     const [ind, mode, doc] = cmds.pop();
 
-    if (typeof doc === "string") {
-      out.push(doc);
+    switch (getDocType(doc)) {
+      case DOC_TYPE_STRING:
+        out.push(doc);
+        width -= getStringWidth(doc);
 
-      width -= getStringWidth(doc);
-    } else if (isConcat(doc)) {
-      const parts = getDocParts(doc);
-      for (let i = parts.length - 1; i >= 0; i--) {
-        cmds.push([ind, mode, parts[i]]);
+        break;
+      case DOC_TYPE_CONCAT: {
+        const parts = getDocParts(doc);
+        for (let i = parts.length - 1; i >= 0; i--) {
+          cmds.push([ind, mode, parts[i]]);
+        }
+
+        break;
       }
-    } else {
-      switch (doc.type) {
-        case "indent":
-          cmds.push([makeIndent(ind, options), mode, doc.contents]);
+      case DOC_TYPE_INDENT:
+        cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
-          break;
-        case "align":
-          cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
+        break;
+      case DOC_TYPE_ALIGN:
+        cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
 
-          break;
-        case "trim":
-          width += trim(out);
+        break;
+      case DOC_TYPE_TRIM:
+        width += trim(out);
 
-          break;
-        case "group": {
-          if (mustBeFlat && doc.break) {
-            return false;
-          }
-          const groupMode = doc.break ? MODE_BREAK : mode;
-          cmds.push([
-            ind,
-            groupMode,
-            // The most expanded state takes up the least space on the current line.
-            doc.expandedStates && groupMode === MODE_BREAK
-              ? getLast(doc.expandedStates)
-              : doc.contents,
-          ]);
-
-          if (doc.id) {
-            groupModeMap[doc.id] = groupMode;
-          }
-          break;
+        break;
+      case DOC_TYPE_GROUP: {
+        if (mustBeFlat && doc.break) {
+          return false;
         }
-        case "fill":
-          for (let i = doc.parts.length - 1; i >= 0; i--) {
-            cmds.push([ind, mode, doc.parts[i]]);
-          }
+        const groupMode = doc.break ? MODE_BREAK : mode;
+        cmds.push([
+          ind,
+          groupMode,
+          // The most expanded state takes up the least space on the current line.
+          doc.expandedStates && groupMode === MODE_BREAK
+            ? getLast(doc.expandedStates)
+            : doc.contents,
+        ]);
 
-          break;
-        case "if-break":
-        case "indent-if-break": {
-          const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
-          if (groupMode === MODE_BREAK) {
-            const breakContents =
-              doc.type === "if-break"
-                ? doc.breakContents
-                : doc.negate
-                ? doc.contents
-                : indent(doc.contents);
-            if (breakContents) {
-              cmds.push([ind, mode, breakContents]);
-            }
-          }
-          if (groupMode === MODE_FLAT) {
-            const flatContents =
-              doc.type === "if-break"
-                ? doc.flatContents
-                : doc.negate
-                ? indent(doc.contents)
-                : doc.contents;
-            if (flatContents) {
-              cmds.push([ind, mode, flatContents]);
-            }
-          }
-
-          break;
+        if (doc.id) {
+          groupModeMap[doc.id] = groupMode;
         }
-        case "line":
-          switch (mode) {
-            // fallthrough
-            case MODE_FLAT:
-              if (!doc.hard) {
-                if (!doc.soft) {
-                  out.push(" ");
+        break;
+      }
+      case DOC_TYPE_FILL:
+        for (let i = doc.parts.length - 1; i >= 0; i--) {
+          cmds.push([ind, mode, doc.parts[i]]);
+        }
 
-                  width -= 1;
-                }
+        break;
+      case DOC_TYPE_IF_BREAK:
+      case DOC_TYPE_INDENT_IF_BREAK: {
+        const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
+        if (groupMode === MODE_BREAK) {
+          const breakContents =
+            doc.type === DOC_TYPE_IF_BREAK
+              ? doc.breakContents
+              : doc.negate
+              ? doc.contents
+              : indent(doc.contents);
+          if (breakContents) {
+            cmds.push([ind, mode, breakContents]);
+          }
+        }
+        if (groupMode === MODE_FLAT) {
+          const flatContents =
+            doc.type === DOC_TYPE_IF_BREAK
+              ? doc.flatContents
+              : doc.negate
+              ? indent(doc.contents)
+              : doc.contents;
+          if (flatContents) {
+            cmds.push([ind, mode, flatContents]);
+          }
+        }
 
-                break;
+        break;
+      }
+      case DOC_TYPE_LINE:
+        switch (mode) {
+          // fallthrough
+          case MODE_FLAT:
+            if (!doc.hard) {
+              if (!doc.soft) {
+                out.push(" ");
+
+                width -= 1;
               }
-              return true;
 
-            case MODE_BREAK:
-              return true;
-          }
-          break;
-        case "line-suffix":
-          hasLineSuffix = true;
-          break;
-        case "line-suffix-boundary":
-          if (hasLineSuffix) {
-            return false;
-          }
-          break;
-        case "label":
-          cmds.push([ind, mode, doc.contents]);
-          break;
-      }
+              break;
+            }
+            return true;
+
+          case MODE_BREAK:
+            return true;
+        }
+        break;
+      case DOC_TYPE_LINE_SUFFIX:
+        hasLineSuffix = true;
+        break;
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+        if (hasLineSuffix) {
+          return false;
+        }
+        break;
+      case DOC_TYPE_LABEL:
+        cmds.push([ind, mode, doc.contents]);
+        break;
     }
   }
   return false;
@@ -295,14 +314,14 @@ function printDocToString(doc, options) {
     const type = getDocType(doc);
 
     switch (type) {
-      case "string": {
+      case DOC_TYPE_STRING: {
         const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
         out.push(formatted);
         pos += getStringWidth(formatted);
 
         break;
       }
-      case "concat": {
+      case DOC_TYPE_CONCAT: {
         const parts = getDocParts(doc);
         for (let i = parts.length - 1; i >= 0; i--) {
           cmds.push([ind, mode, parts[i]]);
@@ -310,23 +329,23 @@ function printDocToString(doc, options) {
 
         break;
       }
-      case "cursor":
+      case DOC_TYPE_CURSOR:
         out.push(cursor.placeholder);
 
         break;
-      case "indent":
+      case DOC_TYPE_INDENT:
         cmds.push([makeIndent(ind, options), mode, doc.contents]);
 
         break;
-      case "align":
+      case DOC_TYPE_ALIGN:
         cmds.push([makeAlign(ind, doc.n, options), mode, doc.contents]);
 
         break;
-      case "trim":
+      case DOC_TYPE_TRIM:
         pos -= trim(out);
 
         break;
-      case "group":
+      case DOC_TYPE_GROUP:
         switch (mode) {
           case MODE_FLAT:
             if (!shouldRemeasure) {
@@ -415,7 +434,7 @@ function printDocToString(doc, options) {
       //   "break".
       // * Neither content item fits on the line without breaking
       //   -> output the first content item and the whitespace with "break".
-      case "fill": {
+      case DOC_TYPE_FILL: {
         const rem = width - pos;
 
         const { parts } = doc;
@@ -489,12 +508,12 @@ function printDocToString(doc, options) {
         }
         break;
       }
-      case "if-break":
-      case "indent-if-break": {
+      case DOC_TYPE_IF_BREAK:
+      case DOC_TYPE_INDENT_IF_BREAK: {
         const groupMode = doc.groupId ? groupModeMap[doc.groupId] : mode;
         if (groupMode === MODE_BREAK) {
           const breakContents =
-            doc.type === "if-break"
+            doc.type === DOC_TYPE_IF_BREAK
               ? doc.breakContents
               : doc.negate
               ? doc.contents
@@ -505,7 +524,7 @@ function printDocToString(doc, options) {
         }
         if (groupMode === MODE_FLAT) {
           const flatContents =
-            doc.type === "if-break"
+            doc.type === DOC_TYPE_IF_BREAK
               ? doc.flatContents
               : doc.negate
               ? indent(doc.contents)
@@ -517,15 +536,15 @@ function printDocToString(doc, options) {
 
         break;
       }
-      case "line-suffix":
+      case DOC_TYPE_LINE_SUFFIX:
         lineSuffix.push([ind, mode, doc.contents]);
         break;
-      case "line-suffix-boundary":
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
         if (lineSuffix.length > 0) {
           cmds.push([ind, mode, { type: "line", hard: true }]);
         }
         break;
-      case "line":
+      case DOC_TYPE_LINE:
         switch (mode) {
           case MODE_FLAT:
             if (!doc.hard) {
@@ -570,10 +589,10 @@ function printDocToString(doc, options) {
             break;
         }
         break;
-      case "label":
+      case DOC_TYPE_LABEL:
         cmds.push([ind, mode, doc.contents]);
         break;
-      case "break-parent":
+      case DOC_TYPE_BREAK_PARENT:
         // No op
         break;
       default:
