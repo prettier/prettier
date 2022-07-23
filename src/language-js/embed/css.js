@@ -1,13 +1,9 @@
-"use strict";
+import { isNonEmptyArray } from "../../common/util.js";
+import { indent, hardline, softline } from "../../document/builders.js";
+import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
+import { printTemplateExpressions } from "../print/template-literal.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, hardline, softline },
-  utils: { mapDoc, replaceEndOfLine, cleanDoc },
-} = require("../../document/index.js");
-const { printTemplateExpressions } = require("../print/template-literal.js");
-
-function format(path, print, textToDoc) {
+async function format(path, print, textToDoc) {
   const node = path.getValue();
 
   // Get full template literal with expressions replaced by placeholders
@@ -24,12 +20,12 @@ function format(path, print, textToDoc) {
           currVal,
     ""
   );
-  const doc = textToDoc(
+  const doc = await textToDoc(
     text,
     { parser: "scss" },
     { stripTrailingHardline: true }
   );
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = await printTemplateExpressions(path, print);
   return transformCssDoc(doc, node, expressionDocs);
 }
 
@@ -77,4 +73,4 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
-module.exports = format;
+export default format;

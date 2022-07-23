@@ -1,5 +1,3 @@
-"use strict";
-
 function locStart(node) {
   if (typeof node.start === "number") {
     return node.start;
@@ -14,4 +12,4 @@ function locEnd(node) {
   return node.loc && node.loc.end;
 }
 
-module.exports = { locStart, locEnd };
+export { locStart, locEnd };

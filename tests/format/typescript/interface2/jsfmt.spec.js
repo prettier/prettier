@@ -1,1 +1,1 @@
-run_spec(__dirname, ["typescript", "babel", "flow"], {trailingComma: "es5"});
+run_spec(import.meta, ["typescript", "babel", "flow"], {trailingComma: "es5"});

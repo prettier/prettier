@@ -1,12 +1,15 @@
-"use strict";
-
-const { getNextNonSpaceNonCommentCharacter } = require("../../common/util.js");
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { line, hardline, softline, group, indent, ifBreak },
-  utils: { removeLines, willBreak },
-} = require("../../document/index.js");
-const {
+import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
+import { printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import { removeLines, willBreak } from "../../document/utils.js";
+import {
   getFunctionParameters,
   iterateFunctionParametersPath,
   isSimpleType,
@@ -18,12 +21,12 @@ const {
   shouldPrintComma,
   hasComment,
   isNextLineEmpty,
-} = require("../utils.js");
-const { locEnd } = require("../loc.js");
-const { ArgExpansionBailout } = require("../../common/errors.js");
-const { printFunctionTypeParameters } = require("./misc.js");
+} from "../utils/index.js";
+import { locEnd } from "../loc.js";
+import { ArgExpansionBailout } from "../../common/errors.js";
+import { printFunctionTypeParameters } from "./misc.js";
 
-function printFunctionParameters(
+async function printFunctionParameters(
   path,
   print,
   options,
@@ -33,7 +36,7 @@ function printFunctionParameters(
   const functionNode = path.getValue();
   const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
-    ? printFunctionTypeParameters(path, options, print)
+    ? await printFunctionTypeParameters(path, options, print)
     : "";
 
   if (parameters.length === 0) {
@@ -59,12 +62,12 @@ function printFunctionParameters(
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugFunctionParameters(functionNode);
   const printed = [];
-  iterateFunctionParametersPath(path, (parameterPath, index) => {
+  await iterateFunctionParametersPath(path, async (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
     if (isLastParameter && functionNode.rest) {
       printed.push("...");
     }
-    printed.push(print());
+    printed.push(await print());
     if (isLastParameter) {
       return;
     }
@@ -223,7 +226,7 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
   );
 }
 
-module.exports = {
+export {
   printFunctionParameters,
   shouldHugFunctionParameters,
   shouldGroupFunctionParameters,

@@ -1,25 +1,26 @@
-"use strict";
+import { createRequire } from "node:module";
+import core from "./main/core.js";
+import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
+import * as languages from "./languages.js";
 
+const require = createRequire(import.meta.url);
 const { version } = require("../package.json");
-
-const core = require("./main/core.js");
-const { getSupportInfo } = require("./main/support.js");
-const sharedUtil = require("./common/util-shared.js");
-const languages = require("./languages.js");
-const doc = require("./document/index.js");
+const builtinPlugins = Object.values(languages);
 
 function withPlugins(
   fn,
   optsArgIdx = 1 // Usually `opts` is the 2nd argument
 ) {
-  return (...args) => {
+  // Returns Promises to consistent with functions in `index.js`
+  // eslint-disable-next-line require-await
+  return async (...args) => {
     const opts = args[optsArgIdx] || {};
     const plugins = opts.plugins || [];
 
     args[optsArgIdx] = {
       ...opts,
       plugins: [
-        ...languages,
+        ...builtinPlugins,
         ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
       ],
     };
@@ -30,31 +31,35 @@ function withPlugins(
 
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
-module.exports = {
-  formatWithCursor,
+async function format(text, options) {
+  const { formatted } = await formatWithCursor(text, {
+    ...options,
+    cursorOffset: -1,
+  });
+  return formatted;
+}
 
-  format(text, opts) {
-    return formatWithCursor(text, opts).formatted;
-  },
+async function check(text, options) {
+  return (await format(text, options)) === text;
+}
 
-  check(text, opts) {
-    const { formatted } = formatWithCursor(text, opts);
-    return formatted === text;
-  },
+const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 
-  doc,
-
-  getSupportInfo: withPlugins(getSupportInfo, 0),
-
-  version,
-
-  util: sharedUtil,
-
-  __debug: {
-    parse: withPlugins(core.parse),
-    formatAST: withPlugins(core.formatAST),
-    formatDoc: withPlugins(core.formatDoc),
-    printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString),
-  },
+const debugApis = {
+  parse: withPlugins(core.parse),
+  formatAST: withPlugins(core.formatAST),
+  formatDoc: withPlugins(core.formatDoc),
+  printToDoc: withPlugins(core.printToDoc),
+  printDocToString: withPlugins(core.printDocToString),
 };
+
+export {
+  version,
+  formatWithCursor,
+  format,
+  check,
+  getSupportInfo,
+  debugApis as __debug,
+};
+export * as util from "./common/util-shared.js";
+export * as doc from "./document/index.js";

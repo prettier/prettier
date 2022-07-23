@@ -35,7 +35,7 @@ abstract class Bar {
 `;
 
 exports[`constructor.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\",\\" (2:22)
+"Unexpected token, expected "," (2:22)
   1 | class foo {
 > 2 |   constructor(static a: number) {}
     |                      ^
@@ -351,7 +351,7 @@ interface AudioBufferList {
 `;
 
 exports[`methods.ts [babel-ts] format 1`] = `
-"Unexpected token, expected \\";\\" (6:10)
+"Unexpected token, expected ";" (6:10)
   4 |
   5 | interface Iterable<T> {
 > 6 |   export [Symbol.iterator](): Iterator<T>;

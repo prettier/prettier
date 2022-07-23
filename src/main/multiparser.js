@@ -1,10 +1,7 @@
-"use strict";
-
-const {
-  utils: { stripTrailingHardline },
-} = require("../document/index.js");
-const { normalize } = require("./options.js");
-const comments = require("./comments.js");
+import { stripTrailingHardline } from "../document/utils.js";
+import { normalize } from "./options.js";
+import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { parse } from "./parser.js";
 
 function printSubtree(path, print, options, printAstToDoc) {
   if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
@@ -24,7 +21,7 @@ function printSubtree(path, print, options, printAstToDoc) {
   }
 }
 
-function textToDoc(
+async function textToDoc(
   text,
   partialNextOptions,
   parentOptions,
@@ -42,21 +39,24 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = require("./parser.js").parse(text, nextOptions);
+  const result = await parse(text, nextOptions);
   const { ast } = result;
+
   text = result.text;
 
   const astComments = ast.comments;
   delete ast.comments;
-  comments.attach(astComments, ast, text, nextOptions);
+  attach(astComments, ast, text, nextOptions);
+  // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
   nextOptions[Symbol.for("comments")] = astComments || [];
+  // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
 
-  const doc = printAstToDoc(ast, nextOptions);
-  comments.ensureAllCommentsPrinted(astComments);
+  const doc = await printAstToDoc(ast, nextOptions);
+  ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {
-    // TODO: move this to `stripTrailingHardline` function in `/src/document/doc-utils.js`
+    // TODO: move this to `stripTrailingHardline` function in `/src/document/utils.js`
     if (typeof doc === "string") {
       return doc.replace(/(?:\r?\n)*$/, "");
     }
@@ -68,6 +68,4 @@ function textToDoc(
   return doc;
 }
 
-module.exports = {
-  printSubtree,
-};
+export { printSubtree };

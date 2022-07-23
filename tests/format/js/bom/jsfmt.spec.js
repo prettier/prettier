@@ -1,6 +1,5 @@
-const fs = require("fs");
-const path = require("path");
-const fixtureDirectory = path.join(__dirname, "../eol");
+import fs from "node:fs";
+const fixtureDirectory = new URL("../eol/", import.meta.url);
 
 const snippets = fs
   .readdirSync(fixtureDirectory)
@@ -8,7 +7,7 @@ const snippets = fs
     (fileName) => fileName !== "__snapshots__" && fileName !== "jsfmt.spec.js"
   )
   .map((fileName) => {
-    const file = path.join(fixtureDirectory, fileName);
+    const file = new URL(fileName, fixtureDirectory);
     const code = "\uFEFF" + fs.readFileSync(file, "utf8");
     return {
       name: fileName,
@@ -16,4 +15,4 @@ const snippets = fs
     };
   });
 
-run_spec({ dirname: __dirname, snippets }, ["babel"]);
+run_spec({ importMeta: import.meta, snippets }, ["babel"]);

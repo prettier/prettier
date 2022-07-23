@@ -1,7 +1,3 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
-
 describe("ignore-unknown dir", () => {
   runPrettier("cli/ignore-unknown", [
     ".",

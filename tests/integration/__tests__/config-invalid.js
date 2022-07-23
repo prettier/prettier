@@ -1,8 +1,7 @@
-"use strict";
+import runPrettier from "../run-prettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const runPrettier = require("../runPrettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("throw error for unsupported extension", () => {
   runPrettier("cli/config/invalid", [
@@ -17,7 +16,7 @@ describe("throw error with invalid config format", () => {
   runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
     stderr: expect.stringMatching(
-      /Cannot (?:resolve|find) module '--invalid--' from/
+      /Cannot (?:resolve|find) module '--invalid--'/
     ),
   });
 });

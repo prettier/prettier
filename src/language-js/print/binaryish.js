@@ -1,21 +1,17 @@
-"use strict";
-
-const { printComments } = require("../../main/comments.js");
-const { getLast } = require("../../common/util.js");
-const {
-  builders: {
-    join,
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    indentIfBreak,
-  },
-  utils: { cleanDoc, getDocParts, isConcat },
-} = require("../../document/index.js");
-const {
+import { printComments } from "../../main/comments.js";
+import { getLast } from "../../common/util.js";
+import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
+import {
+  join,
+  line,
+  softline,
+  group,
+  indent,
+  align,
+  indentIfBreak,
+} from "../../document/builders.js";
+import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
+import {
   hasLeadingOwnLineComment,
   isBinaryish,
   isJsxNode,
@@ -25,12 +21,13 @@ const {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
-} = require("../utils.js");
+  isEnabledHackPipeline,
+} from "../utils/index.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
 let uid = 0;
-function printBinaryishExpression(path, options, print) {
+async function printBinaryishExpression(path, options, print) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -40,8 +37,10 @@ function printBinaryishExpression(path, options, print) {
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
       parent.type === "DoWhileStatement");
+  const isHackPipeline =
+    isEnabledHackPipeline(options) && node.operator === "|>";
 
-  const parts = printBinaryishExpressions(
+  const parts = await printBinaryishExpressions(
     path,
     print,
     options,
@@ -61,6 +60,10 @@ function printBinaryishExpression(path, options, print) {
   //   ) {
   if (isInsideParenthesis) {
     return parts;
+  }
+
+  if (isHackPipeline) {
+    return group(parts);
   }
 
   // Break between the parens in
@@ -105,7 +108,7 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "VariableDeclarator" ||
     parent.type === "ClassProperty" ||
     parent.type === "PropertyDefinition" ||
-    parent.type === "TSAbstractClassProperty" ||
+    parent.type === "TSAbstractPropertyDefinition" ||
     parent.type === "ClassPrivateProperty" ||
     isObjectProperty(parent);
 
@@ -137,7 +140,9 @@ function printBinaryishExpression(path, options, print) {
 
   const firstGroupIndex = parts.findIndex(
     (part) =>
-      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
+      typeof part !== "string" &&
+      !Array.isArray(part) &&
+      part.type === DOC_TYPE_GROUP
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -177,34 +182,83 @@ function printBinaryishExpression(path, options, print) {
 // precedence level and the AST is structured based on precedence
 // level, things are naturally broken up correctly, i.e. `&&` is
 // broken before `+`.
-function printBinaryishExpressions(
+async function printBinaryishExpressions(
   path,
   print,
   options,
   isNested,
   isInsideParenthesis
 ) {
+  const node = path.getValue();
+
+  // Simply print the node normally.
+  if (!isBinaryish(node)) {
+    return [group(await print())];
+  }
+
   /** @type{Doc[]} */
   let parts = [];
 
-  const node = path.getValue();
-
   // We treat BinaryExpression and LogicalExpression nodes the same.
-  if (isBinaryish(node)) {
-    // Put all operators with the same precedence level in the same
-    // group. The reason we only need to do this with the `left`
-    // expression is because given an expression like `1 + 2 - 3`, it
-    // is always parsed like `((1 + 2) - 3)`, meaning the `left` side
-    // is where the rest of the expression will exist. Binary
-    // expressions on the right side mean they have a difference
-    // precedence level and should be treated as a separate group, so
-    // print them normally. (This doesn't hold for the `**` operator,
-    // which is unique in that it is right-associative.)
-    if (shouldFlatten(node.operator, node.left.operator)) {
-      // Flatten them out by recursively calling this function.
-      parts = [
-        ...parts,
-        ...path.call(
+
+  // Put all operators with the same precedence level in the same
+  // group. The reason we only need to do this with the `left`
+  // expression is because given an expression like `1 + 2 - 3`, it
+  // is always parsed like `((1 + 2) - 3)`, meaning the `left` side
+  // is where the rest of the expression will exist. Binary
+  // expressions on the right side mean they have a difference
+  // precedence level and should be treated as a separate group, so
+  // print them normally. (This doesn't hold for the `**` operator,
+  // which is unique in that it is right-associative.)
+  if (shouldFlatten(node.operator, node.left.operator)) {
+    // Flatten them out by recursively calling this function.
+    parts = await path.call(
+      (left) =>
+        printBinaryishExpressions(
+          left,
+          print,
+          options,
+          /* isNested */ true,
+          isInsideParenthesis
+        ),
+      "left"
+    );
+  } else {
+    parts.push(group(await print("left")));
+  }
+
+  const shouldInline = shouldInlineLogicalExpression(node);
+  const lineBeforeOperator =
+    (node.operator === "|>" ||
+      node.type === "NGPipeExpression" ||
+      (node.operator === "|" && options.parser === "__vue_expression")) &&
+    !hasLeadingOwnLineComment(options.originalText, node.right);
+
+  const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
+  const rightSuffix =
+    node.type === "NGPipeExpression" && node.arguments.length > 0
+      ? group(
+          indent([
+            line,
+            ": ",
+            join(
+              [line, ": "],
+              (await path.map(print, "arguments")).map((arg) =>
+                align(2, group(arg))
+              )
+            ),
+          ])
+        )
+      : "";
+
+  /** @type {Doc} */
+  let right;
+  if (shouldInline) {
+    right = [operator, " ", await print("right"), rightSuffix];
+  } else {
+    const isHackPipeline = isEnabledHackPipeline(options) && operator === "|>";
+    const rightContent = await (isHackPipeline
+      ? path.call(
           (left) =>
             printBinaryishExpressions(
               left,
@@ -213,79 +267,48 @@ function printBinaryishExpressions(
               /* isNested */ true,
               isInsideParenthesis
             ),
-          "left"
-        ),
-      ];
-    } else {
-      parts.push(group(print("left")));
+          "right"
+        )
+      : print("right"));
+    right = [
+      lineBeforeOperator ? line : "",
+      operator,
+      lineBeforeOperator ? " " : line,
+      rightContent,
+      rightSuffix,
+    ];
+  }
+
+  // If there's only a single binary expression, we want to create a group
+  // in order to avoid having a small right part like -1 be on its own line.
+  const parent = path.getParentNode();
+  const shouldBreak = hasComment(
+    node.left,
+    CommentCheckFlags.Trailing | CommentCheckFlags.Line
+  );
+  const shouldGroup =
+    shouldBreak ||
+    (!(isInsideParenthesis && node.type === "LogicalExpression") &&
+      parent.type !== node.type &&
+      node.left.type !== node.type &&
+      node.right.type !== node.type);
+
+  parts.push(
+    lineBeforeOperator ? "" : " ",
+    shouldGroup ? group(right, { shouldBreak }) : right
+  );
+
+  // The root comments are already printed, but we need to manually print
+  // the other ones since we don't call the normal print on BinaryExpression,
+  // only for the left and right parts
+  if (isNested && hasComment(node)) {
+    const printed = cleanDoc(printComments(path, parts, options));
+    /* istanbul ignore else */
+    if (isConcat(printed) || printed.type === DOC_TYPE_FILL) {
+      return getDocParts(printed);
     }
 
-    const shouldInline = shouldInlineLogicalExpression(node);
-    const lineBeforeOperator =
-      (node.operator === "|>" ||
-        node.type === "NGPipeExpression" ||
-        (node.operator === "|" && options.parser === "__vue_expression")) &&
-      !hasLeadingOwnLineComment(options.originalText, node.right);
-
-    const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
-    const rightSuffix =
-      node.type === "NGPipeExpression" && node.arguments.length > 0
-        ? group(
-            indent([
-              softline,
-              ": ",
-              join(
-                [softline, ":", ifBreak(" ")],
-                path.map(print, "arguments").map((arg) => align(2, group(arg)))
-              ),
-            ])
-          )
-        : "";
-
-    const right = shouldInline
-      ? [operator, " ", print("right"), rightSuffix]
-      : [
-          lineBeforeOperator ? line : "",
-          operator,
-          lineBeforeOperator ? " " : line,
-          print("right"),
-          rightSuffix,
-        ];
-
-    // If there's only a single binary expression, we want to create a group
-    // in order to avoid having a small right part like -1 be on its own line.
-    const parent = path.getParentNode();
-    const shouldBreak = hasComment(
-      node.left,
-      CommentCheckFlags.Trailing | CommentCheckFlags.Line
-    );
-    const shouldGroup =
-      shouldBreak ||
-      (!(isInsideParenthesis && node.type === "LogicalExpression") &&
-        parent.type !== node.type &&
-        node.left.type !== node.type &&
-        node.right.type !== node.type);
-
-    parts.push(
-      lineBeforeOperator ? "" : " ",
-      shouldGroup ? group(right, { shouldBreak }) : right
-    );
-
-    // The root comments are already printed, but we need to manually print
-    // the other ones since we don't call the normal print on BinaryExpression,
-    // only for the left and right parts
-    if (isNested && hasComment(node)) {
-      const printed = cleanDoc(printComments(path, parts, options));
-      /* istanbul ignore else */
-      if (isConcat(printed) || printed.type === "fill") {
-        parts = getDocParts(printed);
-      } else {
-        parts = [printed];
-      }
-    }
-  } else {
-    // Our stopping case. Simply print the node normally.
-    parts.push(group(print()));
+    return [printed];
   }
 
   return parts;
@@ -314,4 +337,4 @@ function shouldInlineLogicalExpression(node) {
   return false;
 }
 
-module.exports = { printBinaryishExpression, shouldInlineLogicalExpression };
+export { printBinaryishExpression, shouldInlineLogicalExpression };

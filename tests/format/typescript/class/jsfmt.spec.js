@@ -1,3 +1,3 @@
-run_spec(__dirname, ["typescript"], {
+run_spec(import.meta, ["typescript"], {
   errors: { "babel-ts": ["constructor.ts", "generics.ts", "methods.ts"] },
 });

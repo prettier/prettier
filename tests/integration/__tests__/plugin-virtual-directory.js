@@ -1,7 +1,3 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
-
 describe("plugin search should not crash when prettier isn't inside a directory", () => {
   runPrettier(
     "plugins/virtualDirectory",

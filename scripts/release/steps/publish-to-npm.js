@@ -1,19 +1,19 @@
-import chalk from "chalk";
-import outdent from "outdent";
-import execa from "execa";
-import { logPromise, waitForEnter } from "../utils.js";
-
-const outdentString = outdent.string;
+import { execa } from "execa";
+import enquirer from "enquirer";
+import { logPromise } from "../utils.js";
 
 /**
  * Retry "npm publish" when to enter OTP is failed.
  */
 async function retryNpmPublish() {
-  const runNpmPublish = () =>
-    execa("npm", ["publish"], {
-      cwd: "./dist",
-      stdio: "inherit", // we need to input OTP if 2FA enabled
+  const runNpmPublish = async () => {
+    const { otp } = await enquirer.prompt({
+      type: "input",
+      name: "otp",
+      message: "Please enter your npm OTP",
     });
+    await execa("npm", ["publish", "--otp", otp], { cwd: "./dist" });
+  };
   for (let i = 5; i > 0; i--) {
     try {
       return await runNpmPublish();
@@ -27,31 +27,10 @@ async function retryNpmPublish() {
   }
 }
 
-export default async function ({ dry, version }) {
+export default async function publishToNpm({ dry }) {
   if (dry) {
     return;
   }
 
   await logPromise("Publishing to npm", retryNpmPublish());
-
-  console.log(
-    outdentString(chalk`
-      {green.bold Prettier ${version} published!}
-
-      {yellow.bold Some manual steps are necessary.}
-
-      {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline https://github.com/prettier/prettier/releases/new?tag=${version}}
-      - Copy release notes from {yellow CHANGELOG.md}
-      - Press {bgGreen.black  Publish release }
-
-      {bold.underline Test the new release}
-      - In a new session, run {yellow npm i prettier@latest} in another directory
-      - Test the API and CLI
-
-      After that, we can proceed to bump this repo's Prettier dependency.
-      Press ENTER to continue.
-    `)
-  );
-  await waitForEnter();
 }

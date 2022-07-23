@@ -1,7 +1,3 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
-
 describe("doesn't crash when --debug-check is passed", () => {
   runPrettier("cli/with-shebang", ["issue1890.js", "--debug-check"]).test({
     stdout: "issue1890.js\n",
@@ -27,7 +23,7 @@ describe("show diff for 2+ error files with --debug-check", () => {
     "*.debug-check",
     "--debug-check",
     "--plugin",
-    "./plugin-for-testing-debug-check",
+    "./plugin-for-testing-debug-check.cjs",
   ]).test({
     status: "non-zero",
   });

@@ -1,6 +1,6 @@
-"use strict";
+import { outdent } from "outdent";
+import prettier from "../../config/prettier-entry.js";
 
-const prettier = require("prettier-local");
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
@@ -34,12 +34,14 @@ describe("trim", () => {
           "}",
         ])
       ),
-      `function()
-{
-#if DEBUG
-  alert(42);
-#endif
-}`,
+      outdent`
+        function()
+        {
+        #if DEBUG
+          alert(42);
+        #endif
+        }
+      `,
     ],
     [
       "ignores trimmed characters when fitting the line",

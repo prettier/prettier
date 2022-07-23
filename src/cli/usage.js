@@ -1,8 +1,7 @@
-"use strict";
-
-const groupBy = require("lodash/groupBy");
-const camelCase = require("camelcase");
-const constant = require("./constant.js");
+import camelCase from "camelcase";
+import * as constant from "./constant.js";
+import { groupBy } from "./utils.js";
+import { optionsHiddenDefaults } from "./prettier-internal.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -20,20 +19,21 @@ function createDefaultValueDisplay(value) {
 
 function getOptionDefaultValue(context, optionName) {
   // --no-option
-  if (!(optionName in context.detailedOptionMap)) {
-    return;
-  }
+  const option = context.detailedOptions.find(
+    ({ name }) => name === optionName
+  );
 
-  const option = context.detailedOptionMap[optionName];
-
-  if (option.default !== undefined) {
+  if (option?.default !== undefined) {
     return option.default;
   }
 
   const optionCamelName = camelCase(optionName);
-  if (optionCamelName in context.apiDefaultOptions) {
-    return context.apiDefaultOptions[optionCamelName];
-  }
+  return (
+    optionsHiddenDefaults[optionCamelName] ??
+    context.supportOptions.find(
+      (option) => !option.deprecated && option.name === optionCamelName
+    )?.default
+  );
 }
 
 function createOptionUsageHeader(option) {
@@ -113,7 +113,11 @@ function getOptionsWithOpposites(options) {
 }
 
 function createUsage(context) {
-  const options = getOptionsWithOpposites(context.detailedOptions).filter(
+  const sortedOptions = context.detailedOptions.sort((optionA, optionB) =>
+    optionA.name.localeCompare(optionB.name)
+  );
+
+  const options = getOptionsWithOpposites(sortedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
     (option) =>
       !(
@@ -122,7 +126,6 @@ function createUsage(context) {
         !option.name.startsWith("no-")
       )
   );
-
   const groupedOptions = groupBy(options, (option) => option.category);
 
   const firstCategories = constant.categoryOrder.slice(0, -1);
@@ -180,7 +183,4 @@ function createDetailedUsage(context, flag) {
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
-module.exports = {
-  createUsage,
-  createDetailedUsage,
-};
+export { createUsage, createDetailedUsage };

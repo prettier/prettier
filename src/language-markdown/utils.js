@@ -1,17 +1,16 @@
-"use strict";
-
-const { getLast } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const {
+import { getLast } from "../common/util.js";
+import { locStart, locEnd } from "./loc.js";
+import {
   cjkPattern,
   kPattern,
   punctuationPattern,
-} = require("./constants.evaluate.js");
+} from "./constants.evaluate.js";
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
   "inlineCode",
   "emphasis",
+  "esComment",
   "strong",
   "delete",
   "wikiLink",
@@ -220,18 +219,14 @@ function mapAst(ast, handler) {
 }
 
 function isAutolink(node) {
-  if (!node || node.type !== "link" || node.children.length !== 1) {
+  if (node?.type !== "link" || node.children.length !== 1) {
     return false;
   }
-  const child = node.children[0];
-  return (
-    child &&
-    locStart(node) === locStart(child) &&
-    locEnd(node) === locEnd(child)
-  );
+  const [child] = node.children;
+  return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
-module.exports = {
+export {
   mapAst,
   splitText,
   punctuationPattern,

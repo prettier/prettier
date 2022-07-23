@@ -1,1 +1,1 @@
-run_spec(__dirname, ["vue"], { insertPragma: true });
+run_spec(import.meta, ["vue"], { insertPragma: true });

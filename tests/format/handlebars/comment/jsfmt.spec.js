@@ -1,1 +1,1 @@
-run_spec(__dirname, ["glimmer"]);
+run_spec(import.meta, ["glimmer"]);

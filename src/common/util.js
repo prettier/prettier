@@ -1,11 +1,15 @@
-"use strict";
-
-const stringWidth = require("string-width");
-const escapeStringRegexp = require("escape-string-regexp");
-const getLast = require("../utils/get-last.js");
-const { getSupportInfo } = require("../main/support.js");
-
-const notAsciiRegex = /[^\x20-\x7F]/;
+import escapeStringRegexp from "escape-string-regexp";
+import { getSupportInfo } from "../main/support.js";
+import {
+  skipWhitespace,
+  skipSpaces,
+  skipToLineEnd,
+  skipEverythingButNewLine,
+} from "../utils/text/skip.js";
+import skipInlineComment from "../utils/text/skip-inline-comment.js";
+import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
+import skipNewline from "../utils/text/skip-newline.js";
+import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -52,110 +56,6 @@ function skip(chars) {
     }
     return false;
   };
-}
-
-/**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
- */
-const skipWhitespace = skip(/\s/);
-/**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
- */
-const skipSpaces = skip(" \t");
-/**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
- */
-const skipToLineEnd = skip(",; \t");
-/**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
- */
-const skipEverythingButNewLine = skip(/[^\n\r]/);
-
-/**
- * @param {string} text
- * @param {number | false} index
- * @returns {number | false}
- */
-function skipInlineComment(text, index) {
-  /* istanbul ignore next */
-  if (index === false) {
-    return false;
-  }
-
-  if (text.charAt(index) === "/" && text.charAt(index + 1) === "*") {
-    for (let i = index + 2; i < text.length; ++i) {
-      if (text.charAt(i) === "*" && text.charAt(i + 1) === "/") {
-        return i + 2;
-      }
-    }
-  }
-  return index;
-}
-
-/**
- * @param {string} text
- * @param {number | false} index
- * @returns {number | false}
- */
-function skipTrailingComment(text, index) {
-  /* istanbul ignore next */
-  if (index === false) {
-    return false;
-  }
-
-  if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
-    return skipEverythingButNewLine(text, index);
-  }
-  return index;
-}
-
-// This one doesn't use the above helper function because it wants to
-// test \r\n in order and `skip` doesn't support ordering and we only
-// want to skip one newline. It's simple to implement.
-/**
- * @param {string} text
- * @param {number | false} index
- * @param {SkipOptions=} opts
- * @returns {number | false}
- */
-function skipNewline(text, index, opts) {
-  const backwards = opts && opts.backwards;
-  if (index === false) {
-    return false;
-  }
-
-  const atIndex = text.charAt(index);
-  if (backwards) {
-    // We already replace `\r\n` with `\n` before parsing
-    /* istanbul ignore next */
-    if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
-      return index - 2;
-    }
-    if (
-      atIndex === "\n" ||
-      atIndex === "\r" ||
-      atIndex === "\u2028" ||
-      atIndex === "\u2029"
-    ) {
-      return index - 1;
-    }
-  } else {
-    // We already replace `\r\n` with `\n` before parsing
-    /* istanbul ignore next */
-    if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
-      return index + 2;
-    }
-    if (
-      atIndex === "\n" ||
-      atIndex === "\r" ||
-      atIndex === "\u2028" ||
-      atIndex === "\u2029"
-    ) {
-      return index + 1;
-    }
-  }
-
-  return index;
 }
 
 /**
@@ -233,26 +133,6 @@ function isNextLineEmptyAfterIndex(text, index) {
  */
 function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
-}
-
-/**
- * @param {string} text
- * @param {number} idx
- * @returns {number | false}
- */
-function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
-  /** @type {number | false} */
-  let oldIdx = null;
-  /** @type {number | false} */
-  let nextIdx = idx;
-  while (nextIdx !== oldIdx) {
-    oldIdx = nextIdx;
-    nextIdx = skipSpaces(text, nextIdx);
-    nextIdx = skipInlineComment(text, nextIdx);
-    nextIdx = skipTrailingComment(text, nextIdx);
-    nextIdx = skipNewline(text, nextIdx);
-  }
-  return nextIdx;
 }
 
 /**
@@ -343,24 +223,21 @@ function getIndentSize(value, tabWidth) {
 
 /**
  *
- * @param {string} raw
+ * @param {string} rawContent
  * @param {Quote} preferredQuote
- * @returns {Quote}
+ * @returns {{ quote: Quote, regex: RegExp, escaped: string }}
  */
-function getPreferredQuote(raw, preferredQuote) {
-  // `rawContent` is the string exactly like it appeared in the input source
-  // code, without its enclosing quotes.
-  const rawContent = raw.slice(1, -1);
 
-  /** @type {{ quote: '"', regex: RegExp }} */
-  const double = { quote: '"', regex: /"/g };
-  /** @type {{ quote: "'", regex: RegExp }} */
-  const single = { quote: "'", regex: /'/g };
+function getPreferredQuote(rawContent, preferredQuote) {
+  /** @type {{ quote: '"', regex: RegExp, escaped: "&quot;" }} */
+  const double = { quote: '"', regex: /"/g, escaped: "&quot;" };
+  /** @type {{ quote: "'", regex: RegExp, escaped: "&apos;" }} */
+  const single = { quote: "'", regex: /'/g, escaped: "&apos;" };
 
   const preferred = preferredQuote === "'" ? single : double;
   const alternate = preferred === single ? double : single;
 
-  let result = preferred.quote;
+  let result = preferred;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
@@ -372,10 +249,7 @@ function getPreferredQuote(raw, preferredQuote) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
-    result =
-      numPreferredQuotes > numAlternateQuotes
-        ? alternate.quote
-        : preferred.quote;
+    result = numPreferredQuotes > numAlternateQuotes ? alternate : preferred;
   }
 
   return result;
@@ -395,7 +269,7 @@ function printString(raw, options) {
       ? '"'
       : options.__isInHtmlAttribute
       ? "'"
-      : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
+      : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"').quote;
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
@@ -523,23 +397,6 @@ function getMinNotPresentContinuousCount(str, target) {
   return max + 1;
 }
 
-/**
- * @param {string} text
- * @returns {number}
- */
-function getStringWidth(text) {
-  if (!text) {
-    return 0;
-  }
-
-  // shortcut to avoid needless string `RegExp`s, replacements, and allocations within `string-width`
-  if (!notAsciiRegex.test(text)) {
-    return text.length;
-  }
-
-  return stringWidth(text);
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -586,25 +443,6 @@ function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
 }
 
-function getShebang(text) {
-  if (!text.startsWith("#!")) {
-    return "";
-  }
-  const index = text.indexOf("\n");
-  if (index === -1) {
-    return text;
-  }
-  return text.slice(0, index);
-}
-
-/**
- * @param {any} object
- * @returns {object is Array<any>}
- */
-function isNonEmptyArray(object) {
-  return Array.isArray(object) && object.length > 0;
-}
-
 /**
  * @param {string} description
  * @returns {(node: any) => symbol}
@@ -636,13 +474,11 @@ function describeNodeForDebugging(node) {
   return nodeType + (nodeName ? " " + nodeName : "");
 }
 
-module.exports = {
+export {
   inferParserByLanguage,
-  getStringWidth,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
   getPenultimate,
-  getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
@@ -670,7 +506,8 @@ module.exports = {
   addDanglingComment,
   addTrailingComment,
   isFrontMatterNode,
-  getShebang,
-  isNonEmptyArray,
   createGroupIdMapper,
 };
+export { default as getLast } from "../utils/get-last.js";
+export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
+export { default as getStringWidth } from "../utils/get-string-width.js";

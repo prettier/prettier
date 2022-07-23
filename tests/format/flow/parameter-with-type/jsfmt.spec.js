@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow", "babel"], { trailingComma: "es5" });
-run_spec(__dirname, ["flow", "babel"], { trailingComma: "all" });
+run_spec(import.meta, ["flow", "babel"], { trailingComma: "es5" });
+run_spec(import.meta, ["flow", "babel"], { trailingComma: "all" });

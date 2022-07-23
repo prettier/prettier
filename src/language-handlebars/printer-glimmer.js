@@ -1,23 +1,19 @@
-"use strict";
-
-const {
-  builders: {
-    dedent,
-    fill,
-    group,
-    hardline,
-    ifBreak,
-    indent,
-    join,
-    line,
-    softline,
-  },
-  utils: { getDocParts, replaceTextEndOfLine },
-} = require("../document/index.js");
-const { isNonEmptyArray } = require("../common/util.js");
-const { locStart, locEnd } = require("./loc.js");
-const clean = require("./clean.js");
-const {
+import {
+  dedent,
+  fill,
+  group,
+  hardline,
+  ifBreak,
+  indent,
+  join,
+  line,
+  softline,
+} from "../document/builders.js";
+import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
+import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
+import { locStart, locEnd } from "./loc.js";
+import clean from "./clean.js";
+import {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
@@ -28,14 +24,14 @@ const {
   isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
-} = require("./utils.js");
+} from "./utils.js";
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
-function print(path, options, print) {
+async function print(path, options, print) {
   const node = path.getValue();
 
   /* istanbul ignore if*/
@@ -47,15 +43,17 @@ function print(path, options, print) {
     return options.originalText.slice(locStart(node), locEnd(node));
   }
 
+  const favoriteQuote = options.singleQuote ? "'" : '"';
+
   switch (node.type) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(path.map(print, "body"));
+      return group(await path.map(print, "body"));
     }
 
     case "ElementNode": {
-      const startingTag = group(printStartingTag(path, print));
+      const startingTag = group(await printStartingTag(path, print));
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
@@ -76,7 +74,7 @@ function print(path, options, print) {
       if (options.htmlWhitespaceSensitivity === "ignore") {
         return [
           startingTag,
-          indent(printChildren(path, options, print)),
+          indent(await printChildren(path, options, print)),
           hardline,
           indent(endingTag),
           escapeNextElementNode,
@@ -85,7 +83,7 @@ function print(path, options, print) {
 
       return [
         startingTag,
-        indent(group(printChildren(path, options, print))),
+        indent(group(await printChildren(path, options, print))),
         indent(endingTag),
         escapeNextElementNode,
       ];
@@ -103,30 +101,30 @@ function print(path, options, print) {
 
       if (isElseIf) {
         return [
-          printElseIfBlock(path, print),
-          printProgram(path, print, options),
-          printInverse(path, print, options),
+          await printElseIfBlock(path, print),
+          await printProgram(path, print, options),
+          await printInverse(path, print, options),
         ];
       }
 
       return [
-        printOpenBlock(path, print),
+        await printOpenBlock(path, print),
         group([
-          printProgram(path, print, options),
-          printInverse(path, print, options),
-          printCloseBlock(path, print, options),
+          await printProgram(path, print, options),
+          await printInverse(path, print, options),
+          await printCloseBlock(path, print, options),
         ]),
       ];
     }
 
     case "ElementModifierStatement": {
-      return group(["{{", printPathAndParams(path, print), "}}"]);
+      return group(["{{", await printPathAndParams(path, print), "}}"]);
     }
 
     case "MustacheStatement": {
       return group([
         printOpeningMustache(node),
-        printPathAndParams(path, print),
+        await printPathAndParams(path, print),
         printClosingMustache(node),
       ]);
     }
@@ -134,7 +132,7 @@ function print(path, options, print) {
     case "SubExpression": {
       return group([
         "(",
-        printSubExpressionPathAndParams(path, print),
+        await printSubExpressionPathAndParams(path, print),
         softline,
         ")",
       ]);
@@ -153,18 +151,18 @@ function print(path, options, print) {
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? chooseEnclosingQuote(options, node.value.chars).quote
+        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
         : node.value.type === "ConcatStatement"
-        ? chooseEnclosingQuote(
-            options,
+        ? getPreferredQuote(
             node.value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
-              .join("")
+              .join(""),
+            favoriteQuote
           ).quote
         : "";
 
-      const valueDoc = print("value");
+      const valueDoc = await print("value");
 
       return [
         node.name,
@@ -180,10 +178,10 @@ function print(path, options, print) {
     }
 
     case "Hash": {
-      return join(line, path.map(print, "pairs"));
+      return join(line, await path.map(print, "pairs"));
     }
     case "HashPair": {
-      return [node.key, "=", print("value")];
+      return [node.key, "=", await print("value")];
     }
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
@@ -397,7 +395,11 @@ function print(path, options, print) {
       return ["<!--", node.value, "-->"];
     }
     case "StringLiteral": {
-      return printStringLiteral(node.value, options);
+      if (needsOppositeQuote(path)) {
+        const printFavoriteQuote = !options.singleQuote ? "'" : '"';
+        return printStringLiteral(node.value, printFavoriteQuote);
+      }
+      return printStringLiteral(node.value, favoriteQuote);
     }
     case "NumberLiteral": {
       return String(node.value);
@@ -421,7 +423,7 @@ function sortByLoc(a, b) {
   return locStart(a) - locStart(b);
 }
 
-function printStartingTag(path, print) {
+async function printStartingTag(path, print) {
   const node = path.getValue();
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
@@ -430,9 +432,9 @@ function printStartingTag(path, print) {
   const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
   for (const attributeType of types) {
-    path.each((attributePath) => {
+    await path.each(async (attributePath) => {
       const index = attributes.indexOf(attributePath.getValue());
-      attributes.splice(index, 1, [line, print()]);
+      attributes.splice(index, 1, [line, await print()]);
     }, attributeType);
   }
 
@@ -450,8 +452,8 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map((childPath, childIndex) => {
-    const printedChild = print();
+  return path.map(async (childPath, childIndex) => {
+    const printedChild = await print();
 
     if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
@@ -521,15 +523,15 @@ function printInverseBlockClosingMustache(node) {
   return [strip, closing];
 }
 
-function printOpenBlock(path, print) {
+async function printOpenBlock(path, print) {
   const node = path.getValue();
 
   const openingMustache = printOpeningBlockOpeningMustache(node);
   const closingMustache = printOpeningBlockClosingMustache(node);
 
-  const attributes = [printPath(path, print)];
+  const attributes = [await printPath(path, print)];
 
-  const params = printParams(path, print);
+  const params = await printParams(path, print);
   if (params) {
     attributes.push(line, params);
   }
@@ -556,18 +558,18 @@ function printElseBlock(node, options) {
   ];
 }
 
-function printElseIfBlock(path, print) {
+async function printElseIfBlock(path, print) {
   const parentNode = path.getParentNode(1);
 
   return [
     printInverseBlockOpeningMustache(parentNode),
     "else if ",
-    printParams(path, print),
+    await printParams(path, print),
     printInverseBlockClosingMustache(parentNode),
   ];
 }
 
-function printCloseBlock(path, print, options) {
+async function printCloseBlock(path, print, options) {
   const node = path.getValue();
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
@@ -578,14 +580,14 @@ function printCloseBlock(path, print, options) {
     return [
       escape,
       printClosingBlockOpeningMustache(node),
-      print("path"),
+      await print("path"),
       printClosingBlockClosingMustache(node),
     ];
   }
 
   return [
     printClosingBlockOpeningMustache(node),
-    print("path"),
+    await print("path"),
     printClosingBlockClosingMustache(node),
   ];
 }
@@ -610,14 +612,14 @@ function blockStatementHasElse(node) {
   return isNodeOfSomeType(node, ["BlockStatement"]) && node.inverse;
 }
 
-function printProgram(path, print, options) {
+async function printProgram(path, print, options) {
   const node = path.getValue();
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
     return "";
   }
 
-  const program = print("program");
+  const program = await print("program");
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     return indent([hardline, program]);
@@ -626,10 +628,10 @@ function printProgram(path, print, options) {
   return indent(program);
 }
 
-function printInverse(path, print, options) {
+async function printInverse(path, print, options) {
   const node = path.getValue();
 
-  const inverse = print("inverse");
+  const inverse = await print("inverse");
   const printed =
     options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
@@ -686,10 +688,14 @@ function countTrailingNewLines(string) {
 }
 
 function generateHardlines(number = 0) {
-  return new Array(Math.min(number, NEWLINES_TO_PRESERVE_MAX)).fill(hardline);
+  return Array.from({
+    length: Math.min(number, NEWLINES_TO_PRESERVE_MAX),
+  }).fill(hardline);
 }
 
 /* StringLiteral print helpers */
+
+/** @typedef {import("../common/util").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on
@@ -698,58 +704,48 @@ function generateHardlines(number = 0) {
  * in `common/util`, but has differences because of the way escaped characters
  * are treated in hbs string literals.
  * @param {string} stringLiteral - the string literal value
- * @param {object} options - the prettier options object
+ * @param {Quote} favoriteQuote - the user's preferred quote: `'` or `"`
  */
-function printStringLiteral(stringLiteral, options) {
-  const { quote, regex } = chooseEnclosingQuote(options, stringLiteral);
+function printStringLiteral(stringLiteral, favoriteQuote) {
+  const { quote, regex } = getPreferredQuote(stringLiteral, favoriteQuote);
   return [quote, stringLiteral.replace(regex, `\\${quote}`), quote];
 }
 
-function chooseEnclosingQuote(options, stringLiteral) {
-  const double = { quote: '"', regex: /"/g };
-  const single = { quote: "'", regex: /'/g };
-
-  const preferred = options.singleQuote ? single : double;
-  const alternate = preferred === single ? double : single;
-
-  let shouldUseAlternateQuote = false;
-
-  // If `stringLiteral` contains at least one of the quote preferred for
-  // enclosing the string, we might want to enclose with the alternate quote
-  // instead, to minimize the number of escaped quotes.
-  if (
-    stringLiteral.includes(preferred.quote) ||
-    stringLiteral.includes(alternate.quote)
-  ) {
-    const numPreferredQuotes = (stringLiteral.match(preferred.regex) || [])
-      .length;
-    const numAlternateQuotes = (stringLiteral.match(alternate.regex) || [])
-      .length;
-
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
+function needsOppositeQuote(path) {
+  let index = 0;
+  let parentNode = path.getParentNode(index);
+  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
+    index++;
+    parentNode = path.getParentNode(index);
   }
-
-  return shouldUseAlternateQuote ? alternate : preferred;
+  if (
+    parentNode &&
+    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
+    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /* SubExpression print helpers */
 
-function printSubExpressionPathAndParams(path, print) {
-  const p = printPath(path, print);
-  const params = printParams(path, print);
+async function printSubExpressionPathAndParams(path, print) {
+  const printed = await printPath(path, print);
+  const params = await printParams(path, print);
 
   if (!params) {
-    return p;
+    return printed;
   }
 
-  return indent([p, line, group(params)]);
+  return indent([printed, line, group(params)]);
 }
 
 /* misc. print helpers */
 
-function printPathAndParams(path, print) {
-  const p = printPath(path, print);
-  const params = printParams(path, print);
+async function printPathAndParams(path, print) {
+  const p = await printPath(path, print);
+  const params = await printParams(path, print);
 
   if (!params) {
     return p;
@@ -762,17 +758,17 @@ function printPath(path, print) {
   return print("path");
 }
 
-function printParams(path, print) {
+async function printParams(path, print) {
   const node = path.getValue();
   const parts = [];
 
   if (node.params.length > 0) {
-    const params = path.map(print, "params");
+    const params = await path.map(print, "params");
     parts.push(...params);
   }
 
   if (node.hash && node.hash.pairs.length > 0) {
-    const hash = print("hash");
+    const hash = await print("hash");
     parts.push(hash);
   }
 
@@ -787,7 +783,9 @@ function printBlockParams(node) {
   return ["as |", node.blockParams.join(" "), "|"];
 }
 
-module.exports = {
+const printer = {
   print,
   massageAstNode: clean,
 };
+
+export default printer;

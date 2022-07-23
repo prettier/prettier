@@ -1,14 +1,10 @@
-"use strict";
+import { isNonEmptyArray } from "../../common/util.js";
+import { join, line, group, indent, ifBreak } from "../../document/builders.js";
+import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
+import { getTypeParametersGroupId } from "./type-parameters.js";
+import { printTypeScriptModifiers } from "./misc.js";
 
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { join, line, group, indent, ifBreak },
-} = require("../../document/index.js");
-const { hasComment, identity, CommentCheckFlags } = require("../utils.js");
-const { getTypeParametersGroupId } = require("./type-parameters.js");
-const { printTypeScriptModifiers } = require("./misc.js");
-
-function printInterface(path, options, print) {
+async function printInterface(path, options, print) {
   const node = path.getValue();
   const parts = [];
   if (node.declare) {
@@ -18,7 +14,7 @@ function printInterface(path, options, print) {
   if (node.type === "TSInterfaceDeclaration") {
     parts.push(
       node.abstract ? "abstract " : "",
-      printTypeScriptModifiers(path, options, print)
+      await printTypeScriptModifiers(path, options, print)
     );
   }
 
@@ -28,7 +24,7 @@ function printInterface(path, options, print) {
   const extendsParts = [];
 
   if (node.type !== "InterfaceTypeAnnotation") {
-    partsGroup.push(" ", print("id"), print("typeParameters"));
+    partsGroup.push(" ", await print("id"), await print("typeParameters"));
   }
 
   const shouldIndentOnlyHeritageClauses =
@@ -47,7 +43,7 @@ function printInterface(path, options, print) {
         : line,
       "extends ",
       (node.extends.length === 1 ? identity : indent)(
-        join([",", line], path.map(print, "extends"))
+        join([",", line], await path.map(print, "extends"))
       )
     );
   }
@@ -65,9 +61,9 @@ function printInterface(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", print("body"));
+  parts.push(" ", await print("body"));
 
   return group(parts);
 }
 
-module.exports = { printInterface };
+export { printInterface };

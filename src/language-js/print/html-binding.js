@@ -1,8 +1,10 @@
-"use strict";
-
-const {
-  builders: { join, line, group, softline, indent },
-} = require("../../document/index.js");
+import {
+  join,
+  line,
+  group,
+  softline,
+  indent,
+} from "../../document/builders.js";
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();
@@ -17,10 +19,10 @@ function printHtmlBinding(path, options, print) {
 
   if (options.__isVueForBindingLeft) {
     return path.call(
-      (functionDeclarationPath) => {
+      async (functionDeclarationPath) => {
         const printed = join(
           [",", line],
-          functionDeclarationPath.map(print, "params")
+          await functionDeclarationPath.map(print, "params")
         );
 
         const { params } = functionDeclarationPath.getValue();
@@ -38,8 +40,8 @@ function printHtmlBinding(path, options, print) {
 
   if (options.__isVueBindings) {
     return path.call(
-      (functionDeclarationPath) =>
-        join([",", line], functionDeclarationPath.map(print, "params")),
+      async (functionDeclarationPath) =>
+        join([",", line], await functionDeclarationPath.map(print, "params")),
       "program",
       "body",
       0
@@ -65,7 +67,4 @@ function isVueEventBindingExpression(node) {
   }
 }
 
-module.exports = {
-  isVueEventBindingExpression,
-  printHtmlBinding,
-};
+export { isVueEventBindingExpression, printHtmlBinding };

@@ -1,8 +1,7 @@
-"use strict";
-
-const fs = require("fs");
-const path = require("path");
-const runPrettier = require("../runPrettier.js");
+import path from "node:path";
+import fs from "node:fs";
+import createEsmUtils from "esm-utils";
+const { __dirname } = createEsmUtils(import.meta);
 
 fs.writeFileSync(
   // This file is in `.gitignore`, just copy from `regular-module.js`

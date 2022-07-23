@@ -1,0 +1,32 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  labels: ["dependency"],
+  baseBranches: ["next"],
+  schedule: ["after 01:00 on sunday"],
+  postUpdateOptions: ["yarnDedupeHighest"],
+  packageRules: [
+    {
+      matchPackageNames: ["react", "react-dom"],
+      groupName: "react",
+    },
+    {
+      matchPackagePrefixes: ["@babel/"],
+      excludePackageNames: ["@babel/parser"],
+      groupName: "babel",
+    },
+    {
+      branchPrefix: "renovate/website/",
+      matchPaths: ["website/package.json"],
+      labels: ["dependency:website"],
+    },
+    {
+      branchPrefix: "renovate/tools/",
+      matchPaths: [
+        "scripts/release/package.json",
+        "scripts/tools/bundle-test/package.json",
+        "scripts/tools/eslint-plugin-prettier-internal-rules/package.json",
+      ],
+      labels: ["dependency:tools"],
+    },
+  ],
+}

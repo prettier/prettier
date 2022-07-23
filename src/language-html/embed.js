@@ -1,24 +1,28 @@
-"use strict";
-
-const {
-  builders: { breakParent, group, hardline, indent, line, fill, softline },
-  utils: { mapDoc, replaceTextEndOfLine },
-} = require("../document/index.js");
-const printFrontMatter = require("../utils/front-matter/print.js");
-const {
+import {
+  breakParent,
+  group,
+  hardline,
+  indent,
+  line,
+  fill,
+  softline,
+} from "../document/builders.js";
+import { mapDoc, replaceTextEndOfLine } from "../document/utils.js";
+import printFrontMatter from "../utils/front-matter/print.js";
+import {
   printClosingTag,
   printClosingTagSuffix,
   needsToBorrowPrevClosingTagEndMarker,
   printOpeningTagPrefix,
   printOpeningTag,
-} = require("./print/tag.js");
-const { printImgSrcset, printClassNames } = require("./syntax-attribute.js");
-const {
+} from "./print/tag.js";
+import { printImgSrcset, printClassNames } from "./syntax-attribute.js";
+import {
   printVueFor,
   printVueBindings,
   isVueEventBindingExpression,
-} = require("./syntax-vue.js");
-const {
+} from "./syntax-vue.js";
+import {
   isScriptLikeTag,
   isVueNonHtmlBlock,
   inferScriptParser,
@@ -28,10 +32,10 @@ const {
   isVueSlotAttribute,
   isVueSfcBindingsAttribute,
   getTextValueParts,
-} = require("./utils.js");
-const getNodeContent = require("./get-node-content.js");
+} from "./utils/index.js";
+import getNodeContent from "./get-node-content.js";
 
-function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
+async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -67,11 +71,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = (doc) => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const attributeTextToDoc = (code, opts) =>
-    originalTextToDoc(
-      code,
-      { __onHtmlBindingRoot, __embeddedInHtml: true, ...opts },
-      { stripTrailingHardline: true }
-    );
+    htmlTextToDoc(code, {
+      __onHtmlBindingRoot,
+      __embeddedInHtml: true,
+      ...opts,
+    });
 
   if (
     node.fullName === "srcset" &&
@@ -91,7 +95,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        attributeTextToDoc(value, {
+        await attributeTextToDoc(value, {
           parser: "css",
           __isHTMLStyleAttribute: true,
         })
@@ -127,24 +131,27 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(vueEventBindingPatterns)) {
       const value = getValue();
+      const parser = isVueEventBindingExpression(value)
+        ? "__js_expression"
+        : options.__should_parse_vue_template_with_ts
+        ? "__vue_ts_event_binding"
+        : "__vue_event_binding";
       return printMaybeHug(
-        attributeTextToDoc(value, {
-          parser: isVueEventBindingExpression(value)
-            ? "__js_expression"
-            : "__vue_event_binding",
+        await attributeTextToDoc(value, {
+          parser,
         })
       );
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__vue_expression" })
+        await attributeTextToDoc(getValue(), { parser: "__vue_expression" })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__js_expression" })
+        await attributeTextToDoc(getValue(), { parser: "__js_expression" })
       );
     }
   }
@@ -182,11 +189,15 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
+      return printMaybeHug(
+        await ngTextToDoc(getValue(), { parser: "__ng_action" })
+      );
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+      return printMaybeHug(
+        await ngTextToDoc(getValue(), { parser: "__ng_binding" })
+      );
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
@@ -199,7 +210,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
       return printMaybeHug(
-        ngTextToDoc(getValue(), { parser: "__ng_directive" })
+        await ngTextToDoc(getValue(), { parser: "__ng_directive" })
       );
     }
 
@@ -217,7 +228,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
                 "{{",
                 indent([
                   line,
-                  ngTextToDoc(part, {
+                  await ngTextToDoc(part, {
                     parser: "__ng_interpolation",
                     __isInHtmlInterpolation: true, // to avoid unexpected `}}`
                   }),
@@ -238,7 +249,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   return null;
 }
 
-function embed(path, print, textToDoc, options) {
+async function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -258,7 +269,7 @@ function embed(path, print, textToDoc, options) {
         let isEmpty = /^\s*$/.test(content);
         let doc = "";
         if (!isEmpty) {
-          doc = textToDoc(
+          doc = await textToDoc(
             htmlTrimPreserveIndentation(content),
             { parser, __embeddedInHtml: true },
             { stripTrailingHardline: true }
@@ -268,7 +279,7 @@ function embed(path, print, textToDoc, options) {
 
         return [
           printOpeningTagPrefix(node, options),
-          group(printOpeningTag(path, options, print)),
+          group(await printOpeningTag(path, options, print)),
           isEmpty ? "" : hardline,
           doc,
           isEmpty ? "" : hardline,
@@ -280,11 +291,11 @@ function embed(path, print, textToDoc, options) {
     }
     case "text": {
       if (isScriptLikeTag(node.parent)) {
-        const parser = inferScriptParser(node.parent);
+        const parser = inferScriptParser(node.parent, options);
         if (parser) {
           const value =
             parser === "markdown"
-              ? dedentString(node.value.replace(/^[^\S\n]*?\n/, ""))
+              ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
               : node.value;
           const textToDocOptions = { parser, __embeddedInHtml: true };
           if (options.parser === "html" && parser === "babel") {
@@ -303,7 +314,7 @@ function embed(path, print, textToDoc, options) {
           return [
             breakParent,
             printOpeningTagPrefix(node, options),
-            textToDoc(value, textToDocOptions, {
+            await textToDoc(value, textToDocOptions, {
               stripTrailingHardline: true,
             }),
             printClosingTagSuffix(node, options),
@@ -318,14 +329,16 @@ function embed(path, print, textToDoc, options) {
           textToDocOptions.parser = "__ng_interpolation";
           textToDocOptions.trailingComma = "none";
         } else if (options.parser === "vue") {
-          textToDocOptions.parser = "__vue_expression";
+          textToDocOptions.parser = options.__should_parse_vue_template_with_ts
+            ? "__vue_ts_expression"
+            : "__vue_expression";
         } else {
           textToDocOptions.parser = "__js_expression";
         }
         return [
           indent([
             line,
-            textToDoc(node.value, textToDocOptions, {
+            await textToDoc(node.value, textToDocOptions, {
               stripTrailingHardline: true,
             }),
           ]),
@@ -369,7 +382,7 @@ function embed(path, print, textToDoc, options) {
         }
       }
 
-      const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
+      const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
@@ -399,4 +412,4 @@ function embed(path, print, textToDoc, options) {
   }
 }
 
-module.exports = embed;
+export default embed;

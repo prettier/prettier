@@ -1,22 +1,18 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { hardline, indent },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import { isNonEmptyArray } from "../../common/util.js";
+import { hardline, indent } from "../../document/builders.js";
+import {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
-const { printHardlineAfterHeritage } = require("./class.js");
+} from "../utils/index.js";
+import { printHardlineAfterHeritage } from "./class.js";
 
-const { printBody } = require("./statement.js");
+import { printBody } from "./statement.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printBlock(path, options, print) {
+async function printBlock(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
@@ -30,7 +26,7 @@ function printBlock(path, options, print) {
   }
 
   parts.push("{");
-  const printed = printBlockBody(path, options, print);
+  const printed = await printBlockBody(path, options, print);
   if (printed) {
     parts.push(indent([hardline, printed]), hardline);
   } else {
@@ -64,7 +60,7 @@ function printBlock(path, options, print) {
   return parts;
 }
 
-function printBlockBody(path, options, print) {
+async function printBlockBody(path, options, print) {
   const node = path.getValue();
 
   const nodeHasDirectives = isNonEmptyArray(node.directives);
@@ -78,8 +74,8 @@ function printBlockBody(path, options, print) {
   const parts = [];
   // Babel 6
   if (nodeHasDirectives) {
-    path.each((childPath, index, directives) => {
-      parts.push(print());
+    await path.each(async (childPath, index, directives) => {
+      parts.push(await print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
         if (isNextLineEmpty(childPath.getValue(), options)) {
@@ -90,7 +86,7 @@ function printBlockBody(path, options, print) {
   }
 
   if (nodeHasBody) {
-    parts.push(printBody(path, options, print));
+    parts.push(await printBody(path, options, print));
   }
 
   if (nodeHasComment) {
@@ -107,4 +103,4 @@ function printBlockBody(path, options, print) {
   return parts;
 }
 
-module.exports = { printBlock, printBlockBody };
+export { printBlock, printBlockBody };

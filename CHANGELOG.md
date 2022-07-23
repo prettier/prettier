@@ -1,3 +1,277 @@
+# 2.7.1
+
+[diff](https://github.com/prettier/prettier/compare/2.7.0...2.7.1)
+
+#### Keep useful empty lines in description ([#13013](https://github.com/prettier/prettier/pull/13013) by [@chimurai](https://github.com/chimurai))
+
+<!-- prettier-ignore -->
+```graphql
+# Input
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+
+# Prettier 2.7.0
+"""
+First line
+Second Line
+"""
+type Person {
+  name: String
+}
+
+
+# Prettier 2.7.1
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+```
+
+# 2.7.0
+
+[diff](https://github.com/prettier/prettier/compare/2.6.2...2.7.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2022/06/14/2.7.0.html)
+
+# 2.6.2
+
+[diff](https://github.com/prettier/prettier/compare/2.6.1...2.6.2)
+
+#### Fix LESS/SCSS format error ([#12536](https://github.com/prettier/prettier/pull/12536) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```less
+// Input
+.background-gradient(@cut) {
+    background: linear-gradient(
+        to right,
+        @white 0%,
+        @white (@cut - 0.01%),
+        @portal-background @cut,
+        @portal-background 100%
+    );
+}
+
+// Prettier 2.6.1
+TypeError: Cannot read properties of undefined (reading 'endOffset')
+
+// Prettier 2.6.2
+.background-gradient(@cut) {
+  background: linear-gradient(
+    to right,
+    @white 0%,
+    @white (@cut - 0.01%),
+    @portal-background @cut,
+    @portal-background 100%
+  );
+}
+```
+
+#### Update `meriyah` to fix several bugs ([#12567](https://github.com/prettier/prettier/pull/12567) by [@fisker](https://github.com/fisker), fixes in [`meriyah`](https://github.com/meriyah/meriyah/) by [@3cp](https://github.com/3cp))
+
+Fixes bugs when parsing following valid code:
+
+```js
+foo(await bar());
+```
+
+```js
+const regex = /.*/ms;
+```
+
+```js
+const element = <p>{/w/.test(s)}</p>;
+```
+
+```js
+class A extends B {
+  #privateMethod() {
+    super.method();
+  }
+}
+```
+
+# 2.6.1
+
+[diff](https://github.com/prettier/prettier/compare/2.6.0...2.6.1)
+
+#### Ignore `loglevel` when printing information ([#12477](https://github.com/prettier/prettier/pull/12477) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```bash
+# Prettier 2.6.0
+prettier --loglevel silent --find-config-path index.js
+# Nothing printed
+
+# Prettier 2.6.1
+prettier --loglevel silent --help no-color
+# .prettierrc
+```
+
+#### Make artifact friendly for webpack ([#12485](https://github.com/prettier/prettier/pull/12485), [#12511](https://github.com/prettier/prettier/pull/12511) by [@fisker](https://github.com/fisker))
+
+Fixes two problems when bundling our UMD files with webpack:
+
+- A error `` "`....__exportStar` is not a function" `` throws when running the bundles.
+- Some files cause warning about `"Critical dependency: the request of a dependency is an expression"`.
+
+#### Fix non-idempotent formatting of function calls with complex type arguments ([#12508](https://github.com/prettier/prettier/pull/12508) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const foo =
+  doSomething<{ foo1: "foo1", foo2: "foo2", foo3: "foo3", foo4: "foo4", foo5: "foo5" }>();
+
+// Prettier 2.6.0 (first)
+const foo =
+  doSomething<{
+    foo1: "foo1";
+    foo2: "foo2";
+    foo3: "foo3";
+    foo4: "foo4";
+    foo5: "foo5";
+  }>();
+
+// Prettier 2.6.0 (second)
+const foo = doSomething<{
+  foo1: "foo1";
+  foo2: "foo2";
+  foo3: "foo3";
+  foo4: "foo4";
+  foo5: "foo5";
+}>();
+
+// Prettier 2.6.1
+const foo = doSomething<{
+  foo1: "foo1";
+  foo2: "foo2";
+  foo3: "foo3";
+  foo4: "foo4";
+  foo5: "foo5";
+}>();
+
+```
+
+#### Fix minimist security issue ([#12513](https://github.com/prettier/prettier/pull/12513) by [@dependabot](https://github.com/dependabot))
+
+Details: [Prototype Pollution](https://security.snyk.io/vuln/SNYK-JS-MINIMIST-559764)
+
+# 2.6.0
+
+[diff](https://github.com/prettier/prettier/compare/2.5.1...2.6.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2022/03/16/2.6.0.html)
+
+# 2.5.1
+
+[diff](https://github.com/prettier/prettier/compare/2.5.0...2.5.1)
+
+#### Improve formatting for empty tuple types ([#11884](https://github.com/prettier/prettier/pull/11884) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+// Prettier 2.5.0
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [
+
+]
+  ? Foo3
+  : Foo4;
+
+// Prettier 2.5.0 (tailingCommma = all)
+// Invalid TypeScript code
+type Foo = Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends [
+  ,
+]
+  ? Foo3
+  : Foo4;
+
+// Prettier 2.5.1
+type Foo =
+  Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo extends []
+    ? Foo3
+    : Foo4;
+
+```
+
+#### Fix compatibility with Jest inline snapshot test ([#11892](https://github.com/prettier/prettier/pull/11892) by [@fisker](https://github.com/fisker))
+
+A internal change in Prettier@v2.5.0 accidentally breaks the Jest inline snapshot test.
+
+#### Support Glimmer's named blocks ([#11899](https://github.com/prettier/prettier/pull/11899) by [@duailibe](https://github.com/duailibe))
+
+Prettier already supported this feature, but it converted empty named blocks to self-closing, which is not supported by the Glimmer compiler.
+
+See: [Glimmer's named blocks](https://emberjs.github.io/rfcs/0460-yieldable-named-blocks.html).
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<Component>
+  <:named></:named>
+</Component>
+
+// Prettier 2.5.0
+<Component>
+  <:named />
+</Component>
+
+// Prettier 2.5.1
+<Component>
+  <:named></:named>
+</Component>
+```
+
+# 2.5.0
+
+[diff](https://github.com/prettier/prettier/compare/2.4.1...2.5.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/11/25/2.5.0.html)
+
+# 2.4.1
+
+[diff](https://github.com/prettier/prettier/compare/2.4.0...2.4.1)
+
+#### Fix wildcard syntax in `@forward` ([#11482](https://github.com/prettier/prettier/pull/11482)) ([#11487](https://github.com/prettier/prettier/pull/11487) by [@niksy](https://github.com/niksy))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+@forward "library" as btn-*;
+
+// Prettier 2.4.0
+@forward "library" as btn- *;
+
+// Prettier 2.4.1
+@forward "library" as btn-*;
+```
+
+#### Add new CLI option `debug-print-ast` ([#11514](https://github.com/prettier/prettier/pull/11514) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+A new `--debug-print-ast` CLI flag for debugging.
+
+# 2.4.0
+
+[diff](https://github.com/prettier/prettier/compare/2.3.2...2.4.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2021/09/09/2.4.0.html)
+
 # 2.3.2
 
 [diff](https://github.com/prettier/prettier/compare/2.3.1...2.3.2)
@@ -283,6 +557,7 @@ const foo = call<{
 
 #### Fix order of `override` modifiers ([#10961](https://github.com/prettier/prettier/pull/10961) by [@sosukesuzuki](https://github.com/sosukesuzuki))
 
+<!-- prettier-ignore -->
 ```ts
 // Input
 class Foo extends Bar {
@@ -291,7 +566,7 @@ class Foo extends Bar {
 
 // Prettier stable
 class Foo extends Bar {
-  abstract override foo: string;
+  override abstract foo: string;
 }
 
 // Prettier main

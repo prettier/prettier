@@ -1,7 +1,4 @@
-"use strict";
-
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
+import prettier from "../../config/prettier-entry.js";
 
 describe("stdin no path and no parser", () => {
   describe("logs error and exits with 2", () => {
@@ -171,25 +168,33 @@ describe("--write and --list-different with unknown path and no parser", () => {
 
 describe("API with no path and no parser", () => {
   const _console = global.console;
+  const result = { called: 0, arguments: [] };
 
   beforeEach(() => {
-    global.console = { warn: jest.fn() };
+    global.console = {
+      warn(...args) {
+        result.called += 1;
+        result.arguments = args;
+      },
+    };
   });
 
   afterEach(() => {
+    result.called = 0;
+    result.arguments = [];
     global.console = _console;
   });
 
-  test("prettier.format", () => {
-    expect(prettier.format(" foo  (  )")).toEqual("foo();\n");
-    expect(global.console.warn).toHaveBeenCalledTimes(1);
-    expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
+  test("prettier.format", async () => {
+    expect(await prettier.format(" foo  (  )")).toBe("foo();\n");
+    expect(result.called).toBe(1);
+    expect(result.arguments).toMatchSnapshot();
   });
 
-  test("prettier.check", () => {
-    expect(prettier.check(" foo (  )")).toBe(false);
-    expect(global.console.warn).toHaveBeenCalledTimes(1);
-    expect(global.console.warn.mock.calls[0]).toMatchSnapshot();
+  test("prettier.check", async () => {
+    expect(await prettier.check(" foo (  )")).toBe(false);
+    expect(result.called).toBe(1);
+    expect(result.arguments).toMatchSnapshot();
   });
 });
 

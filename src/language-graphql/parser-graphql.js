@@ -1,9 +1,9 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../common/parser-create-error.js";
+import { hasPragma } from "./pragma.js";
+import { locStart, locEnd } from "./loc.js";
 
-const createError = require("../common/parser-create-error.js");
-const tryCombinations = require("../utils/try-combinations.js");
-const { hasPragma } = require("./pragma.js");
-const { locStart, locEnd } = require("./loc.js");
+const require = createRequire(import.meta.url);
 
 function parseComments(ast) {
   const comments = [];
@@ -38,12 +38,12 @@ function removeTokens(node) {
 }
 
 const parseOptions = {
-  allowLegacySDLImplementsInterfaces: false,
-  experimentalFragmentVariables: true,
+  allowLegacyFragmentVariables: true,
 };
 
 function createParseError(error) {
   const { GraphQLError } = require("graphql/error/GraphQLError");
+
   if (error instanceof GraphQLError) {
     const {
       message,
@@ -59,13 +59,12 @@ function createParseError(error) {
 function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const { parse } = require("graphql/language/parser");
-  const { result: ast, error } = tryCombinations(
-    () => parse(text, { ...parseOptions }),
-    () =>
-      parse(text, { ...parseOptions, allowLegacySDLImplementsInterfaces: true })
-  );
 
-  if (!ast) {
+  /** @type {any} */
+  let ast;
+  try {
+    ast = parse(text, parseOptions);
+  } catch (error) {
     throw createParseError(error);
   }
 
@@ -74,7 +73,7 @@ function parse(text /*, parsers, opts*/) {
   return ast;
 }
 
-module.exports = {
+const graphql = {
   parsers: {
     graphql: {
       parse,
@@ -85,3 +84,5 @@ module.exports = {
     },
   },
 };
+
+export default graphql;

@@ -1,7 +1,3 @@
-"use strict";
-
-const runPrettier = require("../runPrettier.js");
-
 describe("json-stringify takes precedence over json for package.json", () => {
   runPrettier("plugins", ["--stdin-filepath=package.json"], {
     input:

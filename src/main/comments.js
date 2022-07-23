@@ -1,12 +1,16 @@
-"use strict";
+import assert from "node:assert";
 
-const assert = require("assert");
+import {
+  line,
+  hardline,
+  breakParent,
+  indent,
+  lineSuffix,
+  join,
+  cursor,
+} from "../document/builders.js";
 
-const {
-  builders: { line, hardline, breakParent, indent, lineSuffix, join, cursor },
-} = require("../document/index.js");
-
-const {
+import {
   hasNewline,
   skipNewline,
   skipSpaces,
@@ -14,7 +18,7 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("../common/util.js");
+} from "../common/util.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -55,7 +59,8 @@ function getSortedChildNodes(node, options, resultArray) {
             key !== "precedingNode" &&
             key !== "followingNode" &&
             key !== "tokens" &&
-            key !== "comments"
+            key !== "comments" &&
+            key !== "parent"
         )
         .map(([, value]) => value));
 
@@ -199,7 +204,8 @@ function attach(comments, ast, text, options) {
       options.parser === "json" ||
       options.parser === "json5" ||
       options.parser === "__js_expression" ||
-      options.parser === "__vue_expression"
+      options.parser === "__vue_expression" ||
+      options.parser === "__vue_ts_expression"
     ) {
       if (locStart(comment) - locStart(ast) <= 0) {
         addLeadingComment(ast, comment);
@@ -600,7 +606,7 @@ function ensureAllCommentsPrinted(astComments) {
   }
 }
 
-module.exports = {
+export {
   attach,
   printComments,
   printCommentsSeparately,

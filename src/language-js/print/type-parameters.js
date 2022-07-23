@@ -1,23 +1,29 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { join, line, hardline, softline, group, indent, ifBreak },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import {
+  join,
+  line,
+  hardline,
+  softline,
+  group,
+  indent,
+  ifBreak,
+} from "../../document/builders.js";
+import {
   isTestCall,
   hasComment,
   CommentCheckFlags,
   isTSXFile,
   shouldPrintComma,
   getFunctionParameters,
-} = require("../utils.js");
-const { createGroupIdMapper } = require("../../common/util.js");
-const { shouldHugType } = require("./type-annotation.js");
+  isObjectType,
+} from "../utils/index.js";
+import { createGroupIdMapper } from "../../common/util.js";
+import { shouldHugType } from "./type-annotation.js";
+import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
-function printTypeParameters(path, options, print, paramsKey) {
+async function printTypeParameters(path, options, print, paramsKey) {
   const node = path.getValue();
 
   if (!node[paramsKey]) {
@@ -32,17 +38,27 @@ function printTypeParameters(path, options, print, paramsKey) {
   const grandparent = path.getNode(2);
   const isParameterInTestCall = grandparent && isTestCall(grandparent);
 
+  const isArrowFunctionVariable = path.match(
+    (node) =>
+      !(node[paramsKey].length === 1 && isObjectType(node[paramsKey][0])),
+    undefined,
+    (node, name) => name === "typeAnnotation",
+    (node) => node.type === "Identifier",
+    isArrowFunctionVariableDeclarator
+  );
+
   const shouldInline =
-    isParameterInTestCall ||
-    node[paramsKey].length === 0 ||
-    (node[paramsKey].length === 1 &&
-      (shouldHugType(node[paramsKey][0]) ||
-        node[paramsKey][0].type === "NullableTypeAnnotation"));
+    !isArrowFunctionVariable &&
+    (isParameterInTestCall ||
+      node[paramsKey].length === 0 ||
+      (node[paramsKey].length === 1 &&
+        (node[paramsKey][0].type === "NullableTypeAnnotation" ||
+          shouldHugType(node[paramsKey][0]))));
 
   if (shouldInline) {
     return [
       "<",
-      join(", ", path.map(print, paramsKey)),
+      join(", ", await path.map(print, paramsKey)),
       printDanglingCommentsForInline(path, options),
       ">",
     ];
@@ -66,7 +82,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   return group(
     [
       "<",
-      indent([softline, join([",", line], path.map(print, paramsKey))]),
+      indent([softline, join([",", line], await path.map(print, paramsKey))]),
       trailingComma,
       softline,
       ">",
@@ -92,48 +108,49 @@ function printDanglingCommentsForInline(path, options) {
   return [printed, hardline];
 }
 
-function printTypeParameter(path, options, print) {
+async function printTypeParameter(path, options, print) {
   const node = path.getValue();
   const parts = [];
   const parent = path.getParentNode();
   if (parent.type === "TSMappedType") {
-    parts.push("[", print("name"));
+    parts.push("[", await print("name"));
     if (node.constraint) {
-      parts.push(" in ", print("constraint"));
+      parts.push(" in ", await print("constraint"));
     }
     if (parent.nameType) {
-      parts.push(
-        " as ",
-        path.callParent(() => print("nameType"))
-      );
+      parts.push(" as ", await path.callParent(() => print("nameType")));
     }
     parts.push("]");
     return parts;
   }
 
   if (node.variance) {
-    parts.push(print("variance"));
+    parts.push(await print("variance"));
   }
 
-  parts.push(print("name"));
+  if (node.in) {
+    parts.push("in ");
+  }
+
+  if (node.out) {
+    parts.push("out ");
+  }
+
+  parts.push(await print("name"));
 
   if (node.bound) {
-    parts.push(": ", print("bound"));
+    parts.push(": ", await print("bound"));
   }
 
   if (node.constraint) {
-    parts.push(" extends ", print("constraint"));
+    parts.push(" extends ", await print("constraint"));
   }
 
   if (node.default) {
-    parts.push(" = ", print("default"));
+    parts.push(" = ", await print("default"));
   }
 
   return parts;
 }
 
-module.exports = {
-  printTypeParameter,
-  printTypeParameters,
-  getTypeParametersGroupId,
-};
+export { printTypeParameter, printTypeParameters, getTypeParametersGroupId };

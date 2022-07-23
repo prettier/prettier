@@ -1,23 +1,17 @@
-"use strict";
+import { createRequire } from "node:module";
+import parseFrontMatter from "../utils/front-matter/parse.js";
+import getLast from "../utils/get-last.js";
+import createError from "../common/parser-create-error.js";
+import { inferParserByLanguage } from "../common/util.js";
+import HTML_TAGS from "./utils/html-tag-names.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
+import isUnknownNamespace from "./utils/is-unknown-namespace.js";
+import { hasPragma } from "./pragma.js";
+import { Node } from "./ast.js";
+import { parseIeConditionalComment } from "./conditional-comment.js";
+import { locStart, locEnd } from "./loc.js";
 
-const {
-  ParseSourceSpan,
-  ParseLocation,
-  ParseSourceFile,
-} = require("angular-html-parser/lib/compiler/src/parse_util");
-const parseFrontMatter = require("../utils/front-matter/parse.js");
-const getLast = require("../utils/get-last.js");
-const createError = require("../common/parser-create-error.js");
-const { inferParserByLanguage } = require("../common/util.js");
-const {
-  HTML_ELEMENT_ATTRIBUTES,
-  HTML_TAGS,
-  isUnknownNamespace,
-} = require("./utils.js");
-const { hasPragma } = require("./pragma.js");
-const { Node } = require("./ast.js");
-const { parseIeConditionalComment } = require("./conditional-comment.js");
-const { locStart, locEnd } = require("./loc.js");
+const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -25,6 +19,7 @@ const { locStart, locEnd } = require("./loc.js");
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Element} Element
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser').ParseTreeResult} ParserTreeResult
  * @typedef {Omit<import('angular-html-parser').ParseOptions, 'canSelfClose'> & {
+ *   name?: 'html' | 'angular' | 'vue' | 'lwc';
  *   recognizeSelfClosing?: boolean;
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
@@ -186,25 +181,30 @@ function ngHtmlParser(
    * @param {AstNode} node
    */
   const restoreNameAndValue = (node) => {
-    if (node.type === "element") {
-      restoreName(node);
-      for (const attr of node.attrs) {
-        restoreName(attr);
-        if (!attr.valueSpan) {
-          attr.value = null;
-        } else {
-          attr.value = attr.valueSpan.toString();
-          if (/["']/.test(attr.value[0])) {
-            attr.value = attr.value.slice(1, -1);
+    switch (node.type) {
+      case "element":
+        restoreName(node);
+        for (const attr of node.attrs) {
+          restoreName(attr);
+          if (!attr.valueSpan) {
+            attr.value = null;
+          } else {
+            attr.value = attr.valueSpan.toString();
+            if (/["']/.test(attr.value[0])) {
+              attr.value = attr.value.slice(1, -1);
+            }
           }
         }
-      }
-    } else if (node.type === "comment") {
-      node.value = node.sourceSpan
-        .toString()
-        .slice("<!--".length, -"-->".length);
-    } else if (node.type === "text") {
-      node.value = node.sourceSpan.toString();
+        break;
+      case "comment":
+        node.value = node.sourceSpan
+          .toString()
+          .slice("<!--".length, -"-->".length);
+        break;
+      case "text":
+        node.value = node.sourceSpan.toString();
+        break;
+      // No default
     }
   };
 
@@ -299,6 +299,12 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
+  const {
+    ParseSourceSpan,
+    ParseLocation,
+    ParseSourceFile,
+  } = require("angular-html-parser/lib/compiler/src/parse_util.js");
+
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
   const end = start.moveBy(text.length);
@@ -328,13 +334,16 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       parserOptions,
       false
     );
+    // @ts-expect-error
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
+      // @ts-expect-error
       getLast(subAst.children).sourceSpan.end
     );
+    // @ts-expect-error
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
-      /* istanbul ignore next */
+      /* istanbul ignore next */ // @ts-expect-error
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(
@@ -346,25 +355,26 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     return subAst;
   };
 
-  return ast.map((node) => {
+  ast.walk((node) => {
     if (node.type === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
         node,
         parseSubHtml
       );
       if (ieConditionalComment) {
-        return ieConditionalComment;
+        node.parent.replaceChild(node, ieConditionalComment);
       }
     }
-
-    return node;
   });
+
+  return ast;
 }
 
 /**
  * @param {ParserOptions} parserOptions
  */
 function createParser({
+  name,
   recognizeSelfClosing = false,
   normalizeTagName = false,
   normalizeAttributeName = false,
@@ -374,14 +384,18 @@ function createParser({
 } = {}) {
   return {
     parse: (text, parsers, options) =>
-      _parse(text, options, {
-        recognizeSelfClosing,
-        normalizeTagName,
-        normalizeAttributeName,
-        allowHtmComponentClosingTags,
-        isTagNameCaseSensitive,
-        getTagContentType,
-      }),
+      _parse(
+        text,
+        { parser: name, ...options },
+        {
+          recognizeSelfClosing,
+          normalizeTagName,
+          normalizeAttributeName,
+          allowHtmComponentClosingTags,
+          isTagNameCaseSensitive,
+          getTagContentType,
+        }
+      ),
     hasPragma,
     astFormat: "html",
     locStart,
@@ -389,16 +403,18 @@ function createParser({
   };
 }
 
-module.exports = {
+const parser = {
   parsers: {
     html: createParser({
+      name: "html",
       recognizeSelfClosing: true,
       normalizeTagName: true,
       normalizeAttributeName: true,
       allowHtmComponentClosingTags: true,
     }),
-    angular: createParser(),
+    angular: createParser({ name: "angular" }),
     vue: createParser({
+      name: "vue",
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
       getTagContentType: (tagName, prefix, hasParent, attrs) => {
@@ -407,13 +423,19 @@ module.exports = {
           !hasParent &&
           (tagName !== "template" ||
             attrs.some(
-              ({ name, value }) => name === "lang" && value !== "html"
+              ({ name, value }) =>
+                name === "lang" &&
+                value !== "html" &&
+                value !== "" &&
+                value !== undefined
             ))
         ) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
       },
     }),
-    lwc: createParser(),
+    lwc: createParser({ name: "lwc" }),
   },
 };
+
+export default parser;

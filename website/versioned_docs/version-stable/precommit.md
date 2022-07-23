@@ -13,7 +13,7 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 _Make sure Prettier is installed and is in your [`devDependencies`](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file) before you proceed._
 
 ```bash
-npx mrm lint-staged
+npx mrm@2 lint-staged
 ```
 
 This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
@@ -62,7 +62,27 @@ Copy the following config into your `.pre-commit-config.yaml` file:
 
 Read more at [mirror of prettier package for pre-commit](https://github.com/pre-commit/mirrors-prettier) and the [pre-commit](https://pre-commit.com) website.
 
-## Option 4. [git-format-staged](https://github.com/hallettj/git-format-staged)
+## Option 4. [Husky.Net](https://github.com/alirezanet/Husky.Net)
+
+**Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
+
+```bash
+dotnet tool install husky
+dotnet husky install
+dotnet husky add .husky/pre-commit
+```
+
+after installation you can add prettier task to the `task-runner.json`.
+
+```json
+{
+  "command": "npx",
+  "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
+  "pathMode": "absolute"
+}
+```
+
+## Option 5. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
 **Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
 
@@ -98,7 +118,7 @@ Add or remove file extensions to suit your project. Note that regardless of whic
 
 To read about how git-format-staged works see [Automatic Code Formatting for Partially-Staged Files](https://www.olioapps.com/blog/automatic-code-formatting/).
 
-## Option 5. Shell script
+## Option 6. Shell script
 
 Alternately you can save this script as `.git/hooks/pre-commit` and give it execute permission:
 

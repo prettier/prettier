@@ -1,9 +1,7 @@
-"use strict";
-
-const readline = require("readline");
-const chalk = require("chalk");
-const stripAnsi = require("strip-ansi");
-const wcwidth = require("wcwidth");
+import readline from "node:readline";
+import chalk, { chalkStderr } from "chalk";
+import stripAnsi from "strip-ansi";
+import wcwidth from "wcwidth";
 
 const countLines = (stream, text) => {
   const columns = stream.columns || 80;
@@ -42,8 +40,9 @@ function createLogger(logLevel = "log") {
       return () => emptyLogResult;
     }
 
-    const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     const stream = process[loggerName === "log" ? "stdout" : "stderr"];
+    const chalkInstance = loggerName === "log" ? chalk : chalkStderr;
+    const prefix = color ? `[${chalkInstance[color](loggerName)}] ` : "";
 
     return (message, options) => {
       options = {
@@ -87,4 +86,4 @@ function createLogger(logLevel = "log") {
   }
 }
 
-module.exports = { createLogger };
+export default createLogger;

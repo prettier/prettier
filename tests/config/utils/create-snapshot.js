@@ -1,8 +1,6 @@
-"use strict";
-
-const raw = require("jest-snapshot-serializer-raw").wrap;
-const visualizeRange = require("./visualize-range.js");
-const visualizeEndOfLine = require("./visualize-end-of-line.js");
+import { wrap as raw } from "jest-snapshot-serializer-raw";
+import visualizeRange from "./visualize-range.js";
+import visualizeEndOfLine from "./visualize-end-of-line.js";
 
 const SEPARATOR_WIDTH = 80;
 function printSeparator(description = "") {
@@ -25,9 +23,14 @@ function printOptions(options) {
     filepath,
     errors,
     parser,
+    pluginSearchDirs,
 
     ...snapshotOptions
   } = options;
+
+  if (pluginSearchDirs !== false) {
+    snapshotOptions.pluginSearchDirs = pluginSearchDirs;
+  }
 
   const keys = Object.keys(snapshotOptions).sort();
   return keys
@@ -95,4 +98,4 @@ function createSnapshot(
   );
 }
 
-module.exports = createSnapshot;
+export default createSnapshot;

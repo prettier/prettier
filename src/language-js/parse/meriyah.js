@@ -1,9 +1,10 @@
-"use strict";
+import { createRequire } from "node:module";
+import createError from "../../common/parser-create-error.js";
+import tryCombinations from "../../utils/try-combinations.js";
+import createParser from "./utils/create-parser.js";
+import postprocess from "./postprocess/index.js";
 
-const createError = require("../../common/parser-create-error.js");
-const tryCombinations = require("../../utils/try-combinations.js");
-const createParser = require("./utils/create-parser.js");
-const postprocess = require("./postprocess.js");
+const require = createRequire(import.meta.url);
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -42,12 +43,12 @@ const parseOptions = {
 };
 
 function parseWithOptions(text, module) {
-  const { parse } = require("meriyah");
+  const { parse: meriyahParse } = require("meriyah");
   const comments = [];
   const tokens = [];
 
   /** @type {any} */
-  const ast = parse(text, {
+  const ast = meriyahParse(text, {
     ...parseOptions,
     module,
     onComment: comments,
@@ -60,8 +61,21 @@ function parseWithOptions(text, module) {
 }
 
 function createParseError(error) {
-  // throw the error for `module` parsing
-  const { message, line, column } = error;
+  let { message, line, column } = error;
+
+  const matches = (
+    message.match(/^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/) || {}
+  ).groups;
+
+  if (matches) {
+    message = matches.message;
+
+    /* istanbul ignore next */
+    if (typeof line !== "number") {
+      line = Number(matches.line);
+      column = Number(matches.column);
+    }
+  }
 
   /* istanbul ignore next */
   if (typeof line !== "number") {
@@ -71,7 +85,7 @@ function createParseError(error) {
   return createError(message, { start: { line, column } });
 }
 
-function parse(text, parsers, options) {
+function parse(text, parsers, options = {}) {
   const { result: ast, error: moduleParseError } = tryCombinations(
     () => parseWithOptions(text, /* module */ true),
     () => parseWithOptions(text, /* module */ false)
@@ -82,11 +96,14 @@ function parse(text, parsers, options) {
     throw createParseError(moduleParseError);
   }
 
-  return postprocess(ast, { ...options, originalText: text });
+  options.originalText = text;
+  return postprocess(ast, options);
 }
 
-module.exports = {
+const parser = {
   parsers: {
     meriyah: createParser(parse),
   },
 };
+
+export default parser;

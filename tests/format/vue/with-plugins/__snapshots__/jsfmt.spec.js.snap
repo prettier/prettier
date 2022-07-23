@@ -121,14 +121,28 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <style lang="uppercase-rocks">
+/* Should not be uppercased */
 hello,
 world!
 </style>
 
+<style lang="stylus">
+/* Should insert a comment above this line */
+a
+    color blue;
+</style>
+
 =====================================output=====================================
 <style lang="uppercase-rocks">
+/* Should not be uppercased */
 hello,
 world!
+</style>
+
+<style lang="stylus">
+/* Should insert a comment above this line */
+a
+    color blue;
 </style>
 
 ================================================================================
@@ -141,14 +155,29 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <style lang="uppercase-rocks">
+/* Should not be uppercased */
 hello,
 world!
 </style>
 
+<style lang="stylus">
+/* Should insert a comment above this line */
+a
+    color blue;
+</style>
+
 =====================================output=====================================
 <style lang="uppercase-rocks">
+/* Should not be uppercased */
 hello,
 world!
+</style>
+
+<style lang="stylus">
+/* Formatted by stylus plugin */
+/* Should insert a comment above this line */
+a
+    color blue;
 </style>
 
 ================================================================================

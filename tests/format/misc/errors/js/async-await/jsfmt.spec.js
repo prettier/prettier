@@ -1,8 +1,8 @@
-const { outdent } = require("outdent");
+import { outdent } from "outdent";
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       outdent`
         async function foo() {
@@ -19,16 +19,16 @@ run_spec(
       "async({ foo33 = 1 });",
     ],
   },
-  ["babel", "espree", "meriyah", "flow"]
+  ["babel", "acorn", "espree", "meriyah", "flow"]
 );
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       // `flow` and `meriyah` didn't throw
       "async (x = await (2)) => {};",
     ],
   },
-  ["babel", "espree"]
+  ["babel", "acorn", "espree"]
 );

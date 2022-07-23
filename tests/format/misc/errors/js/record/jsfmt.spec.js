@@ -1,6 +1,6 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "#{a() {}}",
       "#{async b() {}}",
@@ -9,5 +9,5 @@ run_spec(
       "#{*e() {}}",
     ],
   },
-  ["babel", "espree", "meriyah"]
+  ["babel", "acorn", "espree", "meriyah"]
 );

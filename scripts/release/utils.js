@@ -1,9 +1,11 @@
 import fs from "node:fs";
 import readline from "node:readline";
 import chalk from "chalk";
-import execa from "execa";
+import { execa } from "execa";
 import stringWidth from "string-width";
 import fetch from "node-fetch";
+import outdent from "outdent";
+import getFormattedDate from "./get-formatted-date.js";
 
 readline.emitKeypressEvents(process.stdin);
 
@@ -73,7 +75,7 @@ function waitForEnter() {
 }
 
 function readJson(filename) {
-  return JSON.parse(fs.readFileSync(filename, "utf-8"));
+  return JSON.parse(fs.readFileSync(filename));
 }
 
 function writeJson(filename, content) {
@@ -81,13 +83,30 @@ function writeJson(filename, content) {
 }
 
 function processFile(filename, fn) {
-  const content = fs.readFileSync(filename, "utf-8");
+  const content = fs.readFileSync(filename, "utf8");
   fs.writeFileSync(filename, fn(content));
 }
 
 async function fetchText(url) {
   const response = await fetch(url);
   return response.text();
+}
+
+function getBlogPostInfo(version) {
+  const { year, month, day } = getFormattedDate();
+
+  return {
+    file: `website/blog/${year}-${month}-${day}-${version}.md`,
+    path: `blog/${year}/${month}/${day}/${version}.html`,
+  };
+}
+
+function getChangelogContent({ version, previousVersion, body }) {
+  return outdent`
+    [diff](https://github.com/prettier/prettier/compare/${previousVersion}...${version})
+
+    ${body}
+  `;
 }
 
 export {
@@ -99,4 +118,6 @@ export {
   readJson,
   writeJson,
   waitForEnter,
+  getBlogPostInfo,
+  getChangelogContent,
 };

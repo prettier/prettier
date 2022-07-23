@@ -1,12 +1,9 @@
-"use strict";
+import prettier from "../../config/prettier-entry.js";
 
-const prettier = require("prettier-local");
-const runPrettier = require("../runPrettier.js");
-
-test("allows custom parser provided as object", () => {
-  const output = prettier.format("1", {
+test("allows custom parser provided as object", async () => {
+  const output = await prettier.format("1", {
     parser(text) {
-      expect(text).toEqual("1");
+      expect(text).toBe("1");
       return {
         type: "Literal",
         value: 2,
@@ -14,23 +11,50 @@ test("allows custom parser provided as object", () => {
       };
     },
   });
-  expect(output).toEqual("2");
+  expect(output).toBe("2");
 });
 
-test("allows usage of prettier's supported parsers", () => {
-  const output = prettier.format("foo ( )", {
+test("allows usage of prettier's supported parsers", async () => {
+  const output = await prettier.format("foo ( )", {
     parser(text, parsers) {
-      expect(typeof parsers.babel).toEqual("function");
+      expect(typeof parsers.babel).toBe("function");
       const ast = parsers.babel(text);
       ast.program.body[0].expression.callee.name = "bar";
       return ast;
     },
   });
-  expect(output).toEqual("bar();\n");
+  expect(output).toBe("bar();\n");
 });
 
-test("allows add empty `trailingComments` array", () => {
-  const output = prettier.format("(foo /* comment */)( )", {
+test("parsers should allow omit optional arguments", async () => {
+  let parsers;
+  try {
+    await prettier.format("{}", {
+      parser(text, builtinParsers) {
+        parsers = builtinParsers;
+      },
+    });
+  } catch {
+    // noop
+  }
+
+  expect(typeof parsers.babel).toBe("function");
+  const code = {
+    graphql: "type A {hero: Character}",
+    default: "{}",
+  };
+  for (const [name, parse] of Object.entries(parsers)) {
+    // Private parser should not be used by users
+    if (name.startsWith("__")) {
+      continue;
+    }
+
+    expect(() => parse(code[name] || code.default)).not.toThrow();
+  }
+});
+
+test("allows add empty `trailingComments` array", async () => {
+  const output = await prettier.format("(foo /* comment */)( )", {
     parser(text, parsers) {
       const ast = parsers.babel(text);
 
@@ -43,7 +67,7 @@ test("allows add empty `trailingComments` array", () => {
       return ast;
     },
   });
-  expect(output).toEqual("foo(/* comment */);\n");
+  expect(output).toBe("foo(/* comment */);\n");
 });
 
 describe("allows passing a string to resolve a parser", () => {
@@ -52,7 +76,7 @@ describe("allows passing a string to resolve a parser", () => {
     "lf",
     "./custom-rename-input.js",
     "--parser",
-    "./custom-rename-parser",
+    "./custom-rename-parser.cjs",
   ]).test({
     status: 0,
   });

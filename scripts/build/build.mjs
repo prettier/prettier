@@ -4,27 +4,23 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import readline from "node:readline";
 import chalk from "chalk";
-import execa from "execa";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
+import createEsmUtils from "esm-utils";
+import {
+  PROJECT_ROOT,
+  DIST_DIR,
+  readJson,
+  writeJson,
+  copyFile,
+} from "../utils/index.mjs";
 import bundler from "./bundler.mjs";
 import bundleConfigs from "./config.mjs";
-import * as utils from "./utils.mjs";
-import Cache from "./cache.mjs";
+import saveLicenses from "./save-licenses.mjs";
 
-// Errors in promises should be fatal.
-const loggedErrors = new Set();
-process.on("unhandledRejection", (err) => {
-  // No need to print it twice.
-  if (!loggedErrors.has(err)) {
-    console.error(err);
-  }
-  process.exit(1);
-});
+const { require } = createEsmUtils(import.meta);
 
-const CACHE_VERSION = "v38"; // This need update when updating build scripts
 const statusConfig = [
-  { color: "bgYellow", text: "CACHED" },
   { color: "bgGreen", text: "DONE" },
   { color: "bgRed", text: "FAIL" },
   { color: "bgGray", text: "SKIPPED" },
@@ -45,152 +41,220 @@ function fitTerminal(input, suffix = "") {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - maxLength + 1;
   if (input.length < WIDTH) {
-    const repeatCount = WIDTH - input.length - 1 - suffix.length;
+    const repeatCount = Math.max(WIDTH - input.length - 1 - suffix.length, 0);
     input += chalk.dim(".").repeat(repeatCount) + suffix;
   }
   return input;
 }
 
-async function createBundle(bundleConfig, cache, options) {
-  const { output, target, format, type } = bundleConfig;
-  process.stdout.write(fitTerminal(output));
+const clear = () => {
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0, null);
+};
+
+async function createBundle(bundleConfig, options) {
   try {
-    const { cached, skipped } = await bundler(bundleConfig, cache, options);
+    for await (const {
+      name,
+      started,
+      skipped,
+      relativePath,
+      absolutePath,
+    } of bundler(bundleConfig, options)) {
+      const displayName = name.startsWith("esm/") ? `  ${name}` : name;
 
-    if (skipped) {
-      console.log(status.SKIPPED);
-      return;
-    }
-
-    if (cached) {
-      console.log(status.CACHED);
-      return;
-    }
-
-    const file = path.join("dist", output);
-
-    // Files including U+FFEE can't load in Chrome Extension
-    // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
-    // details https://github.com/prettier/prettier/pull/8534
-    if (target === "universal") {
-      const content = await fs.readFile(file, "utf8");
-      if (content.includes("\ufffe")) {
-        throw new Error("Bundled umd file should not have U+FFFE character.");
+      if (started) {
+        process.stdout.write(fitTerminal(displayName));
+        continue;
       }
-    }
 
-    if (options["print-size"]) {
-      // Clear previous line
-      readline.clearLine(process.stdout, 0);
-      readline.cursorTo(process.stdout, 0, null);
+      if (skipped) {
+        if (!options.files) {
+          process.stdout.write(fitTerminal(displayName));
+          console.log(status.SKIPPED);
+        }
 
-      const getSizeText = async (file) =>
-        prettyBytes((await fs.stat(file)).size);
-      const sizeTexts = [await getSizeText(file)];
-      if (
-        type !== "core" &&
-        format !== "esm" &&
-        bundleConfig.bundler !== "webpack" &&
-        target === "universal"
-      ) {
-        const esmFile = path.join("dist/esm", output.replace(".js", ".mjs"));
-        sizeTexts.push(`esm ${await getSizeText(esmFile)}`);
+        continue;
       }
-      process.stdout.write(fitTerminal(output, `${sizeTexts.join(", ")} `));
-    }
 
-    console.log(status.DONE);
+      const sizeMessages = [];
+
+      if (options.printSize) {
+        const { size } = await fs.stat(absolutePath);
+        sizeMessages.push(prettyBytes(size));
+      }
+
+      if (options.compareSize) {
+        // TODO: Use `import.meta.resolve` when Node.js support
+        const stablePrettierDirectory = path.dirname(
+          require.resolve("prettier")
+        );
+        const stableVersionFile = path.join(
+          stablePrettierDirectory,
+          relativePath
+        );
+        let stableSize;
+        try {
+          ({ size: stableSize } = await fs.stat(stableVersionFile));
+        } catch {
+          // No op
+        }
+
+        if (stableSize) {
+          const { size } = await fs.stat(absolutePath);
+          const sizeDiff = size - stableSize;
+          const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
+            prettyBytes(sizeDiff)
+          );
+
+          sizeMessages.push(`${message}`);
+        } else {
+          sizeMessages.push(chalk.blue("[NEW FILE]"));
+        }
+      }
+
+      if (sizeMessages.length > 0) {
+        // Clear previous line
+        clear();
+        process.stdout.write(
+          fitTerminal(displayName, `${sizeMessages.join(", ")} `)
+        );
+      }
+
+      console.log(status.DONE);
+    }
   } catch (error) {
     console.log(status.FAIL + "\n");
-    handleError(error);
-  }
-}
-
-function handleError(error) {
-  loggedErrors.add(error);
-  console.error(error);
-  throw error;
-}
-
-async function cacheFiles(cache) {
-  // Copy built files to .cache
-  try {
-    await execa("rm", ["-rf", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files")]);
-    await execa("mkdir", ["-p", path.join(".cache", "files", "esm")]);
-    const manifest = cache.updated;
-
-    for (const file of Object.keys(manifest.files)) {
-      await execa("cp", [
-        file,
-        path.join(".cache", file.replace("dist", "files")),
-      ]);
-    }
-  } catch {
-    // Don't fail the build
+    console.error(error);
+    throw error;
   }
 }
 
 async function preparePackage() {
-  const pkg = await utils.readJson("package.json");
-  pkg.bin = "./bin-prettier.js";
-  pkg.engines.node = ">=10.13.0";
-  delete pkg.dependencies;
-  delete pkg.devDependencies;
-  delete pkg.browserslist;
-  pkg.scripts = {
+  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+  packageJson.bin = "./bin-prettier.js";
+  // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
+  // packageJson.engines.node = ">=14.20.0";
+  delete packageJson.dependencies;
+  delete packageJson.devDependencies;
+  delete packageJson.browserslist;
+  delete packageJson.type;
+  delete packageJson.c8;
+  delete packageJson.packageManager;
+  packageJson.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
-  pkg.files = ["*.js", "esm/*.mjs"];
-  await utils.writeJson("dist/package.json", pkg);
+  packageJson.files = ["*.js", "esm/*.mjs"];
+  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
 
-  await utils.copyFile("./README.md", "./dist/README.md");
-  await utils.copyFile("./LICENSE", "./dist/LICENSE");
+  for (const file of ["README.md", "LICENSE"]) {
+    await copyFile(path.join(PROJECT_ROOT, file), path.join(DIST_DIR, file));
+  }
 }
 
 async function run(params) {
-  const shouldUseCache = !params.file && !params["purge-cache"];
-  const shouldPreparePackage = !params.playground && !params.file;
-  let configs = bundleConfigs;
-  if (params.file) {
-    configs = configs.filter(({ output }) => output === params.file);
-  } else {
-    await execa("rm", ["-rf", "dist"]);
+  params.files = params.file ? new Set([params.file].flat()) : params.file;
+  delete params.file;
+
+  params.saveAs = params["save-as"];
+  delete params["save-as"];
+
+  params.printSize = params["print-size"];
+  delete params["print-size"];
+
+  params.compareSize = params["compare-size"];
+  delete params["compare-size"];
+
+  if (params.report === "") {
+    params.report = ["html"];
+  }
+  params.reports = params.report ? [params.report].flat() : params.report;
+  delete params.report;
+
+  if (params.saveAs && !(params.files && params.files.size === 1)) {
+    throw new Error("'--save-as' can only use together with one '--file' flag");
   }
 
-  await execa("mkdir", ["-p", "dist"]);
-  await execa("mkdir", ["-p", "dist/esm"]);
-
-  if (params["purge-cache"]) {
-    await execa("rm", ["-rf", ".cache"]);
+  if (
+    params.saveAs &&
+    !path.join(DIST_DIR, params.saveAs).startsWith(DIST_DIR)
+  ) {
+    throw new Error("'--save-as' can only relative path");
   }
 
-  let bundleCache;
-  if (shouldUseCache) {
-    bundleCache = new Cache(".cache/", CACHE_VERSION);
-    await bundleCache.load();
+  if (params.clean) {
+    let stat;
+    try {
+      stat = await fs.stat(DIST_DIR);
+    } catch {
+      // No op
+    }
+
+    if (stat) {
+      if (stat.isDirectory()) {
+        await fs.rm(DIST_DIR, { recursive: true, force: true });
+      } else {
+        throw new Error(`"${DIST_DIR}" is not a directory`);
+      }
+    }
+  }
+
+  if (params.compareSize) {
+    if (params.minify === false) {
+      throw new Error(
+        "'--compare-size' can not use together with '--no-minify' flag"
+      );
+    }
+
+    if (params.saveAs) {
+      throw new Error(
+        "'--compare-size' can not use together with '--save-as' flag"
+      );
+    }
+  }
+
+  const shouldPreparePackage =
+    !params.playground && !params.files && params.minify === null;
+  const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
+
+  const licenses = [];
+  if (shouldSaveBundledPackagesLicenses) {
+    params.onLicenseFound = (dependencies) => licenses.push(...dependencies);
   }
 
   console.log(chalk.inverse(" Building packages "));
 
-  for (const bundleConfig of configs) {
-    await createBundle(bundleConfig, bundleCache, params);
-  }
-
-  if (shouldUseCache) {
-    await cacheFiles(bundleCache);
-    await bundleCache.save();
+  for (const bundleConfig of bundleConfigs) {
+    await createBundle(bundleConfig, params);
   }
 
   if (shouldPreparePackage) {
     await preparePackage();
   }
+
+  if (shouldSaveBundledPackagesLicenses) {
+    await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
+  } else {
+    console.warn(
+      chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")
+    );
+  }
 }
 
-run(
+await run(
   minimist(process.argv.slice(2), {
-    boolean: ["purge-cache", "playground", "print-size"],
-    string: ["file"],
+    boolean: ["playground", "print-size", "compare-size", "minify", "clean"],
+    string: ["file", "save-as", "report"],
+    default: {
+      clean: false,
+      playground: false,
+      printSize: false,
+      compareSize: false,
+      minify: null,
+    },
+    unknown(flag) {
+      throw new Error(`Unknown flag ${chalk.red(flag)}`);
+    },
   })
 );

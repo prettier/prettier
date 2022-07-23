@@ -1,6 +1,4 @@
-"use strict";
-
-const prettier = require("prettier-local");
+import prettier from "../../config/prettier-entry.js";
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 

@@ -28,3 +28,26 @@ LF: Line Feed, \\n
 
 ================================================================================
 `;
+
+exports[`pull-11563.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# title
+
+{ /* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. */ }
+
+{/* Some more. */}
+
+=====================================output=====================================
+# title
+
+{/* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
+
+{/* Some more. */}
+
+================================================================================
+`;

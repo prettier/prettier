@@ -1,13 +1,11 @@
-"use strict";
-
-const { printComments } = require("../../main/comments.js");
-const {
+import { printComments } from "../../main/comments.js";
+import {
   getLast,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../../common/util.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+} from "../../common/util.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   isCallExpression,
   isMemberExpression,
   isFunctionOrArrowExpression,
@@ -18,28 +16,26 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
-const { locEnd } = require("../loc.js");
+} from "../utils/index.js";
+import { locEnd } from "../loc.js";
 
-const {
-  builders: {
-    join,
-    hardline,
-    group,
-    indent,
-    conditionalGroup,
-    breakParent,
-    label,
-  },
-  utils: { willBreak },
-} = require("../../document/index.js");
-const printCallArguments = require("./call-arguments.js");
-const { printMemberLookup } = require("./member.js");
-const {
+import {
+  join,
+  hardline,
+  group,
+  indent,
+  conditionalGroup,
+  breakParent,
+  label,
+} from "../../document/builders.js";
+import { willBreak } from "../../document/utils.js";
+import printCallArguments from "./call-arguments.js";
+import { printMemberLookup } from "./member.js";
+import {
   printOptionalToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
-} = require("./misc.js");
+} from "./misc.js";
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
@@ -52,7 +48,7 @@ const {
 // The way it is structured in the AST is via a nested sequence of
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
-function printMemberChain(path, options, print) {
+async function printMemberChain(path, options, print) {
   const parent = path.getParentNode();
   const isExpressionStatement =
     !parent || parent.type === "ExpressionStatement";
@@ -89,7 +85,7 @@ function printMemberChain(path, options, print) {
     return isNextLineEmpty(node, options);
   }
 
-  function rec(path) {
+  async function rec(path) {
     const node = path.getValue();
     if (
       isCallExpression(node) &&
@@ -101,16 +97,16 @@ function printMemberChain(path, options, print) {
           printComments(
             path,
             [
-              printOptionalToken(path),
-              printFunctionTypeParameters(path, options, print),
-              printCallArguments(path, options, print),
+              await printOptionalToken(path),
+              await printFunctionTypeParameters(path, options, print),
+              await printCallArguments(path, options, print),
             ],
             options
           ),
           shouldInsertEmptyLineAfter(node) ? hardline : "",
         ],
       });
-      path.call((callee) => rec(callee), "callee");
+      await path.call((callee) => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
@@ -118,22 +114,22 @@ function printMemberChain(path, options, print) {
         printed: printComments(
           path,
           isMemberExpression(node)
-            ? printMemberLookup(path, options, print)
-            : printBindExpressionCallee(path, options, print),
+            ? await printMemberLookup(path, options, print)
+            : await printBindExpressionCallee(path, options, print),
           options
         ),
       });
-      path.call((object) => rec(object), "object");
+      await path.call((object) => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
-      path.call((expression) => rec(expression), "expression");
+      await path.call((expression) => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node,
-        printed: print(),
+        printed: await print(),
       });
     }
   }
@@ -144,14 +140,14 @@ function printMemberChain(path, options, print) {
   printedNodes.unshift({
     node,
     printed: [
-      printOptionalToken(path),
-      printFunctionTypeParameters(path, options, print),
-      printCallArguments(path, options, print),
+      await printOptionalToken(path),
+      await printFunctionTypeParameters(path, options, print),
+      await printCallArguments(path, options, print),
     ],
   });
 
   if (node.callee) {
-    path.call((callee) => rec(callee), "callee");
+    await path.call((callee) => rec(callee), "callee");
   }
 
   // Once we have a linear list of printed nodes, we want to create groups out
@@ -407,4 +403,4 @@ function printMemberChain(path, options, print) {
   return label("member-chain", result);
 }
 
-module.exports = printMemberChain;
+export default printMemberChain;

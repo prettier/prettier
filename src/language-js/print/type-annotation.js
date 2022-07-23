@@ -1,28 +1,29 @@
-"use strict";
-
-const {
-  printComments,
-  printDanglingComments,
-} = require("../../main/comments.js");
-const { getLast } = require("../../common/util.js");
-const {
-  builders: { group, join, line, softline, indent, align, ifBreak },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const { locStart } = require("../loc.js");
-const {
+import { printComments, printDanglingComments } from "../../main/comments.js";
+import { isNonEmptyArray } from "../../common/util.js";
+import {
+  group,
+  join,
+  line,
+  softline,
+  indent,
+  align,
+  ifBreak,
+} from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import { locStart } from "../loc.js";
+import {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
-} = require("../utils.js");
-const { printAssignment } = require("./assignment.js");
-const {
+} from "../utils/index.js";
+import { printAssignment } from "./assignment.js";
+import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
-} = require("./function-parameters.js");
-const { printArrayItems } = require("./array.js");
+} from "./function-parameters.js";
+import { printArrayItems } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -55,18 +56,18 @@ function shouldHugType(node) {
   return false;
 }
 
-function printOpaqueType(path, options, print) {
+async function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
   const parts = [];
-  parts.push("opaque type ", print("id"), print("typeParameters"));
+  parts.push("opaque type ", await print("id"), await print("typeParameters"));
 
   if (node.supertype) {
-    parts.push(": ", print("supertype"));
+    parts.push(": ", await print("supertype"));
   }
 
   if (node.impltype) {
-    parts.push(" = ", print("impltype"));
+    parts.push(" = ", await print("impltype"));
   }
 
   parts.push(semi);
@@ -74,26 +75,26 @@ function printOpaqueType(path, options, print) {
   return parts;
 }
 
-function printTypeAlias(path, options, print) {
+async function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
   const parts = [];
   if (node.declare) {
     parts.push("declare ");
   }
-  parts.push("type ", print("id"), print("typeParameters"));
+  parts.push("type ", await print("id"), await print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";
   return [
-    printAssignment(path, options, print, parts, " =", rightPropertyName),
+    await printAssignment(path, options, print, parts, " =", rightPropertyName),
     semi,
   ];
 }
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
-function printIntersectionType(path, options, print) {
+async function printIntersectionType(path, options, print) {
   const node = path.getValue();
-  const types = path.map(print, "types");
+  const types = await path.map(print, "types");
   const result = [];
   let wasIndented = false;
   for (let i = 0; i < types.length; ++i) {
@@ -120,7 +121,7 @@ function printIntersectionType(path, options, print) {
 }
 
 // `TSUnionType` and `UnionTypeAnnotation`
-function printUnionType(path, options, print) {
+async function printUnionType(path, options, print) {
   const node = path.getValue();
   // single-line variation
   // A | B | C
@@ -163,8 +164,8 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  const printed = path.map((typePath) => {
-    let printedType = print();
+  const printed = await path.map(async (typePath) => {
+    let printedType = await print();
     if (!shouldHug) {
       printedType = align(2, printedType);
     }
@@ -202,7 +203,7 @@ function printUnionType(path, options, print) {
 }
 
 // `TSFunctionType` and `FunctionTypeAnnotation`
-function printFunctionType(path, options, print) {
+async function printFunctionType(path, options, print) {
   const node = path.getValue();
   const parts = [];
   // FunctionTypeAnnotation is ambiguous:
@@ -245,7 +246,7 @@ function printFunctionType(path, options, print) {
     parts.push("(");
   }
 
-  const parametersDoc = printFunctionParameters(
+  const parametersDoc = await printFunctionParameters(
     path,
     print,
     options,
@@ -259,9 +260,9 @@ function printFunctionType(path, options, print) {
     node.returnType || node.predicate || node.typeAnnotation
       ? [
           isArrowFunctionTypeAnnotation ? " => " : ": ",
-          print("returnType"),
-          print("predicate"),
-          print("typeAnnotation"),
+          await print("returnType"),
+          await print("predicate"),
+          await print("typeAnnotation"),
         ]
       : "";
 
@@ -284,31 +285,49 @@ function printFunctionType(path, options, print) {
 }
 
 // `TSTupleType` and `TupleTypeAnnotation`
-function printTupleType(path, options, print) {
+async function printTupleType(path, options, print) {
   const node = path.getValue();
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const hasRest =
-    node[typesField].length > 0 &&
-    getLast(node[typesField]).type === "TSRestType";
+  const types = node[typesField];
+  const isNonEmptyTuple = isNonEmptyArray(types);
+  const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
   return group([
     "[",
-    indent([softline, printArrayItems(path, options, typesField, print)]),
-    ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
+    indent([
+      bracketsDelimiterLine,
+      await printArrayItems(path, options, typesField, print),
+    ]),
+    ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
     printDanglingComments(path, options, /* sameIndent */ true),
-    softline,
+    bracketsDelimiterLine,
     "]",
   ]);
 }
 
 // `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
-function printIndexedAccessType(path, options, print) {
+async function printIndexedAccessType(path, options, print) {
   const node = path.getValue();
   const leftDelimiter =
     node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
-  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
+  return [
+    await print("objectType"),
+    leftDelimiter,
+    await print("indexType"),
+    "]",
+  ];
 }
 
-module.exports = {
+// `TSJSDocNullableType`, `TSJSDocNonNullableType`
+async function printJSDocType(path, print, token) {
+  const node = path.getValue();
+  return [
+    node.postfix ? "" : token,
+    await print("typeAnnotation"),
+    node.postfix ? token : "",
+  ];
+}
+
+export {
   printOpaqueType,
   printTypeAlias,
   printIntersectionType,
@@ -317,4 +336,5 @@ module.exports = {
   printTupleType,
   printIndexedAccessType,
   shouldHugType,
+  printJSDocType,
 };

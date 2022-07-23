@@ -13,7 +13,7 @@ const characterCode = (character) =>
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       ...characters.map((character) => ({
         name: `json(${characterCode(character)})`,
@@ -46,7 +46,7 @@ run_spec(
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       ...characters.map((character) => ({
         name: `json-stringify(${characterCode(character)})`,

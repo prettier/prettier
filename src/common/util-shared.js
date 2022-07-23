@@ -1,6 +1,4 @@
-"use strict";
-
-const {
+export {
   getMaxContinuousCount,
   getStringWidth,
   getAlignmentSize,
@@ -24,30 +22,4 @@ const {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} = require("./util.js");
-
-module.exports = {
-  getMaxContinuousCount,
-  getStringWidth,
-  getAlignmentSize,
-  getIndentSize,
-  skip,
-  skipWhitespace,
-  skipSpaces,
-  skipNewline,
-  skipToLineEnd,
-  skipEverythingButNewLine,
-  skipInlineComment,
-  skipTrailingComment,
-  hasNewline,
-  hasNewlineInRange,
-  hasSpaces,
-  isNextLineEmpty,
-  isNextLineEmptyAfterIndex,
-  isPreviousLineEmpty,
-  getNextNonSpaceNonCommentCharacterIndex,
-  makeString,
-  addLeadingComment,
-  addDanglingComment,
-  addTrailingComment,
-};
+} from "./util.js";

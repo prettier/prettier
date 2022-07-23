@@ -1,10 +1,6 @@
-"use strict";
-
-const {
-  builders: { join, group },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { join, group } from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getCallArguments,
   hasFlowAnnotationComment,
   isCallExpression,
@@ -13,15 +9,12 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
-} = require("../utils.js");
-const printMemberChain = require("./member-chain.js");
-const printCallArguments = require("./call-arguments.js");
-const {
-  printOptionalToken,
-  printFunctionTypeParameters,
-} = require("./misc.js");
+} from "../utils/index.js";
+import printMemberChain from "./member-chain.js";
+import printCallArguments from "./call-arguments.js";
+import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
-function printCallExpression(path, options, print) {
+async function printCallExpression(path, options, print) {
   const node = path.getValue();
   const parentNode = path.getParentNode();
   const isNew = node.type === "NewExpression";
@@ -44,14 +37,14 @@ function printCallExpression(path, options, print) {
       (!isNew && isTestCall(node, parentNode)))
   ) {
     const printed = [];
-    iterateCallArgumentsPath(path, () => {
-      printed.push(print());
+    await iterateCallArgumentsPath(path, async () => {
+      printed.push(await print());
     });
     return [
       isNew ? "new " : "",
-      print("callee"),
+      await print("callee"),
       optional,
-      printFunctionTypeParameters(path, options, print),
+      await printFunctionTypeParameters(path, options, print),
       "(",
       join(", ", printed),
       ")",
@@ -86,13 +79,13 @@ function printCallExpression(path, options, print) {
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? "import" : print("callee"),
+    isDynamicImport ? "import" : await print("callee"),
     optional,
     isIdentifierWithFlowAnnotation
       ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`
       : "",
-    printFunctionTypeParameters(path, options, print),
-    printCallArguments(path, options, print),
+    await printFunctionTypeParameters(path, options, print),
+    await printCallArguments(path, options, print),
   ];
 
   // We group here when the callee is itself a call expression.
@@ -128,4 +121,4 @@ function isCommonsJsOrAmdCall(node, parentNode) {
   return false;
 }
 
-module.exports = { printCallExpression };
+export { printCallExpression };

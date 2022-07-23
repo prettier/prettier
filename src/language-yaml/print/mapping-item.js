@@ -1,11 +1,14 @@
-"use strict";
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
-/** @typedef {import("../../document").Doc} Doc */
-
-const {
-  builders: { conditionalGroup, group, hardline, ifBreak, join, line },
-} = require("../../document/index.js");
-const {
+import {
+  conditionalGroup,
+  group,
+  hardline,
+  ifBreak,
+  join,
+  line,
+} from "../../document/builders.js";
+import {
   hasLeadingComments,
   hasMiddleComments,
   hasTrailingComment,
@@ -13,10 +16,10 @@ const {
   isNode,
   isEmptyNode,
   isInlineNode,
-} = require("../utils.js");
-const { alignWithSpaces } = require("./misc.js");
+} from "../utils.js";
+import { alignWithSpaces } from "./misc.js";
 
-function printMappingItem(node, parentNode, path, print, options) {
+async function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;
 
   const isEmptyMappingKey = isEmptyNode(key);
@@ -26,7 +29,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ": ";
   }
 
-  const printedKey = print("key");
+  const printedKey = await print("key");
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
@@ -46,7 +49,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     return ["? ", alignWithSpaces(2, printedKey)];
   }
 
-  const printedValue = print("value");
+  const printedValue = await print("value");
   if (isEmptyMappingKey) {
     return [": ", alignWithSpaces(2, printedValue)];
   }
@@ -59,9 +62,10 @@ function printMappingItem(node, parentNode, path, print, options) {
       hardline,
       join(
         "",
-        path
-          .map(print, "value", "leadingComments")
-          .map((comment) => [comment, hardline])
+        (await path.map(print, "value", "leadingComments")).map((comment) => [
+          comment,
+          hardline,
+        ])
       ),
       ": ",
       alignWithSpaces(2, printedValue),
@@ -208,4 +212,4 @@ function isSingleLineNode(node) {
   }
 }
 
-module.exports = printMappingItem;
+export default printMappingItem;

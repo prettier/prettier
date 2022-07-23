@@ -1,30 +1,26 @@
-"use strict";
-
-const getLast = require("../../utils/get-last.js");
-const { getStringWidth, getIndentSize } = require("../../common/util.js");
-const {
-  builders: {
-    join,
-    hardline,
-    softline,
-    group,
-    indent,
-    align,
-    lineSuffixBoundary,
-    addAlignmentToDoc,
-  },
-  printer: { printDocToString },
-  utils: { mapDoc },
-} = require("../../document/index.js");
-const {
+import getLast from "../../utils/get-last.js";
+import { getStringWidth, getIndentSize } from "../../common/util.js";
+import {
+  join,
+  hardline,
+  softline,
+  group,
+  indent,
+  align,
+  lineSuffixBoundary,
+  addAlignmentToDoc,
+} from "../../document/builders.js";
+import { printDocToString } from "../../document/printer.js";
+import { mapDoc } from "../../document/utils.js";
+import {
   isBinaryish,
   isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
-} = require("../utils.js");
+} from "../utils/index.js";
 
-function printTemplateLiteral(path, print, options) {
+async function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
@@ -32,7 +28,7 @@ function printTemplateLiteral(path, print, options) {
     isTemplateLiteral &&
     isJestEachTemplateLiteral(node, path.getParentNode())
   ) {
-    const printed = printJestEachTemplateLiteral(path, options, print);
+    const printed = await printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
     }
@@ -43,7 +39,7 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressions = path.map(print, expressionsKey);
+  let expressions = await path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
@@ -58,10 +54,10 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  path.each((childPath) => {
+  await path.each(async (childPath) => {
     const i = childPath.getName();
 
-    parts.push(print());
+    parts.push(await print());
 
     if (i < expressions.length) {
       // For a template literal of the following form:
@@ -111,7 +107,7 @@ function printTemplateLiteral(path, print, options) {
   return parts;
 }
 
-function printJestEachTemplateLiteral(path, options, print) {
+async function printJestEachTemplateLiteral(path, options, print) {
   /**
    * a    | b    | expected
    * ${1} | ${1} | ${2}
@@ -125,7 +121,7 @@ function printJestEachTemplateLiteral(path, options, print) {
     headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
-    const expressions = path.map(print, "expressions");
+    const expressions = await path.map(print, "expressions");
     options.__inJestEach = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(
@@ -200,9 +196,9 @@ function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-function printTemplateExpression(path, print) {
+async function printTemplateExpression(path, print) {
   const node = path.getValue();
-  let printed = print();
+  let printed = await print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }
@@ -232,7 +228,7 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
-module.exports = {
+export {
   printTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,

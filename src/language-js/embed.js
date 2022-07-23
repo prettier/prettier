@@ -1,14 +1,12 @@
-"use strict";
-
-const {
+import {
   hasComment,
   CommentCheckFlags,
   isObjectProperty,
-} = require("./utils.js");
-const formatMarkdown = require("./embed/markdown.js");
-const formatCss = require("./embed/css.js");
-const formatGraphql = require("./embed/graphql.js");
-const formatHtml = require("./embed/html.js");
+} from "./utils/index.js";
+import formatMarkdown from "./embed/markdown.js";
+import formatCss from "./embed/css.js";
+import formatGraphql from "./embed/graphql.js";
+import formatHtml from "./embed/html.js";
 
 function getLanguage(path) {
   if (
@@ -302,4 +300,4 @@ function hasInvalidCookedValue({ quasis }) {
   return quasis.some(({ value: { cooked } }) => cooked === null);
 }
 
-module.exports = embed;
+export default embed;

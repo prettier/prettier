@@ -1,10 +1,6 @@
-"use strict";
-
-const {
-  builders: { hardline },
-} = require("../../document/index.js");
-const pathNeedsParens = require("../needs-parens.js");
-const {
+import { hardline } from "../../document/builders.js";
+import pathNeedsParens from "../needs-parens.js";
+import {
   getLeftSidePathName,
   hasNakedLeftSide,
   isJsxNode,
@@ -12,21 +8,21 @@ const {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
-const { shouldPrintParamsWithoutParens } = require("./function.js");
+} from "../utils/index.js";
+import { shouldPrintParamsWithoutParens } from "./function.js";
 
 /**
- * @typedef {import("../../document").Doc} Doc
- * @typedef {import("../../common/ast-path")} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
-function printStatementSequence(path, options, print, property) {
+async function printStatementSequence(path, options, print, property) {
   const node = path.getValue();
   const parts = [];
   const isClassBody = node.type === "ClassBody";
   const lastStatement = getLastStatement(node[property]);
 
-  path.each((path, index, statements) => {
+  await path.each(async (path, index, statements) => {
     const node = path.getValue();
 
     // Skip printing EmptyStatement nodes to avoid leaving stray
@@ -35,7 +31,7 @@ function printStatementSequence(path, options, print, property) {
       return;
     }
 
-    const printed = print();
+    const printed = await print();
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     // don't prepend the only JSX element in a program with semicolon
@@ -46,7 +42,7 @@ function printStatementSequence(path, options, print, property) {
       statementNeedsASIProtection(path, options)
     ) {
       if (hasComment(node, CommentCheckFlags.Leading)) {
-        parts.push(print([], { needsSemi: true }));
+        parts.push(await print([], { needsSemi: true }));
       } else {
         parts.push(";", printed);
       }
@@ -167,7 +163,8 @@ function printSwitchCaseConsequent(path, options, print) {
 const isClassProperty = ({ type }) =>
   type === "ClassProperty" ||
   type === "PropertyDefinition" ||
-  type === "ClassPrivateProperty";
+  type === "ClassPrivateProperty" ||
+  type === "ClassAccessorProperty";
 /**
  * @returns {boolean}
  */
@@ -215,7 +212,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   switch (nextNode.type) {
     case "ClassProperty":
     case "PropertyDefinition":
-    case "TSAbstractClassProperty":
+    case "TSAbstractPropertyDefinition":
       return nextNode.computed;
     case "MethodDefinition": // Flow
     case "TSAbstractMethodDefinition": // TypeScript
@@ -245,7 +242,4 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   return false;
 }
 
-module.exports = {
-  printBody,
-  printSwitchCaseConsequent,
-};
+export { printBody, printSwitchCaseConsequent };

@@ -1,14 +1,10 @@
-"use strict";
+import { join, line, group } from "../../document/builders.js";
+import { hasNode, hasComment, getComments } from "../utils/index.js";
+import { printBinaryishExpression } from "./binaryish.js";
 
-const {
-  builders: { join, line, group },
-} = require("../../document/index.js");
-const { hasNode, hasComment, getComments } = require("../utils.js");
-const { printBinaryishExpression } = require("./binaryish.js");
+/** @typedef {import("../../common/ast-path.js").default} AstPath */
 
-/** @typedef {import("../../common/ast-path")} AstPath */
-
-function printAngular(path, options, print) {
+async function printAngular(path, options, print) {
   const node = path.getValue();
 
   // Angular nodes always starts with `NG`
@@ -19,7 +15,7 @@ function printAngular(path, options, print) {
   switch (node.type) {
     case "NGRoot":
       return [
-        print("node"),
+        await print("node"),
         !hasComment(node.node)
           ? ""
           : " //" + getComments(node.node)[0].value.trimEnd(),
@@ -30,9 +26,9 @@ function printAngular(path, options, print) {
       return group(
         join(
           [";", line],
-          path.map(
-            (childPath) =>
-              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
+          await path.map(
+            async (childPath) =>
+              hasNgSideEffect(childPath) ? print() : ["(", await print(), ")"],
             "expressions"
           )
         )
@@ -43,13 +39,13 @@ function printAngular(path, options, print) {
       return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.map(
-        (childPath, index) => [
+        async (childPath, index) => [
           index === 0
             ? ""
             : isNgForOf(childPath.getValue(), index, node)
             ? " "
             : [";", line],
-          print(),
+          await print(),
         ],
         "body"
       );
@@ -59,8 +55,8 @@ function printAngular(path, options, print) {
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
       return [
-        print("expression"),
-        node.alias === null ? "" : [" as ", print("alias")],
+        await print("expression"),
+        node.alias === null ? "" : [" as ", await print("alias")],
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const index = path.getName();
@@ -76,19 +72,19 @@ function printAngular(path, options, print) {
             parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
       return [
-        print("key"),
+        await print("key"),
         shouldNotPrintColon ? " " : ": ",
-        print("expression"),
+        await print("expression"),
       ];
     }
     case "NGMicrosyntaxLet":
       return [
         "let ",
-        print("key"),
-        node.value === null ? "" : [" = ", print("value")],
+        await print("key"),
+        node.value === null ? "" : [" = ", await print("value")],
       ];
     case "NGMicrosyntaxAs":
-      return [print("key"), " as ", print("alias")];
+      return [await print("key"), " as ", await print("alias")];
     default:
       /* istanbul ignore next */
       throw new Error(
@@ -125,4 +121,4 @@ function hasNgSideEffect(path) {
   });
 }
 
-module.exports = { printAngular };
+export { printAngular };

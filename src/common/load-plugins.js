@@ -1,35 +1,40 @@
-"use strict";
+import { createRequire } from "node:module";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import fastGlob from "fast-glob";
+import mem, { memClear } from "mem";
+import partition from "../utils/partition.js";
+import uniqByKey from "../utils/uniq-by-key.js";
+import thirdParty from "./third-party.js";
+import resolve from "./resolve.js";
 
-const fs = require("fs");
-const path = require("path");
-const uniqBy = require("lodash/uniqBy");
-const partition = require("lodash/partition");
-const globby = require("globby");
-const mem = require("mem");
-const internalPlugins = require("../languages.js");
-const thirdParty = require("./third-party.js");
-const resolve = require("./resolve.js");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
 const clearCache = () => {
-  mem.clear(memoizedLoad);
-  mem.clear(memoizedSearch);
+  memClear(memoizedLoad);
+  memClear(memoizedSearch);
 };
 
-function load(plugins, pluginSearchDirs) {
+async function load(plugins, pluginSearchDirs) {
   if (!plugins) {
     plugins = [];
   }
 
-  if (!pluginSearchDirs) {
+  if (pluginSearchDirs === false) {
     pluginSearchDirs = [];
-  }
-  // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
-  if (pluginSearchDirs.length === 0) {
-    const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
-    if (autoLoadDir) {
-      pluginSearchDirs = [autoLoadDir];
+  } else {
+    pluginSearchDirs = pluginSearchDirs || [];
+
+    // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
+    if (pluginSearchDirs.length === 0) {
+      const autoLoadDir = thirdParty.findParentDir(__dirname, "node_modules");
+      if (autoLoadDir) {
+        pluginSearchDirs = [autoLoadDir];
+      }
     }
   }
 
@@ -56,39 +61,45 @@ function load(plugins, pluginSearchDirs) {
     }
   );
 
-  const externalAutoLoadPluginInfos = pluginSearchDirs.flatMap(
-    (pluginSearchDir) => {
-      const resolvedPluginSearchDir = path.resolve(
-        process.cwd(),
-        pluginSearchDir
-      );
-
-      const nodeModulesDir = path.resolve(
-        resolvedPluginSearchDir,
-        "node_modules"
-      );
-
-      // In some fringe cases (ex: files "mounted" as virtual directories), the
-      // isDirectory(resolvedPluginSearchDir) check might be false even though
-      // the node_modules actually exists.
-      if (
-        !isDirectory(nodeModulesDir) &&
-        !isDirectory(resolvedPluginSearchDir)
-      ) {
-        throw new Error(
-          `${pluginSearchDir} does not exist or is not a directory`
+  const externalAutoLoadPluginInfos = (
+    await Promise.all(
+      pluginSearchDirs.map(async (pluginSearchDir) => {
+        const resolvedPluginSearchDir = path.resolve(
+          process.cwd(),
+          pluginSearchDir
         );
-      }
 
-      return memoizedSearch(nodeModulesDir).map((pluginName) => ({
-        name: pluginName,
-        requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
-      }));
-    }
-  );
+        const nodeModulesDir = path.resolve(
+          resolvedPluginSearchDir,
+          "node_modules"
+        );
+
+        // In some fringe cases (ex: files "mounted" as virtual directories), the
+        // isDirectory(resolvedPluginSearchDir) check might be false even though
+        // the node_modules actually exists.
+        if (
+          !(await isDirectory(nodeModulesDir)) &&
+          !(await isDirectory(resolvedPluginSearchDir))
+        ) {
+          throw new Error(
+            `${pluginSearchDir} does not exist or is not a directory`
+          );
+        }
+
+        const pluginNames = await memoizedSearch(nodeModulesDir);
+
+        return pluginNames.map((pluginName) => ({
+          name: pluginName,
+          requirePath: resolve(pluginName, {
+            paths: [resolvedPluginSearchDir],
+          }),
+        }));
+      })
+    )
+  ).flat();
 
   const externalPlugins = [
-    ...uniqBy(
+    ...uniqByKey(
       [...externalManualLoadPluginInfos, ...externalAutoLoadPluginInfos],
       "requirePath"
     ).map((externalPluginInfo) => ({
@@ -98,11 +109,11 @@ function load(plugins, pluginSearchDirs) {
     ...externalPluginInstances,
   ];
 
-  return [...internalPlugins, ...externalPlugins];
+  return externalPlugins;
 }
 
-function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackageJsonPaths = globby.sync(
+async function findPluginsInNodeModules(nodeModulesDir) {
+  const pluginPackageJsonPaths = await fastGlob(
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
@@ -110,21 +121,21 @@ function findPluginsInNodeModules(nodeModulesDir) {
     ],
     {
       cwd: nodeModulesDir,
-      expandDirectories: false,
     }
   );
   return pluginPackageJsonPaths.map(path.dirname);
 }
 
-function isDirectory(dir) {
+async function isDirectory(dir) {
+  let stat;
+
   try {
-    return fs.statSync(dir).isDirectory();
+    stat = await fs.stat(dir);
   } catch {
     return false;
   }
+
+  return stat.isDirectory();
 }
 
-module.exports = {
-  loadPlugins: memoizedLoad,
-  clearCache,
-};
+export { memoizedLoad as loadPlugins, clearCache };

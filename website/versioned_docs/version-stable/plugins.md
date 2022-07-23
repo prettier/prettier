@@ -4,7 +4,7 @@ title: Plugins
 original_id: plugins
 ---
 
-Plugins are ways of adding new languages to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
+Plugins are ways of adding new languages or formatting rules to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
 
 ## Using Plugins
 
@@ -14,27 +14,40 @@ Plugins are automatically loaded if you have them installed in the same `node_mo
 
 When plugins cannot be found automatically, you can load them with:
 
-- The [CLI](cli.md), via the `--plugin` and `--plugin-search-dir`:
+- The [CLI](cli.md), via `--plugin-search-dir` and `--plugin`:
 
   ```bash
-  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
+  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=prettier-plugin-foo
   ```
 
-  > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
+  > Tip: You can set `--plugin-search-dir` or `--plugin` options multiple times.
 
-- Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
+- The [API](api.md), via the `pluginSearchDirs` and `plugins` options:
 
   ```js
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"],
+    plugins: ["prettier-plugin-foo"],
   });
   ```
 
-Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*`, `@*/prettier-plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
+- The [Configuration File](configuration.md):
 
-Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
+  ```json
+  {
+    "pluginSearchDirs": ["./dir-with-plugins"],
+    "plugins": ["prettier-plugin-foo"]
+  }
+  ```
+
+`pluginSearchDirs` and `plugins` are independent and one does not require the other.
+
+The paths that are provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, these can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
+
+Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
+
+To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI or add `{ pluginSearchDirs: false }` to options in `prettier.format()` or to the config file.
 
 ## Official Plugins
 
@@ -47,14 +60,17 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
+- [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
+- [`prettier-plugin-glsl`](https://github.com/NaridaL/glsl-language-toolkit/tree/main/packages/prettier-plugin-glsl) by [**@NaridaL**](https://github.com/NaridaL)
 - [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
+- [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
+- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
-- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 
 ## Developing Plugins
 

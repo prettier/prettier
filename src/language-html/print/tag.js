@@ -1,23 +1,26 @@
-"use strict";
-
 /**
- * @typedef {import("../../document").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-const assert = require("assert");
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line, softline },
-  utils: { replaceTextEndOfLine },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const {
+import assert from "node:assert";
+import { isNonEmptyArray } from "../../common/util.js";
+import {
+  indent,
+  join,
+  line,
+  softline,
+  hardline,
+} from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
+import { locStart, locEnd } from "../loc.js";
+import {
   isTextLikeNode,
   getLastDescendant,
   isPreLikeNode,
   hasPrettierIgnore,
   shouldPreserveContent,
-} = require("../utils.js");
+  isVueSfcBlock,
+} from "../utils/index.js";
 
 function printClosingTag(node, options) {
   return [
@@ -210,7 +213,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
   return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
 }
 
-function printAttributes(path, options, print) {
+async function printAttributes(path, options, print) {
   const node = path.getValue();
 
   if (!isNonEmptyArray(node.attrs)) {
@@ -235,7 +238,7 @@ function printAttributes(path, options, print) {
       ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
       : () => false;
 
-  const printedAttributes = path.map((attributePath) => {
+  const printedAttributes = await path.map((attributePath) => {
     const attribute = attributePath.getValue();
     return hasPrettierIgnoreAttribute(attribute)
       ? replaceTextEndOfLine(
@@ -251,11 +254,17 @@ function printAttributes(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
 
+  const shouldPrintAttributePerLine =
+    options.singleAttributePerLine &&
+    node.attrs.length > 1 &&
+    !isVueSfcBlock(node, options);
+  const attributeLine = shouldPrintAttributePerLine ? hardline : line;
+
   /** @type {Doc[]} */
   const parts = [
     indent([
       forceNotToBreakAttrContent ? " " : line,
-      join(line, printedAttributes),
+      join(attributeLine, printedAttributes),
     ]),
   ];
 
@@ -301,12 +310,12 @@ function printOpeningTagEnd(node) {
     : printOpeningTagEndMarker(node);
 }
 
-function printOpeningTag(path, options, print) {
+async function printOpeningTag(path, options, print) {
   const node = path.getValue();
 
   return [
     printOpeningTagStart(node, options),
-    printAttributes(path, options, print),
+    await printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
   ];
 }
@@ -361,7 +370,7 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-module.exports = {
+export {
   printClosingTag,
   printClosingTagStart,
   printClosingTagStartMarker,

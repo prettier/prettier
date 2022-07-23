@@ -1,12 +1,14 @@
-"use strict";
+import {
+  ifBreak,
+  line,
+  softline,
+  hardline,
+  join,
+} from "../../document/builders.js";
+import { isEmptyNode, getLast, hasEndComments } from "../utils.js";
+import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
-const {
-  builders: { ifBreak, line, softline, hardline, join },
-} = require("../../document/index.js");
-const { isEmptyNode, getLast, hasEndComments } = require("../utils.js");
-const { printNextEmptyLine, alignWithSpaces } = require("./misc.js");
-
-function printFlowMapping(path, print, options) {
+async function printFlowMapping(path, print, options) {
   const node = path.getValue();
   const isMapping = node.type === "flowMapping";
   const openMarker = isMapping ? "{" : "[";
@@ -28,10 +30,10 @@ function printFlowMapping(path, print, options) {
     openMarker,
     alignWithSpaces(options.tabWidth, [
       bracketSpacing,
-      printChildren(path, print, options),
+      await printChildren(path, print, options),
       options.trailingComma === "none" ? "" : ifBreak(","),
       hasEndComments(node)
-        ? [hardline, join(hardline, path.map(print, "endComments"))]
+        ? [hardline, join(hardline, await path.map(print, "endComments"))]
         : "",
     ]),
     isLastItemEmptyMappingItem ? "" : bracketSpacing,
@@ -39,11 +41,11 @@ function printFlowMapping(path, print, options) {
   ];
 }
 
-function printChildren(path, print, options) {
+async function printChildren(path, print, options) {
   const node = path.getValue();
-  const parts = path.map(
-    (childPath, index) => [
-      print(),
+  const parts = await path.map(
+    async (childPath, index) => [
+      await print(),
       index === node.children.length - 1
         ? ""
         : [
@@ -60,8 +62,8 @@ function printChildren(path, print, options) {
   return parts;
 }
 
-module.exports = {
+export {
   printFlowMapping,
   // Alias
-  printFlowSequence: printFlowMapping,
+  printFlowMapping as printFlowSequence,
 };

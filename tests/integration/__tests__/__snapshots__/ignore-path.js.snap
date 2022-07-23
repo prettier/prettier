@@ -7,7 +7,7 @@ exports[`ignore file when using --debug-check (stdout) 1`] = `
 "
 `;
 
-exports[`ignore file when using --debug-check (write) 1`] = `Array []`;
+exports[`ignore file when using --debug-check (write) 1`] = `[]`;
 
 exports[`ignore path (stderr) 1`] = `""`;
 
@@ -16,7 +16,7 @@ exports[`ignore path (stdout) 1`] = `
 "
 `;
 
-exports[`ignore path (write) 1`] = `Array []`;
+exports[`ignore path (write) 1`] = `[]`;
 
 exports[`outputs files as-is if no --write (stderr) 1`] = `""`;
 
@@ -25,7 +25,7 @@ exports[`outputs files as-is if no --write (stdout) 1`] = `
 "
 `;
 
-exports[`outputs files as-is if no --write (write) 1`] = `Array []`;
+exports[`outputs files as-is if no --write (write) 1`] = `[]`;
 
 exports[`support .prettierignore (stderr) 1`] = `""`;
 
@@ -34,4 +34,4 @@ exports[`support .prettierignore (stdout) 1`] = `
 "
 `;
 
-exports[`support .prettierignore (write) 1`] = `Array []`;
+exports[`support .prettierignore (write) 1`] = `[]`;

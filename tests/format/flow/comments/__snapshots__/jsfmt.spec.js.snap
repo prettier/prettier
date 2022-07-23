@@ -239,10 +239,11 @@ type Props3 = {
 };
 
 =====================================output=====================================
-// (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-type Props1 = {
-  isPlaying: boolean,
-};
+type Props1 =
+  // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+  {
+    isPlaying: boolean,
+  };
 
 type Props2 = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!

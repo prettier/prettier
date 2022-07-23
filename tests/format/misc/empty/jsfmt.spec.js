@@ -1,12 +1,13 @@
-const parsers = require("prettier-local")
-  .getSupportInfo()
-  .options.find((option) => option.name === "parser")
+import * as prettier from "../../../../index.js";
+
+const parsers = (await prettier.getSupportInfo()).options
+  .find((option) => option.name === "parser")
   .choices.filter((choice) => !choice.deprecated)
   .map((choice) => choice.value);
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       // empty
       "",

@@ -10,9 +10,8 @@ insert_final_newline = true
 
 [cspell.json]
 indent_size = 4
-insert_final_newline = false
 
-[website/blog/*.md]
+[{,website/blog/,changelog_unreleased/**/}*.md]
 trim_trailing_whitespace = false
 
 [tests/{**/__snapshots__/*, tests/format/**/*}]

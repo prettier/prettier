@@ -1,10 +1,9 @@
-"use strict";
+import { createRequire } from "node:module";
+import { ConfigError } from "../common/errors.js";
+import { locStart, locEnd } from "../language-js/loc.js";
+import loadParser from "./load-parser.js";
 
-const path = require("path");
-const { ConfigError } = require("../common/errors.js");
-const jsLoc = require("../language-js/loc.js");
-
-const { locStart, locEnd } = jsLoc;
+const require = createRequire(import.meta.url);
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
 // triggering the parsers getters.
@@ -50,21 +49,11 @@ function resolveParser(opts, parsers = getParsers(opts)) {
       );
     }
 
-    try {
-      return {
-        parse: require(path.resolve(process.cwd(), opts.parser)),
-        astFormat: "estree",
-        locStart,
-        locEnd,
-      };
-    } catch {
-      /* istanbul ignore next */
-      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
-    }
+    return loadParser(opts.parser);
   }
 }
 
-function parse(text, opts) {
+async function parse(originalText, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -85,29 +74,32 @@ function parse(text, opts) {
   );
 
   const parser = resolveParser(opts, parsers);
+  const text = parser.preprocess
+    ? parser.preprocess(originalText, opts)
+    : originalText;
 
+  let ast;
   try {
-    if (parser.preprocess) {
-      text = parser.preprocess(text, opts);
-    }
-
-    return {
-      text,
-      ast: parser.parse(text, parsersForCustomParserApi, opts),
-    };
+    ast = await parser.parse(text, parsersForCustomParserApi, opts);
   } catch (error) {
-    const { loc } = error;
-
-    if (loc) {
-      const { codeFrameColumns } = require("@babel/code-frame");
-      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-      error.message += "\n" + error.codeFrame;
-      throw error;
-    }
-
-    /* istanbul ignore next */
-    throw error.stack;
+    handleParseError(error, originalText);
   }
+
+  return { text, ast };
 }
 
-module.exports = { parse, resolveParser };
+function handleParseError(error, text) {
+  const { loc } = error;
+
+  if (loc) {
+    const { codeFrameColumns } = require("@babel/code-frame");
+    error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    error.message += "\n" + error.codeFrame;
+    throw error;
+  }
+
+  /* istanbul ignore next */
+  throw error.stack;
+}
+
+export { parse, resolveParser };

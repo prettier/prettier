@@ -1,31 +1,34 @@
 "use strict";
 
-const prettier = require("prettier-local");
-const { concat } = prettier.doc.builders;
-
 module.exports = {
   languages: [
     {
       name: "bar",
-      parsers: ["bar"]
-    }
+      parsers: ["bar"],
+    },
   ],
   parsers: {
     bar: {
-      parse: text => ({ text }),
-      astFormat: "bar"
-    }
+      parse: (text) => ({ text }),
+      astFormat: "bar",
+    },
   },
   printers: {
     bar: {
-      print: path =>
-        concat([
+      async print(path) {
+        const { default: prettier } = await import(
+          "../../../config/prettier-entry.js"
+        );
+        const { concat } = prettier.doc.builders;
+
+        return concat([
           "content from `prettier-plugin-bar.js` file + ",
-          path.getValue().text
-        ])
-    }
+          path.getValue().text,
+        ]);
+      },
+    },
   },
   defaultOptions: {
-    tabWidth: 4
-  }
+    tabWidth: 4,
+  },
 };

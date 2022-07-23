@@ -23,7 +23,7 @@ async function update() {
     githubPage
       .replace(/\n/g, "")
       .match(
-        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
+        /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/
       )[1]
       .replace(/,/g, "")
   );
@@ -71,7 +71,7 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function () {
+export default async function updateDependentsCount() {
   try {
     await update();
   } catch (error) {

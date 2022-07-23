@@ -1,12 +1,8 @@
-"use strict";
-
-const AstPath = require("../common/ast-path.js");
-const {
-  builders: { hardline, addAlignmentToDoc },
-  utils: { propagateBreaks },
-} = require("../document/index.js");
-const { printComments } = require("./comments.js");
-const multiparser = require("./multiparser.js");
+import AstPath from "../common/ast-path.js";
+import { hardline, addAlignmentToDoc } from "../document/builders.js";
+import { propagateBreaks } from "../document/utils.js";
+import { printComments } from "./comments.js";
+import { printSubtree } from "./multiparser.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -29,7 +25,7 @@ const multiparser = require("./multiparser.js");
  * state of the recursion. It is called "path", because it represents
  * the path to the current node through the Abstract Syntax Tree.
  */
-function printAstToDoc(ast, options, alignmentSize = 0) {
+async function printAstToDoc(ast, options, alignmentSize = 0) {
   const { printer } = options;
 
   if (printer.preprocess) {
@@ -39,7 +35,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   const cache = new Map();
   const path = new AstPath(ast);
 
-  let doc = mainPrint();
+  let doc = await mainPrint();
 
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
@@ -73,13 +69,13 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       return cache.get(value);
     }
 
-    const doc = callPluginPrintFunction(path, options, mainPrint, args);
+    const promise = callPluginPrintFunction(path, options, mainPrint, args);
 
     if (shouldCache) {
-      cache.set(value, doc);
+      cache.set(value, promise);
     }
 
-    return doc;
+    return promise;
   }
 }
 
@@ -105,13 +101,12 @@ function printPrettierIgnoredNode(node, options) {
   return { doc: originalText.slice(start, end), printedComments };
 }
 
-function callPluginPrintFunction(path, options, printPath, args) {
+async function callPluginPrintFunction(path, options, printPath, args) {
   const node = path.getValue();
   const { printer } = options;
 
   let doc;
   let printedComments;
-
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
     ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
@@ -119,7 +114,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
     if (node) {
       try {
         // Potentially switch to a different parser
-        doc = multiparser.printSubtree(path, printPath, options, printAstToDoc);
+        doc = await printSubtree(path, printPath, options, printAstToDoc);
       } catch (error) {
         /* istanbul ignore if */
         if (process.env.PRETTIER_DEBUG) {
@@ -130,7 +125,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
     }
 
     if (!doc) {
-      doc = printer.print(path, options, printPath, args);
+      doc = await printer.print(path, options, printPath, args);
     }
   }
 
@@ -148,4 +143,4 @@ function callPluginPrintFunction(path, options, printPath, args) {
   return doc;
 }
 
-module.exports = printAstToDoc;
+export default printAstToDoc;

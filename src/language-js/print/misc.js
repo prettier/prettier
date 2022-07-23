@@ -1,10 +1,6 @@
-"use strict";
-
-const { isNonEmptyArray } = require("../../common/util.js");
-const {
-  builders: { indent, join, line },
-} = require("../../document/index.js");
-const { isFlowAnnotationComment } = require("../utils.js");
+import { isNonEmptyArray } from "../../common/util.js";
+import { indent, join, line } from "../../document/builders.js";
+import { isFlowAnnotationComment } from "../utils/index.js";
 
 function printOptionalToken(path) {
   const node = path.getValue();
@@ -25,6 +21,17 @@ function printOptionalToken(path) {
   return "?";
 }
 
+function printDefiniteToken(path) {
+  return path.getValue().definite ||
+    path.match(
+      undefined,
+      (node, name) =>
+        name === "id" && node.type === "VariableDeclarator" && node.definite
+    )
+    ? "!"
+    : "";
+}
+
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
   if (fun.typeArguments) {
@@ -36,42 +43,37 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printTypeAnnotation(path, options, print) {
+async function printTypeAnnotation(path, options, print) {
   const node = path.getValue();
   if (!node.typeAnnotation) {
     return "";
   }
 
   const parentNode = path.getParentNode();
-  const isDefinite =
-    node.definite ||
-    (parentNode &&
-      parentNode.type === "VariableDeclarator" &&
-      parentNode.definite);
 
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
 
   if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return [" /*: ", print("typeAnnotation"), " */"];
+    return [" /*: ", await print("typeAnnotation"), " */"];
   }
 
   return [
-    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    print("typeAnnotation"),
+    isFunctionDeclarationIdentifier ? "" : ": ",
+    await print("typeAnnotation"),
   ];
 }
 
-function printBindExpressionCallee(path, options, print) {
-  return ["::", print("callee")];
+async function printBindExpressionCallee(path, options, print) {
+  return ["::", await print("callee")];
 }
 
-function printTypeScriptModifiers(path, options, print) {
+async function printTypeScriptModifiers(path, options, print) {
   const node = path.getValue();
   if (!isNonEmptyArray(node.modifiers)) {
     return "";
   }
-  return [join(" ", path.map(print, "modifiers")), " "];
+  return [join(" ", await path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -86,12 +88,17 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, options, print) {
-  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+async function printRestSpread(path, options, print) {
+  return [
+    "...",
+    await print("argument"),
+    await printTypeAnnotation(path, options, print),
+  ];
 }
 
-module.exports = {
+export {
   printOptionalToken,
+  printDefiniteToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,

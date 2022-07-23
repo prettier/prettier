@@ -1,14 +1,29 @@
 run_spec(
   {
-    dirname: __dirname,
-    snippets: ["for each (a in b) {}", "class switch() {}"],
+    importMeta: import.meta,
+    snippets: [
+      "for each (a in b) {}",
+      "class switch() {}",
+      "({ method() })",
+      "({ method({}) })",
+      "({ method(parameter,) })",
+    ],
   },
-  ["babel", "flow", "typescript", "babel-flow", "babel-ts", "espree", "meriyah"]
+  [
+    "babel",
+    "flow",
+    "typescript",
+    "babel-flow",
+    "babel-ts",
+    "acorn",
+    "espree",
+    "meriyah",
+  ]
 );
 
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: [
       "(a = b) = 1",
       "a = 1 = 2",

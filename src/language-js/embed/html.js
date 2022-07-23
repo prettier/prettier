@@ -1,17 +1,13 @@
-"use strict";
-
-const {
-  builders: { indent, line, hardline, group },
-  utils: { mapDoc },
-} = require("../../document/index.js");
-const {
+import { indent, line, hardline, group } from "../../document/builders.js";
+import { mapDoc } from "../../document/utils.js";
+import {
   printTemplateExpressions,
   uncookTemplateElementValue,
-} = require("../print/template-literal.js");
+} from "../print/template-literal.js";
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
-function format(path, print, textToDoc, options, { parser }) {
+async function format(path, print, textToDoc, options, { parser }) {
   const node = path.getValue();
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
@@ -27,14 +23,14 @@ function format(path, print, textToDoc, options, { parser }) {
     )
     .join("");
 
-  const expressionDocs = printTemplateExpressions(path, print);
+  const expressionDocs = await printTemplateExpressions(path, print);
   if (expressionDocs.length === 0 && text.trim().length === 0) {
     return "``";
   }
 
   const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
   let topLevelCount = 0;
-  const doc = textToDoc(
+  const doc = await textToDoc(
     text,
     {
       parser,
@@ -97,4 +93,4 @@ function format(path, print, textToDoc, options, { parser }) {
   ]);
 }
 
-module.exports = format;
+export default format;

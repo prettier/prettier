@@ -1,5 +1,3 @@
-"use strict";
-
 function tryCombinations(...combinations) {
   let firstError;
   for (const [index, fn] of combinations.entries()) {
@@ -14,4 +12,4 @@ function tryCombinations(...combinations) {
   return { error: firstError };
 }
 
-module.exports = tryCombinations;
+export default tryCombinations;

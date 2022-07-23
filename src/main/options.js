@@ -1,12 +1,9 @@
-"use strict";
-
-const fs = require("fs");
-const path = require("path");
-const readlines = require("n-readlines");
-const { UndefinedParserError } = require("../common/errors.js");
-const { getSupportInfo } = require("../main/support.js");
-const normalizer = require("./options-normalizer.js");
-const { resolveParser } = require("./parser.js");
+import path from "node:path";
+import { UndefinedParserError } from "../common/errors.js";
+import { getSupportInfo } from "../main/support.js";
+import getInterpreter from "../utils/get-interpreter.js";
+import { normalizeApiOptions } from "./options-normalizer.js";
+import { resolveParser } from "./parser.js";
 
 const hiddenDefaults = {
   astFormat: "estree",
@@ -54,7 +51,7 @@ function normalize(options, opts = {}) {
   }
 
   const parser = resolveParser(
-    normalizer.normalizeApiOptions(
+    normalizeApiOptions(
       rawOptions,
       [supportOptions.find((x) => x.name === "parser")],
       { passThrough: true, logger: false }
@@ -92,7 +89,7 @@ function normalize(options, opts = {}) {
     rawOptions.trailingComma = "none";
   }
 
-  return normalizer.normalizeApiOptions(rawOptions, supportOptions, {
+  return normalizeApiOptions(rawOptions, supportOptions, {
     passThrough: Object.keys(hiddenDefaults),
     ...opts,
   });
@@ -118,52 +115,6 @@ function getPlugin(options) {
   return printerPlugin;
 }
 
-function getInterpreter(filepath) {
-  /* istanbul ignore next */
-  if (typeof filepath !== "string") {
-    return "";
-  }
-
-  let fd;
-  try {
-    fd = fs.openSync(filepath, "r");
-  } catch {
-    // istanbul ignore next
-    return "";
-  }
-
-  try {
-    const liner = new readlines(fd);
-    const firstLine = liner.next().toString("utf8");
-
-    // #!/bin/env node, #!/usr/bin/env node
-    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
-    if (m1) {
-      return m1[1];
-    }
-
-    // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
-    if (m2) {
-      return m2[1];
-    }
-    return "";
-  } catch {
-    // There are some weird cases where paths are missing, causing Jest
-    // failures. It's unclear what these correspond to in the real world.
-    /* istanbul ignore next */
-    return "";
-  } finally {
-    try {
-      // There are some weird cases where paths are missing, causing Jest
-      // failures. It's unclear what these correspond to in the real world.
-      fs.closeSync(fd);
-    } catch {
-      // nop
-    }
-  }
-}
-
 function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
   const languages = getSupportInfo({ plugins }).languages.filter(
@@ -183,7 +134,11 @@ function inferParser(filepath, plugins) {
         language.filenames.some((name) => name.toLowerCase() === filename))
   );
 
-  if (!language && !filename.includes(".")) {
+  if (
+    process.env.PRETTIER_TARGET !== "universal" &&
+    !language &&
+    !filename.includes(".")
+  ) {
     const interpreter = getInterpreter(filepath);
     language = languages.find(
       (language) =>
@@ -194,4 +149,4 @@ function inferParser(filepath, plugins) {
   return language && language.parsers[0];
 }
 
-module.exports = { normalize, hiddenDefaults, inferParser };
+export { normalize, hiddenDefaults, inferParser };

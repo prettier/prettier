@@ -14,6 +14,32 @@ const test = (ruleId, tests) => {
   );
 };
 
+test("await-cli-tests", {
+  valid: [
+    "async () => await runPrettier()",
+    "runPrettier().test()",
+    "notRunPrettier()",
+    "async () => await runPrettier().stderr",
+    outdent`
+      async () => {
+        const originalStdout = await runPrettier("plugins/options", ["--help"]).stdout;
+      }
+    `,
+  ],
+  invalid: [
+    {
+      code: "runPrettier()",
+      errors: [
+        { message: "'runPrettier()' should be awaited or calling `.test()`." },
+      ],
+    },
+    {
+      code: "runPrettier().stderr",
+      errors: [{ message: "'runPrettier().stderr' should be awaited." }],
+    },
+  ],
+});
+
 test("better-parent-property-check-in-needs-parens", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
@@ -246,8 +272,8 @@ test("no-identifier-n", {
   valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
   invalid: [
     {
-      code: "const n = 1; alet(n)",
-      output: "const node = 1; alet(node)",
+      code: "const n = 1; alert(n)",
+      output: "const node = 1; alert(node)",
       errors: 1,
     },
     {
@@ -303,6 +329,30 @@ test("no-identifier-n", {
       errors: [{ suggestions: [{ output: "const node = 1;const node = 2;" }] }],
     },
   ],
+});
+
+test("no-legacy-format-test-fixtures", {
+  valid: [
+    "run_spec(import.meta, ['babel'])",
+    "run_spec({importMeta: import.meta}, ['babel'])",
+  ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
+  invalid: [
+    {
+      code: "run_spec(__dirname, ['babel'])",
+      errors: [{ message: "Use `import.meta` instead of `__dirname`." }],
+      output: "run_spec(import.meta, ['babel'])",
+    },
+    {
+      code: "run_spec({snippets: ['x'], dirname: __dirname}, ['babel'])",
+      errors: [
+        {
+          message:
+            "Use `importMeta: import.meta` instead of `dirname: __dirname`.",
+        },
+      ],
+      output: "run_spec({snippets: ['x'], importMeta: import.meta}, ['babel'])",
+    },
+  ].map((test) => ({ ...test, parserOptions: { sourceType: "module" } })),
 });
 
 test("no-node-comments", {
@@ -483,4 +533,26 @@ test("no-unnecessary-ast-path-call", {
       errors: 1,
     },
   ],
+});
+
+test("prefer-fs-promises-submodule", {
+  valid: [
+    "import fs from 'node:fs';",
+    "import fs from 'node:fs/promises';",
+    "import fs, { promises as fsPromises } from 'node:fs';",
+    "import { promises as fs, statSync } from 'node:fs';",
+  ].map((code) => ({ code, parserOptions: { sourceType: "module" } })),
+  invalid: [
+    {
+      code: "import { promises as fsPromises } from 'node:fs';",
+      errors: 1,
+    },
+    {
+      code: "import { promises as fs } from 'node:fs';",
+      errors: 1,
+    },
+  ].map((testCase) => ({
+    ...testCase,
+    parserOptions: { sourceType: "module" },
+  })),
 });

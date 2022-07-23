@@ -1,8 +1,7 @@
-"use strict";
+import runPrettier from "../run-prettier.js";
+import jestPathSerializer from "../path-serializer.js";
 
-const runPrettier = require("../runPrettier.js");
-
-expect.addSnapshotSerializer(require("../path-serializer.js"));
+expect.addSnapshotSerializer(jestPathSerializer);
 
 describe("ignores files when executing in a subdirectory", () => {
   runPrettier("cli/ignore-in-subdirectories/web1", [
@@ -70,8 +69,7 @@ describe("formats files when executing in a subdirectory and using stdin", () =>
       input: "hello_world( );",
     }
   ).test({
-    stdout: `hello_world();
-`,
+    stdout: "hello_world();\n",
     status: 0,
   });
 });

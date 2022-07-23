@@ -1,2 +1,2 @@
-run_spec(__dirname, ["html"], { bracketSameLine: true });
-run_spec(__dirname, ["html"], { bracketSameLine: false });
+run_spec(import.meta, ["html"], { bracketSameLine: true });
+run_spec(import.meta, ["html"], { bracketSameLine: false });

@@ -1,9 +1,7 @@
-"use strict";
-
 const CATEGORY_COMMON = "Common";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
-module.exports = {
+const options = {
   bracketSpacing: {
     since: "0.0.0",
     category: CATEGORY_COMMON,
@@ -54,4 +52,13 @@ module.exports = {
     description:
       "Put > of opening tags on the last line instead of on a new line.",
   },
+  singleAttributePerLine: {
+    since: "2.6.0",
+    category: CATEGORY_COMMON,
+    type: "boolean",
+    default: false,
+    description: "Enforce single attribute per line in HTML, Vue and JSX.",
+  },
 };
+
+export default options;

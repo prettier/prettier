@@ -1,19 +1,7 @@
-"use strict";
-
-// We need to list the parsers and getters so we can load them only when necessary.
-module.exports = [
-  // JS
-  require("./language-js/index.js"),
-  // CSS
-  require("./language-css/index.js"),
-  // Handlebars
-  require("./language-handlebars/index.js"),
-  // GraphQL
-  require("./language-graphql/index.js"),
-  // Markdown
-  require("./language-markdown/index.js"),
-  // HTML
-  require("./language-html/index.js"),
-  // YAML
-  require("./language-yaml/index.js"),
-];
+export * as js from "./language-js/index.js";
+export * as css from "./language-css/index.js";
+export * as handlebars from "./language-handlebars/index.js";
+export * as graphql from "./language-graphql/index.js";
+export * as markdown from "./language-markdown/index.js";
+export * as html from "./language-html/index.js";
+export * as yaml from "./language-yaml/index.js";

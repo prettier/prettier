@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.4.0
+        uses: actions/setup-node@v3
         with:
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Check Dependencies
         run: yarn lint:deps
@@ -45,5 +45,37 @@ jobs:
       - name: Lint workflow files
         run: yarn lint:actionlint
 
-      - name: Check Lock File Changes
-        run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+      - name: Validate renovate config
+        run: npx --package renovate -c renovate-config-validator
+
+      - name: Run yarn (/)
+        run: |
+          yarn
+          yarn dedupe --check
+
+      - name: Run yarn (/website)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: website
+
+      - name: Run yarn (/scripts/release)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: scripts/release
+
+      - name: Run yarn (/scripts/tools/bundle-test)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: scripts/tools/bundle-test
+
+      - name: Run yarn (/scripts/tools/eslint-plugin-prettier-internal-rules)
+        run: |
+          yarn
+          yarn dedupe --check
+        working-directory: scripts/tools/eslint-plugin-prettier-internal-rules
+
+      - name: Check File Changes
+        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."

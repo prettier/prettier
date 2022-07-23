@@ -1,7 +1,7 @@
 run_spec(
   {
-    dirname: __dirname,
+    importMeta: import.meta,
     snippets: ["({}) = x;"],
   },
-  ["babel", "babel-ts", "espree", "meriyah"]
+  ["babel", "babel-ts", "acorn", "espree", "meriyah"]
 );

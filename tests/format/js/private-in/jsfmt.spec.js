@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babel"], { errors: { espree: true } });
+run_spec(import.meta, ["babel"], { errors: { acorn: true, espree: true } });

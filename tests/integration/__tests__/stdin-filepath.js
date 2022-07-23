@@ -1,8 +1,5 @@
-"use strict";
-
-const { isCI } = require("ci-info");
-const runPrettier = require("../runPrettier.js");
-
+import { isCI } from "ci-info";
+import { outdent } from "outdent";
 describe("format correctly if stdin content compatible with stdin-filepath", () => {
   runPrettier(
     "cli",
@@ -38,11 +35,11 @@ describe("apply editorconfig for stdin-filepath with nonexistent file", () => {
     "cli",
     ["--stdin-filepath", "config/editorconfig/nonexistent.js"],
     {
-      input: `
-function f() {
-  console.log("should be indented with a tab");
-}
-`.trim(), // js
+      input: outdent`
+        function f() {
+          console.log("should be indented with a tab");
+        }
+      `, // js
     }
   ).test({
     status: 0,
@@ -54,11 +51,11 @@ describe("apply editorconfig for stdin-filepath with nonexistent directory", () 
     "cli",
     ["--stdin-filepath", "config/editorconfig/nonexistent/one/two/three.js"],
     {
-      input: `
-function f() {
-  console.log("should be indented with a tab");
-}
-`.trim(), // js
+      input: outdent`
+        function f() {
+          console.log("should be indented with a tab");
+        }
+      `, // js
     }
   ).test({
     status: 0,
@@ -70,11 +67,11 @@ describe("apply editorconfig for stdin-filepath with a deep path", () => {
     "cli",
     ["--stdin-filepath", "config/editorconfig/" + "a/".repeat(30) + "three.js"],
     {
-      input: `
-function f() {
-  console.log("should be indented with a tab");
-}
-`.trim(), // js
+      input: outdent`
+        function f() {
+          console.log("should be indented with a tab");
+        }
+      `, // js
     }
   ).test({
     status: 0,
@@ -83,11 +80,11 @@ function f() {
 
 if (isCI) {
   describe("apply editorconfig for stdin-filepath in root", () => {
-    const code = `
-function f() {
-  console.log("should be indented with a tab");
-}
-`.trim();
+    const code = outdent`
+      function f() {
+        console.log("should be indented with a tab");
+      }
+    `;
     runPrettier("cli", ["--stdin-filepath", "/foo.js"], {
       input: code, // js
     }).test({
@@ -104,11 +101,11 @@ describe("apply editorconfig for stdin-filepath with a deep path", () => {
     "cli",
     ["--stdin-filepath", "config/editorconfig/" + "a/".repeat(30) + "three.js"],
     {
-      input: `
-function f() {
-  console.log("should be indented with a tab");
-}
-`.trim(), // js
+      input: outdent`
+        function f() {
+          console.log("should be indented with a tab");
+        }
+      `, // js
     }
   ).test({
     status: 0,
@@ -123,11 +120,11 @@ describe("don’t apply editorconfig outside project for stdin-filepath with non
       "config/editorconfig/repo-root/nonexistent/one/two/three.js",
     ],
     {
-      input: `
-function f() {
-  console.log("should be indented with 2 spaces");
-}
-`.trim(), // js
+      input: outdent`
+        function f() {
+          console.log("should be indented with 2 spaces");
+        }
+      `, // js
     }
   ).test({
     status: 0,

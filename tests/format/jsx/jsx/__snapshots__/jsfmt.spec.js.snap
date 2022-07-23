@@ -616,6 +616,398 @@ singleQuote: true
 ================================================================================
 `;
 
+exports[`await.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+async function testFunction() {
+  const short = <>
+    {await Promise.all(
+      hierarchyCriticism
+    )}
+    {await hierarchyCriticism.ic.me.oa.p}
+    {await hierarchyCriticism}
+
+    {Promise.all(
+      hierarchyCriticism
+    )}
+    {hierarchyCriticism.ic.me.oa.p}
+    {hierarchyCriticism}
+  </>
+
+  const long = <>
+    {await Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {await hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+
+    {Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+  </>
+
+  const jsx = <>
+    {await (<IncongruousCooperate>
+      material education original articulate parameter
+    </IncongruousCooperate>)}
+  </>
+}
+
+=====================================output=====================================
+async function testFunction() {
+  const short = (
+    <>
+      {await Promise.all(hierarchyCriticism)}
+      {await hierarchyCriticism.ic.me.oa.p}
+      {await hierarchyCriticism}
+
+      {Promise.all(hierarchyCriticism)}
+      {hierarchyCriticism.ic.me.oa.p}
+      {hierarchyCriticism}
+    </>
+  );
+
+  const long = (
+    <>
+      {await Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        await hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+
+      {Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+    </>
+  );
+
+  const jsx = (
+    <>
+      {await (
+        <IncongruousCooperate>
+          material education original articulate parameter
+        </IncongruousCooperate>
+      )}
+    </>
+  );
+}
+
+================================================================================
+`;
+
+exports[`await.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+async function testFunction() {
+  const short = <>
+    {await Promise.all(
+      hierarchyCriticism
+    )}
+    {await hierarchyCriticism.ic.me.oa.p}
+    {await hierarchyCriticism}
+
+    {Promise.all(
+      hierarchyCriticism
+    )}
+    {hierarchyCriticism.ic.me.oa.p}
+    {hierarchyCriticism}
+  </>
+
+  const long = <>
+    {await Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {await hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+
+    {Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+  </>
+
+  const jsx = <>
+    {await (<IncongruousCooperate>
+      material education original articulate parameter
+    </IncongruousCooperate>)}
+  </>
+}
+
+=====================================output=====================================
+async function testFunction() {
+  const short = (
+    <>
+      {await Promise.all(hierarchyCriticism)}
+      {await hierarchyCriticism.ic.me.oa.p}
+      {await hierarchyCriticism}
+
+      {Promise.all(hierarchyCriticism)}
+      {hierarchyCriticism.ic.me.oa.p}
+      {hierarchyCriticism}
+    </>
+  );
+
+  const long = (
+    <>
+      {await Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        await hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+
+      {Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+    </>
+  );
+
+  const jsx = (
+    <>
+      {await (
+        <IncongruousCooperate>
+          material education original articulate parameter
+        </IncongruousCooperate>
+      )}
+    </>
+  );
+}
+
+================================================================================
+`;
+
+exports[`await.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+async function testFunction() {
+  const short = <>
+    {await Promise.all(
+      hierarchyCriticism
+    )}
+    {await hierarchyCriticism.ic.me.oa.p}
+    {await hierarchyCriticism}
+
+    {Promise.all(
+      hierarchyCriticism
+    )}
+    {hierarchyCriticism.ic.me.oa.p}
+    {hierarchyCriticism}
+  </>
+
+  const long = <>
+    {await Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {await hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+
+    {Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+  </>
+
+  const jsx = <>
+    {await (<IncongruousCooperate>
+      material education original articulate parameter
+    </IncongruousCooperate>)}
+  </>
+}
+
+=====================================output=====================================
+async function testFunction() {
+  const short = (
+    <>
+      {await Promise.all(hierarchyCriticism)}
+      {await hierarchyCriticism.ic.me.oa.p}
+      {await hierarchyCriticism}
+
+      {Promise.all(hierarchyCriticism)}
+      {hierarchyCriticism.ic.me.oa.p}
+      {hierarchyCriticism}
+    </>
+  );
+
+  const long = (
+    <>
+      {await Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        await hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+
+      {Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+    </>
+  );
+
+  const jsx = (
+    <>
+      {await (
+        <IncongruousCooperate>
+          material education original articulate parameter
+        </IncongruousCooperate>
+      )}
+    </>
+  );
+}
+
+================================================================================
+`;
+
+exports[`await.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+async function testFunction() {
+  const short = <>
+    {await Promise.all(
+      hierarchyCriticism
+    )}
+    {await hierarchyCriticism.ic.me.oa.p}
+    {await hierarchyCriticism}
+
+    {Promise.all(
+      hierarchyCriticism
+    )}
+    {hierarchyCriticism.ic.me.oa.p}
+    {hierarchyCriticism}
+  </>
+
+  const long = <>
+    {await Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {await hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+
+    {Promise.all(
+      hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+    )}
+    {hierarchyCriticism.IncongruousCooperate.MaterialEducation.OriginalArticulate.Parameter}
+    {hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter}
+  </>
+
+  const jsx = <>
+    {await (<IncongruousCooperate>
+      material education original articulate parameter
+    </IncongruousCooperate>)}
+  </>
+}
+
+=====================================output=====================================
+async function testFunction() {
+  const short = (
+    <>
+      {await Promise.all(hierarchyCriticism)}
+      {await hierarchyCriticism.ic.me.oa.p}
+      {await hierarchyCriticism}
+
+      {Promise.all(hierarchyCriticism)}
+      {hierarchyCriticism.ic.me.oa.p}
+      {hierarchyCriticism}
+    </>
+  );
+
+  const long = (
+    <>
+      {await Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        await hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        await hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+
+      {Promise.all(
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      )}
+      {
+        hierarchyCriticism.IncongruousCooperate.MaterialEducation
+          .OriginalArticulate.Parameter
+      }
+      {
+        hierarchyCriticismIncongruousCooperateMaterialEducationOriginalArticulateParameter
+      }
+    </>
+  );
+
+  const jsx = (
+    <>
+      {await (
+        <IncongruousCooperate>
+          material education original articulate parameter
+        </IncongruousCooperate>
+      )}
+    </>
+  );
+}
+
+================================================================================
+`;
+
 exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
@@ -4680,6 +5072,94 @@ singleQuote: true
   restart. This has been reported to the team, but if youencounter this121312331
   repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
 </p>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: false
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: false
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
+
+================================================================================
+`;
+
+exports[`regex.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
+====================================options=====================================
+jsxSingleQuote: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+x = <div>one</div>, <div>two</div>;
+x = <a>{}</a>
+x = <a>{1/2}</a>
+x = <a>{/w/.test(s)}</a>
+
+=====================================output=====================================
+(x = <div>one</div>), (<div>two</div>);
+x = <a>{}</a>;
+x = <a>{1 / 2}</a>;
+x = <a>{/w/.test(s)}</a>;
 
 ================================================================================
 `;

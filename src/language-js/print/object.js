@@ -1,32 +1,35 @@
-"use strict";
-
-const { printDanglingComments } = require("../../main/comments.js");
-const {
-  builders: { line, softline, group, indent, ifBreak, hardline },
-} = require("../../document/index.js");
-const {
+import { printDanglingComments } from "../../main/comments.js";
+import {
+  line,
+  softline,
+  group,
+  indent,
+  ifBreak,
+  hardline,
+} from "../../document/builders.js";
+import {
   getLast,
   hasNewlineInRange,
   hasNewline,
   isNonEmptyArray,
-} = require("../../common/util.js");
-const {
+} from "../../common/util.js";
+import {
   shouldPrintComma,
   hasComment,
   getComments,
   CommentCheckFlags,
   isNextLineEmpty,
-} = require("../utils.js");
-const { locStart, locEnd } = require("../loc.js");
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
 
-const { printOptionalToken, printTypeAnnotation } = require("./misc.js");
-const { shouldHugFunctionParameters } = require("./function-parameters.js");
-const { shouldHugType } = require("./type-annotation.js");
-const { printHardlineAfterHeritage } = require("./class.js");
+import { printOptionalToken, printTypeAnnotation } from "./misc.js";
+import { shouldHugFunctionParameters } from "./function-parameters.js";
+import { shouldHugType } from "./type-annotation.js";
+import { printHardlineAfterHeritage } from "./class.js";
 
-/** @typedef {import("../../document").Doc} Doc */
+/** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printObject(path, options, print) {
+async function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
 
@@ -98,11 +101,11 @@ function printObject(path, options, print) {
   // printing them.
   const propsAndLoc = [];
   for (const field of fields) {
-    path.each((childPath) => {
+    await path.each(async (childPath) => {
       const node = childPath.getValue();
       propsAndLoc.push({
         node,
-        printed: print(),
+        printed: await print(),
         loc: locStart(node),
       });
     }, field);
@@ -170,7 +173,11 @@ function printObject(path, options, print) {
   let content;
   if (props.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
+      return [
+        leftBrace,
+        rightBrace,
+        await printTypeAnnotation(path, options, print),
+      ];
     }
 
     content = group([
@@ -179,7 +186,7 @@ function printObject(path, options, print) {
       softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotation(path, options, print),
+      await printTypeAnnotation(path, options, print),
     ]);
   } else {
     content = [
@@ -197,7 +204,7 @@ function printObject(path, options, print) {
       options.bracketSpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotation(path, options, print),
+      await printTypeAnnotation(path, options, print),
     ];
   }
 
@@ -243,4 +250,4 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-module.exports = { printObject };
+export { printObject };

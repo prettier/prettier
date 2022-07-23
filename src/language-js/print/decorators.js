@@ -1,30 +1,32 @@
-"use strict";
+import { isNonEmptyArray, hasNewline } from "../../common/util.js";
+import {
+  line,
+  hardline,
+  join,
+  breakParent,
+  group,
+} from "../../document/builders.js";
+import { locStart, locEnd } from "../loc.js";
+import { getParentExportDeclaration } from "../utils/index.js";
 
-const { isNonEmptyArray, hasNewline } = require("../../common/util.js");
-const {
-  builders: { line, hardline, join, breakParent, group },
-} = require("../../document/index.js");
-const { locStart, locEnd } = require("../loc.js");
-const { getParentExportDeclaration } = require("../utils.js");
-
-function printClassMemberDecorators(path, options, print) {
+async function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
   return group([
-    join(line, path.map(print, "decorators")),
+    join(line, await path.map(print, "decorators")),
     hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
   ]);
 }
 
-function printDecoratorsBeforeExport(path, options, print) {
+async function printDecoratorsBeforeExport(path, options, print) {
   // Export declarations are responsible for printing any decorators
   // that logically apply to node.declaration.
   return [
-    join(hardline, path.map(print, "declaration", "decorators")),
+    join(hardline, await path.map(print, "declaration", "decorators")),
     hardline,
   ];
 }
 
-function printDecorators(path, options, print) {
+async function printDecorators(path, options, print) {
   const node = path.getValue();
   const { decorators } = node;
 
@@ -49,7 +51,7 @@ function printDecorators(path, options, print) {
       : shouldBreak
       ? breakParent
       : "",
-    join(line, path.map(print, "decorators")),
+    join(line, await path.map(print, "decorators")),
     line,
   ];
 }
@@ -77,7 +79,7 @@ function hasDecoratorsBeforeExport(node) {
   );
 }
 
-module.exports = {
+export {
   printDecorators,
   printClassMemberDecorators,
   printDecoratorsBeforeExport,

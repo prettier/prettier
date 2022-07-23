@@ -2,12 +2,15 @@ name: Dev_Package_Test
 
 on:
   schedule:
-    - cron: "0 0 * * 1"
+    # “At 00:00 on Sunday.” https://crontab.guru/#0%C2%A00%C2%A0*%C2%A0*%C2%A00
+    - cron: "0 0 * * 0"
   pull_request:
     paths:
       - "package.json"
-      - ".github/workflows/dev-package-test.yml"
       - "yarn.lock"
+      # This workflow file
+      - ".github/workflows/dev-package-test.yml"
+      - "tests/config/install-prettier.js"
 
 jobs:
   test:
@@ -19,10 +22,11 @@ jobs:
           - "ubuntu-latest"
         node:
           # Run tests on minimal version we support
-          - "12"
+          - "14"
         NPM_CLIENT:
           - "yarn"
-          - "npm"
+          # Disabled temporarily #13151
+          # - "npm"
           - "pnpm"
     env:
       INSTALL_PACKAGE: true
@@ -31,20 +35,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.4.0
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Install Client Package
         if: ${{ matrix.NPM_CLIENT == 'pnpm' }}
-        run: npm install --global pnpm@5
+        run: npm install --global pnpm
 
       - name: Run Tests
-        run: yarn test:dev-package --maxWorkers=2
+        run: yarn test:dev-package
