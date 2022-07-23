@@ -140,7 +140,9 @@ async function printBinaryishExpression(path, options, print) {
 
   const firstGroupIndex = parts.findIndex(
     (part) =>
-      typeof part !== "string" && !Array.isArray(part) && part.type === DOC_TYPE_GROUP
+      typeof part !== "string" &&
+      !Array.isArray(part) &&
+      part.type === DOC_TYPE_GROUP
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
