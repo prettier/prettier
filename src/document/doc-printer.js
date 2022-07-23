@@ -213,7 +213,7 @@ function fits(next, restCommands, width, options, hasLineSuffix, mustBeFlat) {
         case "if-break":
         case "indent-if-break": {
           const groupMode = doc.groupId
-            ? groupModeMap[doc.groupId] || mode
+            ? groupModeMap[doc.groupId] || MODE_FLAT
             : mode;
           if (groupMode === MODE_BREAK) {
             const breakContents =
