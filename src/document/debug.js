@@ -1,4 +1,3 @@
-
 import {
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,

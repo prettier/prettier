@@ -22,7 +22,9 @@ const getDocParts = (doc) => {
 
   /* istanbul ignore next */
   if (doc.type !== DOC_TYPE_CONCAT && doc.type !== DOC_TYPE_FILL) {
-    throw new Error(`Expect doc type to be '${DOC_TYPE_CONCAT}' or '${DOC_TYPE_FILL}'.`);
+    throw new Error(
+      `Expect doc type to be '${DOC_TYPE_CONCAT}' or '${DOC_TYPE_FILL}'.`
+    );
   }
 
   return doc.parts;
@@ -55,43 +57,28 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
       // when the stack is popped.
-      const docType = getDocType(doc)
-      switch (docType) {
-        case DOC_TYPE_CONCAT:
-        case DOC_TYPE_FILL: {
-          const parts = getDocParts(doc);
-          for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
-            docsStack.push(parts[i]);
-          }
-          break;
+      if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
+        const parts = getDocParts(doc);
+        for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
+          docsStack.push(parts[i]);
         }
-        case DOC_TYPE_IF_BREAK: {
-          if (doc.flatContents) {
-            docsStack.push(doc.flatContents);
-          }
-          if (doc.breakContents) {
-            docsStack.push(doc.breakContents);
-          }
-          break;
+      } else if (doc.type === DOC_TYPE_IF_BREAK) {
+        if (doc.flatContents) {
+          docsStack.push(doc.flatContents);
         }
-        case DOC_TYPE_GROUP: {
-          if (doc.expandedStates) {
-            if (shouldTraverseConditionalGroups) {
-              for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
-                docsStack.push(doc.expandedStates[i]);
-              }
-            } else {
-              docsStack.push(doc.contents);
-            }
-          }
-          break;
+        if (doc.breakContents) {
+          docsStack.push(doc.breakContents);
         }
-        default: {
-          if (doc.contents) {
-            docsStack.push(doc.contents);
+      } else if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
+        if (shouldTraverseConditionalGroups) {
+          for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
+            docsStack.push(doc.expandedStates[i]);
           }
-          break;
+        } else {
+          docsStack.push(doc.contents);
         }
+      } else if (doc.contents) {
+        docsStack.push(doc.contents);
       }
     }
   }
