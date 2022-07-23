@@ -53,7 +53,7 @@ function getDocErrorMessage(doc) {
     type: "disjunction",
   }).format(VALID_OBJECT_DOC_TYPE_VALUES.map((type) => `'${type}'`));
 
-  return `Unexpected doc.type '${docType}'.\nExpected it to be one of ${EXPECTED_TYPE_VALUES}.`;
+  return `Unexpected doc.type '${docType}'.\nExpected it to be ${EXPECTED_TYPE_VALUES}.`;
 }
 
 class InvalidDocError extends Error {
