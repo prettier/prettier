@@ -1,0 +1,798 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.js [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`basic.js [espree] format 1`] = `
+"Unexpected token bar (2:12)
+  1 | class Foo {
+> 2 |   accessor bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`basic.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`basic.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token bar (2:12)
+  1 | class Foo {
+> 2 |   accessor bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`basic.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor bar
+}
+
+================================================================================
+`;
+
+exports[`basic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor bar;
+}
+
+================================================================================
+`;
+
+exports[`computed.js [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor ["bar"];
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`computed.js [espree] format 1`] = `
+"Unexpected token [ (2:12)
+  1 | class Foo {
+> 2 |   accessor ["bar"];
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`computed.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor ["bar"];
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`computed.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token [ (2:12)
+  1 | class Foo {
+> 2 |   accessor ["bar"];
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`computed.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor ["bar"];
+}
+
+=====================================output=====================================
+class Foo {
+  accessor ["bar"]
+}
+
+================================================================================
+`;
+
+exports[`computed.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor ["bar"];
+}
+
+=====================================output=====================================
+class Foo {
+  accessor ["bar"];
+}
+
+================================================================================
+`;
+
+exports[`computed-with-newline.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  ["bar"];
+}
+
+=====================================output=====================================
+class Foo {
+  accessor;
+  ["bar"]
+}
+
+================================================================================
+`;
+
+exports[`computed-with-newline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  ["bar"];
+}
+
+=====================================output=====================================
+class Foo {
+  accessor;
+  ["bar"];
+}
+
+================================================================================
+`;
+
+exports[`not-accessor-method.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor() {}
+}
+
+=====================================output=====================================
+class Foo {
+  accessor() {}
+}
+
+================================================================================
+`;
+
+exports[`not-accessor-method.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor() {}
+}
+
+=====================================output=====================================
+class Foo {
+  accessor() {}
+}
+
+================================================================================
+`;
+
+exports[`not-accessor-property.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor = 123;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor = 123
+}
+
+================================================================================
+`;
+
+exports[`not-accessor-property.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor = 123;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor = 123;
+}
+
+================================================================================
+`;
+
+exports[`private.js [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor #bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`private.js [espree] format 1`] = `
+"Unexpected token #bar (2:12)
+  1 | class Foo {
+> 2 |   accessor #bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`private.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class Foo {
+> 2 |   accessor #bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`private.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token #bar (2:12)
+  1 | class Foo {
+> 2 |   accessor #bar;
+    |            ^
+  3 | }
+  4 |"
+`;
+
+exports[`private.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor #bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor #bar
+}
+
+================================================================================
+`;
+
+exports[`private.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor #bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor #bar;
+}
+
+================================================================================
+`;
+
+exports[`static.js [acorn] format 1`] = `
+"Unexpected token (2:19)
+  1 | class Foo {
+> 2 |   static accessor bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static.js [espree] format 1`] = `
+"Unexpected token bar (2:19)
+  1 | class Foo {
+> 2 |   static accessor bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:19)
+  1 | class Foo {
+> 2 |   static accessor bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token bar (2:19)
+  1 | class Foo {
+> 2 |   static accessor bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor bar;
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor bar
+}
+
+================================================================================
+`;
+
+exports[`static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor bar;
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor bar;
+}
+
+================================================================================
+`;
+
+exports[`static-computed.js [acorn] format 1`] = `
+"Unexpected token (2:19)
+  1 | class Foo {
+> 2 |   static accessor ["bar"];
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-computed.js [espree] format 1`] = `
+"Unexpected token [ (2:19)
+  1 | class Foo {
+> 2 |   static accessor ["bar"];
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-computed.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:19)
+  1 | class Foo {
+> 2 |   static accessor ["bar"];
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-computed.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token [ (2:19)
+  1 | class Foo {
+> 2 |   static accessor ["bar"];
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-computed.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor ["bar"];
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor ["bar"]
+}
+
+================================================================================
+`;
+
+exports[`static-computed.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor ["bar"];
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor ["bar"];
+}
+
+================================================================================
+`;
+
+exports[`static-private.js [acorn] format 1`] = `
+"Unexpected token (2:19)
+  1 | class Foo {
+> 2 |   static accessor #bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-private.js [espree] format 1`] = `
+"Unexpected token #bar (2:19)
+  1 | class Foo {
+> 2 |   static accessor #bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-private.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:19)
+  1 | class Foo {
+> 2 |   static accessor #bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-private.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token #bar (2:19)
+  1 | class Foo {
+> 2 |   static accessor #bar;
+    |                   ^
+  3 | }
+  4 |"
+`;
+
+exports[`static-private.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor #bar;
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor #bar
+}
+
+================================================================================
+`;
+
+exports[`static-private.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor #bar;
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor #bar;
+}
+
+================================================================================
+`;
+
+exports[`static-with-newline.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor
+  bar
+}
+
+================================================================================
+`;
+
+exports[`static-with-newline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  static accessor;
+  bar;
+}
+
+================================================================================
+`;
+
+exports[`with-newline.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor
+  bar
+}
+
+================================================================================
+`;
+
+exports[`with-newline.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor;
+  bar;
+}
+
+================================================================================
+`;
+
+exports[`with-semicolon-1.js [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   [foo]() {}
+  4 | }
+  5 |   "
+`;
+
+exports[`with-semicolon-1.js [espree] format 1`] = `
+"Unexpected token clicked (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   [foo]() {}
+  4 | }
+  5 |   "
+`;
+
+exports[`with-semicolon-1.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   [foo]() {}
+  4 | }
+  5 |   "
+`;
+
+exports[`with-semicolon-1.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token clicked (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   [foo]() {}
+  4 | }
+  5 |   "
+`;
+
+exports[`with-semicolon-1.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  accessor clicked = "value";
+  [foo]() {}
+}
+  
+=====================================output=====================================
+class C {
+  accessor clicked = "value";
+  [foo]() {}
+}
+
+================================================================================
+`;
+
+exports[`with-semicolon-1.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  accessor clicked = "value";
+  [foo]() {}
+}
+  
+=====================================output=====================================
+class C {
+  accessor clicked = "value";
+  [foo]() {}
+}
+
+================================================================================
+`;
+
+exports[`with-semicolon-2.js [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   *foo() {}
+  4 | }
+  5 |"
+`;
+
+exports[`with-semicolon-2.js [espree] format 1`] = `
+"Unexpected token clicked (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   *foo() {}
+  4 | }
+  5 |"
+`;
+
+exports[`with-semicolon-2.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected token (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   *foo() {}
+  4 | }
+  5 |"
+`;
+
+exports[`with-semicolon-2.js - {"semi":false} [espree] format 1`] = `
+"Unexpected token clicked (2:12)
+  1 | class C {
+> 2 |   accessor clicked = "value";
+    |            ^
+  3 |   *foo() {}
+  4 | }
+  5 |"
+`;
+
+exports[`with-semicolon-2.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  accessor clicked = "value";
+  *foo() {}
+}
+
+=====================================output=====================================
+class C {
+  accessor clicked = "value";
+  *foo() {}
+}
+
+================================================================================
+`;
+
+exports[`with-semicolon-2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  accessor clicked = "value";
+  *foo() {}
+}
+
+=====================================output=====================================
+class C {
+  accessor clicked = "value";
+  *foo() {}
+}
+
+================================================================================
+`;

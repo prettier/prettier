@@ -78,6 +78,7 @@ const {
 const { locStart, locEnd } = require("./loc.js");
 const isLessParser = require("./utils/is-less-parser.js");
 const isSCSS = require("./utils/is-scss.js");
+const printUnit = require("./utils/print-unit.js");
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
@@ -414,7 +415,7 @@ function genericPrint(path, options, print) {
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
         node.attribute.trim(),
-        node.operator ? node.operator : "",
+        node.operator ?? "",
         node.value
           ? quoteAttributeValue(
               adjustStrings(node.value.trim(), options),
@@ -923,15 +924,16 @@ function genericPrint(path, options, print) {
                 if (
                   !isLast &&
                   child.type === "value-comma_group" &&
-                  child.groups &&
-                  child.groups[0].type !== "value-paren_group" &&
-                  isNextLineEmpty(
-                    options.originalText,
-                    getLast(child.groups),
-                    locEnd
-                  )
+                  isNonEmptyArray(child.groups)
                 ) {
-                  printed.push(hardline);
+                  const last = getLast(child.groups);
+                  if (
+                    // `value-paren_group` missing location info
+                    last.source &&
+                    isNextLineEmpty(options.originalText, last, locEnd)
+                  ) {
+                    printed.push(hardline);
+                  }
                 }
 
                 return printed;
@@ -969,7 +971,7 @@ function genericPrint(path, options, print) {
       return node.value;
     }
     case "value-number": {
-      return [printCssNumber(node.value), maybeToLowerCase(node.unit)];
+      return [printCssNumber(node.value), printUnit(node.unit)];
     }
     case "value-operator": {
       return node.value;

@@ -20,91 +20,91 @@ exports[`snippet: #0 [json5] format 1`] = `
 
 exports[`snippet: #1 [json] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
-> 1 | {[\\"foo\\"]:\\"bar\\"}
+> 1 | {["foo"]:"bar"}
     |   ^^^^^"
 `;
 
 exports[`snippet: #1 [json-stringify] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
-> 1 | {[\\"foo\\"]:\\"bar\\"}
+> 1 | {["foo"]:"bar"}
     |   ^^^^^"
 `;
 
 exports[`snippet: #1 [json5] format 1`] = `
 "Computed key is not allowed in JSON. (1:3)
-> 1 | {[\\"foo\\"]:\\"bar\\"}
+> 1 | {["foo"]:"bar"}
     |   ^^^^^"
 `;
 
 exports[`snippet: #2 [json] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": ~1}
+> 1 | {"foo": ~1}
     |         ^^"
 `;
 
 exports[`snippet: #2 [json-stringify] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": ~1}
+> 1 | {"foo": ~1}
     |         ^^"
 `;
 
 exports[`snippet: #2 [json5] format 1`] = `
 "Operator '~' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": ~1}
+> 1 | {"foo": ~1}
     |         ^^"
 `;
 
 exports[`snippet: #3 [json] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": false || \\"bar\\"}
+> 1 | {"foo": false || "bar"}
     |         ^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #3 [json-stringify] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": false || \\"bar\\"}
+> 1 | {"foo": false || "bar"}
     |         ^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #3 [json5] format 1`] = `
 "'LogicalExpression' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": false || \\"bar\\"}
+> 1 | {"foo": false || "bar"}
     |         ^^^^^^^^^^^^^^"
 `;
 
 exports[`snippet: #4 [json] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": () => {}}
+> 1 | {"foo": () => {}}
     |         ^^^^^^^^"
 `;
 
 exports[`snippet: #4 [json-stringify] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": () => {}}
+> 1 | {"foo": () => {}}
     |         ^^^^^^^^"
 `;
 
 exports[`snippet: #4 [json5] format 1`] = `
 "'ArrowFunctionExpression' is not allowed in JSON. (1:9)
-> 1 | {\\"foo\\": () => {}}
+> 1 | {"foo": () => {}}
     |         ^^^^^^^^"
 `;
 
 exports[`snippet: #5 [json] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX. (1:10)
-> 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
+"Expecting Unicode escape sequence \\uXXXX. (1:10)
+> 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
     |          ^"
 `;
 
 exports[`snippet: #5 [json-stringify] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX. (1:10)
-> 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
+"Expecting Unicode escape sequence \\uXXXX. (1:10)
+> 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
     |          ^"
 `;
 
 exports[`snippet: #5 [json5] format 1`] = `
-"Expecting Unicode escape sequence \\\\uXXXX. (1:10)
-> 1 | packages\\\\the-hub\\\\cypress\\\\fixtures\\\\gridConfiguration.json
+"Expecting Unicode escape sequence \\uXXXX. (1:10)
+> 1 | packages\\the-hub\\cypress\\fixtures\\gridConfiguration.json
     |          ^"
 `;
 
@@ -401,21 +401,21 @@ exports[`snippet: #21 [json5] format 1`] = `
 
 exports[`snippet: #22 [json] format 1`] = `
 "Unexpected token (2:1)
-  1 | \\"use strict\\"
+  1 | "use strict"
 > 2 | {}
     | ^"
 `;
 
 exports[`snippet: #22 [json-stringify] format 1`] = `
 "Unexpected token (2:1)
-  1 | \\"use strict\\"
+  1 | "use strict"
 > 2 | {}
     | ^"
 `;
 
 exports[`snippet: #22 [json5] format 1`] = `
 "Unexpected token (2:1)
-  1 | \\"use strict\\"
+  1 | "use strict"
 > 2 | {}
     | ^"
 `;

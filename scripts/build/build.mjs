@@ -20,16 +20,6 @@ import saveLicenses from "./save-licenses.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
-// Errors in promises should be fatal.
-const loggedErrors = new Set();
-process.on("unhandledRejection", (err) => {
-  // No need to print it twice.
-  if (!loggedErrors.has(err)) {
-    console.error(err);
-  }
-  process.exit(1);
-});
-
 const statusConfig = [
   { color: "bgGreen", text: "DONE" },
   { color: "bgRed", text: "FAIL" },
@@ -63,8 +53,6 @@ const clear = () => {
 };
 
 async function createBundle(bundleConfig, options) {
-  const { target } = bundleConfig;
-
   try {
     for await (const {
       name,
@@ -87,16 +75,6 @@ async function createBundle(bundleConfig, options) {
         }
 
         continue;
-      }
-
-      // Files including U+FFEE can't load in Chrome Extension
-      // `prettier-chrome-extension` https://github.com/prettier/prettier-chrome-extension
-      // details https://github.com/prettier/prettier/pull/8534
-      if (target === "universal") {
-        const content = await fs.readFile(absolutePath, "utf8");
-        if (content.includes("\ufffe")) {
-          throw new Error("Bundled umd file should not have U+FFFE character.");
-        }
       }
 
       const sizeMessages = [];
@@ -147,14 +125,9 @@ async function createBundle(bundleConfig, options) {
     }
   } catch (error) {
     console.log(status.FAIL + "\n");
-    handleError(error);
+    console.error(error);
+    throw error;
   }
-}
-
-function handleError(error) {
-  loggedErrors.add(error);
-  console.error(error);
-  throw error;
 }
 
 async function preparePackage() {
@@ -270,7 +243,7 @@ async function run(params) {
   }
 }
 
-run(
+await run(
   minimist(process.argv.slice(2), {
     boolean: [
       "playground",

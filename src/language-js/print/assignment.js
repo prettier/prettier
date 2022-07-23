@@ -2,7 +2,7 @@
 
 const { isNonEmptyArray, getStringWidth } = require("../../common/util.js");
 const {
-  builders: { line, group, indent, indentIfBreak },
+  builders: { line, group, indent, indentIfBreak, lineSuffixBoundary },
   utils: { cleanDoc, willBreak, canBreak },
 } = require("../../document/index.js");
 const {
@@ -50,6 +50,7 @@ function printAssignment(
         group(leftDoc),
         operator,
         group(indent(line), { id: groupId }),
+        lineSuffixBoundary,
         indentIfBreak(rightDoc, { groupId }),
       ]);
     }
@@ -440,7 +441,9 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
         firstArg.type === "TSUnionType" ||
         firstArg.type === "UnionTypeAnnotation" ||
         firstArg.type === "TSIntersectionType" ||
-        firstArg.type === "IntersectionTypeAnnotation"
+        firstArg.type === "IntersectionTypeAnnotation" ||
+        firstArg.type === "TSTypeLiteral" ||
+        firstArg.type === "ObjectTypeAnnotation"
       ) {
         return true;
       }

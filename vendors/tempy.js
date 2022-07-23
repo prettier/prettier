@@ -23,7 +23,6 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __objRest = (source, exclude) => {
   var target = {};
   for (var prop in source)
@@ -43,22 +42,16 @@ var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __reExport = (target, module2, copyDefault, desc) => {
-  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-    for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
-        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-  return target;
+  return to;
 };
-var __toESM = (module2, isNodeMode) => {
-  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
-};
-var __toCommonJS = /* @__PURE__ */ ((cache) => {
-  return (module2, temp) => {
-    return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
-  };
-})(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/temp-dir/index.js
 var require_temp_dir = __commonJS({
@@ -3049,9 +3042,9 @@ var require_micromatch = __commonJS({
           options.onResult(state);
         items.push(state.output);
       };
-      let matches = micromatch(list, patterns, __spreadProps(__spreadValues({}, options), { onResult }));
+      let matches = new Set(micromatch(list, patterns, __spreadProps(__spreadValues({}, options), { onResult })));
       for (let item of items) {
-        if (!matches.includes(item)) {
+        if (!matches.has(item)) {
           result.add(item);
         }
       }
@@ -7269,12 +7262,12 @@ var require_minimatch = __commonJS({
   "node_modules/minimatch/minimatch.js"(exports, module2) {
     module2.exports = minimatch;
     minimatch.Minimatch = Minimatch;
-    var path2 = (() => {
+    var path2 = function() {
       try {
         return require("path");
       } catch (e) {
       }
-    })() || {
+    }() || {
       sep: "/"
     };
     minimatch.sep = path2.sep;
@@ -7307,9 +7300,8 @@ var require_minimatch = __commonJS({
       };
     }
     function ext(a, b) {
-      a = a || {};
       b = b || {};
-      const t = {};
+      var t = {};
       Object.keys(a).forEach(function(k) {
         t[k] = a[k];
       });
@@ -7322,14 +7314,14 @@ var require_minimatch = __commonJS({
       if (!def || typeof def !== "object" || !Object.keys(def).length) {
         return minimatch;
       }
-      const orig = minimatch;
-      const m = function minimatch2(p, pattern, options) {
+      var orig = minimatch;
+      var m = function minimatch2(p, pattern, options) {
         return orig(p, pattern, ext(def, options));
       };
       m.Minimatch = function Minimatch2(pattern, options) {
         return new orig.Minimatch(pattern, ext(def, options));
       };
-      m.Minimatch.defaults = (options) => {
+      m.Minimatch.defaults = function defaults(options) {
         return orig.defaults(ext(def, options)).Minimatch;
       };
       m.filter = function filter2(pattern, options) {
@@ -7359,8 +7351,6 @@ var require_minimatch = __commonJS({
       if (!options.nocomment && pattern.charAt(0) === "#") {
         return false;
       }
-      if (pattern.trim() === "")
-        return p === "";
       return new Minimatch(pattern, options).match(p);
     }
     function Minimatch(pattern, options) {
@@ -7371,7 +7361,7 @@ var require_minimatch = __commonJS({
       if (!options)
         options = {};
       pattern = pattern.trim();
-      if (path2.sep !== "/") {
+      if (!options.allowWindowsEscape && path2.sep !== "/") {
         pattern = pattern.split(path2.sep).join("/");
       }
       this.options = options;
@@ -7381,14 +7371,13 @@ var require_minimatch = __commonJS({
       this.negate = false;
       this.comment = false;
       this.empty = false;
+      this.partial = !!options.partial;
       this.make();
     }
     Minimatch.prototype.debug = function() {
     };
     Minimatch.prototype.make = make;
     function make() {
-      if (this._made)
-        return;
       var pattern = this.pattern;
       var options = this.options;
       if (!options.nocomment && pattern.charAt(0) === "#") {
@@ -7402,7 +7391,9 @@ var require_minimatch = __commonJS({
       this.parseNegate();
       var set = this.globSet = this.braceExpand();
       if (options.debug)
-        this.debug = console.error;
+        this.debug = function debug() {
+          console.error.apply(console, arguments);
+        };
       this.debug(this.pattern, set);
       set = this.globParts = set.map(function(s) {
         return s.split(slashSplit);
@@ -7454,7 +7445,7 @@ var require_minimatch = __commonJS({
       return expand(pattern);
     }
     var MAX_PATTERN_LENGTH = 1024 * 64;
-    var assertValidPattern = (pattern) => {
+    var assertValidPattern = function(pattern) {
       if (typeof pattern !== "string") {
         throw new TypeError("invalid pattern");
       }
@@ -7467,12 +7458,16 @@ var require_minimatch = __commonJS({
     function parse(pattern, isSub) {
       assertValidPattern(pattern);
       var options = this.options;
-      if (!options.noglobstar && pattern === "**")
-        return GLOBSTAR;
+      if (pattern === "**") {
+        if (!options.noglobstar)
+          return GLOBSTAR;
+        else
+          pattern = "*";
+      }
       if (pattern === "")
         return "";
       var re = "";
-      var hasMagic = false;
+      var hasMagic = !!options.nocase;
       var escaping = false;
       var patternListStack = [];
       var negativeLists = [];
@@ -7595,17 +7590,15 @@ var require_minimatch = __commonJS({
               escaping = false;
               continue;
             }
-            if (inClass) {
-              var cs = pattern.substring(classStart + 1, i);
-              try {
-                RegExp("[" + cs + "]");
-              } catch (er) {
-                var sp = this.parse(cs, SUBPARSE);
-                re = re.substr(0, reClassStart) + "\\[" + sp[0] + "\\]";
-                hasMagic = hasMagic || sp[1];
-                inClass = false;
-                continue;
-              }
+            var cs = pattern.substring(classStart + 1, i);
+            try {
+              RegExp("[" + cs + "]");
+            } catch (er) {
+              var sp = this.parse(cs, SUBPARSE);
+              re = re.substr(0, reClassStart) + "\\[" + sp[0] + "\\]";
+              hasMagic = hasMagic || sp[1];
+              inClass = false;
+              continue;
             }
             hasMagic = true;
             inClass = false;
@@ -7647,8 +7640,8 @@ var require_minimatch = __commonJS({
       }
       var addPatternStart = false;
       switch (re.charAt(0)) {
-        case ".":
         case "[":
+        case ".":
         case "(":
           addPatternStart = true;
       }
@@ -7726,7 +7719,7 @@ var require_minimatch = __commonJS({
     }
     minimatch.match = function(list, pattern, options) {
       options = options || {};
-      const mm = new Minimatch(pattern, options);
+      var mm = new Minimatch(pattern, options);
       list = list.filter(function(f) {
         return mm.match(f);
       });
@@ -7735,8 +7728,9 @@ var require_minimatch = __commonJS({
       }
       return list;
     };
-    Minimatch.prototype.match = match;
-    function match(f, partial) {
+    Minimatch.prototype.match = function match(f, partial) {
+      if (typeof partial === "undefined")
+        partial = this.partial;
       this.debug("match", f, this.pattern);
       if (this.comment)
         return false;
@@ -7775,7 +7769,7 @@ var require_minimatch = __commonJS({
       if (options.flipNegate)
         return false;
       return this.negate;
-    }
+    };
     Minimatch.prototype.matchOne = function(file, pattern, partial) {
       var options = this.options;
       this.debug("matchOne", { "this": this, file, pattern });
@@ -7823,11 +7817,7 @@ var require_minimatch = __commonJS({
         }
         var hit;
         if (typeof p === "string") {
-          if (options.nocase) {
-            hit = f.toLowerCase() === p.toLowerCase();
-          } else {
-            hit = f === p;
-          }
+          hit = f === p;
           this.debug("string match", p, f, hit);
         } else {
           hit = f.match(p);
@@ -9691,6 +9681,7 @@ var tempy_exports = {};
 __export(tempy_exports, {
   default: () => tempy_default
 });
+module.exports = __toCommonJS(tempy_exports);
 var import_node_fs = __toESM(require("fs"), 1);
 var import_node_path = __toESM(require("path"), 1);
 var import_node_stream = __toESM(require("stream"), 1);
@@ -9874,7 +9865,6 @@ Object.defineProperty(tempy, "root", {
   }
 });
 var tempy_default = tempy;
-module.exports = __toCommonJS(tempy_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {});
 /*!

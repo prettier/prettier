@@ -85,6 +85,34 @@ skip(`does something really long and complicated so I have to write a very long 
 
 skip("does something really long and complicated so I have to write a very long name for the test", () => {});
 
+test.step("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.step(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.describe("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.describe.only("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.only(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.describe.parallel("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.parallel(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.describe.parallel.only("does something really long and complicated so I have to write a very long name for the testThis is a very", () => {});
+
+test.describe.parallel.only(`does something really long and complicated so I have to write a very long name for the testThis is a very`, () => {});
+
+test.describe.serial("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.serial(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
+test.describe.serial.only("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.serial.only(`does something really long and complicated so I have to write a very long name for the test`, () => {});
+
 // Should break
 
 it.only("does something really long and complicated so I have to write a very long name for the test", 10, () => {
@@ -100,6 +128,14 @@ it.only.only("does something really long and complicated so I have to write a ve
 });
 
 xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.only.parallel("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.parallel.serial("does something really long and complicated so I have to write a very long name for the testThis is a very", () => {});
+
+test.serial("does something really long and complicated so I have to write a very long name for the test", () => {});
+
+test.describe.dummy.serial("does something really long and complicated so I have to write a very long name for the test", () => {});
 
 // timeout
 

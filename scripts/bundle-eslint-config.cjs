@@ -40,7 +40,16 @@ module.exports = {
       },
     },
     {
-      files: ["index.js", "bin-prettier.js", "third-party.js"],
+      files: ["bin-prettier.js"],
+      parserOptions: {
+        ecmaVersion: 5,
+      },
+      rules: {
+        "compat/compat": "error",
+      },
+    },
+    {
+      files: ["index.js", "bin-prettier.js", "cli.js", "third-party.js"],
       rules: {
         "no-restricted-syntax": [
           "error",

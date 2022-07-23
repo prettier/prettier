@@ -25,6 +25,17 @@ function printOptionalToken(path) {
   return "?";
 }
 
+function printDefiniteToken(path) {
+  return path.getValue().definite ||
+    path.match(
+      undefined,
+      (node, name) =>
+        name === "id" && node.type === "VariableDeclarator" && node.definite
+    )
+    ? "!"
+    : "";
+}
+
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.getValue();
   if (fun.typeArguments) {
@@ -43,11 +54,6 @@ function printTypeAnnotation(path, options, print) {
   }
 
   const parentNode = path.getParentNode();
-  const isDefinite =
-    node.definite ||
-    (parentNode &&
-      parentNode.type === "VariableDeclarator" &&
-      parentNode.definite);
 
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
@@ -56,10 +62,7 @@ function printTypeAnnotation(path, options, print) {
     return [" /*: ", print("typeAnnotation"), " */"];
   }
 
-  return [
-    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    print("typeAnnotation"),
-  ];
+  return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
 }
 
 function printBindExpressionCallee(path, options, print) {
@@ -92,6 +95,7 @@ function printRestSpread(path, options, print) {
 
 module.exports = {
   printOptionalToken,
+  printDefiniteToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,

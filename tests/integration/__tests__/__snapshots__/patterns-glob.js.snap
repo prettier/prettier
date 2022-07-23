@@ -9,7 +9,7 @@ b.js
 "
 `;
 
-exports[`fixtures-1: Should match all files (write) 1`] = `Array []`;
+exports[`fixtures-1: Should match all files (write) 1`] = `[]`;
 
 exports[`fixtures-1: Should match files except \`a.js\` (stderr) 1`] = `""`;
 
@@ -19,7 +19,7 @@ b.js
 "
 `;
 
-exports[`fixtures-1: Should match files except \`a.js\` (write) 1`] = `Array []`;
+exports[`fixtures-1: Should match files except \`a.js\` (write) 1`] = `[]`;
 
 exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (stderr) 1`] = `""`;
 
@@ -29,7 +29,7 @@ a.js
 "
 `;
 
-exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (write) 1`] = `Array []`;
+exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (write) 1`] = `[]`;
 
 exports[`fixtures-2: Should match all js files and all supported files in the '!dir.js' directory (stderr) 1`] = `""`;
 
@@ -41,7 +41,7 @@ a.js
 "
 `;
 
-exports[`fixtures-2: Should match all js files and all supported files in the '!dir.js' directory (write) 1`] = `Array []`;
+exports[`fixtures-2: Should match all js files and all supported files in the '!dir.js' directory (write) 1`] = `[]`;
 
 exports[`fixtures-2: Should only match \`!b.js\` (stderr) 1`] = `""`;
 
@@ -50,7 +50,7 @@ exports[`fixtures-2: Should only match \`!b.js\` (stdout) 1`] = `
 "
 `;
 
-exports[`fixtures-2: Should only match \`!b.js\` (write) 1`] = `Array []`;
+exports[`fixtures-2: Should only match \`!b.js\` (write) 1`] = `[]`;
 
 exports[`fixtures-3: Should exclude \`.svn\` (existing) (stderr) 1`] = `""`;
 
@@ -59,7 +59,7 @@ exports[`fixtures-3: Should exclude \`.svn\` (existing) (stdout) 1`] = `
 "
 `;
 
-exports[`fixtures-3: Should exclude \`.svn\` (existing) (write) 1`] = `Array []`;
+exports[`fixtures-3: Should exclude \`.svn\` (existing) (write) 1`] = `[]`;
 
 exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (stderr) 1`] = `""`;
 
@@ -68,7 +68,7 @@ exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (stdout) 1`] = `
 "
 `;
 
-exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (write) 1`] = `Array []`;
+exports[`fixtures-3: Should exclude \`.svn\` (nonexisting) (write) 1`] = `[]`;
 
 exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (stderr) 1`] = `""`;
 
@@ -79,7 +79,7 @@ outside.js
 "
 `;
 
-exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (write) 1`] = `Array []`;
+exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (write) 1`] = `[]`;
 
 exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (stderr) 1`] = `""`;
 
@@ -89,7 +89,7 @@ outside.js
 "
 `;
 
-exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (write) 1`] = `Array []`;
+exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (write) 1`] = `[]`;
 
 exports[`fixtures-4: Should match \`level-1.js\` #2 (stderr) 1`] = `""`;
 
@@ -98,7 +98,7 @@ exports[`fixtures-4: Should match \`level-1.js\` #2 (stdout) 1`] = `
 "
 `;
 
-exports[`fixtures-4: Should match \`level-1.js\` #2 (write) 1`] = `Array []`;
+exports[`fixtures-4: Should match \`level-1.js\` #2 (write) 1`] = `[]`;
 
 exports[`fixtures-4: Should match \`level-1.js\` #3 (stderr) 1`] = `""`;
 
@@ -107,7 +107,7 @@ exports[`fixtures-4: Should match \`level-1.js\` #3 (stdout) 1`] = `
 "
 `;
 
-exports[`fixtures-4: Should match \`level-1.js\` #3 (write) 1`] = `Array []`;
+exports[`fixtures-4: Should match \`level-1.js\` #3 (write) 1`] = `[]`;
 
 exports[`fixtures-4: Should match \`level-1.js\` (stderr) 1`] = `""`;
 
@@ -116,7 +116,7 @@ exports[`fixtures-4: Should match \`level-1.js\` (stdout) 1`] = `
 "
 `;
 
-exports[`fixtures-4: Should match \`level-1.js\` (write) 1`] = `Array []`;
+exports[`fixtures-4: Should match \`level-1.js\` (write) 1`] = `[]`;
 
 exports[`should not ignore file paths contains object prototype keys (stderr) 1`] = `""`;
 
@@ -125,4 +125,4 @@ exports[`should not ignore file paths contains object prototype keys (stdout) 1`
 "
 `;
 
-exports[`should not ignore file paths contains object prototype keys (write) 1`] = `Array []`;
+exports[`should not ignore file paths contains object prototype keys (write) 1`] = `[]`;

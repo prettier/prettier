@@ -1,0 +1,62 @@
+name: Bundler_Friendly
+
+on:
+  schedule:
+    # “At 00:00 on Sunday.” https://crontab.guru/#0%C2%A00%C2%A0*%C2%A0*%C2%A00
+    - cron: "0 0 * * 0"
+  pull_request:
+    paths:
+      - "scripts/tools/bundle-test/**"
+      # This workflow file
+      - ".github/workflows/bundler-friendly.yml"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Package
+        run: yarn build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+  webpack:
+    name: Bundle Prettier with webpack
+    runs-on: ubuntu-latest
+    needs: [build]
+    defaults:
+      run:
+        working-directory: scripts/tools/bundle-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.5.1
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Test
+        run: yarn test

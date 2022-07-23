@@ -1,12 +1,12 @@
 "use strict";
 
 const dashify = require("dashify");
-const chalk = require("chalk");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../../index.js");
 const { optionsNormalizer } = require("../prettier-internal.js");
 const minimist = require("./minimist.js");
 const createMinimistOptions = require("./create-minimist-options.js");
+const normalizeCliOptions = require("./normalize-cli-options.js");
 
 function getOptions(argv, detailedOptions) {
   return Object.fromEntries(
@@ -43,14 +43,14 @@ function parseArgsToOptions(context, overrideDefaults) {
     context.detailedOptions
   );
   return getOptions(
-    optionsNormalizer.normalizeCliOptions(
+    normalizeCliOptions(
       minimist(context.rawArguments, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
         default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
-      { logger: false, colorsModule: chalk }
+      { logger: false }
     ),
     context.detailedOptions
   );

@@ -1,8 +1,11 @@
 "use strict";
 
 const vnopts = require("vnopts");
-const leven = require("leven");
 const getLast = require("../utils/get-last.js");
+
+/**
+ * @typedef {import("./support").NamedOptionInfo} NamedOptionInfo
+ */
 
 const cliDescriptor = {
   key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
@@ -17,9 +20,8 @@ const cliDescriptor = {
       : `${cliDescriptor.key(key)}=${value}`,
 };
 
-// To prevent `chalk` module from being included in the `standalone.js` bundle,
-// it will take that as an argument if needed.
-const getFlagSchema = (colorsModule) =>
+// To prevent `chalk` and `leven` module from being included in the `standalone.js` bundle, it will take that as an argument if needed.
+const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
   class FlagSchema extends vnopts.ChoiceSchema {
     constructor({ name, flags }) {
       super({ name, choices: flags });
@@ -31,7 +33,9 @@ const getFlagSchema = (colorsModule) =>
         value.length > 0 &&
         !this._flags.includes(value)
       ) {
-        const suggestion = this._flags.find((flag) => leven(flag, value) < 3);
+        const suggestion = this._flags.find(
+          (flag) => levenshteinDistance(flag, value) < 3
+        );
         if (suggestion) {
           utils.logger.warn(
             [
@@ -55,10 +59,21 @@ const getFlagSchema = (colorsModule) =>
 
 let hasDeprecationWarned;
 
+/**
+ * @param {*} options
+ * @param {*} optionInfos
+ * @param {{ logger?: false; isCLI?: boolean; passThrough?: boolean; colorsModule?: any; levenshteinDistance?: any }} param2
+ */
 function normalizeOptions(
   options,
   optionInfos,
-  { logger, isCLI = false, passThrough = false, colorsModule } = {}
+  {
+    logger = false,
+    isCLI = false,
+    passThrough = false,
+    colorsModule = null,
+    levenshteinDistance = null,
+  } = {}
 ) {
   const unknown = !passThrough
     ? (key, value, options) => {
@@ -75,7 +90,11 @@ function normalizeOptions(
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
-  const schemas = optionInfosToSchemas(optionInfos, { isCLI, colorsModule });
+  const schemas = optionInfosToSchemas(optionInfos, {
+    isCLI,
+    colorsModule,
+    levenshteinDistance,
+  });
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
     unknown,
@@ -85,12 +104,14 @@ function normalizeOptions(
   const shouldSuppressDuplicateDeprecationWarnings = logger !== false;
 
   if (shouldSuppressDuplicateDeprecationWarnings && hasDeprecationWarned) {
+    // @ts-expect-error
     normalizer._hasDeprecationWarned = hasDeprecationWarned;
   }
 
   const normalized = normalizer.normalize(options);
 
   if (shouldSuppressDuplicateDeprecationWarnings) {
+    // @ts-expect-error
     hasDeprecationWarned = normalizer._hasDeprecationWarned;
   }
 
@@ -101,7 +122,10 @@ function normalizeOptions(
   return normalized;
 }
 
-function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
+function optionInfosToSchemas(
+  optionInfos,
+  { isCLI, colorsModule, levenshteinDistance }
+) {
   const schemas = [];
 
   if (isCLI) {
@@ -110,12 +134,18 @@ function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
 
   for (const optionInfo of optionInfos) {
     schemas.push(
-      optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule })
+      optionInfoToSchema(optionInfo, {
+        isCLI,
+        optionInfos,
+        colorsModule,
+        levenshteinDistance,
+      })
     );
 
     if (optionInfo.alias && isCLI) {
       schemas.push(
         vnopts.AliasSchema.create({
+          // @ts-expect-error
           name: optionInfo.alias,
           sourceName: optionInfo.name,
         })
@@ -126,11 +156,20 @@ function optionInfosToSchemas(optionInfos, { isCLI, colorsModule }) {
   return schemas;
 }
 
-function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
+/**
+ * @param {NamedOptionInfo} optionInfo
+ * @param {any} param1
+ * @returns
+ */
+function optionInfoToSchema(
+  optionInfo,
+  { isCLI, optionInfos, colorsModule, levenshteinDistance }
+) {
   const { name } = optionInfo;
 
   if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
     return vnopts.AnySchema.create({
+      // @ts-expect-error
       name,
       preprocess(value) {
         if (value === false) {
@@ -139,6 +178,9 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
         value = Array.isArray(value) ? value : [value];
         return value;
       },
+      /**
+       * @param {Array<unknown> | false} value
+       */
       validate(value) {
         if (value === false) {
           return true;
@@ -159,7 +201,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
     case "int":
       SchemaConstructor = vnopts.IntegerSchema;
       if (isCLI) {
-        parameters.preprocess = (value) => Number(value);
+        parameters.preprocess = Number;
       }
       break;
     case "string":
@@ -182,7 +224,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
       SchemaConstructor = vnopts.BooleanSchema;
       break;
     case "flag":
-      SchemaConstructor = getFlagSchema(colorsModule);
+      SchemaConstructor = getFlagSchema({ colorsModule, levenshteinDistance });
       parameters.flags = optionInfos.flatMap((optionInfo) =>
         [
           optionInfo.alias,
@@ -239,6 +281,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, colorsModule }) {
     ? vnopts.ArraySchema.create({
         ...(isCLI ? { preprocess: (v) => (Array.isArray(v) ? v : [v]) } : {}),
         ...handlers,
+        // @ts-expect-error
         valueSchema: SchemaConstructor.create(parameters),
       })
     : SchemaConstructor.create({ ...parameters, ...handlers });
@@ -250,8 +293,14 @@ function normalizeApiOptions(options, optionInfos, opts) {
 
 function normalizeCliOptions(options, optionInfos, opts) {
   /* istanbul ignore next */
-  if (process.env.NODE_ENV !== "production" && !opts.colorsModule) {
-    throw new Error("'colorsModule' option is required.");
+  if (process.env.NODE_ENV !== "production") {
+    if (!opts.colorsModule) {
+      throw new Error("'colorsModule' option is required.");
+    }
+
+    if (!opts.levenshteinDistance) {
+      throw new Error("'levenshteinDistance' option is required.");
+    }
   }
 
   return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });

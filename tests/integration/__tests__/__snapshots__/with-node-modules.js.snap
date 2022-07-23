@@ -10,7 +10,7 @@ regular-module.js
 "
 `;
 
-exports[`doesn't ignore node_modules with --with-node-modules flag (write) 1`] = `Array []`;
+exports[`doesn't ignore node_modules with --with-node-modules flag (write) 1`] = `[]`;
 
 exports[`doesn't ignore node_modules with --with-node-modules flag for file list (stderr) 1`] = `""`;
 
@@ -22,7 +22,7 @@ regular-module.js
 "
 `;
 
-exports[`doesn't ignore node_modules with --with-node-modules flag for file list (write) 1`] = `Array []`;
+exports[`doesn't ignore node_modules with --with-node-modules flag for file list (write) 1`] = `[]`;
 
 exports[`ignores node_modules by default (stderr) 1`] = `""`;
 
@@ -32,7 +32,7 @@ regular-module.js
 "
 `;
 
-exports[`ignores node_modules by default (write) 1`] = `Array []`;
+exports[`ignores node_modules by default (write) 1`] = `[]`;
 
 exports[`ignores node_modules by default for file list (stderr) 1`] = `""`;
 
@@ -42,7 +42,7 @@ regular-module.js
 "
 `;
 
-exports[`ignores node_modules by default for file list (write) 1`] = `Array []`;
+exports[`ignores node_modules by default for file list (write) 1`] = `[]`;
 
 exports[`ignores node_modules by with ./**/*.js (stderr) 1`] = `""`;
 
@@ -52,4 +52,4 @@ regular-module.js
 "
 `;
 
-exports[`ignores node_modules by with ./**/*.js (write) 1`] = `Array []`;
+exports[`ignores node_modules by with ./**/*.js (write) 1`] = `[]`;

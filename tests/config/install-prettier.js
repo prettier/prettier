@@ -2,7 +2,8 @@
 
 const path = require("path");
 const fs = require("fs");
-const chalk = require("chalk");
+const { outdent } = require("outdent");
+const { default: chalk } = require("../../vendors/chalk.js");
 const { default: tempy } = require("../../vendors/tempy.js");
 const { execaSync } = require("../../vendors/execa.js");
 
@@ -50,7 +51,11 @@ module.exports = (packageDir) => {
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  execaSync(client, ["init", "-y"], { cwd: tmpDir });
+  if (client === "pnpm") {
+    execaSync(client, ["init"], { cwd: tmpDir });
+  } else {
+    execaSync(client, ["init", "-y"], { cwd: tmpDir });
+  }
 
   let installArguments = [];
   switch (client) {
@@ -74,12 +79,12 @@ module.exports = (packageDir) => {
 
   console.log(
     chalk.green(
+      outdent`
+        Prettier installed
+          at ${chalk.inverse(installed)}
+          from ${chalk.inverse(packageDir)}
+          with ${chalk.inverse(client)}.
       `
-Prettier installed
-  at ${chalk.inverse(installed)}
-  from ${chalk.inverse(packageDir)}
-  with ${chalk.inverse(client)}.
-      `.trim()
     )
   );
 

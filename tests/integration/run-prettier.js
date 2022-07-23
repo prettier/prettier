@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const stripAnsi = require("strip-ansi");
+const { default: stripAnsi } = require("../../vendors/strip-ansi.js");
 const { prettierCli, thirdParty } = require("./env.js");
 
 async function run(dir, args, options) {
@@ -178,7 +178,7 @@ function runPrettier(dir, args = [], options = {}) {
 
   function testResult(testOptions) {
     for (const name of ["status", "stdout", "stderr", "write"]) {
-      test(`(${name})`, async () => {
+      test(`${options.title || ""}(${name})`, async () => {
         const result = await runCli();
         const value =
           // \r is trimmed from jest snapshots by default;
@@ -192,6 +192,8 @@ function runPrettier(dir, args = [], options = {}) {
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {
             expect(value).not.toBe(0);
+          } else if (typeof testOptions[name] === "function") {
+            testOptions[name](value);
           } else {
             expect(value).toEqual(testOptions[name]);
           }

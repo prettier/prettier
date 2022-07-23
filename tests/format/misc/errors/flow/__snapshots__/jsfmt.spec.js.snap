@@ -9,8 +9,8 @@ exports[`async-arrow-invalid.js [flow] format 1`] = `
 `;
 
 exports[`default-escaped.js [flow] format 1`] = `
-"Unexpected identifier, expected the token \`{\` (1:8)
-> 1 | export asyn\\\\u{63} from \\"async\\";
+"Unexpected token \`async\`, expected a declaration, statement or export specifiers (1:8)
+> 1 | export asyn\\u{63} from "async";
     |        ^^^^^^^^^^
   2 |"
 `;
@@ -31,14 +31,14 @@ exports[`function-async.js [flow] format 1`] = `
 
 exports[`module-attributes-dynamic.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:18)
-> 1 | import(\\"foo.json\\", { with: { type: \\"json\\" } })
+> 1 | import("foo.json", { with: { type: "json" } })
     |                  ^
   2 |"
 `;
 
 exports[`module-attributes-static.js [flow] format 1`] = `
 "Unexpected token \`with\`, expected the token \`;\` (1:28)
-> 1 | import foo from \\"foo.json\\" with type: \\"json\\";
+> 1 | import foo from "foo.json" with type: "json";
     |                            ^^^^
   2 |"
 `;

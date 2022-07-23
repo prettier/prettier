@@ -46,6 +46,7 @@ const {
   printTypeAnnotation,
   adjustClause,
   printRestSpread,
+  printDefiniteToken,
 } = require("./print/misc.js");
 const {
   printImportDeclaration,
@@ -96,6 +97,7 @@ function genericPrint(path, options, print, args) {
     type === "ClassMethod" ||
     type === "ClassPrivateMethod" ||
     type === "ClassProperty" ||
+    type === "ClassAccessorProperty" ||
     type === "PropertyDefinition" ||
     type === "TSAbstractPropertyDefinition" ||
     type === "ClassPrivateProperty" ||
@@ -216,7 +218,10 @@ function printPathNoParens(path, options, print, args) {
         return [printDirective(node.expression, options), semi];
       }
 
-      if (options.parser === "__vue_event_binding") {
+      if (
+        options.parser === "__vue_event_binding" ||
+        options.parser === "__vue_ts_event_binding"
+      ) {
         const parent = path.getParentNode();
         if (
           parent.type === "Program" &&
@@ -291,6 +296,7 @@ function printPathNoParens(path, options, print, args) {
       return [
         node.name,
         printOptionalToken(path),
+        printDefiniteToken(path),
         printTypeAnnotation(path, options, print),
       ];
     }
@@ -759,6 +765,7 @@ function printPathNoParens(path, options, print, args) {
     case "ClassProperty":
     case "PropertyDefinition":
     case "ClassPrivateProperty":
+    case "ClassAccessorProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
       return replaceTextEndOfLine(node.value.raw);

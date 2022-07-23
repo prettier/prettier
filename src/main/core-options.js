@@ -14,7 +14,7 @@ const CATEGORY_SPECIAL = "Special";
  * @typedef {Object} OptionInfo
  * @property {string} [since] - available since version
  * @property {string} category
- * @property {'int' | 'boolean' | 'choice' | 'path'} type
+ * @property {'int' | 'boolean' | 'choice' | 'path' | 'string' | 'flag'} type
  * @property {boolean} [array] - indicate it's an array of the specified type
  * @property {OptionValueInfo} [default]
  * @property {OptionRangeInfo} [range] - for type int

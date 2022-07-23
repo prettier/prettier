@@ -4,7 +4,7 @@ const {
   printComments,
   printDanglingComments,
 } = require("../../main/comments.js");
-const { getLast, isNonEmptyArray } = require("../../common/util.js");
+const { isNonEmptyArray } = require("../../common/util.js");
 const {
   builders: { group, join, line, softline, indent, align, ifBreak },
 } = require("../../document/index.js");
@@ -289,7 +289,6 @@ function printTupleType(path, options, print) {
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
   const isNonEmptyTuple = isNonEmptyArray(types);
-  const hasRest = isNonEmptyTuple && getLast(types).type === "TSRestType";
   const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
   return group([
     "[",
@@ -297,9 +296,7 @@ function printTupleType(path, options, print) {
       bracketsDelimiterLine,
       printArrayItems(path, options, typesField, print),
     ]),
-    ifBreak(
-      isNonEmptyTuple && shouldPrintComma(options, "all") && !hasRest ? "," : ""
-    ),
+    ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
     printDanglingComments(path, options, /* sameIndent */ true),
     bracketsDelimiterLine,
     "]",
@@ -314,6 +311,16 @@ function printIndexedAccessType(path, options, print) {
   return [print("objectType"), leftDelimiter, print("indexType"), "]"];
 }
 
+// `TSJSDocNullableType`, `TSJSDocNonNullableType`
+function printJSDocType(path, print, token) {
+  const node = path.getValue();
+  return [
+    node.postfix ? "" : token,
+    print("typeAnnotation"),
+    node.postfix ? token : "",
+  ];
+}
+
 module.exports = {
   printOpaqueType,
   printTypeAlias,
@@ -323,4 +330,5 @@ module.exports = {
   printTupleType,
   printIndexedAccessType,
   shouldHugType,
+  printJSDocType,
 };

@@ -306,9 +306,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.selector === "string") {
       selector = node.raws.selector
-        ? node.raws.selector.scss
-          ? node.raws.selector.scss
-          : node.raws.selector.raw
+        ? node.raws.selector.scss ?? node.raws.selector.raw
         : node.selector;
 
       if (node.raws.between && node.raws.between.trim().length > 0) {
@@ -322,9 +320,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.value === "string") {
       value = node.raws.value
-        ? node.raws.value.scss
-          ? node.raws.value.scss
-          : node.raws.value.raw
+        ? node.raws.value.scss ?? node.raws.value.raw
         : node.value;
 
       value = value.trim();
@@ -336,9 +332,7 @@ function parseNestedCSS(node, options) {
 
     if (typeof node.params === "string") {
       params = node.raws.params
-        ? node.raws.params.scss
-          ? node.raws.params.scss
-          : node.raws.params.raw
+        ? node.raws.params.scss ?? node.raws.params.raw
         : node.params;
 
       if (node.raws.afterName && node.raws.afterName.trim().length > 0) {

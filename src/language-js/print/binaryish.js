@@ -3,16 +3,7 @@
 const { printComments } = require("../../main/comments.js");
 const { getLast } = require("../../common/util.js");
 const {
-  builders: {
-    join,
-    line,
-    softline,
-    group,
-    indent,
-    align,
-    ifBreak,
-    indentIfBreak,
-  },
+  builders: { join, line, softline, group, indent, align, indentIfBreak },
   utils: { cleanDoc, getDocParts, isConcat },
 } = require("../../document/index.js");
 const {
@@ -241,10 +232,10 @@ function printBinaryishExpressions(
     node.type === "NGPipeExpression" && node.arguments.length > 0
       ? group(
           indent([
-            softline,
+            line,
             ": ",
             join(
-              [softline, ":", ifBreak(" ")],
+              [line, ": "],
               path.map(print, "arguments").map((arg) => align(2, group(arg)))
             ),
           ])

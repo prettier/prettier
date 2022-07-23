@@ -33,6 +33,7 @@
     "src/cli/options/get-options-for-file.js",
     "src/cli/options/option-map.js",
     "src/cli/options/parse-cli-arguments.js",
+    "src/cli/options/normalize-cli-options.js",
     "src/cli/usage.js",
     "src/cli/constant.js",
     "src/cli/prettier-internal.js",
