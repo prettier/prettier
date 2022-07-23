@@ -51,11 +51,11 @@ abstract class AbstractFoo {
   abstract method1(/* comment */ arg: string);
   abstract method2(
     /* comment */
-    arg: string
+    arg: string,
   );
   abstract method3(
     // comment
-    arg: string
+    arg: string,
   );
 }
 
@@ -138,7 +138,7 @@ declare function fn(
 declare function /* foo */ f( /* baz */ a /* taz */) /* bar */;
 =====================================output=====================================
 declare function fn(
-  currentRequest: { a: number }
+  currentRequest: { a: number },
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number;
 
@@ -185,28 +185,28 @@ interface Foo {
 =====================================output=====================================
 interface Foo {
   bar(
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ): number;
 
   (
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ): number;
 
   new (
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ): number;
 
   foo: {
     x(
-      currentRequest: { a: number }
+      currentRequest: { a: number },
       // TODO this is a very very very very long comment that makes it go > 80 columns
     ): number;
 
     y: (
-      currentRequest: { a: number }
+      currentRequest: { a: number },
       // TODO this is a very very very very long comment that makes it go > 80 columns
     ) => number;
   };
@@ -372,8 +372,8 @@ export interface ApplicationEventData {
   registerBroadcastReceiver(
     onReceiveCallback: (
       context: any /* android.content.Context */,
-      intent: any /* android.content.Intent */
-    ) => void
+      intent: any /* android.content.Intent */,
+    ) => void,
   ): void;
 }
 
@@ -395,7 +395,7 @@ export type WrappedFormUtils = {
       rules?: ValidationRule[];
       /** 是否和其他控件互斥，特别用于 Radio 单选控件 */
       exclusive?: boolean;
-    }
+    },
   ): (node: React.ReactNode) => React.ReactNode;
 };
 
@@ -792,15 +792,15 @@ function foo<
 >() {}
 interface Foo {
   <
-    A // comment
+    A, // comment
   >(
-    arg
+    arg,
   ): any;
 }
 type T = <
   // comment
 >(
-  arg
+  arg,
 ) => any;
 
 ================================================================================

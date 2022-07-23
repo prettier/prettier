@@ -1034,7 +1034,7 @@ let myDiv = ReactTestUtils.renderIntoDocument(
   <div>
     <div key="theDog" className="dog" />,
     <div key="theBird" className="bird" />
-  </div>
+  </div>,
 );
 
 ================================================================================

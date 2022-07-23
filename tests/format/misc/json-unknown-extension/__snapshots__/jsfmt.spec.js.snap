@@ -46,10 +46,11 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`trailingComma.notjson format 1`] = `
+exports[`trailingComma.notjson - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 {
@@ -68,10 +69,11 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailingComma.notjson format 2`] = `
+exports[`trailingComma.notjson - {"trailingComma":"es5"} format 2`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 {
@@ -90,7 +92,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailingComma.notjson format 3`] = `
+exports[`trailingComma.notjson format 1`] = `
 ====================================options=====================================
 parsers: ["json-stringify"]
 printWidth: 80

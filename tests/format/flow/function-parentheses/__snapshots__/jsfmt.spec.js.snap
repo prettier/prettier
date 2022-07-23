@@ -19,7 +19,7 @@ const selectorByPath:
 const selectorByPath: Path => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
-  SomethingBulkValue<string>
+  SomethingBulkValue<string>,
 > = memoizeWithArgs(/* ... */);
 
 ================================================================================
@@ -50,10 +50,11 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js format 1`] = `
+exports[`single.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const selectorByPath:
@@ -183,7 +184,7 @@ type f6 = (?arg) => void;
 
 class Y {
   constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory,
   ) {}
 }
 
@@ -348,10 +349,11 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js format 1`] = `
+exports[`test.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 type Banana = {

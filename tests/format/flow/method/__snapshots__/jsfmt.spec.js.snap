@@ -17,7 +17,7 @@ type Foo = {
 type Foo = {
   method(
     arg: number, // I belong with baz
-    qux: string
+    qux: string,
   ): void,
 };
 

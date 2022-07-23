@@ -548,7 +548,7 @@ function test(observable) {
     ::throttle(() =>
       interval(10)
         ::take(1)
-        ::takeUntil(observable::filter((data) => someOtherTest))
+        ::takeUntil(observable::filter((data) => someOtherTest)),
     )
     ::map(someFunction)
 }
@@ -594,7 +594,7 @@ function test(observable) {
     ::throttle(() =>
       interval(10)
         ::take(1)
-        ::takeUntil(observable::filter((data) => someOtherTest))
+        ::takeUntil(observable::filter((data) => someOtherTest)),
     )
     ::map(someFunction);
 }

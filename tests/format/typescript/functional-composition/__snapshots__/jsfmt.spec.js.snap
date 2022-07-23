@@ -33,12 +33,12 @@ printWidth: 80
 (() => {
   pipe(
     serviceEventFromMessage(msg),
-    TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError)))
+    TE.chain(flow(publishServiceEvent(analytics), TE.mapLeft(nackFromError))),
   )()
     .then(messageResponse(logger, msg))
     .catch((err: Error) => {
       logger.error(
-        pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message)))
+        pipe(O.fromNullable(err.stack), O.getOrElse(constant(err.message))),
       );
       process.exit(1);
     });
@@ -112,7 +112,7 @@ printWidth: 80
     timelines,
     everyCommitTimestamps,
     A.sort(ordDate),
-    A.head
+    A.head,
   );
 
   pipe(
@@ -122,9 +122,9 @@ printWidth: 80
       flow(
         // add a descriptive comment here
         publishServiceEvent(analytics),
-        TE.mapLeft(nackFromError)
-      )
-    )
+        TE.mapLeft(nackFromError),
+      ),
+    ),
   )()
     .then(messageResponse(logger, msg))
     .catch((err: Error) => {
@@ -132,8 +132,8 @@ printWidth: 80
         pipe(
           // add a descriptive comment here
           O.fromNullable(err.stack),
-          O.getOrElse(constant(err.message))
-        )
+          O.getOrElse(constant(err.message)),
+        ),
       );
       process.exit(1);
     });
@@ -141,7 +141,7 @@ printWidth: 80
   pipe(
     // add a descriptive comment here
     Changelog.timestampOfFirstCommit([[commit]]),
-    O.toUndefined
+    O.toUndefined,
   );
 
   chain(
@@ -149,8 +149,8 @@ printWidth: 80
       // add a descriptive comment here
       getUploadUrl,
       E.mapLeft(Errors.unknownError),
-      TE.fromEither
-    )
+      TE.fromEither,
+    ),
   );
 })();
 

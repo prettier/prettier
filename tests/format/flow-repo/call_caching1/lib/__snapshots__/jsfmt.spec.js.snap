@@ -37,7 +37,7 @@ declare class Array<T> {
   @@iterator(): Iterator<T>;
   map<U>(
     callbackfn: (value: T, index: number, array: Array<T>) => U,
-    thisArg?: any
+    thisArg?: any,
   ): Array<U>;
 }
 

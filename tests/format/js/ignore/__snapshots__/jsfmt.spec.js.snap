@@ -216,14 +216,14 @@ verylongidentifierthatwillwrap123123123123123(
   a.b
     // prettier-ignore
     // Some other comment here
-    .c
+    .c,
 );
 
 call(
   // comment
   a.
     // prettier-ignore
-    b
+    b,
 );
 
 call(
@@ -236,7 +236,7 @@ because the prettier-ignore comment is attached as MemberExpression leading comm
 2.0000, 3
 )
     // prettier-ignore
-    .c
+    .c,
 );
 
 ================================================================================

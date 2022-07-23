@@ -68,7 +68,7 @@ export function updateStoreFromURL(
 =====================================output=====================================
 export function updateStoreFromURL(
   store /*: Store*/,
-  { search, hash } /*: {search: string, hash: string}*/
+  { search, hash } /*: {search: string, hash: string}*/,
 ) {}
 
 ================================================================================

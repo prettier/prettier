@@ -80,7 +80,7 @@ interface FooConstructor {
     e: number,
     f: number,
     g: number,
-    h: number
+    h: number,
   ): Foo;
 }
 
@@ -93,7 +93,7 @@ interface BarConstructor {
     e: number,
     f: number,
     g: number,
-    h: number
+    h: number,
   ): Foo;
 }
 
@@ -106,7 +106,7 @@ type BazConstructor = {
     e: number,
     f: number,
     g: number,
-    h: number
+    h: number,
   ): Foo;
 };
 
@@ -115,7 +115,7 @@ interface ConstructorBigGenerics {
   new <
     AAAAAAAAAAAAAAAAAAAAAAAA,
     AAAAAAAAAAAAAAAAAAAAAAAA,
-    AAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAA,
   >(
     a: number,
     b: number,
@@ -124,7 +124,7 @@ interface ConstructorBigGenerics {
     e: number,
     f: number,
     g: number,
-    h: number
+    h: number,
   ): Foo;
 }
 

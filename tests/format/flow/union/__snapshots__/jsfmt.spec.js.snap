@@ -12,7 +12,7 @@ const myValue = (callcallcallcallcallcall(87689769876876897698768768976987687689
 
 =====================================output=====================================
 const myValue = (callcallcallcallcallcall(
-  87689769876876897698768768976987687689769876
+  87689769876876897698768768976987687689769876,
 ): // Comment
 | one
   | two
@@ -73,22 +73,22 @@ interface RelayProps2 {
 }
 
 export function aPrettyLongFunction(
-  aRatherLongParamName: string | null
+  aRatherLongParamName: string | null,
 ): string {}
 
 export function aPrettyLongFunctionA(
-  aRatherLongParameterName: {} | null
+  aRatherLongParameterName: {} | null,
 ): string[] {}
 export function aPrettyLongFunctionB(
-  aRatherLongParameterName: Function | null
+  aRatherLongParameterName: Function | null,
 ): string[] {}
 export interface MyInterface {}
 export function aPrettyLongFunctionC(
-  aRatherLongParameterName: MyInterface | null
+  aRatherLongParameterName: MyInterface | null,
 ): string[] {}
 export type MyType = MyInterface;
 export function aPrettyLongFunctionD(
-  aRatherLongParameterName: MyType | null
+  aRatherLongParameterName: MyType | null,
 ): string[] {}
 
 export function aShortFn(aShortParmName: MyType | null): string[] {}
@@ -96,7 +96,7 @@ export function aShortFn(aShortParmName: MyType | null): string[] {}
 export function aPrettyLongFunctionE(
   aRatherLongParameterName: Array<{
     __id: string,
-  } | null> | null | void
+  } | null> | null | void,
 ): string[] {}
 
 ================================================================================
@@ -127,14 +127,14 @@ type A = [
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
+  | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type B = [
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
-  | DDDDDDDDDDDDDDDDDDDDDD
+  | DDDDDDDDDDDDDDDDDDDDDD,
 ];
 
 type C = [
@@ -142,14 +142,14 @@ type C = [
       | AAAAAAAAAAAAAAAAAAAAAA
       | BBBBBBBBBBBBBBBBBBBBBB
       | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD
+      | DDDDDDDDDDDDDDDDDDDDDD,
     ]
   | [
       | AAAAAAAAAAAAAAAAAAAAAA
       | BBBBBBBBBBBBBBBBBBBBBB
       | CCCCCCCCCCCCCCCCCCCCCC
-      | DDDDDDDDDDDDDDDDDDDDDD
-    ]
+      | DDDDDDDDDDDDDDDDDDDDDD,
+    ],
 ];
 
 ================================================================================

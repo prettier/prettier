@@ -69,15 +69,15 @@ const foo2 = call<
   Foooooo,
   Foooooo,
   Foooooo,
-  Foooooo
+  Foooooo,
 >();
 
 const foo3 = call<
-  Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo
+  Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo | Foooooooooooo,
 >();
 
 const foo4 = call<
-  Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo
+  Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo & Foooooooooooo,
 >();
 
 ================================================================================
@@ -100,7 +100,7 @@ const map: Map<Function, Foo<S>> = new Map();
 =====================================output=====================================
 const map: Map<
   Function,
-  Map<string | void, { value: UnloadedDescriptor }>
+  Map<string | void, { value: UnloadedDescriptor }>,
 > = new Map();
 
 const map: Map<Function, FunctionFunctionFunctionFunctionffFunction> =

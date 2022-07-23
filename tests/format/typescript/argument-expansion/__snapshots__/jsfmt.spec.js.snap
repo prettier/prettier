@@ -51,14 +51,14 @@ const bar3 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [1, 2, 3] as unknown as number[]
+  [1, 2, 3] as unknown as number[],
 );
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  <Array<number>>[1, 2, 3]
+  <Array<number>>[1, 2, 3],
 );
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -73,14 +73,14 @@ const bar7 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  { 1: true } as unknown as { [key: number]: boolean }
+  { 1: true } as unknown as { [key: number]: boolean },
 );
 
 const bar8 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  <{ [key: number]: boolean }>{ 1: true }
+  <{ [key: number]: boolean }>{ 1: true },
 );
 
 ================================================================================
@@ -123,7 +123,7 @@ longfunctionWithCall12(
   foo,
   (thing: string): complex<type<something>> => {
     code();
-  }
+  },
 );
 
 longfunctionWithCallBack(
@@ -131,7 +131,7 @@ longfunctionWithCallBack(
   foobarbazblablablablabla,
   (thing: string): complex<type<something>> => {
     code();
-  }
+  },
 );
 
 longfunctionWithCallBack(
@@ -139,20 +139,20 @@ longfunctionWithCallBack(
   foobarbazblablabla,
   (thing: string): complex<type<something>> => {
     code();
-  }
+  },
 );
 
 longfunctionWithCall1(
   "bla",
   foo,
   (
-    thing: string
+    thing: string,
   ): complex<
     type<\`
 \`>
   > => {
     code();
-  }
+  },
 );
 
 ================================================================================

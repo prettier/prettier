@@ -298,7 +298,7 @@ class Foo<FOOOOOOOOOOOOOOOOOOOOOOOOOOO, FOOOOOOOOOOOOOOOOOOOOOOOOOOO>
 class ImplementsInterfaceAndExtendsAbstractClass2<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   >
   extends FOOOOOOOOOOOOOOOOOO
   implements BaseInterface {}
@@ -306,13 +306,13 @@ class ImplementsInterfaceAndExtendsAbstractClass2<
 class ImplementsInterfaceClass1<
   TypeArgumentNumberOne,
   TypeArgumentNumberTwo,
-  TypeArgumentNumberThree
+  TypeArgumentNumberThree,
 > implements BaseInterface {}
 
 class ImplementsInterfaceClassWithComments1<
     TypeArgumentNumberOne,
     TypeArgumentNumberTwo,
-    TypeArgumentNumberThree
+    TypeArgumentNumberThree,
   > // comments
   implements BaseInterface {}
 

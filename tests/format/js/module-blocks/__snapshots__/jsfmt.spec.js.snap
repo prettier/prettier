@@ -325,7 +325,7 @@ let worker = new Worker(
       postMessage(mod.fn());
     };
   },
-  { type: "module", foo: "bar" }
+  { type: "module", foo: "bar" },
 );
 
 worker.postMessage(module {
