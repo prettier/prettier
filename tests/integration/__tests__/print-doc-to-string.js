@@ -26,7 +26,11 @@ test("Throw error on invalid doc", () => {
     Buffer.from("buffer"),
     new Uint8Array(2),
   ]) {
-    expect(() => printDocToString(doc, printDocToStringOptions)).toThrowError(/Unexpected doc/);
-    expect(() => printDocToString([doc], printDocToStringOptions)).toThrowError(/Unexpected doc/);
+    expect(() => printDocToString(doc, printDocToStringOptions)).toThrowError(
+      /Unexpected doc/
+    );
+    expect(() => printDocToString([doc], printDocToStringOptions)).toThrowError(
+      /Unexpected doc/
+    );
   }
 });
