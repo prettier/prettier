@@ -45,8 +45,7 @@ function clean(ast, newObj, parent) {
   if (ast.type === "definition" || ast.type === "linkReference") {
     newObj.label = ast.label
       .trim()
-      .replace(/[\t\n ]+/g, " ")
-      .toLowerCase();
+      .replace(/[\t\n ]+/g, " ");
   }
 
   if (
