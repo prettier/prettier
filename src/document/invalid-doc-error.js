@@ -1,3 +1,4 @@
+import getLast from "../utils/get-last.js";
 import {
   DOC_TYPE_STRING,
   DOC_TYPE_CONCAT,
@@ -34,6 +35,11 @@ const VALID_OBJECT_DOC_TYPE_VALUES = [
   DOC_TYPE_BREAK_PARENT,
 ];
 
+// TODO: Use `new Intl.ListFormat("en-US", { type: "disjunction" }).format()` when we drop support for iOS 12.5
+// Only works for array with more than 1 elements
+const disjunctionListFormat = (list) =>
+  [...list.slice(0, -1), `or ${getLast(list)}`].join(", ");
+
 function getDocErrorMessage(doc) {
   const type = doc === null ? null : typeof doc;
   if (type !== "string" && type !== "object") {
@@ -49,9 +55,9 @@ function getDocErrorMessage(doc) {
     throw new Error("doc is valid.");
   }
 
-  const EXPECTED_TYPE_VALUES = new Intl.ListFormat("en-US", {
-    type: "disjunction",
-  }).format(VALID_OBJECT_DOC_TYPE_VALUES.map((type) => `'${type}'`));
+  const EXPECTED_TYPE_VALUES = disjunctionListFormat(
+    VALID_OBJECT_DOC_TYPE_VALUES.map((type) => `'${type}'`)
+  );
 
   return `Unexpected doc.type '${docType}'.\nExpected it to be ${EXPECTED_TYPE_VALUES}.`;
 }
