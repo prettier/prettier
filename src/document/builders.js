@@ -1,3 +1,20 @@
+import {
+  DOC_TYPE_CONCAT,
+  DOC_TYPE_CURSOR,
+  DOC_TYPE_INDENT,
+  DOC_TYPE_ALIGN,
+  DOC_TYPE_TRIM,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_FILL,
+  DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LINE_SUFFIX,
+  DOC_TYPE_LINE_SUFFIX_BOUNDARY,
+  DOC_TYPE_LINE,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_BREAK_PARENT,
+} from "./constants.js";
+
 /**
  * TBD properly tagged union for Doc object type is needed here.
  *
@@ -51,7 +68,7 @@ function concat(parts) {
   //   // If it's a single document, no need to concat it.
   //   return parts[0];
   // }
-  return { type: "concat", parts };
+  return { type: DOC_TYPE_CONCAT, parts };
 }
 
 /**
@@ -63,7 +80,7 @@ function indent(contents) {
     assertDoc(contents);
   }
 
-  return { type: "indent", contents };
+  return { type: DOC_TYPE_INDENT, contents };
 }
 
 /**
@@ -76,7 +93,7 @@ function align(widthOrString, contents) {
     assertDoc(contents);
   }
 
-  return { type: "align", contents, n: widthOrString };
+  return { type: DOC_TYPE_ALIGN, contents, n: widthOrString };
 }
 
 /**
@@ -90,7 +107,7 @@ function group(contents, opts = {}) {
   }
 
   return {
-    type: "group",
+    type: DOC_TYPE_GROUP,
     id: opts.id,
     contents,
     break: Boolean(opts.shouldBreak),
@@ -143,7 +160,7 @@ function fill(parts) {
     }
   }
 
-  return { type: "fill", parts };
+  return { type: DOC_TYPE_FILL, parts };
 }
 
 /**
@@ -163,7 +180,7 @@ function ifBreak(breakContents, flatContents, opts = {}) {
   }
 
   return {
-    type: "if-break",
+    type: DOC_TYPE_IF_BREAK,
     breakContents,
     flatContents,
     groupId: opts.groupId,
@@ -178,7 +195,7 @@ function ifBreak(breakContents, flatContents, opts = {}) {
  */
 function indentIfBreak(contents, opts) {
   return {
-    type: "indent-if-break",
+    type: DOC_TYPE_INDENT_IF_BREAK,
     contents,
     groupId: opts.groupId,
     negate: opts.negate,
@@ -193,28 +210,28 @@ function lineSuffix(contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
   }
-  return { type: "line-suffix", contents };
+  return { type: DOC_TYPE_LINE_SUFFIX, contents };
 }
 
-const lineSuffixBoundary = { type: "line-suffix-boundary" };
-const breakParent = { type: "break-parent" };
-const trim = { type: "trim" };
+const lineSuffixBoundary = { type: DOC_TYPE_LINE_SUFFIX_BOUNDARY };
+const breakParent = { type: DOC_TYPE_BREAK_PARENT };
+const trim = { type: DOC_TYPE_TRIM };
 
-const hardlineWithoutBreakParent = { type: "line", hard: true };
+const hardlineWithoutBreakParent = { type: DOC_TYPE_LINE, hard: true };
 const literallineWithoutBreakParent = {
-  type: "line",
+  type: DOC_TYPE_LINE,
   hard: true,
   literal: true,
 };
 
-const line = { type: "line" };
-const softline = { type: "line", soft: true };
+const line = { type: DOC_TYPE_LINE };
+const softline = { type: DOC_TYPE_LINE, soft: true };
 // eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
 const hardline = concat([hardlineWithoutBreakParent, breakParent]);
 // eslint-disable-next-line prettier-internal-rules/no-doc-builder-concat
 const literalline = concat([literallineWithoutBreakParent, breakParent]);
 
-const cursor = { type: "cursor", placeholder: Symbol("cursor") };
+const cursor = { type: DOC_TYPE_CURSOR, placeholder: Symbol("cursor") };
 
 /**
  * @param {Doc} sep
@@ -258,7 +275,7 @@ function addAlignmentToDoc(doc, size, tabWidth) {
 }
 
 function label(label, contents) {
-  return { type: "label", label, contents };
+  return { type: DOC_TYPE_LABEL, label, contents };
 }
 
 export {
