@@ -112,6 +112,25 @@ header h1 {
   border-bottom: 1px solid #ddd;
 }
 
+.disabled-output-panel {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.disabled-output-panel .explanation {
+  font-size: 16px;
+  max-width: 400px;
+  color: darkred;
+}
+
+.disabled-output-panel .btn {
+  font-size: 22px;
+  padding: 10px 20px;
+}
+
 /* display as 2x2 grid */
 @media (min-width: 800px) {
   .options-container {
