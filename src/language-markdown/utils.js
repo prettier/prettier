@@ -1,5 +1,9 @@
 import { locStart, locEnd } from "./loc.js";
-import { cjkPattern, punctuationPattern } from "./constants.evaluate.js";
+import {
+  cjkPattern,
+  kPattern,
+  punctuationPattern,
+} from "./constants.evaluate.js";
 
 const INLINE_NODE_TYPES = [
   "liquidNode",
@@ -29,6 +33,7 @@ const INLINE_NODE_WRAPPER_TYPES = [
   "heading",
 ];
 
+const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
 
 /**
@@ -37,7 +42,8 @@ const punctuationRegex = new RegExp(punctuationPattern);
  */
 function splitText(text, options) {
   const KIND_NON_CJK = "non-cjk";
-  const KIND_CJK_LETTER = "cjk-letter";
+  const KIND_CJ_LETTER = "cj-letter";
+  const KIND_K_LETTER = "k-letter";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
   /**
@@ -46,7 +52,7 @@ function splitText(text, options) {
    *   | {
    *     type: "word",
    *     value: string,
-   *     kind: string,
+   *     kind: KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION,
    *     hasLeadingPunctuation: boolean,
    *     hasTrailingPunctuation: boolean
    *   }
@@ -114,7 +120,8 @@ function splitText(text, options) {
           : {
               type: "word",
               value: innerToken,
-              kind: KIND_CJK_LETTER,
+              // Korean uses space to divide words, but Chinese & Japanese do not
+              kind: kRegex.test(innerToken) ? KIND_K_LETTER : KIND_CJ_LETTER,
               hasLeadingPunctuation: false,
               hasTrailingPunctuation: false,
             }

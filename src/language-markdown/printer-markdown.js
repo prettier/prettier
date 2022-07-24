@@ -136,6 +136,9 @@ function genericPrint(path, options, print) {
       return escapedValue;
     }
     case "whitespace": {
+      const parentNode = path.getParentNode();
+      const index = parentNode.children.indexOf(node);
+      const previous = parentNode.children[index - 1];
       const { next } = path;
 
       const proseWrap =
@@ -144,7 +147,7 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printLine(path, node.value, { proseWrap });
+      return printLine(path, node.value, { proseWrap }, { previous, next });
     }
     case "emphasis": {
       let style;
@@ -525,7 +528,7 @@ function getAncestorNode(path, typeOrTypes) {
   return counter === -1 ? null : path.getParentNode(counter);
 }
 
-function printLine(path, value, options) {
+function printLine(path, value, options, adjacentNodes) {
   if (options.proseWrap === "preserve" && value === "\n") {
     return hardline;
   }
@@ -533,7 +536,14 @@ function printLine(path, value, options) {
   const isBreakable =
     options.proseWrap === "always" &&
     !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
-  return value !== ""
+  // Chinese and Japanese does not use U+0020 Space to dive words, so U+00A0 No-break space must not be replaced with it.
+  // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
+  const canLineBreakBeConvertedToSpace = !(
+    typeof adjacentNodes === "object" &&
+    (adjacentNodes?.previous?.kind === "cj-letter" ||
+      adjacentNodes?.next?.kind === "cj-letter")
+  );
+  return value !== "" && canLineBreakBeConvertedToSpace
     ? isBreakable
       ? line
       : " "
