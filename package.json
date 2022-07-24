@@ -123,7 +123,7 @@
     "esm-utils": "4.0.0",
     "execa": "6.1.0",
     "jest": "28.1.0",
-    "jest-light-runner": "fisker/jest-light-runner#b5e893d3a7d301bfb5d68ed81eebadbe2bb0577d",
+    "jest-light-runner": "fisker/jest-light-runner#3352a709911bd0c60178e115e08af5a30647b689",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.2.0",
     "jest-watch-typeahead": "1.1.0",
