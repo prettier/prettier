@@ -352,7 +352,7 @@ function genericPrint(path, options, print) {
         printChildren(path, options, print),
         "]",
         node.referenceType === "full"
-          ? ["[", node.identifier, "]"]
+          ? ["[", node.label, "]"]
           : node.referenceType === "collapsed"
           ? "[]"
           : "",
@@ -360,7 +360,7 @@ function genericPrint(path, options, print) {
     case "imageReference":
       switch (node.referenceType) {
         case "full":
-          return ["![", node.alt || "", "][", node.identifier, "]"];
+          return ["![", node.alt || "", "][", node.label, "]"];
         default:
           return [
             "![",
@@ -373,7 +373,7 @@ function genericPrint(path, options, print) {
       const lineOrSpace = options.proseWrap === "always" ? line : " ";
       return group([
         "[",
-        node.identifier,
+        node.label,
         "]:",
         indent([
           lineOrSpace,
@@ -390,7 +390,7 @@ function genericPrint(path, options, print) {
     case "footnote":
       return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
-      return ["[^", node.identifier, "]"];
+      return ["[^", node.label, "]"];
     case "footnoteDefinition": {
       const nextNode = path.getParentNode().children[path.getName() + 1];
       const shouldInlineFootnote =
@@ -402,7 +402,7 @@ function genericPrint(path, options, print) {
               node.children[0].position.end.line));
       return [
         "[^",
-        node.identifier,
+        node.label,
         "]: ",
         shouldInlineFootnote
           ? printChildren(path, options, print)
