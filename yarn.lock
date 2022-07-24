@@ -2115,9 +2115,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"c8@npm:7.11.3":
-  version: 7.11.3
-  resolution: "c8@npm:7.11.3"
+"c8@npm:7.12.0":
+  version: 7.12.0
+  resolution: "c8@npm:7.12.0"
   dependencies:
     "@bcoe/v8-coverage": ^0.2.3
     "@istanbuljs/schema": ^0.1.3
@@ -2133,7 +2133,7 @@ __metadata:
     yargs-parser: ^20.2.9
   bin:
     c8: bin/c8.js
-  checksum: 9f7272bb5fd3d4f7d1c2f7fb986c1025a09c3afefce168c3ba62497dd6294f887c1678d23736126485ec534263ec6b4ed9b4bd2a05aa8d1682c949c3db1f5359
+  checksum: 3b7fa9ad7cff2cb0bb579467e6b544498fbd46e9353a809ad3b8cf749df4beadd074cde277356b0552f3c8055b1b3ec3ebaf2209e9ad4bdefed92dbf64d283ab
   languageName: node
   linkType: hard
 
@@ -6778,7 +6778,7 @@ __metadata:
     angular-html-parser: 1.8.0
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.1.1
-    c8: 7.11.3
+    c8: 7.12.0
     camelcase: 7.0.0
     chalk: 5.0.1
     ci-info: 3.3.2
