@@ -64,6 +64,9 @@ function findSiblingAncestors(
     } else {
       break;
     }
+    if (resultStartNode === resultEndNode) {
+      break;
+    }
   }
 
   return {
