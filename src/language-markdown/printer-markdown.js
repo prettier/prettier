@@ -539,6 +539,7 @@ function printLine(path, value, options, adjacentNodes) {
   // Chinese and Japanese does not use U+0020 Space to dive words, so U+00A0 No-break space must not be replaced with it.
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
   const canLineBreakBeConvertedToSpace = !(
+    value === "\n" &&
     typeof adjacentNodes === "object" &&
     (adjacentNodes?.previous?.kind === "cj-letter" ||
       adjacentNodes?.next?.kind === "cj-letter")
