@@ -52,8 +52,6 @@ const espreeDisabledTests = new Set(
   [
     // These tests only work for `babel`
     "comments-closure-typecast",
-    // Unknown reason https://github.com/babel/babel/pull/14779#discussion_r928137651
-    "strings",
   ].map((directory) => path.join(__dirname, "../format/js", directory))
 );
 const acornDisabledTests = espreeDisabledTests;
