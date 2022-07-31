@@ -106,7 +106,7 @@
     "browserslist-to-esbuild": "1.1.1",
     "c8": "7.12.0",
     "cross-env": "7.0.3",
-    "cspell": "6.4.1",
+    "cspell": "6.5.0",
     "enquirer": "2.3.6",
     "esbuild": "0.14.49",
     "esbuild-visualizer": "0.3.1",
