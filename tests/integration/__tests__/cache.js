@@ -16,8 +16,8 @@ describe("--cache option", () => {
 
   const defaultCacheFile = {
     nodeModules: path.join(dir, "node_modules/.cache/prettier/.prettier-cache"),
-    pnpv1: path.join(dir, ".pnp/.cache/prettier/.prettier-cache"),
-    pnpv3: path.join(dir, ".yarn/.cache/prettier/.prettier-cache"),
+    pnpV1: path.join(dir, ".pnp/.cache/prettier/.prettier-cache"),
+    pnpV3: path.join(dir, ".yarn/.cache/prettier/.prettier-cache"),
   };
 
   const nonDefaultCacheFileName = ".non-default-cache-file";
@@ -103,7 +103,7 @@ describe("--cache option", () => {
     });
 
     it("creates default cache file named `.pnp/.cache/prettier/.prettier-cache`", async () => {
-      await expect(fs.stat(defaultCacheFile.pnpv1)).rejects.toHaveProperty(
+      await expect(fs.stat(defaultCacheFile.pnpV1)).rejects.toHaveProperty(
         "code",
         "ENOENT"
       );
@@ -119,11 +119,11 @@ describe("--cache option", () => {
       } finally {
         process.versions.pnp = oldPnpVersion;
       }
-      await expect(fs.stat(defaultCacheFile.pnpv1)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile.pnpV1)).resolves.not.toThrowError();
     });
 
     it("creates default cache file named `.yarn/.cache/prettier/.prettier-cache`", async () => {
-      await expect(fs.stat(defaultCacheFile.pnpv3)).rejects.toHaveProperty(
+      await expect(fs.stat(defaultCacheFile.pnpV3)).rejects.toHaveProperty(
         "code",
         "ENOENT"
       );
@@ -139,7 +139,7 @@ describe("--cache option", () => {
       } finally {
         process.versions.pnp = oldPnpVersion;
       }
-      await expect(fs.stat(defaultCacheFile.pnpv3)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile.pnpV3)).resolves.not.toThrowError();
     });
 
     it("does'nt format when cache is available", async () => {
@@ -303,7 +303,7 @@ describe("--cache option", () => {
     });
 
     it("creates default cache file named `.pnp/.cache/prettier/.prettier-cache`", async () => {
-      await expect(fs.stat(defaultCacheFile.pnpv1)).rejects.toHaveProperty(
+      await expect(fs.stat(defaultCacheFile.pnpV1)).rejects.toHaveProperty(
         "code",
         "ENOENT"
       );
@@ -314,11 +314,11 @@ describe("--cache option", () => {
       } finally {
         process.versions.pnp = oldPnpVersion;
       }
-      await expect(fs.stat(defaultCacheFile.pnpv1)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile.pnpV1)).resolves.not.toThrowError();
     });
 
     it("creates default cache file named `.yarn/.cache/prettier/.prettier-cache`", async () => {
-      await expect(fs.stat(defaultCacheFile.pnpv3)).rejects.toHaveProperty(
+      await expect(fs.stat(defaultCacheFile.pnpV3)).rejects.toHaveProperty(
         "code",
         "ENOENT"
       );
@@ -329,7 +329,7 @@ describe("--cache option", () => {
       } finally {
         process.versions.pnp = oldPnpVersion;
       }
-      await expect(fs.stat(defaultCacheFile.pnpv3)).resolves.not.toThrowError();
+      await expect(fs.stat(defaultCacheFile.pnpV3)).resolves.not.toThrowError();
     });
 
     it("does'nt format when cache is available", async () => {
