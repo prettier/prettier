@@ -476,20 +476,18 @@ describe("--cache option", () => {
 
   describe("--cache-location", () => {
     it("doesn't create default cache file when `--cache-location` exists", async () => {
-      await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
-        "code",
-        "ENOENT"
-      );
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).rejects.toHaveProperty("code", "ENOENT");
       await runPrettier(dir, [
         "--cache",
         "--cache-location",
         nonDefaultCacheFileName,
         ".",
       ]);
-      await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
-        "code",
-        "ENOENT"
-      );
+      await expect(
+        fs.stat(defaultCacheFile.nodeModules)
+      ).rejects.toHaveProperty("code", "ENOENT");
     });
 
     it("throws error for invalid JSON file", async () => {
