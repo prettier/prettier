@@ -1,27 +1,82 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
-import { parseSync } from "./parser.js";
+import { parse } from "./parser.js";
 
-function printSubtree(path, print, options, printAstToDoc) {
-  if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
-    return options.printer.embed(
-      path,
-      print,
-      (text, partialNextOptions, textToDocOptions) =>
-        textToDoc(
-          text,
-          partialNextOptions,
-          options,
-          printAstToDoc,
-          textToDocOptions
-        ),
-      options
+function printEmbeddedLanguages(
+  /** @type {import("../common/ast-path").default} */ path,
+  print,
+  options,
+  printAstToDoc,
+  embeds
+) {
+  const { printer } = options;
+
+  if (!printer.embed || options.embeddedLanguageFormatting !== "auto") {
+    return;
+  }
+
+  return recurse();
+
+  function textToDocForEmbed(text, partialNextOptions, textToDocOptions) {
+    return textToDoc(
+      text,
+      partialNextOptions,
+      options,
+      printAstToDoc,
+      textToDocOptions
     );
+  }
+
+  async function recurse() {
+    const name = path.getName();
+    const node = path.getValue();
+
+    if (
+      // TODO: improve this check
+      name === "tokens" ||
+      name === "comments" ||
+      name === "parent" ||
+      node === null ||
+      typeof node !== "object" ||
+      (printer.isNode
+        ? !printer.isNode(node)
+        : printer.canAttachComment
+        ? !printer.canAttachComment(node)
+        : false) ||
+      printer.hasPrettierIgnore?.(path)
+    ) {
+      return;
+    }
+
+    for (const [key, value] of Object.entries(node)) {
+      if (Array.isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+          await path.callAsync(recurse, key, i);
+        }
+      } else {
+        await path.callAsync(recurse, key);
+      }
+    }
+
+    let doc;
+
+    try {
+      doc = await printer.embed(path, print, textToDocForEmbed, options);
+    } catch (error) {
+      /* istanbul ignore if */
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
+      }
+    }
+
+    if (doc) {
+      embeds.set(node, doc);
+    }
   }
 }
 
-function textToDoc(
+async function textToDoc(
   text,
   partialNextOptions,
   parentOptions,
@@ -39,7 +94,7 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = parseSync(text, nextOptions);
+  const result = await parse(text, nextOptions);
   const { ast } = result;
 
   if (typeof ast?.then === "function") {
@@ -56,7 +111,7 @@ function textToDoc(
   // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
 
-  const doc = printAstToDoc(ast, nextOptions);
+  const doc = await printAstToDoc(ast, nextOptions);
   ensureAllCommentsPrinted(astComments);
 
   if (shouldStripTrailingHardline) {
@@ -72,4 +127,4 @@ function textToDoc(
   return doc;
 }
 
-export { printSubtree };
+export { printEmbeddedLanguages };

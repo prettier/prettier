@@ -1,5 +1,5 @@
 ```async-parser
-Since we don't allow async parser in embed format, so this will not be changed.
+Async parsers can be used in embeds, so this text will be replaced.
 ```
 
 ```uppercase-rocks

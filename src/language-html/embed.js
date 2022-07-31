@@ -35,7 +35,7 @@ import {
 } from "./utils/index.js";
 import getNodeContent from "./get-node-content.js";
 
-function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
+async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   const isKeyMatched = (patterns) =>
     new RegExp(patterns.join("|")).test(node.fullName);
   const getValue = () => unescapeQuoteEntities(node.value);
@@ -95,7 +95,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const value = getValue();
     if (!value.includes("{{")) {
       return printExpand(
-        attributeTextToDoc(value, {
+        await attributeTextToDoc(value, {
           parser: "css",
           __isHTMLStyleAttribute: true,
         })
@@ -136,22 +136,18 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
         : options.__should_parse_vue_template_with_ts
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
-      return printMaybeHug(
-        attributeTextToDoc(value, {
-          parser,
-        })
-      );
+      return printMaybeHug(await attributeTextToDoc(value, { parser }));
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__vue_expression" })
+        await attributeTextToDoc(getValue(), { parser: "__vue_expression" })
       );
     }
 
     if (isKeyMatched(jsExpressionBindingPatterns)) {
       return printMaybeHug(
-        attributeTextToDoc(getValue(), { parser: "__js_expression" })
+        await attributeTextToDoc(getValue(), { parser: "__js_expression" })
       );
     }
   }
@@ -189,11 +185,15 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
     const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
+      return printMaybeHug(
+        await ngTextToDoc(getValue(), { parser: "__ng_action" })
+      );
     }
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
-      return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+      return printMaybeHug(
+        await ngTextToDoc(getValue(), { parser: "__ng_binding" })
+      );
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
@@ -206,7 +206,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
       return printMaybeHug(
-        ngTextToDoc(getValue(), { parser: "__ng_directive" })
+        await ngTextToDoc(getValue(), { parser: "__ng_directive" })
       );
     }
 
@@ -224,7 +224,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
                 "{{",
                 indent([
                   line,
-                  ngTextToDoc(part, {
+                  await ngTextToDoc(part, {
                     parser: "__ng_interpolation",
                     __isInHtmlInterpolation: true, // to avoid unexpected `}}`
                   }),
@@ -245,7 +245,7 @@ function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   return null;
 }
 
-function embed(path, print, textToDoc, options) {
+async function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -265,7 +265,7 @@ function embed(path, print, textToDoc, options) {
         let isEmpty = /^\s*$/.test(content);
         let doc = "";
         if (!isEmpty) {
-          doc = textToDoc(
+          doc = await textToDoc(
             htmlTrimPreserveIndentation(content),
             { parser, __embeddedInHtml: true },
             { stripTrailingHardline: true }
@@ -310,7 +310,7 @@ function embed(path, print, textToDoc, options) {
           return [
             breakParent,
             printOpeningTagPrefix(node, options),
-            textToDoc(value, textToDocOptions, {
+            await textToDoc(value, textToDocOptions, {
               stripTrailingHardline: true,
             }),
             printClosingTagSuffix(node, options),
@@ -334,7 +334,7 @@ function embed(path, print, textToDoc, options) {
         return [
           indent([
             line,
-            textToDoc(node.value, textToDocOptions, {
+            await textToDoc(node.value, textToDocOptions, {
               stripTrailingHardline: true,
             }),
           ]),
@@ -378,7 +378,7 @@ function embed(path, print, textToDoc, options) {
         }
       }
 
-      const embeddedAttributeValueDoc = printEmbeddedAttributeValue(
+      const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape

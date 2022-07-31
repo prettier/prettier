@@ -2,7 +2,7 @@ import AstPath from "../common/ast-path.js";
 import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments.js";
-import { printSubtree } from "./multiparser.js";
+import { printEmbeddedLanguages } from "./multiparser.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -25,7 +25,7 @@ import { printSubtree } from "./multiparser.js";
  * state of the recursion. It is called "path", because it represents
  * the path to the current node through the Abstract Syntax Tree.
  */
-function printAstToDoc(ast, options, alignmentSize = 0) {
+async function printAstToDoc(ast, options, alignmentSize = 0) {
   const { printer } = options;
 
   if (printer.preprocess) {
@@ -34,6 +34,9 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 
   const cache = new Map();
   const path = new AstPath(ast);
+
+  const embeds = new Map();
+  await printEmbeddedLanguages(path, mainPrint, options, printAstToDoc, embeds);
 
   let doc = mainPrint();
 
@@ -69,7 +72,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
       return cache.get(value);
     }
 
-    const doc = callPluginPrintFunction(path, options, mainPrint, args);
+    const doc = callPluginPrintFunction(path, options, mainPrint, args, embeds);
 
     if (shouldCache) {
       cache.set(value, doc);
@@ -101,7 +104,7 @@ function printPrettierIgnoredNode(node, options) {
   return { doc: originalText.slice(start, end), printedComments };
 }
 
-function callPluginPrintFunction(path, options, printPath, args) {
+function callPluginPrintFunction(path, options, printPath, args, embeds) {
   const node = path.getValue();
   const { printer } = options;
 
@@ -111,23 +114,10 @@ function callPluginPrintFunction(path, options, printPath, args) {
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
     ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
+  } else if (embeds.has(node)) {
+    doc = embeds.get(node);
   } else {
-    if (node) {
-      try {
-        // Potentially switch to a different parser
-        doc = printSubtree(path, printPath, options, printAstToDoc);
-      } catch (error) {
-        /* istanbul ignore if */
-        if (process.env.PRETTIER_DEBUG) {
-          throw error;
-        }
-        // Continue with current parser
-      }
-    }
-
-    if (!doc) {
-      doc = printer.print(path, options, printPath, args);
-    }
+    doc = printer.print(path, options, printPath, args);
   }
 
   // We let JSXElement print its comments itself because it adds () around
