@@ -3,26 +3,26 @@ const docBuilders = prettier.doc.builders;
 const docUtils = prettier.doc.utils;
 
 const { cleanDoc } = docUtils;
-const { group, concat, align, indent, lineSuffix, ifBreak, fill } = docBuilders;
+const { group, align, indent, lineSuffix, ifBreak, fill } = docBuilders;
 
 describe("cleanDoc", () => {
   test.each([
     [
       "fill",
-      concat([fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])]),
-      concat([fill(["1"]), fill(["2", "3"])]),
+      ([fill(["", ""]), fill([]), fill(["1"]), fill(["2", "3"])]),
+      ([fill(["1"]), fill(["2", "3"])]),
     ],
     ["nested group", group(group("_")), group("_")],
     [
       "empty group",
-      concat([
+      ([
         group(""),
-        group(concat([""])),
+        group(([""])),
         group("_", { id: "id" }),
         group("_", { shouldBreak: true }),
         group("_", { expandedStates: ["_"] }),
       ]),
-      concat([
+      ([
         group("_", { id: "id" }),
         group("_", { shouldBreak: true }),
         group("_", { expandedStates: ["_"] }),
@@ -30,15 +30,15 @@ describe("cleanDoc", () => {
     ],
     [
       "removes empty align/indent/line-suffix",
-      concat([
+      ([
         group(
-          concat([
-            align("  ", concat([""])),
-            indent(concat([""])),
-            concat([""]),
+          ([
+            align("  ", ([""])),
+            indent(([""])),
+            ([""]),
             "",
-            lineSuffix(concat([""])),
-            ifBreak("", concat([""])),
+            lineSuffix(([""])),
+            ifBreak("", ([""])),
           ])
         ),
         "_",
@@ -46,20 +46,20 @@ describe("cleanDoc", () => {
       "_",
     ],
     [
-      "removes empty string/concat",
-      concat(["", concat(["", concat([concat(["", "_", ""]), ""])]), ""]),
+      "removes empty string/",
+      (["", (["", ([(["", "_", ""]), ""])]), ""]),
       "_",
     ],
     [
       "concat string & flat concat",
       group(
-        concat([
+        ([
           group("1"),
-          concat(["2", "3", group("4"), "5", "6"]),
-          concat(["7", "8", group("9"), "10", "11"]),
+          (["2", "3", group("4"), "5", "6"]),
+          (["7", "8", group("9"), "10", "11"]),
         ])
       ),
-      group(concat([group("1"), "23", group("4"), "5678", group("9"), "1011"])),
+      group(([group("1"), "23", group("4"), "5678", group("9"), "1011"])),
     ],
   ])("%s", (_, doc, expected) => {
     const result = cleanDoc(doc);

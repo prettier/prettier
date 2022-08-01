@@ -5,29 +5,29 @@ const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
 const { printDocToString } = docPrinter;
-const { concat, line, trim, group, indent } = docBuilders;
+const { line, trim, group, indent } = docBuilders;
 
 // These tests don't use `runPrettier` because `trim` is not used by any
 // bundled parser (only third-party plugins).
 
 describe("trim", () => {
   test.each([
-    ["trims the current line", group(concat(["hello    ", trim])), "hello"],
+    ["trims the current line", group((["hello    ", trim])), "hello"],
     [
       "trims existing indentation",
       group(
-        concat([
+        ([
           "function()",
           line,
           "{",
           indent(
-            concat([
+            ([
               line,
-              group(concat([trim, "#if DEBUG"])),
+              group(([trim, "#if DEBUG"])),
               line,
               "alert(42);",
               line,
-              group(concat([trim, "#endif"])),
+              group(([trim, "#endif"])),
             ])
           ),
           line,
@@ -45,7 +45,7 @@ describe("trim", () => {
     ],
     [
       "ignores trimmed characters when fitting the line",
-      group(concat(["hello  ", "  ", trim, line, "world!"])),
+      group((["hello  ", "  ", trim, line, "world!"])),
       "hello world!",
     ],
   ])("%s", (_, doc, expected) => {
