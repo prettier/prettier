@@ -66,6 +66,19 @@ async function statSafe(filePath) {
   }
 }
 
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isJson(value) {
+  try {
+    JSON.parse(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export {
   arrayify,
   getLast,
@@ -76,4 +89,5 @@ export {
   pick,
   createHash,
   statSafe,
+  isJson,
 };

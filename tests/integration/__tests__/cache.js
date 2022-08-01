@@ -15,6 +15,9 @@ describe("--cache option", () => {
     "node_modules/.cache/prettier/.prettier-cache"
   );
 
+  const nonDefaultCacheFileName = ".non-default-cache-file";
+  const nonDefaultCacheFilePath = path.join(dir, nonDefaultCacheFileName);
+
   let contentA;
   let contentB;
 
@@ -25,6 +28,7 @@ describe("--cache option", () => {
 
   afterEach(async () => {
     rimraf.sync(path.join(dir, "node_modules"));
+    rimraf.sync(nonDefaultCacheFilePath);
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
@@ -62,6 +66,20 @@ describe("--cache option", () => {
     );
     expect(stripAnsi(stderr.trim())).toBe(
       "[error] `--cache-strategy` cannot be used without `--cache`."
+    );
+  });
+
+  it("throws error when `--cache-location` is a directory.", async () => {
+    const { stderr } = await runPrettier(dir, [
+      "foo.js",
+      "--cache",
+      "--cache-location",
+      "dir",
+    ]);
+    expect(stripAnsi(stderr.trim())).toEqual(
+      expect.stringMatching(
+        /\[error] Resolved --cache-location '.+' is a directory/
+      )
     );
   });
 
@@ -365,6 +383,85 @@ describe("--cache option", () => {
       await expect(fs.stat(defaultCacheFile)).resolves.not.toThrowError();
       await runPrettier(dir, ["--write", "."]);
       await expect(fs.stat(defaultCacheFile)).rejects.toThrowError();
+    });
+  });
+
+  describe("--cache-location", () => {
+    it("doesn't create default cache file when `--cache-location` exists", async () => {
+      await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
+        "code",
+        "ENOENT"
+      );
+      await runPrettier(dir, [
+        "--cache",
+        "--cache-location",
+        nonDefaultCacheFileName,
+        ".",
+      ]);
+      await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
+        "code",
+        "ENOENT"
+      );
+    });
+
+    it("throws error for invalid JSON file", async () => {
+      const { stderr } = await runPrettier(dir, [
+        "--cache",
+        "--cache-location",
+        "a.js",
+        ".",
+      ]);
+      expect(stripAnsi(stderr).trim()).toEqual(
+        expect.stringMatching(/\[error] '.+' isn't a valid JSON file/)
+      );
+    });
+
+    describe("file", () => {
+      it("creates the cache file at location specified by `--cache-location`", async () => {
+        await expect(fs.stat(nonDefaultCacheFilePath)).rejects.toHaveProperty(
+          "code",
+          "ENOENT"
+        );
+        await runPrettier(dir, [
+          "--cache",
+          "--cache-location",
+          nonDefaultCacheFileName,
+          ".",
+        ]);
+        await expect(
+          fs.stat(nonDefaultCacheFilePath)
+        ).resolves.not.toThrowError();
+      });
+
+      it("does'nt format when cache is available", async () => {
+        const { stdout: firstStdout } = await runPrettier(dir, [
+          "--cache",
+          "--write",
+          "--cache-location",
+          nonDefaultCacheFileName,
+          ".",
+        ]);
+        expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+          expect.arrayContaining([
+            expect.stringMatching(/^a\.js .+ms$/),
+            expect.stringMatching(/^b\.js .+ms$/),
+          ])
+        );
+
+        const { stdout: secondStdout } = await runPrettier(dir, [
+          "--cache",
+          "--write",
+          "--cache-location",
+          nonDefaultCacheFileName,
+          ".",
+        ]);
+        expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+          expect.arrayContaining([
+            expect.stringMatching(/^a\.js .+ms \(cached\)$/),
+            expect.stringMatching(/^b\.js .+ms \(cached\)$/),
+          ])
+        );
+      });
     });
   });
 });
