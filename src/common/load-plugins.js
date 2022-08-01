@@ -4,10 +4,15 @@ import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
+import importFromDirectory from "../utils/import-from-directory.js";
 import thirdParty from "./third-party.js";
-import requireFrom from "./require-from.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const importPlugin = async (plugin, directory) => {
+  const module = await importFromDirectory(plugin, directory);
+  return module.default ?? module;
+};
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -40,18 +45,20 @@ async function load(plugins, pluginSearchDirs) {
     (plugin) => typeof plugin === "string"
   );
 
-  const externalManualLoadPlugins = externalPluginNames.map((name) => {
-    let plugin;
-    try {
-      // try local files
-      plugin = requireFrom(path.resolve(name), process.cwd());
-    } catch {
-      // try node modules
-      plugin = requireFrom(name, process.cwd());
-    }
+  const externalManualLoadPlugins = Promise.all(
+    externalPluginNames.map(async (name) => {
+      let plugin;
+      try {
+        // try local files
+        plugin = await importPlugin(path.resolve(name), process.cwd());
+      } catch {
+        // try node modules
+        plugin = await importPlugin(name, process.cwd());
+      }
 
-    return { name, ...plugin };
-  });
+      return { name, ...plugin };
+    })
+  );
 
   const externalAutoLoadPlugins = (
     await Promise.all(
@@ -80,10 +87,12 @@ async function load(plugins, pluginSearchDirs) {
 
         const pluginNames = await memoizedSearch(nodeModulesDir);
 
-        return pluginNames.map((name) => ({
-          name,
-          ...requireFrom(name, nodeModulesDir),
-        }));
+        return Promise.all(
+          pluginNames.map(async (name) => ({
+            name,
+            ...(await importPlugin(name, nodeModulesDir)),
+          }))
+        );
       })
     )
   ).flat();
