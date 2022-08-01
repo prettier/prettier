@@ -172,7 +172,7 @@ function create(a: any): { type: 'B', data: number } | { type: 'A', data: string
 
 =====================================output=====================================
 function create(
-  a: any
+  a: any,
 ): { type: "B", data: number } | { type: "A", data: string } {
   return {
     type: "A",
@@ -2026,7 +2026,7 @@ declare class D extends C {
     port: number,
     hostname?: string,
     backlog?: number,
-    callback?: Function
+    callback?: Function,
   ): D;
   listen(path: string, callback?: Function): D;
   listen(handle: Object, callback?: Function): D;
@@ -2072,7 +2072,7 @@ function foo(rows: Rows, set: Set<number>) {
 function foo(rows: Rows, set: Set<number>) {
   return rows.reduce_rows(
     (set, row) => row.reduce_row((set, i) => set.add(i), set),
-    set
+    set,
   );
 }
 
@@ -2244,11 +2244,11 @@ type Row = { x: string };
 declare class D<T> {
   reduce(
     callbackfn: (previousValue: T, currentValue: T) => T,
-    initialValue: void
+    initialValue: void,
   ): T;
   reduce<U>(
     callbackfn: (previousValue: U, currentValue: T) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
 }
 

@@ -140,7 +140,7 @@ function y() {
 
   const stillTooLong3 = <Immutable.Map<string>>(
     someExistingConfigMap.mergeDeep(
-      fallbackOptions.someMethodWithLongName(param1, param2)
+      fallbackOptions.someMethodWithLongName(param1, param2),
     )
   );
 
@@ -158,7 +158,7 @@ function y() {
       >
     | undefined
   >someExistingConfigMap.mergeDeep(
-    fallbackOptions.someMethodWithLongName(param1, param2)
+    fallbackOptions.someMethodWithLongName(param1, param2),
   );
 
   const testObjLiteral = <Immutable.Map<string, any>>{
@@ -202,7 +202,7 @@ function y() {
   const insideFuncCall = myFunc(
     param1,
     <Immutable.Map<string, any>>param2,
-    param3
+    param3,
   );
 }
 
@@ -283,7 +283,7 @@ function x() {
   const insideFuncCall = myFunc(
     param1,
     <PermissionsChecker<any> | undefined>param2,
-    param3
+    param3,
   );
 }
 

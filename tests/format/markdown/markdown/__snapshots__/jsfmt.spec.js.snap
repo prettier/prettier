@@ -1014,7 +1014,7 @@ foo(
   reallyLongArg(),
   omgSoManyParameters(),
   IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
+  isThereSeriouslyAnotherOne(),
 );
 \`\`\`
 
@@ -2991,7 +2991,7 @@ foo(
   reallyLongArg(),
   omgSoManyParameters(),
   IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
+  isThereSeriouslyAnotherOne(),
 );
 \`\`\`
 

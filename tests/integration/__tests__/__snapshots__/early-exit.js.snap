@@ -93,9 +93,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <es5|none|all>
+  --trailing-comma <all|es5|none>
                            Print trailing commas wherever possible when multi-line.
-                           Defaults to es5.
+                           Defaults to all.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
@@ -267,9 +267,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <es5|none|all>
+  --trailing-comma <all|es5|none>
                            Print trailing commas wherever possible when multi-line.
-                           Defaults to es5.
+                           Defaults to all.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style

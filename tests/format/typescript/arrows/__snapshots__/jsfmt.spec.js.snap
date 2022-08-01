@@ -49,7 +49,7 @@ const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
   testPath: string,
-  expand: boolean
+  expand: boolean,
 ) => new SnapshotState(testFile, update, testPath, expand);
 
 ================================================================================
@@ -74,7 +74,7 @@ const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
   testPath: string,
-  expand: boolean
+  expand: boolean,
 ) => new SnapshotState(testFile, update, testPath, expand);
 
 ================================================================================

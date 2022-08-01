@@ -35,8 +35,8 @@ room = room.map((row, rowIndex) =>
         rowIndex === height ||
         colIndex === width
             ? 1
-            : 0
-    )
+            : 0,
+    ),
 );
 
 ================================================================================
@@ -78,8 +78,8 @@ room = room.map((row, rowIndex) =>
 		rowIndex === height ||
 		colIndex === width
 			? 1
-			: 0
-	)
+			: 0,
+	),
 );
 
 ================================================================================
@@ -120,8 +120,8 @@ room = room.map((row, rowIndex) =>
 		rowIndex === height ||
 		colIndex === width
 			? 1
-			: 0
-	)
+			: 0,
+	),
 );
 
 ================================================================================
@@ -161,8 +161,8 @@ room = room.map((row, rowIndex) =>
     rowIndex === height ||
     colIndex === width
       ? 1
-      : 0
-  )
+      : 0,
+  ),
 );
 
 ================================================================================
@@ -191,7 +191,7 @@ fn(
     glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
         anodyneCondosMalateOverateRetinol
         ? annularCooeedSplicesWalksWayWay
-        : kochabCooieGameOnOboleUnweave
+        : kochabCooieGameOnOboleUnweave,
 );
 
 ================================================================================
@@ -221,7 +221,7 @@ fn(
 	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
 		anodyneCondosMalateOverateRetinol
 		? annularCooeedSplicesWalksWayWay
-		: kochabCooieGameOnOboleUnweave
+		: kochabCooieGameOnOboleUnweave,
 );
 
 ================================================================================
@@ -250,7 +250,7 @@ fn(
 	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
 		anodyneCondosMalateOverateRetinol
 		? annularCooeedSplicesWalksWayWay
-		: kochabCooieGameOnOboleUnweave
+		: kochabCooieGameOnOboleUnweave,
 );
 
 ================================================================================
@@ -278,7 +278,7 @@ fn(
   glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
     anodyneCondosMalateOverateRetinol
     ? annularCooeedSplicesWalksWayWay
-    : kochabCooieGameOnOboleUnweave
+    : kochabCooieGameOnOboleUnweave,
 );
 
 ================================================================================
@@ -557,7 +557,7 @@ a
                                                               ? a()
                                                               : a({
                                                                     a: 0,
-                                                                })
+                                                                }),
                                                       ),
                                                       a()
                                                           ? {
@@ -565,7 +565,7 @@ a
                                                                 b: [],
                                                             }
                                                           : {},
-                                                  ]
+                                                  ],
                                         )
                                       : a(
                                             a()
@@ -601,8 +601,8 @@ a
                                                                 return function () {
                                                                     return 1;
                                                                 };
-                                                            }
-                                                  )
+                                                            },
+                                                  ),
                                         );
                               }
                             : function () {},
@@ -888,7 +888,7 @@ a
 																		? a()
 																		: a({
 																				a: 0,
-																		  })
+																		  }),
 																),
 																a()
 																	? {
@@ -896,7 +896,7 @@ a
 																			b: [],
 																	  }
 																	: {},
-														  ]
+														  ],
 											  )
 											: a(
 													a()
@@ -924,20 +924,20 @@ a
 														  })(
 																a
 																	? function (
-																			a
+																			a,
 																	  ) {
 																			return function () {
 																				return 0;
 																			};
 																	  }
 																	: function (
-																			a
+																			a,
 																	  ) {
 																			return function () {
 																				return 1;
 																			};
-																	  }
-														  )
+																	  },
+														  ),
 											  );
 								  }
 								: function () {},
@@ -1222,7 +1222,7 @@ a
 																		? a()
 																		: a({
 																				a: 0,
-																		  })
+																		  }),
 																),
 																a()
 																	? {
@@ -1230,7 +1230,7 @@ a
 																			b: [],
 																	  }
 																	: {},
-														  ]
+														  ],
 											  )
 											: a(
 													a()
@@ -1266,8 +1266,8 @@ a
 																			return function () {
 																				return 1;
 																			};
-																	  }
-														  )
+																	  },
+														  ),
 											  );
 								  }
 								: function () {},
@@ -1551,7 +1551,7 @@ a
                                     ? a()
                                     : a({
                                         a: 0,
-                                      })
+                                      }),
                                 ),
                                 a()
                                   ? {
@@ -1559,7 +1559,7 @@ a
                                       b: [],
                                     }
                                   : {},
-                              ]
+                              ],
                         )
                       : a(
                           a()
@@ -1595,8 +1595,8 @@ a
                                       return function () {
                                         return 1;
                                       };
-                                    }
-                              )
+                                    },
+                              ),
                         );
                   }
                 : function () {},
@@ -2202,28 +2202,28 @@ bifornCringerMoshedPerplexSawder = fn(
     (glimseGlyphsHazardNoopsTieTie === 0
         ? averredBathersBoxroomBuggyNurl
         : anodyneCondosMalateOverateRetinol
-    ).prop
+    ).prop,
 );
 
 fn(
     (glimseGlyphsHazardNoopsTieTie === 0
         ? averredBathersBoxroomBuggyNurl
         : anodyneCondosMalateOverateRetinol
-    ).prop
+    ).prop,
 );
 
 bifornCringerMoshedPerplexSawder = fn?.(
     (glimseGlyphsHazardNoopsTieTie === 0
         ? averredBathersBoxroomBuggyNurl
         : anodyneCondosMalateOverateRetinol
-    ).prop
+    ).prop,
 );
 
 fn?.(
     (glimseGlyphsHazardNoopsTieTie === 0
         ? averredBathersBoxroomBuggyNurl
         : anodyneCondosMalateOverateRetinol
-    ).prop
+    ).prop,
 );
 
 bifornCringerMoshedPerplexSawder =
@@ -2854,28 +2854,28 @@ bifornCringerMoshedPerplexSawder = fn(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 fn(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 bifornCringerMoshedPerplexSawder = fn?.(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 fn?.(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 bifornCringerMoshedPerplexSawder =
@@ -3505,28 +3505,28 @@ bifornCringerMoshedPerplexSawder = fn(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 fn(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 bifornCringerMoshedPerplexSawder = fn?.(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 fn?.(
 	(glimseGlyphsHazardNoopsTieTie === 0
 		? averredBathersBoxroomBuggyNurl
 		: anodyneCondosMalateOverateRetinol
-	).prop
+	).prop,
 );
 
 bifornCringerMoshedPerplexSawder =
@@ -4155,28 +4155,28 @@ bifornCringerMoshedPerplexSawder = fn(
   (glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol
-  ).prop
+  ).prop,
 );
 
 fn(
   (glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol
-  ).prop
+  ).prop,
 );
 
 bifornCringerMoshedPerplexSawder = fn?.(
   (glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol
-  ).prop
+  ).prop,
 );
 
 fn?.(
   (glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
     : anodyneCondosMalateOverateRetinol
-  ).prop
+  ).prop,
 );
 
 bifornCringerMoshedPerplexSawder =

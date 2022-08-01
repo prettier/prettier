@@ -684,7 +684,7 @@ function for_of_scope_var(xs: string[]) {
 function default_param_1() {
   // function binding in scope in default expr
   function f(
-    x: () => string = f // error: number ~> string
+    x: () => string = f, // error: number ~> string
   ): number {
     return 0;
   }

@@ -37,9 +37,9 @@ export default function searchUsers(action$) {
             ajax
               .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
               .map((res) => res.items)
-              .map(receiveUsers)
-          )
-        )
+              .map(receiveUsers),
+          ),
+        ),
     );
 }
 
@@ -63,7 +63,7 @@ bob.doL(
     b = () => {
       console.log;
     },
-  }) => something.else.else({})
+  }) => something.else.else({}),
 );
 
 ================================================================================
@@ -148,7 +148,7 @@ foo(
 =====================================output=====================================
 foo(() =>
   // foo
-  {}
+  {},
 );
 
 ================================================================================
@@ -225,7 +225,7 @@ a(
     {
       SomethingVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong: 1,
     },
-  ]
+  ],
 );
 
 exports.examples = [
@@ -248,7 +248,7 @@ exports.examples = [
             </InlineBlock>
           </div>
         );
-      }
+      },
     ),
   },
 ];
@@ -258,7 +258,7 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
     [],
     // comment
     [],
-  ]
+  ],
 );
 
 (function webpackUniversalModuleDefinition() {})(
@@ -283,9 +283,9 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
           /***/
         },
         /******/
-      ]
+      ],
     );
-  }
+  },
 );
 
 ================================================================================
@@ -310,10 +310,10 @@ all_verylongcall_verylongcall_verylongcall_verylongcall_verylongcall(
   (
     a,
 
-    b
+    b,
   ) => {
     console.log();
-  }
+  },
 );
 
 ================================================================================
@@ -357,7 +357,7 @@ func(
   aReallyLongArgumentsListToForceItToBreak,
   {
     // comment
-  }
+  },
 );
 
 func({
@@ -365,17 +365,17 @@ func({
 });
 
 func(
-  {} // comment
+  {}, // comment
 );
 
 func(
-  {}
+  {},
   // comment
 );
 
 func(
   // comment
-  {}
+  {},
 );
 
 ================================================================================
@@ -417,7 +417,7 @@ function* mySagas() {
       yield rexpress.actions(store).writeHead(id, 400);
       yield rexpress.actions(store).end(id, "pong");
       console.log("pong");
-    }
+    },
   );
 }
 
@@ -426,7 +426,7 @@ function mySagas2() {
     rexpress.actionTypes.REQUEST_START,
     function ({ id }) {
       console.log(id);
-    }
+    },
   );
 }
 
@@ -448,7 +448,7 @@ someFunctionCallWithBigArgumentsAndACallback(
   thisArgumentIsQuiteLong,
   function (cool) {
     return cool;
-  }
+  },
 );
 
 ================================================================================
@@ -484,8 +484,8 @@ const Broken = React.forwardRef(
       hidden,
       // 3
     },
-    ref
-  ) => <div ref={ref}>{children}</div>
+    ref,
+  ) => <div ref={ref}>{children}</div>,
 );
 
 ================================================================================
@@ -511,7 +511,7 @@ bob.doL(
     b: {
       // comment
     },
-  }) => something.else.else({})
+  }) => something.else.else({}),
 );
 
 ================================================================================
@@ -556,7 +556,7 @@ instantiate(game, [
   render_colored_diffuse(
     game.MaterialDiffuse,
     game.Meshes["monkey_flat"],
-    [1, 1, 0.3, 1]
+    [1, 1, 0.3, 1],
   ),
 ]);
 
@@ -598,7 +598,7 @@ const formatData = pipe(
   })),
   groupBy(prop("nodeId")),
   map(mergeAll),
-  values
+  values,
 );
 
 export const setProp = (y) => ({
@@ -675,7 +675,7 @@ const contentTypes = function(tile, singleSelection) {
 SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLongCall(
   (err, result) => {
     // comment
-  }
+  },
 );
 
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, no, []);
@@ -693,7 +693,7 @@ func(
   too,
   long,
   yes,
-  []
+  [],
 );
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, [
   // Comments
@@ -717,7 +717,7 @@ func(
   too,
   long,
   yes,
-  {}
+  {},
 );
 func(one, two, three, four, five, six, seven, eig, is, this, too, long, yes, {
   // Comments
@@ -738,8 +738,8 @@ foo(
     eleven,
     twelve,
     thirteen,
-    fourteen
-  ) => {}
+    fourteen,
+  ) => {},
 );
 
 const contentTypes = function (tile, singleSelection) {
@@ -749,7 +749,7 @@ const contentTypes = function (tile, singleSelection) {
     filteredContentTypes = [],
     contentTypesArray = [],
     selectedGroup,
-    singleSelection
+    singleSelection,
   ) {
     selectedGroup = (tile.state && tile.state.group) || selectedGroup;
   });

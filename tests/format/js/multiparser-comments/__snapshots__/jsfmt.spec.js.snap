@@ -132,7 +132,7 @@ expr1 = html\`
   <div>
     \${x(
       foo, // fg
-      bar
+      bar,
     )}
   </div>
 \`;

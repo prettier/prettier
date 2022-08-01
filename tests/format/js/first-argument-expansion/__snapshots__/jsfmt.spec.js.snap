@@ -161,21 +161,21 @@ func(
   () => {
     thing();
   },
-  1 ? 2 : 3
+  1 ? 2 : 3,
 );
 
 func(
   function () {
     return thing();
   },
-  1 ? 2 : 3
+  1 ? 2 : 3,
 );
 
 func(
   () => {
     thing();
   },
-  something() ? someOtherThing() : somethingElse(true, 0)
+  something() ? someOtherThing() : somethingElse(true, 0),
 );
 
 func(
@@ -184,7 +184,7 @@ func(
   },
   something(longArgumentName, anotherLongArgumentName)
     ? someOtherThing()
-    : somethingElse(true, 0)
+    : somethingElse(true, 0),
 );
 
 func(
@@ -195,17 +195,17 @@ func(
     longArgumentName,
     anotherLongArgumentName,
     anotherLongArgumentName,
-    anotherLongArgumentName
+    anotherLongArgumentName,
   )
     ? someOtherThing()
-    : somethingElse(true, 0)
+    : somethingElse(true, 0),
 );
 
 compose(
   (a) => {
     return a.thing;
   },
-  (b) => b * b
+  (b) => b * b,
 );
 
 somthing.reduce(function (item, thing) {
@@ -220,7 +220,7 @@ reallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongMethod(
   (f, g, h) => {
     return f.pop();
   },
-  true
+  true,
 );
 
 // Don't do the rest of these
@@ -230,14 +230,14 @@ func(
     thing();
   },
   true,
-  false
+  false,
 );
 
 func(
   () => {
     thing();
   },
-  { yes: true, cats: 5 }
+  { yes: true, cats: 5 },
 );
 
 compose(
@@ -246,19 +246,19 @@ compose(
   },
   (b) => {
     return b + "";
-  }
+  },
 );
 
 compose(
   (a) => {
     return a.thing;
   },
-  (b) => [1, 2, 3, 4, 5]
+  (b) => [1, 2, 3, 4, 5],
 );
 
 renderThing(
   (a) => <div>Content. So much to say. Oh my. Are we done yet?</div>,
-  args
+  args,
 );
 
 setTimeout(
@@ -266,21 +266,21 @@ setTimeout(
   function () {
     thing();
   },
-  500
+  500,
 );
 
 setTimeout(
   /* blip */ function () {
     thing();
   },
-  500
+  500,
 );
 
 func(
   (args) => {
     execute(args);
   },
-  (result) => result && console.log("success")
+  (result) => result && console.log("success"),
 );
 
 ================================================================================

@@ -86,7 +86,7 @@ const style2 =/**
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ someReallyLongFunctionCall(
   withLots,
-  ofArguments
+  ofArguments,
 );
 
 let object = {
@@ -122,7 +122,7 @@ test(/** @type {!Array} */ (arrOrString).length + 1);
 const data = functionCall(
   arg1,
   arg2,
-  /** @type {{height: number, width: number}} */ (arg3)
+  /** @type {{height: number, width: number}} */ (arg3),
 );
 
 const style = /** @type {{

@@ -37,7 +37,7 @@ exports[`CLI overrides gets applied when no config exists with --config-preceden
 exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stdout) 1`] = `
 "function noConfigJs() {
        console.log(
-              "no-config/file.js should have no semicolons"
+              "no-config/file.js should have no semicolons",
        );
 }
 "
