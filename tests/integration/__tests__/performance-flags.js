@@ -23,7 +23,7 @@ describe("should not write file or print code when `--debug-benchmark` or `--deb
   for (const logLevel of ["warn", "error", "debug", "log"]) {
     runPrettier(
       "cli/performance-flags",
-      ["--debug-repeat", "2", "--parser", "babel", "--loglevel", logLevel],
+      ["--debug-repeat", "2", "--parser", "babel", "--log-level", logLevel],
       { input: "foo(    bar    )" }
     ).test({
       stderr: assertStderr,
