@@ -2718,14 +2718,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:3.2.9":
-  version: 3.2.9
-  resolution: "node-fetch@npm:3.2.9"
+"node-fetch@npm:3.2.10":
+  version: 3.2.10
+  resolution: "node-fetch@npm:3.2.10"
   dependencies:
     data-uri-to-buffer: ^4.0.0
     fetch-blob: ^3.1.4
     formdata-polyfill: ^4.0.10
-  checksum: ba421350b2dbab67d8068f9d24f30ef8b9a37a3f83388d2efaf79628de754c85df81829c009579ea5562a2b11d9f07ecd21d27b5b8bed0cb393b92abe4817a75
+  checksum: e65322431f4897ded04197aa5923eaec63a8d53e00432de4e70a4f7006625c8dc32629c5c35f4fe8ee719a4825544d07bf53f6e146a7265914262f493e8deac1
   languageName: node
   linkType: hard
 
@@ -3099,7 +3099,7 @@ __metadata:
     execa: 6.1.0
     jest: 28.1.3
     minimist: 1.2.6
-    node-fetch: 3.2.9
+    node-fetch: 3.2.10
     outdent: 0.8.0
     semver: 7.3.7
     string-width: 5.1.2
