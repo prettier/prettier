@@ -7,7 +7,6 @@ import { fill, group, hardline, literalline } from "../document/builders.js";
 import {
   cleanDoc,
   getDocParts,
-  isConcat,
   replaceTextEndOfLine,
 } from "../document/utils.js";
 import clean from "./clean.js";
@@ -72,7 +71,7 @@ async function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      if (isConcat(printed) || printed.type === DOC_TYPE_FILL) {
+      if (Array.isArray(printed) || printed.type === DOC_TYPE_FILL) {
         return fill(getDocParts(printed));
       }
       /* istanbul ignore next */

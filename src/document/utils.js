@@ -15,16 +15,15 @@ import {
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
 
-const isConcat = (doc) => getDocType(doc) === DOC_TYPE_CONCAT;
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
     return doc;
   }
 
   /* istanbul ignore next */
-  if (doc.type !== DOC_TYPE_CONCAT && doc.type !== DOC_TYPE_FILL) {
+  if (doc.type !== DOC_TYPE_FILL) {
     throw new Error(
-      `Expect doc type to be '${DOC_TYPE_CONCAT}' or '${DOC_TYPE_FILL}'.`
+      `Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`
     );
   }
 
@@ -58,7 +57,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
       // when the stack is popped.
-      if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
+      if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
         const parts = getDocParts(doc);
         for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
           docsStack.push(parts[i]);
@@ -244,7 +243,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
     return doc;
   }
 
-  if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
+  if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
     const parts = getDocParts(doc);
 
     while (parts.length > 1 && isHardline(...parts.slice(-2))) {
@@ -319,7 +318,7 @@ function cleanDocFn(doc) {
       break;
   }
 
-  if (!isConcat(doc)) {
+  if (!Array.isArray(doc)) {
     return doc;
   }
 
@@ -328,8 +327,8 @@ function cleanDocFn(doc) {
     if (!part) {
       continue;
     }
-    const [currentPart, ...restParts] = isConcat(part)
-      ? getDocParts(part)
+    const [currentPart, ...restParts] = Array.isArray(part)
+      ? (part)
       : [part];
     if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
       parts[parts.length - 1] += currentPart;
@@ -367,8 +366,8 @@ function normalizeParts(parts) {
       continue;
     }
 
-    if (isConcat(part)) {
-      restParts.unshift(...getDocParts(part));
+    if (Array.isArray(part)) {
+      restParts.unshift(...part);
       continue;
     }
 
@@ -437,7 +436,6 @@ function getDocType(doc) {
 }
 
 export {
-  isConcat,
   getDocParts,
   willBreak,
   traverseDoc,
