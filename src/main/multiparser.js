@@ -3,7 +3,7 @@ import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
 
-function printEmbeddedLanguages(
+async function printEmbeddedLanguages(
   /** @type {import("../common/ast-path").default} */ path,
   print,
   options,
@@ -16,7 +16,31 @@ function printEmbeddedLanguages(
     return;
   }
 
-  return recurse();
+  const pathStacks = [];
+
+  recurse();
+
+  const originalPathStack = path.stack;
+
+  for (const pathStack of pathStacks) {
+    try {
+      path.stack = pathStack;
+      const result = printer.embed(path, print, textToDocForEmbed, options);
+      if (result) {
+        const doc = result.then ? await result : result;
+        if (doc) {
+          embeds.set(path.getValue(), doc);
+        }
+      }
+    } catch (error) {
+      /* istanbul ignore if */
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
+      }
+    }
+  }
+
+  path.stack = originalPathStack;
 
   function textToDocForEmbed(text, partialNextOptions, textToDocOptions) {
     return textToDoc(
@@ -28,15 +52,11 @@ function printEmbeddedLanguages(
     );
   }
 
-  async function recurse() {
-    const name = path.getName();
+  function recurse() {
     const node = path.getValue();
 
     if (
       // TODO: improve this check
-      name === "tokens" ||
-      name === "comments" ||
-      name === "parent" ||
       node === null ||
       typeof node !== "object" ||
       (printer.isNode
@@ -50,29 +70,17 @@ function printEmbeddedLanguages(
     }
 
     for (const [key, value] of Object.entries(node)) {
+      if (key === "tokens" || key === "comments" || key === "parent") {
+        continue;
+      }
       if (Array.isArray(value)) {
-        for (let i = 0; i < value.length; i++) {
-          await path.callAsync(recurse, key, i);
-        }
+        path.each(recurse, key);
       } else {
-        await path.callAsync(recurse, key);
+        path.call(recurse, key);
       }
     }
 
-    let doc;
-
-    try {
-      doc = await printer.embed(path, print, textToDocForEmbed, options);
-    } catch (error) {
-      /* istanbul ignore if */
-      if (process.env.PRETTIER_DEBUG) {
-        throw error;
-      }
-    }
-
-    if (doc) {
-      embeds.set(node, doc);
-    }
+    pathStacks.push([...path.stack]);
   }
 }
 

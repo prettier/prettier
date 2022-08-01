@@ -182,20 +182,6 @@ class AstPath {
       node = this.stack[stackPointer--];
     }
   }
-
-  async callAsync(callback, ...names) {
-    const { stack } = this;
-    const { length } = stack;
-    let value = getLast(stack);
-
-    for (const name of names) {
-      value = value[name];
-      stack.push(name, value);
-    }
-    const result = await callback(this);
-    stack.length = length;
-    return result;
-  }
 }
 
 export default AstPath;
