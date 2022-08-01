@@ -2,11 +2,9 @@
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-import { DOC_TYPE_FILL } from "../document/constants.js";
 import { fill, group, hardline, literalline } from "../document/builders.js";
 import {
   cleanDoc,
-  getDocParts,
   replaceTextEndOfLine,
 } from "../document/utils.js";
 import clean from "./clean.js";
@@ -71,10 +69,11 @@ async function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      if (Array.isArray(printed) || printed.type === DOC_TYPE_FILL) {
-        return fill(getDocParts(printed));
+
+      if (Array.isArray(printed)) {
+        return fill(printed);
       }
-      /* istanbul ignore next */
+
       return printed;
     }
     case "docType":

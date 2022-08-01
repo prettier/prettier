@@ -302,9 +302,8 @@ function printDocToString(doc, options) {
       }
 
       case DOC_TYPE_CONCAT: {
-        const parts = getDocParts(doc);
-        for (let i = parts.length - 1; i >= 0; i--) {
-          cmds.push({ ind, mode, doc: parts[i] });
+        for (let i = doc.length - 1; i >= 0; i--) {
+          cmds.push({ ind, mode, doc: doc[i] });
         }
         break;
       }

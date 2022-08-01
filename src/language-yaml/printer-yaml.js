@@ -10,7 +10,7 @@ import {
   lineSuffix,
   literalline,
 } from "../document/builders.js";
-import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
+import { replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
@@ -426,7 +426,7 @@ function printFlowScalarContent(nodeType, content, options) {
   return join(
     hardline,
     lineContents.map((lineContentWords) =>
-      fill(getDocParts(join(line, lineContentWords)))
+      fill((join(line, lineContentWords)))
     )
   );
 }

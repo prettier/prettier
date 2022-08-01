@@ -9,7 +9,7 @@ import {
   line,
   softline,
 } from "../document/builders.js";
-import { getDocParts, replaceTextEndOfLine } from "../document/utils.js";
+import { replaceTextEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
@@ -651,7 +651,7 @@ async function printInverse(path, print, options) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return getDocParts(join(line, splitByHtmlWhitespace(value)));
+  return (join(line, splitByHtmlWhitespace(value)));
 }
 
 function splitByHtmlWhitespace(string) {

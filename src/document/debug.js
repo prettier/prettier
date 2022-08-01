@@ -12,7 +12,6 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import { getDocParts } from "./utils.js";
 
 function flattenDoc(doc) {
   if (!doc) {
@@ -21,7 +20,7 @@ function flattenDoc(doc) {
 
   if (Array.isArray(doc)) {
     const res = [];
-    for (const part of getDocParts(doc)) {
+    for (const part of doc) {
       if (Array.isArray(part)) {
         res.push(...flattenDoc(part));
       } else {

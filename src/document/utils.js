@@ -323,7 +323,7 @@ function cleanDocFn(doc) {
   }
 
   const parts = [];
-  for (const part of getDocParts(doc)) {
+  for (const part of (doc)) {
     if (!part) {
       continue;
     }
@@ -345,7 +345,8 @@ function cleanDocFn(doc) {
   if (parts.length === 1) {
     return parts[0];
   }
-  return Array.isArray(doc) ? parts : { ...doc, parts };
+
+  return parts;
 }
 // A safer version of `normalizeDoc`
 // - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't

@@ -4,7 +4,7 @@
 
 import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
 import { line, hardline, join } from "../../document/builders.js";
-import { getDocParts, replaceTextEndOfLine } from "../../document/utils.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -638,7 +638,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : getDocParts(join(line, splitByHtmlWhitespace(value)));
+    : (join(line, splitByHtmlWhitespace(value)));
 }
 
 function isVueScriptTag(node, options) {

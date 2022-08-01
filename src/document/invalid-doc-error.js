@@ -19,7 +19,6 @@ import {
 import { getDocType } from "./utils.js";
 
 const VALID_OBJECT_DOC_TYPE_VALUES = [
-  DOC_TYPE_CONCAT,
   DOC_TYPE_CURSOR,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
