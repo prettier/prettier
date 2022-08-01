@@ -218,7 +218,7 @@ const options = {
       "Print the names of files that are different from Prettier's formatting (see also --check).",
     type: "boolean",
   },
-  loglevel: {
+  "log-level": {
     choices: ["silent", "error", "warn", "log", "debug"],
     default: "log",
     description: "What level of logs to report.",
