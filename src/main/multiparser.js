@@ -22,10 +22,16 @@ async function printEmbeddedLanguages(
 
   const originalPathStack = path.stack;
 
-  for (const pathStack of pathStacks) {
+  for (const { pathStack, embeddedLanguage } of pathStacks) {
     try {
       path.stack = pathStack;
-      const result = printer.embed(path, print, textToDocForEmbed, options);
+      const result = printer.embed(
+        path,
+        print,
+        textToDocForEmbed,
+        options,
+        embeddedLanguage
+      );
       if (result) {
         const doc = result.then ? await result : result;
         if (doc) {
@@ -80,7 +86,15 @@ async function printEmbeddedLanguages(
       }
     }
 
-    pathStacks.push([...path.stack]);
+    let embeddedLanguage;
+    if (printer.detectEmbeddedLanguage) {
+      embeddedLanguage = printer.detectEmbeddedLanguage(path, options);
+      if (!embeddedLanguage) {
+        return;
+      }
+    }
+
+    pathStacks.push({ pathStack: [...path.stack], embeddedLanguage });
   }
 }
 
@@ -104,10 +118,6 @@ async function textToDoc(
 
   const result = await parse(text, nextOptions);
   const { ast } = result;
-
-  if (typeof ast?.then === "function") {
-    throw new TypeError("async parse is not supported in embed");
-  }
 
   text = result.text;
 

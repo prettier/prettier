@@ -12,7 +12,7 @@ import {
   indent,
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
-import embed from "./embed.js";
+import embed, { detectEmbeddedLanguage } from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
 import * as handleComments from "./comments.js";
@@ -848,6 +848,7 @@ function canAttachComment(node) {
 const printer = {
   preprocess,
   print: genericPrint,
+  detectEmbeddedLanguage,
   embed,
   insertPragma,
   massageAstNode: clean,

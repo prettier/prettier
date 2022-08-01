@@ -35,7 +35,7 @@ function getLanguage(path) {
   }
 }
 
-function embed(path, print, textToDoc, options) {
+export function detectEmbeddedLanguage(path) {
   const node = path.getValue();
 
   if (
@@ -47,11 +47,10 @@ function embed(path, print, textToDoc, options) {
     return;
   }
 
-  const language = getLanguage(path);
-  if (!language) {
-    return;
-  }
+  return getLanguage(path);
+}
 
+function embed(path, print, textToDoc, options, language) {
   if (language === "markdown") {
     return formatMarkdown(path, print, textToDoc);
   }
