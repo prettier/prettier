@@ -349,8 +349,8 @@ function cleanDocFn(doc) {
   return Array.isArray(doc) ? parts : { ...doc, parts };
 }
 // A safer version of `normalizeDoc`
-// - `normalizeDoc` concat strings and flat "concat" in `fill`, while `cleanDoc` don't
-// - On `concat` object, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
+// - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
+// - On array, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
 // - `cleanDoc` also remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
@@ -410,10 +410,8 @@ function replaceEndOfLine(doc) {
   );
 }
 
-// This function need return array
-// TODO: remove `.parts` when we remove `docBuilders.concat()`
 function replaceTextEndOfLine(text, replacement = literalline) {
-  return join(replacement, text.split("\n")).parts;
+  return join(replacement, text.split("\n"));
 }
 
 function canBreakFn(doc) {

@@ -39,7 +39,6 @@ async function genericPrint(path, options, print) {
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
       }
-      // use original concat to not break stripTrailingHardline
       return [group(await printChildren(path, options, print)), hardline];
     case "element":
     case "ieConditionalComment": {

@@ -32,7 +32,7 @@ function flattenDoc(doc) {
       }
     }
 
-    return { type: "concat", parts: res };
+    return res;
   }
 
   if (doc.type === DOC_TYPE_IF_BREAK) {
