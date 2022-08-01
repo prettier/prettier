@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
@@ -50,7 +50,10 @@ async function load(plugins, pluginSearchDirs) {
     externalPluginNames.map(async (name) => {
       try {
         // try local files
-        return await importPlugin(path.resolve(name), process.cwd());
+        const url = pathToFileURL(path.resolve(name));
+        const module = await import(url);
+        const plugin = module.default ?? module;
+        return {name, ...plugin};
       } catch {
         // try node modules
         return importPlugin(name, process.cwd());
