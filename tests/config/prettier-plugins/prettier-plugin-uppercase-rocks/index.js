@@ -5,4 +5,4 @@ const plugin = createPlugin({
   print: (text) => text.toUpperCase(),
 });
 
-export default plugin
+export default plugin;
