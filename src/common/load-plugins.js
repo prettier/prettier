@@ -43,22 +43,21 @@ async function load(plugins, pluginSearchDirs) {
 
   const [externalPluginNames, externalPluginInstances] = partition(
     plugins,
-    (plugin) => typeof plugin === "string",
+    (plugin) => typeof plugin === "string"
   );
 
   const externalManualLoadPlugins = await Promise.all(
     externalPluginNames.map(async (name) => {
       try {
         // try local files
-        const url = pathToFileURL(path.resolve(name));
-        const module = await import(url);
+        const module = await import(pathToFileURL(path.resolve(name)).href);
         const plugin = module.default ?? module;
-        return {name, ...plugin};
+        return { name, ...plugin };
       } catch {
         // try node modules
         return importPlugin(name, process.cwd());
       }
-    }),
+    })
   );
 
   const externalAutoLoadPlugins = (
@@ -66,12 +65,12 @@ async function load(plugins, pluginSearchDirs) {
       pluginSearchDirs.map(async (pluginSearchDir) => {
         const resolvedPluginSearchDir = path.resolve(
           process.cwd(),
-          pluginSearchDir,
+          pluginSearchDir
         );
 
         const nodeModulesDir = path.resolve(
           resolvedPluginSearchDir,
-          "node_modules",
+          "node_modules"
         );
 
         // In some fringe cases (ex: files "mounted" as virtual directories), the
@@ -82,16 +81,16 @@ async function load(plugins, pluginSearchDirs) {
           !(await isDirectory(resolvedPluginSearchDir))
         ) {
           throw new Error(
-            `${pluginSearchDir} does not exist or is not a directory`,
+            `${pluginSearchDir} does not exist or is not a directory`
           );
         }
 
         const pluginNames = await memoizedSearch(nodeModulesDir);
 
         return Promise.all(
-          pluginNames.map((name) => importPlugin(name, nodeModulesDir)),
+          pluginNames.map((name) => importPlugin(name, nodeModulesDir))
         );
-      }),
+      })
     )
   ).flat();
 
@@ -111,7 +110,7 @@ async function findPluginsInNodeModules(nodeModulesDir) {
     ],
     {
       cwd: nodeModulesDir,
-    },
+    }
   );
   return pluginPackageJsonPaths.map(path.dirname);
 }
