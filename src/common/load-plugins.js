@@ -9,9 +9,10 @@ import thirdParty from "./third-party.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const importPlugin = async (plugin, directory) => {
-  const module = await importFromDirectory(plugin, directory);
-  return module.default ?? module;
+const importPlugin = async (name, directory) => {
+  const module = await importFromDirectory(name, directory);
+  const plugin = module.default ?? module;
+  return { name, ...plugin };
 };
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
@@ -42,22 +43,19 @@ async function load(plugins, pluginSearchDirs) {
 
   const [externalPluginNames, externalPluginInstances] = partition(
     plugins,
-    (plugin) => typeof plugin === "string"
+    (plugin) => typeof plugin === "string",
   );
 
   const externalManualLoadPlugins = await Promise.all(
     externalPluginNames.map(async (name) => {
-      let plugin;
       try {
         // try local files
-        plugin = await importPlugin(path.resolve(name), process.cwd());
+        return await importPlugin(path.resolve(name), process.cwd());
       } catch {
         // try node modules
-        plugin = await importPlugin(name, process.cwd());
+        return importPlugin(name, process.cwd());
       }
-
-      return { name, ...plugin };
-    })
+    }),
   );
 
   const externalAutoLoadPlugins = (
@@ -65,12 +63,12 @@ async function load(plugins, pluginSearchDirs) {
       pluginSearchDirs.map(async (pluginSearchDir) => {
         const resolvedPluginSearchDir = path.resolve(
           process.cwd(),
-          pluginSearchDir
+          pluginSearchDir,
         );
 
         const nodeModulesDir = path.resolve(
           resolvedPluginSearchDir,
-          "node_modules"
+          "node_modules",
         );
 
         // In some fringe cases (ex: files "mounted" as virtual directories), the
@@ -81,19 +79,16 @@ async function load(plugins, pluginSearchDirs) {
           !(await isDirectory(resolvedPluginSearchDir))
         ) {
           throw new Error(
-            `${pluginSearchDir} does not exist or is not a directory`
+            `${pluginSearchDir} does not exist or is not a directory`,
           );
         }
 
         const pluginNames = await memoizedSearch(nodeModulesDir);
 
         return Promise.all(
-          pluginNames.map(async (name) => ({
-            name,
-            ...(await importPlugin(name, nodeModulesDir)),
-          }))
+          pluginNames.map((name) => importPlugin(name, nodeModulesDir)),
         );
-      })
+      }),
     )
   ).flat();
 
@@ -113,7 +108,7 @@ async function findPluginsInNodeModules(nodeModulesDir) {
     ],
     {
       cwd: nodeModulesDir,
-    }
+    },
   );
   return pluginPackageJsonPaths.map(path.dirname);
 }
