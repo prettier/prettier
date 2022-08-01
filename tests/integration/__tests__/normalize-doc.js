@@ -3,7 +3,7 @@ const docBuilders = prettier.doc.builders;
 const docUtils = prettier.doc.utils;
 
 const { normalizeDoc } = docUtils;
-const { group, concat, fill } = docBuilders;
+const { group, fill } = docBuilders;
 
 describe("normalizeDoc", () => {
   test.each([

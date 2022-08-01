@@ -3,7 +3,7 @@ const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
 const { printDocToString } = docPrinter;
-const { concat, hardline, literalline, trim, indent, markAsRoot } = docBuilders;
+const { hardline, literalline, trim, indent, markAsRoot } = docBuilders;
 
 describe("markAsRoot", () => {
   test.each([
