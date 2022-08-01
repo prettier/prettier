@@ -74,7 +74,7 @@ To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI
 
 ## Developing Plugins
 
-Prettier plugins are regular JavaScript modules with five exports:
+Prettier plugins are regular JavaScript modules with the following five exports or default export with the following properties:
 
 - `languages`
 - `parsers`
