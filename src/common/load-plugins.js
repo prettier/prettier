@@ -45,7 +45,7 @@ async function load(plugins, pluginSearchDirs) {
     (plugin) => typeof plugin === "string"
   );
 
-  const externalManualLoadPlugins = Promise.all(
+  const externalManualLoadPlugins = await Promise.all(
     externalPluginNames.map(async (name) => {
       let plugin;
       try {
