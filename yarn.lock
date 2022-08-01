@@ -1383,10 +1383,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:0.0.52":
-  version: 0.0.52
-  resolution: "@types/estree@npm:0.0.52"
-  checksum: d1cba22160e7aebf865ea0dbc30807bee272fdafdb57d8dd25749f4b312cd9a99e9e933340b7b26284d7a47c8805aba43bb46cf5f1df00cdaaec67bbdc894d4a
+"@types/estree@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@types/estree@npm:1.0.0"
+  checksum: 910d97fb7092c6738d30a7430ae4786a38542023c6302b95d46f49420b797f21619cdde11fa92b338366268795884111c2eb10356e4bd2c8ad5b92941e9e6443
   languageName: node
   linkType: hard
 
@@ -6783,7 +6783,7 @@ __metadata:
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
-    "@types/estree": 0.0.52
+    "@types/estree": 1.0.0
     "@types/file-entry-cache": 5.0.2
     "@types/find-cache-dir": 3.2.1
     "@types/jest": 28.1.1
