@@ -22,9 +22,7 @@ const getDocParts = (doc) => {
 
   /* istanbul ignore next */
   if (doc.type !== DOC_TYPE_FILL) {
-    throw new Error(
-      `Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`
-    );
+    throw new Error(`Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`);
   }
 
   return doc.parts;
@@ -323,13 +321,11 @@ function cleanDocFn(doc) {
   }
 
   const parts = [];
-  for (const part of (doc)) {
+  for (const part of doc) {
     if (!part) {
       continue;
     }
-    const [currentPart, ...restParts] = Array.isArray(part)
-      ? (part)
-      : [part];
+    const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
     if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
       parts[parts.length - 1] += currentPart;
     } else {

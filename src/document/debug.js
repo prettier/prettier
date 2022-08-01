@@ -74,7 +74,7 @@ function printDocToDebug(doc) {
     }
 
     if (Array.isArray(doc)) {
-      const printed = (doc).map(printDoc).filter(Boolean);
+      const printed = doc.map(printDoc).filter(Boolean);
       return printed.length === 1 ? printed[0] : `[${printed.join(", ")}]`;
     }
 

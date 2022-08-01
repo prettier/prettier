@@ -205,8 +205,8 @@ const literallineWithoutBreakParent = {
 
 const line = { type: DOC_TYPE_LINE };
 const softline = { type: DOC_TYPE_LINE, soft: true };
-const hardline = ([hardlineWithoutBreakParent, breakParent]);
-const literalline = ([literallineWithoutBreakParent, breakParent]);
+const hardline = [hardlineWithoutBreakParent, breakParent];
+const literalline = [literallineWithoutBreakParent, breakParent];
 
 const cursor = { type: DOC_TYPE_CURSOR, placeholder: Symbol("cursor") };
 
@@ -226,7 +226,7 @@ function join(sep, arr) {
     res.push(arr[i]);
   }
 
-  return (res);
+  return res;
 }
 
 /**

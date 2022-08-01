@@ -15,12 +15,11 @@ module.exports = {
   },
   printers: {
     bar: {
-       print(path) {
-
-        return ([
+      print(path) {
+        return [
           "content from `prettier-plugin-bar.js` file + ",
           path.getValue().text,
-        ]);
+        ];
       },
     },
   },

@@ -638,7 +638,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : (join(line, splitByHtmlWhitespace(value)));
+    : join(line, splitByHtmlWhitespace(value));
 }
 
 function isVueScriptTag(node, options) {

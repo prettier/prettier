@@ -16,8 +16,8 @@ module.exports = {
   },
   printers: {
     "foo-ast": {
-       print(path) {
-        return (["!", path.getValue().text]);
+      print(path) {
+        return ["!", path.getValue().text];
       },
     },
   },

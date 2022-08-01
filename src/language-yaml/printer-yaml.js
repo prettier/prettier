@@ -425,9 +425,7 @@ function printFlowScalarContent(nodeType, content, options) {
   const lineContents = getFlowScalarLineContents(nodeType, content, options);
   return join(
     hardline,
-    lineContents.map((lineContentWords) =>
-      fill((join(line, lineContentWords)))
-    )
+    lineContents.map((lineContentWords) => fill(join(line, lineContentWords)))
   );
 }
 

@@ -3,10 +3,7 @@
  */
 
 import { fill, group, hardline, literalline } from "../document/builders.js";
-import {
-  cleanDoc,
-  replaceTextEndOfLine,
-} from "../document/utils.js";
+import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
 import clean from "./clean.js";
 import {
   countChars,

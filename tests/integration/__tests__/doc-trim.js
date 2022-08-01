@@ -12,28 +12,24 @@ const { line, trim, group, indent } = docBuilders;
 
 describe("trim", () => {
   test.each([
-    ["trims the current line", group((["hello    ", trim])), "hello"],
+    ["trims the current line", group(["hello    ", trim]), "hello"],
     [
       "trims existing indentation",
-      group(
-        ([
-          "function()",
+      group([
+        "function()",
+        line,
+        "{",
+        indent([
           line,
-          "{",
-          indent(
-            ([
-              line,
-              group(([trim, "#if DEBUG"])),
-              line,
-              "alert(42);",
-              line,
-              group(([trim, "#endif"])),
-            ])
-          ),
+          group([trim, "#if DEBUG"]),
           line,
-          "}",
-        ])
-      ),
+          "alert(42);",
+          line,
+          group([trim, "#endif"]),
+        ]),
+        line,
+        "}",
+      ]),
       outdent`
         function()
         {
@@ -45,7 +41,7 @@ describe("trim", () => {
     ],
     [
       "ignores trimmed characters when fitting the line",
-      group((["hello  ", "  ", trim, line, "world!"])),
+      group(["hello  ", "  ", trim, line, "world!"]),
       "hello world!",
     ],
   ])("%s", (_, doc, expected) => {

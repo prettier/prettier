@@ -14,17 +14,9 @@ const {
 
 describe("doc builders", () => {
   test.each([
-    ["concat", (["1", "2"]), ["1", "2"]],
-    [
-      "join",
-      join(["1"], ["2", (["3"])]),
-      ["2", ["1"], ["3"]],
-    ],
-    [
-      "hardline",
-      hardline,
-      [{ type: "line", hard: true }, breakParent],
-    ],
+    ["concat", ["1", "2"], ["1", "2"]],
+    ["join", join(["1"], ["2", ["3"]]), ["2", ["1"], ["3"]]],
+    ["hardline", hardline, [{ type: "line", hard: true }, breakParent]],
     [
       "literalline",
       literalline,
@@ -32,7 +24,7 @@ describe("doc builders", () => {
     ],
     [
       "group",
-      group((["1"])),
+      group(["1"]),
       {
         type: "group",
         id: undefined,
@@ -52,10 +44,10 @@ describe("doc builders", () => {
     ],
     [
       "if-break",
-      ifBreak((["1"]), ["2"]),
+      ifBreak(["1"], ["2"]),
       {
         type: "if-break",
-        breakContents: ["1"] ,
+        breakContents: ["1"],
         flatContents: ["2"],
         groupId: undefined,
       },
@@ -70,7 +62,7 @@ describe("doc builders", () => {
     ],
     [
       "align",
-      align("  ", (["1"])),
+      align("  ", ["1"]),
       {
         type: "align",
         contents: ["1"],

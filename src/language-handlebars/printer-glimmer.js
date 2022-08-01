@@ -651,7 +651,7 @@ async function printInverse(path, print, options) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return (join(line, splitByHtmlWhitespace(value)));
+  return join(line, splitByHtmlWhitespace(value));
 }
 
 function splitByHtmlWhitespace(string) {
