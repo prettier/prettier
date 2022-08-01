@@ -43,7 +43,7 @@
     "editorconfig": "0.15.3",
     "editorconfig-to-prettier": "0.2.0",
     "escape-string-regexp": "5.0.0",
-    "espree": "9.3.2",
+    "espree": "9.3.3",
     "esutils": "2.0.3",
     "fast-glob": "3.2.11",
     "fast-json-stable-stringify": "2.1.0",
@@ -94,7 +94,7 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/types": "7.18.8",
+    "@babel/types": "7.18.9",
     "@esbuild-plugins/node-modules-polyfill": "0.1.4",
     "@glimmer/reference": "0.84.2",
     "@types/estree": "0.0.52",
@@ -104,9 +104,9 @@
     "@typescript-eslint/eslint-plugin": "5.30.7",
     "benchmark": "2.1.4",
     "browserslist-to-esbuild": "1.1.1",
-    "c8": "7.11.3",
+    "c8": "7.12.0",
     "cross-env": "7.0.3",
-    "cspell": "6.4.0",
+    "cspell": "6.4.1",
     "enquirer": "2.3.6",
     "esbuild": "0.14.49",
     "esbuild-visualizer": "0.3.1",
@@ -174,5 +174,5 @@
     "not safari 5.1",
     "not op_mini all"
   ],
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@3.2.2"
 }
