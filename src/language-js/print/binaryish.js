@@ -1,5 +1,6 @@
 import { printComments } from "../../main/comments.js";
 import { getLast } from "../../common/util.js";
+import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
   join,
   line,
@@ -139,7 +140,9 @@ async function printBinaryishExpression(path, options, print) {
 
   const firstGroupIndex = parts.findIndex(
     (part) =>
-      typeof part !== "string" && !Array.isArray(part) && part.type === "group"
+      typeof part !== "string" &&
+      !Array.isArray(part) &&
+      part.type === DOC_TYPE_GROUP
   );
 
   // Separate the leftmost expression, possibly with its leading comments.
@@ -301,7 +304,7 @@ async function printBinaryishExpressions(
   if (isNested && hasComment(node)) {
     const printed = cleanDoc(printComments(path, parts, options));
     /* istanbul ignore else */
-    if (isConcat(printed) || printed.type === "fill") {
+    if (isConcat(printed) || printed.type === DOC_TYPE_FILL) {
       return getDocParts(printed);
     }
 

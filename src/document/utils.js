@@ -1,15 +1,31 @@
 import getLast from "../utils/get-last.js";
+import {
+  DOC_TYPE_STRING,
+  DOC_TYPE_CONCAT,
+  DOC_TYPE_INDENT,
+  DOC_TYPE_ALIGN,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_FILL,
+  DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LINE_SUFFIX,
+  DOC_TYPE_LINE,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_BREAK_PARENT,
+} from "./constants.js";
 import { literalline, join } from "./builders.js";
 
-const isConcat = (doc) => Array.isArray(doc) || (doc && doc.type === "concat");
+const isConcat = (doc) => getDocType(doc) === DOC_TYPE_CONCAT;
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
     return doc;
   }
 
   /* istanbul ignore next */
-  if (doc.type !== "concat" && doc.type !== "fill") {
-    throw new Error("Expect doc type to be `concat` or `fill`.");
+  if (doc.type !== DOC_TYPE_CONCAT && doc.type !== DOC_TYPE_FILL) {
+    throw new Error(
+      `Expect doc type to be '${DOC_TYPE_CONCAT}' or '${DOC_TYPE_FILL}'.`
+    );
   }
 
   return doc.parts;
@@ -42,19 +58,19 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
       // when the stack is popped.
-      if (isConcat(doc) || doc.type === "fill") {
+      if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
         const parts = getDocParts(doc);
         for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
           docsStack.push(parts[i]);
         }
-      } else if (doc.type === "if-break") {
+      } else if (doc.type === DOC_TYPE_IF_BREAK) {
         if (doc.flatContents) {
           docsStack.push(doc.flatContents);
         }
         if (doc.breakContents) {
           docsStack.push(doc.breakContents);
         }
-      } else if (doc.type === "group" && doc.expandedStates) {
+      } else if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
         if (shouldTraverseConditionalGroups) {
           for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
             docsStack.push(doc.expandedStates[i]);
@@ -93,18 +109,18 @@ function mapDoc(doc, cb) {
       return cb(doc.map(rec));
     }
 
-    if (doc.type === "concat" || doc.type === "fill") {
+    if (doc.type === DOC_TYPE_CONCAT || doc.type === DOC_TYPE_FILL) {
       const parts = doc.parts.map(rec);
       return cb({ ...doc, parts });
     }
 
-    if (doc.type === "if-break") {
+    if (doc.type === DOC_TYPE_IF_BREAK) {
       const breakContents = doc.breakContents && rec(doc.breakContents);
       const flatContents = doc.flatContents && rec(doc.flatContents);
       return cb({ ...doc, breakContents, flatContents });
     }
 
-    if (doc.type === "group" && doc.expandedStates) {
+    if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
       const expandedStates = doc.expandedStates.map(rec);
       const contents = expandedStates[0];
       return cb({ ...doc, contents, expandedStates });
@@ -137,13 +153,13 @@ function findInDoc(doc, fn, defaultValue) {
 }
 
 function willBreakFn(doc) {
-  if (doc.type === "group" && doc.break) {
+  if (doc.type === DOC_TYPE_GROUP && doc.break) {
     return true;
   }
-  if (doc.type === "line" && doc.hard) {
+  if (doc.type === DOC_TYPE_LINE && doc.hard) {
     return true;
   }
-  if (doc.type === "break-parent") {
+  if (doc.type === DOC_TYPE_BREAK_PARENT) {
     return true;
   }
 }
@@ -170,10 +186,10 @@ function propagateBreaks(doc) {
   const alreadyVisitedSet = new Set();
   const groupStack = [];
   function propagateBreaksOnEnterFn(doc) {
-    if (doc.type === "break-parent") {
+    if (doc.type === DOC_TYPE_BREAK_PARENT) {
       breakParentGroup(groupStack);
     }
-    if (doc.type === "group") {
+    if (doc.type === DOC_TYPE_GROUP) {
       groupStack.push(doc);
       if (alreadyVisitedSet.has(doc)) {
         return false;
@@ -182,7 +198,7 @@ function propagateBreaks(doc) {
     }
   }
   function propagateBreaksOnExitFn(doc) {
-    if (doc.type === "group") {
+    if (doc.type === DOC_TYPE_GROUP) {
       const group = groupStack.pop();
       if (group.break) {
         breakParentGroup(groupStack);
@@ -202,11 +218,11 @@ function removeLinesFn(doc) {
   // lines into spaces (or soft lines into nothing). Hard lines
   // should still output because there's too great of a chance
   // of breaking existing assumptions otherwise.
-  if (doc.type === "line" && !doc.hard) {
+  if (doc.type === DOC_TYPE_LINE && !doc.hard) {
     return doc.soft ? "" : " ";
   }
 
-  if (doc.type === "if-break") {
+  if (doc.type === DOC_TYPE_IF_BREAK) {
     return doc.flatContents || "";
   }
 
@@ -219,16 +235,16 @@ function removeLines(doc) {
 
 const isHardline = (doc, nextDoc) =>
   doc &&
-  doc.type === "line" &&
+  doc.type === DOC_TYPE_LINE &&
   doc.hard &&
   nextDoc &&
-  nextDoc.type === "break-parent";
+  nextDoc.type === DOC_TYPE_BREAK_PARENT;
 function stripDocTrailingHardlineFromDoc(doc) {
   if (!doc) {
     return doc;
   }
 
-  if (isConcat(doc) || doc.type === "fill") {
+  if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
     const parts = getDocParts(doc);
 
     while (parts.length > 1 && isHardline(...parts.slice(-2))) {
@@ -243,16 +259,16 @@ function stripDocTrailingHardlineFromDoc(doc) {
   }
 
   switch (doc.type) {
-    case "align":
-    case "indent":
-    case "indent-if-break":
-    case "group":
-    case "line-suffix":
-    case "label": {
+    case DOC_TYPE_ALIGN:
+    case DOC_TYPE_INDENT:
+    case DOC_TYPE_INDENT_IF_BREAK:
+    case DOC_TYPE_GROUP:
+    case DOC_TYPE_LINE_SUFFIX:
+    case DOC_TYPE_LABEL: {
       const contents = stripDocTrailingHardlineFromDoc(doc.contents);
       return { ...doc, contents };
     }
-    case "if-break": {
+    case DOC_TYPE_IF_BREAK: {
       const breakContents = stripDocTrailingHardlineFromDoc(doc.breakContents);
       const flatContents = stripDocTrailingHardlineFromDoc(doc.flatContents);
       return { ...doc, breakContents, flatContents };
@@ -269,18 +285,18 @@ function stripTrailingHardline(doc) {
 
 function cleanDocFn(doc) {
   switch (doc.type) {
-    case "fill":
+    case DOC_TYPE_FILL:
       if (doc.parts.every((part) => part === "")) {
         return "";
       }
       break;
-    case "group":
+    case DOC_TYPE_GROUP:
       if (!doc.contents && !doc.id && !doc.break && !doc.expandedStates) {
         return "";
       }
       // Remove nested only group
       if (
-        doc.contents.type === "group" &&
+        doc.contents.type === DOC_TYPE_GROUP &&
         doc.contents.id === doc.id &&
         doc.contents.break === doc.break &&
         doc.contents.expandedStates === doc.expandedStates
@@ -288,15 +304,15 @@ function cleanDocFn(doc) {
         return doc.contents;
       }
       break;
-    case "align":
-    case "indent":
-    case "indent-if-break":
-    case "line-suffix":
+    case DOC_TYPE_ALIGN:
+    case DOC_TYPE_INDENT:
+    case DOC_TYPE_INDENT_IF_BREAK:
+    case DOC_TYPE_LINE_SUFFIX:
       if (!doc.contents) {
         return "";
       }
       break;
-    case "if-break":
+    case DOC_TYPE_IF_BREAK:
       if (!doc.flatContents && !doc.breakContents) {
         return "";
       }
@@ -401,13 +417,25 @@ function replaceTextEndOfLine(text, replacement = literalline) {
 }
 
 function canBreakFn(doc) {
-  if (doc.type === "line") {
+  if (doc.type === DOC_TYPE_LINE) {
     return true;
   }
 }
 
 function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
+}
+
+function getDocType(doc) {
+  if (typeof doc === "string") {
+    return DOC_TYPE_STRING;
+  }
+
+  if (Array.isArray(doc)) {
+    return DOC_TYPE_CONCAT;
+  }
+
+  return doc?.type;
 }
 
 export {
@@ -426,4 +454,5 @@ export {
   replaceTextEndOfLine,
   replaceEndOfLine,
   canBreak,
+  getDocType,
 };

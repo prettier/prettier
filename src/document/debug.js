@@ -1,3 +1,17 @@
+import {
+  DOC_TYPE_INDENT,
+  DOC_TYPE_ALIGN,
+  DOC_TYPE_TRIM,
+  DOC_TYPE_GROUP,
+  DOC_TYPE_FILL,
+  DOC_TYPE_IF_BREAK,
+  DOC_TYPE_INDENT_IF_BREAK,
+  DOC_TYPE_LINE_SUFFIX,
+  DOC_TYPE_LINE_SUFFIX_BOUNDARY,
+  DOC_TYPE_LINE,
+  DOC_TYPE_LABEL,
+  DOC_TYPE_BREAK_PARENT,
+} from "./constants.js";
 import { isConcat, getDocParts } from "./utils.js";
 
 function flattenDoc(doc) {
@@ -21,7 +35,7 @@ function flattenDoc(doc) {
     return { type: "concat", parts: res };
   }
 
-  if (doc.type === "if-break") {
+  if (doc.type === DOC_TYPE_IF_BREAK) {
     return {
       ...doc,
       breakContents: flattenDoc(doc.breakContents),
@@ -29,7 +43,7 @@ function flattenDoc(doc) {
     };
   }
 
-  if (doc.type === "group") {
+  if (doc.type === DOC_TYPE_GROUP) {
     return {
       ...doc,
       contents: flattenDoc(doc.contents),
@@ -37,7 +51,7 @@ function flattenDoc(doc) {
     };
   }
 
-  if (doc.type === "fill") {
+  if (doc.type === DOC_TYPE_FILL) {
     return { type: "fill", parts: doc.parts.map(flattenDoc) };
   }
 
@@ -65,11 +79,11 @@ function printDocToDebug(doc) {
       return printed.length === 1 ? printed[0] : `[${printed.join(", ")}]`;
     }
 
-    if (doc.type === "line") {
+    if (doc.type === DOC_TYPE_LINE) {
       const withBreakParent =
         Array.isArray(parentParts) &&
         parentParts[index + 1] &&
-        parentParts[index + 1].type === "break-parent";
+        parentParts[index + 1].type === DOC_TYPE_BREAK_PARENT;
       if (doc.literal) {
         return withBreakParent
           ? "literalline"
@@ -84,24 +98,24 @@ function printDocToDebug(doc) {
       return "line";
     }
 
-    if (doc.type === "break-parent") {
+    if (doc.type === DOC_TYPE_BREAK_PARENT) {
       const afterHardline =
         Array.isArray(parentParts) &&
         parentParts[index - 1] &&
-        parentParts[index - 1].type === "line" &&
+        parentParts[index - 1].type === DOC_TYPE_LINE &&
         parentParts[index - 1].hard;
       return afterHardline ? undefined : "breakParent";
     }
 
-    if (doc.type === "trim") {
+    if (doc.type === DOC_TYPE_TRIM) {
       return "trim";
     }
 
-    if (doc.type === "indent") {
+    if (doc.type === DOC_TYPE_INDENT) {
       return "indent(" + printDoc(doc.contents) + ")";
     }
 
-    if (doc.type === "align") {
+    if (doc.type === DOC_TYPE_ALIGN) {
       return doc.n === Number.NEGATIVE_INFINITY
         ? "dedentToRoot(" + printDoc(doc.contents) + ")"
         : doc.n < 0
@@ -115,7 +129,7 @@ function printDocToDebug(doc) {
           ")";
     }
 
-    if (doc.type === "if-break") {
+    if (doc.type === DOC_TYPE_IF_BREAK) {
       return (
         "ifBreak(" +
         printDoc(doc.breakContents) +
@@ -128,7 +142,7 @@ function printDocToDebug(doc) {
       );
     }
 
-    if (doc.type === "indent-if-break") {
+    if (doc.type === DOC_TYPE_INDENT_IF_BREAK) {
       const optionsParts = [];
 
       if (doc.negate) {
@@ -145,7 +159,7 @@ function printDocToDebug(doc) {
       return `indentIfBreak(${printDoc(doc.contents)}${options})`;
     }
 
-    if (doc.type === "group") {
+    if (doc.type === DOC_TYPE_GROUP) {
       const optionsParts = [];
 
       if (doc.break && doc.break !== "propagated") {
@@ -168,19 +182,19 @@ function printDocToDebug(doc) {
       return `group(${printDoc(doc.contents)}${options})`;
     }
 
-    if (doc.type === "fill") {
+    if (doc.type === DOC_TYPE_FILL) {
       return `fill([${doc.parts.map((part) => printDoc(part)).join(", ")}])`;
     }
 
-    if (doc.type === "line-suffix") {
+    if (doc.type === DOC_TYPE_LINE_SUFFIX) {
       return "lineSuffix(" + printDoc(doc.contents) + ")";
     }
 
-    if (doc.type === "line-suffix-boundary") {
+    if (doc.type === DOC_TYPE_LINE_SUFFIX_BOUNDARY) {
       return "lineSuffixBoundary";
     }
 
-    if (doc.type === "label") {
+    if (doc.type === DOC_TYPE_LABEL) {
       return `label(${JSON.stringify(doc.label)}, ${printDoc(doc.contents)})`;
     }
 
