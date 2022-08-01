@@ -20,7 +20,8 @@ exports[`show detailed usage with plugin options (automatic resolution) (stdout)
 
 Default: 2
 Plugin defaults:
-* prettier-plugin-bar: 4
+* prettier-plugin-bar: 4,
+* prettier-plugin-baz.js: 4
 "
 `;
 
@@ -35,7 +36,7 @@ exports[`show detailed usage with plugin options (manual resolution) (stdout) 1`
 
 Default: 2
 Plugin defaults:
-* ../plugins/automatic/node_modules/prettier-plugin-bar: 4
+* ../plugins/automatic/node_modules/prettier-plugin-bar/index.js: 4
 "
 `;
 

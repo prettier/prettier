@@ -95,7 +95,7 @@ testPatterns("Exclude yarn.lock when expanding directories", ["."], {
 
 const uppercaseRocksPlugin = path.join(
   projectRoot,
-  "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks"
+  "tests/config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js"
 );
 describe("plugins `.`", () => {
   runPrettier("cli/dirs/plugins", [
