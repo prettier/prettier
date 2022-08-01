@@ -16,6 +16,14 @@ async function printEmbeddedLanguages(
     return;
   }
 
+  const isNode =
+    (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
+  const hasPrettierIgnore =
+    printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
+  const detectEmbeddedLanguage =
+    printer.detectEmbeddedLanguage?.bind(printer) ?? (() => true);
+  const { ignoredProperties } = printer.massageAstNode;
+
   const pathStacks = [];
 
   recurse();
@@ -62,39 +70,31 @@ async function printEmbeddedLanguages(
     const node = path.getValue();
 
     if (
-      // TODO: improve this check
       node === null ||
       typeof node !== "object" ||
-      (printer.isNode
-        ? !printer.isNode(node)
-        : printer.canAttachComment
-        ? !printer.canAttachComment(node)
-        : false) ||
-      printer.hasPrettierIgnore?.(path)
+      !isNode(node) ||
+      hasPrettierIgnore(path)
     ) {
       return;
     }
 
-    for (const [key, value] of Object.entries(node)) {
-      if (key === "tokens" || key === "comments" || key === "parent") {
-        continue;
-      }
-      if (Array.isArray(value)) {
-        path.each(recurse, key);
-      } else {
-        path.call(recurse, key);
-      }
-    }
-
-    let embeddedLanguage;
-    if (printer.detectEmbeddedLanguage) {
-      embeddedLanguage = printer.detectEmbeddedLanguage(path, options);
-      if (!embeddedLanguage) {
-        return;
+    for (const key in node) {
+      if (
+        Object.prototype.hasOwnProperty.call(node, key) &&
+        !ignoredProperties?.has(key)
+      ) {
+        if (Array.isArray(node[key])) {
+          path.each(recurse, key);
+        } else {
+          path.call(recurse, key);
+        }
       }
     }
 
-    pathStacks.push({ pathStack: [...path.stack], embeddedLanguage });
+    const embeddedLanguage = detectEmbeddedLanguage(path, options);
+    if (embeddedLanguage) {
+      pathStacks.push({ pathStack: [...path.stack], embeddedLanguage });
+    }
   }
 }
 
