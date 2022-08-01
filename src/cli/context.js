@@ -20,7 +20,7 @@ import {
  */
 
 class Context {
-  #stack = []
+  #stack = [];
 
   constructor({ rawArguments, logger }) {
     this.rawArguments = rawArguments;

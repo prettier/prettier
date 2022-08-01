@@ -21,7 +21,7 @@ const cliDescriptor = {
 // To prevent `chalk` and `leven` module from being included in the `standalone.js` bundle, it will take that as an argument if needed.
 const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
   class FlagSchema extends vnopts.ChoiceSchema {
-    #flags = []
+    #flags = [];
 
     constructor({ name, flags }) {
       super({ name, choices: flags });
