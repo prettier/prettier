@@ -1,16 +1,13 @@
-import { createRequire } from "node:module";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
-import uniqByKey from "../utils/uniq-by-key.js";
 import thirdParty from "./third-party.js";
-import resolve from "./resolve.js";
+import requireFrom from "./require-from.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const require = createRequire(import.meta.url);
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -43,25 +40,20 @@ async function load(plugins, pluginSearchDirs) {
     (plugin) => typeof plugin === "string"
   );
 
-  const externalManualLoadPluginInfos = externalPluginNames.map(
-    (pluginName) => {
-      let requirePath;
-      try {
-        // try local files
-        requirePath = resolve(path.resolve(process.cwd(), pluginName));
-      } catch {
-        // try node modules
-        requirePath = resolve(pluginName, { paths: [process.cwd()] });
-      }
-
-      return {
-        name: pluginName,
-        requirePath,
-      };
+  const externalManualLoadPlugins = externalPluginNames.map((name) => {
+    let plugin;
+    try {
+      // try local files
+      plugin = requireFrom(path.resolve(name), process.cwd());
+    } catch {
+      // try node modules
+      plugin = requireFrom(name, process.cwd());
     }
-  );
 
-  const externalAutoLoadPluginInfos = (
+    return { name, ...plugin };
+  });
+
+  const externalAutoLoadPlugins = (
     await Promise.all(
       pluginSearchDirs.map(async (pluginSearchDir) => {
         const resolvedPluginSearchDir = path.resolve(
@@ -88,28 +80,19 @@ async function load(plugins, pluginSearchDirs) {
 
         const pluginNames = await memoizedSearch(nodeModulesDir);
 
-        return pluginNames.map((pluginName) => ({
-          name: pluginName,
-          requirePath: resolve(pluginName, {
-            paths: [resolvedPluginSearchDir],
-          }),
+        return pluginNames.map((name) => ({
+          name,
+          ...requireFrom(name, nodeModulesDir),
         }));
       })
     )
   ).flat();
 
-  const externalPlugins = [
-    ...uniqByKey(
-      [...externalManualLoadPluginInfos, ...externalAutoLoadPluginInfos],
-      "requirePath"
-    ).map((externalPluginInfo) => ({
-      name: externalPluginInfo.name,
-      ...require(externalPluginInfo.requirePath),
-    })),
+  return [
+    ...externalManualLoadPlugins,
+    ...externalAutoLoadPlugins,
     ...externalPluginInstances,
   ];
-
-  return externalPlugins;
 }
 
 async function findPluginsInNodeModules(nodeModulesDir) {
