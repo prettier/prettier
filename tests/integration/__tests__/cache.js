@@ -278,6 +278,44 @@ describe("--cache option", () => {
       );
     });
 
+    it("doesn't cache files when write error.", async () => {
+      const {
+        stdout: firstStdout,
+        stderr: firstStderr,
+        status: firstStatus,
+      } = await runPrettier(
+        dir,
+        ["--write", "--cache", "--cache-strategy", "metadata", "."],
+        {
+          mockWriteFileErrors: {
+            "a.js": "EACCES: permission denied (mock error)",
+          },
+        }
+      );
+      expect(firstStatus).toBe(2);
+      expect(stripAnsi(firstStderr).split("\n").filter(Boolean)).toEqual([
+        "[error] Unable to write file: a.js",
+        "[error] EACCES: permission denied (mock error)",
+      ]);
+      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms$/),
+        ])
+      );
+
+      const { stdout: secondStdout } = await runPrettier(dir, [
+        "--list-different",
+        "--cache",
+        "--cache-strategy",
+        "metadata",
+        ".",
+      ]);
+      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual([
+        "a.js",
+      ]);
+    });
+
     it("removes cache file when run Prettier without `--cache` option", async () => {
       await runPrettier(dir, [
         "--cache",
@@ -481,6 +519,44 @@ describe("--cache option", () => {
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
         ])
       );
+    });
+
+    it("doesn't cache files when write error.", async () => {
+      const {
+        stdout: firstStdout,
+        stderr: firstStderr,
+        status: firstStatus,
+      } = await runPrettier(
+        dir,
+        ["--write", "--cache", "--cache-strategy", "content", "."],
+        {
+          mockWriteFileErrors: {
+            "a.js": "EACCES: permission denied (mock error)",
+          },
+        }
+      );
+      expect(firstStatus).toBe(2);
+      expect(stripAnsi(firstStderr).split("\n").filter(Boolean)).toEqual([
+        "[error] Unable to write file: a.js",
+        "[error] EACCES: permission denied (mock error)",
+      ]);
+      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+        expect.arrayContaining([
+          expect.stringMatching(/^a\.js .+ms$/),
+          expect.stringMatching(/^b\.js .+ms$/),
+        ])
+      );
+
+      const { stdout: secondStdout } = await runPrettier(dir, [
+        "--list-different",
+        "--cache",
+        "--cache-strategy",
+        "content",
+        ".",
+      ]);
+      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual([
+        "a.js",
+      ]);
     });
 
     it("removes cache file when run Prettier without `--cache` option", async () => {

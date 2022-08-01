@@ -434,13 +434,11 @@ async function formatFiles(context) {
         try {
           await fs.writeFile(filename, output, "utf8");
         } catch (error) {
-          /* istanbul ignore next */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
 
           // Don't exit the process if one file failed
-          /* istanbul ignore next */
           process.exitCode = 2;
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
