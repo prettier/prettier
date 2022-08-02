@@ -7,7 +7,7 @@ import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
-async function embed(path, print, textToDoc, options) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
@@ -21,30 +21,32 @@ async function embed(path, print, textToDoc, options) {
       if (node.lang === "tsx") {
         newOptions.filepath = "dummy.tsx";
       }
-      const doc = await textToDoc(
-        getFencedCodeBlockValue(node, options.originalText),
-        newOptions,
-        { stripTrailingHardline: true }
-      );
-      return markAsRoot([
-        style,
-        node.lang,
-        node.meta ? " " + node.meta : "",
-        hardline,
-        replaceEndOfLine(doc),
-        hardline,
-        style,
-      ]);
+      return async () => {
+        const doc = await textToDoc(
+          getFencedCodeBlockValue(node, options.originalText),
+          newOptions,
+          { stripTrailingHardline: true }
+        );
+        return markAsRoot([
+          style,
+          node.lang,
+          node.meta ? " " + node.meta : "",
+          hardline,
+          replaceEndOfLine(doc),
+          hardline,
+          style,
+        ]);
+      };
     }
   }
 
   switch (node.type) {
     case "front-matter":
-      return printFrontMatter(node, textToDoc);
+      return () => printFrontMatter(node, textToDoc);
 
     // MDX
     case "importExport":
-      return [
+      return async () => [
         await textToDoc(
           node.value,
           { parser: "babel" },
@@ -53,7 +55,7 @@ async function embed(path, print, textToDoc, options) {
         hardline,
       ];
     case "jsx":
-      return textToDoc(
+      return () => textToDoc(
         `<$>${node.value}</$>`,
         {
           parser: "__js_expression",

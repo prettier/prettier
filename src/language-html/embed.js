@@ -245,7 +245,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   return null;
 }
 
-async function embed(path, print, textToDoc, options) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -261,27 +261,29 @@ async function embed(path, print, textToDoc, options) {
           return;
         }
 
-        const content = getNodeContent(node, options);
-        let isEmpty = /^\s*$/.test(content);
-        let doc = "";
-        if (!isEmpty) {
-          doc = await textToDoc(
-            htmlTrimPreserveIndentation(content),
-            { parser, __embeddedInHtml: true },
-            { stripTrailingHardline: true }
-          );
-          isEmpty = doc === "";
-        }
+        return async () => {
+          const content = getNodeContent(node, options);
+          let isEmpty = /^\s*$/.test(content);
+          let doc = "";
+          if (!isEmpty) {
+            doc = await textToDoc(
+              htmlTrimPreserveIndentation(content),
+              { parser, __embeddedInHtml: true },
+              { stripTrailingHardline: true }
+            );
+            isEmpty = doc === "";
+          }
 
-        return [
-          printOpeningTagPrefix(node, options),
-          group(printOpeningTag(path, options, print)),
-          isEmpty ? "" : hardline,
-          doc,
-          isEmpty ? "" : hardline,
-          printClosingTag(node, options),
-          printClosingTagSuffix(node, options),
-        ];
+          return [
+            printOpeningTagPrefix(node, options),
+            group(printOpeningTag(path, options, print)),
+            isEmpty ? "" : hardline,
+            doc,
+            isEmpty ? "" : hardline,
+            printClosingTag(node, options),
+            printClosingTagSuffix(node, options),
+          ];
+        };
       }
       break;
     }
@@ -307,7 +309,7 @@ async function embed(path, print, textToDoc, options) {
             }
             textToDocOptions.__babelSourceType = sourceType;
           }
-          return [
+          return async () => [
             breakParent,
             printOpeningTagPrefix(node, options),
             await textToDoc(value, textToDocOptions, {
@@ -331,7 +333,7 @@ async function embed(path, print, textToDoc, options) {
         } else {
           textToDocOptions.parser = "__js_expression";
         }
-        return [
+        return async () => [
           indent([
             line,
             await textToDoc(node.value, textToDocOptions, {
@@ -378,33 +380,34 @@ async function embed(path, print, textToDoc, options) {
         }
       }
 
-      const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
-        node,
-        (code, opts) =>
-          // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(
-            code,
-            { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
-            { stripTrailingHardline: true }
-          ),
-        options
-      );
-      if (embeddedAttributeValueDoc) {
-        return [
-          node.rawName,
-          '="',
-          group(
-            mapDoc(embeddedAttributeValueDoc, (doc) =>
-              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
-            )
-          ),
-          '"',
-        ];
-      }
-      break;
+      return async () => {
+        const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
+          node,
+          (code, opts) =>
+            // strictly prefer single quote to avoid unnecessary html entity escape
+            textToDoc(
+              code,
+              { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
+              { stripTrailingHardline: true }
+            ),
+          options
+        );
+        if (embeddedAttributeValueDoc) {
+          return [
+            node.rawName,
+            '="',
+            group(
+              mapDoc(embeddedAttributeValueDoc, (doc) =>
+                typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+              )
+            ),
+            '"',
+          ];
+        }
+      };
     }
     case "front-matter":
-      return printFrontMatter(node, textToDoc);
+      return () => printFrontMatter(node, textToDoc);
   }
 }
 

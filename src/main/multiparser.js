@@ -20,8 +20,6 @@ async function printEmbeddedLanguages(
     (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
   const hasPrettierIgnore =
     printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
-  const detectEmbeddedLanguage =
-    printer.detectEmbeddedLanguage?.bind(printer) ?? (() => true);
   const { ignoredProperties } = printer.massageAstNode;
 
   const pathStacks = [];
@@ -30,21 +28,15 @@ async function printEmbeddedLanguages(
 
   const originalPathStack = path.stack;
 
-  for (const { pathStack, embeddedLanguage } of pathStacks) {
+  for (let { pathStack, node, result } of pathStacks) {
     try {
-      path.stack = pathStack;
-      const result = printer.embed(
-        path,
-        print,
-        textToDocForEmbed,
-        options,
-        embeddedLanguage
-      );
+      if (typeof result === "function") {
+        path.stack = pathStack;
+        result = await result();
+      }
+
       if (result) {
-        const doc = result.then ? await result : result;
-        if (doc) {
-          embeds.set(path.getValue(), doc);
-        }
+        embeds.set(node, result);
       }
     } catch (error) {
       /* istanbul ignore if */
@@ -91,9 +83,21 @@ async function printEmbeddedLanguages(
       }
     }
 
-    const embeddedLanguage = detectEmbeddedLanguage(path, options);
-    if (embeddedLanguage) {
-      pathStacks.push({ pathStack: [...path.stack], embeddedLanguage });
+    const result = printer.embed(
+      path,
+      print,
+      textToDocForEmbed,
+      options,
+    );
+    if (result) {
+      const node = path.getValue();
+      if (typeof result === "function") {
+        pathStacks.push({ pathStack: [...path.stack], node, result });
+      } else if (typeof result.then === "function") {
+        throw new TypeError("`embed` should return an async function instead of Promise.")
+      } else {
+        pathStacks.push({ node, result });
+      }
     }
   }
 }

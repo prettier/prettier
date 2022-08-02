@@ -35,7 +35,7 @@ function getLanguage(path) {
   }
 }
 
-export function detectEmbeddedLanguage(path) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (
@@ -47,24 +47,22 @@ export function detectEmbeddedLanguage(path) {
     return;
   }
 
-  return getLanguage(path);
-}
+  const language = getLanguage(path)
 
-function embed(path, print, textToDoc, options, language) {
   if (language === "markdown") {
-    return formatMarkdown(path, print, textToDoc);
+    return () => formatMarkdown(path, print, textToDoc);
   }
 
   if (language === "css") {
-    return formatCss(path, print, textToDoc);
+    return () => formatCss(path, print, textToDoc);
   }
 
   if (language === "graphql") {
-    return formatGraphql(path, print, textToDoc);
+    return () => formatGraphql(path, print, textToDoc);
   }
 
   if (language === "html" || language === "angular") {
-    return formatHtml(path, print, textToDoc, options, { parser: language });
+    return () => formatHtml(path, print, textToDoc, options, { parser: language });
   }
 }
 
