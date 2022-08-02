@@ -30,7 +30,7 @@ function f() {
       entity &&
       entity.isInstallAvailable() &&
       !entity.isQueue() &&
-      entity.isDisabled()
+      entity.isDisabled(),
   );
 }
 
@@ -42,7 +42,7 @@ function f2() {
       !entity.isQueue() &&
       entity.isDisabled() && {
         id: entity.id,
-      }
+      },
   );
 }
 
@@ -186,19 +186,19 @@ printWidth: 80
     bbbbbbbbbbbbbbbbbbbbbbbbb &&
     ccccccccccccccccccccccccc &&
     ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
     bbbbbbbbbbbbbbbbbbbbbbbbb &&
     ccccccccccccccccccccccccc &&
     ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeeeeeeee,
 )(
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
     bbbbbbbbbbbbbbbbbbbbbbbbb &&
     ccccccccccccccccccccccccc &&
     ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee
+    eeeeeeeeeeeeeeeeeeeeeeeee,
 );
 
 ================================================================================
@@ -293,7 +293,7 @@ var a = x(
   abifornCringerMoshedPerplexSawder +
     kochabCooieGameOnOboleUnweave + // f
     glimseGlyphsHazardNoopsTieTie +
-    bifornCringerMoshedPerplexSawder
+    bifornCringerMoshedPerplexSawder,
 );
 
 foo[
@@ -887,11 +887,11 @@ defaultContent.filter(defaultLocale => {
 this._cumulativeHeights &&
   Math.abs(
     this._cachedItemHeight(this._firstVisibleIndex + i) -
-      this._provider.fastHeight(i + this._firstVisibleIndex)
+      this._provider.fastHeight(i + this._firstVisibleIndex),
   ) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  aaaaaaaaaaaaaaaaaaa
+  aaaaaaaaaaaaaaaaaaa,
 ) + a;
 
 const isPartOfPackageJSON =
@@ -975,7 +975,7 @@ const x7 =
 const x8 =
   call(
     firstItemWithAVeryLongNameThatKeepsGoing,
-    firstItemWithAVeryLongNameThatKeepsGoing
+    firstItemWithAVeryLongNameThatKeepsGoing,
   ) || [];
 
 const x9 =
@@ -987,7 +987,7 @@ const x10 =
 foo(
   obj.property * new Class() && obj instanceof Class && longVariable
     ? number + 5
-    : false
+    : false,
 );
 
 ================================================================================

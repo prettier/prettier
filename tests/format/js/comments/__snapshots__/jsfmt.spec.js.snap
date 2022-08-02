@@ -671,7 +671,7 @@ Math.min(
   document.body.scrollHeight -
     (window.scrollY + window.innerHeight) -
     devsite_footer_height,
-  0
+  0,
 )
 
 ================================================================================
@@ -702,7 +702,7 @@ Math.min(
   document.body.scrollHeight -
     (window.scrollY + window.innerHeight) -
     devsite_footer_height,
-  0
+  0,
 );
 
 ================================================================================
@@ -1015,19 +1015,19 @@ render?.( // Warm any cache
 render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 )
 
 React.render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 )
 
 render?.(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 )
 
 ================================================================================
@@ -1058,19 +1058,19 @@ render?.( // Warm any cache
 render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 );
 
 React.render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 );
 
 render?.(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
+  container,
 );
 
 ================================================================================
@@ -1853,8 +1853,8 @@ function c(/* comment */ argA, argB, argC) {} // comment
 call((/*object*/ row) => {})
 KEYPAD_NUMBERS.map(
   (
-    num // Buttons 0-9
-  ) => <div />
+    num, // Buttons 0-9
+  ) => <div />,
 )
 
 function f1 /* f */() {}
@@ -1989,8 +1989,8 @@ function c(/* comment */ argA, argB, argC) {} // comment
 call((/*object*/ row) => {});
 KEYPAD_NUMBERS.map(
   (
-    num // Buttons 0-9
-  ) => <div />
+    num, // Buttons 0-9
+  ) => <div />,
 );
 
 function f1 /* f */() {}
@@ -2725,7 +2725,7 @@ const regex = new RegExp(
     "['\\"]" + // opening quotation mark
     escapeStringRegExp(target.name) + // target name
     "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+    ",?$", // optional trailing comma
 )
 
 // The comment is moved and doesn't trigger the eslint rule anymore
@@ -2764,7 +2764,7 @@ const result = asyncExecute("non_existing_command", /* args */ [])
 
 // The closing paren is printed on the same line as the comment
 foo(
-  {}
+  {},
   // Hi
 )
 
@@ -2876,7 +2876,7 @@ const regex = new RegExp(
     "['\\"]" + // opening quotation mark
     escapeStringRegExp(target.name) + // target name
     "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+    ",?$", // optional trailing comma
 );
 
 // The comment is moved and doesn't trigger the eslint rule anymore
@@ -2915,7 +2915,7 @@ const result = asyncExecute("non_existing_command", /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo(
-  {}
+  {},
   // Hi
 );
 
@@ -3593,7 +3593,7 @@ class Foo {
     lol /*string*/,
     lol2 /*string*/,
     lol3 /*string*/,
-    lol4 /*string*/
+    lol4 /*string*/,
   ) /*string*/ {}
 
   // prettier-ignore
@@ -3680,7 +3680,7 @@ class Foo {
     lol /*string*/,
     lol2 /*string*/,
     lol3 /*string*/,
-    lol4 /*string*/
+    lol4 /*string*/,
   ) /*string*/ {}
 
   // prettier-ignore

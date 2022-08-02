@@ -1,7 +1,8 @@
-import { createRequire } from "node:module";
+import { pathToFileURL } from "node:url";
 import loadToml from "../utils/load-toml.js";
 import loadJson5 from "../utils/load-json5.js";
 import thirdParty from "../common/third-party.js";
+import loadExternalConfig from "./load-external-config.js";
 
 const { cosmiconfig } = thirdParty;
 
@@ -13,23 +14,45 @@ const searchPlaces = [
   ".prettierrc.yml",
   ".prettierrc.json5",
   ".prettierrc.js",
+  ".prettierrc.mjs",
   ".prettierrc.cjs",
   "prettier.config.js",
+  "prettier.config.mjs",
   "prettier.config.cjs",
   ".prettierrc.toml",
 ];
 
-const loaders = { ".toml": loadToml, ".json5": loadJson5 };
+async function loadJs(filepath /*, content*/) {
+  const module = await import(pathToFileURL(filepath).href);
+  return module.default;
+}
 
-function transform(result) {
+const loaders = {
+  ".toml": loadToml,
+  ".json5": loadJson5,
+  ".js": loadJs,
+  ".mjs": loadJs,
+  ".cjs": loadJs,
+};
+
+async function transform(result) {
   if (!result?.config) {
     return result;
   }
 
   let { config, filepath } = result;
 
+  /*
+  We support external config
+
+  ```json
+  {
+    "prettier": "my-prettier-config-package-or-file"
+  }
+  ```
+  */
   if (typeof config === "string") {
-    config = createRequire(filepath)(config);
+    config = await loadExternalConfig(config, filepath);
     result.config = config;
   }
 
@@ -41,7 +64,6 @@ function transform(result) {
   }
 
   delete config.$schema;
-
   return result;
 }
 

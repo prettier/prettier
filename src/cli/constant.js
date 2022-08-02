@@ -74,6 +74,10 @@ const options = {
     description: "Only format changed files. Cannot use with --stdin-filepath.",
     type: "boolean",
   },
+  "cache-location": {
+    description: "Path to the cache file.",
+    type: "path",
+  },
   "cache-strategy": {
     choices: [
       {
@@ -214,7 +218,7 @@ const options = {
       "Print the names of files that are different from Prettier's formatting (see also --check).",
     type: "boolean",
   },
-  loglevel: {
+  "log-level": {
     choices: ["silent", "error", "warn", "log", "debug"],
     default: "log",
     description: "What level of logs to report.",

@@ -186,8 +186,8 @@ const shouldNotWrap = \`simple expressions should not break \${this} \${variable
 
 console.log(
   chalk.white(
-    \`Covered Lines below threshold: \${coverageSettings.lines}%. Actual: \${coverageSummary.total.lines.pct}%\`
-  )
+    \`Covered Lines below threshold: \${coverageSettings.lines}%. Actual: \${coverageSummary.total.lines.pct}%\`,
+  ),
 );
 
 x = \`mdl-textfield mdl-js-textfield \${className} \${
@@ -209,15 +209,15 @@ function testing() {
 }
 
 console.log(
-  \`Trying update appcast for \${app.name} (\${app.cask.appcast}) -> (\${app.cask.appcastGenerated})\`
+  \`Trying update appcast for \${app.name} (\${app.cask.appcast}) -> (\${app.cask.appcastGenerated})\`,
 );
 
 console.log(
-  \`brew cask audit --download \${_.map(definitions, "caskName").join(" ")}\`
+  \`brew cask audit --download \${_.map(definitions, "caskName").join(" ")}\`,
 );
 
 console.log(
-  \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${app.jetbrains.version}.\\n\`
+  \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${app.jetbrains.version}.\\n\`,
 );
 
 descirbe("something", () => {
@@ -225,7 +225,7 @@ descirbe("something", () => {
 });
 
 throw new Error(
-  \`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`
+  \`pretty-format: Option "theme" has a key "\${key}" whose value "\${value}" is undefined in ansi-styles.\`,
 );
 
 ================================================================================

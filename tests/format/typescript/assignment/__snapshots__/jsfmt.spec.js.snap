@@ -30,7 +30,7 @@ export function countriesReceived(countries: Array<Country>): CountryActionType 
 
 =====================================output=====================================
 export function countriesReceived(
-  countries: Array<Country>
+  countries: Array<Country>,
 ): CountryActionType {
   return {
     type: ActionTypes.COUNTRIES_RECEIVED,
@@ -81,7 +81,7 @@ export const findByDate: Resolver<void, Recipe[], { date: Date }> =
 export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
   _,
   { date },
-  { req }
+  { req },
 ) => {
   const repo = req.getRepository(Recipe);
   return repo.find({ createDate: date });
@@ -90,7 +90,7 @@ export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
 export const findByDate: Resolver<void, Recipe[], { date: Date }> = (
   _,
   { date },
-  { req }
+  { req },
 ) => Recipe.find({ createDate: date });
 
 ================================================================================
@@ -132,7 +132,7 @@ export const enviromentProdValues: EnvironmentValues =
     {
       apiURL: "/api",
     },
-    enviromentBaseValues
+    enviromentBaseValues,
   );
 
 ================================================================================
@@ -400,8 +400,8 @@ const Query: FunctionComponent<QueryProps> = ({
   children(
     useQuery(
       { type, resource, payload },
-      { ...options, withDeclarativeSideEffectsSupport: true }
-    )
+      { ...options, withDeclarativeSideEffectsSupport: true },
+    ),
   );
 
 ================================================================================
@@ -509,7 +509,7 @@ if (true) {
 if (true) {
   if (condition) {
     const secondType = sourceCode.getNodeByRangeIndex1234(
-      second.range[0]
+      second.range[0],
     )!.type;
   }
 }

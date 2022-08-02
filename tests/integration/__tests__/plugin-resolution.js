@@ -178,6 +178,19 @@ describe("loads --plugin by relative path to its directory without leading ./ (a
   });
 });
 
+describe("loads --plugin by package name", () => {
+  runPrettier("plugins/automatic", [
+    "file.txt",
+    "--parser=foobar",
+    "--plugin=@user/prettier-plugin-foobar",
+  ]).test({
+    stdout: "foobar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: [],
+  });
+});
+
 describe("loads --plugin by filename without leading ./ and ext, should resolve to file, not package", () => {
   runPrettier("plugins/automatic", [
     "file.txt",

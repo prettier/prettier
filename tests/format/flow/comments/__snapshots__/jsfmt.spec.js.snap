@@ -88,7 +88,7 @@ foo/*::<bar>*/();
 const Component = branch/*:: <Props, ExternalProps> */(
   ({ src }) => !src,
   // $FlowFixMe
-  renderNothing
+  renderNothing,
 )(BaseComponent);
 
 const C = b/*:: <A> */(foo) + c/*:: <B> */(bar);
@@ -116,7 +116,7 @@ interface Foo {
 =====================================output=====================================
 interface Foo {
   bar(
-    currentRequest: { a: number }
+    currentRequest: { a: number },
     // TODO this is a very very very very long comment that makes it go > 80 columns
   ): number;
 }

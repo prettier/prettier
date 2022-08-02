@@ -38,7 +38,7 @@ const args = [3, 4];
 foo(1, 2); // 2 errors
 foo(
   1, // error
-  2 // error
+  2, // error
 );
 foo(...args); // 2 errors
 

@@ -25,13 +25,13 @@ interface Interface {
   <
     Voila,
     InViewHumbleVaudevillianVeteran,
-    CastVicariouslyAsBothVictimAndVillainByTheVicissitudesOfFate
+    CastVicariouslyAsBothVictimAndVillainByTheVicissitudesOfFate,
   >(): V;
   new <
     ThisVisage,
     NoMereVeneerOfVanity,
     IsAVestigeOfTheVoxPopuliNowVacant,
-    Vanished
+    Vanished,
   >(): V;
 }
 
@@ -58,11 +58,11 @@ type AwkwardlyLongFunctionTypeDefinition = <
 type AwkwardlyLongFunctionTypeDefinition = <
   GenericTypeNumberOne,
   GenericTypeNumberTwo,
-  GenericTypeNumberThree
+  GenericTypeNumberThree,
 >(
   arg1: GenericTypeNumberOne,
   arg2: GenericTypeNumberTwo,
-  arg3: GenericTypeNumberThree
+  arg3: GenericTypeNumberThree,
 ) => GenericTypeNumberOne | GenericTypeNumberTwo | GenericTypeNumberThree;
 
 ================================================================================
@@ -84,7 +84,7 @@ interface ReallyReallyLongName<
 interface ReallyReallyLongName<
   TypeArgumentNumberOne,
   TypeArgumentNumberTwo,
-  TypeArgumentNumberThree
+  TypeArgumentNumberThree,
 > {}
 
 ================================================================================
@@ -103,7 +103,7 @@ type ReallyReallyReallyLongName<
 =====================================output=====================================
 type ReallyReallyReallyLongName<
   ReallyReallyReallyLongName1,
-  ReallyReallyReallyLongName2
+  ReallyReallyReallyLongName2,
 > = any;
 
 ================================================================================
@@ -153,7 +153,7 @@ const isAnySuccessfulAttempt$: Observable<boolean> = this._quizService
   .pipe(
     tap((isAnySuccessfulAttempt: boolean) => {
       this.isAnySuccessfulAttempt = isAnySuccessfulAttempt;
-    })
+    }),
   );
 const isAnySuccessfulAttempt2$: Observable<boolean> =
   this._someMethodWithLongName();

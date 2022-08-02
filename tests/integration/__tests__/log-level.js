@@ -1,39 +1,39 @@
 import stripAnsi from "strip-ansi";
-test("do not show logs with --loglevel silent", async () => {
+test("do not show logs with --log-level silent", async () => {
   await runPrettierWithLogLevel("silent", null);
 });
 
-test("do not show warnings with --loglevel error", async () => {
+test("do not show warnings with --log-level error", async () => {
   await runPrettierWithLogLevel("error", ["[error]"]);
 });
 
-test("show errors and warnings with --loglevel warn", async () => {
+test("show errors and warnings with --log-level warn", async () => {
   await runPrettierWithLogLevel("warn", ["[error]", "[warn]"]);
 });
 
-test("show all logs with --loglevel debug", async () => {
+test("show all logs with --log-level debug", async () => {
   await runPrettierWithLogLevel("debug", ["[error]", "[warn]", "[debug]"]);
 });
 
-describe("--write with --loglevel=silent doesn't log filenames", () => {
+describe("--write with --log-level=silent doesn't log filenames", () => {
   runPrettier("cli/write", [
     "--write",
     "unformatted.js",
-    "--loglevel=silent",
+    "--log-level=silent",
   ]).test({
     status: 0,
   });
 });
 
-describe("Should use default level logger to log `--loglevel` error", () => {
-  runPrettier("cli/loglevel", ["--loglevel", "a-unknown-log-level"]).test({
+describe("Should use default level logger to log `--log-level` error", () => {
+  runPrettier("cli/log-level", ["--log-level", "a-unknown-log-level"]).test({
     status: "non-zero",
     write: [],
     stdout: "",
   });
 });
 
-describe("loglevel should not effect information print", () => {
+describe("log-level should not effect information print", () => {
   for (const { argv, runOptions, assertOptions } of [
     {
       argv: ["--version"],
@@ -100,7 +100,7 @@ describe("loglevel should not effect information print", () => {
       assertOptions: { stdout: "foo;\n" },
     },
   ]) {
-    runPrettier("cli/loglevel", ["--loglevel", "silent", ...argv], {
+    runPrettier("cli/log-level", ["--log-level", "silent", ...argv], {
       ...runOptions,
       title: argv.join(" "),
     }).test({
@@ -113,8 +113,8 @@ describe("loglevel should not effect information print", () => {
 });
 
 async function runPrettierWithLogLevel(logLevel, patterns) {
-  const result = await runPrettier("cli/loglevel", [
-    "--loglevel",
+  const result = await runPrettier("cli/log-level", [
+    "--log-level",
     logLevel,
     "--unknown-option",
     "--parser",

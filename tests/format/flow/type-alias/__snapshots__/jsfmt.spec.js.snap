@@ -44,7 +44,7 @@ type FieldLayoutWith<
 =====================================output=====================================
 type FieldLayoutWith<
   T: string,
-  S: unknown = { xxxxxxxx: number, y: string }
+  S: unknown = { xxxxxxxx: number, y: string },
 > = {
   type: T,
   code: string,
@@ -65,7 +65,7 @@ type FieldLayoutWith<T: string> = {
 
 type FieldLayoutWith<
   T: stringgggggggggggggggggg,
-  S: stringgggggggggggggggggg
+  S: stringgggggggggggggggggg,
 > = {
   type: T,
   code: string,

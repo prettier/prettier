@@ -26,7 +26,7 @@ export function fooWithTypePredicate(a: any): a is number {
 export function fooWithTypePredicateAndMulitpleParams(
   a: any,
   b: any,
-  c: any
+  c: any,
 ): a is number {
   return true;
 }

@@ -1778,7 +1778,7 @@ function c2(x: { [key: string]: ?string }, y: { z: string }): string {
 
 function c3(
   x: { [key: string]: ?string },
-  y: { z: string, a: string }
+  y: { z: string, a: string },
 ): string {
   if (x[y.z]) {
     y.a = "HEY";
@@ -2167,7 +2167,7 @@ let tests = [
   },
 
   function (
-    x: { kind: "foo", foo: string } | { kind: "bar", bar: string }
+    x: { kind: "foo", foo: string } | { kind: "bar", bar: string },
   ): string {
     if (x.kind === "foo") {
       return x.foo;
@@ -2826,7 +2826,7 @@ let tests = [
     q: boolean,
     r: Object,
     s: Function,
-    t: () => void
+    t: () => void,
   ) {
     if (x.length === 0) {
     }
@@ -2956,7 +2956,7 @@ let tests = [
   // type mismatch, neither is a literal, test is not a literal either
   function (
     x: { foo: number, y: string } | { foo: string, z: string },
-    num: number
+    num: number,
   ) {
     if (x.foo === num) {
       x.y; // error: flow isn't smart enough to figure this out yet

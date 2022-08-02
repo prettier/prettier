@@ -203,6 +203,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
         esbuildPluginVisualizer({ formats: buildOptions.reports }),
       esbuildPluginThrowWarnings({
         allowDynamicRequire: bundle.target === "node",
+        allowDynamicImport: bundle.target === "node",
       }),
     ].filter(Boolean),
     minify: shouldMinify,

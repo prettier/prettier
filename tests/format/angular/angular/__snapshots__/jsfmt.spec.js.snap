@@ -153,11 +153,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`angularjs.html - {"trailingComma":"none"} format 1`] = `
+exports[`angularjs.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
@@ -194,10 +194,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`angularjs.html format 1`] = `
+exports[`angularjs.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
@@ -281,11 +282,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attr-name.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`attr-name.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -296,10 +297,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attr-name.component.html format 1`] = `
+exports[`attr-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -1452,11 +1454,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attributes.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`attributes.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -1723,10 +1725,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.component.html format 1`] = `
+exports[`attributes.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2351,11 +2354,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`first-lf.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`first-lf.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -2444,10 +2447,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`first-lf.component.html format 1`] = `
+exports[`first-lf.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -2736,11 +2740,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`ignore-attribute.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2795,10 +2799,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html format 1`] = `
+exports[`ignore-attribute.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -3564,11 +3569,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`interpolation.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`interpolation.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -3731,10 +3736,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`interpolation.component.html format 1`] = `
+exports[`interpolation.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -10512,11 +10518,11 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`real-world.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -12039,10 +12045,11 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html format 1`] = `
+exports[`real-world.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -13609,11 +13616,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`tag-name.component.html - {"trailingComma":"none"} format 1`] = `
+exports[`tag-name.component.html - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "none"
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>
@@ -13624,10 +13631,11 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`tag-name.component.html format 1`] = `
+exports[`tag-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>

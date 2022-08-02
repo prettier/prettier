@@ -66,15 +66,3 @@ jobs:
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
-
-      # #8073 test
-      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn c8 yarn test "tests/integration/__tests__/(config|plugin)"
-        env:
-          PRETTIER_FALLBACK_RESOLVE: true
-
-      - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
-        uses: codecov/codecov-action@v3.1.0
-        if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        with:
-          fail_ci_if_error: true

@@ -233,7 +233,7 @@ const testConsole = new TestConsole(
 
 =====================================output=====================================
 const testConsole = new TestConsole(
-  config.useStderr ? process.stderr : process.stdout
+  config.useStderr ? process.stderr : process.stdout,
 );
 
 ================================================================================

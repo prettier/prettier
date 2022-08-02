@@ -194,7 +194,7 @@ x2 =
   (
     askTrovenaBeenaDependsRowans1,
     askTrovenaBeenaDependsRowans2,
-    askTrovenaBeenaDependsRowans3
+    askTrovenaBeenaDependsRowans3,
   ) => {
     c();
   } /* ! */; // KABOOM
@@ -232,7 +232,7 @@ x2 =
   (
     askTrovenaBeenaDependsRowans1,
     askTrovenaBeenaDependsRowans2,
-    askTrovenaBeenaDependsRowans3
+    askTrovenaBeenaDependsRowans3,
   ) => {
     c();
   } /* ! */; // KABOOM
@@ -880,8 +880,8 @@ Seq(typeDef.interface.groups).forEach((group) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
       signatures: member.signatures,
-    })
-  )
+    }),
+  ),
 );
 
 const promiseFromCallback = (fn) =>
@@ -889,7 +889,7 @@ const promiseFromCallback = (fn) =>
     fn((err, result) => {
       if (err) return reject(err);
       return resolve(result);
-    })
+    }),
   );
 
 runtimeAgent.getProperties(
@@ -899,7 +899,7 @@ runtimeAgent.getProperties(
   false, // generatePreview
   (error, properties, internalProperties) => {
     return 1;
-  }
+  },
 );
 
 function render() {
@@ -909,7 +909,7 @@ function render() {
         onProgress={(e) =>
           this.setState({
             progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
+              (100 * e.nativeEvent.loaded) / e.nativeEvent.total,
             ),
           })
         }
@@ -925,7 +925,7 @@ function render() {
         onProgress={(e) =>
           this.setState({
             progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
+              (100 * e.nativeEvent.loaded) / e.nativeEvent.total,
             ),
           })
         }
@@ -941,7 +941,7 @@ function render() {
         onProgress={(e) =>
           this.setState({
             progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
+              (100 * e.nativeEvent.loaded) / e.nativeEvent.total,
             ),
           })
         }
@@ -957,11 +957,11 @@ jest.mock(
       findMatchingTests(pattern) {
         return { paths: [] };
       }
-    }
+    },
 );
 
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  (action) => (next) => dispatch(action)
+  (action) => (next) => dispatch(action),
 );
 
 foo(
@@ -969,7 +969,7 @@ foo(
     a,
 
     b,
-  }) => {}
+  }) => {},
 );
 
 foo(({ a, b }) => {});
@@ -982,7 +982,7 @@ foo(
     a,
 
     b,
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -990,7 +990,7 @@ foo(
     a,
 
     b,
-  }) => a
+  }) => a,
 );
 
 foo(({ a, b }) => a);
@@ -1004,7 +1004,7 @@ foo(
 
       b,
     },
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1016,7 +1016,7 @@ foo(
         d,
       },
     },
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1030,7 +1030,7 @@ foo(
         },
       },
     },
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1040,7 +1040,7 @@ foo(
 
       b,
     },
-  }) => a
+  }) => a,
 );
 
 foo(
@@ -1052,7 +1052,7 @@ foo(
         d,
       },
     },
-  }) => a
+  }) => a,
 );
 
 foo(
@@ -1066,7 +1066,7 @@ foo(
         },
       },
     },
-  }) => a
+  }) => a,
 );
 
 foo(
@@ -1082,7 +1082,7 @@ foo(
         },
       },
     },
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1098,7 +1098,7 @@ foo(
         },
       },
     }
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1113,8 +1113,8 @@ foo(
           },
         },
       },
-    }
-  ) => {}
+    },
+  ) => {},
 );
 
 foo(
@@ -1126,7 +1126,7 @@ foo(
         b,
       },
     ],
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1137,8 +1137,8 @@ foo(
 
         b,
       },
-    ]
-  ) => a
+    ],
+  ) => a,
 );
 
 foo(
@@ -1150,7 +1150,7 @@ foo(
         b,
       },
     ],
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1172,7 +1172,7 @@ foo(
         ],
       ],
     ],
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1182,7 +1182,7 @@ foo(
 
       b,
     }
-  ) => {}
+  ) => {},
 );
 
 foo(
@@ -1194,7 +1194,7 @@ foo(
         b,
       },
     ]
-  ) => {}
+  ) => {},
 );
 
 foo(
@@ -1206,7 +1206,7 @@ foo(
         b,
       },
     ]
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1217,8 +1217,8 @@ foo(
 
         b,
       },
-    ]
-  ) => {}
+    ],
+  ) => {},
 );
 
 foo(
@@ -1227,8 +1227,8 @@ foo(
       a,
 
       b,
-    }) => {})()
-  ) => {}
+    }) => {})(),
+  ) => {},
 );
 
 foo(
@@ -1237,8 +1237,8 @@ foo(
       a,
 
       b,
-    })
-  ) => {}
+    }),
+  ) => {},
 );
 
 foo(
@@ -1247,8 +1247,8 @@ foo(
       a,
 
       b,
-    }) => {}
-  ) => {}
+    }) => {},
+  ) => {},
 );
 
 foo(
@@ -1258,8 +1258,8 @@ foo(
         a,
 
         b,
-      })
-  ) => {}
+      }),
+  ) => {},
 );
 
 ================================================================================
@@ -1677,8 +1677,8 @@ Seq(typeDef.interface.groups).forEach(group =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
       signatures: member.signatures,
-    })
-  )
+    }),
+  ),
 );
 
 const promiseFromCallback = fn =>
@@ -1686,7 +1686,7 @@ const promiseFromCallback = fn =>
     fn((err, result) => {
       if (err) return reject(err);
       return resolve(result);
-    })
+    }),
   );
 
 runtimeAgent.getProperties(
@@ -1696,7 +1696,7 @@ runtimeAgent.getProperties(
   false, // generatePreview
   (error, properties, internalProperties) => {
     return 1;
-  }
+  },
 );
 
 function render() {
@@ -1706,7 +1706,7 @@ function render() {
         onProgress={e =>
           this.setState({
             progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
+              (100 * e.nativeEvent.loaded) / e.nativeEvent.total,
             ),
           })
         }
@@ -1722,7 +1722,7 @@ function render() {
         onProgress={e =>
           this.setState({
             progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
+              (100 * e.nativeEvent.loaded) / e.nativeEvent.total,
             ),
           })
         }
@@ -1738,7 +1738,7 @@ function render() {
         onProgress={e =>
           this.setState({
             progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
+              (100 * e.nativeEvent.loaded) / e.nativeEvent.total,
             ),
           })
         }
@@ -1754,11 +1754,11 @@ jest.mock(
       findMatchingTests(pattern) {
         return { paths: [] };
       }
-    }
+    },
 );
 
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  action => next => dispatch(action)
+  action => next => dispatch(action),
 );
 
 foo(
@@ -1766,7 +1766,7 @@ foo(
     a,
 
     b,
-  }) => {}
+  }) => {},
 );
 
 foo(({ a, b }) => {});
@@ -1779,7 +1779,7 @@ foo(
     a,
 
     b,
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1787,7 +1787,7 @@ foo(
     a,
 
     b,
-  }) => a
+  }) => a,
 );
 
 foo(({ a, b }) => a);
@@ -1801,7 +1801,7 @@ foo(
 
       b,
     },
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1813,7 +1813,7 @@ foo(
         d,
       },
     },
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1827,7 +1827,7 @@ foo(
         },
       },
     },
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1837,7 +1837,7 @@ foo(
 
       b,
     },
-  }) => a
+  }) => a,
 );
 
 foo(
@@ -1849,7 +1849,7 @@ foo(
         d,
       },
     },
-  }) => a
+  }) => a,
 );
 
 foo(
@@ -1863,7 +1863,7 @@ foo(
         },
       },
     },
-  }) => a
+  }) => a,
 );
 
 foo(
@@ -1879,7 +1879,7 @@ foo(
         },
       },
     },
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1895,7 +1895,7 @@ foo(
         },
       },
     }
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1910,8 +1910,8 @@ foo(
           },
         },
       },
-    }
-  ) => {}
+    },
+  ) => {},
 );
 
 foo(
@@ -1923,7 +1923,7 @@ foo(
         b,
       },
     ],
-  }) => {}
+  }) => {},
 );
 
 foo(
@@ -1934,8 +1934,8 @@ foo(
 
         b,
       },
-    ]
-  ) => a
+    ],
+  ) => a,
 );
 
 foo(
@@ -1947,7 +1947,7 @@ foo(
         b,
       },
     ],
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1969,7 +1969,7 @@ foo(
         ],
       ],
     ],
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -1979,7 +1979,7 @@ foo(
 
       b,
     }
-  ) => {}
+  ) => {},
 );
 
 foo(
@@ -1991,7 +1991,7 @@ foo(
         b,
       },
     ]
-  ) => {}
+  ) => {},
 );
 
 foo(
@@ -2003,7 +2003,7 @@ foo(
         b,
       },
     ]
-  ]) => {}
+  ]) => {},
 );
 
 foo(
@@ -2014,8 +2014,8 @@ foo(
 
         b,
       },
-    ]
-  ) => {}
+    ],
+  ) => {},
 );
 
 foo(
@@ -2024,8 +2024,8 @@ foo(
       a,
 
       b,
-    }) => {})()
-  ) => {}
+    }) => {})(),
+  ) => {},
 );
 
 foo(
@@ -2034,8 +2034,8 @@ foo(
       a,
 
       b,
-    })
-  ) => {}
+    }),
+  ) => {},
 );
 
 foo(
@@ -2044,8 +2044,8 @@ foo(
       a,
 
       b,
-    }) => {}
-  ) => {}
+    }) => {},
+  ) => {},
 );
 
 foo(
@@ -2055,8 +2055,8 @@ foo(
         a,
 
         b,
-      })
-  ) => {}
+      }),
+  ) => {},
 );
 
 ================================================================================
@@ -2128,7 +2128,7 @@ export const bem =
 
 <FlatList
   renderItem={(
-    info // $FlowExpectedError - bad widgetCount type 6, should be Object
+    info, // $FlowExpectedError - bad widgetCount type 6, should be Object
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
@@ -2202,7 +2202,7 @@ export const bem =
 
 <FlatList
   renderItem={(
-    info // $FlowExpectedError - bad widgetCount type 6, should be Object
+    info, // $FlowExpectedError - bad widgetCount type 6, should be Object
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />;
@@ -2535,7 +2535,7 @@ foo(
     (argument10) =>
     (argument11) =>
     (argument12) =>
-      3
+      3,
 );
 
 foo(
@@ -2554,7 +2554,7 @@ foo(
       foo: bar,
       bar: baz,
       baz: foo,
-    })
+    }),
 );
 
 foo(
@@ -2572,7 +2572,7 @@ foo(
     (argument12) => {
       const foo = "foo";
       return foo + "bar";
-    }
+    },
 );
 
 (
@@ -2607,8 +2607,8 @@ bar(
       (argument12) => ({
         foo: bar,
         bar: baz,
-      })
-  )
+      }),
+  ),
 );
 
 const baaaz =
@@ -2621,12 +2621,12 @@ const baaaz =
 
 new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
   (action) => (next) => (next) => (next) => (next) => (next) => (next) =>
-    dispatch(action)
+    dispatch(action),
 );
 
 foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
   (action) => (next) => (next) => (next) => (next) => (next) => (next) =>
-    dispatch(action)
+    dispatch(action),
 );
 
 foo((action) => (action) => action);
@@ -2969,7 +2969,7 @@ foo(
     argument10 =>
     argument11 =>
     argument12 =>
-      3
+      3,
 );
 
 foo(
@@ -2988,7 +2988,7 @@ foo(
       foo: bar,
       bar: baz,
       baz: foo,
-    })
+    }),
 );
 
 foo(
@@ -3006,7 +3006,7 @@ foo(
     argument12 => {
       const foo = "foo";
       return foo + "bar";
-    }
+    },
 );
 
 (
@@ -3041,8 +3041,8 @@ bar(
       argument12 => ({
         foo: bar,
         bar: baz,
-      })
-  )
+      }),
+  ),
 );
 
 const baaaz =
@@ -3054,11 +3054,11 @@ const baaaz =
   });
 
 new Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  action => next => next => next => next => next => next => dispatch(action)
+  action => next => next => next => next => next => next => dispatch(action),
 );
 
 foo?.Fooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  action => next => next => next => next => next => next => dispatch(action)
+  action => next => next => next => next => next => next => dispatch(action),
 );
 
 foo(action => action => action);
@@ -3212,7 +3212,7 @@ request.get(
   "https://preview-9992--prettier.netlify.app",
   (head) => (body) => (mody) => {
     console.log(head, body);
-  }
+  },
 );
 
 request.get(
@@ -3221,7 +3221,7 @@ request.get(
     (body) =>
     (modyLoremIpsumDolorAbstractProviderFactoryServiceModule) => {
       console.log(head, body);
-    }
+    },
 );
 
 ================================================================================
@@ -3261,14 +3261,14 @@ request.get(
   "https://preview-9992--prettier.netlify.app",
   head => body => mody => {
     console.log(head, body);
-  }
+  },
 );
 
 request.get(
   "https://preview-9992--prettier.netlify.app",
   head => body => modyLoremIpsumDolorAbstractProviderFactoryServiceModule => {
     console.log(head, body);
-  }
+  },
 );
 
 ================================================================================
@@ -3323,7 +3323,7 @@ function f(
 function f(
   a = (fooLorem) => (bazIpsum) => (barLorem) => {
     return 3;
-  }
+  },
 ) {}
 
 (
@@ -3403,7 +3403,7 @@ function f(
 function f(
   a = fooLorem => bazIpsum => barLorem => {
     return 3;
-  }
+  },
 ) {}
 
 (
@@ -3483,7 +3483,7 @@ const makeSomeFunction2 =
   (
     services = {
       logger: null,
-    }
+    },
   ) =>
   (a, b, c) =>
     services.logger(a, b, c);
@@ -3542,7 +3542,7 @@ const makeSomeFunction2 =
   (
     services = {
       logger: null,
-    }
+    },
   ) =>
   (a, b, c) =>
     services.logger(a, b, c);
@@ -3596,7 +3596,7 @@ veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, ()
 =====================================output=====================================
 veryLongCall(
   VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
-  () => {}
+  () => {},
 );
 
 ================================================================================
@@ -3614,7 +3614,7 @@ veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, ()
 =====================================output=====================================
 veryLongCall(
   VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
-  () => {}
+  () => {},
 );
 
 ================================================================================
@@ -3697,7 +3697,7 @@ foo(a => b => (0, 1));
 =====================================output=====================================
 promise.then(
   (result) => result,
-  (err) => err
+  (err) => err,
 );
 
 promise.then(
@@ -3708,7 +3708,7 @@ promise.then(
   (err) => {
     f();
     return err;
-  }
+  },
 );
 
 foo((a) => b);
@@ -3754,7 +3754,7 @@ foo(a => b => (0, 1));
 =====================================output=====================================
 promise.then(
   result => result,
-  err => err
+  err => err,
 );
 
 promise.then(
@@ -3765,7 +3765,7 @@ promise.then(
   err => {
     f();
     return err;
-  }
+  },
 );
 
 foo(a => b);

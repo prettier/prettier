@@ -99,7 +99,7 @@ function handleParseError(error, text) {
   }
 
   /* istanbul ignore next */
-  throw error.stack;
+  throw error;
 }
 
 export { parse, resolveParser };
