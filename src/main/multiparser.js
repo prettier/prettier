@@ -28,16 +28,15 @@ async function printEmbeddedLanguages(
 
   const originalPathStack = path.stack;
 
-  for (let { pathStack, node, result } of pathStacks) {
+  for (const { pathStack, print } of pathStacks) {
     try {
-      if (typeof result === "function") {
-        path.stack = pathStack;
-        result = await result();
+      path.stack = pathStack;
+      const doc = await print();
+
+      if (doc) {
+        embeds.set(path.getValue(), doc);
       }
 
-      if (result) {
-        embeds.set(node, result);
-      }
     } catch (error) {
       /* istanbul ignore if */
       if (process.env.PRETTIER_DEBUG) {
@@ -90,13 +89,12 @@ async function printEmbeddedLanguages(
       options,
     );
     if (result) {
-      const node = path.getValue();
       if (typeof result === "function") {
-        pathStacks.push({ pathStack: [...path.stack], node, result });
+        pathStacks.push({ pathStack: [...path.stack], print: result });
       } else if (typeof result.then === "function") {
         throw new TypeError("`embed` should return an async function instead of Promise.")
       } else {
-        pathStacks.push({ node, result });
+        embeds.set(node, result);
       }
     }
   }
