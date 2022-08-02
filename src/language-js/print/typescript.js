@@ -45,7 +45,7 @@ import {
   printJSDocType,
 } from "./type-annotation.js";
 
-async function printTypescript(path, options, print) {
+function printTypescript(path, options, print) {
   const node = path.getValue();
 
   // TypeScript nodes always starts with `TS`
@@ -71,31 +71,31 @@ async function printTypescript(path, options, print) {
 
       const castGroup = group([
         "<",
-        indent([softline, await print("typeAnnotation")]),
+        indent([softline, print("typeAnnotation")]),
         softline,
         ">",
       ]);
 
       const exprContents = [
         ifBreak("("),
-        indent([softline, await print("expression")]),
+        indent([softline, print("expression")]),
         softline,
         ifBreak(")"),
       ];
 
       if (shouldBreakAfterCast) {
         return conditionalGroup([
-          [castGroup, await print("expression")],
+          [castGroup, print("expression")],
           [castGroup, group(exprContents, { shouldBreak: true })],
-          [castGroup, await print("expression")],
+          [castGroup, print("expression")],
         ]);
       }
-      return group([castGroup, await print("expression")]);
+      return group([castGroup, print("expression")]);
     }
     case "TSDeclareFunction":
       return printFunction(path, print, options);
     case "TSExportAssignment":
-      return ["export = ", await print("expression"), semi];
+      return ["export = ", print("expression"), semi];
     case "TSModuleBlock":
       return printBlock(path, options, print);
     case "TSInterfaceBody":
@@ -104,7 +104,7 @@ async function printTypescript(path, options, print) {
     case "TSTypeAliasDeclaration":
       return printTypeAlias(path, options, print);
     case "TSQualifiedName":
-      return join(".", [await print("left"), await print("right")]);
+      return join(".", [print("left"), print("right")]);
     case "TSAbstractMethodDefinition":
     case "TSDeclareMethod":
       return printClassMethod(path, options, print);
@@ -112,10 +112,10 @@ async function printTypescript(path, options, print) {
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
     case "TSExpressionWithTypeArguments": // Babel AST
-      parts.push(await print("expression"));
+      parts.push(print("expression"));
 
       if (node.typeParameters) {
-        parts.push(await print("typeParameters"));
+        parts.push(print("typeParameters"));
       }
 
       return parts;
@@ -123,30 +123,26 @@ async function printTypescript(path, options, print) {
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
       return [
-        await print("label"),
+        print("label"),
         node.optional ? "?" : "",
         ": ",
-        await print("elementType"),
+        print("elementType"),
       ];
     case "TSRestType":
-      return ["...", await print("typeAnnotation")];
+      return ["...", print("typeAnnotation")];
     case "TSOptionalType":
-      return [await print("typeAnnotation"), "?"];
+      return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":
       return printInterface(path, options, print);
     case "TSClassImplements":
-      return [await print("expression"), await print("typeParameters")];
+      return [print("expression"), print("typeParameters")];
     case "TSTypeParameterDeclaration":
     case "TSTypeParameterInstantiation":
       return printTypeParameters(path, options, print, "params");
     case "TSTypeParameter":
       return printTypeParameter(path, options, print);
     case "TSAsExpression": {
-      parts.push(
-        await print("expression"),
-        " as ",
-        await print("typeAnnotation")
-      );
+      parts.push(print("expression"), " as ", print("typeAnnotation"));
       const parent = path.getParentNode();
       if (
         (isCallExpression(parent) && parent.callee === node) ||
@@ -157,24 +153,24 @@ async function printTypescript(path, options, print) {
       return parts;
     }
     case "TSArrayType":
-      return [await print("elementType"), "[]"];
+      return [print("elementType"), "[]"];
     case "TSPropertySignature": {
       if (node.readonly) {
         parts.push("readonly ");
       }
 
       parts.push(
-        await printPropertyKey(path, options, print),
-        await printOptionalToken(path)
+        printPropertyKey(path, options, print),
+        printOptionalToken(path)
       );
 
       if (node.typeAnnotation) {
-        parts.push(": ", await print("typeAnnotation"));
+        parts.push(": ", print("typeAnnotation"));
       }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
       if (node.initializer) {
-        parts.push(" = ", await print("initializer"));
+        parts.push(" = ", print("initializer"));
       }
 
       return parts;
@@ -196,15 +192,11 @@ async function printTypescript(path, options, print) {
         parts.push("readonly ");
       }
 
-      parts.push(await print("parameter"));
+      parts.push(print("parameter"));
 
       return parts;
     case "TSTypeQuery":
-      return [
-        "typeof ",
-        await print("exprName"),
-        await print("typeParameters"),
-      ];
+      return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
@@ -220,7 +212,7 @@ async function printTypescript(path, options, print) {
       const parametersGroup = group([
         indent([
           softline,
-          join([", ", softline], await path.map(print, "parameters")),
+          join([", ", softline], path.map(print, "parameters")),
         ]),
         trailingComma,
         softline,
@@ -235,26 +227,26 @@ async function printTypescript(path, options, print) {
         "[",
         node.parameters ? parametersGroup : "",
         node.typeAnnotation ? "]: " : "]",
-        node.typeAnnotation ? await print("typeAnnotation") : "",
+        node.typeAnnotation ? print("typeAnnotation") : "",
         parent.type === "ClassBody" ? semi : "",
       ];
     }
     case "TSTypePredicate":
       return [
         node.asserts ? "asserts " : "",
-        await print("parameterName"),
-        node.typeAnnotation ? [" is ", await print("typeAnnotation")] : "",
+        print("parameterName"),
+        node.typeAnnotation ? [" is ", print("typeAnnotation")] : "",
       ];
     case "TSNonNullExpression":
-      return [await print("expression"), "!"];
+      return [print("expression"), "!"];
     case "TSImportType":
       return [
         !node.isTypeOf ? "" : "typeof ",
         "import(",
-        await print(node.parameter ? "parameter" : "argument"),
+        print(node.parameter ? "parameter" : "argument"),
         ")",
-        !node.qualifier ? "" : [".", await print("qualifier")],
-        await printTypeParameters(path, options, print, "typeParameters"),
+        !node.qualifier ? "" : [".", print("qualifier")],
+        printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSLiteralType":
       return print("literal");
@@ -272,7 +264,7 @@ async function printTypescript(path, options, print) {
 
       parts.push(
         group(
-          await printFunctionParameters(
+          printFunctionParameters(
             path,
             print,
             options,
@@ -286,14 +278,14 @@ async function printTypescript(path, options, print) {
         const isType = node.type === "TSConstructorType";
         parts.push(
           isType ? " => " : ": ",
-          await print("returnType"),
-          await print("typeAnnotation")
+          print("returnType"),
+          print("typeAnnotation")
         );
       }
       return parts;
     }
     case "TSTypeOperator":
-      return [node.operator, " ", await print("typeAnnotation")];
+      return [node.operator, " ", print("typeAnnotation")];
     case "TSMappedType": {
       const shouldBreak = hasNewlineInRange(
         options.originalText,
@@ -311,13 +303,13 @@ async function printTypescript(path, options, print) {
                   " ",
                 ]
               : "",
-            await printTypeScriptModifiers(path, options, print),
-            await print("typeParameter"),
+            printTypeScriptModifiers(path, options, print),
+            print("typeParameter"),
             node.optional
               ? getTypeScriptMappedTypeModifier(node.optional, "?")
               : "",
             node.typeAnnotation ? ": " : "",
-            await print("typeAnnotation"),
+            print("typeAnnotation"),
             ifBreak(semi),
           ]),
           printDanglingComments(path, options, /* sameIndent */ true),
@@ -340,12 +332,12 @@ async function printTypescript(path, options, print) {
         node.abstract ? "abstract " : "",
         node.declare ? "declare " : "",
         node.computed ? "[" : "",
-        await print("key"),
+        print("key"),
         node.computed ? "]" : "",
         printOptionalToken(path)
       );
 
-      const parametersDoc = await printFunctionParameters(
+      const parametersDoc = printFunctionParameters(
         path,
         print,
         options,
@@ -357,9 +349,7 @@ async function printTypescript(path, options, print) {
         ? "returnType"
         : "typeAnnotation";
       const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode
-        ? await print(returnTypePropertyName)
-        : "";
+      const returnTypeDoc = returnTypeNode ? print(returnTypePropertyName) : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc
@@ -374,7 +364,7 @@ async function printTypescript(path, options, print) {
       return group(parts);
     }
     case "TSNamespaceExportDeclaration":
-      parts.push("export as namespace ", await print("id"));
+      parts.push("export as namespace ", print("id"));
 
       if (options.semi) {
         parts.push(";");
@@ -387,13 +377,13 @@ async function printTypescript(path, options, print) {
       }
 
       if (node.modifiers) {
-        parts.push(await printTypeScriptModifiers(path, options, print));
+        parts.push(printTypeScriptModifiers(path, options, print));
       }
       if (node.const) {
         parts.push("const ");
       }
 
-      parts.push("enum ", await print("id"), " ");
+      parts.push("enum ", print("id"), " ");
 
       if (node.members.length === 0) {
         parts.push(
@@ -405,7 +395,7 @@ async function printTypescript(path, options, print) {
             "{",
             indent([
               hardline,
-              await printArrayItems(path, options, "members", print),
+              printArrayItems(path, options, "members", print),
               shouldPrintComma(options, "es5") ? "," : "",
             ]),
             printDanglingComments(path, options, /* sameIndent */ true),
@@ -418,13 +408,13 @@ async function printTypescript(path, options, print) {
       return parts;
     case "TSEnumMember":
       if (node.computed) {
-        parts.push("[", await print("id"), "]");
+        parts.push("[", print("id"), "]");
       } else {
-        parts.push(await print("id"));
+        parts.push(print("id"));
       }
 
       if (node.initializer) {
-        parts.push(" = ", await print("initializer"));
+        parts.push(" = ", print("initializer"));
       }
       return parts;
     case "TSImportEqualsDeclaration":
@@ -438,7 +428,7 @@ async function printTypescript(path, options, print) {
         parts.push(node.importKind, " ");
       }
 
-      parts.push(await print("id"), " = ", await print("moduleReference"));
+      parts.push(print("id"), " = ", print("moduleReference"));
 
       if (options.semi) {
         parts.push(";");
@@ -446,7 +436,7 @@ async function printTypescript(path, options, print) {
 
       return group(parts);
     case "TSExternalModuleReference":
-      return ["require(", await print("expression"), ")"];
+      return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
       const parent = path.getParentNode();
       const isExternalModule = isLiteral(node.id);
@@ -460,7 +450,7 @@ async function printTypescript(path, options, print) {
         if (node.declare) {
           parts.push("declare ");
         }
-        parts.push(await printTypeScriptModifiers(path, options, print));
+        parts.push(printTypeScriptModifiers(path, options, print));
 
         const textBetweenNodeAndItsId = options.originalText.slice(
           locStart(node),
@@ -484,12 +474,12 @@ async function printTypescript(path, options, print) {
         }
       }
 
-      parts.push(await print("id"));
+      parts.push(print("id"));
 
       if (bodyIsDeclaration) {
-        parts.push(await print("body"));
+        parts.push(print("body"));
       } else if (node.body) {
-        parts.push(" ", group(await print("body")));
+        parts.push(" ", group(print("body")));
       } else {
         parts.push(semi);
       }
@@ -501,7 +491,7 @@ async function printTypescript(path, options, print) {
       return printTernary(path, options, print);
 
     case "TSInferType":
-      return ["infer", " ", await print("typeParameter")];
+      return ["infer", " ", print("typeParameter")];
     case "TSIntersectionType":
       return printIntersectionType(path, options, print);
     case "TSUnionType":
@@ -512,8 +502,8 @@ async function printTypescript(path, options, print) {
       return printTupleType(path, options, print);
     case "TSTypeReference":
       return [
-        await print("typeName"),
-        await printTypeParameters(path, options, print, "typeParameters"),
+        print("typeName"),
+        printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSTypeAnnotation":
       return print("typeAnnotation");
@@ -530,7 +520,7 @@ async function printTypescript(path, options, print) {
     case "TSJSDocNonNullableType":
       return printJSDocType(path, print, /* token */ "!");
     case "TSInstantiationExpression":
-      return [await print("expression"), await print("typeParameters")];
+      return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
       throw new Error(

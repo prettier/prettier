@@ -6,7 +6,7 @@ import {
 } from "../utils/index.js";
 import { printOptionalToken } from "./misc.js";
 
-async function printMemberExpression(path, options, print) {
+function printMemberExpression(path, options, print) {
   const node = path.getValue();
 
   const parent = path.getParentNode();
@@ -21,8 +21,8 @@ async function printMemberExpression(path, options, print) {
       firstNonMemberParent.type === "TSNonNullExpression")
   );
 
-  const objectDoc = await print("object");
-  const lookupDoc = await printMemberLookup(path, options, print);
+  const objectDoc = print("object");
+  const lookupDoc = printMemberLookup(path, options, print);
 
   const shouldInline =
     (firstNonMemberParent &&
@@ -48,8 +48,8 @@ async function printMemberExpression(path, options, print) {
   ]);
 }
 
-async function printMemberLookup(path, options, print) {
-  const property = await print("property");
+function printMemberLookup(path, options, print) {
+  const property = print("property");
   const node = path.getValue();
   const optional = printOptionalToken(path);
 

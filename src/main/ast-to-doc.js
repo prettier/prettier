@@ -25,7 +25,7 @@ import { printSubtree } from "./multiparser.js";
  * state of the recursion. It is called "path", because it represents
  * the path to the current node through the Abstract Syntax Tree.
  */
-async function printAstToDoc(ast, options, alignmentSize = 0) {
+function printAstToDoc(ast, options, alignmentSize = 0) {
   const { printer } = options;
 
   if (printer.preprocess) {
@@ -35,7 +35,7 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   const cache = new Map();
   const path = new AstPath(ast);
 
-  let doc = await mainPrint();
+  let doc = mainPrint();
 
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
@@ -69,13 +69,13 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
       return cache.get(value);
     }
 
-    const promise = callPluginPrintFunction(path, options, mainPrint, args);
+    const doc = callPluginPrintFunction(path, options, mainPrint, args);
 
     if (shouldCache) {
-      cache.set(value, promise);
+      cache.set(value, doc);
     }
 
-    return promise;
+    return doc;
   }
 }
 
@@ -101,12 +101,13 @@ function printPrettierIgnoredNode(node, options) {
   return { doc: originalText.slice(start, end), printedComments };
 }
 
-async function callPluginPrintFunction(path, options, printPath, args) {
+function callPluginPrintFunction(path, options, printPath, args) {
   const node = path.getValue();
   const { printer } = options;
 
   let doc;
   let printedComments;
+
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
     ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
@@ -114,7 +115,7 @@ async function callPluginPrintFunction(path, options, printPath, args) {
     if (node) {
       try {
         // Potentially switch to a different parser
-        doc = await printSubtree(path, printPath, options, printAstToDoc);
+        doc = printSubtree(path, printPath, options, printAstToDoc);
       } catch (error) {
         /* istanbul ignore if */
         if (process.env.PRETTIER_DEBUG) {
@@ -125,7 +126,7 @@ async function callPluginPrintFunction(path, options, printPath, args) {
     }
 
     if (!doc) {
-      doc = await printer.print(path, options, printPath, args);
+      doc = printer.print(path, options, printPath, args);
     }
   }
 

@@ -29,7 +29,7 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-async function printObject(path, options, print) {
+function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
 
@@ -101,11 +101,11 @@ async function printObject(path, options, print) {
   // printing them.
   const propsAndLoc = [];
   for (const field of fields) {
-    await path.each(async (childPath) => {
+    path.each((childPath) => {
       const node = childPath.getValue();
       propsAndLoc.push({
         node,
-        printed: await print(),
+        printed: print(),
         loc: locStart(node),
       });
     }, field);
@@ -173,11 +173,7 @@ async function printObject(path, options, print) {
   let content;
   if (props.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [
-        leftBrace,
-        rightBrace,
-        await printTypeAnnotation(path, options, print),
-      ];
+      return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
     }
 
     content = group([
@@ -186,7 +182,7 @@ async function printObject(path, options, print) {
       softline,
       rightBrace,
       printOptionalToken(path),
-      await printTypeAnnotation(path, options, print),
+      printTypeAnnotation(path, options, print),
     ]);
   } else {
     content = [
@@ -204,7 +200,7 @@ async function printObject(path, options, print) {
       options.bracketSpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
-      await printTypeAnnotation(path, options, print),
+      printTypeAnnotation(path, options, print),
     ];
   }
 

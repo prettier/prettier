@@ -47,7 +47,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   }
 
   const astComments = attachComments(text, ast, opts);
-  const doc = await printAstToDoc(ast, opts, addAlignmentSize);
+  const doc = printAstToDoc(ast, opts, addAlignmentSize);
 
   const result = printDocToString(doc, opts);
 
@@ -334,9 +334,9 @@ const prettier = {
     return parsed;
   },
 
-  async formatAST(ast, options) {
+  formatAST(ast, options) {
     options = normalizeOptions(options);
-    const doc = await printAstToDoc(ast, options);
+    const doc = printAstToDoc(ast, options);
     return printDocToString(doc, options);
   },
 
