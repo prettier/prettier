@@ -193,15 +193,8 @@ module.exports = {
       parserOptions: {
         sourceType: "script",
       },
-      globals: {
-        __dirname: "readonly",
-        __filename: "readonly",
-        exports: "readonly",
-        module: "readonly",
-        require: "readonly",
-      },
       rules: {
-        strict: ["error", "global"],
+        strict: "error",
         "unicorn/prefer-module": "off",
         "unicorn/prefer-node-protocol": "off",
       },
