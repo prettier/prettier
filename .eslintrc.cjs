@@ -1,4 +1,5 @@
 "use strict";
+const path = require("node:path");
 const { isCI } = require("ci-info");
 
 module.exports = {
@@ -12,10 +13,11 @@ module.exports = {
     sourceType: "module",
   },
   reportUnusedDisableDirectives: true,
-  extends: ["eslint:recommended", "prettier", "plugin:n/recommended-module"],
+  extends: ["eslint:recommended", "prettier"],
   plugins: [
     "prettier-internal-rules",
     "import",
+    "n",
     "regexp",
     "unicorn",
     "@typescript-eslint",
@@ -118,15 +120,7 @@ module.exports = {
     "import/no-anonymous-default-export": "error",
 
     // eslint-plugin-n
-    "n/no-process-exit": "off",
-    "n/no-unsupported-features/es-syntax": "off",
-    "n/no-unsupported-features/node-builtins": "off",
-    "n/shebang": "off",
-    "n/no-unpublished-require": "off",
-    "n/no-unpublished-import": "off",
-    "n/no-extraneous-require": "off",
-    "n/no-missing-require": "off",
-    "n/no-missing-import": "off",
+    "n/no-path-concat": "error",
 
     // eslint-plugin-regexp
     "regexp/match-any": [
@@ -269,14 +263,21 @@ module.exports = {
       },
     },
     {
-      files: ["src/cli/*.js"],
+      files: ["src/cli/**/*.js"],
       rules: {
-        // TODO[@fisker]: This not actually working, need fix. #11903
-        "no-restricted-modules": [
+        "n/no-restricted-import": [
           "error",
-          {
-            patterns: ["../"],
-          },
+          [
+            {
+              name: [
+                path.resolve(__dirname, "src/**"),
+                `!${path.resolve(__dirname, "src/cli/**")}`,
+                `!${path.resolve(__dirname, "src/index.js")}`,
+                `!${path.resolve(__dirname, "src/third-party.js")}`,
+              ],
+              message: "Don't use code from other directory.",
+            },
+          ],
         ],
       },
     },
