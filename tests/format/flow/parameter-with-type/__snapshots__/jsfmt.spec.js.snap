@@ -18,10 +18,11 @@ function g({}: Foo) {}
 ================================================================================
 `;
 
-exports[`param.js format 1`] = `
+exports[`param.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
+trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};

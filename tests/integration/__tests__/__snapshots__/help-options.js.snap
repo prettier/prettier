@@ -57,6 +57,17 @@ Default: false
 
 exports[`show detailed usage with --help cache (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help cache-location (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help cache-location (stdout) 1`] = `
+"--cache-location <path>
+
+  Path to the cache file.
+"
+`;
+
+exports[`show detailed usage with --help cache-location (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help cache-strategy (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help cache-strategy (stdout) 1`] = `
@@ -311,10 +322,10 @@ exports[`show detailed usage with --help list-different (stdout) 1`] = `
 
 exports[`show detailed usage with --help list-different (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
+exports[`show detailed usage with --help log-level (stderr) 1`] = `""`;
 
-exports[`show detailed usage with --help loglevel (stdout) 1`] = `
-"--loglevel <silent|error|warn|log|debug>
+exports[`show detailed usage with --help log-level (stdout) 1`] = `
+"--log-level <silent|error|warn|log|debug>
 
   What level of logs to report.
 
@@ -330,7 +341,7 @@ Default: log
 "
 `;
 
-exports[`show detailed usage with --help loglevel (write) 1`] = `[]`;
+exports[`show detailed usage with --help log-level (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
 
@@ -646,17 +657,17 @@ exports[`show detailed usage with --help tab-width (write) 1`] = `[]`;
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `
-"--trailing-comma <es5|none|all>
+"--trailing-comma <all|es5|none>
 
   Print trailing commas wherever possible when multi-line.
 
 Valid options:
 
+  all    Trailing commas wherever possible (including function arguments).
   es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
   none   No trailing commas.
-  all    Trailing commas wherever possible (including function arguments).
 
-Default: es5
+Default: all
 "
 `;
 

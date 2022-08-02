@@ -208,6 +208,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
         esbuildPluginVisualizer({ formats: buildOptions.reports }),
       esbuildPluginThrowWarnings({
         allowDynamicRequire: bundle.target === "node",
+        allowDynamicImport: bundle.target === "node",
       }),
     ].filter(Boolean),
     minify: shouldMinify,
@@ -215,7 +216,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     external: ["pnpapi", ...(bundle.external ?? [])],
     // Disable esbuild auto discover `tsconfig.json` file
     tsconfig: path.join(dirname, "empty-tsconfig.json"),
-    target: [...(bundle.esbuildTarget ?? ["node12"])],
+    target: [...(bundle.esbuildTarget ?? ["node14"])],
     logLevel: "error",
   };
 

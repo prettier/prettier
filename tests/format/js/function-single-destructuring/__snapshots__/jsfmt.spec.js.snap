@@ -63,7 +63,7 @@ function excludeFirstFiveResults3(
     fourthResult,
     fifthResult,
     ...rest
-  ] = [1, 2, 3, 4, 5]
+  ] = [1, 2, 3, 4, 5],
 ) {
   return rest;
 }
@@ -102,7 +102,7 @@ promise.then(
     ...rest
   ]) => {
     return rest;
-  }
+  },
 );
 
 ================================================================================
@@ -212,7 +212,7 @@ function StatelessFunctionalComponent3(
     items = [],
   } = {
     isActive: true,
-  }
+  },
 ) {
   return <div />;
 }

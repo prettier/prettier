@@ -158,7 +158,7 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt out f
 
 This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow. You can also use `-w` alias.
 
-## `--loglevel`
+## `--log-level`
 
 Change the level of logging for the CLI. Valid options are:
 
@@ -224,6 +224,16 @@ Running Prettier without `--cache` will delete the cache.
 Also, since the cache file is stored in `./node_modules/.cache/prettier/.prettier-cache`, so you can use `rm ./node_modules/.cache/prettier/.prettier-cache` to remove it manually.
 
 > Plugins version and implementation are not used as cache keys. We recommend that you delete the cache when updating plugins.
+
+## `--cache-location`
+
+Path to the cache file location used by `--cache` flag. If you don't explicit `--cache-location`, Prettier saves cache file at `./node_modules/.cache/prettier/.prettier-cache`.
+
+If a file path is passed, that file is used as the cache file.
+
+```bash
+prettier --write --cache --cache-location=my_cache_file src
+```
 
 ## `--cache-strategy`
 

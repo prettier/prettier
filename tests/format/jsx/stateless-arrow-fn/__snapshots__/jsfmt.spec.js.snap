@@ -190,7 +190,7 @@ const render10 = (props) => (
 const notJSX = (aaaaaaaaaaaaaaaaa, bbbbbbbbbbb) =>
   this.someLongCallWithParams(aaaaaa, bbbbbbb).anotherLongCallWithParams(
     cccccccccccc,
-    dddddddddddddddddddddd
+    dddddddddddddddddddddd,
   );
 
 React.render(
@@ -201,7 +201,7 @@ React.render(
     size="large"
     submitLabel="Sign in with Google"
   />,
-  document.querySelector("#react-root")
+  document.querySelector("#react-root"),
 );
 
 const renderTernary = (props) => (

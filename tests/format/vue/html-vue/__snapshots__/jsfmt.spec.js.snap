@@ -225,7 +225,7 @@ printWidth: 80
                   type: dynamics.spring,
                   duration: 700,
                   friction: 280,
-                }
+                },
               );
             }
           },

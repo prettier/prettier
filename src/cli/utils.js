@@ -1,4 +1,4 @@
-import { promises as fs } from "node:fs";
+import fs from "node:fs/promises";
 import sdbm from "sdbm";
 import { __internal as sharedWithCli } from "../index.js";
 
@@ -66,6 +66,19 @@ async function statSafe(filePath) {
   }
 }
 
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isJson(value) {
+  try {
+    JSON.parse(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export {
   arrayify,
   getLast,
@@ -76,4 +89,5 @@ export {
   pick,
   createHash,
   statSafe,
+  isJson,
 };

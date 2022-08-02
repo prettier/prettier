@@ -110,7 +110,7 @@ bifornCringerMoshedPerplexSawder =
   anodyneCondosMal(
     sdsadsa,
     dasdas,
-    asd(() => sdf)
+    asd(() => sdf),
   ).ateOverateRetinol =
   annularCooeedSplicesWalksWayWay =
     kochabCooieGameOnOboleUnweave;
@@ -123,7 +123,7 @@ bifornCringerMoshedPerplexSawder =
   anodyneCondosMal(
     sdsadsa,
     dasdas,
-    asd(() => sdf)
+    asd(() => sdf),
   ).ateOverateRetinol =
   annularCooeedSplicesWalksWayWay =
     kochabCooieGameOnOboleUnweave + kochabCooieGameOnOboleUnweave;
@@ -422,7 +422,7 @@ manifestCache[templateId] = readFileSync(\`\${MANIFESTS_PATH}/\${templateId}.jso
 =====================================output=====================================
 manifestCache[templateId] = readFileSync(
   \`\${MANIFESTS_PATH}/\${templateId}.json\`,
-  { encoding: "utf-8" }
+  { encoding: "utf-8" },
 );
 
 ================================================================================
@@ -475,7 +475,7 @@ if (something) {
 =====================================output=====================================
 if (something) {
   const otherBrandsWithThisAdjacencyCount123 = Object.values(
-    edge.to.edges
+    edge.to.edges,
   ).length;
 }
 
@@ -501,7 +501,7 @@ const {qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw} =
 const { qfwvfkwjdqgz, bctsyljqucgz, xuodxhmgwwpw } = qbhtcuzxwedz(
   yrwimwkjeeiu,
   njwvozigdkfi,
-  alvvjgkmnmhd
+  alvvjgkmnmhd,
 );
 
 ================================================================================
@@ -545,7 +545,7 @@ const data4 = request.delete(
 async function f() {
   const { data, status } = await request.delete(
     \`/account/\${accountId}/documents/\${type}/\${documentNumber}\`,
-    { validateStatus: () => true }
+    { validateStatus: () => true },
   );
   return { data, status };
 }
@@ -556,17 +556,17 @@ const data1 = request.delete("----------------------------------------------", {
 
 const data2 = request.delete(
   "----------------------------------------------x",
-  { validateStatus: () => true }
+  { validateStatus: () => true },
 );
 
 const data3 = request.delete(
   "----------------------------------------------xx",
-  { validateStatus: () => true }
+  { validateStatus: () => true },
 );
 
 const data4 = request.delete(
   "----------------------------------------------xxx",
-  { validateStatus: () => true }
+  { validateStatus: () => true },
 );
 
 ================================================================================
@@ -727,7 +727,7 @@ const bifornCringerMoshedPerplexSawderGlyphsHa =
 
 if (true) {
   node.id = this.flowParseTypeAnnotatableIdentifier(
-    /*allowPrimitiveOverride*/ true
+    /*allowPrimitiveOverride*/ true,
   );
 }
 

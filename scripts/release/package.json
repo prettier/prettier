@@ -9,12 +9,12 @@
     "enquirer": "2.3.6",
     "execa": "6.1.0",
     "minimist": "1.2.6",
-    "node-fetch": "3.2.6",
+    "node-fetch": "3.2.10",
     "outdent": "0.8.0",
     "semver": "7.3.7",
     "string-width": "5.1.2"
   },
   "devDependencies": {
-    "jest": "28.1.2"
+    "jest": "28.1.3"
   }
 }

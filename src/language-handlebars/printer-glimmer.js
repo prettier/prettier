@@ -31,7 +31,7 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
-function print(path, options, print) {
+async function print(path, options, print) {
   const node = path.getValue();
 
   /* istanbul ignore if*/
@@ -49,11 +49,11 @@ function print(path, options, print) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(path.map(print, "body"));
+      return group(await path.map(print, "body"));
     }
 
     case "ElementNode": {
-      const startingTag = group(printStartingTag(path, print));
+      const startingTag = group(await printStartingTag(path, print));
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
@@ -74,7 +74,7 @@ function print(path, options, print) {
       if (options.htmlWhitespaceSensitivity === "ignore") {
         return [
           startingTag,
-          indent(printChildren(path, options, print)),
+          indent(await printChildren(path, options, print)),
           hardline,
           indent(endingTag),
           escapeNextElementNode,
@@ -83,7 +83,7 @@ function print(path, options, print) {
 
       return [
         startingTag,
-        indent(group(printChildren(path, options, print))),
+        indent(group(await printChildren(path, options, print))),
         indent(endingTag),
         escapeNextElementNode,
       ];
@@ -101,30 +101,30 @@ function print(path, options, print) {
 
       if (isElseIf) {
         return [
-          printElseIfBlock(path, print),
-          printProgram(path, print, options),
-          printInverse(path, print, options),
+          await printElseIfBlock(path, print),
+          await printProgram(path, print, options),
+          await printInverse(path, print, options),
         ];
       }
 
       return [
-        printOpenBlock(path, print),
+        await printOpenBlock(path, print),
         group([
-          printProgram(path, print, options),
-          printInverse(path, print, options),
-          printCloseBlock(path, print, options),
+          await printProgram(path, print, options),
+          await printInverse(path, print, options),
+          await printCloseBlock(path, print, options),
         ]),
       ];
     }
 
     case "ElementModifierStatement": {
-      return group(["{{", printPathAndParams(path, print), "}}"]);
+      return group(["{{", await printPathAndParams(path, print), "}}"]);
     }
 
     case "MustacheStatement": {
       return group([
         printOpeningMustache(node),
-        printPathAndParams(path, print),
+        await printPathAndParams(path, print),
         printClosingMustache(node),
       ]);
     }
@@ -132,7 +132,7 @@ function print(path, options, print) {
     case "SubExpression": {
       return group([
         "(",
-        printSubExpressionPathAndParams(path, print),
+        await printSubExpressionPathAndParams(path, print),
         softline,
         ")",
       ]);
@@ -162,7 +162,7 @@ function print(path, options, print) {
           ).quote
         : "";
 
-      const valueDoc = print("value");
+      const valueDoc = await print("value");
 
       return [
         node.name,
@@ -178,10 +178,10 @@ function print(path, options, print) {
     }
 
     case "Hash": {
-      return join(line, path.map(print, "pairs"));
+      return join(line, await path.map(print, "pairs"));
     }
     case "HashPair": {
-      return [node.key, "=", print("value")];
+      return [node.key, "=", await print("value")];
     }
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
@@ -423,7 +423,7 @@ function sortByLoc(a, b) {
   return locStart(a) - locStart(b);
 }
 
-function printStartingTag(path, print) {
+async function printStartingTag(path, print) {
   const node = path.getValue();
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
@@ -432,9 +432,9 @@ function printStartingTag(path, print) {
   const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
   for (const attributeType of types) {
-    path.each((attributePath) => {
+    await path.each(async (attributePath) => {
       const index = attributes.indexOf(attributePath.getValue());
-      attributes.splice(index, 1, [line, print()]);
+      attributes.splice(index, 1, [line, await print()]);
     }, attributeType);
   }
 
@@ -452,8 +452,8 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map((childPath, childIndex) => {
-    const printedChild = print();
+  return path.map(async (childPath, childIndex) => {
+    const printedChild = await print();
 
     if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
@@ -523,15 +523,15 @@ function printInverseBlockClosingMustache(node) {
   return [strip, closing];
 }
 
-function printOpenBlock(path, print) {
+async function printOpenBlock(path, print) {
   const node = path.getValue();
 
   const openingMustache = printOpeningBlockOpeningMustache(node);
   const closingMustache = printOpeningBlockClosingMustache(node);
 
-  const attributes = [printPath(path, print)];
+  const attributes = [await printPath(path, print)];
 
-  const params = printParams(path, print);
+  const params = await printParams(path, print);
   if (params) {
     attributes.push(line, params);
   }
@@ -558,18 +558,18 @@ function printElseBlock(node, options) {
   ];
 }
 
-function printElseIfBlock(path, print) {
+async function printElseIfBlock(path, print) {
   const parentNode = path.getParentNode(1);
 
   return [
     printInverseBlockOpeningMustache(parentNode),
     "else if ",
-    printParams(path, print),
+    await printParams(path, print),
     printInverseBlockClosingMustache(parentNode),
   ];
 }
 
-function printCloseBlock(path, print, options) {
+async function printCloseBlock(path, print, options) {
   const node = path.getValue();
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
@@ -580,14 +580,14 @@ function printCloseBlock(path, print, options) {
     return [
       escape,
       printClosingBlockOpeningMustache(node),
-      print("path"),
+      await print("path"),
       printClosingBlockClosingMustache(node),
     ];
   }
 
   return [
     printClosingBlockOpeningMustache(node),
-    print("path"),
+    await print("path"),
     printClosingBlockClosingMustache(node),
   ];
 }
@@ -612,14 +612,14 @@ function blockStatementHasElse(node) {
   return isNodeOfSomeType(node, ["BlockStatement"]) && node.inverse;
 }
 
-function printProgram(path, print, options) {
+async function printProgram(path, print, options) {
   const node = path.getValue();
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
     return "";
   }
 
-  const program = print("program");
+  const program = await print("program");
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     return indent([hardline, program]);
@@ -628,10 +628,10 @@ function printProgram(path, print, options) {
   return indent(program);
 }
 
-function printInverse(path, print, options) {
+async function printInverse(path, print, options) {
   const node = path.getValue();
 
-  const inverse = print("inverse");
+  const inverse = await print("inverse");
   const printed =
     options.htmlWhitespaceSensitivity === "ignore"
       ? [hardline, inverse]
@@ -730,9 +730,9 @@ function needsOppositeQuote(path) {
 
 /* SubExpression print helpers */
 
-function printSubExpressionPathAndParams(path, print) {
-  const printed = printPath(path, print);
-  const params = printParams(path, print);
+async function printSubExpressionPathAndParams(path, print) {
+  const printed = await printPath(path, print);
+  const params = await printParams(path, print);
 
   if (!params) {
     return printed;
@@ -743,9 +743,9 @@ function printSubExpressionPathAndParams(path, print) {
 
 /* misc. print helpers */
 
-function printPathAndParams(path, print) {
-  const p = printPath(path, print);
-  const params = printParams(path, print);
+async function printPathAndParams(path, print) {
+  const p = await printPath(path, print);
+  const params = await printParams(path, print);
 
   if (!params) {
     return p;
@@ -758,17 +758,17 @@ function printPath(path, print) {
   return print("path");
 }
 
-function printParams(path, print) {
+async function printParams(path, print) {
   const node = path.getValue();
   const parts = [];
 
   if (node.params.length > 0) {
-    const params = path.map(print, "params");
+    const params = await path.map(print, "params");
     parts.push(...params);
   }
 
   if (node.hash && node.hash.pairs.length > 0) {
-    const hash = print("hash");
+    const hash = await print("hash");
     parts.push(hash);
   }
 

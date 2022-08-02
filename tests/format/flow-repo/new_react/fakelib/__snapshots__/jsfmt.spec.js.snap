@@ -22,7 +22,7 @@ type _ReactElement<
   DefaultProps,
   Props,
   Config: $Diff<Props, DefaultProps>,
-  C: $React.Component<DefaultProps, Props, any>
+  C: $React.Component<DefaultProps, Props, any>,
 > = $React.Element<Config>;
 type $jsx<C> = _ReactElement<*, *, *, C>;
 

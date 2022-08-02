@@ -15,9 +15,7 @@ describe("throw error for unsupported extension", () => {
 describe("throw error with invalid config format", () => {
   runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
-    stderr: expect.stringMatching(
-      /Cannot (?:resolve|find) module '--invalid--'/
-    ),
+    stderr: expect.stringMatching(/Cannot find package '--invalid--'/),
   });
 });
 

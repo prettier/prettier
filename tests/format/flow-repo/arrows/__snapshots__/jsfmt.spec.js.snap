@@ -54,7 +54,7 @@ function selectBestEffortImageForWidth(
 =====================================output=====================================
 function selectBestEffortImageForWidth(
   maxWidth: number,
-  images: Array<Image>
+  images: Array<Image>,
 ): Image {
   var maxPixelWidth = maxWidth;
   //images = images.sort(function (a, b) { return a.width - b.width });

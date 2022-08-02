@@ -402,6 +402,12 @@ in order for it to be formatted.",
           "description": "Print trailing commas wherever possible when multi-line.",
           "oneOf": [
             {
+              "description": "Trailing commas wherever possible (including function arguments).",
+              "enum": [
+                "all",
+              ],
+            },
+            {
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
               "enum": [
                 "es5",
@@ -411,12 +417,6 @@ in order for it to be formatted.",
               "description": "No trailing commas.",
               "enum": [
                 "none",
-              ],
-            },
-            {
-              "description": "Trailing commas wherever possible (including function arguments).",
-              "enum": [
-                "all",
               ],
             },
           ],

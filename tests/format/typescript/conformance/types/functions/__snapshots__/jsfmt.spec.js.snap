@@ -729,7 +729,7 @@ function defaultArgFunction(
   a = function () {
     return b;
   },
-  b = 1
+  b = 1,
 ) {}
 function defaultArgArrow(a = () => () => b, b = 3) {}
 
@@ -749,7 +749,7 @@ function f(
   b = function () {
     return c;
   },
-  c = b()
+  c = b(),
 ) {}
 
 ================================================================================

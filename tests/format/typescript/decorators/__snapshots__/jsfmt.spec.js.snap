@@ -30,7 +30,7 @@ class Foo {
     private readonly myProcessor: IMyProcessor,
 
     @inject(InjectionTypes.AnotherThing)
-    private readonly anotherThing: IAnotherThing | undefined
+    private readonly anotherThing: IAnotherThing | undefined,
   ) {}
 }
 
@@ -165,7 +165,7 @@ class AngularComponent {
 class Class {
   method(
     @Decorator
-    { prop1, prop2 }: Type
+    { prop1, prop2 }: Type,
   ) {
     doSomething();
   }
@@ -175,7 +175,7 @@ class Class2 {
   method(
     @Decorator1
     @Decorator2
-    { prop1, prop2 }: Type
+    { prop1, prop2 }: Type,
   ) {
     doSomething();
   }
@@ -185,7 +185,7 @@ class Class3 {
   method(
     @Decorator
     { prop1_1, prop1_2 }: Type,
-    { prop2_1, prop2_2 }: Type
+    { prop2_1, prop2_2 }: Type,
   ) {
     doSomething();
   }
@@ -195,7 +195,7 @@ class Class4 {
   method(
     param1,
     @Decorator
-    { prop1, prop2 }: Type
+    { prop1, prop2 }: Type,
   ) {}
 }
 
@@ -401,7 +401,7 @@ class Class3 {
     @d4({
       x: string,
     })
-    private a: string
+    private a: string,
   ) {}
 }
 

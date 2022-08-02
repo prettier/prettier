@@ -23,10 +23,10 @@ function a() {
 function a() {
   // Incorrectly indented on purpose
   function f</* prettier-ignore */ T    :    B>(
-    a : Array  <   number   > // prettier-ignore
+    a : Array  <   number   >, // prettier-ignore
   ) {
     call(
-      f(         1          )
+      f(         1          ),
       // prettier-ignore
     );
   }
@@ -58,16 +58,16 @@ transform(
 =====================================output=====================================
 transform(
   // prettier-ignore
-  (pointTransformer: T)
+  (pointTransformer: T),
 );
 
 transform(
   // prettier-ignore
-  (/* comment */pointTransformer: T /* comment */)
+  (/* comment */pointTransformer: T /* comment */),
 );
 
 transform(
-  /* prettier-ignore */ (/* prettier-ignore */pointTransformer: (Point => Point))
+  /* prettier-ignore */ (/* prettier-ignore */pointTransformer: (Point => Point)),
 );
 
 ================================================================================

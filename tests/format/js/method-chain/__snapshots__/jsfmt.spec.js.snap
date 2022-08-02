@@ -22,7 +22,7 @@ function a() {
     queryThenMutateDOM(() => {
       title = SomeThing.call(
         root,
-        "someLongStringThatPushesThisTextReallyFar"
+        "someLongStringThatPushesThisTextReallyFar",
       )[0];
     });
   }
@@ -98,15 +98,15 @@ export default (store) => {
         actionWith({
           response,
           type: successType,
-        })
+        }),
       ),
     (error) =>
       next(
         actionWith({
           type: failureType,
           error: error.message || "Something bad happened",
-        })
-      )
+        }),
+      ),
   );
 };
 
@@ -212,7 +212,7 @@ superSupersuperSupersuperSupersuperSupersuperSuperLong
 
 expect(
   findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0]
-    .style.paddingRight
+    .style.paddingRight,
 ).toBe("1000px");
 
 const {
@@ -340,12 +340,12 @@ _.a(a)
   .a();
 
 _.a(
-  a
+  a,
 ) /* very very very very very very very long such that it is longer than 80 columns */
   .a();
 
 _.a(
-  a
+  a,
 ) /* very very very very very very very long such that it is longer than 80 columns */
   .a();
 
@@ -376,7 +376,7 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
       return options.donotNotifyError
         ? TPromise.wrapError(error)
         : this.onError(error, target, value);
-    }
+    },
   );
 
 ret = __DEV__
@@ -406,7 +406,7 @@ client.execute(
 
 =====================================output=====================================
 client.execute(
-  Post.selectAll().where(Post.id.eq(42)).where(Post.published.eq(true))
+  Post.selectAll().where(Post.id.eq(42)).where(Post.published.eq(true)),
 );
 
 ================================================================================
@@ -665,7 +665,7 @@ export default function theFunction(action$, store) {
     })
       .filter((data) => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
-      .retryWhen((errors) => errors)
+      .retryWhen((errors) => errors),
   );
 }
 
@@ -757,7 +757,7 @@ var jqxhr = $.ajax("example.php")
 Object.keys(
   availableLocales({
     test: true,
-  })
+  }),
 ).forEach((locale) => {
   // ...
 });
@@ -765,7 +765,7 @@ Object.keys(
 this.layoutPartsToHide = this.utils.hashset(
   _.flatMap(this.visibilityHandlers, (fn) => fn())
     .concat(this.record.resolved_legacy_visrules)
-    .filter(Boolean)
+    .filter(Boolean),
 );
 
 var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
@@ -1061,7 +1061,7 @@ db.branch(
   db.table("users").filter({ email }).count(),
   db.table("users").filter({ email: "a@b.com" }).count(),
   db.table("users").insert({ email }),
-  db.table("users").filter({ email })
+  db.table("users").filter({ email }),
 );
 
 sandbox.stub(config, "get").withArgs("env").returns("dev");
@@ -1095,7 +1095,7 @@ function HelloWorld() {
       (data) => {
         this.logImpression("foo_fetch_error", data);
         Flash.error(I18n.t("offline_identity.foo_issue"));
-      }
+      },
     );
 }
 
@@ -1112,9 +1112,9 @@ action$
           ajax
             .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
             .map((res) => res.items)
-            .map(receiveUsers)
-        )
-      )
+            .map(receiveUsers),
+        ),
+      ),
   );
 
 window.FooClient.setVars({
@@ -1213,7 +1213,7 @@ const someLongVariableName = (
 ).map((edge) => edge.node);
 
 (veryLongVeryLongVeryLong || e).map((tickets) =>
-  TicketRecord.createFromSomeLongString()
+  TicketRecord.createFromSomeLongString(),
 );
 
 (veryLongVeryLongVeryLong || e)
@@ -1312,7 +1312,7 @@ wrapper
   .find("SomewhatLongNodeName")
   .prop(
     "longPropFunctionName",
-    "second argument that pushes this group past 80 characters"
+    "second argument that pushes this group past 80 characters",
   )("argument")
   .then(function () {
     doSomething();
@@ -1322,7 +1322,7 @@ wrapper
   .find("SomewhatLongNodeName")
   .prop("longPropFunctionName")(
     "argument",
-    "second argument that pushes this group past 80 characters"
+    "second argument that pushes this group past 80 characters",
   )
   .then(function () {
     doSomething();

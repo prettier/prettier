@@ -559,7 +559,7 @@ function empty_rest<T: Array<mixed>>(...xs: T): T {
 (empty_rest(): empty); // Error Array ~> empty
 
 function return_rest_param<Args: Array<mixed>>(
-  f: (...args: Args) => void
+  f: (...args: Args) => void,
 ): (...args: Args) => number {
   return function (...args) {
     return args; // Error: Array ~> number

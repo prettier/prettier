@@ -62,7 +62,7 @@ printWidth: 80
           document.write(
             /* HTML */ \\\\\\\`<!-- bar1 -->
               bar
-              <!-- bar2 -->\\\\\\\`
+              <!-- bar2 -->\\\\\\\`,
           );
         <\\\\/script>
         <!-- foo2 -->

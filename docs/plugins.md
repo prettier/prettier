@@ -66,7 +66,8 @@ To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI
 - [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
-- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
+- [`prettier-plugin-sh`](https://github.com/un-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
+- [`prettier-plugin-sql`](https://github.com/un-ts/prettier/tree/master/packages/sql) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
@@ -196,8 +197,10 @@ function print(
   path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (selector?: string | number | Array<string | number> | AstPath) => Doc
-): Doc;
+  print: (
+    selector?: string | number | Array<string | number> | AstPath
+  ) => Promise<Doc>
+): Promise<Doc>;
 ```
 
 The `print` function is passed the following parameters:
@@ -209,18 +212,18 @@ The `print` function is passed the following parameters:
 Here’s a simplified example to give an idea of what a typical implementation of `print` looks like:
 
 ```js
-const {
-  builders: { group, indent, join, line, softline },
-} = require("prettier").doc;
+import { doc } from "prettier";
 
-function print(path, options, print) {
+const { group, indent, join, line, softline } = doc.builders;
+
+async function print(path, options, print) {
   const node = path.getValue();
 
   switch (node.type) {
     case "list":
       return group([
         "(",
-        indent([softline, join(line, path.map(print, "elements"))]),
+        indent([softline, join(line, await path.map(print, "elements"))]),
         softline,
         ")",
       ]);
@@ -228,7 +231,13 @@ function print(path, options, print) {
     case "pair":
       return group([
         "(",
-        indent([softline, print("left"), line, ". ", print("right")]),
+        indent([
+          softline,
+          await print("left"),
+          line,
+          ". ",
+          await print("right"),
+        ]),
         softline,
         ")",
       ]);
@@ -252,13 +261,15 @@ function embed(
   // Path to the current AST node
   path: AstPath,
   // Print a node with the current printer
-  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
+  print: (
+    selector?: string | number | Array<string | number> | AstPath
+  ) => Promise<Doc>,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
-  textToDoc: (text: string, options: object) => Doc,
+  textToDoc: (text: string, options: object) => Promise<Doc>,
   // Current options
   options: object
-): Doc | null;
+): Promise<Doc | null>;
 ```
 
 The `embed` function acts like the `print` function, except that it is passed an additional `textToDoc` function, which can be used to render a doc using a different plugin. The `embed` function returns a Doc or a falsy value. If a falsy value is returned, the `print` function is called with the current `path`. If a Doc is returned, that Doc is used in printing and the `print` function is not called.
@@ -452,9 +463,10 @@ function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => nu
 Since plugins can be resolved using relative paths, when working on one you can do:
 
 ```js
-const prettier = require("prettier");
+import * as prettier from "prettier";
+
 const code = "(add 1 2)";
-prettier.format(code, {
+await prettier.format(code, {
   parser: "lisp",
   plugins: ["."],
 });

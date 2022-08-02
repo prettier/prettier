@@ -25,7 +25,8 @@ jobs:
           - "14"
         NPM_CLIENT:
           - "yarn"
-          - "npm"
+          # Disabled temporarily #13151
+          # - "npm"
           - "pnpm"
     env:
       INSTALL_PACKAGE: true
@@ -50,4 +51,4 @@ jobs:
         run: npm install --global pnpm
 
       - name: Run Tests
-        run: yarn test:dev-package --maxWorkers=2
+        run: yarn test:dev-package

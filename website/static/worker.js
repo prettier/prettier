@@ -30,6 +30,25 @@ for (const file in parsersLocation) {
   }
 }
 
+const docExplorerPlugin = {
+  parsers: {
+    "doc-explorer": {
+      parse: (text) =>
+        new Function(
+          `{ ${Object.keys(prettier.doc.builders)} }`,
+          `const result = (${text || "''"}\n); return result;`
+        )(prettier.doc.builders),
+      astFormat: "doc-explorer",
+    },
+  },
+  printers: {
+    "doc-explorer": {
+      print: (path) => path.getValue(),
+    },
+  },
+  languages: [{ name: "doc-explorer", parsers: ["doc-explorer"] }],
+};
+
 self.onmessage = async function (event) {
   self.postMessage({
     uid: event.data.uid,
@@ -45,6 +64,8 @@ function serializeAst(ast) {
         ? { name: value.name, message: value.message, ...value }
         : typeof value === "bigint"
         ? `BigInt('${String(value)}')`
+        : typeof value === "symbol"
+        ? String(value)
         : value,
     2
   );
@@ -52,7 +73,10 @@ function serializeAst(ast) {
 
 async function handleMessage(message) {
   if (message.type === "meta") {
-    const supportInfo = await prettier.getSupportInfo({ showUnreleased: true });
+    const supportInfo = await prettier.getSupportInfo({
+      showUnreleased: true,
+      plugins: [docExplorerPlugin],
+    });
 
     return {
       type: "meta",
@@ -68,13 +92,15 @@ async function handleMessage(message) {
     delete options.doc;
     delete options.output2;
 
-    const plugins = [{ parsers }];
+    const plugins = [{ parsers }, docExplorerPlugin];
     options.plugins = plugins;
 
     const formatResult = await formatCode(message.code, options);
 
     const response = {
       formatted: formatResult.formatted,
+      cursorOffset: formatResult.cursorOffset,
+      error: formatResult.error,
       debug: {
         ast: null,
         doc: null,
@@ -109,10 +135,10 @@ async function handleMessage(message) {
       try {
         response.debug.doc = await prettier.__debug.formatDoc(
           await prettier.__debug.printToDoc(message.code, options),
-          { parser: "babel", plugins }
+          { plugins }
         );
-      } catch (e) {
-        response.debug.doc = String(e);
+      } catch {
+        response.debug.doc = "";
       }
     }
 
@@ -141,10 +167,23 @@ async function formatCode(text, options) {
   } catch (e) {
     if (e.constructor && e.constructor.name === "SyntaxError") {
       // Likely something wrong with the user's code
-      return { formatted: String(e) };
+      return { formatted: String(e), error: true };
     }
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
-    return { formatted: e.stack || String(e) };
+    return { formatted: stringifyError(e), error: true };
   }
+}
+
+function stringifyError(e) {
+  const stringified = String(e);
+  if (typeof e.stack !== "string") {
+    return stringified;
+  }
+  if (e.stack.includes(stringified)) {
+    // Chrome
+    return e.stack;
+  }
+  // Firefox
+  return stringified + "\n" + e.stack;
 }

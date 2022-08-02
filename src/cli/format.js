@@ -1,4 +1,4 @@
-import { promises as fs } from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
 import * as prettier from "../index.js";
@@ -305,7 +305,7 @@ async function formatFiles(context) {
   }
 
   let formatResultsCache;
-  const cacheFilePath = findCacheFile();
+  const cacheFilePath = await findCacheFile(context.argv.cacheLocation);
   if (context.argv.cache) {
     formatResultsCache = new FormatResultsCache(
       cacheFilePath,
@@ -318,9 +318,11 @@ async function formatFiles(context) {
       );
       process.exit(2);
     }
-    const stat = await statSafe(cacheFilePath);
-    if (stat) {
-      await fs.unlink(cacheFilePath);
+    if (!context.argv.cacheLocation) {
+      const stat = await statSafe(cacheFilePath);
+      if (stat) {
+        await fs.unlink(cacheFilePath);
+      }
     }
   }
 

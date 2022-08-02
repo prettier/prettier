@@ -116,7 +116,7 @@ function param_anno(n: number): void {
 // another error on param UB, more typical of www (mis)use-cases
 // this one cribbed from API.atlas.js
 function param_anno2(
-  batchRequests: Array<{ method: string, path: string, params: ?Object }>
+  batchRequests: Array<{ method: string, path: string, params: ?Object }>,
 ): void {
   // error below, since we're assigning elements to batchRequests
   // which lack a path property.
@@ -324,7 +324,7 @@ declare function foldr<A, B>(fn: (a: A, b: B) => B, b: B, as: A[]): B;
 function insertMany<K, V>(
   merge: Merge<V>,
   vs: [K, V][],
-  m: Map<K, V>
+  m: Map<K, V>,
 ): Map<K, V> {
   function f([k, v]: [K, V], m: Map<K, V>): Map<K, V> {
     return m.insertWith(merge, k, v);
