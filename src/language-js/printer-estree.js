@@ -87,8 +87,8 @@ import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
-async function genericPrint(path, options, print, args) {
-  const printed = await printPathNoParens(path, options, print, args);
+function genericPrint(path, options, print, args) {
+  const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
     return "";
   }
@@ -113,7 +113,7 @@ async function genericPrint(path, options, print, args) {
 
   let parts = [printed];
 
-  const printedDecorators = await printDecorators(path, options, print);
+  const printedDecorators = printDecorators(path, options, print);
   const isClassExpressionWithDecorators =
     node.type === "ClassExpression" && printedDecorators;
   // Nodes (except `ClassExpression`) with decorators can't have parentheses and don't need leading semicolons
@@ -165,7 +165,7 @@ async function genericPrint(path, options, print, args) {
   return parts;
 }
 
-async function printPathNoParens(path, options, print, args) {
+function printPathNoParens(path, options, print, args) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
 
@@ -185,7 +185,7 @@ async function printPathNoParens(path, options, print, args) {
     printFlow,
     printTypescript,
   ]) {
-    const printed = await printer(path, options, print);
+    const printed = printer(path, options, print);
     if (typeof printed !== "undefined") {
       return printed;
     }
@@ -198,15 +198,15 @@ async function printPathNoParens(path, options, print, args) {
     case "JsExpressionRoot":
       return print("node");
     case "JsonRoot":
-      return [await print("node"), hardline];
+      return [print("node"), hardline];
     case "File":
       // Print @babel/parser's InterpreterDirective here so that
       // leading comments on the `Program` node get printed after the hashbang.
       if (node.program && node.program.interpreter) {
-        parts.push(await print(["program", "interpreter"]));
+        parts.push(print(["program", "interpreter"]));
       }
 
-      parts.push(await print("program"));
+      parts.push(print("program"));
 
       return parts;
 
@@ -218,7 +218,7 @@ async function printPathNoParens(path, options, print, args) {
     case "ExpressionStatement": {
       // Detect Flow and TypeScript directives
       if (node.directive) {
-        return [await printDirective(node.expression, options), semi];
+        return [printDirective(node.expression, options), semi];
       }
 
       if (
@@ -232,7 +232,7 @@ async function printPathNoParens(path, options, print, args) {
           parent.body[0] === node
         ) {
           return [
-            await print("expression"),
+            print("expression"),
             isVueEventBindingExpression(node.expression) ? ";" : "",
           ];
         }
@@ -247,7 +247,7 @@ async function printPathNoParens(path, options, print, args) {
 
       // Do not append semicolon after the only JSX element in a program
       return [
-        await print("expression"),
+        print("expression"),
         isTheOnlyJsxElementInMarkdown(options, path) ? "" : semi,
         danglingComment ? [" ", danglingComment] : "",
       ];
@@ -259,11 +259,11 @@ async function printPathNoParens(path, options, print, args) {
         (node.expression.type === "ObjectExpression" ||
           node.expression.type === "ArrayExpression");
       if (shouldHug) {
-        return ["(", await print("expression"), ")"];
+        return ["(", print("expression"), ")"];
       }
       return group([
         "(",
-        indent([softline, await print("expression")]),
+        indent([softline, print("expression")]),
         softline,
         ")",
       ]);
@@ -276,24 +276,21 @@ async function printPathNoParens(path, options, print, args) {
     case "LogicalExpression":
       return printBinaryishExpression(path, options, print);
     case "AssignmentPattern":
-      return [await print("left"), " = ", await print("right")];
+      return [print("left"), " = ", print("right")];
     case "OptionalMemberExpression":
     case "MemberExpression": {
       return printMemberExpression(path, options, print);
     }
     case "MetaProperty":
-      return [await print("meta"), ".", await print("property")];
+      return [print("meta"), ".", print("property")];
     case "BindExpression":
       if (node.object) {
-        parts.push(await print("object"));
+        parts.push(print("object"));
       }
 
       parts.push(
         group(
-          indent([
-            softline,
-            await printBindExpressionCallee(path, options, print),
-          ])
+          indent([softline, printBindExpressionCallee(path, options, print)])
         )
       );
 
@@ -301,9 +298,9 @@ async function printPathNoParens(path, options, print, args) {
     case "Identifier": {
       return [
         node.name,
-        await printOptionalToken(path),
-        await printDefiniteToken(path),
-        await printTypeAnnotation(path, options, print),
+        printOptionalToken(path),
+        printDefiniteToken(path),
+        printTypeAnnotation(path, options, print),
       ];
     }
     case "V8IntrinsicIdentifier":
@@ -326,14 +323,14 @@ async function printPathNoParens(path, options, print, args) {
         parts.push("*");
       }
       if (node.argument) {
-        parts.push(" ", await print("argument"));
+        parts.push(" ", print("argument"));
       }
 
       return parts;
     case "AwaitExpression": {
       parts.push("await");
       if (node.argument) {
-        parts.push(" ", await print("argument"));
+        parts.push(" ", print("argument"));
         const parent = path.getParentNode();
         if (
           (isCallExpression(parent) && parent.callee === node) ||
@@ -369,7 +366,7 @@ async function printPathNoParens(path, options, print, args) {
     case "ExportDefaultSpecifier":
       return printModuleSpecifier(path, options, print);
     case "ImportAttribute":
-      return [await print("key"), ": ", await print("value")];
+      return [print("key"), ": ", print("value")];
     case "Import":
       return "import";
     case "BlockStatement":
@@ -400,7 +397,7 @@ async function printPathNoParens(path, options, print, args) {
     case "ObjectMethod":
       return printMethod(path, options, print);
     case "Decorator":
-      return ["@", await print("expression")];
+      return ["@", print("expression")];
     case "ArrayExpression":
     case "ArrayPattern":
     case "TupleExpression":
@@ -415,23 +412,23 @@ async function printPathNoParens(path, options, print, args) {
         // the few places a SequenceExpression appears unparenthesized, we want
         // to indent expressions after the first.
         const parts = [];
-        await path.each(async (expressionPath, index) => {
+        path.each((expressionPath, index) => {
           if (index === 0) {
-            parts.push(await print());
+            parts.push(print());
           } else {
-            parts.push(",", indent([line, await print()]));
+            parts.push(",", indent([line, print()]));
           }
         }, "expressions");
         return group(parts);
       }
-      return group(join([",", line], await path.map(print, "expressions")));
+      return group(join([",", line], path.map(print, "expressions")));
     }
     case "ThisExpression":
       return "this";
     case "Super":
       return "super";
     case "Directive":
-      return [await print("value"), semi]; // Babel 6
+      return [print("value"), semi]; // Babel 6
     case "DirectiveLiteral":
       return printDirective(node, options);
     case "UnaryExpression":
@@ -443,20 +440,15 @@ async function printPathNoParens(path, options, print, args) {
 
       if (hasComment(node.argument)) {
         parts.push(
-          group([
-            "(",
-            indent([softline, await print("argument")]),
-            softline,
-            ")",
-          ])
+          group(["(", indent([softline, print("argument")]), softline, ")"])
         );
       } else {
-        parts.push(await print("argument"));
+        parts.push(print("argument"));
       }
 
       return parts;
     case "UpdateExpression":
-      parts.push(await print("argument"), node.operator);
+      parts.push(print("argument"), node.operator);
 
       if (node.prefix) {
         parts.reverse();
@@ -466,7 +458,7 @@ async function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernary(path, options, print);
     case "VariableDeclaration": {
-      const printed = await path.map(print, "declarations");
+      const printed = path.map(print, "declarations");
 
       // We generally want to terminate all variable declarations with a
       // semicolon, except when they in the () part of for loops.
@@ -511,15 +503,15 @@ async function printPathNoParens(path, options, print, args) {
     case "WithStatement":
       return group([
         "with (",
-        await print("object"),
+        print("object"),
         ")",
-        adjustClause(node.body, await print("body")),
+        adjustClause(node.body, print("body")),
       ]);
     case "IfStatement": {
-      const con = adjustClause(node.consequent, await print("consequent"));
+      const con = adjustClause(node.consequent, print("consequent"));
       const opening = group([
         "if (",
-        group([indent([softline, await print("test")]), softline]),
+        group([indent([softline, print("test")]), softline]),
         ")",
         con,
       ]);
@@ -548,7 +540,7 @@ async function printPathNoParens(path, options, print, args) {
           group(
             adjustClause(
               node.alternate,
-              await print("alternate"),
+              print("alternate"),
               node.alternate.type === "IfStatement"
             )
           )
@@ -558,7 +550,7 @@ async function printPathNoParens(path, options, print, args) {
       return parts;
     }
     case "ForStatement": {
-      const body = adjustClause(node.body, await print("body"));
+      const body = adjustClause(node.body, print("body"));
 
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
@@ -581,13 +573,13 @@ async function printPathNoParens(path, options, print, args) {
           group([
             indent([
               softline,
-              await print("init"),
+              print("init"),
               ";",
               line,
-              await print("test"),
+              print("test"),
               ";",
               line,
-              await print("update"),
+              print("update"),
             ]),
             softline,
           ]),
@@ -599,18 +591,18 @@ async function printPathNoParens(path, options, print, args) {
     case "WhileStatement":
       return group([
         "while (",
-        group([indent([softline, await print("test")]), softline]),
+        group([indent([softline, print("test")]), softline]),
         ")",
-        adjustClause(node.body, await print("body")),
+        adjustClause(node.body, print("body")),
       ]);
     case "ForInStatement":
       return group([
         "for (",
-        await print("left"),
+        print("left"),
         " in ",
-        await print("right"),
+        print("right"),
         ")",
-        adjustClause(node.body, await print("body")),
+        adjustClause(node.body, print("body")),
       ]);
 
     case "ForOfStatement":
@@ -618,15 +610,15 @@ async function printPathNoParens(path, options, print, args) {
         "for",
         node.await ? " await" : "",
         " (",
-        await print("left"),
+        print("left"),
         " of ",
-        await print("right"),
+        print("right"),
         ")",
-        adjustClause(node.body, await print("body")),
+        adjustClause(node.body, print("body")),
       ]);
 
     case "DoWhileStatement": {
-      const clause = adjustClause(node.body, await print("body"));
+      const clause = adjustClause(node.body, print("body"));
       const doBody = group(["do", clause]);
       parts = [doBody];
 
@@ -637,7 +629,7 @@ async function printPathNoParens(path, options, print, args) {
       }
       parts.push(
         "while (",
-        group([indent([softline, await print("test")]), softline]),
+        group([indent([softline, print("test")]), softline]),
         ")",
         semi
       );
@@ -645,12 +637,12 @@ async function printPathNoParens(path, options, print, args) {
       return parts;
     }
     case "DoExpression":
-      return [node.async ? "async " : "", "do ", await print("body")];
+      return [node.async ? "async " : "", "do ", print("body")];
     case "BreakStatement":
       parts.push("break");
 
       if (node.label) {
-        parts.push(" ", await print("label"));
+        parts.push(" ", print("label"));
       }
 
       parts.push(semi);
@@ -660,7 +652,7 @@ async function printPathNoParens(path, options, print, args) {
       parts.push("continue");
 
       if (node.label) {
-        parts.push(" ", await print("label"));
+        parts.push(" ", print("label"));
       }
 
       parts.push(semi);
@@ -668,16 +660,16 @@ async function printPathNoParens(path, options, print, args) {
       return parts;
     case "LabeledStatement":
       if (node.body.type === "EmptyStatement") {
-        return [await print("label"), ":;"];
+        return [print("label"), ":;"];
       }
 
-      return [await print("label"), ": ", await print("body")];
+      return [print("label"), ": ", print("body")];
     case "TryStatement":
       return [
         "try ",
-        await print("block"),
-        node.handler ? [" ", await print("handler")] : "",
-        node.finalizer ? [" finally ", await print("finalizer")] : "",
+        print("block"),
+        node.handler ? [" ", print("handler")] : "",
+        node.finalizer ? [" finally ", print("finalizer")] : "",
       ];
     case "CatchClause":
       if (node.param) {
@@ -692,24 +684,24 @@ async function printPathNoParens(path, options, print, args) {
                 backwards: true,
               }))
         );
-        const param = await print("param");
+        const param = print("param");
 
         return [
           "catch ",
           parameterHasComments
             ? ["(", indent([softline, param]), softline, ") "]
             : ["(", param, ") "],
-          await print("body"),
+          print("body"),
         ];
       }
 
-      return ["catch ", await print("body")];
+      return ["catch ", print("body")];
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return [
         group([
           "switch (",
-          indent([softline, await print("discriminant")]),
+          indent([softline, print("discriminant")]),
           softline,
           ")",
         ]),
@@ -719,10 +711,10 @@ async function printPathNoParens(path, options, print, args) {
               hardline,
               join(
                 hardline,
-                await path.map(async (casePath, index, cases) => {
+                path.map((casePath, index, cases) => {
                   const caseNode = casePath.getValue();
                   return [
-                    await print(),
+                    print(),
                     index !== cases.length - 1 &&
                     isNextLineEmpty(caseNode, options)
                       ? hardline
@@ -737,7 +729,7 @@ async function printPathNoParens(path, options, print, args) {
       ];
     case "SwitchCase": {
       if (node.test) {
-        parts.push("case ", await print("test"), ":");
+        parts.push("case ", print("test"), ":");
       } else {
         parts.push("default:");
       }
@@ -751,7 +743,7 @@ async function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = await printSwitchCaseConsequent(path, options, print);
+        const cons = printSwitchCaseConsequent(path, options, print);
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
@@ -783,15 +775,11 @@ async function printPathNoParens(path, options, print, args) {
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
-      return [
-        await print("tag"),
-        await print("typeParameters"),
-        await print("quasi"),
-      ];
+      return [print("tag"), print("typeParameters"), print("quasi")];
     case "PrivateIdentifier":
-      return ["#", await print("name")];
+      return ["#", print("name")];
     case "PrivateName":
-      return ["#", await print("id")];
+      return ["#", print("id")];
 
     case "InterpreterDirective":
       parts.push("#!", node.value, hardline);
@@ -811,7 +799,7 @@ async function printPathNoParens(path, options, print, args) {
 
     case "ModuleExpression": {
       parts.push("module {");
-      const printed = await print("body");
+      const printed = print("body");
       if (printed) {
         parts.push(indent([hardline, printed]), hardline);
       }

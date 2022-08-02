@@ -48,7 +48,7 @@ import {
 // The way it is structured in the AST is via a nested sequence of
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
-async function printMemberChain(path, options, print) {
+function printMemberChain(path, options, print) {
   const parent = path.getParentNode();
   const isExpressionStatement =
     !parent || parent.type === "ExpressionStatement";
@@ -85,7 +85,7 @@ async function printMemberChain(path, options, print) {
     return isNextLineEmpty(node, options);
   }
 
-  async function rec(path) {
+  function rec(path) {
     const node = path.getValue();
     if (
       isCallExpression(node) &&
@@ -97,16 +97,16 @@ async function printMemberChain(path, options, print) {
           printComments(
             path,
             [
-              await printOptionalToken(path),
-              await printFunctionTypeParameters(path, options, print),
-              await printCallArguments(path, options, print),
+              printOptionalToken(path),
+              printFunctionTypeParameters(path, options, print),
+              printCallArguments(path, options, print),
             ],
             options
           ),
           shouldInsertEmptyLineAfter(node) ? hardline : "",
         ],
       });
-      await path.call((callee) => rec(callee), "callee");
+      path.call((callee) => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
         node,
@@ -114,22 +114,22 @@ async function printMemberChain(path, options, print) {
         printed: printComments(
           path,
           isMemberExpression(node)
-            ? await printMemberLookup(path, options, print)
-            : await printBindExpressionCallee(path, options, print),
+            ? printMemberLookup(path, options, print)
+            : printBindExpressionCallee(path, options, print),
           options
         ),
       });
-      await path.call((object) => rec(object), "object");
+      path.call((object) => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
         node,
         printed: printComments(path, "!", options),
       });
-      await path.call((expression) => rec(expression), "expression");
+      path.call((expression) => rec(expression), "expression");
     } else {
       printedNodes.unshift({
         node,
-        printed: await print(),
+        printed: print(),
       });
     }
   }
@@ -140,14 +140,14 @@ async function printMemberChain(path, options, print) {
   printedNodes.unshift({
     node,
     printed: [
-      await printOptionalToken(path),
-      await printFunctionTypeParameters(path, options, print),
-      await printCallArguments(path, options, print),
+      printOptionalToken(path),
+      printFunctionTypeParameters(path, options, print),
+      printCallArguments(path, options, print),
     ],
   });
 
   if (node.callee) {
-    await path.call((callee) => rec(callee), "callee");
+    path.call((callee) => rec(callee), "callee");
   }
 
   // Once we have a linear list of printed nodes, we want to create groups out

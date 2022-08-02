@@ -11,11 +11,11 @@ import { printAssignment } from "./assignment.js";
 
 const needsQuoteProps = new WeakMap();
 
-async function printPropertyKey(path, options, print) {
+function printPropertyKey(path, options, print) {
   const node = path.getNode();
 
   if (node.computed) {
-    return ["[", await print("key"), "]"];
+    return ["[", print("key"), "]"];
   }
 
   const parent = path.getParentNode();
@@ -23,7 +23,7 @@ async function printPropertyKey(path, options, print) {
 
   // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `PrivateName`
   if (node.type === "ClassPrivateProperty" && key.type === "Identifier") {
-    return ["#", await print("key")];
+    return ["#", print("key")];
   }
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
@@ -87,7 +87,7 @@ async function printPropertyKey(path, options, print) {
   return print("key");
 }
 
-async function printProperty(path, options, print) {
+function printProperty(path, options, print) {
   const node = path.getValue();
   if (node.shorthand) {
     return print("value");
@@ -97,7 +97,7 @@ async function printProperty(path, options, print) {
     path,
     options,
     print,
-    await printPropertyKey(path, options, print),
+    printPropertyKey(path, options, print),
     ":",
     "value"
   );

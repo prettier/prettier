@@ -28,7 +28,7 @@ import {
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
-async function printImportDeclaration(path, options, print) {
+function printImportDeclaration(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
@@ -43,16 +43,16 @@ async function printImportDeclaration(path, options, print) {
   }
 
   parts.push(
-    await printModuleSpecifiers(path, options, print),
-    await printModuleSource(path, options, print),
-    await printImportAssertions(path, options, print),
+    printModuleSpecifiers(path, options, print),
+    printModuleSource(path, options, print),
+    printImportAssertions(path, options, print),
     semi
   );
 
   return parts;
 }
 
-async function printExportDeclaration(path, options, print) {
+function printExportDeclaration(path, options, print) {
   const node = path.getValue();
   /** @type{Doc[]} */
   const parts = [];
@@ -60,7 +60,7 @@ async function printExportDeclaration(path, options, print) {
   // Only print decorators here if they were written before the export,
   // otherwise they are printed by the node.declaration
   if (hasDecoratorsBeforeExport(node)) {
-    parts.push(await printDecoratorsBeforeExport(path, options, print));
+    parts.push(printDecoratorsBeforeExport(path, options, print));
   }
 
   const { type, exportKind, declaration } = node;
@@ -84,13 +84,13 @@ async function printExportDeclaration(path, options, print) {
   }
 
   if (declaration) {
-    parts.push(" ", await print("declaration"));
+    parts.push(" ", print("declaration"));
   } else {
     parts.push(
       exportKind === "type" ? " type" : "",
-      await printModuleSpecifiers(path, options, print),
-      await printModuleSource(path, options, print),
-      await printImportAssertions(path, options, print)
+      printModuleSpecifiers(path, options, print),
+      printModuleSource(path, options, print),
+      printImportAssertions(path, options, print)
     );
   }
 
@@ -101,7 +101,7 @@ async function printExportDeclaration(path, options, print) {
   return parts;
 }
 
-async function printExportAllDeclaration(path, options, print) {
+function printExportAllDeclaration(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
@@ -118,12 +118,12 @@ async function printExportAllDeclaration(path, options, print) {
   parts.push(" *");
 
   if (exported) {
-    parts.push(" as ", await print("exported"));
+    parts.push(" as ", print("exported"));
   }
 
   parts.push(
-    await printModuleSource(path, options, print),
-    await printImportAssertions(path, options, print),
+    printModuleSource(path, options, print),
+    printImportAssertions(path, options, print),
     semi
   );
 
@@ -157,7 +157,7 @@ function shouldExportDeclarationPrintSemi(node, options) {
   return false;
 }
 
-async function printModuleSource(path, options, print) {
+function printModuleSource(path, options, print) {
   const node = path.getValue();
 
   if (!node.source) {
@@ -169,12 +169,12 @@ async function printModuleSource(path, options, print) {
   if (!shouldNotPrintSpecifiers(node, options)) {
     parts.push(" from");
   }
-  parts.push(" ", await print("source"));
+  parts.push(" ", print("source"));
 
   return parts;
 }
 
-async function printModuleSpecifiers(path, options, print) {
+function printModuleSpecifiers(path, options, print) {
   const node = path.getValue();
 
   if (shouldNotPrintSpecifiers(node, options)) {
@@ -188,7 +188,7 @@ async function printModuleSpecifiers(path, options, print) {
     const standaloneSpecifiers = [];
     const groupedSpecifiers = [];
 
-    await path.each(async () => {
+    path.each(() => {
       const specifierType = path.getValue().type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
@@ -196,12 +196,12 @@ async function printModuleSpecifiers(path, options, print) {
         specifierType === "ImportNamespaceSpecifier" ||
         specifierType === "ImportDefaultSpecifier"
       ) {
-        standaloneSpecifiers.push(await print());
+        standaloneSpecifiers.push(print());
       } else if (
         specifierType === "ExportSpecifier" ||
         specifierType === "ImportSpecifier"
       ) {
-        groupedSpecifiers.push(await print());
+        groupedSpecifiers.push(print());
       } else {
         /* istanbul ignore next */
         throw new Error(
@@ -268,13 +268,13 @@ function shouldNotPrintSpecifiers(node, options) {
   );
 }
 
-async function printImportAssertions(path, options, print) {
+function printImportAssertions(path, options, print) {
   const node = path.getNode();
   if (isNonEmptyArray(node.assertions)) {
     return [
       " assert {",
       options.bracketSpacing ? " " : "",
-      join(", ", await path.map(print, "assertions")),
+      join(", ", path.map(print, "assertions")),
       options.bracketSpacing ? " " : "",
       "}",
     ];
@@ -282,7 +282,7 @@ async function printImportAssertions(path, options, print) {
   return "";
 }
 
-async function printModuleSpecifier(path, options, print) {
+function printModuleSpecifier(path, options, print) {
   const node = path.getNode();
 
   const { type } = node;
@@ -310,11 +310,11 @@ async function printModuleSpecifier(path, options, print) {
   ) {
     left = "*";
   } else if (leftSideNode) {
-    left = await print(leftSideProperty);
+    left = print(leftSideProperty);
   }
 
   if (rightSideNode && !isShorthandSpecifier(node)) {
-    right = await print(rightSideProperty);
+    right = print(rightSideProperty);
   }
 
   parts.push(left, left && right ? " as " : "", right);

@@ -213,7 +213,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
   return !node.prev && node.isLeadingSpaceSensitive && !node.hasLeadingSpaces;
 }
 
-async function printAttributes(path, options, print) {
+function printAttributes(path, options, print) {
   const node = path.getValue();
 
   if (!isNonEmptyArray(node.attrs)) {
@@ -238,7 +238,7 @@ async function printAttributes(path, options, print) {
       ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
       : () => false;
 
-  const printedAttributes = await path.map((attributePath) => {
+  const printedAttributes = path.map((attributePath) => {
     const attribute = attributePath.getValue();
     return hasPrettierIgnoreAttribute(attribute)
       ? replaceTextEndOfLine(
@@ -310,12 +310,12 @@ function printOpeningTagEnd(node) {
     : printOpeningTagEndMarker(node);
 }
 
-async function printOpeningTag(path, options, print) {
+function printOpeningTag(path, options, print) {
   const node = path.getValue();
 
   return [
     printOpeningTagStart(node, options),
-    await printAttributes(path, options, print),
+    printAttributes(path, options, print),
     node.isSelfClosing ? "" : printOpeningTagEnd(node),
   ];
 }

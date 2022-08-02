@@ -4,7 +4,7 @@ import { printBinaryishExpression } from "./binaryish.js";
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
 
-async function printAngular(path, options, print) {
+function printAngular(path, options, print) {
   const node = path.getValue();
 
   // Angular nodes always starts with `NG`
@@ -15,7 +15,7 @@ async function printAngular(path, options, print) {
   switch (node.type) {
     case "NGRoot":
       return [
-        await print("node"),
+        print("node"),
         !hasComment(node.node)
           ? ""
           : " //" + getComments(node.node)[0].value.trimEnd(),
@@ -26,9 +26,9 @@ async function printAngular(path, options, print) {
       return group(
         join(
           [";", line],
-          await path.map(
-            async (childPath) =>
-              hasNgSideEffect(childPath) ? print() : ["(", await print(), ")"],
+          path.map(
+            (childPath) =>
+              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
             "expressions"
           )
         )
@@ -39,13 +39,13 @@ async function printAngular(path, options, print) {
       return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.map(
-        async (childPath, index) => [
+        (childPath, index) => [
           index === 0
             ? ""
             : isNgForOf(childPath.getValue(), index, node)
             ? " "
             : [";", line],
-          await print(),
+          print(),
         ],
         "body"
       );
@@ -55,8 +55,8 @@ async function printAngular(path, options, print) {
         : JSON.stringify(node.name);
     case "NGMicrosyntaxExpression":
       return [
-        await print("expression"),
-        node.alias === null ? "" : [" as ", await print("alias")],
+        print("expression"),
+        node.alias === null ? "" : [" as ", print("alias")],
       ];
     case "NGMicrosyntaxKeyedExpression": {
       const index = path.getName();
@@ -72,19 +72,19 @@ async function printAngular(path, options, print) {
             parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
       return [
-        await print("key"),
+        print("key"),
         shouldNotPrintColon ? " " : ": ",
-        await print("expression"),
+        print("expression"),
       ];
     }
     case "NGMicrosyntaxLet":
       return [
         "let ",
-        await print("key"),
-        node.value === null ? "" : [" = ", await print("value")],
+        print("key"),
+        node.value === null ? "" : [" = ", print("value")],
       ];
     case "NGMicrosyntaxAs":
-      return [await print("key"), " as ", await print("alias")];
+      return [print("key"), " as ", print("alias")];
     default:
       /* istanbul ignore next */
       throw new Error(

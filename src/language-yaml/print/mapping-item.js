@@ -19,7 +19,7 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-async function printMappingItem(node, parentNode, path, print, options) {
+function printMappingItem(node, parentNode, path, print, options) {
   const { key, value } = node;
 
   const isEmptyMappingKey = isEmptyNode(key);
@@ -29,7 +29,7 @@ async function printMappingItem(node, parentNode, path, print, options) {
     return ": ";
   }
 
-  const printedKey = await print("key");
+  const printedKey = print("key");
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
@@ -49,7 +49,7 @@ async function printMappingItem(node, parentNode, path, print, options) {
     return ["? ", alignWithSpaces(2, printedKey)];
   }
 
-  const printedValue = await print("value");
+  const printedValue = print("value");
   if (isEmptyMappingKey) {
     return [": ", alignWithSpaces(2, printedValue)];
   }
@@ -62,10 +62,9 @@ async function printMappingItem(node, parentNode, path, print, options) {
       hardline,
       join(
         "",
-        (await path.map(print, "value", "leadingComments")).map((comment) => [
-          comment,
-          hardline,
-        ])
+        path
+          .map(print, "value", "leadingComments")
+          .map((comment) => [comment, hardline])
       ),
       ": ",
       alignWithSpaces(2, printedValue),
