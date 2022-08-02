@@ -266,7 +266,7 @@ module.exports = {
                 path.resolve(__dirname, "src/**"),
                 `!${path.resolve(__dirname, "src/cli/**")}`,
                 `!${path.resolve(__dirname, "src/index.js")}`,
-                `!${path.resolve(__dirname, "src/third-party.js")}`,
+                `!${path.resolve(__dirname, "src/common/third-party.js")}`,
               ],
               message: "Don't use code from other directory.",
             },
