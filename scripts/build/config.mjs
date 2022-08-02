@@ -345,10 +345,11 @@ const coreBundles = [
   {
     input: "src/common/third-party.js",
     replaceModule: [
-      // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
+      // We don't use the default js loader from cosmiconfig
       {
-        module: require.resolve("parent-module"),
-        path: path.join(dirname, "./shims/parent-module.cjs"),
+        module: require.resolve("cosmiconfig/dist/loaders.js"),
+        find: "const loadJs = function",
+        replacement: "const loadJs = undefined && function"
       },
     ],
   },
