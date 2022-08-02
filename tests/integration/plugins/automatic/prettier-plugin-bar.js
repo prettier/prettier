@@ -15,16 +15,11 @@ module.exports = {
   },
   printers: {
     bar: {
-      async print(path) {
-        const { default: prettier } = await import(
-          "../../../config/prettier-entry.js"
-        );
-        const { concat } = prettier.doc.builders;
-
-        return concat([
+      print(path) {
+        return [
           "content from `prettier-plugin-bar.js` file + ",
           path.getValue().text,
-        ]);
+        ];
       },
     },
   },

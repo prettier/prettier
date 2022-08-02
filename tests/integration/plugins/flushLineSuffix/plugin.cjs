@@ -16,12 +16,9 @@ module.exports = {
   },
   printers: {
     "foo-ast": {
-      async print(path) {
-        const { default: prettier } = await import(
-          "../../../config/prettier-entry.js"
-        );
-        const { lineSuffix } = prettier.doc.builders;
-        return lineSuffix(path.getValue().text.trim());
+      print(path) {
+        // TODO[@fisker]: Use `lineSuffix` after we support ESM plugin
+        return { type: "line-suffix", contents: path.getValue().text.trim() };
       },
     },
   },
