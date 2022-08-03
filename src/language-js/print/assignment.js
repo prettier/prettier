@@ -24,7 +24,7 @@ import {
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
 
-async function printAssignment(
+function printAssignment(
   path,
   options,
   print,
@@ -32,15 +32,9 @@ async function printAssignment(
   operator,
   rightPropertyName
 ) {
-  const layout = await chooseLayout(
-    path,
-    options,
-    print,
-    leftDoc,
-    rightPropertyName
-  );
+  const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
-  const rightDoc = await print(rightPropertyName, { assignmentLayout: layout });
+  const rightDoc = print(rightPropertyName, { assignmentLayout: layout });
 
   switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines
@@ -82,23 +76,23 @@ async function printAssignment(
   }
 }
 
-async function printAssignmentExpression(path, options, print) {
+function printAssignmentExpression(path, options, print) {
   const node = path.getValue();
   return printAssignment(
     path,
     options,
     print,
-    await print("left"),
+    print("left"),
     [" ", node.operator],
     "right"
   );
 }
 
-async function printVariableDeclarator(path, options, print) {
-  return printAssignment(path, options, print, await print("id"), " =", "init");
+function printVariableDeclarator(path, options, print) {
+  return printAssignment(path, options, print, print("id"), " =", "init");
 }
 
-async function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
+function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   const node = path.getValue();
   const rightNode = node[rightPropertyName];
 
@@ -159,7 +153,7 @@ async function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   const hasShortKey = isObjectPropertyWithShortKey(node, leftDoc, options);
 
   if (
-    await path.call(
+    path.call(
       () => shouldBreakAfterOperator(path, options, print, hasShortKey),
       rightPropertyName
     )
@@ -181,7 +175,7 @@ async function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
   return "fluid";
 }
 
-async function shouldBreakAfterOperator(path, options, print, hasShortKey) {
+function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   const rightNode = path.getValue();
 
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
@@ -219,10 +213,10 @@ async function shouldBreakAfterOperator(path, options, print, hasShortKey) {
   }
   if (
     isStringLiteral(node) ||
-    (await path.call(
+    path.call(
       () => isPoorlyBreakableMemberOrCallChain(path, options, print),
       ...propertiesForPath
-    ))
+    )
   ) {
     return true;
   }
@@ -334,7 +328,7 @@ function isTypeReference(node) {
  * A chain with no calls at all or whose calls are all without arguments or with lone short arguments,
  * excluding chains printed by `printMemberChain`
  */
-async function isPoorlyBreakableMemberOrCallChain(
+function isPoorlyBreakableMemberOrCallChain(
   path,
   options,
   print,
@@ -350,7 +344,7 @@ async function isPoorlyBreakableMemberOrCallChain(
 
   if (isCallExpression(node)) {
     /** @type {any} TODO */
-    const doc = await printCallExpression(path, options, print);
+    const doc = printCallExpression(path, options, print);
     if (doc.label === "member-chain") {
       return false;
     }
@@ -363,7 +357,7 @@ async function isPoorlyBreakableMemberOrCallChain(
       return false;
     }
 
-    if (await isCallExpressionWithComplexTypeArguments(node, print)) {
+    if (isCallExpressionWithComplexTypeArguments(node, print)) {
       return false;
     }
 
@@ -437,7 +431,7 @@ function isObjectPropertyWithShortKey(node, keyDoc, options) {
   );
 }
 
-async function isCallExpressionWithComplexTypeArguments(node, print) {
+function isCallExpressionWithComplexTypeArguments(node, print) {
   const typeArgs = getTypeArgumentsFromCallExpression(node);
   if (isNonEmptyArray(typeArgs)) {
     if (typeArgs.length > 1) {
@@ -459,7 +453,7 @@ async function isCallExpressionWithComplexTypeArguments(node, print) {
     const typeArgsKeyName = node.typeParameters
       ? "typeParameters"
       : "typeArguments";
-    if (willBreak(await print(typeArgsKeyName))) {
+    if (willBreak(print(typeArgsKeyName))) {
       return true;
     }
   }

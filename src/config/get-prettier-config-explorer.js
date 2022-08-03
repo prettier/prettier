@@ -1,6 +1,6 @@
 import { pathToFileURL } from "node:url";
-import loadToml from "../utils/load-toml.js";
-import loadJson5 from "../utils/load-json5.js";
+import parseToml from "@iarna/toml/parse-async.js";
+import parseJson5 from "json5/lib/parse.js";
 import thirdParty from "../common/third-party.js";
 import loadExternalConfig from "./load-external-config.js";
 
@@ -28,8 +28,22 @@ async function loadJs(filepath /*, content*/) {
 }
 
 const loaders = {
-  ".toml": loadToml,
-  ".json5": loadJson5,
+  async ".toml"(filePath, content) {
+    try {
+      return await parseToml(content);
+    } catch (error) {
+      error.message = `TOML Error in ${filePath}:\n${error.message}`;
+      throw error;
+    }
+  },
+  ".json5"(filePath, content) {
+    try {
+      return parseJson5(content);
+    } catch (error) {
+      error.message = `JSON5 Error in ${filePath}:\n${error.message}`;
+      throw error;
+    }
+  },
   ".js": loadJs,
   ".mjs": loadJs,
   ".cjs": loadJs,

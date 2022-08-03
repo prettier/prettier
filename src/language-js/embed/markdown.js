@@ -6,7 +6,7 @@ import {
 } from "../../document/builders.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
-async function format(path, print, textToDoc) {
+function format(path, print, textToDoc) {
   const node = path.getValue();
   let text = node.quasis[0].value.raw.replace(
     /((?:\\\\)*)\\`/g,
@@ -18,7 +18,7 @@ async function format(path, print, textToDoc) {
     text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
   }
   const doc = escapeTemplateCharacters(
-    await textToDoc(
+    textToDoc(
       text,
       { parser: "markdown", __inJsTemplate: true },
       { stripTrailingHardline: true }

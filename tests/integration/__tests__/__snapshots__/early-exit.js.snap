@@ -156,7 +156,7 @@ Other options:
   -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warn|log|debug>
+  --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
   --no-plugin-search       Disable plugin autoloading.
@@ -331,7 +331,7 @@ Other options:
   -u, --ignore-unknown     Ignore unknown files.
   --insert-pragma          Insert @format pragma into file's first docblock comment.
                            Defaults to false.
-  --loglevel <silent|error|warn|log|debug>
+  --log-level <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
   --no-plugin-search       Disable plugin autoloading.

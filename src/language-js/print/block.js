@@ -12,7 +12,7 @@ import { printBody } from "./statement.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-async function printBlock(path, options, print) {
+function printBlock(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
@@ -26,7 +26,7 @@ async function printBlock(path, options, print) {
   }
 
   parts.push("{");
-  const printed = await printBlockBody(path, options, print);
+  const printed = printBlockBody(path, options, print);
   if (printed) {
     parts.push(indent([hardline, printed]), hardline);
   } else {
@@ -60,7 +60,7 @@ async function printBlock(path, options, print) {
   return parts;
 }
 
-async function printBlockBody(path, options, print) {
+function printBlockBody(path, options, print) {
   const node = path.getValue();
 
   const nodeHasDirectives = isNonEmptyArray(node.directives);
@@ -74,8 +74,8 @@ async function printBlockBody(path, options, print) {
   const parts = [];
   // Babel 6
   if (nodeHasDirectives) {
-    await path.each(async (childPath, index, directives) => {
-      parts.push(await print());
+    path.each((childPath, index, directives) => {
+      parts.push(print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
         if (isNextLineEmpty(childPath.getValue(), options)) {
@@ -86,7 +86,7 @@ async function printBlockBody(path, options, print) {
   }
 
   if (nodeHasBody) {
-    parts.push(await printBody(path, options, print));
+    parts.push(printBody(path, options, print));
   }
 
   if (nodeHasComment) {

@@ -2,7 +2,6 @@ import path from "node:path";
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import rimraf from "rimraf";
-import stripAnsi from "strip-ansi";
 
 function resolveDir(dir) {
   return fileURLToPath(new URL(`../${dir}/`, import.meta.url));
@@ -40,7 +39,7 @@ describe("--cache option", () => {
       "invalid",
       ".",
     ]);
-    expect(stripAnsi(stderr.trim())).toBe(
+    expect(stderr.trim()).toBe(
       '[error] Invalid --cache-strategy value. Expected "content" or "metadata", but received "invalid".'
     );
   });
@@ -51,9 +50,7 @@ describe("--cache option", () => {
       ["--cache", "--stdin-filepath", "foo.js"],
       { input: "const a = a;" }
     );
-    expect(stripAnsi(stderr.trim())).toBe(
-      "[error] `--cache` cannot be used with stdin."
-    );
+    expect(stderr.trim()).toBe("[error] `--cache` cannot be used with stdin.");
   });
 
   it("throws error when use `--cache-strategy` without `--cache`.", async () => {
@@ -64,7 +61,7 @@ describe("--cache option", () => {
         input: "const a = a;",
       }
     );
-    expect(stripAnsi(stderr.trim())).toBe(
+    expect(stderr.trim()).toBe(
       "[error] `--cache-strategy` cannot be used without `--cache`."
     );
   });
@@ -76,7 +73,7 @@ describe("--cache option", () => {
       "--cache-location",
       "dir",
     ]);
-    expect(stripAnsi(stderr.trim())).toEqual(
+    expect(stderr.trim()).toEqual(
       expect.stringMatching(
         /\[error] Resolved --cache-location '.+' is a directory/
       )
@@ -101,7 +98,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -115,7 +112,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -131,7 +128,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -148,7 +145,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -165,7 +162,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -183,7 +180,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -200,7 +197,7 @@ describe("--cache option", () => {
         "metadata",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -216,7 +213,7 @@ describe("--cache option", () => {
         "all",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -256,7 +253,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -270,7 +267,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -286,7 +283,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -303,7 +300,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         // the cache of `b.js` is only available.
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
@@ -320,7 +317,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -338,7 +335,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms \(cached\)$/),
           expect.stringMatching(/^b\.js .+ms \(cached\)$/),
@@ -354,7 +351,7 @@ describe("--cache option", () => {
         "--write",
         ".",
       ]);
-      expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+      expect(firstStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -370,7 +367,7 @@ describe("--cache option", () => {
         "all",
         ".",
       ]);
-      expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+      expect(secondStdout.split("\n").filter(Boolean)).toEqual(
         expect.arrayContaining([
           expect.stringMatching(/^a\.js .+ms$/),
           expect.stringMatching(/^b\.js .+ms$/),
@@ -411,7 +408,7 @@ describe("--cache option", () => {
         "a.js",
         ".",
       ]);
-      expect(stripAnsi(stderr).trim()).toEqual(
+      expect(stderr.trim()).toEqual(
         expect.stringMatching(/\[error] '.+' isn't a valid JSON file/)
       );
     });
@@ -441,7 +438,7 @@ describe("--cache option", () => {
           nonDefaultCacheFileName,
           ".",
         ]);
-        expect(stripAnsi(firstStdout).split("\n").filter(Boolean)).toEqual(
+        expect(firstStdout.split("\n").filter(Boolean)).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms$/),
             expect.stringMatching(/^b\.js .+ms$/),
@@ -455,7 +452,7 @@ describe("--cache option", () => {
           nonDefaultCacheFileName,
           ".",
         ]);
-        expect(stripAnsi(secondStdout).split("\n").filter(Boolean)).toEqual(
+        expect(secondStdout.split("\n").filter(Boolean)).toEqual(
           expect.arrayContaining([
             expect.stringMatching(/^a\.js .+ms \(cached\)$/),
             expect.stringMatching(/^b\.js .+ms \(cached\)$/),

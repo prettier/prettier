@@ -11,7 +11,7 @@ import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 
-async function genericPrint(path, options, print) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
   if (!node) {
     return "";
@@ -24,8 +24,8 @@ async function genericPrint(path, options, print) {
   switch (node.kind) {
     case "Document": {
       const parts = [];
-      await path.each(async (pathChild, index, definitions) => {
-        parts.push(await print());
+      path.each((pathChild, index, definitions) => {
+        parts.push(print());
         if (index !== definitions.length - 1) {
           parts.push(hardline);
           if (
@@ -42,7 +42,7 @@ async function genericPrint(path, options, print) {
       const hasName = Boolean(node.name);
       return [
         hasOperation ? node.operation : "",
-        hasOperation && hasName ? [" ", await print("name")] : "",
+        hasOperation && hasName ? [" ", print("name")] : "",
         hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
           ? " "
           : "",
@@ -53,22 +53,22 @@ async function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  await path.map(print, "variableDefinitions")
+                  path.map(print, "variableDefinitions")
                 ),
               ]),
               softline,
               ")",
             ])
           : "",
-        await printDirectives(path, print, node),
+        printDirectives(path, print, node),
         node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-        await print("selectionSet"),
+        print("selectionSet"),
       ];
     }
     case "FragmentDefinition": {
       return [
         "fragment ",
-        await print("name"),
+        print("name"),
         isNonEmptyArray(node.variableDefinitions)
           ? group([
               "(",
@@ -76,7 +76,7 @@ async function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  await path.map(print, "variableDefinitions")
+                  path.map(print, "variableDefinitions")
                 ),
               ]),
               softline,
@@ -84,10 +84,10 @@ async function genericPrint(path, options, print) {
             ])
           : "",
         " on ",
-        await print("typeCondition"),
-        await printDirectives(path, print, node),
+        print("typeCondition"),
+        printDirectives(path, print, node),
         " ",
-        await print("selectionSet"),
+        print("selectionSet"),
       ];
     }
     case "SelectionSet": {
@@ -95,10 +95,7 @@ async function genericPrint(path, options, print) {
         "{",
         indent([
           hardline,
-          join(
-            hardline,
-            await printSequence(path, options, print, "selections")
-          ),
+          join(hardline, printSequence(path, options, print, "selections")),
         ]),
         hardline,
         "}",
@@ -106,8 +103,8 @@ async function genericPrint(path, options, print) {
     }
     case "Field": {
       return group([
-        node.alias ? [await print("alias"), ": "] : "",
-        await print("name"),
+        node.alias ? [print("alias"), ": "] : "",
+        print("name"),
         node.arguments.length > 0
           ? group([
               "(",
@@ -115,16 +112,16 @@ async function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  await printSequence(path, options, print, "arguments")
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
               ")",
             ])
           : "",
-        await printDirectives(path, print, node),
+        printDirectives(path, print, node),
         node.selectionSet ? " " : "",
-        await print("selectionSet"),
+        print("selectionSet"),
       ]);
     }
     case "Name": {
@@ -161,14 +158,14 @@ async function genericPrint(path, options, print) {
       return "null";
     }
     case "Variable": {
-      return ["$", await print("name")];
+      return ["$", print("name")];
     }
     case "ListValue": {
       return group([
         "[",
         indent([
           softline,
-          join([ifBreak("", ", "), softline], await path.map(print, "values")),
+          join([ifBreak("", ", "), softline], path.map(print, "values")),
         ]),
         softline,
         "]",
@@ -180,7 +177,7 @@ async function genericPrint(path, options, print) {
         options.bracketSpacing && node.fields.length > 0 ? " " : "",
         indent([
           softline,
-          join([ifBreak("", ", "), softline], await path.map(print, "fields")),
+          join([ifBreak("", ", "), softline], path.map(print, "fields")),
         ]),
         softline,
         ifBreak(
@@ -192,13 +189,13 @@ async function genericPrint(path, options, print) {
     }
     case "ObjectField":
     case "Argument": {
-      return [await print("name"), ": ", await print("value")];
+      return [print("name"), ": ", print("value")];
     }
 
     case "Directive": {
       return [
         "@",
-        await print("name"),
+        print("name"),
         node.arguments.length > 0
           ? group([
               "(",
@@ -206,7 +203,7 @@ async function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  await printSequence(path, options, print, "arguments")
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -222,35 +219,32 @@ async function genericPrint(path, options, print) {
 
     case "VariableDefinition": {
       return [
-        await print("variable"),
+        print("variable"),
         ": ",
-        await print("type"),
-        node.defaultValue ? [" = ", await print("defaultValue")] : "",
-        await printDirectives(path, print, node),
+        print("type"),
+        node.defaultValue ? [" = ", print("defaultValue")] : "",
+        printDirectives(path, print, node),
       ];
     }
 
     case "ObjectTypeExtension":
     case "ObjectTypeDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         node.kind === "ObjectTypeExtension" ? "extend " : "",
         "type ",
-        await print("name"),
+        print("name"),
         node.interfaces.length > 0
-          ? [" implements ", ...(await printInterfaces(path, options, print))]
+          ? [" implements ", ...printInterfaces(path, options, print)]
           : "",
-        await printDirectives(path, print, node),
+        printDirectives(path, print, node),
         node.fields.length > 0
           ? [
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  await printSequence(path, options, print, "fields")
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -261,9 +255,9 @@ async function genericPrint(path, options, print) {
 
     case "FieldDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
-        await print("name"),
+        print("name"),
         node.arguments.length > 0
           ? group([
               "(",
@@ -271,7 +265,7 @@ async function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  await printSequence(path, options, print, "arguments")
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -279,18 +273,18 @@ async function genericPrint(path, options, print) {
             ])
           : "",
         ": ",
-        await print("type"),
-        await printDirectives(path, print, node),
+        print("type"),
+        printDirectives(path, print, node),
       ];
     }
 
     case "DirectiveDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         "directive ",
         "@",
-        await print("name"),
+        print("name"),
         node.arguments.length > 0
           ? group([
               "(",
@@ -298,7 +292,7 @@ async function genericPrint(path, options, print) {
                 softline,
                 join(
                   [ifBreak("", ", "), softline],
-                  await printSequence(path, options, print, "arguments")
+                  printSequence(path, options, print, "arguments")
                 ),
               ]),
               softline,
@@ -307,29 +301,26 @@ async function genericPrint(path, options, print) {
           : "",
         node.repeatable ? " repeatable" : "",
         " on ",
-        join(" | ", await path.map(print, "locations")),
+        join(" | ", path.map(print, "locations")),
       ];
     }
 
     case "EnumTypeExtension":
     case "EnumTypeDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         node.kind === "EnumTypeExtension" ? "extend " : "",
         "enum ",
-        await print("name"),
-        await printDirectives(path, print, node),
+        print("name"),
+        printDirectives(path, print, node),
 
         node.values.length > 0
           ? [
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  await printSequence(path, options, print, "values")
-                ),
+                join(hardline, printSequence(path, options, print, "values")),
               ]),
               hardline,
               "}",
@@ -340,43 +331,40 @@ async function genericPrint(path, options, print) {
 
     case "EnumValueDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
-        await print("name"),
-        await printDirectives(path, print, node),
+        print("name"),
+        printDirectives(path, print, node),
       ];
     }
 
     case "InputValueDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? (node.description.block ? hardline : line) : "",
-        await print("name"),
+        print("name"),
         ": ",
-        await print("type"),
-        node.defaultValue ? [" = ", await print("defaultValue")] : "",
-        await printDirectives(path, print, node),
+        print("type"),
+        node.defaultValue ? [" = ", print("defaultValue")] : "",
+        printDirectives(path, print, node),
       ];
     }
 
     case "InputObjectTypeExtension":
     case "InputObjectTypeDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         node.kind === "InputObjectTypeExtension" ? "extend " : "",
         "input ",
-        await print("name"),
-        await printDirectives(path, print, node),
+        print("name"),
+        printDirectives(path, print, node),
         node.fields.length > 0
           ? [
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  await printSequence(path, options, print, "fields")
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -388,7 +376,7 @@ async function genericPrint(path, options, print) {
     case "SchemaExtension": {
       return [
         "extend schema",
-        await printDirectives(path, print, node),
+        printDirectives(path, print, node),
         ...(node.operationTypes.length > 0
           ? [
               " {",
@@ -396,7 +384,7 @@ async function genericPrint(path, options, print) {
                 hardline,
                 join(
                   hardline,
-                  await printSequence(path, options, print, "operationTypes")
+                  printSequence(path, options, print, "operationTypes")
                 ),
               ]),
               hardline,
@@ -407,17 +395,17 @@ async function genericPrint(path, options, print) {
     }
     case "SchemaDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         "schema",
-        await printDirectives(path, print, node),
+        printDirectives(path, print, node),
         " {",
         node.operationTypes.length > 0
           ? indent([
               hardline,
               join(
                 hardline,
-                await printSequence(path, options, print, "operationTypes")
+                printSequence(path, options, print, "operationTypes")
               ),
             ])
           : "",
@@ -427,30 +415,27 @@ async function genericPrint(path, options, print) {
     }
 
     case "OperationTypeDefinition": {
-      return [await print("operation"), ": ", await print("type")];
+      return [print("operation"), ": ", print("type")];
     }
 
     case "InterfaceTypeExtension":
     case "InterfaceTypeDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         node.kind === "InterfaceTypeExtension" ? "extend " : "",
         "interface ",
-        await print("name"),
+        print("name"),
         node.interfaces.length > 0
-          ? [" implements ", ...(await printInterfaces(path, options, print))]
+          ? [" implements ", ...printInterfaces(path, options, print)]
           : "",
-        await printDirectives(path, print, node),
+        printDirectives(path, print, node),
         node.fields.length > 0
           ? [
               " {",
               indent([
                 hardline,
-                join(
-                  hardline,
-                  await printSequence(path, options, print, "fields")
-                ),
+                join(hardline, printSequence(path, options, print, "fields")),
               ]),
               hardline,
               "}",
@@ -460,40 +445,36 @@ async function genericPrint(path, options, print) {
     }
 
     case "FragmentSpread": {
-      return [
-        "...",
-        await print("name"),
-        await printDirectives(path, print, node),
-      ];
+      return ["...", print("name"), printDirectives(path, print, node)];
     }
 
     case "InlineFragment": {
       return [
         "...",
-        node.typeCondition ? [" on ", await print("typeCondition")] : "",
-        await printDirectives(path, print, node),
+        node.typeCondition ? [" on ", print("typeCondition")] : "",
+        printDirectives(path, print, node),
         " ",
-        await print("selectionSet"),
+        print("selectionSet"),
       ];
     }
 
     case "UnionTypeExtension":
     case "UnionTypeDefinition": {
       return group([
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         group([
           node.kind === "UnionTypeExtension" ? "extend " : "",
           "union ",
-          await print("name"),
-          await printDirectives(path, print, node),
+          print("name"),
+          printDirectives(path, print, node),
           node.types.length > 0
             ? [
                 " =",
                 ifBreak("", " "),
                 indent([
                   ifBreak([line, "  "]),
-                  join([line, "| "], await path.map(print, "types")),
+                  join([line, "| "], path.map(print, "types")),
                 ]),
               ]
             : "",
@@ -504,21 +485,21 @@ async function genericPrint(path, options, print) {
     case "ScalarTypeExtension":
     case "ScalarTypeDefinition": {
       return [
-        await print("description"),
+        print("description"),
         node.description ? hardline : "",
         node.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
-        await print("name"),
-        await printDirectives(path, print, node),
+        print("name"),
+        printDirectives(path, print, node),
       ];
     }
 
     case "NonNullType": {
-      return [await print("type"), "!"];
+      return [print("type"), "!"];
     }
 
     case "ListType": {
-      return ["[", await print("type"), "]"];
+      return ["[", print("type"), "]"];
     }
 
     default:
@@ -527,12 +508,12 @@ async function genericPrint(path, options, print) {
   }
 }
 
-async function printDirectives(path, print, node) {
+function printDirectives(path, print, node) {
   if (node.directives.length === 0) {
     return "";
   }
 
-  const printed = join(line, await path.map(print, "directives"));
+  const printed = join(line, path.map(print, "directives"));
 
   if (
     node.kind === "FragmentDefinition" ||
@@ -545,8 +526,8 @@ async function printDirectives(path, print, node) {
 }
 
 function printSequence(path, options, print, property) {
-  return path.map(async (path, index, sequence) => {
-    const printed = await print();
+  return path.map((path, index, sequence) => {
+    const printed = print();
 
     if (
       index < sequence.length - 1 &&
@@ -573,11 +554,11 @@ function printComment(commentPath) {
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-async function printInterfaces(path, options, print) {
+function printInterfaces(path, options, print) {
   const node = path.getNode();
   const parts = [];
   const { interfaces } = node;
-  const printed = await path.map((node) => print(node), "interfaces");
+  const printed = path.map((node) => print(node), "interfaces");
 
   for (let index = 0; index < interfaces.length; index++) {
     const interfaceNode = interfaces[index];
