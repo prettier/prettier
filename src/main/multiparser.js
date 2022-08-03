@@ -22,13 +22,13 @@ async function printEmbeddedLanguages(
     printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
   const { ignoredProperties } = printer.massageAstNode;
 
-  const pathStacks = [];
+  const embedCallResults = [];
 
   recurse();
 
   const originalPathStack = path.stack;
 
-  for (const { print, node, pathStack } of pathStacks) {
+  for (const { print, node, pathStack } of embedCallResults) {
     try {
       path.stack = pathStack;
       const doc = await print(textToDocForEmbed, genericPrint, path, options);
@@ -96,7 +96,11 @@ async function printEmbeddedLanguages(
     }
 
     if (typeof result === "function") {
-      pathStacks.push({ print: result, node, pathStack: [...path.stack] });
+      embedCallResults.push({
+        print: result,
+        node,
+        pathStack: [...path.stack],
+      });
       return;
     }
 
