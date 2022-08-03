@@ -7,7 +7,8 @@ function embed(path, print, textToDoc, options) {
     options.filepath &&
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
-    return () => textToDoc(options.originalText, { ...options, parser: "json" });
+    return () =>
+      textToDoc(options.originalText, { ...options, parser: "json" });
   }
 }
 

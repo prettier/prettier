@@ -47,7 +47,7 @@ function embed(path, print, textToDoc, options) {
     return;
   }
 
-  const language = getLanguage(path)
+  const language = getLanguage(path);
 
   if (language === "markdown") {
     return () => formatMarkdown(path, print, textToDoc);
@@ -62,7 +62,8 @@ function embed(path, print, textToDoc, options) {
   }
 
   if (language === "html" || language === "angular") {
-    return () => formatHtml(path, print, textToDoc, options, { parser: language });
+    return () =>
+      formatHtml(path, print, textToDoc, options, { parser: language });
   }
 }
 

@@ -83,7 +83,7 @@ async function printEmbeddedLanguages(
 
     let result;
     try {
-      result = printer.embed(path, print, textToDocForEmbed, options)
+      result = printer.embed(path, print, textToDocForEmbed, options);
     } catch (error) {
       /* istanbul ignore if */
       if (process.env.PRETTIER_DEBUG) {
@@ -100,7 +100,9 @@ async function printEmbeddedLanguages(
     }
 
     if (process.env.PRETTIER_DEBUG && typeof result.then === "function") {
-      throw new Error("`embed` should return an async function instead of Promise.");
+      throw new Error(
+        "`embed` should return an async function instead of Promise."
+      );
     }
 
     embeds.set(node, result);

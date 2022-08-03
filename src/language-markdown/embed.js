@@ -55,14 +55,15 @@ function embed(path, print, textToDoc, options) {
         hardline,
       ];
     case "jsx":
-      return () => textToDoc(
-        `<$>${node.value}</$>`,
-        {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        },
-        { stripTrailingHardline: true }
-      );
+      return () =>
+        textToDoc(
+          `<$>${node.value}</$>`,
+          {
+            parser: "__js_expression",
+            rootMarker: "mdx",
+          },
+          { stripTrailingHardline: true }
+        );
   }
 
   return null;
