@@ -1,11 +1,11 @@
 import path from "node:path";
+import url from "node:url";
 import { Worker } from "node:worker_threads";
-import stripAnsi from "strip-ansi";
-import createEsmUtils from "esm-utils";
-import { prettierCli, thirdParty } from "./env.js";
 
-const { __dirname, require } = createEsmUtils(import.meta);
-const CLI_WORKER_FILE = require.resolve("./cli-worker.js");
+const CLI_WORKER_FILE = new URL("./cli-worker.js", import.meta.url);
+const INTEGRATION_TEST_DIRECTORY = url.fileURLToPath(
+  new URL("./", import.meta.url)
+);
 
 const streamToString = (stream) =>
   new Promise((resolve, reject) => {
@@ -38,12 +38,11 @@ function runCliWorker(dir, args, options) {
     stdout: true,
     stderr: true,
     env: {
-      PRETTIER_DIR: process.env.PRETTIER_DIR,
+      ...process.env,
+      NO_COLOR: 1,
     },
     workerData: {
       dir,
-      prettierCli,
-      thirdParty,
       options,
     },
     trackUnmanagedFds: false,
@@ -72,7 +71,7 @@ function runCliWorker(dir, args, options) {
 }
 
 async function run(dir, args, options) {
-  dir = normalizeDir(dir);
+  dir = path.resolve(INTEGRATION_TEST_DIRECTORY, dir);
   args = Array.isArray(args) ? args : [args];
 
   // Worker doesn't support `chdir`
@@ -80,7 +79,7 @@ async function run(dir, args, options) {
   process.chdir(dir);
 
   try {
-    return await runCliWorker(dir, args, options, cwd);
+    return await runCliWorker(dir, args, options);
   } finally {
     process.chdir(cwd);
   }
@@ -128,15 +127,17 @@ function runPrettier(dir, args = [], options = {}) {
     for (const name of ["status", "stdout", "stderr", "write"]) {
       test(`${options.title || ""}(${name})`, async () => {
         const result = await runCli();
-        const value =
-          // \r is trimmed from jest snapshots by default;
-          // manually replacing this character with /*CR*/ to test its true presence
-          // If ignoreLineEndings is specified, \r is simply deleted instead
-          typeof result[name] === "string"
-            ? options.ignoreLineEndings
-              ? stripAnsi(result[name]).replace(/\r/g, "")
-              : stripAnsi(result[name]).replace(/\r/g, "/*CR*/")
-            : result[name];
+        let value = result[name];
+        // \r is trimmed from jest snapshots by default;
+        // manually replacing this character with /*CR*/ to test its true presence
+        // If ignoreLineEndings is specified, \r is simply deleted instead
+        if (name === "stdout" || name === "stderr") {
+          value = result[name].replace(
+            /\r/g,
+            options.ignoreLineEndings ? "" : "/*CR*/"
+          );
+        }
+
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {
             expect(value).not.toBe(0);
@@ -153,11 +154,6 @@ function runPrettier(dir, args = [], options = {}) {
 
     return getters;
   }
-}
-
-function normalizeDir(dir) {
-  const isRelative = dir[0] !== "/";
-  return isRelative ? path.resolve(__dirname, dir) : dir;
 }
 
 export default runPrettier;

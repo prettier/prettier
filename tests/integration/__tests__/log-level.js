@@ -1,4 +1,3 @@
-import stripAnsi from "strip-ansi";
 test("do not show logs with --log-level silent", async () => {
   await runPrettierWithLogLevel("silent", null);
 });
@@ -124,7 +123,7 @@ async function runPrettierWithLogLevel(logLevel, patterns) {
 
   expect(result.status).toBe(2);
 
-  const stderr = stripAnsi(result.stderr);
+  const { stderr } = result;
 
   if (patterns) {
     for (const pattern of patterns) {
