@@ -81,21 +81,29 @@ async function printEmbeddedLanguages(
       }
     }
 
-    const result = printer.embed(
-      path,
-      print,
-      textToDocForEmbed,
-      options,
-    );
-    if (result) {
-      if (typeof result === "function") {
-        pathStacks.push({ print: result, node, pathStack: [...path.stack] });
-      } else if (typeof result.then === "function") {
-        throw new TypeError("`embed` should return an async function instead of Promise.")
-      } else {
-        embeds.set(node, result);
+    let result;
+    try {
+      result = printer.embed(path, print, textToDocForEmbed, options)
+    } catch (error) {
+      /* istanbul ignore if */
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
       }
     }
+
+    if (!result) {
+      return;
+    }
+
+    if (typeof result === "function") {
+      pathStacks.push({ print: result, node, pathStack: [...path.stack] });
+    }
+
+    if (process.env.PRETTIER_DEBUG && typeof result.then === "function") {
+      throw new Error("`embed` should return an async function instead of Promise.");
+    }
+
+    embeds.set(node, result);
   }
 }
 
