@@ -6,7 +6,7 @@ import {
 import formatMarkdown from "./embed/markdown.js";
 import formatCss from "./embed/css.js";
 import formatGraphql from "./embed/graphql.js";
-import {formatHtml, formatAngular} from "./embed/html.js";
+import { formatHtml, formatAngular } from "./embed/html.js";
 
 function embed(path) {
   const node = path.getValue();
