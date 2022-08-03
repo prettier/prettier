@@ -47,8 +47,9 @@ const config = {
     printBasicPrototype: false,
   },
   testMatch: [
-    "tests/format/**/jsfmt.spec.js",
-    "tests/integration/__tests__/**/*.js",
+    "<rootDir>/tests/format/**/jsfmt.spec.js",
+    "<rootDir>/tests/integration/__tests__/**/*.js",
+    "<rootDir>/tests/unit/**/*.js",
   ],
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
