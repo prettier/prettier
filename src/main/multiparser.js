@@ -97,6 +97,7 @@ async function printEmbeddedLanguages(
 
     if (typeof result === "function") {
       pathStacks.push({ print: result, node, pathStack: [...path.stack] });
+      return;
     }
 
     if (process.env.PRETTIER_DEBUG && typeof result.then === "function") {
