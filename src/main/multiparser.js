@@ -28,15 +28,14 @@ async function printEmbeddedLanguages(
 
   const originalPathStack = path.stack;
 
-  for (const { pathStack, print } of pathStacks) {
+  for (const { print, node, pathStack } of pathStacks) {
     try {
       path.stack = pathStack;
       const doc = await print();
 
       if (doc) {
-        embeds.set(path.getValue(), doc);
+        embeds.set(node, doc);
       }
-
     } catch (error) {
       /* istanbul ignore if */
       if (process.env.PRETTIER_DEBUG) {
@@ -90,7 +89,7 @@ async function printEmbeddedLanguages(
     );
     if (result) {
       if (typeof result === "function") {
-        pathStacks.push({ pathStack: [...path.stack], print: result });
+        pathStacks.push({ print: result, node, pathStack: [...path.stack] });
       } else if (typeof result.then === "function") {
         throw new TypeError("`embed` should return an async function instead of Promise.")
       } else {
