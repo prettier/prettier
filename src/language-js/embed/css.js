@@ -3,7 +3,7 @@ import { indent, hardline, softline } from "../../document/builders.js";
 import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 
-async function format(path, print, textToDoc) {
+async function format(textToDoc, print, path /*, options*/) {
   const node = path.getValue();
 
   // Get full template literal with expressions replaced by placeholders

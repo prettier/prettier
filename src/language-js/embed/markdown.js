@@ -6,7 +6,7 @@ import {
 } from "../../document/builders.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
-async function format(path, print, textToDoc) {
+async function format(textToDoc, print, path /*, options*/) {
   const node = path.getValue();
   let text = node.quasis[0].value.raw.replace(
     /((?:\\\\)*)\\`/g,

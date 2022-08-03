@@ -4,7 +4,7 @@ import {
   printTemplateExpressions,
 } from "../print/template-literal.js";
 
-async function format(path, print, textToDoc) {
+async function format(textToDoc, print, path /*, options*/) {
   const node = path.getValue();
 
   const numQuasis = node.quasis.length;

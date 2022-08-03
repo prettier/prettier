@@ -7,7 +7,7 @@ import {
 
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
-async function format(path, print, textToDoc, options, { parser }) {
+async function format(textToDoc, print, path, options, { parser }) {
   const node = path.getValue();
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
@@ -93,4 +93,5 @@ async function format(path, print, textToDoc, options, { parser }) {
   ]);
 }
 
-export default format;
+export const formatHtml = (textToDoc, print, path, options) => format(textToDoc, print, path, options, { parser: "html" })
+export const formatAngular = (textToDoc, print, path, options) => format(textToDoc, print, path, options, { parser: "angular" })

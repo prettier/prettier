@@ -6,34 +6,7 @@ import {
 import formatMarkdown from "./embed/markdown.js";
 import formatCss from "./embed/css.js";
 import formatGraphql from "./embed/graphql.js";
-import formatHtml from "./embed/html.js";
-
-function getLanguage(path) {
-  if (
-    isStyledJsx(path) ||
-    isStyledComponents(path) ||
-    isCssProp(path) ||
-    isAngularComponentStyles(path)
-  ) {
-    return "css";
-  }
-
-  if (isGraphQL(path)) {
-    return "graphql";
-  }
-
-  if (isHtml(path)) {
-    return "html";
-  }
-
-  if (isAngularComponentTemplate(path)) {
-    return "angular";
-  }
-
-  if (isMarkdown(path)) {
-    return "markdown";
-  }
-}
+import {formatHtml, formatAngular} from "./embed/html.js";
 
 function embed(path) {
   const node = path.getValue();
@@ -47,23 +20,29 @@ function embed(path) {
     return;
   }
 
-  const language = getLanguage(path);
-
-  if (language === "markdown") {
-    return (textToDoc, print) => formatMarkdown(path, print, textToDoc);
+  if (
+    isStyledJsx(path) ||
+    isStyledComponents(path) ||
+    isCssProp(path) ||
+    isAngularComponentStyles(path)
+  ) {
+    return formatCss;
   }
 
-  if (language === "css") {
-    return (textToDoc, print) => formatCss(path, print, textToDoc);
+  if (isGraphQL(path)) {
+    return formatGraphql;
   }
 
-  if (language === "graphql") {
-    return (textToDoc, print) => formatGraphql(path, print, textToDoc);
+  if (isHtml(path)) {
+    return formatHtml;
   }
 
-  if (language === "html" || language === "angular") {
-    return (textToDoc, print, options) =>
-      formatHtml(path, print, textToDoc, options, { parser: language });
+  if (isAngularComponentTemplate(path)) {
+    return formatAngular;
+  }
+
+  if (isMarkdown(path)) {
+    return formatMarkdown;
   }
 }
 

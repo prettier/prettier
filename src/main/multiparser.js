@@ -31,7 +31,7 @@ async function printEmbeddedLanguages(
   for (const { print, node, pathStack } of pathStacks) {
     try {
       path.stack = pathStack;
-      const doc = await print(textToDocForEmbed, genericPrint, options);
+      const doc = await print(textToDocForEmbed, genericPrint, path, options);
 
       if (doc) {
         embeds.set(node, doc);
