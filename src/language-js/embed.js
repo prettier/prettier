@@ -35,7 +35,7 @@ function getLanguage(path) {
   }
 }
 
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   if (
@@ -50,19 +50,19 @@ function embed(path, print, textToDoc, options) {
   const language = getLanguage(path);
 
   if (language === "markdown") {
-    return () => formatMarkdown(path, print, textToDoc);
+    return (textToDoc, print) => formatMarkdown(path, print, textToDoc);
   }
 
   if (language === "css") {
-    return () => formatCss(path, print, textToDoc);
+    return (textToDoc, print) => formatCss(path, print, textToDoc);
   }
 
   if (language === "graphql") {
-    return () => formatGraphql(path, print, textToDoc);
+    return (textToDoc, print) => formatGraphql(path, print, textToDoc);
   }
 
   if (language === "html" || language === "angular") {
-    return () =>
+    return (textToDoc, print) =>
       formatHtml(path, print, textToDoc, options, { parser: language });
   }
 }

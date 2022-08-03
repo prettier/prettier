@@ -31,7 +31,7 @@ async function printEmbeddedLanguages(
   for (const { print, node, pathStack } of pathStacks) {
     try {
       path.stack = pathStack;
-      const doc = await print();
+      const doc = await print(textToDocForEmbed, print);
 
       if (doc) {
         embeds.set(node, doc);
@@ -83,7 +83,7 @@ async function printEmbeddedLanguages(
 
     let result;
     try {
-      result = printer.embed(path, print, textToDocForEmbed, options);
+      result = printer.embed(path, options);
     } catch (error) {
       /* istanbul ignore if */
       if (process.env.PRETTIER_DEBUG) {

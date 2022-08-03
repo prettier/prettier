@@ -7,7 +7,7 @@ import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
@@ -21,7 +21,7 @@ function embed(path, print, textToDoc, options) {
       if (node.lang === "tsx") {
         newOptions.filepath = "dummy.tsx";
       }
-      return async () => {
+      return async (textToDoc) => {
         const doc = await textToDoc(
           getFencedCodeBlockValue(node, options.originalText),
           newOptions,
@@ -42,11 +42,11 @@ function embed(path, print, textToDoc, options) {
 
   switch (node.type) {
     case "front-matter":
-      return () => printFrontMatter(node, textToDoc);
+      return (textToDoc) => printFrontMatter(node, textToDoc);
 
     // MDX
     case "importExport":
-      return async () => [
+      return async (textToDoc) => [
         await textToDoc(
           node.value,
           { parser: "babel" },
@@ -55,7 +55,7 @@ function embed(path, print, textToDoc, options) {
         hardline,
       ];
     case "jsx":
-      return () =>
+      return (textToDoc) =>
         textToDoc(
           `<$>${node.value}</$>`,
           {

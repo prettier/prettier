@@ -245,7 +245,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   return null;
 }
 
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -261,7 +261,7 @@ function embed(path, print, textToDoc, options) {
           return;
         }
 
-        return async () => {
+        return async (textToDoc, print) => {
           const content = getNodeContent(node, options);
           let isEmpty = /^\s*$/.test(content);
           let doc = "";
@@ -309,7 +309,7 @@ function embed(path, print, textToDoc, options) {
             }
             textToDocOptions.__babelSourceType = sourceType;
           }
-          return async () => [
+          return async (textToDoc) => [
             breakParent,
             printOpeningTagPrefix(node, options),
             await textToDoc(value, textToDocOptions, {
@@ -333,7 +333,7 @@ function embed(path, print, textToDoc, options) {
         } else {
           textToDocOptions.parser = "__js_expression";
         }
-        return async () => [
+        return async (textToDoc) => [
           indent([
             line,
             await textToDoc(node.value, textToDocOptions, {
@@ -380,7 +380,7 @@ function embed(path, print, textToDoc, options) {
         }
       }
 
-      return async () => {
+      return async (textToDoc) => {
         const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
           node,
           (code, opts) =>
@@ -407,7 +407,7 @@ function embed(path, print, textToDoc, options) {
       };
     }
     case "front-matter":
-      return () => printFrontMatter(node, textToDoc);
+      return (textToDoc) => printFrontMatter(node, textToDoc);
   }
 }
 

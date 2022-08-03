@@ -1,4 +1,4 @@
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   // Try to format `.prettierrc`, `.stylelintrc`, and `.lintstagedrc` as `json` first
@@ -7,7 +7,7 @@ function embed(path, print, textToDoc, options) {
     options.filepath &&
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
-    return () =>
+    return (textToDoc) =>
       textToDoc(options.originalText, { ...options, parser: "json" });
   }
 }
