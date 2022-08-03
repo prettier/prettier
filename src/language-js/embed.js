@@ -35,7 +35,7 @@ function getLanguage(path) {
   }
 }
 
-function embed(path, options) {
+function embed(path) {
   const node = path.getValue();
 
   if (
@@ -62,7 +62,7 @@ function embed(path, options) {
   }
 
   if (language === "html" || language === "angular") {
-    return (textToDoc, print) =>
+    return (textToDoc, print, options) =>
       formatHtml(path, print, textToDoc, options, { parser: language });
   }
 }

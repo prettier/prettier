@@ -1,7 +1,7 @@
 import { hardline } from "../document/builders.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 
-function embed(path /*, options */) {
+function embed(path) {
   const node = path.getValue();
 
   if (node.type === "front-matter") {

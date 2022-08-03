@@ -5,7 +5,7 @@ import { parse } from "./parser.js";
 
 async function printEmbeddedLanguages(
   /** @type {import("../common/ast-path").default} */ path,
-  print,
+  genericPrint,
   options,
   printAstToDoc,
   embeds
@@ -31,7 +31,7 @@ async function printEmbeddedLanguages(
   for (const { print, node, pathStack } of pathStacks) {
     try {
       path.stack = pathStack;
-      const doc = await print(textToDocForEmbed, print);
+      const doc = await print(textToDocForEmbed, genericPrint, options);
 
       if (doc) {
         embeds.set(node, doc);
