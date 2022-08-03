@@ -9,24 +9,24 @@ import {
 import { locStart, locEnd } from "../loc.js";
 import { getParentExportDeclaration } from "../utils/index.js";
 
-async function printClassMemberDecorators(path, options, print) {
+function printClassMemberDecorators(path, options, print) {
   const node = path.getValue();
   return group([
-    join(line, await path.map(print, "decorators")),
+    join(line, path.map(print, "decorators")),
     hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
   ]);
 }
 
-async function printDecoratorsBeforeExport(path, options, print) {
+function printDecoratorsBeforeExport(path, options, print) {
   // Export declarations are responsible for printing any decorators
   // that logically apply to node.declaration.
   return [
-    join(hardline, await path.map(print, "declaration", "decorators")),
+    join(hardline, path.map(print, "declaration", "decorators")),
     hardline,
   ];
 }
 
-async function printDecorators(path, options, print) {
+function printDecorators(path, options, print) {
   const node = path.getValue();
   const { decorators } = node;
 
@@ -51,7 +51,7 @@ async function printDecorators(path, options, print) {
       : shouldBreak
       ? breakParent
       : "",
-    join(line, await path.map(print, "decorators")),
+    join(line, path.map(print, "decorators")),
     line,
   ];
 }

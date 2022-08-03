@@ -1,4 +1,5 @@
 "use strict";
+const path = require("node:path");
 const { isCI } = require("ci-info");
 
 module.exports = {
@@ -16,12 +17,12 @@ module.exports = {
   plugins: [
     "prettier-internal-rules",
     "import",
+    "n",
     "regexp",
     "unicorn",
     "@typescript-eslint",
   ],
   rules: {
-    "@typescript-eslint/prefer-ts-expect-error": "error",
     "arrow-body-style": ["error", "as-needed"],
     curly: "error",
     "dot-notation": "error",
@@ -78,8 +79,6 @@ module.exports = {
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
-    "prettier-internal-rules/jsx-identifier-case": "error",
-    "prettier-internal-rules/no-identifier-n": "error",
     quotes: [
       "error",
       "double",
@@ -97,6 +96,14 @@ module.exports = {
       },
     ],
 
+    // Internal rules
+    "prettier-internal-rules/jsx-identifier-case": "error",
+    "prettier-internal-rules/no-identifier-n": "error",
+
+    // @typescript-eslint/eslint-plugin
+    "@typescript-eslint/prefer-ts-expect-error": "error",
+
+    // eslint-plugin-import
     "import/extensions": ["error", "ignorePackages"],
     "import/no-extraneous-dependencies": [
       "error",
@@ -112,6 +119,10 @@ module.exports = {
     "import/order": "error",
     "import/no-anonymous-default-export": "error",
 
+    // eslint-plugin-n
+    "n/no-path-concat": "error",
+
+    // eslint-plugin-regexp
     "regexp/match-any": [
       "error",
       {
@@ -127,6 +138,7 @@ module.exports = {
     ],
     "regexp/no-useless-lazy": "error",
 
+    // eslint-plugin-unicorn
     "unicorn/better-regex": "error",
     "unicorn/explicit-length-check": "error",
     "unicorn/filename-case": "error",
@@ -244,14 +256,21 @@ module.exports = {
       },
     },
     {
-      files: ["src/cli/*.js"],
+      files: ["src/cli/**/*.js"],
       rules: {
-        // TODO[@fisker]: This not actually working, need fix. #11903
-        "no-restricted-modules": [
+        "n/no-restricted-import": [
           "error",
-          {
-            patterns: ["../"],
-          },
+          [
+            {
+              name: [
+                path.resolve(__dirname, "src/**"),
+                `!${path.resolve(__dirname, "src/cli/**")}`,
+                `!${path.resolve(__dirname, "src/index.js")}`,
+                `!${path.resolve(__dirname, "src/common/third-party.js")}`,
+              ],
+              message: "Don't use code from other directory.",
+            },
+          ],
         ],
       },
     },

@@ -78,7 +78,7 @@ function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
 }
 
-async function genericPrint(path, options, print) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
 
   /* istanbul ignore if */
@@ -94,7 +94,7 @@ async function genericPrint(path, options, print) {
     case "front-matter":
       return [node.raw, hardline];
     case "css-root": {
-      const nodes = await printNodeSequence(path, options, print);
+      const nodes = printNodeSequence(path, options, print);
       const after = node.raws.after.trim();
 
       return [
@@ -112,7 +112,7 @@ async function genericPrint(path, options, print) {
     }
     case "css-rule": {
       return [
-        await print("selector"),
+        print("selector"),
         node.important ? " !important" : "",
         node.nodes
           ? [
@@ -125,10 +125,7 @@ async function genericPrint(path, options, print) {
                 : "",
               "{",
               node.nodes.length > 0
-                ? indent([
-                    hardline,
-                    await printNodeSequence(path, options, print),
-                  ])
+                ? indent([hardline, printNodeSequence(path, options, print)])
                 : "",
               hardline,
               "}",
@@ -147,8 +144,8 @@ async function genericPrint(path, options, print) {
         typeof node.value === "string" && /^ *$/.test(node.value);
 
       let value = hasComposesNode(node)
-        ? removeLines(await print("value"))
-        : await print("value");
+        ? removeLines(print("value"))
+        : print("value");
 
       if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
         value = indent([hardline, dedent(value)]);
@@ -161,7 +158,7 @@ async function genericPrint(path, options, print) {
         trimmedBetween,
         node.extend || isValueAllSpace ? "" : " ",
         options.parser === "less" && node.extend && node.selector
-          ? ["extend(", await print("selector"), ")"]
+          ? ["extend(", print("selector"), ")"]
           : "",
         value,
         node.raws.important
@@ -182,7 +179,7 @@ async function genericPrint(path, options, print) {
         node.nodes
           ? [
               " {",
-              indent([softline, await printNodeSequence(path, options, print)]),
+              indent([softline, printNodeSequence(path, options, print)]),
               softline,
               "}",
             ]
@@ -205,7 +202,7 @@ async function genericPrint(path, options, print) {
       if (options.parser === "less") {
         if (node.mixin) {
           return [
-            await print("selector"),
+            print("selector"),
             node.important ? " !important" : "",
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
@@ -214,7 +211,7 @@ async function genericPrint(path, options, print) {
         if (node.function) {
           return [
             node.name,
-            await print("params"),
+            print("params"),
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
         }
@@ -224,14 +221,14 @@ async function genericPrint(path, options, print) {
             "@",
             node.name,
             ": ",
-            node.value ? await print("value") : "",
+            node.value ? print("value") : "",
             node.raws.between.trim() ? node.raws.between.trim() + " " : "",
             node.nodes
               ? [
                   "{",
                   indent([
                     node.nodes.length > 0 ? softline : "",
-                    await printNodeSequence(path, options, print),
+                    printNodeSequence(path, options, print),
                   ]),
                   softline,
                   "}",
@@ -270,14 +267,14 @@ async function genericPrint(path, options, print) {
                   ? hardline
                   : " "
                 : " ",
-              await print("params"),
+              print("params"),
             ]
           : "",
-        node.selector ? indent([" ", await print("selector")]) : "",
+        node.selector ? indent([" ", print("selector")]) : "",
         node.value
           ? group([
               " ",
-              await print("value"),
+              print("value"),
               isSCSSControlDirectiveNode(node, options)
                 ? hasParensAroundNode(node)
                   ? " "
@@ -303,7 +300,7 @@ async function genericPrint(path, options, print) {
               "{",
               indent([
                 node.nodes.length > 0 ? softline : "",
-                await printNodeSequence(path, options, print),
+                printNodeSequence(path, options, print),
               ]),
               softline,
               "}",
@@ -317,19 +314,19 @@ async function genericPrint(path, options, print) {
     // postcss-media-query-parser
     case "media-query-list": {
       const parts = [];
-      await path.each(async (childPath) => {
+      path.each((childPath) => {
         const node = childPath.getValue();
         if (node.type === "media-query" && node.value === "") {
           return;
         }
-        parts.push(await print());
+        parts.push(print());
       }, "nodes");
 
       return group(indent(join(line, parts)));
     }
     case "media-query": {
       return [
-        join(" ", await path.map(print, "nodes")),
+        join(" ", path.map(print, "nodes")),
         isLastNode(path, node) ? "" : ",",
       ];
     }
@@ -340,7 +337,7 @@ async function genericPrint(path, options, print) {
       if (!node.nodes) {
         return node.value;
       }
-      return ["(", ...(await path.map(print, "nodes")), ")"];
+      return ["(", ...path.map(print, "nodes"), ")"];
     }
     case "media-feature": {
       return maybeToLowerCase(
@@ -378,12 +375,12 @@ async function genericPrint(path, options, print) {
               ? line
               : hardline,
           ],
-          await path.map(print, "nodes")
+          path.map(print, "nodes")
         ),
       ]);
     }
     case "selector-selector": {
-      return group(indent(await path.map(print, "nodes")));
+      return group(indent(path.map(print, "nodes")));
     }
     case "selector-comment": {
       return node.value;
@@ -468,7 +465,7 @@ async function genericPrint(path, options, print) {
       return [
         maybeToLowerCase(node.value),
         isNonEmptyArray(node.nodes)
-          ? ["(", join(", ", await path.map(print, "nodes")), ")"]
+          ? ["(", join(", ", path.map(print, "nodes")), ")"]
           : "",
       ];
     }
@@ -537,7 +534,7 @@ async function genericPrint(path, options, print) {
         isInlineValueCommentNode(node)
       );
 
-      const printed = await path.map(print, "groups");
+      const printed = path.map(print, "groups");
       const parts = [];
       const insideURLFunction = insideValueFunctionNode(path, "url");
 
@@ -873,14 +870,14 @@ async function genericPrint(path, options, print) {
             node.groups[0].groups[0].value.startsWith("data:")))
       ) {
         return [
-          node.open ? await print("open") : "",
-          join(",", await path.map(print, "groups")),
-          node.close ? await print("close") : "",
+          node.open ? print("open") : "",
+          join(",", path.map(print, "groups")),
+          node.close ? print("close") : "",
         ];
       }
 
       if (!node.open) {
-        const printed = await path.map(print, "groups");
+        const printed = path.map(print, "groups");
         const res = [];
 
         for (let i = 0; i < printed.length; i++) {
@@ -905,15 +902,15 @@ async function genericPrint(path, options, print) {
 
       const printed = group(
         [
-          node.open ? await print("open") : "",
+          node.open ? print("open") : "",
           indent([
             softline,
             join(
               [line],
-              await path.map(async (childPath, index) => {
+              path.map((childPath, index) => {
                 const child = childPath.getValue();
                 const isLast = index === node.groups.length - 1;
-                const printed = [await print(), isLast ? "" : ","];
+                const printed = [print(), isLast ? "" : ","];
 
                 // Key/Value pair in open paren already indented
                 if (
@@ -957,7 +954,7 @@ async function genericPrint(path, options, print) {
               : ""
           ),
           softline,
-          node.close ? await print("close") : "",
+          node.close ? print("close") : "",
         ],
         {
           shouldBreak,
@@ -972,7 +969,7 @@ async function genericPrint(path, options, print) {
         insideAtRuleNode(path, "supports") && isMediaAndSupportsKeywords(node)
           ? " "
           : "",
-        await print("group"),
+        print("group"),
       ];
     }
     case "value-paren": {
@@ -1033,9 +1030,9 @@ async function genericPrint(path, options, print) {
   }
 }
 
-async function printNodeSequence(path, options, print) {
+function printNodeSequence(path, options, print) {
   const parts = [];
-  await path.each(async (pathChild, i, nodes) => {
+  path.each((pathChild, i, nodes) => {
     const prevNode = nodes[i - 1];
     if (
       prevNode &&
@@ -1047,7 +1044,7 @@ async function printNodeSequence(path, options, print) {
         options.originalText.slice(locStart(childNode), locEnd(childNode))
       );
     } else {
-      parts.push(await print());
+      parts.push(print());
     }
 
     if (i !== nodes.length - 1) {

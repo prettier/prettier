@@ -322,10 +322,10 @@ exports[`show detailed usage with --help list-different (stdout) 1`] = `
 
 exports[`show detailed usage with --help list-different (write) 1`] = `[]`;
 
-exports[`show detailed usage with --help loglevel (stderr) 1`] = `""`;
+exports[`show detailed usage with --help log-level (stderr) 1`] = `""`;
 
-exports[`show detailed usage with --help loglevel (stdout) 1`] = `
-"--loglevel <silent|error|warn|log|debug>
+exports[`show detailed usage with --help log-level (stdout) 1`] = `
+"--log-level <silent|error|warn|log|debug>
 
   What level of logs to report.
 
@@ -341,7 +341,7 @@ Default: log
 "
 `;
 
-exports[`show detailed usage with --help loglevel (write) 1`] = `[]`;
+exports[`show detailed usage with --help log-level (write) 1`] = `[]`;
 
 exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
 

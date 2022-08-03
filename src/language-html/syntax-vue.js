@@ -6,11 +6,11 @@ import { group } from "../document/builders.js";
  *     v-for="(..., ...) in ..."
  *     v-for="(..., ...) of ..."
  */
-async function printVueFor(value, attributeTextToDoc) {
+function printVueFor(value, textToDoc) {
   const { left, operator, right } = parseVueFor(value);
   return [
     group(
-      await attributeTextToDoc(`function _(${left}) {}`, {
+      textToDoc(`function _(${left}) {}`, {
         parser: "babel",
         __isVueForBindingLeft: true,
       })
@@ -18,7 +18,7 @@ async function printVueFor(value, attributeTextToDoc) {
     " ",
     operator,
     " ",
-    await attributeTextToDoc(
+    textToDoc(
       right,
       { parser: "__js_expression" },
       { stripTrailingHardline: true }
@@ -72,8 +72,8 @@ function parseVueFor(value) {
   };
 }
 
-function printVueBindings(value, attributeTextToDoc) {
-  return attributeTextToDoc(`function _(${value}) {}`, {
+function printVueBindings(value, textToDoc) {
+  return textToDoc(`function _(${value}) {}`, {
     parser: "babel",
     __isVueBindings: true,
   });

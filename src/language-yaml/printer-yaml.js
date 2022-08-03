@@ -40,27 +40,24 @@ import {
 import printMappingItem from "./print/mapping-item.js";
 import printBlock from "./print/block.js";
 
-async function genericPrint(path, options, print) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
   /** @type {Doc[]} */
   const parts = [];
 
   if (node.type !== "mappingValue" && hasLeadingComments(node)) {
-    parts.push([
-      join(hardline, await path.map(print, "leadingComments")),
-      hardline,
-    ]);
+    parts.push([join(hardline, path.map(print, "leadingComments")), hardline]);
   }
 
   const { tag, anchor } = node;
   if (tag) {
-    parts.push(await print("tag"));
+    parts.push(print("tag"));
   }
   if (tag && anchor) {
     parts.push(" ");
   }
   if (anchor) {
-    parts.push(await print("anchor"));
+    parts.push(print("anchor"));
   }
 
   /** @type {Doc} */
@@ -91,7 +88,7 @@ async function genericPrint(path, options, print) {
   if (hasMiddleComments(node)) {
     parts.push([
       node.middleComments.length === 1 ? "" : hardline,
-      join(hardline, await path.map(print, "middleComments")),
+      join(hardline, path.map(print, "middleComments")),
       hardline,
     ]);
   }
@@ -107,7 +104,7 @@ async function genericPrint(path, options, print) {
       )
     );
   } else {
-    parts.push(group(await printNode(node, parentNode, path, options, print)));
+    parts.push(group(printNode(node, parentNode, path, options, print)));
   }
 
   if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
@@ -119,7 +116,7 @@ async function genericPrint(path, options, print) {
         isInlineNode(node)
           ? ""
           : breakParent,
-        await print("trailingComment"),
+        print("trailingComment"),
       ])
     );
   }
@@ -130,8 +127,8 @@ async function genericPrint(path, options, print) {
         hardline,
         join(
           hardline,
-          await path.map(
-            async (path) => [
+          path.map(
+            (path) => [
               isPreviousLineEmpty(
                 options.originalText,
                 path.getValue(),
@@ -139,7 +136,7 @@ async function genericPrint(path, options, print) {
               )
                 ? hardline
                 : "",
-              await print(),
+              print(),
             ],
             "endComments"
           )
@@ -151,22 +148,22 @@ async function genericPrint(path, options, print) {
   return parts;
 }
 
-async function printNode(node, parentNode, path, options, print) {
+function printNode(node, parentNode, path, options, print) {
   switch (node.type) {
     case "root": {
       const { children } = node;
       const parts = [];
-      await path.each(async (childPath, index) => {
+      path.each((childPath, index) => {
         const document = children[index];
         const nextDocument = children[index + 1];
         if (index !== 0) {
           parts.push(hardline);
         }
-        parts.push(await print());
+        parts.push(print());
         if (shouldPrintDocumentEndMarker(document, nextDocument)) {
           parts.push(hardline, "...");
           if (hasTrailingComment(document)) {
-            parts.push(" ", await print("trailingComment"));
+            parts.push(" ", print("trailingComment"));
           }
         } else if (nextDocument && !hasTrailingComment(nextDocument.head)) {
           parts.push(hardline, "---");
@@ -194,26 +191,26 @@ async function printNode(node, parentNode, path, options, print) {
         ) === "head"
       ) {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
-          parts.push(await print("head"));
+          parts.push(print("head"));
         }
 
         if (hasTrailingComment(node.head)) {
-          parts.push(["---", " ", await print(["head", "trailingComment"])]);
+          parts.push(["---", " ", print(["head", "trailingComment"])]);
         } else {
           parts.push("---");
         }
       }
 
       if (shouldPrintDocumentBody(node)) {
-        parts.push(await print("body"));
+        parts.push(print("body"));
       }
 
       return join(hardline, parts);
     }
     case "documentHead":
       return join(hardline, [
-        ...(await path.map(print, "children")),
-        ...(await path.map(print, "endComments")),
+        ...path.map(print, "children"),
+        ...path.map(print, "endComments"),
       ]);
     case "documentBody": {
       const { children, endComments } = node;
@@ -233,9 +230,9 @@ async function printNode(node, parentNode, path, options, print) {
       }
 
       return [
-        join(hardline, await path.map(print, "children")),
+        join(hardline, path.map(print, "children")),
         separator,
-        join(hardline, await path.map(print, "endComments")),
+        join(hardline, path.map(print, "endComments")),
       ];
     }
     case "directive":
@@ -280,7 +277,7 @@ async function printNode(node, parentNode, path, options, print) {
           node.type === "quoteDouble" ? doubleQuote : singleQuote;
         return [
           originalQuote,
-          await printFlowScalarContent(node.type, raw, options),
+          printFlowScalarContent(node.type, raw, options),
           originalQuote,
         ];
       }
@@ -288,7 +285,7 @@ async function printNode(node, parentNode, path, options, print) {
       if (raw.includes(doubleQuote)) {
         return [
           singleQuote,
-          await printFlowScalarContent(
+          printFlowScalarContent(
             node.type,
             node.type === "quoteDouble"
               ? raw
@@ -305,7 +302,7 @@ async function printNode(node, parentNode, path, options, print) {
       if (raw.includes(singleQuote)) {
         return [
           doubleQuote,
-          await printFlowScalarContent(
+          printFlowScalarContent(
             node.type,
             node.type === "quoteSingle"
               ? // single quote needs to be escaped by 2 single quotes in quoteSingle
@@ -318,11 +315,7 @@ async function printNode(node, parentNode, path, options, print) {
       }
 
       const quote = options.singleQuote ? singleQuote : doubleQuote;
-      return [
-        quote,
-        await printFlowScalarContent(node.type, raw, options),
-        quote,
-      ];
+      return [quote, printFlowScalarContent(node.type, raw, options), quote];
     }
     case "blockFolded":
     case "blockLiteral": {
@@ -330,12 +323,9 @@ async function printNode(node, parentNode, path, options, print) {
     }
     case "mapping":
     case "sequence":
-      return join(hardline, await path.map(print, "children"));
+      return join(hardline, path.map(print, "children"));
     case "sequenceItem":
-      return [
-        "- ",
-        alignWithSpaces(2, node.content ? await print("content") : ""),
-      ];
+      return ["- ", alignWithSpaces(2, node.content ? print("content") : "")];
     case "mappingKey":
     case "mappingValue":
       return !node.content ? "" : print("content");

@@ -21,7 +21,7 @@ import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 
-async function printClass(path, options, print) {
+function printClass(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
@@ -50,17 +50,17 @@ async function printClass(path, options, print) {
   const extendsParts = [];
 
   if (node.id) {
-    partsGroup.push(" ", await print("id"));
+    partsGroup.push(" ", print("id"));
   }
 
-  partsGroup.push(await print("typeParameters"));
+  partsGroup.push(print("typeParameters"));
 
   if (node.superClass) {
     const printed = [
-      await printSuperClass(path, options, print),
-      await print("superTypeParameters"),
+      printSuperClass(path, options, print),
+      print("superTypeParameters"),
     ];
-    const printedWithComments = await path.call(
+    const printedWithComments = path.call(
       (superClass) => ["extends ", printComments(superClass, printed, options)],
       "superClass"
     );
@@ -70,12 +70,12 @@ async function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(await printList(path, options, print, "extends"));
+    extendsParts.push(printList(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    await printList(path, options, print, "mixins"),
-    await printList(path, options, print, "implements")
+    printList(path, options, print, "mixins"),
+    printList(path, options, print, "implements")
   );
 
   if (groupMode) {
@@ -90,7 +90,7 @@ async function printClass(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", await print("body"));
+  parts.push(" ", print("body"));
 
   return parts;
 }
@@ -120,7 +120,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-async function printList(path, options, print, listName) {
+function printList(path, options, print, listName) {
   const node = path.getValue();
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -141,12 +141,12 @@ async function printList(path, options, print, listName) {
     printedLeadingComments,
     printedLeadingComments && hardline,
     listName,
-    group(indent([line, join([",", line], await path.map(print, listName))])),
+    group(indent([line, join([",", line], path.map(print, listName))])),
   ];
 }
 
-async function printSuperClass(path, options, print) {
-  const printed = await print("superClass");
+function printSuperClass(path, options, print) {
+  const printed = print("superClass");
   const parent = path.getParentNode();
   if (parent.type === "AssignmentExpression") {
     return group(
@@ -156,12 +156,12 @@ async function printSuperClass(path, options, print) {
   return printed;
 }
 
-async function printClassMethod(path, options, print) {
+function printClassMethod(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
   if (isNonEmptyArray(node.decorators)) {
-    parts.push(await printClassMemberDecorators(path, options, print));
+    parts.push(printClassMemberDecorators(path, options, print));
   }
   if (node.accessibility) {
     parts.push(node.accessibility + " ");
@@ -185,18 +185,18 @@ async function printClassMethod(path, options, print) {
     parts.push("override ");
   }
 
-  parts.push(await printMethod(path, options, print));
+  parts.push(printMethod(path, options, print));
 
   return parts;
 }
 
-async function printClassProperty(path, options, print) {
+function printClassProperty(path, options, print) {
   const node = path.getValue();
   const parts = [];
   const semi = options.semi ? ";" : "";
 
   if (isNonEmptyArray(node.decorators)) {
-    parts.push(await printClassMemberDecorators(path, options, print));
+    parts.push(printClassMemberDecorators(path, options, print));
   }
   if (node.accessibility) {
     parts.push(node.accessibility + " ");
@@ -217,22 +217,19 @@ async function printClassProperty(path, options, print) {
     parts.push("readonly ");
   }
   if (node.variance) {
-    parts.push(await print("variance"));
+    parts.push(print("variance"));
   }
   if (node.type === "ClassAccessorProperty") {
     parts.push("accessor ");
   }
   parts.push(
-    await printPropertyKey(path, options, print),
-    await printOptionalToken(path),
-    await printDefiniteToken(path),
-    await printTypeAnnotation(path, options, print)
+    printPropertyKey(path, options, print),
+    printOptionalToken(path),
+    printDefiniteToken(path),
+    printTypeAnnotation(path, options, print)
   );
 
-  return [
-    await printAssignment(path, options, print, parts, " =", "value"),
-    semi,
-  ];
+  return [printAssignment(path, options, print, parts, " =", "value"), semi];
 }
 
 export {
