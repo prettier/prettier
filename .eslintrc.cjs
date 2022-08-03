@@ -213,6 +213,7 @@ module.exports = {
     },
     {
       files: [
+        "tests/config/**/*.js",
         "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
         "tests/unit/**/*.js",
