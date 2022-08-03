@@ -62,17 +62,21 @@ class AstPath {
       value = value[name];
       stack.push(name, value);
     }
-    const result = callback(this);
-    stack.length = length;
-    return result;
+    try {
+      return callback(this);
+    } finally {
+      stack.length = length;
+    }
   }
 
   callParent(callback, count = 0) {
     const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
-    const result = callback(this);
-    this.stack.push(...parentValues);
-    return result;
+    try {
+      return callback(this);
+    } finally {
+      this.stack.push(...parentValues);
+    }
   }
 
   // Similar to AstPath.prototype.call, except that the value obtained by
@@ -89,13 +93,15 @@ class AstPath {
       stack.push(name, value);
     }
 
-    for (let i = 0; i < value.length; ++i) {
-      stack.push(i, value[i]);
-      callback(this, i, value);
-      stack.length -= 2;
+    try {
+      for (let i = 0; i < value.length; ++i) {
+        stack.push(i, value[i]);
+        callback(this, i, value);
+        stack.length -= 2;
+      }
+    } finally {
+      stack.length = length;
     }
-
-    stack.length = length;
   }
 
   // Similar to AstPath.prototype.each, except that the results of the
