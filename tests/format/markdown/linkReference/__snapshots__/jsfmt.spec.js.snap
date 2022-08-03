@@ -182,6 +182,36 @@ proseWrap: "never"
 ================================================================================
 `;
 
+exports[`simple-pascal-case-definition.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+[\`AsyncGeneratorFunction\`]: ./index.html
+
+=====================================output=====================================
+[\`AsyncGeneratorFunction\`]: ./index.html
+
+================================================================================
+`;
+
+exports[`simple-pascal-case-definition.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+[\`AsyncGeneratorFunction\`]: ./index.html
+
+=====================================output=====================================
+[\`AsyncGeneratorFunction\`]: ./index.html
+
+================================================================================
+`;
+
 exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
