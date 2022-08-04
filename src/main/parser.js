@@ -53,7 +53,7 @@ function resolveParser(opts, parsers = getParsers(opts)) {
   }
 }
 
-async function parse(originalText, opts) {
+async function parse(text, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -74,18 +74,12 @@ async function parse(originalText, opts) {
   );
 
   const parser = resolveParser(opts, parsers);
-  const text = parser.preprocess
-    ? parser.preprocess(originalText, opts)
-    : originalText;
 
-  let ast;
   try {
-    ast = await parser.parse(text, parsersForCustomParserApi, opts);
+    return await parser.parse(text, parsersForCustomParserApi, opts);
   } catch (error) {
-    handleParseError(error, originalText);
+    handleParseError(error, text);
   }
-
-  return { text, ast };
 }
 
 function handleParseError(error, text) {
@@ -103,7 +97,7 @@ function handleParseError(error, text) {
 }
 
 // TODO: Remove this when we allow async parser in embed
-function parseSync(originalText, opts) {
+function parseSync(text, opts) {
   const parsers = getParsers(opts);
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
@@ -124,18 +118,12 @@ function parseSync(originalText, opts) {
   );
 
   const parser = resolveParser(opts, parsers);
-  const text = parser.preprocess
-    ? parser.preprocess(originalText, opts)
-    : originalText;
 
-  let ast;
   try {
-    ast = parser.parse(text, parsersForCustomParserApi, opts);
+    return parser.parse(text, parsersForCustomParserApi, opts);
   } catch (error) {
-    handleParseError(error, originalText);
+    handleParseError(error, text);
   }
-
-  return { text, ast };
 }
 
 export { parse, parseSync, resolveParser };

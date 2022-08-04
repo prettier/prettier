@@ -32,12 +32,12 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-async function coreFormat(originalText, opts, addAlignmentSize = 0) {
-  if (!originalText || originalText.trim().length === 0) {
+async function coreFormat(text, opts, addAlignmentSize = 0) {
+  if (!text || text.trim().length === 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  const { ast, text } = await parse(originalText, opts);
+  const ast = await parse(text, opts);
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
@@ -140,8 +140,8 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   };
 }
 
-async function formatRange(originalText, opts) {
-  const { ast, text } = await parse(originalText, opts);
+async function formatRange(text, opts) {
+  const ast = await parse(text, opts);
   const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
@@ -327,11 +327,11 @@ const prettier = {
       originalText,
       normalizeOptions(originalOptions)
     );
-    const parsed = await parse(text, options);
+    let ast = await parse(text, options);
     if (massage) {
-      parsed.ast = massageAST(parsed.ast, options);
+      ast = massageAST(ast, options);
     }
-    return parsed;
+    return {ast, text};
   },
 
   formatAST(ast, options) {
@@ -351,9 +351,9 @@ const prettier = {
     return formatted;
   },
 
-  async printToDoc(originalText, options) {
+  async printToDoc(text, options) {
     options = normalizeOptions(options);
-    const { ast, text } = await parse(originalText, options);
+    const ast = await parse(text, options);
     attachComments(text, ast, options);
     return printAstToDoc(ast, options);
   },

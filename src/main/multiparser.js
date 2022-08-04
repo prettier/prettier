@@ -39,14 +39,11 @@ function textToDoc(
     { passThrough: true }
   );
 
-  const result = parseSync(text, nextOptions);
-  const { ast } = result;
+  const ast = parseSync(text, nextOptions);
 
   if (typeof ast?.then === "function") {
     throw new TypeError("async parse is not supported in embed");
   }
-
-  text = result.text;
 
   const astComments = ast.comments;
   delete ast.comments;
