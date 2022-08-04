@@ -291,60 +291,67 @@ function embed(path, options) {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent, options);
         if (parser) {
-          const value =
-            parser === "markdown"
-              ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
-              : node.value;
-          const textToDocOptions = { parser, __embeddedInHtml: true };
-          if (options.parser === "html" && parser === "babel") {
-            let sourceType = "script";
-            const { attrMap } = node.parent;
-            if (
-              attrMap &&
-              (attrMap.type === "module" ||
-                (attrMap.type === "text/babel" &&
-                  attrMap["data-type"] === "module"))
-            ) {
-              sourceType = "module";
+          return async (textToDoc) => {
+            const value =
+              parser === "markdown"
+                ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
+                : node.value;
+            const textToDocOptions = { parser, __embeddedInHtml: true };
+            if (options.parser === "html" && parser === "babel") {
+              let sourceType = "script";
+              const { attrMap } = node.parent;
+              if (
+                attrMap &&
+                (attrMap.type === "module" ||
+                  (attrMap.type === "text/babel" &&
+                    attrMap["data-type"] === "module"))
+              ) {
+                sourceType = "module";
+              }
+              textToDocOptions.__babelSourceType = sourceType;
             }
-            textToDocOptions.__babelSourceType = sourceType;
-          }
-          return async (textToDoc) => [
-            breakParent,
-            printOpeningTagPrefix(node, options),
-            await textToDoc(value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
-            printClosingTagSuffix(node, options),
-          ];
+
+            return [
+              breakParent,
+              printOpeningTagPrefix(node, options),
+              await textToDoc(value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
+              printClosingTagSuffix(node, options),
+            ];
+          };
         }
       } else if (node.parent.type === "interpolation") {
-        const textToDocOptions = {
-          __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-          __embeddedInHtml: true,
+        return async (textToDoc) => {
+          const textToDocOptions = {
+            __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+            __embeddedInHtml: true,
+          };
+          if (options.parser === "angular") {
+            textToDocOptions.parser = "__ng_interpolation";
+            textToDocOptions.trailingComma = "none";
+          } else if (options.parser === "vue") {
+            textToDocOptions.parser =
+              options.__should_parse_vue_template_with_ts
+                ? "__vue_ts_expression"
+                : "__vue_expression";
+          } else {
+            textToDocOptions.parser = "__js_expression";
+          }
+
+          return [
+            indent([
+              line,
+              await textToDoc(node.value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
+            ]),
+            node.parent.next &&
+            needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+              ? " "
+              : line,
+          ];
         };
-        if (options.parser === "angular") {
-          textToDocOptions.parser = "__ng_interpolation";
-          textToDocOptions.trailingComma = "none";
-        } else if (options.parser === "vue") {
-          textToDocOptions.parser = options.__should_parse_vue_template_with_ts
-            ? "__vue_ts_expression"
-            : "__vue_expression";
-        } else {
-          textToDocOptions.parser = "__js_expression";
-        }
-        return async (textToDoc) => [
-          indent([
-            line,
-            await textToDoc(node.value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
-          ]),
-          node.parent.next &&
-          needsToBorrowPrevClosingTagEndMarker(node.parent.next)
-            ? " "
-            : line,
-        ];
       }
       break;
     }
