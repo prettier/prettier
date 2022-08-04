@@ -1,10 +1,7 @@
-import { createRequire } from "node:module";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import * as languages from "./languages.js";
 
-const require = createRequire(import.meta.url);
-const { version } = require("../package.json");
 const builtinPlugins = Object.values(languages);
 
 function withPlugins(
@@ -54,7 +51,6 @@ const debugApis = {
 };
 
 export {
-  version,
   formatWithCursor,
   format,
   check,
@@ -63,3 +59,4 @@ export {
 };
 export * as util from "./common/util-shared.js";
 export * as doc from "./document/index.js";
+export { default as version } from "./main/version.evaluate.js";

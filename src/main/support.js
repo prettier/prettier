@@ -1,13 +1,9 @@
-import { createRequire } from "node:module";
 import semverCompare from "semver/functions/compare.js";
 import semverGte from "semver/functions/gte.js";
 import semverLt from "semver/functions/lt.js";
 import arrayify from "../utils/arrayify.js";
 import { options as coreOptions } from "./core-options.js";
-
-const require = createRequire(import.meta.url);
-
-const currentVersion = require("../../package.json").version;
+import currentVersion from "./version.evaluate.js";
 
 /**
  * @typedef {import("./core-options").OptionInfo} OptionInfo
