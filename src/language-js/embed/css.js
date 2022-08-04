@@ -20,11 +20,7 @@ function format(path, print, textToDoc) {
           currVal,
     ""
   );
-  const doc = textToDoc(
-    text,
-    { parser: "scss" },
-    { stripTrailingHardline: true }
-  );
+  const doc = textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
   return transformCssDoc(doc, node, expressionDocs);
 }

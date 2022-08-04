@@ -18,11 +18,7 @@ function format(path, print, textToDoc) {
     text = text.replace(new RegExp(`^${indentation}`, "gm"), "");
   }
   const doc = escapeTemplateCharacters(
-    textToDoc(
-      text,
-      { parser: "markdown", __inJsTemplate: true },
-      { stripTrailingHardline: true }
-    ),
+    textToDoc(text, { parser: "markdown", __inJsTemplate: true }),
     true
   );
   return [

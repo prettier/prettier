@@ -21,14 +21,7 @@ function printSubtree(path, print, options, printAstToDoc) {
   }
 }
 
-function textToDoc(
-  text,
-  partialNextOptions,
-  parentOptions,
-  printAstToDoc,
-  // TODO: remove `stripTrailingHardline` in v3.0.0
-  { stripTrailingHardline: shouldStripTrailingHardline = false } = {}
-) {
+function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const nextOptions = normalize(
     {
       ...parentOptions,
@@ -59,17 +52,7 @@ function textToDoc(
   const doc = printAstToDoc(ast, nextOptions);
   ensureAllCommentsPrinted(astComments);
 
-  if (shouldStripTrailingHardline) {
-    // TODO: move this to `stripTrailingHardline` function in `/src/document/utils.js`
-    if (typeof doc === "string") {
-      return doc.replace(/(?:\r?\n)*$/, "");
-    }
-
-    return stripTrailingHardline(doc);
-  }
-
-  /* istanbul ignore next */
-  return doc;
+  return stripTrailingHardline(doc);
 }
 
 export { printSubtree };

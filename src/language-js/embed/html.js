@@ -30,16 +30,12 @@ function format(path, print, textToDoc, options, { parser }) {
 
   const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
   let topLevelCount = 0;
-  const doc = textToDoc(
-    text,
-    {
-      parser,
-      __onHtmlRoot(root) {
-        topLevelCount = root.children.length;
-      },
+  const doc = textToDoc(text, {
+    parser,
+    __onHtmlRoot(root) {
+      topLevelCount = root.children.length;
     },
-    { stripTrailingHardline: true }
-  );
+  });
 
   const contentDoc = mapDoc(doc, (doc) => {
     if (typeof doc !== "string") {

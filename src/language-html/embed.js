@@ -265,11 +265,10 @@ function embed(path, print, textToDoc, options) {
         let isEmpty = /^\s*$/.test(content);
         let doc = "";
         if (!isEmpty) {
-          doc = textToDoc(
-            htmlTrimPreserveIndentation(content),
-            { parser, __embeddedInHtml: true },
-            { stripTrailingHardline: true }
-          );
+          doc = textToDoc(htmlTrimPreserveIndentation(content), {
+            parser,
+            __embeddedInHtml: true,
+          });
           isEmpty = doc === "";
         }
 
@@ -310,9 +309,7 @@ function embed(path, print, textToDoc, options) {
           return [
             breakParent,
             printOpeningTagPrefix(node, options),
-            textToDoc(value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
+            textToDoc(value, textToDocOptions),
             printClosingTagSuffix(node, options),
           ];
         }
@@ -332,12 +329,7 @@ function embed(path, print, textToDoc, options) {
           textToDocOptions.parser = "__js_expression";
         }
         return [
-          indent([
-            line,
-            textToDoc(node.value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
-          ]),
+          indent([line, textToDoc(node.value, textToDocOptions)]),
           node.parent.next &&
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
             ? " "
@@ -382,11 +374,11 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(
-            code,
-            { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
-            { stripTrailingHardline: true }
-          ),
+          textToDoc(code, {
+            __isInHtmlAttribute: true,
+            __embeddedInHtml: true,
+            ...opts,
+          }),
         options
       );
       if (embeddedAttributeValueDoc) {

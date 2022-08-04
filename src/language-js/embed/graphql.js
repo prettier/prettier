@@ -46,11 +46,7 @@ function format(path, print, textToDoc) {
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);
     } else {
-      doc = textToDoc(
-        text,
-        { parser: "graphql" },
-        { stripTrailingHardline: true }
-      );
+      doc = textToDoc(text, { parser: "graphql" });
     }
 
     if (doc) {

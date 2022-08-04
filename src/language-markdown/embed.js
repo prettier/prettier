@@ -23,8 +23,7 @@ function embed(path, print, textToDoc, options) {
       }
       const doc = textToDoc(
         getFencedCodeBlockValue(node, options.originalText),
-        newOptions,
-        { stripTrailingHardline: true }
+        newOptions
       );
       return markAsRoot([
         style,
@@ -44,23 +43,12 @@ function embed(path, print, textToDoc, options) {
 
     // MDX
     case "importExport":
-      return [
-        textToDoc(
-          node.value,
-          { parser: "babel" },
-          { stripTrailingHardline: true }
-        ),
-        hardline,
-      ];
+      return [textToDoc(node.value, { parser: "babel" }), hardline];
     case "jsx":
-      return textToDoc(
-        `<$>${node.value}</$>`,
-        {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        },
-        { stripTrailingHardline: true }
-      );
+      return textToDoc(`<$>${node.value}</$>`, {
+        parser: "__js_expression",
+        rootMarker: "mdx",
+      });
   }
 
   return null;
