@@ -8,14 +8,8 @@ function printSubtree(path, print, options, printAstToDoc) {
     return options.printer.embed(
       path,
       print,
-      (text, partialNextOptions, textToDocOptions) =>
-        textToDoc(
-          text,
-          partialNextOptions,
-          options,
-          printAstToDoc,
-          textToDocOptions
-        ),
+      (text, partialNextOptions) =>
+        textToDoc(text, partialNextOptions, options, printAstToDoc),
       options
     );
   }
