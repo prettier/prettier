@@ -183,11 +183,14 @@ import { doc } from "prettier";
 const { join, line, ifBreak, group } = doc.builders;
 ```
 
-The printing process works as follows:
+The printing process consists of the following steps:
 
-1. `preprocess(ast: AST, options: object): AST`, if available, is called. It is passed the AST from the _parser_. The AST returned by `preprocess` will be used by Prettier. If `preprocess` is not defined, the AST returned from the _parser_ will be used.
-2. Comments are attached to the AST (see _Handling comments in a printer_ for details).
-3. A Doc is recursively constructed from the AST. i) `embed(path: AstPath, print, textToDoc, options: object): Doc | null` is called on each AST node. If `embed` returns a Doc, that Doc is used. ii) If `embed` is undefined or returns a falsy value, `print(path: AstPath, options: object, print): Doc` is called on each AST node.
+1. **AST preprocessing** (optional). See [`preprocess`](#optional-preprocess).
+2. **Comment attachment** (optional). See [Handling comments in a printer](#handling-comments-in-a-printer).
+3. **Processing embedded languages** (optional). The [`embed`](#optional-embed) method, if defined, is called for each node, depth-first. While, for performance reasons, the recursion itself is synchronous, `embed` may return asynchronous functions that can call other parsers and printers to compose docs for embedded syntaxes like CSS-in-JS. These returned functions are queued up and sequentially executed before the next step.
+4. **Recursive printing**. A doc is recursively constructed from the AST. Starting from the root node:
+   - If, from the step 3, there is an embedded language doc associated with the current node, this doc is used.
+   - Otherwise, the `print(path, options, print): Doc` method is called. It composes a doc for the current node, often by printing child nodes using the `print` callback.
 
 #### `print`
 
@@ -248,33 +251,48 @@ Check out [prettier-python's printer](https://github.com/prettier/prettier-pytho
 
 #### (optional) `embed`
 
-The `embed` function is called when the plugin needs to print one language inside another. Examples of this are printing CSS-in-JS or fenced code blocks in Markdown. Its signature is:
+A printer can have the `embed` method to print one language inside another. Examples of this are printing CSS-in-JS or fenced code blocks in Markdown. The signature is:
 
 ```ts
 function embed(
   // Path to the current AST node
   path: AstPath,
-  // Print a node with the current printer
-  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
-  // Parse and print some text using a different parser.
-  // You should set `options.parser` to specify which parser to use.
-  textToDoc: (text: string, options: object) => Doc,
   // Current options
-  options: object
-): Doc | null;
+  options: Options
+):
+  | ((
+      // Parses and prints the passed text using a different parser.
+      // You should set `options.parser` to specify which parser to use.
+      textToDoc: (text: string, options: Options) => Promise<Doc>,
+      // Prints a node with the current printer
+      print: (
+        selector?: string | number | Array<string | number> | AstPath
+      ) => Doc,
+      // The following two arguments are passed for convenience.
+      // They're the same `path` and `options` that are passed to `embed`.
+      path: AstPath,
+      options: Options
+    ) => Promise<undefined | Doc> | Doc | undefined)
+  | Doc
+  | undefined;
 ```
 
-The `embed` function acts like the `print` function, except that it is passed an additional `textToDoc` function, which can be used to render a doc using a different plugin. The `embed` function returns a Doc or a falsy value. If a falsy value is returned, the `print` function is called with the current `path`. If a Doc is returned, that Doc is used in printing and the `print` function is not called.
+The `embed` method is similar to the `print` method in that it maps AST nodes to docs, but unlike `print`, it has power to do async work by returning an async function. That function's first parameter, the `textToDoc` function, can be used to render a doc using a different plugin. If a function returned from `embed` returns a promise that resolves to a doc, that doc will be used in printing and the `print` method won't be called for this node. If `embed` or a function it returned returns `undefined` or a promise that resolves to `undefined`, the node will be printed normally with the `print` method.
 
-For example, a plugin that had nodes with embedded JavaScript might have the following `embed` function:
+For example, a plugin that has nodes with embedded JavaScript might have the following `embed` method:
 
 ```js
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
   if (node.type === "javascript") {
-    return textToDoc(node.javaScriptText, { ...options, parser: "babel" });
+    return async (textToDoc) => {
+      return [
+        "<script>",
+        await textToDoc(node.javaScriptCode, { ...options, parser: "babel" }),
+        "</script>",
+      ];
+    };
   }
-  return false;
 }
 ```
 
