@@ -1,3 +1,5 @@
+import { hardline } from "../document/builders.js";
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
@@ -7,7 +9,8 @@ function embed(path, print, textToDoc, options) {
     options.filepath &&
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
-    return textToDoc(options.originalText, { ...options, parser: "json" });
+    const doc = textToDoc(options.originalText, {parser: "json"});
+    return doc ? [doc, hardline] : "";
   }
 }
 
