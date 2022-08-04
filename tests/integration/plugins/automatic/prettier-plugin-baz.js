@@ -12,10 +12,10 @@ const plugin = {
     },
   },
   printers: {
-    bar: {
+    baz: {
       print(path) {
         return [
-          "content from `prettier-plugin-bar.js` file + ",
+          "content from `prettier-plugin-baz.js` file + ",
           path.getValue().text,
         ];
       },

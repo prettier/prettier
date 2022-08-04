@@ -165,7 +165,7 @@ describe("loads --plugin by package name", () => {
   });
 });
 
-describe("loads --plugin by filename without leading ./ and ext, should resolve to file, not package", () => {
+describe("loads --plugin by filename without leading ./, should resolve to file, not package", () => {
   runPrettier("plugins/automatic", [
     "file.txt",
     "--parser=baz",

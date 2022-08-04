@@ -1,10 +1,8 @@
-import createEsmUtils from "esm-utils";
-
-const { require } = createEsmUtils(import.meta);
-
-const plugins = [
-  require("../../../../config/prettier-plugins/prettier-plugin-async-parser/index.cjs"),
-  require("../../../../config/prettier-plugins/prettier-plugin-uppercase-rocks/index.cjs"),
-];
+const plugins = await Promise.all(
+  [
+    "../../../../config/prettier-plugins/prettier-plugin-async-parser/index.cjs",
+    "../../../../config/prettier-plugins/prettier-plugin-uppercase-rocks/index.js",
+  ].map(async (plugin) => (await import(plugin)).default)
+);
 
 run_spec(import.meta, ["markdown"], { plugins });
