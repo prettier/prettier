@@ -81,15 +81,7 @@ async function printEmbeddedLanguages(
       }
     }
 
-    let result;
-    try {
-      result = printer.embed(path, options);
-    } catch (error) {
-      /* istanbul ignore if */
-      if (process.env.PRETTIER_DEBUG) {
-        throw error;
-      }
-    }
+    const result = printer.embed(path, options);
 
     if (!result) {
       return;
