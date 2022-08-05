@@ -46,7 +46,11 @@ const config = {
     escapeString: false,
     printBasicPrototype: false,
   },
-  testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
+  testMatch: [
+    "<rootDir>/tests/format/**/jsfmt.spec.js",
+    "<rootDir>/tests/integration/__tests__/**/*.js",
+    "<rootDir>/tests/unit/**/*.js",
+  ],
   testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
