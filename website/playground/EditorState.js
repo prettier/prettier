@@ -6,7 +6,6 @@ import * as storage from "./storage.js";
 export default class EditorState extends React.Component {
   constructor() {
     super();
-    const loadedState = storage.get("editor_state");
     this.state = {
       showSidebar: window.innerWidth > window.innerHeight,
       showAst: false,
@@ -15,8 +14,7 @@ export default class EditorState extends React.Component {
       showSecondFormat: false,
       showInput: true,
       showOutput: true,
-      // false by default, but true if the state was saved by an older version of playground
-      rethrowEmbedErrors: loadedState !== undefined,
+      rethrowEmbedErrors: false,
       toggleSidebar: () => this.setState(stateToggler("showSidebar")),
       toggleAst: () => this.setState(stateToggler("showAst")),
       toggleDoc: () => this.setState(stateToggler("showDoc")),
@@ -26,7 +24,7 @@ export default class EditorState extends React.Component {
       toggleOutput: () => this.setState(stateToggler("showOutput")),
       toggleEmbedErrors: () =>
         this.setState(stateToggler("rethrowEmbedErrors")),
-      ...loadedState,
+      ...storage.get("editor_state"),
     };
   }
 
