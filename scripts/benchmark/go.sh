@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-commits=(main next)
+commits=(765cae2 eeed611)
 
 args=()
 

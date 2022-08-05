@@ -2,8 +2,10 @@
 
 tasks:
   - init: |
+      cd scripts/benchmark
+      brew install hyperfine
+      cd ../..
       yarn
-      yarn build
 
 github:
   # https://www.gitpod.io/docs/prebuilds/#configure-prebuilds
