@@ -2,9 +2,7 @@
 
 tasks:
   - init: |
-      cd scripts/benchmark
       brew install hyperfine
-      cd ../..
       yarn
 
 github:
