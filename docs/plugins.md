@@ -264,7 +264,7 @@ function embed(
       // Parses and prints the passed text using a different parser.
       // You should set `options.parser` to specify which parser to use.
       textToDoc: (text: string, options: Options) => Promise<Doc>,
-      // Prints a node with the current printer
+      // Prints the current node or its descendant node with the current printer
       print: (
         selector?: string | number | Array<string | number> | AstPath
       ) => Doc,
@@ -272,12 +272,16 @@ function embed(
       // They're the same `path` and `options` that are passed to `embed`.
       path: AstPath,
       options: Options
-    ) => Promise<undefined | Doc> | Doc | undefined)
+    ) => Promise<Doc | undefined> | Doc | undefined)
   | Doc
   | undefined;
 ```
 
-The `embed` method is similar to the `print` method in that it maps AST nodes to docs, but unlike `print`, it has power to do async work by returning an async function. That function's first parameter, the `textToDoc` function, can be used to render a doc using a different plugin. If a function returned from `embed` returns a promise that resolves to a doc, that doc will be used in printing and the `print` method won't be called for this node. If `embed` or a function it returned returns `undefined` or a promise that resolves to `undefined`, the node will be printed normally with the `print` method.
+The `embed` method is similar to the `print` method in that it maps AST nodes to docs, but unlike `print`, it has power to do async work by returning an async function. That function's first parameter, the `textToDoc` async function, can be used to render a doc using a different plugin.
+
+If a function returned from `embed` returns a doc or a promise that resolves to a doc, that doc will be used in printing, and the `print` method won’t be called for this node. It's also possible and, in rare situations, might be convenient to return a doc synchronously directly from `embed`, however `textToDoc` and the `print` callback aren’t available at that case. Return a function to get them.
+
+If `embed` returns `undefined`, or if a function it returned returns `undefined` or a promise that resolves to `undefined`, the node will be printed normally with the `print` method. Same will happen if a returned function throws an error or returns a promise that rejects (e.g., if a parsing error has happened). Set the `PRETTIER_DEBUG` environment variable to an non-empty value if you want Prettier to rethrow these errors.
 
 For example, a plugin that has nodes with embedded JavaScript might have the following `embed` method:
 
@@ -295,6 +299,8 @@ function embed(path, options) {
   }
 }
 ```
+
+If the [`--embedded-language-formatting`](options.md#embedded-language-formatting) option is set to `off`, the embedding step is entirely skipped, `embed` isn’t called, and all nodes are printed with the `print` method.
 
 #### (optional) `preprocess`
 
