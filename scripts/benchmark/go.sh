@@ -2,6 +2,9 @@
 
 commits=("${@}")
 
+root=`git rev-parse --show-toplevel`
+cd "$root/scripts/benchmark"
+
 function cleanup {
   echo Cleaning up...
   rm -rf "${commits[@]}"
@@ -13,8 +16,8 @@ args=()
 
 for commit in "${commits[@]}"; do
   rm -rf $commit
-  git -C ../.. archive $commit --prefix $commit/ ':!tests*' ':!website' ':!docs' | tar -x
-  (cd $commit; yarn; yarn build; rm -rf node_modules)
+  git -C "$root" archive $commit --prefix $commit/ ':!tests*' ':!website' ':!docs' | tar -x
+  (cd $commit; yarn; yarn build)
   args+=("node ./bench.mjs $commit serial")
   args+=("node ./bench.mjs $commit parallel")
 done
