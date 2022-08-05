@@ -255,7 +255,7 @@ function label(label, contents) {
 }
 
 // TODO: Remove this in v4
-export const concat = parts => parts;
+export const concat = (parts) => parts;
 
 export {
   join,
