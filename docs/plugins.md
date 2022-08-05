@@ -281,7 +281,7 @@ The `embed` method is similar to the `print` method in that it maps AST nodes to
 
 If a function returned from `embed` returns a doc or a promise that resolves to a doc, that doc will be used in printing, and the `print` method won’t be called for this node. It's also possible and, in rare situations, might be convenient to return a doc synchronously directly from `embed`, however `textToDoc` and the `print` callback aren’t available at that case. Return a function to get them.
 
-If `embed` returns `undefined`, or if a function it returned returns `undefined` or a promise that resolves to `undefined`, the node will be printed normally with the `print` method. Same will happen if a returned function throws an error or returns a promise that rejects (e.g., if a parsing error has happened). Set the `PRETTIER_DEBUG` environment variable to an non-empty value if you want Prettier to rethrow these errors.
+If `embed` returns `undefined`, or if a function it returned returns `undefined` or a promise that resolves to `undefined`, the node will be printed normally with the `print` method. Same will happen if a returned function throws an error or returns a promise that rejects (e.g., if a parsing error has happened). Set the `PRETTIER_DEBUG` environment variable to a non-empty value if you want Prettier to rethrow these errors.
 
 For example, a plugin that has nodes with embedded JavaScript might have the following `embed` method:
 
@@ -292,7 +292,9 @@ function embed(path, options) {
     return async (textToDoc) => {
       return [
         "<script>",
-        await textToDoc(node.javaScriptCode, { ...options, parser: "babel" }),
+        hardline,
+        await textToDoc(node.javaScriptCode, { parser: "babel" }),
+        hardline,
         "</script>",
       ];
     };
