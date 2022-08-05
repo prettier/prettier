@@ -12,7 +12,7 @@ for commit in "${commits[@]}"; do
   args+=("node ./bench.mjs $commit parallel")
 done
 
-hyperfine "${args[@]}"
+hyperfine --warmup 3 "${args[@]}"
 
 for commit in "${commits[@]}"; do
   rm -rf $commit
