@@ -2,6 +2,15 @@
 
 commits=("${@}")
 
+function cleanup {
+  echo Cleaning up...
+  for commit in "${commits[@]}"; do
+    rm -rf $commit
+  done
+  echo Done!
+}
+trap cleanup EXIT
+
 args=()
 
 for commit in "${commits[@]}"; do
@@ -13,7 +22,3 @@ for commit in "${commits[@]}"; do
 done
 
 hyperfine --warmup 3 "${args[@]}"
-
-for commit in "${commits[@]}"; do
-  rm -rf $commit
-done

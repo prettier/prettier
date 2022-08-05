@@ -19,10 +19,10 @@ for (let i = 0; i < groupCount; i++) {
   }
 
   if (method === "parallel") {
-    const promises = [];
-    for (let i = 0; i < groupSize; i++) {
-      promises.push(format(sourceText, { parser: "typescript" }));
-    }
-    await Promise.allSettled(promises);
+    await Promise.allSettled(
+      Array.from({ length: groupSize }, () =>
+        format(sourceText, { parser: "typescript" })
+      )
+    );
   }
 }
