@@ -6,7 +6,10 @@ const groupCount = Number(groupCountString);
 const groupSize = Number(groupSizeString);
 const { format } = await import(`./${version}/dist/index.js`);
 
-const sourceText = readFileSync("../../src/language-js/utils/index.js", "utf8");
+const sourceText = readFileSync(
+  process.env.PRETTIER_PERF_FILENAME || "../../src/language-js/utils/index.js",
+  "utf8"
+);
 
 for (let i = 0; i < groupCount; i++) {
   if (method === "serial") {

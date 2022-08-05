@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-commits=(765cae2 eeed611)
+commits=("${@}")
 
 args=()
 
