@@ -29,7 +29,7 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   const { printer } = options;
 
   if (printer.preprocess) {
-    ast = printer.preprocess(ast, options);
+    ast = await printer.preprocess(ast, options);
   }
 
   const cache = new Map();
@@ -38,7 +38,15 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   const embeds = new Map();
   await printEmbeddedLanguages(path, mainPrint, options, printAstToDoc, embeds);
 
-  let doc = mainPrint();
+  // Only the root call of the print method is awaited.
+  // This is done to make things simpler for plugins that don't use recursive printing.
+  let doc = await callPluginPrintFunction(
+    path,
+    options,
+    mainPrint,
+    undefined,
+    embeds
+  );
 
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
