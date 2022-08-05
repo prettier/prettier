@@ -9,7 +9,7 @@ function embed(path, print, textToDoc, options) {
     options.filepath &&
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
-    const doc = textToDoc(options.originalText, {parser: "json"});
+    const doc = textToDoc(options.originalText, { parser: "json" });
     return doc ? [doc, hardline] : "";
   }
 }
