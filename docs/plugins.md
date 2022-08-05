@@ -215,9 +215,9 @@ The `print` function is passed the following parameters:
 Here’s a simplified example to give an idea of what a typical implementation of `print` looks like:
 
 ```js
-const {
-  builders: { group, indent, join, line, softline },
-} = require("prettier").doc;
+import { doc } from "prettier";
+
+const { group, indent, join, line, softline } = doc.builders;
 
 function print(path, options, print) {
   const node = path.getValue();
@@ -481,9 +481,9 @@ function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => nu
 Since plugins can be resolved using relative paths, when working on one you can do:
 
 ```js
-const prettier = require("prettier");
+import * as prettier from "prettier";
 const code = "(add 1 2)";
-prettier.format(code, {
+await prettier.format(code, {
   parser: "lisp",
   plugins: ["."],
 });
