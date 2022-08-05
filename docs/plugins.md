@@ -269,14 +269,10 @@ The `embed` function acts like the `print` function, except that it is passed an
 For example, a plugin that had nodes with embedded JavaScript might have the following `embed` function:
 
 ```js
-async function embed(path, print, textToDoc, options) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   if (node.type === "javascript") {
-    const doc = await textToDoc(node.javaScriptText, {
-      ...options,
-      parser: "babel",
-    });
-    return doc;
+    return textToDoc(node.javaScriptText, { ...options, parser: "babel" });
   }
   return false;
 }
