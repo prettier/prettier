@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html4.01_frameset.html 1`] = `
+exports[`html4.01_frameset.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -33,7 +33,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html4.01_strict.html 1`] = `
+exports[`html4.01_strict.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -66,7 +66,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html4.01_transitional.html 1`] = `
+exports[`html4.01_transitional.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -99,7 +99,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html5.html 1`] = `
+exports[`html5.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -131,7 +131,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ibm_system.html 1`] = `
+exports[`ibm_system.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -145,7 +145,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`legacy_string.html 1`] = `
+exports[`legacy_string.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -159,7 +159,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`xhtml1.0_frameset.html 1`] = `
+exports[`xhtml1.0_frameset.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -175,7 +175,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`xhtml1.0_strict.html 1`] = `
+exports[`xhtml1.0_strict.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -190,7 +190,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`xhtml1.0_transitional.html 1`] = `
+exports[`xhtml1.0_transitional.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -206,7 +206,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`xhtml1.1.html 1`] = `
+exports[`xhtml1.1.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -242,7 +242,7 @@ printWidth: 80
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
     <title>XHTML markup</title>
   </head>
-  <body style="background-color:#ffffcc; color:#008800">
+  <body style="background-color: #ffffcc; color: #008800">
     <br />
     <h2 align="center">Sample XHTML page</h2>
     <br />
@@ -255,7 +255,7 @@ printWidth: 80
         vspace="20"
       />
     </div>
-    <p align="center" style="font-size:17px">
+    <p align="center" style="font-size: 17px">
       Bar Foo,<br />
       Foo,<br />
       Bar<br />
