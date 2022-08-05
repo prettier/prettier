@@ -254,6 +254,9 @@ function label(label, contents) {
   return { type: DOC_TYPE_LABEL, label, contents };
 }
 
+// TODO: Remove this in v4
+export const concat = parts => parts;
+
 export {
   join,
   line,
