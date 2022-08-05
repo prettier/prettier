@@ -150,7 +150,7 @@
     "perf": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js",
     "perf:inspect": "yarn && yarn build && cross-env NODE_ENV=production node --inspect-brk ./dist/bin-prettier.js",
     "perf:benchmark": "yarn perf --debug-benchmark",
-    "perf:compare": "./scripts/benchmark/go.sh",
+    "perf:compare": "./scripts/benchmark/compare.sh",
     "lint": "run-p lint:*",
     "lint:typecheck": "tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
