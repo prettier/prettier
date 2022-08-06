@@ -1,12 +1,4 @@
-function massageAST(ast, options, parent) {
-  if (Array.isArray(ast)) {
-    return ast.map((e) => massageAST(e, options, parent)).filter(Boolean);
-  }
-
-  if (!ast || typeof ast !== "object") {
-    return ast;
-  }
-
+function massageAST(ast, options) {
   const cleanFunction = options.printer.massageAstNode;
 
   const ignoredProperties = new Set([
@@ -14,24 +6,47 @@ function massageAST(ast, options, parent) {
     ...(cleanFunction?.ignoredProperties ?? []),
   ]);
 
-  const newObj = {};
-  for (const [key, value] of Object.entries(ast)) {
-    if (!ignoredProperties.has(key) && typeof value !== "function") {
-      newObj[key] = massageAST(value, options, ast);
-    }
-  }
+  return recurse(ast);
 
-  if (cleanFunction) {
-    const result = cleanFunction(ast, newObj, parent);
-    if (result === null) {
-      return;
+  function recurse(node, parent) {
+    if (!node || typeof node !== "object") {
+      return node;
     }
-    if (result) {
-      return result;
-    }
-  }
 
-  return newObj;
+    if (Array.isArray(node)) {
+      const newArray = [];
+      for (let i = 0; i < node.length; i++) {
+        const item = recurse(node[i], parent);
+        if (item) {
+          newArray.push(item);
+        }
+      }
+      return newArray;
+    }
+
+    const newObj = {};
+
+    for (const key in node) {
+      if (
+        Object.prototype.hasOwnProperty.call(node, key) &&
+        !ignoredProperties.has(key)
+      ) {
+        newObj[key] = recurse(node[key], node);
+      }
+    }
+
+    if (cleanFunction) {
+      const result = cleanFunction(node, newObj, parent);
+      if (result === null) {
+        return;
+      }
+      if (result) {
+        return result;
+      }
+    }
+
+    return newObj;
+  }
 }
 
 export default massageAST;
