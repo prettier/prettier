@@ -1,7 +1,7 @@
 import getLast from "../utils/get-last.js";
 import {
   DOC_TYPE_STRING,
-  DOC_TYPE_CONCAT,
+  DOC_TYPE_ARRAY,
   DOC_TYPE_CURSOR,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
@@ -49,7 +49,7 @@ function getDocErrorMessage(doc) {
   /* istanbul ignore next */
   if (
     docType === DOC_TYPE_STRING ||
-    docType === DOC_TYPE_CONCAT ||
+    docType === DOC_TYPE_ARRAY ||
     VALID_OBJECT_DOC_TYPE_VALUES.includes(docType)
   ) {
     throw new Error("doc is valid.");

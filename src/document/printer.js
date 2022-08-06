@@ -3,7 +3,7 @@ import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
 import {
   DOC_TYPE_STRING,
-  DOC_TYPE_CONCAT,
+  DOC_TYPE_ARRAY,
   DOC_TYPE_CURSOR,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
@@ -205,7 +205,7 @@ function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
         width -= getStringWidth(doc);
         break;
 
-      case DOC_TYPE_CONCAT:
+      case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {
         const parts = getDocParts(doc);
         for (let i = parts.length - 1; i >= 0; i--) {
@@ -301,7 +301,7 @@ function printDocToString(doc, options) {
         break;
       }
 
-      case DOC_TYPE_CONCAT: {
+      case DOC_TYPE_ARRAY: {
         for (let i = doc.length - 1; i >= 0; i--) {
           cmds.push({ ind, mode, doc: doc[i] });
         }

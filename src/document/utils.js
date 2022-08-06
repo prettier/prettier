@@ -1,7 +1,7 @@
 import getLast from "../utils/get-last.js";
 import {
   DOC_TYPE_STRING,
-  DOC_TYPE_CONCAT,
+  DOC_TYPE_ARRAY,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
   DOC_TYPE_GROUP,
@@ -106,7 +106,7 @@ function mapDoc(doc, cb) {
       return cb(doc.map(rec));
     }
 
-    if (doc.type === DOC_TYPE_CONCAT || doc.type === DOC_TYPE_FILL) {
+    if (doc.type === DOC_TYPE_ARRAY || doc.type === DOC_TYPE_FILL) {
       const parts = doc.parts.map(rec);
       return cb({ ...doc, parts });
     }
@@ -426,7 +426,7 @@ function getDocType(doc) {
   }
 
   if (Array.isArray(doc)) {
-    return DOC_TYPE_CONCAT;
+    return DOC_TYPE_ARRAY;
   }
 
   return doc?.type;
