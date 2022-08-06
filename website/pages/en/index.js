@@ -90,7 +90,11 @@ const TldrSection = ({ language }) => (
             <li>An opinionated code formatter</li>
             <li>Supports many languages</li>
             <li>Integrates with most editors</li>
-            <li>Has few options</li>
+            <li>
+              <a href={"/docs/" + language + "/option-philosophy.html"}>
+                Has few options &raquo;
+              </a>
+            </li>
           </ul>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -100,10 +104,7 @@ const TldrSection = ({ language }) => (
             <li>No need to discuss style in code review</li>
             <li>Saves you time and energy</li>
             <li>
-              <a
-                style={{ color: "inherit !important", fontSize: "inherit" }}
-                href={"/docs/" + language + "/why-prettier.html"}
-              >
+              <a href={"/docs/" + language + "/why-prettier.html"}>
                 And more &raquo;
               </a>
             </li>
