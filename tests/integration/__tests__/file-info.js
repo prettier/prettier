@@ -128,7 +128,7 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
     "--file-info",
     "file.foo",
     "--plugin",
-    "../plugins/automatic/node_modules/@prettier/plugin-foo",
+    "../plugins/automatic/node_modules/@prettier/plugin-foo/index.js",
   ]).test({
     status: 0,
   });
@@ -383,7 +383,7 @@ test("API getFileInfo with hand-picked plugins", async () => {
   const pluginPath = path.resolve(
     path.join(
       __dirname,
-      "../plugins/automatic/node_modules/@prettier/plugin-foo"
+      "../plugins/automatic/node_modules/@prettier/plugin-foo/index.js"
     )
   );
   await expect(prettier.getFileInfo(file)).resolves.toMatchObject({

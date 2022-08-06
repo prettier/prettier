@@ -188,7 +188,6 @@ module.exports = {
         "**/*.cjs",
         "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
         "website/**/*.js",
-        "tests/integration/plugins/automatic/prettier-plugin-bar.js",
       ],
       parserOptions: {
         sourceType: "script",

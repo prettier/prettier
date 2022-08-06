@@ -1,13 +1,19 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
+import importFromDirectory from "../utils/import-from-directory.js";
 import thirdParty from "./third-party.js";
-import requireFrom from "./require-from.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const importPlugin = async (name, directory) => {
+  const module = await importFromDirectory(name, directory);
+  const plugin = module.default ?? module;
+  return { name, ...plugin };
+};
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -40,18 +46,19 @@ async function load(plugins, pluginSearchDirs) {
     (plugin) => typeof plugin === "string"
   );
 
-  const externalManualLoadPlugins = externalPluginNames.map((name) => {
-    let plugin;
-    try {
-      // try local files
-      plugin = requireFrom(path.resolve(name), process.cwd());
-    } catch {
-      // try node modules
-      plugin = requireFrom(name, process.cwd());
-    }
-
-    return { name, ...plugin };
-  });
+  const externalManualLoadPlugins = await Promise.all(
+    externalPluginNames.map(async (name) => {
+      try {
+        // try local files
+        const module = await import(pathToFileURL(path.resolve(name)).href);
+        const plugin = module.default ?? module;
+        return { name, ...plugin };
+      } catch {
+        // try node modules
+        return importPlugin(name, process.cwd());
+      }
+    })
+  );
 
   const externalAutoLoadPlugins = (
     await Promise.all(
@@ -80,10 +87,9 @@ async function load(plugins, pluginSearchDirs) {
 
         const pluginNames = await memoizedSearch(nodeModulesDir);
 
-        return pluginNames.map((name) => ({
-          name,
-          ...requireFrom(name, nodeModulesDir),
-        }));
+        return Promise.all(
+          pluginNames.map((name) => importPlugin(name, nodeModulesDir))
+        );
       })
     )
   ).flat();
