@@ -306,10 +306,10 @@ If the [`--embedded-language-formatting`](options.md#embedded-language-formattin
 
 #### (optional) `preprocess`
 
-The preprocess function can process the AST from parser before passing into `print` function.
+The `preprocess` method can process the AST from the parser before passing it into the `print` method.
 
 ```ts
-function preprocess(ast: AST, options: object): AST;
+function preprocess(ast: AST, options: Options): AST | Promise<AST>;
 ```
 
 #### (optional) `insertPragma`
