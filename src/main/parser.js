@@ -1,9 +1,6 @@
-import { createRequire } from "node:module";
 import { ConfigError } from "../common/errors.js";
 import { locStart, locEnd } from "../language-js/loc.js";
 import loadParser from "./load-parser.js";
-
-const require = createRequire(import.meta.url);
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
 // triggering the parsers getters.
@@ -82,17 +79,17 @@ async function parse(originalText, opts) {
   try {
     ast = await parser.parse(text, parsersForCustomParserApi, opts);
   } catch (error) {
-    handleParseError(error, originalText);
+    await handleParseError(error, originalText);
   }
 
   return { text, ast };
 }
 
-function handleParseError(error, text) {
+async function handleParseError(error, text) {
   const { loc } = error;
 
   if (loc) {
-    const { codeFrameColumns } = require("@babel/code-frame");
+    const { codeFrameColumns } = await import("@babel/code-frame");
     error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
     error.message += "\n" + error.codeFrame;
     throw error;
