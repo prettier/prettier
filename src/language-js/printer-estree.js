@@ -866,6 +866,7 @@ const printer = {
     remaining: handleComments.handleRemainingComment,
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
+  isNode: (node) => typeof node.type === "string",
 };
 
 export default printer;

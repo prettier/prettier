@@ -32,15 +32,6 @@ describe("API", () => {
     expect(formatResultFromAST).toBe(formatted);
   });
 
-  test("prettier.printToDoc", (done) => {
-    // If it's array, it's a `concat`
-    if (!Array.isArray(doc)) {
-      expect(doc.type).toBe("concat");
-      expect(Array.isArray(doc.parts)).toBe(true);
-    }
-    done();
-  });
-
   test("prettier.printDocToString", async () => {
     const { formatted: stringFromDoc } = await printDocToString(doc, options);
     expect(stringFromDoc).toBe(formatted);

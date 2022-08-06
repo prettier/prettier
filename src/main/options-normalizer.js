@@ -21,17 +21,19 @@ const cliDescriptor = {
 // To prevent `chalk` and `leven` module from being included in the `standalone.js` bundle, it will take that as an argument if needed.
 const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
   class FlagSchema extends vnopts.ChoiceSchema {
+    #flags = [];
+
     constructor({ name, flags }) {
       super({ name, choices: flags });
-      this._flags = [...flags].sort();
+      this.#flags = [...flags].sort();
     }
     preprocess(value, utils) {
       if (
         typeof value === "string" &&
         value.length > 0 &&
-        !this._flags.includes(value)
+        !this.#flags.includes(value)
       ) {
-        const suggestion = this._flags.find(
+        const suggestion = this.#flags.find(
           (flag) => levenshteinDistance(flag, value) < 3
         );
         if (suggestion) {

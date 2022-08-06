@@ -110,26 +110,24 @@ function printCallArguments(path, options, print) {
     let printedExpanded = [];
 
     try {
-      path.try(() => {
-        iterateCallArgumentsPath(path, (argPath, i) => {
-          if (shouldGroupFirst && i === 0) {
-            printedExpanded = [
-              [
-                print([], { expandFirstArg: true }),
-                printedArguments.length > 1 ? "," : "",
-                hasEmptyLineFollowingFirstArg ? hardline : line,
-                hasEmptyLineFollowingFirstArg ? hardline : "",
-              ],
-              ...printedArguments.slice(1),
-            ];
-          }
-          if (shouldGroupLast && i === lastArgIndex) {
-            printedExpanded = [
-              ...printedArguments.slice(0, -1),
-              print([], { expandLastArg: true }),
-            ];
-          }
-        });
+      iterateCallArgumentsPath(path, (argPath, i) => {
+        if (shouldGroupFirst && i === 0) {
+          printedExpanded = [
+            [
+              print([], { expandFirstArg: true }),
+              printedArguments.length > 1 ? "," : "",
+              hasEmptyLineFollowingFirstArg ? hardline : line,
+              hasEmptyLineFollowingFirstArg ? hardline : "",
+            ],
+            ...printedArguments.slice(1),
+          ];
+        }
+        if (shouldGroupLast && i === lastArgIndex) {
+          printedExpanded = [
+            ...printedArguments.slice(0, -1),
+            print([], { expandLastArg: true }),
+          ];
+        }
       });
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {

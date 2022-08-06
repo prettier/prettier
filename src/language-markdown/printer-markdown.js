@@ -916,6 +916,7 @@ const printer = {
   massageAstNode: clean,
   hasPrettierIgnore,
   insertPragma,
+  isNode: (obj) => Boolean(obj.type),
 };
 
 export default printer;

@@ -1,5 +1,5 @@
 export const DOC_TYPE_STRING = "string";
-export const DOC_TYPE_CONCAT = "concat";
+export const DOC_TYPE_ARRAY = "array";
 export const DOC_TYPE_CURSOR = "cursor";
 export const DOC_TYPE_INDENT = "indent";
 export const DOC_TYPE_ALIGN = "align";

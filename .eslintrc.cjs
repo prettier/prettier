@@ -188,7 +188,6 @@ module.exports = {
         "**/*.cjs",
         "scripts/tools/eslint-plugin-prettier-internal-rules/**/*.js",
         "website/**/*.js",
-        "tests/integration/plugins/automatic/prettier-plugin-bar.js",
       ],
       parserOptions: {
         sourceType: "script",
@@ -213,9 +212,10 @@ module.exports = {
     },
     {
       files: [
-        "tests/format/**/jsfmt.spec.js",
         "tests/config/**/*.js",
+        "tests/format/**/jsfmt.spec.js",
         "tests/integration/**/*.js",
+        "tests/unit/**/*.js",
         "scripts/release/__tests__/**/*.spec.js",
       ],
       env: {
@@ -299,7 +299,6 @@ module.exports = {
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
         "prettier-internal-rules/no-doc-index-import": "error",
-        "prettier-internal-rules/no-doc-builder-concat": "error",
         "prettier-internal-rules/no-empty-flat-contents-for-if-break": "error",
         "prettier-internal-rules/no-unnecessary-ast-path-call": "error",
         "prettier-internal-rules/prefer-ast-path-each": "error",

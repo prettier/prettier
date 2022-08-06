@@ -4,7 +4,7 @@ import {
   printTemplateExpressions,
 } from "../print/template-literal.js";
 
-function format(path, print, textToDoc) {
+async function format(textToDoc, print, path /*, options*/) {
   const node = path.getValue();
 
   const numQuasis = node.quasis.length;
@@ -46,7 +46,7 @@ function format(path, print, textToDoc) {
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);
     } else {
-      doc = textToDoc(text, { parser: "graphql" });
+      doc = await textToDoc(text, { parser: "graphql" });
     }
 
     if (doc) {

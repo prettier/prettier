@@ -1,7 +1,7 @@
 import getLast from "../utils/get-last.js";
 import {
   DOC_TYPE_STRING,
-  DOC_TYPE_CONCAT,
+  DOC_TYPE_ARRAY,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
   DOC_TYPE_GROUP,
@@ -15,17 +15,14 @@ import {
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
 
-const isConcat = (doc) => getDocType(doc) === DOC_TYPE_CONCAT;
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
     return doc;
   }
 
   /* istanbul ignore next */
-  if (doc.type !== DOC_TYPE_CONCAT && doc.type !== DOC_TYPE_FILL) {
-    throw new Error(
-      `Expect doc type to be '${DOC_TYPE_CONCAT}' or '${DOC_TYPE_FILL}'.`
-    );
+  if (doc.type !== DOC_TYPE_FILL) {
+    throw new Error(`Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`);
   }
 
   return doc.parts;
@@ -58,7 +55,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       // the parts need to be pushed onto the stack in reverse order,
       // so that they are processed in the original order
       // when the stack is popped.
-      if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
+      if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
         const parts = getDocParts(doc);
         for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
           docsStack.push(parts[i]);
@@ -109,7 +106,7 @@ function mapDoc(doc, cb) {
       return cb(doc.map(rec));
     }
 
-    if (doc.type === DOC_TYPE_CONCAT || doc.type === DOC_TYPE_FILL) {
+    if (doc.type === DOC_TYPE_ARRAY || doc.type === DOC_TYPE_FILL) {
       const parts = doc.parts.map(rec);
       return cb({ ...doc, parts });
     }
@@ -244,7 +241,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
     return doc;
   }
 
-  if (isConcat(doc) || doc.type === DOC_TYPE_FILL) {
+  if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
     const parts = getDocParts(doc);
 
     while (parts.length > 1 && isHardline(...parts.slice(-2))) {
@@ -323,18 +320,16 @@ function cleanDocFn(doc) {
       break;
   }
 
-  if (!isConcat(doc)) {
+  if (!Array.isArray(doc)) {
     return doc;
   }
 
   const parts = [];
-  for (const part of getDocParts(doc)) {
+  for (const part of doc) {
     if (!part) {
       continue;
     }
-    const [currentPart, ...restParts] = isConcat(part)
-      ? getDocParts(part)
-      : [part];
+    const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
     if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
       parts[parts.length - 1] += currentPart;
     } else {
@@ -350,11 +345,12 @@ function cleanDocFn(doc) {
   if (parts.length === 1) {
     return parts[0];
   }
-  return Array.isArray(doc) ? parts : { ...doc, parts };
+
+  return parts;
 }
 // A safer version of `normalizeDoc`
-// - `normalizeDoc` concat strings and flat "concat" in `fill`, while `cleanDoc` don't
-// - On `concat` object, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
+// - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
+// - On array, `normalizeDoc` always return object with `parts`, `cleanDoc` may return strings
 // - `cleanDoc` also remove nested `group`s and empty `fill`/`align`/`indent`/`line-suffix`/`if-break` if possible
 function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
@@ -371,8 +367,8 @@ function normalizeParts(parts) {
       continue;
     }
 
-    if (isConcat(part)) {
-      restParts.unshift(...getDocParts(part));
+    if (Array.isArray(part)) {
+      restParts.unshift(...part);
       continue;
     }
 
@@ -414,10 +410,8 @@ function replaceEndOfLine(doc) {
   );
 }
 
-// This function need return array
-// TODO: remove `.parts` when we remove `docBuilders.concat()`
 function replaceTextEndOfLine(text, replacement = literalline) {
-  return join(replacement, text.split("\n")).parts;
+  return join(replacement, text.split("\n"));
 }
 
 function canBreakFn(doc) {
@@ -436,14 +430,13 @@ function getDocType(doc) {
   }
 
   if (Array.isArray(doc)) {
-    return DOC_TYPE_CONCAT;
+    return DOC_TYPE_ARRAY;
   }
 
   return doc?.type;
 }
 
 export {
-  isConcat,
   getDocParts,
   willBreak,
   traverseDoc,

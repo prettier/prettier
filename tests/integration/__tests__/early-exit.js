@@ -34,7 +34,7 @@ describe("show detailed usage with plugin options (manual resolution)", () => {
   runPrettier("cli", [
     "--help",
     "tab-width",
-    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar",
+    "--plugin=../plugins/automatic/node_modules/prettier-plugin-bar/index.js",
     "--parser=bar",
   ]).test({
     status: 0,

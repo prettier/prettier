@@ -208,6 +208,7 @@ class Playground extends React.Component {
             debugDoc={editorState.showDoc}
             debugComments={showShowComments && editorState.showComments}
             reformat={editorState.showSecondFormat}
+            rethrowEmbedErrors={editorState.rethrowEmbedErrors}
           >
             {({ formatted, debug }) => {
               const fullReport = this.getMarkdown({
@@ -288,6 +289,11 @@ class Playground extends React.Component {
                           label="show second format"
                           checked={editorState.showSecondFormat}
                           onChange={editorState.toggleSecondFormat}
+                        />
+                        <Checkbox
+                          label="rethrow embed errors"
+                          checked={editorState.rethrowEmbedErrors}
+                          onChange={editorState.toggleEmbedErrors}
                         />
                         {editorState.showDoc && (
                           <ClipboardButton

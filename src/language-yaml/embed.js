@@ -9,8 +9,13 @@ function embed(path, print, textToDoc, options) {
     options.filepath &&
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
-    const doc = textToDoc(options.originalText, { parser: "json" });
-    return doc ? [doc, hardline] : "";
+    return async (textToDoc) => {
+      const doc = await textToDoc(options.originalText, {
+        ...options,
+        parser: "json",
+      });
+      return doc ? [doc, hardline] : "";
+    };
   }
 }
 
