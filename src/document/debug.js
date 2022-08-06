@@ -12,18 +12,17 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import { isConcat, getDocParts } from "./utils.js";
 
 function flattenDoc(doc) {
   if (!doc) {
     return "";
   }
 
-  if (isConcat(doc)) {
+  if (Array.isArray(doc)) {
     const res = [];
-    for (const part of getDocParts(doc)) {
-      if (isConcat(part)) {
-        res.push(...flattenDoc(part).parts);
+    for (const part of doc) {
+      if (Array.isArray(part)) {
+        res.push(...flattenDoc(part));
       } else {
         const flattened = flattenDoc(part);
         if (flattened !== "") {
@@ -32,7 +31,7 @@ function flattenDoc(doc) {
       }
     }
 
-    return { type: "concat", parts: res };
+    return res;
   }
 
   if (doc.type === DOC_TYPE_IF_BREAK) {
@@ -74,8 +73,8 @@ function printDocToDebug(doc) {
       return JSON.stringify(doc);
     }
 
-    if (isConcat(doc)) {
-      const printed = getDocParts(doc).map(printDoc).filter(Boolean);
+    if (Array.isArray(doc)) {
+      const printed = doc.map(printDoc).filter(Boolean);
       return printed.length === 1 ? printed[0] : `[${printed.join(", ")}]`;
     }
 

@@ -252,22 +252,6 @@ test("no-conflicting-comment-check-flags", {
   ],
 });
 
-test("no-doc-builder-concat", {
-  valid: ["notConcat([])", "concat", "[].concat([])"],
-  invalid: [
-    {
-      code: "concat(parts)",
-      output: "(parts)",
-      errors: 1,
-    },
-    {
-      code: "concat(['foo', line])",
-      output: "(['foo', line])",
-      errors: 1,
-    },
-  ],
-});
-
 test("no-identifier-n", {
   valid: ["const a = {n: 1}", "const m = 1", "a.n = 1"],
   invalid: [

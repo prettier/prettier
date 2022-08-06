@@ -10,7 +10,7 @@ import {
   align,
   indentIfBreak,
 } from "../../document/builders.js";
-import { cleanDoc, getDocParts, isConcat } from "../../document/utils.js";
+import { cleanDoc, getDocParts } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
   isBinaryish,
@@ -302,7 +302,7 @@ function printBinaryishExpressions(
   if (isNested && hasComment(node)) {
     const printed = cleanDoc(printComments(path, parts, options));
     /* istanbul ignore else */
-    if (isConcat(printed) || printed.type === DOC_TYPE_FILL) {
+    if (Array.isArray(printed) || printed.type === DOC_TYPE_FILL) {
       return getDocParts(printed);
     }
 

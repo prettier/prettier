@@ -9,7 +9,6 @@ module.exports = {
     "flat-ast-path-call": require("./flat-ast-path-call.js"),
     "jsx-identifier-case": require("./jsx-identifier-case.js"),
     "no-conflicting-comment-check-flags": require("./no-conflicting-comment-check-flags.js"),
-    "no-doc-builder-concat": require("./no-doc-builder-concat.js"),
     "no-doc-index-import": require("./no-doc-index-import.js"),
     "no-empty-flat-contents-for-if-break": require("./no-empty-flat-contents-for-if-break.js"),
     "no-identifier-n": require("./no-identifier-n.js"),
