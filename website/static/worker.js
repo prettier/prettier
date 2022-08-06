@@ -94,15 +94,16 @@ async function handleMetaMessage() {
 async function handleFormatMessage(message) {
   const plugins = [{ parsers }, docExplorerPlugin];
   const options = { ...message.options, plugins };
+
+  delete options.ast;
+  delete options.doc;
+  delete options.output2;
+
   const formatResult = await formatCode(
     message.code,
     options,
     message.debug.rethrowEmbedErrors
   );
-
-  delete options.ast;
-  delete options.doc;
-  delete options.output2;
 
   const response = {
     formatted: formatResult.formatted,
@@ -135,20 +136,6 @@ async function handleFormatMessage(message) {
         ast = serializeAst(ast);
       }
     }
-    response.debug.ast = ast;
-  }
-
-  if (!errored) {
-    try {
-      response.debug.doc = await prettier.__debug.formatDoc(
-        await prettier.__debug.printToDoc(message.code, options),
-        { plugins }
-      );
-      ast = formatCode(ast, { parser: "json", plugins }).formatted;
-    } catch {
-      ast = serializeAst(ast);
-    }
-
     response.debug.ast = ast;
   }
 
