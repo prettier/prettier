@@ -28,9 +28,7 @@ module.exports = {
         }
 
         // print may be async if not used recursively
-        return Promise.resolve(
-          "/* formatted by async-printer plugin */ " + path.getNode().text
-        );
+        return Promise.resolve(path.getNode().text.replace(/\s+/g, " "));
       },
       massageAstNode() {
         return { text: "AST text value placeholder" };

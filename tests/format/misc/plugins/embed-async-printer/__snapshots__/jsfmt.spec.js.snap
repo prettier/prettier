@@ -7,7 +7,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 \`\`\`async-printer
-This text will be lowercased and prefixed with a comment.
+This    text   will be    lowercased and    whitespace-normalized.
 \`\`\`
 
 \`\`\`uppercase-rocks
@@ -16,7 +16,7 @@ This text should be uppercased.
 
 =====================================output=====================================
 \`\`\`async-printer
-/* formatted by async-printer plugin */ this text will be lowercased and prefixed with a comment.
+this text will be lowercased and whitespace-normalized.
 \`\`\`
 
 \`\`\`uppercase-rocks

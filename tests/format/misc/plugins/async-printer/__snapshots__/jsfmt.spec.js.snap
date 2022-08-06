@@ -6,10 +6,9 @@ parsers: ["async-printer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-Lorem Ipsum
+Lorem    Ipsum
 
 =====================================output=====================================
-/* formatted by async-printer plugin */ lorem ipsum
-
+lorem ipsum 
 ================================================================================
 `;
