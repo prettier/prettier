@@ -528,6 +528,80 @@ function getAncestorNode(path, typeOrTypes) {
   return counter === -1 ? null : path.getParentNode(counter);
 }
 
+/**
+ * Finds out if Space is tend to be inserted between `字` (ideograph & kana) and `A` (other letters e.g. alphanumerics) in the sentence.
+ *
+ * @param {*} path current position in nodes tree
+ * @returns {boolean} `true` if Space is tend to be inserted between these types of letters, `false` otherwise.
+ */
+function isSentenceUseCJDividingSpace(path) {
+  const sentenceNode = getAncestorNode(path, "sentence");
+  if (sentenceNode.isCJSpacingUsing !== undefined) {
+    return sentenceNode.isCJSpacingUsing;
+  }
+
+  const cjNonCJKSpacingStatistics = {
+    " ": 0,
+    "": 0,
+  };
+  for (let i = 0; i < sentenceNode.children.length; ++i) {
+    const node = sentenceNode.children[i];
+    if (node.type === "whitespace") {
+      switch (node.value) {
+        case " ":
+        case "": {
+          const previous = sentenceNode.children[i - 1];
+          const next = sentenceNode.children[i + 1];
+          if (
+            !(
+              (previous?.kind === "cj-letter" && next?.kind === "non-cjk") ||
+              (previous?.kind === "non-cjk" && next?.kind === "cj-letter")
+            )
+          ) {
+            continue;
+          }
+          ++cjNonCJKSpacingStatistics[node.value];
+          continue;
+        }
+      }
+    }
+  }
+  // Injects a property to cache the result.
+  sentenceNode.isCJSpacingUsing =
+    cjNonCJKSpacingStatistics[" "] > cjNonCJKSpacingStatistics[""];
+  return sentenceNode.isCJSpacingUsing;
+}
+
+/**
+ * Looks for 1st `:::` (MUST be followed by a Space) from 2nd `:::`.
+ *
+ * ```
+ * ::: foo
+ * bar
+ * :::
+ * ```
+ *
+ * @param {*} path current position in nodes tree
+ * @param {*} mark what to look for
+ * @returns `true` if a `mark` followed by Space (U+0020) is found before `path`, `false` otherwise.
+ */
+function isCorrespondingMarkFollowedBySpaceBefore(path, mark) {
+  const sentenceNode = getAncestorNode(path, "sentence");
+  if (
+    sentenceNode.children
+      .slice(0, getPenultimate(path.stack))
+      .some(
+        (node, i, array) =>
+          node.value === mark &&
+          array[i + 1]?.type === "whitespace" &&
+          array[i + 1]?.value === " "
+      )
+  ) {
+    return true;
+  }
+  return false;
+}
+
 function printLine(path, value, options, adjacentNodes) {
   if (options.proseWrap === "preserve" && value === "\n") {
     return hardline;
@@ -542,7 +616,14 @@ function printLine(path, value, options, adjacentNodes) {
     value === "\n" &&
     typeof adjacentNodes === "object" &&
     (adjacentNodes?.previous?.kind === "cj-letter" ||
-      adjacentNodes?.next?.kind === "cj-letter")
+      adjacentNodes?.next?.kind === "cj-letter") &&
+    // we wonder if there are other marks to be considered.
+    (adjacentNodes.next.value !== ":::" ||
+      !isCorrespondingMarkFollowedBySpaceBefore(
+        path,
+        adjacentNodes.next.value
+      )) &&
+    !isSentenceUseCJDividingSpace(path)
   );
   return value !== "" && canLineBreakBeConvertedToSpace
     ? isBreakable
