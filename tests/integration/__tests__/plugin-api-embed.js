@@ -38,12 +38,12 @@ function makePlugin(withOutdatedApi = false) {
           }
         },
         embed: withOutdatedApi
-          ? (path, print, textToDoc, options) => {
+          ? (path, print, textToDoc) => {
               const { type, text } = path.getValue();
               if (type === "json") {
                 return textToDoc(text, {
                   parser: "json",
-                  printWidth: Infinity,
+                  printWidth: Number.POSITIVE_INFINITY,
                 });
               }
             }
@@ -53,7 +53,7 @@ function makePlugin(withOutdatedApi = false) {
                 return (textToDoc) =>
                   textToDoc(text, {
                     parser: "json",
-                    printWidth: Infinity,
+                    printWidth: Number.POSITIVE_INFINITY,
                   });
               }
             },
