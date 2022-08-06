@@ -16,11 +16,17 @@ async function printEmbeddedLanguages(
     return;
   }
 
+  if (printer.embed.length > 2) {
+    throw new Error(
+      "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed"
+    );
+  }
+
   const isNode =
     (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
   const hasPrettierIgnore =
     printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
-  const { ignoredProperties } = printer.massageAstNode;
+  const ignoredProperties = printer.massageAstNode?.ignoredProperties;
 
   const embedCallResults = [];
 
