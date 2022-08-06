@@ -20,7 +20,7 @@ exports[`show detailed usage with plugin options (automatic resolution) (stdout)
 
 Default: 2
 Plugin defaults:
-* prettier-plugin-bar: 4,
+* prettier-plugin-bar: 4
 * prettier-plugin-baz.js: 4
 "
 `;
