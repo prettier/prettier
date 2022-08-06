@@ -7,45 +7,49 @@ import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
     const parser = inferParserByLanguage(node.lang, options);
     if (parser) {
-      const styleUnit = options.__inJsTemplate ? "~" : "`";
-      const style = styleUnit.repeat(
-        Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
-      );
-      const newOptions = { parser };
-      if (node.lang === "tsx") {
-        newOptions.filepath = "dummy.tsx";
-      }
-      const doc = textToDoc(
-        getFencedCodeBlockValue(node, options.originalText),
-        newOptions,
-        { stripTrailingHardline: true }
-      );
-      return markAsRoot([
-        style,
-        node.lang,
-        node.meta ? " " + node.meta : "",
-        hardline,
-        replaceEndOfLine(doc),
-        hardline,
-        style,
-      ]);
+      return async (textToDoc) => {
+        const styleUnit = options.__inJsTemplate ? "~" : "`";
+        const style = styleUnit.repeat(
+          Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
+        );
+        const newOptions = { parser };
+        if (node.lang === "tsx") {
+          newOptions.filepath = "dummy.tsx";
+        }
+
+        const doc = await textToDoc(
+          getFencedCodeBlockValue(node, options.originalText),
+          newOptions,
+          { stripTrailingHardline: true }
+        );
+
+        return markAsRoot([
+          style,
+          node.lang,
+          node.meta ? " " + node.meta : "",
+          hardline,
+          replaceEndOfLine(doc),
+          hardline,
+          style,
+        ]);
+      };
     }
   }
 
   switch (node.type) {
     case "front-matter":
-      return printFrontMatter(node, textToDoc);
+      return (textToDoc) => printFrontMatter(node, textToDoc);
 
     // MDX
     case "importExport":
-      return [
-        textToDoc(
+      return async (textToDoc) => [
+        await textToDoc(
           node.value,
           { parser: "babel" },
           { stripTrailingHardline: true }
@@ -53,14 +57,15 @@ function embed(path, print, textToDoc, options) {
         hardline,
       ];
     case "jsx":
-      return textToDoc(
-        `<$>${node.value}</$>`,
-        {
-          parser: "__js_expression",
-          rootMarker: "mdx",
-        },
-        { stripTrailingHardline: true }
-      );
+      return (textToDoc) =>
+        textToDoc(
+          `<$>${node.value}</$>`,
+          {
+            parser: "__js_expression",
+            rootMarker: "mdx",
+          },
+          { stripTrailingHardline: true }
+        );
   }
 
   return null;

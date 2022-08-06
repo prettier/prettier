@@ -102,40 +102,4 @@ function handleParseError(error, text) {
   throw error;
 }
 
-// TODO: Remove this when we allow async parser in embed
-function parseSync(originalText, opts) {
-  const parsers = getParsers(opts);
-
-  // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
-  // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.defineProperties(
-    {},
-    Object.fromEntries(
-      Object.keys(parsers).map((parserName) => [
-        parserName,
-        {
-          enumerable: true,
-          get() {
-            return parsers[parserName].parse;
-          },
-        },
-      ])
-    )
-  );
-
-  const parser = resolveParser(opts, parsers);
-  const text = parser.preprocess
-    ? parser.preprocess(originalText, opts)
-    : originalText;
-
-  let ast;
-  try {
-    ast = parser.parse(text, parsersForCustomParserApi, opts);
-  } catch (error) {
-    handleParseError(error, originalText);
-  }
-
-  return { text, ast };
-}
-
-export { parse, parseSync, resolveParser };
+export { parse, resolveParser };

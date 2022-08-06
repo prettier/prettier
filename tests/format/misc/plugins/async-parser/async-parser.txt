@@ -1,1 +1,0 @@
-A text will format as "Formatted by async-parser plugin".
