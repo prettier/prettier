@@ -34,62 +34,53 @@ import {
   printRestSpread,
 } from "./misc.js";
 
-async function printFlow(path, options, print) {
+function printFlow(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];
   switch (node.type) {
     case "DeclareClass":
-      return printFlowDeclaration(path, await printClass(path, options, print));
+      return printFlowDeclaration(path, printClass(path, options, print));
     case "DeclareFunction":
       return printFlowDeclaration(path, [
         "function ",
-        await print("id"),
+        print("id"),
         node.predicate ? " " : "",
-        await print("predicate"),
+        print("predicate"),
         semi,
       ]);
     case "DeclareModule":
       return printFlowDeclaration(path, [
         "module ",
-        await print("id"),
+        print("id"),
         " ",
-        await print("body"),
+        print("body"),
       ]);
     case "DeclareModuleExports":
       return printFlowDeclaration(path, [
         "module.exports",
         ": ",
-        await print("typeAnnotation"),
+        print("typeAnnotation"),
         semi,
       ]);
     case "DeclareVariable":
-      return printFlowDeclaration(path, ["var ", await print("id"), semi]);
+      return printFlowDeclaration(path, ["var ", print("id"), semi]);
     case "DeclareOpaqueType":
-      return printFlowDeclaration(
-        path,
-        await printOpaqueType(path, options, print)
-      );
+      return printFlowDeclaration(path, printOpaqueType(path, options, print));
     case "DeclareInterface":
-      return printFlowDeclaration(
-        path,
-        await printInterface(path, options, print)
-      );
+      return printFlowDeclaration(path, printInterface(path, options, print));
     case "DeclareTypeAlias":
-      return printFlowDeclaration(
-        path,
-        await printTypeAlias(path, options, print)
-      );
+      return printFlowDeclaration(path, printTypeAlias(path, options, print));
     case "DeclareExportDeclaration":
       return printFlowDeclaration(
         path,
-        await printExportDeclaration(path, options, print)
+        printExportDeclaration(path, options, print)
       );
     case "DeclareExportAllDeclaration":
       return printFlowDeclaration(
         path,
-        await printExportAllDeclaration(path, options, print)
+        printExportAllDeclaration(path, options, print)
       );
     case "OpaqueType":
       return printOpaqueType(path, options, print);
@@ -105,8 +96,8 @@ async function printFlow(path, options, print) {
       return printTupleType(path, options, print);
     case "GenericTypeAnnotation":
       return [
-        await print("id"),
-        await printTypeParameters(path, options, print, "typeParameters"),
+        print("id"),
+        printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "IndexedAccessType":
     case "OptionalIndexedAccessType":
@@ -118,7 +109,7 @@ async function printFlow(path, options, print) {
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
-      return ["typeof ", await print("argument")];
+      return ["typeof ", print("argument")];
     case "ExistsTypeAnnotation":
       return "*";
     case "EmptyTypeAnnotation":
@@ -126,11 +117,11 @@ async function printFlow(path, options, print) {
     case "MixedTypeAnnotation":
       return "mixed";
     case "ArrayTypeAnnotation":
-      return [await print("elementType"), "[]"];
+      return [print("elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
     case "EnumDeclaration":
-      return ["enum ", await print("id"), " ", await print("body")];
+      return ["enum ", print("id"), " ", print("body")];
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumStringBody":
@@ -162,7 +153,7 @@ async function printFlow(path, options, print) {
           node.members.length > 0
             ? [
                 hardline,
-                await printArrayItems(path, options, "members", print),
+                printArrayItems(path, options, "members", print),
                 node.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
               ]
             : [];
@@ -186,23 +177,23 @@ async function printFlow(path, options, print) {
     case "EnumNumberMember":
     case "EnumStringMember":
       return [
-        await print("id"),
+        print("id"),
         " = ",
-        typeof node.init === "object" ? await print("init") : String(node.init),
+        typeof node.init === "object" ? print("init") : String(node.init),
       ];
     case "EnumDefaultedMember":
       return print("id");
     case "FunctionTypeParam": {
       const name = node.name
-        ? await print("name")
+        ? print("name")
         : path.getParentNode().this === node
         ? "this"
         : "";
       return [
         name,
-        await printOptionalToken(path),
+        printOptionalToken(path),
         name ? ": " : "",
-        await print("typeAnnotation"),
+        print("typeAnnotation"),
       ];
     }
 
@@ -211,9 +202,9 @@ async function printFlow(path, options, print) {
       return printInterface(path, options, print);
     case "ClassImplements":
     case "InterfaceExtends":
-      return [await print("id"), await print("typeParameters")];
+      return [print("id"), print("typeParameters")];
     case "NullableTypeAnnotation":
-      return ["?", await print("typeAnnotation")];
+      return ["?", print("typeAnnotation")];
     case "Variance": {
       const { kind } = node;
       assert.ok(kind === "plus" || kind === "minus");
@@ -224,19 +215,19 @@ async function printFlow(path, options, print) {
         parts.push("static ");
       }
 
-      parts.push(await print("value"));
+      parts.push(print("value"));
 
       return parts;
     case "ObjectTypeIndexer": {
       return [
         node.static ? "static " : "",
-        node.variance ? await print("variance") : "",
+        node.variance ? print("variance") : "",
         "[",
-        await print("id"),
+        print("id"),
         node.id ? ": " : "",
-        await print("key"),
+        print("key"),
         "]: ",
-        await print("value"),
+        print("value"),
       ];
     }
     case "ObjectTypeProperty": {
@@ -251,11 +242,11 @@ async function printFlow(path, options, print) {
       return [
         modifier,
         isGetterOrSetter(node) ? node.kind + " " : "",
-        node.variance ? await print("variance") : "",
-        await printPropertyKey(path, options, print),
+        node.variance ? print("variance") : "",
+        printPropertyKey(path, options, print),
         printOptionalToken(path),
         isFunctionNotation(node) ? "" : ": ",
-        await print("value"),
+        print("value"),
       ];
     }
     case "ObjectTypeAnnotation":
@@ -264,18 +255,18 @@ async function printFlow(path, options, print) {
       return [
         node.static ? "static " : "",
         "[[",
-        await print("id"),
+        print("id"),
         "]]",
         printOptionalToken(path),
         node.method ? "" : ": ",
-        await print("value"),
+        print("value"),
       ];
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
       return printRestSpread(path, options, print);
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
-      return [await print("qualification"), ".", await print("id")];
+      return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
       return printString(rawText(node), options);
     case "NumberLiteralTypeAnnotation":
@@ -289,15 +280,15 @@ async function printFlow(path, options, print) {
     case "TypeCastExpression": {
       return [
         "(",
-        await print("expression"),
-        await printTypeAnnotation(path, options, print),
+        print("expression"),
+        printTypeAnnotation(path, options, print),
         ")",
       ];
     }
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const printed = await printTypeParameters(path, options, print, "params");
+      const printed = printTypeParameters(path, options, print, "params");
 
       if (options.parser === "flow") {
         const start = locStart(node);
@@ -327,7 +318,7 @@ async function printFlow(path, options, print) {
     // be either left alone or desugared into AST types that are fully
     // supported by the pretty-printer.
     case "DeclaredPredicate":
-      return ["%checks(", await print("value"), ")"];
+      return ["%checks(", print("value"), ")"];
     case "AnyTypeAnnotation":
       return "any";
     case "BooleanTypeAnnotation":

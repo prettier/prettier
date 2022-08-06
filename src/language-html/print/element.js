@@ -27,15 +27,15 @@ import {
 } from "./tag.js";
 import { printChildren } from "./children.js";
 
-async function printElement(path, options, print) {
+function printElement(path, options, print) {
   const node = path.getValue();
 
   if (shouldPreserveContent(node, options)) {
     return [
       printOpeningTagPrefix(node, options),
-      group(await printOpeningTag(path, options, print)),
+      group(printOpeningTag(path, options, print)),
       ...replaceTextEndOfLine(getNodeContent(node, options)),
-      ...(await printClosingTag(node, options)),
+      ...printClosingTag(node, options),
       printClosingTagSuffix(node, options),
     ];
   }
@@ -69,9 +69,9 @@ async function printElement(path, options, print) {
 
   const attrGroupId = Symbol("element-attr-group-id");
 
-  const printTag = async (doc) =>
+  const printTag = (doc) =>
     group([
-      group(await printOpeningTag(path, options, print), { id: attrGroupId }),
+      group(printOpeningTag(path, options, print), { id: attrGroupId }),
       doc,
       printClosingTag(node, options),
     ]);
@@ -163,7 +163,7 @@ async function printElement(path, options, print) {
     forceBreakContent(node) ? breakParent : "",
     printChildrenDoc([
       printLineBeforeChildren(),
-      await printChildren(path, options, print),
+      printChildren(path, options, print),
     ]),
     printLineAfterChildren(),
   ]);

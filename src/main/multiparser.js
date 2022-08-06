@@ -3,21 +3,112 @@ import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
 
-function printSubtree(path, print, options, printAstToDoc) {
-  if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
-    return options.printer.embed(
-      path,
-      print,
-      (text, partialNextOptions, textToDocOptions) =>
-        textToDoc(
-          text,
-          partialNextOptions,
-          options,
-          printAstToDoc,
-          textToDocOptions
-        ),
-      options
+async function printEmbeddedLanguages(
+  /** @type {import("../common/ast-path").default} */ path,
+  genericPrint,
+  options,
+  printAstToDoc,
+  embeds
+) {
+  const { printer } = options;
+
+  if (!printer.embed || options.embeddedLanguageFormatting !== "auto") {
+    return;
+  }
+
+  if (printer.embed.length > 2) {
+    throw new Error(
+      "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed"
     );
+  }
+
+  const isNode =
+    (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
+  const hasPrettierIgnore =
+    printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
+  const ignoredProperties = printer.massageAstNode?.ignoredProperties;
+
+  const embedCallResults = [];
+
+  recurse();
+
+  const originalPathStack = path.stack;
+
+  for (const { print, node, pathStack } of embedCallResults) {
+    try {
+      path.stack = pathStack;
+      const doc = await print(textToDocForEmbed, genericPrint, path, options);
+
+      if (doc) {
+        embeds.set(node, doc);
+      }
+    } catch (error) {
+      /* istanbul ignore if */
+      if (process.env.PRETTIER_DEBUG) {
+        throw error;
+      }
+    }
+  }
+
+  path.stack = originalPathStack;
+
+  function textToDocForEmbed(text, partialNextOptions, textToDocOptions) {
+    return textToDoc(
+      text,
+      partialNextOptions,
+      options,
+      printAstToDoc,
+      textToDocOptions
+    );
+  }
+
+  function recurse() {
+    const node = path.getValue();
+
+    if (
+      node === null ||
+      typeof node !== "object" ||
+      !isNode(node) ||
+      hasPrettierIgnore(path)
+    ) {
+      return;
+    }
+
+    for (const key in node) {
+      if (
+        Object.prototype.hasOwnProperty.call(node, key) &&
+        !ignoredProperties?.has(key)
+      ) {
+        if (Array.isArray(node[key])) {
+          path.each(recurse, key);
+        } else {
+          path.call(recurse, key);
+        }
+      }
+    }
+
+    const result = printer.embed(path, options);
+
+    if (!result) {
+      return;
+    }
+
+    if (typeof result === "function") {
+      embedCallResults.push({
+        print: result,
+        node,
+        pathStack: [...path.stack],
+      });
+      return;
+    }
+
+    if (process.env.PRETTIER_DEBUG && typeof result.then === "function") {
+      throw new Error(
+        "`embed` should return an async function instead of Promise."
+      );
+    }
+
+    embeds.set(node, result);
   }
 }
 
@@ -68,4 +159,4 @@ async function textToDoc(
   return doc;
 }
 
-export { printSubtree };
+export { printEmbeddedLanguages };

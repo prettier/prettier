@@ -3,9 +3,10 @@ import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 import { cosmiconfig } from "cosmiconfig";
+import { prettierCli, thirdParty as thirdPartyModuleFile } from "./env.js";
 
 async function run() {
-  const { options, thirdParty: thirdPartyModuleFile, prettierCli } = workerData;
+  const { options } = workerData;
 
   Date.now = () => 0;
   // eslint-disable-next-line require-await

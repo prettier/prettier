@@ -4,7 +4,7 @@ import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printTypeScriptModifiers } from "./misc.js";
 
-async function printInterface(path, options, print) {
+function printInterface(path, options, print) {
   const node = path.getValue();
   const parts = [];
   if (node.declare) {
@@ -14,7 +14,7 @@ async function printInterface(path, options, print) {
   if (node.type === "TSInterfaceDeclaration") {
     parts.push(
       node.abstract ? "abstract " : "",
-      await printTypeScriptModifiers(path, options, print)
+      printTypeScriptModifiers(path, options, print)
     );
   }
 
@@ -24,7 +24,7 @@ async function printInterface(path, options, print) {
   const extendsParts = [];
 
   if (node.type !== "InterfaceTypeAnnotation") {
-    partsGroup.push(" ", await print("id"), await print("typeParameters"));
+    partsGroup.push(" ", print("id"), print("typeParameters"));
   }
 
   const shouldIndentOnlyHeritageClauses =
@@ -43,7 +43,7 @@ async function printInterface(path, options, print) {
         : line,
       "extends ",
       (node.extends.length === 1 ? identity : indent)(
-        join([",", line], await path.map(print, "extends"))
+        join([",", line], path.map(print, "extends"))
       )
     );
   }
@@ -61,7 +61,7 @@ async function printInterface(path, options, print) {
     parts.push(...partsGroup, ...extendsParts);
   }
 
-  parts.push(" ", await print("body"));
+  parts.push(" ", print("body"));
 
   return group(parts);
 }

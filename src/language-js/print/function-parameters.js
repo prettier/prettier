@@ -26,7 +26,7 @@ import { locEnd } from "../loc.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
-async function printFunctionParameters(
+function printFunctionParameters(
   path,
   print,
   options,
@@ -36,7 +36,7 @@ async function printFunctionParameters(
   const functionNode = path.getValue();
   const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
-    ? await printFunctionTypeParameters(path, options, print)
+    ? printFunctionTypeParameters(path, options, print)
     : "";
 
   if (parameters.length === 0) {
@@ -62,12 +62,12 @@ async function printFunctionParameters(
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugFunctionParameters(functionNode);
   const printed = [];
-  await iterateFunctionParametersPath(path, async (parameterPath, index) => {
+  iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
     if (isLastParameter && functionNode.rest) {
       printed.push("...");
     }
-    printed.push(await print());
+    printed.push(print());
     if (isLastParameter) {
       return;
     }

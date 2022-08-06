@@ -2,5 +2,6 @@
   "private": true,
   "name": "prettier-plugin-uppercase-rocks",
   "version": "1.0.0",
-  "main": "./index.cjs"
+  "main": "./index.js",
+  "type": "module"
 }

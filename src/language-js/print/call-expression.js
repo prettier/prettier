@@ -14,7 +14,7 @@ import printMemberChain from "./member-chain.js";
 import printCallArguments from "./call-arguments.js";
 import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
-async function printCallExpression(path, options, print) {
+function printCallExpression(path, options, print) {
   const node = path.getValue();
   const parentNode = path.getParentNode();
   const isNew = node.type === "NewExpression";
@@ -37,14 +37,14 @@ async function printCallExpression(path, options, print) {
       (!isNew && isTestCall(node, parentNode)))
   ) {
     const printed = [];
-    await iterateCallArgumentsPath(path, async () => {
-      printed.push(await print());
+    iterateCallArgumentsPath(path, () => {
+      printed.push(print());
     });
     return [
       isNew ? "new " : "",
-      await print("callee"),
+      print("callee"),
       optional,
-      await printFunctionTypeParameters(path, options, print),
+      printFunctionTypeParameters(path, options, print),
       "(",
       join(", ", printed),
       ")",
@@ -79,13 +79,13 @@ async function printCallExpression(path, options, print) {
 
   const contents = [
     isNew ? "new " : "",
-    isDynamicImport ? "import" : await print("callee"),
+    isDynamicImport ? "import" : print("callee"),
     optional,
     isIdentifierWithFlowAnnotation
       ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`
       : "",
-    await printFunctionTypeParameters(path, options, print),
-    await printCallArguments(path, options, print),
+    printFunctionTypeParameters(path, options, print),
+    printCallArguments(path, options, print),
   ];
 
   // We group here when the callee is itself a call expression.

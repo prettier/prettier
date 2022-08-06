@@ -49,7 +49,7 @@ const SIBLING_NODE_TYPES = new Set([
   "footnoteDefinition",
 ]);
 
-async function genericPrint(path, options, print) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
 
   if (shouldRemainTheSameContent(path)) {
@@ -79,7 +79,7 @@ async function genericPrint(path, options, print) {
         return "";
       }
       return [
-        normalizeDoc(await printRoot(path, options, print)),
+        normalizeDoc(printRoot(path, options, print)),
         !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
           : "",
@@ -167,12 +167,12 @@ async function genericPrint(path, options, print) {
         style =
           hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       }
-      return [style, await printChildren(path, options, print), style];
+      return [style, printChildren(path, options, print), style];
     }
     case "strong":
-      return ["**", await printChildren(path, options, print), "**"];
+      return ["**", printChildren(path, options, print), "**"];
     case "delete":
-      return ["~~", await printChildren(path, options, print), "~~"];
+      return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
       const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
       const style = "`".repeat(backtickCount || 1);
@@ -207,7 +207,7 @@ async function genericPrint(path, options, print) {
         case "[":
           return [
             "[",
-            await printChildren(path, options, print),
+            printChildren(path, options, print),
             "](",
             printUrl(node.url, ")"),
             printTitle(node.title, options),
@@ -229,11 +229,11 @@ async function genericPrint(path, options, print) {
         ")",
       ];
     case "blockquote":
-      return ["> ", align("> ", await printChildren(path, options, print))];
+      return ["> ", align("> ", printChildren(path, options, print))];
     case "heading":
       return [
         "#".repeat(node.depth) + " ",
-        await printChildren(path, options, print),
+        printChildren(path, options, print),
       ];
     case "code": {
       if (node.isIndented) {
@@ -290,7 +290,7 @@ async function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor: async (childPath, index) => {
+        processor: (childPath, index) => {
           const prefix = getPrefix();
           const childNode = childPath.getValue();
 
@@ -300,17 +300,14 @@ async function genericPrint(path, options, print) {
             childNode.children[0].position.start.column !==
               childNode.children[1].position.start.column
           ) {
-            return [
-              prefix,
-              await printListItem(childPath, options, print, prefix),
-            ];
+            return [prefix, printListItem(childPath, options, print, prefix)];
           }
 
           return [
             prefix,
             align(
               " ".repeat(prefix.length),
-              await printListItem(childPath, options, print, prefix)
+              printListItem(childPath, options, print, prefix)
             ),
           ];
 
@@ -348,7 +345,7 @@ async function genericPrint(path, options, print) {
     case "linkReference":
       return [
         "[",
-        await printChildren(path, options, print),
+        printChildren(path, options, print),
         "]",
         node.referenceType === "full"
           ? ["[", node.identifier, "]"]
@@ -387,7 +384,7 @@ async function genericPrint(path, options, print) {
     // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
     /* istanbul ignore next */
     case "footnote":
-      return ["[^", await printChildren(path, options, print), "]"];
+      return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
       return ["[^", node.identifier, "]"];
     case "footnoteDefinition": {
@@ -404,13 +401,13 @@ async function genericPrint(path, options, print) {
         node.identifier,
         "]: ",
         shouldInlineFootnote
-          ? await printChildren(path, options, print)
+          ? printChildren(path, options, print)
           : group([
               align(
                 " ".repeat(4),
-                await printChildren(path, options, print, {
-                  processor: async (childPath, index) =>
-                    index === 0 ? group([softline, await print()]) : print(),
+                printChildren(path, options, print, {
+                  processor: (childPath, index) =>
+                    index === 0 ? group([softline, print()]) : print(),
                 })
               ),
               nextNode && nextNode.type === "footnoteDefinition"
@@ -461,21 +458,21 @@ async function genericPrint(path, options, print) {
   }
 }
 
-async function printListItem(path, options, print, listPrefix) {
+function printListItem(path, options, print, listPrefix) {
   const node = path.getValue();
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return [
     prefix,
-    await printChildren(path, options, print, {
-      processor: async (childPath, index) => {
+    printChildren(path, options, print, {
+      processor: (childPath, index) => {
         if (index === 0 && childPath.getValue().type !== "list") {
-          return align(" ".repeat(prefix.length), await print());
+          return align(" ".repeat(prefix.length), print());
         }
 
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-        return [alignment, align(alignment, await print())];
+        return [alignment, align(alignment, print())];
       },
     }),
   ];
@@ -557,15 +554,15 @@ function printLine(path, value, options) {
     : "";
 }
 
-async function printTable(path, options, print) {
+function printTable(path, options, print) {
   const node = path.getValue();
 
   const columnMaxWidths = [];
   // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
-  const contents = await path.map(
+  const contents = path.map(
     (rowPath) =>
-      rowPath.map(async (cellPath, columnIndex) => {
-        const text = printDocToString(await print(), options).formatted;
+      rowPath.map((cellPath, columnIndex) => {
+        const text = printDocToString(print(), options).formatted;
         const width = getStringWidth(text);
         columnMaxWidths[columnIndex] = Math.max(
           columnMaxWidths[columnIndex] || 3, // minimum width = 3 (---, :--, :-:, --:)
@@ -696,7 +693,7 @@ function printRoot(path, options, print) {
   });
 }
 
-async function printChildren(path, options, print, events = {}) {
+function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
   const processor = events.processor || (() => print());
 
@@ -705,10 +702,10 @@ async function printChildren(path, options, print, events = {}) {
 
   let lastChildNode;
 
-  await path.each(async (childPath, index) => {
+  path.each((childPath, index) => {
     const childNode = childPath.getValue();
 
-    const result = await processor(childPath, index);
+    const result = processor(childPath, index);
     if (result !== false) {
       const data = {
         parts,
@@ -919,6 +916,7 @@ const printer = {
   massageAstNode: clean,
   hasPrettierIgnore,
   insertPragma,
+  isNode: (obj) => Boolean(obj.type),
 };
 
 export default printer;

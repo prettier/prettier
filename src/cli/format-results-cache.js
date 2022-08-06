@@ -36,6 +36,8 @@ function getMetadataFromFileDescriptor(fileDescriptor) {
 }
 
 class FormatResultsCache {
+  #fileEntryCache;
+
   /**
    * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/prettier-cache`)
    * @param {string} cacheStrategy
@@ -43,8 +45,7 @@ class FormatResultsCache {
   constructor(cacheFileLocation, cacheStrategy) {
     const useChecksum = cacheStrategy === "content";
 
-    this.cacheFileLocation = cacheFileLocation;
-    this.fileEntryCache = fileEntryCache.create(
+    this.#fileEntryCache = fileEntryCache.create(
       /* cacheId */ cacheFileLocation,
       /* directory */ undefined,
       useChecksum
@@ -56,7 +57,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   existsAvailableFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
     const hashOfOptions = getHashOfOptions(options);
     const meta = getMetadataFromFileDescriptor(fileDescriptor);
     const changed =
@@ -78,7 +79,7 @@ class FormatResultsCache {
    * @param {any} options
    */
   setFormatResultsCache(filePath, options) {
-    const fileDescriptor = this.fileEntryCache.getFileDescriptor(filePath);
+    const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
     const meta = getMetadataFromFileDescriptor(fileDescriptor);
     if (fileDescriptor && !fileDescriptor.notFound) {
       meta.hashOfOptions = getHashOfOptions(options);
@@ -86,7 +87,7 @@ class FormatResultsCache {
   }
 
   reconcile() {
-    this.fileEntryCache.reconcile();
+    this.#fileEntryCache.reconcile();
   }
 }
 

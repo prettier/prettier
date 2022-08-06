@@ -307,16 +307,6 @@ declare const cursor: Doc;
 
 This is a placeholder value where the cursor is in the original input in order to find where it would be printed.
 
-### [Deprecated] `concat`
-
-_This command has been deprecated in v2.3.0, use `Doc[]` instead_
-
-```ts
-declare function concat(docs: Doc[]): Doc;
-```
-
-Combine an array into a single doc.
-
 ## Example
 
 For an example, here's the implementation of the `ArrayExpression` node type:

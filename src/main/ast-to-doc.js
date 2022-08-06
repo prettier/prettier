@@ -2,7 +2,7 @@ import AstPath from "../common/ast-path.js";
 import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments.js";
-import { printSubtree } from "./multiparser.js";
+import { printEmbeddedLanguages } from "./multiparser.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -29,13 +29,24 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   const { printer } = options;
 
   if (printer.preprocess) {
-    ast = printer.preprocess(ast, options);
+    ast = await printer.preprocess(ast, options);
   }
 
   const cache = new Map();
   const path = new AstPath(ast);
 
-  let doc = await mainPrint();
+  const embeds = new Map();
+  await printEmbeddedLanguages(path, mainPrint, options, printAstToDoc, embeds);
+
+  // Only the root call of the print method is awaited.
+  // This is done to make things simpler for plugins that don't use recursive printing.
+  let doc = await callPluginPrintFunction(
+    path,
+    options,
+    mainPrint,
+    undefined,
+    embeds
+  );
 
   if (alignmentSize > 0) {
     // Add a hardline to make the indents take effect
@@ -69,13 +80,13 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
       return cache.get(value);
     }
 
-    const promise = callPluginPrintFunction(path, options, mainPrint, args);
+    const doc = callPluginPrintFunction(path, options, mainPrint, args, embeds);
 
     if (shouldCache) {
-      cache.set(value, promise);
+      cache.set(value, doc);
     }
 
-    return promise;
+    return doc;
   }
 }
 
@@ -101,32 +112,20 @@ function printPrettierIgnoredNode(node, options) {
   return { doc: originalText.slice(start, end), printedComments };
 }
 
-async function callPluginPrintFunction(path, options, printPath, args) {
+function callPluginPrintFunction(path, options, printPath, args, embeds) {
   const node = path.getValue();
   const { printer } = options;
 
   let doc;
   let printedComments;
+
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
     ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
+  } else if (embeds.has(node)) {
+    doc = embeds.get(node);
   } else {
-    if (node) {
-      try {
-        // Potentially switch to a different parser
-        doc = await printSubtree(path, printPath, options, printAstToDoc);
-      } catch (error) {
-        /* istanbul ignore if */
-        if (process.env.PRETTIER_DEBUG) {
-          throw error;
-        }
-        // Continue with current parser
-      }
-    }
-
-    if (!doc) {
-      doc = await printer.print(path, options, printPath, args);
-    }
+    doc = printer.print(path, options, printPath, args);
   }
 
   // We let JSXElement print its comments itself because it adds () around

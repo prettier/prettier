@@ -20,7 +20,7 @@ import {
   isMemberExpression,
 } from "../utils/index.js";
 
-async function printTemplateLiteral(path, print, options) {
+function printTemplateLiteral(path, print, options) {
   const node = path.getValue();
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
@@ -28,7 +28,7 @@ async function printTemplateLiteral(path, print, options) {
     isTemplateLiteral &&
     isJestEachTemplateLiteral(node, path.getParentNode())
   ) {
-    const printed = await printJestEachTemplateLiteral(path, options, print);
+    const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
     }
@@ -39,7 +39,7 @@ async function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressions = await path.map(print, expressionsKey);
+  let expressions = path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
@@ -54,10 +54,10 @@ async function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  await path.each(async (childPath) => {
+  path.each((childPath) => {
     const i = childPath.getName();
 
-    parts.push(await print());
+    parts.push(print());
 
     if (i < expressions.length) {
       // For a template literal of the following form:
@@ -107,7 +107,7 @@ async function printTemplateLiteral(path, print, options) {
   return parts;
 }
 
-async function printJestEachTemplateLiteral(path, options, print) {
+function printJestEachTemplateLiteral(path, options, print) {
   /**
    * a    | b    | expected
    * ${1} | ${1} | ${2}
@@ -121,7 +121,7 @@ async function printJestEachTemplateLiteral(path, options, print) {
     headerNames.some((headerName) => headerName.length > 0)
   ) {
     options.__inJestEach = true;
-    const expressions = await path.map(print, "expressions");
+    const expressions = path.map(print, "expressions");
     options.__inJestEach = false;
     const parts = [];
     const stringifiedExpressions = expressions.map(
@@ -196,9 +196,9 @@ async function printJestEachTemplateLiteral(path, options, print) {
   }
 }
 
-async function printTemplateExpression(path, print) {
+function printTemplateExpression(path, print) {
   const node = path.getValue();
-  let printed = await print();
+  let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);
   }

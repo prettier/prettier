@@ -31,7 +31,7 @@ import { willBreak } from "../../document/utils.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { isConciselyPrintedArray } from "./array.js";
 
-async function printCallArguments(path, options, print) {
+function printCallArguments(path, options, print) {
   const node = path.getValue();
   const isDynamicImport = node.type === "ImportExpression";
 
@@ -46,22 +46,16 @@ async function printCallArguments(path, options, print) {
 
   // useEffect(() => { ... }, [foo, bar, baz])
   if (isReactHookCallWithDepsArray(args)) {
-    return [
-      "(",
-      await print(["arguments", 0]),
-      ", ",
-      await print(["arguments", 1]),
-      ")",
-    ];
+    return ["(", print(["arguments", 0]), ", ", print(["arguments", 1]), ")"];
   }
 
   let anyArgEmptyLine = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
-  await iterateCallArgumentsPath(path, async (argPath, index) => {
+  iterateCallArgumentsPath(path, (argPath, index) => {
     const arg = argPath.getNode();
-    const parts = [await print()];
+    const parts = [print()];
 
     if (index === lastArgIndex) {
       // do nothing
@@ -116,26 +110,24 @@ async function printCallArguments(path, options, print) {
     let printedExpanded = [];
 
     try {
-      await path.try(async () => {
-        await iterateCallArgumentsPath(path, async (argPath, i) => {
-          if (shouldGroupFirst && i === 0) {
-            printedExpanded = [
-              [
-                await print([], { expandFirstArg: true }),
-                printedArguments.length > 1 ? "," : "",
-                hasEmptyLineFollowingFirstArg ? hardline : line,
-                hasEmptyLineFollowingFirstArg ? hardline : "",
-              ],
-              ...printedArguments.slice(1),
-            ];
-          }
-          if (shouldGroupLast && i === lastArgIndex) {
-            printedExpanded = [
-              ...printedArguments.slice(0, -1),
-              await print([], { expandLastArg: true }),
-            ];
-          }
-        });
+      iterateCallArgumentsPath(path, (argPath, i) => {
+        if (shouldGroupFirst && i === 0) {
+          printedExpanded = [
+            [
+              print([], { expandFirstArg: true }),
+              printedArguments.length > 1 ? "," : "",
+              hasEmptyLineFollowingFirstArg ? hardline : line,
+              hasEmptyLineFollowingFirstArg ? hardline : "",
+            ],
+            ...printedArguments.slice(1),
+          ];
+        }
+        if (shouldGroupLast && i === lastArgIndex) {
+          printedExpanded = [
+            ...printedArguments.slice(0, -1),
+            print([], { expandLastArg: true }),
+          ];
+        }
       });
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {

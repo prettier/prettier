@@ -132,13 +132,6 @@ function* getEsbuildOptions(bundle, buildOptions) {
     }
   } else {
     replaceModule.push(
-      // Universal bundle only use version info from package.json
-      // Replace package.json with `{version: "{VERSION}"}`
-      {
-        module: path.join(PROJECT_ROOT, "package.json"),
-        text: JSON.stringify({ version: packageJson.version }),
-        loader: "json",
-      },
       // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
       {
         module: "*",

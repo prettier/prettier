@@ -52,21 +52,21 @@ const isEmptyStringOrAnyLine = (doc) =>
 //
 // To support that case properly, all leading and trailing spaces
 // are stripped from the list of children, and replaced with a single hardline.
-async function printJsxElementInternal(path, options, print) {
+function printJsxElementInternal(path, options, print) {
   const node = path.getValue();
 
   if (node.type === "JSXElement" && isEmptyJsxElement(node)) {
-    return [await print("openingElement"), await print("closingElement")];
+    return [print("openingElement"), print("closingElement")];
   }
 
   const openingLines =
     node.type === "JSXElement"
-      ? await print("openingElement")
-      : await print("openingFragment");
+      ? print("openingElement")
+      : print("openingFragment");
   const closingLines =
     node.type === "JSXElement"
-      ? await print("closingElement")
-      : await print("closingFragment");
+      ? print("closingElement")
+      : print("closingFragment");
 
   if (
     node.children.length === 1 &&
@@ -74,7 +74,7 @@ async function printJsxElementInternal(path, options, print) {
     (node.children[0].expression.type === "TemplateLiteral" ||
       node.children[0].expression.type === "TaggedTemplateExpression")
   ) {
-    return [openingLines, ...(await path.map(print, "children")), closingLines];
+    return [openingLines, ...path.map(print, "children"), closingLines];
   }
 
   // Convert `{" "}` to text nodes containing a space.
@@ -117,7 +117,7 @@ async function printJsxElementInternal(path, options, print) {
     node.openingElement.name &&
     node.openingElement.name.name === "fbt";
 
-  const children = await printJsxChildren(
+  const children = printJsxChildren(
     path,
     options,
     print,
@@ -261,7 +261,7 @@ async function printJsxElementInternal(path, options, print) {
 // This requires that we give it an array of alternating
 // content and whitespace elements.
 // To ensure this we add dummy `""` content elements as needed.
-async function printJsxChildren(
+function printJsxChildren(
   path,
   options,
   print,
@@ -269,7 +269,7 @@ async function printJsxChildren(
   isFacebookTranslationTag
 ) {
   const parts = [];
-  await path.each(async (childPath, i, children) => {
+  path.each((childPath, i, children) => {
     const child = childPath.getValue();
     if (isLiteral(child)) {
       const text = rawText(child);
@@ -353,7 +353,7 @@ async function printJsxChildren(
         parts.push("", jsxWhitespace);
       }
     } else {
-      const printedChild = await print();
+      const printedChild = print();
       parts.push(printedChild);
 
       const next = children[i + 1];
@@ -463,10 +463,10 @@ function maybeWrapJsxElementInParens(path, elem, options) {
   );
 }
 
-async function printJsxAttribute(path, options, print) {
+function printJsxAttribute(path, options, print) {
   const node = path.getValue();
   const parts = [];
-  parts.push(await print("name"));
+  parts.push(print("name"));
 
   if (node.value) {
     let res;
@@ -485,7 +485,7 @@ async function printJsxAttribute(path, options, print) {
       final = final.replace(regex, escaped);
       res = [quote, final, quote];
     } else {
-      res = await print("value");
+      res = print("value");
     }
     parts.push("=", res);
   }
@@ -493,7 +493,7 @@ async function printJsxAttribute(path, options, print) {
   return parts;
 }
 
-async function printJsxExpressionContainer(path, options, print) {
+function printJsxExpressionContainer(path, options, print) {
   const node = path.getValue();
 
   const shouldInline = (node, parent) =>
@@ -514,19 +514,19 @@ async function printJsxExpressionContainer(path, options, print) {
           (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
   if (shouldInline(node.expression, path.getParentNode(0))) {
-    return group(["{", await print("expression"), lineSuffixBoundary, "}"]);
+    return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 
   return group([
     "{",
-    indent([softline, await print("expression")]),
+    indent([softline, print("expression")]),
     softline,
     lineSuffixBoundary,
     "}",
   ]);
 }
 
-async function printJsxOpeningElement(path, options, print) {
+function printJsxOpeningElement(path, options, print) {
   const node = path.getValue();
 
   const nameHasComments =
@@ -535,7 +535,7 @@ async function printJsxOpeningElement(path, options, print) {
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
-    return ["<", await print("name"), await print("typeParameters"), " />"];
+    return ["<", print("name"), print("typeParameters"), " />"];
   }
 
   // don't break up opening elements with a single long text attribute
@@ -559,10 +559,10 @@ async function printJsxOpeningElement(path, options, print) {
   ) {
     return group([
       "<",
-      await print("name"),
-      await print("typeParameters"),
+      print("name"),
+      print("typeParameters"),
       " ",
-      ...(await path.map(print, "attributes")),
+      ...path.map(print, "attributes"),
       node.selfClosing ? " />" : ">",
     ]);
   }
@@ -586,12 +586,10 @@ async function printJsxOpeningElement(path, options, print) {
   return group(
     [
       "<",
-      await print("name"),
-      await print("typeParameters"),
-      indent(
-        await path.map(async () => [attributeLine, await print()], "attributes")
-      ),
-      ...(await printEndOfOpeningTag(node, options, nameHasComments)),
+      print("name"),
+      print("typeParameters"),
+      indent(path.map(() => [attributeLine, print()], "attributes")),
+      ...printEndOfOpeningTag(node, options, nameHasComments),
     ],
     { shouldBreak }
   );
@@ -635,13 +633,13 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
   );
 }
 
-async function printJsxClosingElement(path, options, print) {
+function printJsxClosingElement(path, options, print) {
   const node = path.getValue();
   const parts = [];
 
   parts.push("</");
 
-  const printed = await print("name");
+  const printed = print("name");
   if (
     hasComment(node.name, CommentCheckFlags.Leading | CommentCheckFlags.Line)
   ) {
@@ -679,10 +677,10 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
   ];
 }
 
-async function printJsxElement(path, options, print) {
+function printJsxElement(path, options, print) {
   const elem = printComments(
     path,
-    await printJsxElementInternal(path, options, print),
+    printJsxElementInternal(path, options, print),
     options
   );
   return maybeWrapJsxElementInParens(path, elem, options);
@@ -699,13 +697,13 @@ function printJsxEmptyExpression(path, options /*, print*/) {
 }
 
 // `JSXSpreadAttribute` and `JSXSpreadChild`
-async function printJsxSpreadAttribute(path, options, print) {
+function printJsxSpreadAttribute(path, options, print) {
   const node = path.getValue();
   return [
     "{",
-    await path.call(
-      async (p) => {
-        const printed = ["...", await print()];
+    path.call(
+      (p) => {
+        const printed = ["...", print()];
         const node = p.getValue();
         if (!hasComment(node) || !willPrintOwnComments(p)) {
           return printed;
@@ -721,7 +719,7 @@ async function printJsxSpreadAttribute(path, options, print) {
   ];
 }
 
-async function printJsx(path, options, print) {
+function printJsx(path, options, print) {
   const node = path.getValue();
 
   // JSX nodes always starts with `JSX`
@@ -735,9 +733,9 @@ async function printJsx(path, options, print) {
     case "JSXIdentifier":
       return String(node.name);
     case "JSXNamespacedName":
-      return join(":", [await print("namespace"), await print("name")]);
+      return join(":", [print("namespace"), print("name")]);
     case "JSXMemberExpression":
-      return join(".", [await print("object"), await print("property")]);
+      return join(".", [print("object"), print("property")]);
     case "JSXSpreadAttribute":
       return printJsxSpreadAttribute(path, options, print);
     case "JSXSpreadChild": {

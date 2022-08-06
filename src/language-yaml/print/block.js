@@ -10,7 +10,6 @@ import {
   literalline,
   markAsRoot,
 } from "../../document/builders.js";
-import { getDocParts } from "../../document/utils.js";
 import {
   getAncestorCount,
   getBlockValueLineContents,
@@ -20,7 +19,7 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-async function printBlock(path, print, options) {
+function printBlock(path, print, options) {
   const node = path.getValue();
   const parentIndent = getAncestorCount(path, (ancestorNode) =>
     isNode(ancestorNode, ["sequence", "mapping"])
@@ -37,7 +36,7 @@ async function printBlock(path, print, options) {
   }
 
   if (hasIndicatorComment(node)) {
-    parts.push(" ", await print("indicatorComment"));
+    parts.push(" ", print("indicatorComment"));
   }
 
   const lineContents = getBlockValueLineContents(node, {
@@ -51,7 +50,7 @@ async function printBlock(path, print, options) {
     if (index === 0) {
       contentsParts.push(hardline);
     }
-    contentsParts.push(fill(getDocParts(join(line, lineWords))));
+    contentsParts.push(fill(join(line, lineWords)));
     if (index !== lineContents.length - 1) {
       contentsParts.push(
         lineWords.length === 0 ? hardline : markAsRoot(literalline)

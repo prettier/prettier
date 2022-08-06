@@ -136,11 +136,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
         : options.__should_parse_vue_template_with_ts
         ? "__vue_ts_event_binding"
         : "__vue_event_binding";
-      return printMaybeHug(
-        await attributeTextToDoc(value, {
-          parser,
-        })
-      );
+      return printMaybeHug(await attributeTextToDoc(value, { parser }));
     }
 
     if (isKeyMatched(vueExpressionBindingPatterns)) {
@@ -249,7 +245,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
   return null;
 }
 
-async function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -265,27 +261,29 @@ async function embed(path, print, textToDoc, options) {
           return;
         }
 
-        const content = getNodeContent(node, options);
-        let isEmpty = /^\s*$/.test(content);
-        let doc = "";
-        if (!isEmpty) {
-          doc = await textToDoc(
-            htmlTrimPreserveIndentation(content),
-            { parser, __embeddedInHtml: true },
-            { stripTrailingHardline: true }
-          );
-          isEmpty = doc === "";
-        }
+        return async (textToDoc, print) => {
+          const content = getNodeContent(node, options);
+          let isEmpty = /^\s*$/.test(content);
+          let doc = "";
+          if (!isEmpty) {
+            doc = await textToDoc(
+              htmlTrimPreserveIndentation(content),
+              { parser, __embeddedInHtml: true },
+              { stripTrailingHardline: true }
+            );
+            isEmpty = doc === "";
+          }
 
-        return [
-          printOpeningTagPrefix(node, options),
-          group(await printOpeningTag(path, options, print)),
-          isEmpty ? "" : hardline,
-          doc,
-          isEmpty ? "" : hardline,
-          printClosingTag(node, options),
-          printClosingTagSuffix(node, options),
-        ];
+          return [
+            printOpeningTagPrefix(node, options),
+            group(printOpeningTag(path, options, print)),
+            isEmpty ? "" : hardline,
+            doc,
+            isEmpty ? "" : hardline,
+            printClosingTag(node, options),
+            printClosingTagSuffix(node, options),
+          ];
+        };
       }
       break;
     }
@@ -293,60 +291,67 @@ async function embed(path, print, textToDoc, options) {
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent, options);
         if (parser) {
-          const value =
-            parser === "markdown"
-              ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
-              : node.value;
-          const textToDocOptions = { parser, __embeddedInHtml: true };
-          if (options.parser === "html" && parser === "babel") {
-            let sourceType = "script";
-            const { attrMap } = node.parent;
-            if (
-              attrMap &&
-              (attrMap.type === "module" ||
-                (attrMap.type === "text/babel" &&
-                  attrMap["data-type"] === "module"))
-            ) {
-              sourceType = "module";
+          return async (textToDoc) => {
+            const value =
+              parser === "markdown"
+                ? dedentString(node.value.replace(/^[^\S\n]*\n/, ""))
+                : node.value;
+            const textToDocOptions = { parser, __embeddedInHtml: true };
+            if (options.parser === "html" && parser === "babel") {
+              let sourceType = "script";
+              const { attrMap } = node.parent;
+              if (
+                attrMap &&
+                (attrMap.type === "module" ||
+                  (attrMap.type === "text/babel" &&
+                    attrMap["data-type"] === "module"))
+              ) {
+                sourceType = "module";
+              }
+              textToDocOptions.__babelSourceType = sourceType;
             }
-            textToDocOptions.__babelSourceType = sourceType;
-          }
-          return [
-            breakParent,
-            printOpeningTagPrefix(node, options),
-            await textToDoc(value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
-            printClosingTagSuffix(node, options),
-          ];
+
+            return [
+              breakParent,
+              printOpeningTagPrefix(node, options),
+              await textToDoc(value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
+              printClosingTagSuffix(node, options),
+            ];
+          };
         }
       } else if (node.parent.type === "interpolation") {
-        const textToDocOptions = {
-          __isInHtmlInterpolation: true, // to avoid unexpected `}}`
-          __embeddedInHtml: true,
+        return async (textToDoc) => {
+          const textToDocOptions = {
+            __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+            __embeddedInHtml: true,
+          };
+          if (options.parser === "angular") {
+            textToDocOptions.parser = "__ng_interpolation";
+            textToDocOptions.trailingComma = "none";
+          } else if (options.parser === "vue") {
+            textToDocOptions.parser =
+              options.__should_parse_vue_template_with_ts
+                ? "__vue_ts_expression"
+                : "__vue_expression";
+          } else {
+            textToDocOptions.parser = "__js_expression";
+          }
+
+          return [
+            indent([
+              line,
+              await textToDoc(node.value, textToDocOptions, {
+                stripTrailingHardline: true,
+              }),
+            ]),
+            node.parent.next &&
+            needsToBorrowPrevClosingTagEndMarker(node.parent.next)
+              ? " "
+              : line,
+          ];
         };
-        if (options.parser === "angular") {
-          textToDocOptions.parser = "__ng_interpolation";
-          textToDocOptions.trailingComma = "none";
-        } else if (options.parser === "vue") {
-          textToDocOptions.parser = options.__should_parse_vue_template_with_ts
-            ? "__vue_ts_expression"
-            : "__vue_expression";
-        } else {
-          textToDocOptions.parser = "__js_expression";
-        }
-        return [
-          indent([
-            line,
-            await textToDoc(node.value, textToDocOptions, {
-              stripTrailingHardline: true,
-            }),
-          ]),
-          node.parent.next &&
-          needsToBorrowPrevClosingTagEndMarker(node.parent.next)
-            ? " "
-            : line,
-        ];
       }
       break;
     }
@@ -382,33 +387,34 @@ async function embed(path, print, textToDoc, options) {
         }
       }
 
-      const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
-        node,
-        (code, opts) =>
-          // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(
-            code,
-            { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
-            { stripTrailingHardline: true }
-          ),
-        options
-      );
-      if (embeddedAttributeValueDoc) {
-        return [
-          node.rawName,
-          '="',
-          group(
-            mapDoc(embeddedAttributeValueDoc, (doc) =>
-              typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
-            )
-          ),
-          '"',
-        ];
-      }
-      break;
+      return async (textToDoc) => {
+        const embeddedAttributeValueDoc = await printEmbeddedAttributeValue(
+          node,
+          (code, opts) =>
+            // strictly prefer single quote to avoid unnecessary html entity escape
+            textToDoc(
+              code,
+              { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
+              { stripTrailingHardline: true }
+            ),
+          options
+        );
+        if (embeddedAttributeValueDoc) {
+          return [
+            node.rawName,
+            '="',
+            group(
+              mapDoc(embeddedAttributeValueDoc, (doc) =>
+                typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+              )
+            ),
+            '"',
+          ];
+        }
+      };
     }
     case "front-matter":
-      return printFrontMatter(node, textToDoc);
+      return (textToDoc) => printFrontMatter(node, textToDoc);
   }
 }
 

@@ -18,11 +18,7 @@ async function printVueFor(value, attributeTextToDoc) {
     " ",
     operator,
     " ",
-    await attributeTextToDoc(
-      right,
-      { parser: "__js_expression" },
-      { stripTrailingHardline: true }
-    ),
+    await attributeTextToDoc(right, { parser: "__js_expression" }),
   ];
 }
 

@@ -151,6 +151,23 @@ function createUsage(context) {
   return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
 }
 
+function createPluginDefaults(pluginDefaults) {
+  if (!pluginDefaults || Object.keys(pluginDefaults).length === 0) {
+    return "";
+  }
+
+  const defaults = Object.entries(pluginDefaults)
+    .sort(([pluginNameA], [pluginNameB]) =>
+      pluginNameA.localeCompare(pluginNameB)
+    )
+    .map(
+      ([plugin, value]) => `* ${plugin}: ${createDefaultValueDisplay(value)}`
+    )
+    .join("\n");
+
+  return `\nPlugin defaults:\n${defaults}`;
+}
+
 function createDetailedUsage(context, flag) {
   const option = getOptionsWithOpposites(context.detailedOptions).find(
     (option) => option.name === flag || option.alias === flag
@@ -174,12 +191,7 @@ function createDetailedUsage(context, flag) {
       ? `\n\nDefault: ${createDefaultValueDisplay(optionDefaultValue)}`
       : "";
 
-  const pluginDefaults =
-    option.pluginDefaults && Object.keys(option.pluginDefaults).length > 0
-      ? `\nPlugin defaults:${Object.entries(option.pluginDefaults).map(
-          ([key, value]) => `\n* ${key}: ${createDefaultValueDisplay(value)}`
-        )}`
-      : "";
+  const pluginDefaults = createPluginDefaults(option.pluginDefaults);
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 

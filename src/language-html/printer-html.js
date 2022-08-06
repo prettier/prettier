@@ -2,14 +2,8 @@
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-import { DOC_TYPE_FILL } from "../document/constants.js";
 import { fill, group, hardline, literalline } from "../document/builders.js";
-import {
-  cleanDoc,
-  getDocParts,
-  isConcat,
-  replaceTextEndOfLine,
-} from "../document/utils.js";
+import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
 import clean from "./clean.js";
 import {
   countChars,
@@ -29,7 +23,7 @@ import {
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
 
-async function genericPrint(path, options, print) {
+function genericPrint(path, options, print) {
   const node = path.getValue();
 
   switch (node.type) {
@@ -39,8 +33,7 @@ async function genericPrint(path, options, print) {
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
       }
-      // use original concat to not break stripTrailingHardline
-      return [group(await printChildren(path, options, print)), hardline];
+      return [group(printChildren(path, options, print)), hardline];
     case "element":
     case "ieConditionalComment": {
       return printElement(path, options, print);
@@ -51,7 +44,7 @@ async function genericPrint(path, options, print) {
     case "interpolation":
       return [
         printOpeningTagStart(node, options),
-        ...(await path.map(print, "children")),
+        ...path.map(print, "children"),
         printClosingTagEnd(node, options),
       ];
     case "text": {
@@ -73,10 +66,11 @@ async function genericPrint(path, options, print) {
         ...getTextValueParts(node),
         printClosingTagSuffix(node, options),
       ]);
-      if (isConcat(printed) || printed.type === DOC_TYPE_FILL) {
-        return fill(getDocParts(printed));
+
+      if (Array.isArray(printed)) {
+        return fill(printed);
       }
-      /* istanbul ignore next */
+
       return printed;
     }
     case "docType":

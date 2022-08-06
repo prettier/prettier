@@ -2,8 +2,6 @@
 
 "use strict";
 
-self.PRETTIER_DEBUG = true;
-
 const imported = Object.create(null);
 function importScriptOnce(url) {
   if (!imported[url]) {
@@ -71,98 +69,108 @@ function serializeAst(ast) {
   );
 }
 
-async function handleMessage(message) {
-  if (message.type === "meta") {
-    const supportInfo = await prettier.getSupportInfo({
-      showUnreleased: true,
-      plugins: [docExplorerPlugin],
-    });
-
-    return {
-      type: "meta",
-      supportInfo: JSON.parse(JSON.stringify(supportInfo)),
-      version: prettier.version,
-    };
-  }
-
-  if (message.type === "format") {
-    const options = message.options || {};
-
-    delete options.ast;
-    delete options.doc;
-    delete options.output2;
-
-    const plugins = [{ parsers }, docExplorerPlugin];
-    options.plugins = plugins;
-
-    const formatResult = await formatCode(message.code, options);
-
-    const response = {
-      formatted: formatResult.formatted,
-      cursorOffset: formatResult.cursorOffset,
-      error: formatResult.error,
-      debug: {
-        ast: null,
-        doc: null,
-        comments: null,
-        reformatted: null,
-      },
-    };
-
-    if (message.debug.ast) {
-      let ast;
-      let errored = false;
-      try {
-        ast = serializeAst(
-          (await prettier.__debug.parse(message.code, options)).ast
-        );
-      } catch (e) {
-        errored = true;
-        ast = String(e);
-      }
-
-      if (!errored) {
-        try {
-          ast = (await formatCode(ast, { parser: "json", plugins })).formatted;
-        } catch {
-          ast = serializeAst(ast);
-        }
-      }
-      response.debug.ast = ast;
-    }
-
-    if (message.debug.doc) {
-      try {
-        response.debug.doc = await prettier.__debug.formatDoc(
-          await prettier.__debug.printToDoc(message.code, options),
-          { plugins }
-        );
-      } catch {
-        response.debug.doc = "";
-      }
-    }
-
-    if (message.debug.comments) {
-      response.debug.comments = (
-        await formatCode(JSON.stringify(formatResult.comments || []), {
-          parser: "json",
-          plugins,
-        })
-      ).formatted;
-    }
-
-    if (message.debug.reformat) {
-      response.debug.reformatted = (
-        await formatCode(response.formatted, options)
-      ).formatted;
-    }
-
-    return response;
+function handleMessage(message) {
+  switch (message.type) {
+    case "meta":
+      return handleMetaMessage();
+    case "format":
+      return handleFormatMessage(message);
   }
 }
 
-async function formatCode(text, options) {
+async function handleMetaMessage() {
+  const supportInfo = await prettier.getSupportInfo({
+    showUnreleased: true,
+    plugins: [docExplorerPlugin],
+  });
+
+  return {
+    type: "meta",
+    supportInfo: JSON.parse(JSON.stringify(supportInfo)),
+    version: prettier.version,
+  };
+}
+
+async function handleFormatMessage(message) {
+  const plugins = [{ parsers }, docExplorerPlugin];
+  const options = { ...message.options, plugins };
+
+  delete options.ast;
+  delete options.doc;
+  delete options.output2;
+
+  const formatResult = await formatCode(
+    message.code,
+    options,
+    message.debug.rethrowEmbedErrors
+  );
+
+  const response = {
+    formatted: formatResult.formatted,
+    cursorOffset: formatResult.cursorOffset,
+    error: formatResult.error,
+    debug: {
+      ast: null,
+      doc: null,
+      comments: null,
+      reformatted: null,
+    },
+  };
+
+  if (message.debug.ast) {
+    let ast;
+    let errored = false;
+    try {
+      ast = serializeAst(
+        (await prettier.__debug.parse(message.code, options)).ast
+      );
+    } catch (e) {
+      errored = true;
+      ast = String(e);
+    }
+
+    if (!errored) {
+      try {
+        ast = (await formatCode(ast, { parser: "json", plugins })).formatted;
+      } catch {
+        ast = serializeAst(ast);
+      }
+    }
+    response.debug.ast = ast;
+  }
+
+  if (message.debug.doc) {
+    try {
+      response.debug.doc = prettier.__debug.formatDoc(
+        prettier.__debug.printToDoc(message.code, options),
+        { plugins }
+      );
+    } catch {
+      response.debug.doc = "";
+    }
+  }
+
+  if (message.debug.comments) {
+    response.debug.comments = (
+      await formatCode(JSON.stringify(formatResult.comments || []), {
+        parser: "json",
+        plugins,
+      })
+    ).formatted;
+  }
+
+  if (message.debug.reformat) {
+    response.debug.reformatted = (
+      await formatCode(response.formatted, options)
+    ).formatted;
+  }
+
+  return response;
+}
+
+async function formatCode(text, options, rethrowEmbedErrors) {
   try {
+    self.PRETTIER_DEBUG = rethrowEmbedErrors;
     return await prettier.formatWithCursor(text, options);
   } catch (e) {
     if (e.constructor && e.constructor.name === "SyntaxError") {
@@ -172,6 +180,8 @@ async function formatCode(text, options) {
     // Likely a bug in Prettier
     // Provide the whole stack for debugging
     return { formatted: stringifyError(e), error: true };
+  } finally {
+    self.PRETTIER_DEBUG = undefined;
   }
 }
 

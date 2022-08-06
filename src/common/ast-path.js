@@ -15,24 +15,6 @@ function getNodeStackIndexHelper(stack, count) {
   return -1;
 }
 
-const isThenable = (object) => typeof object?.then === "function";
-const tryFinally = (fn, onSettled) => {
-  let result;
-  try {
-    result = fn();
-  } catch (error) {
-    onSettled();
-    throw error;
-  }
-
-  if (isThenable(result)) {
-    return result.finally(onSettled);
-  }
-
-  onSettled();
-  return result;
-};
-
 class AstPath {
   constructor(value) {
     this.stack = [value];
@@ -80,25 +62,21 @@ class AstPath {
       value = value[name];
       stack.push(name, value);
     }
-
-    return tryFinally(
-      () => callback(this),
-      () => {
-        stack.length = length;
-      }
-    );
+    try {
+      return callback(this);
+    } finally {
+      stack.length = length;
+    }
   }
 
   callParent(callback, count = 0) {
     const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
-
-    return tryFinally(
-      () => callback(this),
-      () => {
-        this.stack.push(...parentValues);
-      }
-    );
+    try {
+      return callback(this);
+    } finally {
+      this.stack.push(...parentValues);
+    }
   }
 
   // Similar to AstPath.prototype.call, except that the value obtained by
@@ -115,72 +93,26 @@ class AstPath {
       stack.push(name, value);
     }
 
-    const iteratee = (index) =>
-      tryFinally(
-        () => {
-          stack.push(index, value[index]);
-          return callback(this, index, value);
-        },
-        () => {
-          stack.length -= 2;
-        }
-      );
-
-    return tryFinally(
-      () => {
-        let promise;
-
-        for (let index = 0; index < value.length; index++) {
-          if (promise) {
-            promise = promise.then(() => iteratee(index));
-            continue;
-          }
-
-          const result = iteratee(index);
-
-          if (isThenable(result)) {
-            promise = result;
-          }
-        }
-
-        return promise;
-      },
-      () => {
-        stack.length = length;
+    try {
+      for (let i = 0; i < value.length; ++i) {
+        stack.push(i, value[i]);
+        callback(this, i, value);
+        stack.length -= 2;
       }
-    );
+    } finally {
+      stack.length = length;
+    }
   }
 
   // Similar to AstPath.prototype.each, except that the results of the
   // callback function invocations are stored in an array and returned at
   // the end of the iteration.
   map(callback, ...names) {
-    const results = [];
-    const maybePromise = this.each((path, index, value) => {
-      const result = callback(path, index, value);
-      results[index] = result;
-      return result;
+    const result = [];
+    this.each((path, index, value) => {
+      result[index] = callback(path, index, value);
     }, ...names);
-    return isThenable(maybePromise)
-      ? maybePromise.then(() => Promise.all(results))
-      : results;
-  }
-
-  /**
-   * @param {() => void} callback
-   * @internal Unstable API. Don't use in plugins for now.
-   */
-  try(callback) {
-    const { stack } = this;
-    const stackBackup = [...stack];
-
-    return tryFinally(
-      () => callback(),
-      () => {
-        stack.length = 0;
-        stack.push(...stackBackup);
-      }
-    );
+    return result;
   }
 
   /**
