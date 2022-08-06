@@ -20,10 +20,11 @@ import {
  */
 
 class Context {
+  #stack = [];
+
   constructor({ rawArguments, logger }) {
     this.rawArguments = rawArguments;
     this.logger = logger;
-    this.stack = [];
   }
 
   async init() {
@@ -48,13 +49,13 @@ class Context {
    */
   async pushContextPlugins(plugins, pluginSearchDirs) {
     const options = await getContextOptions(plugins, pluginSearchDirs);
-    this.stack.push(options);
+    this.#stack.push(options);
     Object.assign(this, options);
   }
 
   popContextPlugins() {
-    this.stack.pop();
-    Object.assign(this, getLast(this.stack));
+    this.#stack.pop();
+    Object.assign(this, getLast(this.#stack));
   }
 
   // eslint-disable-next-line getter-return
