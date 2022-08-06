@@ -1,6 +1,6 @@
 import { hardline } from "../document/builders.js";
 
-function embed(path, print, textToDoc, options) {
+function embed(path, options) {
   const node = path.getValue();
 
   // Try to format `.prettierrc`, `.stylelintrc`, and `.lintstagedrc` as `json` first
