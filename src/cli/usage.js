@@ -1,6 +1,6 @@
 import camelCase from "camelcase";
 import * as constant from "./constant.js";
-import { groupBy, isNonEmptyArray } from "./utils.js";
+import { groupBy } from "./utils.js";
 import { optionsHiddenDefaults } from "./prettier-internal.js";
 
 const OPTION_USAGE_THRESHOLD = 25;
@@ -161,10 +161,11 @@ function createPluginDefaults(pluginDefaults) {
       pluginNameA.localeCompare(pluginNameB)
     )
     .map(
-      ([plugin, value]) => `\n* ${plugin}: ${createDefaultValueDisplay(value)}`
-    );
+      ([plugin, value]) => `* ${plugin}: ${createDefaultValueDisplay(value)}`
+    )
+    .join("\n");
 
-  return `\nPlugin defaults:${defaults}`;
+  return `\nPlugin defaults:\n${defaults}`;
 }
 
 function createDetailedUsage(context, flag) {
