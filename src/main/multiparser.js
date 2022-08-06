@@ -26,7 +26,7 @@ async function printEmbeddedLanguages(
     (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
   const hasPrettierIgnore =
     printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
-  const ignoredProperties = printer.massageAstNode?.ignoredProperties;
+  const { ignoredProperties } = printer;
 
   const embedCallResults = [];
 

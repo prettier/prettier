@@ -103,12 +103,11 @@ function clean(node, newNode /*, parent*/) {
   }
 }
 
-clean.ignoredProperties = ignoredProperties;
-
 const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
+  ignoredProperties,
 };
 
 export default printer;

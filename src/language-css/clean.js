@@ -1,16 +1,6 @@
 import { isFrontMatterNode } from "../common/util.js";
 import getLast from "../utils/get-last.js";
 
-const ignoredProperties = new Set([
-  "raw", // front-matter
-  "raws",
-  "sourceIndex",
-  "source",
-  "before",
-  "after",
-  "trailingComma",
-]);
-
 function clean(ast, newObj, parent) {
   if (isFrontMatterNode(ast) && ast.lang === "yaml") {
     delete newObj.value;
@@ -185,8 +175,6 @@ function clean(ast, newObj, parent) {
     }
   }
 }
-
-clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
   return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");

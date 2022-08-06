@@ -1,13 +1,5 @@
 import { isFrontMatterNode } from "../common/util.js";
 
-const ignoredProperties = new Set([
-  "sourceSpan",
-  "startSourceSpan",
-  "endSourceSpan",
-  "nameSpan",
-  "valueSpan",
-]);
-
 function clean(ast, newNode) {
   if (ast.type === "text" || ast.type === "comment") {
     return null;
@@ -26,7 +18,5 @@ function clean(ast, newNode) {
     delete newNode.value;
   }
 }
-
-clean.ignoredProperties = ignoredProperties;
 
 export default clean;

@@ -126,6 +126,13 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
+  ignoredProperties: new Set([
+    "sourceSpan",
+    "startSourceSpan",
+    "endSourceSpan",
+    "nameSpan",
+    "valueSpan",
+  ]),
 };
 
 export default printer;

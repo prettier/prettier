@@ -786,6 +786,7 @@ function printBlockParams(node) {
 const printer = {
   print,
   massageAstNode: clean,
+  ignoredProperties: new Set(["loc", "selfClosing"]),
 };
 
 export default printer;

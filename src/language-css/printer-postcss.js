@@ -1121,6 +1121,15 @@ const printer = {
   embed,
   insertPragma,
   massageAstNode: clean,
+  ignoredProperties: new Set([
+    "raw", // front-matter
+    "raws",
+    "sourceIndex",
+    "source",
+    "before",
+    "after",
+    "trailingComma",
+  ]),
 };
 
 export default printer;

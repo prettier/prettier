@@ -8,12 +8,11 @@ function massageAST(ast, options, parent) {
   }
 
   const cleanFunction = options.printer.massageAstNode;
-  let ignoredProperties;
-  if (cleanFunction && cleanFunction.ignoredProperties) {
-    ignoredProperties = cleanFunction.ignoredProperties;
-  } else {
-    ignoredProperties = new Set();
-  }
+
+  const ignoredProperties = new Set([
+    ...(options.printer.ignoredProperties ?? []),
+    ...(cleanFunction?.ignoredProperties ?? []),
+  ]);
 
   const newObj = {};
   for (const [key, value] of Object.entries(ast)) {

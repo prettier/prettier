@@ -7,6 +7,7 @@ import {
   isNextLineEmptyAfterIndex,
   getStringWidth,
 } from "../../common/util.js";
+import ignoredProperties from "../ignored-properties.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
@@ -77,16 +78,31 @@ function hasFlowAnnotationComment(comments) {
  * @returns {boolean}
  */
 function hasNode(node, fn) {
-  if (!node || typeof node !== "object") {
+  if (node === null || typeof node !== "object") {
     return false;
   }
   if (Array.isArray(node)) {
-    return node.some((value) => hasNode(value, fn));
+    for (let i = node.length - 1; i >= 0; i--) {
+      if (hasNode(node[i], fn)) {
+        return true;
+      }
+    }
+    return false;
   }
   const result = fn(node);
-  return typeof result === "boolean"
-    ? result
-    : Object.values(node).some((value) => hasNode(value, fn));
+  if (typeof result === "boolean") {
+    return result;
+  }
+  for (const key in node) {
+    if (
+      Object.prototype.hasOwnProperty.call(node, key) &&
+      !ignoredProperties?.has(key) &&
+      hasNode(node[key], fn)
+    ) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

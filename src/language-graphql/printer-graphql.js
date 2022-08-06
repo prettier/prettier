@@ -585,7 +585,6 @@ function clean(node, newNode /* , parent */) {
     newNode.value = newNode.value.trim();
   }
 }
-clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
@@ -601,6 +600,7 @@ const printer = {
   insertPragma,
   printComment,
   canAttachComment,
+  ignoredProperties: new Set(["loc", "comments"]),
 };
 
 export default printer;

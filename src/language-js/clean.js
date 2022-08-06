@@ -1,21 +1,5 @@
 import isBlockComment from "./utils/is-block-comment.js";
 
-const ignoredProperties = new Set([
-  "range",
-  "raw",
-  "comments",
-  "leadingComments",
-  "trailingComments",
-  "innerComments",
-  "extra",
-  "start",
-  "end",
-  "loc",
-  "flags",
-  "errors",
-  "tokens",
-]);
-
 const removeTemplateElementsValue = (node) => {
   for (const templateElement of node.quasis) {
     delete templateElement.value;
@@ -205,7 +189,5 @@ function clean(ast, newObj, parent) {
     return newObj.types[0];
   }
 }
-
-clean.ignoredProperties = ignoredProperties;
 
 export default clean;

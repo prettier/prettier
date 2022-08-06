@@ -1,10 +1,6 @@
 import { isFrontMatterNode } from "../common/util.js";
 import { startWithPragma } from "./pragma.js";
 
-const ignoredProperties = new Set([
-  "position",
-  "raw", // front-matter
-]);
 function clean(ast, newObj, parent) {
   // for codeblock
   if (
@@ -69,7 +65,5 @@ function clean(ast, newObj, parent) {
     return null;
   }
 }
-
-clean.ignoredProperties = ignoredProperties;
 
 export default clean;

@@ -28,7 +28,7 @@ function getSortedChildNodes(node, options, resultArray) {
   const { printer, locStart, locEnd } = options;
 
   if (resultArray) {
-    if (printer.canAttachComment && printer.canAttachComment(node)) {
+    if (printer.canAttachComment?.(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -48,21 +48,27 @@ function getSortedChildNodes(node, options, resultArray) {
     return childNodesCache.get(node);
   }
 
-  const childNodes =
-    (printer.getCommentChildNodes &&
-      printer.getCommentChildNodes(node, options)) ||
-    (typeof node === "object" &&
-      Object.entries(node)
-        .filter(
-          ([key]) =>
-            key !== "enclosingNode" &&
-            key !== "precedingNode" &&
-            key !== "followingNode" &&
-            key !== "tokens" &&
-            key !== "comments" &&
-            key !== "parent"
-        )
-        .map(([, value]) => value));
+  let childNodes = printer.getCommentChildNodes?.(node, options);
+
+  if (!childNodes && typeof node === "object") {
+    childNodes = [];
+    for (const key in node) {
+      if (
+        key !== "enclosingNode" &&
+        key !== "precedingNode" &&
+        key !== "followingNode" &&
+        Object.prototype.hasOwnProperty.call(node, key) &&
+        !printer.ignoredProperties?.has(key)
+      ) {
+        const value = node[key];
+        if (Array.isArray(value)) {
+          childNodes.push(...value);
+        } else {
+          childNodes.push(value);
+        }
+      }
+    }
+  }
 
   if (!childNodes) {
     return;

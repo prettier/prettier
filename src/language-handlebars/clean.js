@@ -14,6 +14,4 @@ function clean(ast, newNode /*, parent*/) {
   }
 }
 
-clean.ignoredProperties = new Set(["loc", "selfClosing"]);
-
 export default clean;

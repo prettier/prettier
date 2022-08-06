@@ -917,6 +917,10 @@ const printer = {
   hasPrettierIgnore,
   insertPragma,
   isNode: (obj) => Boolean(obj.type),
+  ignoredProperties: new Set([
+    "position",
+    "raw", // front-matter
+  ]),
 };
 
 export default printer;
