@@ -67,4 +67,17 @@ async function statSafe(filePath) {
   }
 }
 
-module.exports = { printToScreen, groupBy, pick, createHash, statSafe };
+/**
+ * @param {string} value
+ * @returns {boolean}
+ */
+function isJson(value) {
+  try {
+    JSON.parse(value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+module.exports = { printToScreen, groupBy, pick, createHash, statSafe, isJson };

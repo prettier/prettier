@@ -14,6 +14,7 @@ export default class EditorState extends React.Component {
       showSecondFormat: false,
       showInput: true,
       showOutput: true,
+      rethrowEmbedErrors: false,
       toggleSidebar: () => this.setState(stateToggler("showSidebar")),
       toggleAst: () => this.setState(stateToggler("showAst")),
       toggleDoc: () => this.setState(stateToggler("showDoc")),
@@ -21,6 +22,8 @@ export default class EditorState extends React.Component {
       toggleSecondFormat: () => this.setState(stateToggler("showSecondFormat")),
       toggleInput: () => this.setState(stateToggler("showInput")),
       toggleOutput: () => this.setState(stateToggler("showOutput")),
+      toggleEmbedErrors: () =>
+        this.setState(stateToggler("rethrowEmbedErrors")),
       ...storage.get("editor_state"),
     };
   }

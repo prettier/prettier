@@ -28,3 +28,5 @@ package-lock.json
 .pnp.*
 .nyc_output
 .devcontainer
+# When installing software on gitpod.io, `core.*` files are generated
+/core.*
