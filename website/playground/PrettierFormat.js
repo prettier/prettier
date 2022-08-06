@@ -19,6 +19,7 @@ export default class PrettierFormat extends React.Component {
       "debugDoc",
       "debugComments",
       "reformat",
+      "rethrowEmbedErrors",
     ]) {
       if (prevProps[key] !== this.props[key]) {
         this.format();
@@ -37,6 +38,7 @@ export default class PrettierFormat extends React.Component {
       debugDoc: doc,
       debugComments: comments,
       reformat,
+      rethrowEmbedErrors,
     } = this.props;
 
     if (!enabled) {
@@ -48,6 +50,7 @@ export default class PrettierFormat extends React.Component {
       doc,
       comments,
       reformat,
+      rethrowEmbedErrors,
     });
 
     this.setState(result);
