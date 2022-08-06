@@ -1,1 +1,1 @@
-Lorem    Ipsum
+{ "preprocess": "Lorem    Ipsum", "print": "Lorem    Ipsum" }

@@ -6,9 +6,9 @@ parsers: ["async-printer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-Lorem    Ipsum
+{ "preprocess": "Lorem    Ipsum", "print": "Lorem    Ipsum" }
 
 =====================================output=====================================
-lorem ipsum 
+{"preprocess":"lorem    ipsum","print":"Lorem Ipsum"}
 ================================================================================
 `;

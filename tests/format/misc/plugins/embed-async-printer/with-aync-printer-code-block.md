@@ -1,5 +1,8 @@
 ```async-printer
-This    text   will be    lowercased and    whitespace-normalized.
+{
+  "preprocess": "This    text   will be    lowercased.",
+  "print": "This    text   will be      whitespace-normalized."
+}
 ```
 
 ```uppercase-rocks
