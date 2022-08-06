@@ -2,8 +2,8 @@
 
 tasks:
   - init: |
+      brew install hyperfine
       yarn
-      yarn build
 
 github:
   # https://www.gitpod.io/docs/prebuilds/#configure-prebuilds

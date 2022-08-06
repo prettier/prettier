@@ -95,6 +95,18 @@ In the above commands:
 
 In addition to the options above, you can use [`node --prof` and `node --prof-process`](https://nodejs.org/en/docs/guides/simple-profiling/), as well as `node --trace-opt --trace-deopt`, to get more advanced performance insights.
 
+The script `scripts/benchmark/compare.sh` can be used to compare performance of two or more commits/branches using [hyperfine](https://github.com/sharkdp/hyperfine). Usage (don't forget to install hyperfine):
+
+```sh
+PRETTIER_PERF_FILENAME=my.js ./compare.sh main some-pr-branch
+```
+
+Without `PRETTIER_PERF_FILENAME`, the script uses a default JS file as input for Prettier:
+
+```sh
+./compare.sh main next
+```
+
 ## Regression testing
 
 We have a cool tool for regression testing that runs on GitHub Actions. Have a look: https://github.com/prettier/prettier-regression-testing
