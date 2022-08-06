@@ -1,14 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-parser.txt format 1`] = `
+exports[`with-aync-printer-code-block.md format 1`] = `
 ====================================options=====================================
-parsers: ["async-parser"]
+parsers: ["markdown"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-A text will format as "Formatted by async-parser plugin".
+\`\`\`async-printer
+This text will be lowercased and prefixed with a comment.
+\`\`\`
+
+\`\`\`uppercase-rocks
+This text should be uppercased.
+\`\`\`
 
 =====================================output=====================================
-Formatted by async-parser plugin
+\`\`\`async-printer
+/* formatted by async-printer plugin */ this text will be lowercased and prefixed with a comment.
+\`\`\`
+
+\`\`\`uppercase-rocks
+THIS TEXT SHOULD BE UPPERCASED.
+\`\`\`
+
 ================================================================================
 `;

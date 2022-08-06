@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`async-printer.txt format 1`] = `
+====================================options=====================================
+parsers: ["async-printer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Lorem Ipsum
+
+=====================================output=====================================
+/* formatted by async-printer plugin */ lorem ipsum
+
+================================================================================
+`;
