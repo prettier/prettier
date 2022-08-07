@@ -160,6 +160,7 @@ export const printers = {
     print,
     embed,
     preprocess,
+    nonTraversableKeys,
     insertPragma,
     canAttachComment,
     isBlockComment,
@@ -310,6 +311,14 @@ The `preprocess` method can process the AST from the parser before passing it in
 
 ```ts
 function preprocess(ast: AST, options: Options): AST | Promise<AST>;
+```
+
+#### (optional) `nonTraversableKeys`
+
+This property might come in handy if the plugin uses comment attachment or embedded languages. These features traverse the AST iterating through all the own enumerable properties of each node starting from the root. If the AST has [cycles](<https://en.wikipedia.org/wiki/Cycle_(graph_theory)>), such a traverse ends up in an infinite loop. Also, nodes might contain non-node objects (e.g., location data), iterating through which is a waste of resources. To solve these issues, the printer can define a set of property names that should be excluded from traversing.
+
+```ts
+const nonTraversableKeys: Set<string>;
 ```
 
 #### (optional) `insertPragma`
