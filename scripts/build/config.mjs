@@ -1,7 +1,6 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
@@ -324,10 +323,6 @@ const coreBundles = [
         path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
-      {
-        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
-        text: "export default () => {};",
-      },
     ],
   },
   {
