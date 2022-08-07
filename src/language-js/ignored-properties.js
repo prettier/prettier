@@ -1,4 +1,4 @@
-export default new Set([
+export const ignoredPropertiesForClean = new Set([
   "range",
   "raw",
   "comments",
@@ -13,4 +13,9 @@ export default new Set([
   "errors",
   "tokens",
   "parent",
+]);
+
+export const ignoredProperties = new Set([
+  ...ignoredPropertiesForClean,
+  "type",
 ]);

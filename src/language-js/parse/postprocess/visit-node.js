@@ -1,4 +1,4 @@
-import ignoredProperties from "../../ignored-properties.js";
+import { ignoredProperties } from "../../ignored-properties.js";
 
 function visitNode(node, fn) {
   if (node !== null && typeof node === "object") {

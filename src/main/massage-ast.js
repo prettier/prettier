@@ -1,10 +1,10 @@
 function massageAST(ast, options) {
   const cleanFunction = options.printer.massageAstNode;
 
-  const ignoredProperties = new Set([
-    ...(options.printer.ignoredProperties ?? []),
-    ...(cleanFunction?.ignoredProperties ?? []),
-  ]);
+  const ignoredProperties =
+    cleanFunction?.ignoredProperties ??
+    options.printer.ignoredProperties ??
+    new Set();
 
   return recurse(ast);
 

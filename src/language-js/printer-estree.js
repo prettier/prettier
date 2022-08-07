@@ -86,7 +86,7 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
-import ignoredProperties from "./ignored-properties.js";
+import { ignoredProperties } from "./ignored-properties.js";
 
 function genericPrint(path, options, print, args) {
   const printed = printPathNoParens(path, options, print, args);

@@ -1,3 +1,4 @@
+import { ignoredPropertiesForClean } from "./ignored-properties.js";
 import isBlockComment from "./utils/is-block-comment.js";
 
 const removeTemplateElementsValue = (node) => {
@@ -189,5 +190,7 @@ function clean(ast, newObj, parent) {
     return newObj.types[0];
   }
 }
+
+clean.ignoredProperties = ignoredPropertiesForClean;
 
 export default clean;

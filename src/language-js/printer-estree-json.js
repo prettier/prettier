@@ -1,4 +1,8 @@
 import { hardline, indent, join } from "../document/builders.js";
+import {
+  ignoredProperties,
+  ignoredPropertiesForClean,
+} from "./ignored-properties.js";
 import preprocess from "./print-preprocess.js";
 
 function genericPrint(path, options, print) {
@@ -64,20 +68,6 @@ function genericPrint(path, options, print) {
   }
 }
 
-const ignoredProperties = new Set([
-  "start",
-  "end",
-  "extra",
-  "loc",
-  "comments",
-  "leadingComments",
-  "trailingComments",
-  "innerComments",
-  "errors",
-  "range",
-  "tokens",
-]);
-
 function clean(node, newNode /*, parent*/) {
   const { type } = node;
   // We print quoted key
@@ -102,6 +92,8 @@ function clean(node, newNode /*, parent*/) {
     return { type: "StringLiteral", value: node.quasis[0].value.cooked };
   }
 }
+
+clean.ignoredProperties = ignoredPropertiesForClean;
 
 const printer = {
   preprocess,

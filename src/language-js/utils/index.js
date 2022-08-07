@@ -7,7 +7,7 @@ import {
   isNextLineEmptyAfterIndex,
   getStringWidth,
 } from "../../common/util.js";
-import ignoredProperties from "../ignored-properties.js";
+import { ignoredProperties } from "../ignored-properties.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
