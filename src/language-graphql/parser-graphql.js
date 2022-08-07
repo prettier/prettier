@@ -7,13 +7,9 @@ const require = createRequire(import.meta.url);
 
 function parseComments(ast) {
   const comments = [];
-  const { startToken } = ast.loc;
-  let { next } = startToken;
+  let { next } = ast.loc.startToken;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
-      // The Comment token's column starts _after_ the `#`,
-      // but we need to make sure the node captures the `#`
-      next.column--;
       comments.push(next);
     }
     next = next.next;
