@@ -52,7 +52,10 @@ function getSortedChildNodes(node, options, resultArray) {
 
   let childNodes = printer.getCommentChildNodes?.(node, options);
 
-  if (!childNodes && typeof node === "object") {
+  if (!childNodes) {
+    if (typeof node !== "object") {
+      return;
+    }
     childNodes = [];
     const { ignoredProperties = defaultIgnoredProperties } = printer;
     for (const key in node) {
@@ -71,10 +74,6 @@ function getSortedChildNodes(node, options, resultArray) {
         }
       }
     }
-  }
-
-  if (!childNodes) {
-    return;
   }
 
   if (!resultArray) {
