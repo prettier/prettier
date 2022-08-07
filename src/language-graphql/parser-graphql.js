@@ -11,30 +11,15 @@ function parseComments(ast) {
   let { next } = startToken;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
-      Object.assign(next, {
-        // The Comment token's column starts _after_ the `#`,
-        // but we need to make sure the node captures the `#`
-        column: next.column - 1,
-      });
+      // The Comment token's column starts _after_ the `#`,
+      // but we need to make sure the node captures the `#`
+      next.column--;
       comments.push(next);
     }
     next = next.next;
   }
 
   return comments;
-}
-
-function removeTokens(node) {
-  if (node && typeof node === "object") {
-    delete node.startToken;
-    delete node.endToken;
-    delete node.prev;
-    delete node.next;
-    for (const key in node) {
-      removeTokens(node[key]);
-    }
-  }
-  return node;
 }
 
 const parseOptions = {
@@ -69,7 +54,6 @@ function parse(text /*, parsers, opts*/) {
   }
 
   ast.comments = parseComments(ast);
-  removeTokens(ast);
   return ast;
 }
 
