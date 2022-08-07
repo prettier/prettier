@@ -282,7 +282,7 @@ Valid options:
 - `"lwc"` (same parser as `"html"`, but also formats LWC-specific syntax for unquoted template attributes) _First available in 1.17.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
 
-[Custom parsers](api.md#custom-parser-api) are also supported. _First available in v1.5.0_
+[Custom parsers](api.md#custom-parser-api) are also supported. _First available in v1.5.0. Deprecated. Will be removed in v3.0.0 (superseded by the Plugin API)_
 
 | Default | CLI Override                                    | API Override                                               |
 | ------- | ----------------------------------------------- | ---------------------------------------------------------- |

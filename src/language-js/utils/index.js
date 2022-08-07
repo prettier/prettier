@@ -883,9 +883,26 @@ function isSimpleCallArgument(node, depth) {
     );
   }
 
+  const targetUnaryExpressionOperators = {
+    "!": true,
+    "-": true,
+    "+": true,
+    "~": true,
+  };
   if (
     node.type === "UnaryExpression" &&
-    (node.operator === "!" || node.operator === "-")
+    targetUnaryExpressionOperators[node.operator]
+  ) {
+    return isSimpleCallArgument(node.argument, depth);
+  }
+
+  const targetUpdateExpressionOperators = {
+    "++": true,
+    "--": true,
+  };
+  if (
+    node.type === "UpdateExpression" &&
+    targetUpdateExpressionOperators[node.operator]
   ) {
     return isSimpleCallArgument(node.argument, depth);
   }
