@@ -40,6 +40,11 @@ const disjunctionListFormat = (list) =>
   [...list.slice(0, -1), `or ${getLast(list)}`].join(", ");
 
 function getDocErrorMessage(doc) {
+  const type = doc === null ? null : typeof doc;
+  if (type !== "string" && type !== "object") {
+    return `Unexpected doc '${type}', \nExpected it to be 'string' or 'object'.`;
+  }
+
   const docType = getDocType(doc);
 
   /* istanbul ignore next */
@@ -49,11 +54,6 @@ function getDocErrorMessage(doc) {
     VALID_OBJECT_DOC_TYPE_VALUES.includes(docType)
   ) {
     throw new Error("doc is valid.");
-  }
-
-  const type = doc === null ? null : typeof doc;
-  if (type !== "string" && type !== "object") {
-    return `Unexpected doc '${type}', \nExpected it to be 'string', 'array', or 'object'.`;
   }
 
   // eslint-disable-next-line prettier-internal-rules/no-unnecessary-ast-path-call
