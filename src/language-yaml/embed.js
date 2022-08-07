@@ -10,10 +10,7 @@ function embed(path, options) {
     /(?:[/\\]|^)\.(?:prettier|stylelint|lintstaged)rc$/.test(options.filepath)
   ) {
     return async (textToDoc) => {
-      const doc = await textToDoc(options.originalText, {
-        ...options,
-        parser: "json",
-      });
+      const doc = await textToDoc(options.originalText, { parser: "json" });
       return doc ? [doc, hardline] : undefined;
     };
   }
