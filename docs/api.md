@@ -126,13 +126,15 @@ The support information looks like this:
 }
 ```
 
-## Custom Parser API
+<a name="custom-parser-api"></a>
+
+## Custom Parser API (removed)
 
 _Removed in v3.0.0 (superseded by the Plugin API)_
 
 Before [plugins](plugins.md) were a thing, Prettier had a similar but more limited feature called custom parsers. It’s been removed in v3.0.0 as its functionality was a subset of what the Plugin API did. If you used it, please check the example below on how to migrate.
 
-Custom parser API:
+❌ Custom parser API (removed):
 
 ```js
 import { format } from "prettier";
@@ -147,7 +149,7 @@ format("lodash ( )", {
 // -> "_();\n"
 ```
 
-Plugin API:
+✔️ Plugin API:
 
 ```js
 import { format } from "prettier";
@@ -173,6 +175,6 @@ format("lodash ( )", {
 // -> "_();\n"
 ```
 
-> Note: It’s just an example. Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data can get out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
+> Note: Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data often gets out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
 
 As part of the removed Custom parser API, it was previously possible to pass a path to a module exporting a `parse` function via the `--parser` option. Use the `--plugin` CLI option or the `plugins` API option instead to [load plugins](plugins.md#using-plugins).
