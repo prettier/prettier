@@ -89,10 +89,8 @@ export function getAstAutoFold(parser) {
     case "markdown":
     case "mdx":
       return astAutoFold.mdast;
-    case "yaml":
-      return astAutoFold.yaml;
-    case "glimmer":
-      return astAutoFold.glimmer;
+    default:
+      return astAutoFold[parser];
   }
 }
 
