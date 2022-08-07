@@ -14,7 +14,7 @@ function embed(path, options) {
         ...options,
         parser: "json",
       });
-      return doc ? [doc, hardline] : "";
+      return doc ? [doc, hardline] : undefined;
     };
   }
 }
