@@ -158,8 +158,8 @@ import parserBabel from "prettier/parser-babel.js";
 const myCustomPlugin = {
   parsers: {
     "my-custom-parser": {
-      parse(text) {
-        const ast = parserBabel.parsers.babel.parse(text);
+      async parse(text) {
+        const ast = await parserBabel.parsers.babel.parse(text);
         ast.program.body[0].expression.callee.name = "_";
         return ast;
       },
@@ -168,7 +168,7 @@ const myCustomPlugin = {
   },
 };
 
-format("lodash ( )", {
+await format("lodash ( )", {
   parser: "my-custom-parser",
   plugins: [myCustomPlugin],
 });
