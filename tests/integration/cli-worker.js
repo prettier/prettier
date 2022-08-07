@@ -53,9 +53,7 @@ async function run() {
     });
   thirdParty.findParentDir = () => process.cwd();
 
-  const { promise } = await import(
-    url.pathToFileURL(prettierCli).href + "?_=" + Math.random()
-  );
+  const { promise } = await import(url.pathToFileURL(prettierCli));
   await promise;
 }
 
