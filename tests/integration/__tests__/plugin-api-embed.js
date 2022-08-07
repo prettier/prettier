@@ -41,20 +41,25 @@ function makePlugin(withOutdatedApi = false) {
           ? (path, print, textToDoc) => {
               const { type, text } = path.getValue();
               if (type === "json") {
-                return textToDoc(text, {
-                  parser: "json",
-                  printWidth: Number.POSITIVE_INFINITY,
-                });
+                return [
+                  textToDoc(text, {
+                    parser: "json",
+                    printWidth: Number.POSITIVE_INFINITY,
+                  }),
+                  hardline,
+                ];
               }
             }
           : (path) => {
               const { type, text } = path.getValue();
               if (type === "json") {
-                return (textToDoc) =>
-                  textToDoc(text, {
+                return async (textToDoc) => [
+                  await textToDoc(text, {
                     parser: "json",
                     printWidth: Number.POSITIVE_INFINITY,
-                  });
+                  }),
+                  hardline,
+                ];
               }
             },
       },

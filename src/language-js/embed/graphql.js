@@ -46,11 +46,7 @@ async function format(textToDoc, print, path /*, options*/) {
     if (commentsAndWhitespaceOnly) {
       doc = printGraphqlComments(lines);
     } else {
-      doc = await textToDoc(
-        text,
-        { parser: "graphql" },
-        { stripTrailingHardline: true }
-      );
+      doc = await textToDoc(text, { parser: "graphql" });
     }
 
     if (doc) {

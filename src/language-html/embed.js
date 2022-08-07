@@ -266,11 +266,10 @@ function embed(path, options) {
           let isEmpty = /^\s*$/.test(content);
           let doc = "";
           if (!isEmpty) {
-            doc = await textToDoc(
-              htmlTrimPreserveIndentation(content),
-              { parser, __embeddedInHtml: true },
-              { stripTrailingHardline: true }
-            );
+            doc = await textToDoc(htmlTrimPreserveIndentation(content), {
+              parser,
+              __embeddedInHtml: true,
+            });
             isEmpty = doc === "";
           }
 
@@ -340,12 +339,7 @@ function embed(path, options) {
           }
 
           return [
-            indent([
-              line,
-              await textToDoc(node.value, textToDocOptions, {
-                stripTrailingHardline: true,
-              }),
-            ]),
+            indent([line, await textToDoc(node.value, textToDocOptions)]),
             node.parent.next &&
             needsToBorrowPrevClosingTagEndMarker(node.parent.next)
               ? " "
@@ -392,11 +386,11 @@ function embed(path, options) {
           node,
           (code, opts) =>
             // strictly prefer single quote to avoid unnecessary html entity escape
-            textToDoc(
-              code,
-              { __isInHtmlAttribute: true, __embeddedInHtml: true, ...opts },
-              { stripTrailingHardline: true }
-            ),
+            textToDoc(code, {
+              __isInHtmlAttribute: true,
+              __embeddedInHtml: true,
+              ...opts,
+            }),
           options
         );
         if (embeddedAttributeValueDoc) {

@@ -52,14 +52,8 @@ async function printEmbeddedLanguages(
 
   path.stack = originalPathStack;
 
-  function textToDocForEmbed(text, partialNextOptions, textToDocOptions) {
-    return textToDoc(
-      text,
-      partialNextOptions,
-      options,
-      printAstToDoc,
-      textToDocOptions
-    );
+  function textToDocForEmbed(text, partialNextOptions) {
+    return textToDoc(text, partialNextOptions, options, printAstToDoc);
   }
 
   function recurse() {
@@ -116,9 +110,7 @@ async function textToDoc(
   text,
   partialNextOptions,
   parentOptions,
-  printAstToDoc,
-  // TODO: remove `stripTrailingHardline` in v3.0.0
-  { stripTrailingHardline: shouldStripTrailingHardline = false } = {}
+  printAstToDoc
 ) {
   const nextOptions = normalize(
     {
@@ -146,17 +138,7 @@ async function textToDoc(
   const doc = await printAstToDoc(ast, nextOptions);
   ensureAllCommentsPrinted(astComments);
 
-  if (shouldStripTrailingHardline) {
-    // TODO: move this to `stripTrailingHardline` function in `/src/document/utils.js`
-    if (typeof doc === "string") {
-      return doc.replace(/(?:\r?\n)*$/, "");
-    }
-
-    return stripTrailingHardline(doc);
-  }
-
-  /* istanbul ignore next */
-  return doc;
+  return stripTrailingHardline(doc);
 }
 
 export { printEmbeddedLanguages };
