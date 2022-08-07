@@ -443,6 +443,7 @@ const printer = {
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
+  ignoredProperties: new Set(["position"]),
 };
 
 export default printer;
