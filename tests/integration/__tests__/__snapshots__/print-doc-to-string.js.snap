@@ -167,3 +167,13 @@ exports[`Throw error on invalid doc 42`] = `
 "Unexpected doc.type 'invalid-type'.
 Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
 `;
+
+exports[`Throw error on invalid doc 43`] = `
+"Unexpected doc.type 'undefined'.
+Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
+`;
+
+exports[`Throw error on invalid doc 44`] = `
+"Unexpected doc.type 'undefined'.
+Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
+`;
