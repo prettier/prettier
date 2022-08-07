@@ -25,6 +25,7 @@ test("Throw error on invalid doc", () => {
     new Error("error"),
     Buffer.from("buffer"),
     new Uint8Array(2),
+    { type: "invalid-type" },
   ]) {
     expect(() =>
       printDocToString(doc, printDocToStringOptions)
