@@ -324,10 +324,6 @@ const coreBundles = [
         path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
-      {
-        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
-        text: "export default () => {};",
-      },
     ],
   },
   {

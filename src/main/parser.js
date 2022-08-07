@@ -1,7 +1,5 @@
 import { createRequire } from "node:module";
 import { ConfigError } from "../common/errors.js";
-import { locStart, locEnd } from "../language-js/loc.js";
-import loadParser from "./load-parser.js";
 
 const require = createRequire(import.meta.url);
 
@@ -26,30 +24,16 @@ function getParsers(options) {
   return parsers;
 }
 
-function resolveParser(opts, parsers = getParsers(opts)) {
-  if (typeof opts.parser === "function") {
-    // Custom parser API always works with JavaScript.
-    return {
-      parse: opts.parser,
-      astFormat: "estree",
-      locStart,
-      locEnd,
-    };
+function resolveParser(options, parsers = getParsers(options)) {
+  if (Object.prototype.hasOwnProperty.call(parsers, options.parser)) {
+    return parsers[options.parser];
   }
 
-  if (typeof opts.parser === "string") {
-    if (Object.prototype.hasOwnProperty.call(parsers, opts.parser)) {
-      return parsers[opts.parser];
-    }
-
-    /* istanbul ignore next */
-    if (process.env.PRETTIER_TARGET === "universal") {
-      throw new ConfigError(
-        `Couldn't resolve parser "${opts.parser}". Parsers must be explicitly added to the standalone bundle.`
-      );
-    }
-
-    return loadParser(opts.parser);
+  /* istanbul ignore next */
+  if (process.env.PRETTIER_TARGET === "universal") {
+    throw new ConfigError(
+      `Couldn't resolve parser "${options.parser}". Parsers must be explicitly added to the standalone bundle.`
+    );
   }
 }
 
