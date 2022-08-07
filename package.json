@@ -50,7 +50,7 @@
     "file-entry-cache": "6.0.1",
     "find-cache-dir": "3.3.2",
     "find-parent-dir": "0.3.1",
-    "flow-parser": "0.183.1",
+    "flow-parser": "0.184.0",
     "get-stdin": "9.0.0",
     "graphql": "16.5.0",
     "html-element-attributes": "3.1.0",
