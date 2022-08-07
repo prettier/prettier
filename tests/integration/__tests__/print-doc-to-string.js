@@ -25,12 +25,14 @@ test("Throw error on invalid doc", () => {
     new Error("error"),
     Buffer.from("buffer"),
     new Uint8Array(2),
+    { type: "invalid-type" },
+    { "without-type": true },
   ]) {
-    expect(() => printDocToString(doc, printDocToStringOptions)).toThrowError(
-      /Unexpected doc/
-    );
-    expect(() => printDocToString([doc], printDocToStringOptions)).toThrowError(
-      /Unexpected doc/
-    );
+    expect(() =>
+      printDocToString(doc, printDocToStringOptions)
+    ).toThrowErrorMatchingSnapshot();
+    expect(() =>
+      printDocToString([doc], printDocToStringOptions)
+    ).toThrowErrorMatchingSnapshot();
   }
 });
