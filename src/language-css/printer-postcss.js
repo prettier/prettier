@@ -1121,7 +1121,7 @@ const printer = {
   embed,
   insertPragma,
   massageAstNode: clean,
-  ignoredProperties: new Set([
+  nonTraversableKeys: new Set([
     "raw", // front-matter
     "raws",
     "sourceIndex",

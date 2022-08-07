@@ -1,4 +1,4 @@
-import { ignoredPropertiesForClean } from "./ignored-properties.js";
+import { nonTraversableKeysForClean } from "./non-traversable-keys.js";
 import isBlockComment from "./utils/is-block-comment.js";
 
 const removeTemplateElementsValue = (node) => {
@@ -191,6 +191,6 @@ function clean(ast, newObj, parent) {
   }
 }
 
-clean.ignoredProperties = ignoredPropertiesForClean;
+clean.nonTraversableKeys = nonTraversableKeysForClean;
 
 export default clean;

@@ -1,4 +1,4 @@
-import { ignoredProperties } from "../../ignored-properties.js";
+import { nonTraversableKeys } from "../../non-traversable-keys.js";
 
 function visitNode(node, fn) {
   if (node !== null && typeof node === "object") {
@@ -19,7 +19,7 @@ function visitNode(node, fn) {
       for (const key in node) {
         if (
           Object.prototype.hasOwnProperty.call(node, key) &&
-          !ignoredProperties.has(key)
+          !nonTraversableKeys.has(key)
         ) {
           node[key] = visitNode(node[key], fn);
         }

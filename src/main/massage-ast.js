@@ -1,9 +1,9 @@
 function massageAST(ast, options) {
   const cleanFunction = options.printer.massageAstNode;
 
-  const ignoredProperties =
-    cleanFunction?.ignoredProperties ??
-    options.printer.ignoredProperties ??
+  const nonTraversableKeys =
+    cleanFunction?.nonTraversableKeys ??
+    options.printer.nonTraversableKeys ??
     new Set();
 
   return recurse(ast);
@@ -29,7 +29,7 @@ function massageAST(ast, options) {
     for (const key in node) {
       if (
         Object.prototype.hasOwnProperty.call(node, key) &&
-        !ignoredProperties.has(key)
+        !nonTraversableKeys.has(key)
       ) {
         newObj[key] = recurse(node[key], node);
       }

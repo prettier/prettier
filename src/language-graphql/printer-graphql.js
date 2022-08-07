@@ -600,7 +600,7 @@ const printer = {
   insertPragma,
   printComment,
   canAttachComment,
-  ignoredProperties: new Set(["loc", "comments"]),
+  nonTraversableKeys: new Set(["loc", "comments"]),
 };
 
 export default printer;

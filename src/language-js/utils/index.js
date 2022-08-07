@@ -7,7 +7,7 @@ import {
   isNextLineEmptyAfterIndex,
   getStringWidth,
 } from "../../common/util.js";
-import { ignoredProperties } from "../ignored-properties.js";
+import { nonTraversableKeys } from "../non-traversable-keys.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
@@ -96,7 +96,7 @@ function hasNode(node, fn) {
   for (const key in node) {
     if (
       Object.prototype.hasOwnProperty.call(node, key) &&
-      !ignoredProperties.has(key) &&
+      !nonTraversableKeys.has(key) &&
       hasNode(node[key], fn)
     ) {
       return true;

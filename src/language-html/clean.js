@@ -1,5 +1,5 @@
 import { isFrontMatterNode } from "../common/util.js";
-import { ignoredPropertiesForClean } from "./ignored-properties.js";
+import { nonTraversableKeysForClean } from "./non-traversable-keys.js";
 
 function clean(ast, newNode) {
   if (ast.type === "text" || ast.type === "comment") {
@@ -20,6 +20,6 @@ function clean(ast, newNode) {
   }
 }
 
-clean.ignoredProperties = ignoredPropertiesForClean;
+clean.nonTraversableKeys = nonTraversableKeysForClean;
 
 export default clean;

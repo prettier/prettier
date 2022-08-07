@@ -22,7 +22,7 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
-import { ignoredProperties } from "./ignored-properties.js";
+import { nonTraversableKeys } from "./non-traversable-keys.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -127,7 +127,7 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  ignoredProperties,
+  nonTraversableKeys,
 };
 
 export default printer;

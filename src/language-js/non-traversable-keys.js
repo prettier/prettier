@@ -1,4 +1,4 @@
-export const ignoredPropertiesForClean = new Set([
+export const nonTraversableKeysForClean = new Set([
   "range",
   "raw",
   "comments",
@@ -15,7 +15,7 @@ export const ignoredPropertiesForClean = new Set([
   "parent",
 ]);
 
-export const ignoredProperties = new Set([
-  ...ignoredPropertiesForClean,
+export const nonTraversableKeys = new Set([
+  ...nonTraversableKeysForClean,
   "type",
 ]);

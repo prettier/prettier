@@ -19,7 +19,7 @@ import {
   addDanglingComment,
   addTrailingComment,
 } from "../common/util.js";
-import { defaultIgnoredProperties } from "./default-ignored-properties.js";
+import { defaultNonTraversableKeys } from "./default-non-traversable-keys.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -56,14 +56,14 @@ function getSortedChildNodes(node, options, resultArray) {
       return;
     }
     childNodes = [];
-    const { ignoredProperties = defaultIgnoredProperties } = printer;
+    const { nonTraversableKeys = defaultNonTraversableKeys } = printer;
     for (const key in node) {
       if (
         key !== "enclosingNode" &&
         key !== "precedingNode" &&
         key !== "followingNode" &&
         Object.prototype.hasOwnProperty.call(node, key) &&
-        !ignoredProperties.has(key)
+        !nonTraversableKeys.has(key)
       ) {
         const value = node[key];
         if (Array.isArray(value)) {

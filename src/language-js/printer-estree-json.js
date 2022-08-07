@@ -1,8 +1,8 @@
 import { hardline, indent, join } from "../document/builders.js";
 import {
-  ignoredProperties,
-  ignoredPropertiesForClean,
-} from "./ignored-properties.js";
+  nonTraversableKeys,
+  nonTraversableKeysForClean,
+} from "./non-traversable-keys.js";
 import preprocess from "./print-preprocess.js";
 
 function genericPrint(path, options, print) {
@@ -93,13 +93,13 @@ function clean(node, newNode /*, parent*/) {
   }
 }
 
-clean.ignoredProperties = ignoredPropertiesForClean;
+clean.nonTraversableKeys = nonTraversableKeysForClean;
 
 const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  ignoredProperties,
+  nonTraversableKeys,
 };
 
 export default printer;

@@ -86,7 +86,7 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
-import { ignoredProperties } from "./ignored-properties.js";
+import { nonTraversableKeys } from "./non-traversable-keys.js";
 
 function genericPrint(path, options, print, args) {
   const printed = printPathNoParens(path, options, print, args);
@@ -868,7 +868,7 @@ const printer = {
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
   isNode: (node) => typeof node.type === "string",
-  ignoredProperties,
+  nonTraversableKeys,
 };
 
 export default printer;
