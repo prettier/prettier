@@ -1,4 +1,5 @@
 import { isFrontMatterNode } from "../common/util.js";
+import { ignoredPropertiesForClean } from "./ignored-properties.js";
 
 function clean(ast, newNode) {
   if (ast.type === "text" || ast.type === "comment") {
@@ -18,5 +19,7 @@ function clean(ast, newNode) {
     delete newNode.value;
   }
 }
+
+clean.ignoredProperties = ignoredPropertiesForClean;
 
 export default clean;

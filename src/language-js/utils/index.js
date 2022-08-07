@@ -96,7 +96,7 @@ function hasNode(node, fn) {
   for (const key in node) {
     if (
       Object.prototype.hasOwnProperty.call(node, key) &&
-      !ignoredProperties?.has(key) &&
+      !ignoredProperties.has(key) &&
       hasNode(node[key], fn)
     ) {
       return true;

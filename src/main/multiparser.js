@@ -2,6 +2,7 @@ import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
+import { defaultIgnoredProperties } from "./default-ignored-properties.js";
 
 async function printEmbeddedLanguages(
   /** @type {import("../common/ast-path").default} */ path,
@@ -26,7 +27,7 @@ async function printEmbeddedLanguages(
     (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
   const hasPrettierIgnore =
     printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
-  const { ignoredProperties } = printer;
+  const { ignoredProperties = defaultIgnoredProperties } = printer;
 
   const embedCallResults = [];
 
@@ -77,7 +78,7 @@ async function printEmbeddedLanguages(
     for (const key in node) {
       if (
         Object.prototype.hasOwnProperty.call(node, key) &&
-        !ignoredProperties?.has(key)
+        !ignoredProperties.has(key)
       ) {
         if (Array.isArray(node[key])) {
           path.each(recurse, key);

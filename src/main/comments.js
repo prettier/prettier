@@ -19,8 +19,7 @@ import {
   addDanglingComment,
   addTrailingComment,
 } from "../common/util.js";
-
-const defaultIgnoredProperties = new Set(["tokens", "comments", "parent"]);
+import { defaultIgnoredProperties } from "./default-ignored-properties.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {

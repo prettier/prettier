@@ -22,6 +22,7 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
+import { ignoredProperties } from "./ignored-properties.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -126,13 +127,7 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  ignoredProperties: new Set([
-    "sourceSpan",
-    "startSourceSpan",
-    "endSourceSpan",
-    "nameSpan",
-    "valueSpan",
-  ]),
+  ignoredProperties,
 };
 
 export default printer;
