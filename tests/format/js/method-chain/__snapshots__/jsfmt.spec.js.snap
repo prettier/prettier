@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`13018.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo(_a).bar().leet();
+foo(-a).bar().leet();
+foo(+a).bar().leet();
+foo(~a).bar().leet();
+foo(++a).bar().leet();
+foo(--a).bar().leet();
+foo(a++).bar().leet();
+foo(a--).bar().leet();
+
+=====================================output=====================================
+foo(_a).bar().leet();
+foo(-a).bar().leet();
+foo(+a).bar().leet();
+foo(~a).bar().leet();
+foo(++a).bar().leet();
+foo(--a).bar().leet();
+foo(a++).bar().leet();
+foo(a--).bar().leet();
+
+================================================================================
+`;
+
 exports[`bracket_0.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
