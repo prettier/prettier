@@ -60,6 +60,7 @@ const astAutoFold = {
   mdast: /^\s*"position":/,
   yaml: /^\s*"position":/,
   glimmer: /^\s*"loc":/,
+  graphql: /^\s*"loc":/,
 };
 
 export function getAstAutoFold(parser) {
