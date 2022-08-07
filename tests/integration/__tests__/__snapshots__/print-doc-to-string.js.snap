@@ -130,72 +130,30 @@ exports[`Throw error on invalid doc 26`] = `
 Expected it to be 'string' or 'object'."
 `;
 
-exports[`Throw error on invalid doc 27`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 27`] = `"Unexpected doc '[object Promise]'."`;
 
-exports[`Throw error on invalid doc 28`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 28`] = `"Unexpected doc '[object Promise]'."`;
 
-exports[`Throw error on invalid doc 29`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 29`] = `"Unexpected doc '[object Generator]'."`;
 
-exports[`Throw error on invalid doc 30`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 30`] = `"Unexpected doc '[object Generator]'."`;
 
-exports[`Throw error on invalid doc 31`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 31`] = `"Unexpected doc '[object RegExp]'."`;
 
-exports[`Throw error on invalid doc 32`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 32`] = `"Unexpected doc '[object RegExp]'."`;
 
-exports[`Throw error on invalid doc 33`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 33`] = `"Unexpected doc '[object Date]'."`;
 
-exports[`Throw error on invalid doc 34`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 34`] = `"Unexpected doc '[object Date]'."`;
 
-exports[`Throw error on invalid doc 35`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 35`] = `"Unexpected doc '[object Error]'."`;
 
-exports[`Throw error on invalid doc 36`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 36`] = `"Unexpected doc '[object Error]'."`;
 
-exports[`Throw error on invalid doc 37`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 37`] = `"Unexpected doc '[object Uint8Array]'."`;
 
-exports[`Throw error on invalid doc 38`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 38`] = `"Unexpected doc '[object Uint8Array]'."`;
 
-exports[`Throw error on invalid doc 39`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 39`] = `"Unexpected doc '[object Uint8Array]'."`;
 
-exports[`Throw error on invalid doc 40`] = `
-"Unexpected doc.type 'undefined'.
-Expected it to be 'cursor', 'indent', 'align', 'trim', 'group', 'fill', 'if-break', 'indent-if-break', 'line-suffix', 'line-suffix-boundary', 'line', 'label', or 'break-parent'."
-`;
+exports[`Throw error on invalid doc 40`] = `"Unexpected doc '[object Uint8Array]'."`;
