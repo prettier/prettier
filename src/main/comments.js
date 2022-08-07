@@ -20,6 +20,8 @@ import {
   addTrailingComment,
 } from "../common/util.js";
 
+const defaultIgnoredProperties = new Set(["tokens", "comments", "parent"]);
+
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
@@ -52,13 +54,14 @@ function getSortedChildNodes(node, options, resultArray) {
 
   if (!childNodes && typeof node === "object") {
     childNodes = [];
+    const { ignoredProperties = defaultIgnoredProperties } = printer;
     for (const key in node) {
       if (
         key !== "enclosingNode" &&
         key !== "precedingNode" &&
         key !== "followingNode" &&
         Object.prototype.hasOwnProperty.call(node, key) &&
-        !printer.ignoredProperties?.has(key)
+        !ignoredProperties.has(key)
       ) {
         const value = node[key];
         if (Array.isArray(value)) {
