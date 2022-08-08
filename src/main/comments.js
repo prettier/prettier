@@ -47,15 +47,19 @@ function getSortedChildNodes(node, options, resultArray) {
     return childNodesCache.get(node);
   }
 
-  const childNodes =
-    printer.getCommentChildNodes?.(node, options) ??
-    getVisitorKeys(node, printer.getVisitorKeys).flatMap((key) => {
+  let childNodes = printer.getCommentChildNodes?.(node, options);
+
+  if (!childNodes) {
+    childNodes = [];
+    for (const key of getVisitorKeys(node, printer.getVisitorKeys)) {
       const value = node[key];
       if (Array.isArray(value)) {
-        return value;
+        childNodes.push(...value);
+      } else {
+        childNodes.push(value);
       }
-      return [value];
-    });
+    }
+  }
 
   if (!resultArray) {
     resultArray = [];
