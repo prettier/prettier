@@ -1,6 +1,6 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
-import unionVisitorKeys from "./union-visitor-keys.js"
+import unionVisitorKeys from "./union-visitor-keys.js";
 
 const angularVisitorKeys = {
   NGRoot: ["node"],
@@ -23,11 +23,11 @@ const additionalVisitorKeys = {
   JsonRoot: ["node"],
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
-  "TSJSDocNullableType": ["typeAnnotation"],
-  "TSJSDocNonNullableType": ["typeAnnotation"],
+  TSJSDocNullableType: ["typeAnnotation"],
+  TSJSDocNonNullableType: ["typeAnnotation"],
   BigIntLiteralTypeAnnotation: [],
-  "BigIntTypeAnnotation": []
-}
+  BigIntTypeAnnotation: [],
+};
 
 export default unionVisitorKeys([
   babelVisitorKeys,

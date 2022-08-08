@@ -8,7 +8,7 @@ import {
   getStringWidth,
 } from "../../common/util.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
-import getVisitorKeys from "../traverse/get-visitor-keys.js"
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 
@@ -87,7 +87,7 @@ function hasNode(node, fn) {
   const result = fn(node);
   return typeof result === "boolean"
     ? result
-    : getVisitorKeys(node).some(key => hasNode(node[key], fn));
+    : getVisitorKeys(node).some((key) => hasNode(node[key], fn));
 }
 
 /**

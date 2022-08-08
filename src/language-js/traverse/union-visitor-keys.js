@@ -1,5 +1,3 @@
-
-
 function unionVisitorKeys(visitorKeys) {
   const result = {};
 
@@ -16,4 +14,4 @@ function unionVisitorKeys(visitorKeys) {
   return result;
 }
 
-export default unionVisitorKeys
+export default unionVisitorKeys;
