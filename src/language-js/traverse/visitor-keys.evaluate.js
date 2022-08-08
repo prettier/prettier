@@ -18,9 +18,10 @@ const angularVisitorKeys = {
 
 const additionalVisitorKeys = {
   SpreadProperty: ["argument"],
-  QualifiedTypeofIdentifier: ["id", "qualification"]
+  QualifiedTypeofIdentifier: ["id", "qualification"],
+  JsExpressionRoot: ["node"],
+  JsonRoot: ["node"]
 }
-
 
 export default unionVisitorKeys([
   babelVisitorKeys,
