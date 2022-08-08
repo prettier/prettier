@@ -1,6 +1,20 @@
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { VISITOR_KEYS as babelVisitorKeys } from "babel-types";
 
+const angularVisitorKeys = {
+  NGRoot: ["node"],
+  NGPipeExpression: ["left", "right", "arguments"],
+  NGChainedExpression: ["expressions"],
+  NGEmptyExpression: [],
+  NGQuotedExpression: [],
+  NGMicrosyntax: ["body"],
+  NGMicrosyntaxKey: [],
+  NGMicrosyntaxExpression: ["expression", "name"],
+  NGMicrosyntaxKeyedExpression: ["key", "expression"],
+  NGMicrosyntaxLet: ["key", "value"],
+  NGMicrosyntaxAs: ["key", "alias"],
+};
+
 function unionVisitorKeys(...visitorKeys) {
   const result = {};
 
@@ -17,4 +31,8 @@ function unionVisitorKeys(...visitorKeys) {
   return result;
 }
 
-export default unionVisitorKeys(tsVisitorKeys, babelVisitorKeys);
+export default unionVisitorKeys(
+  tsVisitorKeys,
+  babelVisitorKeys,
+  angularVisitorKeys
+);
