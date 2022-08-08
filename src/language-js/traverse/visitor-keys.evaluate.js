@@ -20,7 +20,13 @@ const additionalVisitorKeys = {
   SpreadProperty: ["argument"],
   QualifiedTypeofIdentifier: ["id", "qualification"],
   JsExpressionRoot: ["node"],
-  JsonRoot: ["node"]
+  JsonRoot: ["node"],
+  TSJSDocAllType: [],
+  TSJSDocUnknownType: [],
+  "TSJSDocNullableType": ["typeAnnotation"],
+  "TSJSDocNonNullableType": ["typeAnnotation"],
+  BigIntLiteralTypeAnnotation: [],
+  "BigIntTypeAnnotation": []
 }
 
 export default unionVisitorKeys([
