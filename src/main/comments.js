@@ -21,7 +21,7 @@ import getVisitorKeys from "./get-visitor-keys.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
-  if (!(node && typeof node === "object") ) {
+  if (!(node && typeof node === "object")) {
     return;
   }
   const { printer, locStart, locEnd } = options;
@@ -56,10 +56,6 @@ function getSortedChildNodes(node, options, resultArray) {
       }
       return [value];
     });
-
-  if (!childNodes) {
-    return;
-  }
 
   if (!resultArray) {
     resultArray = [];
