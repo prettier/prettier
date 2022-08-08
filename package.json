@@ -25,6 +25,7 @@
     "@angular/compiler": "12.2.16",
     "@babel/code-frame": "7.18.6",
     "@babel/parser": "7.18.11",
+    "@babel/types": "7.18.10",
     "@glimmer/syntax": "0.84.2",
     "@iarna/toml": "2.2.5",
     "@typescript-eslint/typescript-estree": "5.32.0",
@@ -33,7 +34,6 @@
     "acorn-jsx": "5.3.2",
     "angular-estree-parser": "2.5.1",
     "angular-html-parser": "1.8.0",
-    "babel-types": "6.26.0",
     "camelcase": "7.0.0",
     "chalk": "5.0.1",
     "ci-info": "3.3.2",
@@ -96,7 +96,6 @@
     "yaml-unist-parser": "1.3.1"
   },
   "devDependencies": {
-    "@babel/types": "7.18.10",
     "@esbuild-plugins/node-modules-polyfill": "0.1.4",
     "@glimmer/reference": "0.84.2",
     "@types/estree": "1.0.0",

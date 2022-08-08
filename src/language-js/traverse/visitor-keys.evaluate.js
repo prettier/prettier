@@ -1,5 +1,5 @@
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
-import { VISITOR_KEYS as babelVisitorKeys } from "babel-types";
+import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 
 const angularVisitorKeys = {
   NGRoot: ["node"],
