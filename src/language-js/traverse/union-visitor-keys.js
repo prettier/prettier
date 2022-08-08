@@ -1,14 +1,8 @@
-function unionVisitorKeys(visitorKeys) {
+function unionVisitorKeys(all) {
   const result = {};
 
-  for (const keys of visitorKeys) {
-    for (const [key, value] of Object.entries(keys)) {
-      if (!result[key]) {
-        result[key] = value;
-      } else {
-        result[key] = [...new Set([...result[key], ...value])];
-      }
-    }
+  for (const [key, value] of all.flatMap((keys) => Object.entries(keys))) {
+    result[key] = [...new Set([...(result[key] ?? []), ...value])];
   }
 
   return result;
