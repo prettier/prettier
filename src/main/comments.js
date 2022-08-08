@@ -20,57 +20,33 @@ import {
 import getVisitorKeys from "./get-visitor-keys.js";
 
 const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options, resultArray) {
-  if (!(node && typeof node === "object")) {
-    return;
-  }
-  const { printer, locStart, locEnd } = options;
-
-  if (resultArray) {
-    if (printer.canAttachComment?.(node)) {
-      // This reverse insertion sort almost always takes constant
-      // time because we almost always (maybe always?) append the
-      // nodes in order anyway.
-      let i;
-      for (i = resultArray.length - 1; i >= 0; --i) {
-        if (
-          locStart(resultArray[i]) <= locStart(node) &&
-          locEnd(resultArray[i]) <= locEnd(node)
-        ) {
-          break;
-        }
-      }
-      resultArray.splice(i + 1, 0, node);
-      return;
-    }
-  } else if (childNodesCache.has(node)) {
+function getSortedChildNodes(node, options) {
+  if (childNodesCache.has(node)) {
     return childNodesCache.get(node);
   }
 
-  let childNodes = printer.getCommentChildNodes?.(node, options);
+  const { printer, locStart, locEnd } = options;
 
-  if (!childNodes) {
-    childNodes = [];
-    for (const key of getVisitorKeys(node, printer.getVisitorKeys)) {
-      const value = node[key];
-      if (Array.isArray(value)) {
-        childNodes.push(...value);
-      } else {
-        childNodes.push(value);
+  const childNodes =
+    printer.getCommentChildNodes?.(node, options) ??
+    getVisitorKeys(node, printer.getVisitorKeys).flatMap((key) => node[key]);
+
+  const result = childNodes
+    .flatMap((childNode) => {
+      if (!(childNode && typeof childNode === "object")) {
+        return [];
       }
-    }
-  }
 
-  if (!resultArray) {
-    resultArray = [];
-    childNodesCache.set(node, resultArray);
-  }
-
-  for (const childNode of childNodes) {
-    getSortedChildNodes(childNode, options, resultArray);
-  }
-
-  return resultArray;
+      return printer.canAttachComment(childNode)
+        ? childNode
+        : getSortedChildNodes(childNode, options);
+    })
+    .sort(
+      (nodeA, nodeB) =>
+        locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
+    );
+  childNodesCache.set(node, result);
+  return result;
 }
 
 // As efficiently as possible, decorate the comment object with
