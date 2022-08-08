@@ -1,5 +1,4 @@
 import assert from "node:assert";
-
 import {
   line,
   hardline,
@@ -9,7 +8,6 @@ import {
   join,
   cursor,
 } from "../document/builders.js";
-
 import {
   hasNewline,
   skipNewline,
@@ -19,6 +17,7 @@ import {
   addDanglingComment,
   addTrailingComment,
 } from "../common/util.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options, resultArray) {
@@ -28,7 +27,7 @@ function getSortedChildNodes(node, options, resultArray) {
   const { printer, locStart, locEnd } = options;
 
   if (resultArray) {
-    if (printer.canAttachComment && printer.canAttachComment(node)) {
+    if (printer.canAttachComment?.(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -48,21 +47,11 @@ function getSortedChildNodes(node, options, resultArray) {
     return childNodesCache.get(node);
   }
 
-  const childNodes =
-    (printer.getCommentChildNodes &&
-      printer.getCommentChildNodes(node, options)) ||
-    (typeof node === "object" &&
-      Object.entries(node)
-        .filter(
-          ([key]) =>
-            key !== "enclosingNode" &&
-            key !== "precedingNode" &&
-            key !== "followingNode" &&
-            key !== "tokens" &&
-            key !== "comments" &&
-            key !== "parent"
-        )
-        .map(([, value]) => value));
+  const childNodes = Array.isArray(node)
+    ? node
+    : printer.getCommentChildNodes?.(node, options) ??
+      (typeof node === "object" &&
+        getVisitorKeys(node, printer.getVisitorKeys).map((key) => node[key]));
 
   if (!childNodes) {
     return;

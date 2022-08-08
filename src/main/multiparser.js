@@ -2,7 +2,7 @@ import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
-import defaultGetVisitorKeys from "./default-get-visitor-keys.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 async function printEmbeddedLanguages(
   /** @type {import("../common/ast-path").default} */ path,
@@ -27,8 +27,6 @@ async function printEmbeddedLanguages(
     (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
   const hasPrettierIgnore =
     printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
-  const getVisitorKeys = (node) =>
-    printer.getVisitorKeys?.(node) ?? defaultGetVisitorKeys(node);
 
   const embedCallResults = [];
 
@@ -70,7 +68,7 @@ async function printEmbeddedLanguages(
       return;
     }
 
-    for (const key of getVisitorKeys(node)) {
+    for (const key of getVisitorKeys(node, printer.getVisitorKeys)) {
       if (Array.isArray(node[key])) {
         path.each(recurse, key);
       } else {
