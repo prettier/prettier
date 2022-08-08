@@ -92,6 +92,48 @@ class B {
 ================================================================================
 `;
 
+exports[`declare-readonly-field-initializer.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  declare readonly bar = "test";
+  declare readonly foo = 1;
+  declare readonly baz = a.b;
+}
+
+=====================================output=====================================
+class A {
+  declare readonly bar = "test";
+  declare readonly foo = 1;
+  declare readonly baz = a.b;
+}
+
+================================================================================
+`;
+
+exports[`declare-readonly-field-initializer-w-annotation.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  declare readonly bar: string = "test";
+  declare baz: string = "test";
+}
+
+=====================================output=====================================
+class A {
+  declare readonly bar: string = "test";
+  declare baz: string = "test";
+}
+
+================================================================================
+`;
+
 exports[`dunder.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
