@@ -17,6 +17,7 @@ import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
 import * as handleComments from "./comments.js";
 import pathNeedsParens from "./needs-parens.js";
+import getVisitorKeys from "./traverse/get-visitor-keys.js"
 import preprocess from "./print-preprocess.js";
 import {
   hasFlowShorthandAnnotationComment,
@@ -867,6 +868,7 @@ const printer = {
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
   isNode: (node) => typeof node.type === "string",
+  getVisitorKeys
 };
 
 export default printer;
