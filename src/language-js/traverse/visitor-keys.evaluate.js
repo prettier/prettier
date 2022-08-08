@@ -1,5 +1,6 @@
-import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
+import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
+import unionVisitorKeys from "./union-visitor-keys.js"
 
 const angularVisitorKeys = {
   NGRoot: ["node"],
@@ -15,24 +16,15 @@ const angularVisitorKeys = {
   NGMicrosyntaxAs: ["key", "alias"],
 };
 
-function unionVisitorKeys(...visitorKeys) {
-  const result = {};
-
-  for (const keys of visitorKeys) {
-    for (const [key, value] of Object.entries(keys)) {
-      if (!result[key]) {
-        result[key] = value;
-      } else {
-        result[key] = [...new Set([...result[key], ...value])];
-      }
-    }
-  }
-
-  return result;
+const additionalVisitorKeys = {
+  SpreadProperty: ["argument"],
+  QualifiedTypeofIdentifier: ["id", "qualification"]
 }
 
-export default unionVisitorKeys(
-  tsVisitorKeys,
+
+export default unionVisitorKeys([
   babelVisitorKeys,
-  angularVisitorKeys
-);
+  tsVisitorKeys,
+  angularVisitorKeys,
+  additionalVisitorKeys,
+]);

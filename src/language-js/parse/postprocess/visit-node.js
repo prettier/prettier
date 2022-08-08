@@ -12,6 +12,7 @@ function visitNode(node, fn) {
   }
   if (node && typeof node === "object" && typeof node.type === "string") {
     const keys = getVisitorKeys(node);
+
     for (let i = 0; i < keys.length; i++) {
       node[keys[i]] = visitNode(node[keys[i]], fn);
     }
