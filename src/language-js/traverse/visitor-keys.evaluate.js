@@ -27,6 +27,8 @@ const additionalVisitorKeys = {
   TSJSDocNonNullableType: ["typeAnnotation"],
   BigIntLiteralTypeAnnotation: [],
   BigIntTypeAnnotation: [],
+  // This may invalid, need investigate
+  TSAbstractMethodDefinition: ["decorators"],
 };
 
 export default unionVisitorKeys([
