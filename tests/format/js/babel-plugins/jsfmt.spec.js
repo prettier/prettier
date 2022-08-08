@@ -72,7 +72,6 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "throw-expressions.js",
       "typescript.js",
       "v8intrinsic.js",
-      "class-static-block.js",
       "import-assertions-dynamic.js",
       "import-assertions-static.js",
       "module-string-names.js",

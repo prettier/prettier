@@ -3,6 +3,6 @@ run_spec(import.meta, ["babel", "flow", "typescript"], {
     flow: ["v-flag.js"],
     acorn: ["v-flag.js"],
     espree: ["v-flag.js"],
-    meriyah: ["d-flag.js", "v-flag.js"],
+    meriyah: ["v-flag.js"],
   },
 });
