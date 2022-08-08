@@ -54,6 +54,17 @@ function getPropOfDeclNode(path) {
   return declAncestorNode?.prop?.toLowerCase();
 }
 
+const wrappedProps = new Set([
+  "box-shadow",
+  "transition",
+  "background-image",
+  "text-shadow",
+  "background",
+]);
+function isWrappedProp(value) {
+  return wrappedProps.has(value.toLowerCase());
+}
+
 const wideKeywords = new Set(["initial", "inherit", "unset", "revert"]);
 function isWideKeywords(value) {
   return wideKeywords.has(value.toLowerCase());
@@ -402,6 +413,7 @@ module.exports = {
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
+  isWrappedProp,
   isWideKeywords,
   isLastNode,
   isSCSSControlDirectiveNode,

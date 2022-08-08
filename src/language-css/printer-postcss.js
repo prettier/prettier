@@ -37,6 +37,7 @@ const {
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
+  isWrappedProp,
   isWideKeywords,
   isLastNode,
   isSCSSControlDirectiveNode,
@@ -874,10 +875,16 @@ function genericPrint(path, options, print) {
       if (!node.open) {
         const printed = path.map(print, "groups");
         const res = [];
+        const declAncestor = getAncestorNode(path, "css-decl");
+        const splitLines = declAncestor && isWrappedProp(declAncestor.prop);
+
+        if (splitLines && printed.length > 1) {
+          res.push(hardline);
+        }
 
         for (let i = 0; i < printed.length; i++) {
           if (i !== 0) {
-            res.push([",", line]);
+            res.push([",", splitLines ? hardline : line]);
           }
           res.push(printed[i]);
         }
