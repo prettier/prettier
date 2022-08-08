@@ -1,4 +1,4 @@
-import visitorKeys from "./visitor-keys.evaluate.js"
+import visitorKeys from "./visitor-keys.evaluate.js";
 
 const nonTraversableKeys = new Set([
   "range",
@@ -19,9 +19,12 @@ const nonTraversableKeys = new Set([
 ]);
 
 function getVisitorKeys(node) {
-  const {type} =node;
+  const { type } = node;
 
-  return visitorKeys[type] || Object.keys(node).filter(key => !nonTraversableKeys.has(key))
+  return (
+    visitorKeys[type] ||
+    Object.keys(node).filter((key) => !nonTraversableKeys.has(key))
+  );
 }
 
-export default getVisitorKeys
+export default getVisitorKeys;
