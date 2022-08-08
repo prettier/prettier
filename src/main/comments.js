@@ -37,7 +37,7 @@ function getSortedChildNodes(node, options) {
         return [];
       }
 
-      return printer.canAttachComment(childNode)
+      return printer.canAttachComment?.(childNode)
         ? childNode
         : getSortedChildNodes(childNode, options);
     })
