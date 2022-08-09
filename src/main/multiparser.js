@@ -58,7 +58,6 @@ async function printEmbeddedLanguages(
 
   function recurse() {
     const node = path.getValue();
-
     if (
       node === null ||
       typeof node !== "object" ||

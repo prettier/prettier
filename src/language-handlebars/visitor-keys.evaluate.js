@@ -1,4 +1,4 @@
 // TODO[@fisker]: Verify this is not outdated
-import visitorKeys from "@glimmer/syntax/dist/commonjs/es2017/lib/v1/visitor-keys.js"
+import visitorKeys from "@glimmer/syntax/dist/commonjs/es2017/lib/v1/visitor-keys.js";
 
-export default visitorKeys.default
+export default visitorKeys.default;
