@@ -60,6 +60,8 @@ function getSortedChildNodes(node, options) {
       : getSortedChildNodes(childNode, options);
   });
 
+
+  // Sort by `start` location first, then `end` location
   childNodes.sort(
     (nodeA, nodeB) =>
       locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
