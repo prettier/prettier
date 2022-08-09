@@ -88,6 +88,7 @@
     "semver": "7.3.7",
     "string-width": "5.0.1",
     "strip-ansi": "7.0.1",
+    "to-fast-properties": "4.0.0",
     "typescript": "4.7.4",
     "unicode-regex": "3.0.0",
     "unified": "9.2.2",

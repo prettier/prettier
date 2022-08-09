@@ -1,4 +1,7 @@
+import toFastProperties from "to-fast-properties";
 import visitorKeys from "./visitor-keys.evaluate.js";
+
+toFastProperties(visitorKeys);
 
 function getVisitorKeys(node) {
   const keys = visitorKeys[node.type];
