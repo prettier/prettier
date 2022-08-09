@@ -4,6 +4,7 @@
 
 import { fill, group, hardline, literalline } from "../document/builders.js";
 import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
+import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
 import clean from "./clean.js";
 import {
   countChars,
@@ -22,6 +23,7 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
+import visitorKeys from "./visitor-keys.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -126,6 +128,7 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
+  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.type])
 };
 
 export default printer;
