@@ -6,7 +6,7 @@ function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
   return (node) => {
     const type = node[typeProperty];
     const keys = visitorKeys[type];
-    if (process.env.NODE_ENV === "production" && !Array.isArray(keys)) {
+    if (process.env.NODE_ENV !== "production" && !Array.isArray(keys)) {
       throw Object.assign(new Error(`Missing visitor keys for '${type}'.`), {
         node,
       });
