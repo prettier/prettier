@@ -86,10 +86,7 @@ function isFlowFile(text, options) {
   return FLOW_PRAGMA_REGEX.test(text);
 }
 
-function parseWithOptions(parseMethod, text, options) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  /** @type {Parse} */
-  const parse = require("@babel/parser")[parseMethod];
+function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)
@@ -101,7 +98,7 @@ function parseWithOptions(parseMethod, text, options) {
 }
 
 function createParse(parseMethod, ...optionsCombinations) {
-  return (text, parsers, opts = {}) => {
+  return async (text, parsers, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
@@ -140,9 +137,16 @@ function createParse(parseMethod, ...optionsCombinations) {
       );
     }
 
+    // Inline the require to avoid loading all the JS if we don't use it
+    const { parse: babelParse, parseExpression } = await import(
+      "@babel/parser"
+    );
+    /** @type {Parse} */
+    const parseFunction =
+      parseMethod === "parseExpression" ? parseExpression : babelParse;
     const { result: ast, error } = tryCombinations(
       ...combinations.map(
-        (options) => () => parseWithOptions(parseMethod, text, options)
+        (options) => () => parseWithOptions(parseFunction, text, options)
       )
     );
 
