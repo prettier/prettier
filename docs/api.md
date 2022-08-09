@@ -45,10 +45,9 @@ The promise will be rejected if there was an error parsing the configuration fil
 If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
-const text = fs.readFileSync(filePath, "utf8");
-prettier.resolveConfig(filePath).then((options) => {
-  const formatted = prettier.format(text, options);
-});
+const text = await fs.readFile(filePath, "utf8");
+const options = await prettier.resolveConfig(filePath)
+const formatted = await prettier.format(text, options);
 ```
 
 If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding Prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
@@ -70,9 +69,8 @@ The promise will be rejected if there was an error parsing the configuration fil
 The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
-prettier.resolveConfigFile(filePath).then((configFile) => {
-  // you got the path of the configuration file
-});
+const configFile = await prettier.resolveConfigFile(filePath);
+// you got the path of the configuration file
 ```
 
 ## `prettier.clearConfigCache()`
