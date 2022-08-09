@@ -445,7 +445,7 @@ const printer = {
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
+  getVisitorKeys: createGetVisitorKeys(visitorKeys),
 };
 
 export default printer;
