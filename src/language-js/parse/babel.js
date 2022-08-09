@@ -137,7 +137,7 @@ function createParse(parseMethod, ...optionsCombinations) {
       );
     }
 
-    // Inline the require to avoid loading all the JS if we don't use it
+    // Inline `import()` to avoid loading all the JS if we don't use it
     const { parse: babelParse, parseExpression } = await import(
       "@babel/parser"
     );
