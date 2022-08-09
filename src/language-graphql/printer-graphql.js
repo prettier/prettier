@@ -8,8 +8,10 @@ import {
   ifBreak,
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
+import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
+import visitorKeys from "./visitor-keys.evaluate.js";
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -601,6 +603,7 @@ const printer = {
   insertPragma,
   printComment,
   canAttachComment,
+  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.kind])
 };
 
 export default printer;
