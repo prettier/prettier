@@ -788,7 +788,7 @@ function printBlockParams(node) {
 const printer = {
   print,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
+  getVisitorKeys: createGetVisitorKeys(visitorKeys),
 };
 
 export default printer;
