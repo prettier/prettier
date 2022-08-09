@@ -42,8 +42,8 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(text, module) {
-  const { parse: meriyahParse } = require("meriyah");
+async function parseWithOptions(text, module) {
+  const { parse: meriyahParse } = await import("meriyah");
   const comments = [];
   const tokens = [];
 
