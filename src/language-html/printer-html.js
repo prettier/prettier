@@ -4,7 +4,7 @@
 
 import { fill, group, hardline, literalline } from "../document/builders.js";
 import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
-import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
+import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import clean from "./clean.js";
 import {
   countChars,
@@ -128,7 +128,7 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.type])
+  getVisitorKeys: createGetVisitorKeys(visitorKeys),
 };
 
 export default printer;

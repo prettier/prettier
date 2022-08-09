@@ -12,7 +12,7 @@ import {
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
-import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
+import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
 import embed from "./embed.js";
@@ -445,7 +445,7 @@ const printer = {
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
-  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.type])
+  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
 };
 
 export default printer;

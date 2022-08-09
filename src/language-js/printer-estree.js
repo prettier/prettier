@@ -12,12 +12,12 @@ import {
   indent,
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
+import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
 import * as handleComments from "./comments.js";
 import pathNeedsParens from "./needs-parens.js";
-import getVisitorKeys from "./traverse/get-visitor-keys.js";
 import preprocess from "./print-preprocess.js";
 import {
   hasFlowShorthandAnnotationComment,
@@ -35,6 +35,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
+import visitorKeys from "./traverse/visitor-keys.evaluate.js";
 
 import {
   printHtmlBinding,
@@ -867,7 +868,7 @@ const printer = {
     remaining: handleComments.handleRemainingComment,
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
-  getVisitorKeys,
+  getVisitorKeys: createGetVisitorKeys(visitorKeys),
 };
 
 export default printer;

@@ -8,7 +8,7 @@ import {
   ifBreak,
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
-import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
+import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
@@ -603,7 +603,7 @@ const printer = {
   insertPragma,
   printComment,
   canAttachComment,
-  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.kind])
+  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
 };
 
 export default printer;
