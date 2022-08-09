@@ -46,7 +46,7 @@ If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = await fs.readFile(filePath, "utf8");
-const options = await prettier.resolveConfig(filePath)
+const options = await prettier.resolveConfig(filePath);
 const formatted = await prettier.format(text, options);
 ```
 
