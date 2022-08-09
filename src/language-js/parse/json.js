@@ -16,6 +16,7 @@ function createJsonParse(options = {}) {
       ast = parseExpression(text, {
         tokens: true,
         ranges: true,
+        startColumn: 1,
       });
     } catch (error) {
       throw createBabelParseError(error);
@@ -34,13 +35,7 @@ function createJsonParse(options = {}) {
 }
 
 function createJsonError(node, description) {
-  const [start, end] = [node.loc.start, node.loc.end].map(
-    ({ line, column }) => ({
-      line,
-      column: column + 1,
-    })
-  );
-  return createError(`${description} is not allowed in JSON.`, { start, end });
+  return createError(`${description} is not allowed in JSON.`, node.loc);
 }
 
 function assertJsonNode(node) {

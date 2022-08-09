@@ -7,8 +7,8 @@ function createBabelParseError(error) {
 
   return createError(message.replace(/ \(.*\)/, ""), {
     start: {
-      line: loc ? loc.line : 0,
-      column: loc ? loc.column + 1 : 0,
+      line: loc?.line ?? 0,
+      column: loc?.column ?? 0,
     },
   });
 }

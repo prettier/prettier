@@ -44,6 +44,7 @@ const parseOptions = {
   ],
   tokens: true,
   ranges: true,
+  startColumn: 1,
 };
 
 /** @type {ParserPlugin} */
