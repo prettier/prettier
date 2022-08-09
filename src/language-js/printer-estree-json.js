@@ -1,4 +1,6 @@
 import { hardline, indent, join } from "../document/builders.js";
+import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
+import visitorKeys from "./traverse/json-visitor-keys.js";
 import preprocess from "./print-preprocess.js";
 
 function genericPrint(path, options, print) {
@@ -109,6 +111,7 @@ const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
+  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.type])
 };
 
 export default printer;
