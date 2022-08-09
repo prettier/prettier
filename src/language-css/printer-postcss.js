@@ -20,9 +20,11 @@ import {
   breakParent,
 } from "../document/builders.js";
 import { removeLines, getDocParts } from "../document/utils.js";
+import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
+import visitorKeys from "./visitor-keys.js";
 
 import {
   getAncestorNode,
@@ -1121,6 +1123,7 @@ const printer = {
   embed,
   insertPragma,
   massageAstNode: clean,
+  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.type])
 };
 
 export default printer;
