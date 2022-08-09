@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
@@ -6,8 +5,6 @@ import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
 import jsonParsers from "./json.js";
-
-const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse

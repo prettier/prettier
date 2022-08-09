@@ -12,7 +12,6 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  reportUnusedDisableDirectives: true,
   extends: ["eslint:recommended", "prettier"],
   plugins: [
     "prettier-internal-rules",
