@@ -111,7 +111,7 @@ const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
+  getVisitorKeys: createGetVisitorKeys(visitorKeys),
 };
 
 export default printer;
