@@ -12,6 +12,7 @@ import {
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
+import throwOnMissingVisitorKeys from "../utils/throw-on-missing-visitor-keys.js"
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
 import embed from "./embed.js";
@@ -27,6 +28,7 @@ import {
   isNode,
   isInlineNode,
 } from "./utils.js";
+import visitorKeys from "./visitor-keys.js";
 import preprocess from "./print-preprocess.js";
 import {
   alignWithSpaces,
@@ -443,6 +445,7 @@ const printer = {
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
+  getVisitorKeys: throwOnMissingVisitorKeys((node) => visitorKeys[node.type])
 };
 
 export default printer;
