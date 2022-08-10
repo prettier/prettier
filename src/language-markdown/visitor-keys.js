@@ -5,12 +5,12 @@ const visitorKeys = {
   sentence: ["children"],
   word: [],
   whitespace: [],
-  emphasis: [],
+  emphasis: ["children"],
   strong: ["children"],
   delete: ["children"],
   inlineCode: [],
   wikiLink: [],
-  link: [],
+  link: ["children"],
   image: [],
   blockquote: ["children"],
   heading: ["children"],
@@ -23,7 +23,7 @@ const visitorKeys = {
   definition: [],
   footnote: ["children"],
   footnoteReference: [],
-  footnoteDefinition: [],
+  footnoteDefinition: ["children"],
   table: ["children"],
   tableCell: ["children"],
   break: [],
@@ -35,6 +35,7 @@ const visitorKeys = {
   inlineMath: [],
   tableRow: ["children"],
   listItem: ["children"],
+  text: [],
 };
 
 export default visitorKeys;
