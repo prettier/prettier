@@ -1,6 +1,7 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
+import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
