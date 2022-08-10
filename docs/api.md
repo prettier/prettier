@@ -126,18 +126,20 @@ The support information looks like this:
 }
 ```
 
-## Custom Parser API
+<a name="custom-parser-api"></a>
 
-If you need to make modifications to the AST (such as codemods), or you want to provide an alternate parser, you can do so by setting the `parser` option to a function. The function signature of the parser function is:
+## Custom Parser API (removed)
+
+_Removed in v3.0.0 (superseded by the Plugin API)_
+
+Before [plugins](plugins.md) were a thing, Prettier had a similar but more limited feature called custom parsers. It’s been removed in v3.0.0 as its functionality was a subset of what the Plugin API did. If you used it, please check the example below on how to migrate.
+
+❌ Custom parser API (removed):
 
 ```js
-(text: string, parsers: object, options: object) => AST;
-```
+import { format } from "prettier";
 
-Prettier’s built-in parsers are exposed as properties on the `parsers` argument.
-
-```js
-prettier.format("lodash ( )", {
+format("lodash ( )", {
   parser(text, { babel }) {
     const ast = babel(text);
     ast.program.body[0].expression.callee.name = "_";
@@ -147,4 +149,32 @@ prettier.format("lodash ( )", {
 // -> "_();\n"
 ```
 
-The `--parser` CLI option may be a path to a node.js module exporting a parse function.
+✔️ Plugin API:
+
+```js
+import { format } from "prettier";
+import parserBabel from "prettier/parser-babel.js";
+
+const myCustomPlugin = {
+  parsers: {
+    "my-custom-parser": {
+      async parse(text) {
+        const ast = await parserBabel.parsers.babel.parse(text);
+        ast.program.body[0].expression.callee.name = "_";
+        return ast;
+      },
+      astFormat: "estree",
+    },
+  },
+};
+
+await format("lodash ( )", {
+  parser: "my-custom-parser",
+  plugins: [myCustomPlugin],
+});
+// -> "_();\n"
+```
+
+> Note: Overall, doing codemods this way isn’t recommended. Prettier uses the location data of AST nodes for many things like preserving blank lines and attaching comments. When the AST is modified after the parsing, the location data often gets out of sync, which may lead to unpredictable results. Consider using [jscodeshift](https://github.com/facebook/jscodeshift) if you need codemods.
+
+As part of the removed Custom parser API, it was previously possible to pass a path to a module exporting a `parse` function via the `--parser` option. Use the `--plugin` CLI option or the `plugins` API option instead to [load plugins](plugins.md#using-plugins).

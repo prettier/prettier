@@ -46,6 +46,7 @@ function getDocErrorMessage(doc) {
   }
 
   const docType = getDocType(doc);
+
   /* istanbul ignore next */
   if (
     docType === DOC_TYPE_STRING ||
@@ -53,6 +54,12 @@ function getDocErrorMessage(doc) {
     VALID_OBJECT_DOC_TYPE_VALUES.includes(docType)
   ) {
     throw new Error("doc is valid.");
+  }
+
+  // eslint-disable-next-line prettier-internal-rules/no-unnecessary-ast-path-call
+  const objectType = Object.prototype.toString.call(doc);
+  if (objectType !== "[object Object]") {
+    return `Unexpected doc '${objectType}'.`;
   }
 
   const EXPECTED_TYPE_VALUES = disjunctionListFormat(

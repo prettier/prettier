@@ -1,9 +1,6 @@
-import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
-
-const require = createRequire(import.meta.url);
 
 function parseComments(ast) {
   const comments = [];
@@ -42,9 +39,7 @@ const parseOptions = {
 };
 
 function createParseError(error) {
-  const { GraphQLError } = require("graphql/error/GraphQLError");
-
-  if (error instanceof GraphQLError) {
+  if (error?.name === "GraphQLError") {
     const {
       message,
       locations: [start],
@@ -56,9 +51,9 @@ function createParseError(error) {
   return error;
 }
 
-function parse(text /*, parsers, opts*/) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  const { parse } = require("graphql/language/parser");
+async function parse(text /*, parsers, opts*/) {
+  // Inline `import()` to avoid loading all the JS if we don't use it
+  const { parse } = await import("graphql/language/parser.mjs");
 
   /** @type {any} */
   let ast;

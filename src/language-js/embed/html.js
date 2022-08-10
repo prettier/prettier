@@ -30,16 +30,12 @@ async function format(textToDoc, print, path, options, parser) {
 
   const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
   let topLevelCount = 0;
-  const doc = await textToDoc(
-    text,
-    {
-      parser,
-      __onHtmlRoot(root) {
-        topLevelCount = root.children.length;
-      },
+  const doc = await textToDoc(text, {
+    parser,
+    __onHtmlRoot(root) {
+      topLevelCount = root.children.length;
     },
-    { stripTrailingHardline: true }
-  );
+  });
 
   const contentDoc = mapDoc(doc, (doc) => {
     if (typeof doc !== "string") {

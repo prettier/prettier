@@ -42,7 +42,7 @@ prettier.is
 </html>
 
 =====================================output=====================================
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />

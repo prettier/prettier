@@ -1,7 +1,6 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
@@ -248,6 +247,17 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
+    replaceModule: [
+      // See comment in `src/language-handlebars/parser-glimmer.js` file
+      {
+        module: require.resolve(
+          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+        path: require.resolve(
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+      },
+    ],
   },
   {
     input: "src/language-html/parser-html.js",
@@ -324,10 +334,6 @@ const coreBundles = [
         path: path.join(dirname, "./shims/chalk.js"),
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
-      {
-        module: path.join(PROJECT_ROOT, "src/main/load-parser.js"),
-        text: "export default () => {};",
-      },
     ],
   },
   {

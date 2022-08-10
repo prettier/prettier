@@ -20,11 +20,7 @@ async function format(textToDoc, print, path /*, options*/) {
           currVal,
     ""
   );
-  const doc = await textToDoc(
-    text,
-    { parser: "scss" },
-    { stripTrailingHardline: true }
-  );
+  const doc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
   return transformCssDoc(doc, node, expressionDocs);
 }

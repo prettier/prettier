@@ -281,13 +281,13 @@ Valid options:
 - `"lwc"` (same parser as `"html"`, but also formats LWC-specific syntax for unquoted template attributes) _First available in 1.17.0_
 - `"yaml"` (via [yaml](https://github.com/eemeli/yaml) and [yaml-unist-parser](https://github.com/ikatyang/yaml-unist-parser)) _First available in 1.14.0_
 
-[Custom parsers](api.md#custom-parser-api) are also supported. _First available in v1.5.0_
-
-| Default | CLI Override                                    | API Override                                               |
-| ------- | ----------------------------------------------- | ---------------------------------------------------------- |
-| None    | `--parser <string>`<br />`--parser ./my-parser` | `parser: "<string>"`<br />`parser: require("./my-parser")` |
+| Default | CLI Override        | API Override         |
+| ------- | ------------------- | -------------------- |
+| None    | `--parser <string>` | `parser: "<string>"` |
 
 Note: the default value was `"babylon"` until v1.13.0.
+
+Note: the Custom parser API has been removed in v3.0.0. Use [plugins](plugins.md) instead ([how to migrate](api.md#custom-parser-api)).
 
 <a name="filepath"></a>
 

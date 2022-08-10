@@ -1,11 +1,8 @@
-import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
-
-const require = createRequire(import.meta.url);
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -33,11 +30,13 @@ function createParseError(error) {
   });
 }
 
-function parse(text, parsers, options = {}) {
+async function parse(text, parsers, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 
-  const { parseWithNodeMaps } = require("@typescript-eslint/typescript-estree");
+  const { parseWithNodeMaps } = await import(
+    "@typescript-eslint/typescript-estree/dist/parser.js"
+  );
   const { result, error: firstError } = tryCombinations(
     // Try passing with our best guess first.
     () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),

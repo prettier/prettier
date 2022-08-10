@@ -25,8 +25,7 @@ function embed(path, options) {
 
         const doc = await textToDoc(
           getFencedCodeBlockValue(node, options.originalText),
-          newOptions,
-          { stripTrailingHardline: true }
+          newOptions
         );
 
         return markAsRoot([
@@ -49,23 +48,15 @@ function embed(path, options) {
     // MDX
     case "importExport":
       return async (textToDoc) => [
-        await textToDoc(
-          node.value,
-          { parser: "babel" },
-          { stripTrailingHardline: true }
-        ),
+        await textToDoc(node.value, { parser: "babel" }),
         hardline,
       ];
     case "jsx":
       return (textToDoc) =>
-        textToDoc(
-          `<$>${node.value}</$>`,
-          {
-            parser: "__js_expression",
-            rootMarker: "mdx",
-          },
-          { stripTrailingHardline: true }
-        );
+        textToDoc(`<$>${node.value}</$>`, {
+          parser: "__js_expression",
+          rootMarker: "mdx",
+        });
   }
 
   return null;
