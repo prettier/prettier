@@ -343,7 +343,7 @@ const visitorKeys = {
 };
 
 function getVisitorKeys(node /* , nonTraversableKeys*/) {
-  // For unexpected case, return `[]` instead of `undefined` to prevent Prettier fallback to use `Object.keys()`
+  // Return `[]` for unknown node to prevent Prettier fallback to use `Object.keys()`
   return visitorKeys[node.type] ?? [];
 }
 ```
