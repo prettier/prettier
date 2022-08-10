@@ -78,7 +78,7 @@ function hasFlowAnnotationComment(comments) {
  * @returns {boolean}
  */
 function hasNode(node, fn) {
-  if (!node || typeof node !== "object") {
+  if (node === null || typeof node !== "object") {
     return false;
   }
   if (Array.isArray(node)) {
