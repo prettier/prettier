@@ -1,5 +1,3 @@
-import toFastProperties from "to-fast-properties";
-
 const visitorKeys = {
   JsonRoot: ["node"],
   ArrayExpression: ["elements"],
@@ -14,7 +12,5 @@ const visitorKeys = {
   TemplateLiteral: ["quasis"],
   TemplateElement: [],
 };
-
-toFastProperties(visitorKeys);
 
 export default visitorKeys;

@@ -16,6 +16,7 @@ import {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
+  isNonEmptyArray,
 } from "../common/util.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
@@ -25,28 +26,41 @@ function getSortedChildNodes(node, options) {
     return childNodesCache.get(node);
   }
 
-  const { printer, locStart, locEnd } = options;
+  const {
+    printer: {
+      getCommentChildNodes,
+      canAttachComment,
+      getVisitorKeys: printerGetVisitorKeys,
+    },
+    locStart,
+    locEnd,
+  } = options;
 
-  const childNodes =
-    printer.getCommentChildNodes?.(node, options) ??
-    getVisitorKeys(node, printer.getVisitorKeys).flatMap((key) => node[key]);
+  if (!canAttachComment) {
+    return [];
+  }
 
-  const result = childNodes
-    .flatMap((childNode) => {
-      if (!(childNode && typeof childNode === "object")) {
-        return [];
-      }
+  const childNodes = (
+    getCommentChildNodes?.(node, options) ??
+    getVisitorKeys(node, printerGetVisitorKeys).flatMap((key) => node[key])
+  ).flatMap((childNode) => {
+    if (!(childNode && typeof childNode === "object")) {
+      return [];
+    }
 
-      return printer.canAttachComment?.(childNode)
-        ? childNode
-        : getSortedChildNodes(childNode, options);
-    })
-    .sort(
-      (nodeA, nodeB) =>
-        locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
-    );
-  childNodesCache.set(node, result);
-  return result;
+    return canAttachComment(childNode)
+      ? childNode
+      : getSortedChildNodes(childNode, options);
+  });
+
+  // Sort by `start` location first, then `end` location
+  childNodes.sort(
+    (nodeA, nodeB) =>
+      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
+  );
+
+  childNodesCache.set(node, childNodes);
+  return childNodes;
 }
 
 // As efficiently as possible, decorate the comment object with
@@ -130,7 +144,7 @@ function decorateComment(node, comment, options, enclosingNode) {
 
 const returnFalse = () => false;
 function attach(comments, ast, text, options) {
-  if (!Array.isArray(comments)) {
+  if (!isNonEmptyArray(comments) || !options.printer.canAttachComment) {
     return;
   }
 

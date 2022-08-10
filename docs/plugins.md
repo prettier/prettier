@@ -351,7 +351,7 @@ function getVisitorKeys(node /* , nonTraversableKeys*/) {
 If you only need exclude a small set of keys
 
 ```js
-const ignoredKeys = new Set(["prev", "next", range]);
+const ignoredKeys = new Set(["prev", "next", "range"]);
 
 function getVisitorKeys(node, nonTraversableKeys) {
   return Object.keys(node).filter(
