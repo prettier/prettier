@@ -18,7 +18,7 @@ import {
   addTrailingComment,
   isNonEmptyArray,
 } from "../common/util.js";
-import getVisitorKeys from "./get-visitor-keys.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options) {
@@ -42,7 +42,7 @@ function getSortedChildNodes(node, options) {
 
   const childNodes = (
     getCommentChildNodes?.(node, options) ??
-    getVisitorKeys(node, printerGetVisitorKeys).flatMap((key) => node[key])
+    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap((key) => node[key])
   ).flatMap((childNode) => {
     if (!(childNode !== null && typeof childNode === "object")) {
       return [];

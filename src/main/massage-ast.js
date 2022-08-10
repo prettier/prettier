@@ -1,4 +1,4 @@
-import getVisitorKeysWrapper from "./get-visitor-keys.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 function massageAST(ast, options) {
   const {
@@ -12,8 +12,7 @@ function massageAST(ast, options) {
     return ast;
   }
 
-  const getVisitorKeys = (node) =>
-    getVisitorKeysWrapper(node, printerGetVisitorKeys);
+  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
   const ignoredProperties = cleanFunction.ignoredProperties ?? new Set();
 
   return recurse(ast);
