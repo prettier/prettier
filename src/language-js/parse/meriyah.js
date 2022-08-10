@@ -1,10 +1,7 @@
-import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
-
-const require = createRequire(import.meta.url);
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
@@ -42,13 +39,12 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(text, module) {
-  const { parse: meriyahParse } = require("meriyah");
+function parseWithOptions(parse, text, module) {
   const comments = [];
   const tokens = [];
 
   /** @type {any} */
-  const ast = meriyahParse(text, {
+  const ast = parse(text, {
     ...parseOptions,
     module,
     onComment: comments,
@@ -85,10 +81,11 @@ function createParseError(error) {
   return createError(message, { start: { line, column } });
 }
 
-function parse(text, parsers, options = {}) {
+async function parse(text, parsers, options = {}) {
+  const { parse } = await import("meriyah");
   const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parseWithOptions(text, /* module */ true),
-    () => parseWithOptions(text, /* module */ false)
+    () => parseWithOptions(parse, text, /* module */ true),
+    () => parseWithOptions(parse, text, /* module */ false)
   );
 
   if (!ast) {

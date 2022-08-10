@@ -247,6 +247,17 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
+    replaceModule: [
+      // See comment in `src/language-handlebars/parser-glimmer.js` file
+      {
+        module: require.resolve(
+          "@glimmer/syntax/dist/commonjs/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+        path: require.resolve(
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+      },
+    ],
   },
   {
     input: "src/language-html/parser-html.js",
