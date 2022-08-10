@@ -57,8 +57,8 @@ To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI
 
 ## Community Plugins
 
-- [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro**](https://github.com/withastro)
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
+- [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro**](https://github.com/withastro)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
 - [`prettier-plugin-glsl`](https://github.com/NaridaL/glsl-language-toolkit/tree/main/packages/prettier-plugin-glsl) by [**@NaridaL**](https://github.com/NaridaL)
