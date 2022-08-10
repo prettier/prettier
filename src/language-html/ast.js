@@ -80,6 +80,18 @@ class Node {
     fn(this);
   }
 
+  async walkAsync(fn) {
+    for (const NODES_KEY in NODES_KEYS) {
+      const nodes = this[NODES_KEY];
+      if (nodes) {
+        for (let i = 0; i < nodes.length; i++) {
+          await nodes[i].walkAsync(fn);
+        }
+      }
+    }
+    await fn(this);
+  }
+
   createChild(nodeOrProperties) {
     const node =
       nodeOrProperties instanceof Node

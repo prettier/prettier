@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import getLast from "../utils/get-last.js";
 import createError from "../common/parser-create-error.js";
@@ -10,8 +9,6 @@ import { hasPragma } from "./pragma.js";
 import { Node } from "./ast.js";
 import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locStart, locEnd } from "./loc.js";
-
-const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
@@ -35,7 +32,7 @@ const require = createRequire(import.meta.url);
  * @param {ParserOptions} parserOptions
  * @param {Options} options
  */
-function ngHtmlParser(
+async function ngHtmlParser(
   input,
   {
     recognizeSelfClosing,
@@ -47,17 +44,17 @@ function ngHtmlParser(
   },
   options
 ) {
-  const parser = require("angular-html-parser");
-  const {
-    RecursiveVisitor,
-    visitAll,
-  } = require("angular-html-parser/lib/compiler/src/ml_parser/ast");
-  const {
-    ParseSourceSpan,
-  } = require("angular-html-parser/lib/compiler/src/parse_util");
-  const {
-    getHtmlTagDefinition,
-  } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
+  const [
+    parser,
+    { RecursiveVisitor, visitAll },
+    { ParseSourceSpan },
+    { getHtmlTagDefinition },
+  ] = await Promise.all([
+    import("angular-html-parser"),
+    import("angular-html-parser/lib/compiler/src/ml_parser/ast.js"),
+    import("angular-html-parser/lib/compiler/src/parse_util.js"),
+    import("angular-html-parser/lib/compiler/src/ml_parser/html_tags.js"),
+  ]);
 
   let { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
@@ -294,16 +291,19 @@ function ngHtmlParser(
  * @param {ParserOptions} parserOptions
  * @param {boolean} shouldParseFrontMatter
  */
-function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
+async function _parse(
+  text,
+  options,
+  parserOptions,
+  shouldParseFrontMatter = true
+) {
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
 
-  const {
-    ParseSourceSpan,
-    ParseLocation,
-    ParseSourceFile,
-  } = require("angular-html-parser/lib/compiler/src/parse_util.js");
+  const { ParseSourceSpan, ParseLocation, ParseSourceFile } = await import(
+    "angular-html-parser/lib/compiler/src/parse_util.js"
+  );
 
   const file = new ParseSourceFile(text, options.filepath);
   const start = new ParseLocation(file, 0, 0, 0);
@@ -311,7 +311,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const rawAst = {
     type: "root",
     sourceSpan: new ParseSourceSpan(start, end),
-    children: ngHtmlParser(content, parserOptions, options),
+    children: await ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
@@ -324,11 +324,11 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 
   const ast = new Node(rawAst);
 
-  const parseSubHtml = (subContent, startSpan) => {
+  const parseSubHtml = async (subContent, startSpan) => {
     const { offset } = startSpan;
     const fakeContent = text.slice(0, offset).replace(/[^\n\r]/g, " ");
     const realContent = subContent;
-    const subAst = _parse(
+    const subAst = await _parse(
       fakeContent + realContent,
       options,
       parserOptions,
@@ -355,9 +355,9 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     return subAst;
   };
 
-  ast.walk((node) => {
+  await ast.walkAsync(async (node) => {
     if (node.type === "comment") {
-      const ieConditionalComment = parseIeConditionalComment(
+      const ieConditionalComment = await parseIeConditionalComment(
         node,
         parseSubHtml
       );
@@ -430,7 +430,8 @@ const parser = {
                 value !== undefined
             ))
         ) {
-          return require("angular-html-parser").TagContentType.RAW_TEXT;
+          // RAW_TEXT
+          return 0;
         }
       },
     }),
