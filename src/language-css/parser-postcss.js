@@ -674,12 +674,12 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
-function parseCss(text, parsers, options = {}) {
+function parseCss(text, options = {}) {
   const postcss = require("postcss");
   return parseWithParser(postcss.parse, text, options);
 }
 
-function parseLess(text, parsers, options = {}) {
+function parseLess(text, options = {}) {
   const less = require("postcss-less");
 
   return parseWithParser(
@@ -691,7 +691,7 @@ function parseLess(text, parsers, options = {}) {
   );
 }
 
-function parseScss(text, parsers, options = {}) {
+function parseScss(text, options = {}) {
   const scss = require("postcss-scss");
   return parseWithParser(scss.parse, text, options);
 }

@@ -383,7 +383,7 @@ function createParser({
   getTagContentType,
 } = {}) {
   return {
-    parse: (text, parsers, options) =>
+    parse: (text, options) =>
       _parse(
         text,
         { parser: name, ...options },

@@ -51,7 +51,7 @@ function createParseError(error) {
   return error;
 }
 
-async function parse(text /*, parsers, opts*/) {
+async function parse(text /*, options */) {
   // Inline `import()` to avoid loading all the JS if we don't use it
   const { parse } = await import("graphql/language/parser.mjs");
 

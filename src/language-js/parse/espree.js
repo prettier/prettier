@@ -33,7 +33,7 @@ function createParseError(error) {
   return createError(message, { start: { line: lineNumber, column } });
 }
 
-function parse(originalText, parsers, options = {}) {
+function parse(originalText, options = {}) {
   const { parse: espreeParse } = require("espree");
 
   const textToParse = replaceHashbang(originalText);

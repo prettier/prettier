@@ -6,7 +6,7 @@ import createBabelParseError from "./utils/create-babel-parse-error.js";
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
-  return async function parse(text /*, parsers, options*/) {
+  return async function parse(text /*, options */) {
     const { parseExpression } = await import("@babel/parser");
     let ast;
     try {
