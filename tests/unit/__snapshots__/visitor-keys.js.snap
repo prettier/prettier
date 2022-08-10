@@ -307,6 +307,7 @@ exports[`visitor keys estree 1`] = `
     "params",
     "rest",
     "returnType",
+    "this",
   ],
   "FunctionTypeParam": [
     "name",
@@ -599,6 +600,7 @@ exports[`visitor keys estree 1`] = `
     "key",
     "typeAnnotation",
     "value",
+    "variance",
   ],
   "QualifiedTypeIdentifier": [
     "id",

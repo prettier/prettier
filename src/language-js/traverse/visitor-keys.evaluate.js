@@ -31,6 +31,9 @@ const additionalVisitorKeys = {
   TSAbstractMethodDefinition: ["decorators"],
   // Babel missing this
   Program: ["interpreter"],
+  // flow
+  FunctionTypeAnnotation: ["this"],
+  PropertyDefinition: ["variance"],
 };
 
 export default unionVisitorKeys([
