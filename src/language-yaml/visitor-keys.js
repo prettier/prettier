@@ -1,8 +1,8 @@
 const visitorKeys = {
-  root: ["children", "trailingComment"],
+  root: ["children"],
   document: ["head", "body"],
-  documentHead: ["children", "endComments"],
-  documentBody: ["children", "endComments"],
+  documentHead: ["children"],
+  documentBody: ["children"],
   directive: [],
   alias: [],
   blockLiteral: [],

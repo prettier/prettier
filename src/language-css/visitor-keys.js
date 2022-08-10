@@ -1,5 +1,3 @@
-// TODO[@fisker]: Need confirm
-
 const visitorKeys = {
   "front-matter": [],
   "css-root": ["nodes"],

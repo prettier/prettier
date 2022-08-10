@@ -22,9 +22,6 @@ function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
     return keys;
   }
 
-  // Core plugins all have full list of visitor keys
-  getVisitorKeys.disableFallback = true;
-
   return getVisitorKeys;
 }
 
