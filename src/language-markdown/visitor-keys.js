@@ -28,6 +28,8 @@ const visitorKeys = {
   tableCell: ["children"],
   break: [],
   liquidNode: [],
+  import: [],
+  export: [],
   importExport: [],
   esComment: [],
   jsx: [],

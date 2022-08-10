@@ -455,6 +455,8 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
+    case "import": // transformed in to `importExport`
+    case "export": // transformed in to `importExport`
     default:
       /* istanbul ignore next */
       throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);

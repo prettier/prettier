@@ -1448,6 +1448,7 @@ exports[`visitor keys remark 1`] = `
     "children",
   ],
   "esComment": [],
+  "export": [],
   "footnote": [
     "children",
   ],
@@ -1462,6 +1463,7 @@ exports[`visitor keys remark 1`] = `
   "html": [],
   "image": [],
   "imageReference": [],
+  "import": [],
   "importExport": [],
   "inlineCode": [],
   "inlineMath": [],
