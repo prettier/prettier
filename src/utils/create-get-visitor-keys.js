@@ -3,7 +3,7 @@ import toFastProperties from "to-fast-properties";
 function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
   toFastProperties(visitorKeys);
 
-  return (node) => {
+  function getVisitorKeys(node) {
     const type = node[typeProperty];
 
     if (process.env.NODE_ENV !== "production" && typeof type === "undefined") {
@@ -20,7 +20,12 @@ function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
     }
 
     return keys;
-  };
+  }
+
+  // Core plugins all have full list of visitor keys
+  getVisitorKeys.disableFallback = true;
+
+  return getVisitorKeys;
 }
 
 export default createGetVisitorKeys;

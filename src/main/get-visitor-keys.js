@@ -7,11 +7,11 @@ const nonTraversableKeys = new Set([
   "followingNode",
 ]);
 
-function getVisitorKeys(node, printerGetVisitorKeys) {
-  return (
-    printerGetVisitorKeys?.(node) ??
-    Object.keys(node).filter((key) => !nonTraversableKeys.has(key))
-  );
+const defaultGetVisitorKeys = (node) =>
+  Object.keys(node).filter((key) => !nonTraversableKeys.has(key));
+
+function getVisitorKeys(node, printerGetVisitorKeys = defaultGetVisitorKeys) {
+  return printerGetVisitorKeys(node, nonTraversableKeys);
 }
 
 export default getVisitorKeys;
