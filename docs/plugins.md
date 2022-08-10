@@ -125,7 +125,6 @@ The signature of the `parse` function is:
 ```ts
 function parse(
   text: string,
-  parsers: object,
   options: object
 ): Promise<AST> | AST;
 ```
