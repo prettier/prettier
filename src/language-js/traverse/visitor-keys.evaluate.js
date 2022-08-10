@@ -29,6 +29,8 @@ const additionalVisitorKeys = {
   BigIntTypeAnnotation: [],
   // This may invalid, need investigate
   TSAbstractMethodDefinition: ["decorators"],
+  // Babel missing this
+  Program: ["interpreter"],
 };
 
 export default unionVisitorKeys([
