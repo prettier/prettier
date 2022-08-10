@@ -44,7 +44,7 @@ function getSortedChildNodes(node, options) {
     getCommentChildNodes?.(node, options) ??
     getVisitorKeys(node, printerGetVisitorKeys).flatMap((key) => node[key])
   ).flatMap((childNode) => {
-    if (!(childNode && typeof childNode === "object")) {
+    if (!(childNode !== null && typeof childNode === "object")) {
       return [];
     }
 
