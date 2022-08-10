@@ -1311,6 +1311,7 @@ exports[`visitor keys graphql 1`] = `
 exports[`visitor keys html 1`] = `
 {
   "attribute": [],
+  "cdata": [],
   "comment": [],
   "docType": [],
   "element": [
@@ -1318,7 +1319,9 @@ exports[`visitor keys html 1`] = `
     "children",
   ],
   "front-matter": [],
-  "ieConditionalComment": [],
+  "ieConditionalComment": [
+    "children",
+  ],
   "ieConditionalEndComment": [],
   "ieConditionalStartComment": [],
   "interpolation": [
@@ -1327,7 +1330,9 @@ exports[`visitor keys html 1`] = `
   "root": [
     "children",
   ],
-  "text": [],
+  "text": [
+    "children",
+  ],
 }
 `;
 

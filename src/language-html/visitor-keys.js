@@ -2,14 +2,15 @@ const visitorKeys = {
   "front-matter": [],
   root: ["children"],
   element: ["attrs", "children"],
-  ieConditionalComment: [],
+  ieConditionalComment: ["children"],
   ieConditionalStartComment: [],
   ieConditionalEndComment: [],
   interpolation: ["children"],
-  text: [],
+  text: ["children"],
   docType: [],
   comment: [],
   attribute: [],
+  cdata: [],
 };
 
 export default visitorKeys;

@@ -116,6 +116,7 @@ function genericPrint(path, options, print) {
         quote,
       ];
     }
+    case "cdata": // Transformed into `text`
     default:
       /* istanbul ignore next */
       throw new Error(`Unexpected node type ${node.type}`);
