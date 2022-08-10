@@ -9,7 +9,6 @@ const ignoredProperties = new Set([
   "before",
   "after",
   "trailingComma",
-  // TODO[@fisker]: investigate why this is not needed before #13255
   "spaces",
 ]);
 
