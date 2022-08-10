@@ -17,23 +17,35 @@ const angularVisitorKeys = {
 };
 
 const additionalVisitorKeys = {
-  SpreadProperty: ["argument"],
-  QualifiedTypeofIdentifier: ["id", "qualification"],
+  // Prettier
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
+
+  // Babel missing this
+  Program: ["interpreter"],
+
+  // Legacy node type
+  SpreadProperty: ["argument"],
+
+  // typescript
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
   TSJSDocNonNullableType: ["typeAnnotation"],
+  // This one maybe invalid, need investigate
+  TSAbstractMethodDefinition: ["decorators"],
+  TSModuleDeclaration: ["modifiers"],
+  TSEnumDeclaration: ["modifiers"],
+
+  // flow
+  QualifiedTypeofIdentifier: ["id", "qualification"],
   BigIntLiteralTypeAnnotation: [],
   BigIntTypeAnnotation: [],
-  // This may invalid, need investigate
-  TSAbstractMethodDefinition: ["decorators"],
-  // Babel missing this
-  Program: ["interpreter"],
-  // flow
   FunctionTypeAnnotation: ["this"],
   PropertyDefinition: ["variance"],
+  ArrowFunctionExpression: ["predicate"],
+  DeclareFunction: ["predicate"],
+  FunctionDeclaration: ["predicate"],
 };
 
 export default unionVisitorKeys([

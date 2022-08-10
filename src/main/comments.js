@@ -42,7 +42,9 @@ function getSortedChildNodes(node, options) {
 
   const childNodes = (
     getCommentChildNodes?.(node, options) ??
-    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap((key) => node[key])
+    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap(
+      (key) => node[key]
+    )
   ).flatMap((childNode) => {
     if (!(childNode !== null && typeof childNode === "object")) {
       return [];

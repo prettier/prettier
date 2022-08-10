@@ -20,6 +20,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "returnType",
     "typeParameters",
+    "predicate",
   ],
   "AssignmentExpression": [
     "left",
@@ -157,6 +158,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "DeclareFunction": [
     "id",
+    "predicate",
   ],
   "DeclareInterface": [
     "id",
@@ -294,6 +296,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "returnType",
     "typeParameters",
+    "predicate",
   ],
   "FunctionExpression": [
     "id",
@@ -724,6 +727,7 @@ exports[`visitor keys estree 1`] = `
   "TSEnumDeclaration": [
     "id",
     "members",
+    "modifiers",
   ],
   "TSEnumMember": [
     "id",
@@ -819,6 +823,7 @@ exports[`visitor keys estree 1`] = `
   "TSModuleDeclaration": [
     "id",
     "body",
+    "modifiers",
   ],
   "TSNamedTupleMember": [
     "label",
