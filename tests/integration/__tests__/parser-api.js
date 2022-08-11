@@ -6,14 +6,14 @@ const createParsePlugin = (name, parse) => ({
 });
 
 test("parsers should allow omit optional arguments", async () => {
-  const orginalText = "a\r\nb";
+  const originalText = "a\r\nb";
   let parseFunctionArguments;
   const dummyPlugin = createParsePlugin("__dummy", (...args) => {
     parseFunctionArguments = args;
     return { parsed: true };
   });
 
-  await prettier.format(orginalText, {
+  await prettier.format(originalText, {
     plugins: [dummyPlugin],
     parser: "__dummy",
   });
@@ -21,7 +21,7 @@ test("parsers should allow omit optional arguments", async () => {
   // Prettier pass `options` as 2nd and 3rd argument
   expect(parseFunctionArguments.length).toBe(3);
   expect(parseFunctionArguments[1]).toBe(parseFunctionArguments[2]);
-  expect(parseFunctionArguments[0]).not.toBe(orginalText);
+  expect(parseFunctionArguments[0]).not.toBe(originalText);
   expect(parseFunctionArguments[0]).toBe("a\nb");
 
   const [, { plugins }] = parseFunctionArguments;
