@@ -1,6 +1,7 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
+import { PROJECT_ROOT } from "../utils/index.mjs";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
@@ -340,10 +341,17 @@ const coreBundles = [
     input: "bin/prettier.cjs",
     output: "bin-prettier.js",
     esbuildTarget: ["node0.10"],
+    replaceModule: [
+      {
+        module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
+        process: (text) => text.replace('"../src/cli/index.js"', '"./cli.mjs"'),
+      },
+    ],
   },
   {
     input: "src/cli/index.js",
-    output: "cli.js",
+    output: "cli.mjs",
+    format: "esm",
     external: ["benchmark"],
     interopDefault: false,
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
