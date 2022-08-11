@@ -205,6 +205,8 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    output: "index.mjs",
+    format: "esm",
     interopDefault: false,
     replaceModule: [
       {
