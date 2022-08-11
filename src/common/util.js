@@ -17,6 +17,9 @@ const skipInlineComment = require("../utils/text/skip-inline-comment.js");
 const skipTrailingComment = require("../utils/text/skip-trailing-comment.js");
 const skipNewline = require("../utils/text/skip-newline.js");
 const getNextNonSpaceNonCommentCharacterIndexWithStartIndex = require("../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js");
+const {
+  builders: { join, literalline },
+} = require("../document/index.js");
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -282,7 +285,7 @@ function printString(raw, options) {
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  return makeString(
+  const adjustedString = makeString(
     rawContent,
     enclosingQuote,
     !(
@@ -292,6 +295,16 @@ function printString(raw, options) {
       options.__embeddedInHtml
     )
   );
+
+  return adjustedString?.includes("\n")
+    ? printIndentableString(adjustedString)
+    : adjustedString;
+}
+
+function printIndentableString(str) {
+  const lines = str.split("\n");
+
+  return [join(literalline, lines)];
 }
 
 /**
