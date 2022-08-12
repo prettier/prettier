@@ -21,7 +21,7 @@ const getHighestAncestor = (node) => {
   return node;
 };
 
-function parseValueNode(valueNode, options) {
+async function parseValueNode(valueNode, options) {
   const { nodes } = valueNode;
   let parenGroup = {
     open: null,
@@ -55,7 +55,7 @@ function parseValueNode(valueNode, options) {
 
     if (node.type === "func" && node.value === "selector") {
       node.group.groups = [
-        parseSelector(
+        await parseSelector(
           getHighestAncestor(valueNode).text.slice(
             node.group.open.sourceIndex + 1,
             node.group.close.sourceIndex
@@ -190,13 +190,13 @@ function addMissingType(node) {
   return node;
 }
 
-function parseNestedValue(node, options) {
+async function parseNestedValue(node, options) {
   if (node && typeof node === "object") {
     for (const key in node) {
       if (key !== "parent") {
-        parseNestedValue(node[key], options);
+        await parseNestedValue(node[key], options);
         if (key === "nodes") {
-          node.group = flattenGroups(parseValueNode(node, options));
+          node.group = flattenGroups(await parseValueNode(node, options));
           delete node[key];
         }
       }
@@ -206,7 +206,7 @@ function parseNestedValue(node, options) {
   return node;
 }
 
-function parseValue(value, options) {
+async function parseValue(value, options) {
   const valueParser = require("postcss-values-parser");
 
   let result = null;
@@ -222,12 +222,12 @@ function parseValue(value, options) {
 
   result.text = value;
 
-  const parsedResult = parseNestedValue(result, options);
+  const parsedResult = await parseNestedValue(result, options);
 
   return addTypePrefix(parsedResult, "value-", /^selector-/);
 }
 
-function parseSelector(selector) {
+async function parseSelector(selector) {
   // If there's a comment inside of a selector, the parser tries to parse
   // the content of the comment as selectors which turns it into complete
   // garbage. Better to print the whole selector as-is and not try to parse
@@ -239,7 +239,9 @@ function parseSelector(selector) {
     };
   }
 
-  const selectorParser = require("postcss-selector-parser");
+  const selectorParser = await import("postcss-selector-parser").then(
+    (m) => m.default
+  );
 
   let result = null;
 
@@ -420,7 +422,7 @@ async function parseNestedCSS(node, options) {
       /* istanbul ignore next */
       // Ignore LESS mixins
       if (node.mixin) {
-        node.selector = parseValue(selector, options);
+        node.selector = await parseValue(selector, options);
 
         return node;
       }
@@ -430,7 +432,7 @@ async function parseNestedCSS(node, options) {
         node.isSCSSNesterProperty = true;
       }
 
-      node.selector = parseSelector(selector);
+      node.selector = await parseSelector(selector);
 
       return node;
     }
@@ -465,7 +467,7 @@ async function parseNestedCSS(node, options) {
         };
       }
 
-      node.value = parseValue(value, options);
+      node.value = await parseValue(value, options);
     }
 
     if (
@@ -481,7 +483,7 @@ async function parseNestedCSS(node, options) {
       // `:extend()` is parsed as value
       if (node.extend && !node.selector) {
         delete node.value;
-        node.selector = parseSelector(value.slice("extend(".length, -1));
+        node.selector = await parseSelector(value.slice("extend(".length, -1));
       }
     }
 
@@ -494,7 +496,7 @@ async function parseNestedCSS(node, options) {
             node.name +
             node.raws.afterName +
             node.raws.params;
-          node.selector = parseSelector(source);
+          node.selector = await parseSelector(source);
           delete node.params;
           return node;
         }
@@ -509,7 +511,7 @@ async function parseNestedCSS(node, options) {
       if (options.parser === "css" && node.name === "custom-selector") {
         const customSelector = node.params.match(/:--\S+\s+/)[0].trim();
         node.customSelector = customSelector;
-        node.selector = parseSelector(
+        node.selector = await parseSelector(
           node.params.slice(customSelector.length).trim()
         );
         delete node.params;
@@ -525,7 +527,7 @@ async function parseNestedCSS(node, options) {
           node.variable = true;
           const parts = node.name.split(":");
           node.name = parts[0];
-          node.value = parseValue(parts.slice(1).join(":"), options);
+          node.value = await parseValue(parts.slice(1).join(":"), options);
         }
 
         // `@color :blue;`
@@ -535,7 +537,7 @@ async function parseNestedCSS(node, options) {
           node.params[0] === ":"
         ) {
           node.variable = true;
-          node.value = parseValue(node.params.slice(1), options);
+          node.value = await parseValue(node.params.slice(1), options);
           node.raws.afterName += ":";
         }
 
@@ -561,7 +563,7 @@ async function parseNestedCSS(node, options) {
       }
 
       if (name === "extend" || name === "nest") {
-        node.selector = parseSelector(params);
+        node.selector = await parseSelector(params);
         delete node.params;
 
         return node;
@@ -569,9 +571,9 @@ async function parseNestedCSS(node, options) {
 
       if (name === "at-root") {
         if (/^\(\s*(?:without|with)\s*:.+\)$/s.test(params)) {
-          node.params = parseValue(params, options);
+          node.params = await parseValue(params, options);
         } else {
-          node.selector = parseSelector(params);
+          node.selector = await parseSelector(params);
           delete node.params;
         }
 
@@ -581,7 +583,7 @@ async function parseNestedCSS(node, options) {
       if (isModuleRuleName(lowercasedName)) {
         node.import = true;
         delete node.filename;
-        node.params = parseValue(params, options);
+        node.params = await parseValue(params, options);
         return node;
       }
 
@@ -610,7 +612,7 @@ async function parseNestedCSS(node, options) {
         // Move spaces after the `(`, so we can keep the range correct
         params = params.replace(/^(?!if)(\S+)(\s+)\(/, "$1($2");
 
-        node.value = parseValue(params, options);
+        node.value = await parseValue(params, options);
         delete node.params;
 
         return node;
