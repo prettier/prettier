@@ -1,11 +1,8 @@
-import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
-
-const require = createRequire(import.meta.url);
 
 /** @type {import("espree").Options} */
 const parseOptions = {
@@ -33,8 +30,8 @@ function createParseError(error) {
   return createError(message, { start: { line: lineNumber, column } });
 }
 
-function parse(originalText, parsers, options = {}) {
-  const { parse: espreeParse } = require("espree");
+async function parse(originalText, parsers, options = {}) {
+  const { parse: espreeParse } = await import("espree");
 
   const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
