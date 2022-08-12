@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 import createError from "../common/parser-create-error.js";
 import getLast from "../utils/get-last.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
@@ -11,8 +10,6 @@ import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
 import isSCSSVariable from "./utils/is-scss-variable.js";
 import stringifyNode from "./utils/stringify-node.js";
 import isModuleRuleName from "./utils/is-module-rule-name.js";
-
-const require = createRequire(import.meta.url);
 
 const getHighestAncestor = (node) => {
   while (node.parent) {
