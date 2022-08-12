@@ -263,13 +263,15 @@ function parseSelector(selector) {
   return addTypePrefix(result, "selector-");
 }
 
-function parseMediaQuery(params) {
-  const mediaParser = require("postcss-media-query-parser");
+async function parseMediaQuery(params) {
+  const mediaParser = await import("postcss-media-query-parser").then(
+    (m) => m.default.default
+  );
 
   let result = null;
 
   try {
-    result = mediaParser.default(params);
+    result = mediaParser(params);
   } catch {
     // Ignore bad media queries
     /* istanbul ignore next */
@@ -623,7 +625,7 @@ async function parseNestedCSS(node, options) {
           };
         }
 
-        node.params = parseMediaQuery(params);
+        node.params = await parseMediaQuery(params);
 
         return node;
       }
