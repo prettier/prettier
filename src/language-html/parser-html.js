@@ -430,7 +430,7 @@ const parser = {
                 value !== undefined
             ))
         ) {
-          // RAW_TEXT
+          // require("angular-html-parser").TagContentType.RAW_TEXT;
           return 0;
         }
       },
