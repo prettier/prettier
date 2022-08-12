@@ -285,12 +285,12 @@ function parseMediaQuery(params) {
 const DEFAULT_SCSS_DIRECTIVE = /(\s*)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*)(!global).*$/;
 
-function parseNestedCSS(node, options) {
+async function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
     delete node.parent;
 
     for (const key in node) {
-      parseNestedCSS(node[key], options);
+      await parseNestedCSS(node[key], options);
     }
 
     if (!node.type) {
@@ -333,7 +333,7 @@ function parseNestedCSS(node, options) {
         }
         let ast;
         try {
-          ast = parse(fakeContent, [], { ...options });
+          ast = await parse(fakeContent, [], { ...options });
         } catch {
           // noop
         }
@@ -637,7 +637,7 @@ function parseNestedCSS(node, options) {
   return node;
 }
 
-function parseWithParser(parse, text, options) {
+async function parseWithParser(parse, text, options) {
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -659,7 +659,7 @@ function parseWithParser(parse, text, options) {
   }
 
   options.originalText = text;
-  result = parseNestedCSS(addTypePrefix(result, "css-"), options);
+  result = await parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   calculateLoc(result, text);
 
@@ -674,13 +674,13 @@ function parseWithParser(parse, text, options) {
   return result;
 }
 
-function parseCss(text, parsers, options = {}) {
-  const postcss = require("postcss");
+async function parseCss(text, parsers, options = {}) {
+  const postcss = await import("postcss");
   return parseWithParser(postcss.parse, text, options);
 }
 
-function parseLess(text, parsers, options = {}) {
-  const less = require("postcss-less");
+async function parseLess(text, parsers, options = {}) {
+  const less = await import("postcss-less");
 
   return parseWithParser(
     // Workaround for https://github.com/shellscape/postcss-less/issues/145
@@ -691,8 +691,8 @@ function parseLess(text, parsers, options = {}) {
   );
 }
 
-function parseScss(text, parsers, options = {}) {
-  const scss = require("postcss-scss");
+async function parseScss(text, parsers, options = {}) {
+  const scss = await import("postcss-scss");
   return parseWithParser(scss.parse, text, options);
 }
 
