@@ -204,9 +204,10 @@ async function parseNestedValue(node, options) {
 }
 
 async function parseValue(value, options) {
-  const valueParser = await import("postcss-values-parser").then(
+  const Parser = await import("postcss-values-parser/lib/parser.js").then(
     (m) => m.default
   );
+  const valueParser = (source, options) => new Parser(source, options);
 
   let result = null;
 
@@ -238,9 +239,10 @@ async function parseSelector(selector) {
     };
   }
 
-  const selectorParser = await import("postcss-selector-parser").then(
-    (m) => m.default
-  );
+  const SelectorProcessor = await import(
+    "postcss-selector-parser/dist/processor.js"
+  ).then((m) => m.default);
+  const selectorParser = (processor) => new SelectorProcessor(processor);
 
   let result = null;
 
@@ -678,8 +680,8 @@ async function parseWithParser(parse, text, options) {
 }
 
 async function parseCss(text, parsers, options = {}) {
-  const postcss = await import("postcss");
-  return parseWithParser(postcss.parse, text, options);
+  const parse = await import("postcss/lib/parse").then((m) => m.default);
+  return parseWithParser(parse, text, options);
 }
 
 async function parseLess(text, parsers, options = {}) {
