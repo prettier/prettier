@@ -207,7 +207,9 @@ async function parseNestedValue(node, options) {
 }
 
 async function parseValue(value, options) {
-  const valueParser = require("postcss-values-parser");
+  const valueParser = await import("postcss-values-parser").then(
+    (m) => m.default
+  );
 
   let result = null;
 
