@@ -263,13 +263,13 @@ type Unpacked<T> =
 =====================================output=====================================
 type TestReturnType<T extends (...args: any[]) => any> = T extends (
   ...args: any[]
-) => infer R
+) => (infer R)
   ? R
   : any;
 
 type Unpacked<T> = T extends (infer U)[]
   ? U
-  : T extends (...args: any[]) => infer U
+  : T extends (...args: any[]) => (infer U)
   ? U
   : T extends Promise<infer U>
   ? U
