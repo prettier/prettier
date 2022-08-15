@@ -63,7 +63,8 @@ async function check(text, options) {
   return (await format(text, options)) === text;
 }
 
-function clearCache() {
+// eslint-disable-next-line require-await
+async function clearCache() {
   clearConfigCache();
   clearPluginCache();
 }

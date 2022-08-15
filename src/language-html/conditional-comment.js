@@ -1,5 +1,3 @@
-import { ParseSourceSpan } from "angular-html-parser/lib/compiler/src/parse_util.js";
-
 // https://css-tricks.com/how-to-create-an-ie-only-stylesheet
 
 const parseFunctions = [
@@ -32,14 +30,17 @@ function parseIeConditionalComment(node, parseHtml) {
   return null;
 }
 
-function parseIeConditionalStartEndComment(node, parseHtml, match) {
+async function parseIeConditionalStartEndComment(node, parseHtml, match) {
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
-  const [complete, children] = (() => {
+  const { ParseSourceSpan } = await import(
+    "angular-html-parser/lib/compiler/src/parse_util.js"
+  );
+  const [complete, children] = await (async () => {
     try {
-      return [true, parseHtml(data, contentStartSpan).children];
+      return [true, (await parseHtml(data, contentStartSpan)).children];
     } catch {
       const text = {
         type: "text",
