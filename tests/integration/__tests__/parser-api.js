@@ -37,7 +37,7 @@ test("parsers should allow omit optional arguments", async () => {
     )
     // Private parser should not be used by users
     .filter(([name]) => !name.startsWith("__"));
-  ("");
+  
   expect(typeof parsers[0][1]).toBe("function");
   const code = {
     graphql: "type A {hero: Character}",
