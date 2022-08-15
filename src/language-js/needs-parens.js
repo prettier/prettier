@@ -428,6 +428,9 @@ function needsParens(path, options) {
       }
     // fallthrough
     case "TSInferType":
+      if (node.type === "TSInferType" && parent.type === "TSTypeAnnotation") {
+        return true;
+      }
       if (node.type === "TSInferType" && parent.type === "TSRestType") {
         return false;
       }
