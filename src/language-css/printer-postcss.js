@@ -826,7 +826,7 @@ function genericPrint(path, options, print) {
         }
 
         if (
-          iNode.value?.slice(-1) === "#" &&
+          iNode.value?.endsWith("#") &&
           iNextNode.value === "{" &&
           isParenGroupNode(iNextNode.group)
         ) {
