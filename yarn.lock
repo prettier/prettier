@@ -1627,35 +1627,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.32.0":
-  version: 5.32.0
-  resolution: "@typescript-eslint/types@npm:5.32.0"
-  checksum: 6758f54d8d7763893cd7c1753f525ef1777eee8b558bf3d54fd2a2ce691ca0cf813c68a26e4db83a1deae4e4a62b247f1195e15a1f3577f1293849f9e55a232c
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:5.33.0":
   version: 5.33.0
   resolution: "@typescript-eslint/types@npm:5.33.0"
   checksum: 8bbddda84cb3adf5c659b0d42547a2d6ab87f4eea574aca5dd63a3bd85169f32796ecbddad3b27f18a609070f6b1d18a54018d488bad746ae0f6ea5c02206109
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:5.32.0":
-  version: 5.32.0
-  resolution: "@typescript-eslint/typescript-estree@npm:5.32.0"
-  dependencies:
-    "@typescript-eslint/types": 5.32.0
-    "@typescript-eslint/visitor-keys": 5.32.0
-    debug: ^4.3.4
-    globby: ^11.1.0
-    is-glob: ^4.0.3
-    semver: ^7.3.7
-    tsutils: ^3.21.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 6aee08be5d36603d038fb8340f324f5cb38519150c9b37c012f0c1ff2a4d8cf22fbc6835de31d069949c2b3d8ed3e729076a724ef29db4289d9fe73b97c9d310
   languageName: node
   linkType: hard
 
@@ -1690,16 +1665,6 @@ __metadata:
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   checksum: 6ce5ee5eabeb6d73538b24e6487f811ecb0ef3467bd366cbd15bf30d904bdedb73fc6f48cf2e2e742dda462b42999ea505e8b59255545825ec9db86f3d423ea7
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:5.32.0":
-  version: 5.32.0
-  resolution: "@typescript-eslint/visitor-keys@npm:5.32.0"
-  dependencies:
-    "@typescript-eslint/types": 5.32.0
-    eslint-visitor-keys: ^3.3.0
-  checksum: 1f9b756d648c2346a6e8538ffde729d3d9ce6621fded3d9f15c96aa0ebf8f511daf8232470423fb36359c2113538a4daaf3336181be78a0cfbfd297af91ce9ba
   languageName: node
   linkType: hard
 
@@ -6912,7 +6877,7 @@ __metadata:
     "@types/find-cache-dir": 3.2.1
     "@types/jest": 28.1.1
     "@typescript-eslint/eslint-plugin": 5.33.0
-    "@typescript-eslint/typescript-estree": 5.32.0
+    "@typescript-eslint/typescript-estree": 5.33.0
     acorn: 8.8.0
     acorn-jsx: 5.3.2
     angular-estree-parser: 2.5.1
