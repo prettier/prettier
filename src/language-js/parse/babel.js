@@ -1,4 +1,3 @@
-import { createRequire } from "node:module";
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
@@ -6,8 +5,6 @@ import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
 import jsonParsers from "./json.js";
-
-const require = createRequire(import.meta.url);
 
 /**
  * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
@@ -86,10 +83,7 @@ function isFlowFile(text, options) {
   return FLOW_PRAGMA_REGEX.test(text);
 }
 
-function parseWithOptions(parseMethod, text, options) {
-  // Inline the require to avoid loading all the JS if we don't use it
-  /** @type {Parse} */
-  const parse = require("@babel/parser")[parseMethod];
+function parseWithOptions(parse, text, options) {
   const ast = parse(text, options);
   const error = ast.errors.find(
     (error) => !allowedMessageCodes.has(error.reasonCode)
@@ -101,7 +95,7 @@ function parseWithOptions(parseMethod, text, options) {
 }
 
 function createParse(parseMethod, ...optionsCombinations) {
-  return (text, parsers, opts = {}) => {
+  return async (text, parsers, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
@@ -140,9 +134,16 @@ function createParse(parseMethod, ...optionsCombinations) {
       );
     }
 
+    // Inline `import()` to avoid loading all the JS if we don't use it
+    const { parse: babelParse, parseExpression } = await import(
+      "@babel/parser"
+    );
+    /** @type {Parse} */
+    const parseFunction =
+      parseMethod === "parseExpression" ? parseExpression : babelParse;
     const { result: ast, error } = tryCombinations(
       ...combinations.map(
-        (options) => () => parseWithOptions(parseMethod, text, options)
+        (options) => () => parseWithOptions(parseFunction, text, options)
       )
     );
 

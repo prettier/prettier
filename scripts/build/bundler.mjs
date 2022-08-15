@@ -12,6 +12,7 @@ import esbuildPluginInteropDefault from "./esbuild-plugins/interop-default.mjs";
 import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
+import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
 import bundles from "./config.mjs";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -89,8 +90,12 @@ function* getEsbuildOptions(bundle, buildOptions) {
 
   // Replace other bundled files
   if (bundle.target === "node") {
-    // Replace bundled files and `package.json` with dynamic `require()`
+    // Replace other bundled files and `package.json` with dynamic `require()`
     for (const { input, output } of bundledFiles) {
+      if (input === path.join(PROJECT_ROOT, bundle.input)) {
+        continue;
+      }
+
       replaceModule.push({ module: input, external: output });
     }
 
@@ -241,10 +246,15 @@ function* getEsbuildOptions(bundle, buildOptions) {
       esbuildOptions.plugins.push(esbuildPluginInteropDefault());
     }
 
+    // https://github.com/evanw/esbuild/issues/1921
+    if (bundle.format === "esm") {
+      esbuildOptions.plugins.push(esbuildPluginShimCommonjsObjects());
+    }
+
     yield {
       ...esbuildOptions,
       outfile: bundle.output,
-      format: "cjs",
+      format: bundle.format ?? "cjs",
     };
   }
 }
