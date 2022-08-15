@@ -1,8 +1,5 @@
 "use strict";
 const { printString, printNumber } = require("../../common/util.js");
-const {
-  builders: { join, literalline },
-} = require("../../document/index.js");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -43,9 +40,7 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        const string = printString(node.raw, options);
-
-        return string?.includes("\n") ? printIndentableString(string) : string;
+        return printString(node.raw, options);
       }
 
       return String(value);
@@ -60,12 +55,6 @@ function printBigInt(raw) {
 function printRegex({ pattern, flags }) {
   flags = [...flags].sort().join("");
   return `/${pattern}/${flags}`;
-}
-
-function printIndentableString(str) {
-  const lines = str.split("\n");
-
-  return [join(literalline, lines)];
 }
 
 module.exports = {
