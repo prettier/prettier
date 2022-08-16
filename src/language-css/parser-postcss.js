@@ -338,7 +338,7 @@ async function parseNestedCSS(node, options) {
         }
         let ast;
         try {
-          ast = await parse(fakeContent, [], { ...options });
+          ast = await parse(fakeContent, { ...options });
         } catch {
           // noop
         }
@@ -679,12 +679,12 @@ async function parseWithParser(parse, text, options) {
   return result;
 }
 
-async function parseCss(text, parsers, options = {}) {
+async function parseCss(text, options = {}) {
   const parse = await import("postcss/lib/parse").then((m) => m.default);
   return parseWithParser(parse, text, options);
 }
 
-async function parseLess(text, parsers, options = {}) {
+async function parseLess(text, options = {}) {
   const less = await import("postcss-less");
 
   return parseWithParser(
@@ -696,7 +696,7 @@ async function parseLess(text, parsers, options = {}) {
   );
 }
 
-async function parseScss(text, parsers, options = {}) {
+async function parseScss(text, options = {}) {
   const scss = await import("postcss-scss");
   return parseWithParser(scss.parse, text, options);
 }

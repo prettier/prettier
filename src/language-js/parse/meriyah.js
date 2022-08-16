@@ -81,7 +81,7 @@ function createParseError(error) {
   return createError(message, { start: { line, column } });
 }
 
-async function parse(text, parsers, options = {}) {
+async function parse(text, options = {}) {
   const { parse } = await import("meriyah");
   const { result: ast, error: moduleParseError } = tryCombinations(
     () => parseWithOptions(parse, text, /* module */ true),

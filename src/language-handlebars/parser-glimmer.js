@@ -47,7 +47,7 @@ function addOffset(text) {
   });
 }
 
-async function parse(text) {
+async function parse(text /*, options */) {
   // Inline `import()` to avoid loading all the JS if we don't use it
   /*
   The module version `@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js`

@@ -30,7 +30,7 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, parsers, options = {}) {
+async function parse(text, options = {}) {
   const textToParse = replaceHashbang(text);
   const jsx = isProbablyJsx(text);
 

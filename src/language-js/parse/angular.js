@@ -1,7 +1,7 @@
 import { locStart, locEnd } from "../loc.js";
 
 function createParser(_parse) {
-  const parse = async (text, parsers, options) => {
+  const parse = async (text, options) => {
     const ngEstreeParser = await import("angular-estree-parser");
     const node = _parse(text, ngEstreeParser);
     return {

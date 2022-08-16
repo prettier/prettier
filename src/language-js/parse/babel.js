@@ -95,13 +95,13 @@ function parseWithOptions(parse, text, options) {
 }
 
 function createParse(parseMethod, ...optionsCombinations) {
-  return async (text, parsers, opts = {}) => {
+  return async (text, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
     ) {
       opts.parser = "babel-flow";
-      return parseFlow(text, parsers, opts);
+      return parseFlow(text, opts);
     }
 
     let combinations = optionsCombinations;
