@@ -1,67 +1,35 @@
 import { ConfigError } from "../common/errors.js";
 
-// Use defineProperties()/getOwnPropertyDescriptor() to prevent
-// triggering the parsers getters.
-const ownNames = Object.getOwnPropertyNames;
-const ownDescriptor = Object.getOwnPropertyDescriptor;
-function getParsers(options) {
-  const parsers = {};
-  for (const plugin of options.plugins) {
-    // TODO: test this with plugins
-    /* istanbul ignore next */
-    if (!plugin.parsers) {
-      continue;
+function resolveParser({ plugins, parser }) {
+  for (const { parsers } of plugins) {
+    if (parsers && Object.prototype.hasOwnProperty.call(parsers, parser)) {
+      return parsers[parser];
     }
-
-    for (const name of ownNames(plugin.parsers)) {
-      Object.defineProperty(parsers, name, ownDescriptor(plugin.parsers, name));
-    }
-  }
-
-  return parsers;
-}
-
-function resolveParser(options, parsers = getParsers(options)) {
-  if (Object.prototype.hasOwnProperty.call(parsers, options.parser)) {
-    return parsers[options.parser];
   }
 
   /* istanbul ignore next */
   if (process.env.PRETTIER_TARGET === "universal") {
     throw new ConfigError(
-      `Couldn't resolve parser "${options.parser}". Parsers must be explicitly added to the standalone bundle.`
+      `Couldn't resolve parser "${parser}". Parsers must be explicitly added to the standalone bundle.`
     );
   }
 }
 
-async function parse(originalText, opts) {
-  const parsers = getParsers(opts);
-
-  // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
-  // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.defineProperties(
-    {},
-    Object.fromEntries(
-      Object.keys(parsers).map((parserName) => [
-        parserName,
-        {
-          enumerable: true,
-          get() {
-            return parsers[parserName].parse;
-          },
-        },
-      ])
-    )
-  );
-
-  const parser = resolveParser(opts, parsers);
+async function parse(originalText, options) {
+  const parser = resolveParser(options);
   const text = parser.preprocess
-    ? parser.preprocess(originalText, opts)
+    ? parser.preprocess(originalText, options)
     : originalText;
 
   let ast;
   try {
-    ast = await parser.parse(text, parsersForCustomParserApi, opts);
+    ast = await parser.parse(
+      text,
+      options,
+      // TODO: remove the third argument in v4
+      // The duplicated argument is passed as intended, see #10156
+      options
+    );
   } catch (error) {
     await handleParseError(error, originalText);
   }

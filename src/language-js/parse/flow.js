@@ -36,7 +36,7 @@ function createParseError(error) {
   });
 }
 
-async function parse(text, parsers, options = {}) {
+async function parse(text, options = {}) {
   // Inline `import()` to avoid loading all the JS if we don't use it
   const {
     default: { parse },
