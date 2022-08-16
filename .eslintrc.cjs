@@ -43,6 +43,13 @@ module.exports = {
     "no-return-await": "error",
     "no-unneeded-ternary": "error",
     "no-useless-return": "error",
+    "no-unused-expressions": [
+      "error",
+      {
+        allowShortCircuit: true,
+        allowTernary: true,
+      },
+    ],
     "no-unused-vars": [
       "error",
       {
