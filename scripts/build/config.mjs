@@ -219,17 +219,11 @@ const parsers = [
       },
       // The following two replacements prevent load `source-map` module
       {
-        module: path.join(
-          require.resolve("postcss/package.json"),
-          "lib/previous-map.js"
-        ),
+        module: path.join(require.resolve("postcss"), "../previous-map.js"),
         text: "module.exports = class {};",
       },
       {
-        module: path.join(
-          require.resolve("postcss/package.json"),
-          "lib/postcss/lib/map-generator.js"
-        ),
+        module: path.join(require.resolve("postcss"), "../map-generator.js"),
         text: "module.exports = class { generate() {} };",
       },
     ],

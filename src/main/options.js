@@ -51,6 +51,7 @@ function normalize(options, opts = {}) {
   }
 
   const parser = resolveParser(
+    // @ts-expect-error
     normalizeApiOptions(
       rawOptions,
       [supportOptions.find((x) => x.name === "parser")],
