@@ -264,7 +264,7 @@ exports[`API getSupportInfo() 1`] = `
         "es5",
         "none",
       ],
-      "default": "es5",
+      "default": "all",
       "type": "choice",
     },
     "useTabs": {
@@ -1137,7 +1137,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         },
         { "description": "No trailing commas.", "value": "none" }
       ],
-      "default": "es5",
+      "default": "all",
       "description": "Print trailing commas wherever possible when multi-line.",
       "name": "trailingComma",
       "pluginDefaults": {},
