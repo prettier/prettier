@@ -89,9 +89,9 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
 const ensurePrintingNode = function (path) {
-  const parentNode = path.getParentNode();
+  const parent = path.getParentNode();
 
-  if (!parentNode) {
+  if (!parent) {
     return;
   }
 
@@ -100,31 +100,27 @@ const ensurePrintingNode = function (path) {
     name = path.stack[path.stack.length - 4];
   }
 
-  const visitorKeys = getVisitorKeys(parentNode);
+  const visitorKeys = getVisitorKeys(parent);
   if (visitorKeys.includes(name)) {
     return;
   }
 
   throw Object.assign(new Error("Calling `print()` on non-node object."), {
-    parentNode,
-    printingKey: name,
-    allowed: visitorKeys,
+    parentNode: parent,
+    printingProperty: name,
+    allowedProperties: visitorKeys,
   });
 };
 
 function genericPrint(path, options, print, args) {
   const node = path.getValue();
 
-  if (!node) {
+  if (node === undefined || node === null) {
     return "";
   }
 
   if (process.env.NODE_ENV !== "production") {
     ensurePrintingNode(path);
-  }
-
-  if (typeof node === "string") {
-    return node;
   }
 
   const printed = printPathNoParens(path, options, print, args);
@@ -807,7 +803,7 @@ function printPathNoParens(path, options, print, args) {
     case "TaggedTemplateExpression":
       return [print("tag"), print("typeParameters"), print("quasi")];
     case "PrivateIdentifier":
-      return ["#", print("name")];
+      return ["#", node.name];
     case "PrivateName":
       return ["#", print("id")];
 

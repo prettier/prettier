@@ -46,6 +46,8 @@ const additionalVisitorKeys = {
   ArrowFunctionExpression: ["predicate"],
   DeclareFunction: ["predicate"],
   FunctionDeclaration: ["predicate"],
+
+  Property: ["decorators"],
 };
 
 export default unionVisitorKeys([
