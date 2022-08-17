@@ -412,6 +412,16 @@ function needsParens(path, options) {
     // fallthrough
     case "TSFunctionType":
     case "TSConstructorType":
+      if (parent.type === "TSConditionalType" && name === "extendsType") {
+        const returnTypeAnnotation = (node.returnType || node.typeAnnotation)
+          .typeAnnotation;
+        if (
+          returnTypeAnnotation.type === "TSInferType" &&
+          returnTypeAnnotation.typeParameter.constraint
+        ) {
+          return true;
+        }
+      }
       if (name === "checkType" && parent.type === "TSConditionalType") {
         return true;
       }
@@ -428,9 +438,6 @@ function needsParens(path, options) {
       }
     // fallthrough
     case "TSInferType":
-      if (node.type === "TSInferType" && parent.type === "TSTypeAnnotation") {
-        return true;
-      }
       if (node.type === "TSInferType" && parent.type === "TSRestType") {
         return false;
       }

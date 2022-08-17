@@ -263,17 +263,31 @@ type Unpacked<T> =
 =====================================output=====================================
 type TestReturnType<T extends (...args: any[]) => any> = T extends (
   ...args: any[]
-) => (infer R)
+) => infer R
   ? R
   : any;
 
 type Unpacked<T> = T extends (infer U)[]
   ? U
-  : T extends (...args: any[]) => (infer U)
+  : T extends (...args: any[]) => infer U
   ? U
   : T extends Promise<infer U>
   ? U
   : T;
+
+================================================================================
+`;
+
+exports[`issue-13275.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+
+=====================================output=====================================
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
 
 ================================================================================
 `;
