@@ -107,8 +107,9 @@ const ensurePrintingNode = function (path) {
 
   throw Object.assign(new Error("Calling `print()` on non-node object."), {
     parentNode: parent,
-    printingProperty: name,
     allowedProperties: visitorKeys,
+    printingProperty: name,
+    printingValue: path.getValue(),
   });
 };
 
