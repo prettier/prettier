@@ -296,15 +296,9 @@ function printString(raw, options) {
     )
   );
 
-  return adjustedString?.includes("\n") && options.parser !== "css"
-    ? printIndentableString(adjustedString)
+  return adjustedString.includes("\n") && options.parser !== "css"
+    ? [join(literalline, adjustedString.split("\n"))]
     : adjustedString;
-}
-
-function printIndentableString(str) {
-  const lines = str.split("\n");
-
-  return [join(literalline, lines)];
 }
 
 /**
