@@ -21,19 +21,6 @@ function parseComments(ast) {
   return comments;
 }
 
-function removeTokens(node) {
-  if (node && typeof node === "object") {
-    delete node.startToken;
-    delete node.endToken;
-    delete node.prev;
-    delete node.next;
-    for (const key in node) {
-      removeTokens(node[key]);
-    }
-  }
-  return node;
-}
-
 const parseOptions = {
   allowLegacyFragmentVariables: true,
 };
@@ -64,7 +51,6 @@ async function parse(text /*, options */) {
   }
 
   ast.comments = parseComments(ast);
-  removeTokens(ast);
   return ast;
 }
 
