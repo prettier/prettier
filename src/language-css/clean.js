@@ -9,6 +9,7 @@ const ignoredProperties = new Set([
   "before",
   "after",
   "trailingComma",
+  "spaces",
 ]);
 
 function clean(ast, newObj, parent) {

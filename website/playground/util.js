@@ -60,6 +60,7 @@ const astAutoFold = {
   mdast: /^\s*"position":/,
   yaml: /^\s*"position":/,
   glimmer: /^\s*"loc":/,
+  graphql: /^\s*"loc":/,
 };
 
 export function getAstAutoFold(parser) {
@@ -90,8 +91,8 @@ export function getAstAutoFold(parser) {
       return astAutoFold.mdast;
     case "yaml":
       return astAutoFold.yaml;
-    case "glimmer":
-      return astAutoFold.glimmer;
+    default:
+      return astAutoFold[parser];
   }
 }
 

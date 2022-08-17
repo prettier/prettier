@@ -8,6 +8,7 @@ import {
   getStringWidth,
 } from "../../common/util.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
+import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 
@@ -77,7 +78,7 @@ function hasFlowAnnotationComment(comments) {
  * @returns {boolean}
  */
 function hasNode(node, fn) {
-  if (!node || typeof node !== "object") {
+  if (node === null || typeof node !== "object") {
     return false;
   }
   if (Array.isArray(node)) {
@@ -86,7 +87,7 @@ function hasNode(node, fn) {
   const result = fn(node);
   return typeof result === "boolean"
     ? result
-    : Object.values(node).some((value) => hasNode(value, fn));
+    : getVisitorKeys(node).some((key) => hasNode(node[key], fn));
 }
 
 /**

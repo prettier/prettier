@@ -34,6 +34,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
+import getVisitorKeys from "./traverse/get-visitor-keys.js";
 
 import {
   printHtmlBinding,
@@ -866,7 +867,7 @@ const printer = {
     remaining: handleComments.handleRemainingComment,
   },
   getCommentChildNodes: handleComments.getCommentChildNodes,
-  isNode: (node) => typeof node.type === "string",
+  getVisitorKeys,
 };
 
 export default printer;

@@ -6878,6 +6878,7 @@ __metadata:
     "@types/jest": 28.1.1
     "@typescript-eslint/eslint-plugin": 5.33.0
     "@typescript-eslint/typescript-estree": 5.33.0
+    "@typescript-eslint/visitor-keys": 5.33.0
     acorn: 8.8.0
     acorn-jsx: 5.3.2
     angular-estree-parser: 2.5.1
@@ -6972,6 +6973,7 @@ __metadata:
     string-width: 5.0.1
     strip-ansi: 7.0.1
     tempy: 3.0.0
+    to-fast-properties: 4.0.0
     typescript: 4.7.4
     unicode-regex: 3.0.0
     unified: 9.2.2
@@ -8094,6 +8096,13 @@ __metadata:
   version: 1.0.5
   resolution: "tmpl@npm:1.0.5"
   checksum: cd922d9b853c00fe414c5a774817be65b058d54a2d01ebb415840960406c669a0fc632f66df885e24cb022ec812739199ccbdb8d1164c3e513f85bfca5ab2873
+  languageName: node
+  linkType: hard
+
+"to-fast-properties@npm:4.0.0":
+  version: 4.0.0
+  resolution: "to-fast-properties@npm:4.0.0"
+  checksum: c72297bdd126a7e7ffe9cc6230eee60182f0439a7abb19d281e73137880d87d12fc971a47ff4bd1e0dc68e17262344fbf98499400ff5e341db431715c3620346
   languageName: node
   linkType: hard
 

@@ -1,5 +1,4 @@
 import assert from "node:assert";
-
 import {
   line,
   hardline,
@@ -9,7 +8,6 @@ import {
   join,
   cursor,
 } from "../document/builders.js";
-
 import {
   hasNewline,
   skipNewline,
@@ -18,66 +16,53 @@ import {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
+  isNonEmptyArray,
 } from "../common/util.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 const childNodesCache = new WeakMap();
-function getSortedChildNodes(node, options, resultArray) {
-  if (!node) {
-    return;
-  }
-  const { printer, locStart, locEnd } = options;
-
-  if (resultArray) {
-    if (printer.canAttachComment && printer.canAttachComment(node)) {
-      // This reverse insertion sort almost always takes constant
-      // time because we almost always (maybe always?) append the
-      // nodes in order anyway.
-      let i;
-      for (i = resultArray.length - 1; i >= 0; --i) {
-        if (
-          locStart(resultArray[i]) <= locStart(node) &&
-          locEnd(resultArray[i]) <= locEnd(node)
-        ) {
-          break;
-        }
-      }
-      resultArray.splice(i + 1, 0, node);
-      return;
-    }
-  } else if (childNodesCache.has(node)) {
+function getSortedChildNodes(node, options) {
+  if (childNodesCache.has(node)) {
     return childNodesCache.get(node);
   }
 
-  const childNodes =
-    (printer.getCommentChildNodes &&
-      printer.getCommentChildNodes(node, options)) ||
-    (typeof node === "object" &&
-      Object.entries(node)
-        .filter(
-          ([key]) =>
-            key !== "enclosingNode" &&
-            key !== "precedingNode" &&
-            key !== "followingNode" &&
-            key !== "tokens" &&
-            key !== "comments" &&
-            key !== "parent"
-        )
-        .map(([, value]) => value));
+  const {
+    printer: {
+      getCommentChildNodes,
+      canAttachComment,
+      getVisitorKeys: printerGetVisitorKeys,
+    },
+    locStart,
+    locEnd,
+  } = options;
 
-  if (!childNodes) {
-    return;
+  if (!canAttachComment) {
+    return [];
   }
 
-  if (!resultArray) {
-    resultArray = [];
-    childNodesCache.set(node, resultArray);
-  }
+  const childNodes = (
+    getCommentChildNodes?.(node, options) ??
+    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap(
+      (key) => node[key]
+    )
+  ).flatMap((childNode) => {
+    if (!(childNode !== null && typeof childNode === "object")) {
+      return [];
+    }
 
-  for (const childNode of childNodes) {
-    getSortedChildNodes(childNode, options, resultArray);
-  }
+    return canAttachComment(childNode)
+      ? childNode
+      : getSortedChildNodes(childNode, options);
+  });
 
-  return resultArray;
+  // Sort by `start` location first, then `end` location
+  childNodes.sort(
+    (nodeA, nodeB) =>
+      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
+  );
+
+  childNodesCache.set(node, childNodes);
+  return childNodes;
 }
 
 // As efficiently as possible, decorate the comment object with
@@ -161,7 +146,7 @@ function decorateComment(node, comment, options, enclosingNode) {
 
 const returnFalse = () => false;
 function attach(comments, ast, text, options) {
-  if (!Array.isArray(comments)) {
+  if (!isNonEmptyArray(comments) || !options.printer.canAttachComment) {
     return;
   }
 

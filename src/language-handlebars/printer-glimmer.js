@@ -11,6 +11,7 @@ import {
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
+import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
@@ -25,6 +26,7 @@ import {
   isVoid,
   isWhitespaceNode,
 } from "./utils.js";
+import visitorKeys from "./visitor-keys.evaluate.js";
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -786,6 +788,7 @@ function printBlockParams(node) {
 const printer = {
   print,
   massageAstNode: clean,
+  getVisitorKeys: createGetVisitorKeys(visitorKeys),
 };
 
 export default printer;

@@ -2,6 +2,7 @@ import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
+import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 async function printEmbeddedLanguages(
   /** @type {import("../common/ast-path").default} */ path,
@@ -10,24 +11,26 @@ async function printEmbeddedLanguages(
   printAstToDoc,
   embeds
 ) {
-  const { printer } = options;
+  const {
+    embeddedLanguageFormatting,
+    printer: {
+      embed,
+      hasPrettierIgnore = () => false,
+      getVisitorKeys: printerGetVisitorKeys,
+    },
+  } = options;
 
-  if (!printer.embed || options.embeddedLanguageFormatting !== "auto") {
+  if (!embed || embeddedLanguageFormatting !== "auto") {
     return;
   }
 
-  if (printer.embed.length > 2) {
+  if (embed.length > 2) {
     throw new Error(
       "printer.embed has too many parameters. The API changed in Prettier v3. Please update your plugin. See https://prettier.io/docs/en/plugins.html#optional-embed"
     );
   }
 
-  const isNode =
-    (printer.isNode ?? printer.canAttachComment)?.bind(printer) ?? (() => true);
-  const hasPrettierIgnore =
-    printer.hasPrettierIgnore?.bind(printer) ?? (() => false);
-  const ignoredProperties = printer.massageAstNode?.ignoredProperties;
-
+  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
   const embedCallResults = [];
 
   recurse();
@@ -58,30 +61,19 @@ async function printEmbeddedLanguages(
 
   function recurse() {
     const node = path.getValue();
-
-    if (
-      node === null ||
-      typeof node !== "object" ||
-      !isNode(node) ||
-      hasPrettierIgnore(path)
-    ) {
+    if (node === null || typeof node !== "object" || hasPrettierIgnore(path)) {
       return;
     }
 
-    for (const key in node) {
-      if (
-        Object.prototype.hasOwnProperty.call(node, key) &&
-        !ignoredProperties?.has(key)
-      ) {
-        if (Array.isArray(node[key])) {
-          path.each(recurse, key);
-        } else {
-          path.call(recurse, key);
-        }
+    for (const key of getVisitorKeys(node)) {
+      if (Array.isArray(node[key])) {
+        path.each(recurse, key);
+      } else {
+        path.call(recurse, key);
       }
     }
 
-    const result = printer.embed(path, options);
+    const result = embed(path, options);
 
     if (!result) {
       return;
@@ -96,7 +88,10 @@ async function printEmbeddedLanguages(
       return;
     }
 
-    if (process.env.PRETTIER_DEBUG && typeof result.then === "function") {
+    if (
+      process.env.NODE_ENV !== "production" &&
+      typeof result.then === "function"
+    ) {
       throw new Error(
         "`embed` should return an async function instead of Promise."
       );
