@@ -7,6 +7,7 @@ import createSandBox from "../../config/utils/create-sandbox.cjs";
 import * as coreOptions from "../../../src/main/core-options.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import jestPathSerializer from "../path-serializer.js";
+import buildConfig from "../../../scripts/build/config.mjs";
 
 const { require, importModule } = createEsmUtils(import.meta);
 
@@ -93,5 +94,45 @@ test("global objects", async () => {
     const globalObjects = getGlobalObjects(file);
 
     expect(globalObjects).toStrictEqual({});
+  }
+});
+
+const getFileExports = async (file) => Object.keys(await importModule(file));
+
+describe("exports", () => {
+  const files = buildConfig.map((bundle) => {
+    const output = path.join(distDirectory, bundle.output);
+
+    const outputFiles = /^(?:standalone|parser-.*)\.js$/.test(bundle.output)
+      ? [
+          output,
+          path.join(
+            distDirectory,
+            `esm/${bundle.output.replace(".js", ".mjs")}`
+          ),
+        ]
+      : [output];
+
+    return {
+      ...bundle,
+      sourceFile: path.join(projectRoot, bundle.input),
+      outputFiles,
+    };
+  });
+
+  for (const bundle of files) {
+    if (bundle.output === "bin-prettier.js") {
+      continue;
+    }
+
+    test(bundle.output, async () => {
+      const sourceFileExports = await getFileExports(bundle.sourceFile);
+
+      for (const file of bundle.outputFiles) {
+        const outputFileExports = await getFileExports(file);
+
+        expect(outputFileExports).toEqual(sourceFileExports);
+      }
+    });
   }
 });
