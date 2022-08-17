@@ -471,7 +471,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "NGMicrosyntaxExpression": [
     "expression",
-    "name",
+    "alias",
   ],
   "NGMicrosyntaxKey": [],
   "NGMicrosyntaxKeyedExpression": [

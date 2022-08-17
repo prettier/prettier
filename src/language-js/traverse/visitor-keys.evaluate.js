@@ -10,7 +10,7 @@ const angularVisitorKeys = {
   NGQuotedExpression: [],
   NGMicrosyntax: ["body"],
   NGMicrosyntaxKey: [],
-  NGMicrosyntaxExpression: ["expression", "name"],
+  NGMicrosyntaxExpression: ["expression", "alias"],
   NGMicrosyntaxKeyedExpression: ["key", "expression"],
   NGMicrosyntaxLet: ["key", "value"],
   NGMicrosyntaxAs: ["key", "alias"],
