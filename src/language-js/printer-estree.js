@@ -88,32 +88,6 @@ import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
-const ensurePrintingNode = function (path) {
-  const parent = path.getParentNode();
-
-  if (!parent) {
-    return;
-  }
-
-  let name = path.getName();
-  if (typeof name === "number") {
-    name = path.stack[path.stack.length - 4];
-  }
-
-  const visitorKeys = getVisitorKeys(parent);
-  if (visitorKeys.includes(name)) {
-    return;
-  }
-
-  /* istanbul ignore next */
-  throw Object.assign(new Error("Calling `print()` on non-node object."), {
-    parentNode: parent,
-    allowedProperties: visitorKeys,
-    printingProperty: name,
-    printingValue: path.getValue(),
-  });
-};
-
 function genericPrint(path, options, print, args) {
   const node = path.getValue();
 
@@ -871,6 +845,32 @@ function canAttachComment(node) {
     // `babel-ts` don't have similar node for `class Foo { bar() /* bat */; }`
     node.type !== "TSEmptyBodyFunctionExpression"
   );
+}
+
+function ensurePrintingNode(path) {
+  const parent = path.getParentNode();
+
+  if (!parent) {
+    return;
+  }
+
+  let name = path.getName();
+  if (typeof name === "number") {
+    name = path.stack[path.stack.length - 4];
+  }
+
+  const visitorKeys = getVisitorKeys(parent);
+  if (visitorKeys.includes(name)) {
+    return;
+  }
+
+  /* istanbul ignore next */
+  throw Object.assign(new Error("Calling `print()` on non-node object."), {
+    parentNode: parent,
+    allowedProperties: visitorKeys,
+    printingProperty: name,
+    printingValue: path.getValue(),
+  });
 }
 
 const printer = {
