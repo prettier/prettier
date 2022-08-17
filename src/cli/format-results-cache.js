@@ -60,20 +60,17 @@ class FormatResultsCache {
    */
   existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.fileEntryCache.getFileDescriptor(filePath);
-    const hashOfOptions = getHashOfOptions(options);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
 
     if (fileDescriptor.notFound) {
       return false;
     }
 
-    if (changed) {
-      return false;
-    }
+    const hashOfOptions = getHashOfOptions(options);
+    const meta = getMetadataFromFileDescriptor(fileDescriptor);
+    const changed =
+      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
 
-    return true;
+    return !changed;
   }
 
   /**
