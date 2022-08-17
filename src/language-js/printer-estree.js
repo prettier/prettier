@@ -89,12 +89,21 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
 function genericPrint(path, options, print, args) {
+  const node = path.getValue();
+
+  if (!node) {
+    return "";
+  }
+
+  if (typeof node === "string") {
+    return node;
+  }
+
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
     return "";
   }
 
-  const node = path.getValue();
   const { type } = node;
   // Their decorators are handled themselves, and they can't have parentheses
   if (
@@ -169,14 +178,6 @@ function genericPrint(path, options, print, args) {
 function printPathNoParens(path, options, print, args) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
-
-  if (!node) {
-    return "";
-  }
-
-  if (typeof node === "string") {
-    return node;
-  }
 
   for (const printer of [
     printLiteral,
