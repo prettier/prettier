@@ -412,7 +412,7 @@ function needsParens(path, options) {
     // fallthrough
     case "TSFunctionType":
     case "TSConstructorType":
-      if (parent.type === "TSConditionalType" && name === "extendsType") {
+      if (name === "extendsType" && parent.type === "TSConditionalType") {
         const returnTypeAnnotation = (node.returnType || node.typeAnnotation)
           .typeAnnotation;
         if (
