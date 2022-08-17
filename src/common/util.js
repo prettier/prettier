@@ -281,11 +281,10 @@ function printString(raw, options) {
       ? "'"
       : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"').quote;
 
-  const isCSS = !(
+  const isCSS =
     options.parser === "css" ||
     options.parser === "less" ||
-    options.parser === "scss"
-  );
+    options.parser === "scss";
 
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
