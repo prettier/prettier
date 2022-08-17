@@ -281,22 +281,20 @@ function printString(raw, options) {
       ? "'"
       : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"').quote;
 
+  const isNotCSS = !(
+    options.parser === "css" ||
+    options.parser === "less" ||
+    options.parser === "scss" ||
+    options.__embeddedInHtml
+  );
+
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  const adjustedString = makeString(
-    rawContent,
-    enclosingQuote,
-    !(
-      options.parser === "css" ||
-      options.parser === "less" ||
-      options.parser === "scss" ||
-      options.__embeddedInHtml
-    )
-  );
+  const adjustedString = makeString(rawContent, enclosingQuote, isNotCSS);
 
-  return adjustedString.includes("\n") && options.parser !== "css"
+  return adjustedString.includes("\n") && isNotCSS
     ? [join(literalline, adjustedString.split("\n"))]
     : adjustedString;
 }
