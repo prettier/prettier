@@ -412,6 +412,16 @@ function needsParens(path, options) {
     // fallthrough
     case "TSFunctionType":
     case "TSConstructorType":
+      if (name === "extendsType" && parent.type === "TSConditionalType") {
+        const returnTypeAnnotation = (node.returnType || node.typeAnnotation)
+          .typeAnnotation;
+        if (
+          returnTypeAnnotation.type === "TSInferType" &&
+          returnTypeAnnotation.typeParameter.constraint
+        ) {
+          return true;
+        }
+      }
       if (name === "checkType" && parent.type === "TSConditionalType") {
         return true;
       }
