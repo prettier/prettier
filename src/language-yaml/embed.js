@@ -16,4 +16,8 @@ function embed(path, options) {
   }
 }
 
+// Only "root" allow print as JSON
+// Use `[]` to prevent `printEmbeddedLanguages` traverse deep
+embed.getVisitorKeys = () => [];
+
 export default embed;

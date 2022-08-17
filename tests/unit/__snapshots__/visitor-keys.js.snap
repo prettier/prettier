@@ -1358,6 +1358,7 @@ exports[`visitor keys postcss 1`] = `
     "nodes",
   ],
   "css-root": [
+    "frontMatter",
     "nodes",
   ],
   "css-rule": [

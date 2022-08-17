@@ -100,9 +100,10 @@ function genericPrint(path, options, print) {
       const after = node.raws.after.trim();
 
       return [
+        node.frontMatter ? [print("frontMatter"), hardline] : "",
         nodes,
         after ? ` ${after}` : "",
-        getDocParts(nodes).length > 0 ? hardline : "",
+        node.nodes.length > 0 ? hardline : "",
       ];
     }
     case "css-comment": {

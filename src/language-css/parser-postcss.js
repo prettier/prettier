@@ -673,7 +673,7 @@ async function parseWithParser(parse, text, options) {
       startOffset: 0,
       endOffset: frontMatter.raw.length,
     };
-    result.nodes.unshift(frontMatter);
+    result.frontMatter = frontMatter;
   }
 
   return result;
