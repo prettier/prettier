@@ -269,7 +269,7 @@ function printPathNoParens(path, options, print, args) {
         path,
         options,
         /** sameIndent */ true,
-        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment,
+        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
       );
 
       // Do not append semicolon after the only JSX element in a program
@@ -317,8 +317,8 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(
         group(
-          indent([softline, printBindExpressionCallee(path, options, print)]),
-        ),
+          indent([softline, printBindExpressionCallee(path, options, print)])
+        )
       );
 
       return parts;
@@ -366,7 +366,7 @@ function printPathNoParens(path, options, print, args) {
           parts = [indent([softline, ...parts]), softline];
           const parentAwaitOrBlock = path.findAncestor(
             (node) =>
-              node.type === "AwaitExpression" || node.type === "BlockStatement",
+              node.type === "AwaitExpression" || node.type === "BlockStatement"
           );
           if (
             !parentAwaitOrBlock ||
@@ -467,7 +467,7 @@ function printPathNoParens(path, options, print, args) {
 
       if (hasComment(node.argument)) {
         parts.push(
-          group(["(", indent([softline, print("argument")]), softline, ")"]),
+          group(["(", indent([softline, print("argument")]), softline, ")"])
         );
       } else {
         parts.push(print("argument"));
@@ -517,7 +517,7 @@ function printPathNoParens(path, options, print, args) {
               ",",
               hasValue && !isParentForLoop ? hardline : line,
               p,
-            ]),
+            ])
         ),
       ];
 
@@ -549,7 +549,7 @@ function printPathNoParens(path, options, print, args) {
         const commentOnOwnLine =
           hasComment(
             node.consequent,
-            CommentCheckFlags.Trailing | CommentCheckFlags.Line,
+            CommentCheckFlags.Trailing | CommentCheckFlags.Line
           ) || needsHardlineAfterDanglingComment(node);
         const elseOnSameLine =
           node.consequent.type === "BlockStatement" && !commentOnOwnLine;
@@ -558,7 +558,7 @@ function printPathNoParens(path, options, print, args) {
         if (hasComment(node, CommentCheckFlags.Dangling)) {
           parts.push(
             printDanglingComments(path, options, true),
-            commentOnOwnLine ? hardline : " ",
+            commentOnOwnLine ? hardline : " "
           );
         }
 
@@ -568,9 +568,9 @@ function printPathNoParens(path, options, print, args) {
             adjustClause(
               node.alternate,
               print("alternate"),
-              node.alternate.type === "IfStatement",
-            ),
-          ),
+              node.alternate.type === "IfStatement"
+            )
+          )
         );
       }
 
@@ -585,7 +585,7 @@ function printPathNoParens(path, options, print, args) {
       const dangling = printDanglingComments(
         path,
         options,
-        /* sameLine */ true,
+        /* sameLine */ true
       );
       const printedComments = dangling ? [dangling, softline] : "";
 
@@ -658,7 +658,7 @@ function printPathNoParens(path, options, print, args) {
         "while (",
         group([indent([softline, print("test")]), softline]),
         ")",
-        semi,
+        semi
       );
 
       return parts;
@@ -709,7 +709,7 @@ function printPathNoParens(path, options, print, args) {
             (comment.trailing &&
               hasNewline(options.originalText, locStart(comment), {
                 backwards: true,
-              })),
+              }))
         );
         const param = print("param");
 
@@ -747,7 +747,7 @@ function printPathNoParens(path, options, print, args) {
                       ? hardline
                       : "",
                   ];
-                }, "cases"),
+                }, "cases")
               ),
             ])
           : "",
@@ -766,7 +766,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       const consequent = node.consequent.filter(
-        (node) => node.type !== "EmptyStatement",
+        (node) => node.type !== "EmptyStatement"
       );
 
       if (consequent.length > 0) {
@@ -775,7 +775,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
             ? [" ", cons]
-            : indent([hardline, cons]),
+            : indent([hardline, cons])
         );
       }
 
