@@ -105,6 +105,7 @@ const ensurePrintingNode = function (path) {
     return;
   }
 
+  /* istanbul ignore next */
   throw Object.assign(new Error("Calling `print()` on non-node object."), {
     parentNode: parent,
     allowedProperties: visitorKeys,
