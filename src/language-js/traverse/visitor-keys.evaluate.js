@@ -46,6 +46,9 @@ const additionalVisitorKeys = {
   ArrowFunctionExpression: ["predicate"],
   DeclareFunction: ["predicate"],
   FunctionDeclaration: ["predicate"],
+  ClassProperty: ["variance"],
+  ClassPrivateProperty: ["variance"],
+  EnumBooleanMember: ["init"],
 
   Property: ["decorators"],
 };
