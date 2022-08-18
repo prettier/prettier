@@ -8,7 +8,6 @@ import {
   join,
   line,
   lineSuffix,
-  literalline,
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
@@ -101,8 +100,7 @@ function genericPrint(path, options, print) {
       replaceTextEndOfLine(
         options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
-          .trimEnd(),
-        literalline
+          .trimEnd()
       )
     );
   } else {
