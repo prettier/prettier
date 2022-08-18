@@ -848,17 +848,31 @@ function canAttachComment(node) {
 }
 
 function ensurePrintingNode(path) {
-  const parent = path.getParentNode();
+  let name = path.getName();
 
-  if (!parent) {
+  // AST root
+  if (name === null) {
     return;
   }
 
-  let name = path.getName();
   if (typeof name === "number") {
+    /*
+    Nodes in array are stored in path.stack like
+
+    ```js
+    [
+      parentNode,
+      property, // <-
+      array,
+      index,
+      node,
+    ]
+    ```
+    */
     name = path.stack[path.stack.length - 4];
   }
 
+  const parent = path.getParentNode();
   const visitorKeys = getVisitorKeys(parent);
   if (visitorKeys.includes(name)) {
     return;
