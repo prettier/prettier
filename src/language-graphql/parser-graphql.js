@@ -4,34 +4,14 @@ import { locStart, locEnd } from "./loc.js";
 
 function parseComments(ast) {
   const comments = [];
-  const { startToken } = ast.loc;
-  let { next } = startToken;
-  while (next.kind !== "<EOF>") {
-    if (next.kind === "Comment") {
-      Object.assign(next, {
-        // The Comment token's column starts _after_ the `#`,
-        // but we need to make sure the node captures the `#`
-        column: next.column - 1,
-      });
-      comments.push(next);
+  const { startToken, endToken } = ast.loc;
+  for (let token = startToken; token !== endToken; token = token.next) {
+    if (token.kind === "Comment") {
+      comments.push(token);
     }
-    next = next.next;
   }
 
   return comments;
-}
-
-function removeTokens(node) {
-  if (node && typeof node === "object") {
-    delete node.startToken;
-    delete node.endToken;
-    delete node.prev;
-    delete node.next;
-    for (const key in node) {
-      removeTokens(node[key]);
-    }
-  }
-  return node;
 }
 
 const parseOptions = {
@@ -64,7 +44,6 @@ async function parse(text /*, options */) {
   }
 
   ast.comments = parseComments(ast);
-  removeTokens(ast);
   return ast;
 }
 
