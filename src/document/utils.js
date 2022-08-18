@@ -12,6 +12,7 @@ import {
   DOC_TYPE_LINE,
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
+  VALID_OBJECT_DOC_TYPES,
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
 
@@ -433,7 +434,9 @@ function getDocType(doc) {
     return DOC_TYPE_ARRAY;
   }
 
-  return doc?.type;
+  if (doc && VALID_OBJECT_DOC_TYPES.has(doc.type)) {
+    return doc.type;
+  }
 }
 
 export {
