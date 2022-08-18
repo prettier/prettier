@@ -285,7 +285,7 @@ function stripTrailingHardline(doc) {
 }
 
 function cleanDocFn(doc) {
-  switch (doc.type) {
+  switch (getDocType(doc)) {
     case DOC_TYPE_FILL:
       if (doc.parts.every((part) => part === "")) {
         return "";
@@ -318,35 +318,38 @@ function cleanDocFn(doc) {
         return "";
       }
       break;
-  }
+    case DOC_TYPE_ARRAY: {
+      // Flag array, concat strings
+      const parts = [];
+      for (const part of doc) {
+        if (!part) {
+          continue;
+        }
+        const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
+        if (
+          typeof currentPart === "string" &&
+          typeof getLast(parts) === "string"
+        ) {
+          parts[parts.length - 1] += currentPart;
+        } else {
+          parts.push(currentPart);
+        }
+        parts.push(...restParts);
+      }
 
-  if (!Array.isArray(doc)) {
-    return doc;
-  }
+      if (parts.length === 0) {
+        return "";
+      }
 
-  const parts = [];
-  for (const part of doc) {
-    if (!part) {
-      continue;
+      if (parts.length === 1) {
+        return parts[0];
+      }
+
+      return parts;
     }
-    const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
-    if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
-      parts[parts.length - 1] += currentPart;
-    } else {
-      parts.push(currentPart);
-    }
-    parts.push(...restParts);
   }
 
-  if (parts.length === 0) {
-    return "";
-  }
-
-  if (parts.length === 1) {
-    return parts[0];
-  }
-
-  return parts;
+  return doc;
 }
 // A safer version of `normalizeDoc`
 // - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
