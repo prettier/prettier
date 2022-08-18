@@ -13,10 +13,8 @@ function getDocErrorMessage(doc) {
     return `Unexpected doc '${type}', \nExpected it to be 'string' or 'object'.`;
   }
 
-  const docType = getDocType(doc);
-
   /* istanbul ignore next */
-  if (docType) {
+  if (getDocType(doc)) {
     throw new Error("doc is valid.");
   }
 
@@ -30,7 +28,7 @@ function getDocErrorMessage(doc) {
     [...VALID_OBJECT_DOC_TYPES].map((type) => `'${type}'`)
   );
 
-  return `Unexpected doc.type '${docType}'.\nExpected it to be ${EXPECTED_TYPE_VALUES}.`;
+  return `Unexpected doc.type '${doc.type}'.\nExpected it to be ${EXPECTED_TYPE_VALUES}.`;
 }
 
 class InvalidDocError extends Error {
