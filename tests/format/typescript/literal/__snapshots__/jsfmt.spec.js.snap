@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.ts format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fooBazBar1:string = 'Multiline string\\
+         Multiline string\\
+'
+
+const fooBazBar2:string = 'Multiline string\\
+         Multiline string\\
+         Multiline string'
+
+=====================================output=====================================
+const fooBazBar1: string =
+  "Multiline string\\
+         Multiline string\\
+";
+
+const fooBazBar2: string =
+  "Multiline string\\
+         Multiline string\\
+         Multiline string";
+
+================================================================================
+`;
