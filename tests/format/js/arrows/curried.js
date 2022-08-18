@@ -14,6 +14,14 @@ const fn12 = a => b => c => d => e => ({ foo: bar, bar: baz, baz: foo });
 const fn13 = a => b => c => d => e => g => ({ foo: bar, bar: baz, baz: foo });
 const fn14 = a => b => c => d => e => g => f => ({ foo: bar, bar: baz, baz: foo });
 
+const fn15= (a = 2) => 0;
+const fn16 = (a =1) => (b) => 3;
+const fn17 = (a = 2) => (b) => (c) => 3;
+const fn18 = (a) => (b) => (c) => (d) => 3;
+const fn19 = (a) => (b= 1) => (c) => (d) => (e) => 3;
+const fn20 = (a) => (b) => (c=3) => (d) => (e) => (g) => 3;
+const fn21 = (a) => (b) => (c) => (d=3) => (e) => (g) => (f) => 3;
+
 const curryTest =
     (argument1) =>
     (argument2) =>

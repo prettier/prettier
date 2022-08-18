@@ -305,7 +305,10 @@ function printArrowFunction(path, options, print, args) {
       // Always break the chain if:
       (node.returnType && getFunctionParameters(node).length > 0) ||
       node.typeParameters ||
-      getFunctionParameters(node).some((param) => param.type !== "Identifier");
+      getFunctionParameters(node).some(
+        (param) =>
+          param.type !== "Identifier" && param.type !== "AssignmentPattern"
+      );
 
     if (
       node.body.type !== "ArrowFunctionExpression" ||
