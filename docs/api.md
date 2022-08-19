@@ -83,8 +83,8 @@ When Prettier loads configuration files and plugins, the file system structure i
 
 ```typescript
 {
-  ignored: boolean,
-  inferredParser: string | null,
+  ignored: boolean;
+  inferredParser: string | null;
 }
 ```
 

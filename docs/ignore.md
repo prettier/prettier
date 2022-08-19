@@ -28,7 +28,7 @@ By default prettier ignores files in version control systems directories (".git"
 
 So by default it will be
 
-```js
+```text
 **/.git
 **/.svn
 **/.hg
@@ -37,7 +37,7 @@ So by default it will be
 
 and
 
-```js
+```text
 **/.git
 **/.svn
 **/.hg
