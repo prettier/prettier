@@ -122,25 +122,25 @@ export const parsers = {
 
 The signature of the `parse` function is:
 
-```typescript
+```ts
 function parse(text: string, options: object): Promise<AST> | AST;
 ```
 
 The location extraction functions (`locStart` and `locEnd`) return the starting and ending locations of a given AST node:
 
-```typescript
+```ts
 function locStart(node: object): number;
 ```
 
 _(Optional)_ The pragma detection function (`hasPragma`) should return if the text contains the pragma comment.
 
-```typescript
+```ts
 function hasPragma(text: string): boolean;
 ```
 
 _(Optional)_ The preprocess function can process the input text before passing into `parse` function.
 
-```typescript
+```ts
 function preprocess(text: string, options: object): string;
 ```
 
@@ -193,7 +193,7 @@ The printing process consists of the following steps:
 
 Most of the work of a plugin's printer will take place in its `print` function, whose signature is:
 
-```typescript
+```ts
 function print(
   // Path to the AST node to print
   path: AstPath,
@@ -250,7 +250,7 @@ Check out [prettier-python's printer](https://github.com/prettier/prettier-pytho
 
 A printer can have the `embed` method to print one language inside another. Examples of this are printing CSS-in-JS or fenced code blocks in Markdown. The signature is:
 
-```typescript
+```ts
 function embed(
   // Path to the current AST node
   path: AstPath,
@@ -305,7 +305,7 @@ If the [`--embedded-language-formatting`](options.md#embedded-language-formattin
 
 The `preprocess` method can process the AST from the parser before passing it into the `print` method.
 
-```typescript
+```ts
 function preprocess(ast: AST, options: Options): AST | Promise<AST>;
 ```
 
@@ -315,7 +315,7 @@ This property might come in handy if the plugin uses comment attachment or embed
 
 Its signature is:
 
-```typescript
+```ts
 function getVisitorKeys(node, nonTraversableKeys: Set<string>): string[];
 ```
 
@@ -360,7 +360,7 @@ function getVisitorKeys(node, nonTraversableKeys) {
 
 A plugin can implement how a pragma comment is inserted in the resulting code when the `--insert-pragma` option is used, in the `insertPragma` function. Its signature is:
 
-```typescript
+```ts
 function insertPragma(text: string): string;
 ```
 
@@ -374,7 +374,7 @@ By default, if the AST has a top-level `comments` property, Prettier assumes tha
 
 Called whenever a comment node needs to be printed. It has the signature:
 
-```typescript
+```ts
 function printComment(
   // Path to the current comment node
   commentPath: AstPath,
@@ -385,7 +385,7 @@ function printComment(
 
 #### (optional) `canAttachComment`
 
-```typescript
+```ts
 function canAttachComment(node: AST): boolean;
 ```
 
@@ -399,7 +399,7 @@ function canAttachComment(node) {
 
 #### (optional) `isBlockComment`
 
-```typescript
+```ts
 function isBlockComment(node: AST): boolean;
 ```
 
@@ -409,7 +409,7 @@ Returns whether or not the AST node is a block comment.
 
 The `handleComments` object contains three optional functions, each with signature
 
-```typescript
+```ts
 (
   // The AST node corresponding to the comment
   comment: AST,
@@ -496,7 +496,7 @@ export default {
 
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
-```typescript
+```ts
 type Quote = '"' | "'";
 type SkipOptions = { backwards?: boolean };
 

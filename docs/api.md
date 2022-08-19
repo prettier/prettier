@@ -6,7 +6,7 @@ title: API
 If you want to run Prettier programmatically, check this page out.
 
 ```js
-const prettier = require("prettier");
+import * as prettier from "prettier";
 ```
 
 ## `prettier.format(source, options)`
@@ -15,7 +15,7 @@ const prettier = require("prettier");
 
 ```js
 await prettier.format("foo ( );", { semi: false, parser: "babel" });
-// -> "foo()"
+// -> 'foo()\n'
 ```
 
 ## `prettier.check(source [, options])`
@@ -81,7 +81,7 @@ When Prettier loads configuration files and plugins, the file system structure i
 
 `getFileInfo` can be used by editor extensions to decide if a particular file needs to be formatted. This method returns a promise, which resolves to an object with the following properties:
 
-```typescript
+```ts
 {
   ignored: boolean;
   inferredParser: string | null;
@@ -104,7 +104,7 @@ Returns a promise which resolves to an object representing the options, parsers,
 
 The support information looks like this:
 
-```typescript
+```ts
 {
   languages: Array<{
     name: string;

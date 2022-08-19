@@ -35,10 +35,12 @@ See below for examples.
 <script src="https://unpkg.com/prettier@2.7.1/standalone.js"></script>
 <script src="https://unpkg.com/prettier@2.7.1/parser-graphql.js"></script>
 <script>
-  prettier.format("type Query { hello: String }", {
-    parser: "graphql",
-    plugins: prettierPlugins,
-  });
+  (async () => {
+    const formatted = await prettier.format("type Query { hello: String }", {
+      parser: "graphql",
+      plugins: prettierPlugins,
+    });
+  })();
 </script>
 ```
 
@@ -51,7 +53,7 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
   import * as prettier from "https://unpkg.com/prettier@2.7.1/esm/standalone.mjs";
   import parserGraphql from "https://unpkg.com/prettier@2.7.1/esm/parser-graphql.mjs";
 
-  prettier.format("type Query { hello: String }", {
+  const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
     plugins: [parserGraphql],
   });
@@ -64,8 +66,8 @@ Note that the [`unpkg` field](https://unpkg.com/#examples) in Prettier’s `pack
 define([
   "https://unpkg.com/prettier@2.7.1/standalone.js",
   "https://unpkg.com/prettier@2.7.1/parser-graphql.js",
-], (prettier, ...plugins) => {
-  prettier.format("type Query { hello: String }", {
+], async (prettier, ...plugins) => {
+  const formatted = await prettier.format("type Query { hello: String }", {
     parser: "graphql",
     plugins,
   });
@@ -77,10 +79,12 @@ define([
 ```js
 const prettier = require("prettier/standalone");
 const plugins = [require("prettier/parser-graphql")];
-prettier.format("type Query { hello: String }", {
-  parser: "graphql",
-  plugins,
-});
+(async () => {
+  const formatted = await prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins,
+  });
+})();
 ```
 
 This syntax doesn’t necessarily work in the browser, but it can be used when bundling the code with browserify, Rollup, webpack, or another bundler.
@@ -90,10 +94,12 @@ This syntax doesn’t necessarily work in the browser, but it can be used when b
 ```js
 importScripts("https://unpkg.com/prettier@2.7.1/standalone.js");
 importScripts("https://unpkg.com/prettier@2.7.1/parser-graphql.js");
-prettier.format("type Query { hello: String }", {
-  parser: "graphql",
-  plugins: prettierPlugins,
-});
+(async () => {
+  const formatted = await prettier.format("type Query { hello: String }", {
+    parser: "graphql",
+    plugins: prettierPlugins,
+  });
+})();
 ```
 
 ## Parser plugins for embedded code
@@ -106,7 +112,7 @@ If you want to format [embedded code](options.md#embedded-language-formatting), 
   import parserBabel from "https://unpkg.com/prettier@2.7.1/esm/parser-babel.mjs";
 
   console.log(
-    prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
+    await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
       parser: "babel",
       plugins: [parserBabel],
     })
@@ -124,7 +130,7 @@ The HTML code embedded in JavaScript stays unformatted because the `html` parser
   import parserHtml from "https://unpkg.com/prettier@2.7.1/esm/parser-html.mjs";
 
   console.log(
-    prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
+    await prettier.format("const html=/* HTML */ `<DIV> </DIV>`", {
       parser: "babel",
       plugins: [parserBabel, parserHtml],
     })
