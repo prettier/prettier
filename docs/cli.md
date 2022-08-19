@@ -103,7 +103,7 @@ path/to/.prettierrc
 This will provide you with a path to the configuration file, which you can pass to `--config`:
 
 ```bash
-prettier path/to/file.js --write --config ./my/.prettierrc
+prettier path/to/file.js --write --config path/to/.prettierrc
 ```
 
 You can also use `--config` if your configuration file lives somewhere where Prettier cannot find it, such as a `config/` directory.
@@ -232,7 +232,7 @@ Path to the cache file location used by `--cache` flag. If you don't explicit `-
 If a file path is passed, that file is used as the cache file.
 
 ```bash
-prettier . --write --cache --cache-location=path/to/cache/file
+prettier . --write --cache --cache-location=path/to/cache-file
 ```
 
 ## `--cache-strategy`
