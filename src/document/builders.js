@@ -208,7 +208,7 @@ const softline = { type: DOC_TYPE_LINE, soft: true };
 const hardline = [hardlineWithoutBreakParent, breakParent];
 const literalline = [literallineWithoutBreakParent, breakParent];
 
-const cursor = { type: DOC_TYPE_CURSOR, placeholder: Symbol("cursor") };
+const cursor = { type: DOC_TYPE_CURSOR };
 
 /**
  * @param {Doc} sep

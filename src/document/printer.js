@@ -20,7 +20,6 @@ import {
 } from "./constants.js";
 import {
   fill,
-  cursor,
   indent,
   hardlineWithoutBreakParent,
 } from "./builders.js";
@@ -37,6 +36,8 @@ let groupModeMap;
 const MODE_BREAK = /** @type {const} */ (1);
 // prettier-ignore
 const MODE_FLAT = /** @type {const} */ (2);
+
+const CURSOR_PLACEHOLDER = Symbol("cursor")
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -309,7 +310,7 @@ function printDocToString(doc, options) {
       }
 
       case DOC_TYPE_CURSOR:
-        out.push(cursor.placeholder);
+        out.push(CURSOR_PLACEHOLDER);
         break;
 
       case DOC_TYPE_INDENT:
@@ -593,10 +594,10 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
+  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
   if (cursorPlaceholderIndex !== -1) {
     const otherCursorPlaceholderIndex = out.indexOf(
-      cursor.placeholder,
+      CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1
     );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
