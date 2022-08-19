@@ -410,18 +410,18 @@ Returns whether or not the AST node is a block comment.
 The `handleComments` object contains three optional functions, each with signature
 
 ```ts
-function(
-	// The AST node corresponding to the comment
-	comment: AST,
-	// The full source code text
-	text: string,
-	// The global options object
-	options: object,
-	// The AST
-	ast: AST,
-	// Whether this comment is the last comment
-	isLastComment: boolean
-): boolean
+(
+  // The AST node corresponding to the comment
+  comment: AST,
+  // The full source code text
+  text: string,
+  // The global options object
+  options: object,
+  // The AST
+  ast: AST,
+  // Whether this comment is the last comment
+  isLastComment: boolean
+) => boolean;
 ```
 
 These functions are used to override Prettier's default comment attachment algorithm. `ownLine`/`endOfLine`/`remaining` is expected to either manually attach a comment to a node and return `true`, or return `false` and let Prettier attach the comment.
