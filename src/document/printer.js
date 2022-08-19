@@ -34,9 +34,9 @@ import InvalidDocError from "./invalid-doc-error.js";
 let groupModeMap;
 
 // prettier-ignore
-const MODE_BREAK = /** @type {const} */ (1);
+const MODE_BREAK = /** @type {const} */ (Symbol("MODE_BREAK"));
 // prettier-ignore
-const MODE_FLAT = /** @type {const} */ (2);
+const MODE_FLAT = /** @type {const} */ (Symbol("MODE_FLAT"));
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
