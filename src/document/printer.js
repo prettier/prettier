@@ -147,26 +147,27 @@ function generateInd(ind, newPart, options) {
   }
 }
 
+// TODO: Skip cursor placeholder
+// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
 function trim(out) {
-  if (out.length === 0) {
-    return 0;
-  }
-
   let trimCount = 0;
 
-  // Trim whitespace at the end of line
-  while (
-    out.length > 0 &&
-    typeof getLast(out) === "string" &&
-    /^[\t ]*$/.test(getLast(out))
-  ) {
-    trimCount += out.pop().length;
-  }
+  while (out.length > 0) {
+    const last = getLast(out);
+    if (typeof last !== "string") {
+      break;
+    }
 
-  if (out.length > 0 && typeof getLast(out) === "string") {
-    const trimmed = getLast(out).replace(/[\t ]*$/, "");
-    trimCount += getLast(out).length - trimmed.length;
-    out[out.length - 1] = trimmed;
+    const trimmed = last.replace(/[\t ]*$/, "");
+    trimCount += last.length - trimmed.length;
+
+    if (trimmed !== "") {
+      out[out.length - 1] = trimmed;
+      break;
+    }
+
+    // All `Tab` or `Space`
+    out.length -= 1;
   }
 
   return trimCount;
