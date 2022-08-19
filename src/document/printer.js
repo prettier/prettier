@@ -29,9 +29,7 @@ import InvalidDocError from "./invalid-doc-error.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
-
-/** @type {Record<symbol, Mode>} */
-let groupModeMap;
+/** @typedef {Record<symbol, Mode>} GroupModeMap */
 
 // prettier-ignore
 const MODE_BREAK = /** @type {const} */ (1);
@@ -177,10 +175,18 @@ function trim(out) {
  * @param {Command[]} restCommands
  * @param {number} width
  * @param {boolean} hasLineSuffix
+ * @param {GroupModeMap} groupModeMap
  * @param {boolean} [mustBeFlat]
  * @returns {boolean}
  */
-function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
+function fits(
+  next,
+  restCommands,
+  width,
+  hasLineSuffix,
+  groupModeMap,
+  mustBeFlat
+) {
   let restIdx = restCommands.length;
   /** @type {Array<Omit<Command, 'ind'>>} */
   const cmds = [next];
@@ -276,7 +282,8 @@ function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
 }
 
 function printDocToString(doc, options) {
-  groupModeMap = {};
+  /** @type GroupModeMap */
+  const groupModeMap = {};
 
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
@@ -349,7 +356,10 @@ function printDocToString(doc, options) {
             const rem = width - pos;
             const hasLineSuffix = lineSuffix.length > 0;
 
-            if (!doc.break && fits(next, cmds, rem, hasLineSuffix)) {
+            if (
+              !doc.break &&
+              fits(next, cmds, rem, hasLineSuffix, groupModeMap)
+            ) {
               cmds.push(next);
             } else {
               // Expanded states are a rare case where a document
@@ -376,7 +386,7 @@ function printDocToString(doc, options) {
                       const state = doc.expandedStates[i];
                       const cmd = { ind, mode: MODE_FLAT, doc: state };
 
-                      if (fits(cmd, cmds, rem, hasLineSuffix)) {
+                      if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
                         cmds.push(cmd);
 
                         break;
@@ -433,6 +443,7 @@ function printDocToString(doc, options) {
           [],
           rem,
           lineSuffix.length > 0,
+          groupModeMap,
           true
         );
 
@@ -477,6 +488,7 @@ function printDocToString(doc, options) {
           [],
           rem,
           lineSuffix.length > 0,
+          groupModeMap,
           true
         );
 
