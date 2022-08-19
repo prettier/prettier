@@ -319,7 +319,7 @@ function cleanDocFn(doc) {
       }
       break;
     case DOC_TYPE_ARRAY: {
-      // Flag array, concat strings
+      // Flat array, concat strings
       const parts = [];
       for (const part of doc) {
         if (!part) {
