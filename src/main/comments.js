@@ -34,11 +34,6 @@ function getSortedChildNodes(node, options) {
     printer: { getCommentChildNodes, canAttachComment },
   } = options;
 
-  // Remove this check when we stop using this function in `./range-utils.js`
-  if (!canAttachComment) {
-    return [];
-  }
-
   const childNodes = (
     getCommentChildNodes?.(node, options) ?? getChildNodes(node, options)
   ).flatMap((childNode) => canAttachComment(childNode)
