@@ -1,11 +1,7 @@
-function createLocationCompareFunction( options) {
-  const {locStart, locEnd} = options;
-
+function createLocationCompareFunction(locStart, locEnd) {
   // Sort by `start` location first, then `end` location
-  return (
-    (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
-  );
+  return (nodeA, nodeB) =>
+    locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB);
 }
 
-export default createLocationCompareFunction
+export default createLocationCompareFunction;

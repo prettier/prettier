@@ -1,5 +1,4 @@
-import getChildNodes from "./get-child-nodes.js"
-import createLocationCompareFunction from "./create-location-compare-function.js"
+import getChildNodes from "./get-child-nodes.js";
 
 const cache = new WeakMap();
 function getSortedChildNodes(node, options) {
@@ -7,14 +6,12 @@ function getSortedChildNodes(node, options) {
     return cache.get(node);
   }
 
-  const childNodes = getChildNodes(node, options)
-
-  options.locationCompareFunction ??=
-    createLocationCompareFunction(options)
-  childNodes.sort(options.locationCompareFunction);
+  const childNodes = getChildNodes(node, options).sort(
+    options.locationCompareFunction
+  );
 
   cache.set(node, childNodes);
-  return childNodes
+  return childNodes;
 }
 
-export default getSortedChildNodes
+export default getSortedChildNodes;
