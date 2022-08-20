@@ -102,14 +102,6 @@ function normalize(options, opts = {}) {
     rawOptions.trailingComma = "none";
   }
 
-  console.log({
-    rawOptions,
-    o: normalizeApiOptions(rawOptions, supportOptions, {
-      passThrough: Object.keys(hiddenDefaults),
-      ...opts,
-    }),
-  });
-
   return normalizeApiOptions(rawOptions, supportOptions, {
     passThrough: Object.keys(hiddenDefaults),
     ...opts,
