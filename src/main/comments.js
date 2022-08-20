@@ -18,7 +18,7 @@ import {
   addTrailingComment,
   isNonEmptyArray,
 } from "../common/util.js";
-import { getChildNodes, createLocationCompareFunction } from "./ast/index.js";
+import { getChildNodes } from "./ast/index.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options) {
@@ -28,7 +28,7 @@ function getSortedChildNodes(node, options) {
 
   const {
     printer: { getCommentChildNodes, canAttachComment },
-    locationCompareFunction,
+    locationComparator,
   } = options;
 
   const childNodes = (
@@ -39,7 +39,7 @@ function getSortedChildNodes(node, options) {
       : getSortedChildNodes(childNode, options)
   );
 
-  childNodes.sort(locationCompareFunction);
+  childNodes.sort(locationComparator);
 
   childNodesCache.set(node, childNodes);
   return childNodes;

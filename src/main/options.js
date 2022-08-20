@@ -3,18 +3,20 @@ import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import {
   createGetVisitorKeysFunction,
-  createLocationCompareFunction,
+  createLocationComparator,
 } from "../main/ast/index.js";
 import getInterpreter from "../utils/get-interpreter.js";
 import { normalizeApiOptions } from "./options-normalizer.js";
 import { resolveParser } from "./parser.js";
 
 const hiddenDefaults = {
-  astFormat: "estree",
-  printer: {},
+  astFormat: undefined,
+  printer: undefined,
   originalText: undefined,
-  locStart: null,
-  locEnd: null,
+  locStart: undefined,
+  locEnd: undefined,
+  getVisitorKeys: undefined,
+  locationComparator: undefined,
 };
 
 // Copy options and fill in default values.
@@ -66,7 +68,7 @@ function normalize(options, opts = {}) {
   rawOptions.astFormat = astFormat;
   rawOptions.locStart = locStart;
   rawOptions.locEnd = locEnd;
-  rawOptions.locationCompareFunction = createLocationCompareFunction(
+  rawOptions.locationComparator = createLocationCompareFunction(
     locStart,
     locEnd
   );
@@ -102,6 +104,14 @@ function normalize(options, opts = {}) {
   if (rawOptions.parser === "json") {
     rawOptions.trailingComma = "none";
   }
+
+  console.log({
+    rawOptions,
+    o: normalizeApiOptions(rawOptions, supportOptions, {
+      passThrough: Object.keys(hiddenDefaults),
+      ...opts,
+    }),
+  });
 
   return normalizeApiOptions(rawOptions, supportOptions, {
     passThrough: Object.keys(hiddenDefaults),

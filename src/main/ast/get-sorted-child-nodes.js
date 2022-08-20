@@ -7,7 +7,7 @@ function getSortedChildNodes(node, options) {
   }
 
   const childNodes = getChildNodes(node, options).sort(
-    options.locationCompareFunction
+    options.locationComparator
   );
 
   cache.set(node, childNodes);
