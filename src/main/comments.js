@@ -8,7 +8,6 @@ import {
   join,
   cursor,
 } from "../document/builders.js";
-import isObject from "../../utils/is-object.js"
 import {
   hasNewline,
   skipNewline,
