@@ -142,7 +142,16 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
 async function formatRange(originalText, opts) {
   const { ast, text } = await parse(originalText, opts);
-  const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
+
+  // If plugins don't support range format, we use `[0, 0]` as range
+  // We should just skip format, this need be fixed
+  let rangeStart = 0;
+  let rangeEnd = 0;
+  try {
+    ({ rangeStart, rangeEnd } = calculateRange(text, opts, ast));
+  } catch {
+    // Noop
+  }
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
