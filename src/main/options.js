@@ -68,10 +68,7 @@ function normalize(options, opts = {}) {
   rawOptions.astFormat = astFormat;
   rawOptions.locStart = locStart;
   rawOptions.locEnd = locEnd;
-  rawOptions.locationComparator = createLocationCompareFunction(
-    locStart,
-    locEnd
-  );
+  rawOptions.locationComparator = createLocationComparator(locStart, locEnd);
 
   const plugin = getPlugin(rawOptions);
   const printer = plugin.printers[rawOptions.astFormat];
