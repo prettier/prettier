@@ -2142,15 +2142,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"builtins@npm:^4.0.0":
-  version: 4.1.0
-  resolution: "builtins@npm:4.1.0"
-  dependencies:
-    semver: ^7.0.0
-  checksum: 3524f5a5898c3f77a73fee2e0046e676abbb0acc18db1e495676ee07fbef1537134b0e9c4da525f4cb12ba3cd1b430a26c373d32b59b80a5c048f8ace31b595f
-  languageName: node
-  linkType: hard
-
 "builtins@npm:^5.0.1":
   version: 5.0.1
   resolution: "builtins@npm:5.0.1"
@@ -3635,13 +3626,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-utils@npm:4.0.0":
-  version: 4.0.0
-  resolution: "esm-utils@npm:4.0.0"
+"esm-utils@npm:4.1.0":
+  version: 4.1.0
+  resolution: "esm-utils@npm:4.1.0"
   dependencies:
-    import-meta-resolve: 1.1.1
+    import-meta-resolve: 2.1.0
     url-or-path: 2.1.0
-  checksum: 17560812035a50017b39bfffc39b7666baa751d43295cbe46ce290c19fec2246672fa61f507e328b32b38c9936a2d9d068c5bbf4bc96231d576cb53975af3a30
+  checksum: 9574a599b7f4a8eaae49db3fb77987cb37f51bbcf18d0768748aa5667b429f2c972064df961db2c2be91a0879db96183e4118bd3a147f4480850f920270046fa
   languageName: node
   linkType: hard
 
@@ -4481,15 +4472,6 @@ __metadata:
   bin:
     import-local-fixture: fixtures/cli.js
   checksum: bfcdb63b5e3c0e245e347f3107564035b128a414c4da1172a20dc67db2504e05ede4ac2eee1252359f78b0bfd7b19ef180aec427c2fce6493ae782d73a04cddd
-  languageName: node
-  linkType: hard
-
-"import-meta-resolve@npm:1.1.1":
-  version: 1.1.1
-  resolution: "import-meta-resolve@npm:1.1.1"
-  dependencies:
-    builtins: ^4.0.0
-  checksum: 2024161e169c45ed25a9f51d984a432a9cc342c35737f9410266bab237ca2f756c1f80c15e2297df83c92f585743d5105291f2ad24094a513f804c6023ea1472
   languageName: node
   linkType: hard
 
@@ -6913,7 +6895,7 @@ __metadata:
     eslint-plugin-react: 7.30.1
     eslint-plugin-regexp: 1.8.0
     eslint-plugin-unicorn: 43.0.2
-    esm-utils: 4.0.0
+    esm-utils: 4.1.0
     espree: 9.3.3
     esutils: 2.0.3
     execa: 6.1.0
