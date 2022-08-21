@@ -3977,10 +3977,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.184.0":
-  version: 0.184.0
-  resolution: "flow-parser@npm:0.184.0"
-  checksum: b2eadfaaca5be4a59df06bc298435fbab6f25c4d4cf494df1e03e7785470807261c13fbc5e3f4b0e09f5d0def14a3d12d20e5b32866886dbc9d741dda732146e
+"flow-parser@npm:0.185.1":
+  version: 0.185.1
+  resolution: "flow-parser@npm:0.185.1"
+  checksum: 514f7ac9346178162433baf9dbfd1c3d4a4c884a4efbda0e26afe2fa76e56ddf21c87a3773894c5d082e2ee97c8e365ea0863f3892e5e4d9b8e79df29afd28c9
   languageName: node
   linkType: hard
 
@@ -6940,7 +6940,7 @@ __metadata:
     file-entry-cache: 6.0.1
     find-cache-dir: 3.3.2
     find-parent-dir: 0.3.1
-    flow-parser: 0.184.0
+    flow-parser: 0.185.1
     get-stdin: 9.0.0
     graphql: 16.6.0
     html-element-attributes: 3.1.0
