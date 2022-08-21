@@ -24,8 +24,6 @@ const options = {
       },
     ],
   },
-  bracketSameLine: commonOptions.bracketSameLine,
-  bracketSpacing: commonOptions.bracketSpacing,
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,
@@ -42,7 +40,6 @@ const options = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
-  singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
     since: "1.15.0",
     category: CATEGORY_JAVASCRIPT,
