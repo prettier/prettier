@@ -50,7 +50,6 @@ function printCallArguments(path, options, print) {
   }
 
   let anyArgEmptyLine = false;
-  let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, (argPath, index) => {
@@ -60,10 +59,6 @@ function printCallArguments(path, options, print) {
     if (index === lastArgIndex) {
       // do nothing
     } else if (isNextLineEmpty(arg, options)) {
-      if (index === 0) {
-        hasEmptyLineFollowingFirstArg = true;
-      }
-
       anyArgEmptyLine = true;
       parts.push(",", hardline, hardline);
     } else {
@@ -95,40 +90,15 @@ function printCallArguments(path, options, print) {
     return allArgsBrokenOut();
   }
 
-  const shouldGroupFirst = shouldGroupFirstArg(args);
-  const shouldGroupLast = shouldGroupLastArg(args, options);
-  if (shouldGroupFirst || shouldGroupLast) {
-    if (
-      shouldGroupFirst
-        ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak)
-    ) {
+  if (shouldGroupFirstArg(args)) {
+    const tailArgs = printedArguments.slice(1);
+    if (tailArgs.some(willBreak)) {
       return allArgsBrokenOut();
     }
-
-    // We want to print the last argument with a special flag
-    let printedExpanded = [];
-
+    let firstArg;
+    const firstArgSelector = isDynamicImport ? "source" : ["arguments", 0];
     try {
-      iterateCallArgumentsPath(path, (argPath, i) => {
-        if (shouldGroupFirst && i === 0) {
-          printedExpanded = [
-            [
-              print([], { expandFirstArg: true }),
-              printedArguments.length > 1 ? "," : "",
-              hasEmptyLineFollowingFirstArg ? hardline : line,
-              hasEmptyLineFollowingFirstArg ? hardline : "",
-            ],
-            ...printedArguments.slice(1),
-          ];
-        }
-        if (shouldGroupLast && i === lastArgIndex) {
-          printedExpanded = [
-            ...printedArguments.slice(0, -1),
-            print([], { expandLastArg: true }),
-          ];
-        }
-      });
+      firstArg = [print(firstArgSelector, { expandFirstArg: true }), ",", line];
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
@@ -137,26 +107,48 @@ function printCallArguments(path, options, print) {
       throw caught;
     }
 
-    return [
-      printedArguments.some(willBreak) ? breakParent : "",
-      conditionalGroup([
-        ["(", ...printedExpanded, ")"],
-        shouldGroupFirst
-          ? [
-              "(",
-              group(printedExpanded[0], { shouldBreak: true }),
-              ...printedExpanded.slice(1),
-              ")",
-            ]
-          : [
-              "(",
-              ...printedArguments.slice(0, -1),
-              group(getLast(printedExpanded), { shouldBreak: true }),
-              ")",
-            ],
-        allArgsBrokenOut(),
-      ]),
-    ];
+    return conditionalGroup([
+      ["(", firstArg, ...tailArgs, ")"],
+      allArgsBrokenOut(),
+    ]);
+  }
+
+  if (shouldGroupLastArg(args, options)) {
+    const headArgs = printedArguments.slice(0, -1);
+    if (headArgs.some(willBreak)) {
+      return allArgsBrokenOut();
+    }
+    let lastArg;
+    const lastArgSelector = isDynamicImport
+      ? node.attributes
+        ? "attributes"
+        : "source"
+      : ["arguments", lastArgIndex];
+    try {
+      lastArg = print(lastArgSelector, { expandLastArg: true });
+    } catch (caught) {
+      if (caught instanceof ArgExpansionBailout) {
+        return allArgsBrokenOut();
+      }
+      /* istanbul ignore next */
+      throw caught;
+    }
+
+    if (willBreak(getLast(printedArguments))) {
+      return [
+        breakParent,
+        conditionalGroup([
+          ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
+          allArgsBrokenOut(),
+        ]),
+      ];
+    }
+
+    return conditionalGroup([
+      ["(", ...headArgs, lastArg, ")"],
+      ["(", ...headArgs, group(lastArg, { shouldBreak: true }), ")"],
+      allArgsBrokenOut(),
+    ]);
   }
 
   const contents = [
