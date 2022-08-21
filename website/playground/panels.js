@@ -68,6 +68,14 @@ class CodeMirrorPanel extends React.Component {
     if (this.props.ruler !== prevProps.ruler) {
       this._codeMirror.setOption("rulers", [makeRuler(this.props)]);
     }
+    if (this.props.foldGutter !== prevProps.foldGutter) {
+      this._codeMirror.setOption(
+        "gutters",
+        this.props.foldGutter
+          ? ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+          : []
+      );
+    }
   }
 
   updateValue(value) {

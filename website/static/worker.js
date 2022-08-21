@@ -141,8 +141,8 @@ async function handleFormatMessage(message) {
 
   if (message.debug.doc) {
     try {
-      response.debug.doc = prettier.__debug.formatDoc(
-        prettier.__debug.printToDoc(message.code, options),
+      response.debug.doc = await prettier.__debug.formatDoc(
+        await prettier.__debug.printToDoc(message.code, options),
         { plugins }
       );
     } catch {
