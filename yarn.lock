@@ -2768,10 +2768,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-units-list@npm:1.1.0":
-  version: 1.1.0
-  resolution: "css-units-list@npm:1.1.0"
-  checksum: e6eef81f57fa1c00fd9e8e99863724aeb17b5e505a27f65a9cc8698bb61c2b0f78cd1ef0a4590a046c201606aefaacb3b90dd8f1e577eadb73aa30b47716bdab
+"css-units-list@npm:2.0.1":
+  version: 2.0.1
+  resolution: "css-units-list@npm:2.0.1"
+  checksum: 584c5fd4e2915042f5348ebfbf49dff79d9b3fab495e29e8576a9fe3a6f5cfd42e278f5d9a64cf7c10de8d05082202ad00b26b1f65b72f76c05643214ba06eb8
   languageName: node
   linkType: hard
 
@@ -6911,7 +6911,7 @@ __metadata:
     cosmiconfig: 7.0.1
     cross-env: 7.0.3
     cspell: 6.7.0
-    css-units-list: 1.1.0
+    css-units-list: 2.0.1
     dashify: 2.0.0
     diff: 5.1.0
     editorconfig: 0.15.3
