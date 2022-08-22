@@ -58,6 +58,7 @@ const logOverride = Object.fromEntries(
 );
 
 export default function esbuildPluginThrowWarnings({
+  target,
   allowDynamicRequire,
   allowDynamicImport,
 }) {
@@ -86,8 +87,10 @@ export default function esbuildPluginThrowWarnings({
           }
 
           if (
-            allowDynamicImport &&
-            warning.id === "unsupported-dynamic-import"
+            warning.id === "unsupported-dynamic-import" &&
+            (allowDynamicImport ||
+              (target === "universal" &&
+                warning.location.file.startsWith("src/utils/")))
           ) {
             continue;
           }

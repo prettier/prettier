@@ -184,7 +184,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     metafile: true,
     plugins: [
       esbuildPluginEvaluate(),
-      esbuildPluginStripNodeProtocol(),
+      esbuildPluginStripNodeProtocol({ target: bundle.target }),
       esbuildPluginReplaceModule({
         replacements: [...replaceModule, ...(bundle.replaceModule ?? [])],
       }),
@@ -200,6 +200,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       buildOptions.reports &&
         esbuildPluginVisualizer({ formats: buildOptions.reports }),
       esbuildPluginThrowWarnings({
+        target: bundle.target,
         allowDynamicRequire: bundle.target === "node",
         allowDynamicImport: bundle.target === "node",
       }),
