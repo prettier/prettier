@@ -297,6 +297,7 @@ function printDocToString(doc, options) {
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
+  let printedCursorCount = 0;
 
   while (cmds.length > 0) {
     const { ind, mode, doc } = cmds.pop();
@@ -316,7 +317,11 @@ function printDocToString(doc, options) {
       }
 
       case DOC_TYPE_CURSOR:
+        if (printedCursorCount >= 2) {
+          throw new Error("There are too many 'cursor' in doc.");
+        }
         out.push(cursor.placeholder);
+        printedCursorCount++;
         break;
 
       case DOC_TYPE_INDENT:
