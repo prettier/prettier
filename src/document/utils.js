@@ -137,16 +137,16 @@ function mapDoc(doc, cb) {
         return cb({ ...doc, contents, expandedStates });
       }
 
-      case DOC_TYPE_INDENT:
       case DOC_TYPE_ALIGN:
+      case DOC_TYPE_INDENT:
       case DOC_TYPE_INDENT_IF_BREAK:
       case DOC_TYPE_LABEL:
+      case DOC_TYPE_LINE_SUFFIX:
         return cb({ ...doc, contents: rec(doc.contents) });
 
       case DOC_TYPE_STRING:
       case DOC_TYPE_CURSOR:
       case DOC_TYPE_TRIM:
-      case DOC_TYPE_LINE_SUFFIX:
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
       case DOC_TYPE_LINE:
       case DOC_TYPE_BREAK_PARENT:
