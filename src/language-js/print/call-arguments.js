@@ -91,7 +91,7 @@ function printCallArguments(path, options, print) {
     return allArgsBrokenOut();
   }
 
-  if (shouldGroupFirstArg(args)) {
+  if (shouldExpandFirstArg(args)) {
     const tailArgs = printedArguments.slice(1);
     if (tailArgs.some(willBreak)) {
       return allArgsBrokenOut();
@@ -126,7 +126,7 @@ function printCallArguments(path, options, print) {
     ]);
   }
 
-  if (shouldGroupLastArg(args, options)) {
+  if (shouldExpandLastArg(args, options)) {
     const headArgs = printedArguments.slice(0, -1);
     if (headArgs.some(willBreak)) {
       return allArgsBrokenOut();
@@ -179,14 +179,14 @@ function printCallArguments(path, options, print) {
   });
 }
 
-function couldGroupArg(arg, arrowChainRecursion = false) {
+function couldExpandArg(arg, arrowChainRecursion = false) {
   return (
     (arg.type === "ObjectExpression" &&
       (arg.properties.length > 0 || hasComment(arg))) ||
     (arg.type === "ArrayExpression" &&
       (arg.elements.length > 0 || hasComment(arg))) ||
-    (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
-    (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
+    (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
+    (arg.type === "TSAsExpression" && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
@@ -207,7 +207,7 @@ function couldGroupArg(arg, arrowChainRecursion = false) {
         isNonEmptyBlockStatement(arg.body)) &&
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
-          couldGroupArg(arg.body, true)) ||
+          couldExpandArg(arg.body, true)) ||
         arg.body.type === "ObjectExpression" ||
         arg.body.type === "ArrayExpression" ||
         (!arrowChainRecursion &&
@@ -219,13 +219,13 @@ function couldGroupArg(arg, arrowChainRecursion = false) {
   );
 }
 
-function shouldGroupLastArg(args, options) {
+function shouldExpandLastArg(args, options) {
   const lastArg = getLast(args);
   const penultimateArg = getPenultimate(args);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&
     !hasComment(lastArg, CommentCheckFlags.Trailing) &&
-    couldGroupArg(lastArg) &&
+    couldExpandArg(lastArg) &&
     // If the last two arguments are of the same type,
     // disable last element expansion.
     (!penultimateArg || penultimateArg.type !== lastArg.type) &&
@@ -241,7 +241,7 @@ function shouldGroupLastArg(args, options) {
   );
 }
 
-function shouldGroupFirstArg(args) {
+function shouldExpandFirstArg(args) {
   if (args.length !== 2) {
     return false;
   }
@@ -263,7 +263,7 @@ function shouldGroupFirstArg(args) {
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
-    !couldGroupArg(secondArg)
+    !couldExpandArg(secondArg)
   );
 }
 
