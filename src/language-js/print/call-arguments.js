@@ -264,7 +264,7 @@ function shouldExpandFirstArg(args) {
     // A hack to fix most manifestations of
     // https://github.com/prettier/prettier/issues/2456
     // https://github.com/prettier/prettier/issues/5172
-    // A proper fix for those would require a complex change in the doc printer.
+    // A proper (printWidth-aware) fix for those would require a complex change in the doc printer.
     !secondArg?.left?.left &&
     !couldExpandArg(secondArg)
   );
