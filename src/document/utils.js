@@ -140,10 +140,8 @@ function mapDoc(doc, cb) {
       case DOC_TYPE_INDENT:
       case DOC_TYPE_ALIGN:
       case DOC_TYPE_INDENT_IF_BREAK:
-      case DOC_TYPE_LABEL: {
-        const contents = rec(doc.contents);
-        return cb({ ...doc, contents });
-      }
+      case DOC_TYPE_LABEL:
+        return cb({ ...doc, contents: rec(doc.contents) });
 
       case DOC_TYPE_STRING:
       case DOC_TYPE_CURSOR:
