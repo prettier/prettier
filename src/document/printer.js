@@ -31,10 +31,10 @@ import InvalidDocError from "./invalid-doc-error.js";
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
 /** @typedef {Record<symbol, Mode>} GroupModeMap */
 
-// prettier-ignore
-const MODE_BREAK = /** @type {const} */ (1);
-// prettier-ignore
-const MODE_FLAT = /** @type {const} */ (2);
+/** @type {unique symbol} */
+const MODE_BREAK = Symbol("MODE_BREAK");
+/** @type {unique symbol} */
+const MODE_FLAT = Symbol("MODE_FLAT");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
