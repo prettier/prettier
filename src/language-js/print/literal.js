@@ -14,7 +14,7 @@ function printLiteral(path, options /*, print*/) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
-      return printIndentableString(printString(node.extra.raw, options));
+      return replaceTextEndOfLine(printString(node.extra.raw, options));
     case "NullLiteral": // Babel 6 Literal split
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
@@ -41,20 +41,12 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        return printIndentableString(printString(node.raw, options));
+        return replaceTextEndOfLine(printString(node.raw, options));
       }
 
       return String(value);
     }
   }
-}
-
-function printIndentableString(str) {
-  if (str?.includes("\n")) {
-    return [replaceTextEndOfLine(str)];
-  }
-
-  return str;
 }
 
 function printBigInt(raw) {
