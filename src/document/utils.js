@@ -120,8 +120,9 @@ function mapDoc(doc, cb) {
         return cb({ ...doc, parts: doc.parts.map(rec) });
 
       case DOC_TYPE_IF_BREAK: {
-        const breakContents = doc.breakContents && rec(doc.breakContents);
-        const flatContents = doc.flatContents && rec(doc.flatContents);
+        let { breakContents, flatContents } = doc;
+        breakContents = breakContents && rec(breakContents);
+        flatContents = flatContents && rec(flatContents);
         return cb({ ...doc, breakContents, flatContents });
       }
 
@@ -151,7 +152,7 @@ function mapDoc(doc, cb) {
       case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
       case DOC_TYPE_LINE:
       case DOC_TYPE_BREAK_PARENT:
-        return doc;
+        return cb(doc);
 
       default:
         throw new InvalidDocError(doc);
