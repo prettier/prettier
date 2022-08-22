@@ -18,12 +18,7 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import {
-  fill,
-  cursor,
-  indent,
-  hardlineWithoutBreakParent,
-} from "./builders.js";
+import { cursor, indent, hardlineWithoutBreakParent } from "./builders.js";
 import { getDocParts, getDocType } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
@@ -35,6 +30,8 @@ import InvalidDocError from "./invalid-doc-error.js";
 const MODE_BREAK = Symbol("MODE_BREAK");
 /** @type {unique symbol} */
 const MODE_FLAT = Symbol("MODE_FLAT");
+
+const DOC_FILL_IS_MUTABLE = Symbol("DOC_FILL_IS_MUTABLE");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -468,15 +465,24 @@ function printDocToString(doc, options) {
           break;
         }
 
-        // At this point we've handled the first pair (context, separator)
-        // and will create a new fill doc for the rest of the content.
-        // Ideally we wouldn't mutate the array here but copying all the
-        // elements to a new array would make this algorithm quadratic,
-        // which is unusable for large arrays (e.g. large texts in JSX).
-        parts.splice(0, 2);
-        const remainingCmd = { ind, mode, doc: fill(parts) };
+        const secondContent = parts[2];
 
-        const secondContent = parts[0];
+        // At this point we've handled the first pair (context, separator)
+        // and will create a new *mutable* fill doc for the rest of the content.
+        // Copying all the elements to a new array would make this algorithm quadratic,
+        // which is unusable for large arrays (e.g. large texts in JSX).
+        // https://github.com/prettier/prettier/issues/3263#issuecomment-344275152
+        let remainingDoc = doc;
+        if (doc[DOC_FILL_IS_MUTABLE]) {
+          parts.splice(0, 2);
+        } else {
+          remainingDoc = {
+            ...doc,
+            parts: parts.slice(2),
+            [DOC_FILL_IS_MUTABLE]: true,
+          };
+        }
+        const remainingCmd = { ind, mode, doc: remainingDoc };
 
         const firstAndSecondContentFlatCmd = {
           ind,
