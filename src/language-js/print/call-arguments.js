@@ -109,6 +109,16 @@ function printCallArguments(path, options, print) {
       throw caught;
     }
 
+    if (willBreak(firstArg)) {
+      return [
+        breakParent,
+        conditionalGroup([
+          ["(", group(firstArg, { shouldBreak: true }), ", ", ...tailArgs, ")"],
+          allArgsBrokenOut(),
+        ]),
+      ];
+    }
+
     return conditionalGroup([
       ["(", firstArg, ", ", ...tailArgs, ")"],
       ["(", group(firstArg, { shouldBreak: true }), ", ", ...tailArgs, ")"],
@@ -134,7 +144,7 @@ function printCallArguments(path, options, print) {
       throw caught;
     }
 
-    if (willBreak(getLast(printedArguments))) {
+    if (willBreak(lastArg)) {
       return [
         breakParent,
         conditionalGroup([
