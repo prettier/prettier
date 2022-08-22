@@ -1,4 +1,4 @@
-import getLast from "../utils/get-last.js";
+import { getLast } from "../utils/index.js";
 import {
   DOC_TYPE_STRING,
   DOC_TYPE_ARRAY,

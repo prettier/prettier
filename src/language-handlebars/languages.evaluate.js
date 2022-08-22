@@ -1,5 +1,5 @@
 import linguistLanguages from "linguist-languages";
-import createLanguage from "../utils/create-language.js";
+import { createLanguage } from "../utils/index.js";
 
 const languages = [
   createLanguage(linguistLanguages.Handlebars, () => ({

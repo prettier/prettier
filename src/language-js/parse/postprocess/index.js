@@ -1,7 +1,7 @@
 import { locStart, locEnd } from "../../loc.js";
 import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
-import getLast from "../../../utils/get-last.js";
+import { getLast } from "../../../utils/index.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
 import throwSyntaxError from "./throw-syntax-error.js";

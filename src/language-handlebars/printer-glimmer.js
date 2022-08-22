@@ -11,7 +11,7 @@ import {
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import { createGetVisitorKeys } from "../utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {

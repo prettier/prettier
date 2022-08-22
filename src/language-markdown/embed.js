@@ -4,7 +4,7 @@ import {
 } from "../common/util.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import { printFrontMatter } from "../utils/index.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
 function embed(path, options) {

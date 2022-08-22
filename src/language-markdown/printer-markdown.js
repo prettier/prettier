@@ -22,7 +22,7 @@ import {
 } from "../document/builders.js";
 import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import { createGetVisitorKeys } from "../utils/index.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";

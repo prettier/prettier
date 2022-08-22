@@ -1,4 +1,4 @@
-import getLast from "../utils/get-last.js";
+import { getLast } from "../utils/index.js";
 
 function getNodeHelper(path, count) {
   const stackIndex = getNodeStackIndexHelper(path.stack, count);

@@ -1,7 +1,7 @@
 import path from "node:path";
 import micromatch from "micromatch";
 import mem, { memClear } from "mem";
-import partition from "../utils/partition.js";
+import { partition } from "../utils/index.js";
 import loadEditorConfigWithoutCache from "./resolve-editorconfig.js";
 import getPrettierConfigExplorerWithoutCache from "./get-prettier-config-explorer.js";
 

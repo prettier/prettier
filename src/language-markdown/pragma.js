@@ -1,4 +1,4 @@
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../utils/index.js";
 
 const pragmas = ["format", "prettier"];
 

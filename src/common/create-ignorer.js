@@ -1,6 +1,6 @@
 import path from "node:path";
 import ignore from "ignore";
-import readFile from "../utils/read-file.js";
+import { readFile } from "../utils/index.js";
 
 /**
  * @param {string?} ignoreFilePath

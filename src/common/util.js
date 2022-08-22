@@ -5,11 +5,11 @@ import {
   skipSpaces,
   skipToLineEnd,
   skipEverythingButNewLine,
-} from "../utils/text/skip.js";
-import skipInlineComment from "../utils/text/skip-inline-comment.js";
-import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
-import skipNewline from "../utils/text/skip-newline.js";
-import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
+  skipInlineComment,
+  skipTrailingComment,
+  skipNewline,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+} from "../utils/index.js";
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -508,6 +508,4 @@ export {
   isFrontMatterNode,
   createGroupIdMapper,
 };
-export { default as getLast } from "../utils/get-last.js";
-export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
-export { default as getStringWidth } from "../utils/get-string-width.js";
+export { getLast, isNonEmptyArray, getStringWidth } from "../utils/index.js";

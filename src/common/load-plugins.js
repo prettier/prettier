@@ -3,8 +3,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
-import partition from "../utils/partition.js";
-import importFromDirectory from "../utils/import-from-directory.js";
+import { partition, importFromDirectory } from "../utils/index.js";
 import thirdParty from "./third-party.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

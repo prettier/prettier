@@ -8,7 +8,7 @@ import {
   ifBreak,
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import { createGetVisitorKeys } from "../utils/index.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";

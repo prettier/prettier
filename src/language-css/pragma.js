@@ -2,7 +2,7 @@ import {
   hasPragma as jsHasPragma,
   insertPragma as jsInsertPragma,
 } from "../language-js/pragma.js";
-import parseFrontMatter from "../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../utils/index.js";
 
 function hasPragma(text) {
   return jsHasPragma(parseFrontMatter(text).content);

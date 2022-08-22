@@ -1,7 +1,7 @@
 import semverCompare from "semver/functions/compare.js";
 import semverGte from "semver/functions/gte.js";
 import semverLt from "semver/functions/lt.js";
-import arrayify from "../utils/arrayify.js";
+import { arrayify } from "../utils/index.js";
 import { options as coreOptions } from "./core-options.js";
 import currentVersion from "./version.evaluate.js";
 

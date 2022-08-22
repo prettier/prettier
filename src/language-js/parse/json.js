@@ -1,4 +1,4 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import { isNonEmptyArray } from "../../utils/index.js";
 import createError from "../../common/parser-create-error.js";
 import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";

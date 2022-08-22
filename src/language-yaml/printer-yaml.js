@@ -11,7 +11,7 @@ import {
 } from "../document/builders.js";
 import { replaceTextEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import { createGetVisitorKeys } from "../utils/index.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
 import embed from "./embed.js";

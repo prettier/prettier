@@ -1,5 +1,4 @@
-import requireFromFile from "../utils/require-from-file.js";
-import importFromFile from "../utils/import-from-file.js";
+import { requireFromFile, importFromFile } from "../utils/index.js";
 
 async function loadExternalConfig(config, filepath) {
   /*

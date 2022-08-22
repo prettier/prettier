@@ -8,7 +8,7 @@ import {
   softline,
 } from "../document/builders.js";
 import { mapDoc, replaceTextEndOfLine } from "../document/utils.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import { printFrontMatter } from "../utils/index.js";
 import {
   printClosingTag,
   printClosingTagSuffix,

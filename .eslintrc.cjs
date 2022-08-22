@@ -2,6 +2,25 @@
 const path = require("node:path");
 const { isCI } = require("ci-info");
 
+const forbidImportInternalFiles = (directory) => ({
+  files: ["src/**/*.js"],
+  excludedFiles: [`src/${directory}/**/*.js`],
+  rules: {
+    "n/no-restricted-import": [
+      "error",
+      [
+        {
+          name: [
+            path.resolve(__dirname, `src/${directory}/**`),
+            `!${path.resolve(__dirname, `src/${directory}/index.js`)}`,
+          ],
+          message: `Files inside '/src/${directory}/' can only be imported from '/src/${directory}/index.js'.`
+        },
+      ],
+    ],
+  },
+});
+
 module.exports = {
   root: true,
   env: {
@@ -261,6 +280,7 @@ module.exports = {
         runPrettier: "readonly",
       },
     },
+    forbidImportInternalFiles("utils"),
     {
       files: ["src/cli/**/*.js"],
       rules: {

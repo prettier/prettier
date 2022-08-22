@@ -1,6 +1,8 @@
-import tryCombinations from "../../utils/try-combinations.js";
+import {
+  tryCombinations,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+} from "../../utils/index.js";
 import getShebang from "../utils/get-shebang.js";
-import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
 import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";

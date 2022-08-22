@@ -1,5 +1,4 @@
-import getLast from "../utils/get-last.js";
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import { getLast, isNonEmptyArray } from "../utils/index.js";
 import {
   getFunctionParameters,
   getLeftSidePathName,

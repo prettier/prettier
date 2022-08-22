@@ -1,7 +1,7 @@
 import path from "node:path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
-import getInterpreter from "../utils/get-interpreter.js";
+import { getInterpreter } from "../utils/index.js";
 import { normalizeApiOptions } from "./options-normalizer.js";
 import { resolveParser } from "./parser.js";
 

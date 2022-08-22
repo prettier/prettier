@@ -1,5 +1,5 @@
 import createError from "../../common/parser-create-error.js";
-import tryCombinations from "../../utils/try-combinations.js";
+import { tryCombinations } from "../../utils/index.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";

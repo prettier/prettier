@@ -1,5 +1,5 @@
 import { hardline } from "../document/builders.js";
-import printFrontMatter from "../utils/front-matter/print.js";
+import { printFrontMatter } from "../utils/index.js";
 
 function embed(path) {
   const node = path.getValue();

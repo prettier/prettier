@@ -1,4 +1,4 @@
-import parseFrontMatter from "../../utils/front-matter/parse.js";
+import { parseFrontMatter } from "../../utils/index.js";
 
 function frontMatter() {
   const proto = this.Parser.prototype;

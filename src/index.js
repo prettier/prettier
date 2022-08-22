@@ -19,9 +19,7 @@ import {
   normalizeApiOptions,
   normalizeCliOptions,
 } from "./main/options-normalizer.js";
-import arrayify from "./utils/arrayify.js";
-import getLast from "./utils/get-last.js";
-import partition from "./utils/partition.js";
+import { arrayify, getLast, partition } from "./utils/index.js";
 import { isNonEmptyArray } from "./common/util.js";
 
 const builtinPlugins = Object.values(languages);

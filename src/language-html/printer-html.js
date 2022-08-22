@@ -4,7 +4,7 @@
 
 import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import { createGetVisitorKeys } from "../utils/index.js";
 import clean from "./clean.js";
 import {
   countChars,

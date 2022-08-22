@@ -5,7 +5,7 @@ import {
   printDanglingComments,
   printCommentsSeparately,
 } from "../../main/comments.js";
-import getLast from "../../utils/get-last.js";
+import { getLast } from "../../utils/index.js";
 import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
 import {
   line,

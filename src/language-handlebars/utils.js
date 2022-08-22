@@ -1,5 +1,5 @@
 import { htmlVoidElements } from "html-void-elements";
-import getLast from "../utils/get-last.js";
+import { getLast } from "../utils/index.js";
 
 function isLastNodeOfSiblings(path) {
   const node = path.getValue();
