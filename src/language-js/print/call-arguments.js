@@ -14,6 +14,7 @@ import {
   isCallExpression,
   isStringLiteral,
   isObjectProperty,
+  getCallArgumentSelector,
 } from "../utils/index.js";
 
 import {
@@ -96,9 +97,10 @@ function printCallArguments(path, options, print) {
       return allArgsBrokenOut();
     }
     let firstArg;
-    const firstArgSelector = isDynamicImport ? "source" : ["arguments", 0];
     try {
-      firstArg = print(firstArgSelector, { expandFirstArg: true });
+      firstArg = print(getCallArgumentSelector(node, 0), {
+        expandFirstArg: true,
+      });
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
@@ -120,13 +122,10 @@ function printCallArguments(path, options, print) {
       return allArgsBrokenOut();
     }
     let lastArg;
-    const lastArgSelector = isDynamicImport
-      ? node.attributes
-        ? "attributes"
-        : "source"
-      : ["arguments", lastArgIndex];
     try {
-      lastArg = print(lastArgSelector, { expandLastArg: true });
+      lastArg = print(getCallArgumentSelector(node, -1), {
+        expandLastArg: true,
+      });
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();

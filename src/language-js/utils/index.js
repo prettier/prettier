@@ -1178,6 +1178,28 @@ function iterateCallArgumentsPath(path, iteratee) {
   }
 }
 
+function getCallArgumentSelector(node, index) {
+  if (node.type === "ImportExpression") {
+    if (index === 0) {
+      return "source";
+    }
+    if (index === -1) {
+      return node.attributes ? "attributes" : "source";
+    }
+    if (index === 1 && node.attributes) {
+      return "attributes";
+    }
+    throw new Error("Invalid index");
+  }
+  if (index < 0) {
+    index = node.arguments.length + index;
+  }
+  if (index < 0 || index >= node.arguments.length) {
+    throw new Error("Invalid index");
+  }
+  return ["arguments", index];
+}
+
 function isPrettierIgnoreComment(comment) {
   return comment.value.trim() === "prettier-ignore" && !comment.unignore;
 }
@@ -1302,6 +1324,7 @@ export {
   iterateFunctionParametersPath,
   getCallArguments,
   iterateCallArgumentsPath,
+  getCallArgumentSelector,
   hasRestParameter,
   getLeftSide,
   getLeftSidePathName,
