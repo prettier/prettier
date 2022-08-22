@@ -98,7 +98,7 @@ function printCallArguments(path, options, print) {
     let firstArg;
     const firstArgSelector = isDynamicImport ? "source" : ["arguments", 0];
     try {
-      firstArg = [print(firstArgSelector, { expandFirstArg: true }), ",", line];
+      firstArg = print(firstArgSelector, { expandFirstArg: true });
     } catch (caught) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
@@ -108,7 +108,8 @@ function printCallArguments(path, options, print) {
     }
 
     return conditionalGroup([
-      ["(", firstArg, ...tailArgs, ")"],
+      ["(", firstArg, ", ", ...tailArgs, ")"],
+      ["(", group(firstArg, { shouldBreak: true }), ", ", ...tailArgs, ")"],
       allArgsBrokenOut(),
     ]);
   }

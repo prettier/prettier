@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`issue-13237.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* version 1 */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString,
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+/* version 2 (only difference is that \`//\`) */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString,  //
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+=====================================output=====================================
+/* version 1 */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString,
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+/* version 2 (only difference is that \`//\`) */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString, //
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
