@@ -17,9 +17,6 @@ const skipInlineComment = require("../utils/text/skip-inline-comment.js");
 const skipTrailingComment = require("../utils/text/skip-trailing-comment.js");
 const skipNewline = require("../utils/text/skip-newline.js");
 const getNextNonSpaceNonCommentCharacterIndexWithStartIndex = require("../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js");
-const {
-  builders: { join, literalline },
-} = require("../document/index.js");
 
 const getPenultimate = (arr) => arr[arr.length - 2];
 
@@ -281,24 +278,20 @@ function printString(raw, options) {
       ? "'"
       : getPreferredQuote(rawContent, options.singleQuote ? "'" : '"').quote;
 
-  const isCSS =
-    options.parser === "css" ||
-    options.parser === "less" ||
-    options.parser === "scss";
-
   // It might sound unnecessary to use `makeString` even if the string already
   // is enclosed with `enclosingQuote`, but it isn't. The string could contain
   // unnecessary escapes (such as in `"\'"`). Always using `makeString` makes
   // sure that we consistently output the minimum amount of escaped quotes.
-  const adjustedString = makeString(
+  return makeString(
     rawContent,
     enclosingQuote,
-    !isCSS && !options.__embeddedInHtml
+    !(
+      options.parser === "css" ||
+      options.parser === "less" ||
+      options.parser === "scss" ||
+      options.__embeddedInHtml
+    )
   );
-
-  return !isCSS && adjustedString.includes("\n")
-    ? [join(literalline, adjustedString.split("\n"))]
-    : adjustedString;
 }
 
 /**

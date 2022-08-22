@@ -1,5 +1,8 @@
 "use strict";
 const { printString, printNumber } = require("../../common/util.js");
+const {
+  builders: { join, literalline },
+} = require("../../document/index.js");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -13,7 +16,9 @@ function printLiteral(path, options /*, print*/) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
-      return printString(node.extra.raw, options);
+      const string = printString(node.extra.raw, options);
+
+      return printIndentableString(string);
     case "NullLiteral": // Babel 6 Literal split
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
@@ -40,12 +45,24 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        return printString(node.raw, options);
+        const string = printString(node.raw, options);
+
+        return printIndentableString(string);
       }
 
       return String(value);
     }
   }
+}
+
+function printIndentableString(str) {
+  if (str?.includes("\n")) {
+    const lines = str.split("\n");
+
+    return [join(literalline, lines)];
+  }
+
+  return str;
 }
 
 function printBigInt(raw) {
