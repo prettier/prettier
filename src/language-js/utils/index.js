@@ -1180,22 +1180,19 @@ function iterateCallArgumentsPath(path, iteratee) {
 
 function getCallArgumentSelector(node, index) {
   if (node.type === "ImportExpression") {
-    if (index === 0) {
+    if (index === 0 || index === (node.attributes ? -2 : -1)) {
       return "source";
     }
-    if (index === -1) {
-      return node.attributes ? "attributes" : "source";
-    }
-    if (index === 1 && node.attributes) {
+    if (node.attributes && (index === 1 || index === -1)) {
       return "attributes";
     }
-    throw new Error("Invalid index");
+    throw new RangeError("Invalid argument index");
   }
   if (index < 0) {
     index = node.arguments.length + index;
   }
   if (index < 0 || index >= node.arguments.length) {
-    throw new Error("Invalid index");
+    throw new RangeError("Invalid argument index");
   }
   return ["arguments", index];
 }
