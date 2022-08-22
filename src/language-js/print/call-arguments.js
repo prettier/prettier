@@ -70,7 +70,7 @@ function printCallArguments(path, options, print) {
 
   // Dynamic imports cannot have trailing commas
   const isDynamicImport =
-    node.type === "ImportExpression" || node.callee?.type === "Import";
+    node.type === "ImportExpression" || node.callee.type === "Import";
   const maybeTrailingComma =
     !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
 
