@@ -2,7 +2,7 @@
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-import { fill, group, hardline, literalline } from "../document/builders.js";
+import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import clean from "./clean.js";
@@ -88,8 +88,7 @@ function genericPrint(path, options, print) {
       return [
         printOpeningTagPrefix(node, options),
         ...replaceTextEndOfLine(
-          options.originalText.slice(locStart(node), locEnd(node)),
-          literalline
+          options.originalText.slice(locStart(node), locEnd(node))
         ),
         printClosingTagSuffix(node, options),
       ];

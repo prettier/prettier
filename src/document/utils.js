@@ -83,6 +83,11 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
+  // Avoid creating `Map`
+  if (typeof doc === "string") {
+    return cb(doc);
+  }
+
   // Within a doc tree, the same subtrees can be found multiple times.
   // E.g., often this happens in conditional groups.
   // As an optimization (those subtrees can be huge) and to maintain the
@@ -102,25 +107,25 @@ function mapDoc(doc, cb) {
   }
 
   function process(doc) {
-    if (Array.isArray(doc)) {
-      return cb(doc.map(rec));
-    }
+    switch (getDocType(doc)) {
+      case DOC_TYPE_ARRAY:
+        return cb(doc.map(rec));
+      case DOC_TYPE_FILL:
+        return cb({ ...doc, parts: doc.parts.map(rec) });
+      case DOC_TYPE_IF_BREAK: {
+        const breakContents = doc.breakContents && rec(doc.breakContents);
+        const flatContents = doc.flatContents && rec(doc.flatContents);
+        return cb({ ...doc, breakContents, flatContents });
+      }
+      case DOC_TYPE_GROUP: {
+        if (doc.expandedStates) {
+          const expandedStates = doc.expandedStates.map(rec);
+          const contents = expandedStates[0];
+          return cb({ ...doc, contents, expandedStates });
+        }
 
-    if (doc.type === DOC_TYPE_ARRAY || doc.type === DOC_TYPE_FILL) {
-      const parts = doc.parts.map(rec);
-      return cb({ ...doc, parts });
-    }
-
-    if (doc.type === DOC_TYPE_IF_BREAK) {
-      const breakContents = doc.breakContents && rec(doc.breakContents);
-      const flatContents = doc.flatContents && rec(doc.flatContents);
-      return cb({ ...doc, breakContents, flatContents });
-    }
-
-    if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
-      const expandedStates = doc.expandedStates.map(rec);
-      const contents = expandedStates[0];
-      return cb({ ...doc, contents, expandedStates });
+        break;
+      }
     }
 
     if (doc.contents) {
