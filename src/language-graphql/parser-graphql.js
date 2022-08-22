@@ -24,7 +24,7 @@ function createParseError(error) {
       message,
       locations: [start],
     } = error;
-    return createError(message, { start });
+    return createError(message, { loc: { start }, cause: error });
   }
 
   /* istanbul ignore next */

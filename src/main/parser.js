@@ -42,8 +42,9 @@ async function handleParseError(error, text) {
 
   if (loc) {
     const { codeFrameColumns } = await import("@babel/code-frame");
-    error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-    error.message += "\n" + error.codeFrame;
+    const codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    error.message += "\n" + codeFrame;
+    error.codeFrame = codeFrame;
     throw error;
   }
 

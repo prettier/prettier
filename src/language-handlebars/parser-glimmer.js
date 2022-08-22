@@ -67,7 +67,7 @@ async function parse(text /*, options */) {
     const location = getErrorLocation(error);
 
     if (location) {
-      throw createError(error.message, location);
+      throw createError(error.message, { loc: location, cause: error });
     }
 
     /* istanbul ignore next */

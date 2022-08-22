@@ -37,7 +37,9 @@ function createJsonError(node, description) {
       column: column + 1,
     })
   );
-  return createError(`${description} is not allowed in JSON.`, { start, end });
+  return createError(`${description} is not allowed in JSON.`, {
+    loc: { start, end },
+  });
 }
 
 function assertJsonNode(node) {

@@ -26,7 +26,10 @@ function createParseError(error) {
   }
 
   return createError(message, {
-    start: { line: lineNumber, column: column + 1 },
+    loc: {
+      start: { line: lineNumber, column: column + 1 },
+    },
+    cause: error,
   });
 }
 
