@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`issue-2456.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+f(x => { y }, err.message.includes("asd") && err.message.includes("id") &&
+  err.message.includes('"1"') && err.message.includes("Model") &&
+  err.message.includes("/id") && err.message.includes("identifier(number)")
+)
+
+=====================================output=====================================
+f(
+  (x) => {
+    y;
+  },
+  err.message.includes("asd") &&
+    err.message.includes("id") &&
+    err.message.includes('"1"') &&
+    err.message.includes("Model") &&
+    err.message.includes("/id") &&
+    err.message.includes("identifier(number)"),
+);
+
+================================================================================
+`;
+
+exports[`issue-5172.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+call(
+    function() {
+        return 1;
+    },
+    $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? 'test'
+);
+
+=====================================output=====================================
+call(
+  function () {
+    return 1;
+  },
+  $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    "test",
+);
+
+================================================================================
+`;
+
 exports[`issue-13237.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
