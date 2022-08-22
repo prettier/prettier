@@ -34,7 +34,8 @@ import { isConciselyPrintedArray } from "./array.js";
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();
-  const isDynamicImport = node.type === "ImportExpression";
+  const isDynamicImport =
+    node.type === "ImportExpression" || node.callee?.type === "Import";
 
   const args = getCallArguments(node);
   if (args.length === 0) {
@@ -69,12 +70,9 @@ function printCallArguments(path, options, print) {
     printedArguments.push(parts);
   });
 
+  // Dynamic imports cannot have trailing commas
   const maybeTrailingComma =
-    // Dynamic imports cannot have trailing commas
-    !(isDynamicImport || (node.callee && node.callee.type === "Import")) &&
-    shouldPrintComma(options, "all")
-      ? ","
-      : "";
+    !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
 
   function allArgsBrokenOut() {
     return group(
