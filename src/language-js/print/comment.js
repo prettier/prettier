@@ -1,6 +1,6 @@
 import { hasNewline } from "../../common/util.js";
 import { join, hardline } from "../../document/builders.js";
-import { replaceTextEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/utils.js";
 
 import { isLineComment } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
@@ -38,7 +38,7 @@ function printComment(commentPath, options) {
       options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
     return [
       "/*",
-      replaceTextEndOfLine(comment.value),
+      replaceEndOfLine(comment.value),
       isInsideFlowComment ? "*-/" : "*/",
     ];
   }

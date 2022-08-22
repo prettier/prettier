@@ -7,7 +7,7 @@ import {
   fill,
   softline,
 } from "../document/builders.js";
-import { mapDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { mapDoc, replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 import {
   printClosingTag,
@@ -216,7 +216,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
       const parts = [];
       for (const [index, part] of value.split(interpolationRegex).entries()) {
         if (index % 2 === 0) {
-          parts.push(replaceTextEndOfLine(part));
+          parts.push(replaceEndOfLine(part));
         } else {
           try {
             parts.push(
@@ -234,7 +234,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
               ])
             );
           } catch {
-            parts.push("{{", replaceTextEndOfLine(part), "}}");
+            parts.push("{{", replaceEndOfLine(part), "}}");
           }
         }
       }

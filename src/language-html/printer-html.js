@@ -3,7 +3,7 @@
  */
 
 import { fill, group, hardline } from "../document/builders.js";
-import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import clean from "./clean.js";
 import {
@@ -30,7 +30,7 @@ function genericPrint(path, options, print) {
 
   switch (node.type) {
     case "front-matter":
-      return replaceTextEndOfLine(node.raw);
+      return replaceEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -57,10 +57,7 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [
-          ...replaceTextEndOfLine(value),
-          hasTrailingNewline ? hardline : "",
-        ];
+        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
       const printed = cleanDoc([
@@ -87,7 +84,7 @@ function genericPrint(path, options, print) {
     case "comment": {
       return [
         printOpeningTagPrefix(node, options),
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           options.originalText.slice(locStart(node), locEnd(node))
         ),
         printClosingTagSuffix(node, options),
@@ -103,11 +100,9 @@ function genericPrint(path, options, print) {
       const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
       return [
         node.rawName,
-
         "=",
         quote,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           quote === '"'
             ? value.replace(/"/g, "&quot;")
             : value.replace(/'/g, "&apos;")

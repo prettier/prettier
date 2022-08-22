@@ -9,7 +9,7 @@ import {
   line,
   lineSuffix,
 } from "../document/builders.js";
-import { replaceTextEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import { insertPragma, isPragma } from "./pragma.js";
@@ -97,7 +97,7 @@ function genericPrint(path, options, print) {
   const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
-      replaceTextEndOfLine(
+      replaceEndOfLine(
         options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           .trimEnd()
