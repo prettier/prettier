@@ -2,7 +2,7 @@
 
 exports[`test.ts format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["typescript", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

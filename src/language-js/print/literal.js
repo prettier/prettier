@@ -1,8 +1,6 @@
 "use strict";
 const { printString, printNumber } = require("../../common/util.js");
-const {
-  builders: { join, literalline },
-} = require("../../document/index.js");
+const { replaceTextEndOfLine } = require("../../document/doc-utils");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -53,9 +51,7 @@ function printLiteral(path, options /*, print*/) {
 
 function printIndentableString(str) {
   if (str?.includes("\n")) {
-    const lines = str.split("\n");
-
-    return [join(literalline, lines)];
+    return [replaceTextEndOfLine(str)];
   }
 
   return str;
