@@ -2,18 +2,23 @@ import getLast from "../utils/get-last.js";
 import {
   DOC_TYPE_STRING,
   DOC_TYPE_ARRAY,
+  DOC_TYPE_CURSOR,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
+  DOC_TYPE_TRIM,
   DOC_TYPE_GROUP,
   DOC_TYPE_FILL,
   DOC_TYPE_IF_BREAK,
   DOC_TYPE_INDENT_IF_BREAK,
   DOC_TYPE_LINE_SUFFIX,
+  DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_LINE,
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
+import getDocType from "./utils/get-doc-type.js";
+import InvalidDocError from "./invalid-doc-error.js";
 
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
@@ -110,30 +115,47 @@ function mapDoc(doc, cb) {
     switch (getDocType(doc)) {
       case DOC_TYPE_ARRAY:
         return cb(doc.map(rec));
+
       case DOC_TYPE_FILL:
         return cb({ ...doc, parts: doc.parts.map(rec) });
+
       case DOC_TYPE_IF_BREAK: {
         const breakContents = doc.breakContents && rec(doc.breakContents);
         const flatContents = doc.flatContents && rec(doc.flatContents);
         return cb({ ...doc, breakContents, flatContents });
       }
+
       case DOC_TYPE_GROUP: {
+        let { expandedStates, contents } = doc;
         if (doc.expandedStates) {
-          const expandedStates = doc.expandedStates.map(rec);
-          const contents = expandedStates[0];
-          return cb({ ...doc, contents, expandedStates });
+          expandedStates = doc.expandedStates.map(rec);
+          contents = expandedStates[0];
+        } else {
+          contents = rec(contents);
         }
-
-        break;
+        return cb({ ...doc, contents, expandedStates });
       }
-    }
 
-    if (doc.contents) {
-      const contents = rec(doc.contents);
-      return cb({ ...doc, contents });
-    }
+      case DOC_TYPE_INDENT:
+      case DOC_TYPE_ALIGN:
+      case DOC_TYPE_INDENT_IF_BREAK:
+      case DOC_TYPE_LABEL: {
+        const contents = rec(doc.contents);
+        return cb({ ...doc, contents });
+      }
 
-    return cb(doc);
+      case DOC_TYPE_STRING:
+      case DOC_TYPE_CURSOR:
+      case DOC_TYPE_TRIM:
+      case DOC_TYPE_LINE_SUFFIX:
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+      case DOC_TYPE_LINE:
+      case DOC_TYPE_BREAK_PARENT:
+        return doc;
+
+      default:
+        throw new InvalidDocError(doc);
+    }
   }
 }
 
@@ -430,18 +452,6 @@ function canBreakFn(doc) {
 
 function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
-}
-
-function getDocType(doc) {
-  if (typeof doc === "string") {
-    return DOC_TYPE_STRING;
-  }
-
-  if (Array.isArray(doc)) {
-    return DOC_TYPE_ARRAY;
-  }
-
-  return doc?.type;
 }
 
 export {
