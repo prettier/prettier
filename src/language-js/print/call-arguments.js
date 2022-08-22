@@ -34,8 +34,6 @@ import { isConciselyPrintedArray } from "./array.js";
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();
-  const isDynamicImport =
-    node.type === "ImportExpression" || node.callee?.type === "Import";
 
   const args = getCallArguments(node);
   if (args.length === 0) {
@@ -71,6 +69,8 @@ function printCallArguments(path, options, print) {
   });
 
   // Dynamic imports cannot have trailing commas
+  const isDynamicImport =
+    node.type === "ImportExpression" || node.callee?.type === "Import";
   const maybeTrailingComma =
     !isDynamicImport && shouldPrintComma(options, "all") ? "," : "";
 
