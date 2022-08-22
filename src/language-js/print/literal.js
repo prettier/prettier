@@ -1,6 +1,6 @@
 "use strict";
 const { printString, printNumber } = require("../../common/util.js");
-const { replaceTextEndOfLine } = require("../../document/doc-utils");
+const { replaceTextEndOfLine } = require("../../document/doc-utils.js");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
