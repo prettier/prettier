@@ -6,21 +6,29 @@ parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const fooBazBar1:string = 'Multiline string\\
+const fooBazBar1:'Multiline string\\
+         Multiline string\\
+' = 'Multiline string\\
          Multiline string\\
 '
 
-const fooBazBar2:string = 'Multiline string\\
+const fooBazBar2:'Multiline string\\
+         Multiline string\\
+         Multiline string' = 'Multiline string\\
          Multiline string\\
          Multiline string'
 
 =====================================output=====================================
-const fooBazBar1: string =
+const fooBazBar1: "Multiline string\\
+         Multiline string\\
+" =
   "Multiline string\\
          Multiline string\\
 ";
 
-const fooBazBar2: string =
+const fooBazBar2: "Multiline string\\
+         Multiline string\\
+         Multiline string" =
   "Multiline string\\
          Multiline string\\
          Multiline string";
