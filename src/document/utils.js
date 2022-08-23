@@ -161,7 +161,8 @@ function mapDoc(doc, cb) {
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
   let hasStopped = false;
-  traverseDoc(doc, (doc) => {
+
+  function findInDocOnEnterFn(doc) {
     if (hasStopped) {
       // Stop processing rest docs
       return false;
@@ -172,7 +173,9 @@ function findInDoc(doc, fn, defaultValue) {
       result = maybeResult;
       hasStopped = true;
     }
-  });
+  }
+
+  traverseDoc(doc, findInDocOnEnterFn);
   return result;
 }
 
