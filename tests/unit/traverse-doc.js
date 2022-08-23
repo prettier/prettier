@@ -40,7 +40,9 @@ test("traverse", () => {
     const visited = [];
     findInDoc(doc, (doc) => {
       visited.push(doc);
-      return doc === "a";
+      if (doc === "a") {
+        return true;
+      }
     });
 
     // Should stop visiting siblings when found
