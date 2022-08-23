@@ -168,7 +168,7 @@ function findInDoc(doc, fn, defaultValue) {
 
     const maybeResult = fn(doc);
     if (maybeResult !== undefined) {
-      hasStopped = true;
+      shouldSkipFurtherProcessing = true;
       result = maybeResult;
     }
   }
