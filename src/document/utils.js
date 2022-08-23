@@ -161,7 +161,6 @@ function mapDoc(doc, cb) {
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
   let hasStopped = false;
-
   function findInDocOnEnterFn(doc) {
     if (hasStopped) {
       // Skip further processing
@@ -170,11 +169,10 @@ function findInDoc(doc, fn, defaultValue) {
 
     const maybeResult = fn(doc);
     if (maybeResult !== undefined) {
-      result = maybeResult;
       hasStopped = true;
+      result = maybeResult;
     }
   }
-
   traverseDoc(doc, findInDocOnEnterFn);
   return result;
 }
