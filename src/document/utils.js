@@ -164,7 +164,7 @@ function findInDoc(doc, fn, defaultValue) {
 
   function findInDocOnEnterFn(doc) {
     if (hasStopped) {
-      // Stop processing rest docs
+      // Skip further processing
       return false;
     }
 
