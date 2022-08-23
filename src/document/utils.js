@@ -373,6 +373,17 @@ function cleanDocFn(doc) {
 
       return parts;
     }
+    case DOC_TYPE_STRING:
+    case DOC_TYPE_CURSOR:
+    case DOC_TYPE_TRIM:
+    case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+    case DOC_TYPE_LINE:
+    case DOC_TYPE_LABEL:
+    case DOC_TYPE_BREAK_PARENT:
+      // No op
+      break;
+    default:
+      throw new InvalidDocError(doc)
   }
 
   return doc;
