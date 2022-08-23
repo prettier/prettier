@@ -1,1 +1,1 @@
-run_spec(__dirname, ["typescript", "babel"]);
+run_spec(__dirname, ["typescript"]);
