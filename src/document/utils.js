@@ -158,37 +158,34 @@ function mapDoc(doc, cb) {
   }
 }
 
-function findInDoc(doc, fn, defaultValue) {
-  let result = defaultValue;
-  let hasStopped = false;
-  function findInDocOnEnterFn(doc) {
+function findInDoc(doc, fn) {
+  let result;
+  traverseDoc(doc, (doc) => {
     const maybeResult = fn(doc);
-    if (maybeResult !== undefined) {
-      hasStopped = true;
+    if (maybeResult) {
       result = maybeResult;
-    }
-    if (hasStopped) {
+
+      // Break traverse
       return false;
     }
-  }
-  traverseDoc(doc, findInDocOnEnterFn);
+  });
   return result;
 }
 
-function willBreakFn(doc) {
-  if (doc.type === DOC_TYPE_GROUP && doc.break) {
-    return true;
-  }
-  if (doc.type === DOC_TYPE_LINE && doc.hard) {
-    return true;
-  }
-  if (doc.type === DOC_TYPE_BREAK_PARENT) {
-    return true;
-  }
+function willBreak(doc) {
+  return Boolean(
+    findInDoc(
+      doc,
+      (doc) =>
+        (doc.type === DOC_TYPE_GROUP && doc.break) ||
+        (doc.type === DOC_TYPE_LINE && doc.hard) ||
+        doc.type === DOC_TYPE_BREAK_PARENT
+    )
+  );
 }
 
-function willBreak(doc) {
-  return findInDoc(doc, willBreakFn, false);
+function canBreak(doc) {
+  return Boolean(findInDoc(doc, (doc) => doc.type === DOC_TYPE_LINE));
 }
 
 function breakParentGroup(groupStack) {
@@ -441,16 +438,6 @@ function replaceEndOfLine(doc) {
 
 function replaceTextEndOfLine(text, replacement = literalline) {
   return join(replacement, text.split("\n"));
-}
-
-function canBreakFn(doc) {
-  if (doc.type === DOC_TYPE_LINE) {
-    return true;
-  }
-}
-
-function canBreak(doc) {
-  return findInDoc(doc, canBreakFn, false);
 }
 
 export {
