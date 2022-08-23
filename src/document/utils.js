@@ -15,7 +15,6 @@ import {
   DOC_TYPE_LINE,
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
-  VALID_OBJECT_DOC_TYPES,
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
 import getDocType from "./utils/get-doc-type.js";
