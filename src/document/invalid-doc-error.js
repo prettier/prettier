@@ -1,6 +1,6 @@
 import getLast from "../utils/get-last.js";
 import { VALID_OBJECT_DOC_TYPES } from "./constants.js";
-import { getDocType } from "./utils.js";
+import getDocType from "./utils/get-doc-type.js";
 
 // TODO: Use `new Intl.ListFormat("en-US", { type: "disjunction" }).format()` when we drop support for iOS 12.5
 // Only works for array with more than 1 elements

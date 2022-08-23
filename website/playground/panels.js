@@ -22,10 +22,7 @@ class CodeMirrorPanel extends React.Component {
     delete options.onFormat;
 
     options.rulers = [makeRuler(this.props)];
-
-    if (options.foldGutter) {
-      options.gutters = ["CodeMirror-linenumbers", "CodeMirror-foldgutter"];
-    }
+    options.gutters = makeGutters(this.props);
 
     if (this.props.onFormat) {
       options.extraKeys = {
@@ -67,6 +64,9 @@ class CodeMirrorPanel extends React.Component {
     }
     if (this.props.ruler !== prevProps.ruler) {
       this._codeMirror.setOption("rulers", [makeRuler(this.props)]);
+    }
+    if (this.props.foldGutter !== prevProps.foldGutter) {
+      this._codeMirror.setOption("gutters", makeGutters(this.props));
     }
   }
 
@@ -188,6 +188,12 @@ function createOverlay(start, end) {
 
 function makeRuler(props) {
   return { column: props.ruler, color: props.rulerColor };
+}
+
+function makeGutters(props) {
+  return props.foldGutter
+    ? ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+    : [];
 }
 
 export function InputPanel(props) {

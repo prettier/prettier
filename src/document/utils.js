@@ -2,19 +2,24 @@ import getLast from "../utils/get-last.js";
 import {
   DOC_TYPE_STRING,
   DOC_TYPE_ARRAY,
+  DOC_TYPE_CURSOR,
   DOC_TYPE_INDENT,
   DOC_TYPE_ALIGN,
+  DOC_TYPE_TRIM,
   DOC_TYPE_GROUP,
   DOC_TYPE_FILL,
   DOC_TYPE_IF_BREAK,
   DOC_TYPE_INDENT_IF_BREAK,
   DOC_TYPE_LINE_SUFFIX,
+  DOC_TYPE_LINE_SUFFIX_BOUNDARY,
   DOC_TYPE_LINE,
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
   VALID_OBJECT_DOC_TYPES,
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
+import getDocType from "./utils/get-doc-type.js";
+import InvalidDocError from "./invalid-doc-error.js";
 
 const getDocParts = (doc) => {
   if (Array.isArray(doc)) {
@@ -84,6 +89,11 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
 }
 
 function mapDoc(doc, cb) {
+  // Avoid creating `Map`
+  if (typeof doc === "string") {
+    return cb(doc);
+  }
+
   // Within a doc tree, the same subtrees can be found multiple times.
   // E.g., often this happens in conditional groups.
   // As an optimization (those subtrees can be huge) and to maintain the
@@ -103,33 +113,49 @@ function mapDoc(doc, cb) {
   }
 
   function process(doc) {
-    if (Array.isArray(doc)) {
-      return cb(doc.map(rec));
-    }
+    switch (getDocType(doc)) {
+      case DOC_TYPE_ARRAY:
+        return cb(doc.map(rec));
 
-    if (doc.type === DOC_TYPE_ARRAY || doc.type === DOC_TYPE_FILL) {
-      const parts = doc.parts.map(rec);
-      return cb({ ...doc, parts });
-    }
+      case DOC_TYPE_FILL:
+        return cb({ ...doc, parts: doc.parts.map(rec) });
 
-    if (doc.type === DOC_TYPE_IF_BREAK) {
-      const breakContents = doc.breakContents && rec(doc.breakContents);
-      const flatContents = doc.flatContents && rec(doc.flatContents);
-      return cb({ ...doc, breakContents, flatContents });
-    }
+      case DOC_TYPE_IF_BREAK: {
+        let { breakContents, flatContents } = doc;
+        breakContents = breakContents && rec(breakContents);
+        flatContents = flatContents && rec(flatContents);
+        return cb({ ...doc, breakContents, flatContents });
+      }
 
-    if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
-      const expandedStates = doc.expandedStates.map(rec);
-      const contents = expandedStates[0];
-      return cb({ ...doc, contents, expandedStates });
-    }
+      case DOC_TYPE_GROUP: {
+        let { expandedStates, contents } = doc;
+        if (doc.expandedStates) {
+          expandedStates = doc.expandedStates.map(rec);
+          contents = expandedStates[0];
+        } else {
+          contents = rec(contents);
+        }
+        return cb({ ...doc, contents, expandedStates });
+      }
 
-    if (doc.contents) {
-      const contents = rec(doc.contents);
-      return cb({ ...doc, contents });
-    }
+      case DOC_TYPE_ALIGN:
+      case DOC_TYPE_INDENT:
+      case DOC_TYPE_INDENT_IF_BREAK:
+      case DOC_TYPE_LABEL:
+      case DOC_TYPE_LINE_SUFFIX:
+        return cb({ ...doc, contents: rec(doc.contents) });
 
-    return cb(doc);
+      case DOC_TYPE_STRING:
+      case DOC_TYPE_CURSOR:
+      case DOC_TYPE_TRIM:
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+      case DOC_TYPE_LINE:
+      case DOC_TYPE_BREAK_PARENT:
+        return cb(doc);
+
+      default:
+        throw new InvalidDocError(doc);
+    }
   }
 }
 
@@ -286,7 +312,7 @@ function stripTrailingHardline(doc) {
 }
 
 function cleanDocFn(doc) {
-  switch (doc.type) {
+  switch (getDocType(doc)) {
     case DOC_TYPE_FILL:
       if (doc.parts.every((part) => part === "")) {
         return "";
@@ -319,35 +345,38 @@ function cleanDocFn(doc) {
         return "";
       }
       break;
-  }
+    case DOC_TYPE_ARRAY: {
+      // Flat array, concat strings
+      const parts = [];
+      for (const part of doc) {
+        if (!part) {
+          continue;
+        }
+        const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
+        if (
+          typeof currentPart === "string" &&
+          typeof getLast(parts) === "string"
+        ) {
+          parts[parts.length - 1] += currentPart;
+        } else {
+          parts.push(currentPart);
+        }
+        parts.push(...restParts);
+      }
 
-  if (!Array.isArray(doc)) {
-    return doc;
-  }
+      if (parts.length === 0) {
+        return "";
+      }
 
-  const parts = [];
-  for (const part of doc) {
-    if (!part) {
-      continue;
+      if (parts.length === 1) {
+        return parts[0];
+      }
+
+      return parts;
     }
-    const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
-    if (typeof currentPart === "string" && typeof getLast(parts) === "string") {
-      parts[parts.length - 1] += currentPart;
-    } else {
-      parts.push(currentPart);
-    }
-    parts.push(...restParts);
   }
 
-  if (parts.length === 0) {
-    return "";
-  }
-
-  if (parts.length === 1) {
-    return parts[0];
-  }
-
-  return parts;
+  return doc;
 }
 // A safer version of `normalizeDoc`
 // - `normalizeDoc` concat strings and flat array in `fill`, while `cleanDoc` don't
@@ -423,20 +452,6 @@ function canBreakFn(doc) {
 
 function canBreak(doc) {
   return findInDoc(doc, canBreakFn, false);
-}
-
-function getDocType(doc) {
-  if (typeof doc === "string") {
-    return DOC_TYPE_STRING;
-  }
-
-  if (Array.isArray(doc)) {
-    return DOC_TYPE_ARRAY;
-  }
-
-  if (doc && VALID_OBJECT_DOC_TYPES.has(doc.type)) {
-    return doc.type;
-  }
 }
 
 export {
