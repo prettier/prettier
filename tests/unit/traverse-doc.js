@@ -1,24 +1,49 @@
-import { traverseDoc } from "../../src/document/utils.js";
+import { traverseDoc, findInDoc } from "../../src/document/utils.js";
 
-test("Should not traverse children when `onEnter` returns false", () => {
-  const doc = [["a"]];
+test("traverse", () => {
+  const doc = [["a", "b"]];
 
   {
-    const traversed = [];
+    const visited = [];
     traverseDoc(doc, (doc) => {
-      traversed.push(doc);
+      visited.push(doc);
     });
 
-    expect(traversed).toEqual([doc, doc[0], doc[0][0]]);
+    expect(visited).toEqual([doc, doc[0], doc[0][0], doc[0][1]]);
   }
 
   {
-    const traversed = [];
+    const visited = [];
     traverseDoc(doc, (doc) => {
-      traversed.push(doc);
+      visited.push(doc);
       return false;
     });
 
-    expect(traversed).toEqual([doc]);
+    // Should skip children
+    expect(visited).toEqual([doc]);
+  }
+
+  {
+    const visited = [];
+    traverseDoc(doc, (doc) => {
+      visited.push(doc);
+      if (doc === "a") {
+        return false;
+      }
+    });
+
+    // Still traverse siblings
+    expect(visited).toEqual([doc, doc[0], doc[0][0], doc[0][1]]);
+  }
+
+  {
+    const visited = [];
+    findInDoc(doc, (doc) => {
+      visited.push(doc);
+      return doc === "a";
+    });
+
+    // Still stop when found
+    expect(visited).toEqual([doc, doc[0], doc[0][0]]);
   }
 });

@@ -161,12 +161,14 @@ function mapDoc(doc, cb) {
 function findInDoc(doc, fn) {
   let result;
   traverseDoc(doc, (doc) => {
+    if (result) {
+      // Skip children
+      return false;
+    }
+
     const maybeResult = fn(doc);
     if (maybeResult) {
       result = maybeResult;
-
-      // Break traverse
-      return false;
     }
   });
   return result;
