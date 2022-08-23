@@ -32,7 +32,7 @@ test("traverse", () => {
       }
     });
 
-    // Still traverse siblings
+    // Still visiting siblings
     expect(visited).toEqual([doc, doc[0], doc[0][0], doc[0][1]]);
   }
 
@@ -43,7 +43,7 @@ test("traverse", () => {
       return doc === "a";
     });
 
-    // Still stop when found
+    // Should stop visiting siblings when found
     expect(visited).toEqual([doc, doc[0], doc[0][0]]);
   }
 });
