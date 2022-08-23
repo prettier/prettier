@@ -316,6 +316,9 @@ function cleanDocFn(doc) {
       if (doc.parts.every((part) => part === "")) {
         return "";
       }
+      if (doc.parts.length === 1) {
+        return doc.parts[0];
+      }
       break;
     case DOC_TYPE_GROUP:
       if (!doc.contents && !doc.id && !doc.break && !doc.expandedStates) {
