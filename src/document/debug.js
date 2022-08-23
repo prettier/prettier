@@ -205,6 +205,20 @@ function printDocToDebug(doc) {
       return JSON.stringify(String(id));
     }
 
+    // Registered symbol, created by `Symbol.for()`
+    const key = Symbol.keyFor(id);
+    if (typeof key === "string") {
+      return `Symbol.for(${JSON.stringify(key)})`;
+    }
+
+    // Well-known symbol, eg: `Symbol.iterator`
+    for (const key of Reflect.ownKeys(Symbol)) {
+      if (Symbol[key] === id) {
+        return `Symbol.${key}`;
+      }
+    }
+
+    // Unique symbol, created by `Symbol()`
     if (id in printedSymbols) {
       return printedSymbols[id];
     }
