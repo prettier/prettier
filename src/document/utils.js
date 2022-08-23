@@ -160,10 +160,9 @@ function mapDoc(doc, cb) {
 
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
-  let hasStopped = false;
+  let shouldSkipFurtherProcessing = false;
   function findInDocOnEnterFn(doc) {
-    if (hasStopped) {
-      // Skip further processing
+    if (shouldSkipFurtherProcessing) {
       return false;
     }
 
