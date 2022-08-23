@@ -383,7 +383,7 @@ function cleanDocFn(doc) {
       // No op
       break;
     default:
-      throw new InvalidDocError(doc)
+      throw new InvalidDocError(doc);
   }
 
   return doc;
