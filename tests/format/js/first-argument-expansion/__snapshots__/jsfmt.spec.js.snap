@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`expression-2nd-arg.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+call(
+  function() {
+    return 1;
+  },
+  200_000_000_000n * askTrovenaBeenaDependsRowans
+);
+
+call(
+  function() {
+    return 1;
+  },
+  200_000_000_000n * askTrovenaBeenaDependsRowans / glimseGlyphsHazardNoopsTieTie
+);
+
+call(
+  function() {
+    return 1;
+  },
+  askTrovenaBeenaDependsRowans = glimseGlyphsHazardNoopsTieTie = 200_000_000_000n
+);
+
+=====================================output=====================================
+call(function () {
+  return 1;
+}, 200_000_000_000n * askTrovenaBeenaDependsRowans);
+
+call(
+  function () {
+    return 1;
+  },
+  (200_000_000_000n * askTrovenaBeenaDependsRowans) /
+    glimseGlyphsHazardNoopsTieTie,
+);
+
+call(
+  function () {
+    return 1;
+  },
+  (askTrovenaBeenaDependsRowans = glimseGlyphsHazardNoopsTieTie =
+    200_000_000_000n),
+);
+
+================================================================================
+`;
+
 exports[`issue-2456.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -27,6 +78,32 @@ f(
 ================================================================================
 `;
 
+exports[`issue-4401.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export function test() {
+  setTimeout(
+    () => { console.warn({}, 'Lambda approaching timeout.') },
+    Math.max(context.getRemainingTimeInMillis() - WARN_TIMEOUT_MS, 0),
+  );
+}
+
+=====================================output=====================================
+export function test() {
+  setTimeout(
+    () => {
+      console.warn({}, "Lambda approaching timeout.");
+    },
+    Math.max(context.getRemainingTimeInMillis() - WARN_TIMEOUT_MS, 0),
+  );
+}
+
+================================================================================
+`;
+
 exports[`issue-5172.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -39,6 +116,10 @@ call(
     },
     $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? 'test'
 );
+
+call(function () {
+  return 1;
+}, $var || ($var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? "test"));
 
 =====================================output=====================================
 call(
@@ -55,6 +136,45 @@ call(
     $var ??
     $var ??
     "test",
+);
+
+call(
+  function () {
+    return 1;
+  },
+  $var ||
+    ($var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? "test"),
+);
+
+================================================================================
+`;
+
+exports[`issue-12892.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+setTimeout(() => {
+  console.log('test');
+}, someFunctionCall(
+  veryLongParameterName1,
+  veryLongParameterName2,
+  veryLongParameterName3,
+  veryLongParameterName4,
+));
+
+=====================================output=====================================
+setTimeout(
+  () => {
+    console.log("test");
+  },
+  someFunctionCall(
+    veryLongParameterName1,
+    veryLongParameterName2,
+    veryLongParameterName3,
+    veryLongParameterName4,
+  ),
 );
 
 ================================================================================

@@ -15,6 +15,11 @@ import {
   isStringLiteral,
   isObjectProperty,
   getCallArgumentSelector,
+  isSimpleCallArgument,
+  isBinaryish,
+  isRegExpLiteral,
+  isSimpleType,
+  isCallLikeExpression,
 } from "../utils/index.js";
 
 import {
@@ -261,13 +266,52 @@ function shouldExpandFirstArg(args) {
     secondArg.type !== "FunctionExpression" &&
     secondArg.type !== "ArrowFunctionExpression" &&
     secondArg.type !== "ConditionalExpression" &&
-    // A hack to fix most manifestations of
-    // https://github.com/prettier/prettier/issues/2456
-    // https://github.com/prettier/prettier/issues/5172
-    // A proper (printWidth-aware) fix for those would require a complex change in the doc printer.
-    !secondArg?.left?.left &&
+    isHopefullyShortCallArgument(secondArg) &&
     !couldExpandArg(secondArg)
   );
+}
+
+// A hack to fix most manifestations of
+// https://github.com/prettier/prettier/issues/2456
+// https://github.com/prettier/prettier/issues/5172
+// https://github.com/prettier/prettier/issues/12892
+// A proper (printWidth-aware) fix for those would require a complex change in the doc printer.
+function isHopefullyShortCallArgument(node) {
+  if (node.type === "ParenthesizedExpression") {
+    return isHopefullyShortCallArgument(node.expression);
+  }
+
+  if (node.type === "TSAsExpression") {
+    let { typeAnnotation } = node;
+    if (typeAnnotation.type === "TSArrayType") {
+      typeAnnotation = typeAnnotation.elementType;
+      if (typeAnnotation.type === "TSArrayType") {
+        typeAnnotation = typeAnnotation.elementType;
+      }
+    }
+    if (
+      (typeAnnotation.type === "GenericTypeAnnotation" ||
+        typeAnnotation.type === "TSTypeReference") &&
+      typeAnnotation.typeParameters?.params.length === 1
+    ) {
+      typeAnnotation = typeAnnotation.typeParameters.params[0];
+    }
+    return (
+      isSimpleType(typeAnnotation) && isSimpleCallArgument(node.expression, 1)
+    );
+  }
+
+  if (isCallLikeExpression(node) && getCallArguments(node).length > 1) {
+    return false;
+  }
+
+  if (isBinaryish(node)) {
+    return (
+      isSimpleCallArgument(node.left, 1) && isSimpleCallArgument(node.right, 1)
+    );
+  }
+
+  return isRegExpLiteral(node) || isSimpleCallArgument(node);
 }
 
 function isReactHookCallWithDepsArray(args) {

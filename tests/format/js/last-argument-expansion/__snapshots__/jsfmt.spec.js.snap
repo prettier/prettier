@@ -381,6 +381,48 @@ func(
 ================================================================================
 `;
 
+exports[`function-body-in-mode-break.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+fs.readdirSync(suiteLoc).forEach(function (testName) {
+  (skip ? it.skip : it)(
+    testName,
+    buildTest(binName, testName, opts),
+    2_000_000,
+  );
+});
+
+{
+  (skip ? it.skip : it)(
+    testName,
+    buildTest(binName, testName, opts),
+    2_000_000,
+  );
+}
+
+=====================================output=====================================
+fs.readdirSync(suiteLoc).forEach(function (testName) {
+  (skip ? it.skip : it)(
+    testName,
+    buildTest(binName, testName, opts),
+    2_000_000,
+  );
+});
+
+{
+  (skip ? it.skip : it)(
+    testName,
+    buildTest(binName, testName, opts),
+    2_000_000,
+  );
+}
+
+================================================================================
+`;
+
 exports[`function-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
