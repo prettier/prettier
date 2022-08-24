@@ -1,6 +1,7 @@
 "use strict";
 
-const { isNonEmptyArray } = require("../../common/util.js");
+const { isNonEmptyArray, getLast } = require("../../common/util.js");
+
 const {
   builders: { softline, group, indent, join, line, ifBreak, hardline },
 } = require("../../document/index.js");
@@ -28,6 +29,7 @@ function printImportDeclaration(path, options, print) {
   const node = path.getValue();
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
+
   const parts = [];
 
   const { importKind } = node;
@@ -45,7 +47,11 @@ function printImportDeclaration(path, options, print) {
     semi
   );
 
-  return parts;
+  const lastSpecifier = getLast(node.specifiers);
+  const brakeAfterSpecifiers =
+    lastSpecifier && lastSpecifier.end < options.printWidth;
+
+  return brakeAfterSpecifiers ? group([parts]) : parts;
 }
 
 function printExportDeclaration(path, options, print) {
@@ -211,6 +217,24 @@ function printModuleSpecifiers(path, options, print) {
     if (groupedSpecifiers.length > 0) {
       if (standaloneSpecifiers.length > 0) {
         parts.push(", ");
+      }
+
+      const lastSpecifier = getLast(node.specifiers);
+      if (
+        groupedSpecifiers.length > 1 &&
+        lastSpecifier &&
+        lastSpecifier.end < options.printWidth
+      ) {
+        parts.push([
+          "{",
+          options.bracketSpacing ? " " : "",
+          join([", "], groupedSpecifiers),
+          options.bracketSpacing ? " " : "",
+          "}",
+          softline,
+        ]);
+
+        return parts;
       }
 
       const canBreak =
