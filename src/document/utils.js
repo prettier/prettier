@@ -160,15 +160,16 @@ function mapDoc(doc, cb) {
 
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
-  let hasStopped = false;
+  let shouldSkipFurtherProcessing = false;
   function findInDocOnEnterFn(doc) {
+    if (shouldSkipFurtherProcessing) {
+      return false;
+    }
+
     const maybeResult = fn(doc);
     if (maybeResult !== undefined) {
-      hasStopped = true;
+      shouldSkipFurtherProcessing = true;
       result = maybeResult;
-    }
-    if (hasStopped) {
-      return false;
     }
   }
   traverseDoc(doc, findInDocOnEnterFn);
