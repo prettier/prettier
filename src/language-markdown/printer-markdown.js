@@ -610,7 +610,7 @@ function printLine(path, value, options, adjacentNodes) {
   const isBreakable =
     options.proseWrap === "always" &&
     !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
-  // Chinese and Japanese does not use U+0020 Space to dive words, so U+00A0 No-break space must not be replaced with it.
+  // Chinese and Japanese does not use U+0020 Space to divide words, so U+00A0 No-break space must not be replaced with it.
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
   const canLineBreakBeConvertedToSpace = !(
     value === "\n" &&
