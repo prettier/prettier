@@ -18,12 +18,7 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import {
-  fill,
-  cursor,
-  indent,
-  hardlineWithoutBreakParent,
-} from "./builders.js";
+import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
 import { getDocParts, getDocType } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
@@ -35,6 +30,8 @@ import InvalidDocError from "./invalid-doc-error.js";
 const MODE_BREAK = Symbol("MODE_BREAK");
 /** @type {unique symbol} */
 const MODE_FLAT = Symbol("MODE_FLAT");
+
+const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -320,7 +317,7 @@ function printDocToString(doc, options) {
         if (printedCursorCount >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        out.push(cursor.placeholder);
+        out.push(CURSOR_PLACEHOLDER);
         printedCursorCount++;
         break;
 
@@ -610,10 +607,10 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
+  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
   if (cursorPlaceholderIndex !== -1) {
     const otherCursorPlaceholderIndex = out.indexOf(
-      cursor.placeholder,
+      CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1
     );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");

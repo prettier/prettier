@@ -16,7 +16,7 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import { getDocType } from "./utils.js";
+import getDocType from "./utils/get-doc-type.js";
 
 const VALID_OBJECT_DOC_TYPE_VALUES = [
   DOC_TYPE_CURSOR,
