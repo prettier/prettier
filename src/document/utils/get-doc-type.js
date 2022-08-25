@@ -1,4 +1,8 @@
-import { DOC_TYPE_STRING, DOC_TYPE_ARRAY } from "../constants.js";
+import {
+  DOC_TYPE_STRING,
+  DOC_TYPE_ARRAY,
+  VALID_OBJECT_DOC_TYPES,
+} from "../constants.js";
 
 function getDocType(doc) {
   if (typeof doc === "string") {
@@ -9,7 +13,15 @@ function getDocType(doc) {
     return DOC_TYPE_ARRAY;
   }
 
-  return doc?.type;
+  if (!doc) {
+    return;
+  }
+
+  const { type } = doc;
+
+  if (VALID_OBJECT_DOC_TYPES.has(type)) {
+    return type;
+  }
 }
 
 export default getDocType;
