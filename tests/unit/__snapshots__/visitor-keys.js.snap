@@ -123,12 +123,14 @@ exports[`visitor keys estree 1`] = `
     "value",
     "decorators",
     "typeAnnotation",
+    "variance",
   ],
   "ClassProperty": [
     "key",
     "value",
     "typeAnnotation",
     "decorators",
+    "variance",
   ],
   "ConditionalExpression": [
     "test",
@@ -212,6 +214,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "EnumBooleanMember": [
     "id",
+    "init",
   ],
   "EnumDeclaration": [
     "id",
@@ -468,7 +471,7 @@ exports[`visitor keys estree 1`] = `
   ],
   "NGMicrosyntaxExpression": [
     "expression",
-    "name",
+    "alias",
   ],
   "NGMicrosyntaxKey": [],
   "NGMicrosyntaxKeyedExpression": [
@@ -597,6 +600,7 @@ exports[`visitor keys estree 1`] = `
   "Property": [
     "key",
     "value",
+    "decorators",
   ],
   "PropertyDefinition": [
     "decorators",

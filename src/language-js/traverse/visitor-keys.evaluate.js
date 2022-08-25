@@ -10,7 +10,7 @@ const angularVisitorKeys = {
   NGQuotedExpression: [],
   NGMicrosyntax: ["body"],
   NGMicrosyntaxKey: [],
-  NGMicrosyntaxExpression: ["expression", "name"],
+  NGMicrosyntaxExpression: ["expression", "alias"],
   NGMicrosyntaxKeyedExpression: ["key", "expression"],
   NGMicrosyntaxLet: ["key", "value"],
   NGMicrosyntaxAs: ["key", "alias"],
@@ -46,6 +46,11 @@ const additionalVisitorKeys = {
   ArrowFunctionExpression: ["predicate"],
   DeclareFunction: ["predicate"],
   FunctionDeclaration: ["predicate"],
+  ClassProperty: ["variance"],
+  ClassPrivateProperty: ["variance"],
+  EnumBooleanMember: ["init"],
+
+  Property: ["decorators"],
 };
 
 export default unionVisitorKeys([
