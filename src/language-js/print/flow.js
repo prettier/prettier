@@ -4,6 +4,7 @@ import assert from "node:assert";
 import { printDanglingComments } from "../../main/comments.js";
 import { printString, printNumber } from "../../common/util.js";
 import { hardline, softline, group, indent } from "../../document/builders.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 import {
   getParentExportDeclaration,
   isFunctionNotation,
@@ -268,7 +269,7 @@ function printFlow(path, options, print) {
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
-      return printString(rawText(node), options);
+      return replaceTextEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof node.value, "number");
     // fall through

@@ -1,4 +1,5 @@
 import { printString, printNumber } from "../../common/util.js";
+import { replaceTextEndOfLine } from "../../document/utils.js";
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -12,7 +13,7 @@ function printLiteral(path, options /*, print*/) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
-      return printString(node.extra.raw, options);
+      return replaceTextEndOfLine(printString(node.extra.raw, options));
     case "NullLiteral": // Babel 6 Literal split
       return "null";
     case "BooleanLiteral": // Babel 6 Literal split
@@ -39,7 +40,7 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        return printString(node.raw, options);
+        return replaceTextEndOfLine(printString(node.raw, options));
       }
 
       return String(value);

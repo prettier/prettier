@@ -832,6 +832,14 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          iNode.value?.endsWith("#") &&
+          iNextNode.value === "{" &&
+          isParenGroupNode(iNextNode.group)
+        ) {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
