@@ -248,6 +248,13 @@ function isStringLiteral(node) {
   );
 }
 
+function isRegExpLiteral(node) {
+  return (
+    node.type === "RegExpLiteral" ||
+    (node.type === "Literal" && Boolean(node.regex))
+  );
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -812,24 +819,22 @@ function isLongCurriedCallExpression(path) {
   );
 }
 
+const simpleCallArgumentUnaryOperators = new Set(["!", "-", "+", "~"]);
+
 /**
  * @param {any} node
  * @param {number} depth
  * @returns {boolean}
  */
-function isSimpleCallArgument(node, depth) {
-  if (depth >= 2) {
+function isSimpleCallArgument(node, depth = 2) {
+  if (depth <= 0) {
     return false;
   }
 
-  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
+  const isChildSimple = (child) => isSimpleCallArgument(child, depth - 1);
 
-  const regexpPattern =
-    (node.type === "Literal" && "regex" in node && node.regex.pattern) ||
-    (node.type === "RegExpLiteral" && node.pattern);
-
-  if (regexpPattern && getStringWidth(regexpPattern) > 5) {
-    return false;
+  if (isRegExpLiteral(node)) {
+    return getStringWidth(node.pattern ?? node.regex.pattern) <= 5;
   }
 
   if (
@@ -839,7 +844,6 @@ function isSimpleCallArgument(node, depth) {
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
-    node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "Identifier" ||
     node.type === "ThisExpression" ||
@@ -870,11 +874,14 @@ function isSimpleCallArgument(node, depth) {
   }
 
   if (isCallLikeExpression(node)) {
-    return (
-      (node.type === "ImportExpression" ||
-        isSimpleCallArgument(node.callee, depth)) &&
-      getCallArguments(node).every(isChildSimple)
-    );
+    if (
+      node.type === "ImportExpression" ||
+      isSimpleCallArgument(node.callee, depth)
+    ) {
+      const args = getCallArguments(node);
+      return args.length <= depth && args.every(isChildSimple);
+    }
+    return false;
   }
 
   if (isMemberExpression(node)) {
@@ -884,26 +891,10 @@ function isSimpleCallArgument(node, depth) {
     );
   }
 
-  const targetUnaryExpressionOperators = {
-    "!": true,
-    "-": true,
-    "+": true,
-    "~": true,
-  };
   if (
-    node.type === "UnaryExpression" &&
-    targetUnaryExpressionOperators[node.operator]
-  ) {
-    return isSimpleCallArgument(node.argument, depth);
-  }
-
-  const targetUpdateExpressionOperators = {
-    "++": true,
-    "--": true,
-  };
-  if (
-    node.type === "UpdateExpression" &&
-    targetUpdateExpressionOperators[node.operator]
+    (node.type === "UnaryExpression" &&
+      simpleCallArgumentUnaryOperators.has(node.operator)) ||
+    node.type === "UpdateExpression"
   ) {
     return isSimpleCallArgument(node.argument, depth);
   }
@@ -1348,6 +1339,7 @@ export {
   isObjectProperty,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isRegExpLiteral,
   isSimpleType,
   isSimpleNumber,
   isSimpleTemplateLiteral,
