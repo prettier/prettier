@@ -49,3 +49,9 @@ test("traverse", () => {
     expect(visited).toEqual([doc, doc[0], doc[0][0]]);
   }
 });
+
+test("Invalid doc", () => {
+  expect(() => {
+    traverseDoc([{type: "invalid-type"}], () => {})
+  }).toThrowError({name: "InvalidDocError"})
+})
