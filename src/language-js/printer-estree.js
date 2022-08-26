@@ -136,9 +136,10 @@ function genericPrint(path, options, print, args) {
   }
 
   const needsParens = pathNeedsParens(path, options);
+  const needsSemi = args?.needsSemi;
 
   if (!needsParens) {
-    if (args && args.needsSemi) {
+    if (needsSemi) {
       parts.unshift(";");
     }
 
@@ -156,7 +157,7 @@ function genericPrint(path, options, print, args) {
 
   parts.unshift("(");
 
-  if (args && args.needsSemi) {
+  if (needsSemi) {
     parts.unshift(";");
   }
 
@@ -176,9 +177,6 @@ function genericPrint(path, options, print, args) {
 }
 
 function printPathNoParens(path, options, print, args) {
-  const node = path.getValue();
-  const semi = options.semi ? ";" : "";
-
   for (const printer of [
     printLiteral,
     printHtmlBinding,
@@ -193,6 +191,8 @@ function printPathNoParens(path, options, print, args) {
     }
   }
 
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   let parts = [];
 
@@ -204,7 +204,7 @@ function printPathNoParens(path, options, print, args) {
     case "File":
       // Print @babel/parser's InterpreterDirective here so that
       // leading comments on the `Program` node get printed after the hashbang.
-      if (node.program && node.program.interpreter) {
+      if (node.program.interpreter) {
         parts.push(print(["program", "interpreter"]));
       }
 
@@ -343,10 +343,7 @@ function printPathNoParens(path, options, print, args) {
             (node) =>
               node.type === "AwaitExpression" || node.type === "BlockStatement"
           );
-          if (
-            !parentAwaitOrBlock ||
-            parentAwaitOrBlock.type !== "AwaitExpression"
-          ) {
+          if (parentAwaitOrBlock?.type !== "AwaitExpression") {
             return group(parts);
           }
         }
@@ -405,7 +402,7 @@ function printPathNoParens(path, options, print, args) {
     case "TupleExpression":
       return printArray(path, options, print);
     case "SequenceExpression": {
-      const parent = path.getParentNode(0);
+      const parent = path.getParentNode();
       if (
         parent.type === "ExpressionStatement" ||
         parent.type === "ForStatement"
@@ -641,17 +638,8 @@ function printPathNoParens(path, options, print, args) {
     case "DoExpression":
       return [node.async ? "async " : "", "do ", print("body")];
     case "BreakStatement":
-      parts.push("break");
-
-      if (node.label) {
-        parts.push(" ", print("label"));
-      }
-
-      parts.push(semi);
-
-      return parts;
     case "ContinueStatement":
-      parts.push("continue");
+      parts.push(node.type === "BreakStatement" ? "break" : "continue");
 
       if (node.label) {
         parts.push(" ", print("label"));
@@ -811,7 +799,7 @@ function printPathNoParens(path, options, print, args) {
 
     default:
       /* istanbul ignore next */
-      throw new Error("unknown type: " + JSON.stringify(node.type));
+      throw Object.assign(new Error("Unknown node type"), { node });
   }
 }
 
