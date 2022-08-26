@@ -355,7 +355,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_GROUP:
-        switch (mode) {
+        modeSwitch: switch (mode) {
           case MODE_FLAT:
             if (!shouldRemeasure) {
               cmds.push({
@@ -371,51 +371,44 @@ function printDocToString(doc, options) {
           case MODE_BREAK: {
             shouldRemeasure = false;
 
-            const next = { ind, mode: MODE_FLAT, doc: doc.contents };
             const rem = width - pos;
             const hasLineSuffix = lineSuffix.length > 0;
 
-            if (
-              !doc.break &&
-              fits(next, cmds, rem, hasLineSuffix, groupModeMap)
-            ) {
-              cmds.push(next);
-            } else {
-              // Expanded states are a rare case where a document
-              // can manually provide multiple representations of
-              // itself. It provides an array of documents
-              // going from the least expanded (most flattened)
-              // representation first to the most expanded. If a
-              // group has these, we need to manually go through
-              // these states and find the first one that fits.
-              if (doc.expandedStates) {
-                const mostExpanded = getLast(doc.expandedStates);
+            if (!doc.break) {
+              const next = { ind, mode: MODE_FLAT, doc: doc.contents };
 
-                if (doc.break) {
-                  cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
+              if (fits(next, cmds, rem, hasLineSuffix, groupModeMap)) {
+                cmds.push(next);
 
-                  break;
-                } else {
-                  for (let i = 1; i < doc.expandedStates.length + 1; i++) {
-                    if (i >= doc.expandedStates.length) {
-                      cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
+                break;
+              }
+            }
 
-                      break;
-                    } else {
-                      const state = doc.expandedStates[i];
-                      const cmd = { ind, mode: MODE_FLAT, doc: state };
+            // Expanded states are a rare case where a document
+            // can manually provide multiple representations of
+            // itself. It provides an array of documents
+            // going from the least expanded (most flattened)
+            // representation first to the most expanded. If a
+            // group has these, we need to manually go through
+            // these states and find the first one that fits.
+            if (doc.expandedStates) {
+              if (!doc.break) {
+                for (let i = 1; i < doc.expandedStates.length - 1; i++) {
+                  const state = doc.expandedStates[i];
+                  const cmd = { ind, mode: MODE_FLAT, doc: state };
 
-                      if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
-                        cmds.push(cmd);
+                  if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
+                    cmds.push(cmd);
 
-                        break;
-                      }
-                    }
+                    break modeSwitch;
                   }
                 }
-              } else {
-                cmds.push({ ind, mode: MODE_BREAK, doc: doc.contents });
               }
+
+              const mostExpanded = getLast(doc.expandedStates);
+              cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
+            } else {
+              cmds.push({ ind, mode: MODE_BREAK, doc: doc.contents });
             }
 
             break;
