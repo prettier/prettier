@@ -33,6 +33,39 @@ const loremIpsumFooBazBar2 =
 ================================================================================
 `;
 
+exports[`multiline-literal.js - {"trailingComma":"es5"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/pull/13274
+
+const loremIpsumFooBazBar1 = 'Multiline string\\
+         Multiline string\\
+'
+
+const loremIpsumFooBazBar2 = 'Multiline string\\
+         Multiline string\\
+         Multiline string'
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/pull/13274
+
+const loremIpsumFooBazBar1 =
+  "Multiline string\\
+         Multiline string\\
+";
+
+const loremIpsumFooBazBar2 =
+  "Multiline string\\
+         Multiline string\\
+         Multiline string";
+
+================================================================================
+`;
+
 exports[`multiline-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]
