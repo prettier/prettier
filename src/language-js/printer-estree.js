@@ -799,7 +799,10 @@ function printPathNoParens(path, options, print, args) {
 
     default:
       /* istanbul ignore next */
-      throw Object.assign(new Error("Unknown node type"), { node });
+      throw Object.assign(
+        new Error("Unknown node type: " + JSON.stringify(node.type)),
+        { node }
+      );
   }
 }
 
