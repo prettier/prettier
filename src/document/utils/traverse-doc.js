@@ -1,4 +1,3 @@
-
 import {
   DOC_TYPE_STRING,
   DOC_TYPE_ARRAY,
@@ -35,40 +34,39 @@ function traverse(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       docsStack.push(doc, traverseDocOnExitStackMarker);
     }
 
-    if (
-      // Should Recurse
-      !onEnter ||
-      onEnter(doc) !== false
-    ) {
-      // When there are multiple parts to process,
-      // the parts need to be pushed onto the stack in reverse order,
-      // so that they are processed in the original order
-      // when the stack is popped.
-      if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
-        const parts = getDocParts(doc);
-        for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
-          docsStack.push(parts[i]);
+    // Should Recurse
+    if (onEnter?.(doc) !== false) {
+      continue;
+    }
+
+    // When there are multiple parts to process,
+    // the parts need to be pushed onto the stack in reverse order,
+    // so that they are processed in the original order
+    // when the stack is popped.
+    if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
+      const parts = getDocParts(doc);
+      for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
+        docsStack.push(parts[i]);
+      }
+    } else if (doc.type === DOC_TYPE_IF_BREAK) {
+      if (doc.flatContents) {
+        docsStack.push(doc.flatContents);
+      }
+      if (doc.breakContents) {
+        docsStack.push(doc.breakContents);
+      }
+    } else if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
+      if (shouldTraverseConditionalGroups) {
+        for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
+          docsStack.push(doc.expandedStates[i]);
         }
-      } else if (doc.type === DOC_TYPE_IF_BREAK) {
-        if (doc.flatContents) {
-          docsStack.push(doc.flatContents);
-        }
-        if (doc.breakContents) {
-          docsStack.push(doc.breakContents);
-        }
-      } else if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
-        if (shouldTraverseConditionalGroups) {
-          for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
-            docsStack.push(doc.expandedStates[i]);
-          }
-        } else {
-          docsStack.push(doc.contents);
-        }
-      } else if (doc.contents) {
+      } else {
         docsStack.push(doc.contents);
       }
+    } else if (doc.contents) {
+      docsStack.push(doc.contents);
     }
   }
 }
 
-export default traverse
+export default traverse;
