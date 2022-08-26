@@ -15,11 +15,13 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "../constants.js";
+import InvalidDocError from "../invalid-doc-error.js";
+import getDocType from "./get-doc-type.js";
 
 // Using a unique object to compare by reference.
 const traverseDocOnExitStackMarker = {};
 
-function traverse(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
+function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
   const docsStack = [doc];
 
   while (docsStack.length > 0) {
@@ -43,30 +45,58 @@ function traverse(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
     // the parts need to be pushed onto the stack in reverse order,
     // so that they are processed in the original order
     // when the stack is popped.
-    if (Array.isArray(doc) || doc.type === DOC_TYPE_FILL) {
-      const parts = getDocParts(doc);
-      for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
-        docsStack.push(parts[i]);
-      }
-    } else if (doc.type === DOC_TYPE_IF_BREAK) {
-      if (doc.flatContents) {
-        docsStack.push(doc.flatContents);
-      }
-      if (doc.breakContents) {
-        docsStack.push(doc.breakContents);
-      }
-    } else if (doc.type === DOC_TYPE_GROUP && doc.expandedStates) {
-      if (shouldTraverseConditionalGroups) {
-        for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
-          docsStack.push(doc.expandedStates[i]);
+
+    const docType = getDocType(doc);
+    switch (docType) {
+      case DOC_TYPE_ARRAY:
+      case DOC_TYPE_FILL: {
+        const parts = docType === DOC_TYPE_ARRAY ? doc : doc.parts;
+        for (let ic = parts.length, i = ic - 1; i >= 0; --i) {
+          docsStack.push(parts[i]);
         }
-      } else {
-        docsStack.push(doc.contents);
+        break;
       }
-    } else if (doc.contents) {
-      docsStack.push(doc.contents);
+
+      case DOC_TYPE_IF_BREAK:
+        if (doc.flatContents) {
+          docsStack.push(doc.flatContents);
+        }
+        if (doc.breakContents) {
+          docsStack.push(doc.breakContents);
+        }
+        break;
+
+      case DOC_TYPE_GROUP:
+        if (shouldTraverseConditionalGroups && doc.expandedStates) {
+          for (let ic = doc.expandedStates.length, i = ic - 1; i >= 0; --i) {
+            docsStack.push(doc.expandedStates[i]);
+          }
+        } else {
+          docsStack.push(doc.contents);
+        }
+        break;
+
+      case DOC_TYPE_ALIGN:
+      case DOC_TYPE_INDENT:
+      case DOC_TYPE_INDENT_IF_BREAK:
+      case DOC_TYPE_LABEL:
+      case DOC_TYPE_LINE_SUFFIX:
+        docsStack.push(doc.contents);
+        break;
+
+      case DOC_TYPE_STRING:
+      case DOC_TYPE_CURSOR:
+      case DOC_TYPE_TRIM:
+      case DOC_TYPE_LINE_SUFFIX_BOUNDARY:
+      case DOC_TYPE_LINE:
+      case DOC_TYPE_BREAK_PARENT:
+        // No children
+        break;
+
+      default:
+        throw new InvalidDocError(doc);
     }
   }
 }
 
-export default traverse;
+export default traverseDoc;

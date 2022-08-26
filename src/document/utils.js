@@ -18,7 +18,7 @@ import {
 } from "./constants.js";
 import { literalline, join } from "./builders.js";
 import getDocType from "./utils/get-doc-type.js";
-import traverseDoc from "./utils/traverse-doc.js"
+import traverseDoc from "./utils/traverse-doc.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
 const getDocParts = (doc) => {
@@ -75,8 +75,8 @@ function mapDoc(doc, cb) {
 
       case DOC_TYPE_GROUP: {
         let { expandedStates, contents } = doc;
-        if (doc.expandedStates) {
-          expandedStates = doc.expandedStates.map(rec);
+        if (expandedStates) {
+          expandedStates = expandedStates.map(rec);
           contents = expandedStates[0];
         } else {
           contents = rec(contents);
