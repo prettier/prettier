@@ -1,4 +1,5 @@
 import { traverseDoc, findInDoc } from "../../src/document/utils.js";
+import InvalidDocError from "../../src/document/invalid-doc-error.js";
 
 test("traverse", () => {
   const doc = [["a", "b"]];
@@ -52,6 +53,6 @@ test("traverse", () => {
 
 test("Invalid doc", () => {
   expect(() => {
-    traverseDoc([{type: "invalid-type"}], () => {})
-  }).toThrowError({name: "InvalidDocError"})
-})
+    traverseDoc({ type: "invalid-type" }, () => {});
+  }).toThrow(InvalidDocError);
+});

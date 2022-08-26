@@ -37,7 +37,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
     }
 
     // Should Recurse
-    if (onEnter?.(doc) !== false) {
+    if (onEnter?.(doc) === false) {
       continue;
     }
 
