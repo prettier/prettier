@@ -321,7 +321,6 @@ function genericPrint(path, options, print) {
         "enum ",
         print("name"),
         printDirectives(path, print, node),
-
         node.values.length > 0
           ? [
               " {",
@@ -551,7 +550,7 @@ function printSequence(path, options, print, property) {
 }
 
 function canAttachComment(node) {
-  return node.kind && node.kind !== "Comment";
+  return node.kind !== "Comment";
 }
 
 function printComment(commentPath) {
@@ -568,7 +567,7 @@ function printInterfaces(path, options, print) {
   const node = path.getNode();
   const parts = [];
   const { interfaces } = node;
-  const printed = path.map((node) => print(node), "interfaces");
+  const printed = path.map(print, "interfaces");
 
   for (let index = 0; index < interfaces.length; index++) {
     const interfaceNode = interfaces[index];
@@ -599,7 +598,7 @@ clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
   const node = path.getValue();
-  return node?.comments?.some(
+  return node.comments?.some(
     (comment) => comment.value.trim() === "prettier-ignore"
   );
 }
