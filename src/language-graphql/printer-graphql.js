@@ -422,7 +422,7 @@ function genericPrint(path, options, print) {
     }
 
     case "OperationTypeDefinition": {
-      return [print("operation"), ": ", print("type")];
+      return [node.operation, ": ", print("type")];
     }
 
     case "InterfaceTypeExtension":
