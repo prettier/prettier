@@ -9,18 +9,23 @@ import {
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys, "kind");
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
-  if (!node) {
+
+  if (node === undefined || node === null) {
     return "";
   }
 
-  if (typeof node === "string") {
-    return node;
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
   }
 
   switch (node.kind) {
@@ -506,7 +511,10 @@ function genericPrint(path, options, print) {
 
     default:
       /* istanbul ignore next */
-      throw new Error("unknown graphql type: " + JSON.stringify(node.kind));
+      throw Object.assign(
+        new Error("Unknown node type: " + JSON.stringify(node.kind)),
+        { node }
+      );
   }
 }
 
@@ -603,7 +611,7 @@ const printer = {
   insertPragma,
   printComment,
   canAttachComment,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
+  getVisitorKeys,
 };
 
 export default printer;
