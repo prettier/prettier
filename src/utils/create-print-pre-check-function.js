@@ -1,4 +1,4 @@
-// TODO: Move this check to `../main/ast-to-doc.js` after all languages pass this
+// TODO: Move this check to `../main/ast-to-doc.js` after all languages pass it
 function createPrintPreCheckFunction(getVisitorKeys) {
   return function (path) {
     let name = path.getName();
