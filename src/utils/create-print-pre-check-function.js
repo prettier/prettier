@@ -10,18 +10,18 @@ function createPrintPreCheckFunction(getVisitorKeys) {
 
     if (typeof name === "number") {
       /*
-    Nodes in array are stored in path.stack like
+      Nodes in array are stored in path.stack like
 
-    ```js
-    [
-      parentNode,
-      property, // <-
-      array,
-      index,
-      node,
-    ]
-    ```
-    */
+      ```js
+      [
+        parentNode,
+        property, // <-
+        array,
+        index,
+        node,
+      ]
+      ```
+      */
       name = path.stack[path.stack.length - 4];
     }
 
