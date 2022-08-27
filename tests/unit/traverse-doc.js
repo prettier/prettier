@@ -1,4 +1,5 @@
 import { traverseDoc, findInDoc } from "../../src/document/utils.js";
+import InvalidDocError from "../../src/document/invalid-doc-error.js";
 
 test("traverse", () => {
   const doc = [["a", "b"]];
@@ -48,4 +49,10 @@ test("traverse", () => {
     // Should stop visiting siblings when found
     expect(visited).toEqual([doc, doc[0], doc[0][0]]);
   }
+});
+
+test("Invalid doc", () => {
+  expect(() => {
+    traverseDoc({ type: "invalid-type" }, () => {});
+  }).toThrow(InvalidDocError);
 });
