@@ -9,7 +9,7 @@ import {
   line,
   softline,
 } from "../document/builders.js";
-import { replaceTextEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import { locStart, locEnd } from "./loc.js";
@@ -224,7 +224,7 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceTextEndOfLine(text);
+        return replaceEndOfLine(text);
       }
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;

@@ -11,7 +11,7 @@ import {
   group,
   indent,
 } from "../document/builders.js";
-import { replaceTextEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
@@ -761,7 +761,7 @@ function printPathNoParens(path, options, print, args) {
     case "ClassAccessorProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
-      return replaceTextEndOfLine(node.value.raw);
+      return replaceEndOfLine(node.value.raw);
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
