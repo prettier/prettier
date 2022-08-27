@@ -512,7 +512,7 @@ function genericPrint(path, options, print) {
     default:
       /* istanbul ignore next */
       throw Object.assign(
-        new Error("Unknown node type: " + JSON.stringify(node.kind)),
+        new Error("Unknown node kind: " + JSON.stringify(node.kind)),
         { node }
       );
   }
