@@ -529,7 +529,9 @@ function getAncestorNode(path, typeOrTypes) {
 }
 
 /**
- * Finds out if Space is tend to be inserted between `字` (ideograph & kana) and `A` (other letters e.g. alphanumerics) in the sentence.
+ * Finds out if Space is tend to be inserted between Chinese or Japanese charaters
+ * (including ideograph aka han or kanji e.g. `字`, hiragana e.g. `あ`, and katakana e.g. `ア`)
+ * and other letters (including alphanumerics; e.g. `A` or `1`) in the sentence.
  *
  * @param {*} path current position in nodes tree
  * @returns {boolean} `true` if Space is tend to be inserted between these types of letters, `false` otherwise.
