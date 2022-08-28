@@ -12,6 +12,7 @@ import {
   softline,
   group,
   indent,
+  dedent,
   ifBreak,
   hardline,
   join,
@@ -37,7 +38,6 @@ import {
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
-  identity,
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import {
@@ -252,12 +252,12 @@ function printArrowChain(
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
     (args && args.assignmentLayout === "chain-tail-arrow-chain");
-  const shouldIndent = !(
-    (isCallLikeExpression(parent) && !isCallee) ||
-    isBinaryish(parent)
-  );
 
   const groupId = Symbol("arrow-chain");
+
+  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
+    signatures = [dedent(signatures[0]), ...signatures.slice(1)];
+  }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
@@ -267,14 +267,14 @@ function printArrowChain(
 
   return group([
     group(
-      (shouldIndent ? indent : identity)([
+      indent([
         isCallee || isAssignmentRhs ? softline : "",
         group(join([" =>", line], signatures), { shouldBreak }),
       ]),
       { id: groupId, shouldBreak: shouldBreakBeforeChain }
     ),
     " =>",
-    (shouldIndent ? indentIfBreak : identity)(
+    indentIfBreak(
       shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
       { groupId }
     ),
