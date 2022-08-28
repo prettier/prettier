@@ -5118,16 +5118,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-docblock@npm:28.1.1":
-  version: 28.1.1
-  resolution: "jest-docblock@npm:28.1.1"
-  dependencies:
-    detect-newline: ^3.0.0
-  checksum: 22fca68d988ecb2933bc65f448facdca85fc71b4bd0a188ea09a5ae1b0cc3a049a2a6ec7e7eaa2542c1d5cb5e5145e420a3df4fa280f5070f486c44da1d36151
-  languageName: node
-  linkType: hard
-
-"jest-docblock@npm:^29.0.0":
+"jest-docblock@npm:29.0.0, jest-docblock@npm:^29.0.0":
   version: 29.0.0
   resolution: "jest-docblock@npm:29.0.0"
   dependencies:
@@ -7043,7 +7034,7 @@ __metadata:
     ignore: 5.2.0
     import-meta-resolve: 2.1.0
     jest: 29.0.1
-    jest-docblock: 28.1.1
+    jest-docblock: 29.0.0
     jest-light-runner: 0.4.0
     jest-snapshot-serializer-ansi: 1.0.0
     jest-snapshot-serializer-raw: 1.2.0
