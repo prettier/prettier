@@ -94,7 +94,7 @@ function printObject(path, options, print) {
       hasNewlineInRange(
         options.originalText,
         locStart(node),
-        locStart(propsAndLoc[0].node)
+        propsAndLoc[0].loc
       ));
 
   const separator = isFlowInterfaceLikeBody
