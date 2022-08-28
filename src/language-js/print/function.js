@@ -274,7 +274,7 @@ function printArrowChain(
       { id: groupId, shouldBreak: shouldBreakBeforeChain }
     ),
     " =>",
-    indentIfBreak(
+    (shouldIndent ? indentIfBreak : identity)(
       shouldPutBodyOnSeparateLine ? indent([line, bodyDoc]) : [" ", bodyDoc],
       { groupId }
     ),

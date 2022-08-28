@@ -2115,7 +2115,7 @@ const w = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   (e) =>
-      0,
+    0,
 );
 
 const x = a.b(
@@ -2124,7 +2124,7 @@ const x = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   (e) =>
-      0,
+    0,
 )(x);
 
 const y = a.b(
@@ -2134,7 +2134,7 @@ const y = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   (e) =>
-      0,
+    0,
 )(x);
 
 const z = a.b(
@@ -2143,7 +2143,7 @@ const z = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   (e) =>
-      0,
+    0,
   2,
 )(x);
 
@@ -2203,7 +2203,7 @@ const w = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   e =>
-      0,
+    0,
 );
 
 const x = a.b(
@@ -2212,7 +2212,7 @@ const x = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   e =>
-      0,
+    0,
 )(x);
 
 const y = a.b(
@@ -2222,7 +2222,7 @@ const y = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   e =>
-      0,
+    0,
 )(x);
 
 const z = a.b(
@@ -2231,7 +2231,7 @@ const z = a.b(
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   e =>
-      0,
+    0,
   2,
 )(x);
 
@@ -2262,7 +2262,7 @@ const x =
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   (e) =>
-      0);
+    0);
 
 ================================================================================
 `;
@@ -2291,7 +2291,7 @@ const x =
     d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
   ) =>
   e =>
-      0);
+    0);
 
 ================================================================================
 `;
@@ -2769,7 +2769,7 @@ foo(
   (argument10) =>
   (argument11) =>
   (argument12) =>
-      3,
+    3,
 );
 
 foo(
@@ -2785,10 +2785,10 @@ foo(
   (argument10) =>
   (argument11) =>
   (argument12) => ({
-      foo: bar,
-      bar: baz,
-      baz: foo,
-    }),
+    foo: bar,
+    bar: baz,
+    baz: foo,
+  }),
 );
 
 foo(
@@ -2804,9 +2804,9 @@ foo(
   (argument10) =>
   (argument11) =>
   (argument12) => {
-      const foo = "foo";
-      return foo + "bar";
-    },
+    const foo = "foo";
+    return foo + "bar";
+  },
 );
 
 (
@@ -2839,9 +2839,9 @@ bar(
     (argument10) =>
     (argument11) =>
     (argument12) => ({
-        foo: bar,
-        bar: baz,
-      }),
+      foo: bar,
+      bar: baz,
+    }),
   ),
 );
 
@@ -2878,9 +2878,9 @@ import(
   (argument10) =>
   (argument11) =>
   (argument12) => {
-      const foo = "foo";
-      return foo + "bar";
-    }
+    const foo = "foo";
+    return foo + "bar";
+  }
 );
 
 ================================================================================
@@ -3203,7 +3203,7 @@ foo(
   argument10 =>
   argument11 =>
   argument12 =>
-      3,
+    3,
 );
 
 foo(
@@ -3219,10 +3219,10 @@ foo(
   argument10 =>
   argument11 =>
   argument12 => ({
-      foo: bar,
-      bar: baz,
-      baz: foo,
-    }),
+    foo: bar,
+    bar: baz,
+    baz: foo,
+  }),
 );
 
 foo(
@@ -3238,9 +3238,9 @@ foo(
   argument10 =>
   argument11 =>
   argument12 => {
-      const foo = "foo";
-      return foo + "bar";
-    },
+    const foo = "foo";
+    return foo + "bar";
+  },
 );
 
 (
@@ -3273,9 +3273,9 @@ bar(
     argument10 =>
     argument11 =>
     argument12 => ({
-        foo: bar,
-        bar: baz,
-      }),
+      foo: bar,
+      bar: baz,
+    }),
   ),
 );
 
@@ -3310,9 +3310,9 @@ import(
   argument10 =>
   argument11 =>
   argument12 => {
-      const foo = "foo";
-      return foo + "bar";
-    }
+    const foo = "foo";
+    return foo + "bar";
+  }
 );
 
 ================================================================================
@@ -3454,8 +3454,8 @@ request.get(
   (head) =>
   (body) =>
   (modyLoremIpsumDolorAbstractProviderFactoryServiceModule) => {
-      console.log(head, body);
-    },
+    console.log(head, body);
+  },
 );
 
 ================================================================================
