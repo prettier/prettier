@@ -37,6 +37,7 @@ import {
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
+  identity,
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import {
@@ -251,6 +252,10 @@ function printArrowChain(
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
     (args && args.assignmentLayout === "chain-tail-arrow-chain");
+  const shouldIndent = !(
+    (isCallLikeExpression(parent) && name === "arguments") ||
+    isBinaryish(parent)
+  );
 
   const groupId = Symbol("arrow-chain");
 
@@ -262,7 +267,7 @@ function printArrowChain(
 
   return group([
     group(
-      indent([
+      (shouldIndent ? indent : identity)([
         isCallee || isAssignmentRhs ? softline : "",
         group(join([" =>", line], signatures), { shouldBreak }),
       ]),
