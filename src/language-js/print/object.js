@@ -19,12 +19,12 @@ import {
   getComments,
   CommentCheckFlags,
   isNextLineEmpty,
+  isObjectType,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 
 import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 import { shouldHugFunctionParameters } from "./function-parameters.js";
-import { shouldHugType } from "./type-annotation.js";
 import { printHardlineAfterHeritage } from "./class.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
@@ -201,26 +201,21 @@ function printObject(path, options, print) {
   if (
     path.match(
       (node) => node.type === "ObjectPattern" && !node.decorators,
-      (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
-        (name === "params" ||
-          name === "parameters" ||
-          name === "this" ||
-          name === "rest") &&
-        number === 0
+      shouldHugParameter
     ) ||
-    path.match(
-      shouldHugType,
-      (node, name) => name === "typeAnnotation",
-      (node, name) => name === "typeAnnotation",
-      (node, name, number) =>
-        shouldHugFunctionParameters(node) &&
-        (name === "params" ||
-          name === "parameters" ||
-          name === "this" ||
-          name === "rest") &&
-        number === 0
-    ) ||
+    (isObjectType(node) &&
+      (path.match(
+        undefined,
+        (node, name) => name === "typeAnnotation",
+        (node, name) => name === "typeAnnotation",
+        shouldHugParameter
+      ) ||
+        path.match(
+          undefined,
+          (node, name) =>
+            node.type === "FunctionTypeParam" && name === "typeAnnotation",
+          shouldHugParameter
+        ))) ||
     // Assignment printing logic (printAssignment) is responsible
     // for adding a group if needed
     (!shouldBreak &&
@@ -235,6 +230,15 @@ function printObject(path, options, print) {
   }
 
   return group(content, { shouldBreak });
+}
+
+function shouldHugParameter(node, name, number) {
+  return (
+    ((number === 0 && (name === "params" || name === "parameters")) ||
+      name === "this" ||
+      name === "rest") &&
+    shouldHugFunctionParameters(node)
+  );
 }
 
 export { printObject };
