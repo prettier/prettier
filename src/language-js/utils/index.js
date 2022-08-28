@@ -172,6 +172,8 @@ const isLineComment = createTypeCheckFunction([
   "HashbangComment",
   "HTMLOpen",
   "HTMLClose",
+  // `espree`
+  "Hashbang",
 ]);
 
 /**
