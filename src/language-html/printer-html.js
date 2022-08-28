@@ -5,6 +5,7 @@
 import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import clean from "./clean.js";
 import {
   countChars,
@@ -25,8 +26,19 @@ import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
 import visitorKeys from "./visitor-keys.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
+  if (node === undefined || node === null) {
+    return "";
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
+  }
 
   switch (node.type) {
     case "front-matter":
@@ -113,7 +125,10 @@ function genericPrint(path, options, print) {
     case "cdata": // Transformed into `text`
     default:
       /* istanbul ignore next */
-      throw new Error(`Unexpected node type ${node.type}`);
+      throw Object.assign(
+        new Error("Unexpected node type: " + JSON.stringify(node.type)),
+        { node }
+      );
   }
 }
 
@@ -123,7 +138,7 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;
