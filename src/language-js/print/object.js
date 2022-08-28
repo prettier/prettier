@@ -33,25 +33,35 @@ function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
   const node = path.getValue();
 
-  let propertiesField;
-
-  if (node.type === "TSTypeLiteral") {
-    propertiesField = "members";
-  } else if (node.type === "TSInterfaceBody") {
-    propertiesField = "body";
-  } else {
-    propertiesField = "properties";
-  }
-
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
-  const fields = [propertiesField];
+  const fields = [
+    node.type === "TSTypeLiteral"
+      ? "members"
+      : node.type === "TSInterfaceBody"
+      ? "body"
+      : "properties",
+  ];
   if (isTypeAnnotation) {
     fields.push("indexers", "callProperties", "internalSlots");
   }
 
-  const firstProperty = fields
-    .map((field) => node[field][0])
-    .sort((a, b) => locStart(a) - locStart(b))[0];
+  // Unfortunately, things grouped together in the ast can be
+  // interleaved in the source code. So we need to reorder them before
+  // printing them.
+  const propsAndLoc = fields.flatMap((field) =>
+    path.map((childPath) => {
+      const node = childPath.getValue();
+      return {
+        node,
+        printed: print(),
+        loc: locStart(node),
+      };
+    }, field)
+  );
+
+  if (fields.length > 1) {
+    propsAndLoc.sort((a, b) => a.loc - b.loc);
+  }
 
   const parent = path.getParentNode(0);
   const isFlowInterfaceLikeBody =
@@ -80,11 +90,11 @@ function printObject(path, options, print) {
             property.value.type === "ArrayPattern")
       )) ||
     (node.type !== "ObjectPattern" &&
-      firstProperty &&
+      propsAndLoc.length > 0 &&
       hasNewlineInRange(
         options.originalText,
         locStart(node),
-        locStart(firstProperty)
+        locStart(propsAndLoc[0].node)
       ));
 
   const separator = isFlowInterfaceLikeBody
@@ -95,25 +105,6 @@ function printObject(path, options, print) {
   const leftBrace =
     node.type === "RecordExpression" ? "#{" : node.exact ? "{|" : "{";
   const rightBrace = node.exact ? "|}" : "}";
-
-  // Unfortunately, things are grouped together in the ast can be
-  // interleaved in the source code. So we need to reorder them before
-  // printing them.
-  const propsAndLoc = [];
-  for (const field of fields) {
-    path.each((childPath) => {
-      const node = childPath.getValue();
-      propsAndLoc.push({
-        node,
-        printed: print(),
-        loc: locStart(node),
-      });
-    }, field);
-  }
-
-  if (fields.length > 1) {
-    propsAndLoc.sort((a, b) => a.loc - b.loc);
-  }
 
   /** @type {Doc[]} */
   let separatorParts = [];
@@ -157,17 +148,17 @@ function printObject(path, options, print) {
     props.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = getLast(node[propertiesField]);
+  const lastElem = getLast(propsAndLoc)?.node;
 
   const canHaveTrailingSeparator = !(
     node.inexact ||
-    (lastElem && lastElem.type === "RestElement") ||
     (lastElem &&
-      (lastElem.type === "TSPropertySignature" ||
-        lastElem.type === "TSCallSignatureDeclaration" ||
-        lastElem.type === "TSMethodSignature" ||
-        lastElem.type === "TSConstructSignatureDeclaration") &&
-      hasComment(lastElem, CommentCheckFlags.PrettierIgnore))
+      (lastElem.type === "RestElement" ||
+        ((lastElem.type === "TSPropertySignature" ||
+          lastElem.type === "TSCallSignatureDeclaration" ||
+          lastElem.type === "TSMethodSignature" ||
+          lastElem.type === "TSConstructSignatureDeclaration") &&
+          hasComment(lastElem, CommentCheckFlags.PrettierIgnore))))
   );
 
   let content;
