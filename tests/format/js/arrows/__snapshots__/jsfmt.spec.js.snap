@@ -2111,38 +2111,38 @@ const z = a.b(
 =====================================output=====================================
 const w = a.b(
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    (e) =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  (e) =>
       0,
 );
 
 const x = a.b(
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    (e) =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  (e) =>
       0,
 )(x);
 
 const y = a.b(
   1,
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    (e) =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  (e) =>
       0,
 )(x);
 
 const z = a.b(
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    (e) =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  (e) =>
       0,
   2,
 )(x);
@@ -2199,38 +2199,38 @@ const z = a.b(
 =====================================output=====================================
 const w = a.b(
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    e =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  e =>
       0,
 );
 
 const x = a.b(
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    e =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  e =>
       0,
 )(x);
 
 const y = a.b(
   1,
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    e =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  e =>
       0,
 )(x);
 
 const z = a.b(
   (
-      c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-      d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-    ) =>
-    e =>
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+  e =>
       0,
   2,
 )(x);
@@ -2758,33 +2758,33 @@ throw (argument1) =>
 
 foo(
   (argument1) =>
-    (argument2) =>
-    (argument3) =>
-    (argument4) =>
-    (argument5) =>
-    (argument6) =>
-    (argument7) =>
-    (argument8) =>
-    (argument9) =>
-    (argument10) =>
-    (argument11) =>
-    (argument12) =>
+  (argument2) =>
+  (argument3) =>
+  (argument4) =>
+  (argument5) =>
+  (argument6) =>
+  (argument7) =>
+  (argument8) =>
+  (argument9) =>
+  (argument10) =>
+  (argument11) =>
+  (argument12) =>
       3,
 );
 
 foo(
   (argument1) =>
-    (argument2) =>
-    (argument3) =>
-    (argument4) =>
-    (argument5) =>
-    (argument6) =>
-    (argument7) =>
-    (argument8) =>
-    (argument9) =>
-    (argument10) =>
-    (argument11) =>
-    (argument12) => ({
+  (argument2) =>
+  (argument3) =>
+  (argument4) =>
+  (argument5) =>
+  (argument6) =>
+  (argument7) =>
+  (argument8) =>
+  (argument9) =>
+  (argument10) =>
+  (argument11) =>
+  (argument12) => ({
       foo: bar,
       bar: baz,
       baz: foo,
@@ -2793,17 +2793,17 @@ foo(
 
 foo(
   (argument1) =>
-    (argument2) =>
-    (argument3) =>
-    (argument4) =>
-    (argument5) =>
-    (argument6) =>
-    (argument7) =>
-    (argument8) =>
-    (argument9) =>
-    (argument10) =>
-    (argument11) =>
-    (argument12) => {
+  (argument2) =>
+  (argument3) =>
+  (argument4) =>
+  (argument5) =>
+  (argument6) =>
+  (argument7) =>
+  (argument8) =>
+  (argument9) =>
+  (argument10) =>
+  (argument11) =>
+  (argument12) => {
       const foo = "foo";
       return foo + "bar";
     },
@@ -2828,17 +2828,17 @@ foo(
 bar(
   foo(
     (argument1) =>
-      (argument2) =>
-      (argument3) =>
-      (argument4) =>
-      (argument5) =>
-      (argument6) =>
-      (argument7) =>
-      (argument8) =>
-      (argument9) =>
-      (argument10) =>
-      (argument11) =>
-      (argument12) => ({
+    (argument2) =>
+    (argument3) =>
+    (argument4) =>
+    (argument5) =>
+    (argument6) =>
+    (argument7) =>
+    (argument8) =>
+    (argument9) =>
+    (argument10) =>
+    (argument11) =>
+    (argument12) => ({
         foo: bar,
         bar: baz,
       }),
@@ -2867,17 +2867,17 @@ foo((action) => (action) => action);
 
 import(
   (argument1) =>
-    (argument2) =>
-    (argument3) =>
-    (argument4) =>
-    (argument5) =>
-    (argument6) =>
-    (argument7) =>
-    (argument8) =>
-    (argument9) =>
-    (argument10) =>
-    (argument11) =>
-    (argument12) => {
+  (argument2) =>
+  (argument3) =>
+  (argument4) =>
+  (argument5) =>
+  (argument6) =>
+  (argument7) =>
+  (argument8) =>
+  (argument9) =>
+  (argument10) =>
+  (argument11) =>
+  (argument12) => {
       const foo = "foo";
       return foo + "bar";
     }
@@ -3192,33 +3192,33 @@ throw argument1 =>
 
 foo(
   argument1 =>
-    argument2 =>
-    argument3 =>
-    argument4 =>
-    argument5 =>
-    argument6 =>
-    argument7 =>
-    argument8 =>
-    argument9 =>
-    argument10 =>
-    argument11 =>
-    argument12 =>
+  argument2 =>
+  argument3 =>
+  argument4 =>
+  argument5 =>
+  argument6 =>
+  argument7 =>
+  argument8 =>
+  argument9 =>
+  argument10 =>
+  argument11 =>
+  argument12 =>
       3,
 );
 
 foo(
   argument1 =>
-    argument2 =>
-    argument3 =>
-    argument4 =>
-    argument5 =>
-    argument6 =>
-    argument7 =>
-    argument8 =>
-    argument9 =>
-    argument10 =>
-    argument11 =>
-    argument12 => ({
+  argument2 =>
+  argument3 =>
+  argument4 =>
+  argument5 =>
+  argument6 =>
+  argument7 =>
+  argument8 =>
+  argument9 =>
+  argument10 =>
+  argument11 =>
+  argument12 => ({
       foo: bar,
       bar: baz,
       baz: foo,
@@ -3227,17 +3227,17 @@ foo(
 
 foo(
   argument1 =>
-    argument2 =>
-    argument3 =>
-    argument4 =>
-    argument5 =>
-    argument6 =>
-    argument7 =>
-    argument8 =>
-    argument9 =>
-    argument10 =>
-    argument11 =>
-    argument12 => {
+  argument2 =>
+  argument3 =>
+  argument4 =>
+  argument5 =>
+  argument6 =>
+  argument7 =>
+  argument8 =>
+  argument9 =>
+  argument10 =>
+  argument11 =>
+  argument12 => {
       const foo = "foo";
       return foo + "bar";
     },
@@ -3262,17 +3262,17 @@ foo(
 bar(
   foo(
     argument1 =>
-      argument2 =>
-      argument3 =>
-      argument4 =>
-      argument5 =>
-      argument6 =>
-      argument7 =>
-      argument8 =>
-      argument9 =>
-      argument10 =>
-      argument11 =>
-      argument12 => ({
+    argument2 =>
+    argument3 =>
+    argument4 =>
+    argument5 =>
+    argument6 =>
+    argument7 =>
+    argument8 =>
+    argument9 =>
+    argument10 =>
+    argument11 =>
+    argument12 => ({
         foo: bar,
         bar: baz,
       }),
@@ -3299,17 +3299,17 @@ foo(action => action => action);
 
 import(
   argument1 =>
-    argument2 =>
-    argument3 =>
-    argument4 =>
-    argument5 =>
-    argument6 =>
-    argument7 =>
-    argument8 =>
-    argument9 =>
-    argument10 =>
-    argument11 =>
-    argument12 => {
+  argument2 =>
+  argument3 =>
+  argument4 =>
+  argument5 =>
+  argument6 =>
+  argument7 =>
+  argument8 =>
+  argument9 =>
+  argument10 =>
+  argument11 =>
+  argument12 => {
       const foo = "foo";
       return foo + "bar";
     }
@@ -3452,8 +3452,8 @@ request.get(
 request.get(
   "https://preview-9992--prettier.netlify.app",
   (head) =>
-    (body) =>
-    (modyLoremIpsumDolorAbstractProviderFactoryServiceModule) => {
+  (body) =>
+  (modyLoremIpsumDolorAbstractProviderFactoryServiceModule) => {
       console.log(head, body);
     },
 );
@@ -3662,170 +3662,6 @@ function f(
   fooLoremIpsumFactory => bazLoremIpsumFactory => barLoremIpsumServiceFactory =>
     b + fooLoremIpsumFactory(c) - bazLoremIpsumFactory(b + d)
 )(x);
-
-================================================================================
-`;
-
-exports[`currying-arg.js - {"arrowParens":"always"} format 1`] = `
-====================================options=====================================
-arrowParens: "always"
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{
-  {
-    {
-      const x = a.b(
-        (
-          c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
-        ) =>
-        (e) =>
-          0
-      )(x);
-
-      const y = a.b(
-        1,
-        (
-          c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
-        ) =>
-        (e) =>
-          0
-      )(x);
-
-      const z = a.b(
-        (
-          c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
-        ) =>
-        (e) =>
-          0,
-        2
-      )(x);
-    }
-  }
-}
-
-
-=====================================output=====================================
-{
-  {
-    {
-      const x = a.b(
-        (
-            c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-            d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          ) =>
-          (e) =>
-            0,
-      )(x);
-
-      const y = a.b(
-        1,
-        (
-            c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-            d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          ) =>
-          (e) =>
-            0,
-      )(x);
-
-      const z = a.b(
-        (
-            c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-            d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          ) =>
-          (e) =>
-            0,
-        2,
-      )(x);
-    }
-  }
-}
-
-================================================================================
-`;
-
-exports[`currying-arg.js - {"arrowParens":"avoid"} format 1`] = `
-====================================options=====================================
-arrowParens: "avoid"
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{
-  {
-    {
-      const x = a.b(
-        (
-          c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
-        ) =>
-        (e) =>
-          0
-      )(x);
-
-      const y = a.b(
-        1,
-        (
-          c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
-        ) =>
-        (e) =>
-          0
-      )(x);
-
-      const z = a.b(
-        (
-          c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
-        ) =>
-        (e) =>
-          0,
-        2
-      )(x);
-    }
-  }
-}
-
-
-=====================================output=====================================
-{
-  {
-    {
-      const x = a.b(
-        (
-            c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-            d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          ) =>
-          e =>
-            0,
-      )(x);
-
-      const y = a.b(
-        1,
-        (
-            c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-            d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          ) =>
-          e =>
-            0,
-      )(x);
-
-      const z = a.b(
-        (
-            c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-            d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
-          ) =>
-          e =>
-            0,
-        2,
-      )(x);
-    }
-  }
-}
 
 ================================================================================
 `;

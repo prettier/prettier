@@ -253,7 +253,8 @@ function printArrowChain(
     (isCallee && shouldPutBodyOnSeparateLine) ||
     (args && args.assignmentLayout === "chain-tail-arrow-chain");
   const shouldIndent = !(
-    (isCallLikeExpression(parent) && name === "arguments") ||
+    (isCallLikeExpression(parent) &&
+      (typeof name === "number" || name === "source")) ||
     isBinaryish(parent)
   );
 
