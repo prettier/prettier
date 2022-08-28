@@ -42,10 +42,6 @@ const config = {
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
-  snapshotFormat: {
-    escapeString: false,
-    printBasicPrototype: false,
-  },
   testMatch: [
     "<rootDir>/tests/format/**/jsfmt.spec.js",
     "<rootDir>/tests/integration/__tests__/**/*.js",
