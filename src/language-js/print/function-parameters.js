@@ -176,7 +176,8 @@ function shouldHugFunctionParameters(node) {
           parameter.typeAnnotation.type === "TSTypeAnnotation") &&
         isObjectType(parameter.typeAnnotation.typeAnnotation)) ||
       (parameter.type === "FunctionTypeParam" &&
-        isObjectType(parameter.typeAnnotation)) ||
+        isObjectType(parameter.typeAnnotation) &&
+        parameter !== node.rest) ||
       (parameter.type === "AssignmentPattern" &&
         (parameter.left.type === "ObjectPattern" ||
           parameter.left.type === "ArrayPattern") &&
