@@ -1637,6 +1637,7 @@ exports[`visitor keys yaml 1`] = `
     "endComments",
   ],
   "flowSequenceItem": [
+    "content",
     "children",
     "anchor",
     "tag",
