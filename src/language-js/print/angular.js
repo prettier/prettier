@@ -1,4 +1,5 @@
 import { join, line, group } from "../../document/builders.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import { hasNode, hasComment, getComments } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
@@ -87,9 +88,7 @@ function printAngular(path, options, print) {
       return [print("key"), " as ", print("alias")];
     default:
       /* istanbul ignore next */
-      throw new Error(
-        `Unknown Angular node type: ${JSON.stringify(node.type)}.`
-      );
+      throw new UnexpectedNodeError(node, "Angular");
   }
 }
 

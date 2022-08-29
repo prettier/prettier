@@ -12,6 +12,8 @@ import {
 import { replaceEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
@@ -28,6 +30,9 @@ import {
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
@@ -36,13 +41,12 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 function print(path, options, print) {
   const node = path.getValue();
 
-  /* istanbul ignore if*/
-  if (!node) {
+  if (node === undefined || node === null) {
     return "";
   }
 
-  if (hasPrettierIgnore(path)) {
-    return options.originalText.slice(locStart(node), locEnd(node));
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
   }
 
   const favoriteQuote = options.singleQuote ? "'" : '"';
@@ -413,9 +417,9 @@ function print(path, options, print) {
       return "null";
     }
 
-    /* istanbul ignore next */
     default:
-      throw new Error("unknown glimmer type: " + JSON.stringify(node.type));
+      /* istanbul ignore next */
+      throw new UnexpectedNodeError(node, "Handlebars");
   }
 }
 
@@ -788,7 +792,8 @@ function printBlockParams(node) {
 const printer = {
   print,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  hasPrettierIgnore,
+  getVisitorKeys,
 };
 
 export default printer;
