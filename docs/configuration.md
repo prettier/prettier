@@ -66,7 +66,7 @@ singleQuote = true
 
 Overrides let you have different configuration for certain file extensions, folders and specific files.
 
-Prettier borrows ESLint’s [override format](https://eslint.org/docs/user-guide/configuring#example-configuration).
+Prettier borrows ESLint’s [override format](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#how-do-overrides-work).
 
 JSON:
 
