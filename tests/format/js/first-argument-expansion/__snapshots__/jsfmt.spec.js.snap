@@ -1,5 +1,255 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`expression-2nd-arg.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+call(
+  function() {
+    return 1;
+  },
+  200_000_000_000n * askTrovenaBeenaDependsRowans
+);
+
+call(
+  function() {
+    return 1;
+  },
+  200_000_000_000n * askTrovenaBeenaDependsRowans / glimseGlyphsHazardNoopsTieTie
+);
+
+call(
+  function() {
+    return 1;
+  },
+  askTrovenaBeenaDependsRowans = glimseGlyphsHazardNoopsTieTie = 200_000_000_000n
+);
+
+=====================================output=====================================
+call(function () {
+  return 1;
+}, 200_000_000_000n * askTrovenaBeenaDependsRowans);
+
+call(
+  function () {
+    return 1;
+  },
+  (200_000_000_000n * askTrovenaBeenaDependsRowans) /
+    glimseGlyphsHazardNoopsTieTie,
+);
+
+call(
+  function () {
+    return 1;
+  },
+  (askTrovenaBeenaDependsRowans = glimseGlyphsHazardNoopsTieTie =
+    200_000_000_000n),
+);
+
+================================================================================
+`;
+
+exports[`issue-2456.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+f(x => { y }, err.message.includes("asd") && err.message.includes("id") &&
+  err.message.includes('"1"') && err.message.includes("Model") &&
+  err.message.includes("/id") && err.message.includes("identifier(number)")
+)
+
+=====================================output=====================================
+f(
+  (x) => {
+    y;
+  },
+  err.message.includes("asd") &&
+    err.message.includes("id") &&
+    err.message.includes('"1"') &&
+    err.message.includes("Model") &&
+    err.message.includes("/id") &&
+    err.message.includes("identifier(number)"),
+);
+
+================================================================================
+`;
+
+exports[`issue-4401.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export function test() {
+  setTimeout(
+    () => { console.warn({}, 'Lambda approaching timeout.') },
+    Math.max(context.getRemainingTimeInMillis() - WARN_TIMEOUT_MS, 0),
+  );
+}
+
+=====================================output=====================================
+export function test() {
+  setTimeout(
+    () => {
+      console.warn({}, "Lambda approaching timeout.");
+    },
+    Math.max(context.getRemainingTimeInMillis() - WARN_TIMEOUT_MS, 0),
+  );
+}
+
+================================================================================
+`;
+
+exports[`issue-5172.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+call(
+    function() {
+        return 1;
+    },
+    $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? 'test'
+);
+
+call(function () {
+  return 1;
+}, $var || ($var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? "test"));
+
+=====================================output=====================================
+call(
+  function () {
+    return 1;
+  },
+  $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    "test",
+);
+
+call(
+  function () {
+    return 1;
+  },
+  $var ||
+    ($var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? "test"),
+);
+
+================================================================================
+`;
+
+exports[`issue-12892.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+setTimeout(() => {
+  console.log('test');
+}, someFunctionCall(
+  veryLongParameterName1,
+  veryLongParameterName2,
+  veryLongParameterName3,
+  veryLongParameterName4,
+));
+
+=====================================output=====================================
+setTimeout(
+  () => {
+    console.log("test");
+  },
+  someFunctionCall(
+    veryLongParameterName1,
+    veryLongParameterName2,
+    veryLongParameterName3,
+    veryLongParameterName4,
+  ),
+);
+
+================================================================================
+`;
+
+exports[`issue-13237.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* version 1 */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString,
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+/* version 2 (only difference is that \`//\`) */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString,  //
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+=====================================output=====================================
+/* version 1 */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString,
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+/* version 2 (only difference is that \`//\`) */
+
+exportDefaultWhatever(function (
+  aaaaaaaaaaaString, //
+  bbbbbbbbbbbString,
+  cccccccccccString,
+) {
+  return null;
+}, "xyz");
+
+================================================================================
+`;
+
+exports[`jsx.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<elem onFlip={wrap(function () {flop('!'); }, arg2)}>content</elem>
+
+=====================================output=====================================
+<elem
+  onFlip={wrap(function () {
+    flop("!");
+  }, arg2)}
+>
+  content
+</elem>;
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
