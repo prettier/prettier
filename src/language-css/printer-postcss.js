@@ -21,6 +21,8 @@ import {
 } from "../document/builders.js";
 import { removeLines, getDocParts } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
@@ -76,6 +78,9 @@ import {
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
 }
@@ -83,8 +88,8 @@ function shouldPrintComma(options) {
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
-  if (typeof node === "string") {
-    return node;
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
   }
 
   switch (node.type) {
@@ -1009,11 +1014,6 @@ function genericPrint(path, options, print) {
           : line,
       ];
     }
-    // TODO: confirm this code is dead
-    /* istanbul ignore next */
-    case "value-comma": {
-      return [node.value, " "];
-    }
     case "value-string": {
       return printString(
         node.raws.quote + node.value + node.raws.quote,
@@ -1029,9 +1029,11 @@ function genericPrint(path, options, print) {
     case "value-unknown": {
       return node.value;
     }
+
+    case "value-comma": // Handled in `value-comma_group`
     default:
       /* istanbul ignore next */
-      throw new Error(`Unknown postcss type ${JSON.stringify(node.type)}`);
+      throw new UnexpectedNodeError(node, "PostCSS");
   }
 }
 
@@ -1126,7 +1128,7 @@ const printer = {
   embed,
   insertPragma,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;
