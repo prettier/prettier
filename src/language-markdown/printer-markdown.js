@@ -24,6 +24,7 @@ import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
