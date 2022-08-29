@@ -890,16 +890,7 @@ function genericPrint(path, options, print) {
       }
 
       if (!node.open) {
-        const res = [];
-
-        for (let i = 0; i < printedGroups.length; i++) {
-          if (i !== 0) {
-            res.push([",", line]);
-          }
-          res.push(printedGroups[i]);
-        }
-
-        return group(indent(fill(res)));
+        return group(indent(fill(join([",", line], printedGroups))));
       }
 
       const isSCSSMapItem = isSCSSMapItemNode(path, options);
