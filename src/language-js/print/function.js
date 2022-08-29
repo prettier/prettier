@@ -12,6 +12,7 @@ import {
   softline,
   group,
   indent,
+  dedent,
   ifBreak,
   hardline,
   join,
@@ -253,6 +254,10 @@ function printArrowChain(
     (args && args.assignmentLayout === "chain-tail-arrow-chain");
 
   const groupId = Symbol("arrow-chain");
+
+  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
+    signatures = [dedent(signatures[0]), ...signatures.slice(1)];
+  }
 
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.

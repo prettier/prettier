@@ -2062,6 +2062,240 @@ foo(
 ================================================================================
 `;
 
+exports[`chain-as-arg.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const w = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+);
+
+const x = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+)(x);
+
+const y = a.b(
+  1,
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+)(x);
+
+const z = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0,
+  2
+)(x);
+
+
+=====================================output=====================================
+const w = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    (e) =>
+      0,
+);
+
+const x = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    (e) =>
+      0,
+)(x);
+
+const y = a.b(
+  1,
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    (e) =>
+      0,
+)(x);
+
+const z = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    (e) =>
+      0,
+  2,
+)(x);
+
+================================================================================
+`;
+
+exports[`chain-as-arg.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const w = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+);
+
+const x = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+)(x);
+
+const y = a.b(
+  1,
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+)(x);
+
+const z = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0,
+  2
+)(x);
+
+
+=====================================output=====================================
+const w = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    e =>
+      0,
+);
+
+const x = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    e =>
+      0,
+)(x);
+
+const y = a.b(
+  1,
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    e =>
+      0,
+)(x);
+
+const z = a.b(
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    e =>
+      0,
+  2,
+)(x);
+
+================================================================================
+`;
+
+exports[`chain-in-logical-expression.js - {"arrowParens":"always"} format 1`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const x = a.b ?? (
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+);
+
+=====================================output=====================================
+const x =
+  a.b ??
+  ((
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    (e) =>
+      0);
+
+================================================================================
+`;
+
+exports[`chain-in-logical-expression.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const x = a.b ?? (
+  (
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef"
+  ) =>
+  (e) =>
+    0
+);
+
+=====================================output=====================================
+const x =
+  a.b ??
+  ((
+    c = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+    d = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef",
+  ) =>
+    e =>
+      0);
+
+================================================================================
+`;
+
 exports[`comment.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
