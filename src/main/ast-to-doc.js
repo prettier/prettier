@@ -73,7 +73,7 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   function mainPrintInternal(args) {
     const value = path.getValue();
 
-    if (!value) {
+    if (value === undefined || value === null) {
       return "";
     }
 
