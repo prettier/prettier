@@ -350,10 +350,7 @@ function printNode(node, parentNode, path, options, print) {
       return print("content");
     default:
       /* istanbul ignore next */
-      throw Object.assign(
-        new Error("Unexpected yaml node type: " + JSON.stringify(node.type)),
-        { node }
-      );
+      throw new UnexpectedNodeError(node, "YAML");
   }
 }
 

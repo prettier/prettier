@@ -464,12 +464,7 @@ function genericPrint(path, options, print) {
     case "export": // transformed in to `importExport`
     default:
       /* istanbul ignore next */
-      throw Object.assign(
-        new Error(
-          "Unexpected markdown node type: " + JSON.stringify(node.type)
-        ),
-        { node }
-      );
+      throw new UnexpectedNodeError(node, "Markdown");
   }
 }
 

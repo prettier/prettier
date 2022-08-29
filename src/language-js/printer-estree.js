@@ -13,6 +13,7 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
@@ -802,10 +803,7 @@ function printPathNoParens(path, options, print, args) {
 
     default:
       /* istanbul ignore next */
-      throw Object.assign(
-        new Error("Unknown node type: " + JSON.stringify(node.type)),
-        { node }
-      );
+      throw new UnexpectedNodeError(node, "ESTree");
   }
 }
 

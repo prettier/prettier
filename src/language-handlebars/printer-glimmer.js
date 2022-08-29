@@ -13,6 +13,7 @@ import { replaceEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
@@ -418,10 +419,7 @@ function print(path, options, print) {
 
     default:
       /* istanbul ignore next */
-      throw Object.assign(
-        new Error("Unknown glimmer node type: " + JSON.stringify(node.type)),
-        { node }
-      );
+      throw new UnexpectedNodeError(node, "Handlebars");
   }
 }
 

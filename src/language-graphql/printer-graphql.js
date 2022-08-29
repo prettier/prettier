@@ -10,6 +10,7 @@ import {
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
@@ -510,10 +511,7 @@ function genericPrint(path, options, print) {
 
     default:
       /* istanbul ignore next */
-      throw Object.assign(
-        new Error("Unknown node kind: " + JSON.stringify(node.kind)),
-        { node }
-      );
+      throw new UnexpectedNodeError(node, "Graphql", "kind");
   }
 }
 

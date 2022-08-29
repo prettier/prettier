@@ -6,6 +6,7 @@ import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import {
   countChars,
@@ -121,10 +122,7 @@ function genericPrint(path, options, print) {
     case "cdata": // Transformed into `text`
     default:
       /* istanbul ignore next */
-      throw Object.assign(
-        new Error("Unexpected node type: " + JSON.stringify(node.type)),
-        { node }
-      );
+      throw new UnexpectedNodeError(node, "HTML");
   }
 }
 
