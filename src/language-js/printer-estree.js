@@ -95,10 +95,6 @@ const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
 function genericPrint(path, options, print, args) {
   const node = path.getValue();
 
-  if (node === undefined || node === null) {
-    return "";
-  }
-
   if (process.env.NODE_ENV !== "production") {
     ensurePrintingNode(path);
   }

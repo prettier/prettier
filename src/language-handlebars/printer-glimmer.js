@@ -41,10 +41,6 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (node === undefined || node === null) {
-    return "";
-  }
-
   if (process.env.NODE_ENV !== "production") {
     ensurePrintingNode(path);
   }
