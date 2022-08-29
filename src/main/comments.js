@@ -18,7 +18,7 @@ import {
   addTrailingComment,
   isNonEmptyArray,
 } from "../common/util.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+import { getChildNodes } from "./ast/index.js";
 
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options) {
@@ -27,39 +27,19 @@ function getSortedChildNodes(node, options) {
   }
 
   const {
-    printer: {
-      getCommentChildNodes,
-      canAttachComment,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
-    locStart,
-    locEnd,
+    printer: { getCommentChildNodes, canAttachComment },
+    locationComparator,
   } = options;
 
-  if (!canAttachComment) {
-    return [];
-  }
-
   const childNodes = (
-    getCommentChildNodes?.(node, options) ??
-    createGetVisitorKeysFunction(printerGetVisitorKeys)(node).flatMap(
-      (key) => node[key]
-    )
-  ).flatMap((childNode) => {
-    if (!(childNode !== null && typeof childNode === "object")) {
-      return [];
-    }
-
-    return canAttachComment(childNode)
+    getCommentChildNodes?.(node, options) ?? getChildNodes(node, options)
+  ).flatMap((childNode) =>
+    canAttachComment(childNode)
       ? childNode
-      : getSortedChildNodes(childNode, options);
-  });
-
-  // Sort by `start` location first, then `end` location
-  childNodes.sort(
-    (nodeA, nodeB) =>
-      locStart(nodeA) - locStart(nodeB) || locEnd(nodeA) - locEnd(nodeB)
+      : getSortedChildNodes(childNode, options)
   );
+
+  childNodes.sort(locationComparator);
 
   childNodesCache.set(node, childNodes);
   return childNodes;

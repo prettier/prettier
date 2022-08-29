@@ -2,7 +2,6 @@ import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse } from "./parser.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 async function printEmbeddedLanguages(
   /** @type {import("../common/ast-path").default} */ path,
@@ -13,11 +12,8 @@ async function printEmbeddedLanguages(
 ) {
   const {
     embeddedLanguageFormatting,
-    printer: {
-      embed,
-      hasPrettierIgnore = () => false,
-      getVisitorKeys: printerGetVisitorKeys,
-    },
+    printer: { embed, hasPrettierIgnore = () => false },
+    getVisitorKeys,
   } = options;
 
   if (!embed || embeddedLanguageFormatting !== "auto") {
@@ -30,7 +26,6 @@ async function printEmbeddedLanguages(
     );
   }
 
-  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
   const embedCallResults = [];
 
   recurse();

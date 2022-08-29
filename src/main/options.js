@@ -1,16 +1,22 @@
 import path from "node:path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
+import {
+  createGetVisitorKeysFunction,
+  createLocationComparator,
+} from "../main/ast/index.js";
 import getInterpreter from "../utils/get-interpreter.js";
 import { normalizeApiOptions } from "./options-normalizer.js";
 import { resolveParser } from "./parser.js";
 
 const hiddenDefaults = {
-  astFormat: "estree",
-  printer: {},
+  astFormat: undefined,
+  printer: undefined,
   originalText: undefined,
-  locStart: null,
-  locEnd: null,
+  locStart: undefined,
+  locEnd: undefined,
+  getVisitorKeys: undefined,
+  locationComparator: undefined,
 };
 
 // Copy options and fill in default values.
@@ -58,12 +64,18 @@ function normalize(options, opts = {}) {
       { passThrough: true, logger: false }
     )
   );
-  rawOptions.astFormat = parser.astFormat;
-  rawOptions.locEnd = parser.locEnd;
-  rawOptions.locStart = parser.locStart;
+  const { locStart, locEnd, astFormat } = parser;
+  rawOptions.astFormat = astFormat;
+  rawOptions.locStart = locStart;
+  rawOptions.locEnd = locEnd;
+  rawOptions.locationComparator = createLocationComparator(locStart, locEnd);
 
   const plugin = getPlugin(rawOptions);
-  rawOptions.printer = plugin.printers[rawOptions.astFormat];
+  const printer = plugin.printers[rawOptions.astFormat];
+  rawOptions.printer = printer;
+  rawOptions.getVisitorKeys = createGetVisitorKeysFunction(
+    printer.getVisitorKeys
+  );
 
   const pluginDefaults = Object.fromEntries(
     supportOptions
