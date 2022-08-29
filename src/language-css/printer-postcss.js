@@ -144,10 +144,9 @@ function genericPrint(path, options, print) {
       const isColon = trimmedBetween === ":";
       const isValueAllSpace =
         typeof node.value === "string" && /^ *$/.test(node.value);
+      let value = typeof node.value === "string" ? node.value : print("value");
 
-      let value = hasComposesNode(node)
-        ? removeLines(print("value"))
-        : print("value");
+      value = hasComposesNode(node) ? removeLines(value) : value;
 
       if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
         value = indent([hardline, dedent(value)]);
@@ -213,7 +212,7 @@ function genericPrint(path, options, print) {
         if (node.function) {
           return [
             node.name,
-            print("params"),
+            typeof node.params === "string" ? node.params : print("params"),
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
         }
@@ -269,7 +268,7 @@ function genericPrint(path, options, print) {
                   ? hardline
                   : " "
                 : " ",
-              print("params"),
+              typeof node.params === "string" ? node.params : print("params"),
             ]
           : "",
         node.selector ? indent([" ", print("selector")]) : "",
@@ -868,6 +867,10 @@ function genericPrint(path, options, print) {
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
+      const printedGroups = path.map(() => {
+        const child = path.getValue();
+        return typeof child === "string" ? child : print();
+      }, "groups");
 
       if (
         parentNode &&
@@ -881,20 +884,19 @@ function genericPrint(path, options, print) {
       ) {
         return [
           node.open ? print("open") : "",
-          join(",", path.map(print, "groups")),
+          join(",", printedGroups),
           node.close ? print("close") : "",
         ];
       }
 
       if (!node.open) {
-        const printed = path.map(print, "groups");
         const res = [];
 
-        for (let i = 0; i < printed.length; i++) {
+        for (let i = 0; i < printedGroups.length; i++) {
           if (i !== 0) {
             res.push([",", line]);
           }
-          res.push(printed[i]);
+          res.push(printedGroups[i]);
         }
 
         return group(indent(fill(res)));
