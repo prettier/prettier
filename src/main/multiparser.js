@@ -30,7 +30,9 @@ async function printEmbeddedLanguages(
     );
   }
 
-  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
+  const getVisitorKeys = createGetVisitorKeysFunction(
+    embed.getVisitorKeys ?? printerGetVisitorKeys
+  );
   const embedCallResults = [];
 
   recurse();
