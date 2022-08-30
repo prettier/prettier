@@ -226,9 +226,15 @@ function genericPrint(path, options, print) {
     }
 
     case "ObjectTypeExtension":
-    case "ObjectTypeDefinition": {
+    case "ObjectTypeDefinition":
+    case "InputObjectTypeExtension":
+    case "InputObjectTypeDefinition":
+    case "InterfaceTypeExtension":
+    case "InterfaceTypeDefinition": {
+      const { kind } = node;
       const parts = [];
-      if (node.kind === "ObjectTypeDefinition") {
+
+      if (kind.endsWith("TypeDefinition")) {
         if (node.description) {
           parts.push(print("description"), hardline);
         }
@@ -236,26 +242,34 @@ function genericPrint(path, options, print) {
         parts.push("extend ");
       }
 
-      return [
-        ...parts,
-        "type ",
-        print("name"),
-        node.interfaces.length > 0
-          ? [" implements ", ...printInterfaces(path, options, print)]
-          : "",
-        printDirectives(path, print, node),
-        node.fields.length > 0
-          ? [
-              " {",
-              indent([
-                hardline,
-                join(hardline, printSequence(path, options, print, "fields")),
-              ]),
-              hardline,
-              "}",
-            ]
-          : "",
-      ];
+      if (kind.startsWith("Object")) {
+        parts.push("type");
+      } else if (kind.startsWith("Input")) {
+        parts.push("input");
+      } else {
+        parts.push("interface");
+      }
+      parts.push(" ", print("name"));
+
+      if (!kind.startsWith("Input") && node.interfaces.length > 0) {
+        parts.push(" implements ", ...printInterfaces(path, options, print));
+      }
+
+      parts.push(printDirectives(path, print, node));
+
+      if (node.fields.length > 0) {
+        parts.push([
+          " {",
+          indent([
+            hardline,
+            join(hardline, printSequence(path, options, print, "fields")),
+          ]),
+          hardline,
+          "}",
+        ]);
+      }
+
+      return parts;
     }
 
     case "FieldDefinition": {
@@ -354,29 +368,6 @@ function genericPrint(path, options, print) {
       ];
     }
 
-    case "InputObjectTypeExtension":
-    case "InputObjectTypeDefinition": {
-      return [
-        print("description"),
-        node.description ? hardline : "",
-        node.kind === "InputObjectTypeExtension" ? "extend " : "",
-        "input ",
-        print("name"),
-        printDirectives(path, print, node),
-        node.fields.length > 0
-          ? [
-              " {",
-              indent([
-                hardline,
-                join(hardline, printSequence(path, options, print, "fields")),
-              ]),
-              hardline,
-              "}",
-            ]
-          : "",
-      ];
-    }
-
     case "SchemaExtension": {
       return [
         "extend schema",
@@ -420,32 +411,6 @@ function genericPrint(path, options, print) {
 
     case "OperationTypeDefinition": {
       return [node.operation, ": ", print("type")];
-    }
-
-    case "InterfaceTypeExtension":
-    case "InterfaceTypeDefinition": {
-      return [
-        print("description"),
-        node.description ? hardline : "",
-        node.kind === "InterfaceTypeExtension" ? "extend " : "",
-        "interface ",
-        print("name"),
-        node.interfaces.length > 0
-          ? [" implements ", ...printInterfaces(path, options, print)]
-          : "",
-        printDirectives(path, print, node),
-        node.fields.length > 0
-          ? [
-              " {",
-              indent([
-                hardline,
-                join(hardline, printSequence(path, options, print, "fields")),
-              ]),
-              hardline,
-              "}",
-            ]
-          : "",
-      ];
     }
 
     case "FragmentSpread": {
