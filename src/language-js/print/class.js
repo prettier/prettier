@@ -229,7 +229,17 @@ function printClassProperty(path, options, print) {
     printTypeAnnotation(path, options, print)
   );
 
-  return [printAssignment(path, options, print, parts, " =", "value"), semi];
+  return [
+    printAssignment(
+      path,
+      options,
+      print,
+      parts,
+      " =",
+      node.type === "TSAbstractPropertyDefinition" ? undefined : "value"
+    ),
+    semi,
+  ];
 }
 
 export {
