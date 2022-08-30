@@ -3,6 +3,7 @@ import { hardline, addAlignmentToDoc } from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
+import createPrintPreCheckFunction from "./create-print-pre-check-function.js";
 
 /**
  * Takes an abstract syntax tree (AST) and recursively converts it to a
@@ -35,7 +36,9 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   const cache = new Map();
   const path = new AstPath(ast);
 
+  const ensurePrintingNode = createPrintPreCheckFunction(options);
   const embeds = new Map();
+
   await printEmbeddedLanguages(path, mainPrint, options, printAstToDoc, embeds);
 
   // Only the root call of the print method is awaited.
@@ -71,6 +74,8 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   }
 
   function mainPrintInternal(args) {
+    ensurePrintingNode(path);
+
     const value = path.getValue();
 
     if (value === undefined || value === null) {

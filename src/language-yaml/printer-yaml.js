@@ -12,7 +12,6 @@ import {
 import { replaceEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
-import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
@@ -44,14 +43,9 @@ import printMappingItem from "./print/mapping-item.js";
 import printBlock from "./print/block.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
-const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
-
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
 
   /** @type {Doc[]} */
   const parts = [];

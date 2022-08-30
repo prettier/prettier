@@ -12,7 +12,6 @@ import {
   indent,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
@@ -90,14 +89,8 @@ import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
-const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
-
 function genericPrint(path, options, print, args) {
   const node = path.getValue();
-
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
 
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {

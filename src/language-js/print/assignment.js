@@ -34,7 +34,9 @@ function printAssignment(
 ) {
   const layout = chooseLayout(path, options, print, leftDoc, rightPropertyName);
 
-  const rightDoc = print(rightPropertyName, { assignmentLayout: layout });
+  const rightDoc = rightPropertyName
+    ? print(rightPropertyName, { assignmentLayout: layout })
+    : "";
 
   switch (layout) {
     // First break after operator, then the sides are broken independently on their own lines

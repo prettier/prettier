@@ -23,7 +23,6 @@ import {
 import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
-import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
@@ -42,7 +41,6 @@ import {
 import visitorKeys from "./visitor-keys.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
-const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
@@ -58,10 +56,6 @@ const SIBLING_NODE_TYPES = new Set([
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
-
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
 
   if (shouldRemainTheSameContent(path)) {
     return splitText(

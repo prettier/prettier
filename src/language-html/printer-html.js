@@ -5,7 +5,6 @@
 import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
-import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import {
@@ -28,14 +27,9 @@ import { printChildren } from "./print/children.js";
 import visitorKeys from "./visitor-keys.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
-const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
-
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
 
   switch (node.type) {
     case "front-matter":
