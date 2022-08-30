@@ -154,6 +154,10 @@ function getSyntaxFromCategory(category) {
       return "jsx";
     case "typescript":
       return "tsx";
+    case "css":
+    case "scss":
+    case "less":
+      return "css";
     default:
       return category;
   }
@@ -175,6 +179,8 @@ function getCommentForSyntax(syntax, comment) {
       return `# ${comment}`;
     case "hbs":
       return `{{! ${comment} }}`;
+    case "css":
+      return `/* ${comment} */`;
     default:
       return `// ${comment}`;
   }
