@@ -917,14 +917,16 @@ function genericPrint(path, options, print) {
               path.map((childPath, index) => {
                 const child = childPath.getValue();
                 const isLast = index === node.groups.length - 1;
-                const hasComma = Boolean(
-                  child.source &&
-                    options.originalText
-                      .slice(locStart(child), locStart(node.close))
-                      .trimEnd()
-                      .endsWith(",")
-                );
-                const shouldPrintComma = !isLast || (isVarFunction && hasComma);
+                const hasComma = () =>
+                  Boolean(
+                    child.source &&
+                      options.originalText
+                        .slice(locStart(child), locStart(node.close))
+                        .trimEnd()
+                        .endsWith(",")
+                  );
+                const shouldPrintComma =
+                  !isLast || (isVarFunction && hasComma());
                 const printed = [print(), shouldPrintComma ? "," : ""];
 
                 // Key/Value pair in open paren already indented
