@@ -242,16 +242,16 @@ function genericPrint(path, options, print) {
         parts.push("extend ");
       }
 
-      if (kind.startsWith("Object")) {
+      if (kind.startsWith("ObjectType")) {
         parts.push("type");
-      } else if (kind.startsWith("Input")) {
+      } else if (kind.startsWith("InputObjectType")) {
         parts.push("input");
       } else {
         parts.push("interface");
       }
       parts.push(" ", print("name"));
 
-      if (!kind.startsWith("Input") && node.interfaces.length > 0) {
+      if (!kind.startsWith("InputObjectType") && node.interfaces.length > 0) {
         parts.push(" implements ", ...printInterfaces(path, options, print));
       }
 
@@ -327,8 +327,7 @@ function genericPrint(path, options, print) {
     case "EnumTypeExtension":
     case "EnumTypeDefinition": {
       return [
-        print("description"),
-        node.description ? hardline : "",
+        ...(node.description ? [print("description"), hardline] : []),
         node.kind === "EnumTypeExtension" ? "extend " : "",
         "enum ",
         print("name"),
@@ -430,8 +429,7 @@ function genericPrint(path, options, print) {
     case "UnionTypeExtension":
     case "UnionTypeDefinition": {
       return group([
-        print("description"),
-        node.description ? hardline : "",
+        ...(node.description ? [print("description"), hardline] : []),
         group([
           node.kind === "UnionTypeExtension" ? "extend " : "",
           "union ",
@@ -454,8 +452,7 @@ function genericPrint(path, options, print) {
     case "ScalarTypeExtension":
     case "ScalarTypeDefinition": {
       return [
-        print("description"),
-        node.description ? hardline : "",
+        ...(node.description ? [print("description"), hardline] : []),
         node.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
         print("name"),
