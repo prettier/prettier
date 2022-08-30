@@ -260,9 +260,9 @@ function printFunctionType(path, options, print) {
     node.returnType || node.predicate || node.typeAnnotation
       ? [
           isArrowFunctionTypeAnnotation ? " => " : ": ",
-          print("returnType"),
-          print("predicate"),
-          print("typeAnnotation"),
+          node.returnType ? print("returnType") : "",
+          node.predicate ? print("predicate") : "",
+          node.typeAnnotation ? print("typeAnnotation") : "",
         ]
       : "";
 
