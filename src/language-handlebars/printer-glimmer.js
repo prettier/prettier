@@ -39,10 +39,6 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
-
   const favoriteQuote = options.singleQuote ? "'" : '"';
 
   switch (node.type) {
