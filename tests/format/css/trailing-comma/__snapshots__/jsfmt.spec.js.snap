@@ -10,7 +10,7 @@ printWidth: 80
 	--bar: var(--baz,);
   --bar: var(--baz     ,);
   --bar: var(--baz     ,    );
-  --bar: var(--baz,)
+  --bar: var(--baz,);
 	--bar: var(   --baz1, --baz2    , );
 }
 
@@ -19,7 +19,8 @@ printWidth: 80
   --bar: var(--baz,);
   --bar: var(--baz,);
   --bar: var(--baz,);
-  --bar: var(--baz,) --bar: var(--baz1, --baz2,);
+  --bar: var(--baz,);
+  --bar: var(--baz1, --baz2,);
 }
 
 ================================================================================
