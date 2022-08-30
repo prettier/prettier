@@ -73,6 +73,7 @@ import {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isVarFunctionNode,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
@@ -894,6 +895,7 @@ function genericPrint(path, options, print) {
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
       const isConfiguration = isConfigurationNode(node, parentNode);
+      const isVarFunction = isVarFunctionNode(parentNode);
 
       const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
       const shouldDedent = isConfiguration || isKey;
@@ -908,7 +910,17 @@ function genericPrint(path, options, print) {
               path.map((childPath, index) => {
                 const child = childPath.getValue();
                 const isLast = index === node.groups.length - 1;
-                const printed = [print(), isLast ? "" : ","];
+                const hasComma = () =>
+                  Boolean(
+                    child.source &&
+                      options.originalText
+                        .slice(locStart(child), locStart(node.close))
+                        .trimEnd()
+                        .endsWith(",")
+                  );
+                const shouldPrintComma =
+                  !isLast || (isVarFunction && hasComma());
+                const printed = [print(), shouldPrintComma ? "," : ""];
 
                 // Key/Value pair in open paren already indented
                 if (

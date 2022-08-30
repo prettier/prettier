@@ -120,6 +120,10 @@ function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
 }
 
+function isVarFunctionNode(node) {
+  return node.type === "value-func" && node.value.toLowerCase() === "var";
+}
+
 function isLastNode(path, node) {
   const nodes = path.getParentNode()?.nodes;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
@@ -444,4 +448,5 @@ export {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isVarFunctionNode,
 };
