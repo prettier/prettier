@@ -78,7 +78,10 @@ function createParseError(error) {
     return error;
   }
 
-  return createError(message, { start: { line, column } });
+  return createError(message, {
+    loc: { start: { line, column } },
+    cause: error,
+  });
 }
 
 async function parse(text, options = {}) {
