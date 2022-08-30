@@ -145,13 +145,17 @@ async function ngHtmlParser(
   }
 
   if (errors.length > 0) {
+    const [error] = errors;
     const {
       msg,
       span: { start, end },
-    } = errors[0];
+    } = error;
     throw createError(msg, {
-      start: { line: start.line + 1, column: start.col + 1 },
-      end: { line: end.line + 1, column: end.col + 1 },
+      loc: {
+        start: { line: start.line + 1, column: start.col + 1 },
+        end: { line: end.line + 1, column: end.col + 1 },
+      },
+      cause: error,
     });
   }
 

@@ -18,25 +18,20 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import {
-  fill,
-  cursor,
-  indent,
-  hardlineWithoutBreakParent,
-} from "./builders.js";
+import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
 import { getDocParts, getDocType } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
+/** @typedef {Record<symbol, Mode>} GroupModeMap */
 
-/** @type {Record<symbol, Mode>} */
-let groupModeMap;
+/** @type {unique symbol} */
+const MODE_BREAK = Symbol("MODE_BREAK");
+/** @type {unique symbol} */
+const MODE_FLAT = Symbol("MODE_FLAT");
 
-// prettier-ignore
-const MODE_BREAK = /** @type {const} */ (1);
-// prettier-ignore
-const MODE_FLAT = /** @type {const} */ (2);
+const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -177,10 +172,18 @@ function trim(out) {
  * @param {Command[]} restCommands
  * @param {number} width
  * @param {boolean} hasLineSuffix
+ * @param {GroupModeMap} groupModeMap
  * @param {boolean} [mustBeFlat]
  * @returns {boolean}
  */
-function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
+function fits(
+  next,
+  restCommands,
+  width,
+  hasLineSuffix,
+  groupModeMap,
+  mustBeFlat
+) {
   let restIdx = restCommands.length;
   /** @type {Array<Omit<Command, 'ind'>>} */
   const cmds = [next];
@@ -276,7 +279,8 @@ function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
 }
 
 function printDocToString(doc, options) {
-  groupModeMap = {};
+  /** @type GroupModeMap */
+  const groupModeMap = {};
 
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
@@ -290,6 +294,7 @@ function printDocToString(doc, options) {
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
+  let printedCursorCount = 0;
 
   while (cmds.length > 0) {
     const { ind, mode, doc } = cmds.pop();
@@ -309,7 +314,11 @@ function printDocToString(doc, options) {
       }
 
       case DOC_TYPE_CURSOR:
-        out.push(cursor.placeholder);
+        if (printedCursorCount >= 2) {
+          throw new Error("There are too many 'cursor' in doc.");
+        }
+        out.push(CURSOR_PLACEHOLDER);
+        printedCursorCount++;
         break;
 
       case DOC_TYPE_INDENT:
@@ -349,7 +358,10 @@ function printDocToString(doc, options) {
             const rem = width - pos;
             const hasLineSuffix = lineSuffix.length > 0;
 
-            if (!doc.break && fits(next, cmds, rem, hasLineSuffix)) {
+            if (
+              !doc.break &&
+              fits(next, cmds, rem, hasLineSuffix, groupModeMap)
+            ) {
               cmds.push(next);
             } else {
               // Expanded states are a rare case where a document
@@ -376,7 +388,7 @@ function printDocToString(doc, options) {
                       const state = doc.expandedStates[i];
                       const cmd = { ind, mode: MODE_FLAT, doc: state };
 
-                      if (fits(cmd, cmds, rem, hasLineSuffix)) {
+                      if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
                         cmds.push(cmd);
 
                         break;
@@ -433,6 +445,7 @@ function printDocToString(doc, options) {
           [],
           rem,
           lineSuffix.length > 0,
+          groupModeMap,
           true
         );
 
@@ -477,6 +490,7 @@ function printDocToString(doc, options) {
           [],
           rem,
           lineSuffix.length > 0,
+          groupModeMap,
           true
         );
 
@@ -593,10 +607,10 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
+  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
   if (cursorPlaceholderIndex !== -1) {
     const otherCursorPlaceholderIndex = out.indexOf(
-      cursor.placeholder,
+      CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1
     );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");

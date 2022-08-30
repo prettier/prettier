@@ -9,18 +9,20 @@ import {
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys, "kind");
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
-  if (!node) {
-    return "";
-  }
 
-  if (typeof node === "string") {
-    return node;
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
   }
 
   switch (node.kind) {
@@ -316,7 +318,6 @@ function genericPrint(path, options, print) {
         "enum ",
         print("name"),
         printDirectives(path, print, node),
-
         node.values.length > 0
           ? [
               " {",
@@ -417,7 +418,7 @@ function genericPrint(path, options, print) {
     }
 
     case "OperationTypeDefinition": {
-      return [print("operation"), ": ", print("type")];
+      return [node.operation, ": ", print("type")];
     }
 
     case "InterfaceTypeExtension":
@@ -506,7 +507,7 @@ function genericPrint(path, options, print) {
 
     default:
       /* istanbul ignore next */
-      throw new Error("unknown graphql type: " + JSON.stringify(node.kind));
+      throw new UnexpectedNodeError(node, "Graphql", "kind");
   }
 }
 
@@ -543,7 +544,7 @@ function printSequence(path, options, print, property) {
 }
 
 function canAttachComment(node) {
-  return node.kind && node.kind !== "Comment";
+  return node.kind !== "Comment";
 }
 
 function printComment(commentPath) {
@@ -560,7 +561,7 @@ function printInterfaces(path, options, print) {
   const node = path.getNode();
   const parts = [];
   const { interfaces } = node;
-  const printed = path.map((node) => print(node), "interfaces");
+  const printed = path.map(print, "interfaces");
 
   for (let index = 0; index < interfaces.length; index++) {
     const interfaceNode = interfaces[index];
@@ -603,7 +604,7 @@ const printer = {
   insertPragma,
   printComment,
   canAttachComment,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys, "kind"),
+  getVisitorKeys,
 };
 
 export default printer;

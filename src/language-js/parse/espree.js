@@ -30,7 +30,10 @@ function createParseError(error) {
     return error;
   }
 
-  return createError(message, { start: { line: lineNumber, column } });
+  return createError(message, {
+    loc: { start: { line: lineNumber, column } },
+    cause: error,
+  });
 }
 
 function parse(originalText, options = {}) {

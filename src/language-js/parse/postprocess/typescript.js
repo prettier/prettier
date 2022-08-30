@@ -1,5 +1,5 @@
 import visitNode from "./visit-node.js";
-import throwSyntaxError from "./throw-syntax-error.js";
+import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
@@ -21,7 +21,7 @@ function throwErrorForInvalidDecorator(
       return !esTreeDecorator || !esTreeDecorators.includes(esTreeDecorator);
     })
   ) {
-    throwSyntaxError(
+    throwTsSyntaxError(
       esTreeNode,
       "Leading decorators must be attached to a class declaration"
     );
@@ -43,7 +43,7 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
     return;
   }
   if (tsNode.initializer && esTreeNode.value === null) {
-    throwSyntaxError(
+    throwTsSyntaxError(
       esTreeNode,
       "Abstract property cannot have an initializer"
     );

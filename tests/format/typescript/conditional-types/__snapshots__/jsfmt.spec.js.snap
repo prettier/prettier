@@ -278,6 +278,20 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
+exports[`issue-13275.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+
+=====================================output=====================================
+type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
+
+================================================================================
+`;
+
 exports[`nested-in-condition.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

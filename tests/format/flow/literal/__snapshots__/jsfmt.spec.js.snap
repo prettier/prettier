@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiline.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type loremIpsumFooBazBar1 = 'Multiline string\\
+         Multiline string'
+
+type loremIpsumFooBazBar2 = 'Multiline string\\
+         Multiline string\\
+         Multiline string'
+
+=====================================output=====================================
+type loremIpsumFooBazBar1 =
+  "Multiline string\\
+         Multiline string";
+
+type loremIpsumFooBazBar2 =
+  "Multiline string\\
+         Multiline string\\
+         Multiline string";
+
+================================================================================
+`;

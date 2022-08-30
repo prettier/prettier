@@ -2,9 +2,11 @@
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-import { fill, group, hardline, literalline } from "../document/builders.js";
-import { cleanDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { fill, group, hardline } from "../document/builders.js";
+import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import {
   countChars,
@@ -25,12 +27,19 @@ import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
 import visitorKeys from "./visitor-keys.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
+  }
+
   switch (node.type) {
     case "front-matter":
-      return replaceTextEndOfLine(node.raw);
+      return replaceEndOfLine(node.raw);
     case "root":
       if (options.__onHtmlRoot) {
         options.__onHtmlRoot(node);
@@ -57,10 +66,7 @@ function genericPrint(path, options, print) {
         const value = hasTrailingNewline
           ? node.value.replace(trailingNewlineRegex, "")
           : node.value;
-        return [
-          ...replaceTextEndOfLine(value),
-          hasTrailingNewline ? hardline : "",
-        ];
+        return [replaceEndOfLine(value), hasTrailingNewline ? hardline : ""];
       }
 
       const printed = cleanDoc([
@@ -87,9 +93,8 @@ function genericPrint(path, options, print) {
     case "comment": {
       return [
         printOpeningTagPrefix(node, options),
-        ...replaceTextEndOfLine(
-          options.originalText.slice(locStart(node), locEnd(node)),
-          literalline
+        replaceEndOfLine(
+          options.originalText.slice(locStart(node), locEnd(node))
         ),
         printClosingTagSuffix(node, options),
       ];
@@ -104,11 +109,9 @@ function genericPrint(path, options, print) {
       const quote = singleQuoteCount < doubleQuoteCount ? "'" : '"';
       return [
         node.rawName,
-
         "=",
         quote,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           quote === '"'
             ? value.replace(/"/g, "&quot;")
             : value.replace(/'/g, "&apos;")
@@ -119,7 +122,7 @@ function genericPrint(path, options, print) {
     case "cdata": // Transformed into `text`
     default:
       /* istanbul ignore next */
-      throw new Error(`Unexpected node type ${node.type}`);
+      throw new UnexpectedNodeError(node, "HTML");
   }
 }
 
@@ -129,7 +132,7 @@ const printer = {
   insertPragma,
   massageAstNode: clean,
   embed,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

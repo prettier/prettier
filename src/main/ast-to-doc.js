@@ -73,6 +73,10 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   function mainPrintInternal(args) {
     const value = path.getValue();
 
+    if (value === undefined || value === null) {
+      return "";
+    }
+
     const shouldCache =
       value && typeof value === "object" && args === undefined;
 

@@ -20,9 +20,11 @@ import {
   group,
   hardlineWithoutBreakParent,
 } from "../document/builders.js";
-import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -39,6 +41,9 @@ import {
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
+
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
  */
@@ -53,6 +58,10 @@ const SIBLING_NODE_TYPES = new Set([
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
+
+  if (process.env.NODE_ENV !== "production") {
+    ensurePrintingNode(path);
+  }
 
   if (shouldRemainTheSameContent(path)) {
     return splitText(
@@ -243,7 +252,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          ...replaceTextEndOfLine(node.value, hardline),
+          replaceEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -257,8 +266,7 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -274,7 +282,7 @@ function genericPrint(path, options, print) {
           : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
-      return replaceTextEndOfLine(
+      return replaceEndOfLine(
         value,
         // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline)
@@ -427,7 +435,7 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceTextEndOfLine(node.value, hardline);
+      return replaceEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
@@ -441,9 +449,7 @@ function genericPrint(path, options, print) {
       return [
         "$$",
         hardline,
-        node.value
-          ? [...replaceTextEndOfLine(node.value, hardline), hardline]
-          : "",
+        node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
         "$$",
       ];
     case "inlineMath": {
@@ -459,7 +465,7 @@ function genericPrint(path, options, print) {
     case "export": // transformed in to `importExport`
     default:
       /* istanbul ignore next */
-      throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
+      throw new UnexpectedNodeError(node, "Markdown");
   }
 }
 
@@ -921,7 +927,7 @@ const printer = {
   massageAstNode: clean,
   hasPrettierIgnore,
   insertPragma,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

@@ -29,6 +29,7 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
+import isTypeCastComment from "./utils/is-type-cast-comment.js";
 
 /**
  * @typedef {import("./types/estree").Node} Node
@@ -946,21 +947,6 @@ function getCommentChildNodes(node, options) {
   ) {
     return [...(node.decorators || []), node.key, node.value.body];
   }
-}
-
-/**
- * @param {Comment} comment
- * @returns {boolean}
- */
-function isTypeCastComment(comment) {
-  return (
-    isBlockComment(comment) &&
-    comment.value[0] === "*" &&
-    // TypeScript expects the type to be enclosed in curly brackets, however
-    // Closure Compiler accepts types in parens and even without any delimiters at all.
-    // That's why we just search for "@type".
-    /@type\b/.test(comment.value)
-  );
 }
 
 /**

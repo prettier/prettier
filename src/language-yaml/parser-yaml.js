@@ -19,7 +19,10 @@ async function parse(text) {
     return root;
   } catch (error) {
     if (error?.position) {
-      throw createError(error.message, error.position);
+      throw createError(error.message, {
+        loc: error.position,
+        cause: error,
+      });
     }
 
     /* istanbul ignore next */

@@ -10,6 +10,7 @@ import {
   conditionalGroup,
   ifBreak,
 } from "../../document/builders.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isLiteral,
   getTypeScriptMappedTypeModifier,
@@ -523,9 +524,7 @@ function printTypescript(path, options, print) {
       return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
-      throw new Error(
-        `Unknown TypeScript node type: ${JSON.stringify(node.type)}.`
-      );
+      throw new UnexpectedNodeError(node, "TypeScript");
   }
 }
 

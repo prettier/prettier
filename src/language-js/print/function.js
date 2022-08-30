@@ -12,6 +12,7 @@ import {
   softline,
   group,
   indent,
+  dedent,
   ifBreak,
   hardline,
   join,
@@ -53,8 +54,7 @@ function printFunction(path, print, options, args) {
   if (
     (node.type === "FunctionDeclaration" ||
       node.type === "FunctionExpression") &&
-    args &&
-    args.expandLastArg
+    args?.expandLastArg
   ) {
     const parent = path.getParentNode();
     if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
@@ -254,6 +254,10 @@ function printArrowChain(
 
   const groupId = Symbol("arrow-chain");
 
+  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
+    signatures = [dedent(signatures[0]), ...signatures.slice(1)];
+  }
+
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
   if (tailNode.body.type === "SequenceExpression") {
@@ -301,10 +305,7 @@ function printArrowFunction(path, options, print, args) {
       node.typeParameters ||
       getFunctionParameters(node).some((param) => param.type !== "Identifier");
 
-    if (
-      node.body.type !== "ArrowFunctionExpression" ||
-      (args && args.expandLastArg)
-    ) {
+    if (node.body.type !== "ArrowFunctionExpression" || args?.expandLastArg) {
       body.unshift(print("body", args));
     } else {
       node = node.body;
@@ -355,12 +356,12 @@ function printArrowFunction(path, options, print, args) {
   // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
   // we should align the expression's closing } with the line with the opening {.
   const shouldAddSoftLine =
-    ((args && args.expandLastArg) ||
+    (args?.expandLastArg ||
       path.getParentNode().type === "JSXExpressionContainer") &&
     !hasComment(node);
 
   const printTrailingComma =
-    args && args.expandLastArg && shouldPrintComma(options, "all");
+    args?.expandLastArg && shouldPrintComma(options, "all");
 
   // In order to avoid confusion between
   // a => a ? a : a

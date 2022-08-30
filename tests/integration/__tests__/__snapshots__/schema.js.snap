@@ -398,7 +398,7 @@ in order for it to be formatted.",
           "type": "integer",
         },
         "trailingComma": {
-          "default": "es5",
+          "default": "all",
           "description": "Print trailing commas wherever possible when multi-line.",
           "oneOf": [
             {

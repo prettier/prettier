@@ -112,8 +112,11 @@ function printTypeParameter(path, options, print) {
   const node = path.getValue();
   const parts = [];
   const parent = path.getParentNode();
+
+  const name = node.type === "TSTypeParameter" ? print("name") : node.name;
+
   if (parent.type === "TSMappedType") {
-    parts.push("[", print("name"));
+    parts.push("[", name);
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
     }
@@ -139,7 +142,7 @@ function printTypeParameter(path, options, print) {
     parts.push("out ");
   }
 
-  parts.push(print("name"));
+  parts.push(name);
 
   if (node.bound) {
     parts.push(": ", print("bound"));

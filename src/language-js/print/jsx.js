@@ -12,6 +12,7 @@ import {
   join,
 } from "../../document/builders.js";
 import { willBreak } from "../../document/utils.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
 import { getLast, getPreferredQuote } from "../../common/util.js";
 import {
@@ -762,7 +763,7 @@ function printJsx(path, options, print) {
       throw new Error("JSXTest should be handled by JSXElement");
     default:
       /* istanbul ignore next */
-      throw new Error(`Unknown JSX node type: ${JSON.stringify(node.type)}.`);
+      throw new UnexpectedNodeError(node, "JSX");
   }
 }
 

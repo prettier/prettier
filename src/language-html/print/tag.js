@@ -11,7 +11,7 @@ import {
   softline,
   hardline,
 } from "../../document/builders.js";
-import { replaceTextEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   isTextLikeNode,
@@ -241,7 +241,7 @@ function printAttributes(path, options, print) {
   const printedAttributes = path.map((attributePath) => {
     const attribute = attributePath.getValue();
     return hasPrettierIgnoreAttribute(attribute)
-      ? replaceTextEndOfLine(
+      ? replaceEndOfLine(
           options.originalText.slice(locStart(attribute), locEnd(attribute))
         )
       : print();

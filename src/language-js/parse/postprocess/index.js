@@ -4,7 +4,7 @@ import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import getLast from "../../../utils/get-last.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
-import throwSyntaxError from "./throw-syntax-error.js";
+import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 function postprocess(ast, options) {
   if (
