@@ -227,10 +227,17 @@ function genericPrint(path, options, print) {
 
     case "ObjectTypeExtension":
     case "ObjectTypeDefinition": {
+      const parts = [];
+      if (node.kind === "ObjectTypeDefinition") {
+        if (node.description) {
+          parts.push(print("description"), hardline);
+        }
+      } else {
+        parts.push("extend ");
+      }
+
       return [
-        print("description"),
-        node.description ? hardline : "",
-        node.kind === "ObjectTypeExtension" ? "extend " : "",
+        ...parts,
         "type ",
         print("name"),
         node.interfaces.length > 0
