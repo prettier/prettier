@@ -19,6 +19,7 @@ function createPrintPreCheckFunction(options) {
       return;
     }
 
+    let parentNode;
     if (typeof name === "number") {
       /*
       Nodes in array are stored in path.stack like
@@ -34,20 +35,25 @@ function createPrintPreCheckFunction(options) {
       ```
       */
       name = path.stack[path.stack.length - 4];
+      parentNode = path.stack[path.stack.length - 5];
+    } else {
+      // `path.getParentNode()` skips falsely value
+      parentNode = path.stack[path.stack.length - 3];
     }
 
-    const parent = path.getParentNode();
-    const visitorKeys = getVisitorKeys(parent);
+    const visitorKeys = getVisitorKeys(parentNode);
     if (visitorKeys.includes(name)) {
       return;
     }
 
     /* istanbul ignore next */
     throw Object.assign(new Error("Calling `print()` on non-node object."), {
-      parentNode: parent,
+      parentNode,
       allowedProperties: visitorKeys,
       printingProperty: name,
       printingValue: path.getValue(),
+      pathStack:
+        path.stack.length > 5 ? ["...", path.stack.slice(-5)] : [...path.stack],
     });
   };
 }

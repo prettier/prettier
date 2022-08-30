@@ -41,7 +41,6 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
 
   await printEmbeddedLanguages(path, mainPrint, options, printAstToDoc, embeds);
 
-
   // Only the root call of the print method is awaited.
   // This is done to make things simpler for plugins that don't use recursive printing.
   let doc = await callPluginPrintFunction(

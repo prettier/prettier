@@ -31,10 +31,6 @@ const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 function genericPrint(path, options, print) {
   const node = path.getValue();
 
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
-
   switch (node.type) {
     case "front-matter":
       return replaceEndOfLine(node.raw);

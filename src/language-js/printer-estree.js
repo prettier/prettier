@@ -92,10 +92,6 @@ import { printDecorators } from "./print/decorators.js";
 function genericPrint(path, options, print, args) {
   const node = path.getValue();
 
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
-
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
     return "";
