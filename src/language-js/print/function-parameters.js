@@ -62,7 +62,7 @@ function printFunctionParameters(
 
   const parent = path.getParentNode();
   const isParametersInTestCall = isTestCall(parent);
-  const shouldHugParameters = shouldHugFunctionParameters(functionNode);
+  const shouldHugParameters = shouldHugTheOnlyFunctionParameter(functionNode);
   const printed = [];
   iterateFunctionParametersPath(path, (parameterPath, index) => {
     const isLastParameter = index === parameters.length - 1;
@@ -157,7 +157,7 @@ function printFunctionParameters(
   ];
 }
 
-function shouldHugFunctionParameters(node) {
+function shouldHugTheOnlyFunctionParameter(node) {
   if (!node) {
     return false;
   }
@@ -176,7 +176,8 @@ function shouldHugFunctionParameters(node) {
           parameter.typeAnnotation.type === "TSTypeAnnotation") &&
         isObjectType(parameter.typeAnnotation.typeAnnotation)) ||
       (parameter.type === "FunctionTypeParam" &&
-        isObjectType(parameter.typeAnnotation)) ||
+        isObjectType(parameter.typeAnnotation) &&
+        parameter !== node.rest) ||
       (parameter.type === "AssignmentPattern" &&
         (parameter.left.type === "ObjectPattern" ||
           parameter.left.type === "ArrayPattern") &&
@@ -283,6 +284,6 @@ function isDecoratedFunction(path) {
 
 export {
   printFunctionParameters,
-  shouldHugFunctionParameters,
+  shouldHugTheOnlyFunctionParameter,
   shouldGroupFunctionParameters,
 };
