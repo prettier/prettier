@@ -24,7 +24,7 @@ import {
 import { locStart, locEnd } from "../loc.js";
 
 import { printOptionalToken, printTypeAnnotation } from "./misc.js";
-import { shouldHugFunctionParameters } from "./function-parameters.js";
+import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
 import { printHardlineAfterHeritage } from "./class.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
@@ -201,20 +201,20 @@ function printObject(path, options, print) {
   if (
     path.match(
       (node) => node.type === "ObjectPattern" && !node.decorators,
-      shouldHugParameter
+      shouldHugTheOnlyParameter
     ) ||
     (isObjectType(node) &&
       (path.match(
         undefined,
         (node, name) => name === "typeAnnotation",
         (node, name) => name === "typeAnnotation",
-        shouldHugParameter
+        shouldHugTheOnlyParameter
       ) ||
         path.match(
           undefined,
           (node, name) =>
             node.type === "FunctionTypeParam" && name === "typeAnnotation",
-          shouldHugParameter
+          shouldHugTheOnlyParameter
         ))) ||
     // Assignment printing logic (printAssignment) is responsible
     // for adding a group if needed
@@ -232,12 +232,13 @@ function printObject(path, options, print) {
   return group(content, { shouldBreak });
 }
 
-function shouldHugParameter(node, name, number) {
+function shouldHugTheOnlyParameter(node, name) {
   return (
-    ((number === 0 && (name === "params" || name === "parameters")) ||
+    (name === "params" ||
+      name === "parameters" ||
       name === "this" ||
       name === "rest") &&
-    shouldHugFunctionParameters(node)
+    shouldHugTheOnlyFunctionParameter(node)
   );
 }
 
