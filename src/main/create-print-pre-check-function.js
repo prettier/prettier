@@ -53,7 +53,9 @@ function createPrintPreCheckFunction(options) {
       printingProperty: name,
       printingValue: path.getValue(),
       pathStack:
-        path.stack.length > 5 ? ["...", ...path.stack.slice(-5)] : [...path.stack],
+        path.stack.length > 5
+          ? ["...", ...path.stack.slice(-5)]
+          : [...path.stack],
     });
   };
 }
