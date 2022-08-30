@@ -9,21 +9,15 @@ import {
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
-import createPrintPreCheckFunction from "../utils/create-print-pre-check-function.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys, "kind");
-const ensurePrintingNode = createPrintPreCheckFunction(getVisitorKeys);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
-
-  if (process.env.NODE_ENV !== "production") {
-    ensurePrintingNode(path);
-  }
 
   switch (node.kind) {
     case "Document": {
