@@ -7,9 +7,9 @@ const dummyAdjectives = [
   "hippopotamic",
   "octahedral",
   "particolored",
+  "quadrupedal",
   "stellated",
   "transdecimal",
-  "weaponized",
 ];
 
 const dummyNouns = [
