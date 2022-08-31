@@ -1,5 +1,14 @@
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
+
+const getTsDecorators = (tsNode) =>
+  tsNode.modifiers?.filter(
+    (node) =>
+      node.kind ===
+      // require('typescript').SyntaxKind.Decorator
+      165
+  );
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
@@ -8,10 +17,15 @@ function throwErrorForInvalidDecorator(
   esTreeNode,
   tsNodeToESTreeNodeMap
 ) {
-  const tsDecorators = tsNode.decorators;
-  if (!Array.isArray(tsDecorators)) {
+  const tsModifiers = tsNode.modifiers;
+  if (!Array.isArray(tsModifiers)) {
     return;
   }
+  const tsDecorators = getTsDecorators(tsNode);
+  if (!isNonEmptyArray(tsDecorators)) {
+    return;
+  }
+
   const esTreeDecorators = esTreeNode.decorators;
   if (
     !Array.isArray(esTreeDecorators) ||
