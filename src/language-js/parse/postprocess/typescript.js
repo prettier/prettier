@@ -11,12 +11,13 @@ function getSourceFileOfNode(node) {
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
+// There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
 function throwErrorForInvalidDecorator(tsNode) {
   const illegalDecorator = tsNode.illegalDecorators?.[0];
   if (!illegalDecorator) {
     return;
   }
-console.log(illegalDecorator)
+
   const sourceFile = getSourceFileOfNode(illegalDecorator);
   const [start, end] = [illegalDecorator.pos, illegalDecorator.end].map(
     (position) => {
