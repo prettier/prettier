@@ -1,3 +1,4 @@
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
@@ -13,19 +14,19 @@ function getSourceFileOfNode(node) {
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
 // There is a `checkGrammarDecorators` in `typescript` package, consider use it directly in future
 function throwErrorForInvalidDecorator(tsNode) {
-  const illegalDecorator = tsNode.illegalDecorators?.[0];
-  if (!illegalDecorator) {
+  const { illegalDecorators } = tsNode;
+  if (!isNonEmptyArray(illegalDecorators)) {
     return;
   }
 
-  const sourceFile = getSourceFileOfNode(illegalDecorator);
-  const [start, end] = [illegalDecorator.pos, illegalDecorator.end].map(
-    (position) => {
-      const { line, character: column } =
-        sourceFile.getLineAndCharacterOfPosition(position);
-      return { line: line + 1, column };
-    }
-  );
+  const [{ expression }] = illegalDecorators;
+
+  const sourceFile = getSourceFileOfNode(expression);
+  const [start, end] = [expression.pos, expression.end].map((position) => {
+    const { line, character: column } =
+      sourceFile.getLineAndCharacterOfPosition(position);
+    return { line: line + 1, column };
+  });
 
   throwTsSyntaxError({ loc: { start, end } }, "Decorators are not valid here.");
 }
