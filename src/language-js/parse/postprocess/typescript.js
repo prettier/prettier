@@ -1,45 +1,32 @@
-import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
-const getTsDecorators = (tsNode) =>
-  tsNode.modifiers?.filter(
-    (node) =>
-      node.kind ===
-      // require('typescript').SyntaxKind.Decorator
-      165
-  );
+// Copied from https://unpkg.com/typescript@4.8.2/lib/typescript.js
+function getSourceFileOfNode(node) {
+  while (node && node.kind !== 305 /* SyntaxKind.SourceFile */) {
+    node = node.parent;
+  }
+  return node;
+}
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
 // https://github.com/typescript-eslint/typescript-eslint/pull/2375
-function throwErrorForInvalidDecorator(
-  tsNode,
-  esTreeNode,
-  tsNodeToESTreeNodeMap
-) {
-  const tsModifiers = tsNode.modifiers;
-  if (!Array.isArray(tsModifiers)) {
+function throwErrorForInvalidDecorator(tsNode) {
+  const illegalDecorator = tsNode.illegalDecorators?.[0];
+  if (!illegalDecorator) {
     return;
   }
-  const tsDecorators = getTsDecorators(tsNode);
-  if (!isNonEmptyArray(tsDecorators)) {
-    return;
-  }
+console.log(illegalDecorator)
+  const sourceFile = getSourceFileOfNode(illegalDecorator);
+  const [start, end] = [illegalDecorator.pos, illegalDecorator.end].map(
+    (position) => {
+      const { line, character: column } =
+        sourceFile.getLineAndCharacterOfPosition(position);
+      return { line: line + 1, column };
+    }
+  );
 
-  const esTreeDecorators = esTreeNode.decorators;
-  if (
-    !Array.isArray(esTreeDecorators) ||
-    esTreeDecorators.length !== tsDecorators.length ||
-    tsDecorators.some((tsDecorator) => {
-      const esTreeDecorator = tsNodeToESTreeNodeMap.get(tsDecorator);
-      return !esTreeDecorator || !esTreeDecorators.includes(esTreeDecorator);
-    })
-  ) {
-    throwTsSyntaxError(
-      esTreeNode,
-      "Leading decorators must be attached to a class declaration"
-    );
-  }
+  throwTsSyntaxError({ loc: { start, end } }, "Decorators are not valid here.");
 }
 
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
@@ -73,12 +60,13 @@ function throwErrorForInvalidNodes(ast, options) {
     if (!tsNode) {
       return;
     }
+
     const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
     if (esTreeNode !== node) {
       return;
     }
 
-    throwErrorForInvalidDecorator(tsNode, esTreeNode, tsNodeToESTreeNodeMap);
+    throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
   });
 }
