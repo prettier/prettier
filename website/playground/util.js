@@ -106,7 +106,7 @@ export function convertSelectionToRange({ head, anchor }, content) {
     .sort((a, b) => a - b);
 }
 
-export function convertOffsetToPosition(offset, content) {
+export function convertOffsetToSelection(offset, content) {
   let line = 0;
   let ch = 0;
   for (let i = 0; i < offset && i <= content.length; i++) {
@@ -117,7 +117,7 @@ export function convertOffsetToPosition(offset, content) {
       ch++;
     }
   }
-  return { line, ch };
+  return { anchor: { line, ch } };
 }
 
 /**

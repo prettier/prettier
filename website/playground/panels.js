@@ -18,17 +18,11 @@ class CodeMirrorPanel extends React.Component {
     delete options.ruler;
     delete options.rulerColor;
     delete options.value;
+    delete options.selection;
     delete options.onChange;
-    delete options.onFormat;
 
     options.rulers = [makeRuler(this.props)];
     options.gutters = makeGutters(this.props);
-
-    if (this.props.onFormat) {
-      options.extraKeys = {
-        "Shift-Alt-F": this.handleFormat.bind(this),
-      };
-    }
 
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
@@ -42,6 +36,7 @@ class CodeMirrorPanel extends React.Component {
     window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
 
     this.updateValue(this.props.value || "");
+    this.updateSelection();
     this.updateOverlay();
   }
 
@@ -52,6 +47,15 @@ class CodeMirrorPanel extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.value !== this._cached) {
       this.updateValue(this.props.value);
+    }
+    if (
+      !isEqualSelection(this.props.selection, prevProps.selection) &&
+      !isEqualSelection(
+        this.props.selection,
+        this._codeMirror.listSelections()[0]
+      )
+    ) {
+      this.updateSelection();
     }
     if (
       this.props.overlayStart !== prevProps.overlayStart ||
@@ -85,6 +89,13 @@ class CodeMirrorPanel extends React.Component {
     }
   }
 
+  updateSelection() {
+    this._codeMirror.setSelection(
+      this.props.selection?.anchor ?? { line: 0, ch: 0 },
+      this.props.selection?.head
+    );
+  }
+
   updateOverlay() {
     if (!this.props.readOnly) {
       if (this._overlay) {
@@ -114,20 +125,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   handleSelectionChange(doc, change) {
-    if (this.props.onSelectionChange) {
-      this.props.onSelectionChange(change.ranges[0]);
-    }
-  }
-
-  handleFormat() {
-    const result = this.props.onFormat();
-    if (!result) {
-      return;
-    }
-    Promise.resolve(result).then(({ value, cursor }) => {
-      this.props.onChange(value);
-      this._codeMirror.setCursor(cursor);
-    });
+    this.props.onSelectionChange?.(change.ranges[0]);
   }
 
   render() {
@@ -194,6 +192,19 @@ function makeGutters(props) {
   return props.foldGutter
     ? ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     : [];
+}
+
+function isEqualSelection(selection1, selection2) {
+  const anchor1 = selection1?.anchor ?? { line: 0, ch: 0 };
+  const head1 = selection1?.head ?? anchor1;
+  const anchor2 = selection2?.anchor ?? { line: 0, ch: 0 };
+  const head2 = selection2?.head ?? anchor2;
+  return (
+    head1.line === head2.line &&
+    head1.ch === head2.ch &&
+    anchor1.line === anchor2.line &&
+    anchor1.ch === anchor2.ch
+  );
 }
 
 export function InputPanel(props) {
