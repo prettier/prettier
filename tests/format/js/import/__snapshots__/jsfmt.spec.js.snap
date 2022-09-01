@@ -36,12 +36,8 @@ import {
 } from ".";
 import {fitsIn, oneLine} from ".";
 
-import {
-  GET_DATA,
-  GET_DATA_START,
-  GET_DATA_START2,
-  GET_DATA_START3,
-} from "./test-export";
+import {GET_DATA, GET_DATA_START, GET_DATA_START2, GET_DATA_START3}
+  from "./test-export";
 
 ================================================================================
 `;
@@ -81,12 +77,8 @@ import {
 } from ".";
 import { fitsIn, oneLine } from ".";
 
-import {
-  GET_DATA,
-  GET_DATA_START,
-  GET_DATA_START2,
-  GET_DATA_START3,
-} from "./test-export";
+import { GET_DATA, GET_DATA_START, GET_DATA_START2, GET_DATA_START3 }
+  from "./test-export";
 
 ================================================================================
 `;
@@ -344,13 +336,10 @@ import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomet
 =====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {somethingSuperLongsomethingSuperLong1} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import a, {
-  somethingSuperLongsomethingSuperLong2,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import {
-  a2,
-  somethingSuperLongsomethingSuperLong3,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import a, {somethingSuperLongsomethingSuperLong2}
+  from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import {a2, somethingSuperLongsomethingSuperLong3}
+  from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
 ================================================================================
 `;
@@ -369,13 +358,10 @@ import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomet
 =====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import { somethingSuperLongsomethingSuperLong1 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import a, {
-  somethingSuperLongsomethingSuperLong2,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import {
-  a2,
-  somethingSuperLongsomethingSuperLong3,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import a, { somethingSuperLongsomethingSuperLong2 }
+  from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import { a2, somethingSuperLongsomethingSuperLong3 }
+  from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
 ================================================================================
 `;

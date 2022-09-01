@@ -40,18 +40,16 @@ function printImportDeclaration(path, options, print) {
     parts.push(" ", importKind);
   }
 
+  const groupId = Symbol("import");
+
   parts.push(
-    printModuleSpecifiers(path, options, print),
-    printModuleSource(path, options, print),
+    printModuleSpecifiers(path, options, print, groupId),
+    printModuleSource(path, options, print, groupId),
     printImportAssertions(path, options, print),
     semi
   );
 
-  const lastSpecifier = getLast(node.specifiers);
-  const brakeAfterSpecifiers =
-    lastSpecifier && lastSpecifier.end < options.printWidth;
-
-  return brakeAfterSpecifiers ? group([parts]) : parts;
+  return group([parts]);
 }
 
 function printExportDeclaration(path, options, print) {
@@ -159,7 +157,7 @@ function shouldExportDeclarationPrintSemi(node, options) {
   return false;
 }
 
-function printModuleSource(path, options, print) {
+function printModuleSource(path, options, print, groupId) {
   const node = path.getValue();
 
   if (!node.source) {
@@ -169,14 +167,14 @@ function printModuleSource(path, options, print) {
   /** @type{Doc[]} */
   const parts = [];
   if (!shouldNotPrintSpecifiers(node, options)) {
-    parts.push(" from");
+    parts.push(" ", indent(ifBreak("", softline, { groupId })), "from");
   }
   parts.push(" ", print("source"));
 
   return parts;
 }
 
-function printModuleSpecifiers(path, options, print) {
+function printModuleSpecifiers(path, options, print, groupId) {
   const node = path.getValue();
 
   if (shouldNotPrintSpecifiers(node, options)) {
@@ -219,24 +217,6 @@ function printModuleSpecifiers(path, options, print) {
         parts.push(", ");
       }
 
-      const lastSpecifier = getLast(node.specifiers);
-      if (
-        groupedSpecifiers.length > 1 &&
-        lastSpecifier &&
-        lastSpecifier.end < options.printWidth
-      ) {
-        parts.push([
-          "{",
-          options.bracketSpacing ? " " : "",
-          join([", "], groupedSpecifiers),
-          options.bracketSpacing ? " " : "",
-          "}",
-          softline,
-        ]);
-
-        return parts;
-      }
-
       const canBreak =
         groupedSpecifiers.length > 1 ||
         standaloneSpecifiers.length > 0 ||
@@ -244,16 +224,19 @@ function printModuleSpecifiers(path, options, print) {
 
       if (canBreak) {
         parts.push(
-          group([
-            "{",
-            indent([
+          group(
+            [
+              "{",
+              indent([
+                options.bracketSpacing ? line : softline,
+                join([",", line], groupedSpecifiers),
+              ]),
+              ifBreak(shouldPrintComma(options) ? "," : ""),
               options.bracketSpacing ? line : softline,
-              join([",", line], groupedSpecifiers),
-            ]),
-            ifBreak(shouldPrintComma(options) ? "," : ""),
-            options.bracketSpacing ? line : softline,
-            "}",
-          ])
+              "}",
+            ],
+            { id: groupId }
+          )
         );
       } else {
         parts.push([
