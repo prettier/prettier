@@ -49,7 +49,7 @@ function printImportDeclaration(path, options, print) {
     semi
   );
 
-  return group([parts]);
+  return group(parts);
 }
 
 function printExportDeclaration(path, options, print) {
