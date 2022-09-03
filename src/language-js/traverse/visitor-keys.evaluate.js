@@ -28,7 +28,7 @@ const additionalVisitorKeys = {
   // Legacy node type
   SpreadProperty: ["argument"],
 
-  // typescript
+  // TypeScript
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
@@ -44,6 +44,7 @@ const additionalVisitorKeys = {
   ClassProperty: ["variance"],
   ClassPrivateProperty: ["variance"],
 
+  // Unknown
   Property: ["decorators"],
 };
 
