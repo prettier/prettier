@@ -20,6 +20,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "returnType",
     "typeParameters",
+    "id",
     "predicate",
   ],
   "AssignmentExpression": [
@@ -181,6 +182,7 @@ exports[`visitor keys estree 1`] = `
     "id",
     "typeParameters",
     "supertype",
+    "impltype",
   ],
   "DeclareTypeAlias": [
     "id",
@@ -307,6 +309,7 @@ exports[`visitor keys estree 1`] = `
     "body",
     "returnType",
     "typeParameters",
+    "predicate",
   ],
   "FunctionTypeAnnotation": [
     "typeParameters",

@@ -1,5 +1,6 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
+import flowVisitorKeys from "hermes-eslint/dist/HermesESLintVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
 const angularVisitorKeys = {
@@ -37,18 +38,11 @@ const additionalVisitorKeys = {
   TSModuleDeclaration: ["modifiers"],
   TSEnumDeclaration: ["modifiers"],
 
-  // flow
-  QualifiedTypeofIdentifier: ["id", "qualification"],
-  BigIntLiteralTypeAnnotation: [],
+  // Flow
   BigIntTypeAnnotation: [],
-  FunctionTypeAnnotation: ["this"],
-  PropertyDefinition: ["variance"],
-  ArrowFunctionExpression: ["predicate"],
-  DeclareFunction: ["predicate"],
-  FunctionDeclaration: ["predicate"],
+  QualifiedTypeofIdentifier: ["id", "qualification"],
   ClassProperty: ["variance"],
   ClassPrivateProperty: ["variance"],
-  EnumBooleanMember: ["init"],
 
   Property: ["decorators"],
 };
@@ -56,6 +50,7 @@ const additionalVisitorKeys = {
 export default unionVisitorKeys([
   babelVisitorKeys,
   tsVisitorKeys,
+  flowVisitorKeys,
   angularVisitorKeys,
   additionalVisitorKeys,
 ]);
