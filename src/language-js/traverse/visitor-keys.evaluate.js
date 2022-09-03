@@ -48,10 +48,28 @@ const additionalVisitorKeys = {
   Property: ["decorators"],
 };
 
-export default unionVisitorKeys([
-  babelVisitorKeys,
-  tsVisitorKeys,
-  flowVisitorKeys,
-  angularVisitorKeys,
-  additionalVisitorKeys,
-]);
+const excludeKeys = {
+  // From `flowVisitorKeys`
+  ArrowFunctionExpression: ["id"],
+  DeclareOpaqueType: ["impltype"],
+  FunctionExpression: ["predicate"],
+};
+
+const visitorKeys = Object.fromEntries(
+  Object.entries(
+    unionVisitorKeys([
+      babelVisitorKeys,
+      tsVisitorKeys,
+      flowVisitorKeys,
+      angularVisitorKeys,
+      additionalVisitorKeys,
+    ])
+  ).map(([type, keys]) => [
+    type,
+    excludeKeys[type]
+      ? keys.filter((key) => !excludeKeys[type].includes(key))
+      : keys,
+  ])
+);
+
+export default visitorKeys;
