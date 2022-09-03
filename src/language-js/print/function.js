@@ -57,7 +57,13 @@ function printFunction(path, print, options, args) {
     args?.expandLastArg
   ) {
     const parent = path.getParentNode();
-    if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+    if (
+      isCallExpression(parent) &&
+      (getCallArguments(parent).length > 1 ||
+        getFunctionParameters(node).every(
+          (param) => param.type === "Identifier" && !param.typeAnnotation
+        ))
+    ) {
       expandArg = true;
     }
   }
