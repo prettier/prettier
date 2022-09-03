@@ -1,5 +1,6 @@
 import { VISITOR_KEYS as babelVisitorKeys } from "@babel/types";
 import { visitorKeys as tsVisitorKeys } from "@typescript-eslint/visitor-keys";
+import flowVisitorKeys from "hermes-eslint/dist/HermesESLintVisitorKeys.js";
 import unionVisitorKeys from "./union-visitor-keys.js";
 
 const angularVisitorKeys = {
@@ -27,7 +28,7 @@ const additionalVisitorKeys = {
   // Legacy node type
   SpreadProperty: ["argument"],
 
-  // typescript
+  // TypeScript
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
   TSJSDocNullableType: ["typeAnnotation"],
@@ -37,25 +38,38 @@ const additionalVisitorKeys = {
   TSModuleDeclaration: ["modifiers"],
   TSEnumDeclaration: ["modifiers"],
 
-  // flow
-  QualifiedTypeofIdentifier: ["id", "qualification"],
-  BigIntLiteralTypeAnnotation: [],
+  // Flow
   BigIntTypeAnnotation: [],
-  FunctionTypeAnnotation: ["this"],
-  PropertyDefinition: ["variance"],
-  ArrowFunctionExpression: ["predicate"],
-  DeclareFunction: ["predicate"],
-  FunctionDeclaration: ["predicate"],
+  QualifiedTypeofIdentifier: ["id", "qualification"],
   ClassProperty: ["variance"],
   ClassPrivateProperty: ["variance"],
-  EnumBooleanMember: ["init"],
 
+  // Unknown
   Property: ["decorators"],
 };
 
-export default unionVisitorKeys([
-  babelVisitorKeys,
-  tsVisitorKeys,
-  angularVisitorKeys,
-  additionalVisitorKeys,
-]);
+const excludeKeys = {
+  // From `flowVisitorKeys`
+  ArrowFunctionExpression: ["id"],
+  DeclareOpaqueType: ["impltype"],
+  FunctionExpression: ["predicate"],
+};
+
+const visitorKeys = Object.fromEntries(
+  Object.entries(
+    unionVisitorKeys([
+      babelVisitorKeys,
+      tsVisitorKeys,
+      flowVisitorKeys,
+      angularVisitorKeys,
+      additionalVisitorKeys,
+    ])
+  ).map(([type, keys]) => [
+    type,
+    excludeKeys[type]
+      ? keys.filter((key) => !excludeKeys[type].includes(key))
+      : keys,
+  ])
+);
+
+export default visitorKeys;

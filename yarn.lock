@@ -4389,6 +4389,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hermes-eslint@npm:0.9.0":
+  version: 0.9.0
+  resolution: "hermes-eslint@npm:0.9.0"
+  dependencies:
+    esrecurse: ^4.3.0
+    hermes-estree: 0.9.0
+    hermes-parser: 0.9.0
+  checksum: 625521c81c449eee97b7f27f2b61a14d345f1d3327511e226c445ee278ad60af0631c9fdd6a37a4e489487dde6ca174555e5a3b970ecc251a423a93a9ce82e1b
+  languageName: node
+  linkType: hard
+
+"hermes-estree@npm:0.9.0":
+  version: 0.9.0
+  resolution: "hermes-estree@npm:0.9.0"
+  checksum: 8d5e5cc0b81454ba0b7197eeff6708a18eb09e0233123d8b6b9e9e31c9a319620e7ec7d810ae1ff4936c8c6d5b91965e2dc08ad26d3717536226296a3c0fcf1e
+  languageName: node
+  linkType: hard
+
+"hermes-parser@npm:0.9.0":
+  version: 0.9.0
+  resolution: "hermes-parser@npm:0.9.0"
+  dependencies:
+    hermes-estree: 0.9.0
+  checksum: 2b9d6bc48e3e1f118d874f9992d243f8d43769e1aa1fdbdd825d37b24b53e74311b078f3115c54eb9343696de7aef5ebca37d836e464f77f890e5443a7d7b017
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -6981,6 +7008,7 @@ __metadata:
     flow-parser: 0.185.2
     get-stdin: 9.0.0
     graphql: 16.6.0
+    hermes-eslint: 0.9.0
     html-element-attributes: 3.1.0
     html-styles: 1.0.0
     html-tag-names: 2.0.1
