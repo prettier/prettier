@@ -19,3 +19,9 @@ export const ArrowWithLongName = forwardRef<HTMLAnchorElement, LinkProps>(
     return <ThemeUILink ref={ref} variant="default" {...props} />;
   }
 );
+
+const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  function Link(props, ref) {
+    return <ThemeUILink ref={ref} variant="default" {...props} />;
+  },
+);
