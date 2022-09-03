@@ -10,12 +10,9 @@ const require = createRequire(import.meta.url);
 const parseOptions = {
   ecmaVersion: "latest",
   sourceType: "module",
-  allowReserved: true,
   allowReturnOutsideFunction: true,
   allowImportExportEverywhere: true,
-  allowAwaitOutsideFunction: true,
   allowSuperOutsideMethod: true,
-  allowHashBang: true,
   locations: true,
   ranges: true,
 };

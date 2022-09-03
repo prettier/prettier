@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [acorn] format 1`] = `
-"Unexpected token (2:26)
+"Cannot use keyword 'await' outside an async function (2:20)
   1 | async function foo() {
 > 2 |   function bar(x = await 2) {}
-    |                          ^
+    |                    ^
   3 | }"
 `;
 

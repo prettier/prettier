@@ -2,7 +2,6 @@ import { createRequire } from "node:module";
 import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
-import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
 
 const require = createRequire(import.meta.url);
@@ -36,13 +35,12 @@ function createParseError(error) {
   });
 }
 
-function parse(originalText, options = {}) {
+function parse(text, options = {}) {
   const { parse: espreeParse } = require("espree");
 
-  const textToParse = replaceHashbang(originalText);
   const { result: ast, error: moduleParseError } = tryCombinations(
-    () => espreeParse(textToParse, { ...parseOptions, sourceType: "module" }),
-    () => espreeParse(textToParse, { ...parseOptions, sourceType: "script" })
+    () => espreeParse(text, { ...parseOptions, sourceType: "module" }),
+    () => espreeParse(text, { ...parseOptions, sourceType: "script" })
   );
 
   if (!ast) {
@@ -50,7 +48,7 @@ function parse(originalText, options = {}) {
     throw createParseError(moduleParseError);
   }
 
-  options.originalText = originalText;
+  options.originalText = text;
   return postprocess(ast, options);
 }
 
