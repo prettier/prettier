@@ -142,6 +142,9 @@
     "snapshot-diff": "0.9.0",
     "tempy": "3.0.0"
   },
+  "resolutions": {
+    "trim": "1.0.1"
+  },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
