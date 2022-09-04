@@ -20,6 +20,10 @@ test("Should properly trim with cursor", () => {
     printDocToString(
       [cursor, "Prettier  \t", cursor, "\t \t", hardline],
       options
-    ).formatted
-  ).toBe("Prettier\n");
+    )
+  ).toEqual({
+    formatted: "Prettier\n",
+    cursorNodeStart: 0,
+    cursorNodeText: "Prettier",
+  });
 });
