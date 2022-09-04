@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2020/12/11/plugin-ruby-1.0",
+  "source": "@site/blog/2020-12-11-plugin-ruby-1.0.md",
+  "title": "Prettier for Ruby goes v1.0 🎉",
+  "description": "After 1500 commits and 50 releases since July 2018, we're happy to announce that we've just released v1.0 of Prettier for Ruby. In this blog post, we'd like to give a short overview of how the plugin works, its philosophy, and what to expect in the future.",
+  "date": "2020-12-11T00:00:00.000Z",
+  "formattedDate": "December 11, 2020",
+  "tags": [],
+  "readingTime": 2.985,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Kevin Newton (@kddnewton)",
+      "url": "https://twitter.com/kddnewton"
+    }
+  ],
+  "frontMatter": {
+    "author": "Kevin Newton (@kddnewton)",
+    "authorURL": "https://twitter.com/kddnewton",
+    "title": "Prettier for Ruby goes v1.0 🎉"
+  },
+  "prevItem": {
+    "title": "Prettier 2.3. In which assignments are consistent, short keys non-breaking, and Handlebars official",
+    "permalink": "/blog/2021/05/09/2.3.0"
+  },
+  "nextItem": {
+    "title": "Prettier 2.2: new JavaScript parsers, TS 4.1 and ESM standalone bundles",
+    "permalink": "/blog/2020/11/20/2.2.0"
+  }
+}

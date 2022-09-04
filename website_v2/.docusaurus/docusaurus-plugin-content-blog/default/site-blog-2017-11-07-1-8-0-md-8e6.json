@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2017/11/07/1.8.0",
+  "source": "@site/blog/2017-11-07-1.8.0.md",
+  "title": "Prettier 1.8: Markdown Support",
+  "description": "This release adds Markdown support, a new --insert-pragma flag, fixes a number of formatting issues, adds support for some new experimental operators, and improves our editor integration support.",
+  "date": "2017-11-07T00:00:00.000Z",
+  "formattedDate": "November 7, 2017",
+  "tags": [],
+  "readingTime": 14.14,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Lucas Azzola (@azz)",
+      "url": "https://twitter.com/lucasazzola"
+    }
+  ],
+  "frontMatter": {
+    "author": "Lucas Azzola (@azz)",
+    "authorURL": "https://twitter.com/lucasazzola",
+    "title": "Prettier 1.8: Markdown Support"
+  },
+  "prevItem": {
+    "title": "Prettier 1.9: JSX Fragments, EditorConfig and Arrow Parens",
+    "permalink": "/blog/2017/12/05/1.9.0"
+  },
+  "nextItem": {
+    "title": "Prettier 1.7: JSX tweaks, Pragma, TypeScript and CSS fixes",
+    "permalink": "/blog/2017/09/15/1.7.0"
+  }
+}

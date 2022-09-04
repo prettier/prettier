@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2021/05/09/2.3.0",
+  "source": "@site/blog/2021-05-09-2.3.0.md",
+  "title": "Prettier 2.3. In which assignments are consistent, short keys non-breaking, and Handlebars official",
+  "description": "This release focuses on fixing long-standing issues in the JavaScript printer. Be warned that, unfortunately, reformatting a project with the new version might result in quite a big diff. If you don’t use ignoreRevsFile to hide such wholesale changes from git blame, it might be about time.",
+  "date": "2021-05-09T00:00:00.000Z",
+  "formattedDate": "May 9, 2021",
+  "tags": [],
+  "readingTime": 30.08,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Georgii Dolzhykov (@thorn0)",
+      "url": "https://github.com/thorn0"
+    }
+  ],
+  "frontMatter": {
+    "author": "Georgii Dolzhykov (@thorn0)",
+    "authorURL": "https://github.com/thorn0",
+    "title": "Prettier 2.3. In which assignments are consistent, short keys non-breaking, and Handlebars official"
+  },
+  "prevItem": {
+    "title": "Prettier 2.4: new bracketSameLine option and TypeScript 4.4 support!",
+    "permalink": "/blog/2021/09/09/2.4.0"
+  },
+  "nextItem": {
+    "title": "Prettier for Ruby goes v1.0 🎉",
+    "permalink": "/blog/2020/12/11/plugin-ruby-1.0"
+  }
+}

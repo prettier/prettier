@@ -18,8 +18,8 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "prettier", // Usually your GitHub org/user name.
-  projectName: "prettier", // Usually your repo name.
+  organizationName: "prettier",
+  projectName: "prettier",
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
@@ -53,6 +53,11 @@ const config = {
           { to: "/playground", label: "Playground", position: "right" },
           { to: "/docs", label: "Docs", position: "right" },
           { to: "/blog", label: "Blog", position: "right" },
+          {
+            href: "https://opencollective.com/prettier",
+            label: "Donate",
+            position: "right",
+          },
           {
             href: "https://github.com/prettier/prettier",
             label: "GitHub",

@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2019/06/06/1.18.0",
+  "source": "@site/blog/2019-06-06-1.18.0.md",
+  "title": "Prettier 1.18: Lots of fixes and OpenCollective",
+  "description": "This release doesn't include shiny new features, but has lots of fixes for JavaScript, specially JSX and template literals, TypeScript and Markdown.",
+  "date": "2019-06-06T00:00:00.000Z",
+  "formattedDate": "June 6, 2019",
+  "tags": [],
+  "readingTime": 10,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Lucas Duailibe (@duailibe)",
+      "url": "https://github.com/duailibe"
+    }
+  ],
+  "frontMatter": {
+    "author": "Lucas Duailibe (@duailibe)",
+    "authorURL": "https://github.com/duailibe",
+    "title": "Prettier 1.18: Lots of fixes and OpenCollective"
+  },
+  "prevItem": {
+    "title": "Prettier 1.19: Long awaited Vue option, TypeScript 3.7 and new JavaScript features",
+    "permalink": "/blog/2019/11/09/1.19.0"
+  },
+  "nextItem": {
+    "title": "Prettier 1.17: More quotes options and support for shared configs",
+    "permalink": "/blog/2019/04/12/1.17.0"
+  }
+}

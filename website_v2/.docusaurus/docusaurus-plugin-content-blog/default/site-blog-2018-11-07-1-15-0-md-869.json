@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2018/11/07/1.15.0",
+  "source": "@site/blog/2018-11-07-1.15.0.md",
+  "title": "Prettier 1.15: HTML, Vue, Angular and MDX Support",
+  "description": "This release adds support for HTML, Vue, Angular and MDX.",
+  "date": "2018-11-07T00:00:00.000Z",
+  "formattedDate": "November 7, 2018",
+  "tags": [],
+  "readingTime": 32.19,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Ika (@ikatyang)",
+      "url": "https://github.com/ikatyang"
+    }
+  ],
+  "frontMatter": {
+    "author": "Ika (@ikatyang)",
+    "authorURL": "https://github.com/ikatyang",
+    "title": "Prettier 1.15: HTML, Vue, Angular and MDX Support"
+  },
+  "prevItem": {
+    "title": "Prettier 1.16: HTML improvements and better CRLF handling",
+    "permalink": "/blog/2019/01/20/1.16.0"
+  },
+  "nextItem": {
+    "title": "Prettier 1.14: YAML Support",
+    "permalink": "/blog/2018/07/29/1.14.0"
+  }
+}

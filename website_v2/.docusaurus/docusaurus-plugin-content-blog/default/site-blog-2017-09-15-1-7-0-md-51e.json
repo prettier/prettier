@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2017/09/15/1.7.0",
+  "source": "@site/blog/2017-09-15-1.7.0.md",
+  "title": "Prettier 1.7: JSX tweaks, Pragma, TypeScript and CSS fixes",
+  "description": "This release features some bugfixes and tweaks around JSX, TypeScript, CSS, and JavaScript formatting, as well as a couple new features.",
+  "date": "2017-09-15T00:00:00.000Z",
+  "formattedDate": "September 15, 2017",
+  "tags": [],
+  "readingTime": 6.115,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "@suchipi",
+      "url": "https://twitter.com/suchipi"
+    }
+  ],
+  "frontMatter": {
+    "author": "@suchipi",
+    "authorURL": "https://twitter.com/suchipi",
+    "title": "Prettier 1.7: JSX tweaks, Pragma, TypeScript and CSS fixes"
+  },
+  "prevItem": {
+    "title": "Prettier 1.8: Markdown Support",
+    "permalink": "/blog/2017/11/07/1.8.0"
+  },
+  "nextItem": {
+    "title": "Prettier 1.6: Config File, JSX",
+    "permalink": "/blog/2017/08/29/1.6.0"
+  }
+}

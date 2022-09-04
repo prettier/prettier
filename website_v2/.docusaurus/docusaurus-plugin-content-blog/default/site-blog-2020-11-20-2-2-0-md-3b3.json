@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2020/11/20/2.2.0",
+  "source": "@site/blog/2020-11-20-2.2.0.md",
+  "title": "Prettier 2.2: new JavaScript parsers, TS 4.1 and ESM standalone bundles",
+  "description": "This release supports new JavaScript parsers espree and meriyah, supports TypeScript 4.1, ships ESM standalone bundles for modern browsers, and includes many bug fixes and improvements!",
+  "date": "2020-11-20T00:00:00.000Z",
+  "formattedDate": "November 20, 2020",
+  "tags": [],
+  "readingTime": 15.535,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Sosuke Suzuki (@sosukesuzuki)",
+      "url": "https://github.com/sosukesuzuki"
+    }
+  ],
+  "frontMatter": {
+    "author": "Sosuke Suzuki (@sosukesuzuki)",
+    "authorURL": "https://github.com/sosukesuzuki",
+    "title": "Prettier 2.2: new JavaScript parsers, TS 4.1 and ESM standalone bundles"
+  },
+  "prevItem": {
+    "title": "Prettier for Ruby goes v1.0 🎉",
+    "permalink": "/blog/2020/12/11/plugin-ruby-1.0"
+  },
+  "nextItem": {
+    "title": "Prettier 2.1: new --embedded-language-formatting option and new JavaScript/TypeScript features!",
+    "permalink": "/blog/2020/08/24/2.1.0"
+  }
+}

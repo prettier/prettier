@@ -63,6 +63,11 @@ export default {
           "position": "right"
         },
         {
+          "href": "https://opencollective.com/prettier",
+          "label": "Donate",
+          "position": "right"
+        },
+        {
           "href": "https://github.com/prettier/prettier",
           "label": "GitHub",
           "position": "right"

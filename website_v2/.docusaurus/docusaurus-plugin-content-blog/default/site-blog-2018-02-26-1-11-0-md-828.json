@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2018/02/26/1.11.0",
+  "source": "@site/blog/2018-02-26-1.11.0.md",
+  "title": "Prettier 1.11: CSS fixes and new TypeScript feature support",
+  "description": "This release features a ton of CSS formatting fixes as well as support for some new TypeScript features, in addition to some general bugfixes for other languages.",
+  "date": "2018-02-26T00:00:00.000Z",
+  "formattedDate": "February 26, 2018",
+  "tags": [],
+  "readingTime": 18.865,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Suchipi (@suchipi)",
+      "url": "https://github.com/suchipi"
+    }
+  ],
+  "frontMatter": {
+    "author": "Suchipi (@suchipi)",
+    "authorURL": "https://github.com/suchipi",
+    "title": "Prettier 1.11: CSS fixes and new TypeScript feature support"
+  },
+  "prevItem": {
+    "title": "Prettier for PHP 0.1: First alpha release 🎉",
+    "permalink": "/blog/2018/04/09/plugin-php-0.1"
+  },
+  "nextItem": {
+    "title": "Prettier 1.10: One Year of Prettier 🎂",
+    "permalink": "/blog/2018/01/10/1.10.0"
+  }
+}

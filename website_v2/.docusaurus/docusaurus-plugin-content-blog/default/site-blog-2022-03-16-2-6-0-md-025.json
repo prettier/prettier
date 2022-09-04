@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2022/03/16/2.6.0",
+  "source": "@site/blog/2022-03-16-2.6.0.md",
+  "title": "Prettier 2.6: new singleAttributePerLine option and new JavaScript features!",
+  "description": "This release includes a new singleAttributePerLine option. This is an option to print only one attribute per line in Vue SFC templates, HTML, and JSX. Per our Option Philosophy, we would prefer not to add such an option. However, there are many users who want this feature, and major style guides like Airbnb’s JavaScript Style Guide and Vue’s style guide recommend the single attribute per line style. A PR to add this feature was opened in October 2019, and both it and the corresponding issue have received a significant amount of support from users. For us it was a hard decision to add this option. We hope the addition of this option will benefit many users without significantly harming our principles.",
+  "date": "2022-03-16T00:00:00.000Z",
+  "formattedDate": "March 16, 2022",
+  "tags": [],
+  "readingTime": 12.445,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Sosuke Suzuki (@sosukesuzuki)",
+      "url": "https://github.com/sosukesuzuki"
+    }
+  ],
+  "frontMatter": {
+    "author": "Sosuke Suzuki (@sosukesuzuki)",
+    "authorURL": "https://github.com/sosukesuzuki",
+    "title": "Prettier 2.6: new singleAttributePerLine option and new JavaScript features!"
+  },
+  "prevItem": {
+    "title": "Prettier 2.7: new --cache CLI option and TypeScript 4.7 syntax!",
+    "permalink": "/blog/2022/06/14/2.7.0"
+  },
+  "nextItem": {
+    "title": "Prettier begins paying maintainers",
+    "permalink": "/blog/2022/01/06/prettier-begins-paying-maintainers"
+  }
+}

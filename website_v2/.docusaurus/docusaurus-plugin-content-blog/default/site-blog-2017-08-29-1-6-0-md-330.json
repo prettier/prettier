@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2017/08/29/1.6.0",
+  "source": "@site/blog/2017-08-29-1.6.0.md",
+  "title": "Prettier 1.6: Config File, JSX",
+  "description": "This release adds configuration file support to Prettier, as well as some significant enhancements to JSX printing.",
+  "date": "2017-08-29T00:00:00.000Z",
+  "formattedDate": "August 29, 2017",
+  "tags": [],
+  "readingTime": 15.16,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Christopher Chedeau (@vjeux)",
+      "url": "https://twitter.com/vjeux"
+    }
+  ],
+  "frontMatter": {
+    "author": "Christopher Chedeau (@vjeux)",
+    "authorURL": "https://twitter.com/vjeux",
+    "title": "Prettier 1.6: Config File, JSX"
+  },
+  "prevItem": {
+    "title": "Prettier 1.7: JSX tweaks, Pragma, TypeScript and CSS fixes",
+    "permalink": "/blog/2017/09/15/1.7.0"
+  },
+  "nextItem": {
+    "title": "Prettier 1.5: GraphQL, CSS-in-JS & JSON",
+    "permalink": "/blog/2017/06/28/1.5.0"
+  }
+}

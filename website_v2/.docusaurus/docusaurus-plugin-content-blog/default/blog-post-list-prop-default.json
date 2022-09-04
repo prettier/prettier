@@ -1,4 +1,25 @@
 {
   "title": "Recent posts",
-  "items": []
+  "items": [
+    {
+      "title": "Prettier 2.7: new --cache CLI option and TypeScript 4.7 syntax!",
+      "permalink": "/blog/2022/06/14/2.7.0"
+    },
+    {
+      "title": "Prettier 2.6: new singleAttributePerLine option and new JavaScript features!",
+      "permalink": "/blog/2022/03/16/2.6.0"
+    },
+    {
+      "title": "Prettier begins paying maintainers",
+      "permalink": "/blog/2022/01/06/prettier-begins-paying-maintainers"
+    },
+    {
+      "title": "Prettier 2.5: TypeScript 4.5 and MDX v2 comment syntax!",
+      "permalink": "/blog/2021/11/25/2.5.0"
+    },
+    {
+      "title": "Prettier 2.4: new bracketSameLine option and TypeScript 4.4 support!",
+      "permalink": "/blog/2021/09/09/2.4.0"
+    }
+  ]
 }

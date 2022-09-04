@@ -1,0 +1,30 @@
+{
+  "permalink": "/blog/2018/01/10/1.10.0",
+  "source": "@site/blog/2018-01-10-1.10.0.md",
+  "title": "Prettier 1.10: One Year of Prettier 🎂",
+  "description": "Happy Prettier-versary! It's pretty incredible that Prettier was only released a year ago and has already seen such a massive adoption and great number of contributors. For this special release, we're going to do a small retrospective around the project.",
+  "date": "2018-01-10T00:00:00.000Z",
+  "formattedDate": "January 10, 2018",
+  "tags": [],
+  "readingTime": 14.43,
+  "hasTruncateMarker": true,
+  "authors": [
+    {
+      "name": "Christopher Chedeau (@vjeux)",
+      "url": "https://twitter.com/vjeux"
+    }
+  ],
+  "frontMatter": {
+    "author": "Christopher Chedeau (@vjeux)",
+    "authorURL": "https://twitter.com/vjeux",
+    "title": "Prettier 1.10: One Year of Prettier 🎂"
+  },
+  "prevItem": {
+    "title": "Prettier 1.11: CSS fixes and new TypeScript feature support",
+    "permalink": "/blog/2018/02/26/1.11.0"
+  },
+  "nextItem": {
+    "title": "Prettier 1.9: JSX Fragments, EditorConfig and Arrow Parens",
+    "permalink": "/blog/2017/12/05/1.9.0"
+  }
+}
