@@ -1,0 +1,28 @@
+{
+  "unversionedId": "why-prettier",
+  "id": "why-prettier",
+  "title": "Why Prettier?",
+  "description": "Building and enforcing a style guide",
+  "source": "@site/docs/why-prettier.md",
+  "sourceDirName": ".",
+  "slug": "/why-prettier",
+  "permalink": "/docs/why-prettier",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/why-prettier.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "why-prettier",
+    "title": "Why Prettier?",
+    "original_id": "why-prettier"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "What is Prettier?",
+    "permalink": "/docs/"
+  },
+  "next": {
+    "title": "Prettier vs. Linters",
+    "permalink": "/docs/comparison"
+  }
+}

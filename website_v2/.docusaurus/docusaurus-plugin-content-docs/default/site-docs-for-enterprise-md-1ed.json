@@ -1,0 +1,24 @@
+{
+  "unversionedId": "for-enterprise",
+  "id": "for-enterprise",
+  "title": "For Enterprise",
+  "description": "Available as part of the Tidelift Subscription",
+  "source": "@site/docs/for-enterprise.md",
+  "sourceDirName": ".",
+  "slug": "/for-enterprise",
+  "permalink": "/docs/for-enterprise",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/for-enterprise.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "for-enterprise",
+    "title": "For Enterprise",
+    "original_id": "for-enterprise"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Related Projects",
+    "permalink": "/docs/related-projects"
+  }
+}

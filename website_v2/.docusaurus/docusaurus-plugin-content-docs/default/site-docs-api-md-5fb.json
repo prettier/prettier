@@ -1,0 +1,28 @@
+{
+  "unversionedId": "api",
+  "id": "api",
+  "title": "API",
+  "description": "If you want to run Prettier programmatically, check this page out.",
+  "source": "@site/docs/api.md",
+  "sourceDirName": ".",
+  "slug": "/api",
+  "permalink": "/docs/api",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/api.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "api",
+    "title": "API",
+    "original_id": "api"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "CLI",
+    "permalink": "/docs/cli"
+  },
+  "next": {
+    "title": "Browser",
+    "permalink": "/docs/browser"
+  }
+}

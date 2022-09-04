@@ -1,0 +1,28 @@
+{
+  "unversionedId": "watching-files",
+  "id": "watching-files",
+  "title": "Watching For Changes",
+  "description": "You can have Prettier watch for changes from the command line by using onchange. For example:",
+  "source": "@site/docs/watching-files.md",
+  "sourceDirName": ".",
+  "slug": "/watching-files",
+  "permalink": "/docs/watching-files",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/watching-files.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "watching-files",
+    "title": "Watching For Changes",
+    "original_id": "watching-files"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Vim Setup",
+    "permalink": "/docs/vim"
+  },
+  "next": {
+    "title": "Technical Details",
+    "permalink": "/docs/technical-details"
+  }
+}

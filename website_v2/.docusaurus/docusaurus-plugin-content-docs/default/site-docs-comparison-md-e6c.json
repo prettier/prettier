@@ -1,0 +1,28 @@
+{
+  "unversionedId": "comparison",
+  "id": "comparison",
+  "title": "Prettier vs. Linters",
+  "description": "How does it compare to ESLint/TSLint/stylelint, etc.?",
+  "source": "@site/docs/comparison.md",
+  "sourceDirName": ".",
+  "slug": "/comparison",
+  "permalink": "/docs/comparison",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/comparison.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "comparison",
+    "title": "Prettier vs. Linters",
+    "original_id": "comparison"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Why Prettier?",
+    "permalink": "/docs/why-prettier"
+  },
+  "next": {
+    "title": "Option Philosophy",
+    "permalink": "/docs/option-philosophy"
+  }
+}

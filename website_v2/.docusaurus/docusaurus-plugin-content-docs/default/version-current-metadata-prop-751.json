@@ -1,0 +1,320 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "noIndex": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "docs": [
+      {
+        "type": "category",
+        "label": "About",
+        "items": [
+          {
+            "type": "link",
+            "label": "What is Prettier?",
+            "href": "/docs/",
+            "docId": "index"
+          },
+          {
+            "type": "link",
+            "label": "Why Prettier?",
+            "href": "/docs/why-prettier",
+            "docId": "why-prettier"
+          },
+          {
+            "type": "link",
+            "label": "Prettier vs. Linters",
+            "href": "/docs/comparison",
+            "docId": "comparison"
+          },
+          {
+            "type": "link",
+            "label": "Option Philosophy",
+            "href": "/docs/option-philosophy",
+            "docId": "option-philosophy"
+          },
+          {
+            "type": "link",
+            "label": "Rationale",
+            "href": "/docs/rationale",
+            "docId": "rationale"
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Usage",
+        "items": [
+          {
+            "type": "link",
+            "label": "Install",
+            "href": "/docs/install",
+            "docId": "install"
+          },
+          {
+            "type": "link",
+            "label": "Ignoring Code",
+            "href": "/docs/ignore",
+            "docId": "ignore"
+          },
+          {
+            "type": "link",
+            "label": "Integrating with Linters",
+            "href": "/docs/integrating-with-linters",
+            "docId": "integrating-with-linters"
+          },
+          {
+            "type": "link",
+            "label": "Pre-commit Hook",
+            "href": "/docs/precommit",
+            "docId": "precommit"
+          },
+          {
+            "type": "link",
+            "label": "Plugins",
+            "href": "/docs/plugins",
+            "docId": "plugins"
+          },
+          {
+            "type": "link",
+            "label": "CLI",
+            "href": "/docs/cli",
+            "docId": "cli"
+          },
+          {
+            "type": "link",
+            "label": "API",
+            "href": "/docs/api",
+            "docId": "api"
+          },
+          {
+            "type": "link",
+            "label": "Browser",
+            "href": "/docs/browser",
+            "docId": "browser"
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Configuring Prettier",
+        "items": [
+          {
+            "type": "link",
+            "label": "Options",
+            "href": "/docs/options",
+            "docId": "options"
+          },
+          {
+            "type": "link",
+            "label": "Configuration File",
+            "href": "/docs/configuration",
+            "docId": "configuration"
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Editors",
+        "items": [
+          {
+            "type": "link",
+            "label": "Editor Integration",
+            "href": "/docs/editors",
+            "docId": "editors"
+          },
+          {
+            "type": "link",
+            "label": "WebStorm Setup",
+            "href": "/docs/webstorm",
+            "docId": "webstorm"
+          },
+          {
+            "type": "link",
+            "label": "Vim Setup",
+            "href": "/docs/vim",
+            "docId": "vim"
+          },
+          {
+            "type": "link",
+            "label": "Watching For Changes",
+            "href": "/docs/watching-files",
+            "docId": "watching-files"
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Misc",
+        "items": [
+          {
+            "type": "link",
+            "label": "Technical Details",
+            "href": "/docs/technical-details",
+            "docId": "technical-details"
+          },
+          {
+            "type": "link",
+            "label": "Related Projects",
+            "href": "/docs/related-projects",
+            "docId": "related-projects"
+          },
+          {
+            "type": "link",
+            "label": "For Enterprise",
+            "href": "/docs/for-enterprise",
+            "docId": "for-enterprise"
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      }
+    ]
+  },
+  "docs": {
+    "api": {
+      "id": "api",
+      "title": "API",
+      "description": "If you want to run Prettier programmatically, check this page out.",
+      "sidebar": "docs"
+    },
+    "browser": {
+      "id": "browser",
+      "title": "Browser",
+      "description": "Run Prettier in the browser using its standalone version. This version doesn’t depend on Node.js. It only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.",
+      "sidebar": "docs"
+    },
+    "cli": {
+      "id": "cli",
+      "title": "CLI",
+      "description": "Use the prettier command to run Prettier from the command line.",
+      "sidebar": "docs"
+    },
+    "comparison": {
+      "id": "comparison",
+      "title": "Prettier vs. Linters",
+      "description": "How does it compare to ESLint/TSLint/stylelint, etc.?",
+      "sidebar": "docs"
+    },
+    "configuration": {
+      "id": "configuration",
+      "title": "Configuration File",
+      "description": "Prettier uses cosmiconfig for configuration file support. This means you can configure Prettier via (in order of precedence):",
+      "sidebar": "docs"
+    },
+    "editors": {
+      "id": "editors",
+      "title": "Editor Integration",
+      "description": "To get the most out of Prettier, it’s recommended to run it from your editor.",
+      "sidebar": "docs"
+    },
+    "for-enterprise": {
+      "id": "for-enterprise",
+      "title": "For Enterprise",
+      "description": "Available as part of the Tidelift Subscription",
+      "sidebar": "docs"
+    },
+    "ignore": {
+      "id": "ignore",
+      "title": "Ignoring Code",
+      "description": "Use .prettierignore to ignore (i.e. not reformat) certain files and folders completely.",
+      "sidebar": "docs"
+    },
+    "index": {
+      "id": "index",
+      "title": "What is Prettier?",
+      "description": "Prettier is an opinionated code formatter with support for:",
+      "sidebar": "docs"
+    },
+    "install": {
+      "id": "install",
+      "title": "Install",
+      "description": "First, install Prettier locally:",
+      "sidebar": "docs"
+    },
+    "integrating-with-linters": {
+      "id": "integrating-with-linters",
+      "title": "Integrating with Linters",
+      "description": "Linters usually contain not only code quality rules, but also stylistic rules. Most stylistic rules are unnecessary when using Prettier, but worse – they might conflict with Prettier! Use Prettier for code formatting concerns, and linters for code-quality concerns, as outlined in Prettier vs. Linters.",
+      "sidebar": "docs"
+    },
+    "option-philosophy": {
+      "id": "option-philosophy",
+      "title": "Option Philosophy",
+      "description": "Prettier has a few options because of history. But we won’t add more of them.",
+      "sidebar": "docs"
+    },
+    "options": {
+      "id": "options",
+      "title": "Options",
+      "description": "Prettier ships with a handful of format options.",
+      "sidebar": "docs"
+    },
+    "plugins": {
+      "id": "plugins",
+      "title": "Plugins",
+      "description": "Plugins are ways of adding new languages or formatting rules to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core prettier package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.",
+      "sidebar": "docs"
+    },
+    "precommit": {
+      "id": "precommit",
+      "title": "Pre-commit Hook",
+      "description": "You can use Prettier with a pre-commit tool. This can re-format your files that are marked as “staged” via git add before you commit.",
+      "sidebar": "docs"
+    },
+    "rationale": {
+      "id": "rationale",
+      "title": "Rationale",
+      "description": "Prettier is an opinionated code formatter. This document explains some of its choices.",
+      "sidebar": "docs"
+    },
+    "related-projects": {
+      "id": "related-projects",
+      "title": "Related Projects",
+      "description": "ESLint Integrations",
+      "sidebar": "docs"
+    },
+    "technical-details": {
+      "id": "technical-details",
+      "title": "Technical Details",
+      "description": "This printer is a fork of recast’s printer with its algorithm replaced by the one described by Wadler in \"A prettier printer\". There still may be leftover code from recast that needs to be cleaned up.",
+      "sidebar": "docs"
+    },
+    "vim": {
+      "id": "vim",
+      "title": "Vim Setup",
+      "description": "Vim users can install either vim-prettier, which is Prettier specific, or Neoformat or ALE which are generalized lint/format engines with support for Prettier.",
+      "sidebar": "docs"
+    },
+    "watching-files": {
+      "id": "watching-files",
+      "title": "Watching For Changes",
+      "description": "You can have Prettier watch for changes from the command line by using onchange. For example:",
+      "sidebar": "docs"
+    },
+    "webstorm": {
+      "id": "webstorm",
+      "title": "WebStorm Setup",
+      "description": "JetBrains IDEs (WebStorm, IntelliJ IDEA, PyCharm, etc.)",
+      "sidebar": "docs"
+    },
+    "why-prettier": {
+      "id": "why-prettier",
+      "title": "Why Prettier?",
+      "description": "Building and enforcing a style guide",
+      "sidebar": "docs"
+    }
+  }
+}

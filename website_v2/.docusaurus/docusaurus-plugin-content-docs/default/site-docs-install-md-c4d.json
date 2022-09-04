@@ -1,0 +1,28 @@
+{
+  "unversionedId": "install",
+  "id": "install",
+  "title": "Install",
+  "description": "First, install Prettier locally:",
+  "source": "@site/docs/install.md",
+  "sourceDirName": ".",
+  "slug": "/install",
+  "permalink": "/docs/install",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/install.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "install",
+    "title": "Install",
+    "original_id": "install"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Rationale",
+    "permalink": "/docs/rationale"
+  },
+  "next": {
+    "title": "Ignoring Code",
+    "permalink": "/docs/ignore"
+  }
+}

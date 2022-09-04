@@ -1,0 +1,147 @@
+{
+  "/__docusaurus/debug-fa5": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    }
+  },
+  "/__docusaurus/debug/config-966": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    }
+  },
+  "/__docusaurus/debug/content-92e": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    },
+    "allContent": "allContent---docusaurus-debug-content-246-9aa"
+  },
+  "/__docusaurus/debug/globalData-692": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    }
+  },
+  "/__docusaurus/debug/metadata-0a8": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    }
+  },
+  "/__docusaurus/debug/registry-799": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    }
+  },
+  "/__docusaurus/debug/routes-70c": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugcd-8-350"
+    }
+  },
+  "/docs-dc0": {
+    "__comp": "__comp---theme-doc-page-1-be-9be",
+    "__context": {
+      "plugin": "plugin---docsf-9-b-4e5"
+    },
+    "versionMetadata": "versionMetadata---docs-935-398"
+  },
+  "/docs/-e7a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-c-37-4d0"
+  },
+  "/docs/api-7cd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-api-5-fb-197"
+  },
+  "/docs/browser-c14": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-browser-17-f-3d9"
+  },
+  "/docs/cli-f01": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-cli-1-a-2-6cb"
+  },
+  "/docs/comparison-b33": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-comparisone-6-c-b98"
+  },
+  "/docs/configuration-640": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-configuration-9-ed-a26"
+  },
+  "/docs/editors-a31": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-editors-0-b-8-88a"
+  },
+  "/docs/for-enterprise-a07": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-for-enterprise-1-ed-aed"
+  },
+  "/docs/ignore-2a0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-ignore-37-a-776"
+  },
+  "/docs/install-21b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-installc-4-d-119"
+  },
+  "/docs/integrating-with-linters-c56": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-integrating-with-linters-7-fc-45c"
+  },
+  "/docs/option-philosophy-4cb": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-option-philosophyc-23-6c1"
+  },
+  "/docs/options-182": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-optionsaeb-481"
+  },
+  "/docs/plugins-9aa": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-plugins-294-6b0"
+  },
+  "/docs/precommit-abb": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-precommit-30-c-6eb"
+  },
+  "/docs/rationale-8c0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-rationalef-83-17e"
+  },
+  "/docs/related-projects-9ab": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-related-projectse-7-c-a32"
+  },
+  "/docs/technical-details-247": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-technical-details-0-b-6-d27"
+  },
+  "/docs/vim-abc": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-vim-296-ea3"
+  },
+  "/docs/watching-files-597": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-watching-files-2-ee-d32"
+  },
+  "/docs/webstorm-93b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-webstormeaa-ea7"
+  },
+  "/docs/why-prettier-448": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-why-prettier-7-d-9-792"
+  },
+  "/-aa4": {
+    "__comp": "__comp---site-src-pages-index-tsx-1-df-d3e",
+    "__context": {
+      "plugin": "plugin---9-de-c7b"
+    },
+    "config": "config---5-e-9-4f3"
+  }
+}

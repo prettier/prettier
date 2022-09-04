@@ -1,0 +1,28 @@
+{
+  "unversionedId": "integrating-with-linters",
+  "id": "integrating-with-linters",
+  "title": "Integrating with Linters",
+  "description": "Linters usually contain not only code quality rules, but also stylistic rules. Most stylistic rules are unnecessary when using Prettier, but worse – they might conflict with Prettier! Use Prettier for code formatting concerns, and linters for code-quality concerns, as outlined in Prettier vs. Linters.",
+  "source": "@site/docs/integrating-with-linters.md",
+  "sourceDirName": ".",
+  "slug": "/integrating-with-linters",
+  "permalink": "/docs/integrating-with-linters",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/integrating-with-linters.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "integrating-with-linters",
+    "title": "Integrating with Linters",
+    "original_id": "integrating-with-linters"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Ignoring Code",
+    "permalink": "/docs/ignore"
+  },
+  "next": {
+    "title": "Pre-commit Hook",
+    "permalink": "/docs/precommit"
+  }
+}

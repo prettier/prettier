@@ -1,0 +1,28 @@
+{
+  "unversionedId": "ignore",
+  "id": "ignore",
+  "title": "Ignoring Code",
+  "description": "Use .prettierignore to ignore (i.e. not reformat) certain files and folders completely.",
+  "source": "@site/docs/ignore.md",
+  "sourceDirName": ".",
+  "slug": "/ignore",
+  "permalink": "/docs/ignore",
+  "draft": false,
+  "editUrl": "https://github.com/prettier/prettier/edit/main/docs/docs/ignore.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "ignore",
+    "title": "Ignoring Code",
+    "original_id": "ignore"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Install",
+    "permalink": "/docs/install"
+  },
+  "next": {
+    "title": "Integrating with Linters",
+    "permalink": "/docs/integrating-with-linters"
+  }
+}
