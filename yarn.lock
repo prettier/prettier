@@ -2155,12 +2155,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist-to-esbuild@npm:1.1.1":
-  version: 1.1.1
-  resolution: "browserslist-to-esbuild@npm:1.1.1"
+"browserslist-to-esbuild@npm:1.2.0":
+  version: 1.2.0
+  resolution: "browserslist-to-esbuild@npm:1.2.0"
   dependencies:
     browserslist: ^4.17.3
-  checksum: e2ea797818fe59f6475a07b9f23069ce8e860386cc84be6f5c7c2c8332699343b8c4bf0fc175b671e9598cb91742a7b755e0e1e7c14da06836319b751ef26fad
+  checksum: a6c1adc2ad8da0db23aa4f0b3c71e13561cbf61599e9acedc7890793d79aca250edb0f599095042e81587c88e87569bf3a1a68633026e81e4ac7548eb1c71b49
   languageName: node
   linkType: hard
 
@@ -6967,7 +6967,7 @@ __metadata:
     angular-estree-parser: 2.5.1
     angular-html-parser: 1.8.0
     benchmark: 2.1.4
-    browserslist-to-esbuild: 1.1.1
+    browserslist-to-esbuild: 1.2.0
     c8: 7.12.0
     camelcase: 7.0.0
     chalk: 5.0.1
