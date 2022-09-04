@@ -36,6 +36,8 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  KIND_CJK_PUNCTUATION,
+  KIND_CJ_LETTER,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 
@@ -604,6 +606,69 @@ function isCorrespondingMarkFollowedBySpaceBefore(path, mark) {
   return false;
 }
 
+/**
+ * @typedef {import("./utils.js").TextNode} TextNode
+ * @typedef {import("./utils.js").WhiteSpaceValue} WhiteSpaceValue
+ * @typedef {{next?: TextNode | undefined, previous?: TextNode | undefined}} AdjacentNodes
+ */
+
+/**
+ * Checks if given node can be converted to Space
+ *
+ * For example, if you would like to squash the multi-line string `"You might want\nto use Prettier."` into a single line,
+ * you would replace `"\n"` with `" "`. (`"You might want to use Prettier."`)
+ *
+ * However, you should note that Chinese and Japanese does not use U+0020 Space to divide words, so U+00A0 No-break space must not be replaced with it.
+ * Behavior in other languages (e.g. Thai) will not be changed because there are too much things to consider. (PR welcome)
+ *
+ * @param {*} path path of given node
+ * @param {WhiteSpaceValue} value value of given node (typically `" "` or `"\n"`)
+ * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
+ * @returns {boolean} `true` if given node can be converted to space, `false` if not (i.e. newline or empty character)
+ */
+function canBeConvertedToSpace(path, value, adjacentNodes) {
+  return (
+    // "\n" or " ", of course " " always can be converted to Space
+    value !== "\n" ||
+    // no adjacent nodes
+    typeof adjacentNodes !== "object" ||
+    // "\n" between non-CJ (not han or kana) chracters always can converted to Space
+    (adjacentNodes.previous?.kind !== KIND_CJ_LETTER &&
+      adjacentNodes.next?.kind !== KIND_CJ_LETTER) ||
+    (!(
+      // Do not convert it to Space when:
+      // "\n" between CJ always SHALL NOT be converted to space
+      (
+        (adjacentNodes.previous?.kind === KIND_CJ_LETTER &&
+          adjacentNodes.next?.kind === KIND_CJ_LETTER) ||
+        // Shall not be converted to Space around CJK punctuation
+        adjacentNodes.previous?.kind === KIND_CJK_PUNCTUATION ||
+        adjacentNodes.next?.kind === KIND_CJK_PUNCTUATION
+      )
+    ) &&
+      // The following rules do not precede the above rules.
+      //
+      // 1. "\n" between special signs and CJ characters
+      // [corresponding sign][Space][any string][CJ][[\n]][target sign]
+      // we wonder if there are other marks to be considered.
+      ((adjacentNodes.next.value === ":::" &&
+        isCorrespondingMarkFollowedBySpaceBefore(
+          path,
+          adjacentNodes.next.value
+        )) ||
+        // 2. If sentence uses space between CJ and alphanumerics (including hangul because of backward-compatibility),
+        //    "\n" can be converted to Space.
+        // Note: Koran uses space to divide words, so it is difficult to determine if "\n" should be converted to Space.
+        isSentenceUseCJDividingSpace(path)))
+  );
+}
+
+/**
+ * @param {*} path
+ * @param {WhiteSpaceValue} value
+ * @param {*} options
+ * @param {AdjacentNodes | undefined} [adjacentNodes]
+ */
 function printLine(path, value, options, adjacentNodes) {
   if (options.proseWrap === "preserve" && value === "\n") {
     return hardline;
@@ -612,28 +677,26 @@ function printLine(path, value, options, adjacentNodes) {
   const isBreakable =
     options.proseWrap === "always" &&
     !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
+
+  // Space or empty
+  if (value !== "\n") {
+    return convertToLineIfBreakable(value);
+  }
   // Chinese and Japanese does not use U+0020 Space to divide words, so U+00A0 No-break space must not be replaced with it.
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
-  const canLineBreakBeConvertedToSpace = !(
-    value === "\n" &&
-    typeof adjacentNodes === "object" &&
-    (adjacentNodes?.previous?.kind === "cj-letter" ||
-      adjacentNodes?.next?.kind === "cj-letter") &&
-    // we wonder if there are other marks to be considered.
-    (adjacentNodes.next.value !== ":::" ||
-      !isCorrespondingMarkFollowedBySpaceBefore(
-        path,
-        adjacentNodes.next.value
-      )) &&
-    !isSentenceUseCJDividingSpace(path)
+  return convertToLineIfBreakable(
+    canBeConvertedToSpace(path, value, adjacentNodes) ? " " : ""
   );
-  return value !== "" && canLineBreakBeConvertedToSpace
-    ? isBreakable
-      ? line
-      : " "
-    : isBreakable
-    ? softline
-    : "";
+
+  /**
+   * @param value {" " | ""}
+   */
+  function convertToLineIfBreakable(value) {
+    if (!isBreakable) {
+      return value;
+    }
+    return value === " " ? line : softline;
+  }
 }
 
 function printTable(path, options, print) {

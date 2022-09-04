@@ -36,28 +36,35 @@ const INLINE_NODE_WRAPPER_TYPES = [
 const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
 
+const KIND_NON_CJK = "non-cjk";
+const KIND_CJ_LETTER = "cj-letter";
+const KIND_K_LETTER = "k-letter";
+const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+
+/**
+ * @typedef {" " | "\n" | ""} WhiteSpaceValue
+ * @typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION} WordKind
+ * @typedef {{
+ *   type: "whitespace",
+ *   value: WhiteSpaceValue,
+ *   kind?: undefined,
+ *   hasLeadingPunctuation?: undefined,
+ *   hasTrailingPunctuation?: undefined,
+ * } | {
+ *   type: "word",
+ *   value: string,
+ *   kind: WordKind,
+ *   hasLeadingPunctuation: boolean,
+ *   hasTrailingPunctuation: boolean,
+ * }} TextNode
+ */
+
 /**
  * split text into whitespaces and words
  * @param {string} text
  */
 function splitText(text, options) {
-  const KIND_NON_CJK = "non-cjk";
-  const KIND_CJ_LETTER = "cj-letter";
-  const KIND_K_LETTER = "k-letter";
-  const KIND_CJK_PUNCTUATION = "cjk-punctuation";
-
-  /**
-   * @type {Array<
-   *   { type: "whitespace", value: " " | "\n" | "" }
-   *   | {
-   *     type: "word",
-   *     value: string,
-   *     kind: KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION,
-   *     hasLeadingPunctuation: boolean,
-   *     hasTrailingPunctuation: boolean
-   *   }
-   * >}
-   */
+  /** @type {Array<TextNode>} */
   const nodes = [];
 
   const tokens = (
@@ -240,4 +247,8 @@ export {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  KIND_NON_CJK,
+  KIND_CJ_LETTER,
+  KIND_K_LETTER,
+  KIND_CJK_PUNCTUATION,
 };
