@@ -69,6 +69,17 @@ type Type = {
   [T in number];
 };
 
+type Type = {
+  readonly
+  // comment
+  [T in number];
+};
+
+type Type = {
+  readonly // foo
+  /* bar */ [T in number];
+};
+
 =====================================output=====================================
 type Type = {
   // comment
@@ -109,6 +120,16 @@ type Type = {
 type Type = {
   // comment
   [T in number];
+};
+
+type Type = {
+  // comment
+  readonly [T in number];
+};
+
+type Type = {
+  // foo
+  /* bar */ readonly [T in number];
 };
 
 ================================================================================

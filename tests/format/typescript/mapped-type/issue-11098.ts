@@ -38,3 +38,14 @@ type Type = {
   // comment
   [T in number];
 };
+
+type Type = {
+  readonly
+  // comment
+  [T in number];
+};
+
+type Type = {
+  readonly // foo
+  /* bar */ [T in number];
+};
