@@ -632,7 +632,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     value !== "\n" ||
     // no adjacent nodes
     typeof adjacentNodes !== "object" ||
-    // "\n" between non-CJ (not han or kana) chracters always can converted to Space
+    // "\n" between non-CJ (not han or kana) characters always can converted to Space
     (adjacentNodes.previous?.kind !== KIND_CJ_LETTER &&
       adjacentNodes.next?.kind !== KIND_CJ_LETTER) ||
     (!(
