@@ -627,40 +627,55 @@ function isCorrespondingMarkFollowedBySpaceBefore(path, mark) {
  * @returns {boolean} `true` if given node can be converted to space, `false` if not (i.e. newline or empty character)
  */
 function canBeConvertedToSpace(path, value, adjacentNodes) {
-  return (
-    // "\n" or " ", of course " " always can be converted to Space
-    value !== "\n" ||
-    // no adjacent nodes
-    typeof adjacentNodes !== "object" ||
-    // "\n" between non-CJ (not han or kana) characters always can converted to Space
-    (adjacentNodes.previous?.kind !== KIND_CJ_LETTER &&
-      adjacentNodes.next?.kind !== KIND_CJ_LETTER) ||
-    (!(
-      // Do not convert it to Space when:
-      // "\n" between CJ always SHALL NOT be converted to space
-      (
-        (adjacentNodes.previous?.kind === KIND_CJ_LETTER &&
-          adjacentNodes.next?.kind === KIND_CJ_LETTER) ||
-        // Shall not be converted to Space around CJK punctuation
-        adjacentNodes.previous?.kind === KIND_CJK_PUNCTUATION ||
-        adjacentNodes.next?.kind === KIND_CJK_PUNCTUATION
-      )
-    ) &&
-      // The following rules do not precede the above rules.
-      //
-      // 1. "\n" between special signs and CJ characters
-      // [corresponding sign][Space][any string][CJ][[\n]][target sign]
-      // we wonder if there are other marks to be considered.
-      ((adjacentNodes.next.value === ":::" &&
-        isCorrespondingMarkFollowedBySpaceBefore(
-          path,
-          adjacentNodes.next.value
-        )) ||
-        // 2. If sentence uses space between CJ and alphanumerics (including hangul because of backward-compatibility),
-        //    "\n" can be converted to Space.
-        // Note: Koran uses space to divide words, so it is difficult to determine if "\n" should be converted to Space.
-        isSentenceUseCJDividingSpace(path)))
-  );
+  // "\n" or " ", of course " " always can be converted to Space
+  if (value !== "\n") {
+    return true;
+  }
+  // no adjacent nodes
+  if (typeof adjacentNodes !== "object") {
+    return true;
+  }
+  // "\n" between non-CJ (not han, kana, CJK punctuations) characters always can converted to Space
+  if (
+    notCJLikeKind(adjacentNodes.previous?.kind) &&
+    notCJLikeKind(adjacentNodes.next?.kind)
+  ) {
+    return true;
+  }
+  // Do not convert it to Space when:
+  if (
+    // "\n" between CJ always SHALL NOT be converted to space
+    (adjacentNodes.previous?.kind === KIND_CJ_LETTER &&
+      adjacentNodes.next?.kind === KIND_CJ_LETTER) ||
+    // Shall not be converted to Space around CJK punctuation
+    adjacentNodes.previous?.kind === KIND_CJK_PUNCTUATION ||
+    adjacentNodes.next?.kind === KIND_CJK_PUNCTUATION
+  ) {
+    return false;
+  }
+  // The following rules do not precede the above rules (`return false`).
+  //
+  // 1. "\n" between special signs and CJ characters
+  // [corresponding sign][Space][any string][CJ][[\n]][target sign]
+  // we wonder if there are other marks to be considered.
+  if (
+    adjacentNodes.next.value === ":::" &&
+    isCorrespondingMarkFollowedBySpaceBefore(path, adjacentNodes.next.value)
+  ) {
+    return true;
+  }
+  // 2. If sentence uses space between CJ and alphanumerics (including hangul because of backward-compatibility),
+  //    "\n" can be converted to Space.
+  // Note: Koran uses space to divide words, so it is difficult to determine if "\n" should be converted to Space.
+  return isSentenceUseCJDividingSpace(path);
+}
+
+/**
+ * @param {import("./utils.js").WordKind | undefined} kind
+ * @returns {boolean} `true` if `kind` is what is used in Chinese & Japanese (han, kana, and CJK punctuations)
+ */
+function notCJLikeKind(kind) {
+  return kind !== KIND_CJ_LETTER && kind !== KIND_CJK_PUNCTUATION;
 }
 
 /**
