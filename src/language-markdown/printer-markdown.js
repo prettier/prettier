@@ -586,7 +586,7 @@ function isSentenceUseCJDividingSpace(path) {
  * ```
  *
  * @param {*} path current position in nodes tree
- * @param {*} mark what to look for
+ * @param {string} mark what to look for
  * @returns `true` if a `mark` followed by Space (U+0020) is found before `path`, `false` otherwise.
  */
 function isCorrespondingMarkFollowedBySpaceBefore(path, mark) {
