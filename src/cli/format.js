@@ -2,6 +2,8 @@
 
 const { promises: fs } = require("fs");
 const path = require("path");
+const readline = require("node:readline");
+const { stdin: input, stdout: output } = require("node:process");
 
 // eslint-disable-next-line no-restricted-modules
 const { default: chalk } = require("../../vendors/chalk.js");
@@ -11,6 +13,8 @@ const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
 const { getStdin } = require("../common/third-party.js");
 
+// eslint-disable-next-line no-restricted-modules
+const isNonEmptyArray = require("../utils/is-non-empty-array.js");
 const { createIgnorer, errors } = require("./prettier-internal.js");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
 const getOptionsForFile = require("./options/get-options-for-file.js");
@@ -241,6 +245,21 @@ async function createIgnorerFromContextOrDie(context) {
   }
 }
 
+function getInputFromTerminal() {
+  return new Promise((resolve, reject) => {
+    const inputCode = [];
+    const readLine = readline.createInterface({ input, output });
+    readLine.on("line", (line) => inputCode.push(line));
+    readLine.on("close", () => {
+      if (isNonEmptyArray(inputCode)) {
+        resolve(inputCode.join("\n"));
+      } else {
+        reject("No code inputed");
+      }
+    });
+  });
+}
+
 async function formatStdin(context) {
   const filepath = context.argv.filepath
     ? path.resolve(process.cwd(), context.argv.filepath)
@@ -254,7 +273,7 @@ async function formatStdin(context) {
     : path.relative(process.cwd(), filepath);
 
   try {
-    const input = await getStdin();
+    const input = (await getStdin()) || (await getInputFromTerminal());
 
     if (
       relativeFilepath &&
