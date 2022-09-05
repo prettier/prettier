@@ -9,9 +9,9 @@ If you want to run Prettier programmatically, check this page out.
 const prettier = require("prettier");
 ```
 
-## `prettier.format(source, options)`
+## `prettier.format(source[, options])`
 
-`format` is used to format text using Prettier. `options.parser` must be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.
+`format` is used to format text using Prettier. `options.parser` should be set according to the language you are formatting (see the [list of available parsers](options.md#parser)). Alternatively, `options.filepath` can be specified for Prettier to infer the parser from the file extension. Other [options](options.md) may be provided to override the defaults.
 
 ```js
 prettier.format("foo ( );", { semi: false, parser: "babel" });
@@ -33,7 +33,7 @@ prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
-## `prettier.resolveConfig(filePath [, options])`
+## `prettier.resolveConfig([filePath, options])`
 
 `resolveConfig` can be used to resolve configuration for a given source file, passing its path as the first argument. The config search will start at the file path and continue to search up the directory (you can use `process.cwd()` to start searching from the current directory). Or you can pass directly the path of the config file as `options.config` if you don’t wish to search for it. A promise is returned which will resolve to:
 
