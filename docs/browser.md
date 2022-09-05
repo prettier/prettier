@@ -12,20 +12,22 @@ The standalone version comes as:
 
 The [`browser` field](https://github.com/defunctzombie/package-browser-field-spec) in Prettier’s `package.json` points to `standalone.js`. That’s why you can just `import` or `require` the `prettier` module to access Prettier’s API, and your code can stay compatible with both Node and the browser as long as webpack or another bundler that supports the `browser` field is used. This is especially convenient for [plugins](plugins.md).
 
-## `prettier.format(source, options)`
+## Options
 
-Options:
+- **[`parser`](options.md#parser) (or [`filepath`](options.md#file-path))**: One of these options should be specified for Prettier to know which parser to use. They will be required in a future release.
 
-- **[`parser`](options.md#parser) (or [`filepath`](options.md#file-path))**: One of these options should be specified for Prettier to know which parser to use.
-
-- **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource--options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files named
+- **`plugins`**: Unlike the functions from the [Node.js-based API](api.md#prettierformatsource--options), these functions don't load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files named
 
   - `parser-*.js` in <https://unpkg.com/browse/prettier@2.2.1/> and
   - `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.2.1/esm/>
 
-  You need to load the ones that you’re going to use and pass them to `prettier.format` using the `plugins` option.
+  You need to load the ones that you’re going to use with the `plugins` option.
+
+Other [options](options.md) may be provided to override the defaults.
 
 See below for examples.
+
+## `prettier.format(source, options)`
 
 ## `prettier.check(source, options)`
 
