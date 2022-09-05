@@ -21,7 +21,7 @@ const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
 const findCacheFile = require("./find-cache-file.js");
 const FormatResultsCache = require("./format-results-cache.js");
-const { statSafe } = require("./utils.js");
+const { statSafe, printToScreen } = require("./utils.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -245,8 +245,17 @@ async function createIgnorerFromContextOrDie(context) {
   }
 }
 
+/**
+ * This function starts reading any input which user types on the console.
+ * After the user clicks ctrl+D to exit, the input is formatted and printed
+ * on the screen.
+ * @returns {Promise<string>} On success, resolves the input code joined together 
+ * to form a single string. On error, reject with an error message
+ */
 function getInputFromTerminal() {
   return new Promise((resolve, reject) => {
+    printToScreen("Start writing your code snippet below");
+    printToScreen("After finishing press ctrl+D to exit the read mode");
     const inputCode = [];
     const readLine = readline.createInterface({ input, output });
     readLine.on("line", (line) => inputCode.push(line));
