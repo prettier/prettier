@@ -1691,6 +1691,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typescript-eslint/types@npm:5.36.2":
+  version: 5.36.2
+  resolution: "@typescript-eslint/types@npm:5.36.2"
+  checksum: 736cb8a76b58f2f9a7d066933094c5510ffe31479ea8b804a829ec85942420f1b55e0eb2688fbdaaaa9c0e5b3b590fb8f14bbd745353696b4fd33fda620d417b
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/typescript-estree@npm:5.35.1":
   version: 5.35.1
   resolution: "@typescript-eslint/typescript-estree@npm:5.35.1"
@@ -1732,6 +1739,16 @@ __metadata:
     "@typescript-eslint/types": 5.35.1
     eslint-visitor-keys: ^3.3.0
   checksum: ef3c8377aac89935b5cc2fcf37bb3e42aa5f98848e7c22bdcbe5bb06c0fe8a1373a6897fd21109be8929b4708ad06c8874d2ef7bba17ff64911964203457330d
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/visitor-keys@npm:5.36.2":
+  version: 5.36.2
+  resolution: "@typescript-eslint/visitor-keys@npm:5.36.2"
+  dependencies:
+    "@typescript-eslint/types": 5.36.2
+    eslint-visitor-keys: ^3.3.0
+  checksum: 87ccdcfa5cdedaa3a1aac30d656969f4f5910b62bcaacdf80a514dbf0cbbd8e79b55f8e987eab34cc79ece8ce4b8c19d5caf8b0afb74e0b0d7ab39fb29aa8eba
   languageName: node
   linkType: hard
 
@@ -6901,7 +6918,7 @@ __metadata:
     "@types/jest": 29.0.0
     "@typescript-eslint/eslint-plugin": 5.35.1
     "@typescript-eslint/typescript-estree": 5.35.1
-    "@typescript-eslint/visitor-keys": 5.35.1
+    "@typescript-eslint/visitor-keys": 5.36.2
     acorn: 8.8.0
     acorn-jsx: 5.3.2
     angular-estree-parser: 2.5.1
