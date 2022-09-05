@@ -1,5 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`multiline-literal.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/pull/13274
+
+const loremIpsumFooBazBar1 = 'Multiline string\\
+         Multiline string\\
+'
+
+const loremIpsumFooBazBar2 = 'Multiline string\\
+         Multiline string\\
+         Multiline string'
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/pull/13274
+
+const loremIpsumFooBazBar1 =
+  "Multiline string\\
+         Multiline string\\
+";
+
+const loremIpsumFooBazBar2 =
+  "Multiline string\\
+         Multiline string\\
+         Multiline string";
+
+================================================================================
+`;
+
+exports[`multiline-literal.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/pull/13274
+
+const loremIpsumFooBazBar1 = 'Multiline string\\
+         Multiline string\\
+'
+
+const loremIpsumFooBazBar2 = 'Multiline string\\
+         Multiline string\\
+         Multiline string'
+
+=====================================output=====================================
+// https://github.com/prettier/prettier/pull/13274
+
+const loremIpsumFooBazBar1 =
+  "Multiline string\\
+         Multiline string\\
+";
+
+const loremIpsumFooBazBar2 =
+  "Multiline string\\
+         Multiline string\\
+         Multiline string";
+
+================================================================================
+`;
+
 exports[`non-octal-eight-and-nine.js [acorn] format 1`] = `
 "Invalid escape sequence (3:3)
   1 | // https://github.com/babel/babel/pull/11852

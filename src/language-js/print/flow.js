@@ -16,6 +16,7 @@ const {
   shouldPrintComma,
 } = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
+const { replaceTextEndOfLine } = require("../../document/doc-utils.js");
 const { printClass } = require("./class.js");
 const {
   printOpaqueType,
@@ -278,7 +279,7 @@ function printFlow(path, options, print) {
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
     case "StringLiteralTypeAnnotation":
-      return printString(rawText(node), options);
+      return replaceTextEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
       assert.strictEqual(typeof node.value, "number");
     // fall through
