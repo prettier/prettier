@@ -66,6 +66,8 @@ To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
+- [`prettier-plugin-motoko`](https://github.com/dfinity/prettier-plugin-motoko) by [**@dfinity**](https://github.com/dfinity)
+- [`prettier-plugin-nginx`](https://github.com/joedeandev/prettier-plugin-nginx) by [**@joedeandev**](https://github.com/joedeandev)
 - [`prettier-plugin-prisma`](https://github.com/umidbekk/prettier-plugin-prisma) by [**@umidbekk**](https://github.com/umidbekk)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
 - [`prettier-plugin-sh`](https://github.com/un-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
@@ -162,6 +164,7 @@ export const printers = {
     canAttachComment,
     isBlockComment,
     printComment,
+    getCommentChildNodes,
     handleComments: {
       ownLine,
       endOfLine,
@@ -295,6 +298,21 @@ function insertPragma(text: string): string;
 Comments are often not part of a language's AST and present a challenge for pretty printers. A Prettier plugin can either print comments itself in its `print` function or rely on Prettier's comment algorithm.
 
 By default, if the AST has a top-level `comments` property, Prettier assumes that `comments` stores an array of comment nodes. Prettier will then use the provided `parsers[<plugin>].locStart`/`locEnd` functions to search for the AST node that each comment "belongs" to. Comments are then attached to these nodes **mutating the AST in the process**, and the `comments` property is deleted from the AST root. The `*Comment` functions are used to adjust Prettier's algorithm. Once the comments are attached to the AST, Prettier will automatically call the `printComment(path, options): Doc` function and insert the returned doc into the (hopefully) correct place.
+
+#### (optional) `getCommentChildNodes`
+
+By default, Prettier searches all object properties (except for a few predefined ones) of each node recursively. This function can be provided to override that behavior. It has the signature:
+
+```ts
+function getCommentChildNodes(
+  // The node whose children should be returned.
+  node: AST,
+  // Current options
+  options: object
+): AST[] | undefined;
+```
+
+Return `[]` if the node has no children or `undefined` to fall back on the default behavior.
 
 #### (optional) `printComment`
 
