@@ -12,11 +12,11 @@ The standalone version comes as:
 
 The [`browser` field](https://github.com/defunctzombie/package-browser-field-spec) in Prettier’s `package.json` points to `standalone.js`. That’s why you can just `import` or `require` the `prettier` module to access Prettier’s API, and your code can stay compatible with both Node and the browser as long as webpack or another bundler that supports the `browser` field is used. This is especially convenient for [plugins](plugins.md).
 
-## `prettier.format(code, options)`
+## `prettier.format(source, options)`
 
-Required options:
+Options:
 
-- **[`parser`](options.md#parser) (or [`filepath`](options.md#file-path))**: One of these options has to be specified for Prettier to know which parser to use.
+- **[`parser`](options.md#parser) (or [`filepath`](options.md#file-path))**: One of these options should be specified for Prettier to know which parser to use.
 
 - **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource--options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files named
 
@@ -26,6 +26,12 @@ Required options:
   You need to load the ones that you’re going to use and pass them to `prettier.format` using the `plugins` option.
 
 See below for examples.
+
+## `prettier.check(source, options)`
+
+## `prettier.formatWithCursor(source, options)`
+
+## `prettier.getSupportInfo()`
 
 ## Usage
 
