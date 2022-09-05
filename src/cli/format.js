@@ -261,6 +261,7 @@ function getInputFromTerminal() {
     readLine.on("line", (line) => inputCode.push(line));
     readLine.on("close", () => {
       if (isNonEmptyArray(inputCode)) {
+        printToScreen("\x1b[35m%s\x1b[0m","\nFormatted code");
         resolve(inputCode.join("\n"));
       } else {
         reject("No code inputed");

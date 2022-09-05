@@ -189,6 +189,22 @@ $ cat abc.css | prettier --stdin-filepath abc.css
 }
 ```
 
+This option can also be used without the pipe syntax to enable **stdin** mode enabling us to input code in the terminal.
+
+```console
+prettier --stdin-filepath xyz.js
+Start writing your code snippet below
+After finishing press ctrl+D to exit the read mode
+function hello() {
+return 'world'
+}
+
+Formatted code
+function hello() {
+  return "world";
+}
+```
+
 ## `--ignore-unknown`
 
 With `--ignore-unknown` (or `-u`), prettier will ignore unknown files matched by patterns.
