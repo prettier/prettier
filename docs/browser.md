@@ -27,13 +27,13 @@ Other [options](options.md) may be provided to override the defaults.
 
 See below for examples.
 
-## `prettier.format(source, options)`
+## [`prettier.format(source, options)`](api.md#prettierformatsource--options)
 
-## `prettier.check(source, options)`
+## [`prettier.check(source, options)`](api.md#prettierchecksource--options)
 
-## `prettier.formatWithCursor(source, options)`
+## [`prettier.formatWithCursor(source, options)`](api.md#prettierformatwithcursorsource--options)
 
-## `prettier.getSupportInfo()`
+## [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo)
 
 ## Usage
 
