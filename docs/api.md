@@ -128,6 +128,15 @@ The support information looks like this:
     filenames?: string[];
     linguistLanguageId?: number;
     vscodeLanguageIds?: string[];
+    interpreters?: string[];
+  }>;
+  options: Array<{
+    readonly name?: string;
+    since: string;
+    category: string;
+    type: string;
+    deprecated?: true | string;
+    description?: string;
   }>;
 }
 ```
