@@ -12,7 +12,7 @@ The standalone version comes as:
 
 The [`browser` field](https://github.com/defunctzombie/package-browser-field-spec) in Prettier’s `package.json` points to `standalone.js`. That’s why you can just `import` or `require` the `prettier` module to access Prettier’s API, and your code can stay compatible with both Node and the browser as long as webpack or another bundler that supports the `browser` field is used. This is especially convenient for [plugins](plugins.md).
 
-### `prettier.format(code, options)`
+## `prettier.format(code, options)`
 
 Required options:
 
