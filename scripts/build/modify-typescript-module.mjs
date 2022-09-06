@@ -9,7 +9,7 @@ Root submodule in `typescript.js` are bundled like
 ```js
 var ts;
 (function (ts) {
-  // Submodule  
+  // Submodule
 })(ts || (ts = {}));
 ```
 */
@@ -69,7 +69,7 @@ function removeMultipleSubmodules(text, testFunction) {
   let modules = getSubmodules(text, testFunction);
 
   if (modules.length < 2) {
-    throw new Error("Expect exactly more than on submodules to be found");
+    throw new Error("Expect more than one submodules to be found");
   }
 
   for (; modules.length > 0; modules = getSubmodules(text, testFunction)) {
