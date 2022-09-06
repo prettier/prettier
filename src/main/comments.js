@@ -468,7 +468,6 @@ function printTrailingComment(path, options, previousComment) {
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
-  const isBlock = printer.isBlockComment?.(comment);
 
   let previousCommentHasLineSuffix = false;
 
@@ -511,7 +510,7 @@ function printTrailingComment(path, options, previousComment) {
 
   let parts = [" ", printed];
 
-  if (!isBlock || previousCommentHasLineSuffix) {
+  if (previousCommentHasLineSuffix || !printer.isBlockComment?.(comment)) {
     parts = [lineSuffix(parts), breakParent];
   }
 
