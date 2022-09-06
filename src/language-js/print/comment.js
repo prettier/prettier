@@ -1,4 +1,3 @@
-import { hasNewline } from "../../common/util.js";
 import { join, hardline } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 
@@ -18,19 +17,7 @@ function printComment(commentPath, options) {
 
   if (isBlockComment(comment)) {
     if (isIndentableBlockComment(comment)) {
-      const printed = printIndentableBlockComment(comment);
-      // We need to prevent an edge case of a previous trailing comment
-      // printed as a `lineSuffix` which causes the comments to be
-      // interleaved. See https://github.com/prettier/prettier/issues/4412
-      if (
-        comment.trailing &&
-        !hasNewline(options.originalText, locStart(comment), {
-          backwards: true,
-        })
-      ) {
-        return [hardline, printed];
-      }
-      return printed;
+      return printIndentableBlockComment(comment);
     }
 
     const commentEnd = locEnd(comment);
