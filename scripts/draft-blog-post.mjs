@@ -72,7 +72,7 @@ rimraf.sync(postGlob);
 const introFileData = fs.readFileSync(introFile, "utf8").trim();
 
 const TRUNCATE_COMMENT = "<!--truncate-->";
-const shouldPrintTruncate = introFileData.includes(TRUNCATE_COMMENT);
+const shouldPrintTruncate = !introFileData.includes(TRUNCATE_COMMENT);
 
 fs.writeFileSync(
   postFile,
