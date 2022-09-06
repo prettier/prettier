@@ -19,9 +19,36 @@ const tsDebugModuleReplacement = outdent`
       error: ts.noop,
       warn: ts.noop,
       log: ts.noop,
-      trace: ts.noop,
+      trace: ts.noop
     }
   };
+`;
+
+const tsPerformanceModuleReplacement = outdent`
+  ts.performance = {${Object.keys(ts.Debug)
+    .filter(
+      (key) =>
+        key !== "createTimer" &&
+        key !== "createTimerIf" &&
+        key !== "nullTimer" &&
+        key !== "isEnabled"
+    )
+    .map((key) => `${key}: ts.noop`)
+    .join(",\n")},
+    createTimer: () => ts.performance.nullTimer,
+    createTimerIf: () => ts.performance.nullTimer,
+    nullTimer: {
+      enter: ts.noop,
+      exit: ts.noop,
+    },
+    isEnabled: () => false
+  };
+`;
+
+const tsLoggerModuleReplacement = outdent`
+  ts.perfLogger = {${Object.keys(ts.perfLogger)
+    .map((key) => `${key}: ts.noop`)
+    .join(",\n")}}
 `;
 
 /*
@@ -475,6 +502,18 @@ function modifyTypescriptModule(text) {
       ts.timestamp = Date.now;
     `
   );
+  text = replaceSubmodule(
+    text,
+    (text) => text.includes("(ts.performance = {})"),
+    tsPerformanceModuleReplacement
+  );
+
+  // Logger
+  text = replaceSubmodule(
+    text,
+    (text) => text.includes("ts.perfLogger =  "),
+    tsLoggerModuleReplacement
+  );
 
   // Debug
   text = replaceSubmodule(
@@ -489,7 +528,6 @@ function modifyTypescriptModule(text) {
 
     // Dynamic `require()`s
     "ts.sys && ts.sys.require": "false",
-    "require(etwModulePath)": "undefined",
   })) {
     text = text.replaceAll(find, replacement);
   }
