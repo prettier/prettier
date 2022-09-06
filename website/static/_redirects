@@ -1,7 +1,0 @@
-# Redirect removed doc links
-/docs/:lang/usage.html          /docs/:lang/install.html
-/docs/:lang/usage-options.html  /docs/:lang/options.html
-/docs/:lang/eslint.html         /docs/:lang/integrating-with-linters.html
-
-# Broken blog link
-/blog/2018/05/23/1.13.0.html    /blog/2018/05/27/1.13.0.html

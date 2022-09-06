@@ -2,7 +2,6 @@
 # We have `node_modules` directory for tests, don't ignore them all
 /node_modules
 /website/node_modules
-/website_v2/node_modules
 /scripts/release/node_modules
 /scripts/tools/bundle-test/node_modules
 /scripts/tools/eslint-plugin-prettier-internal-rules/node_modules
@@ -17,8 +16,7 @@
 /website/i18n
 /website/static/playground.js
 /website/static/lib
-/website_v2/.docusaurus
-/website_v2/build
+/website/.docusaurus
 .DS_Store
 /coverage
 .idea
