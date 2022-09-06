@@ -17,7 +17,6 @@ import {
   addDanglingComment,
   addTrailingComment,
   isNonEmptyArray,
-  getLast,
 } from "../common/util.js";
 import { getDocType } from "../document/utils.js";
 import { DOC_TYPE_ARRAY, DOC_TYPE_LINE_SUFFIX } from "../document/constants.js";
@@ -464,28 +463,29 @@ function printLeadingComment(path, options) {
   return parts;
 }
 
-function printTrailingComment(path, options, previousCommentDoc) {
+function printTrailingComment(path, options, previousComment) {
   const comment = path.getValue();
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
-  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
+  const isBlock = printer.isBlockComment?.(comment);
 
   let previousCommentHasLineSuffix = false;
 
-  if (previousCommentDoc) {
-    const previousCommentDocType = getDocType(previousCommentDoc);
+  if (previousComment) {
+    const previousCommentDocType = getDocType(previousComment.doc);
     if (
       previousCommentDocType === DOC_TYPE_LINE_SUFFIX ||
       (previousCommentDocType === DOC_TYPE_ARRAY &&
-        getDocType(previousCommentDoc[0]) === DOC_TYPE_LINE_SUFFIX)
+        getDocType(previousComment.doc[0]) === DOC_TYPE_LINE_SUFFIX)
     ) {
       previousCommentHasLineSuffix = true;
     }
   }
 
   if (
-    previousCommentHasLineSuffix ||
+    (previousCommentHasLineSuffix &&
+      !printer.isBlockComment?.(previousComment.node)) ||
     hasNewline(originalText, locStart(comment), { backwards: true })
   ) {
     // This allows comments at the end of nested structures:
@@ -511,8 +511,7 @@ function printTrailingComment(path, options, previousCommentDoc) {
 
   let parts = [" ", printed];
 
-  // Trailing block comments never need a newline
-  if (!isBlock) {
+  if (!isBlock || previousCommentHasLineSuffix) {
     parts = [lineSuffix(parts), breakParent];
   }
 
@@ -563,6 +562,7 @@ function printCommentsSeparately(path, options, ignored) {
 
   const leadingParts = [];
   const trailingParts = [];
+  let previousTrailingComment;
   path.each(() => {
     const comment = path.getValue();
     if (ignored && ignored.has(comment)) {
@@ -573,9 +573,9 @@ function printCommentsSeparately(path, options, ignored) {
     if (leading) {
       leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      trailingParts.push(
-        printTrailingComment(path, options, getLast(trailingParts))
-      );
+      const doc = printTrailingComment(path, options, previousTrailingComment);
+      trailingParts.push(doc);
+      previousTrailingComment = { node: comment, doc };
     }
   }, "comments");
 
