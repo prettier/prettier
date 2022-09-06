@@ -298,13 +298,6 @@ function printTypescript(path, options, print) {
           "{",
           indent([
             options.bracketSpacing ? line : softline,
-            node.readonly
-              ? [
-                  getTypeScriptMappedTypeModifier(node.readonly, "readonly"),
-                  " ",
-                ]
-              : "",
-            printTypeScriptModifiers(path, options, print),
             print("typeParameter"),
             node.optional
               ? getTypeScriptMappedTypeModifier(node.optional, "?")

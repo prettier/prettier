@@ -16,6 +16,7 @@ import {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
+  getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
 import { createGroupIdMapper } from "../../common/util.js";
 import { shouldHugType } from "./type-annotation.js";
@@ -116,6 +117,12 @@ function printTypeParameter(path, options, print) {
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 
   if (parent.type === "TSMappedType") {
+    if (parent.readonly) {
+      parts.push(
+        getTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+        " "
+      );
+    }
     parts.push("[", name);
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
