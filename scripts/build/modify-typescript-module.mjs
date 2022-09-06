@@ -429,12 +429,12 @@ function modifyTypescriptModule(text) {
     .removeSubmodule((text) =>
       text.includes("ts.createPatternMatcher = createPatternMatcher;")
     )
-    .removeSubmodule((text) => text.includes("(ts.SymbolDisplay = {})"))
+    .removeSubmodule((text) => text.includes("(ts.SymbolDisplay = {})"));
 
-    // `ts.refactor` (multiple)
-    .removeMultipleSubmodules((text) =>
-      text.trimStart().startsWith("var refactor;")
-    );
+  // `ts.refactor` (multiple)
+  source.removeMultipleSubmodules((text) =>
+    text.trimStart().startsWith("var refactor;")
+  );
 
   // `ts.codefix` (multiple)
   source.removeMultipleSubmodules((text) =>
