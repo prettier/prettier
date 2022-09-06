@@ -17,7 +17,10 @@ import {
   addDanglingComment,
   addTrailingComment,
   isNonEmptyArray,
+  getLast,
 } from "../common/util.js";
+import { getDocType } from "../document/utils.js";
+import { DOC_TYPE_ARRAY, DOC_TYPE_LINE_SUFFIX } from "../document/constants.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 const childNodesCache = new WeakMap();
@@ -461,14 +464,31 @@ function printLeadingComment(path, options) {
   return parts;
 }
 
-function printTrailingComment(path, options) {
+function printTrailingComment(path, options, previousCommentDoc) {
   const comment = path.getValue();
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
-  if (hasNewline(originalText, locStart(comment), { backwards: true })) {
+  let shouldPrintOnNewLine = false;
+
+  if (previousCommentDoc) {
+    const previousCommentDocType = getDocType(previousCommentDoc);
+    if (
+      previousCommentDocType === DOC_TYPE_LINE_SUFFIX ||
+      (previousCommentDocType === DOC_TYPE_ARRAY &&
+        getDocType(previousCommentDoc[0]) === DOC_TYPE_LINE_SUFFIX)
+    ) {
+      shouldPrintOnNewLine = true;
+    }
+  }
+
+  shouldPrintOnNewLine ||= hasNewline(originalText, locStart(comment), {
+    backwards: true,
+  });
+
+  if (shouldPrintOnNewLine) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
@@ -554,7 +574,9 @@ function printCommentsSeparately(path, options, ignored) {
     if (leading) {
       leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(path, options));
+      trailingParts.push(
+        printTrailingComment(path, options, getLast(trailingParts))
+      );
     }
   }, "comments");
 

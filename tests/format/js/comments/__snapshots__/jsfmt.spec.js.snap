@@ -1444,6 +1444,93 @@ const test = "💖";
 ================================================================================
 `;
 
+exports[`empty-statements.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+a; /* a */ // b
+; /* c */
+
+foo; // first
+;// second
+;// third
+
+function x() {
+} // first
+; // second
+
+a = (
+  b // 1
+  + // 2
+  c // 3
+  + // 4
+  d // 5
+);
+
+=====================================output=====================================
+a /* a */ // b
+/* c */
+foo // first
+// second
+// third
+function x() {} // first
+// second
+a =
+  b + // 1
+  // 2
+  c + // 3
+  // 4
+  d // 5
+
+================================================================================
+`;
+
+exports[`empty-statements.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a; /* a */ // b
+; /* c */
+
+foo; // first
+;// second
+;// third
+
+function x() {
+} // first
+; // second
+
+a = (
+  b // 1
+  + // 2
+  c // 3
+  + // 4
+  d // 5
+);
+
+=====================================output=====================================
+a; /* a */ // b
+/* c */
+foo; // first
+// second
+// third
+function x() {} // first
+// second
+a =
+  b + // 1
+  // 2
+  c + // 3
+  // 4
+  d; // 5
+
+================================================================================
+`;
+
 exports[`export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -5490,9 +5577,11 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 })
 
 /* A comment */
+
 /**
  * A type that can be written to a buffer.
  */
+
 /**
  * Describes the connection status of a ReactiveSocket/DuplexConnection.
  * - NOT_CONNECTED: no connection established or pending.
@@ -5502,10 +5591,12 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
  * - CLOSED: when the connection has been explicitly closed via \`close()\`.
  * - ERROR: when the connection has been closed for any other reason.
  */
+
 /**
  * A contract providing different interaction models per the [ReactiveSocket protocol]
  * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
  */
+
 /**
  * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
  */
@@ -5551,9 +5642,11 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 });
 
 /* A comment */
+
 /**
  * A type that can be written to a buffer.
  */
+
 /**
  * Describes the connection status of a ReactiveSocket/DuplexConnection.
  * - NOT_CONNECTED: no connection established or pending.
@@ -5563,10 +5656,12 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
  * - CLOSED: when the connection has been explicitly closed via \`close()\`.
  * - ERROR: when the connection has been closed for any other reason.
  */
+
 /**
  * A contract providing different interaction models per the [ReactiveSocket protocol]
  * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
  */
+
 /**
  * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
  */
