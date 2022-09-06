@@ -47,14 +47,14 @@ function removeSubmodule(text, testFunction) {
 function replaceSubmodule(text, testFunction, replacement) {
   const modules = getSubmodules(text, testFunction);
   if (modules.length !== 1) {
-    throw Object.assign(
-      new Error(
-        `Expect exactly one submodule to be found, got ${modules.length} submodules.`
-      ),
-      {
-        modules,
-      }
-    );
+    return text;
+    // TODO: Enable this check when merge to `next` branch
+    // throw Object.assign(
+    //   new Error(
+    //     `Expect exactly one submodule to be found, got ${modules.length} submodules.`
+    //   ),
+    //   { modules }
+    // );
   }
 
   const [{ start, end, before, after }] = modules;
