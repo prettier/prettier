@@ -471,7 +471,7 @@ function printTrailingComment(path, options, previousCommentDoc) {
   const { printer, originalText, locStart } = options;
   const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
-  let shouldPrintOnNewLine = false;
+  let previousCommentHasLineSuffix = false;
 
   if (previousCommentDoc) {
     const previousCommentDocType = getDocType(previousCommentDoc);
@@ -480,15 +480,14 @@ function printTrailingComment(path, options, previousCommentDoc) {
       (previousCommentDocType === DOC_TYPE_ARRAY &&
         getDocType(previousCommentDoc[0]) === DOC_TYPE_LINE_SUFFIX)
     ) {
-      shouldPrintOnNewLine = true;
+      previousCommentHasLineSuffix = true;
     }
   }
 
-  shouldPrintOnNewLine ||= hasNewline(originalText, locStart(comment), {
-    backwards: true,
-  });
-
-  if (shouldPrintOnNewLine) {
+  if (
+    previousCommentHasLineSuffix ||
+    hasNewline(originalText, locStart(comment), { backwards: true })
+  ) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
