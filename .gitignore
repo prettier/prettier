@@ -18,6 +18,7 @@
 /website/static/playground.js
 /website/static/lib
 /website_v2/.docusaurus
+/website_v2/build
 .DS_Store
 /coverage
 .idea
