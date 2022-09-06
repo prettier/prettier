@@ -160,6 +160,8 @@ function trim(out) {
       throw new Error(`Unexpected value in trim: '${typeof last}'`);
     }
 
+    // Not using a regexp here because regexps for trimming off trailing
+    // characters are known to have performance issues.
     for (let charIndex = last.length - 1; charIndex >= 0; charIndex--) {
       const char = last[charIndex];
       if (char === " " || char === "\t") {
