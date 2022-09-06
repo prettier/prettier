@@ -1,7 +1,28 @@
 import path from "node:path";
 import escapeStringRegexp from "escape-string-regexp";
 import { outdent } from "outdent";
+import ts from "typescript";
 import { writeFile, PROJECT_ROOT } from "../utils/index.mjs";
+
+const tsDebugModuleReplacement = outdent`
+  ts.Debug = {
+    ${Object.keys(ts.Debug)
+      .filter(
+        (key) =>
+          key !== "isDebugging" && key !== "currentLogLevel" && key !== "log"
+      )
+      .map((key) => `${key}: ts.noop`)
+      .join(",\n")},
+    isDebugging: false,
+    currentLogLevel: 2,
+    log: {
+      error: ts.noop,
+      warn: ts.noop,
+      log: ts.noop,
+      trace: ts.noop,
+    }
+  };
+`;
 
 /*
 Root submodule in `typescript.js` are bundled like
@@ -453,6 +474,13 @@ function modifyTypescriptModule(text) {
       ts.tryGetNativePerformanceHooks = () => {};
       ts.timestamp = Date.now;
     `
+  );
+
+  // Debug
+  text = replaceSubmodule(
+    text,
+    (text) => text.includes("(ts.Debug = {})"),
+    tsDebugModuleReplacement
   );
 
   for (const [find, replacement] of Object.entries({
