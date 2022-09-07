@@ -24,13 +24,15 @@ const tsPerformanceModuleReplacement = outdent`
 `;
 
 const tsLoggerModuleReplacement = outdent`
-  ts.perfLogger = {${Object.keys(ts.perfLogger)
-    .map((key) => `${key}: ts.noop`)
-    .join(",\n")}}
+  ts.perfLogger = {
+    ${Object.keys(ts.perfLogger)
+      .map((key) => `${key}: ts.noop`)
+      .join(",\n")}
+  };
 `;
 
 /*
-Root submodule in `typescript.js` are bundled like
+Root submodules in `typescript.js` are bundled like
 
 ```js
 var ts;
@@ -489,7 +491,7 @@ function modifyTypescriptModule(text) {
   // Logger
   text = replaceSubmodule(
     text,
-    (text) => text.includes("ts.perfLogger =  "),
+    (text) => text.includes("ts.perfLogger = "),
     tsLoggerModuleReplacement
   );
 
