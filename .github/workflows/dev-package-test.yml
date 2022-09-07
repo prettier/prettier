@@ -22,7 +22,7 @@ jobs:
           - "ubuntu-latest"
         node:
           # Run tests on minimal version we support
-          - "14"
+          - "16"
         NPM_CLIENT:
           - "yarn"
           # Disabled temporarily #13151
