@@ -4,26 +4,6 @@ import { outdent } from "outdent";
 import ts from "typescript";
 import { writeFile, PROJECT_ROOT } from "../utils/index.mjs";
 
-const tsDebugModuleReplacement = outdent`
-  ts.Debug = {
-    ${Object.keys(ts.Debug)
-      .filter(
-        (key) =>
-          key !== "isDebugging" && key !== "currentLogLevel" && key !== "log"
-      )
-      .map((key) => `${key}: ts.noop`)
-      .join(",\n")},
-    isDebugging: false,
-    currentLogLevel: 2,
-    log: {
-      error: ts.noop,
-      warn: ts.noop,
-      log: ts.noop,
-      trace: ts.noop
-    }
-  };
-`;
-
 const tsPerformanceModuleReplacement = outdent`
   ts.performance = {
     ${Object.keys(ts.performance)
@@ -510,13 +490,6 @@ function modifyTypescriptModule(text) {
     text,
     (text) => text.includes("ts.perfLogger = "),
     tsLoggerModuleReplacement
-  );
-
-  // Debug
-  text = replaceSubmodule(
-    text,
-    (text) => text.includes("(ts.Debug = {})"),
-    tsDebugModuleReplacement
   );
 
   for (const [find, replacement] of Object.entries({
