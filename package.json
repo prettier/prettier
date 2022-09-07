@@ -13,7 +13,7 @@
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
     "index.js",
