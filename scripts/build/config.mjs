@@ -44,14 +44,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/flow.js",
-    replaceModule: [
-      // `flow-parser` use this for `globalThis`, can't work in strictMode
-      {
-        module: require.resolve("flow-parser"),
-        find: "(function(){return this}())",
-        replacement: "(globalThis)",
-      },
-    ],
   },
   {
     input: "src/language-js/parse/typescript.js",
