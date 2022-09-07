@@ -552,7 +552,7 @@ function printCommentsSeparately(path, options, ignored) {
 
   const leadingParts = [];
   const trailingParts = [];
-  let previousTrailingComment;
+  let printedTrailingComment;
   path.each(() => {
     const comment = path.getValue();
     if (ignored && ignored.has(comment)) {
@@ -563,12 +563,12 @@ function printCommentsSeparately(path, options, ignored) {
     if (leading) {
       leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      previousTrailingComment = printTrailingComment(
+      printedTrailingComment = printTrailingComment(
         path,
         options,
-        previousTrailingComment
+        printedTrailingComment
       );
-      trailingParts.push(previousTrailingComment.doc);
+      trailingParts.push(printedTrailingComment.doc);
     }
   }, "comments");
 
