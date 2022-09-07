@@ -18,8 +18,6 @@ import {
   addTrailingComment,
   isNonEmptyArray,
 } from "../common/util.js";
-import { getDocType } from "../document/utils.js";
-import { DOC_TYPE_ARRAY, DOC_TYPE_LINE_SUFFIX } from "../document/constants.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 const childNodesCache = new WeakMap();
@@ -468,23 +466,10 @@ function printTrailingComment(path, options, previousComment) {
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
-
-  let previousCommentHasLineSuffix = false;
-
-  if (previousComment) {
-    const previousCommentDocType = getDocType(previousComment.doc);
-    if (
-      previousCommentDocType === DOC_TYPE_LINE_SUFFIX ||
-      (previousCommentDocType === DOC_TYPE_ARRAY &&
-        getDocType(previousComment.doc[0]) === DOC_TYPE_LINE_SUFFIX)
-    ) {
-      previousCommentHasLineSuffix = true;
-    }
-  }
+  const isBlock = printer.isBlockComment?.(comment);
 
   if (
-    (previousCommentHasLineSuffix &&
-      !printer.isBlockComment?.(previousComment.node)) ||
+    (previousComment?.hasLineSuffix && !previousComment?.isBlock) ||
     hasNewline(originalText, locStart(comment), { backwards: true })
   ) {
     // This allows comments at the end of nested structures:
@@ -505,16 +490,22 @@ function printTrailingComment(path, options, previousComment) {
       locStart
     );
 
-    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]);
+    return {
+      doc: lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]),
+      isBlock,
+      hasLineSuffix: true,
+    };
   }
 
-  let parts = [" ", printed];
-
-  if (previousCommentHasLineSuffix || !printer.isBlockComment?.(comment)) {
-    parts = [lineSuffix(parts), breakParent];
+  if (!isBlock || previousComment?.hasLineSuffix) {
+    return {
+      doc: [lineSuffix([" ", printed]), breakParent],
+      isBlock,
+      hasLineSuffix: true,
+    };
   }
 
-  return parts;
+  return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
@@ -572,9 +563,12 @@ function printCommentsSeparately(path, options, ignored) {
     if (leading) {
       leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      const doc = printTrailingComment(path, options, previousTrailingComment);
-      trailingParts.push(doc);
-      previousTrailingComment = { node: comment, doc };
+      previousTrailingComment = printTrailingComment(
+        path,
+        options,
+        previousTrailingComment
+      );
+      trailingParts.push(previousTrailingComment.doc);
     }
   }, "comments");
 
