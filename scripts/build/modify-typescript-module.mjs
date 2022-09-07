@@ -473,17 +473,6 @@ function modifyTypescriptModule(text) {
   // Performance
   text = replaceSubmodule(
     text,
-    (text) =>
-      text.includes(
-        "ts.tryGetNativePerformanceHooks = tryGetNativePerformanceHooks;"
-      ),
-    outdent`
-      ts.tryGetNativePerformanceHooks = () => {};
-      ts.timestamp = Date.now;
-    `
-  );
-  text = replaceSubmodule(
-    text,
     (text) => text.includes("(ts.performance = {})"),
     tsPerformanceModuleReplacement
   );
