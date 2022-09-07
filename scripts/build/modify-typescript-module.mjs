@@ -497,10 +497,7 @@ function modifyTypescriptModule(text) {
       text.includes(
         "ts.tryGetNativePerformanceHooks = tryGetNativePerformanceHooks;"
       ),
-    outdent`
-      ts.tryGetNativePerformanceHooks = () => {};
-      ts.timestamp = Date.now;
-    `
+    "ts.timestamp = Date.now;"
   );
   text = replaceSubmodule(
     text,
