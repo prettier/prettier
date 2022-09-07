@@ -5,22 +5,20 @@ import ts from "typescript";
 import { writeFile, PROJECT_ROOT } from "../utils/index.mjs";
 
 const tsPerformanceModuleReplacement = outdent`
-  ts.performance = {${Object.keys(ts.Debug)
-    .filter(
-      (key) =>
-        key !== "createTimer" &&
-        key !== "createTimerIf" &&
-        key !== "nullTimer" &&
-        key !== "isEnabled"
-    )
-    .map((key) => `${key}: ts.noop`)
-    .join(",\n")},
+  ts.performance = {
+    ${Object.keys(ts.performance)
+      .filter(
+        (key) =>
+          key !== "createTimer" &&
+          key !== "createTimerIf" &&
+          key !== "nullTimer" &&
+          key !== "isEnabled"
+      )
+      .map((key) => `${key}: ts.noop`)
+      .join(",\n")},
     createTimer: () => ts.performance.nullTimer,
     createTimerIf: () => ts.performance.nullTimer,
-    nullTimer: {
-      enter: ts.noop,
-      exit: ts.noop,
-    },
+    nullTimer: { enter: ts.noop, exit: ts.noop },
     isEnabled: () => false
   };
 `;
