@@ -77,7 +77,7 @@ class AstPath {
   #getSiblingNode(offset) {
     const { stack } = this;
     const { length } = stack;
-    assert(length < 3);
+    assert(length >= 5);
     const index = stack[length - 2];
     assert(typeof index === "number");
     const array = stack[length - 3];
