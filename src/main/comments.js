@@ -461,14 +461,17 @@ function printLeadingComment(path, options) {
   return parts;
 }
 
-function printTrailingComment(path, options) {
+function printTrailingComment(path, options, previousComment) {
   const comment = path.getValue();
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
-  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
+  const isBlock = printer.isBlockComment?.(comment);
 
-  if (hasNewline(originalText, locStart(comment), { backwards: true })) {
+  if (
+    (previousComment?.hasLineSuffix && !previousComment?.isBlock) ||
+    hasNewline(originalText, locStart(comment), { backwards: true })
+  ) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
@@ -487,17 +490,22 @@ function printTrailingComment(path, options) {
       locStart
     );
 
-    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]);
+    return {
+      doc: lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]),
+      isBlock,
+      hasLineSuffix: true,
+    };
   }
 
-  let parts = [" ", printed];
-
-  // Trailing block comments never need a newline
-  if (!isBlock) {
-    parts = [lineSuffix(parts), breakParent];
+  if (!isBlock || previousComment?.hasLineSuffix) {
+    return {
+      doc: [lineSuffix([" ", printed]), breakParent],
+      isBlock,
+      hasLineSuffix: true,
+    };
   }
 
-  return parts;
+  return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
@@ -544,6 +552,7 @@ function printCommentsSeparately(path, options, ignored) {
 
   const leadingParts = [];
   const trailingParts = [];
+  let printedTrailingComment;
   path.each(() => {
     const comment = path.getValue();
     if (ignored && ignored.has(comment)) {
@@ -554,7 +563,12 @@ function printCommentsSeparately(path, options, ignored) {
     if (leading) {
       leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(path, options));
+      printedTrailingComment = printTrailingComment(
+        path,
+        options,
+        printedTrailingComment
+      );
+      trailingParts.push(printedTrailingComment.doc);
     }
   }, "comments");
 
