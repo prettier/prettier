@@ -120,7 +120,7 @@ function printFunction(path, print, options, args) {
 }
 
 function printMethod(path, options, print) {
-  const node = path.getNode();
+  const node = path.getValue();
   const { kind } = node;
   const value = node.value || node;
   const parts = [];
@@ -159,7 +159,7 @@ function printMethod(path, options, print) {
 }
 
 function printMethodInternal(path, options, print) {
-  const node = path.getNode();
+  const node = path.getValue();
   const parametersDoc = printFunctionParameters(path, print, options);
   const returnTypeDoc = printReturnType(path, print, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(

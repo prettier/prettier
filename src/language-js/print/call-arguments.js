@@ -58,7 +58,7 @@ function printCallArguments(path, options, print) {
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, (argPath, index) => {
-    const arg = argPath.getNode();
+    const arg = argPath.getValue();
     const parts = [print()];
 
     if (index === lastArgIndex) {

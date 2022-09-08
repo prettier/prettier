@@ -114,7 +114,7 @@ function printJestEachTemplateLiteral(path, options, print) {
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
-  const node = path.getNode();
+  const node = path.getValue();
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||

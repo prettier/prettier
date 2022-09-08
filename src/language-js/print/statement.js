@@ -83,7 +83,7 @@ function getLastStatement(statements) {
 }
 
 function statementNeedsASIProtection(path, options) {
-  const node = path.getNode();
+  const node = path.getValue();
 
   if (node.type !== "ExpressionStatement") {
     return false;

@@ -317,7 +317,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
     return false;
   }
 
-  const node = path.getNode();
+  const node = path.getValue();
 
   if (!node.expression || !isJsxNode(node.expression)) {
     return false;
