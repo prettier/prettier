@@ -1,4 +1,5 @@
 import getLast from "../utils/get-last.js";
+import { getPenultimate } from "./util.js";
 
 function getNodeHelper(path, count) {
   const stackIndex = getNodeStackIndexHelper(path.stack, count);
@@ -18,6 +19,30 @@ function getNodeStackIndexHelper(stack, count) {
 class AstPath {
   constructor(value) {
     this.stack = [value];
+  }
+
+  get name() {
+    return getPenultimate(this.stack) || null;
+  }
+
+  get node() {
+    return getLast(this.stack);
+  }
+
+  get parent() {
+    return this.getNode(1);
+  }
+
+  get grandparent() {
+    return this.getNode(2);
+  }
+
+  get next() {
+    return this.#getSiblingNode(1);
+  }
+
+  get previous() {
+    return this.#getSiblingNode(-1);
   }
 
   // The name of the current property is always the penultimate element of
@@ -46,6 +71,23 @@ class AstPath {
 
   getParentNode(count = 0) {
     return getNodeHelper(this, count + 1);
+  }
+
+  #getSiblingNode(offset) {
+    const { stack } = this;
+    const { length } = stack;
+    if (length < 3) {
+      return null;
+    }
+    const number = stack[length - 2];
+    if (typeof number !== "number") {
+      return null;
+    }
+    const array = stack[length - 3];
+    if (!Array.isArray(array)) {
+      return null;
+    }
+    return array[number + offset];
   }
 
   // Temporarily push properties named by string arguments given after the

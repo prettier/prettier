@@ -55,7 +55,7 @@ const SIBLING_NODE_TYPES = new Set([
 ]);
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
     return splitText(
@@ -137,13 +137,11 @@ function genericPrint(path, options, print) {
       return escapedValue;
     }
     case "whitespace": {
-      const parentNode = path.getParentNode();
-      const index = parentNode.children.indexOf(node);
-      const nextNode = parentNode.children[index + 1];
+      const { next } = path;
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
+        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
           ? "never"
           : options.proseWrap;
 
@@ -154,21 +152,18 @@ function genericPrint(path, options, print) {
       if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
-        const parentNode = path.getParentNode();
-        const index = parentNode.children.indexOf(node);
-        const prevNode = parentNode.children[index - 1];
-        const nextNode = parentNode.children[index + 1];
+        const { previous, next } = path;
         const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-          (prevNode &&
-            prevNode.type === "sentence" &&
-            prevNode.children.length > 0 &&
-            getLast(prevNode.children).type === "word" &&
-            !getLast(prevNode.children).hasTrailingPunctuation) ||
-          (nextNode &&
-            nextNode.type === "sentence" &&
-            nextNode.children.length > 0 &&
-            nextNode.children[0].type === "word" &&
-            !nextNode.children[0].hasLeadingPunctuation);
+          (previous &&
+            previous.type === "sentence" &&
+            previous.children.length > 0 &&
+            getLast(previous.children).type === "word" &&
+            !getLast(previous.children).hasTrailingPunctuation) ||
+          (next &&
+            next.type === "sentence" &&
+            next.children.length > 0 &&
+            next.children[0].type === "word" &&
+            !next.children[0].hasLeadingPunctuation);
         style =
           hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       }
@@ -269,9 +264,9 @@ function genericPrint(path, options, print) {
       ];
     }
     case "html": {
-      const parentNode = path.getParentNode();
+      const { parent } = path;
       const value =
-        parentNode.type === "root" && getLast(parentNode.children) === node
+        parent.type === "root" && getLast(parent.children) === node
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
@@ -283,10 +278,7 @@ function genericPrint(path, options, print) {
       );
     }
     case "list": {
-      const nthSiblingIndex = getNthListSiblingIndex(
-        node,
-        path.getParentNode()
-      );
+      const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
 
       const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
         node,
@@ -296,7 +288,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = getPrefix();
-          const childNode = childPath.getValue();
+          const childNode = childPath.node;
 
           if (
             childNode.children.length === 2 &&
@@ -392,7 +384,7 @@ function genericPrint(path, options, print) {
     case "footnoteReference":
       return ["[^", node.identifier, "]"];
     case "footnoteDefinition": {
-      const nextNode = path.getParentNode().children[path.getName() + 1];
+      const { next } = path;
       const shouldInlineFootnote =
         node.children.length === 1 &&
         node.children[0].type === "paragraph" &&
@@ -414,9 +406,7 @@ function genericPrint(path, options, print) {
                     index === 0 ? group([softline, print()]) : print(),
                 })
               ),
-              nextNode && nextNode.type === "footnoteDefinition"
-                ? softline
-                : "",
+              next && next.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
@@ -464,13 +454,13 @@ function genericPrint(path, options, print) {
 }
 
 function printListItem(path, options, print, listPrefix) {
-  const node = path.getValue();
+  const { node } = path;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return [
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
-        if (index === 0 && childPath.getValue().type !== "list") {
+        if (index === 0 && childPath.node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 
@@ -560,7 +550,7 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const columnMaxWidths = [];
   // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
@@ -644,7 +634,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const { children } = path.getValue();
+  const { children } = path.node;
   for (const [index, childNode] of children.entries()) {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -702,13 +692,13 @@ function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
   const processor = events.processor || (() => print());
 
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   let lastChildNode;
 
   path.each((childPath, index) => {
-    const childNode = childPath.getValue();
+    const childNode = childPath.node;
 
     const result = processor(childPath, index);
     if (result !== false) {
@@ -904,14 +894,7 @@ function clamp(value, min, max) {
 }
 
 function hasPrettierIgnore(path) {
-  const index = Number(path.getName());
-
-  if (index === 0) {
-    return false;
-  }
-
-  const prevNode = path.getParentNode().children[index - 1];
-  return isPrettierIgnore(prevNode) === "next";
+  return path.name > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
 const printer = {
