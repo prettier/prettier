@@ -84,8 +84,7 @@ class AstPath {
   #getNodeStackIndex(count) {
     const { stack } = this;
     for (let i = stack.length - 1; i >= 0; i -= 2) {
-      const value = stack[i];
-      if (value && !Array.isArray(value) && --count < 0) {
+      if (!Array.isArray(stack[i]) && --count < 0) {
         return i;
       }
     }
