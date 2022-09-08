@@ -984,7 +984,6 @@ export {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
-  isTypeCastComment,
   getCommentChildNodes,
   willPrintOwnComments,
 };
