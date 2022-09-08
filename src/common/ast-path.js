@@ -78,11 +78,11 @@ class AstPath {
     const { stack } = this;
     const { length } = stack;
     assert(length < 3);
-    const number = stack[length - 2];
-    assert(typeof number === "number");
+    const index = stack[length - 2];
+    assert(typeof index === "number");
     const array = stack[length - 3];
     assert(Array.isArray(array));
-    return array[number + offset];
+    return array[index + offset];
   }
 
   // Temporarily push properties named by string arguments given after the
