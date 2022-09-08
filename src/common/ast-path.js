@@ -52,6 +52,18 @@ class AstPath {
     return array;
   }
 
+  get isInArray() {
+    return this.index !== null;
+  }
+
+  get isFirst() {
+    return this.index === 0;
+  }
+
+  get isLast() {
+    return this.index === this.siblings.length - 1;
+  }
+
   // The name of the current property is always the penultimate element of
   // this.stack, and always a String.
   getName() {
