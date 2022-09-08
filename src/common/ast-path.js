@@ -1,6 +1,5 @@
 import assert from "node:assert";
 import getLast from "../utils/get-last.js";
-import { getPenultimate } from "./util.js";
 
 function getNodeHelper(path, count) {
   const stackIndex = getNodeStackIndexHelper(path.stack, count);
@@ -23,7 +22,21 @@ class AstPath {
   }
 
   get key() {
-    return getPenultimate(this.stack) || null;
+    const { stack } = this;
+    const { length } = stack;
+    let key = stack[length - 2];
+    if (typeof key === "number") {
+      assert(Array.isArray(stack[length - 3]));
+      key = stack[length - 4];
+    }
+    return key;
+  }
+
+  get index() {
+    const { stack } = this;
+    const { length } = stack;
+    const index = stack[length - 2];
+    return typeof index === "number" ? index : null;
   }
 
   get node() {
@@ -44,6 +57,14 @@ class AstPath {
 
   get previous() {
     return this.#getSiblingNode(-1);
+  }
+
+  get siblings() {
+    const { stack } = this;
+    const { length } = stack;
+    const array = stack[length - 3];
+    assert(Array.isArray(array));
+    return array;
   }
 
   // The name of the current property is always the penultimate element of
