@@ -154,15 +154,11 @@ function genericPrint(path, options, print) {
       } else {
         const { previous, next } = path;
         const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-          (previous &&
-            previous.type === "sentence" &&
-            previous.children.length > 0 &&
-            getLast(previous.children).type === "word" &&
+          (previous?.type === "sentence" &&
+            getLast(previous.children)?.type === "word" &&
             !getLast(previous.children).hasTrailingPunctuation) ||
-          (next &&
-            next.type === "sentence" &&
-            next.children.length > 0 &&
-            next.children[0].type === "word" &&
+          (next?.type === "sentence" &&
+            next.children[0]?.type === "word" &&
             !next.children[0].hasLeadingPunctuation);
         style =
           hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
@@ -384,7 +380,6 @@ function genericPrint(path, options, print) {
     case "footnoteReference":
       return ["[^", node.identifier, "]"];
     case "footnoteDefinition": {
-      const { next } = path;
       const shouldInlineFootnote =
         node.children.length === 1 &&
         node.children[0].type === "paragraph" &&
@@ -406,7 +401,7 @@ function genericPrint(path, options, print) {
                     index === 0 ? group([softline, print()]) : print(),
                 })
               ),
-              next && next.type === "footnoteDefinition" ? softline : "",
+              path.next?.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
@@ -823,7 +818,7 @@ function shouldPrePrintDoubleHardline(node, data) {
 }
 
 function shouldPrePrintTripleHardline(node, data) {
-  const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
+  const isPrevNodeList = data.prevNode?.type === "list";
   const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
