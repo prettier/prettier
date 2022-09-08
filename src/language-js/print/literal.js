@@ -2,7 +2,7 @@ import { printString, printNumber } from "../../common/util.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 
 function printLiteral(path, options /*, print*/) {
-  const node = path.getNode();
+  const node = path.getValue();
 
   switch (node.type) {
     case "RegExpLiteral": // Babel 6 Literal split

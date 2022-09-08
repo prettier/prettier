@@ -12,7 +12,7 @@ import { printAssignment } from "./assignment.js";
 const needsQuoteProps = new WeakMap();
 
 function printPropertyKey(path, options, print) {
-  const node = path.getNode();
+  const node = path.getValue();
 
   if (node.computed) {
     return ["[", print("key"), "]"];

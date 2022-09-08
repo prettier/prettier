@@ -269,7 +269,7 @@ function shouldNotPrintSpecifiers(node, options) {
 }
 
 function printImportAssertions(path, options, print) {
-  const node = path.getNode();
+  const node = path.getValue();
   if (isNonEmptyArray(node.assertions)) {
     return [
       " assert {",
@@ -283,7 +283,7 @@ function printImportAssertions(path, options, print) {
 }
 
 function printModuleSpecifier(path, options, print) {
-  const node = path.getNode();
+  const node = path.getValue();
 
   const { type } = node;
 

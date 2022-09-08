@@ -521,7 +521,7 @@ function printComment(commentPath) {
 }
 
 function printInterfaces(path, options, print) {
-  const node = path.getNode();
+  const node = path.getValue();
   const parts = [];
   const { interfaces } = node;
   const printed = path.map(print, "interfaces");

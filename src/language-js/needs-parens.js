@@ -22,7 +22,7 @@ function needsParens(path, options) {
   }
 
   const name = path.getName();
-  const node = path.getNode();
+  const node = path.getValue();
 
   // to avoid unexpected `}}` in HTML interpolations
   if (
