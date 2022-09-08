@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import getLast from "../utils/get-last.js";
 import { getPenultimate } from "./util.js";
 
@@ -21,7 +22,7 @@ class AstPath {
     this.stack = [value];
   }
 
-  get name() {
+  get key() {
     return getPenultimate(this.stack) || null;
   }
 
@@ -76,17 +77,11 @@ class AstPath {
   #getSiblingNode(offset) {
     const { stack } = this;
     const { length } = stack;
-    if (length < 3) {
-      return null;
-    }
+    assert(length < 3);
     const number = stack[length - 2];
-    if (typeof number !== "number") {
-      return null;
-    }
+    assert(typeof number === "number");
     const array = stack[length - 3];
-    if (!Array.isArray(array)) {
-      return null;
-    }
+    assert(Array.isArray(array));
     return array[number + offset];
   }
 

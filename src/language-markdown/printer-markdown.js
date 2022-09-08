@@ -889,7 +889,7 @@ function clamp(value, min, max) {
 }
 
 function hasPrettierIgnore(path) {
-  return path.name > 0 && isPrettierIgnore(path.previous) === "next";
+  return path.key > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
 const printer = {
