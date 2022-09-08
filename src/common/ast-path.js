@@ -1,21 +1,6 @@
 import assert from "node:assert";
 import getLast from "../utils/get-last.js";
 
-function getNodeHelper(path, count) {
-  const stackIndex = getNodeStackIndexHelper(path.stack, count);
-  return stackIndex === -1 ? null : path.stack[stackIndex];
-}
-
-function getNodeStackIndexHelper(stack, count) {
-  for (let i = stack.length - 1; i >= 0; i -= 2) {
-    const value = stack[i];
-    if (value && !Array.isArray(value) && --count < 0) {
-      return i;
-    }
-  }
-  return -1;
-}
-
 class AstPath {
   constructor(value) {
     this.stack = [value];
@@ -52,11 +37,11 @@ class AstPath {
   }
 
   get next() {
-    return this.#getSiblingNode(1);
+    return this.siblings[this.index + 1];
   }
 
   get previous() {
-    return this.#getSiblingNode(-1);
+    return this.siblings[this.index - 1];
   }
 
   get siblings() {
@@ -88,22 +73,23 @@ class AstPath {
   }
 
   getNode(count = 0) {
-    return getNodeHelper(this, count);
+    const stackIndex = this.#getNodeStackIndex(count);
+    return stackIndex === -1 ? null : this.stack[stackIndex];
   }
 
   getParentNode(count = 0) {
-    return getNodeHelper(this, count + 1);
+    return this.getNode(count + 1);
   }
 
-  #getSiblingNode(offset) {
+  #getNodeStackIndex(count) {
     const { stack } = this;
-    const { length } = stack;
-    assert(length >= 5);
-    const index = stack[length - 2];
-    assert(typeof index === "number");
-    const array = stack[length - 3];
-    assert(Array.isArray(array));
-    return array[index + offset];
+    for (let i = stack.length - 1; i >= 0; i -= 2) {
+      const value = stack[i];
+      if (value && !Array.isArray(value) && --count < 0) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   // Temporarily push properties named by string arguments given after the
@@ -128,7 +114,7 @@ class AstPath {
   }
 
   callParent(callback, count = 0) {
-    const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
+    const stackIndex = this.#getNodeStackIndex(count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
     try {
       return callback(this);
