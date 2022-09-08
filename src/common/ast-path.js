@@ -14,7 +14,7 @@ class AstPath {
       assert(Array.isArray(stack[length - 3]));
       key = stack[length - 4];
     }
-    return key;
+    return key ?? null;
   }
 
   get index() {
@@ -65,15 +65,15 @@ class AstPath {
   }
 
   // The name of the current property is always the penultimate element of
-  // this.stack, and always a String.
+  // this.stack, and always a string/number/symbol.
   getName() {
     const { stack } = this;
     const { length } = stack;
     if (length > 1) {
       return stack[length - 2];
     }
-    // Since the name is always a string, null is a safe sentinel value to
-    // return if we do not know the name of the (root) value.
+    // Since the name is a string/number/symbol, null is a safe sentinel value
+    // to return if we do not know the name of the (root) value.
     /* istanbul ignore next */
     return null;
   }
