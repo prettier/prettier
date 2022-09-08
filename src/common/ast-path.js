@@ -11,7 +11,7 @@ class AstPath {
     const { length } = stack;
     let key = stack[length - 2];
     if (typeof key === "number") {
-      assert(Array.isArray(stack[length - 3]));
+      assert(this.isInArray);
       key = stack[length - 4];
     }
     return key ?? null;
@@ -45,22 +45,23 @@ class AstPath {
   }
 
   get siblings() {
+    assert(this.isInArray);
     const { stack } = this;
     const { length } = stack;
-    const array = stack[length - 3];
-    assert(Array.isArray(array));
-    return array;
+    return stack[length - 3];
   }
 
   get isInArray() {
-    return this.index !== null;
+    return Array.isArray[this.stack.length - 3];
   }
 
   get isFirst() {
+    assert(this.isInArray);
     return this.index === 0;
   }
 
   get isLast() {
+    assert(this.isInArray);
     return this.index === this.siblings.length - 1;
   }
 
