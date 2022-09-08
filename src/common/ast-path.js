@@ -52,7 +52,9 @@ class AstPath {
   }
 
   get isInArray() {
-    return Array.isArray(this.stack.length - 3);
+    const { stack } = this;
+    const { length } = stack;
+    return Array.isArray(stack[length - 3]);
   }
 
   get isFirst() {
