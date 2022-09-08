@@ -52,7 +52,7 @@ class AstPath {
   }
 
   get isInArray() {
-    return Array.isArray[this.stack.length - 3];
+    return Array.isArray(this.stack.length - 3);
   }
 
   get isFirst() {
