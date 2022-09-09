@@ -1,40 +1,48 @@
+import getParserFromModule from "../../utils/get-parser-from-plugin-module.js";
+
 const parsers = {
   // Babel
-  babel: async () => (await import("./babel.js")).parsers.babel,
-  "babel-flow": async () => (await import("./babel.js")).parsers["babel-flow"],
-  "babel-ts": async () => (await import("./babel.js")).parsers["babel-ts"],
-  json: async () => (await import("./babel.js")).parsers.json,
-  json5: async () => (await import("./babel.js")).parsers.json5,
-  "json-stringify": async () =>
-    (await import("./babel.js")).parsers["json-stringify"],
-  __js_expression: async () =>
-    (await import("./babel.js")).parsers.__js_expression,
-  __vue_expression: async () =>
-    (await import("./babel.js")).parsers.__vue_expression,
-  __vue_ts_expression: async () =>
-    (await import("./babel.js")).parsers.__vue_ts_expression,
-  __vue_ts_event_binding: async () =>
-    (await import("./babel.js")).parsers.__vue_ts_event_binding,
-  __vue_event_binding: async () =>
-    (await import("./babel.js")).parsers.__vue_event_binding,
-  __babel_estree: async () =>
-    (await import("./babel.js")).parsers.__babel_estree,
+  babel: () => getParserFromModule(import("./babel.js"), "babel"),
+  "babel-flow": () => getParserFromModule(import("./babel.js"), "babel-flow"),
+  "babel-ts": () => getParserFromModule(import("./babel.js"), "babel-ts"),
+  json: () => getParserFromModule(import("./babel.js"), "json"),
+  json5: () => getParserFromModule(import("./babel.js"), "json5"),
+  "json-stringify": () =>
+    getParserFromModule(import("./babel.js"), "json-stringify"),
+  __js_expression: () =>
+    getParserFromModule(import("./babel.js"), "__js_expression"),
+  __vue_expression: () =>
+    getParserFromModule(import("./babel.js"), "__vue_expression"),
+  __vue_ts_expression: () =>
+    getParserFromModule(import("./babel.js"), "__vue_ts_expression"),
+  __vue_ts_event_binding: () =>
+    getParserFromModule(import("./babel.js"), "__vue_ts_event_binding"),
+  __vue_event_binding: () =>
+    getParserFromModule(import("./babel.js"), "__vue_event_binding"),
+  __babel_estree: () =>
+    getParserFromModule(import("./babel.js"), "__babel_estree"),
   // Flow
-  flow: async () => (await import("./flow.js")).parsers.flow,
+  flow: () => getParserFromModule(import("./flow.js"), "flow"),
   // TypeScript
-  typescript: async () => (await import("./typescript.js")).parsers.typescript,
+  typescript: () =>
+    getParserFromModule(import("./typescript.js"), "typescript"),
   // Angular
-  __ng_action: async () => (await import("./angular.js")).parsers.__ng_action,
-  __ng_binding: async () => (await import("./angular.js")).parsers.__ng_binding,
-  __ng_interpolation: async () =>
-    (await import("./angular.js")).parsers.__ng_interpolation,
-  __ng_directive: async () =>
-    (await import("./angular.js")).parsers.__ng_directive,
+  __ng_action: () => getParserFromModule(import("./angular.js"), "__ng_action"),
+  __ng_binding: () =>
+    getParserFromModule(import("./angular.js"), "__ng_binding"),
+  __ng_interpolation: () =>
+    getParserFromModule(import("./angular.js"), "__ng_interpolation"),
+  __ng_directive: () =>
+    getParserFromModule(import("./angular.js"), "__ng_directive"),
   // Acorn and Espree
-  acorn: async () => (await import("./acorn-and-espree.js")).parsers.acorn,
-  espree: async () => (await import("./acorn-and-espree.js")).parsers.espree,
+  acorn: () => getParserFromModule(import("./acorn-and-espree.js"), "acorn"),
+  espree: () => getParserFromModule(import("./acorn-and-espree.js"), "espree"),
   // Meriyah
-  meriyah: async () => (await import("./meriyah.js")).parsers.meriyah,
+  meriyah: () => getParserFromModule(import("./meriyah.js"), "meriyah"),
 };
+
+await
+
+parsers.babel()
 
 export default parsers;
