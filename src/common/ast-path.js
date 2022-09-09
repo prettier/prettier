@@ -1,35 +1,73 @@
 import getLast from "../utils/get-last.js";
-
-function getNodeHelper(path, count) {
-  const stackIndex = getNodeStackIndexHelper(path.stack, count);
-  return stackIndex === -1 ? null : path.stack[stackIndex];
-}
-
-function getNodeStackIndexHelper(stack, count) {
-  for (let i = stack.length - 1; i >= 0; i -= 2) {
-    const value = stack[i];
-    if (value && !Array.isArray(value) && --count < 0) {
-      return i;
-    }
-  }
-  return -1;
-}
+import { getPenultimate } from "./util.js";
 
 class AstPath {
   constructor(value) {
     this.stack = [value];
   }
 
+  get key() {
+    const { stack, siblings } = this;
+    return stack[stack.length - (siblings === null ? 4 : 2)] ?? null;
+  }
+
+  get index() {
+    return this.siblings === null ? null : getPenultimate(this.stack);
+  }
+
+  get node() {
+    return getLast(this.stack);
+  }
+
+  get parent() {
+    return this.getNode(1);
+  }
+
+  get grandparent() {
+    return this.getNode(2);
+  }
+
+  get isInArray() {
+    return this.siblings !== null;
+  }
+
+  get siblings() {
+    const { stack } = this;
+    const maybeArray = stack[stack.length - 3];
+    return Array.isArray(maybeArray) ? maybeArray : null;
+  }
+
+  get next() {
+    return this.siblings[this.index + 1];
+  }
+
+  get previous() {
+    return this.siblings[this.index - 1];
+  }
+
+  get isFirst() {
+    return this.index === 0;
+  }
+
+  get isLast() {
+    const { siblings, index } = this;
+    return siblings !== null && index === siblings.length - 1;
+  }
+
+  get isRoot() {
+    return this.stack.length === 1;
+  }
+
   // The name of the current property is always the penultimate element of
-  // this.stack, and always a String.
+  // this.stack, and always a string/number/symbol.
   getName() {
     const { stack } = this;
     const { length } = stack;
     if (length > 1) {
       return stack[length - 2];
     }
-    // Since the name is always a string, null is a safe sentinel value to
-    // return if we do not know the name of the (root) value.
+    // Since the name is a string/number/symbol, null is a safe sentinel value
+    // to return if we do not know the name of the (root) value.
     /* istanbul ignore next */
     return null;
   }
@@ -41,11 +79,22 @@ class AstPath {
   }
 
   getNode(count = 0) {
-    return getNodeHelper(this, count);
+    const stackIndex = this.#getNodeStackIndex(count);
+    return stackIndex === -1 ? null : this.stack[stackIndex];
   }
 
   getParentNode(count = 0) {
-    return getNodeHelper(this, count + 1);
+    return this.getNode(count + 1);
+  }
+
+  #getNodeStackIndex(count) {
+    const { stack } = this;
+    for (let i = stack.length - 1; i >= 0; i -= 2) {
+      if (!Array.isArray(stack[i]) && --count < 0) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   // Temporarily push properties named by string arguments given after the
@@ -70,7 +119,7 @@ class AstPath {
   }
 
   callParent(callback, count = 0) {
-    const stackIndex = getNodeStackIndexHelper(this.stack, count + 1);
+    const stackIndex = this.#getNodeStackIndex(count + 1);
     const parentValues = this.stack.splice(stackIndex + 1);
     try {
       return callback(this);
