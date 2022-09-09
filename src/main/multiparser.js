@@ -109,7 +109,7 @@ async function textToDoc(
   parentOptions,
   printAstToDoc
 ) {
-  const nextOptions = normalize(
+  const nextOptions = await normalize(
     {
       ...parentOptions,
       ...partialNextOptions,

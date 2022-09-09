@@ -272,8 +272,8 @@ function normalizeInputAndOptions(text, options) {
   };
 }
 
-function hasPragma(text, options) {
-  const selectedParser = resolveParser(options);
+async function hasPragma(text, options) {
+  const selectedParser = await resolveParser(options);
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
@@ -285,7 +285,7 @@ async function formatWithCursor(originalText, originalOptions) {
 
   if (
     (options.rangeStart >= options.rangeEnd && text !== "") ||
-    (options.requirePragma && !hasPragma(text, options))
+    (options.requirePragma && !(await hasPragma(text, options)))
   ) {
     return {
       formatted: originalText,
@@ -303,7 +303,7 @@ async function formatWithCursor(originalText, originalOptions) {
       !options.requirePragma &&
       options.insertPragma &&
       options.printer.insertPragma &&
-      !hasPragma(text, options)
+      !(await hasPragma(text, options))
     ) {
       text = options.printer.insertPragma(text);
     }
