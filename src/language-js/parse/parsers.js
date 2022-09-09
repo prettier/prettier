@@ -29,8 +29,4 @@ const parsers = createParsers([
   [() => import("./meriyah.js"), ["meriyah"]],
 ]);
 
-console.log(parsers)
-await parsers.babel()
-console.log(parsers)
-
 export default parsers;
