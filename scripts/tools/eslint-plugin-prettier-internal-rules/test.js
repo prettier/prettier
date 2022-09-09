@@ -540,3 +540,23 @@ test("prefer-fs-promises-submodule", {
     parserOptions: { sourceType: "module" },
   })),
 });
+
+test("prefer-path-get-value", {
+  valid: [
+    "path.getValue()",
+    "path.getNode(2)",
+    "path.getNode",
+    "getNode",
+    "this.getNode()",
+  ],
+  invalid: [
+    {
+      code: "path.getNode()",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getNode()",
+      errors: 1,
+    },
+  ],
+});
