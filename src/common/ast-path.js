@@ -1,4 +1,3 @@
-import assert from "node:assert";
 import getLast from "../utils/get-last.js";
 import { getPenultimate } from "./util.js";
 
@@ -7,18 +6,13 @@ class AstPath {
     this.stack = [value];
   }
 
-  get isInArray() {
-    const { stack } = this;
-    return Array.isArray(stack[stack.length - 3]);
-  }
-
   get key() {
-    const { stack, isInArray } = this;
-    return stack[stack.length - (isInArray ? 4 : 2)] ?? null;
+    const { stack, siblings } = this;
+    return stack[stack.length - (siblings === null ? 4 : 2)] ?? null;
   }
 
   get index() {
-    return this.isInArray ? getPenultimate(this.stack) : null;
+    return this.siblings === null ? null : getPenultimate(this.stack);
   }
 
   get node() {
@@ -33,10 +27,14 @@ class AstPath {
     return this.getNode(2);
   }
 
+  get isInArray() {
+    return this.siblings !== null;
+  }
+
   get siblings() {
-    assert(this.isInArray);
     const { stack } = this;
-    return stack[stack.length - 3];
+    const maybeArray = stack[stack.length - 3];
+    return Array.isArray(maybeArray) ? maybeArray : null;
   }
 
   get next() {
@@ -48,13 +46,12 @@ class AstPath {
   }
 
   get isFirst() {
-    assert(this.isInArray);
     return this.index === 0;
   }
 
   get isLast() {
-    assert(this.isInArray);
-    return this.index === this.siblings.length - 1;
+    const { siblings, index } = this;
+    return siblings !== null && index === siblings.length - 1;
   }
 
   get isRoot() {
