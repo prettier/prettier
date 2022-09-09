@@ -6,42 +6,42 @@ import { locStart, locEnd } from "./loc.js";
  * glimmer parser will produce an AST missing a backslash
  * so here we add it back
  * */
-function addBackslash(/* options*/) {
-  return {
-    name: "addBackslash",
-    visitor: {
-      All(node) {
-        const childrenOrBody = node.children ?? node.body;
-        if (childrenOrBody) {
-          for (let i = 0; i < childrenOrBody.length - 1; i++) {
-            if (
-              childrenOrBody[i].type === "TextNode" &&
-              childrenOrBody[i + 1].type === "MustacheStatement"
-            ) {
-              childrenOrBody[i].chars = childrenOrBody[i].chars.replace(
-                /\\$/,
-                "\\\\"
-              );
-            }
-          }
-        }
-      },
-    },
-  };
+function addBackslash(node) {
+  const childrenOrBody = node.children ?? node.body;
+  if (childrenOrBody) {
+    for (let i = 0; i < childrenOrBody.length - 1; i++) {
+      if (
+        childrenOrBody[i].type === "TextNode" &&
+        childrenOrBody[i + 1].type === "MustacheStatement"
+      ) {
+        childrenOrBody[i].chars = childrenOrBody[i].chars.replace(
+          /\\$/,
+          "\\\\"
+        );
+      }
+    }
+  }
 }
 
-// Add `loc.{start,end}.offset`
-function addOffset(text) {
+// Combine plugins to reduce traverse https://github.com/glimmerjs/glimmer-vm/blob/cdfb8f93d7ff0b504c8e9eab293f656a9b942025/packages/%40glimmer/syntax/lib/parser/tokenizer-event-handlers.ts#L442-L451
+function createPlugin(text) {
   const lines = new LinesAndColumns(text);
   const calculateOffset = ({ line, column }) =>
     lines.indexForLocation({ line: line - 1, column });
+
+  // Add `loc.{start,end}.offset`
+  const addOffset = (node) => {
+    const { start, end } = node.loc;
+    start.offset = calculateOffset(start);
+    end.offset = calculateOffset(end);
+  };
+
   return (/* options*/) => ({
-    name: "addOffset",
+    name: "prettierParsePlugin",
     visitor: {
       All(node) {
-        const { start, end } = node.loc;
-        start.offset = calculateOffset(start);
-        end.offset = calculateOffset(end);
+        addOffset(node);
+        addBackslash(node);
       },
     },
   });
@@ -61,7 +61,7 @@ async function parse(text /*, options */) {
   try {
     ast = glimmer(text, {
       mode: "codemod",
-      plugins: { ast: [addBackslash, addOffset(text)] },
+      plugins: { ast: [createPlugin(text)] },
     });
   } catch (error) {
     const location = getErrorLocation(error);
