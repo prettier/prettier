@@ -1,22 +1,19 @@
-import htmlParser from "./parser-html.js";
+import createParsers from "../utils/create-parsers.js";
 
-const parsers = {
-  // HTML
-  get html() {
-    return htmlParser.parsers.html;
-  },
-  // Vue
-  get vue() {
-    return htmlParser.parsers.vue;
-  },
-  // Angular
-  get angular() {
-    return htmlParser.parsers.angular;
-  },
-  // Lightning Web Components
-  get lwc() {
-    return htmlParser.parsers.lwc;
-  },
-};
+const parsers = createParsers([
+  [
+    () => import("./parser-html.js"),
+    [
+      // HTML
+      "html",
+      // Vue
+      "vue",
+      // Angular
+      "angular",
+      // Lightning Web Components
+      "lwc",
+    ],
+  ],
+]);
 
 export default parsers;

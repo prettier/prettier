@@ -1,16 +1,7 @@
-import markdownParser from "./parser-markdown.js";
+import createParsers from "../utils/create-parsers.js";
 
-const parsers = {
-  /* istanbul ignore next */
-  get remark() {
-    return markdownParser.parsers.remark;
-  },
-  get markdown() {
-    return markdownParser.parsers.remark;
-  },
-  get mdx() {
-    return markdownParser.parsers.mdx;
-  },
-};
+const parsers = createParsers([
+  [() => import("./parser-markdown.js"), ["remark", "markdown", "mdx"]],
+]);
 
 export default parsers;
