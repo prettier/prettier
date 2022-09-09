@@ -18,7 +18,6 @@ class AstPath {
   }
 
   get index() {
-    assert(this.isInArray);
     return this.isInArray ? getPenultimate(this.stack) : null;
   }
 
@@ -49,10 +48,12 @@ class AstPath {
   }
 
   get isFirst() {
+    assert(this.isInArray);
     return this.index === 0;
   }
 
   get isLast() {
+    assert(this.isInArray);
     return this.index === this.siblings.length - 1;
   }
 
