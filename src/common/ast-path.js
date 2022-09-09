@@ -9,19 +9,13 @@ class AstPath {
   get key() {
     const { stack } = this;
     const { length } = stack;
-    let key = stack[length - 2];
-    if (typeof key === "number") {
-      assert(this.isInArray);
-      key = stack[length - 4];
-    }
-    return key ?? null;
+    return stack[length - (this.isInArray ? 4 : 2)] ?? null;
   }
 
   get index() {
     const { stack } = this;
     const { length } = stack;
-    const index = stack[length - 2];
-    return typeof index === "number" ? index : null;
+    return this.isInArray ? stack[length - 2] : null;
   }
 
   get node() {
