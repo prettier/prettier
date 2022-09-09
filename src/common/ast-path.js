@@ -7,9 +7,14 @@ class AstPath {
     this.stack = [value];
   }
 
-  get key() {
+  get isInArray() {
     const { stack } = this;
-    return stack[stack.length - (this.isInArray ? 4 : 2)] ?? null;
+    return Array.isArray(stack[stack.length - 3]);
+  }
+
+  get key() {
+    const { stack, isInArray } = this;
+    return stack[stack.length - (isInArray ? 4 : 2)] ?? null;
   }
 
   get index() {
@@ -28,23 +33,18 @@ class AstPath {
     return this.getNode(2);
   }
 
-  get next() {
-    return this.siblings[this.index + 1];
-  }
-
-  get previous() {
-    return this.siblings[this.index - 1];
-  }
-
   get siblings() {
     assert(this.isInArray);
     const { stack } = this;
     return stack[stack.length - 3];
   }
 
-  get isInArray() {
-    const { stack } = this;
-    return Array.isArray(stack[stack.length - 3]);
+  get next() {
+    return this.siblings[this.index + 1];
+  }
+
+  get previous() {
+    return this.siblings[this.index - 1];
   }
 
   get isFirst() {
