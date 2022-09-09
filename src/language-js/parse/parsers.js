@@ -41,8 +41,4 @@ const parsers = {
   meriyah: () => getParserFromModule(import("./meriyah.js"), "meriyah"),
 };
 
-await
-
-parsers.babel()
-
 export default parsers;
