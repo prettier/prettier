@@ -15,10 +15,10 @@ const parsers = {
     getParserFromModule(import("./babel.js"), "__vue_expression"),
   __vue_ts_expression: () =>
     getParserFromModule(import("./babel.js"), "__vue_ts_expression"),
-  __vue_ts_event_binding: () =>
-    getParserFromModule(import("./babel.js"), "__vue_ts_event_binding"),
   __vue_event_binding: () =>
     getParserFromModule(import("./babel.js"), "__vue_event_binding"),
+  __vue_ts_event_binding: () =>
+    getParserFromModule(import("./babel.js"), "__vue_ts_event_binding"),
   __babel_estree: () =>
     getParserFromModule(import("./babel.js"), "__babel_estree"),
   // Flow
