@@ -104,7 +104,7 @@ const options = {
     cliCategory: CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from.",
   },
-  stdIn: {
+  stdin: {
     since: "2.8.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",

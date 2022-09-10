@@ -255,7 +255,7 @@ async function formatStdin(context) {
     : path.relative(process.cwd(), filepath);
   try {
     let input;
-    if (context.argv.stdIn) {
+    if (context.argv.stdin) {
       input = await getInputFromTerminal();
     } else {
       input = await getStdin();

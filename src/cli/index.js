@@ -55,9 +55,9 @@ async function main(context) {
     }
   }
 
-  if (context.argv.stdIn && !context.argv.filepath) {
+  if (context.argv.stdin && (!context.argv.filepath && !context.argv.parser)) {
     throw new Error(
-      "Cannot use --stdin without also passing --stdin-filepath"
+      "Cannot use --stdin without also passing --stdin-filepath or --parser"
     );
   }
 
@@ -97,6 +97,11 @@ async function main(context) {
         parser: "json",
       })
     );
+    return;
+  }
+
+  if (context.argv.parser && context.argv.stdin) {
+    await formatStdin(context);
     return;
   }
 
