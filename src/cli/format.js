@@ -2,8 +2,6 @@
 
 const { promises: fs } = require("fs");
 const path = require("path");
-const readline = require("node:readline");
-const { stdin: input, stdout: output } = require("node:process");
 
 // eslint-disable-next-line no-restricted-modules
 const { default: chalk } = require("../../vendors/chalk.js");
@@ -13,15 +11,14 @@ const prettier = require("../index.js");
 // eslint-disable-next-line no-restricted-modules
 const { getStdin } = require("../common/third-party.js");
 
-// eslint-disable-next-line no-restricted-modules
-const isNonEmptyArray = require("../utils/is-non-empty-array.js");
+const { getInputFromTerminal } = require("./input-from-terminal.js");
 const { createIgnorer, errors } = require("./prettier-internal.js");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
 const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
 const findCacheFile = require("./find-cache-file.js");
 const FormatResultsCache = require("./format-results-cache.js");
-const { statSafe, printToScreen } = require("./utils.js");
+const { statSafe } = require("./utils.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -245,31 +242,6 @@ async function createIgnorerFromContextOrDie(context) {
   }
 }
 
-/**
- * This function starts reading any input which user types on the console.
- * After the user clicks ctrl+D to exit, the input is formatted and printed
- * on the screen.
- * @returns {Promise<string>} On success, resolves the input code joined together 
- * to form a single string. On error, reject with an error message
- */
-function getInputFromTerminal() {
-  return new Promise((resolve, reject) => {
-    printToScreen("Start writing your code snippet below");
-    printToScreen("After finishing press ctrl+D to exit the read mode");
-    const inputCode = [];
-    const readLine = readline.createInterface({ input, output });
-    readLine.on("line", (line) => inputCode.push(line));
-    readLine.on("close", () => {
-      if (isNonEmptyArray(inputCode)) {
-        printToScreen("\x1b[35m%s\x1b[0m","\nFormatted code");
-        resolve(inputCode.join("\n"));
-      } else {
-        reject("No code inputed");
-      }
-    });
-  });
-}
-
 async function formatStdin(context) {
   const filepath = context.argv.filepath
     ? path.resolve(process.cwd(), context.argv.filepath)
@@ -281,10 +253,13 @@ async function formatStdin(context) {
   const relativeFilepath = context.argv.ignorePath
     ? path.relative(path.dirname(context.argv.ignorePath), filepath)
     : path.relative(process.cwd(), filepath);
-
   try {
-    const input = (await getStdin()) || (await getInputFromTerminal());
-
+    let input;
+    if (context.argv.stdIn) {
+      input = await getInputFromTerminal();
+    } else {
+      input = await getStdin();
+    }
     if (
       relativeFilepath &&
       ignorer.ignores(fixWindowsSlashes(relativeFilepath))
