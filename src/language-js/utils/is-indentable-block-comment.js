@@ -7,4 +7,4 @@ function isIndentableBlockComment(comment) {
   return lines.length > 1 && lines.every((line) => line.trimStart()[0] === "*");
 }
 
-export { isIndentableBlockComment };
+export default isIndentableBlockComment;
