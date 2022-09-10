@@ -195,6 +195,7 @@ Enable stdin in the terminal. Prettier will read the provided text, format it an
 This option requires `--stdin-filepath` or `--parser` to be provided as well in order to determine the parser.
 
 _example with --stdin-filepath_
+
 ```console
 prettier --stdin --stdin-filepath xyz.js
 Start writing your code snippet below
@@ -210,6 +211,7 @@ function hello() {
 ```
 
 _example with --parser_
+
 ```console
 prettier --stdin --parser css
 Start writing your code snippet below
@@ -222,13 +224,12 @@ Formatted code
 }
 ```
 
-
 _shell_
+
 ```console
 prettier --stdin
 [error] Cannot use --stdin without also passing --stdin-filepath or --parser
 ```
-
 
 ## `--ignore-unknown`
 

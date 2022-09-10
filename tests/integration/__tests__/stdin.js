@@ -10,7 +10,7 @@ describe("throw error if stdin-filepath is not passed", () => {
 });
 
 describe("throw error if parser is not passed is not passed", () => {
-  runPrettier("cli", "--stdin", "--parser","babel").test({
+  runPrettier("cli", "--stdin", "--parser", "babel").test({
     status: 1,
   });
 });
