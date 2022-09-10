@@ -189,10 +189,13 @@ $ cat abc.css | prettier --stdin-filepath abc.css
 }
 ```
 
-This option can also be used without the pipe syntax to enable **stdin** mode enabling us to input code in the terminal.
+## `--std-in`
 
+Enable stdin in the terminal. Prettier will read the provided text, format it and output it in the terminal.
+
+_shell_
 ```console
-prettier --stdin-filepath xyz.js
+prettier --std-in --stdin-filepath xyz.js
 Start writing your code snippet below
 After finishing press ctrl+D to exit the read mode
 function hello() {
@@ -204,6 +207,15 @@ function hello() {
   return "world";
 }
 ```
+
+**note**: This option requires `--stdin-filepath` to be provided as well in order to determine the parser.
+
+_shell_
+```console
+prettier --std-in
+[error] Cannot use --std-in without also passing --stdin-filepath
+```
+
 
 ## `--ignore-unknown`
 
