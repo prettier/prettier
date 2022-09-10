@@ -4,7 +4,7 @@ import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import getLast from "../../../utils/get-last.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
-import { isIndentableBlockComment } from "../../print/comment.js";
+import { isIndentableBlockComment } from "../../utils/is-indentable-block-comment.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
