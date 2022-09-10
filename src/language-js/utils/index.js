@@ -1210,11 +1210,6 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
-function hasIgnoreComment(path) {
-  const { node } = path;
-  return hasNodeIgnoreComment(node);
-}
-
 const CommentCheckFlags = {
   /** Check comment is a leading comment */
   Leading: 1 << 1,
@@ -1334,7 +1329,6 @@ export {
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
-  hasIgnoreComment,
   hasNodeIgnoreComment,
   identity,
   isBinaryish,
