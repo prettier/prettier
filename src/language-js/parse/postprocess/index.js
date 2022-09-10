@@ -2,6 +2,9 @@ import { locStart, locEnd } from "../../loc.js";
 import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import getLast from "../../../utils/get-last.js";
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
+import isBlockComment from "../../utils/is-block-comment.js";
+import { isIndentableBlockComment } from "../../print/comment.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
@@ -153,6 +156,29 @@ function postprocess(ast, options) {
       }
     }
   });
+
+  /* eslint-disable prettier-internal-rules/no-node-comments */
+  if (isNonEmptyArray(ast.comments)) {
+    for (let i = ast.comments.length - 2; i >= 0; i--) {
+      const comment = ast.comments[i];
+      const nextComment = ast.comments[i + 1];
+      if (
+        isBlockComment(comment) &&
+        isIndentableBlockComment(comment) &&
+        isBlockComment(nextComment) &&
+        isIndentableBlockComment(nextComment) &&
+        locEnd(comment) === locStart(nextComment)
+      ) {
+        ast.comments.splice(i + 1, 1);
+        ast.comments[i] = {
+          ...comment,
+          value: comment.value + "*//*" + nextComment.value,
+          range: [locStart(comment), locEnd(nextComment)],
+        };
+      }
+    }
+  }
+  /* eslint-enable prettier-internal-rules/no-node-comments */
 
   return ast;
 

@@ -60,4 +60,4 @@ function printIndentableBlockComment(comment) {
   ];
 }
 
-export { printComment };
+export { printComment, isIndentableBlockComment };
