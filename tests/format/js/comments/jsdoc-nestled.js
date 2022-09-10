@@ -24,4 +24,5 @@ function value(type, value) {
 
 /** Trailing nestled comment 1
  *//** Trailing nestled comment 2
+ *//** Trailing nestled comment 3
  */

@@ -159,22 +159,24 @@ function postprocess(ast, options) {
 
   /* eslint-disable prettier-internal-rules/no-node-comments */
   if (isNonEmptyArray(ast.comments)) {
+    let followingComment = getLast(ast.comments);
     for (let i = ast.comments.length - 2; i >= 0; i--) {
       const comment = ast.comments[i];
-      const nextComment = ast.comments[i + 1];
       if (
+        locEnd(comment) === locStart(followingComment) &&
         isBlockComment(comment) &&
         isIndentableBlockComment(comment) &&
-        isBlockComment(nextComment) &&
-        isIndentableBlockComment(nextComment) &&
-        locEnd(comment) === locStart(nextComment)
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(followingComment)
       ) {
         ast.comments.splice(i + 1, 1);
-        ast.comments[i] = {
+        followingComment = ast.comments[i] = {
           ...comment,
-          value: comment.value + "*//*" + nextComment.value,
-          range: [locStart(comment), locEnd(nextComment)],
+          value: comment.value + "*//*" + followingComment.value,
+          range: [locStart(comment), locEnd(followingComment)],
         };
+      } else {
+        followingComment = comment;
       }
     }
   }
