@@ -57,7 +57,7 @@ async function main(context) {
 
   if (context.argv.stdIn && !context.argv.filepath) {
     throw new Error(
-      "Cannot use --std-in without also passing --stdin-filepath"
+      "Cannot use --stdin without also passing --stdin-filepath"
     );
   }
 

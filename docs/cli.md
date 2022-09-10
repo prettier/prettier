@@ -189,13 +189,13 @@ $ cat abc.css | prettier --stdin-filepath abc.css
 }
 ```
 
-## `--std-in`
+## `--stdin`
 
 Enable stdin in the terminal. Prettier will read the provided text, format it and output it in the terminal.
 
 _shell_
 ```console
-prettier --std-in --stdin-filepath xyz.js
+prettier --stdin --stdin-filepath xyz.js
 Start writing your code snippet below
 After finishing press ctrl+D to exit the read mode
 function hello() {
@@ -212,8 +212,8 @@ function hello() {
 
 _shell_
 ```console
-prettier --std-in
-[error] Cannot use --std-in without also passing --stdin-filepath
+prettier --stdin
+[error] Cannot use --stdin without also passing --stdin-filepath
 ```
 
 

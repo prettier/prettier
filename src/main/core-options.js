@@ -111,7 +111,7 @@ const options = {
     default: false,
     description:
       "Starts accepting std input from terminal. Should be used with stdin-filepath option",
-    cliName: "std-in",
+    cliName: "stdin",
     cliCategory: CATEGORY_OTHER,
   },
   insertPragma: {
