@@ -6,7 +6,7 @@ import { printBinaryishExpression } from "./binaryish.js";
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
 
 function printAngular(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Angular nodes always starts with `NG`
   if (!node.type.startsWith("NG")) {
@@ -43,7 +43,7 @@ function printAngular(path, options, print) {
         (childPath, index) => [
           index === 0
             ? ""
-            : isNgForOf(childPath.getValue(), index, node)
+            : isNgForOf(childPath.node, index, node)
             ? " "
             : [";", line],
           print(),
@@ -108,7 +108,7 @@ function isNgForOf(node, index, parentNode) {
  * @returns {boolean}
  */
 function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
+  return hasNode(path.node, (node) => {
     switch (node.type) {
       case undefined:
         return false;

@@ -85,7 +85,7 @@ function shouldPrintComma(options) {
 }
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "front-matter":
@@ -312,7 +312,7 @@ function genericPrint(path, options, print) {
     case "media-query-list": {
       const parts = [];
       path.each((childPath) => {
-        const node = childPath.getValue();
+        const { node } = childPath;
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -864,7 +864,7 @@ function genericPrint(path, options, print) {
     case "value-paren_group": {
       const parentNode = path.getParentNode();
       const printedGroups = path.map(() => {
-        const child = path.getValue();
+        const child = path.node;
         return typeof child === "string" ? child : print();
       }, "groups");
 
@@ -908,7 +908,7 @@ function genericPrint(path, options, print) {
             join(
               [line],
               path.map((childPath, index) => {
-                const child = childPath.getValue();
+                const child = childPath.node;
                 const isLast = index === node.groups.length - 1;
                 const hasComma = () =>
                   Boolean(

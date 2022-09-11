@@ -79,7 +79,7 @@ function printAssignment(
 }
 
 function printAssignmentExpression(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   return printAssignment(
     path,
     options,
@@ -95,7 +95,7 @@ function printVariableDeclarator(path, options, print) {
 }
 
 function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
-  const node = path.getValue();
+  const { node } = path;
   const rightNode = node[rightPropertyName];
 
   if (!rightNode) {
@@ -178,7 +178,7 @@ function chooseLayout(path, options, print, leftDoc, rightPropertyName) {
 }
 
 function shouldBreakAfterOperator(path, options, print, hasShortKey) {
-  const rightNode = path.getValue();
+  const rightNode = path.node;
 
   if (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) {
     return true;
@@ -336,7 +336,7 @@ function isPoorlyBreakableMemberOrCallChain(
   print,
   deep = false
 ) {
-  const node = path.getValue();
+  const { node } = path;
   const goDeeper = () =>
     isPoorlyBreakableMemberOrCallChain(path, options, print, true);
 

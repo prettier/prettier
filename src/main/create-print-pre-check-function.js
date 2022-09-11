@@ -51,7 +51,7 @@ function createPrintPreCheckFunction(options) {
       parentNode,
       allowedProperties: visitorKeys,
       printingProperty: name,
-      printingValue: path.getValue(),
+      printingValue: path.node,
       pathStack:
         path.stack.length > 5
           ? ["...", ...path.stack.slice(-5)]

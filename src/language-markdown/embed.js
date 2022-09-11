@@ -8,7 +8,7 @@ import printFrontMatter from "../utils/front-matter/print.js";
 import { getFencedCodeBlockValue } from "./utils.js";
 
 function embed(path, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (node.type === "code" && node.lang !== null) {
     const parser = inferParserByLanguage(node.lang, options);

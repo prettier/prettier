@@ -406,7 +406,7 @@ function breakTies(tiesToBreak, text, options) {
 }
 
 function printComment(path, options) {
-  const comment = path.getValue();
+  const comment = path.node;
   comment.printed = true;
   return options.printer.printComment(path, options);
 }
@@ -427,7 +427,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 }
 
 function printLeadingComment(path, options) {
-  const comment = path.getValue();
+  const comment = path.node;
   const parts = [printComment(path, options)];
 
   const { printer, originalText, locStart, locEnd } = options;
@@ -462,7 +462,7 @@ function printLeadingComment(path, options) {
 }
 
 function printTrailingComment(path, options, previousComment) {
-  const comment = path.getValue();
+  const comment = path.node;
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
@@ -510,14 +510,14 @@ function printTrailingComment(path, options, previousComment) {
 
 function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node || !node.comments) {
     return "";
   }
 
   path.each(() => {
-    const comment = path.getValue();
+    const comment = path.node;
     if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
       parts.push(printComment(path, options));
     }
@@ -534,7 +534,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
 }
 
 function printCommentsSeparately(path, options, ignored) {
-  const value = path.getValue();
+  const value = path.node;
   if (!value) {
     return {};
   }
@@ -554,7 +554,7 @@ function printCommentsSeparately(path, options, ignored) {
   const trailingParts = [];
   let printedTrailingComment;
   path.each(() => {
-    const comment = path.getValue();
+    const comment = path.node;
     if (ignored && ignored.has(comment)) {
       return;
     }

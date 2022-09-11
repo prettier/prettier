@@ -35,7 +35,7 @@ function printFunctionParameters(
   expandArg,
   printTypeParams
 ) {
-  const functionNode = path.getValue();
+  const functionNode = path.node;
   const parameters = getFunctionParameters(functionNode);
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)

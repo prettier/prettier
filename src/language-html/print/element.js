@@ -28,7 +28,7 @@ import {
 import { printChildren } from "./children.js";
 
 function printElement(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldPreserveContent(node, options)) {
     return [

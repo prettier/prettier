@@ -9,7 +9,7 @@ import { isEmptyNode, getLast, hasEndComments } from "../utils.js";
 import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
 function printFlowMapping(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const isMapping = node.type === "flowMapping";
   const openMarker = isMapping ? "{" : "[";
   const closeMarker = isMapping ? "}" : "]";
@@ -42,7 +42,7 @@ function printFlowMapping(path, print, options) {
 }
 
 function printChildren(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = path.map(
     (childPath, index) => [
       print(),

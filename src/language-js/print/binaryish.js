@@ -28,7 +28,7 @@ import {
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   const isInsideParenthesis =
@@ -189,7 +189,7 @@ function printBinaryishExpressions(
   isNested,
   isInsideParenthesis
 ) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Simply print the node normally.
   if (!isBinaryish(node)) {

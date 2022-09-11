@@ -22,7 +22,7 @@ import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 
 function printClass(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.declare) {
@@ -121,7 +121,7 @@ function shouldIndentOnlyHeritageClauses(node) {
 }
 
 function printList(path, options, print, listName) {
-  const node = path.getValue();
+  const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
   }
@@ -157,7 +157,7 @@ function printSuperClass(path, options, print) {
 }
 
 function printClassMethod(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (isNonEmptyArray(node.decorators)) {
@@ -191,7 +191,7 @@ function printClassMethod(path, options, print) {
 }
 
 function printClassProperty(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   const semi = options.semi ? ";" : "";
 

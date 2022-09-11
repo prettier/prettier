@@ -29,7 +29,7 @@ import visitorKeys from "./visitor-keys.js";
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "front-matter":

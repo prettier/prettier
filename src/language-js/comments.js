@@ -954,7 +954,7 @@ function getCommentChildNodes(node, options) {
  * @returns {boolean}
  */
 function willPrintOwnComments(path /*, options */) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
 
   const hasFlowAnnotations = (node) =>

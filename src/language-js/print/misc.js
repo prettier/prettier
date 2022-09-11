@@ -3,7 +3,7 @@ import { indent, join, line } from "../../document/builders.js";
 import { isFlowAnnotationComment } from "../utils/index.js";
 
 function printOptionalToken(path) {
-  const node = path.getValue();
+  const { node } = path;
   if (
     !node.optional ||
     // It's an optional computed method parsed by typescript-estree.
@@ -22,7 +22,7 @@ function printOptionalToken(path) {
 }
 
 function printDefiniteToken(path) {
-  return path.getValue().definite ||
+  return path.node.definite ||
     path.match(
       undefined,
       (node, name) =>
@@ -33,7 +33,7 @@ function printDefiniteToken(path) {
 }
 
 function printFunctionTypeParameters(path, options, print) {
-  const fun = path.getValue();
+  const fun = path.node;
   if (fun.typeArguments) {
     return print("typeArguments");
   }
@@ -44,7 +44,7 @@ function printFunctionTypeParameters(path, options, print) {
 }
 
 function printTypeAnnotation(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   if (!node.typeAnnotation) {
     return "";
   }
@@ -66,7 +66,7 @@ function printBindExpressionCallee(path, options, print) {
 }
 
 function printTypeScriptModifiers(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   if (!isNonEmptyArray(node.modifiers)) {
     return "";
   }

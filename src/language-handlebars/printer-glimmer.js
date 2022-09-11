@@ -37,7 +37,7 @@ const NEWLINES_TO_PRESERVE_MAX = 2;
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function print(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const favoriteQuote = options.singleQuote ? "'" : '"';
 
@@ -420,7 +420,7 @@ function sortByLoc(a, b) {
 }
 
 function printStartingTag(path, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
     isNonEmptyArray(node[property])
@@ -429,7 +429,7 @@ function printStartingTag(path, print) {
 
   for (const attributeType of types) {
     path.each((attributePath) => {
-      const index = attributes.indexOf(attributePath.getValue());
+      const index = attributes.indexOf(attributePath.node);
       attributes.splice(index, 1, [line, print()]);
     }, attributeType);
   }
@@ -442,7 +442,7 @@ function printStartingTag(path, print) {
 }
 
 function printChildren(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isEmpty = node.children.every((node) => isWhitespaceNode(node));
   if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
     return "";
@@ -520,7 +520,7 @@ function printInverseBlockClosingMustache(node) {
 }
 
 function printOpenBlock(path, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const openingMustache = printOpeningBlockOpeningMustache(node);
   const closingMustache = printOpeningBlockClosingMustache(node);
@@ -566,7 +566,7 @@ function printElseIfBlock(path, print) {
 }
 
 function printCloseBlock(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     const escape = blockStatementHasOnlyWhitespaceInProgram(node)
@@ -609,7 +609,7 @@ function blockStatementHasElse(node) {
 }
 
 function printProgram(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
     return "";
@@ -625,7 +625,7 @@ function printProgram(path, print, options) {
 }
 
 function printInverse(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   const inverse = print("inverse");
   const printed =
@@ -755,7 +755,7 @@ function printPath(path, print) {
 }
 
 function printParams(path, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.params.length > 0) {

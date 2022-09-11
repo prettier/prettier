@@ -31,7 +31,7 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const node = path.getValue();
+  const { node } = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const fields = [
@@ -50,7 +50,7 @@ function printObject(path, options, print) {
   // printing them.
   const propsAndLoc = fields.flatMap((field) =>
     path.map((childPath) => {
-      const node = childPath.getValue();
+      const { node } = childPath;
       return {
         node,
         printed: print(),

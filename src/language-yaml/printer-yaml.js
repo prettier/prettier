@@ -45,7 +45,7 @@ import printBlock from "./print/block.js";
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   /** @type {Doc[]} */
   const parts = [];
@@ -133,11 +133,7 @@ function genericPrint(path, options, print) {
           hardline,
           path.map(
             (path) => [
-              isPreviousLineEmpty(
-                options.originalText,
-                path.getValue(),
-                locStart
-              )
+              isPreviousLineEmpty(options.originalText, path.node, locStart)
                 ? hardline
                 : "",
               print(),

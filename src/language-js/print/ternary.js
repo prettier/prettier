@@ -102,7 +102,7 @@ function conditionalExpressionChainContainsJsx(node) {
 }
 
 function printTernaryTest(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
   const alternateNodePropertyName = isConditionalExpression
     ? "alternate"
@@ -138,7 +138,7 @@ const ancestorNameMap = new Map([
   ["YieldExpression", "argument"],
 ]);
 function shouldExtraIndentForConditionalExpression(path) {
-  const node = path.getValue();
+  const { node } = path;
   if (node.type !== "ConditionalExpression") {
     return false;
   }
@@ -188,7 +188,7 @@ function shouldExtraIndentForConditionalExpression(path) {
  * @returns {Doc}
  */
 function printTernary(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"

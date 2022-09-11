@@ -47,7 +47,7 @@ import {
 } from "./type-annotation.js";
 
 function printTypescript(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   // TypeScript nodes always starts with `TS`
   if (!node.type.startsWith("TS")) {
