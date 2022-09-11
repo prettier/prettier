@@ -90,7 +90,7 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
 function genericPrint(path, options, print, args) {
-  const node = path.getValue();
+  const { node } = path;
 
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
@@ -184,7 +184,7 @@ function printPathNoParens(path, options, print, args) {
     }
   }
 
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   let parts = [];
@@ -695,7 +695,7 @@ function printPathNoParens(path, options, print, args) {
               join(
                 hardline,
                 path.map((casePath, index, cases) => {
-                  const caseNode = casePath.getValue();
+                  const caseNode = casePath.node;
                   return [
                     print(),
                     index !== cases.length - 1 &&

@@ -540,3 +540,45 @@ test("prefer-fs-promises-submodule", {
     parserOptions: { sourceType: "module" },
   })),
 });
+
+test("prefer-ast-path-node", {
+  valid: [
+    "path.getNode(2)",
+    "path.getNode",
+    "getNode",
+    "this.getNode()",
+    "path.node",
+  ],
+  invalid: [
+    {
+      code: "path.getNode()",
+      output: "path.node",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getNode()",
+      output: "const node = path.node",
+      errors: 1,
+    },
+    {
+      code: "path.getValue()",
+      output: "path.node",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getValue()",
+      output: "const node = path.node",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getValue()",
+      output: "fooPath.node",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getNode()",
+      output: "fooPath.node",
+      errors: 1,
+    },
+  ],
+});

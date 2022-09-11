@@ -7,7 +7,7 @@ import {
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
 async function format(textToDoc, print, path /*, options*/) {
-  const node = path.getValue();
+  const { node } = path;
   let text = node.quasis[0].value.raw.replace(
     /((?:\\\\)*)\\`/g,
     (_, backslashes) => "\\".repeat(backslashes.length / 2) + "`"

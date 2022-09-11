@@ -22,7 +22,7 @@ function needsParens(path, options) {
   }
 
   const name = path.getName();
-  const node = path.getValue();
+  const { node } = path;
 
   // to avoid unexpected `}}` in HTML interpolations
   if (
@@ -44,7 +44,7 @@ function needsParens(path, options) {
     // parser. The Flow parser turns Flow comments into type annotation nodes in its
     // AST, which we handle separately.
     options.parser !== "flow" &&
-    hasFlowShorthandAnnotationComment(path.getValue())
+    hasFlowShorthandAnnotationComment(path.node)
   ) {
     return true;
   }
@@ -854,7 +854,7 @@ function isStatement(node) {
 
 function isPathInForStatementInitializer(path) {
   let i = 0;
-  let node = path.getValue();
+  let { node } = path;
   while (node) {
     const parent = path.getParentNode(i++);
     if (parent && parent.type === "ForStatement" && parent.init === node) {
@@ -889,7 +889,7 @@ function endsWithRightBracket(node) {
 }
 
 function isFollowedByRightBracket(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   const name = path.getName();
   switch (parent.type) {
@@ -929,7 +929,7 @@ function isFollowedByRightBracket(path) {
 }
 
 function shouldWrapFunctionForExportDefault(path, options) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
 
   if (node.type === "FunctionExpression" || node.type === "ClassExpression") {

@@ -25,7 +25,7 @@ import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node[paramsKey]) {
     return "";
@@ -93,7 +93,7 @@ function printTypeParameters(path, options, print, paramsKey) {
 }
 
 function printDanglingCommentsForInline(path, options) {
-  const node = path.getValue();
+  const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return "";
   }
@@ -110,7 +110,7 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   const parent = path.getParentNode();
 

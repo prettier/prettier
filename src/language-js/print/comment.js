@@ -6,7 +6,7 @@ import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
 
 function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+  const comment = commentPath.node;
 
   if (isLineComment(comment)) {
     // Supports `//`, `#!`, `<!--`, and `-->`

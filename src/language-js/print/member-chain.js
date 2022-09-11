@@ -86,7 +86,7 @@ function printMemberChain(path, options, print) {
   }
 
   function rec(path) {
-    const node = path.getValue();
+    const { node } = path;
     if (
       isCallExpression(node) &&
       (isMemberish(node.callee) || isCallExpression(node.callee))
@@ -136,7 +136,7 @@ function printMemberChain(path, options, print) {
   // Note: the comments of the root node have already been printed, so we
   // need to extract this first call without printing them as they would
   // if handled inside of the recursive call.
-  const node = path.getValue();
+  const { node } = path;
   printedNodes.unshift({
     node,
     printed: [

@@ -4,7 +4,7 @@ import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 
 async function format(textToDoc, print, path /*, options*/) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
   const rawQuasis = node.quasis.map((q) => q.value.raw);

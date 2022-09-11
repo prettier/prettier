@@ -7,7 +7,7 @@ import {
 import { printOptionalToken } from "./misc.js";
 
 function printMemberExpression(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const parent = path.getParentNode();
   let firstNonMemberParent;
@@ -50,7 +50,7 @@ function printMemberExpression(path, options, print) {
 
 function printMemberLookup(path, options, print) {
   const property = print("property");
-  const node = path.getValue();
+  const { node } = path;
   const optional = printOptionalToken(path);
 
   if (!node.computed) {

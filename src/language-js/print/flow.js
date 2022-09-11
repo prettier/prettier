@@ -36,7 +36,7 @@ import {
 } from "./misc.js";
 
 function printFlow(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];

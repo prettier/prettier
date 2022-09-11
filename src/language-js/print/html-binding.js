@@ -7,7 +7,7 @@ import {
 } from "../../document/builders.js";
 
 function printHtmlBinding(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (options.__onHtmlBindingRoot && path.getName() === null) {
     options.__onHtmlBindingRoot(node, options);
@@ -25,7 +25,7 @@ function printHtmlBinding(path, options, print) {
           functionDeclarationPath.map(print, "params")
         );
 
-        const { params } = functionDeclarationPath.getValue();
+        const { params } = functionDeclarationPath.node;
         if (params.length === 1) {
           return printed;
         }

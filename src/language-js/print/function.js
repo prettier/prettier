@@ -48,7 +48,7 @@ import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
 function printFunction(path, print, options, args) {
-  const node = path.getValue();
+  const { node } = path;
 
   let expandArg = false;
   if (
@@ -120,7 +120,7 @@ function printFunction(path, print, options, args) {
 }
 
 function printMethod(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const { kind } = node;
   const value = node.value || node;
   const parts = [];
@@ -159,7 +159,7 @@ function printMethod(path, options, print) {
 }
 
 function printMethodInternal(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
   const returnTypeDoc = printReturnType(path, print, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -184,7 +184,7 @@ function printMethodInternal(path, options, print) {
 }
 
 function printArrowFunctionSignature(path, options, print, args) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.async) {
@@ -288,7 +288,7 @@ function printArrowChain(
 }
 
 function printArrowFunction(path, options, print, args) {
-  let node = path.getValue();
+  let { node } = path;
   /** @type {Doc[]} */
   const signatures = [];
   const body = [];
@@ -413,7 +413,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   }
 
   if (options.arrowParens === "avoid") {
-    const node = path.getValue();
+    const { node } = path;
     return canPrintParamsWithoutParens(node);
   }
 
@@ -424,7 +424,7 @@ function shouldPrintParamsWithoutParens(path, options) {
 
 /** @returns {Doc} */
 function printReturnType(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const returnType = print("returnType");
 
   if (
@@ -452,7 +452,7 @@ function printReturnType(path, print, options) {
 
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowArgument(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   const parts = [];
 

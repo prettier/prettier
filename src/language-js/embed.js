@@ -9,7 +9,7 @@ import formatGraphql from "./embed/graphql.js";
 import { formatHtml, formatAngular } from "./embed/html.js";
 
 function embed(path) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (
     node.type !== "TemplateLiteral" ||
@@ -51,7 +51,7 @@ function embed(path) {
  * markdown`...`
  */
 function isMarkdown(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   return (
     parent &&
@@ -70,7 +70,7 @@ function isMarkdown(path) {
  * css.resolve``
  */
 function isStyledJsx(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   return (
@@ -224,7 +224,7 @@ function isStyledExtend(node) {
  * support Relay Classic formatting.
  */
 function isGraphQL(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
 
   return (
@@ -261,7 +261,7 @@ function hasLanguageComment(node, languageName) {
  */
 function isHtml(path) {
   return (
-    hasLanguageComment(path.getValue(), "HTML") ||
+    hasLanguageComment(path.node, "HTML") ||
     path.match(
       (node) => node.type === "TemplateLiteral",
       (node, name) =>

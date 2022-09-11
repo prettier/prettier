@@ -19,5 +19,6 @@ module.exports = {
     "prefer-indent-if-break": require("./prefer-indent-if-break.js"),
     "prefer-is-non-empty-array": require("./prefer-is-non-empty-array.js"),
     "prefer-fs-promises-submodule": require("./prefer-fs-promises-submodule.js"),
+    "prefer-ast-path-node": require("./prefer-ast-path-node.js"),
   },
 };

@@ -317,7 +317,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
     return false;
   }
 
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node.expression || !isJsxNode(node.expression)) {
     return false;
@@ -810,7 +810,7 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   return (
     isCallExpression(node) &&
@@ -1132,7 +1132,7 @@ function getFunctionParameters(node) {
 }
 
 function iterateFunctionParametersPath(path, iteratee) {
-  const node = path.getValue();
+  const { node } = path;
   let index = 0;
   const callback = (childPath) => iteratee(childPath, index++);
   if (node.this) {
@@ -1168,7 +1168,7 @@ function getCallArguments(node) {
 }
 
 function iterateCallArgumentsPath(path, iteratee) {
-  const node = path.getValue();
+  const { node } = path;
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
@@ -1211,7 +1211,7 @@ function hasNodeIgnoreComment(node) {
 }
 
 function hasIgnoreComment(path) {
-  const node = path.getValue();
+  const { node } = path;
   return hasNodeIgnoreComment(node);
 }
 

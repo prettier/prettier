@@ -24,7 +24,7 @@ import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function printArray(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   /** @type{Doc[]} */
   const parts = [];
 
@@ -154,10 +154,7 @@ function printArrayItems(path, options, printPath, print) {
     printedElements.push(separatorParts, group(print()));
 
     separatorParts = [",", line];
-    if (
-      childPath.getValue() &&
-      isNextLineEmpty(childPath.getValue(), options)
-    ) {
+    if (childPath.node && isNextLineEmpty(childPath.node, options)) {
       separatorParts.push(softline);
     }
   }, printPath);
@@ -175,7 +172,7 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
 
     if (!isLast) {
       parts.push(
-        isNextLineEmpty(childPath.getValue(), options)
+        isNextLineEmpty(childPath.node, options)
           ? [hardline, hardline]
           : hasComment(
               elements[i + 1],

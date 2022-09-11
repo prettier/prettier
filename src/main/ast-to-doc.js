@@ -76,7 +76,7 @@ async function printAstToDoc(ast, options, alignmentSize = 0) {
   function mainPrintInternal(args) {
     ensurePrintingNode(path);
 
-    const value = path.getValue();
+    const value = path.node;
 
     if (value === undefined || value === null) {
       return "";
@@ -122,7 +122,7 @@ function printPrettierIgnoredNode(node, options) {
 }
 
 function callPluginPrintFunction(path, options, printPath, args, embeds) {
-  const node = path.getValue();
+  const { node } = path;
   const { printer } = options;
 
   let doc;

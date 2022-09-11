@@ -106,7 +106,7 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 }
 
 function insideURLFunctionInImportAtRuleNode(path) {
-  const node = path.getValue();
+  const { node } = path;
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
@@ -271,7 +271,7 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
-  const node = path.getValue();
+  const { node } = path;
 
   // Ignore empty item (i.e. `$key: ()`)
   if (node.groups.length === 0) {

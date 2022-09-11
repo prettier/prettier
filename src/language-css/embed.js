@@ -2,7 +2,7 @@ import { hardline } from "../document/builders.js";
 import printFrontMatter from "../utils/front-matter/print.js";
 
 function embed(path) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (node.type === "front-matter") {
     return async (textToDoc) => {

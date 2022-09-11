@@ -2,7 +2,7 @@ import { htmlVoidElements } from "html-void-elements";
 import getLast from "../utils/get-last.js";
 
 function isLastNodeOfSiblings(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parentNode = path.getParentNode(0);
 
   if (
@@ -68,7 +68,7 @@ function isNextNodeOfSomeType(path, types) {
 }
 
 function getSiblingNode(path, offset) {
-  const node = path.getValue();
+  const { node } = path;
   const parentNode = path.getParentNode(0) ?? {};
   const children =
     parentNode.children ?? parentNode.body ?? parentNode.parts ?? [];
@@ -93,7 +93,7 @@ function isPrettierIgnoreNode(node) {
 }
 
 function hasPrettierIgnore(path) {
-  const node = path.getValue();
+  const { node } = path;
   const previousPreviousNode = getPreviousNode(path, 2);
   return (
     isPrettierIgnoreNode(node) || isPrettierIgnoreNode(previousPreviousNode)

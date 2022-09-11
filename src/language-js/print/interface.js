@@ -5,7 +5,7 @@ import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printTypeScriptModifiers } from "./misc.js";
 
 function printInterface(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   if (node.declare) {
     parts.push("declare ");
