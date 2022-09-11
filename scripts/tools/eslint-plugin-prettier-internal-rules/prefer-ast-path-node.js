@@ -35,7 +35,11 @@ module.exports = {
           messageId,
           fix: (fixer) => [
             fixer.replaceTextRange(
-              [node.property.range[0], node.property.range[1] + 2],
+              [
+                node.property.range[0],
+                // remove `()` for CallExpression
+                node.property.range[1] + 2,
+              ],
               "node"
             ),
           ],
