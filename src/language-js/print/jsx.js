@@ -27,7 +27,7 @@ import {
   hasNodeIgnoreComment,
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
-import { willPrintOwnComments } from "../comments.js";
+import { willPrintOwnComments } from "../comments/printer-methods.js";
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -833,14 +833,13 @@ function isJsxWhitespaceExpression(node) {
  * @returns {boolean}
  */
 function hasJsxIgnoreComment(path) {
-  const { node } = path;
-  const parent = path.getParentNode();
+  const { node, parent } = path;
   if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
     return false;
   }
 
   // Lookup the previous sibling, ignoring any empty JSXText elements
-  const index = parent.children.indexOf(node);
+  const { index } = path;
   let prevSibling = null;
   for (let i = index; i > 0; i--) {
     const candidate = parent.children[i - 1];
@@ -852,8 +851,7 @@ function hasJsxIgnoreComment(path) {
   }
 
   return (
-    prevSibling &&
-    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling?.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     hasNodeIgnoreComment(prevSibling.expression)
   );
