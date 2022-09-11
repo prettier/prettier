@@ -38,11 +38,13 @@ class AstPath {
   }
 
   get next() {
-    return this.siblings[this.index + 1];
+    const { siblings } = this;
+    return siblings === null ? null : siblings[this.index + 1];
   }
 
   get previous() {
-    return this.siblings[this.index - 1];
+    const { siblings } = this;
+    return siblings === null ? null : siblings[this.index - 1];
   }
 
   get isFirst() {
