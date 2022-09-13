@@ -47,7 +47,7 @@
     "escape-string-regexp": "5.0.0",
     "espree": "9.4.0",
     "esutils": "2.0.3",
-    "fast-glob": "3.2.11",
+    "fast-glob": "3.2.12",
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "6.0.1",
     "find-cache-dir": "3.3.2",
