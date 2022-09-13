@@ -2,6 +2,9 @@ import { locStart, locEnd } from "../../loc.js";
 import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
 import getLast from "../../../utils/get-last.js";
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
+import isBlockComment from "../../utils/is-block-comment.js";
+import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
@@ -153,6 +156,25 @@ function postprocess(ast, options) {
       }
     }
   });
+
+  if (isNonEmptyArray(ast.comments)) {
+    let followingComment = getLast(ast.comments);
+    for (let i = ast.comments.length - 2; i >= 0; i--) {
+      const comment = ast.comments[i];
+      if (
+        locEnd(comment) === locStart(followingComment) &&
+        isBlockComment(comment) &&
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
+        isIndentableBlockComment(followingComment)
+      ) {
+        ast.comments.splice(i + 1, 1);
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
+      }
+      followingComment = comment;
+    }
+  }
 
   return ast;
 
