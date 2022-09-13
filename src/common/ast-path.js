@@ -7,8 +7,8 @@ class AstPath {
   }
 
   get key() {
-    const { stack, siblings } = this;
-    return stack[stack.length - (siblings === null ? 4 : 2)] ?? null;
+    const { stack, isInArray } = this;
+    return stack[stack.length - (isInArray ? 4 : 2)] ?? null;
   }
 
   get index() {
