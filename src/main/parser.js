@@ -3,9 +3,11 @@ import { ConfigError } from "../common/errors.js";
 function resolveParser({ plugins, parser }) {
   for (const { parsers } of plugins) {
     if (parsers && Object.prototype.hasOwnProperty.call(parsers, parser)) {
-      const found = parsers[parser];
+      const parserOrParserInitFunction = parsers[parser];
 
-      return typeof found === "function" ? found() : found;
+      return typeof parserOrParserInitFunction === "function"
+        ? parserOrParserInitFunction()
+        : parserOrParserInitFunction;
     }
   }
 
