@@ -26,23 +26,29 @@ test("parsers should allow omit optional arguments", async () => {
 
   const [, { plugins }] = parseFunctionArguments;
 
-  const parsers = plugins
-    .flatMap((plugin) =>
-      plugin.parsers
-        ? Object.entries(plugin.parsers).map(([name, { parse }]) => [
-            name,
-            parse,
-          ])
-        : []
-    )
-    // Private parser should not be used by users
-    .filter(([name]) => !name.startsWith("__"));
+  const parsers = await Promise.all(
+    plugins
+      .flatMap((plugin) =>
+        plugin.parsers
+          ? Object.entries(plugin.parsers).map(([name, parser]) => [
+              name,
+              parser,
+            ])
+          : []
+      )
+      // Private parser should not be used by users
+      .filter(([name]) => !name.startsWith("__"))
+      .map(async ([name, parser]) => [
+        name,
+        typeof parser === "function" ? await parser() : parser,
+      ])
+  );
 
-  expect(typeof parsers[0][1]).toBe("function");
+  expect(typeof parsers[0][1].parse).toBe("function");
   const code = {
     graphql: "type A {hero: Character}",
   };
-  for (const [name, parse] of parsers) {
+  for (const [name, { parse }] of parsers) {
     await expect(
       // eslint-disable-next-line require-await
       (async () => parse(code[name] ?? "{}"))()
