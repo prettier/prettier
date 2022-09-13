@@ -53,8 +53,7 @@ module.exports = {
     messages: {
       [MESSAGE_ID_PREFER_KEY_CHECK]:
         "Prefer `key {{operator}} {{propertyText}}` over `parent.{{property}} {{operator}} node`.",
-      [MESSAGE_ID_KEY_CHECK_FIRST]:
-        "`key` comparison should be on left side.",
+      [MESSAGE_ID_KEY_CHECK_FIRST]: "`key` comparison should be on left side.",
     },
     fixable: "code",
   },
