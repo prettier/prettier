@@ -170,14 +170,10 @@ function postprocess(ast, options) {
         isIndentableBlockComment(followingComment)
       ) {
         ast.comments.splice(i + 1, 1);
-        followingComment = ast.comments[i] = {
-          ...comment,
-          value: comment.value + "*//*" + followingComment.value,
-          range: [locStart(comment), locEnd(followingComment)],
-        };
-      } else {
-        followingComment = comment;
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
       }
+      followingComment = comment;
     }
   }
   /* eslint-enable prettier-internal-rules/no-node-comments */
