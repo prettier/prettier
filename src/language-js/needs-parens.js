@@ -895,10 +895,7 @@ function isFollowedByRightBracket(path) {
       break;
     case "ObjectProperty":
       if (key === "value") {
-        return path.callParent(
-          () => path.key === "properties" && path.isLast,
-          1
-        );
+        return path.callParent(() => path.key === "properties" && path.isLast);
       }
       break;
     case "BinaryExpression":
