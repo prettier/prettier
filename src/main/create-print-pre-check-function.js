@@ -12,45 +12,22 @@ function createPrintPreCheckFunction(options) {
   );
 
   return function (path) {
-    let name = path.getName();
-
-    // AST root
-    if (name === null) {
+    if (path.isRoot) {
       return;
     }
 
-    let parentNode;
-    if (typeof name === "number") {
-      /*
-      Nodes in array are stored in path.stack like
+    const { key, parent } = path;
 
-      ```js
-      [
-        parentNode,
-        property, // <-
-        array,
-        index,
-        node,
-      ]
-      ```
-      */
-      name = path.stack[path.stack.length - 4];
-      parentNode = path.stack[path.stack.length - 5];
-    } else {
-      // `path.getParentNode()` skips falsely value
-      parentNode = path.stack[path.stack.length - 3];
-    }
-
-    const visitorKeys = getVisitorKeys(parentNode);
-    if (visitorKeys.includes(name)) {
+    const visitorKeys = getVisitorKeys(parent);
+    if (visitorKeys.includes(key)) {
       return;
     }
 
     /* istanbul ignore next */
     throw Object.assign(new Error("Calling `print()` on non-node object."), {
-      parentNode,
+      parentNode: parent,
       allowedProperties: visitorKeys,
-      printingProperty: name,
+      printingProperty: key,
       printingValue: path.node,
       pathStack:
         path.stack.length > 5
