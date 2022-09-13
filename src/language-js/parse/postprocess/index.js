@@ -165,8 +165,8 @@ function postprocess(ast, options) {
       if (
         locEnd(comment) === locStart(followingComment) &&
         isBlockComment(comment) &&
-        isIndentableBlockComment(comment) &&
         isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
         isIndentableBlockComment(followingComment)
       ) {
         ast.comments.splice(i + 1, 1);
