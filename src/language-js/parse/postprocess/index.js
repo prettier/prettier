@@ -157,7 +157,6 @@ function postprocess(ast, options) {
     }
   });
 
-  /* eslint-disable prettier-internal-rules/no-node-comments */
   if (isNonEmptyArray(ast.comments)) {
     let followingComment = getLast(ast.comments);
     for (let i = ast.comments.length - 2; i >= 0; i--) {
@@ -176,7 +175,6 @@ function postprocess(ast, options) {
       followingComment = comment;
     }
   }
-  /* eslint-enable prettier-internal-rules/no-node-comments */
 
   return ast;
 

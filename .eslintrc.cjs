@@ -321,6 +321,7 @@ module.exports = {
     },
     {
       files: ["src/language-js/**/*.js"],
+      excludedFiles: ["src/language-js/parse/postprocess/*.js"],
       rules: {
         "prettier-internal-rules/no-node-comments": [
           "error",
@@ -329,7 +330,6 @@ module.exports = {
             functions: ["hasComment", "getComments"],
           },
           "src/language-js/pragma.js",
-          "src/language-js/parse/postprocess/*.js",
           "src/language-js/parse/babel.js",
           "src/language-js/parse/meriyah.js",
           "src/language-js/parse/json.js",
