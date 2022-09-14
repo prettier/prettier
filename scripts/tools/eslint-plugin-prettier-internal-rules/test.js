@@ -44,30 +44,30 @@ test("better-parent-property-check-in-needs-parens", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
     {
-      code: 'return parent.type === "MemberExpression" && name === "object";',
-      errors: [{ message: "`name` comparison should be on left side." }],
+      code: 'return parent.type === "MemberExpression" && key === "object";',
+      errors: [{ message: "`key` comparison should be on left side." }],
     },
     {
       code: "return parent.test === node;",
-      output: 'return name === "test";',
+      output: 'return key === "test";',
       errors: [
-        { message: 'Prefer `name === "test"` over `parent.test === node`.' },
+        { message: 'Prefer `key === "test"` over `parent.test === node`.' },
       ],
     },
     {
       code: "return parent.test !== node;",
-      output: 'return name !== "test";',
+      output: 'return key !== "test";',
       errors: [
-        { message: 'Prefer `name !== "test"` over `parent.test !== node`.' },
+        { message: 'Prefer `key !== "test"` over `parent.test !== node`.' },
       ],
     },
     {
       code: 'return parent["property"] === node;',
-      output: 'return name === "property";',
+      output: 'return key === "property";',
       errors: [
         {
           message:
-            'Prefer `name === "property"` over `parent."property" === node`.',
+            'Prefer `key === "property"` over `parent."property" === node`.',
         },
       ],
     },
