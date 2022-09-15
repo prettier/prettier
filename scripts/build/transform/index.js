@@ -1,9 +1,12 @@
+import { fileURLToPath } from "node:url";
+import path from "path";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import babelGenerator from "@babel/generator";
 import { outdent } from "outdent";
 
 const generate = babelGenerator.default;
+const atHelperPath = fileURLToPath(new URL("../shims/at-helper.js", import.meta.url));
 
 /* Doesn't work for optional chaining */
 
@@ -43,6 +46,8 @@ function transformObjectHasOwnCall(node) {
     },
     property: { type: "Identifier", name: "call" },
   };
+
+  return true;
 }
 
 // `foo.at(index)` -> `__at(foo, index)`
@@ -56,35 +61,41 @@ function transformRelativeIndexingCall(node) {
     return;
   }
 
-  const { property } = callee;
+  const { object, property } = callee;
   if (!(property.type === "Identifier" && property.name === "at")) {
     return;
   }
 
-  node.arguments.unshift(callee);
+  node.arguments.unshift(object);
   node.callee = { type: "Identifier", name: "__at" };
+
   return true;
 }
 
-function transform(original) {
-  if (!original.includes(".at(") && !original.includes("Object.hasOwn("))
-    return;
+function transform(original, file) {
+  if (file === atHelperPath || !original.includes(".at(") && !original.includes("Object.hasOwn(")) {
+    return original;
+  }
 
-  let shouldInjectRelativeIndexingHelper = true;
-  const ast = parse(original);
+  let changed = false;
+  let shouldInjectRelativeIndexingHelper = false;
+  const ast = parse(original, {sourceType: "module"});
   traverse(ast, (node) => {
-    transformObjectHasOwnCall(node);
+    changed ||= transformObjectHasOwnCall(node);
     shouldInjectRelativeIndexingHelper ||= transformRelativeIndexingCall(node);
+    changed ||= shouldInjectRelativeIndexingHelper;
   });
+
+  if (!changed) {
+    return original;
+  }
 
   let { code } = generate(ast);
 
   if (shouldInjectRelativeIndexingHelper) {
     code = outdent`
-      const __at = (object, index) =>
-        object.at
-          ? object.at(index)
-          : object[index < 0 ? object[object.length + index] : index];
+      // import __at from ${JSON.stringify(atHelperPath)};
+      import __at from ${JSON.stringify(atHelperPath)};
 
       ${code}
     `;

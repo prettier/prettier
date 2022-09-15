@@ -1,3 +1,3 @@
-const getLast = (arr) => arr[arr.length - 1];
+const getLast = (arr) => arr.at(-1);
 
 export default getLast;
