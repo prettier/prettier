@@ -46,7 +46,18 @@ function splitText(text, options) {
   const KIND_K_LETTER = "k-letter";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
-  /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
+  /**
+   * @type {Array<
+   *   { type: "whitespace", value: " " | "\n" | "" }
+   *   | {
+   *     type: "word",
+   *     value: string,
+   *     kind: string,
+   *     hasLeadingPunctuation: boolean,
+   *     hasTrailingPunctuation: boolean
+   *   }
+   * >}
+   */
   const nodes = [];
 
   const tokens = (
@@ -143,7 +154,9 @@ function splitText(text, options) {
 
     function isBetween(kind1, kind2) {
       return (
+        // @ts-expect-error
         (lastNode.kind === kind1 && node.kind === kind2) ||
+        // @ts-expect-error
         (lastNode.kind === kind2 && node.kind === kind1)
       );
     }
