@@ -308,7 +308,6 @@ module.exports = {
     {
       files: "src/**/*.js",
       rules: {
-        "prettier-internal-rules/consistent-negative-index-access": "error",
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
         "prettier-internal-rules/no-doc-index-import": "error",
