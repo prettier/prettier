@@ -1,5 +1,4 @@
 import { fileURLToPath } from "node:url";
-import path from "path";
 import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import babelGenerator from "@babel/generator";

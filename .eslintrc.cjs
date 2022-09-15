@@ -82,6 +82,7 @@ module.exports = {
         enforceForRenamedProperties: false,
       },
     ],
+    "prefer-object-has-own": "error",
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
