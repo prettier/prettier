@@ -40,7 +40,7 @@ async function parseValueNode(valueNode, options) {
       options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
-      node.value.at(-1) === "."
+      node.value.endsWith(".")
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.

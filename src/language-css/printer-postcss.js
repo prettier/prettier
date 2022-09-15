@@ -1006,7 +1006,7 @@ function genericPrint(path, options, print) {
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (prevNode &&
           typeof prevNode.value === "string" &&
-          prevNode.value.at(-1) === "\\") ||
+          prevNode.value.endsWith("\\")) ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""
