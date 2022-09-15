@@ -98,7 +98,6 @@ function transform(original, file) {
 
   if (shouldInjectRelativeIndexingHelper) {
     code = outdent`
-      // import __at from ${JSON.stringify(atHelperPath)};
       import __at from ${JSON.stringify(atHelperPath)};
 
       ${code}
