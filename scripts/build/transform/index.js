@@ -7,7 +7,7 @@ import { outdent } from "outdent";
 const generate = babelGenerator.default;
 const atHelperPath = fileURLToPath(new URL("../shims/at.js", import.meta.url));
 
-/* Doesn't work for optional chaining */
+/* Doesn't work for optional chaining and spread arguments */
 
 // `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
 function transformObjectHasOwnCall(node) {
@@ -15,6 +15,7 @@ function transformObjectHasOwnCall(node) {
     !(
       node.type === "CallExpression" &&
       node.arguments.length === 2 &&
+      node.arguments.every(({type}) => type !== "SpreadElement") &&
       node.callee.type === "MemberExpression" &&
       !node.callee.computed &&
       node.callee.object.type === "Identifier" &&
@@ -49,6 +50,7 @@ function transformRelativeIndexingCall(node) {
     !(
       node.type === "CallExpression" &&
       node.arguments.length === 1 &&
+      node.arguments.every(({type}) => type !== "SpreadElement") &&
       node.callee.type === "MemberExpression" &&
       !node.callee.computed &&
       node.callee.object.type !== "ThisExpression" &&
