@@ -5,33 +5,25 @@ import babelGenerator from "@babel/generator";
 import { outdent } from "outdent";
 
 const generate = babelGenerator.default;
-const atHelperPath = fileURLToPath(
-  new URL("../shims/at-helper.js", import.meta.url)
-);
+const atHelperPath = fileURLToPath(new URL("../shims/at.js", import.meta.url));
 
 /* Doesn't work for optional chaining */
 
 // `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
 function transformObjectHasOwnCall(node) {
-  if (node.type !== "CallExpression") {
-    return;
-  }
-
-  const { callee } = node;
-  if (!(callee.type === "MemberExpression" && !callee.computed)) {
-    return;
-  }
-
-  const { object, property } = callee;
   if (
     !(
-      object.type === "Identifier" &&
-      object.name === "Object" &&
-      property.type === "Identifier" &&
-      property.name === "hasOwn"
+      node.type === "CallExpression" &&
+      node.arguments.length === 2 &&
+      node.callee.type === "MemberExpression" &&
+      !node.callee.computed &&
+      node.callee.object.type === "Identifier" &&
+      node.callee.object.name === "Object" &&
+      node.callee.property.type === "Identifier" &&
+      node.callee.property.name === "hasOwn"
     )
   ) {
-    return;
+    return false;
   }
 
   node.callee = {
@@ -53,21 +45,21 @@ function transformObjectHasOwnCall(node) {
 
 // `foo.at(index)` -> `__at(foo, index)`
 function transformRelativeIndexingCall(node) {
-  if (node.type !== "CallExpression") {
-    return;
+  if (
+    !(
+      node.type === "CallExpression" &&
+      node.arguments.length === 1 &&
+      node.callee.type === "MemberExpression" &&
+      !node.callee.computed &&
+      node.callee.object.type !== "ThisExpression" &&
+      node.callee.property.type === "Identifier" &&
+      node.callee.property.name === "at"
+    )
+  ) {
+    return false;
   }
 
-  const { callee } = node;
-  if (!(callee.type === "MemberExpression" && !callee.computed)) {
-    return;
-  }
-
-  const { object, property } = callee;
-  if (!(property.type === "Identifier" && property.name === "at")) {
-    return;
-  }
-
-  node.arguments.unshift(object);
+  node.arguments.unshift(node.object);
   node.callee = { type: "Identifier", name: "__at" };
 
   return true;
