@@ -85,9 +85,12 @@ function transform(original, file) {
   let shouldInjectRelativeIndexingHelper = false;
   const ast = parse(original, { sourceType: "module" });
   traverse(ast, (node) => {
-    changed ||= transformObjectHasOwnCall(node);
-    shouldInjectRelativeIndexingHelper ||= transformRelativeIndexingCall(node);
-    changed ||= shouldInjectRelativeIndexingHelper;
+    const hasObjectHasOwnCall = transformObjectHasOwnCall(node);
+    changed ||= hasObjectHasOwnCall;
+
+    const hasRelativeIndexingCall = transformRelativeIndexingCall(node);
+    shouldInjectRelativeIndexingHelper ||= hasRelativeIndexingCall;
+    changed ||= hasRelativeIndexingCall;
   });
 
   if (!changed) {
