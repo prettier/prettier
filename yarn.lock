@@ -79,6 +79,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/generator@npm:7.19.0":
+  version: 7.19.0
+  resolution: "@babel/generator@npm:7.19.0"
+  dependencies:
+    "@babel/types": ^7.19.0
+    "@jridgewell/gen-mapping": ^0.3.2
+    jsesc: ^2.5.1
+  checksum: aa3d5785cf8f8e81672dcc61aef351188efeadb20d9f66d79113d82cbcf3bbbdeb829989fa14582108572ddbc4e4027bdceb06ccaf5ec40fa93c2dda8fbcd4aa
+  languageName: node
+  linkType: hard
+
 "@babel/generator@npm:^7.18.10, @babel/generator@npm:^7.7.2":
   version: 7.18.12
   resolution: "@babel/generator@npm:7.18.12"
@@ -415,7 +426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:7.19.0, @babel/types@npm:^7.0.0, @babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
+"@babel/types@npm:7.19.0, @babel/types@npm:^7.0.0, @babel/types@npm:^7.18.10, @babel/types@npm:^7.18.6, @babel/types@npm:^7.18.9, @babel/types@npm:^7.19.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.8.3":
   version: 7.19.0
   resolution: "@babel/types@npm:7.19.0"
   dependencies:
@@ -6579,6 +6590,7 @@ __metadata:
   dependencies:
     "@angular/compiler": 12.2.16
     "@babel/code-frame": 7.18.6
+    "@babel/generator": 7.19.0
     "@babel/parser": 7.19.0
     "@babel/types": 7.19.0
     "@esbuild-plugins/node-modules-polyfill": 0.1.4
