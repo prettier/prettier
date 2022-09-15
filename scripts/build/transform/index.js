@@ -17,7 +17,7 @@ function transformObjectHasOwnCall(node) {
       node.type === "CallExpression" &&
       !node.optional &&
       node.arguments.length === 2 &&
-      node.arguments.every(({type}) => type !== "SpreadElement") &&
+      node.arguments.every(({ type }) => type !== "SpreadElement") &&
       node.callee.type === "MemberExpression" &&
       !node.callee.optional &&
       !node.callee.computed &&
@@ -54,7 +54,7 @@ function transformRelativeIndexingCall(node) {
       node.type === "CallExpression" &&
       !node.optional &&
       node.arguments.length === 1 &&
-      node.arguments.every(({type}) => type !== "SpreadElement") &&
+      node.arguments.every(({ type }) => type !== "SpreadElement") &&
       node.callee.type === "MemberExpression" &&
       !node.callee.optional &&
       !node.callee.computed &&
