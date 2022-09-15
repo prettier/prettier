@@ -97,7 +97,7 @@ function isLastDescendantNode(path) {
 
 function getLastDescendantNode(node) {
   return isNonEmptyArray(node.children)
-    ? getLastDescendantNode(getLast(node.children))
+    ? getLastDescendantNode(node.children.at(-1))
     : node;
 }
 
@@ -112,12 +112,12 @@ function hasPrettierIgnore(path) {
     const document = path.getParentNode();
     return (
       hasEndComments(document.head) &&
-      isPrettierIgnore(getLast(document.head.endComments))
+      isPrettierIgnore(document.head.endComments.at(-1))
     );
   }
 
   return (
-    hasLeadingComments(node) && isPrettierIgnore(getLast(node.leadingComments))
+    hasLeadingComments(node) && isPrettierIgnore(node.leadingComments.at(-1))
   );
 }
 
@@ -222,12 +222,12 @@ function getFlowScalarLineContents(nodeType, content, options) {
           // trailing backslash in quoteDouble should be preserved
           (
             nodeType === "quoteDouble" &&
-            getLast(getLast(reduced)).endsWith("\\")
+            reduced.at(-1).at(-1).endsWith("\\")
           )
         )
           ? [
               ...reduced.slice(0, -1),
-              [...getLast(reduced), ...lineContentWords],
+              [...reduced.at(-1), ...lineContentWords],
             ]
           : [...reduced, lineContentWords],
       []
@@ -284,10 +284,10 @@ function getBlockValueLineContents(
           rawLineContents[index - 1].length > 0 &&
           lineContentWords.length > 0 &&
           !/^\s/.test(lineContentWords[0]) &&
-          !/^\s|\s$/.test(getLast(reduced))
+          !/^\s|\s$/.test(reduced.at(-1))
             ? [
                 ...reduced.slice(0, -1),
-                [...getLast(reduced), ...lineContentWords],
+                [...reduced.at(-1), ...lineContentWords],
               ]
             : [...reduced, lineContentWords],
         []
@@ -296,8 +296,8 @@ function getBlockValueLineContents(
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
-            reduced.length > 0 && /\s$/.test(getLast(reduced))
-              ? [...reduced.slice(0, -1), getLast(reduced) + " " + word]
+            reduced.length > 0 && /\s$/.test(reduced.at(-1))
+              ? [...reduced.slice(0, -1), reduced.at(-1) + " " + word]
               : [...reduced, word],
           []
         )
@@ -311,7 +311,7 @@ function getBlockValueLineContents(
 
   function removeUnnecessaryTrailingNewlines(lineContents) {
     if (node.chomping === "keep") {
-      return getLast(lineContents).length === 0
+      return lineContents.at(-1).length === 0
         ? lineContents.slice(0, -1)
         : lineContents;
     }

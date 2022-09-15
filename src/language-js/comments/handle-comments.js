@@ -394,7 +394,7 @@ function handleClassComments({
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
-      addTrailingComment(getLast(enclosingNode.decorators), comment);
+      addTrailingComment(enclosingNode.decorators.at(-1), comment);
       return true;
     }
 
@@ -589,7 +589,7 @@ function handleLastFunctionArgComments({
       if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
-          locEnd(getLast(parameters))
+          locEnd(parameters.at(-1))
         );
       }
       const functionParamLeftParenIndex =

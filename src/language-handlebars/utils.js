@@ -7,14 +7,14 @@ function isLastNodeOfSiblings(path) {
 
   if (
     isParentOfSomeType(path, ["ElementNode"]) &&
-    getLast(parentNode.children) === node
+    parentNode.children.at(-1) === node
   ) {
     return true;
   }
 
   if (
     isParentOfSomeType(path, ["Block"]) &&
-    getLast(parentNode.body) === node
+    parentNode.body.at(-1) === node
   ) {
     return true;
   }

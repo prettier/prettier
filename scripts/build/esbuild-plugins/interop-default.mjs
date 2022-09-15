@@ -16,9 +16,9 @@ export default function esbuildPluginInteropDefault() {
         const text = fs.readFileSync(file, "utf8").trim();
         const lines = text.split("\n");
         if (
-          lines[lines.length - 2] !==
+          lines.at(- 2) !==
             "// Annotate the CommonJS export names for ESM import in node:" ||
-          lines[lines.length - 1] !== "0 && (module.exports = {});"
+          lines.at(- 1) !== "0 && (module.exports = {});"
         ) {
           throw new Error("Unexpected output.");
         }

@@ -141,7 +141,7 @@ function willBreak(doc) {
 
 function breakParentGroup(groupStack) {
   if (groupStack.length > 0) {
-    const parentGroup = getLast(groupStack);
+    const parentGroup = groupStack.at(-1);
     // Breaks are not propagated through conditional groups because
     // the user is expected to manually handle what breaks.
     if (!parentGroup.expandedStates && !parentGroup.break) {
@@ -223,7 +223,7 @@ function stripDocTrailingHardlineFromDoc(doc) {
     }
 
     if (parts.length > 0) {
-      const lastPart = stripDocTrailingHardlineFromDoc(getLast(parts));
+      const lastPart = stripDocTrailingHardlineFromDoc(parts.at(-1));
       parts[parts.length - 1] = lastPart;
     }
     return Array.isArray(doc) ? parts : { ...doc, parts };
@@ -302,7 +302,7 @@ function cleanDocFn(doc) {
         const [currentPart, ...restParts] = Array.isArray(part) ? part : [part];
         if (
           typeof currentPart === "string" &&
-          typeof getLast(parts) === "string"
+          typeof parts.at(-1) === "string"
         ) {
           parts[parts.length - 1] += currentPart;
         } else {
@@ -362,7 +362,7 @@ function normalizeParts(parts) {
 
     if (
       newParts.length > 0 &&
-      typeof getLast(newParts) === "string" &&
+      typeof newParts.at(-1) === "string" &&
       typeof part === "string"
     ) {
       newParts[newParts.length - 1] += part;

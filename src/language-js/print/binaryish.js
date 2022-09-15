@@ -170,7 +170,7 @@ function printBinaryishExpression(path, options, print) {
     return chain;
   }
 
-  const jsxPart = getLast(parts);
+  const jsxPart = parts.at(-1);
   return group([chain, indentIfBreak(jsxPart, { groupId })]);
 }
 

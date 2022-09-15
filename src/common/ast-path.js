@@ -16,7 +16,7 @@ class AstPath {
   }
 
   get node() {
-    return getLast(this.stack);
+    return this.stack.at(-1);
   }
 
   get parent() {
@@ -33,7 +33,7 @@ class AstPath {
 
   get siblings() {
     const { stack } = this;
-    const maybeArray = stack[stack.length - 3];
+    const maybeArray = stack.at(- 3);
     return Array.isArray(maybeArray) ? maybeArray : null;
   }
 
@@ -77,7 +77,7 @@ class AstPath {
   // The value of the current property is always the final element of
   // this.stack.
   getValue() {
-    return getLast(this.stack);
+    return this.stack.at(-1);
   }
 
   getNode(count = 0) {
@@ -107,7 +107,7 @@ class AstPath {
   call(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = getLast(stack);
+    let value = stack.at(-1);
 
     for (const name of names) {
       value = value[name];
@@ -137,7 +137,7 @@ class AstPath {
   each(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = getLast(stack);
+    let value = stack.at(-1);
 
     for (const name of names) {
       value = value[name];

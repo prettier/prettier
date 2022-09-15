@@ -137,7 +137,7 @@ function printObject(path, options, print) {
       printed = [
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(options.originalText, locEnd(getLast(getComments(node))))
+        hasNewline(options.originalText, locEnd(getComments(node).at(-1)))
           ? hardline
           : line,
         "...",
@@ -148,7 +148,7 @@ function printObject(path, options, print) {
     props.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = getLast(propsAndLoc)?.node;
+  const lastElem = propsAndLoc.at(-1)?.node;
 
   const canHaveTrailingSeparator = !(
     node.inexact ||

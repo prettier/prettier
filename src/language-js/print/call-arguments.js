@@ -223,7 +223,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 }
 
 function shouldExpandLastArg(args, options) {
-  const lastArg = getLast(args);
+  const lastArg = args.at(-1);
   const penultimateArg = getPenultimate(args);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&

@@ -477,7 +477,7 @@ function printReturnOrThrowArgument(path, options, print) {
   }
 
   const comments = getComments(node);
-  const lastComment = getLast(comments);
+  const lastComment = comments.at(-1);
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {

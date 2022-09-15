@@ -342,7 +342,7 @@ async function _parse(
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       // @ts-expect-error
-      getLast(subAst.children).sourceSpan.end
+      subAst.children.at(-1).sourceSpan.end
     );
     // @ts-expect-error
     const firstText = subAst.children[0];

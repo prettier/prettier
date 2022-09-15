@@ -42,7 +42,7 @@ function clean(ast, newObj, parent) {
     }
 
     // Last comment is not parsed, when omitting semicolon, #8675
-    if (parent.type === "css-root" && getLast(parent.nodes) === ast) {
+    if (parent.type === "css-root" && parent.nodes.at(-1) === ast) {
       return null;
     }
   }

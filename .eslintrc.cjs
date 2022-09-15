@@ -165,6 +165,12 @@ module.exports = {
     ],
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-at": [
+      "error",
+      {
+        getLastElementFunctions: ["getLast"],
+      },
+    ],
     "unicorn/prefer-export-from": [
       "error",
       {

@@ -768,9 +768,7 @@ function needsHardlineAfterDanglingComment(node) {
   if (!hasComment(node)) {
     return false;
   }
-  const lastDanglingComment = getLast(
-    getComments(node, CommentCheckFlags.Dangling)
-  );
+  const lastDanglingComment = getComments(node, CommentCheckFlags.Dangling).at(-1);
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
 
@@ -1106,7 +1104,7 @@ function hasRestParameter(node) {
     return true;
   }
   const parameters = getFunctionParameters(node);
-  return getLast(parameters)?.type === "RestElement";
+  return parameters.at(-1)?.type === "RestElement";
 }
 
 const functionParametersCache = new WeakMap();

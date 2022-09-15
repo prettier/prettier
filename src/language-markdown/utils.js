@@ -91,7 +91,7 @@ function splitText(text, options) {
             value: innerToken,
             kind: KIND_NON_CJK,
             hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-            hasTrailingPunctuation: punctuationRegex.test(getLast(innerToken)),
+            hasTrailingPunctuation: punctuationRegex.test(innerToken.at(-1)),
           });
         }
         continue;
@@ -121,7 +121,7 @@ function splitText(text, options) {
   return nodes;
 
   function appendNode(node) {
-    const lastNode = getLast(nodes);
+    const lastNode = nodes.at(-1);
     if (lastNode && lastNode.type === "word") {
       if (
         (lastNode.kind === KIND_NON_CJK &&

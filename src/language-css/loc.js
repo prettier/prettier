@@ -50,7 +50,7 @@ function calculateLocEnd(node, text) {
     }
 
     if (isNonEmptyArray(node.nodes)) {
-      return calculateLocEnd(getLast(node.nodes), text);
+      return calculateLocEnd(node.nodes.at(-1), text);
     }
   }
 

@@ -41,7 +41,7 @@ async function parseValueNode(valueNode, options) {
       options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
-      getLast(node.value) === "."
+      node.value.at(-1) === "."
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
@@ -113,11 +113,11 @@ async function parseValueNode(valueNode, options) {
       }
 
       commaGroupStack.pop();
-      commaGroup = getLast(commaGroupStack);
+      commaGroup = commaGroupStack.at(-1);
       commaGroup.groups.push(parenGroup);
 
       parenGroupStack.pop();
-      parenGroup = getLast(parenGroupStack);
+      parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {

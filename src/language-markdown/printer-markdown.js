@@ -155,8 +155,8 @@ function genericPrint(path, options, print) {
         const { previous, next } = path;
         const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
           (previous?.type === "sentence" &&
-            getLast(previous.children)?.type === "word" &&
-            !getLast(previous.children).hasTrailingPunctuation) ||
+            previous.children.at(-1)?.type === "word" &&
+            !previous.children.at(-1).hasTrailingPunctuation) ||
           (next?.type === "sentence" &&
             next.children[0]?.type === "word" &&
             !next.children[0].hasLeadingPunctuation);
@@ -262,7 +262,7 @@ function genericPrint(path, options, print) {
     case "html": {
       const { parent } = path;
       const value =
-        parent.type === "root" && getLast(parent.children) === node
+        parent.type === "root" && parent.children.at(-1) === node
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
@@ -739,7 +739,7 @@ function printChildren(path, options, print, events = {}) {
 function getLastDescendantNode(node) {
   let current = node;
   while (isNonEmptyArray(current.children)) {
-    current = getLast(current.children);
+    current = current.children.at(-1);
   }
   return current;
 }
