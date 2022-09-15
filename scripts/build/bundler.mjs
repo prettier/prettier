@@ -46,7 +46,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     // Transform `.at` and `Object.hasOwn`
     {
       module: "*",
-      process: transform
+      process: transform,
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {

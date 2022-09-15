@@ -6,7 +6,9 @@ import babelGenerator from "@babel/generator";
 import { outdent } from "outdent";
 
 const generate = babelGenerator.default;
-const atHelperPath = fileURLToPath(new URL("../shims/at-helper.js", import.meta.url));
+const atHelperPath = fileURLToPath(
+  new URL("../shims/at-helper.js", import.meta.url)
+);
 
 /* Doesn't work for optional chaining */
 
@@ -73,13 +75,16 @@ function transformRelativeIndexingCall(node) {
 }
 
 function transform(original, file) {
-  if (file === atHelperPath || !original.includes(".at(") && !original.includes("Object.hasOwn(")) {
+  if (
+    file === atHelperPath ||
+    (!original.includes(".at(") && !original.includes("Object.hasOwn("))
+  ) {
     return original;
   }
 
   let changed = false;
   let shouldInjectRelativeIndexingHelper = false;
-  const ast = parse(original, {sourceType: "module"});
+  const ast = parse(original, { sourceType: "module" });
   traverse(ast, (node) => {
     changed ||= transformObjectHasOwnCall(node);
     shouldInjectRelativeIndexingHelper ||= transformRelativeIndexingCall(node);
