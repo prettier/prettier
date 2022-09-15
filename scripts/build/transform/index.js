@@ -3,17 +3,19 @@ import { parse } from "@babel/parser";
 import { traverseFast as traverse } from "@babel/types";
 import babelGenerator from "@babel/generator";
 import { outdent } from "outdent";
+import { SOURCE_DIR } from "../../utils/index.mjs";
 
 const generate = babelGenerator.default;
 const atHelperPath = fileURLToPath(new URL("../shims/at.js", import.meta.url));
 
-/* Doesn't work for optional chaining and spread arguments */
+/* Doesn't work for dependencies, optional chaining, and spread arguments */
 
 // `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
 function transformObjectHasOwnCall(node) {
   if (
     !(
       node.type === "CallExpression" &&
+      !node.optional &&
       node.arguments.length === 2 &&
       node.arguments.every(({type}) => type !== "SpreadElement") &&
       node.callee.type === "MemberExpression" &&
@@ -49,6 +51,7 @@ function transformRelativeIndexingCall(node) {
   if (
     !(
       node.type === "CallExpression" &&
+      !node.optional &&
       node.arguments.length === 1 &&
       node.arguments.every(({type}) => type !== "SpreadElement") &&
       node.callee.type === "MemberExpression" &&
@@ -61,7 +64,7 @@ function transformRelativeIndexingCall(node) {
     return false;
   }
 
-  node.arguments.unshift(node.object);
+  node.arguments.unshift(node.callee.object);
   node.callee = { type: "Identifier", name: "__at" };
 
   return true;
@@ -70,6 +73,7 @@ function transformRelativeIndexingCall(node) {
 function transform(original, file) {
   if (
     file === atHelperPath ||
+    file.startsWith(SOURCE_DIR) ||
     (!original.includes(".at(") && !original.includes("Object.hasOwn("))
   ) {
     return original;
