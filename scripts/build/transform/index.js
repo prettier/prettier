@@ -75,7 +75,7 @@ function transformRelativeIndexingCall(node) {
 function transform(original, file) {
   if (
     file === atHelperPath ||
-    file.startsWith(SOURCE_DIR) ||
+    !file.startsWith(SOURCE_DIR) ||
     (!original.includes(".at(") && !original.includes("Object.hasOwn("))
   ) {
     return original;
