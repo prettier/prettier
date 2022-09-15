@@ -1,5 +1,3 @@
-import { getPenultimate } from "./util.js";
-
 class AstPath {
   constructor(value) {
     this.stack = [value];
@@ -11,7 +9,7 @@ class AstPath {
   }
 
   get index() {
-    return this.siblings === null ? null : getPenultimate(this.stack);
+    return this.siblings === null ? null : (this.stack).at(-2);
   }
 
   get node() {

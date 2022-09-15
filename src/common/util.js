@@ -11,8 +11,6 @@ import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
 import skipNewline from "../utils/text/skip-newline.js";
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
 
-const getPenultimate = (arr) => arr.at(- 2);
-
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
  */
@@ -478,7 +476,6 @@ export {
   inferParserByLanguage,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getPenultimate,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
