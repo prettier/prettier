@@ -1,6 +1,5 @@
 import esutils from "esutils";
 import {
-  getLast,
   hasNewline,
   skipWhitespace,
   isNonEmptyArray,

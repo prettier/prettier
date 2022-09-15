@@ -14,7 +14,7 @@ import {
 import { willBreak } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
-import { getLast, getPreferredQuote } from "../../common/util.js";
+import { getPreferredQuote } from "../../common/util.js";
 import {
   isJsxNode,
   rawText,

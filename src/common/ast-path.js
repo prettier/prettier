@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import { getPenultimate } from "./util.js";
 
 class AstPath {

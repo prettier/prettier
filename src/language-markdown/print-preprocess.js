@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff

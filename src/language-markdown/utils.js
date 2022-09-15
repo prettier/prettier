@@ -1,4 +1,3 @@
-import { getLast } from "../common/util.js";
 import { locStart, locEnd } from "./loc.js";
 import {
   cjkPattern,

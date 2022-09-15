@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import {
   printNumber,
   printString,

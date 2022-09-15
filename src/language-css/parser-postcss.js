@@ -1,5 +1,4 @@
 import createError from "../common/parser-create-error.js";
-import getLast from "../utils/get-last.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";

@@ -1,4 +1,3 @@
-import getLast from "../../utils/get-last.js";
 import { getStringWidth, getIndentSize } from "../../common/util.js";
 import {
   join,

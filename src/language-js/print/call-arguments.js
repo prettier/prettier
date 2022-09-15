@@ -1,5 +1,5 @@
 import { printDanglingComments } from "../../main/comments.js";
-import { getLast, getPenultimate } from "../../common/util.js";
+import { getPenultimate } from "../../common/util.js";
 import {
   getFunctionParameters,
   hasComment,

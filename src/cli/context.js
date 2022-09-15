@@ -1,4 +1,3 @@
-import { getLast } from "./utils.js";
 import { getContextOptions } from "./options/get-context-options.js";
 import {
   parseArgv,

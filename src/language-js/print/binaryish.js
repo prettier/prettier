@@ -1,5 +1,4 @@
 import { printComments } from "../../main/comments.js";
-import { getLast } from "../../common/util.js";
 import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
   join,

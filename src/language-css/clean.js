@@ -1,5 +1,4 @@
 import { isFrontMatterNode } from "../common/util.js";
-import getLast from "../utils/get-last.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter

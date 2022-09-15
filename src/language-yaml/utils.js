@@ -1,4 +1,4 @@
-import { getLast, isNonEmptyArray } from "../common/util.js";
+import { isNonEmptyArray } from "../common/util.js";
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -354,7 +354,6 @@ function isInlineNode(node) {
 }
 
 export {
-  getLast,
   getAncestorCount,
   isNode,
   isEmptyNode,

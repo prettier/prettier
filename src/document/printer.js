@@ -1,5 +1,4 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
-import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
 import {
   DOC_TYPE_STRING,

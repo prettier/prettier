@@ -1,5 +1,4 @@
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import getLast from "../utils/get-last.js";
 import createError from "../common/parser-create-error.js";
 import { inferParserByLanguage } from "../common/util.js";
 import HTML_TAGS from "./utils/html-tag-names.js";

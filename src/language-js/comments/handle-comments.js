@@ -1,5 +1,4 @@
 import {
-  getLast,
   hasNewline,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacter,

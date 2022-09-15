@@ -508,6 +508,5 @@ export {
   isFrontMatterNode,
   createGroupIdMapper,
 };
-export { default as getLast } from "../utils/get-last.js";
 export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
 export { default as getStringWidth } from "../utils/get-string-width.js";

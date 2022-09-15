@@ -1,7 +1,6 @@
 import { locStart, locEnd } from "../../loc.js";
 import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
-import getLast from "../../../utils/get-last.js";
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";

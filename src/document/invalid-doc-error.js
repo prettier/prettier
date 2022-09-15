@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import { VALID_OBJECT_DOC_TYPES } from "./constants.js";
 import getDocType from "./utils/get-doc-type.js";
 

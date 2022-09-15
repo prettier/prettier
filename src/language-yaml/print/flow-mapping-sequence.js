@@ -5,7 +5,7 @@ import {
   hardline,
   join,
 } from "../../document/builders.js";
-import { isEmptyNode, getLast, hasEndComments } from "../utils.js";
+import { isEmptyNode, hasEndComments } from "../utils.js";
 import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
 function printFlowMapping(path, print, options) {

@@ -1,5 +1,4 @@
 import {
-  getLast,
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,

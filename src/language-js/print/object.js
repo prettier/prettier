@@ -8,7 +8,6 @@ import {
   hardline,
 } from "../../document/builders.js";
 import {
-  getLast,
   hasNewlineInRange,
   hasNewline,
   isNonEmptyArray,

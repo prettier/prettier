@@ -1,5 +1,4 @@
 import vnopts from "vnopts";
-import getLast from "../utils/get-last.js";
 
 /**
  * @typedef {import("./support").NamedOptionInfo} NamedOptionInfo

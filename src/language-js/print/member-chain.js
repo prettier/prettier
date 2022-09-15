@@ -1,6 +1,5 @@
 import { printComments } from "../../main/comments.js";
 import {
-  getLast,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
 } from "../../common/util.js";
