@@ -5,11 +5,11 @@ class AstPath {
 
   get key() {
     const { stack, siblings } = this;
-    return stack[stack.length - (siblings === null ? 2 : 4)] ?? null;
+    return stack.at(siblings === null ? -2 : -4) ?? null;
   }
 
   get index() {
-    return this.siblings === null ? null : (this.stack).at(-2);
+    return this.siblings === null ? null : this.stack.at(-2);
   }
 
   get node() {
@@ -30,7 +30,7 @@ class AstPath {
 
   get siblings() {
     const { stack } = this;
-    const maybeArray = stack.at(- 3);
+    const maybeArray = stack.at(-3);
     return Array.isArray(maybeArray) ? maybeArray : null;
   }
 
@@ -63,7 +63,7 @@ class AstPath {
     const { stack } = this;
     const { length } = stack;
     if (length > 1) {
-      return stack[length - 2];
+      return stack.at(-2);
     }
     // Since the name is a string/number/symbol, null is a safe sentinel value
     // to return if we do not know the name of the (root) value.

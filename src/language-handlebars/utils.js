@@ -11,10 +11,7 @@ function isLastNodeOfSiblings(path) {
     return true;
   }
 
-  if (
-    isParentOfSomeType(path, ["Block"]) &&
-    parentNode.body.at(-1) === node
-  ) {
+  if (isParentOfSomeType(path, ["Block"]) && parentNode.body.at(-1) === node) {
     return true;
   }
 

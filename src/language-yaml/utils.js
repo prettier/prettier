@@ -220,15 +220,9 @@ function getFlowScalarLineContents(nodeType, content, options) {
         lineContentWords.length > 0 &&
         !(
           // trailing backslash in quoteDouble should be preserved
-          (
-            nodeType === "quoteDouble" &&
-            reduced.at(-1).at(-1).endsWith("\\")
-          )
+          (nodeType === "quoteDouble" && reduced.at(-1).at(-1).endsWith("\\"))
         )
-          ? [
-              ...reduced.slice(0, -1),
-              [...reduced.at(-1), ...lineContentWords],
-            ]
+          ? [...reduced.slice(0, -1), [...reduced.at(-1), ...lineContentWords]]
           : [...reduced, lineContentWords],
       []
     )
