@@ -14,7 +14,9 @@ function getInputFromTerminal() {
   return new Promise((resolve) => {
     const inputCode = [];
     const readLine = readline.createInterface({ input: stdin });
-    readLine.on("line", (line) => inputCode.push(line));
+    readLine.on("line", (line) => {
+      inputCode.push(line);
+    });
     readLine.on("close", () => {
       resolve(inputCode.join("\n"));
     });
