@@ -18,7 +18,7 @@ const getOptionsForFile = require("./options/get-options-for-file.js");
 const isTTY = require("./is-tty.js");
 const findCacheFile = require("./find-cache-file.js");
 const FormatResultsCache = require("./format-results-cache.js");
-const { statSafe } = require("./utils.js");
+const { statSafe, printToScreen } = require("./utils.js");
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
@@ -256,6 +256,8 @@ async function formatStdin(context) {
   try {
     let input;
     if (context.argv.stdin) {
+      printToScreen("Start writing your code snippet below");
+      printToScreen("After finishing press ctrl+D to exit the read mode");
       input = await getInputFromTerminal();
     } else {
       input = await getStdin();
@@ -265,6 +267,7 @@ async function formatStdin(context) {
       ignorer.ignores(fixWindowsSlashes(relativeFilepath))
     ) {
       writeOutput(context, { formatted: input });
+      context.argv.stdin && printToScreen("Formatted code");
       return;
     }
 
@@ -285,6 +288,7 @@ async function formatStdin(context) {
     }
 
     writeOutput(context, formatted, options);
+    context.argv.stdin && printToScreen("Formatted code");
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }

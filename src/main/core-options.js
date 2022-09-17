@@ -110,7 +110,7 @@ const options = {
     type: "boolean",
     default: false,
     description:
-      "Starts accepting std input from terminal. Should be used with stdin-filepath option",
+      "Starts accepting std input from terminal. Requires either stdin-filepath or parser options to be a passed as well.",
     cliName: "stdin",
     cliCategory: CATEGORY_OTHER,
   },

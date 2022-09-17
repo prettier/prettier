@@ -3,9 +3,12 @@
 exports[`format the given input if the input matches parser specified - CSS (stderr) 1`] = `""`;
 
 exports[`format the given input if the input matches parser specified - CSS (stdout) 1`] = `
-".name {
+"Start writing your code snippet below
+After finishing press ctrl+D to exit the read mode
+.name {
   display: none;
 }
+Formatted code
 "
 `;
 
@@ -14,9 +17,12 @@ exports[`format the given input if the input matches parser specified - CSS (wri
 exports[`format the given input if the input matches the file type - CSS (stderr) 1`] = `""`;
 
 exports[`format the given input if the input matches the file type - CSS (stdout) 1`] = `
-".name {
+"Start writing your code snippet below
+After finishing press ctrl+D to exit the read mode
+.name {
   display: none;
 }
+Formatted code
 "
 `;
 
@@ -25,9 +31,12 @@ exports[`format the given input if the input matches the file type - CSS (write)
 exports[`format the given input if the input matches the file type - JS (stderr) 1`] = `""`;
 
 exports[`format the given input if the input matches the file type - JS (stdout) 1`] = `
-"function hello() {
+"Start writing your code snippet below
+After finishing press ctrl+D to exit the read mode
+function hello() {
   return "world";
 }
+Formatted code
 "
 `;
 
@@ -36,9 +45,12 @@ exports[`format the given input if the input matches the file type - JS (write) 
 exports[`format the given input if the input matches the parser specified - JS (stderr) 1`] = `""`;
 
 exports[`format the given input if the input matches the parser specified - JS (stdout) 1`] = `
-"function hello() {
+"Start writing your code snippet below
+After finishing press ctrl+D to exit the read mode
+function hello() {
   return "world";
 }
+Formatted code
 "
 `;
 

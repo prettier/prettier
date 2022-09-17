@@ -619,6 +619,19 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help stdin (stdout) 1`] = `
+"--stdin
+
+  Starts accepting std input from terminal. Requires either stdin-filepath or parser options to be a passed as well.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help stdin (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help stdin-filepath (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
