@@ -20,7 +20,7 @@ function getInputFromTerminal() {
     readLine.on("line", (line) => inputCode.push(line));
     readLine.on("close", () => {
       if (inputCode.length > 0) {
-        printToScreen("\x1b[35m%s\x1b[0m", "\nFormatted code");
+        printToScreen("Formatted code");
         resolve(inputCode.join("\n"));
       } else {
         reject("Nothing was typed");

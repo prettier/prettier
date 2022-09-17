@@ -44,8 +44,6 @@ exports[`format the given input if the input matches the parser specified - JS (
 
 exports[`format the given input if the input matches the parser specified - JS (write) 1`] = `[]`;
 
-exports[`throw error if parser is not passed is not passed (status) 1`] = `1`;
-
 exports[`throw error if parser is not passed is not passed (stderr) 1`] = `
 "[error] Cannot use --stdin without also passing --stdin-filepath or --parser
 "
@@ -54,8 +52,6 @@ exports[`throw error if parser is not passed is not passed (stderr) 1`] = `
 exports[`throw error if parser is not passed is not passed (stdout) 1`] = `""`;
 
 exports[`throw error if parser is not passed is not passed (write) 1`] = `[]`;
-
-exports[`throw error if stdin-filepath is not passed (status) 1`] = `1`;
 
 exports[`throw error if stdin-filepath is not passed (stderr) 1`] = `
 "[error] Cannot use --stdin without also passing --stdin-filepath or --parser
