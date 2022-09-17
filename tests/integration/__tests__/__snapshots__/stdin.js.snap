@@ -5,10 +5,10 @@ exports[`format the given input if the input matches parser specified - CSS (std
 exports[`format the given input if the input matches parser specified - CSS (stdout) 1`] = `
 "Start writing your code snippet below
 After finishing press ctrl+D to exit the read mode
+Formatted code
 .name {
   display: none;
 }
-Formatted code
 "
 `;
 
@@ -19,10 +19,10 @@ exports[`format the given input if the input matches the file type - CSS (stderr
 exports[`format the given input if the input matches the file type - CSS (stdout) 1`] = `
 "Start writing your code snippet below
 After finishing press ctrl+D to exit the read mode
+Formatted code
 .name {
   display: none;
 }
-Formatted code
 "
 `;
 
@@ -33,10 +33,10 @@ exports[`format the given input if the input matches the file type - JS (stderr)
 exports[`format the given input if the input matches the file type - JS (stdout) 1`] = `
 "Start writing your code snippet below
 After finishing press ctrl+D to exit the read mode
+Formatted code
 function hello() {
   return "world";
 }
-Formatted code
 "
 `;
 
@@ -47,17 +47,17 @@ exports[`format the given input if the input matches the parser specified - JS (
 exports[`format the given input if the input matches the parser specified - JS (stdout) 1`] = `
 "Start writing your code snippet below
 After finishing press ctrl+D to exit the read mode
+Formatted code
 function hello() {
   return "world";
 }
-Formatted code
 "
 `;
 
 exports[`format the given input if the input matches the parser specified - JS (write) 1`] = `[]`;
 
 exports[`throw error if parser is not passed is not passed (stderr) 1`] = `
-"[error] Cannot use --stdin without also passing --stdin-filepath or --parser
+"[error] '--stdin-filepath' or '--parser' is required when using '--stdin'
 "
 `;
 
@@ -66,7 +66,7 @@ exports[`throw error if parser is not passed is not passed (stdout) 1`] = `""`;
 exports[`throw error if parser is not passed is not passed (write) 1`] = `[]`;
 
 exports[`throw error if stdin-filepath is not passed (stderr) 1`] = `
-"[error] Cannot use --stdin without also passing --stdin-filepath or --parser
+"[error] '--stdin-filepath' or '--parser' is required when using '--stdin'
 "
 `;
 
