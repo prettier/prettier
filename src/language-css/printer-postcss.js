@@ -590,7 +590,6 @@ function genericPrint(path, options, print) {
           insideSCSSInterpolationInString &&
           iNextNode.type === "value-string" &&
           iNextNode.value.endsWith("}");
-
         if (
           isStartSCSSInterpolationInString ||
           isEndingSCSSInterpolationInString
@@ -621,6 +620,7 @@ function genericPrint(path, options, print) {
 
         // Ignore escape `\`
         if (
+          iNode.type !== "value-string" &&
           iNode.value &&
           iNode.value.includes("\\") &&
           iNextNode &&
