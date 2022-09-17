@@ -266,8 +266,8 @@ async function formatStdin(context) {
       relativeFilepath &&
       ignorer.ignores(fixWindowsSlashes(relativeFilepath))
     ) {
-      writeOutput(context, { formatted: input });
       context.argv.stdin && printToScreen("Formatted code");
+      writeOutput(context, { formatted: input });
       return;
     }
 
@@ -287,8 +287,8 @@ async function formatStdin(context) {
       return;
     }
 
-    writeOutput(context, formatted, options);
     context.argv.stdin && printToScreen("Formatted code");
+    writeOutput(context, formatted, options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
   }
