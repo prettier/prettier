@@ -738,6 +738,9 @@ function genericPrint(path, options, print) {
             (isMathOperator &&
               (!iPrevNode || (iPrevNode && isMathOperatorNode(iPrevNode)))))
         ) {
+          if (isSubtractionNode(iNode) && iNextNode.type === "value-func") {
+            parts.push(" ");
+          }
           continue;
         }
 
