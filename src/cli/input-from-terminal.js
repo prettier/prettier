@@ -1,7 +1,7 @@
 "use strict";
 
 const readline = require("readline");
-const { stdin: input } = require("node:process");
+const { stdin } = require("node:process");
 
 /**
  * This function starts reading any input which user types on the console.
@@ -13,7 +13,7 @@ const { stdin: input } = require("node:process");
 function getInputFromTerminal() {
   return new Promise((resolve) => {
     const inputCode = [];
-    const readLine = readline.createInterface({ input });
+    const readLine = readline.createInterface({ input: stdin });
     readLine.on("line", (line) => inputCode.push(line));
     readLine.on("close", () => {
       if (inputCode.length > 0) {
