@@ -16,11 +16,7 @@ function getInputFromTerminal() {
     const readLine = readline.createInterface({ input: stdin });
     readLine.on("line", (line) => inputCode.push(line));
     readLine.on("close", () => {
-      if (inputCode.length > 0) {
-        resolve(inputCode.join("\n"));
-      } else {
-        resolve("");
-      }
+      resolve(inputCode.join("\n"));
     });
   });
 }
