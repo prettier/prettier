@@ -1,7 +1,7 @@
 "use strict";
 
 const readline = require("readline");
-const { stdin: input } = require("node:process");
+const { stdin } = require("node:process");
 const { printToScreen } = require("./utils.js");
 
 /**

@@ -57,7 +57,7 @@ async function main(context) {
 
   if (context.argv.stdin && !context.argv.filepath && !context.argv.parser) {
     throw new Error(
-      "Cannot use --stdin without also passing --stdin-filepath or --parser"
+      "'--stdin-filepath' or '--parser' is required when using '--stdin'"
     );
   }
 
