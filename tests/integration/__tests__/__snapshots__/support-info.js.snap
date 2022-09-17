@@ -249,6 +249,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
+    "stdin": {
+      "default": false,
+      "type": "boolean",
+    },
     "tabWidth": {
       "default": 2,
       "range": {
@@ -1113,6 +1117,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       "name": "singleQuote",
       "pluginDefaults": {},
       "since": "0.0.0",
+      "type": "boolean"
+    },
+    {
+      "category": "Special",
+      "default": false,
+      "description": "Starts accepting std input from terminal. Requires either stdin-filepath or parser options to be a passed as well.",
+      "name": "stdin",
+      "pluginDefaults": {},
+      "since": "2.8.0",
       "type": "boolean"
     },
     {

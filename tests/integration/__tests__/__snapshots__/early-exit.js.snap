@@ -162,6 +162,8 @@ Other options:
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
+  --stdin                  Starts accepting std input from terminal. Requires either stdin-filepath or parser options to be a passed as well.
+                           Defaults to false.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
   -v, --version            Print Prettier version.
@@ -336,6 +338,8 @@ Other options:
   --no-plugin-search       Disable plugin autoloading.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
+                           Defaults to false.
+  --stdin                  Starts accepting std input from terminal. Requires either stdin-filepath or parser options to be a passed as well.
                            Defaults to false.
   --stdin-filepath <path>  Path to the file to pretend that stdin comes from.
   --support-info           Print support information as JSON.
