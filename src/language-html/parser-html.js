@@ -1,6 +1,6 @@
 import parseFrontMatter from "../utils/front-matter/parse.js";
+import inferParserByLanguage from "../utils/infer-parser-by-language.js";
 import createError from "../common/parser-create-error.js";
-import { inferParserByLanguage } from "../common/util.js";
 import HTML_TAGS from "./utils/html-tag-names.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";

@@ -1,5 +1,4 @@
 import escapeStringRegexp from "escape-string-regexp";
-import { getSupportInfo } from "../main/support.js";
 import {
   skipWhitespace,
   skipSpaces,
@@ -423,20 +422,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function inferParserByLanguage(language, options) {
-  const { languages } = getSupportInfo({ plugins: options.plugins });
-  const matched =
-    languages.find(({ name }) => name.toLowerCase() === language) ||
-    languages.find(
-      ({ aliases }) => Array.isArray(aliases) && aliases.includes(language)
-    ) ||
-    languages.find(
-      ({ extensions }) =>
-        Array.isArray(extensions) && extensions.includes(`.${language}`)
-    );
-  return matched && matched.parsers[0];
-}
-
 function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
 }
@@ -473,7 +458,6 @@ function describeNodeForDebugging(node) {
 }
 
 export {
-  inferParserByLanguage,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,

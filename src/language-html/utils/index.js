@@ -2,7 +2,8 @@
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
-import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
+import { isFrontMatterNode } from "../../common/util.js";
+import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
 import { line, hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import {
