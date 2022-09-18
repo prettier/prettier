@@ -1,6 +1,6 @@
 "use strict";
 
-const readline = require("readline");
+const readline = require("node:readline");
 const { stdin } = require("node:process");
 
 /**
