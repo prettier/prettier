@@ -620,6 +620,7 @@ function genericPrint(path, options, print) {
 
         // Ignore escape `\`
         if (
+          iNode.type !== "value-string" &&
           iNode.value &&
           iNode.value.includes("\\") &&
           iNextNode &&
