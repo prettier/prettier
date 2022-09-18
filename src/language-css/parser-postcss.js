@@ -701,8 +701,8 @@ async function parseLess(text, options = {}) {
 }
 
 async function parseScss(text, options = {}) {
-  const scss = await import("postcss-scss");
-  return parseWithParser(scss.parse, text, options);
+  const parse = await import("postcss-scss/lib/scss-parse");
+  return parseWithParser(parse, text, options);
 }
 
 const postCssParser = {
