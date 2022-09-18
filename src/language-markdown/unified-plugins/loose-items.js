@@ -4,7 +4,7 @@ function looseItems() {
 
   function fixListNodes(value, node, parent) {
     if (node.type === "listItem") {
-      node.loose = node.spread || value.charAt(value.length - 1) === "\n";
+      node.loose = node.spread || value.endsWith("\n");
       if (node.loose) {
         parent.loose = true;
       }

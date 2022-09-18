@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import {
   printNumber,
   printString,
@@ -891,7 +890,7 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
-      const lastItem = getLast(node.groups);
+      const lastItem = node.groups.at(-1);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
       const isConfiguration = isConfigurationNode(node, parentNode);
@@ -941,7 +940,7 @@ function genericPrint(path, options, print) {
                   child.type === "value-comma_group" &&
                   isNonEmptyArray(child.groups)
                 ) {
-                  const last = getLast(child.groups);
+                  const last = child.groups.at(-1);
                   if (
                     // `value-paren_group` missing location info
                     last.source &&
@@ -1007,7 +1006,7 @@ function genericPrint(path, options, print) {
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (prevNode &&
           typeof prevNode.value === "string" &&
-          getLast(prevNode.value) === "\\") ||
+          prevNode.value.endsWith("\\")) ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""

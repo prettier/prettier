@@ -1,6 +1,3 @@
-import getLast from "../utils/get-last.js";
-import { getPenultimate } from "./util.js";
-
 class AstPath {
   constructor(value) {
     this.stack = [value];
@@ -8,15 +5,15 @@ class AstPath {
 
   get key() {
     const { stack, siblings } = this;
-    return stack[stack.length - (siblings === null ? 2 : 4)] ?? null;
+    return stack.at(siblings === null ? -2 : -4) ?? null;
   }
 
   get index() {
-    return this.siblings === null ? null : getPenultimate(this.stack);
+    return this.siblings === null ? null : this.stack.at(-2);
   }
 
   get node() {
-    return getLast(this.stack);
+    return this.stack.at(-1);
   }
 
   get parent() {
@@ -33,7 +30,7 @@ class AstPath {
 
   get siblings() {
     const { stack } = this;
-    const maybeArray = stack[stack.length - 3];
+    const maybeArray = stack.at(-3);
     return Array.isArray(maybeArray) ? maybeArray : null;
   }
 
@@ -66,7 +63,7 @@ class AstPath {
     const { stack } = this;
     const { length } = stack;
     if (length > 1) {
-      return stack[length - 2];
+      return stack.at(-2);
     }
     // Since the name is a string/number/symbol, null is a safe sentinel value
     // to return if we do not know the name of the (root) value.
@@ -77,7 +74,7 @@ class AstPath {
   // The value of the current property is always the final element of
   // this.stack.
   getValue() {
-    return getLast(this.stack);
+    return this.stack.at(-1);
   }
 
   getNode(count = 0) {
@@ -107,7 +104,7 @@ class AstPath {
   call(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = getLast(stack);
+    let value = stack.at(-1);
 
     for (const name of names) {
       value = value[name];
@@ -137,7 +134,7 @@ class AstPath {
   each(callback, ...names) {
     const { stack } = this;
     const { length } = stack;
-    let value = getLast(stack);
+    let value = stack.at(-1);
 
     for (const name of names) {
       value = value[name];

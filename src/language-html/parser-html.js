@@ -1,5 +1,4 @@
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import getLast from "../utils/get-last.js";
 import createError from "../common/parser-create-error.js";
 import { inferParserByLanguage } from "../common/util.js";
 import HTML_TAGS from "./utils/html-tag-names.js";
@@ -342,7 +341,7 @@ async function _parse(
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       // @ts-expect-error
-      getLast(subAst.children).sourceSpan.end
+      subAst.children.at(-1).sourceSpan.end
     );
     // @ts-expect-error
     const firstText = subAst.children[0];

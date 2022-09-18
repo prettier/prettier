@@ -1,5 +1,4 @@
 import { htmlVoidElements } from "html-void-elements";
-import getLast from "../utils/get-last.js";
 
 function isLastNodeOfSiblings(path) {
   const { node } = path;
@@ -7,15 +6,12 @@ function isLastNodeOfSiblings(path) {
 
   if (
     isParentOfSomeType(path, ["ElementNode"]) &&
-    getLast(parentNode.children) === node
+    parentNode.children.at(-1) === node
   ) {
     return true;
   }
 
-  if (
-    isParentOfSomeType(path, ["Block"]) &&
-    getLast(parentNode.body) === node
-  ) {
+  if (isParentOfSomeType(path, ["Block"]) && parentNode.body.at(-1) === node) {
     return true;
   }
 

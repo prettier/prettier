@@ -1,4 +1,3 @@
-import getLast from "../../utils/get-last.js";
 import { getStringWidth, getIndentSize } from "../../common/util.js";
 import {
   join,
@@ -137,7 +136,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = getLast(tableBody);
+      const row = tableBody.at(-1);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);

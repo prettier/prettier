@@ -1,5 +1,4 @@
 import { printDanglingComments } from "../../main/comments.js";
-import { getLast, getPenultimate } from "../../common/util.js";
 import {
   getFunctionParameters,
   hasComment,
@@ -223,8 +222,8 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 }
 
 function shouldExpandLastArg(args, options) {
-  const lastArg = getLast(args);
-  const penultimateArg = getPenultimate(args);
+  const lastArg = args.at(-1);
+  const penultimateArg = args.at(-2);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&
     !hasComment(lastArg, CommentCheckFlags.Trailing) &&

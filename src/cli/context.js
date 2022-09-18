@@ -1,4 +1,3 @@
-import { getLast } from "./utils.js";
 import { getContextOptions } from "./options/get-context-options.js";
 import {
   parseArgv,
@@ -55,7 +54,7 @@ class Context {
 
   popContextPlugins() {
     this.#stack.pop();
-    Object.assign(this, getLast(this.#stack));
+    Object.assign(this, this.#stack.at(-1));
   }
 
   // eslint-disable-next-line getter-return

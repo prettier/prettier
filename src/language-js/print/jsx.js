@@ -14,7 +14,7 @@ import {
 import { willBreak } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
-import { getLast, getPreferredQuote } from "../../common/util.js";
+import { getPreferredQuote } from "../../common/util.js";
 import {
   isJsxNode,
   rawText,
@@ -174,7 +174,7 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(children.at(-1))) {
     children.pop();
   }
 
@@ -301,7 +301,7 @@ function printJsxChildren(
 
         let endWhitespace;
         // Ends with whitespace
-        if (getLast(words) === "") {
+        if (words.at(-1) === "") {
           words.pop();
           endWhitespace = words.pop();
         }
@@ -325,7 +325,7 @@ function printJsxChildren(
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                getLast(parts),
+                parts.at(-1),
                 child,
                 next
               )
@@ -338,7 +338,7 @@ function printJsxChildren(
           parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              getLast(parts),
+              parts.at(-1),
               child,
               next
             )
@@ -614,7 +614,7 @@ function printEndOfOpeningTag(node, options, nameHasComments) {
 function shouldPrintBracketSameLine(node, options, nameHasComments) {
   const lastAttrHasTrailingComments =
     node.attributes.length > 0 &&
-    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
+    hasComment(node.attributes.at(-1), CommentCheckFlags.Trailing);
   return (
     // Simple tags (no attributes and no comment in tag name) should be
     // kept unbroken regardless of `bracketSameLine`.

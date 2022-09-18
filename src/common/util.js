@@ -11,8 +11,6 @@ import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
 import skipNewline from "../utils/text/skip-newline.js";
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
 
-const getPenultimate = (arr) => arr[arr.length - 2];
-
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
  */
@@ -478,7 +476,6 @@ export {
   inferParserByLanguage,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getPenultimate,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
@@ -508,6 +505,5 @@ export {
   isFrontMatterNode,
   createGroupIdMapper,
 };
-export { default as getLast } from "../utils/get-last.js";
 export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
 export { default as getStringWidth } from "../utils/get-string-width.js";
