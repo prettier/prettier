@@ -2,7 +2,7 @@ import { ConfigError } from "../common/errors.js";
 
 function resolveParser({ plugins, parser }) {
   for (const { parsers } of plugins) {
-    if (parsers && Object.prototype.hasOwnProperty.call(parsers, parser)) {
+    if (parsers && Object.hasOwn(parsers, parser)) {
       return parsers[parser];
     }
   }

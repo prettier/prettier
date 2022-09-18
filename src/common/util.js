@@ -1,5 +1,4 @@
 import escapeStringRegexp from "escape-string-regexp";
-import { getSupportInfo } from "../main/support.js";
 import {
   skipWhitespace,
   skipSpaces,
@@ -10,8 +9,6 @@ import skipInlineComment from "../utils/text/skip-inline-comment.js";
 import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
 import skipNewline from "../utils/text/skip-newline.js";
 import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
-
-const getPenultimate = (arr) => arr[arr.length - 2];
 
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
@@ -425,20 +422,6 @@ function addTrailingComment(node, comment) {
   addCommentHelper(node, comment);
 }
 
-function inferParserByLanguage(language, options) {
-  const { languages } = getSupportInfo({ plugins: options.plugins });
-  const matched =
-    languages.find(({ name }) => name.toLowerCase() === language) ||
-    languages.find(
-      ({ aliases }) => Array.isArray(aliases) && aliases.includes(language)
-    ) ||
-    languages.find(
-      ({ extensions }) =>
-        Array.isArray(extensions) && extensions.includes(`.${language}`)
-    );
-  return matched && matched.parsers[0];
-}
-
 function isFrontMatterNode(node) {
   return node && node.type === "front-matter";
 }
@@ -475,10 +458,8 @@ function describeNodeForDebugging(node) {
 }
 
 export {
-  inferParserByLanguage,
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getPenultimate,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
@@ -508,6 +489,5 @@ export {
   isFrontMatterNode,
   createGroupIdMapper,
 };
-export { default as getLast } from "../utils/get-last.js";
 export { default as isNonEmptyArray } from "../utils/is-non-empty-array.js";
 export { default as getStringWidth } from "../utils/get-string-width.js";

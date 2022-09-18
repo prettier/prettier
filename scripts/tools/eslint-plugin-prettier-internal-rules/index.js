@@ -4,7 +4,6 @@ module.exports = {
   rules: {
     "await-cli-tests": require("./await-cli-tests.js"),
     "better-parent-property-check-in-needs-parens": require("./better-parent-property-check-in-needs-parens.js"),
-    "consistent-negative-index-access": require("./consistent-negative-index-access.js"),
     "directly-loc-start-end": require("./directly-loc-start-end.js"),
     "flat-ast-path-call": require("./flat-ast-path-call.js"),
     "jsx-identifier-case": require("./jsx-identifier-case.js"),

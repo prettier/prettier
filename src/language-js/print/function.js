@@ -5,7 +5,6 @@ import {
   printDanglingComments,
   printCommentsSeparately,
 } from "../../main/comments.js";
-import getLast from "../../utils/get-last.js";
 import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
 import {
   line,
@@ -477,7 +476,7 @@ function printReturnOrThrowArgument(path, options, print) {
   }
 
   const comments = getComments(node);
-  const lastComment = getLast(comments);
+  const lastComment = comments.at(-1);
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {

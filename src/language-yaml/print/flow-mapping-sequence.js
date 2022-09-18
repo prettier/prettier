@@ -5,7 +5,7 @@ import {
   hardline,
   join,
 } from "../../document/builders.js";
-import { isEmptyNode, getLast, hasEndComments } from "../utils.js";
+import { isEmptyNode, hasEndComments } from "../utils.js";
 import { printNextEmptyLine, alignWithSpaces } from "./misc.js";
 
 function printFlowMapping(path, print, options) {
@@ -19,7 +19,7 @@ function printFlowMapping(path, print, options) {
   if (isMapping && node.children.length > 0 && options.bracketSpacing) {
     bracketSpacing = line;
   }
-  const lastItem = getLast(node.children);
+  const lastItem = node.children.at(-1);
   const isLastItemEmptyMappingItem =
     lastItem &&
     lastItem.type === "flowMappingItem" &&

@@ -25,7 +25,10 @@ const testPathIgnorePatterns = [];
 if (TEST_STANDALONE) {
   testPathIgnorePatterns.push("<rootDir>/tests/integration/");
 }
-if (!isProduction) {
+if (isProduction) {
+  // Only run unit test for development
+  testPathIgnorePatterns.push("<rootDir>/tests/unit/");
+} else {
   // Only test bundles for production
   testPathIgnorePatterns.push(
     "<rootDir>/tests/integration/__tests__/bundle.js"

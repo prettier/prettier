@@ -1,5 +1,4 @@
 import { printComments } from "../../main/comments.js";
-import { getLast } from "../../common/util.js";
 import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
   join,
@@ -170,7 +169,7 @@ function printBinaryishExpression(path, options, print) {
     return chain;
   }
 
-  const jsxPart = getLast(parts);
+  const jsxPart = parts.at(-1);
   return group([chain, indentIfBreak(jsxPart, { groupId })]);
 }
 

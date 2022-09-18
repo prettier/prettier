@@ -1,6 +1,5 @@
 import { printComments } from "../../main/comments.js";
 import {
-  getLast,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
 } from "../../common/util.js";
@@ -286,7 +285,7 @@ function printMemberChain(path, options, print) {
       );
     }
 
-    const lastNode = getLast(groups[0]).node;
+    const lastNode = groups[0].at(-1).node;
     return (
       isMemberExpression(lastNode) &&
       lastNode.property.type === "Identifier" &&
@@ -303,7 +302,7 @@ function printMemberChain(path, options, print) {
     const printed = printedGroup.map((tuple) => tuple.printed);
     // Checks if the last node (i.e. the parent node) needs parens and print
     // accordingly
-    if (printedGroup.length > 0 && getLast(printedGroup).needsParens) {
+    if (printedGroup.length > 0 && printedGroup.at(-1).needsParens) {
       return ["(", ...printed, ")"];
     }
     return printed;
@@ -344,7 +343,7 @@ function printMemberChain(path, options, print) {
 
   // Find out the last node in the first group and check if it has an
   // empty line after
-  const lastNodeBeforeIndent = getLast(groups[shouldMerge ? 1 : 0]).node;
+  const lastNodeBeforeIndent = groups[shouldMerge ? 1 : 0].at(-1).node;
   const shouldHaveEmptyLineBeforeIndent =
     !isCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
@@ -361,8 +360,8 @@ function printMemberChain(path, options, print) {
     .filter(isCallExpression);
 
   function lastGroupWillBreakAndOtherCallsHaveFunctionArguments() {
-    const lastGroupNode = getLast(getLast(groups)).node;
-    const lastGroupDoc = getLast(printedGroups);
+    const lastGroupNode = groups.at(-1).at(-1).node;
+    const lastGroupDoc = printedGroups.at(-1);
     return (
       isCallExpression(lastGroupNode) &&
       willBreak(lastGroupDoc) &&

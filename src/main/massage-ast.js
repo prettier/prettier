@@ -29,10 +29,7 @@ function massageAST(ast, options) {
     const newObj = {};
     const childrenKeys = new Set(getVisitorKeys(node));
     for (const key in node) {
-      if (
-        !Object.prototype.hasOwnProperty.call(node, key) ||
-        ignoredProperties.has(key)
-      ) {
+      if (!Object.hasOwn(node, key) || ignoredProperties.has(key)) {
         continue;
       }
 

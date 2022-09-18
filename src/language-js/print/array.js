@@ -8,7 +8,7 @@ import {
   ifBreak,
   fill,
 } from "../../document/builders.js";
-import { getLast, hasNewline } from "../../common/util.js";
+import { hasNewline } from "../../common/util.js";
 import {
   shouldPrintComma,
   hasComment,
@@ -44,7 +44,7 @@ function printArray(path, options, print) {
       );
     }
   } else {
-    const lastElem = getLast(node.elements);
+    const lastElem = node.elements.at(-1);
     const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
 
     // JavaScript allows you to have empty elements in an array which

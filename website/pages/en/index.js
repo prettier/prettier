@@ -155,7 +155,7 @@ Language.propTypes = {
 const LanguagesSection = () => {
   const languageChunks = siteConfig.supportedLanguages.reduce(
     (acc, language) => {
-      const last = acc[acc.length - 1];
+      const last = acc.at(-1);
       if (
         last &&
         last.length < 2 &&
