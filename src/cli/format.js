@@ -8,10 +8,7 @@ const { default: chalk } = require("../../vendors/chalk.js");
 
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index.js");
-// eslint-disable-next-line no-restricted-modules
-const { getStdin } = require("../common/third-party.js");
 
-const { getInputFromTerminal } = require("./input-from-terminal.js");
 const { createIgnorer, errors } = require("./prettier-internal.js");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns.js");
 const getOptionsForFile = require("./options/get-options-for-file.js");
@@ -73,6 +70,10 @@ function handleError(context, filename, error, printedFilename) {
 }
 
 function writeOutput(context, result, options) {
+  if (context.argv.stdin) {
+    printToScreen("Formatted code");
+  }
+
   // Don't use `console.log` here since it adds an extra newline at the end.
   process.stdout.write(
     context.argv.debugCheck ? result.filepath : result.formatted
@@ -242,7 +243,7 @@ async function createIgnorerFromContextOrDie(context) {
   }
 }
 
-async function formatStdin(context) {
+async function formatStdin(context, input) {
   const filepath = context.argv.filepath
     ? path.resolve(process.cwd(), context.argv.filepath)
     : process.cwd();
@@ -254,19 +255,10 @@ async function formatStdin(context) {
     ? path.relative(path.dirname(context.argv.ignorePath), filepath)
     : path.relative(process.cwd(), filepath);
   try {
-    let input;
-    if (context.argv.stdin) {
-      printToScreen("Start writing your code snippet below");
-      printToScreen("After finishing press ctrl+D to exit the read mode");
-      input = await getInputFromTerminal();
-    } else {
-      input = await getStdin();
-    }
     if (
       relativeFilepath &&
       ignorer.ignores(fixWindowsSlashes(relativeFilepath))
     ) {
-      context.argv.stdin && printToScreen("Formatted code");
       writeOutput(context, { formatted: input });
       return;
     }
@@ -287,7 +279,6 @@ async function formatStdin(context) {
       return;
     }
 
-    context.argv.stdin && printToScreen("Formatted code");
     writeOutput(context, formatted, options);
   } catch (error) {
     handleError(context, relativeFilepath || "stdin", error);
