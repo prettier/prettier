@@ -1,8 +1,8 @@
 /*
 Note:
 
-1. `acorn` contains `RegExpValidationState` class `.at` method (2 arguments)
-2. `postcss` contains `Container` class `.at` method
+1. `acorn` contains `RegExpValidationState` class with `.at` method (2 arguments)
+2. `postcss` contains `Container` class with `.at` method
 */
 
 const at = (object, index, ...args) =>
