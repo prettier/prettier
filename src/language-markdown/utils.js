@@ -43,7 +43,7 @@ const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
 /**
  * @typedef {" " | "\n" | ""} WhiteSpaceValue
- * @typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION} WordKind
+ * @typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION } WordKind
  * @typedef {{
  *   type: "whitespace",
  *   value: WhiteSpaceValue,
