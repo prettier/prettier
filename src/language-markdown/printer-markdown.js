@@ -38,6 +38,8 @@ import {
   isAutolink,
   KIND_CJK_PUNCTUATION,
   KIND_CJ_LETTER,
+  KIND_NON_CJK,
+  KIND_K_LETTER,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 
@@ -54,6 +56,42 @@ const SIBLING_NODE_TYPES = new Set([
   "definition",
   "footnoteDefinition",
 ]);
+// https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
+/**
+ * The set of characters that must not immediately precede a line break
+ *
+ * e.g. `"（"`
+ *
+ * - Bad:  `"檜原村（\nひのはらむら）"`
+ * - Good: `"檜原村\n（ひのはらむら）"` or ``"檜原村（ひ\nのはらむら）"`
+ */
+const noBreakAfterSymbolSet = new Set(
+  "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（．［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«"
+);
+/**
+ * The set of characters that must not be immediately followed by a line break
+ *
+ * e.g. `"）"`
+ *
+ * - Bad:  `"檜原村（ひのはらむら\n）以外には、"`
+ * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or `"檜原村（ひのはらむら）\n以外には、"`
+ */
+const noBreakBeforeSymbolSet = new Set(
+  "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜‼⁇⁈⁉・"
+);
+/**
+ * The set of characters whose surrounding newline may be converted to Space
+ *
+ * - ASCII punctuation marks
+ */
+const lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet = new Set(
+  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+);
+
+/**
+ * Unicode punctuation character defined in [CommonMark Spec](https://spec.commonmark.org/0.30/#unicode-punctuation-character)
+ */
+const punctuationsRegex = /(\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -138,10 +176,7 @@ function genericPrint(path, options, print) {
       return escapedValue;
     }
     case "whitespace": {
-      const parentNode = path.getParentNode();
-      const index = parentNode.children.indexOf(node);
-      const previous = parentNode.children[index - 1];
-      const { next } = path;
+      const { next, previous } = path;
 
       const proseWrap =
         // leading char that may cause different syntax
@@ -577,39 +612,11 @@ function isSentenceUseCJDividingSpace(path) {
 }
 
 /**
- * Looks for 1st `:::` (MUST be followed by a Space) from 2nd `:::`.
- *
- * ```
- * ::: foo
- * bar
- * :::
- * ```
- *
- * @param {*} path current position in nodes tree
- * @param {string} mark what to look for
- * @returns `true` if a `mark` followed by Space (U+0020) is found before `path`, `false` otherwise.
- */
-function isCorrespondingMarkFollowedBySpaceBefore(path, mark) {
-  const sentenceNode = getAncestorNode(path, "sentence");
-  if (
-    sentenceNode.children
-      .slice(0, getPenultimate(path.stack))
-      .some(
-        (node, i, array) =>
-          node.value === mark &&
-          array[i + 1]?.type === "whitespace" &&
-          array[i + 1]?.value === " "
-      )
-  ) {
-    return true;
-  }
-  return false;
-}
-
-/**
  * @typedef {import("./utils.js").TextNode} TextNode
  * @typedef {import("./utils.js").WhiteSpaceValue} WhiteSpaceValue
- * @typedef {{next?: TextNode | undefined, previous?: TextNode | undefined}} AdjacentNodes
+ * @typedef {{next?: TextNode | undefined | null, previous?: TextNode | undefined | null}} AdjacentNodes
+ * @typedef {import("./utils.js").WordKind} WordKind
+ * @typedef {import("../common/ast-path").default} AstPath
  */
 
 /**
@@ -635,34 +642,48 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   if (typeof adjacentNodes !== "object") {
     return true;
   }
-  // "\n" between non-CJ (not han, kana, CJK punctuations) characters always can converted to Space
-  if (
-    notCJLikeKind(adjacentNodes.previous?.kind) &&
-    notCJLikeKind(adjacentNodes.next?.kind)
-  ) {
+  const previousKind = adjacentNodes.previous?.kind;
+  const nextKind = adjacentNodes.next?.kind;
+  // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can converted to Space
+  // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
+  if (isWesternOrKorean(previousKind) && isWesternOrKorean(nextKind)) {
     return true;
   }
   // Do not convert it to Space when:
   if (
-    // "\n" between CJ always SHALL NOT be converted to space
-    (adjacentNodes.previous?.kind === KIND_CJ_LETTER &&
-      adjacentNodes.next?.kind === KIND_CJ_LETTER) ||
     // Shall not be converted to Space around CJK punctuation
-    adjacentNodes.previous?.kind === KIND_CJK_PUNCTUATION ||
-    adjacentNodes.next?.kind === KIND_CJK_PUNCTUATION
+    previousKind === KIND_CJK_PUNCTUATION ||
+    nextKind === KIND_CJK_PUNCTUATION ||
+    // "\n" between CJ always SHALL NOT be converted to space
+    // "\n" between Korean and CJ is better not to be converted to space
+    (isCJK(previousKind) && isCJK(nextKind))
   ) {
     return false;
   }
   // The following rules do not precede the above rules (`return false`).
   //
+  // Cases:
+  // - CJ & non-CJK
+  //
   // 1. "\n" between special signs and CJ characters
   // [corresponding sign][Space][any string][CJ][[\n]][target sign]
   // we wonder if there are other marks to be considered.
   if (
-    adjacentNodes.next.value === ":::" &&
-    isCorrespondingMarkFollowedBySpaceBefore(path, adjacentNodes.next.value)
+    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
+      adjacentNodes.next?.value
+    ) ||
+    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
+      adjacentNodes.previous?.value
+    )
   ) {
     return true;
+  }
+  // Converting newline between CJ and non-ASCII punctuation to Space does not seem to be better in many cases. (PR welcome)
+  if (
+    punctuationsRegex.test(adjacentNodes.previous?.value) ||
+    punctuationsRegex.test(adjacentNodes.next?.value)
+  ) {
+    return false;
   }
   // 2. If sentence uses space between CJ and alphanumerics (including hangul because of backward-compatibility),
   //    "\n" can be converted to Space.
@@ -671,11 +692,99 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
 }
 
 /**
- * @param {import("./utils.js").WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is what is used in Chinese & Japanese (han, kana, and CJK punctuations)
+ * @param {WordKind | undefined} kind
+ * @returns {boolean} `true` if `kind` is CJK (including punctuation marks)
  */
-function notCJLikeKind(kind) {
-  return kind !== KIND_CJ_LETTER && kind !== KIND_CJK_PUNCTUATION;
+function isCJK(kind) {
+  return kind !== undefined && kind !== KIND_NON_CJK;
+}
+
+/**
+ * @param {WordKind | undefined} kind
+ * @returns {boolean} `true` if `kind` is western or Korean letters (divids words by Space)
+ */
+function isWesternOrKorean(kind) {
+  return kind !== undefined && kind !== KIND_NON_CJK;
+}
+
+/**
+ * Get the last character
+ *
+ * Type for arrays is not provided because I don't know how it is compatible with string (PR welcome)
+ *
+ * @param {string} str
+ * @returns {string} last character
+ */
+function getLastCharacter(str) {
+  return str[str.length - 1];
+}
+
+/**
+ * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhiteSpaceValue`) can converted to `"\n"`
+ *
+ * @param {*} path
+ * @param {WhiteSpaceValue} value
+ * @param {*} options
+ * @param {AdjacentNodes | undefined} [adjacentNodes]
+ * @returns {boolean} `true` if “whitespace” can be converted to `"\n"`
+ */
+function isBreakable(path, value, options, adjacentNodes) {
+  if (options.proseWrap !== "always") {
+    return false;
+  }
+  if (getAncestorNode(path, SINGLE_LINE_NODE_TYPES)) {
+    return false;
+  }
+  if (adjacentNodes == undefined) {
+    return true;
+  }
+  // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
+  if (
+    value === "" &&
+    adjacentNodes.previous?.kind === KIND_K_LETTER &&
+    adjacentNodes.next?.kind === KIND_K_LETTER
+  ) {
+    return false;
+  }
+  if (value === " ") {
+    return true;
+  }
+  // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
+  const isBreakingCJKLineBreakingRule =
+    (adjacentNodes.next?.value !== undefined &&
+      noBreakBeforeSymbolSet.has(adjacentNodes.next.value[0])) ||
+    (adjacentNodes.previous?.value !== undefined &&
+      noBreakAfterSymbolSet.has(
+        getLastCharacter(adjacentNodes.previous.value)
+      ));
+  // For "" (CJK and some non-space) higher priority than the follwing rule
+  if (value === "" && isBreakingCJKLineBreakingRule) {
+    return false;
+  }
+  // Unusual newline between CJ and ASCII punctuation marks
+  // e.g.
+  // 中文日本語
+  // ...
+  // Foobar
+  // ...
+  //
+  // common usage of `...`:
+  // 正在加载... 読込中...
+  if (
+    value === "\n" &&
+    ((adjacentNodes.previous?.kind === KIND_CJ_LETTER &&
+      lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
+        adjacentNodes.next?.value[0]
+      )) ||
+      (adjacentNodes.next?.kind === KIND_CJ_LETTER &&
+        lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
+          adjacentNodes.previous?.value
+        )))
+  ) {
+    return true;
+  }
+  // For "\n" lower priority (because the rule has already been broken)
+  return !isBreakingCJKLineBreakingRule;
 }
 
 /**
@@ -689,9 +798,7 @@ function printLine(path, value, options, adjacentNodes) {
     return hardline;
   }
 
-  const isBreakable =
-    options.proseWrap === "always" &&
-    !getAncestorNode(path, SINGLE_LINE_NODE_TYPES);
+  const isBreakable_ = isBreakable(path, value, options, adjacentNodes);
 
   // Space or empty
   if (value !== "\n") {
@@ -707,7 +814,7 @@ function printLine(path, value, options, adjacentNodes) {
    * @param value {" " | ""}
    */
   function convertToLineIfBreakable(value) {
-    if (!isBreakable) {
+    if (!isBreakable_) {
       return value;
     }
     return value === " " ? line : softline;
