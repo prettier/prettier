@@ -14,6 +14,7 @@ import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protoco
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
 import bundles from "./config.mjs";
+import transform from "./transform/index.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
@@ -41,6 +42,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
       module: "*",
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
+    },
+    // Transform `.at` and `Object.hasOwn`
+    {
+      module: "*",
+      process: transform,
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {

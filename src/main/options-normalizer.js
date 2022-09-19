@@ -1,5 +1,4 @@
 import vnopts from "vnopts";
-import getLast from "../utils/get-last.js";
 
 /**
  * @typedef {import("./support").NamedOptionInfo} NamedOptionInfo
@@ -272,7 +271,7 @@ function optionInfoToSchema(
     const originalPreprocess = parameters.preprocess || ((x) => x);
     parameters.preprocess = (value, schema, utils) =>
       schema.preprocess(
-        originalPreprocess(Array.isArray(value) ? getLast(value) : value),
+        originalPreprocess(Array.isArray(value) ? value.at(-1) : value),
         utils
       );
   }

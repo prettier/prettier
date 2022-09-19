@@ -1,5 +1,4 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
-import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
 import {
   DOC_TYPE_STRING,
@@ -253,7 +252,7 @@ function fits(
         // The most expanded state takes up the least space on the current line.
         const contents =
           doc.expandedStates && groupMode === MODE_BREAK
-            ? getLast(doc.expandedStates)
+            ? doc.expandedStates.at(-1)
             : doc.contents;
         cmds.push({ mode: groupMode, doc: contents });
         break;
@@ -389,7 +388,7 @@ function printDocToString(doc, options) {
               // group has these, we need to manually go through
               // these states and find the first one that fits.
               if (doc.expandedStates) {
-                const mostExpanded = getLast(doc.expandedStates);
+                const mostExpanded = doc.expandedStates.at(-1);
 
                 if (doc.break) {
                   cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
@@ -423,7 +422,7 @@ function printDocToString(doc, options) {
         }
 
         if (doc.id) {
-          groupModeMap[doc.id] = getLast(cmds).mode;
+          groupModeMap[doc.id] = cmds.at(-1).mode;
         }
         break;
       // Fills each line with as much code as possible before moving to a new

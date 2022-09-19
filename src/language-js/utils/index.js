@@ -1,6 +1,5 @@
 import esutils from "esutils";
 import {
-  getLast,
   hasNewline,
   skipWhitespace,
   isNonEmptyArray,
@@ -317,7 +316,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
     return false;
   }
 
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node.expression || !isJsxNode(node.expression)) {
     return false;
@@ -768,8 +767,8 @@ function needsHardlineAfterDanglingComment(node) {
   if (!hasComment(node)) {
     return false;
   }
-  const lastDanglingComment = getLast(
-    getComments(node, CommentCheckFlags.Dangling)
+  const lastDanglingComment = getComments(node, CommentCheckFlags.Dangling).at(
+    -1
   );
   return lastDanglingComment && !isBlockComment(lastDanglingComment);
 }
@@ -810,7 +809,7 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   return (
     isCallExpression(node) &&
@@ -1106,7 +1105,7 @@ function hasRestParameter(node) {
     return true;
   }
   const parameters = getFunctionParameters(node);
-  return getLast(parameters)?.type === "RestElement";
+  return parameters.at(-1)?.type === "RestElement";
 }
 
 const functionParametersCache = new WeakMap();
@@ -1132,7 +1131,7 @@ function getFunctionParameters(node) {
 }
 
 function iterateFunctionParametersPath(path, iteratee) {
-  const node = path.getValue();
+  const { node } = path;
   let index = 0;
   const callback = (childPath) => iteratee(childPath, index++);
   if (node.this) {
@@ -1168,7 +1167,7 @@ function getCallArguments(node) {
 }
 
 function iterateCallArgumentsPath(path, iteratee) {
-  const node = path.getValue();
+  const { node } = path;
   if (node.type === "ImportExpression") {
     path.call((sourcePath) => iteratee(sourcePath, 0), "source");
 
@@ -1208,11 +1207,6 @@ function hasNodeIgnoreComment(node) {
     node &&
     (node.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore))
   );
-}
-
-function hasIgnoreComment(path) {
-  const node = path.getValue();
-  return hasNodeIgnoreComment(node);
 }
 
 const CommentCheckFlags = {
@@ -1334,7 +1328,6 @@ export {
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
-  hasIgnoreComment,
   hasNodeIgnoreComment,
   identity,
   isBinaryish,

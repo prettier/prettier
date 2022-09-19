@@ -214,7 +214,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 }
 
 function printAttributes(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
@@ -239,7 +239,7 @@ function printAttributes(path, options, print) {
       : () => false;
 
   const printedAttributes = path.map((attributePath) => {
-    const attribute = attributePath.getValue();
+    const attribute = attributePath.node;
     return hasPrettierIgnoreAttribute(attribute)
       ? replaceEndOfLine(
           options.originalText.slice(locStart(attribute), locEnd(attribute))
@@ -311,7 +311,7 @@ function printOpeningTagEnd(node) {
 }
 
 function printOpeningTag(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   return [
     printOpeningTagStart(node, options),

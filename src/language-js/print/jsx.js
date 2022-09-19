@@ -14,7 +14,7 @@ import {
 import { willBreak } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
-import { getLast, getPreferredQuote } from "../../common/util.js";
+import { getPreferredQuote } from "../../common/util.js";
 import {
   isJsxNode,
   rawText,
@@ -27,7 +27,7 @@ import {
   hasNodeIgnoreComment,
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
-import { willPrintOwnComments } from "../comments.js";
+import { willPrintOwnComments } from "../comments/printer-methods.js";
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -54,7 +54,7 @@ const isEmptyStringOrAnyLine = (doc) =>
 // To support that case properly, all leading and trailing spaces
 // are stripped from the list of children, and replaced with a single hardline.
 function printJsxElementInternal(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (node.type === "JSXElement" && isEmptyJsxElement(node)) {
     return [print("openingElement"), print("closingElement")];
@@ -174,7 +174,7 @@ function printJsxElementInternal(path, options, print) {
   }
 
   // Trim trailing lines (or empty strings)
-  while (children.length > 0 && isEmptyStringOrAnyLine(getLast(children))) {
+  while (children.length > 0 && isEmptyStringOrAnyLine(children.at(-1))) {
     children.pop();
   }
 
@@ -271,7 +271,7 @@ function printJsxChildren(
 ) {
   const parts = [];
   path.each((childPath, i, children) => {
-    const child = childPath.getValue();
+    const child = childPath.node;
     if (isLiteral(child)) {
       const text = rawText(child);
 
@@ -301,7 +301,7 @@ function printJsxChildren(
 
         let endWhitespace;
         // Ends with whitespace
-        if (getLast(words) === "") {
+        if (words.at(-1) === "") {
           words.pop();
           endWhitespace = words.pop();
         }
@@ -325,7 +325,7 @@ function printJsxChildren(
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
-                getLast(parts),
+                parts.at(-1),
                 child,
                 next
               )
@@ -338,7 +338,7 @@ function printJsxChildren(
           parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
-              getLast(parts),
+              parts.at(-1),
               child,
               next
             )
@@ -465,7 +465,7 @@ function maybeWrapJsxElementInParens(path, elem, options) {
 }
 
 function printJsxAttribute(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   parts.push(print("name"));
 
@@ -495,7 +495,7 @@ function printJsxAttribute(path, options, print) {
 }
 
 function printJsxExpressionContainer(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const shouldInline = (node, parent) =>
     node.type === "JSXEmptyExpression" ||
@@ -528,7 +528,7 @@ function printJsxExpressionContainer(path, options, print) {
 }
 
 function printJsxOpeningElement(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const nameHasComments =
     (node.name && hasComment(node.name)) ||
@@ -614,7 +614,7 @@ function printEndOfOpeningTag(node, options, nameHasComments) {
 function shouldPrintBracketSameLine(node, options, nameHasComments) {
   const lastAttrHasTrailingComments =
     node.attributes.length > 0 &&
-    hasComment(getLast(node.attributes), CommentCheckFlags.Trailing);
+    hasComment(node.attributes.at(-1), CommentCheckFlags.Trailing);
   return (
     // Simple tags (no attributes and no comment in tag name) should be
     // kept unbroken regardless of `bracketSameLine`.
@@ -635,7 +635,7 @@ function shouldPrintBracketSameLine(node, options, nameHasComments) {
 }
 
 function printJsxClosingElement(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   parts.push("</");
@@ -659,7 +659,7 @@ function printJsxClosingElement(path, options, print) {
 }
 
 function printJsxOpeningClosingFragment(path, options /*, print*/) {
-  const node = path.getValue();
+  const { node } = path;
   const nodeHasComment = hasComment(node);
   const hasOwnLineComment = hasComment(node, CommentCheckFlags.Line);
   const isOpeningFragment = node.type === "JSXOpeningFragment";
@@ -688,7 +688,7 @@ function printJsxElement(path, options, print) {
 }
 
 function printJsxEmptyExpression(path, options /*, print*/) {
-  const node = path.getValue();
+  const { node } = path;
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
   return [
@@ -699,7 +699,7 @@ function printJsxEmptyExpression(path, options /*, print*/) {
 
 // `JSXSpreadAttribute` and `JSXSpreadChild`
 function printJsxSpreadAttribute(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   return [
     "{",
     path.call(
@@ -721,7 +721,7 @@ function printJsxSpreadAttribute(path, options, print) {
 }
 
 function printJsx(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   // JSX nodes always starts with `JSX`
   if (!node.type.startsWith("JSX")) {
@@ -833,14 +833,13 @@ function isJsxWhitespaceExpression(node) {
  * @returns {boolean}
  */
 function hasJsxIgnoreComment(path) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
+  const { node, parent } = path;
   if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
     return false;
   }
 
   // Lookup the previous sibling, ignoring any empty JSXText elements
-  const index = parent.children.indexOf(node);
+  const { index } = path;
   let prevSibling = null;
   for (let i = index; i > 0; i--) {
     const candidate = parent.children[i - 1];
@@ -852,8 +851,7 @@ function hasJsxIgnoreComment(path) {
   }
 
   return (
-    prevSibling &&
-    prevSibling.type === "JSXExpressionContainer" &&
+    prevSibling?.type === "JSXExpressionContainer" &&
     prevSibling.expression.type === "JSXEmptyExpression" &&
     hasNodeIgnoreComment(prevSibling.expression)
   );

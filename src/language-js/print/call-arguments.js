@@ -1,5 +1,4 @@
 import { printDanglingComments } from "../../main/comments.js";
-import { getLast, getPenultimate } from "../../common/util.js";
 import {
   getFunctionParameters,
   hasComment,
@@ -38,7 +37,7 @@ import { ArgExpansionBailout } from "../../common/errors.js";
 import { isConciselyPrintedArray } from "./array.js";
 
 function printCallArguments(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const args = getCallArguments(node);
   if (args.length === 0) {
@@ -58,7 +57,7 @@ function printCallArguments(path, options, print) {
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
   iterateCallArgumentsPath(path, (argPath, index) => {
-    const arg = argPath.getValue();
+    const arg = argPath.node;
     const parts = [print()];
 
     if (index === lastArgIndex) {
@@ -223,8 +222,8 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 }
 
 function shouldExpandLastArg(args, options) {
-  const lastArg = getLast(args);
-  const penultimateArg = getPenultimate(args);
+  const lastArg = args.at(-1);
+  const penultimateArg = args.at(-2);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&
     !hasComment(lastArg, CommentCheckFlags.Trailing) &&

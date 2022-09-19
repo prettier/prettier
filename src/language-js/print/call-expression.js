@@ -15,7 +15,7 @@ import printCallArguments from "./call-arguments.js";
 import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
 function printCallExpression(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parentNode = path.getParentNode();
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";

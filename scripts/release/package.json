@@ -15,6 +15,6 @@
     "string-width": "5.1.2"
   },
   "devDependencies": {
-    "jest": "29.0.2"
+    "jest": "29.0.3"
   }
 }

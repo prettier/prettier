@@ -246,7 +246,7 @@ async function printEmbeddedAttributeValue(node, htmlTextToDoc, options) {
 }
 
 function embed(path, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "element": {

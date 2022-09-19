@@ -1,4 +1,3 @@
-import { getLast } from "../common/util.js";
 import { locStart, locEnd } from "./loc.js";
 import {
   cjkPattern,
@@ -47,7 +46,18 @@ function splitText(text, options) {
   const KIND_K_LETTER = "k-letter";
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
-  /** @type {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>} */
+  /**
+   * @type {Array<
+   *   { type: "whitespace", value: " " | "\n" | "" }
+   *   | {
+   *     type: "word",
+   *     value: string,
+   *     kind: string,
+   *     hasLeadingPunctuation: boolean,
+   *     hasTrailingPunctuation: boolean
+   *   }
+   * >}
+   */
   const nodes = [];
 
   const tokens = (
@@ -91,7 +101,7 @@ function splitText(text, options) {
             value: innerToken,
             kind: KIND_NON_CJK,
             hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-            hasTrailingPunctuation: punctuationRegex.test(getLast(innerToken)),
+            hasTrailingPunctuation: punctuationRegex.test(innerToken.at(-1)),
           });
         }
         continue;
@@ -121,7 +131,7 @@ function splitText(text, options) {
   return nodes;
 
   function appendNode(node) {
-    const lastNode = getLast(nodes);
+    const lastNode = nodes.at(-1);
     if (lastNode && lastNode.type === "word") {
       if (
         (lastNode.kind === KIND_NON_CJK &&
@@ -144,7 +154,9 @@ function splitText(text, options) {
 
     function isBetween(kind1, kind2) {
       return (
+        // @ts-expect-error
         (lastNode.kind === kind1 && node.kind === kind2) ||
+        // @ts-expect-error
         (lastNode.kind === kind2 && node.kind === kind1)
       );
     }

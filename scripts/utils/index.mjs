@@ -32,11 +32,13 @@ async function writeFile(file, content) {
 const PROJECT_ROOT = url.fileURLToPath(new URL("../../", import.meta.url));
 const DIST_DIR = path.join(PROJECT_ROOT, "dist");
 const WEBSITE_DIR = path.join(PROJECT_ROOT, "website");
+const SOURCE_DIR = path.join(PROJECT_ROOT, "src");
 
 export {
   PROJECT_ROOT,
   DIST_DIR,
   WEBSITE_DIR,
+  SOURCE_DIR,
   readJson,
   writeJson,
   writeFile,

@@ -1,4 +1,3 @@
-import getLast from "../../utils/get-last.js";
 import { getStringWidth, getIndentSize } from "../../common/util.js";
 import {
   join,
@@ -21,7 +20,7 @@ import {
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
   if (
@@ -72,7 +71,7 @@ function printTemplateLiteral(path, print, options) {
       // expression inside at the beginning of ${ instead of the beginning
       // of the `.
       const { tabWidth } = options;
-      const quasi = childPath.getValue();
+      const quasi = childPath.node;
       const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
       let printed = expressions[i];
@@ -114,7 +113,7 @@ function printJestEachTemplateLiteral(path, options, print) {
    * ${1} | ${2} | ${3}
    * ${2} | ${1} | ${3}
    */
-  const node = path.getValue();
+  const { node } = path;
   const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
   if (
     headerNames.length > 1 ||
@@ -137,7 +136,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 
     const tableBody = [{ hasLineBreak: false, cells: [] }];
     for (let i = 1; i < node.quasis.length; i++) {
-      const row = getLast(tableBody);
+      const row = tableBody.at(-1);
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
@@ -197,7 +196,7 @@ function printJestEachTemplateLiteral(path, options, print) {
 }
 
 function printTemplateExpression(path, print) {
-  const node = path.getValue();
+  const { node } = path;
   let printed = print();
   if (hasComment(node)) {
     printed = group([indent([softline, printed]), softline]);

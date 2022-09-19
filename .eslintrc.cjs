@@ -82,6 +82,7 @@ module.exports = {
         enforceForRenamedProperties: false,
       },
     ],
+    "prefer-object-has-own": "error",
     "prefer-object-spread": "error",
     "prefer-rest-params": "error",
     "prefer-spread": "error",
@@ -164,6 +165,12 @@ module.exports = {
     ],
     "unicorn/prefer-array-flat-map": "error",
     "unicorn/prefer-array-some": "error",
+    "unicorn/prefer-at": [
+      "error",
+      {
+        getLastElementFunctions: ["getLast"],
+      },
+    ],
     "unicorn/prefer-export-from": [
       "error",
       {
@@ -301,7 +308,6 @@ module.exports = {
     {
       files: "src/**/*.js",
       rules: {
-        "prettier-internal-rules/consistent-negative-index-access": "error",
         "prettier-internal-rules/flat-ast-path-call": "error",
         "prettier-internal-rules/no-conflicting-comment-check-flags": "error",
         "prettier-internal-rules/no-doc-index-import": "error",
@@ -311,6 +317,7 @@ module.exports = {
         "prettier-internal-rules/prefer-indent-if-break": "error",
         "prettier-internal-rules/prefer-is-non-empty-array": "error",
         "prettier-internal-rules/prefer-fs-promises-submodule": "error",
+        "prettier-internal-rules/prefer-ast-path-node": "error",
       },
     },
     {
@@ -321,6 +328,7 @@ module.exports = {
     },
     {
       files: ["src/language-js/**/*.js"],
+      excludedFiles: ["src/language-js/parse/postprocess/*.js"],
       rules: {
         "prettier-internal-rules/no-node-comments": [
           "error",
@@ -329,7 +337,6 @@ module.exports = {
             functions: ["hasComment", "getComments"],
           },
           "src/language-js/pragma.js",
-          "src/language-js/parse/postprocess/*.js",
           "src/language-js/parse/babel.js",
           "src/language-js/parse/meriyah.js",
           "src/language-js/parse/json.js",

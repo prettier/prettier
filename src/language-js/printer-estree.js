@@ -16,7 +16,7 @@ import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
-import * as handleComments from "./comments.js";
+import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
 import pathNeedsParens from "./needs-parens.js";
 import preprocess from "./print-preprocess.js";
 import {
@@ -24,11 +24,9 @@ import {
   hasComment,
   CommentCheckFlags,
   isTheOnlyJsxElementInMarkdown,
-  isLineComment,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
   rawText,
-  hasIgnoreComment,
   isCallExpression,
   isMemberExpression,
   markerForIfWithoutBlockAndSameLineComment,
@@ -42,7 +40,7 @@ import {
   isVueEventBindingExpression,
 } from "./print/html-binding.js";
 import { printAngular } from "./print/angular.js";
-import { printJsx, hasJsxIgnoreComment } from "./print/jsx.js";
+import { printJsx } from "./print/jsx.js";
 import { printFlow } from "./print/flow.js";
 import { printTypescript } from "./print/typescript.js";
 import {
@@ -85,12 +83,11 @@ import { printBinaryishExpression } from "./print/binaryish.js";
 import { printSwitchCaseConsequent } from "./print/statement.js";
 import { printMemberExpression } from "./print/member.js";
 import { printBlock, printBlockBody } from "./print/block.js";
-import { printComment } from "./print/comment.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 
 function genericPrint(path, options, print, args) {
-  const node = path.getValue();
+  const { node } = path;
 
   const printed = printPathNoParens(path, options, print, args);
   if (!printed) {
@@ -184,7 +181,7 @@ function printPathNoParens(path, options, print, args) {
     }
   }
 
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   let parts = [];
@@ -695,7 +692,7 @@ function printPathNoParens(path, options, print, args) {
               join(
                 hardline,
                 path.map((casePath, index, cases) => {
-                  const caseNode = casePath.getValue();
+                  const caseNode = casePath.node;
                   return [
                     print(),
                     index !== cases.length - 1 &&
@@ -815,41 +812,14 @@ function printDirective(node, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
-function canAttachComment(node) {
-  return (
-    node.type &&
-    !isBlockComment(node) &&
-    !isLineComment(node) &&
-    node.type !== "EmptyStatement" &&
-    node.type !== "TemplateElement" &&
-    node.type !== "Import" &&
-    // `babel-ts` don't have similar node for `class Foo { bar() /* bat */; }`
-    node.type !== "TSEmptyBodyFunctionExpression"
-  );
-}
-
 const printer = {
   preprocess,
   print: genericPrint,
   embed,
   insertPragma,
   massageAstNode: clean,
-  hasPrettierIgnore(path) {
-    return hasIgnoreComment(path) || hasJsxIgnoreComment(path);
-  },
-  willPrintOwnComments: handleComments.willPrintOwnComments,
-  canAttachComment,
-  printComment,
-  isBlockComment,
-  handleComments: {
-    // TODO: Make this as default behavior
-    avoidAstMutation: true,
-    ownLine: handleComments.handleOwnLineComment,
-    endOfLine: handleComments.handleEndOfLineComment,
-    remaining: handleComments.handleRemainingComment,
-  },
-  getCommentChildNodes: handleComments.getCommentChildNodes,
   getVisitorKeys,
+  ...commentsRelatedPrinterMethods,
 };
 
 export default printer;

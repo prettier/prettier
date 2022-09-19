@@ -1,7 +1,9 @@
 import { locStart, locEnd } from "../../loc.js";
 import isTsKeywordType from "../../utils/is-ts-keyword-type.js";
 import isTypeCastComment from "../../utils/is-type-cast-comment.js";
-import getLast from "../../../utils/get-last.js";
+import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
+import isBlockComment from "../../utils/is-block-comment.js";
+import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import visitNode from "./visit-node.js";
 import { throwErrorForInvalidNodes } from "./typescript.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
@@ -72,7 +74,7 @@ function postprocess(ast, options) {
       }
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
-        const lastDeclaration = getLast(node.declarations);
+        const lastDeclaration = node.declarations.at(-1);
         if (lastDeclaration && lastDeclaration.init) {
           overrideLocEnd(node, lastDeclaration);
         }
@@ -117,7 +119,7 @@ function postprocess(ast, options) {
 
       case "SequenceExpression": {
         // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
-        const lastExpression = getLast(node.expressions);
+        const lastExpression = node.expressions.at(-1);
         node.range = [
           locStart(node),
           Math.min(locEnd(lastExpression), locEnd(node)),
@@ -153,6 +155,25 @@ function postprocess(ast, options) {
       }
     }
   });
+
+  if (isNonEmptyArray(ast.comments)) {
+    let followingComment = ast.comments.at(-1);
+    for (let i = ast.comments.length - 2; i >= 0; i--) {
+      const comment = ast.comments[i];
+      if (
+        locEnd(comment) === locStart(followingComment) &&
+        isBlockComment(comment) &&
+        isBlockComment(followingComment) &&
+        isIndentableBlockComment(comment) &&
+        isIndentableBlockComment(followingComment)
+      ) {
+        ast.comments.splice(i + 1, 1);
+        comment.value += "*//*" + followingComment.value;
+        comment.range = [locStart(comment), locEnd(followingComment)];
+      }
+      followingComment = comment;
+    }
+  }
 
   return ast;
 

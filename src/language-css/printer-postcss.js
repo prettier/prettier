@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import {
   printNumber,
   printString,
@@ -85,7 +84,7 @@ function shouldPrintComma(options) {
 }
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.type) {
     case "front-matter":
@@ -312,7 +311,7 @@ function genericPrint(path, options, print) {
     case "media-query-list": {
       const parts = [];
       path.each((childPath) => {
-        const node = childPath.getValue();
+        const { node } = childPath;
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -621,6 +620,7 @@ function genericPrint(path, options, print) {
 
         // Ignore escape `\`
         if (
+          iNode.type !== "value-string" &&
           iNode.value &&
           iNode.value.includes("\\") &&
           iNextNode &&
@@ -864,7 +864,7 @@ function genericPrint(path, options, print) {
     case "value-paren_group": {
       const parentNode = path.getParentNode();
       const printedGroups = path.map(() => {
-        const child = path.getValue();
+        const child = path.node;
         return typeof child === "string" ? child : print();
       }, "groups");
 
@@ -891,7 +891,7 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
-      const lastItem = getLast(node.groups);
+      const lastItem = node.groups.at(-1);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
       const isConfiguration = isConfigurationNode(node, parentNode);
@@ -908,7 +908,7 @@ function genericPrint(path, options, print) {
             join(
               [line],
               path.map((childPath, index) => {
-                const child = childPath.getValue();
+                const child = childPath.node;
                 const isLast = index === node.groups.length - 1;
                 const hasComma = () =>
                   Boolean(
@@ -941,7 +941,7 @@ function genericPrint(path, options, print) {
                   child.type === "value-comma_group" &&
                   isNonEmptyArray(child.groups)
                 ) {
-                  const last = getLast(child.groups);
+                  const last = child.groups.at(-1);
                   if (
                     // `value-paren_group` missing location info
                     last.source &&
@@ -1007,7 +1007,7 @@ function genericPrint(path, options, print) {
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (prevNode &&
           typeof prevNode.value === "string" &&
-          getLast(prevNode.value) === "\\") ||
+          prevNode.value.endsWith("\\")) ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""

@@ -8,7 +8,6 @@ import {
   hardline,
 } from "../../document/builders.js";
 import {
-  getLast,
   hasNewlineInRange,
   hasNewline,
   isNonEmptyArray,
@@ -31,7 +30,7 @@ import { printHardlineAfterHeritage } from "./class.js";
 
 function printObject(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const node = path.getValue();
+  const { node } = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
   const fields = [
@@ -50,7 +49,7 @@ function printObject(path, options, print) {
   // printing them.
   const propsAndLoc = fields.flatMap((field) =>
     path.map((childPath) => {
-      const node = childPath.getValue();
+      const { node } = childPath;
       return {
         node,
         printed: print(),
@@ -137,7 +136,7 @@ function printObject(path, options, print) {
       printed = [
         printedDanglingComments,
         hasLineComments ||
-        hasNewline(options.originalText, locEnd(getLast(getComments(node))))
+        hasNewline(options.originalText, locEnd(getComments(node).at(-1)))
           ? hardline
           : line,
         "...",
@@ -148,7 +147,7 @@ function printObject(path, options, print) {
     props.push([...separatorParts, ...printed]);
   }
 
-  const lastElem = getLast(propsAndLoc)?.node;
+  const lastElem = propsAndLoc.at(-1)?.node;
 
   const canHaveTrailingSeparator = !(
     node.inexact ||

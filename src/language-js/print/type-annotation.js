@@ -58,7 +58,7 @@ function shouldHugType(node) {
 
 function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   parts.push("opaque type ", print("id"), print("typeParameters"));
 
@@ -77,7 +77,7 @@ function printOpaqueType(path, options, print) {
 
 function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   if (node.declare) {
     parts.push("declare ");
@@ -93,7 +93,7 @@ function printTypeAlias(path, options, print) {
 
 // `TSIntersectionType` and `IntersectionTypeAnnotation`
 function printIntersectionType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const types = path.map(print, "types");
   const result = [];
   let wasIndented = false;
@@ -122,7 +122,7 @@ function printIntersectionType(path, options, print) {
 
 // `TSUnionType` and `UnionTypeAnnotation`
 function printUnionType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   // single-line variation
   // A | B | C
 
@@ -204,7 +204,7 @@ function printUnionType(path, options, print) {
 
 // `TSFunctionType` and `FunctionTypeAnnotation`
 function printFunctionType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   // FunctionTypeAnnotation is ambiguous:
   // declare function foo(a: B): void; OR
@@ -286,7 +286,7 @@ function printFunctionType(path, options, print) {
 
 // `TSTupleType` and `TupleTypeAnnotation`
 function printTupleType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
   const isNonEmptyTuple = isNonEmptyArray(types);
@@ -306,7 +306,7 @@ function printTupleType(path, options, print) {
 
 // `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
 function printIndexedAccessType(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const leftDelimiter =
     node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
   return [print("objectType"), leftDelimiter, print("indexType"), "]"];
@@ -314,7 +314,7 @@ function printIndexedAccessType(path, options, print) {
 
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`
 function printJSDocType(path, print, token) {
-  const node = path.getValue();
+  const { node } = path;
   return [
     node.postfix ? "" : token,
     print("typeAnnotation"),

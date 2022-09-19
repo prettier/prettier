@@ -1,7 +1,7 @@
 import { hardline } from "../document/builders.js";
 
 function embed(path, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Try to format `.prettierrc`, `.stylelintrc`, and `.lintstagedrc` as `json` first
   if (

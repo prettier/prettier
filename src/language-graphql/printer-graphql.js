@@ -17,7 +17,7 @@ import visitorKeys from "./visitor-keys.evaluate.js";
 const getVisitorKeys = createGetVisitorKeys(visitorKeys, "kind");
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   switch (node.kind) {
     case "Document": {
@@ -497,7 +497,7 @@ function printSequence(path, options, print, property) {
 
     if (
       index < sequence.length - 1 &&
-      isNextLineEmpty(options.originalText, path.getValue(), locEnd)
+      isNextLineEmpty(options.originalText, path.node, locEnd)
     ) {
       return [printed, hardline];
     }
@@ -511,7 +511,7 @@ function canAttachComment(node) {
 }
 
 function printComment(commentPath) {
-  const comment = commentPath.getValue();
+  const comment = commentPath.node;
   if (comment.kind === "Comment") {
     return "#" + comment.value.trimEnd();
   }
@@ -521,7 +521,7 @@ function printComment(commentPath) {
 }
 
 function printInterfaces(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   const { interfaces } = node;
   const printed = path.map(print, "interfaces");
@@ -554,7 +554,7 @@ function clean(node, newNode /* , parent */) {
 clean.ignoredProperties = new Set(["loc", "comments"]);
 
 function hasPrettierIgnore(path) {
-  const node = path.getValue();
+  const { node } = path;
   return node?.comments?.some(
     (comment) => comment.value.trim() === "prettier-ignore"
   );
