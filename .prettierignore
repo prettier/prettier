@@ -3,7 +3,7 @@
 coverage/
 .nyc_output/
 .yarn/
-/dist*s/
+/dist*/
 node_modules/
 
 /tests/format/**/*.*
