@@ -47,16 +47,15 @@ function splitText(text, options) {
   const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
   /**
-   * @type {Array<
-   *   { type: "whitespace", value: " " | "\n" | "" }
-   *   | {
-   *     type: "word",
-   *     value: string,
-   *     kind: string,
-   *     hasLeadingPunctuation: boolean,
-   *     hasTrailingPunctuation: boolean
-   *   }
-   * >}
+   * @typedef {{ type: "whitespace", value: " " | "\n" | "" }} WhitespaceNode
+   * @typedef {{
+   *   type: "word",
+   *   value: string,
+   *   kind: string,
+   *   hasLeadingPunctuation: boolean,
+   *   hasTrailingPunctuation: boolean
+   * }} WordNode
+   * @type {Array<WhitespaceNode | WordNode>}
    */
   const nodes = [];
 
@@ -143,7 +142,7 @@ function splitText(text, options) {
       ) {
         nodes.push({ type: "whitespace", value: " " });
       } else if (
-        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
+        !isBetween(lastNode, node, KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
         // disallow leading/trailing full-width whitespace
         ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
       ) {
@@ -152,11 +151,16 @@ function splitText(text, options) {
     }
     nodes.push(node);
 
-    function isBetween(kind1, kind2) {
+    /**
+     * @param {WordNode} lastNode
+     * @param {any} node
+     * @param {string} kind1
+     * @param {string} kind2
+     * @returns
+     */
+    function isBetween(lastNode, node, kind1, kind2) {
       return (
-        // @ts-expect-error
         (lastNode.kind === kind1 && node.kind === kind2) ||
-        // @ts-expect-error
         (lastNode.kind === kind2 && node.kind === kind1)
       );
     }
