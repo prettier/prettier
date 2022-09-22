@@ -96,16 +96,16 @@ function print(path, options, print) {
     case "BlockStatement": {
       const pp = path.getParentNode(1);
 
-      const isElseIf =
+      const isElseIfish =
         pp &&
         pp.inverse &&
         pp.inverse.body.length === 1 &&
         pp.inverse.body[0] === node &&
-        pp.inverse.body[0].path.parts[0] === "if";
+        pp.inverse.body[0].path.parts[0] === pp.path.parts[0];
 
-      if (isElseIf) {
+      if (isElseIfish) {
         return [
-          printElseIfBlock(path, print),
+          printElseIfishBlock(path, print, pp.inverse.body[0].path.parts[0]),
           printProgram(path, print, options),
           printInverse(path, print, options),
         ];
@@ -562,12 +562,14 @@ function printElseBlock(node, options) {
   ];
 }
 
-function printElseIfBlock(path, print) {
+function printElseIfishBlock(path, print, ifish) {
   const parentNode = path.getParentNode(1);
 
   return [
     printInverseBlockOpeningMustache(parentNode),
-    "else if ",
+    "else ",
+    ifish,
+    " ",
     printParams(path, print),
     printInverseBlockClosingMustache(parentNode),
   ];
@@ -603,12 +605,12 @@ function blockStatementHasOnlyWhitespaceInProgram(node) {
   );
 }
 
-function blockStatementHasElseIf(node) {
+function blockStatementHasElseIfish(node) {
   return (
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
     isNodeOfSomeType(node.inverse.body[0], ["BlockStatement"]) &&
-    node.inverse.body[0].path.parts[0] === "if"
+    node.inverse.body[0].path.parts[0] === node.path.parts[0]
   );
 }
 
@@ -641,7 +643,7 @@ function printInverse(path, print, options) {
       ? [hardline, inverse]
       : inverse;
 
-  if (blockStatementHasElseIf(node)) {
+  if (blockStatementHasElseIfish(node)) {
     return printed;
   }
 
