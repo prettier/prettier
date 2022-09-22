@@ -20,8 +20,8 @@ Required options:
 
 - **`plugins`**: Unlike the `format` function from the [Node.js-based API](api.md#prettierformatsource--options), this function doesn’t load plugins automatically. The `plugins` option is required because all the parsers included in the Prettier package come as plugins (for reasons of file size). These plugins are files named
 
-  - `parser-*.js` in <https://unpkg.com/browse/prettier@2.2.1/> and
-  - `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.2.1/esm/>
+  - `parser-*.js` in <https://unpkg.com/browse/prettier@2.7.1/> and
+  - `parser-*.mjs` in <https://unpkg.com/browse/prettier@2.7.1/esm/>
 
   You need to load the ones that you’re going to use and pass them to `prettier.format` using the `plugins` option.
 

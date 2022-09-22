@@ -5607,6 +5607,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:0.26.4":
+  version: 0.26.4
+  resolution: "magic-string@npm:0.26.4"
+  dependencies:
+    sourcemap-codec: ^1.4.8
+  checksum: dbb5d356361e5ff257e49e554d6a3b5a96019d0c1bcc0cf4f896cad27b6b6efcef0f58369757b3305653e1292c902d5831d16ae834d8285168b8303d04f188e9
+  languageName: node
+  linkType: hard
+
 "magic-string@npm:^0.25.3":
   version: 0.25.9
   resolution: "magic-string@npm:0.25.9"
@@ -6686,6 +6695,7 @@ __metadata:
     leven: 4.0.0
     lines-and-columns: 2.0.3
     linguist-languages: 7.21.0
+    magic-string: 0.26.4
     mem: 9.0.2
     meriyah: 4.3.1
     micromatch: 4.0.5
