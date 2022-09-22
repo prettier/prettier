@@ -7,7 +7,7 @@
 /test*.*
 /scripts/release/node_modules
 /coverage/
-/dist/
+/dist*/
 **/node_modules/**
 /website/build/
 /website/static/playground.js
