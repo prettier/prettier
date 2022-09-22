@@ -107,7 +107,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
       }
 
       if (output.startsWith("./parser-")) {
-        output = `./esm/${output.slice(2).replace(".js", ".mjs")}`
+        output = `./esm/${output.slice(2).replace(".js", ".mjs")}`;
       }
 
       replaceModule.push({ module: input, external: output });
