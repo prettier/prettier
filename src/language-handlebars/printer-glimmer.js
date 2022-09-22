@@ -96,16 +96,16 @@ function print(path, options, print) {
     case "BlockStatement": {
       const pp = path.getParentNode(1);
 
-      const isElseIfish =
+      const isElseIfLike =
         pp &&
         pp.inverse &&
         pp.inverse.body.length === 1 &&
         pp.inverse.body[0] === node &&
         pp.inverse.body[0].path.parts[0] === pp.path.parts[0];
 
-      if (isElseIfish) {
+      if (isElseIfLike) {
         return [
-          printElseIfishBlock(path, print, pp.inverse.body[0].path.parts[0]),
+          printElseIfLikeBlock(path, print, pp.inverse.body[0].path.parts[0]),
           printProgram(path, print, options),
           printInverse(path, print, options),
         ];
@@ -562,13 +562,13 @@ function printElseBlock(node, options) {
   ];
 }
 
-function printElseIfishBlock(path, print, ifish) {
+function printElseIfLikeBlock(path, print, ifLikeKeyword) {
   const parentNode = path.getParentNode(1);
 
   return [
     printInverseBlockOpeningMustache(parentNode),
     "else ",
-    ifish,
+    ifLikeKeyword,
     " ",
     printParams(path, print),
     printInverseBlockClosingMustache(parentNode),
@@ -605,7 +605,7 @@ function blockStatementHasOnlyWhitespaceInProgram(node) {
   );
 }
 
-function blockStatementHasElseIfish(node) {
+function blockStatementHasElseIfLike(node) {
   return (
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
@@ -643,7 +643,7 @@ function printInverse(path, print, options) {
       ? [hardline, inverse]
       : inverse;
 
-  if (blockStatementHasElseIfish(node)) {
+  if (blockStatementHasElseIfLike(node)) {
     return printed;
   }
 
