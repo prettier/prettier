@@ -123,6 +123,12 @@ class TypeScriptModuleSource {
     return this;
   }
 
+  applyChanges() {
+    const text = this.#source.toString();
+    this.#source = new MagicString(text);
+    this.#modules = getSubmodules(text);
+  }
+
   toString() {
     return this.#source.toString();
   }
@@ -465,6 +471,14 @@ function modifyTypescriptModule(text) {
     `
   );
 
+  source.replaceAlignedCode({
+    start: "var debugObjectHost = (function () {",
+    end: "})();",
+  });
+
+  // TODO[@fisker]: investigate possible `magic-string` bug
+  source.applyChanges();
+
   for (const [find, replacement] of Object.entries({
     // yarn pnp
     "process.versions.pnp": "undefined",
@@ -475,11 +489,6 @@ function modifyTypescriptModule(text) {
   })) {
     source.replaceAll(find, replacement);
   }
-
-  source.replaceAlignedCode({
-    start: "var debugObjectHost = (function () {",
-    end: "})();",
-  });
 
   return source.toString();
 }
