@@ -1,9 +1,7 @@
-import glimmerParser from "./parser-glimmer.js";
+import createParsers from "../utils/create-parsers.js";
 
-const parsers = {
-  get glimmer() {
-    return glimmerParser.parsers.glimmer;
-  },
-};
+const parsers = createParsers([
+  [() => import("./parser-glimmer.js"), ["glimmer"]],
+]);
 
 export default parsers;

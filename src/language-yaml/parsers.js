@@ -1,9 +1,5 @@
-import yamlParser from "./parser-yaml.js";
+import createParsers from "../utils/create-parsers.js";
 
-const parsers = {
-  get yaml() {
-    return yamlParser.parsers.yaml;
-  },
-};
+const parsers = createParsers([[() => import("./parser-yaml.js"), ["yaml"]]]);
 
 export default parsers;

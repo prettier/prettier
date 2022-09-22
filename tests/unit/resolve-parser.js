@@ -1,6 +1,6 @@
 import { resolveParser } from "../../src/main/parser.js";
 
-test("resolveParser should not trigger the plugin.parsers getters", () => {
+test("resolveParser should not trigger the plugin.parsers getters", async () => {
   const gettersCalledTimes = {};
   const rightParser = {};
   const wrongParser = {};
@@ -41,7 +41,7 @@ test("resolveParser should not trigger the plugin.parsers getters", () => {
     parser: "d",
   };
 
-  const result = resolveParser(options);
+  const result = await resolveParser(options);
   expect(gettersCalledTimes).toStrictEqual({ a: 0, b: 0, c: 0, d: 1, e: 0 });
   expect(result).toBe(rightParser);
   expect(options.plugins[0].parsers.d).toBe(wrongParser);

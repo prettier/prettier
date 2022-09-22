@@ -272,20 +272,20 @@ function normalizeInputAndOptions(text, options) {
   };
 }
 
-function hasPragma(text, options) {
-  const selectedParser = resolveParser(options);
+async function hasPragma(text, options) {
+  const selectedParser = await resolveParser(options);
   return !selectedParser.hasPragma || selectedParser.hasPragma(text);
 }
 
 async function formatWithCursor(originalText, originalOptions) {
   let { hasBOM, text, options } = normalizeInputAndOptions(
     originalText,
-    normalizeOptions(originalOptions)
+    await normalizeOptions(originalOptions)
   );
 
   if (
     (options.rangeStart >= options.rangeEnd && text !== "") ||
-    (options.requirePragma && !hasPragma(text, options))
+    (options.requirePragma && !(await hasPragma(text, options)))
   ) {
     return {
       formatted: originalText,
@@ -303,7 +303,7 @@ async function formatWithCursor(originalText, originalOptions) {
       !options.requirePragma &&
       options.insertPragma &&
       options.printer.insertPragma &&
-      !hasPragma(text, options)
+      !(await hasPragma(text, options))
     ) {
       text = options.printer.insertPragma(text);
     }
@@ -327,7 +327,7 @@ const prettier = {
   async parse(originalText, originalOptions, massage) {
     const { text, options } = normalizeInputAndOptions(
       originalText,
-      normalizeOptions(originalOptions)
+      await normalizeOptions(originalOptions)
     );
     const parsed = await parse(text, options);
     if (massage) {
@@ -337,7 +337,7 @@ const prettier = {
   },
 
   async formatAST(ast, options) {
-    options = normalizeOptions(options);
+    options = await normalizeOptions(options);
     const doc = await printAstToDoc(ast, options);
     return printDocToString(doc, options);
   },
@@ -354,14 +354,14 @@ const prettier = {
   },
 
   async printToDoc(originalText, options) {
-    options = normalizeOptions(options);
+    options = await normalizeOptions(options);
     const { ast, text } = await parse(originalText, options);
     attachComments(text, ast, options);
     return printAstToDoc(ast, options);
   },
 
-  printDocToString(doc, options) {
-    return printDocToString(doc, normalizeOptions(options));
+  async printDocToString(doc, options) {
+    return printDocToString(doc, await normalizeOptions(options));
   },
 };
 

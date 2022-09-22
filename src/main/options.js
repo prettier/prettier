@@ -14,7 +14,7 @@ const hiddenDefaults = {
 };
 
 // Copy options and fill in default values.
-function normalize(options, opts = {}) {
+async function normalize(options, opts = {}) {
   const rawOptions = { ...options };
 
   const supportOptions = getSupportInfo({
@@ -50,7 +50,7 @@ function normalize(options, opts = {}) {
     }
   }
 
-  const parser = resolveParser(
+  const parser = await resolveParser(
     // @ts-expect-error
     normalizeApiOptions(
       rawOptions,

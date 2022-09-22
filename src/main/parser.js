@@ -3,7 +3,11 @@ import { ConfigError } from "../common/errors.js";
 function resolveParser({ plugins, parser }) {
   for (const { parsers } of plugins) {
     if (parsers && Object.hasOwn(parsers, parser)) {
-      return parsers[parser];
+      const parserOrParserInitFunction = parsers[parser];
+
+      return typeof parserOrParserInitFunction === "function"
+        ? parserOrParserInitFunction()
+        : parserOrParserInitFunction;
     }
   }
 
@@ -16,7 +20,7 @@ function resolveParser({ plugins, parser }) {
 }
 
 async function parse(originalText, options) {
-  const parser = resolveParser(options);
+  const parser = await resolveParser(options);
   const text = parser.preprocess
     ? parser.preprocess(originalText, options)
     : originalText;
