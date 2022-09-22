@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [acorn] format 1`] = `
-"Parenthesized pattern (1:1)
+"Assigning to rvalue (1:1)
 > 1 | ({}) = x;
     | ^"
 `;
@@ -19,7 +19,7 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #0 [espree] format 1`] = `
-"Parenthesized pattern (1:1)
+"Assigning to rvalue (1:1)
 > 1 | ({}) = x;
     | ^"
 `;
