@@ -134,6 +134,8 @@ async function preparePackage() {
   const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
   packageJson.bin = "./bin-prettier.js";
   packageJson.main = "./index.cjs";
+  // TODO: Add `exports`
+
   // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
   packageJson.engines.node = ">=14";
   delete packageJson.dependencies;
