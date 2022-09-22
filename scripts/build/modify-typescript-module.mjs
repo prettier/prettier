@@ -107,7 +107,7 @@ class TypeScriptModuleSource {
       "gsu"
     );
 
-    this.#source.replace(regexp, replacement);
+    this.#source.replaceAll(regexp, replacement);
     return this;
   }
 
@@ -121,8 +121,8 @@ class TypeScriptModuleSource {
     return this;
   }
 
-  replace(...args) {
-    this.#source.replace(...args);
+  replaceAll(...args) {
+    this.#source.replaceAll(...args);
     return this;
   }
 
@@ -474,9 +474,9 @@ function modifyTypescriptModule(text) {
 
     // Dynamic `require()`s
     "ts.sys && ts.sys.require": "false",
-    "require\\(etwModulePath\\)": "undefined", // Bug of `magic-string`?
+    "require(etwModulePath)": "undefined",
   })) {
-    source.replace(find, replacement);
+    source.replaceAll(find, replacement);
   }
 
   source.replaceAlignedCode({
