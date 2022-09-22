@@ -102,7 +102,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
         continue;
       }
 
-      if (output === "./doc.js") {
+      if (output === "./doc.js" && output === "index.cjs") {
         output = "./esm/doc.mjs";
       }
 

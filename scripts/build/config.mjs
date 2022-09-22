@@ -235,6 +235,9 @@ const coreBundles = [
     ],
   },
   {
+    input: "src/index.cjs",
+  },
+  {
     input: "src/document/index.js",
     interopDefault: false,
     name: "doc",
