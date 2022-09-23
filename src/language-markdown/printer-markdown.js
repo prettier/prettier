@@ -738,16 +738,16 @@ function isBreakable(path, value, options, adjacentNodes) {
   if (adjacentNodes == undefined) {
     return true;
   }
+  // Space & newline are always breakable
+  if (value !== "") {
+    return true;
+  }
   // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   if (
-    value === "" &&
     adjacentNodes.previous?.kind === KIND_K_LETTER &&
     adjacentNodes.next?.kind === KIND_K_LETTER
   ) {
     return false;
-  }
-  if (value === " ") {
-    return true;
   }
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const isBreakingCJKLineBreakingRule =
@@ -758,33 +758,10 @@ function isBreakable(path, value, options, adjacentNodes) {
         getLastCharacter(adjacentNodes.previous.value)
       ));
   // For "" (CJK and some non-space) higher priority than the follwing rule
-  if (value === "" && isBreakingCJKLineBreakingRule) {
+  if (isBreakingCJKLineBreakingRule) {
     return false;
   }
-  // Unusual newline between CJ and ASCII punctuation marks
-  // e.g.
-  // 中文日本語
-  // ...
-  // Foobar
-  // ...
-  //
-  // common usage of `...`:
-  // 正在加载... 読込中...
-  if (
-    value === "\n" &&
-    ((adjacentNodes.previous?.kind === KIND_CJ_LETTER &&
-      lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
-        adjacentNodes.next?.value[0]
-      )) ||
-      (adjacentNodes.next?.kind === KIND_CJ_LETTER &&
-        lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
-          adjacentNodes.previous?.value
-        )))
-  ) {
-    return true;
-  }
-  // For "\n" lower priority (because the rule has already been broken)
-  return !isBreakingCJKLineBreakingRule;
+  return true;
 }
 
 /**
