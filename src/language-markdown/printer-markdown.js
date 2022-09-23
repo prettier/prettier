@@ -708,7 +708,7 @@ function isCJK(kind) {
 
 /**
  * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is western or Korean letters (divids words by Space)
+ * @returns {boolean} `true` if `kind` is western or Korean letters (divides words by Space)
  */
 function isWesternOrKoreanLetter(kind) {
   return kind === KIND_NON_CJK || kind === KIND_K_LETTER;
@@ -750,7 +750,7 @@ function isBreakable(path, value, options, adjacentNodes) {
       noBreakBeforeSymbolSet.has(adjacentNodes.next.value[0])) ||
     (adjacentNodes.previous?.value !== undefined &&
       noBreakAfterSymbolSet.has(adjacentNodes.previous.value.at(-1)));
-  // For "" (CJK and some non-space) higher priority than the follwing rule
+  // For "" (CJK and some non-space) higher priority than the following rule
   if (isBreakingCJKLineBreakingRule) {
     return false;
   }
