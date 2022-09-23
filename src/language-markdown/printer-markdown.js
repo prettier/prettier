@@ -639,14 +639,13 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     return true;
   }
   // no adjacent nodes
-  if (typeof adjacentNodes !== "object") {
+  // Use `!` (no zero, NaN, or empty string)
+  if (!adjacentNodes) {
     return true;
   }
   // e.g. " \nletter"
-  if (
-    typeof adjacentNodes.next === "undefined" ||
-    typeof adjacentNodes.previous === "undefined"
-  ) {
+  // Use `!` (no zero, NaN, or empty string)
+  if (!adjacentNodes.previous || !adjacentNodes.next) {
     return true;
   }
   const previousKind = adjacentNodes.previous?.kind;
