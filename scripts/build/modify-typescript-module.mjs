@@ -152,6 +152,11 @@ function modifyTypescriptModule(text) {
     text.includes("ts.generateDjb2Hash = generateDjb2Hash;")
   );
 
+  // Path related
+  source.removeSubmodule((text) =>
+    text.includes("ts.isAnyDirectorySeparator = isAnyDirectorySeparator")
+  );
+
   // Language service
   source.removeSubmodule((text) =>
     text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
