@@ -91,7 +91,7 @@ const lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet = new Set(
 /**
  * Unicode punctuation character defined in [CommonMark Spec](https://spec.commonmark.org/0.30/#unicode-punctuation-character)
  */
-const punctuationsRegex = /(\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
+const punctuationsRegex = /(?:\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
 
 function genericPrint(path, options, print) {
   const { node } = path;
