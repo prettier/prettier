@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import { getOrderedListItemInfo, mapAst, splitText } from "./utils.js";
 
 // 0x0 ~ 0x10ffff
@@ -76,7 +75,7 @@ function mergeChildren(ast, shouldMerge, mergeNode) {
       return node;
     }
     const children = node.children.reduce((current, child) => {
-      const lastChild = getLast(current);
+      const lastChild = current.at(-1);
       if (lastChild && shouldMerge(lastChild, child)) {
         current.splice(-1, 1, mergeNode(lastChild, child));
       } else {

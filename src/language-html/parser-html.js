@@ -1,7 +1,6 @@
 import parseFrontMatter from "../utils/front-matter/parse.js";
-import getLast from "../utils/get-last.js";
+import inferParserByLanguage from "../utils/infer-parser-by-language.js";
 import createError from "../common/parser-create-error.js";
-import { inferParserByLanguage } from "../common/util.js";
 import HTML_TAGS from "./utils/html-tag-names.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
@@ -145,13 +144,17 @@ async function ngHtmlParser(
   }
 
   if (errors.length > 0) {
+    const [error] = errors;
     const {
       msg,
       span: { start, end },
-    } = errors[0];
+    } = error;
     throw createError(msg, {
-      start: { line: start.line + 1, column: start.col + 1 },
-      end: { line: end.line + 1, column: end.col + 1 },
+      loc: {
+        start: { line: start.line + 1, column: start.col + 1 },
+        end: { line: end.line + 1, column: end.col + 1 },
+      },
+      cause: error,
     });
   }
 
@@ -338,7 +341,7 @@ async function _parse(
     subAst.sourceSpan = new ParseSourceSpan(
       startSpan,
       // @ts-expect-error
-      getLast(subAst.children).sourceSpan.end
+      subAst.children.at(-1).sourceSpan.end
     );
     // @ts-expect-error
     const firstText = subAst.children[0];

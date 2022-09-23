@@ -132,9 +132,12 @@ async function createBundle(bundleConfig, options) {
 
 async function preparePackage() {
   const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
-  packageJson.bin = "./bin-prettier.js";
+  packageJson.bin = "./bin-prettier.cjs";
+  packageJson.main = "./index.cjs";
+  // TODO: Add `exports`
+
   // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
-  // packageJson.engines.node = ">=14.20.0";
+  packageJson.engines.node = ">=14";
   delete packageJson.dependencies;
   delete packageJson.devDependencies;
   delete packageJson.browserslist;

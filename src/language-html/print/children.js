@@ -6,7 +6,7 @@ import {
   softline,
   hardline,
 } from "../../document/builders.js";
-import { replaceTextEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   forceBreakChildren,
@@ -26,12 +26,12 @@ import {
 } from "./tag.js";
 
 function printChild(childPath, options, print) {
-  const child = childPath.getValue();
+  const child = childPath.node;
 
   if (hasPrettierIgnore(child)) {
     return [
       printOpeningTagPrefix(child, options),
-      ...replaceTextEndOfLine(
+      replaceEndOfLine(
         options.originalText.slice(
           locStart(child) +
             (child.prev && needsToBorrowNextOpeningTagStartMarker(child.prev)
@@ -111,14 +111,14 @@ function printBetweenLine(prevNode, nextNode) {
 }
 
 function printChildren(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (forceBreakChildren(node)) {
     return [
       breakParent,
 
       ...path.map((childPath) => {
-        const childNode = childPath.getValue();
+        const childNode = childPath.node;
         const prevBetweenLine = !childNode.prev
           ? ""
           : printBetweenLine(childNode.prev, childNode);
@@ -137,7 +137,7 @@ function printChildren(path, options, print) {
 
   const groupIds = node.children.map(() => Symbol(""));
   return path.map((childPath, childIndex) => {
-    const childNode = childPath.getValue();
+    const childNode = childPath.node;
 
     if (isTextLikeNode(childNode)) {
       if (childNode.prev && isTextLikeNode(childNode.prev)) {

@@ -44,30 +44,30 @@ test("better-parent-property-check-in-needs-parens", {
   valid: ["function needsParens() {return parent.test === node;}"],
   invalid: [
     {
-      code: 'return parent.type === "MemberExpression" && name === "object";',
-      errors: [{ message: "`name` comparison should be on left side." }],
+      code: 'return parent.type === "MemberExpression" && key === "object";',
+      errors: [{ message: "`key` comparison should be on left side." }],
     },
     {
       code: "return parent.test === node;",
-      output: 'return name === "test";',
+      output: 'return key === "test";',
       errors: [
-        { message: 'Prefer `name === "test"` over `parent.test === node`.' },
+        { message: 'Prefer `key === "test"` over `parent.test === node`.' },
       ],
     },
     {
       code: "return parent.test !== node;",
-      output: 'return name !== "test";',
+      output: 'return key !== "test";',
       errors: [
-        { message: 'Prefer `name !== "test"` over `parent.test !== node`.' },
+        { message: 'Prefer `key !== "test"` over `parent.test !== node`.' },
       ],
     },
     {
       code: 'return parent["property"] === node;',
-      output: 'return name === "property";',
+      output: 'return key === "property";',
       errors: [
         {
           message:
-            'Prefer `name === "property"` over `parent."property" === node`.',
+            'Prefer `key === "property"` over `parent."property" === node`.',
         },
       ],
     },
@@ -77,50 +77,6 @@ test("better-parent-property-check-in-needs-parens", {
     output: `function needsParens() {${testCase.output || testCase.code}}`,
     filename: "needs-parens.js",
   })),
-});
-
-test("consistent-negative-index-access", {
-  valid: [
-    "getLast(foo)",
-    "getPenultimate(foo)",
-    "foo[foo.length]",
-    "foo[foo.length - 3]",
-    "foo[foo.length + 1]",
-    "foo[foo.length + -1]",
-    "foo[foo.length * -1]",
-    "foo.length - 1",
-    "foo?.[foo.length - 1]",
-    "foo[foo?.length - 1]",
-    "foo[foo['length'] - 1]",
-    "foo[bar.length - 1]",
-    "foo.bar[foo.      bar.length - 1]",
-    "foo[foo.length - 1]++",
-    "--foo[foo.length - 1]",
-    "foo[foo.length - 1] += 1",
-    "foo[foo.length - 1] = 1",
-  ],
-  invalid: [
-    {
-      code: "foo[foo.length - 1]",
-      output: "getLast(foo)",
-      errors: 1,
-    },
-    {
-      code: "foo[foo.length - 2]",
-      output: "getPenultimate(foo)",
-      errors: 1,
-    },
-    {
-      code: "foo[foo.length - 0b10]",
-      output: "getPenultimate(foo)",
-      errors: 1,
-    },
-    {
-      code: "foo()[foo().length - 1]",
-      output: "getLast(foo())",
-      errors: 1,
-    },
-  ],
 });
 
 test("directly-loc-start-end", {
@@ -539,4 +495,46 @@ test("prefer-fs-promises-submodule", {
     ...testCase,
     parserOptions: { sourceType: "module" },
   })),
+});
+
+test("prefer-ast-path-node", {
+  valid: [
+    "path.getNode(2)",
+    "path.getNode",
+    "getNode",
+    "this.getNode()",
+    "path.node",
+  ],
+  invalid: [
+    {
+      code: "path.getNode()",
+      output: "path.node",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getNode()",
+      output: "const node = path.node",
+      errors: 1,
+    },
+    {
+      code: "path.getValue()",
+      output: "path.node",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getValue()",
+      output: "const node = path.node",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getValue()",
+      output: "fooPath.node",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getNode()",
+      output: "fooPath.node",
+      errors: 1,
+    },
+  ],
 });

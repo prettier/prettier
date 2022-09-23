@@ -37,8 +37,8 @@ function processReplacements(replacements) {
     }
 
     if (
-      Reflect.has(replacement, "external") ||
-      Reflect.has(replacement, "path")
+      Object.hasOwn(replacement, "external") ||
+      Object.hasOwn(replacement, "path")
     ) {
       if (module === "*") {
         throw new Error("Can not replace all modules with the same path.");
@@ -48,7 +48,7 @@ function processReplacements(replacements) {
 
       onResolveReplacements.set(
         module,
-        Reflect.has(replacement, "external")
+        Object.hasOwn(replacement, "external")
           ? { external: true, path: replacement.external }
           : { path: replacement.path }
       );
@@ -56,7 +56,7 @@ function processReplacements(replacements) {
       continue;
     }
 
-    if (Reflect.has(replacement, "text")) {
+    if (Object.hasOwn(replacement, "text")) {
       if (module === "*") {
         throw new Error("Can not replace all modules with the same content.");
       }
@@ -81,7 +81,7 @@ function processReplacements(replacements) {
 
     const processFunctions = onLoadProcessors.get(module);
 
-    if (Reflect.has(replacement, "process")) {
+    if (Object.hasOwn(replacement, "process")) {
       const { process } = replacement;
       if (typeof process !== "function") {
         throw new TypeError("'process' option should be a function.");
@@ -92,8 +92,8 @@ function processReplacements(replacements) {
     }
 
     if (
-      Reflect.has(replacement, "find") &&
-      Reflect.has(replacement, "replacement")
+      Object.hasOwn(replacement, "find") &&
+      Object.hasOwn(replacement, "replacement")
     ) {
       processFunctions.push((text) =>
         text.replaceAll(replacement.find, replacement.replacement)
@@ -174,7 +174,7 @@ function setupOnLoadListener(build, { concepts, replacements, processors }) {
 
     let text = original;
     for (const process of processFunctions) {
-      text = process(text);
+      text = process(text, file);
     }
 
     // For files not JavaScript, we need add correct `loader` to the result,

@@ -4,7 +4,7 @@ import visitorKeys from "./traverse/json-visitor-keys.js";
 import preprocess from "./print-preprocess.js";
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   switch (node.type) {
     case "JsonRoot":
       return [print("node"), hardline];
@@ -14,7 +14,7 @@ function genericPrint(path, options, print) {
       }
 
       const printed = path.map(
-        () => (path.getValue() === null ? "null" : print()),
+        () => (path.node === null ? "null" : print()),
         "elements"
       );
 

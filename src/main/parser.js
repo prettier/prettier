@@ -2,8 +2,12 @@ import { ConfigError } from "../common/errors.js";
 
 function resolveParser({ plugins, parser }) {
   for (const { parsers } of plugins) {
-    if (parsers && Object.prototype.hasOwnProperty.call(parsers, parser)) {
-      return parsers[parser];
+    if (parsers && Object.hasOwn(parsers, parser)) {
+      const parserOrParserInitFunction = parsers[parser];
+
+      return typeof parserOrParserInitFunction === "function"
+        ? parserOrParserInitFunction()
+        : parserOrParserInitFunction;
     }
   }
 
@@ -16,7 +20,7 @@ function resolveParser({ plugins, parser }) {
 }
 
 async function parse(originalText, options) {
-  const parser = resolveParser(options);
+  const parser = await resolveParser(options);
   const text = parser.preprocess
     ? parser.preprocess(originalText, options)
     : originalText;
@@ -42,8 +46,9 @@ async function handleParseError(error, text) {
 
   if (loc) {
     const { codeFrameColumns } = await import("@babel/code-frame");
-    error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
-    error.message += "\n" + error.codeFrame;
+    const codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
+    error.message += "\n" + codeFrame;
+    error.codeFrame = codeFrame;
     throw error;
   }
 

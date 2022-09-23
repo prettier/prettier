@@ -30,7 +30,9 @@ async function printEmbeddedLanguages(
     );
   }
 
-  const getVisitorKeys = createGetVisitorKeysFunction(printerGetVisitorKeys);
+  const getVisitorKeys = createGetVisitorKeysFunction(
+    embed.getVisitorKeys ?? printerGetVisitorKeys
+  );
   const embedCallResults = [];
 
   recurse();
@@ -60,7 +62,7 @@ async function printEmbeddedLanguages(
   }
 
   function recurse() {
-    const node = path.getValue();
+    const { node } = path;
     if (node === null || typeof node !== "object" || hasPrettierIgnore(path)) {
       return;
     }
@@ -107,7 +109,7 @@ async function textToDoc(
   parentOptions,
   printAstToDoc
 ) {
-  const nextOptions = normalize(
+  const nextOptions = await normalize(
     {
       ...parentOptions,
       ...partialNextOptions,

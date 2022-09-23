@@ -26,24 +26,8 @@ const colorAdjusterFunctions = new Set([
   "hwba",
 ]);
 
-function getAncestorCounter(path, typeOrTypes) {
-  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.includes(ancestorNode.type)) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
+function getAncestorNode(path, type) {
+  return path.findAncestor((node) => node.type === type);
 }
 
 function getPropOfDeclNode(path) {
@@ -106,7 +90,7 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 }
 
 function insideURLFunctionInImportAtRuleNode(path) {
-  const node = path.getValue();
+  const { node } = path;
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
 
   return (
@@ -118,6 +102,10 @@ function insideURLFunctionInImportAtRuleNode(path) {
 
 function isURLFunctionNode(node) {
   return node.type === "value-func" && node.value.toLowerCase() === "url";
+}
+
+function isVarFunctionNode(node) {
+  return node.type === "value-func" && node.value.toLowerCase() === "var";
 }
 
 function isLastNode(path, node) {
@@ -267,7 +255,7 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
-  const node = path.getValue();
+  const { node } = path;
 
   // Ignore empty item (i.e. `$key: ()`)
   if (node.groups.length === 0) {
@@ -396,7 +384,6 @@ function isParenGroupNode(node) {
 }
 
 export {
-  getAncestorCounter,
   getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
@@ -444,4 +431,5 @@ export {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isVarFunctionNode,
 };

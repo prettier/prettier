@@ -10,7 +10,7 @@ import { locStart, locEnd } from "../loc.js";
 import { getParentExportDeclaration } from "../utils/index.js";
 
 function printClassMemberDecorators(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   return group([
     join(line, path.map(print, "decorators")),
     hasNewlineBetweenOrAfterDecorators(node, options) ? hardline : line,
@@ -27,7 +27,7 @@ function printDecoratorsBeforeExport(path, options, print) {
 }
 
 function printDecorators(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const { decorators } = node;
 
   if (

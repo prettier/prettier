@@ -16,6 +16,7 @@ import {
   shouldPrintComma,
   getFunctionParameters,
   isObjectType,
+  getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
 import { createGroupIdMapper } from "../../common/util.js";
 import { shouldHugType } from "./type-annotation.js";
@@ -24,7 +25,7 @@ import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
 
 function printTypeParameters(path, options, print, paramsKey) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node[paramsKey]) {
     return "";
@@ -92,7 +93,7 @@ function printTypeParameters(path, options, print, paramsKey) {
 }
 
 function printDanglingCommentsForInline(path, options) {
-  const node = path.getValue();
+  const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return "";
   }
@@ -109,11 +110,20 @@ function printDanglingCommentsForInline(path, options) {
 }
 
 function printTypeParameter(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   const parent = path.getParentNode();
+
+  const name = node.type === "TSTypeParameter" ? print("name") : node.name;
+
   if (parent.type === "TSMappedType") {
-    parts.push("[", print("name"));
+    if (parent.readonly) {
+      parts.push(
+        getTypeScriptMappedTypeModifier(parent.readonly, "readonly"),
+        " "
+      );
+    }
+    parts.push("[", name);
     if (node.constraint) {
       parts.push(" in ", print("constraint"));
     }
@@ -139,7 +149,7 @@ function printTypeParameter(path, options, print) {
     parts.push("out ");
   }
 
-  parts.push(print("name"));
+  parts.push(name);
 
   if (node.bound) {
     parts.push(": ", print("bound"));

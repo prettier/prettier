@@ -29,7 +29,7 @@ import {
  */
 
 function printImportDeclaration(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];
@@ -53,7 +53,7 @@ function printImportDeclaration(path, options, print) {
 }
 
 function printExportDeclaration(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   /** @type{Doc[]} */
   const parts = [];
 
@@ -102,7 +102,7 @@ function printExportDeclaration(path, options, print) {
 }
 
 function printExportAllDeclaration(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];
@@ -158,7 +158,7 @@ function shouldExportDeclarationPrintSemi(node, options) {
 }
 
 function printModuleSource(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node.source) {
     return "";
@@ -175,7 +175,7 @@ function printModuleSource(path, options, print) {
 }
 
 function printModuleSpecifiers(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldNotPrintSpecifiers(node, options)) {
     return "";
@@ -189,7 +189,7 @@ function printModuleSpecifiers(path, options, print) {
     const groupedSpecifiers = [];
 
     path.each(() => {
-      const specifierType = path.getValue().type;
+      const specifierType = path.node.type;
       if (
         specifierType === "ExportNamespaceSpecifier" ||
         specifierType === "ExportDefaultSpecifier" ||
@@ -269,7 +269,7 @@ function shouldNotPrintSpecifiers(node, options) {
 }
 
 function printImportAssertions(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
   if (isNonEmptyArray(node.assertions)) {
     return [
       " assert {",
@@ -283,7 +283,7 @@ function printImportAssertions(path, options, print) {
 }
 
 function printModuleSpecifier(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
 
   const { type } = node;
 

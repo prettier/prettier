@@ -1,7 +1,7 @@
 import { hardline } from "../document/builders.js";
 
 function embed(path, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Try to format `.prettierrc`, `.stylelintrc`, and `.lintstagedrc` as `json` first
   if (
@@ -15,5 +15,9 @@ function embed(path, options) {
     };
   }
 }
+
+// Only "root" allow print as JSON
+// Use `[]` to prevent `printEmbeddedLanguages` traverse deep
+embed.getVisitorKeys = () => [];
 
 export default embed;

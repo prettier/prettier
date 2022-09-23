@@ -11,7 +11,7 @@ import {
   softline,
   hardline,
 } from "../../document/builders.js";
-import { replaceTextEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/utils.js";
 import { locStart, locEnd } from "../loc.js";
 import {
   isTextLikeNode,
@@ -214,7 +214,7 @@ function needsToBorrowParentOpeningTagEndMarker(node) {
 }
 
 function printAttributes(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (!isNonEmptyArray(node.attrs)) {
     return node.isSelfClosing
@@ -239,9 +239,9 @@ function printAttributes(path, options, print) {
       : () => false;
 
   const printedAttributes = path.map((attributePath) => {
-    const attribute = attributePath.getValue();
+    const attribute = attributePath.node;
     return hasPrettierIgnoreAttribute(attribute)
-      ? replaceTextEndOfLine(
+      ? replaceEndOfLine(
           options.originalText.slice(locStart(attribute), locEnd(attribute))
         )
       : print();
@@ -311,7 +311,7 @@ function printOpeningTagEnd(node) {
 }
 
 function printOpeningTag(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   return [
     printOpeningTagStart(node, options),

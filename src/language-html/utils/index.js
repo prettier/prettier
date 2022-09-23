@@ -2,9 +2,10 @@
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
-import { inferParserByLanguage, isFrontMatterNode } from "../../common/util.js";
+import { isFrontMatterNode } from "../../common/util.js";
+import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
 import { line, hardline, join } from "../../document/builders.js";
-import { replaceTextEndOfLine } from "../../document/utils.js";
+import { replaceEndOfLine } from "../../document/utils.js";
 import {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
@@ -633,8 +634,8 @@ function isVueSfcBindingsAttribute(attribute, options) {
 function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
-      ? replaceTextEndOfLine(value)
-      : replaceTextEndOfLine(
+      ? replaceEndOfLine(value)
+      : replaceEndOfLine(
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )

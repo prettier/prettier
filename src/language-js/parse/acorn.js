@@ -10,12 +10,9 @@ const require = createRequire(import.meta.url);
 const parseOptions = {
   ecmaVersion: "latest",
   sourceType: "module",
-  allowReserved: true,
   allowReturnOutsideFunction: true,
   allowImportExportEverywhere: true,
-  allowAwaitOutsideFunction: true,
   allowSuperOutsideMethod: true,
-  allowHashBang: true,
   locations: true,
   ranges: true,
 };
@@ -31,7 +28,10 @@ function createParseError(error) {
   const { line, column } = loc;
 
   return createError(message.replace(/ \(\d+:\d+\)$/, ""), {
-    start: { line, column: column + 1 },
+    loc: {
+      start: { line, column: column + 1 },
+    },
+    cause: error,
   });
 }
 

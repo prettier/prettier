@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import sdbm from "sdbm";
 import { __internal as sharedWithCli } from "../index.js";
 
-const { arrayify, getLast, isNonEmptyArray, partition } = sharedWithCli.utils;
+const { arrayify, isNonEmptyArray, partition } = sharedWithCli.utils;
 
 // eslint-disable-next-line no-console
 const printToScreen = console.log.bind(console);
@@ -81,7 +81,6 @@ function isJson(value) {
 
 export {
   arrayify,
-  getLast,
   isNonEmptyArray,
   partition,
   printToScreen,

@@ -1,5 +1,4 @@
 import { printComments } from "../../main/comments.js";
-import { getLast } from "../../common/util.js";
 import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
   join,
@@ -28,7 +27,7 @@ import {
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   const isInsideParenthesis =
@@ -170,7 +169,7 @@ function printBinaryishExpression(path, options, print) {
     return chain;
   }
 
-  const jsxPart = getLast(parts);
+  const jsxPart = parts.at(-1);
   return group([chain, indentIfBreak(jsxPart, { groupId })]);
 }
 
@@ -189,7 +188,7 @@ function printBinaryishExpressions(
   isNested,
   isInsideParenthesis
 ) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Simply print the node normally.
   if (!isBinaryish(node)) {

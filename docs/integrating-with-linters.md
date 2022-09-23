@@ -29,7 +29,7 @@ The downsides of those plugins are:
 - They are slower than running Prettier directly.
 - They’re yet one layer of indirection where things may break.
 
-Finally, we have tools that run `prettier` and then immediately for example `eslint --fix` on files.
+Finally, we have tools that run `prettier` and then immediately lint files by running, for example, `eslint --fix` on them.
 
 - [prettier-eslint](https://github.com/prettier/prettier-eslint)
 - [prettier-stylelint](https://github.com/hugomrdias/prettier-stylelint)

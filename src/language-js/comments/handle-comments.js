@@ -1,5 +1,4 @@
 import {
-  getLast,
   hasNewline,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacter,
@@ -9,31 +8,25 @@ import {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
-} from "../common/util.js";
+} from "../../common/util.js";
 import {
   getFunctionParameters,
   isPrettierIgnoreComment,
-  isJsxNode,
-  hasFlowShorthandAnnotationComment,
-  hasFlowAnnotationComment,
-  hasIgnoreComment,
   isCallLikeExpression,
   getCallArguments,
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
   isLineComment,
-  getComments,
-  CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
-} from "./utils/index.js";
-import { locStart, locEnd } from "./loc.js";
-import isBlockComment from "./utils/is-block-comment.js";
+} from "../utils/index.js";
+import { locStart, locEnd } from "../loc.js";
+import isBlockComment from "../utils/is-block-comment.js";
+import isTypeCastComment from "../utils/is-type-cast-comment.js";
 
 /**
- * @typedef {import("./types/estree").Node} Node
- * @typedef {import("./types/estree").Comment} Comment
- * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree").Comment} Comment
  *
  * @typedef {Object} CommentContext
  * @property {Comment} comment
@@ -400,7 +393,7 @@ function handleClassComments({
       isNonEmptyArray(enclosingNode.decorators) &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
-      addTrailingComment(getLast(enclosingNode.decorators), comment);
+      addTrailingComment(enclosingNode.decorators.at(-1), comment);
       return true;
     }
 
@@ -595,7 +588,7 @@ function handleLastFunctionArgComments({
       if (parameters.length > 0) {
         return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
-          locEnd(getLast(parameters))
+          locEnd(parameters.at(-1))
         );
       }
       const functionParamLeftParenIndex =
@@ -917,88 +910,12 @@ function isRealFunctionLikeNode(node) {
   );
 }
 
-/**
- * @param {any} node
- * @returns {Node[] | void}
- */
-function getCommentChildNodes(node, options) {
-  // Prevent attaching comments to FunctionExpression in this case:
-  //     class Foo {
-  //       bar() // comment
-  //       {
-  //         baz();
-  //       }
-  //     }
-  if (
-    (options.parser === "typescript" ||
-      options.parser === "flow" ||
-      options.parser === "acorn" ||
-      options.parser === "espree" ||
-      options.parser === "meriyah" ||
-      options.parser === "__babel_estree") &&
-    node.type === "MethodDefinition" &&
-    node.value &&
-    node.value.type === "FunctionExpression" &&
-    getFunctionParameters(node.value).length === 0 &&
-    !node.value.returnType &&
-    !isNonEmptyArray(node.value.typeParameters) &&
-    node.value.body
-  ) {
-    return [...(node.decorators || []), node.key, node.value.body];
-  }
-}
-
-/**
- * @param {Comment} comment
- * @returns {boolean}
- */
-function isTypeCastComment(comment) {
-  return (
-    isBlockComment(comment) &&
-    comment.value[0] === "*" &&
-    // TypeScript expects the type to be enclosed in curly brackets, however
-    // Closure Compiler accepts types in parens and even without any delimiters at all.
-    // That's why we just search for "@type".
-    /@type\b/.test(comment.value)
-  );
-}
-
-/**
- * @param {AstPath} path
- * @returns {boolean}
- */
-function willPrintOwnComments(path /*, options */) {
-  const node = path.getValue();
-  const parent = path.getParentNode();
-
-  const hasFlowAnnotations = (node) =>
-    hasFlowAnnotationComment(getComments(node, CommentCheckFlags.Leading)) ||
-    hasFlowAnnotationComment(getComments(node, CommentCheckFlags.Trailing));
-
-  return (
-    ((node &&
-      (isJsxNode(node) ||
-        hasFlowShorthandAnnotationComment(node) ||
-        (isCallExpression(parent) && hasFlowAnnotations(node)))) ||
-      (parent &&
-        (parent.type === "JSXSpreadAttribute" ||
-          parent.type === "JSXSpreadChild" ||
-          parent.type === "UnionTypeAnnotation" ||
-          parent.type === "TSUnionType" ||
-          ((parent.type === "ClassDeclaration" ||
-            parent.type === "ClassExpression") &&
-            parent.superClass === node)))) &&
-    (!hasIgnoreComment(path) ||
-      parent.type === "UnionTypeAnnotation" ||
-      parent.type === "TSUnionType")
-  );
-}
+// TODO: Make this default behavior
+const avoidAstMutation = true;
 
 export {
-  handleOwnLineComment,
-  handleEndOfLineComment,
-  handleRemainingComment,
-  isTypeCastComment,
-  getCommentChildNodes,
-  willPrintOwnComments,
+  handleOwnLineComment as ownLine,
+  handleEndOfLineComment as endOfLine,
+  handleRemainingComment as remaining,
+  avoidAstMutation,
 };

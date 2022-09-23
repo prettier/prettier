@@ -10,6 +10,7 @@ import {
   conditionalGroup,
   ifBreak,
 } from "../../document/builders.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   isLiteral,
   getTypeScriptMappedTypeModifier,
@@ -46,7 +47,7 @@ import {
 } from "./type-annotation.js";
 
 function printTypescript(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   // TypeScript nodes always starts with `TS`
   if (!node.type.startsWith("TS")) {
@@ -297,13 +298,6 @@ function printTypescript(path, options, print) {
           "{",
           indent([
             options.bracketSpacing ? line : softline,
-            node.readonly
-              ? [
-                  getTypeScriptMappedTypeModifier(node.readonly, "readonly"),
-                  " ",
-                ]
-              : "",
-            printTypeScriptModifiers(path, options, print),
             print("typeParameter"),
             node.optional
               ? getTypeScriptMappedTypeModifier(node.optional, "?")
@@ -523,9 +517,7 @@ function printTypescript(path, options, print) {
       return [print("expression"), print("typeParameters")];
     default:
       /* istanbul ignore next */
-      throw new Error(
-        `Unknown TypeScript node type: ${JSON.stringify(node.type)}.`
-      );
+      throw new UnexpectedNodeError(node, "TypeScript");
   }
 }
 

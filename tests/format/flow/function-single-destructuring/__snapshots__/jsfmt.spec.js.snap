@@ -133,3 +133,45 @@ const X = (props: { a: boolean }) => <A />;
 
 ================================================================================
 `;
+
+exports[`object-type-in-declare-function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare function foo(this: { a: boolean, b: string, c: number }):
+  Promise<Array<foo>>
+
+declare function bazFlip({ a: boolean, b: string, c: number }):
+  Promise<Array<foo>>
+
+declare function bar(...{ a: boolean, b: string, c: number }):
+  Promise<Array<foo>>
+
+declare function bar(...x: { a: boolean, b: string, c: number }):
+  Promise<Array<foo>>
+
+=====================================output=====================================
+declare function foo(this: {
+  a: boolean,
+  b: string,
+  c: number,
+}): Promise<Array<foo>>;
+
+declare function bazFlip({
+  a: boolean,
+  b: string,
+  c: number,
+}): Promise<Array<foo>>;
+
+declare function bar(
+  ...{ a: boolean, b: string, c: number }
+): Promise<Array<foo>>;
+
+declare function bar(
+  ...x: { a: boolean, b: string, c: number }
+): Promise<Array<foo>>;
+
+================================================================================
+`;

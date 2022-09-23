@@ -7,7 +7,12 @@ function getPrettierInternal() {
     return import(entry).then((module) => module.default);
   }
 
-  const entry = pathToFileURL(path.join(process.env.PRETTIER_DIR, "index.js"));
+  const entry = pathToFileURL(
+    path.join(
+      process.env.PRETTIER_DIR,
+      process.env.NODE_ENV === "production" ? "index.mjs" : "index.js"
+    )
+  );
   return import(entry);
 }
 

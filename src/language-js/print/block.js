@@ -13,7 +13,7 @@ import { printBody } from "./statement.js";
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 function printBlock(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.type === "StaticBlock") {
@@ -61,7 +61,7 @@ function printBlock(path, options, print) {
 }
 
 function printBlockBody(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const nodeHasDirectives = isNonEmptyArray(node.directives);
   const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
@@ -78,7 +78,7 @@ function printBlockBody(path, options, print) {
       parts.push(print());
       if (index < directives.length - 1 || nodeHasBody || nodeHasComment) {
         parts.push(hardline);
-        if (isNextLineEmpty(childPath.getValue(), options)) {
+        if (isNextLineEmpty(childPath.node, options)) {
           parts.push(hardline);
         }
       }

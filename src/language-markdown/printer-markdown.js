@@ -1,5 +1,4 @@
 import {
-  getLast,
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
@@ -20,9 +19,10 @@ import {
   group,
   hardlineWithoutBreakParent,
 } from "../document/builders.js";
-import { normalizeDoc, replaceTextEndOfLine } from "../document/utils.js";
+import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -39,6 +39,8 @@ import {
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+
 /**
  * @typedef {import("../document/builders.js").Doc} Doc
  */
@@ -52,7 +54,7 @@ const SIBLING_NODE_TYPES = new Set([
 ]);
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (shouldRemainTheSameContent(path)) {
     return splitText(
@@ -134,13 +136,11 @@ function genericPrint(path, options, print) {
       return escapedValue;
     }
     case "whitespace": {
-      const parentNode = path.getParentNode();
-      const index = parentNode.children.indexOf(node);
-      const nextNode = parentNode.children[index + 1];
+      const { next } = path;
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
+        next && /^>|^(?:[*+-]|#{1,6}|\d+[).])$/.test(next.value)
           ? "never"
           : options.proseWrap;
 
@@ -151,21 +151,14 @@ function genericPrint(path, options, print) {
       if (isAutolink(node.children[0])) {
         style = options.originalText[node.position.start.offset];
       } else {
-        const parentNode = path.getParentNode();
-        const index = parentNode.children.indexOf(node);
-        const prevNode = parentNode.children[index - 1];
-        const nextNode = parentNode.children[index + 1];
+        const { previous, next } = path;
         const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
-          (prevNode &&
-            prevNode.type === "sentence" &&
-            prevNode.children.length > 0 &&
-            getLast(prevNode.children).type === "word" &&
-            !getLast(prevNode.children).hasTrailingPunctuation) ||
-          (nextNode &&
-            nextNode.type === "sentence" &&
-            nextNode.children.length > 0 &&
-            nextNode.children[0].type === "word" &&
-            !nextNode.children[0].hasLeadingPunctuation);
+          (previous?.type === "sentence" &&
+            previous.children.at(-1)?.type === "word" &&
+            !previous.children.at(-1).hasTrailingPunctuation) ||
+          (next?.type === "sentence" &&
+            next.children[0]?.type === "word" &&
+            !next.children[0].hasLeadingPunctuation);
         style =
           hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
       }
@@ -243,7 +236,7 @@ function genericPrint(path, options, print) {
         const alignment = " ".repeat(4);
         return align(alignment, [
           alignment,
-          ...replaceTextEndOfLine(node.value, hardline),
+          replaceEndOfLine(node.value, hardline),
         ]);
       }
 
@@ -257,8 +250,7 @@ function genericPrint(path, options, print) {
         node.lang || "",
         node.meta ? " " + node.meta : "",
         hardline,
-
-        ...replaceTextEndOfLine(
+        replaceEndOfLine(
           getFencedCodeBlockValue(node, options.originalText),
           hardline
         ),
@@ -267,24 +259,21 @@ function genericPrint(path, options, print) {
       ];
     }
     case "html": {
-      const parentNode = path.getParentNode();
+      const { parent } = path;
       const value =
-        parentNode.type === "root" && getLast(parentNode.children) === node
+        parent.type === "root" && parent.children.at(-1) === node
           ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
-      return replaceTextEndOfLine(
+      return replaceEndOfLine(
         value,
         // @ts-expect-error
         isHtmlComment ? hardline : markAsRoot(literalline)
       );
     }
     case "list": {
-      const nthSiblingIndex = getNthListSiblingIndex(
-        node,
-        path.getParentNode()
-      );
+      const nthSiblingIndex = getNthListSiblingIndex(node, path.parent);
 
       const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
         node,
@@ -294,7 +283,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = getPrefix();
-          const childNode = childPath.getValue();
+          const childNode = childPath.node;
 
           if (
             childNode.children.length === 2 &&
@@ -390,7 +379,6 @@ function genericPrint(path, options, print) {
     case "footnoteReference":
       return ["[^", node.identifier, "]"];
     case "footnoteDefinition": {
-      const nextNode = path.getParentNode().children[path.getName() + 1];
       const shouldInlineFootnote =
         node.children.length === 1 &&
         node.children[0].type === "paragraph" &&
@@ -412,9 +400,7 @@ function genericPrint(path, options, print) {
                     index === 0 ? group([softline, print()]) : print(),
                 })
               ),
-              nextNode && nextNode.type === "footnoteDefinition"
-                ? softline
-                : "",
+              path.next?.type === "footnoteDefinition" ? softline : "",
             ]),
       ];
     }
@@ -427,7 +413,7 @@ function genericPrint(path, options, print) {
         ? ["  ", markAsRoot(literalline)]
         : ["\\", hardline];
     case "liquidNode":
-      return replaceTextEndOfLine(node.value, hardline);
+      return replaceEndOfLine(node.value, hardline);
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
@@ -441,9 +427,7 @@ function genericPrint(path, options, print) {
       return [
         "$$",
         hardline,
-        node.value
-          ? [...replaceTextEndOfLine(node.value, hardline), hardline]
-          : "",
+        node.value ? [replaceEndOfLine(node.value, hardline), hardline] : "",
         "$$",
       ];
     case "inlineMath": {
@@ -459,18 +443,18 @@ function genericPrint(path, options, print) {
     case "export": // transformed in to `importExport`
     default:
       /* istanbul ignore next */
-      throw new Error(`Unknown markdown type ${JSON.stringify(node.type)}`);
+      throw new UnexpectedNodeError(node, "Markdown");
   }
 }
 
 function printListItem(path, options, print, listPrefix) {
-  const node = path.getValue();
+  const { node } = path;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return [
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
-        if (index === 0 && childPath.getValue().type !== "list") {
+        if (index === 0 && childPath.node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 
@@ -560,7 +544,7 @@ function printLine(path, value, options) {
 }
 
 function printTable(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const columnMaxWidths = [];
   // { [rowIndex: number]: { [columnIndex: number]: {text: string, width: number} } }
@@ -644,7 +628,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const { children } = path.getValue();
+  const { children } = path.node;
   for (const [index, childNode] of children.entries()) {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -702,13 +686,13 @@ function printChildren(path, options, print, events = {}) {
   const { postprocessor } = events;
   const processor = events.processor || (() => print());
 
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   let lastChildNode;
 
   path.each((childPath, index) => {
-    const childNode = childPath.getValue();
+    const childNode = childPath.node;
 
     const result = processor(childPath, index);
     if (result !== false) {
@@ -754,7 +738,7 @@ function printChildren(path, options, print, events = {}) {
 function getLastDescendantNode(node) {
   let current = node;
   while (isNonEmptyArray(current.children)) {
-    current = getLast(current.children);
+    current = current.children.at(-1);
   }
   return current;
 }
@@ -833,7 +817,7 @@ function shouldPrePrintDoubleHardline(node, data) {
 }
 
 function shouldPrePrintTripleHardline(node, data) {
-  const isPrevNodeList = data.prevNode && data.prevNode.type === "list";
+  const isPrevNodeList = data.prevNode?.type === "list";
   const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
@@ -904,14 +888,7 @@ function clamp(value, min, max) {
 }
 
 function hasPrettierIgnore(path) {
-  const index = Number(path.getName());
-
-  if (index === 0) {
-    return false;
-  }
-
-  const prevNode = path.getParentNode().children[index - 1];
-  return isPrettierIgnore(prevNode) === "next";
+  return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
 
 const printer = {
@@ -921,7 +898,7 @@ const printer = {
   massageAstNode: clean,
   hasPrettierIgnore,
   insertPragma,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

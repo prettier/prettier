@@ -78,10 +78,7 @@ const meriyahDisabledTests = new Set([
   ),
 ]);
 const babelTsDisabledTest = new Set(
-  [
-    // Disabled temporarily https://github.com/babel/babel/issues/14777#issuecomment-1191474632
-    "instantiation-expression",
-  ].map((directory) => path.join(__dirname, "../format/typescript", directory))
+  [].map((directory) => path.join(__dirname, "../format/typescript", directory))
 );
 
 const isUnstable = (filename, options) => {

@@ -5,13 +5,13 @@ import {
   printDanglingComments,
   printCommentsSeparately,
 } from "../../main/comments.js";
-import getLast from "../../utils/get-last.js";
 import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
 import {
   line,
   softline,
   group,
   indent,
+  dedent,
   ifBreak,
   hardline,
   join,
@@ -47,17 +47,22 @@ import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
 function printFunction(path, print, options, args) {
-  const node = path.getValue();
+  const { node } = path;
 
   let expandArg = false;
   if (
     (node.type === "FunctionDeclaration" ||
       node.type === "FunctionExpression") &&
-    args &&
-    args.expandLastArg
+    args?.expandLastArg
   ) {
     const parent = path.getParentNode();
-    if (isCallExpression(parent) && getCallArguments(parent).length > 1) {
+    if (
+      isCallExpression(parent) &&
+      (getCallArguments(parent).length > 1 ||
+        getFunctionParameters(node).every(
+          (param) => param.type === "Identifier" && !param.typeAnnotation
+        ))
+    ) {
       expandArg = true;
     }
   }
@@ -114,7 +119,7 @@ function printFunction(path, print, options, args) {
 }
 
 function printMethod(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
   const { kind } = node;
   const value = node.value || node;
   const parts = [];
@@ -153,7 +158,7 @@ function printMethod(path, options, print) {
 }
 
 function printMethodInternal(path, options, print) {
-  const node = path.getNode();
+  const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
   const returnTypeDoc = printReturnType(path, print, options);
   const shouldGroupParameters = shouldGroupFunctionParameters(
@@ -178,7 +183,7 @@ function printMethodInternal(path, options, print) {
 }
 
 function printArrowFunctionSignature(path, options, print, args) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.async) {
@@ -254,6 +259,10 @@ function printArrowChain(
 
   const groupId = Symbol("arrow-chain");
 
+  if ((isCallLikeExpression(parent) && !isCallee) || isBinaryish(parent)) {
+    signatures = [dedent(signatures[0]), ...signatures.slice(1)];
+  }
+
   // We handle sequence expressions as the body of arrows specially,
   // so that the required parentheses end up on their own lines.
   if (tailNode.body.type === "SequenceExpression") {
@@ -278,7 +287,7 @@ function printArrowChain(
 }
 
 function printArrowFunction(path, options, print, args) {
-  let node = path.getValue();
+  let { node } = path;
   /** @type {Doc[]} */
   const signatures = [];
   const body = [];
@@ -301,10 +310,7 @@ function printArrowFunction(path, options, print, args) {
       node.typeParameters ||
       getFunctionParameters(node).some((param) => param.type !== "Identifier");
 
-    if (
-      node.body.type !== "ArrowFunctionExpression" ||
-      (args && args.expandLastArg)
-    ) {
+    if (node.body.type !== "ArrowFunctionExpression" || args?.expandLastArg) {
       body.unshift(print("body", args));
     } else {
       node = node.body;
@@ -355,12 +361,12 @@ function printArrowFunction(path, options, print, args) {
   // with the opening (, or if it's inside a JSXExpression (e.g. an attribute)
   // we should align the expression's closing } with the line with the opening {.
   const shouldAddSoftLine =
-    ((args && args.expandLastArg) ||
+    (args?.expandLastArg ||
       path.getParentNode().type === "JSXExpressionContainer") &&
     !hasComment(node);
 
   const printTrailingComma =
-    args && args.expandLastArg && shouldPrintComma(options, "all");
+    args?.expandLastArg && shouldPrintComma(options, "all");
 
   // In order to avoid confusion between
   // a => a ? a : a
@@ -406,7 +412,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   }
 
   if (options.arrowParens === "avoid") {
-    const node = path.getValue();
+    const { node } = path;
     return canPrintParamsWithoutParens(node);
   }
 
@@ -417,7 +423,7 @@ function shouldPrintParamsWithoutParens(path, options) {
 
 /** @returns {Doc} */
 function printReturnType(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const returnType = print("returnType");
 
   if (
@@ -445,7 +451,7 @@ function printReturnType(path, print, options) {
 
 // `ReturnStatement` and `ThrowStatement`
 function printReturnOrThrowArgument(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const semi = options.semi ? ";" : "";
   const parts = [];
 
@@ -470,7 +476,7 @@ function printReturnOrThrowArgument(path, options, print) {
   }
 
   const comments = getComments(node);
-  const lastComment = getLast(comments);
+  const lastComment = comments.at(-1);
   const isLastCommentLine = lastComment && isLineComment(lastComment);
 
   if (isLastCommentLine) {

@@ -1,5 +1,4 @@
 import { skipEverythingButNewLine } from "../utils/text/skip.js";
-import getLast from "../utils/get-last.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import lineColumnToIndex from "../utils/line-column-to-index.js";
 
@@ -50,7 +49,7 @@ function calculateLocEnd(node, text) {
     }
 
     if (isNonEmptyArray(node.nodes)) {
-      return calculateLocEnd(getLast(node.nodes), text);
+      return calculateLocEnd(node.nodes.at(-1), text);
     }
   }
 

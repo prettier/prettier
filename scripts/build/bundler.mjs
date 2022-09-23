@@ -14,6 +14,7 @@ import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protoco
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
 import bundles from "./config.mjs";
+import transform from "./transform/index.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
@@ -41,6 +42,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
       module: "*",
       find: "const __dirname = path.dirname(fileURLToPath(import.meta.url));",
       replacement: "",
+    },
+    // Transform `.at` and `Object.hasOwn`
+    {
+      module: "*",
+      process: transform,
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
     {
@@ -91,44 +97,20 @@ function* getEsbuildOptions(bundle, buildOptions) {
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace other bundled files and `package.json` with dynamic `require()`
-    for (const { input, output } of bundledFiles) {
+    for (let { input, output } of bundledFiles) {
       if (input === path.join(PROJECT_ROOT, bundle.input)) {
         continue;
       }
 
+      if (output === "./doc.js" && bundle.output !== "index.cjs") {
+        output = "./esm/doc.mjs";
+      }
+
+      if (output.startsWith("./parser-")) {
+        output = `./esm/${output.slice(2).replace(".js", ".mjs")}`;
+      }
+
       replaceModule.push({ module: input, external: output });
-    }
-
-    // Transform import declaration into inline `require()`
-    for (const file of [
-      "src/language-css/parsers.js",
-      "src/language-graphql/parsers.js",
-      "src/language-html/parsers.js",
-      "src/language-handlebars/parsers.js",
-      "src/language-js/parse/parsers.js",
-      "src/language-markdown/parsers.js",
-      "src/language-yaml/parsers.js",
-    ]) {
-      replaceModule.push({
-        module: path.join(PROJECT_ROOT, file),
-        process(text) {
-          const importDeclarations = text.matchAll(
-            /(?<declaration>import (?<variableName>[A-Za-z]+) from "(?<source>\..*)";)/g
-          );
-
-          for (const {
-            groups: { declaration, variableName, source },
-          } of importDeclarations) {
-            text = text.replace(declaration, "");
-            text = text.replaceAll(
-              `return ${variableName}.parsers`,
-              `return require("${source}").parsers`
-            );
-          }
-
-          return text;
-        },
-      });
     }
   } else {
     replaceModule.push(
@@ -231,18 +213,16 @@ function* getEsbuildOptions(bundle, buildOptions) {
       format: "umd",
     };
 
-    if (/^(?:standalone|parser-.*)\.js$/.test(bundle.output)) {
-      yield {
-        ...esbuildOptions,
-        outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
-        format: "esm",
-      };
-    }
+    yield {
+      ...esbuildOptions,
+      outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
+      format: "esm",
+    };
   } else {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
-    if (interopDefault) {
+    if (bundle.format !== "esm" && interopDefault) {
       esbuildOptions.plugins.push(esbuildPluginInteropDefault());
     }
 

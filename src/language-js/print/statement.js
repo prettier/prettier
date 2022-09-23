@@ -17,13 +17,13 @@ import { shouldPrintParamsWithoutParens } from "./function.js";
  */
 
 function printStatementSequence(path, options, print, property) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
   const isClassBody = node.type === "ClassBody";
   const lastStatement = getLastStatement(node[property]);
 
   path.each((path, index, statements) => {
-    const node = path.getValue();
+    const { node } = path;
 
     // Skip printing EmptyStatement nodes to avoid leaving stray
     // semicolons lying around.
@@ -83,7 +83,7 @@ function getLastStatement(statements) {
 }
 
 function statementNeedsASIProtection(path, options) {
-  const node = path.getNode();
+  const { node } = path;
 
   if (node.type !== "ExpressionStatement") {
     return false;
@@ -96,7 +96,7 @@ function statementNeedsASIProtection(path, options) {
 }
 
 function expressionNeedsASIProtection(path, options) {
-  const node = path.getValue();
+  const { node } = path;
   switch (node.type) {
     case "ParenthesizedExpression":
     case "TypeCastExpression":

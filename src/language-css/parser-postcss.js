@@ -1,5 +1,4 @@
 import createError from "../common/parser-create-error.js";
-import getLast from "../utils/get-last.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
@@ -41,7 +40,7 @@ async function parseValueNode(valueNode, options) {
       options.parser === "scss" &&
       node.type === "number" &&
       node.unit === ".." &&
-      getLast(node.value) === "."
+      node.value.endsWith(".")
     ) {
       // Work around postcss bug parsing `50...` as `50.` with unit `..`
       // Set the unit to `...` to "accidentally" have arbitrary arguments work in the same way that cases where the node already had a unit work.
@@ -113,11 +112,11 @@ async function parseValueNode(valueNode, options) {
       }
 
       commaGroupStack.pop();
-      commaGroup = getLast(commaGroupStack);
+      commaGroup = commaGroupStack.at(-1);
       commaGroup.groups.push(parenGroup);
 
       parenGroupStack.pop();
-      parenGroup = getLast(parenGroupStack);
+      parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
@@ -660,7 +659,11 @@ async function parseWithParser(parse, text, options) {
     if (typeof line !== "number") {
       throw error;
     }
-    throw createError(`${name}: ${reason}`, { start: { line, column } });
+
+    throw createError(`${name}: ${reason}`, {
+      loc: { start: { line, column } },
+      cause: error,
+    });
   }
 
   options.originalText = text;
@@ -673,7 +676,7 @@ async function parseWithParser(parse, text, options) {
       startOffset: 0,
       endOffset: frontMatter.raw.length,
     };
-    result.nodes.unshift(frontMatter);
+    result.frontMatter = frontMatter;
   }
 
   return result;
@@ -697,8 +700,8 @@ async function parseLess(text, options = {}) {
 }
 
 async function parseScss(text, options = {}) {
-  const scss = await import("postcss-scss");
-  return parseWithParser(scss.parse, text, options);
+  const { default: parse } = await import("postcss-scss/lib/scss-parse");
+  return parseWithParser(parse, text, options);
 }
 
 const postCssParser = {

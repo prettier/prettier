@@ -8,11 +8,11 @@ import {
   join,
   line,
   lineSuffix,
-  literalline,
 } from "../document/builders.js";
-import { replaceTextEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import { isPreviousLineEmpty } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma, isPragma } from "./pragma.js";
 import { locStart } from "./loc.js";
 import embed from "./embed.js";
@@ -42,8 +42,11 @@ import {
 import printMappingItem from "./print/mapping-item.js";
 import printBlock from "./print/block.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
+
   /** @type {Doc[]} */
   const parts = [];
 
@@ -98,11 +101,10 @@ function genericPrint(path, options, print) {
   const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
-      replaceTextEndOfLine(
+      replaceEndOfLine(
         options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
-          .trimEnd(),
-        literalline
+          .trimEnd()
       )
     );
   } else {
@@ -131,11 +133,7 @@ function genericPrint(path, options, print) {
           hardline,
           path.map(
             (path) => [
-              isPreviousLineEmpty(
-                options.originalText,
-                path.getValue(),
-                locStart
-              )
+              isPreviousLineEmpty(options.originalText, path.node, locStart)
                 ? hardline
                 : "",
               print(),
@@ -341,9 +339,9 @@ function printNode(node, parentNode, path, options, print) {
       return printFlowSequence(path, print, options);
     case "flowSequenceItem":
       return print("content");
-    // istanbul ignore next
     default:
-      throw new Error(`Unexpected node type ${node.type}`);
+      /* istanbul ignore next */
+      throw new UnexpectedNodeError(node, "YAML");
   }
 }
 
@@ -445,7 +443,7 @@ const printer = {
   print: genericPrint,
   massageAstNode: clean,
   insertPragma,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

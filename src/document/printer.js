@@ -1,5 +1,4 @@
 import { convertEndOfLineToChars } from "../common/end-of-line.js";
-import getLast from "../utils/get-last.js";
 import getStringWidth from "../utils/get-string-width.js";
 import {
   DOC_TYPE_STRING,
@@ -18,25 +17,20 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
-import {
-  fill,
-  cursor,
-  indent,
-  hardlineWithoutBreakParent,
-} from "./builders.js";
+import { fill, indent, hardlineWithoutBreakParent } from "./builders.js";
 import { getDocParts, getDocType } from "./utils.js";
 import InvalidDocError from "./invalid-doc-error.js";
 
 /** @typedef {typeof MODE_BREAK | typeof MODE_FLAT} Mode */
 /** @typedef {{ ind: any, doc: any, mode: Mode }} Command */
+/** @typedef {Record<symbol, Mode>} GroupModeMap */
 
-/** @type {Record<symbol, Mode>} */
-let groupModeMap;
+/** @type {unique symbol} */
+const MODE_BREAK = Symbol("MODE_BREAK");
+/** @type {unique symbol} */
+const MODE_FLAT = Symbol("MODE_FLAT");
 
-// prettier-ignore
-const MODE_BREAK = /** @type {const} */ (1);
-// prettier-ignore
-const MODE_FLAT = /** @type {const} */ (2);
+const CURSOR_PLACEHOLDER = Symbol("cursor");
 
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
@@ -147,26 +141,43 @@ function generateInd(ind, newPart, options) {
   }
 }
 
+// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
 function trim(out) {
-  if (out.length === 0) {
-    return 0;
-  }
-
   let trimCount = 0;
+  let cursorCount = 0;
+  let outIndex = out.length;
 
-  // Trim whitespace at the end of line
-  while (
-    out.length > 0 &&
-    typeof getLast(out) === "string" &&
-    /^[\t ]*$/.test(getLast(out))
-  ) {
-    trimCount += out.pop().length;
+  outer: while (outIndex--) {
+    const last = out[outIndex];
+
+    if (last === CURSOR_PLACEHOLDER) {
+      cursorCount++;
+      continue;
+    }
+
+    if (process.env.NODE_ENV !== "production" && typeof last !== "string") {
+      throw new Error(`Unexpected value in trim: '${typeof last}'`);
+    }
+
+    // Not using a regexp here because regexps for trimming off trailing
+    // characters are known to have performance issues.
+    for (let charIndex = last.length - 1; charIndex >= 0; charIndex--) {
+      const char = last[charIndex];
+      if (char === " " || char === "\t") {
+        trimCount++;
+      } else {
+        out[outIndex] = last.slice(0, charIndex + 1);
+        break outer;
+      }
+    }
   }
 
-  if (out.length > 0 && typeof getLast(out) === "string") {
-    const trimmed = getLast(out).replace(/[\t ]*$/, "");
-    trimCount += getLast(out).length - trimmed.length;
-    out[out.length - 1] = trimmed;
+  if (trimCount > 0 || cursorCount > 0) {
+    out.length = outIndex + 1;
+
+    while (cursorCount-- > 0) {
+      out.push(CURSOR_PLACEHOLDER);
+    }
   }
 
   return trimCount;
@@ -177,10 +188,18 @@ function trim(out) {
  * @param {Command[]} restCommands
  * @param {number} width
  * @param {boolean} hasLineSuffix
+ * @param {GroupModeMap} groupModeMap
  * @param {boolean} [mustBeFlat]
  * @returns {boolean}
  */
-function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
+function fits(
+  next,
+  restCommands,
+  width,
+  hasLineSuffix,
+  groupModeMap,
+  mustBeFlat
+) {
   let restIdx = restCommands.length;
   /** @type {Array<Omit<Command, 'ind'>>} */
   const cmds = [next];
@@ -233,7 +252,7 @@ function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
         // The most expanded state takes up the least space on the current line.
         const contents =
           doc.expandedStates && groupMode === MODE_BREAK
-            ? getLast(doc.expandedStates)
+            ? doc.expandedStates.at(-1)
             : doc.contents;
         cmds.push({ mode: groupMode, doc: contents });
         break;
@@ -276,7 +295,8 @@ function fits(next, restCommands, width, hasLineSuffix, mustBeFlat) {
 }
 
 function printDocToString(doc, options) {
-  groupModeMap = {};
+  /** @type GroupModeMap */
+  const groupModeMap = {};
 
   const width = options.printWidth;
   const newLine = convertEndOfLineToChars(options.endOfLine);
@@ -290,6 +310,7 @@ function printDocToString(doc, options) {
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
+  let printedCursorCount = 0;
 
   while (cmds.length > 0) {
     const { ind, mode, doc } = cmds.pop();
@@ -309,7 +330,11 @@ function printDocToString(doc, options) {
       }
 
       case DOC_TYPE_CURSOR:
-        out.push(cursor.placeholder);
+        if (printedCursorCount >= 2) {
+          throw new Error("There are too many 'cursor' in doc.");
+        }
+        out.push(CURSOR_PLACEHOLDER);
+        printedCursorCount++;
         break;
 
       case DOC_TYPE_INDENT:
@@ -349,7 +374,10 @@ function printDocToString(doc, options) {
             const rem = width - pos;
             const hasLineSuffix = lineSuffix.length > 0;
 
-            if (!doc.break && fits(next, cmds, rem, hasLineSuffix)) {
+            if (
+              !doc.break &&
+              fits(next, cmds, rem, hasLineSuffix, groupModeMap)
+            ) {
               cmds.push(next);
             } else {
               // Expanded states are a rare case where a document
@@ -360,7 +388,7 @@ function printDocToString(doc, options) {
               // group has these, we need to manually go through
               // these states and find the first one that fits.
               if (doc.expandedStates) {
-                const mostExpanded = getLast(doc.expandedStates);
+                const mostExpanded = doc.expandedStates.at(-1);
 
                 if (doc.break) {
                   cmds.push({ ind, mode: MODE_BREAK, doc: mostExpanded });
@@ -376,7 +404,7 @@ function printDocToString(doc, options) {
                       const state = doc.expandedStates[i];
                       const cmd = { ind, mode: MODE_FLAT, doc: state };
 
-                      if (fits(cmd, cmds, rem, hasLineSuffix)) {
+                      if (fits(cmd, cmds, rem, hasLineSuffix, groupModeMap)) {
                         cmds.push(cmd);
 
                         break;
@@ -394,7 +422,7 @@ function printDocToString(doc, options) {
         }
 
         if (doc.id) {
-          groupModeMap[doc.id] = getLast(cmds).mode;
+          groupModeMap[doc.id] = cmds.at(-1).mode;
         }
         break;
       // Fills each line with as much code as possible before moving to a new
@@ -433,6 +461,7 @@ function printDocToString(doc, options) {
           [],
           rem,
           lineSuffix.length > 0,
+          groupModeMap,
           true
         );
 
@@ -477,6 +506,7 @@ function printDocToString(doc, options) {
           [],
           rem,
           lineSuffix.length > 0,
+          groupModeMap,
           true
         );
 
@@ -593,10 +623,10 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(cursor.placeholder);
+  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
   if (cursorPlaceholderIndex !== -1) {
     const otherCursorPlaceholderIndex = out.indexOf(
-      cursor.placeholder,
+      CURSOR_PLACEHOLDER,
       cursorPlaceholderIndex + 1
     );
     const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");

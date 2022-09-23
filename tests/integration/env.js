@@ -12,7 +12,7 @@ const prettierCli = path.join(
 );
 
 const thirdParty = isProduction
-  ? path.join(PRETTIER_DIR, "./third-party.js")
+  ? path.join(PRETTIER_DIR, "./third-party.mjs")
   : path.join(PRETTIER_DIR, "./src/common/third-party.js");
 
 const projectRoot = path.join(__dirname, "../..");

@@ -29,20 +29,20 @@ const parentPropertyCheckSelector = [
   ")",
 ].join("");
 
-const nameCheckSelector = [
+const keyCheckSelector = [
   "LogicalExpression",
   '[right.type="BinaryExpression"]',
   '[right.left.type="Identifier"]',
-  '[right.left.name="name"]',
+  '[right.left.name="key"]',
   ":not(",
   '[left.type="BinaryExpression"]',
   '[left.left.type="Identifier"]',
-  '[left.left.name="name"]',
+  '[left.left.name="key"]',
   ")",
 ].join("");
 
-const MESSAGE_ID_PREFER_NAME_CHECK = "prefer-name-check";
-const MESSAGE_ID_NAME_CHECK_FIRST = "name-check-on-left";
+const MESSAGE_ID_PREFER_KEY_CHECK = "prefer-key-check";
+const MESSAGE_ID_KEY_CHECK_FIRST = "key-check-on-left";
 
 module.exports = {
   meta: {
@@ -51,10 +51,9 @@ module.exports = {
       url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/better-parent-property-check-in-needs-parens.js",
     },
     messages: {
-      [MESSAGE_ID_PREFER_NAME_CHECK]:
-        "Prefer `name {{operator}} {{propertyText}}` over `parent.{{property}} {{operator}} node`.",
-      [MESSAGE_ID_NAME_CHECK_FIRST]:
-        "`name` comparison should be on left side.",
+      [MESSAGE_ID_PREFER_KEY_CHECK]:
+        "Prefer `key {{operator}} {{propertyText}}` over `parent.{{property}} {{operator}} node`.",
+      [MESSAGE_ID_KEY_CHECK_FIRST]: "`key` comparison should be on left side.",
     },
     fixable: "code",
   },
@@ -77,20 +76,20 @@ module.exports = {
 
         context.report({
           node,
-          messageId: MESSAGE_ID_PREFER_NAME_CHECK,
+          messageId: MESSAGE_ID_PREFER_KEY_CHECK,
           data: {
             property: sourceCode.getText(property),
             propertyText,
             operator,
           },
           fix: (fixer) =>
-            fixer.replaceText(node, `name ${operator} ${propertyText}`),
+            fixer.replaceText(node, `key ${operator} ${propertyText}`),
         });
       },
-      [nameCheckSelector](node) {
+      [keyCheckSelector](node) {
         context.report({
           node,
-          messageId: MESSAGE_ID_NAME_CHECK_FIRST,
+          messageId: MESSAGE_ID_KEY_CHECK_FIRST,
         });
       },
     };

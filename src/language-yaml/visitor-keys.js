@@ -20,7 +20,7 @@ const visitorKeys = Object.fromEntries(
     flowMapping: ["children"],
     flowMappingItem: ["key", "value", "children"],
     flowSequence: ["children"],
-    flowSequenceItem: ["children"],
+    flowSequenceItem: ["content", "children"],
     comment: [],
     tag: [],
     anchor: [],

@@ -8,6 +8,7 @@ import { shallowEqual } from "./helpers.js";
 import * as urlHash from "./urlHash.js";
 import formatMarkdown from "./markdown.js";
 import * as util from "./util.js";
+import generateDummyId from "./dummyId.js";
 import getCodeSample from "./codeSamples.mjs";
 
 import { Sidebar, SidebarCategory } from "./sidebar/components.js";
@@ -103,7 +104,8 @@ class Playground extends React.Component {
       (opt) => opt.name === "rangeEnd"
     );
 
-    this.handleInputPanelFormat = this.handleInputPanelFormat.bind(this);
+    this.formatInput = this.formatInput.bind(this);
+    this.insertDummyId = this.insertDummyId.bind(this);
   }
 
   componentDidUpdate(_, prevState) {
@@ -163,7 +165,7 @@ class Playground extends React.Component {
     });
   }
 
-  handleInputPanelFormat() {
+  formatInput() {
     if (this.state.options.parser !== "doc-explorer") {
       return;
     }
@@ -180,21 +182,32 @@ class Playground extends React.Component {
           return;
         }
 
-        return {
-          value: formatted,
-          cursor: util.convertOffsetToPosition(cursorOffset, formatted),
-        };
+        this.setState({
+          content: formatted,
+          selection: util.convertOffsetToSelection(cursorOffset, formatted),
+        });
       });
   }
 
-  render() {
-    const { worker, version } = this.props;
-    const { content, options } = this.state;
+  insertDummyId() {
+    const { content, selection } = this.state;
+    const dummyId = generateDummyId();
+    const range = util.convertSelectionToRange(selection, content);
+    const modifiedContent =
+      content.slice(0, range[0]) + dummyId + content.slice(range[1]);
 
-    // TODO: remove this when v2.3.0 is released
-    const [major, minor] = version.split(".", 2).map(Number);
-    const showShowComments =
-      Number.isNaN(major) || (major === 2 && minor >= 3) || major > 2;
+    this.setState({
+      content: modifiedContent,
+      selection: util.convertOffsetToSelection(
+        range[0] + dummyId.length,
+        modifiedContent
+      ),
+    });
+  }
+
+  render() {
+    const { worker } = this.props;
+    const { content, options } = this.state;
 
     return (
       <EditorState>
@@ -206,7 +219,7 @@ class Playground extends React.Component {
             options={options}
             debugAst={editorState.showAst}
             debugDoc={editorState.showDoc}
-            debugComments={showShowComments && editorState.showComments}
+            debugComments={editorState.showComments}
             reformat={editorState.showSecondFormat}
             rethrowEmbedErrors={editorState.rethrowEmbedErrors}
           >
@@ -273,13 +286,11 @@ class Playground extends React.Component {
                           checked={editorState.showDoc}
                           onChange={editorState.toggleDoc}
                         />
-                        {showShowComments && (
-                          <Checkbox
-                            label="show comments"
-                            checked={editorState.showComments}
-                            onChange={editorState.toggleComments}
-                          />
-                        )}
+                        <Checkbox
+                          label="show comments"
+                          checked={editorState.showComments}
+                          onChange={editorState.toggleComments}
+                        />
                         <Checkbox
                           label="show output"
                           checked={editorState.showOutput}
@@ -316,12 +327,17 @@ class Playground extends React.Component {
                           mode={util.getCodemirrorMode(options.parser)}
                           ruler={options.printWidth}
                           value={content}
+                          selection={this.state.selection}
                           codeSample={getCodeSample(options.parser)}
                           overlayStart={options.rangeStart}
                           overlayEnd={options.rangeEnd}
                           onChange={this.setContent}
                           onSelectionChange={this.setSelection}
-                          onFormat={this.handleInputPanelFormat}
+                          extraKeys={{
+                            "Shift-Alt-F": this.formatInput,
+                            "Ctrl-Q": this.insertDummyId,
+                          }}
+                          foldGutter={options.parser === "doc-explorer"}
                         />
                       ) : null}
                       {editorState.showAst ? (
@@ -333,7 +349,7 @@ class Playground extends React.Component {
                       {editorState.showDoc ? (
                         <DebugPanel value={debug.doc || ""} />
                       ) : null}
-                      {showShowComments && editorState.showComments ? (
+                      {editorState.showComments ? (
                         <DebugPanel
                           value={debug.comments || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
@@ -400,6 +416,13 @@ class Playground extends React.Component {
                       >
                         Copy config JSON
                       </ClipboardButton>
+                      <Button
+                        onClick={this.insertDummyId}
+                        onMouseDown={(event) => event.preventDefault()} // prevent button from focusing
+                        title="Generate a nonsense variable name (Ctrl-Q)"
+                      >
+                        Insert dummy id
+                      </Button>
                     </div>
                     <div className="bottom-bar-buttons bottom-bar-buttons-right">
                       <ClipboardButton copy={window.location.href}>

@@ -9,9 +9,10 @@ import {
   line,
   softline,
 } from "../document/builders.js";
-import { replaceTextEndOfLine } from "../document/utils.js";
+import { replaceEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
@@ -28,22 +29,15 @@ import {
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
 
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function print(path, options, print) {
-  const node = path.getValue();
-
-  /* istanbul ignore if*/
-  if (!node) {
-    return "";
-  }
-
-  if (hasPrettierIgnore(path)) {
-    return options.originalText.slice(locStart(node), locEnd(node));
-  }
+  const { node } = path;
 
   const favoriteQuote = options.singleQuote ? "'" : '"';
 
@@ -224,7 +218,7 @@ function print(path, options, print) {
           ];
         }
 
-        return replaceTextEndOfLine(text);
+        return replaceEndOfLine(text);
       }
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
@@ -413,9 +407,9 @@ function print(path, options, print) {
       return "null";
     }
 
-    /* istanbul ignore next */
     default:
-      throw new Error("unknown glimmer type: " + JSON.stringify(node.type));
+      /* istanbul ignore next */
+      throw new UnexpectedNodeError(node, "Handlebars");
   }
 }
 
@@ -426,7 +420,7 @@ function sortByLoc(a, b) {
 }
 
 function printStartingTag(path, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const types = ["attributes", "modifiers", "comments"].filter((property) =>
     isNonEmptyArray(node[property])
@@ -435,7 +429,7 @@ function printStartingTag(path, print) {
 
   for (const attributeType of types) {
     path.each((attributePath) => {
-      const index = attributes.indexOf(attributePath.getValue());
+      const index = attributes.indexOf(attributePath.node);
       attributes.splice(index, 1, [line, print()]);
     }, attributeType);
   }
@@ -448,7 +442,7 @@ function printStartingTag(path, print) {
 }
 
 function printChildren(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
   const isEmpty = node.children.every((node) => isWhitespaceNode(node));
   if (options.htmlWhitespaceSensitivity === "ignore" && isEmpty) {
     return "";
@@ -526,7 +520,7 @@ function printInverseBlockClosingMustache(node) {
 }
 
 function printOpenBlock(path, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   const openingMustache = printOpeningBlockOpeningMustache(node);
   const closingMustache = printOpeningBlockClosingMustache(node);
@@ -572,7 +566,7 @@ function printElseIfBlock(path, print) {
 }
 
 function printCloseBlock(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (options.htmlWhitespaceSensitivity === "ignore") {
     const escape = blockStatementHasOnlyWhitespaceInProgram(node)
@@ -615,7 +609,7 @@ function blockStatementHasElse(node) {
 }
 
 function printProgram(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   if (blockStatementHasOnlyWhitespaceInProgram(node)) {
     return "";
@@ -631,7 +625,7 @@ function printProgram(path, print, options) {
 }
 
 function printInverse(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
 
   const inverse = print("inverse");
   const printed =
@@ -761,7 +755,7 @@ function printPath(path, print) {
 }
 
 function printParams(path, print) {
-  const node = path.getValue();
+  const { node } = path;
   const parts = [];
 
   if (node.params.length > 0) {
@@ -788,7 +782,8 @@ function printBlockParams(node) {
 const printer = {
   print,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  hasPrettierIgnore,
+  getVisitorKeys,
 };
 
 export default printer;

@@ -2,6 +2,7 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT } from "../utils/index.mjs";
+import modifyTypescriptModule from "./modify-typescript-module.mjs";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
@@ -43,14 +44,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/flow.js",
-    replaceModule: [
-      // `flow-parser` use this for `globalThis`, can't work in strictMode
-      {
-        module: require.resolve("flow-parser"),
-        find: "(function(){return this}())",
-        replacement: "(globalThis)",
-      },
-    ],
   },
   {
     input: "src/language-js/parse/typescript.js",
@@ -102,74 +95,8 @@ const parsers = [
       },
       {
         module: require.resolve("typescript"),
-        process(text) {
-          // Remove useless `ts.sys`
-          text = text.replace(
-            /(?<=\n)(?<indentString>\s+)ts\.sys = \(function \(\) {.*?\n\k<indentString>}\)\(\);(?=\n)/s,
-            ""
-          );
-
-          text = text.replace(
-            /(?<=\n)(?<indentString>\s+)function tryGetNodePerformanceHooks\(\) {.*?\n\k<indentString>}(?=\n)/s,
-            "function tryGetNodePerformanceHooks() {}"
-          );
-
-          return text;
-        },
+        process: modifyTypescriptModule,
       },
-      // yarn pnp
-      {
-        module: require.resolve("typescript"),
-        find: "process.versions.pnp",
-        replacement: "undefined",
-      },
-
-      ...Object.entries({
-        // `typescript/lib/typescript.js` expose extra global objects
-        // `TypeScript`, `toolsVersion`, `globalThis`
-        'typeof process === "undefined" || process.browser': "false",
-        'typeof globalThis === "object"': "true",
-
-        "_fs.realpathSync.native":
-          "_fs.realpathSync && _fs.realpathSync.native",
-
-        // Remove useless language service
-        "ts.realizeDiagnostics = ": "ts.realizeDiagnostics = undefined && ",
-        "ts.TypeScriptServicesFactory = ":
-          "ts.TypeScriptServicesFactory = undefined && ",
-        "var ShimBase = ": "var ShimBase = undefined && ",
-        "var TypeScriptServicesFactory = ":
-          "var TypeScriptServicesFactory = undefined && ",
-        "var LanguageServiceShimObject = ":
-          "var LanguageServiceShimObject = undefined && ",
-        "var CoreServicesShimHostAdapter = ":
-          "var CoreServicesShimHostAdapter = undefined && ",
-        "var LanguageServiceShimHostAdapter = ":
-          "var LanguageServiceShimHostAdapter = undefined && ",
-        "var ScriptSnapshotShimAdapter = ":
-          "var ScriptSnapshotShimAdapter = undefined && ",
-        "var ClassifierShimObject = ":
-          "var ClassifierShimObject = undefined && ",
-        "var CoreServicesShimObject = ":
-          "var CoreServicesShimObject = undefined && ",
-        "function simpleForwardCall(": "0 && function simpleForwardCall(",
-        "function forwardJSONCall(": "0 && function forwardJSONCall(",
-        "function forwardCall(": "0 && function forwardCall(",
-        "function realizeDiagnostics(": "0 && function realizeDiagnostics(",
-        "function realizeDiagnostic(": "0 && function realizeDiagnostic(",
-        "function convertClassifications(":
-          "0 && function convertClassifications(",
-
-        // Dynamic `require()`s
-        "ts.sys && ts.sys.require": "false",
-        "require(etwModulePath)": "undefined",
-        'require("source-map-support").install()': "",
-        "require(modulePath)": "undefined",
-      }).map(([find, replacement]) => ({
-        module: require.resolve("typescript"),
-        find,
-        replacement,
-      })),
       {
         module: require.resolve("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
@@ -278,6 +205,8 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    output: "index.mjs",
+    format: "esm",
     interopDefault: false,
     replaceModule: [
       {
@@ -304,6 +233,9 @@ const coreBundles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
+  },
+  {
+    input: "src/index.cjs",
   },
   {
     input: "src/document/index.js",
@@ -333,7 +265,7 @@ const coreBundles = [
   },
   {
     input: "bin/prettier.cjs",
-    output: "bin-prettier.js",
+    output: "bin-prettier.cjs",
     esbuildTarget: ["node0.10"],
     replaceModule: [
       {
@@ -347,11 +279,12 @@ const coreBundles = [
     output: "cli.mjs",
     format: "esm",
     external: ["benchmark"],
-    interopDefault: false,
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
     input: "src/common/third-party.js",
+    output: "third-party.mjs",
+    format: "esm",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {

@@ -406,7 +406,7 @@ function breakTies(tiesToBreak, text, options) {
 }
 
 function printComment(path, options) {
-  const comment = path.getValue();
+  const comment = path.node;
   comment.printed = true;
   return options.printer.printComment(path, options);
 }
@@ -427,7 +427,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 }
 
 function printLeadingComment(path, options) {
-  const comment = path.getValue();
+  const comment = path.node;
   const parts = [printComment(path, options)];
 
   const { printer, originalText, locStart, locEnd } = options;
@@ -461,14 +461,17 @@ function printLeadingComment(path, options) {
   return parts;
 }
 
-function printTrailingComment(path, options) {
-  const comment = path.getValue();
+function printTrailingComment(path, options, previousComment) {
+  const comment = path.node;
   const printed = printComment(path, options);
 
   const { printer, originalText, locStart } = options;
-  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
+  const isBlock = printer.isBlockComment?.(comment);
 
-  if (hasNewline(originalText, locStart(comment), { backwards: true })) {
+  if (
+    (previousComment?.hasLineSuffix && !previousComment?.isBlock) ||
+    hasNewline(originalText, locStart(comment), { backwards: true })
+  ) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
@@ -487,29 +490,34 @@ function printTrailingComment(path, options) {
       locStart
     );
 
-    return lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]);
+    return {
+      doc: lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]),
+      isBlock,
+      hasLineSuffix: true,
+    };
   }
 
-  let parts = [" ", printed];
-
-  // Trailing block comments never need a newline
-  if (!isBlock) {
-    parts = [lineSuffix(parts), breakParent];
+  if (!isBlock || previousComment?.hasLineSuffix) {
+    return {
+      doc: [lineSuffix([" ", printed]), breakParent],
+      isBlock,
+      hasLineSuffix: true,
+    };
   }
 
-  return parts;
+  return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
-  const node = path.getValue();
+  const { node } = path;
 
   if (!node || !node.comments) {
     return "";
   }
 
   path.each(() => {
-    const comment = path.getValue();
+    const comment = path.node;
     if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
       parts.push(printComment(path, options));
     }
@@ -526,7 +534,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
 }
 
 function printCommentsSeparately(path, options, ignored) {
-  const value = path.getValue();
+  const value = path.node;
   if (!value) {
     return {};
   }
@@ -544,8 +552,9 @@ function printCommentsSeparately(path, options, ignored) {
 
   const leadingParts = [];
   const trailingParts = [];
+  let printedTrailingComment;
   path.each(() => {
-    const comment = path.getValue();
+    const comment = path.node;
     if (ignored && ignored.has(comment)) {
       return;
     }
@@ -554,7 +563,12 @@ function printCommentsSeparately(path, options, ignored) {
     if (leading) {
       leadingParts.push(printLeadingComment(path, options));
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(path, options));
+      printedTrailingComment = printTrailingComment(
+        path,
+        options,
+        printedTrailingComment
+      );
+      trailingParts.push(printedTrailingComment.doc);
     }
   }, "comments");
 

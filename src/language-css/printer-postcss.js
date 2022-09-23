@@ -1,4 +1,3 @@
-import getLast from "../utils/get-last.js";
 import {
   printNumber,
   printString,
@@ -21,6 +20,7 @@ import {
 } from "../document/builders.js";
 import { removeLines, getDocParts } from "../document/utils.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
@@ -72,25 +72,19 @@ import {
   isAtWordPlaceholderNode,
   isConfigurationNode,
   isParenGroupNode,
+  isVarFunctionNode,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
+
+const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
 }
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
-
-  /* istanbul ignore if */
-  if (!node) {
-    return "";
-  }
-
-  if (typeof node === "string") {
-    return node;
-  }
+  const { node } = path;
 
   switch (node.type) {
     case "front-matter":
@@ -100,9 +94,10 @@ function genericPrint(path, options, print) {
       const after = node.raws.after.trim();
 
       return [
+        node.frontMatter ? [print("frontMatter"), hardline] : "",
         nodes,
         after ? ` ${after}` : "",
-        getDocParts(nodes).length > 0 ? hardline : "",
+        node.nodes.length > 0 ? hardline : "",
       ];
     }
     case "css-comment": {
@@ -144,10 +139,9 @@ function genericPrint(path, options, print) {
       const isColon = trimmedBetween === ":";
       const isValueAllSpace =
         typeof node.value === "string" && /^ *$/.test(node.value);
+      let value = typeof node.value === "string" ? node.value : print("value");
 
-      let value = hasComposesNode(node)
-        ? removeLines(print("value"))
-        : print("value");
+      value = hasComposesNode(node) ? removeLines(value) : value;
 
       if (!isColon && lastLineHasInlineComment(trimmedBetween)) {
         value = indent([hardline, dedent(value)]);
@@ -213,7 +207,7 @@ function genericPrint(path, options, print) {
         if (node.function) {
           return [
             node.name,
-            print("params"),
+            typeof node.params === "string" ? node.params : print("params"),
             isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";",
           ];
         }
@@ -269,7 +263,7 @@ function genericPrint(path, options, print) {
                   ? hardline
                   : " "
                 : " ",
-              print("params"),
+              typeof node.params === "string" ? node.params : print("params"),
             ]
           : "",
         node.selector ? indent([" ", print("selector")]) : "",
@@ -317,7 +311,7 @@ function genericPrint(path, options, print) {
     case "media-query-list": {
       const parts = [];
       path.each((childPath) => {
-        const node = childPath.getValue();
+        const { node } = childPath;
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -626,6 +620,7 @@ function genericPrint(path, options, print) {
 
         // Ignore escape `\`
         if (
+          iNode.type !== "value-string" &&
           iNode.value &&
           iNode.value.includes("\\") &&
           iNextNode &&
@@ -832,6 +827,14 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        if (
+          iNode.value?.endsWith("#") &&
+          iNextNode.value === "{" &&
+          isParenGroupNode(iNextNode.group)
+        ) {
+          continue;
+        }
+
         // Be default all values go through `line`
         parts.push(line);
       }
@@ -860,6 +863,10 @@ function genericPrint(path, options, print) {
     }
     case "value-paren_group": {
       const parentNode = path.getParentNode();
+      const printedGroups = path.map(() => {
+        const child = path.node;
+        return typeof child === "string" ? child : print();
+      }, "groups");
 
       if (
         parentNode &&
@@ -873,31 +880,22 @@ function genericPrint(path, options, print) {
       ) {
         return [
           node.open ? print("open") : "",
-          join(",", path.map(print, "groups")),
+          join(",", printedGroups),
           node.close ? print("close") : "",
         ];
       }
 
       if (!node.open) {
-        const printed = path.map(print, "groups");
-        const res = [];
-
-        for (let i = 0; i < printed.length; i++) {
-          if (i !== 0) {
-            res.push([",", line]);
-          }
-          res.push(printed[i]);
-        }
-
-        return group(indent(fill(res)));
+        return group(indent(fill(join([",", line], printedGroups))));
       }
 
       const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
-      const lastItem = getLast(node.groups);
+      const lastItem = node.groups.at(-1);
       const isLastItemComment = lastItem && lastItem.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
       const isConfiguration = isConfigurationNode(node, parentNode);
+      const isVarFunction = isVarFunctionNode(parentNode);
 
       const shouldBreak = isConfiguration || (isSCSSMapItem && !isKey);
       const shouldDedent = isConfiguration || isKey;
@@ -910,9 +908,19 @@ function genericPrint(path, options, print) {
             join(
               [line],
               path.map((childPath, index) => {
-                const child = childPath.getValue();
+                const child = childPath.node;
                 const isLast = index === node.groups.length - 1;
-                const printed = [print(), isLast ? "" : ","];
+                const hasComma = () =>
+                  Boolean(
+                    child.source &&
+                      options.originalText
+                        .slice(locStart(child), locStart(node.close))
+                        .trimEnd()
+                        .endsWith(",")
+                  );
+                const shouldPrintComma =
+                  !isLast || (isVarFunction && hasComma());
+                const printed = [print(), shouldPrintComma ? "," : ""];
 
                 // Key/Value pair in open paren already indented
                 if (
@@ -933,7 +941,7 @@ function genericPrint(path, options, print) {
                   child.type === "value-comma_group" &&
                   isNonEmptyArray(child.groups)
                 ) {
-                  const last = getLast(child.groups);
+                  const last = child.groups.at(-1);
                   if (
                     // `value-paren_group` missing location info
                     last.source &&
@@ -999,17 +1007,12 @@ function genericPrint(path, options, print) {
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
         (prevNode &&
           typeof prevNode.value === "string" &&
-          getLast(prevNode.value) === "\\") ||
+          prevNode.value.endsWith("\\")) ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""
           : line,
       ];
-    }
-    // TODO: confirm this code is dead
-    /* istanbul ignore next */
-    case "value-comma": {
-      return [node.value, " "];
     }
     case "value-string": {
       return printString(
@@ -1026,9 +1029,11 @@ function genericPrint(path, options, print) {
     case "value-unknown": {
       return node.value;
     }
+
+    case "value-comma": // Handled in `value-comma_group`
     default:
       /* istanbul ignore next */
-      throw new Error(`Unknown postcss type ${JSON.stringify(node.type)}`);
+      throw new UnexpectedNodeError(node, "PostCSS");
   }
 }
 
@@ -1123,7 +1128,7 @@ const printer = {
   embed,
   insertPragma,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

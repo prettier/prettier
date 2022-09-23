@@ -1,11 +1,12 @@
 import { join, line, group } from "../../document/builders.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import { hasNode, hasComment, getComments } from "../utils/index.js";
 import { printBinaryishExpression } from "./binaryish.js";
 
 /** @typedef {import("../../common/ast-path.js").default} AstPath */
 
 function printAngular(path, options, print) {
-  const node = path.getValue();
+  const { node } = path;
 
   // Angular nodes always starts with `NG`
   if (!node.type.startsWith("NG")) {
@@ -42,7 +43,7 @@ function printAngular(path, options, print) {
         (childPath, index) => [
           index === 0
             ? ""
-            : isNgForOf(childPath.getValue(), index, node)
+            : isNgForOf(childPath.node, index, node)
             ? " "
             : [";", line],
           print(),
@@ -87,9 +88,7 @@ function printAngular(path, options, print) {
       return [print("key"), " as ", print("alias")];
     default:
       /* istanbul ignore next */
-      throw new Error(
-        `Unknown Angular node type: ${JSON.stringify(node.type)}.`
-      );
+      throw new UnexpectedNodeError(node, "Angular");
   }
 }
 
@@ -109,7 +108,7 @@ function isNgForOf(node, index, parentNode) {
  * @returns {boolean}
  */
 function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), (node) => {
+  return hasNode(path.node, (node) => {
     switch (node.type) {
       case undefined:
         return false;

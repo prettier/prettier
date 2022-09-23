@@ -20,7 +20,7 @@ import {
 import { alignWithSpaces } from "./misc.js";
 
 function printBlock(path, print, options) {
-  const node = path.getValue();
+  const { node } = path;
   const parentIndent = getAncestorCount(path, (ancestorNode) =>
     isNode(ancestorNode, ["sequence", "mapping"])
   );

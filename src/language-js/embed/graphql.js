@@ -5,7 +5,7 @@ import {
 } from "../print/template-literal.js";
 
 async function format(textToDoc, print, path /*, options*/) {
-  const node = path.getValue();
+  const { node } = path;
 
   const numQuasis = node.quasis.length;
   if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
