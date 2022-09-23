@@ -152,15 +152,17 @@ function modifyTypescriptModule(text) {
     text.includes("ts.generateDjb2Hash = generateDjb2Hash;")
   );
 
-  // Path related
-  source.removeSubmodule((text) =>
-    text.includes("ts.isAnyDirectorySeparator = isAnyDirectorySeparator")
-  );
+  // // Path related
+  // source.removeSubmodule((text) =>
+  //   text.includes("ts.isAnyDirectorySeparator = isAnyDirectorySeparator")
+  // );
 
   // Language service
-  source.removeSubmodule((text) =>
-    text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
-  );
+  source
+    .removeSubmodule((text) =>
+      text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
+    )
+    .removeSubmodule((text) => text.includes('ts.servicesVersion = "0.8";'));
 
   // `ts.Version`
   source.removeSubmodule((text) => text.includes("ts.Version = Version;"));
