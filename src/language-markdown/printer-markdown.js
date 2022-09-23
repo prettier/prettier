@@ -37,7 +37,6 @@ import {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
   KIND_CJK_PUNCTUATION,
-  KIND_CJ_LETTER,
   KIND_NON_CJK,
   KIND_K_LETTER,
 } from "./utils.js";
