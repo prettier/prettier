@@ -106,6 +106,10 @@ function* getEsbuildOptions(bundle, buildOptions) {
         output = "./esm/doc.mjs";
       }
 
+      if (output.startsWith("./parser-")) {
+        output = `./esm/${output.slice(2).replace(".js", ".mjs")}`;
+      }
+
       replaceModule.push({ module: input, external: output });
     }
   } else {
