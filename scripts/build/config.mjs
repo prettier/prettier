@@ -279,11 +279,12 @@ const coreBundles = [
     output: "cli.mjs",
     format: "esm",
     external: ["benchmark"],
-    interopDefault: false,
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
     input: "src/common/third-party.js",
+    output: "third-party.mjs",
+    format: "esm",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {

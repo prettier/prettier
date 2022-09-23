@@ -218,7 +218,7 @@ function* getEsbuildOptions(bundle, buildOptions) {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));
 
-    if (interopDefault) {
+    if (bundle.format !== "esm" && interopDefault) {
       esbuildOptions.plugins.push(esbuildPluginInteropDefault());
     }
 
