@@ -646,7 +646,10 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   const nextKind = adjacentNodes.next?.kind;
   // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can converted to Space
   // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
-  if (isWesternOrKorean(previousKind) && isWesternOrKorean(nextKind)) {
+  if (
+    isWesternOrKoreanLetter(previousKind) &&
+    isWesternOrKoreanLetter(nextKind)
+  ) {
     return true;
   }
   // Do not convert it to Space when:
@@ -703,8 +706,8 @@ function isCJK(kind) {
  * @param {WordKind | undefined} kind
  * @returns {boolean} `true` if `kind` is western or Korean letters (divids words by Space)
  */
-function isWesternOrKorean(kind) {
-  return kind !== undefined && kind !== KIND_NON_CJK;
+function isWesternOrKoreanLetter(kind) {
+  return kind === KIND_NON_CJK || kind === KIND_K_LETTER;
 }
 
 /**
