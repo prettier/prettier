@@ -265,7 +265,7 @@ const coreBundles = [
   },
   {
     input: "bin/prettier.cjs",
-    output: "bin-prettier.js",
+    output: "bin-prettier.cjs",
     esbuildTarget: ["node0.10"],
     replaceModule: [
       {
