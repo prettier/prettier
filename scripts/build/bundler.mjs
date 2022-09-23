@@ -97,9 +97,13 @@ function* getEsbuildOptions(bundle, buildOptions) {
   // Replace other bundled files
   if (bundle.target === "node") {
     // Replace other bundled files and `package.json` with dynamic `require()`
-    for (const { input, output } of bundledFiles) {
+    for (let { input, output } of bundledFiles) {
       if (input === path.join(PROJECT_ROOT, bundle.input)) {
         continue;
+      }
+
+      if (output === "./doc.js" && bundle.output !== "index.cjs") {
+        output = "./esm/doc.mjs";
       }
 
       replaceModule.push({ module: input, external: output });
@@ -205,13 +209,11 @@ function* getEsbuildOptions(bundle, buildOptions) {
       format: "umd",
     };
 
-    if (/^(?:standalone|parser-.*)\.js$/.test(bundle.output)) {
-      yield {
-        ...esbuildOptions,
-        outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
-        format: "esm",
-      };
-    }
+    yield {
+      ...esbuildOptions,
+      outfile: `esm/${bundle.output.replace(".js", ".mjs")}`,
+      format: "esm",
+    };
   } else {
     esbuildOptions.platform = "node";
     esbuildOptions.external.push(...bundledFiles.map(({ output }) => output));

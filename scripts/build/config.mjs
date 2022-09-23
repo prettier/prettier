@@ -205,6 +205,8 @@ const parsers = [
 const coreBundles = [
   {
     input: "src/index.js",
+    output: "index.mjs",
+    format: "esm",
     interopDefault: false,
     replaceModule: [
       {
@@ -231,6 +233,9 @@ const coreBundles = [
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
     ],
+  },
+  {
+    input: "src/index.cjs",
   },
   {
     input: "src/document/index.js",
