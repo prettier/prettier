@@ -718,18 +718,6 @@ function isWesternOrKoreanLetter(kind) {
 }
 
 /**
- * Get the last character
- *
- * Type for arrays is not provided because I don't know how it is compatible with string (PR welcome)
- *
- * @param {string} str
- * @returns {string} last character
- */
-function getLastCharacter(str) {
-  return str[str.length - 1];
-}
-
-/**
  * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhiteSpaceValue`) can converted to `"\n"`
  *
  * @param {*} path
@@ -745,7 +733,7 @@ function isBreakable(path, value, options, adjacentNodes) {
   if (getAncestorNode(path, SINGLE_LINE_NODE_TYPES)) {
     return false;
   }
-  if (adjacentNodes == undefined) {
+  if (adjacentNodes === undefined) {
     return true;
   }
   // Space & newline are always breakable
@@ -764,9 +752,7 @@ function isBreakable(path, value, options, adjacentNodes) {
     (adjacentNodes.next?.value !== undefined &&
       noBreakBeforeSymbolSet.has(adjacentNodes.next.value[0])) ||
     (adjacentNodes.previous?.value !== undefined &&
-      noBreakAfterSymbolSet.has(
-        getLastCharacter(adjacentNodes.previous.value)
-      ));
+      noBreakAfterSymbolSet.has(adjacentNodes.previous.value.at(-1)));
   // For "" (CJK and some non-space) higher priority than the follwing rule
   if (isBreakingCJKLineBreakingRule) {
     return false;
