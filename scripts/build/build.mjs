@@ -7,16 +7,8 @@ import chalk from "chalk";
 import minimist from "minimist";
 import prettyBytes from "pretty-bytes";
 import createEsmUtils from "esm-utils";
-import {
-  PROJECT_ROOT,
-  DIST_DIR,
-  readJson,
-  writeJson,
-  copyFile,
-} from "../utils/index.mjs";
-import bundler from "./bundler.mjs";
-import bundleConfigs from "./config.mjs";
-import saveLicenses from "./save-licenses.mjs";
+import { DIST_DIR } from "../utils/index.mjs";
+import files from "./config.mjs";
 
 const { require } = createEsmUtils(import.meta);
 
@@ -52,141 +44,122 @@ const clear = () => {
   readline.cursorTo(process.stdout, 0, null);
 };
 
-async function createBundle(bundleConfig, options) {
+async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
+  let displayName = file.output.file;
+  if (
+    (file.platform === "universal" && file.output.format !== "esm") ||
+    (file.output.file.startsWith("index.") && file.output.format !== "esm")
+  ) {
+    displayName = ` ${displayName}`;
+  }
+
+  process.stdout.write(fitTerminal(displayName));
+
+  if (
+    (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
+    (cliOptions.playground && file.output.format !== "umd")
+  ) {
+    console.log(status.SKIPPED);
+    return;
+  }
+
+  let result;
   try {
-    for await (const {
-      name,
-      started,
-      skipped,
-      relativePath,
-      absolutePath,
-    } of bundler(bundleConfig, options)) {
-      const displayName = name.startsWith("esm/") ? `  ${name}` : name;
-
-      if (started) {
-        process.stdout.write(fitTerminal(displayName));
-        continue;
-      }
-
-      if (skipped) {
-        if (!options.files) {
-          process.stdout.write(fitTerminal(displayName));
-          console.log(status.SKIPPED);
-        }
-
-        continue;
-      }
-
-      const sizeMessages = [];
-
-      if (options.printSize) {
-        const { size } = await fs.stat(absolutePath);
-        sizeMessages.push(prettyBytes(size));
-      }
-
-      if (options.compareSize) {
-        // TODO: Use `import.meta.resolve` when Node.js support
-        const stablePrettierDirectory = path.dirname(
-          require.resolve("prettier")
-        );
-        const stableVersionFile = path.join(
-          stablePrettierDirectory,
-          relativePath
-        );
-        let stableSize;
-        try {
-          ({ size: stableSize } = await fs.stat(stableVersionFile));
-        } catch {
-          // No op
-        }
-
-        if (stableSize) {
-          const { size } = await fs.stat(absolutePath);
-          const sizeDiff = size - stableSize;
-          const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
-            prettyBytes(sizeDiff)
-          );
-
-          sizeMessages.push(`${message}`);
-        } else {
-          sizeMessages.push(chalk.blue("[NEW FILE]"));
-        }
-      }
-
-      if (sizeMessages.length > 0) {
-        // Clear previous line
-        clear();
-        process.stdout.write(
-          fitTerminal(displayName, `${sizeMessages.join(", ")} `)
-        );
-      }
-
-      console.log(status.DONE);
-    }
+    result = (await file.build({
+      file,
+      files,
+      shouldCollectLicenses,
+      cliOptions,
+    })) ?? {
+      file: cliOptions.saveAs ?? file.output.file,
+    };
   } catch (error) {
     console.log(status.FAIL + "\n");
     console.error(error);
     throw error;
   }
+
+  if (result.skipped) {
+    console.log(status.SKIPPED);
+    return;
+  }
+
+  const sizeMessages = [];
+  if (cliOptions.printSize) {
+    const { size } = await fs.stat(path.join(DIST_DIR, result.file));
+    sizeMessages.push(prettyBytes(size));
+  }
+
+  if (cliOptions.compareSize) {
+    // TODO: Use `import.meta.resolve` when Node.js support
+    const stablePrettierDirectory = path.dirname(require.resolve("prettier"));
+    const stableVersionFile = path.join(stablePrettierDirectory, result.file);
+    let stableSize;
+    try {
+      ({ size: stableSize } = await fs.stat(stableVersionFile));
+    } catch {
+      // No op
+    }
+
+    if (stableSize) {
+      const { size } = await fs.stat(result.file);
+      const sizeDiff = size - stableSize;
+      const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
+        prettyBytes(sizeDiff)
+      );
+
+      sizeMessages.push(`${message}`);
+    } else {
+      sizeMessages.push(chalk.blue("[NEW FILE]"));
+    }
+  }
+
+  if (sizeMessages.length > 0) {
+    // Clear previous line
+    clear();
+    process.stdout.write(
+      fitTerminal(displayName, `${sizeMessages.join(", ")} `)
+    );
+  }
+
+  console.log(status.DONE);
 }
 
-async function preparePackage() {
-  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
-  packageJson.bin = "./bin-prettier.cjs";
-  packageJson.main = "./index.cjs";
-  // TODO: Add `exports`
+async function run(cliOptions) {
+  cliOptions.files = cliOptions.file
+    ? new Set([cliOptions.file].flat())
+    : cliOptions.file;
+  delete cliOptions.file;
 
-  // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
-  packageJson.engines.node = ">=14";
-  delete packageJson.dependencies;
-  delete packageJson.devDependencies;
-  delete packageJson.browserslist;
-  delete packageJson.type;
-  delete packageJson.c8;
-  delete packageJson.packageManager;
-  packageJson.scripts = {
-    prepublishOnly:
-      "node -e \"assert.equal(require('.').version, require('..').version)\"",
-  };
-  packageJson.files = ["*.js", "*.mjs", "esm/*.mjs"];
-  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
+  cliOptions.saveAs = cliOptions["save-as"];
+  delete cliOptions["save-as"];
 
-  for (const file of ["README.md", "LICENSE"]) {
-    await copyFile(path.join(PROJECT_ROOT, file), path.join(DIST_DIR, file));
+  cliOptions.printSize = cliOptions["print-size"];
+  delete cliOptions["print-size"];
+
+  cliOptions.compareSize = cliOptions["compare-size"];
+  delete cliOptions["compare-size"];
+
+  if (cliOptions.report === "") {
+    cliOptions.report = ["html"];
   }
-}
+  cliOptions.reports = cliOptions.report
+    ? [cliOptions.report].flat()
+    : cliOptions.report;
+  delete cliOptions.report;
 
-async function run(params) {
-  params.files = params.file ? new Set([params.file].flat()) : params.file;
-  delete params.file;
-
-  params.saveAs = params["save-as"];
-  delete params["save-as"];
-
-  params.printSize = params["print-size"];
-  delete params["print-size"];
-
-  params.compareSize = params["compare-size"];
-  delete params["compare-size"];
-
-  if (params.report === "") {
-    params.report = ["html"];
-  }
-  params.reports = params.report ? [params.report].flat() : params.report;
-  delete params.report;
-
-  if (params.saveAs && !(params.files && params.files.size === 1)) {
+  if (cliOptions.saveAs && !(cliOptions.files && cliOptions.files.size === 1)) {
     throw new Error("'--save-as' can only use together with one '--file' flag");
   }
 
   if (
-    params.saveAs &&
-    !path.join(DIST_DIR, params.saveAs).startsWith(DIST_DIR)
+    cliOptions.saveAs &&
+    !path.join(DIST_DIR, cliOptions.saveAs).startsWith(DIST_DIR)
   ) {
     throw new Error("'--save-as' can only relative path");
   }
 
-  if (params.clean) {
+  if (cliOptions.clean) {
     let stat;
     try {
       stat = await fs.stat(DIST_DIR);
@@ -203,45 +176,27 @@ async function run(params) {
     }
   }
 
-  if (params.compareSize) {
-    if (params.minify === false) {
+  if (cliOptions.compareSize) {
+    if (cliOptions.minify === false) {
       throw new Error(
         "'--compare-size' can not use together with '--no-minify' flag"
       );
     }
 
-    if (params.saveAs) {
+    if (cliOptions.saveAs) {
       throw new Error(
         "'--compare-size' can not use together with '--save-as' flag"
       );
     }
   }
 
-  const shouldPreparePackage =
-    !params.playground && !params.files && params.minify === null;
-  const shouldSaveBundledPackagesLicenses = shouldPreparePackage;
-
-  const licenses = [];
-  if (shouldSaveBundledPackagesLicenses) {
-    params.onLicenseFound = (dependencies) => licenses.push(...dependencies);
-  }
+  const shouldCollectLicenses =
+    !cliOptions.playground && !cliOptions.files && cliOptions.minify === null;
 
   console.log(chalk.inverse(" Building packages "));
 
-  for (const bundleConfig of bundleConfigs) {
-    await createBundle(bundleConfig, params);
-  }
-
-  if (shouldPreparePackage) {
-    await preparePackage();
-  }
-
-  if (shouldSaveBundledPackagesLicenses) {
-    await saveLicenses(licenses.filter(({ name }) => name !== "prettier"));
-  } else {
-    console.warn(
-      chalk.red("Bundled packages licenses not included in `dist/LICENSE`.")
-    );
+  for (const file of files) {
+    await buildFile({ file, files, shouldCollectLicenses, cliOptions });
   }
 }
 

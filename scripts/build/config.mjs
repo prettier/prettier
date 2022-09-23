@@ -1,27 +1,35 @@
 import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
-import { PROJECT_ROOT } from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
+import buildJavascriptModule from "./build-javascript-module.js";
+import buildPackageJson from "./build-package-json.js";
+import buildLicense from "./build-license.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
 /**
- * @typedef {Object} Bundle
- * @property {string} input - input of the bundle
- * @property {string?} output - path of the output file in the `dist/` folder
- * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
- * @property {'node' | 'universal'} target - should generate a CJS only for node or universal bundle
- * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
- * @property {string[]} external - array of paths that should not be included in the final bundle
- * @property {object[]} replaceModule - Module replacements
- * @property {string[]} babelPlugins - babel plugins
- * @property {boolean?} minify - minify
- * @property {string[]?} esbuildTarget - ESBuild target
- * @property {boolean?} interopDefault - Should export the ESM default export
-
- * @typedef {Object} CommonJSConfig
- * @property {string[]} ignore - paths of CJS modules to ignore
+ * @typedef {Object} BuildOptions
+ * @property {object[]?} replaceModule - Module replacements
+ * @property {string[]?} target - ESBuild targets
+ * @property {string[]?} external - array of paths that should not be included in the final bundle
+ * @property {boolean?} interopDefault - interop default export
+ * @property {boolean?} minify - disable code minification
+ *
+ * @typedef {Object} Output
+ * @property {'esm' | 'umd' | 'cjs' | 'text' | 'json'} format - File format
+ * @property {string} file - path of the output file in the `dist/` folder
+ * @property {string?} umdVariableName - name for the UMD file (for plugins, it'll be `prettierPlugins.${name}`)
+ *
+ * @typedef {Object} File
+ * @property {string?} input - input of the file
+ * @property {Output} output - output of the file
+ * @property {function} build - file generate function
+ * @property {'node' | 'universal'} platform - ESBuild platform
+ * @property {BuildOptions} buildOptions - ESBuild options
+ * @property {boolean?} isPlugin - file is a plugin
+ * @property {boolean?} isMeta - file is a meta file (package.json, LICENSE README.md)
  */
 
 /*
@@ -37,14 +45,15 @@ const replaceDiffPackageEntry = (file) => ({
   path: path.join(diffPackageDirectory, file),
 });
 
-/** @type {Bundle[]} */
-const parsers = [
-  {
-    input: "src/language-js/parse/babel.js",
-  },
-  {
-    input: "src/language-js/parse/flow.js",
-  },
+const extensions = {
+  esm: ".mjs",
+  umd: ".js",
+  cjs: ".cjs",
+};
+
+const pluginFiles = [
+  "src/language-js/parse/babel.js",
+  "src/language-js/parse/flow.js",
   {
     input: "src/language-js/parse/typescript.js",
     replaceModule: [
@@ -105,9 +114,9 @@ const parsers = [
   },
   {
     input: "src/language-js/parse/acorn-and-espree.js",
-    name: "prettierPlugins.espree",
     // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
-    output: "parser-espree.js",
+    outputBaseName: "espree",
+    umdPropertyName: "espree",
     replaceModule: [
       {
         module: require.resolve("espree"),
@@ -121,9 +130,7 @@ const parsers = [
       },
     ],
   },
-  {
-    input: "src/language-js/parse/meriyah.js",
-  },
+  "src/language-js/parse/meriyah.js",
   {
     input: "src/language-js/parse/angular.js",
     replaceModule: [
@@ -155,9 +162,7 @@ const parsers = [
       },
     ],
   },
-  {
-    input: "src/language-graphql/parser-graphql.js",
-  },
+  "src/language-graphql/parser-graphql.js",
   {
     input: "src/language-markdown/parser-markdown.js",
     replaceModule: [
@@ -181,33 +186,104 @@ const parsers = [
       },
     ],
   },
-  {
-    input: "src/language-html/parser-html.js",
-  },
-  {
-    input: "src/language-yaml/parser-yaml.js",
-  },
-].map((bundle) => {
-  const { name } = bundle.input.match(
-    /(?:parser-|parse\/)(?<name>.*?)\.js$/
-  ).groups;
+  "src/language-html/parser-html.js",
+  "src/language-yaml/parser-yaml.js",
+].map((file) => {
+  if (typeof file === "string") {
+    file = { input: file };
+  }
+
+  let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
+
+  outputBaseName ??= input.match(
+    /(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/
+  ).groups.outputBaseName;
+  const umdVariableName = `prettierPlugins.${
+    umdPropertyName ?? outputBaseName
+  }`;
 
   return {
-    type: "plugin",
-    target: "universal",
-    name: `prettierPlugins.${name}`,
-    output: `parser-${name}.js`,
-    ...bundle,
+    input,
+    outputBaseName,
+    umdVariableName,
+    buildOptions,
+    isPlugin: true,
   };
 });
 
-/** @type {Bundle[]} */
-const coreBundles = [
+const nonPluginUniversalFiles = [
+  {
+    input: "src/document/index.js",
+    outputBaseName: "doc",
+    umdVariableName: "doc",
+    interopDefault: false,
+    minify: false,
+  },
+  {
+    input: "src/standalone.js",
+    umdVariableName: "prettier",
+    interopDefault: false,
+    replaceModule: [
+      {
+        module: require.resolve("@babel/highlight"),
+        path: path.join(dirname, "./shims/babel-highlight.js"),
+      },
+      {
+        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
+        path: path.join(dirname, "./shims/chalk.js"),
+      },
+      replaceDiffPackageEntry("lib/diff/array.js"),
+    ],
+  },
+].map((file) => {
+  const {
+    input,
+    outputBaseName = path.basename(input, ".js"),
+    umdVariableName,
+    ...buildOptions
+  } = file;
+
+  return {
+    input,
+    outputBaseName,
+    umdVariableName,
+    buildOptions,
+  };
+});
+
+const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
+  (file) => {
+    let { input, outputBaseName, umdVariableName, buildOptions, isPlugin } =
+      file;
+
+    outputBaseName ??= path.basename(input);
+    if (file.isPlugin) {
+      outputBaseName = `parser-${outputBaseName}`;
+    }
+
+    return [
+      {
+        format: "esm",
+        file: `esm/${outputBaseName}${extensions.esm}`,
+      },
+      {
+        format: "umd",
+        file: `${outputBaseName}${extensions.umd}`,
+        umdVariableName,
+      },
+    ].map((output) => ({
+      input,
+      output,
+      platform: "universal",
+      buildOptions,
+      isPlugin,
+    }));
+  }
+);
+
+const nodejsFiles = [
   {
     input: "src/index.js",
-    output: "index.mjs",
-    format: "esm",
-    interopDefault: false,
     replaceModule: [
       {
         module: require.resolve("@iarna/toml/lib/toml-parser.js"),
@@ -238,35 +314,9 @@ const coreBundles = [
     input: "src/index.cjs",
   },
   {
-    input: "src/document/index.js",
-    interopDefault: false,
-    name: "doc",
-    output: "doc.js",
-    target: "universal",
-    format: "umd",
-    minify: false,
-  },
-  {
-    input: "src/standalone.js",
-    interopDefault: false,
-    name: "prettier",
-    target: "universal",
-    replaceModule: [
-      {
-        module: require.resolve("@babel/highlight"),
-        path: path.join(dirname, "./shims/babel-highlight.js"),
-      },
-      {
-        module: createRequire(require.resolve("vnopts")).resolve("chalk"),
-        path: path.join(dirname, "./shims/chalk.js"),
-      },
-      replaceDiffPackageEntry("lib/diff/array.js"),
-    ],
-  },
-  {
     input: "bin/prettier.cjs",
-    output: "bin-prettier.cjs",
-    esbuildTarget: ["node0.10"],
+    outputBaseName: "bin-prettier",
+    target: ["node0.10"],
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
@@ -276,15 +326,12 @@ const coreBundles = [
   },
   {
     input: "src/cli/index.js",
-    output: "cli.mjs",
-    format: "esm",
+    outputBaseName: "cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
     input: "src/common/third-party.js",
-    output: "third-party.mjs",
-    format: "esm",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
@@ -293,12 +340,59 @@ const coreBundles = [
       },
     ],
   },
-].map((bundle) => ({
-  type: "core",
-  target: "node",
-  output: path.basename(bundle.input),
-  ...bundle,
-}));
+].map((file) => {
+  let { input, output, outputBaseName, ...buildOptions } = file;
 
-const configs = [...coreBundles, ...parsers];
-export default configs;
+  const format = input.endsWith(".cjs") ? "cjs" : "esm";
+  outputBaseName ??= path.basename(input).split(".").slice(0, -1).join(".");
+
+  return {
+    input,
+    output: {
+      format,
+      file: `${outputBaseName}${extensions[format]}`,
+    },
+    platform: "node",
+    buildOptions,
+  };
+});
+
+const metaFiles = [
+  {
+    input: "package.json",
+    output: {
+      format: "json",
+      file: "package.json",
+    },
+    build: buildPackageJson,
+  },
+  {
+    output: {
+      format: "text",
+      file: "README.md",
+    },
+    async build() {
+      await copyFile(
+        path.join(PROJECT_ROOT, "README.md"),
+        path.join(DIST_DIR, "README.md")
+      );
+    },
+  },
+  {
+    output: {
+      format: "text",
+      file: "LICENSE",
+    },
+    build: buildLicense,
+  },
+].map((file) => ({ ...file, isMetaFile: true }));
+
+/** @type {Files[]} */
+const files = [
+  ...[...nodejsFiles, ...universalFiles].map((file) => ({
+    ...file,
+    build: buildJavascriptModule,
+  })),
+  ...metaFiles,
+];
+export default files;

@@ -1,20 +1,25 @@
 import path from "node:path";
 import { promises as fs } from "node:fs";
 import { outdent } from "outdent";
-import { DIST_DIR } from "../utils/index.mjs";
+import { DIST_DIR, PROJECT_ROOT } from "../utils/index.mjs";
 
-const file = path.join(DIST_DIR, "LICENSE");
+const PROJECT_LICENSE_FILE = path.join(PROJECT_ROOT, "LICENSE");
+const LICENSE_FILE = path.join(DIST_DIR, "LICENSE");
 const separator = `\n${"-".repeat(40)}\n\n`;
 
-async function saveLicenses(dependencies) {
-  // Unique by `name` and `version`
+async function getLicenseText(files) {
+  let dependencies = files.flatMap((file) => file.dependencies);
+
   dependencies = dependencies.filter(
     (dependency, index) =>
+      // Exclude ourself
+      dependency.name !== "prettier" &&
+      // Unique by `name` and `version`
       index ===
-      dependencies.findIndex(
-        ({ name, version }) =>
-          dependency.name === name && dependency.version === version
-      )
+        dependencies.findIndex(
+          ({ name, version }) =>
+            dependency.name === name && dependency.version === version
+        )
   );
 
   dependencies.sort(
@@ -23,7 +28,7 @@ async function saveLicenses(dependencies) {
       dependencyA.version.localeCompare(dependencyB.version)
   );
 
-  const prettierLicense = await fs.readFile(file, "utf8");
+  const prettierLicense = await fs.readFile(PROJECT_LICENSE_FILE, "utf8");
 
   const licenses = [
     ...new Set(
@@ -32,20 +37,28 @@ async function saveLicenses(dependencies) {
         .map(({ license }) => license)
     ),
   ];
+
   const text = outdent`
     # Prettier license
 
     Prettier is released under the MIT license:
 
     ${prettierLicense.trim()}
-
-    ## Licenses of bundled dependencies
-
-    The published Prettier artifact additionally contains code with the following licenses:
-    ${licenses.join(", ")}
-
-    ## Bundled dependencies
   `;
+
+  if (licenses.length === 0) {
+    return text;
+  }
+
+  const parts = [
+    text,
+    outdent`
+      ## Licenses of bundled dependencies
+
+      The published Prettier artifact additionally contains code with the following licenses:
+      ${licenses.join(", ")}
+    `,
+  ];
 
   const content = dependencies
     .map((dependency) => {
@@ -81,7 +94,33 @@ async function saveLicenses(dependencies) {
     })
     .join(separator);
 
-  await fs.writeFile(file, text + "\n\n" + content);
+  return [
+    ...parts,
+    outdent`
+      ## Bundled dependencies
+
+      ${content}
+    `,
+  ].join("\n\n");
 }
 
-export default saveLicenses;
+async function buildLicense({ file, files, shouldCollectLicenses }) {
+  if (files.indexOf(file) !== files.length - 1) {
+    throw new Error("license should be last file to build.");
+  }
+
+  if (!shouldCollectLicenses) {
+    return;
+  }
+
+  const javascriptFiles = files.filter((file) => !file.isMetaFile);
+  if (javascriptFiles.some((file) => !Array.isArray(file.dependencies))) {
+    return { skipped: true };
+  }
+
+  const text = await getLicenseText(javascriptFiles);
+
+  await fs.writeFile(LICENSE_FILE, text);
+}
+
+export default buildLicense;
