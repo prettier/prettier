@@ -642,6 +642,13 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   if (typeof adjacentNodes !== "object") {
     return true;
   }
+  // e.g. " \nletter"
+  if (
+    typeof adjacentNodes.next === "undefined" ||
+    typeof adjacentNodes.previous === "undefined"
+  ) {
+    return true;
+  }
   const previousKind = adjacentNodes.previous?.kind;
   const nextKind = adjacentNodes.next?.kind;
   // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can converted to Space
