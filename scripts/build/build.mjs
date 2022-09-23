@@ -132,6 +132,7 @@ async function createBundle(bundleConfig, options) {
 
 async function preparePackage() {
   const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+  packageJson.bin = "./bin-prettier.cjs";
   packageJson.main = "./index.cjs";
   // TODO: Add `exports`
 
