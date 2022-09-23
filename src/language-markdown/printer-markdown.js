@@ -90,7 +90,8 @@ const lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet = new Set(
 /**
  * Unicode punctuation character defined in [CommonMark Spec](https://spec.commonmark.org/0.30/#unicode-punctuation-character)
  */
-const punctuationsRegex = /(?:\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
+const punctuationsRegex =
+  /(?:\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -668,6 +669,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
+  const previousLastChar = adjacentNodes.previous?.value?.at(-1);
+  const nextFirstChar = adjacentNodes.next?.value?.at(0);
   // The following rules do not precede the above rules (`return false`).
   //
   // Cases:
@@ -677,19 +680,15 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   // [corresponding sign][Space][any string][CJ][[\n]][target sign]
   // we wonder if there are other marks to be considered.
   if (
-    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
-      adjacentNodes.next?.value
-    ) ||
-    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(
-      adjacentNodes.previous?.value
-    )
+    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(nextFirstChar) ||
+    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(previousLastChar)
   ) {
     return true;
   }
   // Converting newline between CJ and non-ASCII punctuation to Space does not seem to be better in many cases. (PR welcome)
   if (
-    punctuationsRegex.test(adjacentNodes.previous?.value) ||
-    punctuationsRegex.test(adjacentNodes.next?.value)
+    punctuationsRegex.test(previousLastChar) ||
+    punctuationsRegex.test(nextFirstChar)
   ) {
     return false;
   }
