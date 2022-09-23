@@ -102,7 +102,7 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
     }
 
     if (stableSize) {
-      const { size } = await fs.stat(result.file);
+      const { size } = await fs.stat(path.join(DIST_DIR, result.file));
       const sizeDiff = size - stableSize;
       const message = chalk[sizeDiff > 0 ? "yellow" : "green"](
         prettyBytes(sizeDiff)
