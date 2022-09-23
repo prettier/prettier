@@ -153,9 +153,7 @@ function splitText(text, options) {
 
     function isBetween(kind1, kind2) {
       return (
-        // @ts-expect-error
         (lastNode.kind === kind1 && node.kind === kind2) ||
-        // @ts-expect-error
         (lastNode.kind === kind2 && node.kind === kind1)
       );
     }
