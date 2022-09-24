@@ -291,6 +291,34 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 ================================================================================
 `;
 
+exports[`embed.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo(/* HTML */ \`<!-- bar1 --> bar <!-- bar2 -->\`);
+foo(/* GraphQL */ \`query { foo { bar } }\`);
+foo(/* ... */ css\`color:magenta\`);
+
+=====================================output=====================================
+foo(/* HTML */ \`<!-- bar1 -->
+  bar
+  <!-- bar2 -->\`);
+foo(/* GraphQL */ \`
+  query {
+    foo {
+      bar
+    }
+  }
+\`);
+foo(/* ... */ css\`
+  color: magenta;
+\`);
+
+================================================================================
+`;
+
 exports[`empty-lines.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow"]

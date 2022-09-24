@@ -6,7 +6,6 @@ import {
   isCallExpression,
   isMemberish,
   isStringLiteral,
-  isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
 } from "../utils/index.js";
@@ -15,8 +14,7 @@ import printCallArguments from "./call-arguments.js";
 import { printOptionalToken, printFunctionTypeParameters } from "./misc.js";
 
 function printCallExpression(path, options, print) {
-  const { node } = path;
-  const parentNode = path.getParentNode();
+  const { node, parent } = path;
   const isNew = node.type === "NewExpression";
   const isDynamicImport = node.type === "ImportExpression";
 
@@ -25,16 +23,15 @@ function printCallExpression(path, options, print) {
   if (
     // Dangling comments are not handled, all these special cases should have arguments #9668
     args.length > 0 &&
+    !isNew &&
+    !isDynamicImport &&
     // We want to keep CommonJS- and AMD-style require calls, and AMD-style
     // define calls, as a unit.
     // e.g. `define(["some/lib"], (lib) => {`
-    ((!isDynamicImport && !isNew && isCommonsJsOrAmdCall(node, parentNode)) ||
-      // Template literals as single arguments
-      (args.length === 1 &&
-        isTemplateOnItsOwnLine(args[0], options.originalText)) ||
+    (isCommonsJsOrAmdCall(node, parent) ||
       // Keep test declarations on a single line
       // e.g. `it('long name', () => {`
-      (!isNew && isTestCall(node, parentNode)))
+      isTestCall(node, parent))
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, () => {

@@ -7,6 +7,7 @@ import {
   lineSuffix,
   join,
   cursor,
+  label,
 } from "../document/builders.js";
 import {
   hasNewline,
@@ -18,6 +19,7 @@ import {
   addTrailingComment,
   isNonEmptyArray,
 } from "../common/util.js";
+import { DOC_TYPE_LABEL } from "../document/constants.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 const childNodesCache = new WeakMap();
@@ -585,7 +587,10 @@ function printComments(path, doc, options, ignored) {
   if (!leading && !trailing) {
     return doc;
   }
-  return [leading, doc, trailing];
+  const docWithComments = [leading, doc, trailing];
+  return doc.type === DOC_TYPE_LABEL
+    ? label(`[comments]${doc.label}`, docWithComments)
+    : docWithComments;
 }
 
 function ensureAllCommentsPrinted(astComments) {

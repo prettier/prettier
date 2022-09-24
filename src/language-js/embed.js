@@ -1,3 +1,4 @@
+import { label } from "../document/builders.js";
 import {
   hasComment,
   CommentCheckFlags,
@@ -28,7 +29,10 @@ function embed(path) {
       return "``";
     }
 
-    return embedder;
+    return async (...args) => {
+      const doc = await embedder(...args);
+      return doc && label("[embed]", doc);
+    };
   }
 }
 
