@@ -20,18 +20,8 @@ async function format(textToDoc, print, path /*, options*/) {
           currVal,
     ""
   );
-  const doc = await textToDoc(text, { parser: "scss" });
+  const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
-  return transformCssDoc(doc, node, expressionDocs);
-}
-
-function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
-  const isEmpty =
-    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
-  if (isEmpty) {
-    return "``";
-  }
-
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* istanbul ignore if */
   if (!newDoc) {

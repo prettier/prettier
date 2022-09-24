@@ -24,9 +24,6 @@ async function format(textToDoc, print, path, options, parser) {
     .join("");
 
   const expressionDocs = printTemplateExpressions(path, print);
-  if (expressionDocs.length === 0 && text.trim().length === 0) {
-    return "``";
-  }
 
   const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
   let topLevelCount = 0;

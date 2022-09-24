@@ -8,9 +8,6 @@ async function format(textToDoc, print, path /*, options*/) {
   const { node } = path;
 
   const numQuasis = node.quasis.length;
-  if (numQuasis === 1 && node.quasis[0].value.raw.trim() === "") {
-    return "``";
-  }
 
   const expressionDocs = printTemplateExpressions(path, print);
   const parts = [];
