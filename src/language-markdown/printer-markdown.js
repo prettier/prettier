@@ -747,9 +747,9 @@ function isBreakable(path, value, options, adjacentNodes) {
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const isBreakingCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
-      noBreakBeforeSymbolSet.has(adjacentNodes.next.value[0])) ||
+      noBreakBeforeSymbolSet.has(adjacentNodes.next?.value?.at(0))) ||
     (adjacentNodes.previous?.value !== undefined &&
-      noBreakAfterSymbolSet.has(adjacentNodes.previous.value.at(-1)));
+      noBreakAfterSymbolSet.has(adjacentNodes.previous?.value?.at(-1)));
   // For "" (CJK and some non-space) higher priority than the following rule
   if (isBreakingCJKLineBreakingRule) {
     return false;
