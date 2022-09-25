@@ -44,7 +44,7 @@ function printCallExpression(path, options, print) {
       printed.push(print());
     });
     if (
-      !(isTemplateLiteralSingleArg && printed[0].label?.endsWith("[embed]"))
+      !(isTemplateLiteralSingleArg && printed[0].label?.includes("[embed]"))
     ) {
       return [
         isNew ? "new " : "",

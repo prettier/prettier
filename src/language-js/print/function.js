@@ -341,7 +341,8 @@ function printArrowFunction(path, options, print, args) {
       node.body.type === "BlockStatement" ||
       isJsxNode(node.body) ||
       body[0].label?.endsWith("[embed]") ||
-      isTemplateOnItsOwnLine(node.body, options.originalText) ||
+      (isTemplateOnItsOwnLine(node.body, options.originalText) &&
+        !body[0].label?.includes("[embed]")) ||
       node.body.type === "ArrowFunctionExpression" ||
       node.body.type === "DoExpression")
   ) {
