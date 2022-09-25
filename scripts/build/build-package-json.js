@@ -17,8 +17,35 @@ async function buildPackageJson({ files }) {
 
   packageJson.bin = `./${bin}`;
   packageJson.main = "./index.cjs";
-  // TODO: Add `exports`
-
+  packageJson.exports = {
+    ".": {
+      require: "./index.cjs",
+      default: "./index.mjs",
+    },
+    "./*": "./",
+    "./standalone": {
+      require: "./standalone.js",
+      default: "./esm/standalone.mjs",
+    },
+    "./doc": {
+      require: "./doc.js",
+      default: "./esm/doc.mjs",
+    },
+    ...Object.fromEntries(
+      files
+        .filter((file) => file.isPlugin && file.output.format === "umd")
+        .map((file) => {
+          const basename = path.basename(file.output.file, ".js");
+          return [
+            `./${basename}`,
+            {
+              require: `./${file.output.file}`,
+              default: `./esm/${basename}.mjs`,
+            },
+          ];
+        })
+    ),
+  };
   // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
   packageJson.engines.node = ">=14";
   delete packageJson.dependencies;

@@ -12,6 +12,13 @@
   "main": "./index.js",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
+  "exports": {
+    ".": {
+      "require": "./src/index.cjs",
+      "default": "./src/index.mjs"
+    },
+    "./*": "./"
+  },
   "engines": {
     "node": ">=16"
   },
