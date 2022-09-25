@@ -3,10 +3,10 @@ import {
   CommentCheckFlags,
   isObjectProperty,
 } from "./utils/index.js";
-import formatMarkdown from "./embed/markdown.js";
-import formatCss from "./embed/css.js";
-import formatGraphql from "./embed/graphql.js";
-import { formatHtml, formatAngular } from "./embed/html.js";
+import embedMarkdown from "./embed/markdown.js";
+import embedCss from "./embed/css.js";
+import embedGraphQL from "./embed/graphql.js";
+import { embedHtml, embedAngular } from "./embed/html.js";
 
 function embed(path) {
   const { node } = path;
@@ -20,42 +20,42 @@ function embed(path) {
     return;
   }
 
-  const formatter = getFormatter(path);
+  const embedder = getEmbedder(path);
 
-  if (formatter) {
+  if (embedder) {
     // Special case: whitespace-only template literals
     if (node.quasis.length === 1 && node.quasis[0].value.raw.trim() === "") {
       return "``";
     }
 
-    return formatter;
+    return embedder;
   }
 }
 
-function getFormatter(path) {
+function getEmbedder(path) {
   if (
     isStyledJsx(path) ||
     isStyledComponents(path) ||
     isCssProp(path) ||
     isAngularComponentStyles(path)
   ) {
-    return formatCss;
+    return embedCss;
   }
 
   if (isGraphQL(path)) {
-    return formatGraphql;
+    return embedGraphQL;
   }
 
   if (isHtml(path)) {
-    return formatHtml;
+    return embedHtml;
   }
 
   if (isAngularComponentTemplate(path)) {
-    return formatAngular;
+    return embedAngular;
   }
 
   if (isMarkdown(path)) {
-    return formatMarkdown;
+    return embedMarkdown;
   }
 }
 

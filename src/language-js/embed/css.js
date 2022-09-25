@@ -3,7 +3,7 @@ import { indent, hardline, softline } from "../../document/builders.js";
 import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 
-async function format(textToDoc, print, path /*, options*/) {
+async function embedCss(textToDoc, print, path /*, options*/) {
   const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
@@ -59,4 +59,4 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
-export default format;
+export default embedCss;
