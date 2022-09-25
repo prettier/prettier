@@ -1,6 +1,5 @@
 import url from "node:url";
 import path from "node:path";
-import { outdent } from "outdent";
 import transformCode from "../../scripts/build/transform/index.js";
 
 const file = url.fileURLToPath(
@@ -25,6 +24,15 @@ test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(foo, -1);"
+    __at(false, foo, -1);"
   `);
+
+  expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
+    "import __at from "<SHIMS>/at.js";
+
+    __at(true, foo, -1);"
+  `);
+
+  // Don't support optional call
+  expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
 });
