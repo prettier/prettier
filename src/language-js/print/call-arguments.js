@@ -19,7 +19,6 @@ import {
   isRegExpLiteral,
   isSimpleType,
   isCallLikeExpression,
-  isTemplateOnItsOwnLine,
 } from "../utils/index.js";
 
 import {
@@ -224,11 +223,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 function shouldExpandLastArg(args, argDocs, options) {
   const lastArg = args.at(-1);
 
-  if (
-    args.length === 1 &&
-    (argDocs.at(-1).label?.endsWith("[embed]") ||
-      isTemplateOnItsOwnLine(lastArg, options.originalText))
-  ) {
+  if (args.length === 1 && argDocs.at(-1).label?.endsWith("[embed]")) {
     return true;
   }
 

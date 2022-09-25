@@ -6,6 +6,7 @@ import {
   isCallExpression,
   isMemberish,
   isStringLiteral,
+  isTemplateOnItsOwnLine,
   isTestCall,
   iterateCallArgumentsPath,
 } from "../utils/index.js";
@@ -20,32 +21,41 @@ function printCallExpression(path, options, print) {
 
   const optional = printOptionalToken(path);
   const args = getCallArguments(node);
+
+  const isTemplateLiteralSingleArg =
+    args.length === 1 && isTemplateOnItsOwnLine(args[0], options.originalText);
+
   if (
+    isTemplateLiteralSingleArg ||
     // Dangling comments are not handled, all these special cases should have arguments #9668
-    args.length > 0 &&
-    !isNew &&
-    !isDynamicImport &&
-    // We want to keep CommonJS- and AMD-style require calls, and AMD-style
-    // define calls, as a unit.
-    // e.g. `define(["some/lib"], (lib) => {`
-    (isCommonsJsOrAmdCall(node, parent) ||
-      // Keep test declarations on a single line
-      // e.g. `it('long name', () => {`
-      isTestCall(node, parent))
+    (args.length > 0 &&
+      !isNew &&
+      !isDynamicImport &&
+      // We want to keep CommonJS- and AMD-style require calls, and AMD-style
+      // define calls, as a unit.
+      // e.g. `define(["some/lib"], (lib) => {`
+      (isCommonsJsOrAmdCall(node, parent) ||
+        // Keep test declarations on a single line
+        // e.g. `it('long name', () => {`
+        isTestCall(node, parent)))
   ) {
     const printed = [];
     iterateCallArgumentsPath(path, () => {
       printed.push(print());
     });
-    return [
-      isNew ? "new " : "",
-      print("callee"),
-      optional,
-      printFunctionTypeParameters(path, options, print),
-      "(",
-      join(", ", printed),
-      ")",
-    ];
+    if (
+      !(isTemplateLiteralSingleArg && printed[0].label?.endsWith("[embed]"))
+    ) {
+      return [
+        isNew ? "new " : "",
+        print("callee"),
+        optional,
+        printFunctionTypeParameters(path, options, print),
+        "(",
+        join(", ", printed),
+        ")",
+      ];
+    }
   }
 
   // Inline Flow annotation comments following Identifiers in Call nodes need to
