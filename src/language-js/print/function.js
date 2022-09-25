@@ -342,7 +342,7 @@ function printArrowFunction(path, options, print, args) {
       isJsxNode(node.body) ||
       body[0].label?.endsWith("[embed]") ||
       (isTemplateOnItsOwnLine(node.body, options.originalText) &&
-        !body[0].label?.includes("[embed]")) ||
+        !body[0].label?.endsWith("[embed][no-hug]")) ||
       node.body.type === "ArrowFunctionExpression" ||
       node.body.type === "DoExpression")
   ) {
