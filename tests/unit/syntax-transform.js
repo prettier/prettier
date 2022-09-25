@@ -6,12 +6,12 @@ import transformCode from "../../scripts/build/transform/index.js";
 const file = url.fileURLToPath(
   new URL("../../src/__dummy.js", import.meta.url)
 );
-const shimsDirectory =
-  url.fileURLToPath(new URL("../../scripts/build/shims", import.meta.url)) +
-  path.sep;
+const shimsDirectory = url.fileURLToPath(
+  new URL("../../scripts/build/shims", import.meta.url)
+);
 const transform = (code) =>
   transformCode(code, file).replaceAll(
-    JSON.stringify(shimsDirectory).slice(1, -1),
+    JSON.stringify(shimsDirectory + +path.sep).slice(1, -1),
     "<SHIMS>/"
   );
 
