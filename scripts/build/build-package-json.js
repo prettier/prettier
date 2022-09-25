@@ -23,17 +23,9 @@ async function buildPackageJson({ files }) {
       default: "./index.mjs",
     },
     "./*": "./",
-    "./standalone": {
-      require: "./standalone.js",
-      default: "./esm/standalone.mjs",
-    },
-    "./doc": {
-      require: "./doc.js",
-      default: "./esm/doc.mjs",
-    },
     ...Object.fromEntries(
       files
-        .filter((file) => file.isPlugin && file.output.format === "umd")
+        .filter((file) => file.output.format === "umd")
         .map((file) => {
           const basename = path.basename(file.output.file, ".js");
           return [
