@@ -224,13 +224,12 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 function shouldExpandLastArg(args, argDocs, options) {
   const lastArg = args.at(-1);
 
-  if (args.length === 1) {
-    if (isTemplateOnItsOwnLine(lastArg, options.originalText)) {
-      return true;
-    }
-    if (argDocs.at(-1).label?.endsWith("[embed]")) {
-      return true;
-    }
+  if (
+    args.length === 1 &&
+    (isTemplateOnItsOwnLine(lastArg, options.originalText) ||
+      argDocs.at(-1).label?.endsWith("[embed]"))
+  ) {
+    return true;
   }
 
   const penultimateArg = args.at(-2);
