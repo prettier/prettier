@@ -302,9 +302,7 @@ async function parseNestedCSS(node, options) {
     }
 
     /* istanbul ignore next */
-    if (!node.raws) {
-      node.raws = {};
-    }
+    node.raws ??= {};
 
     // Custom properties looks like declarations
     if (
@@ -476,9 +474,7 @@ async function parseNestedCSS(node, options) {
       value.startsWith("extend(")
     ) {
       // extend is missing
-      if (!node.extend) {
-        node.extend = node.raws.between === ":";
-      }
+      node.extend ||= node.raws.between === ":";
 
       // `:extend()` is parsed as value
       if (node.extend && !node.selector) {

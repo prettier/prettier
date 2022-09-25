@@ -23,9 +23,7 @@ const clearCache = () => {
 };
 
 async function load(plugins, pluginSearchDirs) {
-  if (!plugins) {
-    plugins = [];
-  }
+  plugins ??= [];
 
   if (pluginSearchDirs === false) {
     pluginSearchDirs = [];
