@@ -93,8 +93,7 @@ async function ngHtmlParser(
             allowHtmComponentClosingTags,
             isTagNameCaseSensitive,
           });
-        const getSecondParse = () =>
-          secondParseResult || (secondParseResult = doSecondParse());
+        const getSecondParse = () => (secondParseResult ??= doSecondParse());
         const getSameLocationNode = (node) =>
           getSecondParse().rootNodes.find(
             ({ startSourceSpan }) =>
