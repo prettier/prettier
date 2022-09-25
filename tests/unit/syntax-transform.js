@@ -11,7 +11,7 @@ const shimsDirectory = url.fileURLToPath(
 );
 const transform = (code) =>
   transformCode(code, file).replaceAll(
-    JSON.stringify(shimsDirectory + +path.sep).slice(1, -1),
+    JSON.stringify(shimsDirectory + path.sep).slice(1, -1),
     "<SHIMS>/"
   );
 
