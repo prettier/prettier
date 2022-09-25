@@ -3,7 +3,7 @@ import { indent, hardline, softline } from "../../document/builders.js";
 import { mapDoc, replaceEndOfLine, cleanDoc } from "../../document/utils.js";
 import { printTemplateExpressions } from "../print/template-literal.js";
 
-async function format(textToDoc, print, path /*, options*/) {
+async function embedCss(textToDoc, print, path /*, options*/) {
   const { node } = path;
 
   // Get full template literal with expressions replaced by placeholders
@@ -20,18 +20,8 @@ async function format(textToDoc, print, path /*, options*/) {
           currVal,
     ""
   );
-  const doc = await textToDoc(text, { parser: "scss" });
+  const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
-  return transformCssDoc(doc, node, expressionDocs);
-}
-
-function transformCssDoc(quasisDoc, parentNode, expressionDocs) {
-  const isEmpty =
-    parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
-  if (isEmpty) {
-    return "``";
-  }
-
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
   /* istanbul ignore if */
   if (!newDoc) {
@@ -69,4 +59,4 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
-export default format;
+export default embedCss;
