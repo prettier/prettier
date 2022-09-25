@@ -226,8 +226,8 @@ function shouldExpandLastArg(args, argDocs, options) {
 
   if (
     args.length === 1 &&
-    (isTemplateOnItsOwnLine(lastArg, options.originalText) ||
-      argDocs.at(-1).label?.endsWith("[embed]"))
+    (argDocs.at(-1).label?.endsWith("[embed]") ||
+      isTemplateOnItsOwnLine(lastArg, options.originalText))
   ) {
     return true;
   }

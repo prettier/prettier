@@ -340,6 +340,7 @@ function printArrowFunction(path, options, print, args) {
       node.body.type === "ObjectExpression" ||
       node.body.type === "BlockStatement" ||
       isJsxNode(node.body) ||
+      body[0].label?.endsWith("[embed]") ||
       isTemplateOnItsOwnLine(node.body, options.originalText) ||
       node.body.type === "ArrowFunctionExpression" ||
       node.body.type === "DoExpression")
