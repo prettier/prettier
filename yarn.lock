@@ -6376,7 +6376,7 @@ __metadata:
 "parse-srcset@ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee":
   version: 1.0.2
   resolution: "parse-srcset@https://github.com/ikatyang/parse-srcset.git#commit=54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
-  checksum: 4f3325a79e8d881d1d29ae4d2857a40b1d9d8d98f093b865a04a4e18ba5b136e7e1d37a317a8fc2ed10a8f473951c396f7c1b0904fe10de430e44811698ce0f1
+  checksum: 1f4b1e48977ed0c47a357e8f484792ca71007c87df33dc3b9c806c1b096162e9e7ba41f5517ba16c2fddce7c6754016692f4b673b4c0960241508671ac8dcebe
   languageName: node
   linkType: hard
 
