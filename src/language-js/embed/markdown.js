@@ -6,7 +6,7 @@ import {
 } from "../../document/builders.js";
 import { escapeTemplateCharacters } from "../print/template-literal.js";
 
-async function format(textToDoc, print, path /*, options*/) {
+async function embedMarkdown(textToDoc, print, path /*, options*/) {
   const { node } = path;
   let text = node.quasis[0].value.raw.replace(
     /((?:\\\\)*)\\`/g,
@@ -34,4 +34,4 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-export default format;
+export default embedMarkdown;
