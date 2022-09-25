@@ -26,6 +26,7 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
+    "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
     "no-else-return": [
       "error",
