@@ -28,7 +28,7 @@
     "@babel/types": "7.19.0",
     "@glimmer/syntax": "0.84.2",
     "@iarna/toml": "2.2.5",
-    "@prettier/parse-srcset": "prettier/parse-srcset#6f4a126ccac2c36b09b083c9f8e4d9e60a949d78",
+    "@prettier/parse-srcset": "2.0.0",
     "@typescript-eslint/typescript-estree": "5.38.0",
     "@typescript-eslint/visitor-keys": "5.38.0",
     "acorn": "8.8.0",
