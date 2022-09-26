@@ -841,6 +841,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fisker/parse-srcset@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@fisker/parse-srcset@npm:1.0.2"
+  checksum: 705ab93d93a8aa2b00cc140cde2ce36c4bdd9264d66115e6b9dc6fd43b3f9a3b716849fa996e3419ff4b0f222f19f75346dad7750c6a754750c81cf89c72480b
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -6352,13 +6359,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-srcset@ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee":
-  version: 1.0.2
-  resolution: "parse-srcset@https://github.com/ikatyang/parse-srcset.git#commit=54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
-  checksum: 4f3325a79e8d881d1d29ae4d2857a40b1d9d8d98f093b865a04a4e18ba5b136e7e1d37a317a8fc2ed10a8f473951c396f7c1b0904fe10de430e44811698ce0f1
-  languageName: node
-  linkType: hard
-
 "path-browserify@npm:1.0.1":
   version: 1.0.1
   resolution: "path-browserify@npm:1.0.1"
@@ -6592,6 +6592,7 @@ __metadata:
     "@babel/parser": 7.19.1
     "@babel/types": 7.19.0
     "@esbuild-plugins/node-modules-polyfill": 0.1.4
+    "@fisker/parse-srcset": 1.0.2
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
@@ -6675,7 +6676,6 @@ __metadata:
     node-fetch: 3.2.10
     npm-run-all: 4.1.5
     outdent: 0.8.0
-    parse-srcset: "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
     path-browserify: 1.0.1
     please-upgrade-node: 3.2.0
     postcss: 8.4.16
