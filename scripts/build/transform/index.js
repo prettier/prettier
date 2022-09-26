@@ -79,7 +79,10 @@ function transformRelativeIndexingCall(node) {
   }
 
   node.arguments.unshift(
-    { type: "BooleanLiteral", value: node.callee.optional },
+    {
+      type: "BooleanLiteral",
+      value: node.callee.type === "OptionalMemberExpression",
+    },
     node.callee.object
   );
   node.callee = { type: "Identifier", name: "__at" };

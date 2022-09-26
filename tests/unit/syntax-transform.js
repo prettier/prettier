@@ -37,7 +37,7 @@ test(".at", () => {
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(false, foo?.bar.baz, -1);"
+    __at(true, foo?.bar.baz, -1);"
   `);
 
   // Don't support optional call
