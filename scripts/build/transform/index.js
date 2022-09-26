@@ -10,7 +10,12 @@ const atHelperPath = fileURLToPath(new URL("../shims/at.js", import.meta.url));
 
 /* Doesn't work for dependencies, optional call, computed property, and spread arguments */
 
-// `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
+/**
+ * `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
+ *
+ * @param {import("@babel/types").Node} node
+ * @returns {boolean}
+ */
 function transformObjectHasOwnCall(node) {
   if (
     !(
@@ -47,7 +52,13 @@ function transformObjectHasOwnCall(node) {
   return true;
 }
 
-// `foo.at(index)` -> `__at(foo, index)`
+/**
+ * `foo.at(index)` -> `__at(false, foo, index)`
+ * `foo?.at(index)` -> `__at(true, foo, index)`
+ *
+ * @param {import("@babel/types").Node} node
+ * @returns {boolean}
+ */
 function transformRelativeIndexingCall(node) {
   if (
     !(
