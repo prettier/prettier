@@ -27,15 +27,19 @@ if (process.env.NODE_ENV === "production") {
   Object.defineProperties(prettier, {
     util: {
       get() {
-        throw new Error("prettier.util is not available in development CommonJS version")
-      }
+        throw new Error(
+          "prettier.util is not available in development CommonJS version"
+        );
+      },
     },
     doc: {
       get() {
-        throw new Error("prettier.doc is not available in development CommonJS version")
-      }
+        throw new Error(
+          "prettier.doc is not available in development CommonJS version"
+        );
+      },
     },
-  })
+  });
 }
 prettier.version = require("./main/version.evaluate.cjs");
 
