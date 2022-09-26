@@ -159,6 +159,231 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`custom-else.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<h1>
+{{#when isAtWork}}
+  Ship that code!
+{{else when isReading}}
+  You can finish War and Peace eventually...
+{{else}}
+  Go to bed!
+{{/when}}
+</h1>
+
+<h2>
+{{#when a}}
+  A
+{{else}}
+  B
+{{/when}}
+</h2>
+
+{{#when a}}
+  b
+{{else when c}}
+  d
+{{else}}
+  e
+{{/when}}
+
+{{#when a}}
+  b
+{{else when c}}
+  d
+{{else}}
+  hello
+  {{#when f}}
+    g
+  {{/when}}
+  e
+{{/when}}
+
+{{#when a}}
+  b
+{{else when c}}
+  d
+{{else when e}}
+  f
+{{else when g}}
+  h
+{{else}}
+  j
+{{/when}}
+
+<div>
+  {{#when a}}
+    b
+  {{else when c}}
+    d
+  {{else}}
+    e
+  {{/when}}
+</div>
+
+<div>
+  <div>
+    {{#when a}}
+      b
+    {{else when c}}
+      d
+    {{else}}
+      e
+    {{/when}}
+  </div>
+</div>
+
+{{#when a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/when}}
+
+{{#when a}}
+  {{#when b}}
+    ab
+  {{else when c}}
+    ac
+  {{/when}}
+{{/when}}
+
+{{#when a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#when c}}
+    a
+    b
+    <div>c</div>
+  {{/when}}
+  <div>a</div>
+  b
+  c
+{{/when}}
+
+{{~#when someCondition~}}
+  One thing
+{{~else when anotherCondition~}}
+  Another thing
+{{~/when~}}
+
+=====================================output=====================================
+<h1>
+  {{#when isAtWork}}
+    Ship that code!
+  {{else when isReading}}
+    You can finish War and Peace eventually...
+  {{else}}
+    Go to bed!
+  {{/when}}
+</h1>
+
+<h2>
+  {{#when a}}
+    A
+  {{else}}
+    B
+  {{/when}}
+</h2>
+
+{{#when a}}
+  b
+{{else when c}}
+  d
+{{else}}
+  e
+{{/when}}
+
+{{#when a}}
+  b
+{{else when c}}
+  d
+{{else}}
+  hello
+  {{#when f}}
+    g
+  {{/when}}
+  e
+{{/when}}
+
+{{#when a}}
+  b
+{{else when c}}
+  d
+{{else when e}}
+  f
+{{else when g}}
+  h
+{{else}}
+  j
+{{/when}}
+
+<div>
+  {{#when a}}
+    b
+  {{else when c}}
+    d
+  {{else}}
+    e
+  {{/when}}
+</div>
+
+<div>
+  <div>
+    {{#when a}}
+      b
+    {{else when c}}
+      d
+    {{else}}
+      e
+    {{/when}}
+  </div>
+</div>
+
+{{#when a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/when}}
+
+{{#when a}}
+  {{#when b}}
+    ab
+  {{else when c}}
+    ac
+  {{/when}}
+{{/when}}
+
+{{#when a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#when c}}
+    a b
+    <div>c</div>
+  {{/when}}
+  <div>a</div>
+  b c
+{{/when}}
+
+{{~#when someCondition~}}
+  One thing
+{{~else when anotherCondition~}}
+  Another thing
+{{~/when~}}
+================================================================================
+`;
+
 exports[`each.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
