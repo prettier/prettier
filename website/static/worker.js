@@ -15,17 +15,16 @@ importScripts("lib/standalone.js");
 
 // this is required to only load parsers when we need them
 const parsers = Object.create(null);
-for (const file in parsersLocation) {
-  const { parsers: moduleParsers, property } = parsersLocation[file];
-  const url = `lib/${file}`;
-  for (const parserName of moduleParsers) {
-    Object.defineProperty(parsers, parserName, {
-      get() {
-        importScriptOnce(url);
-        return prettierPlugins[property].parsers[parserName];
-      },
-    });
-  }
+for (const [parser, file] of Object.entries(parsersLocation)) {
+  Object.defineProperty(parsers, parser, {
+    get() {
+      const url = `lib/${file}`;
+      importScriptOnce(url);
+      return Object.values(prettierPlugins).find((plugin) =>
+        Object.hasOwn(plugin.parsers, parser)
+      )[parser];
+    },
+  });
 }
 
 const docExplorerPlugin = {

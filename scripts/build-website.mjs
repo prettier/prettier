@@ -2,10 +2,11 @@
 
 import path from "node:path";
 import fs from "node:fs/promises";
+import url from "node:url";
 import fastGlob from "fast-glob";
-import { format } from "prettier";
 import createEsmUtils from "esm-utils";
 import { execa } from "execa";
+import { format } from "../src/index.js";
 import {
   PROJECT_ROOT,
   DIST_DIR,
@@ -25,7 +26,7 @@ const runYarn = (command, args, options) =>
 const IS_PULL_REQUEST = process.env.PULL_REQUEST === "true";
 const PRETTIER_DIR = IS_PULL_REQUEST
   ? DIST_DIR
-  : path.dirname(require.resolve("prettier"));
+  : url.fileURLToPath(new URL("../node_modules/prettier", import.meta.url));
 const PLAYGROUND_PRETTIER_DIR = path.join(WEBSITE_DIR, "static/lib");
 
 async function buildPrettier() {
@@ -49,10 +50,16 @@ async function buildPrettier() {
 }
 
 async function buildPlaygroundFiles() {
-  const files = await fastGlob(["standalone.js", "parser-*.js"], {
+  const patterns = IS_PULL_REQUEST
+    ? ["standalone.js", "plugins/*.js"]
+    : // TODO: Remove this patterns after we release v3
+      ["standalone.js", "parser-*.js"];
+
+  const files = await fastGlob(patterns, {
     cwd: PRETTIER_DIR,
   });
-  const parsers = {};
+
+  const parsersLocation = {};
   for (const fileName of files) {
     const file = path.join(PRETTIER_DIR, fileName);
     const dist = path.join(PLAYGROUND_PRETTIER_DIR, fileName);
@@ -63,24 +70,18 @@ async function buildPlaygroundFiles() {
     }
 
     const plugin = require(dist);
-    // We add plugins to the global `prettierPlugins` object
-    // the name after `parser-` is used as property
-    // For example to get parsers in `parser-babel.js` via `prettierPlugins.babel`
-    // See `scripts/build/config.mjs`
-    const property = fileName.replace(/\.js$/, "").split("-")[1];
-    parsers[fileName] = {
-      property,
-      parsers: Object.keys(plugin.parsers),
-    };
+    for (const parser of Object.keys(plugin.parsers)) {
+      parsersLocation[parser] = fileName;
+    }
   }
 
   await writeFile(
     path.join(PLAYGROUND_PRETTIER_DIR, "parsers-location.js"),
-    format(
+    await format(
       `
         "use strict";
 
-        const parsersLocation = ${JSON.stringify(parsers)};
+        const parsersLocation = ${JSON.stringify(parsersLocation)};
       `,
       { parser: "babel" }
     )
