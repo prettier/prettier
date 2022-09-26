@@ -43,9 +43,7 @@ function printCallExpression(path, options, print) {
     iterateCallArgumentsPath(path, () => {
       printed.push(print());
     });
-    if (
-      !(isTemplateLiteralSingleArg && printed[0].label?.includes("[embed]"))
-    ) {
+    if (!(isTemplateLiteralSingleArg && printed[0].label?.embed)) {
       return [
         isNew ? "new " : "",
         print("callee"),

@@ -40,12 +40,16 @@ function printMemberExpression(path, options, print) {
         (node.object.type === "TSNonNullExpression" &&
           isCallExpression(node.object.expression) &&
           node.object.expression.arguments.length > 0) ||
-        objectDoc.label === "member-chain"));
+        objectDoc.label?.memberChain));
 
-  return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
+  const resultDoc = [
     objectDoc,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
-  ]);
+  ];
+
+  return objectDoc.label?.memberChain
+    ? label(objectDoc.label, resultDoc)
+    : resultDoc;
 }
 
 function printMemberLookup(path, options, print) {

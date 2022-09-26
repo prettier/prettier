@@ -223,8 +223,11 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
 function shouldExpandLastArg(args, argDocs, options) {
   const lastArg = args.at(-1);
 
-  if (args.length === 1 && argDocs.at(-1).label?.endsWith("[embed]")) {
-    return true;
+  if (args.length === 1) {
+    const lastArgDoc = argDocs.at(-1);
+    if (lastArgDoc.label?.embed && lastArgDoc.label?.hug !== false) {
+      return true;
+    }
   }
 
   const penultimateArg = args.at(-2);

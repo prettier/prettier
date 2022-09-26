@@ -31,7 +31,7 @@ function embed(path) {
 
     return async (...args) => {
       const doc = await embedder(...args);
-      return doc && label(`[embed]${doc.label ?? ""}`, doc);
+      return doc && label({ embed: true, ...doc.label }, doc);
     };
   }
 }

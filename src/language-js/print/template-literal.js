@@ -112,7 +112,7 @@ function printTaggedTemplateLiteral(print) {
   const quasiDoc = print("quasi");
   const doc = [print("tag"), print("typeParameters"), quasiDoc];
   return quasiDoc.type === DOC_TYPE_LABEL
-    ? label(`[tagged]${quasiDoc.label}`, doc)
+    ? label({ tagged: true, ...quasiDoc.label }, doc)
     : doc;
 }
 

@@ -91,7 +91,7 @@ async function embedHtmlLike(parser, textToDoc, print, path, options) {
         ]
   );
 
-  return linebreak ? resultDoc : label("[no-hug]", resultDoc);
+  return linebreak ? resultDoc : label({ hug: false }, resultDoc);
 }
 
 export const embedHtml = embedHtmlLike.bind(undefined, "html");
