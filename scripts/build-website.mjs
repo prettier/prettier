@@ -52,7 +52,7 @@ async function buildPrettier() {
 async function buildPlaygroundFiles() {
   const patterns = IS_PULL_REQUEST
     ? ["standalone.js", "plugins/*.js"]
-    : // TODO: Remove this patterns after we release v3
+    : // TODO: Remove this after we release v3
       ["standalone.js", "parser-*.js"];
 
   const files = await fastGlob(patterns, {
@@ -83,7 +83,7 @@ async function buildPlaygroundFiles() {
 
         const parsersLocation = ${JSON.stringify(parsersLocation)};
       `,
-      { parser: "babel" }
+      { parser: "meriyah" }
     )
   );
 }
