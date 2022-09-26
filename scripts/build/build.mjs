@@ -57,7 +57,8 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
 
   if (
     (cliOptions.files && !cliOptions.files.has(file.output.file)) ||
-    (cliOptions.playground && file.output.format !== "umd")
+    (cliOptions.playground &&
+      (file.output.format !== "umd" || file.output.file === "doc.js"))
   ) {
     console.log(status.SKIPPED);
     return;
