@@ -66,19 +66,21 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
 
   let result;
   try {
-    result = (await file.build({
+    result = await file.build({
       file,
       files,
       shouldCollectLicenses,
       cliOptions,
-    })) ?? {
-      file: cliOptions.saveAs ?? file.output.file,
-    };
+    });
   } catch (error) {
     console.log(status.FAIL + "\n");
     console.error(error);
     throw error;
   }
+
+  result ??= {
+    file: cliOptions.saveAs ?? file.output.file,
+  };
 
   if (result.skipped) {
     console.log(status.SKIPPED);
