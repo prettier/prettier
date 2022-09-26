@@ -841,13 +841,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fisker/parse-srcset@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@fisker/parse-srcset@npm:1.0.2"
-  checksum: 705ab93d93a8aa2b00cc140cde2ce36c4bdd9264d66115e6b9dc6fd43b3f9a3b716849fa996e3419ff4b0f222f19f75346dad7750c6a754750c81cf89c72480b
-  languageName: node
-  linkType: hard
-
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -1333,6 +1326,13 @@ __metadata:
     mkdirp: ^1.0.4
     rimraf: ^3.0.2
   checksum: 52dc02259d98da517fae4cb3a0a3850227bdae4939dda1980b788a7670636ca2b4a01b58df03dd5f65c1e3cb70c50fa8ce5762b582b3f499ec30ee5ce1fd9380
+  languageName: node
+  linkType: hard
+
+"@prettier/parse-srcset@prettier/parse-srcset#6f4a126ccac2c36b09b083c9f8e4d9e60a949d78":
+  version: 1.0.2
+  resolution: "@prettier/parse-srcset@https://github.com/prettier/parse-srcset.git#commit=6f4a126ccac2c36b09b083c9f8e4d9e60a949d78"
+  checksum: b50a63b708f57603650527e46201a34e65527a6065c21a43c942ea971b6ebf83b38fb0d89b7bc3a3c15af66cc845ef50e0043daa5d6eb518102ea1e43af37a08
   languageName: node
   linkType: hard
 
@@ -6592,10 +6592,10 @@ __metadata:
     "@babel/parser": 7.19.1
     "@babel/types": 7.19.0
     "@esbuild-plugins/node-modules-polyfill": 0.1.4
-    "@fisker/parse-srcset": 1.0.2
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
+    "@prettier/parse-srcset": "prettier/parse-srcset#6f4a126ccac2c36b09b083c9f8e4d9e60a949d78"
     "@types/estree": 1.0.0
     "@types/file-entry-cache": 5.0.2
     "@types/find-cache-dir": 3.2.1
