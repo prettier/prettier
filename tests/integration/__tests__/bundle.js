@@ -35,18 +35,18 @@ test("code", async () => {
 describe("standalone", () => {
   const standalone = require(path.join(distDirectory, "standalone.js"));
   const plugins = fastGlob
-    .sync(["parser-*.js"], { cwd: distDirectory, absolute: true })
+    .sync(["plugins/*.js"], { cwd: distDirectory, absolute: true })
     .map((file) => require(file));
 
   let esmStandalone;
   let esmPlugins;
   beforeAll(async () => {
     esmStandalone = await importModule(
-      path.join(distDirectory, "esm/standalone.mjs")
+      path.join(distDirectory, "standalone.mjs")
     );
     esmPlugins = await Promise.all(
       fastGlob
-        .sync(["esm/parser-*.mjs"], { cwd: distDirectory, absolute: true })
+        .sync(["plugins/*.mjs"], { cwd: distDirectory, absolute: true })
         .map(async (file) => (await importModule(file)).default)
     );
   });
@@ -74,7 +74,7 @@ describe("standalone", () => {
 });
 
 test("global objects", async () => {
-  const files = await fastGlob(["standalone.js", "parser-*.js"], {
+  const files = await fastGlob(["standalone.js", "plugins/*.js"], {
     cwd: distDirectory,
     absolute: true,
   });

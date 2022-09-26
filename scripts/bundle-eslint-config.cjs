@@ -25,22 +25,24 @@ module.exports = {
       },
     },
     {
-      files: [
-        "doc.js",
-        "parser-*.js",
-        "standalone.js",
-        "parser-*.mjs",
-        "standalone.mjs",
-      ],
+      files: ["doc.js", "doc.mjs", "standalone.js", "standalone.mjs", "plugins/*"],
       env: {
         browser: true,
       },
       rules: {
         "compat/compat": "error",
+        "no-restricted-syntax": [
+          "error",
+          // Forbid `require()`
+          {
+            selector: 'CallExpression[callee.name="require"]',
+            message: "UMD bundles should not include any `require()` call.",
+          },
+        ],
       },
     },
     {
-      files: ["index.js", "bin-prettier.js", "cli.js", "third-party.js"],
+      files: ["index.cjs", "index.mjs", "bin/*", "internal/third-party.mjs"],
       rules: {
         "no-restricted-syntax": [
           "error",
@@ -53,26 +55,13 @@ module.exports = {
         ],
       },
     },
-    // {
-    //   files: ["bin-prettier.js"],
-    //   parserOptions: {
-    //     ecmaVersion: 5,
-    //   },
-    //   rules: {
-    //     "compat/compat": "error",
-    //   },
-    // },
     {
-      files: ["doc.js", "parser-*.js", "standalone.js"],
+      files: ["cli/bin.cjs"],
+      parserOptions: {
+        ecmaVersion: 5,
+      },
       rules: {
-        "no-restricted-syntax": [
-          "error",
-          // Forbid `require()`
-          {
-            selector: 'CallExpression[callee.name="require"]',
-            message: "UMD bundles should not include any `require()` call.",
-          },
-        ],
+        "compat/compat": "error",
       },
     },
   ],
