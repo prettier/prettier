@@ -29,7 +29,7 @@ async function buildPackageJson({ files }) {
         .map((file) => {
           const basename = path.basename(file.output.file, ".js");
           return [
-            file.isPlugin ? `./plugin-${basename}` : `./${basename}`,
+            file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
             {
               require: `./${file.output.file}`,
               default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
