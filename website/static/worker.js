@@ -22,7 +22,7 @@ for (const [parser, file] of Object.entries(parsersLocation)) {
       importScriptOnce(url);
       return Object.values(prettierPlugins).find((plugin) =>
         Object.hasOwn(plugin.parsers, parser)
-      )[parser];
+      ).parsers[parser];
     },
   });
 }
