@@ -46,10 +46,14 @@ module.exports = {
               "Universal bundles should not include any `require()` call.",
           },
           {
-            selector:
-              ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)",
+            selector: "ImportDeclaration",
             message:
-              "Universal bundles should not include any `import`/`export` declaration.",
+              "Universal bundles should not include any `import` declaration.",
+          },
+          {
+            selector:
+              ":matches(ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source]",
+            message: "Universal bundles should not `export` from other files.",
           },
           {
             selector: "ImportExpression",
