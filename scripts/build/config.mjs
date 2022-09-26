@@ -114,9 +114,7 @@ const pluginFiles = [
   },
   {
     input: "src/language-js/parse/acorn-and-espree.js",
-    // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
-    outputBaseName: "espree",
-    umdPropertyName: "espree",
+    umdPropertyName: "acornAndEspree",
     replaceModule: [
       {
         module: require.resolve("espree"),
