@@ -66,19 +66,19 @@ module.exports = {
           // Forbid top level `require()` parsers
           {
             selector:
-              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/plugins\\//]',
+              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/plugins/]',
             message: "Parsers should be inline `require()`d.",
           },
           // Forbid top level `import()` parsers
           {
             selector:
-              "ImportExpression:not(:function *)[source.value=/plugins\\//]",
+              "ImportExpression:not(:function *)[source.value=/plugins/]",
             message: "Parsers should be inline `import()`ed.",
           },
-          // Forbid top level `import` parsers
+          // Forbid `import`/`export` parsers
           {
             selector:
-              ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source.value=/plugins\\//]",
+              ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source.value=/plugins/]",
             message: "Parsers should be inline `import()`ed.",
           },
         ],
