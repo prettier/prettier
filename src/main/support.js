@@ -3,7 +3,7 @@ import semverGte from "semver/functions/gte.js";
 import semverLt from "semver/functions/lt.js";
 import arrayify from "../utils/arrayify.js";
 import { options as coreOptions } from "./core-options.js";
-import currentVersion from "./version.evaluate.js";
+import currentVersion from "./version.evaluate.cjs";
 
 /**
  * @typedef {import("./core-options").OptionInfo} OptionInfo
