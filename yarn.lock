@@ -1329,10 +1329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prettier/parse-srcset@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@prettier/parse-srcset@npm:2.0.0"
-  checksum: 89e016c77cbafd86d3bab485ab4a428664884b353b854da26af00061909f08866615dea8ddddef6da268bff0cd0485826f952f3c09a310d9015fc417fbbe6c96
+"@prettier/parse-srcset@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@prettier/parse-srcset@npm:2.0.1"
+  checksum: 8f424434f12b4358dbbfb8c975d89d08520d47cbdba51fe48d585ae41be16fc41fcec82d4031be1d5b6c5487e6fe4d013ab320e253807ae23f1edb412b108fc9
   languageName: node
   linkType: hard
 
@@ -6595,7 +6595,7 @@ __metadata:
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
-    "@prettier/parse-srcset": 2.0.0
+    "@prettier/parse-srcset": 2.0.1
     "@types/estree": 1.0.0
     "@types/file-entry-cache": 5.0.2
     "@types/find-cache-dir": 3.2.1
