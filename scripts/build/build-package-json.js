@@ -37,6 +37,27 @@ async function buildPackageJson({ files }) {
           ];
         })
     ),
+    // Legacy entries
+    // TODO: Remove bellow in v4
+    "./esm/standalone.mjs": "./standalone.mjs",
+    ...Object.fromEntries(
+      files
+        .filter((file) => file.isPlugin && file.output.format === "umd")
+        .flatMap((file) => {
+          let basename = path.basename(file.output.file, ".js");
+          if (basename === "acorn-and-espree") {
+            basename = "espree";
+          }
+          return [
+            [`./parser-${basename}`, `./${file.output.file}`],
+            [`./parser-${basename}.js`, `./${file.output.file}`],
+            [
+              `./esm/parser-${basename}.mjs`,
+              `./${file.output.file.replace(/\.js$/, ".mjs")}`,
+            ],
+          ];
+        })
+    ),
   };
   // https://github.com/prettier/prettier/pull/13118#discussion_r922708068
   packageJson.engines.node = ">=14";
