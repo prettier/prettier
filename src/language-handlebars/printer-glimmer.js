@@ -691,7 +691,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../common/util").Quote} Quote */
+/** @typedef {import("../common/util.js").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on

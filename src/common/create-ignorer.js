@@ -13,6 +13,8 @@ async function createIgnorer(ignoreFilePath, withNodeModules) {
     content = await readFile(path.resolve(ignoreFilePath));
   }
 
+  // @ts-expect-error `ignore` is CommonJS, but its types incorrectly declare a default export.
+  // See https://github.com/microsoft/TypeScript/issues/48845
   const ignorer = ignore({ allowRelativePaths: true }).add(content ?? "");
   if (!withNodeModules) {
     ignorer.add("node_modules");

@@ -1,5 +1,5 @@
 /**
- * @typedef {import("../types/estree").Comment} Comment
+ * @typedef {import("../types/estree.js").Comment} Comment
  */
 
 const BLOCK_COMMENT_TYPES = new Set([

@@ -34,8 +34,8 @@ const isEmptyStringOrAnyLine = (doc) =>
 
 /**
  * @typedef {import("../../common/ast-path.js").default} AstPath
- * @typedef {import("../types/estree").Node} Node
- * @typedef {import("../types/estree").JSXElement} JSXElement
+ * @typedef {import("../types/estree.js").Node} Node
+ * @typedef {import("../types/estree.js").JSXElement} JSXElement
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
