@@ -25,7 +25,13 @@ module.exports = {
       },
     },
     {
-      files: ["doc.js", "doc.mjs", "standalone.js", "standalone.mjs", "plugins/*"],
+      files: [
+        "doc.js",
+        "doc.mjs",
+        "standalone.js",
+        "standalone.mjs",
+        "plugins/*",
+      ],
       env: {
         browser: true,
       },

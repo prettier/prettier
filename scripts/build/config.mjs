@@ -316,7 +316,8 @@ const nodejsFiles = [
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process: (text) => text.replace('"../src/cli/index.js"', '"./main.mjs"'),
+        process: (text) =>
+          text.replace('"../src/cli/index.js"', '"./main.mjs"'),
       },
     ],
   },
