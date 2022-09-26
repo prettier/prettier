@@ -28,7 +28,6 @@ const unstableTests = new Map(
     "js/comments/tagged-template-literal.js",
     "markdown/spec/example-234.md",
     "markdown/spec/example-235.md",
-    "html/multiparser/js/script-tag-escaping.html",
     [
       "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",

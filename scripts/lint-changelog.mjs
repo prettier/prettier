@@ -62,7 +62,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
 
-    const match = prFile.match(/^(\d{4,})\.md$/);
+    const match = prFile.match(/^(\d{4,})(-\d+)?\.md$/);
     const displayPath = `${CHANGELOG_DIR}/${category}/${prFile}`;
 
     if (!match) {
@@ -73,16 +73,16 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     const [, prNumber] = match;
     const prLink = `#${prNumber}`;
-    if (checkedFiles.has(prNumber)) {
+    if (checkedFiles.has(prFile)) {
       showErrorMessage(
         outdent`
           Duplicate files for ${prLink} found.
-            - ${checkedFiles.get(prNumber)}
+            - ${checkedFiles.get(prFile)}
             - ${displayPath}
         `
       );
     }
-    checkedFiles.set(prNumber, displayPath);
+    checkedFiles.set(prFile, displayPath);
     const content = fs.readFileSync(
       path.join(CHANGELOG_DIR, category, prFile),
       "utf8"

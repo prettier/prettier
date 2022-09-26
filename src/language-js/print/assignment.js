@@ -347,7 +347,7 @@ function isPoorlyBreakableMemberOrCallChain(
   if (isCallExpression(node)) {
     /** @type {any} TODO */
     const doc = printCallExpression(path, options, print);
-    if (doc.label === "member-chain") {
+    if (doc.label?.memberChain) {
       return false;
     }
 
