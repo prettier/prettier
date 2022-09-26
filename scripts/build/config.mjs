@@ -313,18 +313,18 @@ const nodejsFiles = [
   },
   {
     input: "bin/prettier.cjs",
-    outputBaseName: "bin-prettier",
+    outputBaseName: "cli/bin",
     target: ["node0.10"],
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process: (text) => text.replace('"../src/cli/index.js"', '"./cli.mjs"'),
+        process: (text) => text.replace('"../src/cli/index.js"', '"./main.mjs"'),
       },
     ],
   },
   {
     input: "src/cli/index.js",
-    outputBaseName: "cli",
+    outputBaseName: "cli/main",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
