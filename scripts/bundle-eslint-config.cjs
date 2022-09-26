@@ -42,7 +42,15 @@ module.exports = {
           // Forbid `require()`
           {
             selector: 'CallExpression[callee.name="require"]',
-            message: "UMD bundles should not include any `require()` call.",
+            message: "Universal bundles should not include any `require()` call.",
+          },
+          {
+            selector: ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)",
+            message: "Universal bundles should not include any `import`/`export` declaration.",
+          },
+          {
+            selector: "ImportExpression",
+            message: "Universal bundles should not include any `import()`.",
           },
         ],
       },
@@ -55,14 +63,26 @@ module.exports = {
           // Forbid top level `require()` parsers
           {
             selector:
-              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/parser-/]',
+              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/plugins\\//]',
             message: "Parsers should be inline `require()`d.",
+          },
+          // Forbid top level `import()` parsers
+          {
+            selector:
+              "ImportExpression:not(:function *)[source.value=/plugins\\//]",
+            message: "Parsers should be inline `import()`ed.",
+          },
+          // Forbid top level `import` parsers
+          {
+            selector:
+              ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source.value=/plugins\\//]",
+            message: "Parsers should be inline `import()`ed.",
           },
         ],
       },
     },
     {
-      files: ["cli/bin.cjs"],
+      files: ["bin/prettier.cjs"],
       parserOptions: {
         ecmaVersion: 5,
       },
