@@ -112,6 +112,7 @@ function printTaggedTemplateLiteral(print) {
   return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
     print("tag"),
     print("typeParameters"),
+    lineSuffixBoundary,
     quasiDoc,
   ]);
 }
