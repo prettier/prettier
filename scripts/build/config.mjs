@@ -198,13 +198,14 @@ const pluginFiles = [
   outputBaseName ??= input.match(
     /(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/
   ).groups.outputBaseName;
+
   const umdVariableName = `prettierPlugins.${
     umdPropertyName ?? outputBaseName
   }`;
 
   return {
     input,
-    outputBaseName,
+    outputBaseName: `plugins/${outputBaseName}`,
     umdVariableName,
     buildOptions,
     isPlugin: true,
@@ -257,14 +258,11 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
       file;
 
     outputBaseName ??= path.basename(input);
-    if (file.isPlugin) {
-      outputBaseName = `parser-${outputBaseName}`;
-    }
 
     return [
       {
         format: "esm",
-        file: `esm/${outputBaseName}${extensions.esm}`,
+        file: `${outputBaseName}${extensions.esm}`,
       },
       {
         format: "umd",
