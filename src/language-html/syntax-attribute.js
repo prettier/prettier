@@ -1,4 +1,4 @@
-import parseSrcset from "parse-srcset";
+import parseSrcset from "@fisker/parse-srcset";
 import { ifBreak, join, line } from "../document/builders.js";
 
 function printImgSrcset(value) {
