@@ -42,11 +42,14 @@ module.exports = {
           // Forbid `require()`
           {
             selector: 'CallExpression[callee.name="require"]',
-            message: "Universal bundles should not include any `require()` call.",
+            message:
+              "Universal bundles should not include any `require()` call.",
           },
           {
-            selector: ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)",
-            message: "Universal bundles should not include any `import`/`export` declaration.",
+            selector:
+              ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)",
+            message:
+              "Universal bundles should not include any `import`/`export` declaration.",
           },
           {
             selector: "ImportExpression",
@@ -56,7 +59,7 @@ module.exports = {
       },
     },
     {
-      files: ["index.cjs", "index.mjs", "bin/*", "internal/third-party.mjs"],
+      files: ["index.cjs", "index.mjs", "bin/*", "internal/*"],
       rules: {
         "no-restricted-syntax": [
           "error",
