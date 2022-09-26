@@ -311,19 +311,19 @@ const nodejsFiles = [
   },
   {
     input: "bin/prettier.cjs",
-    outputBaseName: "cli/bin",
+    outputBaseName: "bin/prettier",
     target: ["node0.10"],
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
         process: (text) =>
-          text.replace('"../src/cli/index.js"', '"./main.mjs"'),
+          text.replace('"../src/cli/index.js"', '"../internal/cli.mjs"'),
       },
     ],
   },
   {
     input: "src/cli/index.js",
-    outputBaseName: "cli/main",
+    outputBaseName: "internal/cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
@@ -342,7 +342,7 @@ const nodejsFiles = [
   let { input, output, outputBaseName, ...buildOptions } = file;
 
   const format = input.endsWith(".cjs") ? "cjs" : "esm";
-  outputBaseName ??= path.basename(input).split(".").slice(0, -1).join(".");
+  outputBaseName ??= path.basename(input, path.extname(input));
 
   return {
     input,
