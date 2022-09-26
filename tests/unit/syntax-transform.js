@@ -40,6 +40,12 @@ test(".at", () => {
     __at(true, foo?.bar.baz, -1);"
   `);
 
+  expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
+    "import __at from "<SHIMS>/at.js";
+
+    __at(false, foo, -1)?.bar;"
+  `);
+
   // Don't support optional call
   expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
 });
