@@ -486,54 +486,124 @@ The `--debug-print-comments` CLI flag can help with debugging comment attachment
 Example:
 
 ```js
-options: {
-  openingBraceNewLine: {
-    type: "boolean",
-    category: "Global",
-    default: true,
-    description: "Move open brace for code blocks onto new line."
-  }
-}
+export default {
+  // ... plugin implementation
+  options: {
+    openingBraceNewLine: {
+      type: "boolean",
+      category: "Global",
+      default: true,
+      description: "Move open brace for code blocks onto new line.",
+    },
+  },
+};
 ```
 
 ### `defaultOptions`
 
 If your plugin requires different default values for some of Prettier’s core options, you can specify them in `defaultOptions`:
 
-```
-defaultOptions: {
-  tabWidth: 4
-}
+```js
+export default {
+  // ... plugin implementation
+  defaultOptions: {
+    tabWidth: 4,
+  },
+};
 ```
 
 ### Utility functions
 
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
-<!-- prettier-ignore -->
 ```ts
 type Quote = '"' | "'";
 type SkipOptions = { backwards?: boolean };
+
 function getMaxContinuousCount(str: string, target: string): number;
+
 function getStringWidth(text: string): number;
-function getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
+
+function getAlignmentSize(
+  value: string,
+  tabWidth: number,
+  startIndex?: number
+): number;
+
 function getIndentSize(value: string, tabWidth: number): number;
-function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
-function skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
-function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
-function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
-function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
+
+function skip(
+  chars: string | RegExp
+): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+
+function skipWhitespace(
+  text: string,
+  index: number | false,
+  opts?: SkipOptions
+): number | false;
+
+function skipSpaces(
+  text: string,
+  index: number | false,
+  opts?: SkipOptions
+): number | false;
+
+function skipToLineEnd(
+  text: string,
+  index: number | false,
+  opts?: SkipOptions
+): number | false;
+
+function skipEverythingButNewLine(
+  text: string,
+  index: number | false,
+  opts?: SkipOptions
+): number | false;
+
 function skipInlineComment(text: string, index: number | false): number | false;
-function skipTrailingComment(text: string, index: number | false): number | false;
-function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
+
+function skipTrailingComment(
+  text: string,
+  index: number | false
+): number | false;
+
+function skipNewline(
+  text: string,
+  index: number | false,
+  opts?: SkipOptions
+): number | false;
+
 function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
+
 function hasNewlineInRange(text: string, start: number, end: number): boolean;
+
 function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
-function makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
-function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
+
+function makeString(
+  rawContent: string,
+  enclosingQuote: Quote,
+  unescapeUnnecessaryEscapes?: boolean
+): string;
+
+function getNextNonSpaceNonCommentCharacterIndex<N>(
+  text: string,
+  node: N,
+  locEnd: (node: N) => number
+): number | false;
+
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
-function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
+
+function isNextLineEmpty<N>(
+  text: string,
+  node: N,
+  locEnd: (node: N) => number
+): boolean;
+
+function isPreviousLineEmpty<N>(
+  text: string,
+  node: N,
+  locStart: (node: N) => number
+): boolean;
 ```
 
 ### Tutorials
