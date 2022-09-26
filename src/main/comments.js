@@ -587,6 +587,8 @@ function printComments(path, doc, options, ignored) {
     return doc;
   }
   return label(
+    // Propagate object labels so that the printing logic for ancestor nodes
+    // could easily check them.
     typeof doc.label === "object" && { commented: true, ...doc.label },
     [leading, doc, trailing]
   );
