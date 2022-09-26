@@ -17,7 +17,6 @@
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",
-    "src/common/create-ignorer.js",
     "src/config/resolve-config.js",
     "src/main/options-normalizer.js",
     "src/common/get-file-info.js",
