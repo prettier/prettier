@@ -79,19 +79,20 @@ async function embedHtmlLike(parser, textToDoc, print, path, options) {
       ? line
       : null;
 
-  const resultDoc = group(
-    linebreak
-      ? ["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]
-      : [
-          "`",
-          leadingWhitespace,
-          topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
-          trailingWhitespace,
-          "`",
-        ]
-  );
+  if (linebreak) {
+    return group(["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]);
+  }
 
-  return linebreak ? resultDoc : label({ hug: false }, resultDoc);
+  return label(
+    { hug: false },
+    group([
+      "`",
+      leadingWhitespace,
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+      trailingWhitespace,
+      "`",
+    ])
+  );
 }
 
 export const embedHtml = embedHtmlLike.bind(undefined, "html");

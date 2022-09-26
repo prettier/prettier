@@ -42,14 +42,10 @@ function printMemberExpression(path, options, print) {
           node.object.expression.arguments.length > 0) ||
         objectDoc.label?.memberChain));
 
-  const resultDoc = [
+  return label(objectDoc.label, [
     objectDoc,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
-  ];
-
-  return objectDoc.label?.memberChain
-    ? label(objectDoc.label, resultDoc)
-    : resultDoc;
+  ]);
 }
 
 function printMemberLookup(path, options, print) {

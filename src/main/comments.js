@@ -586,10 +586,10 @@ function printComments(path, doc, options, ignored) {
   if (!leading && !trailing) {
     return doc;
   }
-  const docWithComments = [leading, doc, trailing];
-  return doc.label !== null && typeof doc.label === "object"
-    ? label({ commented: true, ...doc.label }, docWithComments)
-    : docWithComments;
+  return label(
+    typeof doc.label === "object" && { commented: true, ...doc.label },
+    [leading, doc, trailing]
+  );
 }
 
 function ensureAllCommentsPrinted(astComments) {

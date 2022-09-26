@@ -10,7 +10,6 @@ import {
   addAlignmentToDoc,
   label,
 } from "../../document/builders.js";
-import { DOC_TYPE_LABEL } from "../../document/constants.js";
 import { printDocToString } from "../../document/printer.js";
 import { mapDoc } from "../../document/utils.js";
 import {
@@ -110,10 +109,11 @@ function printTemplateLiteral(path, print, options) {
 
 function printTaggedTemplateLiteral(print) {
   const quasiDoc = print("quasi");
-  const doc = [print("tag"), print("typeParameters"), quasiDoc];
-  return quasiDoc.type === DOC_TYPE_LABEL
-    ? label({ tagged: true, ...quasiDoc.label }, doc)
-    : doc;
+  return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
+    print("tag"),
+    print("typeParameters"),
+    quasiDoc,
+  ]);
 }
 
 function printJestEachTemplateLiteral(path, options, print) {

@@ -251,7 +251,7 @@ function addAlignmentToDoc(doc, size, tabWidth) {
 }
 
 function label(label, contents) {
-  return { type: DOC_TYPE_LABEL, label, contents };
+  return label ? { type: DOC_TYPE_LABEL, label, contents } : contents;
 }
 
 // TODO: Remove this in v4
