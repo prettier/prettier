@@ -29,7 +29,7 @@ module.exports = {
     );
   },
 
-  getSupportInfo(options) {
+  getSupportInfo(options = {}) {
     return vm.runInNewContext(
       `
         const options = {
