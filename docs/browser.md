@@ -7,7 +7,7 @@ Run Prettier in the browser using its **standalone** version. This version doesn
 
 The standalone version comes as:
 
-- ES modules: `standalone.mjs`, starting in version 2.2
+- ES modules: `standalone.mjs`, starting in version 3.0 (In version 2, `esm/standalone.mjs`.)
 - UMD: `standalone.js`, starting in version 1.13
 
 The [`browser` field](https://github.com/defunctzombie/package-browser-field-spec) in Prettier’s `package.json` points to `standalone.js`. That’s why you can just `import` or `require` the `prettier` module to access Prettier’s API, and your code can stay compatible with both Node and the browser as long as webpack or another bundler that supports the `browser` field is used. This is especially convenient for [plugins](plugins.md).
