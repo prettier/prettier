@@ -45,6 +45,13 @@ jobs:
       - name: Lint workflow files
         run: yarn lint:actionlint
 
+      - name: Lint docs code block
+        # TODO: Lint files in `website/versioned_docs/version-stable` too
+        run: yarn "docs/**/*.md"
+        env:
+          # Make Prettier throws on embeded format
+          PRETTIER_DEBUG: true
+
       - name: Validate renovate config
         run: npx --package renovate -c renovate-config-validator
 

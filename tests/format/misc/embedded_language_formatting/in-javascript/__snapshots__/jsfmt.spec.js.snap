@@ -67,13 +67,11 @@ css\`
 
 md\`\`;
 
-graphql(
-  \`
-    {
-      id
-    }
-  \`,
-);
+graphql(\`
+  {
+    id
+  }
+\`);
 
 html\`<a></a>\`;
 

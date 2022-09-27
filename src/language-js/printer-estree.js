@@ -58,7 +58,10 @@ import {
   printModuleSpecifier,
 } from "./print/module.js";
 import { printTernary } from "./print/ternary.js";
-import { printTemplateLiteral } from "./print/template-literal.js";
+import {
+  printTaggedTemplateLiteral,
+  printTemplateLiteral,
+} from "./print/template-literal.js";
 import { printArray } from "./print/array.js";
 import { printObject } from "./print/object.js";
 import {
@@ -755,7 +758,7 @@ function printPathNoParens(path, options, print, args) {
     case "TemplateLiteral":
       return printTemplateLiteral(path, print, options);
     case "TaggedTemplateExpression":
-      return [print("tag"), print("typeParameters"), print("quasi")];
+      return printTaggedTemplateLiteral(print);
     case "PrivateIdentifier":
       return ["#", node.name];
     case "PrivateName":

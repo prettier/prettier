@@ -250,8 +250,13 @@ function addAlignmentToDoc(doc, size, tabWidth) {
   return aligned;
 }
 
+/**
+ * Mark a doc with an arbitrary truthy value. This doesn't affect how the doc is printed, but can be useful for heuristics based on doc introspection.
+ * @param {any} label If falsy, the `contents` doc is returned as is.
+ * @param {Doc} contents
+ */
 function label(label, contents) {
-  return { type: DOC_TYPE_LABEL, label, contents };
+  return label ? { type: DOC_TYPE_LABEL, label, contents } : contents;
 }
 
 // TODO: Remove this in v4
