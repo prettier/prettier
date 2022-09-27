@@ -1,4 +1,6 @@
-import * as sharedUtil from "../../../src/common/util-shared.js";
+import prettier from "../../config/prettier-entry.js";
+
+const sharedUtil = prettier.util;
 
 test("shared util has correct structure", () => {
   expect(typeof sharedUtil.getMaxContinuousCount).toBe("function");
