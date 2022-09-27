@@ -136,6 +136,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         find: 'import { createRequire } from "node:module";',
         replacement: "",
       },
+      // Prevent `esbuildPluginNodeModulePolyfills` include shim `assert`, which will include a big `buffer` shim
+      // TODO[@fisker]: Find a better way
+      {
+        module: "*",
+        find: ' from "node:assert";',
+        replacement: ` from ${JSON.stringify(path.join(dirname, "./shims/assert.js"))};`,
+      },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
       {
         module: "assert",
