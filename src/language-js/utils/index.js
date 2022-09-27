@@ -511,24 +511,23 @@ function isTestCall(node, parent) {
     if (isUnitTestSetUp(node)) {
       return isAngularTestWrapper(node.arguments[0]);
     }
-  } else if (node.arguments.length === 2 || node.arguments.length === 3) {
-    if (
-      (node.arguments[0].type === "TemplateLiteral" ||
-        isStringLiteral(node.arguments[0])) &&
-      isTestCallCallee(node.callee)
-    ) {
-      // it("name", () => { ... }, 2500)
-      if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
-        return false;
-      }
-      return (
-        (node.arguments.length === 2
-          ? isFunctionOrArrowExpression(node.arguments[1])
-          : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
-            getFunctionParameters(node.arguments[1]).length <= 1) ||
-        isAngularTestWrapper(node.arguments[1])
-      );
+  } else if (
+    (node.arguments.length === 2 || node.arguments.length === 3) &&
+    (node.arguments[0].type === "TemplateLiteral" ||
+      isStringLiteral(node.arguments[0])) &&
+    isTestCallCallee(node.callee)
+  ) {
+    // it("name", () => { ... }, 2500)
+    if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
+      return false;
     }
+    return (
+      (node.arguments.length === 2
+        ? isFunctionOrArrowExpression(node.arguments[1])
+        : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
+          getFunctionParameters(node.arguments[1]).length <= 1) ||
+      isAngularTestWrapper(node.arguments[1])
+    );
   }
   return false;
 }
