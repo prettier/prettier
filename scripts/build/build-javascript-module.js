@@ -61,6 +61,22 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         return text.slice(0, index);
       },
     },
+    /*
+    `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
+    Which requires `os` shim in universal bundles
+    We already replaced line end to `\n` before calling it
+    */
+    {
+      module: require.resolve("jest-docblock"),
+      process: (text) =>
+        text
+          .replaceAll(
+            "const line = (0, _detectNewline().default)(docblock) || _os().EOL;",
+            'const line = "\\n"'
+          )
+          .replace(/\nfunction _os().*?\n}/s, "")
+          .replace(/\nfunction _detectNewline().*?\n}/s, ""),
+    },
   ];
 
   const define = {
