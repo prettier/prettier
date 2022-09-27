@@ -1,12 +1,13 @@
+import { label } from "../document/builders.js";
 import {
   hasComment,
   CommentCheckFlags,
   isObjectProperty,
 } from "./utils/index.js";
-import formatMarkdown from "./embed/markdown.js";
-import formatCss from "./embed/css.js";
-import formatGraphql from "./embed/graphql.js";
-import { formatHtml, formatAngular } from "./embed/html.js";
+import embedMarkdown from "./embed/markdown.js";
+import embedCss from "./embed/css.js";
+import embedGraphQL from "./embed/graphql.js";
+import { embedHtml, embedAngular } from "./embed/html.js";
 
 function embed(path) {
   const { node } = path;
@@ -20,29 +21,45 @@ function embed(path) {
     return;
   }
 
+  const embedder = getEmbedder(path);
+
+  if (embedder) {
+    // Special case: whitespace-only template literals
+    if (node.quasis.length === 1 && node.quasis[0].value.raw.trim() === "") {
+      return "``";
+    }
+
+    return async (...args) => {
+      const doc = await embedder(...args);
+      return doc && label({ embed: true, ...doc.label }, doc);
+    };
+  }
+}
+
+function getEmbedder(path) {
   if (
     isStyledJsx(path) ||
     isStyledComponents(path) ||
     isCssProp(path) ||
     isAngularComponentStyles(path)
   ) {
-    return formatCss;
+    return embedCss;
   }
 
   if (isGraphQL(path)) {
-    return formatGraphql;
+    return embedGraphQL;
   }
 
   if (isHtml(path)) {
-    return formatHtml;
+    return embedHtml;
   }
 
   if (isAngularComponentTemplate(path)) {
-    return formatAngular;
+    return embedAngular;
   }
 
   if (isMarkdown(path)) {
-    return formatMarkdown;
+    return embedMarkdown;
   }
 }
 
@@ -50,9 +67,7 @@ function embed(path) {
  * md`...`
  * markdown`...`
  */
-function isMarkdown(path) {
-  const { node } = path;
-  const parent = path.getParentNode();
+function isMarkdown({ node, parent }) {
   return (
     parent &&
     parent.type === "TaggedTemplateExpression" &&
@@ -69,17 +84,14 @@ function isMarkdown(path) {
  * css.global``
  * css.resolve``
  */
-function isStyledJsx(path) {
-  const { node } = path;
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
+function isStyledJsx({ node, parent, grandparent }) {
   return (
-    (parentParent &&
+    (grandparent &&
       node.quasis &&
       parent.type === "JSXExpressionContainer" &&
-      parentParent.type === "JSXElement" &&
-      parentParent.openingElement.name.name === "style" &&
-      parentParent.openingElement.attributes.some(
+      grandparent.type === "JSXElement" &&
+      grandparent.openingElement.name.name === "style" &&
+      grandparent.openingElement.attributes.some(
         (attribute) => attribute.name.name === "jsx"
       )) ||
     (parent &&
@@ -145,9 +157,7 @@ const angularComponentObjectExpressionPredicates = [
 /**
  * styled-components template literals
  */
-function isStyledComponents(path) {
-  const parent = path.getParentNode();
-
+function isStyledComponents({ parent }) {
   if (!parent || parent.type !== "TaggedTemplateExpression") {
     return false;
   }
@@ -193,15 +203,13 @@ function isStyledComponents(path) {
 /**
  * JSX element with CSS prop
  */
-function isCssProp(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
+function isCssProp({ parent, grandparent }) {
   return (
-    parentParent &&
+    grandparent &&
     parent.type === "JSXExpressionContainer" &&
-    parentParent.type === "JSXAttribute" &&
-    parentParent.name.type === "JSXIdentifier" &&
-    parentParent.name.name === "css"
+    grandparent.type === "JSXAttribute" &&
+    grandparent.name.type === "JSXIdentifier" &&
+    grandparent.name.name === "css"
   );
 }
 
@@ -223,10 +231,7 @@ function isStyledExtend(node) {
  * This intentionally excludes Relay Classic tags, as Prettier does not
  * support Relay Classic formatting.
  */
-function isGraphQL(path) {
-  const { node } = path;
-  const parent = path.getParentNode();
-
+function isGraphQL({ node, parent }) {
   return (
     hasLanguageComment(node, "GraphQL") ||
     (parent &&

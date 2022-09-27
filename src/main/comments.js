@@ -7,6 +7,7 @@ import {
   lineSuffix,
   join,
   cursor,
+  label,
 } from "../document/builders.js";
 import {
   hasNewline,
@@ -585,7 +586,12 @@ function printComments(path, doc, options, ignored) {
   if (!leading && !trailing) {
     return doc;
   }
-  return [leading, doc, trailing];
+  return label(
+    // Propagate object labels so that the printing logic for ancestor nodes
+    // could easily check them.
+    typeof doc.label === "object" && { commented: true, ...doc.label },
+    [leading, doc, trailing]
+  );
 }
 
 function ensureAllCommentsPrinted(astComments) {

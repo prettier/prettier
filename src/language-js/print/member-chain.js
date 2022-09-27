@@ -399,7 +399,7 @@ function printMemberChain(path, options, print) {
     ];
   }
 
-  return label("member-chain", result);
+  return label({ memberChain: true }, result);
 }
 
 export default printMemberChain;

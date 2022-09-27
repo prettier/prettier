@@ -8,6 +8,7 @@ import {
   align,
   lineSuffixBoundary,
   addAlignmentToDoc,
+  label,
 } from "../../document/builders.js";
 import { printDocToString } from "../../document/printer.js";
 import { mapDoc } from "../../document/utils.js";
@@ -104,6 +105,16 @@ function printTemplateLiteral(path, print, options) {
   parts.push("`");
 
   return parts;
+}
+
+function printTaggedTemplateLiteral(print) {
+  const quasiDoc = print("quasi");
+  return label(quasiDoc.label && { tagged: true, ...quasiDoc.label }, [
+    print("tag"),
+    print("typeParameters"),
+    lineSuffixBoundary,
+    quasiDoc,
+  ]);
 }
 
 function printJestEachTemplateLiteral(path, options, print) {
@@ -229,6 +240,7 @@ function uncookTemplateElementValue(cookedValue) {
 
 export {
   printTemplateLiteral,
+  printTaggedTemplateLiteral,
   printTemplateExpressions,
   escapeTemplateCharacters,
   uncookTemplateElementValue,
