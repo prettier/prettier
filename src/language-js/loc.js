@@ -1,7 +1,7 @@
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 /**
- * @typedef {import("./types/estree").Node} Node
+ * @typedef {import("./types/estree.js").Node} Node
  */
 
 function locStart(node, opts) {

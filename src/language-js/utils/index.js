@@ -14,18 +14,18 @@ import isNodeMatches from "./is-node-matches.js";
 const isIdentifierName = esutils.keyword.isIdentifierNameES5;
 
 /**
- * @typedef {import("../types/estree").Node} Node
- * @typedef {import("../types/estree").TemplateLiteral} TemplateLiteral
- * @typedef {import("../types/estree").Comment} Comment
- * @typedef {import("../types/estree").MemberExpression} MemberExpression
- * @typedef {import("../types/estree").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("../types/estree").CallExpression} CallExpression
- * @typedef {import("../types/estree").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("../types/estree").Expression} Expression
- * @typedef {import("../types/estree").Property} Property
- * @typedef {import("../types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("../types/estree").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("../types/estree").Literal} Literal
+ * @typedef {import("../types/estree.js").Node} Node
+ * @typedef {import("../types/estree.js").TemplateLiteral} TemplateLiteral
+ * @typedef {import("../types/estree.js").Comment} Comment
+ * @typedef {import("../types/estree.js").MemberExpression} MemberExpression
+ * @typedef {import("../types/estree.js").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("../types/estree.js").CallExpression} CallExpression
+ * @typedef {import("../types/estree.js").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("../types/estree.js").Expression} Expression
+ * @typedef {import("../types/estree.js").Property} Property
+ * @typedef {import("../types/estree.js").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("../types/estree.js").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("../types/estree.js").Literal} Literal
  *
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */

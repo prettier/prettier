@@ -5,7 +5,7 @@ import { parse } from "./parser.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
 async function printEmbeddedLanguages(
-  /** @type {import("../common/ast-path").default} */ path,
+  /** @type {import("../common/ast-path.js").default} */ path,
   genericPrint,
   options,
   printAstToDoc,

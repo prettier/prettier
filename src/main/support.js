@@ -6,7 +6,7 @@ import { options as coreOptions } from "./core-options.js";
 import currentVersion from "./version.evaluate.cjs";
 
 /**
- * @typedef {import("./core-options").OptionInfo} OptionInfo
+ * @typedef {import("./core-options.js").OptionInfo} OptionInfo
  * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
  */
 
