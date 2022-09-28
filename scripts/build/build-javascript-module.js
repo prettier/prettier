@@ -63,7 +63,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     },
     /*
     `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
-    Which requires `os` shim in universal bundles
     We already replaced line end to `\n` before calling it
     */
     {
@@ -146,7 +145,9 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       {
         module: "*",
         find: ' from "node:assert";',
-        replacement: ` from ${JSON.stringify(path.join(dirname, "./shims/assert.js"))};`,
+        replacement: ` from ${JSON.stringify(
+          path.join(dirname, "./shims/assert.js")
+        )};`,
       },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
       {

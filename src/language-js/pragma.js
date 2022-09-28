@@ -1,4 +1,5 @@
 import { parseWithComments, strip, extract, print } from "jest-docblock";
+import { normalizeEndOfLine } from "../common/end-of-line.js";
 import getShebang from "./utils/get-shebang.js";
 
 function parseDocBlock(text) {
@@ -22,13 +23,20 @@ function insertPragma(originalText) {
   const { shebang, text, pragmas, comments } = parseDocBlock(originalText);
   const strippedText = strip(text);
 
-  const docBlock = print({
+  let docBlock = print({
     pragmas: {
       format: "",
       ...pragmas,
     },
     comments: comments.trimStart(),
   });
+
+  // normalise newlines (mitigate use of os.EOL by jest-docblock)
+  // Only needed in development version,
+  // bundler will hack `jest-docblock` enforce it to use `\n` in production
+  if (process.env.NODE_ENV !== "production") {
+    docBlock = normalizeEndOfLine(docBlock);
+  }
 
   return (
     (shebang ? `${shebang}\n` : "") +
