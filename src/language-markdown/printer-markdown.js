@@ -616,7 +616,7 @@ function isSentenceUseCJDividingSpace(path) {
  * @typedef {import("./utils.js").WhiteSpaceValue} WhiteSpaceValue
  * @typedef {{next?: TextNode | undefined | null, previous?: TextNode | undefined | null}} AdjacentNodes
  * @typedef {import("./utils.js").WordKind} WordKind
- * @typedef {import("../common/ast-path").default} AstPath
+ * @typedef {import("../common/ast-path.js").default} AstPath
  */
 
 /**
@@ -628,7 +628,7 @@ function isSentenceUseCJDividingSpace(path) {
  * However, you should note that Chinese and Japanese does not use U+0020 Space to divide words, so U+00A0 No-break space must not be replaced with it.
  * Behavior in other languages (e.g. Thai) will not be changed because there are too much things to consider. (PR welcome)
  *
- * @param {*} path path of given node
+ * @param {AstPath} path path of given node
  * @param {WhiteSpaceValue} value value of given node (typically `" "` or `"\n"`)
  * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
  * @returns {boolean} `true` if given node can be converted to space, `false` if not (i.e. newline or empty character)
@@ -717,7 +717,7 @@ function isWesternOrKoreanLetter(kind) {
 /**
  * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhiteSpaceValue`) can converted to `"\n"`
  *
- * @param {*} path
+ * @param {AstPath} path
  * @param {WhiteSpaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
@@ -758,7 +758,7 @@ function isBreakable(path, value, options, adjacentNodes) {
 }
 
 /**
- * @param {*} path
+ * @param {AstPath} path
  * @param {WhiteSpaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
