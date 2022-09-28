@@ -32,7 +32,7 @@ function insertPragma(originalText) {
   });
 
   // normalise newlines (mitigate use of os.EOL by jest-docblock)
-  // Only needed in development version,
+  // Only needed in development version on Windows,
   // bundler will hack `jest-docblock` enforce it to use `\n` in production
   if (process.env.NODE_ENV !== "production") {
     docBlock = normalizeEndOfLine(docBlock);
