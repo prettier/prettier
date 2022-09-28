@@ -673,12 +673,12 @@ function printRoot(path, options, print) {
 
         if (index === ignoreRange.start.index) {
           return [
-            children[ignoreRange.start.index].value,
+            printIgnoreComment(children[ignoreRange.start.index]),
             options.originalText.slice(
               ignoreRange.start.offset,
               ignoreRange.end.offset
             ),
-            children[ignoreRange.end.index].value,
+            printIgnoreComment(children[ignoreRange.end.index]),
           ];
         }
 
@@ -748,6 +748,21 @@ function printChildren(path, options, print, events = {}) {
   }, "children");
 
   return postprocessor ? postprocessor(parts) : parts;
+}
+
+function printIgnoreComment(node) {
+  if (node.type === "html") {
+    return node.value;
+  }
+
+  if (
+    node.type === "paragraph" &&
+    Array.isArray(node.children) &&
+    node.children.length === 1 &&
+    node.children[0].type === "esComment"
+  ) {
+    return ["{/* ", node.children[0].value, " */}"];
+  }
 }
 
 function getLastDescendantNode(node) {
