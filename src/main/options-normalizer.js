@@ -4,19 +4,6 @@ import vnopts from "vnopts";
  * @typedef {import("./support.js").NamedOptionInfo} NamedOptionInfo
  */
 
-const cliDescriptor = {
-  key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
-  value: (value) => vnopts.apiDescriptor.value(value),
-  pair: ({ key, value }) =>
-    value === false
-      ? `--no-${key}`
-      : value === true
-      ? cliDescriptor.key(key)
-      : value === ""
-      ? `${cliDescriptor.key(key)} without an argument`
-      : `${cliDescriptor.key(key)}=${value}`,
-};
-
 let hasDeprecationWarned;
 
 /**
@@ -27,12 +14,25 @@ let hasDeprecationWarned;
 function normalizeOptions(
   options,
   optionInfos,
-  { logger = false, isCLI = false, passThrough = false, FlagSchema } = {}
+  {
+    logger = false,
+    isCLI = false,
+    passThrough = false,
+    FlagSchema,
+    descriptor,
+  } = {}
 ) {
   // TODO: Move CLI related part into `/src/cli`
   /* istanbul ignore next */
-  if (isCLI && !FlagSchema) {
-    throw new Error("'FlagSchema' option is required.");
+  if (isCLI) {
+    if (!FlagSchema) {
+      throw new Error("'FlagSchema' option is required.");
+    }
+    if (!descriptor) {
+      throw new Error("'descriptor' option is required.");
+    }
+  } else {
+    descriptor = vnopts.apiDescriptor;
   }
 
   const unknown = !passThrough
@@ -49,7 +49,6 @@ function normalizeOptions(
         !passThrough.includes(key) ? undefined : { [key]: value }
     : (key, value) => ({ [key]: value });
 
-  const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
   const schemas = optionInfosToSchemas(optionInfos, { isCLI, FlagSchema });
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,

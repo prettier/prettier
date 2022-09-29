@@ -2,13 +2,18 @@ import chalk from "chalk";
 import leven from "leven";
 import { normalizeOptions, vnopts } from "../prettier-internal.js";
 
-function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, {
-    ...opts,
-    isCLI: true,
-    FlagSchema,
-  });
-}
+const descriptor = {
+  key: (key) => (key.length === 1 ? `-${key}` : `--${key}`),
+  value: (value) => vnopts.apiDescriptor.value(value),
+  pair: ({ key, value }) =>
+    value === false
+      ? `--no-${key}`
+      : value === true
+      ? descriptor.key(key)
+      : value === ""
+      ? `${descriptor.key(key)} without an argument`
+      : `${descriptor.key(key)}=${value}`,
+};
 
 class FlagSchema extends vnopts.ChoiceSchema {
   #flags = [];
@@ -39,6 +44,15 @@ class FlagSchema extends vnopts.ChoiceSchema {
   expected() {
     return "a flag";
   }
+}
+
+function normalizeCliOptions(options, optionInfos, opts) {
+  return normalizeOptions(options, optionInfos, {
+    ...opts,
+    isCLI: true,
+    FlagSchema,
+    descriptor,
+  });
 }
 
 export default normalizeCliOptions;
