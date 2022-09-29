@@ -133,7 +133,19 @@ module.exports = {
       },
     ],
     "import/order": "error",
-    "import/no-anonymous-default-export": "error",
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        "allowArray": true,
+        "allowArrowFunction": true,
+        "allowAnonymousClass": false,
+        "allowAnonymousFunction": false,
+        "allowCallExpression": true,
+        "allowNew": true,
+        "allowLiteral": true,
+        "allowObject": true
+      },
+    ],
 
     // eslint-plugin-n
     "n/no-path-concat": "error",
