@@ -395,7 +395,7 @@ function getMinNotPresentContinuousCount(str, target) {
 }
 
 function addCommentHelper(node, comment) {
-  const comments = node.comments || (node.comments = []);
+  const comments = (node.comments ??= []);
   comments.push(comment);
   comment.printed = false;
   comment.nodeDescription = describeNodeForDebugging(node);

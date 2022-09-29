@@ -26,6 +26,7 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
+    "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
     "no-else-return": [
       "error",
@@ -262,6 +263,8 @@ module.exports = {
     {
       files: ["tests/**/*.js"],
       rules: {
+        // TODO: Enable this when we drop support for Node.js v14
+        "logical-assignment-operators": "off",
         "unicorn/prefer-array-flat": "off",
         "unicorn/prefer-array-flat-map": "off",
       },
