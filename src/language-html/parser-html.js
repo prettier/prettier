@@ -419,7 +419,7 @@ const parser = {
       name: "vue",
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
-      getTagContentType: (tagName, prefix, hasParent, attrs) => {
+      getTagContentType(tagName, prefix, hasParent, attrs) {
         if (
           tagName.toLowerCase() !== "html" &&
           !hasParent &&

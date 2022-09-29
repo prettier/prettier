@@ -60,7 +60,13 @@ module.exports = {
       },
     ],
     "no-var": "error",
-    "object-shorthand": "error",
+    "object-shorthand": [
+      "error",
+      "always",
+      {
+        avoidExplicitReturnArrows: true,
+      }
+    ],
     "one-var": ["error", "never"],
     "prefer-arrow-callback": "error",
     "prefer-const": [

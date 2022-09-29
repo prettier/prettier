@@ -281,7 +281,7 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor: (childPath, index) => {
+        processor(childPath, index) {
           const prefix = getPrefix();
           const childNode = childPath.node;
 
@@ -453,7 +453,7 @@ function printListItem(path, options, print, listPrefix) {
   return [
     prefix,
     printChildren(path, options, print, {
-      processor: (childPath, index) => {
+      processor(childPath, index) {
         if (index === 0 && childPath.node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
@@ -652,7 +652,7 @@ function printRoot(path, options, print) {
   }
 
   return printChildren(path, options, print, {
-    processor: (childPath, index) => {
+    processor(childPath, index) {
       if (ignoreRanges.length > 0) {
         const ignoreRange = ignoreRanges[0];
 

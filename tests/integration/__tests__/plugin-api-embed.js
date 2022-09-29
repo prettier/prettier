@@ -27,7 +27,7 @@ function makePlugin(withOutdatedApi = false) {
     },
     printers: {
       "baz-ast": {
-        print: (path, options, print) => {
+        print(path, options, print) {
           const { type, text } = path.getValue();
           switch (type) {
             case "root":
