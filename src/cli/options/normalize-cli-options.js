@@ -1,10 +1,10 @@
 import chalk from "chalk";
 import leven from "leven";
 import vnopts from "vnopts";
-import { normalizeCliOptions as prettierNormalizeCliOptions } from "../prettier-internal.js";
+import { normalizeOptions } from "../prettier-internal.js";
 
 function normalizeCliOptions(options, optionInfos, opts) {
-  return prettierNormalizeCliOptions(options, optionInfos, {
+  return normalizeOptions(options, optionInfos, {
     ...opts,
     isCLI: true,
     FlagSchema,

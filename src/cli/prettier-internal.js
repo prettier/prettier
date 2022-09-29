@@ -5,7 +5,6 @@ export const {
   coreOptions,
   createIgnorer,
   optionsHiddenDefaults,
-  normalizeApiOptions,
-  normalizeCliOptions,
+  normalizeOptions,
   getSupportInfoWithoutPlugins,
 } = sharedWithCli;

@@ -15,10 +15,7 @@ import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.js";
 import createIgnorer from "./common/create-ignorer.js";
 import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
-import {
-  normalizeApiOptions,
-  normalizeCliOptions,
-} from "./main/options-normalizer.js";
+import normalizeOptions from "./main/options-normalizer.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import { isNonEmptyArray } from "./common/util.js";
@@ -80,8 +77,7 @@ const sharedWithCli = {
   coreOptions,
   createIgnorer,
   optionsHiddenDefaults,
-  normalizeApiOptions,
-  normalizeCliOptions,
+  normalizeOptions,
   getSupportInfoWithoutPlugins,
   utils: {
     arrayify,

@@ -29,6 +29,12 @@ function normalizeOptions(
   optionInfos,
   { logger = false, isCLI = false, passThrough = false, FlagSchema } = {}
 ) {
+  // TODO: Move CLI related part into `/src/cli`
+  /* istanbul ignore next */
+  if (isCLI && !FlagSchema) {
+    throw new Error("'FlagSchema' option is required.");
+  }
+
   const unknown = !passThrough
     ? (key, value, options) => {
         // Don't suggest `_` for unknown flags
@@ -231,23 +237,4 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
     : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 
-function normalizeApiOptions(options, optionInfos, opts) {
-  return normalizeOptions(options, optionInfos, opts);
-}
-
-function normalizeCliOptions(options, optionInfos, opts) {
-  /* istanbul ignore next */
-  if (process.env.NODE_ENV !== "production") {
-    if (!opts.isCLI) {
-      throw new Error("'isCLI' option should be true.");
-    }
-
-    if (!opts.FlagSchema) {
-      throw new Error("'FlagSchema' option is required.");
-    }
-  }
-
-  return normalizeOptions(options, optionInfos, opts);
-}
-
-export { normalizeApiOptions, normalizeCliOptions };
+export default normalizeOptions;
