@@ -9,7 +9,7 @@ let hasDeprecationWarned;
 /**
  * @param {*} options
  * @param {*} optionInfos
- * @param {{ logger?: false; isCLI?: boolean; passThrough?: string[] | boolean; FlagSchema?: any; descriptor: any }} param2
+ * @param {{ logger?: false; isCLI?: boolean; passThrough?: string[] | boolean; FlagSchema?: any; descriptor?: any }} param2
  */
 function normalizeOptions(
   options,
