@@ -5,9 +5,9 @@ import { normalizeCliOptions as prettierNormalizeCliOptions } from "../prettier-
 
 function normalizeCliOptions(options, optionInfos, opts) {
   return prettierNormalizeCliOptions(options, optionInfos, {
+    ...opts,
     isCLI: true,
     FlagSchema,
-    ...opts,
   });
 }
 
