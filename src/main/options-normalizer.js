@@ -22,7 +22,7 @@ let hasDeprecationWarned;
 /**
  * @param {*} options
  * @param {*} optionInfos
- * @param {{ logger?: false; isCLI?: boolean; passThrough?: boolean; colorsModule?: any; levenshteinDistance?: any }} param2
+ * @param {{ logger?: false; isCLI?: boolean; passThrough?: string[] | boolean; FlagSchema?: any }} param2
  */
 function normalizeOptions(
   options,
