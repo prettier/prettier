@@ -7,4 +7,5 @@ export const {
   optionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
+  vnopts,
 } = sharedWithCli;

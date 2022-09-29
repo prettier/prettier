@@ -1,7 +1,6 @@
 import chalk from "chalk";
 import leven from "leven";
-import vnopts from "vnopts";
-import { normalizeOptions } from "../prettier-internal.js";
+import { normalizeOptions, vnopts } from "../prettier-internal.js";
 
 function normalizeCliOptions(options, optionInfos, opts) {
   return normalizeOptions(options, optionInfos, {

@@ -1,3 +1,4 @@
+import vnopts from "vnopts";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
@@ -79,6 +80,7 @@ const sharedWithCli = {
   optionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,
+  vnopts,
   utils: {
     arrayify,
     isNonEmptyArray,
