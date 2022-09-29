@@ -26,7 +26,7 @@ import { locEnd } from "../loc.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
 import { printFunctionTypeParameters } from "./misc.js";
 
-/** @typedef {import("../../common/ast-path").default} AstPath */
+/** @typedef {import("../../common/ast-path.js").default} AstPath */
 
 function printFunctionParameters(
   path,

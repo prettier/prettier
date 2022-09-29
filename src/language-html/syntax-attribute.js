@@ -1,14 +1,8 @@
-import parseSrcset from "parse-srcset";
+import parseSrcset from "@prettier/parse-srcset";
 import { ifBreak, join, line } from "../document/builders.js";
 
 function printImgSrcset(value) {
-  const srcset = parseSrcset(value, {
-    logger: {
-      error(message) {
-        throw new Error(message);
-      },
-    },
-  });
+  const srcset = parseSrcset(value);
 
   const hasW = srcset.some(({ w }) => w);
   const hasH = srcset.some(({ h }) => h);

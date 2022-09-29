@@ -36,6 +36,7 @@ module.exports = {
     ],
     "no-implicit-coercion": "error",
     "no-inner-declarations": "error",
+    "no-lonely-if": "error",
     "no-restricted-syntax": [
       "error",
       // `!foo === bar` and `!foo !== bar`
@@ -153,6 +154,7 @@ module.exports = {
     "unicorn/new-for-builtins": "error",
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
+    "unicorn/no-lonely-if": "error",
     "unicorn/no-new-array": "error",
     "unicorn/no-unreadable-iife": "error",
     "unicorn/no-useless-length-check": "error",

@@ -1329,6 +1329,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prettier/parse-srcset@npm:2.0.1":
+  version: 2.0.1
+  resolution: "@prettier/parse-srcset@npm:2.0.1"
+  checksum: 8f424434f12b4358dbbfb8c975d89d08520d47cbdba51fe48d585ae41be16fc41fcec82d4031be1d5b6c5487e6fe4d013ab320e253807ae23f1edb412b108fc9
+  languageName: node
+  linkType: hard
+
 "@simple-dom/interface@npm:^1.4.0":
   version: 1.4.0
   resolution: "@simple-dom/interface@npm:1.4.0"
@@ -6352,13 +6359,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-srcset@ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee":
-  version: 1.0.2
-  resolution: "parse-srcset@https://github.com/ikatyang/parse-srcset.git#commit=54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
-  checksum: 4f3325a79e8d881d1d29ae4d2857a40b1d9d8d98f093b865a04a4e18ba5b136e7e1d37a317a8fc2ed10a8f473951c396f7c1b0904fe10de430e44811698ce0f1
-  languageName: node
-  linkType: hard
-
 "path-browserify@npm:1.0.1":
   version: 1.0.1
   resolution: "path-browserify@npm:1.0.1"
@@ -6595,6 +6595,7 @@ __metadata:
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
+    "@prettier/parse-srcset": 2.0.1
     "@types/estree": 1.0.0
     "@types/file-entry-cache": 5.0.2
     "@types/find-cache-dir": 3.2.1
@@ -6675,7 +6676,6 @@ __metadata:
     node-fetch: 3.2.10
     npm-run-all: 4.1.5
     outdent: 0.8.0
-    parse-srcset: "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
     path-browserify: 1.0.1
     please-upgrade-node: 3.2.0
     postcss: 8.4.16
