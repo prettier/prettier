@@ -28,6 +28,7 @@ module.exports = {
     eqeqeq: "error",
     "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
+    "no-constant-binary-expression": "error",
     "no-else-return": [
       "error",
       {
