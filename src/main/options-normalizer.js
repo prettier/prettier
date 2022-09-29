@@ -17,45 +17,6 @@ const cliDescriptor = {
       : `${cliDescriptor.key(key)}=${value}`,
 };
 
-// To prevent `chalk` and `leven` module from being included in the `standalone.js` bundle, it will take that as an argument if needed.
-const getFlagSchema = ({ colorsModule, levenshteinDistance }) =>
-  class FlagSchema extends vnopts.ChoiceSchema {
-    #flags = [];
-
-    constructor({ name, flags }) {
-      super({ name, choices: flags });
-      this.#flags = [...flags].sort();
-    }
-    preprocess(value, utils) {
-      if (
-        typeof value === "string" &&
-        value.length > 0 &&
-        !this.#flags.includes(value)
-      ) {
-        const suggestion = this.#flags.find(
-          (flag) => levenshteinDistance(flag, value) < 3
-        );
-        if (suggestion) {
-          utils.logger.warn(
-            [
-              `Unknown flag ${colorsModule.yellow(
-                utils.descriptor.value(value)
-              )},`,
-              `did you mean ${colorsModule.blue(
-                utils.descriptor.value(suggestion)
-              )}?`,
-            ].join(" ")
-          );
-          return suggestion;
-        }
-      }
-      return value;
-    }
-    expected() {
-      return "a flag";
-    }
-  };
-
 let hasDeprecationWarned;
 
 /**
@@ -66,13 +27,7 @@ let hasDeprecationWarned;
 function normalizeOptions(
   options,
   optionInfos,
-  {
-    logger = false,
-    isCLI = false,
-    passThrough = false,
-    colorsModule = null,
-    levenshteinDistance = null,
-  } = {}
+  { logger = false, isCLI = false, passThrough = false, FlagSchema } = {}
 ) {
   const unknown = !passThrough
     ? (key, value, options) => {
@@ -89,11 +44,7 @@ function normalizeOptions(
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
-  const schemas = optionInfosToSchemas(optionInfos, {
-    isCLI,
-    colorsModule,
-    levenshteinDistance,
-  });
+  const schemas = optionInfosToSchemas(optionInfos, { isCLI, FlagSchema });
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
     unknown,
@@ -121,10 +72,7 @@ function normalizeOptions(
   return normalized;
 }
 
-function optionInfosToSchemas(
-  optionInfos,
-  { isCLI, colorsModule, levenshteinDistance }
-) {
+function optionInfosToSchemas(optionInfos, { isCLI, FlagSchema }) {
   const schemas = [];
 
   if (isCLI) {
@@ -136,8 +84,7 @@ function optionInfosToSchemas(
       optionInfoToSchema(optionInfo, {
         isCLI,
         optionInfos,
-        colorsModule,
-        levenshteinDistance,
+        FlagSchema,
       })
     );
 
@@ -160,10 +107,7 @@ function optionInfosToSchemas(
  * @param {any} param1
  * @returns
  */
-function optionInfoToSchema(
-  optionInfo,
-  { isCLI, optionInfos, colorsModule, levenshteinDistance }
-) {
+function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
   const { name } = optionInfo;
 
   if (name === "plugin-search-dir" || name === "pluginSearchDirs") {
@@ -223,7 +167,8 @@ function optionInfoToSchema(
       SchemaConstructor = vnopts.BooleanSchema;
       break;
     case "flag":
-      SchemaConstructor = getFlagSchema({ colorsModule, levenshteinDistance });
+      // Only available when normalizing CLI options
+      SchemaConstructor = FlagSchema;
       parameters.flags = optionInfos.flatMap((optionInfo) =>
         [
           optionInfo.alias,
@@ -293,16 +238,16 @@ function normalizeApiOptions(options, optionInfos, opts) {
 function normalizeCliOptions(options, optionInfos, opts) {
   /* istanbul ignore next */
   if (process.env.NODE_ENV !== "production") {
-    if (!opts.colorsModule) {
-      throw new Error("'colorsModule' option is required.");
+    if (!opts.isCLI) {
+      throw new Error("'isCLI' option should be true.");
     }
 
-    if (!opts.levenshteinDistance) {
-      throw new Error("'levenshteinDistance' option is required.");
+    if (!opts.FlagSchema) {
+      throw new Error("'FlagSchema' option is required.");
     }
   }
 
-  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
+  return normalizeOptions(options, optionInfos, opts);
 }
 
 export { normalizeApiOptions, normalizeCliOptions };
