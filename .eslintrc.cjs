@@ -65,7 +65,7 @@ module.exports = {
       "always",
       {
         avoidExplicitReturnArrows: true,
-      }
+      },
     ],
     "one-var": ["error", "never"],
     "prefer-arrow-callback": "error",
