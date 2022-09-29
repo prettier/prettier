@@ -21,8 +21,10 @@ export function getEntries(dirPath) {
     .readdirSync(dirPath)
     .filter((fileName) => path.extname(fileName) === ".md");
   const entries = fileNames.map((fileName) => {
+    const filePath = path.join(dirPath, fileName);
+    const basename = path.basename(filePath, ".md");
     const [title, ...rest] = fs
-      .readFileSync(path.join(dirPath, fileName), "utf8")
+      .readFileSync(filePath, "utf8")
       .trim()
       .split("\n");
 
@@ -41,7 +43,7 @@ export function getEntries(dirPath) {
         ? Number(improvement[2])
         : undefined;
 
-    const content = [processTitle(title), ...rest].join("\n");
+    const content = [processTitle(title) + ` {#${basename}}`, ...rest].join("\n");
 
     return { fileName, section, order, content };
   });
