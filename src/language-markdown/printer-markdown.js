@@ -738,9 +738,12 @@ function isBreakable(path, value, options, adjacentNodes) {
     return true;
   }
   // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
+  // [Latin][""][Hangul] & vice versa => Don't break
   if (
-    adjacentNodes.previous?.kind === KIND_K_LETTER &&
-    adjacentNodes.next?.kind === KIND_K_LETTER
+    (adjacentNodes.previous?.kind === KIND_K_LETTER &&
+      isWesternOrKoreanLetter(adjacentNodes.next?.kind)) ||
+    (adjacentNodes.next?.kind === KIND_K_LETTER &&
+      isWesternOrKoreanLetter(adjacentNodes.previous?.kind))
   ) {
     return false;
   }

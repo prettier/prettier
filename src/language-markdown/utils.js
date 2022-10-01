@@ -63,18 +63,12 @@ const KIND_CJK_PUNCTUATION = "cjk-punctuation";
  * split text into whitespaces and words
  * @param {string} text
  */
-function splitText(text, options) {
+// eslint-disable-next-line no-unused-vars
+function splitText(text, _options) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 
-  const tokens = (
-    options.proseWrap === "preserve"
-      ? text
-      : text.replace(
-          new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"),
-          "$1$2"
-        )
-  ).split(/([\t\n ]+)/);
+  const tokens = text.split(/([\t\n ]+)/);
   for (const [index, token] of tokens.entries()) {
     // whitespace
     if (index % 2 === 1) {
