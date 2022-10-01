@@ -140,14 +140,14 @@ function splitText(text, options) {
 
   function appendNode(node) {
     const lastNode = nodes.at(-1);
-    if (lastNode && lastNode.type === "word") {
-      if (
-        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
-        // disallow leading/trailing full-width whitespace
-        ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
-      ) {
-        nodes.push({ type: "whitespace", value: "" });
-      }
+    if (
+      lastNode &&
+      lastNode.type === "word" &&
+      !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
+      // disallow leading/trailing full-width whitespace
+      ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
+    ) {
+      nodes.push({ type: "whitespace", value: "" });
     }
     nodes.push(node);
 
