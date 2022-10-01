@@ -39,6 +39,7 @@ import {
   KIND_CJK_PUNCTUATION,
   KIND_NON_CJK,
   KIND_K_LETTER,
+  KIND_CJ_LETTER,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 
@@ -658,6 +659,13 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return true;
   }
+  // han & hangul: same way preferred
+  if (
+    (previousKind === KIND_K_LETTER && nextKind === KIND_CJ_LETTER) ||
+    (nextKind === KIND_K_LETTER && previousKind === KIND_CJ_LETTER)
+  ) {
+    return true;
+  }
   // Do not convert it to Space when:
   if (
     // Shall not be converted to Space around CJK punctuation
@@ -708,6 +716,14 @@ function isCJK(kind) {
 
 /**
  * @param {WordKind | undefined} kind
+ * @returns {boolean} `true` if `kind` is letter (not CJK punctuation)
+ */
+function isLetter(kind) {
+  return kind !== undefined && kind !== KIND_CJK_PUNCTUATION;
+}
+
+/**
+ * @param {WordKind | undefined} kind
  * @returns {boolean} `true` if `kind` is western or Korean letters (divides words by Space)
  */
 function isWesternOrKoreanLetter(kind) {
@@ -739,11 +755,12 @@ function isBreakable(path, value, options, adjacentNodes) {
   }
   // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   // [Latin][""][Hangul] & vice versa => Don't break
+  // [han & kana][""][hangul], either
   if (
     (adjacentNodes.previous?.kind === KIND_K_LETTER &&
-      isWesternOrKoreanLetter(adjacentNodes.next?.kind)) ||
+      isLetter(adjacentNodes.next?.kind)) ||
     (adjacentNodes.next?.kind === KIND_K_LETTER &&
-      isWesternOrKoreanLetter(adjacentNodes.previous?.kind))
+      isLetter(adjacentNodes.previous?.kind))
   ) {
     return false;
   }
