@@ -1734,12 +1734,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-html-parser@npm:1.8.0":
-  version: 1.8.0
-  resolution: "angular-html-parser@npm:1.8.0"
+"angular-html-parser@npm:2.0.0":
+  version: 2.0.0
+  resolution: "angular-html-parser@npm:2.0.0"
   dependencies:
-    tslib: ^1.9.3
-  checksum: 3f47a630500f76dcc36aded0d672da3de1de29e262c7bea06041d86653d00e36c1c1f133211095030e730ed9c4f0fe3415db2f2152e7135be963fd39908d69d6
+    tslib: 2.4.0
+  checksum: 28f815f65959202879c17f8b50287728936b18d8c0b59d48ec7d63943356cf7d9b098b36022f22dfa5baad645922ee86e4d20c7d8b88e9dd18b830f712d9db7b
   languageName: node
   linkType: hard
 
@@ -6606,7 +6606,7 @@ __metadata:
     acorn: 8.8.0
     acorn-jsx: 5.3.2
     angular-estree-parser: 2.5.1
-    angular-html-parser: 1.8.0
+    angular-html-parser: 2.0.0
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
     c8: 7.12.0
@@ -7868,17 +7868,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:2.4.0, tslib@npm:^2.0.3, tslib@npm:^2.2.0":
+  version: 2.4.0
+  resolution: "tslib@npm:2.4.0"
+  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.10.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.0.3, tslib@npm:^2.2.0":
-  version: 2.4.0
-  resolution: "tslib@npm:2.4.0"
-  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
   languageName: node
   linkType: hard
 
