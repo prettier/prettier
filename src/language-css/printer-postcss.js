@@ -461,7 +461,12 @@ function genericPrint(path, options, print) {
       return [
         maybeToLowerCase(node.value),
         isNonEmptyArray(node.nodes)
-          ? ["(", join(", ", path.map(print, "nodes")), ")"]
+          ? group([
+              "(",
+              indent([softline, join([",", line], path.map(print, "nodes"))]),
+              softline,
+              ")",
+            ])
           : "",
       ];
     }
