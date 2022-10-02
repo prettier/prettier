@@ -80,7 +80,7 @@
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "4.0.5",
     "postcss-selector-parser": "2.2.3",
-    "postcss-values-parser": "2.0.1",
+    "postcss-values-parser": "6.0.2",
     "regexp-util": "1.2.2",
     "remark-footnotes": "2.0.0",
     "remark-math": "3.0.1",
