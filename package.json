@@ -87,7 +87,7 @@
     "remark-parse": "8.0.3",
     "sdbm": "2.0.0",
     "semver": "7.3.7",
-    "string-width": "5.0.1",
+    "string-width": "5.1.2",
     "strip-ansi": "7.0.1",
     "to-fast-properties": "4.0.0",
     "typescript": "4.8.3",
