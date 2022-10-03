@@ -338,7 +338,9 @@ function addIsSelfClosing(ast /*, options */) {
       (node.type === "element" &&
         (node.tagDefinition.isVoid ||
           // self-closing
-          node.startSourceSpan === node.endSourceSpan));
+          (node.endSourceSpan &&
+            node.startSourceSpan.start === node.endSourceSpan.start &&
+            node.startSourceSpan.end === node.endSourceSpan.end)));
   });
 }
 

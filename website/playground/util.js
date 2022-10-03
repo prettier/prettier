@@ -56,7 +56,7 @@ const astAutoFold = {
   estree:
     /^\s*"(loc|start|end|tokens|leadingComments|trailingComments|innerComments)":/,
   postcss: /^\s*"(source|input|raws|file)":/,
-  html: /^\s*"(sourceSpan|valueSpan|nameSpan|startSourceSpan|endSourceSpan|tagDefinition)":/,
+  html: /^\s*"(\w+Span|valueTokens|tokens|file|tagDefinition)":/,
   mdast: /^\s*"position":/,
   yaml: /^\s*"position":/,
   glimmer: /^\s*"loc":/,
