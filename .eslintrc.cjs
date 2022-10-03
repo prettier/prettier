@@ -28,6 +28,7 @@ module.exports = {
     eqeqeq: "error",
     "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
+    "no-constant-binary-expression": "error",
     "no-else-return": [
       "error",
       {
@@ -59,7 +60,13 @@ module.exports = {
       },
     ],
     "no-var": "error",
-    "object-shorthand": "error",
+    "object-shorthand": [
+      "error",
+      "always",
+      {
+        avoidExplicitReturnArrows: true,
+      },
+    ],
     "one-var": ["error", "never"],
     "prefer-arrow-callback": "error",
     "prefer-const": [
@@ -126,7 +133,20 @@ module.exports = {
       },
     ],
     "import/order": "error",
-    "import/no-anonymous-default-export": "error",
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        allowArray: true,
+        allowArrowFunction: true,
+        allowAnonymousClass: false,
+        allowAnonymousFunction: false,
+        allowCallExpression: true,
+        // Unreleased
+        // allowNew: true,
+        allowLiteral: true,
+        allowObject: true,
+      },
+    ],
 
     // eslint-plugin-n
     "n/no-path-concat": "error",
@@ -189,6 +209,7 @@ module.exports = {
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
+    "unicorn/prefer-set-has": "error",
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-slice": "error",
     "unicorn/prefer-string-starts-ends-with": "error",
