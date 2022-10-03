@@ -6,6 +6,10 @@ const ignoredProperties = new Set([
   "endSourceSpan",
   "nameSpan",
   "valueSpan",
+  "keySpan",
+  "tagDefinition",
+  "tokens",
+  "valueTokens",
 ]);
 
 function clean(ast, newNode) {
