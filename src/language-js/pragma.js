@@ -23,7 +23,7 @@ function insertPragma(originalText) {
   const { shebang, text, pragmas, comments } = parseDocBlock(originalText);
   const strippedText = strip(text);
 
-  const docBlock = print({
+  let docBlock = print({
     pragmas: {
       format: "",
       ...pragmas,
@@ -31,10 +31,16 @@ function insertPragma(originalText) {
     comments: comments.trimStart(),
   });
 
+  // normalise newlines (mitigate use of os.EOL by jest-docblock)
+  // Only needed in development version on Windows,
+  // bundler will hack `jest-docblock` enforce it to use `\n` in production
+  if (process.env.NODE_ENV !== "production") {
+    docBlock = normalizeEndOfLine(docBlock);
+  }
+
   return (
     (shebang ? `${shebang}\n` : "") +
-    // normalise newlines (mitigate use of os.EOL by jest-docblock)
-    normalizeEndOfLine(docBlock) +
+    docBlock +
     (strippedText.startsWith("\n") ? "\n" : "\n\n") +
     strippedText
   );
