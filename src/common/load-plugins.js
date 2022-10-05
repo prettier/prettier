@@ -5,8 +5,8 @@ import fastGlob from "fast-glob";
 import mem, { memClear } from "mem";
 import partition from "../utils/partition.js";
 import importFromDirectory from "../utils/import-from-directory.js";
-import thirdParty from "./third-party.js";
 import findProjectRoot from "../config/find-project-root.js";
+import thirdParty from "./third-party.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -49,8 +49,6 @@ async function load(plugins, pluginSearchDirs) {
       const pnpmVirtualStoreSearchDirectories =
         pnpmVirtualStore &&
         (await findPluginDirsInPnpmVirtualStore(pnpmVirtualStore));
-
-      //console.log(pnpmVirtualStore);
 
       if (autoLoadDir) {
         pluginSearchDirs = [autoLoadDir];
