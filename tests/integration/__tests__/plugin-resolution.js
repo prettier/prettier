@@ -93,6 +93,55 @@ describe("automatically loads '@prettier/plugin-*' from --plugin-search-dir (dif
   });
 });
 
+describe("automatically loads '@<name>/prettier-plugin-*' from --plugin-search-dir (different to autoload dir)", () => {
+  runPrettier("plugins", [
+    "automatic/file.txt",
+    "--parser=foobar",
+    "--plugin-search-dir=automatic",
+  ]).test({
+    stdout: "foobar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: [],
+  });
+});
+
+describe("automatically loads 'prettier-plugin-*' from pnpm virtual store", () => {
+  runPrettier("plugins/pnpmVirtualStore/prettier@0.0.0", [
+    "file.txt",
+    "--parser=foo",
+  ]).test({
+    stdout: "foo+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: [],
+  });
+});
+
+describe("automatically loads '@prettier/plugin-*' from pnpm virtual store", () => {
+  runPrettier("plugins/pnpmVirtualStore/prettier@0.0.0", [
+    "file.txt",
+    "--parser=bar",
+  ]).test({
+    stdout: "bar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: [],
+  });
+});
+
+describe("automatically loads '@<name>/prettier-plugin-*' from pnpm virtual store", () => {
+  runPrettier("plugins/pnpmVirtualStore/prettier@0.0.0", [
+    "file.txt",
+    "--parser=foobar",
+  ]).test({
+    stdout: "foobar+contents" + EOL,
+    stderr: "",
+    status: 0,
+    write: [],
+  });
+});
+
 describe("does not crash when --plugin-search-dir does not contain node_modules", () => {
   runPrettier(
     "plugins/extensions",
