@@ -44,9 +44,9 @@ function print(path, options, print) {
   switch (node.type) {
     case "Block":
     case "Program":
-    case "Template": {
+    case "Template":
       return group(path.map(print, "body"));
-    }
+    
 
     case "ElementNode": {
       const startingTag = group(printStartingTag(path, print));
@@ -113,26 +113,26 @@ function print(path, options, print) {
       ];
     }
 
-    case "ElementModifierStatement": {
+    case "ElementModifierStatement":
       return group(["{{", printPathAndParams(path, print), "}}"]);
-    }
+    
 
-    case "MustacheStatement": {
+    case "MustacheStatement":
       return group([
         printOpeningMustache(node),
         printPathAndParams(path, print),
         printClosingMustache(node),
       ]);
-    }
+    
 
-    case "SubExpression": {
+    case "SubExpression":
       return group([
         "(",
         printSubExpressionPathAndParams(path, print),
         softline,
         ")",
       ]);
-    }
+    
     case "AttrNode": {
       const isText = node.value.type === "TextNode";
       const isEmptyText = isText && node.value.chars === "";
@@ -169,16 +169,16 @@ function print(path, options, print) {
       ];
     }
 
-    case "ConcatStatement": {
+    case "ConcatStatement":
       return path.map(print, "parts");
-    }
+    
 
-    case "Hash": {
+    case "Hash":
       return join(line, path.map(print, "pairs"));
-    }
-    case "HashPair": {
+    
+    case "HashPair":
       return [node.key, "=", print("value")];
-    }
+    
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
@@ -381,31 +381,31 @@ function print(path, options, print) {
         "}}",
       ];
     }
-    case "PathExpression": {
+    case "PathExpression":
       return node.original;
-    }
-    case "BooleanLiteral": {
+    
+    case "BooleanLiteral":
       return String(node.value);
-    }
-    case "CommentStatement": {
+    
+    case "CommentStatement":
       return ["<!--", node.value, "-->"];
-    }
-    case "StringLiteral": {
+    
+    case "StringLiteral":
       if (needsOppositeQuote(path)) {
         const printFavoriteQuote = !options.singleQuote ? "'" : '"';
         return printStringLiteral(node.value, printFavoriteQuote);
       }
       return printStringLiteral(node.value, favoriteQuote);
-    }
-    case "NumberLiteral": {
+    
+    case "NumberLiteral":
       return String(node.value);
-    }
-    case "UndefinedLiteral": {
+    
+    case "UndefinedLiteral":
       return "undefined";
-    }
-    case "NullLiteral": {
+    
+    case "NullLiteral":
       return "null";
-    }
+    
 
     default:
       /* istanbul ignore next */

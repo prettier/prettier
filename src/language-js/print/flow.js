@@ -126,7 +126,7 @@ function printFlow(path, options, print) {
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumStringBody":
-    case "EnumSymbolBody": {
+    case "EnumSymbolBody":
       if (node.type === "EnumSymbolBody" || node.explicitType) {
         let type = null;
         switch (node.type) {
@@ -173,7 +173,7 @@ function printFlow(path, options, print) {
         );
       }
       return parts;
-    }
+    
     case "EnumBooleanMember":
     case "EnumNumberMember":
     case "EnumStringMember":
@@ -219,7 +219,7 @@ function printFlow(path, options, print) {
       parts.push(print("value"));
 
       return parts;
-    case "ObjectTypeIndexer": {
+    case "ObjectTypeIndexer":
       return [
         node.static ? "static " : "",
         node.variance ? print("variance") : "",
@@ -230,7 +230,7 @@ function printFlow(path, options, print) {
         "]: ",
         print("value"),
       ];
-    }
+    
     case "ObjectTypeProperty": {
       let modifier = "";
 
@@ -278,14 +278,14 @@ function printFlow(path, options, print) {
         return printNumber(node.extra.raw);
       }
       return printNumber(node.raw);
-    case "TypeCastExpression": {
+    case "TypeCastExpression":
       return [
         "(",
         print("expression"),
         printTypeAnnotation(path, options, print),
         ")",
       ];
-    }
+    
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {

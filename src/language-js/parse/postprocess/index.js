@@ -62,16 +62,16 @@ function postprocess(ast, options) {
   ast = visitNode(ast, (node) => {
     switch (node.type) {
       // Espree
-      case "ChainExpression": {
+      case "ChainExpression":
         return transformChainExpression(node.expression);
-      }
-      case "LogicalExpression": {
+      
+      case "LogicalExpression":
         // We remove unneeded parens around same-operator LogicalExpressions
         if (isUnbalancedLogicalTree(node)) {
           return rebalanceLogicalTree(node);
         }
         break;
-      }
+      
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = node.declarations.at(-1);
@@ -81,7 +81,7 @@ function postprocess(ast, options) {
         break;
       }
       // remove redundant TypeScript nodes
-      case "TSParenthesizedType": {
+      case "TSParenthesizedType":
         if (
           !(
             isTsKeywordType(node.typeAnnotation) ||
@@ -91,7 +91,7 @@ function postprocess(ast, options) {
           node.typeAnnotation.range = [locStart(node), locEnd(node)];
         }
         return node.typeAnnotation;
-      }
+      
       case "TSTypeParameter":
         // babel-ts
         if (typeof node.name === "string") {

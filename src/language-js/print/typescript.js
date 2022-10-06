@@ -155,7 +155,7 @@ function printTypescript(path, options, print) {
     }
     case "TSArrayType":
       return [print("elementType"), "[]"];
-    case "TSPropertySignature": {
+    case "TSPropertySignature":
       if (node.readonly) {
         parts.push("readonly ");
       }
@@ -175,7 +175,7 @@ function printTypescript(path, options, print) {
       }
 
       return parts;
-    }
+    
     case "TSParameterProperty":
       if (node.accessibility) {
         parts.push(node.accessibility + " ");
@@ -255,7 +255,7 @@ function printTypescript(path, options, print) {
       return printIndexedAccessType(path, options, print);
     case "TSConstructSignatureDeclaration":
     case "TSCallSignatureDeclaration":
-    case "TSConstructorType": {
+    case "TSConstructorType":
       if (node.type === "TSConstructorType" && node.abstract) {
         parts.push("abstract ");
       }
@@ -284,7 +284,7 @@ function printTypescript(path, options, print) {
         );
       }
       return parts;
-    }
+    
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
     case "TSMappedType": {

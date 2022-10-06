@@ -78,7 +78,7 @@ function needsParens(path, options) {
     case "ParenthesizedExpression":
       return false;
     case "ClassDeclaration":
-    case "ClassExpression": {
+    case "ClassExpression":
       // Add parens around the extends clause of a class. It is needed for almost
       // all expressions.
       if (
@@ -101,8 +101,8 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    }
-    case "ExportDefaultDeclaration": {
+    
+    case "ExportDefaultDeclaration":
       return (
         // `export default function` or `export default class` can't be followed by
         // anything after. So an expression like `export default (function(){}).toString()`
@@ -111,8 +111,8 @@ function needsParens(path, options) {
         // `export default (foo, bar)` also needs parentheses
         node.type === "SequenceExpression"
       );
-    }
-    case "Decorator": {
+    
+    case "Decorator":
       if (key === "expression") {
         let hasCallExpression = false;
         let hasMemberExpression = false;
@@ -146,8 +146,8 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    }
-    case "ExpressionStatement": {
+    
+    case "ExpressionStatement":
       if (
         startsWithNoLookaheadToken(
           node,
@@ -157,8 +157,8 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    }
-    case "ArrowFunctionExpression": {
+    
+    case "ArrowFunctionExpression":
       if (
         key === "body" &&
         node.type !== "SequenceExpression" && // these have parens added anyway
@@ -170,7 +170,7 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    }
+    
   }
 
   switch (node.type) {
@@ -216,7 +216,7 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "BinaryExpression": {
+    case "BinaryExpression":
       if (parent.type === "UpdateExpression") {
         return true;
       }
@@ -235,7 +235,7 @@ function needsParens(path, options) {
           return true;
         }
       }
-    }
+    
     // fallthrough
     case "TSTypeAssertion":
     case "TSAsExpression":
@@ -388,13 +388,13 @@ function needsParens(path, options) {
         case "ConditionalExpression":
           return key === "test";
 
-        case "BinaryExpression": {
+        case "BinaryExpression":
           if (!node.argument && parent.operator === "|>") {
             return false;
           }
 
           return true;
-        }
+        
 
         default:
           return false;

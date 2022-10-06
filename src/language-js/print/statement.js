@@ -106,12 +106,12 @@ function expressionNeedsASIProtection(path, options) {
     case "TemplateElement":
     case "RegExpLiteral":
       return true;
-    case "ArrowFunctionExpression": {
+    case "ArrowFunctionExpression":
       if (!shouldPrintParamsWithoutParens(path, options)) {
         return true;
       }
       break;
-    }
+    
     case "UnaryExpression": {
       const { prefix, operator } = node;
       if (prefix && (operator === "+" || operator === "-")) {
@@ -119,23 +119,23 @@ function expressionNeedsASIProtection(path, options) {
       }
       break;
     }
-    case "BindExpression": {
+    case "BindExpression":
       if (!node.object) {
         return true;
       }
       break;
-    }
-    case "Literal": {
+    
+    case "Literal":
       if (node.regex) {
         return true;
       }
       break;
-    }
-    default: {
+    
+    default:
       if (isJsxNode(node)) {
         return true;
       }
-    }
+    
   }
 
   if (pathNeedsParens(path, options)) {

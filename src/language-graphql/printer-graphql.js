@@ -63,7 +63,7 @@ function genericPrint(path, options, print) {
         print("selectionSet"),
       ];
     }
-    case "FragmentDefinition": {
+    case "FragmentDefinition":
       return [
         "fragment ",
         print("name"),
@@ -87,8 +87,8 @@ function genericPrint(path, options, print) {
         " ",
         print("selectionSet"),
       ];
-    }
-    case "SelectionSet": {
+    
+    case "SelectionSet":
       return [
         "{",
         indent([
@@ -98,8 +98,8 @@ function genericPrint(path, options, print) {
         hardline,
         "}",
       ];
-    }
-    case "Field": {
+    
+    case "Field":
       return group([
         node.alias ? [print("alias"), ": "] : "",
         print("name"),
@@ -121,11 +121,11 @@ function genericPrint(path, options, print) {
         node.selectionSet ? " " : "",
         print("selectionSet"),
       ]);
-    }
-    case "Name": {
+    
+    case "Name":
       return node.value;
-    }
-    case "StringValue": {
+    
+    case "StringValue":
       if (node.block) {
         const lines = node.value.replace(/"""/g, "\\$&").split("\n");
         if (lines.length === 1) {
@@ -143,22 +143,22 @@ function genericPrint(path, options, print) {
         node.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
         '"',
       ];
-    }
+    
     case "IntValue":
     case "FloatValue":
-    case "EnumValue": {
+    case "EnumValue":
       return node.value;
-    }
-    case "BooleanValue": {
+    
+    case "BooleanValue":
       return node.value ? "true" : "false";
-    }
-    case "NullValue": {
+    
+    case "NullValue":
       return "null";
-    }
-    case "Variable": {
+    
+    case "Variable":
       return ["$", print("name")];
-    }
-    case "ListValue": {
+    
+    case "ListValue":
       return group([
         "[",
         indent([
@@ -168,8 +168,8 @@ function genericPrint(path, options, print) {
         softline,
         "]",
       ]);
-    }
-    case "ObjectValue": {
+    
+    case "ObjectValue":
       return group([
         "{",
         options.bracketSpacing && node.fields.length > 0 ? " " : "",
@@ -184,13 +184,13 @@ function genericPrint(path, options, print) {
         ),
         "}",
       ]);
-    }
+    
     case "ObjectField":
-    case "Argument": {
+    case "Argument":
       return [print("name"), ": ", print("value")];
-    }
+    
 
-    case "Directive": {
+    case "Directive":
       return [
         "@",
         print("name"),
@@ -209,13 +209,13 @@ function genericPrint(path, options, print) {
             ])
           : "",
       ];
-    }
+    
 
-    case "NamedType": {
+    case "NamedType":
       return print("name");
-    }
+    
 
-    case "VariableDefinition": {
+    case "VariableDefinition":
       return [
         print("variable"),
         ": ",
@@ -223,7 +223,7 @@ function genericPrint(path, options, print) {
         node.defaultValue ? [" = ", print("defaultValue")] : "",
         printDirectives(path, print, node),
       ];
-    }
+    
 
     case "ObjectTypeExtension":
     case "ObjectTypeDefinition":
@@ -272,7 +272,7 @@ function genericPrint(path, options, print) {
       return parts;
     }
 
-    case "FieldDefinition": {
+    case "FieldDefinition":
       return [
         print("description"),
         node.description ? hardline : "",
@@ -295,9 +295,9 @@ function genericPrint(path, options, print) {
         print("type"),
         printDirectives(path, print, node),
       ];
-    }
+    
 
-    case "DirectiveDefinition": {
+    case "DirectiveDefinition":
       return [
         print("description"),
         node.description ? hardline : "",
@@ -322,10 +322,10 @@ function genericPrint(path, options, print) {
         " on ",
         join(" | ", path.map(print, "locations")),
       ];
-    }
+    
 
     case "EnumTypeExtension":
-    case "EnumTypeDefinition": {
+    case "EnumTypeDefinition":
       return [
         ...(node.description ? [print("description"), hardline] : []),
         node.kind === "EnumTypeExtension" ? "extend " : "",
@@ -344,18 +344,18 @@ function genericPrint(path, options, print) {
             ]
           : "",
       ];
-    }
+    
 
-    case "EnumValueDefinition": {
+    case "EnumValueDefinition":
       return [
         print("description"),
         node.description ? hardline : "",
         print("name"),
         printDirectives(path, print, node),
       ];
-    }
+    
 
-    case "InputValueDefinition": {
+    case "InputValueDefinition":
       return [
         print("description"),
         node.description ? (node.description.block ? hardline : line) : "",
@@ -365,9 +365,9 @@ function genericPrint(path, options, print) {
         node.defaultValue ? [" = ", print("defaultValue")] : "",
         printDirectives(path, print, node),
       ];
-    }
+    
 
-    case "SchemaExtension": {
+    case "SchemaExtension":
       return [
         "extend schema",
         printDirectives(path, print, node),
@@ -386,8 +386,8 @@ function genericPrint(path, options, print) {
             ]
           : []),
       ];
-    }
-    case "SchemaDefinition": {
+    
+    case "SchemaDefinition":
       return [
         print("description"),
         node.description ? hardline : "",
@@ -406,17 +406,17 @@ function genericPrint(path, options, print) {
         hardline,
         "}",
       ];
-    }
+    
 
-    case "OperationTypeDefinition": {
+    case "OperationTypeDefinition":
       return [node.operation, ": ", print("type")];
-    }
+    
 
-    case "FragmentSpread": {
+    case "FragmentSpread":
       return ["...", print("name"), printDirectives(path, print, node)];
-    }
+    
 
-    case "InlineFragment": {
+    case "InlineFragment":
       return [
         "...",
         node.typeCondition ? [" on ", print("typeCondition")] : "",
@@ -424,10 +424,10 @@ function genericPrint(path, options, print) {
         " ",
         print("selectionSet"),
       ];
-    }
+    
 
     case "UnionTypeExtension":
-    case "UnionTypeDefinition": {
+    case "UnionTypeDefinition":
       return group([
         ...(node.description ? [print("description"), hardline] : []),
         group([
@@ -447,10 +447,10 @@ function genericPrint(path, options, print) {
             : "",
         ]),
       ]);
-    }
+    
 
     case "ScalarTypeExtension":
-    case "ScalarTypeDefinition": {
+    case "ScalarTypeDefinition":
       return [
         ...(node.description ? [print("description"), hardline] : []),
         node.kind === "ScalarTypeExtension" ? "extend " : "",
@@ -458,15 +458,15 @@ function genericPrint(path, options, print) {
         print("name"),
         printDirectives(path, print, node),
       ];
-    }
+    
 
-    case "NonNullType": {
+    case "NonNullType":
       return [print("type"), "!"];
-    }
+    
 
-    case "ListType": {
+    case "ListType":
       return ["[", print("type"), "]"];
-    }
+    
 
     default:
       /* istanbul ignore next */

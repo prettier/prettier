@@ -40,9 +40,9 @@ function genericPrint(path, options, print) {
       }
       return [group(printChildren(path, options, print)), hardline];
     case "element":
-    case "ieConditionalComment": {
+    case "ieConditionalComment":
       return printElement(path, options, print);
-    }
+    
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
       return [printOpeningTagStart(node), printClosingTagEnd(node)];
@@ -84,7 +84,7 @@ function genericPrint(path, options, print) {
         ]),
         printClosingTagEnd(node, options),
       ];
-    case "comment": {
+    case "comment":
       return [
         printOpeningTagPrefix(node, options),
         replaceEndOfLine(
@@ -92,7 +92,7 @@ function genericPrint(path, options, print) {
         ),
         printClosingTagSuffix(node, options),
       ];
-    }
+    
     case "attribute": {
       if (node.value === null) {
         return node.rawName;
