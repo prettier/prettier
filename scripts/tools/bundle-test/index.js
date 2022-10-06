@@ -63,7 +63,7 @@ for (const file of files) {
   }
 
   const outputFileName = assets[0].name;
-  const outputFile = path.join(TEMPORARY_DIRECTORY, assets[0].name);
+  const outputFile = path.join(TEMPORARY_DIRECTORY, outputFileName);
   const require = createRequire(import.meta.url);
 
   try {
