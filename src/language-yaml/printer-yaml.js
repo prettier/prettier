@@ -320,7 +320,7 @@ function printNode(node, parentNode, path, options, print) {
     case "blockFolded":
     case "blockLiteral":
       return printBlock(path, print, options);
-    
+
     case "mapping":
     case "sequence":
       return join(hardline, path.map(print, "children"));
@@ -332,7 +332,7 @@ function printNode(node, parentNode, path, options, print) {
     case "mappingItem":
     case "flowMappingItem":
       return printMappingItem(node, parentNode, path, print, options);
-    
+
     case "flowMapping":
       return printFlowMapping(path, print, options);
     case "flowSequence":

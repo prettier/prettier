@@ -275,7 +275,7 @@ function printPathNoParens(path, options, print, args) {
     case "OptionalMemberExpression":
     case "MemberExpression":
       return printMemberExpression(path, options, print);
-    
+
     case "MetaProperty":
       return [print("meta"), ".", print("property")];
     case "BindExpression":
@@ -297,7 +297,7 @@ function printPathNoParens(path, options, print, args) {
         printDefiniteToken(path),
         printTypeAnnotation(path, options, print),
       ];
-    
+
     case "V8IntrinsicIdentifier":
       return ["%", node.name];
     case "SpreadElement":
@@ -342,7 +342,7 @@ function printPathNoParens(path, options, print, args) {
         }
       }
       return parts;
-    
+
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);

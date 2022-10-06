@@ -42,7 +42,7 @@ function genericPrint(path, options, print) {
     case "element":
     case "ieConditionalComment":
       return printElement(path, options, print);
-    
+
     case "ieConditionalStartComment":
     case "ieConditionalEndComment":
       return [printOpeningTagStart(node), printClosingTagEnd(node)];
@@ -92,7 +92,7 @@ function genericPrint(path, options, print) {
         ),
         printClosingTagSuffix(node, options),
       ];
-    
+
     case "attribute": {
       if (node.value === null) {
         return node.rawName;

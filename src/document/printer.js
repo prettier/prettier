@@ -327,7 +327,6 @@ function printDocToString(doc, options) {
           cmds.push({ ind, mode, doc: doc[i] });
         }
         break;
-      
 
       case DOC_TYPE_CURSOR:
         if (printedCursorCount >= 2) {

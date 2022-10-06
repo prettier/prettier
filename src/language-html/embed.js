@@ -285,7 +285,7 @@ function embed(path, options) {
         };
       }
       break;
-    
+
     case "text":
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent, options);
@@ -348,7 +348,7 @@ function embed(path, options) {
         };
       }
       break;
-    
+
     case "attribute":
       if (!node.value) {
         break;
@@ -406,7 +406,7 @@ function embed(path, options) {
           ];
         }
       };
-    
+
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
   }

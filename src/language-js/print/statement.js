@@ -111,7 +111,7 @@ function expressionNeedsASIProtection(path, options) {
         return true;
       }
       break;
-    
+
     case "UnaryExpression": {
       const { prefix, operator } = node;
       if (prefix && (operator === "+" || operator === "-")) {
@@ -124,18 +124,17 @@ function expressionNeedsASIProtection(path, options) {
         return true;
       }
       break;
-    
+
     case "Literal":
       if (node.regex) {
         return true;
       }
       break;
-    
+
     default:
       if (isJsxNode(node)) {
         return true;
       }
-    
   }
 
   if (pathNeedsParens(path, options)) {

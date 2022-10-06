@@ -46,7 +46,6 @@ function print(path, options, print) {
     case "Program":
     case "Template":
       return group(path.map(print, "body"));
-    
 
     case "ElementNode": {
       const startingTag = group(printStartingTag(path, print));
@@ -115,7 +114,6 @@ function print(path, options, print) {
 
     case "ElementModifierStatement":
       return group(["{{", printPathAndParams(path, print), "}}"]);
-    
 
     case "MustacheStatement":
       return group([
@@ -123,7 +121,6 @@ function print(path, options, print) {
         printPathAndParams(path, print),
         printClosingMustache(node),
       ]);
-    
 
     case "SubExpression":
       return group([
@@ -132,7 +129,7 @@ function print(path, options, print) {
         softline,
         ")",
       ]);
-    
+
     case "AttrNode": {
       const isText = node.value.type === "TextNode";
       const isEmptyText = isText && node.value.chars === "";
@@ -171,14 +168,13 @@ function print(path, options, print) {
 
     case "ConcatStatement":
       return path.map(print, "parts");
-    
 
     case "Hash":
       return join(line, path.map(print, "pairs"));
-    
+
     case "HashPair":
       return [node.key, "=", print("value")];
-    
+
     case "TextNode": {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
@@ -383,29 +379,28 @@ function print(path, options, print) {
     }
     case "PathExpression":
       return node.original;
-    
+
     case "BooleanLiteral":
       return String(node.value);
-    
+
     case "CommentStatement":
       return ["<!--", node.value, "-->"];
-    
+
     case "StringLiteral":
       if (needsOppositeQuote(path)) {
         const printFavoriteQuote = !options.singleQuote ? "'" : '"';
         return printStringLiteral(node.value, printFavoriteQuote);
       }
       return printStringLiteral(node.value, favoriteQuote);
-    
+
     case "NumberLiteral":
       return String(node.value);
-    
+
     case "UndefinedLiteral":
       return "undefined";
-    
+
     case "NullLiteral":
       return "null";
-    
 
     default:
       /* istanbul ignore next */

@@ -130,7 +130,7 @@ function genericPrint(path, options, print) {
             ]
           : ";",
       ];
-    
+
     case "css-decl": {
       const parentNode = path.getParentNode();
 
@@ -325,39 +325,39 @@ function genericPrint(path, options, print) {
         join(" ", path.map(print, "nodes")),
         isLastNode(path, node) ? "" : ",",
       ];
-    
+
     case "media-type":
       return adjustNumbers(adjustStrings(node.value, options));
-    
+
     case "media-feature-expression":
       if (!node.nodes) {
         return node.value;
       }
       return ["(", ...path.map(print, "nodes"), ")"];
-    
+
     case "media-feature":
       return maybeToLowerCase(
         adjustStrings(node.value.replace(/ +/g, " "), options)
       );
-    
+
     case "media-colon":
       return [node.value, " "];
-    
+
     case "media-value":
       return adjustNumbers(adjustStrings(node.value, options));
-    
+
     case "media-keyword":
       return adjustStrings(node.value, options);
-    
+
     case "media-url":
       return adjustStrings(
         node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/g, ")"),
         options
       );
-    
+
     case "media-unknown":
       return node.value;
-    
+
     // postcss-selector-parser
     case "selector-root":
       return group([
@@ -374,16 +374,16 @@ function genericPrint(path, options, print) {
           path.map(print, "nodes")
         ),
       ]);
-    
+
     case "selector-selector":
       return group(indent(path.map(print, "nodes")));
-    
+
     case "selector-comment":
       return node.value;
-    
+
     case "selector-string":
       return adjustStrings(node.value, options);
-    
+
     case "selector-tag": {
       const parentNode = path.getParentNode();
       const index = parentNode && parentNode.nodes.indexOf(node);
@@ -404,10 +404,10 @@ function genericPrint(path, options, print) {
     }
     case "selector-id":
       return ["#", node.value];
-    
+
     case "selector-class":
       return [".", adjustNumbers(adjustStrings(node.value, options))];
-    
+
     case "selector-attribute":
       return [
         "[",
@@ -425,7 +425,7 @@ function genericPrint(path, options, print) {
         node.insensitive ? " i" : "",
         "]",
       ];
-    
+
     case "selector-combinator": {
       if (
         node.value === "+" ||
@@ -456,7 +456,7 @@ function genericPrint(path, options, print) {
           : "",
         node.value,
       ];
-    
+
     case "selector-pseudo":
       return [
         maybeToLowerCase(node.value),
@@ -464,10 +464,10 @@ function genericPrint(path, options, print) {
           ? ["(", join(", ", path.map(print, "nodes")), ")"]
           : "",
       ];
-    
+
     case "selector-nesting":
       return node.value;
-    
+
     case "selector-unknown": {
       const ruleAncestorNode = getAncestorNode(path, "css-rule");
 
@@ -509,10 +509,10 @@ function genericPrint(path, options, print) {
     case "value-value":
     case "value-root":
       return print("group");
-    
+
     case "value-comment":
       return options.originalText.slice(locStart(node), locEnd(node));
-    
+
     case "value-comma_group": {
       const parentNode = path.getParentNode();
       const parentParentNode = path.getParentNode(1);
@@ -981,23 +981,23 @@ function genericPrint(path, options, print) {
           : "",
         print("group"),
       ];
-    
+
     case "value-paren":
       return node.value;
-    
+
     case "value-number":
       return [printCssNumber(node.value), printUnit(node.unit)];
-    
+
     case "value-operator":
       return node.value;
-    
+
     case "value-word":
       if ((node.isColor && node.isHex) || isWideKeywords(node.value)) {
         return node.value.toLowerCase();
       }
 
       return node.value;
-    
+
     case "value-colon": {
       const parentNode = path.getParentNode();
       const index = parentNode && parentNode.groups.indexOf(node);
@@ -1019,16 +1019,15 @@ function genericPrint(path, options, print) {
         node.raws.quote + node.value + node.raws.quote,
         options
       );
-    
+
     case "value-atword":
       return ["@", node.value];
-    
+
     case "value-unicode-range":
       return node.value;
-    
+
     case "value-unknown":
       return node.value;
-    
 
     case "value-comma": // Handled in `value-comma_group`
     default:

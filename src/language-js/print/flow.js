@@ -173,7 +173,7 @@ function printFlow(path, options, print) {
         );
       }
       return parts;
-    
+
     case "EnumBooleanMember":
     case "EnumNumberMember":
     case "EnumStringMember":
@@ -230,7 +230,7 @@ function printFlow(path, options, print) {
         "]: ",
         print("value"),
       ];
-    
+
     case "ObjectTypeProperty": {
       let modifier = "";
 
@@ -285,7 +285,6 @@ function printFlow(path, options, print) {
         printTypeAnnotation(path, options, print),
         ")",
       ];
-    
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {

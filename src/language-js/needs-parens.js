@@ -101,7 +101,7 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    
+
     case "ExportDefaultDeclaration":
       return (
         // `export default function` or `export default class` can't be followed by
@@ -111,7 +111,7 @@ function needsParens(path, options) {
         // `export default (foo, bar)` also needs parentheses
         node.type === "SequenceExpression"
       );
-    
+
     case "Decorator":
       if (key === "expression") {
         let hasCallExpression = false;
@@ -146,7 +146,7 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    
+
     case "ExpressionStatement":
       if (
         startsWithNoLookaheadToken(
@@ -157,7 +157,7 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    
+
     case "ArrowFunctionExpression":
       if (
         key === "body" &&
@@ -170,7 +170,6 @@ function needsParens(path, options) {
         return true;
       }
       break;
-    
   }
 
   switch (node.type) {
@@ -235,7 +234,7 @@ function needsParens(path, options) {
           return true;
         }
       }
-    
+
     // fallthrough
     case "TSTypeAssertion":
     case "TSAsExpression":
@@ -394,7 +393,6 @@ function needsParens(path, options) {
           }
 
           return true;
-        
 
         default:
           return false;
