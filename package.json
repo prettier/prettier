@@ -9,9 +9,16 @@
   "author": "James Long",
   "type": "module",
   "license": "MIT",
-  "main": "./index.js",
+  "main": "./index.cjs",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
+  "exports": {
+    ".": {
+      "require": "./src/index.cjs",
+      "default": "./src/index.js"
+    },
+    "./*": "./"
+  },
   "engines": {
     "node": ">=16"
   },

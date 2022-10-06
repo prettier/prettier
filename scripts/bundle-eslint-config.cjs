@@ -27,52 +27,74 @@ module.exports = {
     {
       files: [
         "doc.js",
-        "parser-*.js",
+        "doc.mjs",
         "standalone.js",
-        "parser-*.mjs",
         "standalone.mjs",
+        "plugins/*",
       ],
       env: {
         browser: true,
       },
       rules: {
         "compat/compat": "error",
+        "no-restricted-syntax": [
+          "error",
+          // Forbid `require()`
+          {
+            selector: 'CallExpression[callee.name="require"]',
+            message:
+              "Universal bundles should not include any `require()` call.",
+          },
+          {
+            selector: "ImportDeclaration",
+            message:
+              "Universal bundles should not include any `import` declaration.",
+          },
+          {
+            selector:
+              ":matches(ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source]",
+            message: "Universal bundles should not `export` from other files.",
+          },
+          {
+            selector: "ImportExpression",
+            message: "Universal bundles should not include any `import()`.",
+          },
+        ],
       },
     },
     {
-      files: ["index.js", "bin-prettier.js", "cli.js", "third-party.js"],
+      files: ["index.cjs", "index.mjs", "bin/*", "internal/*"],
       rules: {
         "no-restricted-syntax": [
           "error",
           // Forbid top level `require()` parsers
           {
             selector:
-              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/parser-/]',
+              'CallExpression:not(:function *)[callee.name="require"][arguments.0.value=/plugins/]',
             message: "Parsers should be inline `require()`d.",
+          },
+          // Forbid top level `import()` parsers
+          {
+            selector:
+              "ImportExpression:not(:function *)[source.value=/plugins/]",
+            message: "Parsers should be inline `import()`ed.",
+          },
+          // Forbid `import`/`export` parsers
+          {
+            selector:
+              ":matches(ImportDeclaration, ExportAllDeclaration, ExportDefaultDeclaration, ExportNamedDeclaration)[source.value=/plugins/]",
+            message: "Parsers should be inline `import()`ed.",
           },
         ],
       },
     },
-    // {
-    //   files: ["bin-prettier.js"],
-    //   parserOptions: {
-    //     ecmaVersion: 5,
-    //   },
-    //   rules: {
-    //     "compat/compat": "error",
-    //   },
-    // },
     {
-      files: ["doc.js", "parser-*.js", "standalone.js"],
+      files: ["bin/prettier.cjs"],
+      parserOptions: {
+        ecmaVersion: 5,
+      },
       rules: {
-        "no-restricted-syntax": [
-          "error",
-          // Forbid `require()`
-          {
-            selector: 'CallExpression[callee.name="require"]',
-            message: "UMD bundles should not include any `require()` call.",
-          },
-        ],
+        "compat/compat": "error",
       },
     },
   ],

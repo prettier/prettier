@@ -114,9 +114,7 @@ const pluginFiles = [
   },
   {
     input: "src/language-js/parse/acorn-and-espree.js",
-    // TODO: Rename this file to `parser-acorn-and-espree.js` or find a better way
-    outputBaseName: "espree",
-    umdPropertyName: "espree",
+    umdPropertyName: "acornAndEspree",
     replaceModule: [
       {
         module: require.resolve("espree"),
@@ -198,13 +196,14 @@ const pluginFiles = [
   outputBaseName ??= input.match(
     /(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/
   ).groups.outputBaseName;
+
   const umdVariableName = `prettierPlugins.${
     umdPropertyName ?? outputBaseName
   }`;
 
   return {
     input,
-    outputBaseName,
+    outputBaseName: `plugins/${outputBaseName}`,
     umdVariableName,
     buildOptions,
     isPlugin: true,
@@ -257,14 +256,11 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
       file;
 
     outputBaseName ??= path.basename(input);
-    if (file.isPlugin) {
-      outputBaseName = `parser-${outputBaseName}`;
-    }
 
     return [
       {
         format: "esm",
-        file: `esm/${outputBaseName}${extensions.esm}`,
+        file: `${outputBaseName}${extensions.esm}`,
       },
       {
         format: "umd",
@@ -315,23 +311,25 @@ const nodejsFiles = [
   },
   {
     input: "bin/prettier.cjs",
-    outputBaseName: "bin-prettier",
+    outputBaseName: "bin/prettier",
     target: ["node0.10"],
     replaceModule: [
       {
         module: path.join(PROJECT_ROOT, "bin/prettier.cjs"),
-        process: (text) => text.replace('"../src/cli/index.js"', '"./cli.mjs"'),
+        process: (text) =>
+          text.replace('"../src/cli/index.js"', '"../internal/cli.mjs"'),
       },
     ],
   },
   {
     input: "src/cli/index.js",
-    outputBaseName: "cli",
+    outputBaseName: "internal/cli",
     external: ["benchmark"],
     replaceModule: [replaceDiffPackageEntry("lib/patch/create.js")],
   },
   {
     input: "src/common/third-party.js",
+    outputBaseName: "internal/third-party",
     replaceModule: [
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       {
@@ -344,7 +342,7 @@ const nodejsFiles = [
   let { input, output, outputBaseName, ...buildOptions } = file;
 
   const format = input.endsWith(".cjs") ? "cjs" : "esm";
-  outputBaseName ??= path.basename(input).split(".").slice(0, -1).join(".");
+  outputBaseName ??= path.basename(input, path.extname(input));
 
   return {
     input,

@@ -4,7 +4,7 @@ const fastGlob = require("fast-glob");
 const createSandBox = require("./utils/create-sandbox.cjs");
 
 const sandbox = createSandBox({
-  files: fastGlob.sync(["standalone.js", "parser-*.js"], {
+  files: fastGlob.sync(["standalone.js", "plugins/*.js"], {
     cwd: process.env.PRETTIER_DIR,
     absolute: true,
   }),

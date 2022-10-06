@@ -19,6 +19,14 @@ const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
 const packageJson = readJsonSync("../../package.json");
 
 const universalTarget = browserslistToEsbuild(packageJson.browserslist);
+const getRelativePath = (from, to) => {
+  const relativePath = path.posix.relative(path.dirname(`/${from}`), `/${to}`);
+  if (!relativePath.startsWith(".")) {
+    return `./${relativePath}`;
+  }
+
+  return relativePath;
+};
 
 function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
   // Save dependencies to file
@@ -127,7 +135,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
           return {
             module: path.join(PROJECT_ROOT, bundle.input),
-            external: `./${output}`,
+            external: getRelativePath(file.output.file, output),
           };
         })
     );

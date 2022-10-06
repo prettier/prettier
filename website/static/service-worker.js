@@ -5,13 +5,15 @@
 importScripts("lib/parsers-location.js");
 importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
 
-const parsers = Object.keys(parsersLocation).map((file) => `lib/${file}`);
+const plugins = [
+  ...new Set(Object.values(parsersLocation).map((file) => `lib/${file}`)),
+];
 
 toolbox.precache([
   // Scripts
   "lib/standalone.js",
   "lib/parsers-location.js",
-  ...parsers,
+  ...plugins,
   "playground.js",
   "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",
 
