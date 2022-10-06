@@ -13,7 +13,9 @@ async function createIgnorer(ignoreFilePath, withNodeModules) {
     content = await readFile(path.resolve(ignoreFilePath));
   }
 
-  const ignorer = ignore({ allowRelativePaths: true }).add(content ?? "");
+  const ignorer = ignore
+    .default({ allowRelativePaths: true })
+    .add(content ?? "");
   if (!withNodeModules) {
     ignorer.add("node_modules");
   }

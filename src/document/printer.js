@@ -387,6 +387,7 @@ function printDocToString(doc, options) {
               // representation first to the most expanded. If a
               // group has these, we need to manually go through
               // these states and find the first one that fits.
+              // eslint-disable-next-line no-lonely-if
               if (doc.expandedStates) {
                 const mostExpanded = doc.expandedStates.at(-1);
 

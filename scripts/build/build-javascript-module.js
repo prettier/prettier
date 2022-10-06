@@ -69,6 +69,25 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         return text.slice(0, index);
       },
     },
+    /*
+    `jest-docblock` try to detect new line in code, and it will fallback to `os.EOL`,
+    We already replaced line end to `\n` before calling it
+    */
+    {
+      module: require.resolve("jest-docblock"),
+      process: (text) =>
+        text
+          .replace(
+            "const line = (0, _detectNewline().default)(docblock) || _os().EOL;",
+            'const line = "\\n"'
+          )
+          .replace(
+            "const line = (0, _detectNewline().default)(comments) || _os().EOL;",
+            'const line = "\\n"'
+          )
+          .replace(/\nfunction _os().*?\n}/s, "")
+          .replace(/\nfunction _detectNewline().*?\n}/s, ""),
+    },
   ];
 
   const define = {
@@ -127,6 +146,15 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         module: "*",
         find: 'import { createRequire } from "node:module";',
         replacement: "",
+      },
+      // Prevent `esbuildPluginNodeModulePolyfills` shim `assert`, which will include a big `buffer` shim
+      // TODO[@fisker]: Find a better way
+      {
+        module: "*",
+        find: ' from "node:assert";',
+        replacement: ` from ${JSON.stringify(
+          path.join(dirname, "./shims/assert.js")
+        )};`,
       },
       // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
       {

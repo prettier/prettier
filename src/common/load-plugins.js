@@ -23,14 +23,12 @@ const clearCache = () => {
 };
 
 async function load(plugins, pluginSearchDirs) {
-  if (!plugins) {
-    plugins = [];
-  }
+  plugins ??= [];
 
   if (pluginSearchDirs === false) {
     pluginSearchDirs = [];
   } else {
-    pluginSearchDirs = pluginSearchDirs || [];
+    pluginSearchDirs ??= [];
 
     // unless pluginSearchDirs are provided, auto-load plugins from node_modules that are parent to Prettier
     if (pluginSearchDirs.length === 0) {

@@ -29,6 +29,22 @@ module.exports = {
     );
   },
 
+  getSupportInfo(options = {}) {
+    return vm.runInNewContext(
+      `
+        const options = {
+          ...$$$options,
+          plugins: [
+            ...Object.values(prettierPlugins),
+            ...($$$options.plugins || []),
+          ],
+        };
+        prettier.getSupportInfo(options);
+      `,
+      { $$$options: options, ...sandbox }
+    );
+  },
+
   __debug: {
     parse(input, options, massage) {
       return vm.runInNewContext(

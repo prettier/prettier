@@ -10,10 +10,10 @@ import { parseIeConditionalComment } from "./conditional-comment.js";
 import { locStart, locEnd } from "./loc.js";
 
 /**
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Node} AstNode
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Attribute} Attribute
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast').Element} Element
- * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser').ParseTreeResult} ParserTreeResult
+ * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Node} AstNode
+ * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Attribute} Attribute
+ * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/ast.js').Element} Element
+ * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser.js').ParseTreeResult} ParserTreeResult
  * @typedef {Omit<import('angular-html-parser').ParseOptions, 'canSelfClose'> & {
  *   name?: 'html' | 'angular' | 'vue' | 'lwc';
  *   recognizeSelfClosing?: boolean;
@@ -93,8 +93,7 @@ async function ngHtmlParser(
             allowHtmComponentClosingTags,
             isTagNameCaseSensitive,
           });
-        const getSecondParse = () =>
-          secondParseResult || (secondParseResult = doSecondParse());
+        const getSecondParse = () => (secondParseResult ??= doSecondParse());
         const getSameLocationNode = (node) =>
           getSecondParse().rootNodes.find(
             ({ startSourceSpan }) =>
@@ -420,7 +419,7 @@ const parser = {
       name: "vue",
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
-      getTagContentType: (tagName, prefix, hasParent, attrs) => {
+      getTagContentType(tagName, prefix, hasParent, attrs) {
         if (
           tagName.toLowerCase() !== "html" &&
           !hasParent &&

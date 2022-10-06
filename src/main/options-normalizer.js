@@ -1,7 +1,7 @@
 import vnopts from "vnopts";
 
 /**
- * @typedef {import("./support").NamedOptionInfo} NamedOptionInfo
+ * @typedef {import("./support.js").NamedOptionInfo} NamedOptionInfo
  */
 
 const cliDescriptor = {

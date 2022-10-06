@@ -29,6 +29,101 @@ LF: Line Feed, \\n
 ================================================================================
 `;
 
+exports[`multiline-comments.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# title
+
+{/* prettier-ignore-start */}
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+{/* prettier-ignore-end */}
+
+{/* prettier-ignore-start */}
+
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+{/* prettier-ignore-end */}
+
+{/* prettier-ignore-start */}
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+
+{/* prettier-ignore-end */}
+
+{/* prettier-ignore-start */}
+
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+
+{/* prettier-ignore-end */}
+
+<!-- prettier-ignore-start -->
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+<!-- prettier-ignore-end -->
+
+=====================================output=====================================
+# title
+
+{/* prettier-ignore-start */}
+export const Test = () => {
+return <p>test</p>;
+};
+
+   <Test />
+{/* prettier-ignore-end */}
+
+{/* prettier-ignore-start */}
+
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+{/* prettier-ignore-end */}
+
+{/* prettier-ignore-start */}
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+
+{/* prettier-ignore-end */}
+
+{/* prettier-ignore-start */}
+
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+
+{/* prettier-ignore-end */}
+
+<!-- prettier-ignore-start -->
+
+export const Test = () => {
+   return <p>test</p>;
+ };
+   <Test />
+<!-- prettier-ignore-end -->
+
+================================================================================
+`;
+
 exports[`pull-11563.mdx - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"

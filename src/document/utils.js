@@ -67,8 +67,8 @@ function mapDoc(doc, cb) {
 
       case DOC_TYPE_IF_BREAK: {
         let { breakContents, flatContents } = doc;
-        breakContents = breakContents && rec(breakContents);
-        flatContents = flatContents && rec(flatContents);
+        breakContents &&= rec(breakContents);
+        flatContents &&= rec(flatContents);
         return cb({ ...doc, breakContents, flatContents });
       }
 

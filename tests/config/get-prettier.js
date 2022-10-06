@@ -18,9 +18,7 @@ function getPrettierInternal() {
 
 let promise;
 function getPrettier() {
-  if (!promise) {
-    promise = getPrettierInternal();
-  }
+  promise = promise ?? getPrettierInternal();
 
   return promise;
 }

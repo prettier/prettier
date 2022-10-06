@@ -14,7 +14,7 @@ import {
 import isBlockComment from "../utils/is-block-comment.js";
 
 /**
- * @typedef {import("../types/estree").Node} Node
+ * @typedef {import("../types/estree.js").Node} Node
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 

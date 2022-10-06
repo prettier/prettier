@@ -26,7 +26,9 @@ module.exports = {
     curly: "error",
     "dot-notation": "error",
     eqeqeq: "error",
+    "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
+    "no-constant-binary-expression": "error",
     "no-else-return": [
       "error",
       {
@@ -35,6 +37,7 @@ module.exports = {
     ],
     "no-implicit-coercion": "error",
     "no-inner-declarations": "error",
+    "no-lonely-if": "error",
     "no-restricted-syntax": [
       "error",
       // `!foo === bar` and `!foo !== bar`
@@ -57,7 +60,13 @@ module.exports = {
       },
     ],
     "no-var": "error",
-    "object-shorthand": "error",
+    "object-shorthand": [
+      "error",
+      "always",
+      {
+        avoidExplicitReturnArrows: true,
+      },
+    ],
     "one-var": ["error", "never"],
     "prefer-arrow-callback": "error",
     "prefer-const": [
@@ -124,7 +133,20 @@ module.exports = {
       },
     ],
     "import/order": "error",
-    "import/no-anonymous-default-export": "error",
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        allowArray: true,
+        allowArrowFunction: true,
+        allowAnonymousClass: false,
+        allowAnonymousFunction: false,
+        allowCallExpression: true,
+        // Unreleased
+        // allowNew: true,
+        allowLiteral: true,
+        allowObject: true,
+      },
+    ],
 
     // eslint-plugin-n
     "n/no-path-concat": "error",
@@ -152,6 +174,7 @@ module.exports = {
     "unicorn/new-for-builtins": "error",
     "unicorn/no-array-for-each": "error",
     "unicorn/no-array-push-push": "error",
+    "unicorn/no-lonely-if": "error",
     "unicorn/no-new-array": "error",
     "unicorn/no-unreadable-iife": "error",
     "unicorn/no-useless-length-check": "error",
@@ -186,6 +209,7 @@ module.exports = {
     "unicorn/prefer-number-properties": "error",
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
+    "unicorn/prefer-set-has": "error",
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-slice": "error",
     "unicorn/prefer-string-starts-ends-with": "error",
@@ -260,6 +284,8 @@ module.exports = {
     {
       files: ["tests/**/*.js"],
       rules: {
+        // TODO: Enable this when we drop support for Node.js v14
+        "logical-assignment-operators": "off",
         "unicorn/prefer-array-flat": "off",
         "unicorn/prefer-array-flat-map": "off",
       },

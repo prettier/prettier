@@ -40,9 +40,9 @@ function printMemberExpression(path, options, print) {
         (node.object.type === "TSNonNullExpression" &&
           isCallExpression(node.object.expression) &&
           node.object.expression.arguments.length > 0) ||
-        objectDoc.label === "member-chain"));
+        objectDoc.label?.memberChain));
 
-  return label(objectDoc.label === "member-chain" ? "member-chain" : "member", [
+  return label(objectDoc.label, [
     objectDoc,
     shouldInline ? lookupDoc : group(indent([softline, lookupDoc])),
   ]);

@@ -160,13 +160,13 @@ function addTypePrefix(node, prefix, skipPrefix) {
     delete node.parent;
     for (const key in node) {
       addTypePrefix(node[key], prefix, skipPrefix);
-      if (key === "type" && typeof node[key] === "string") {
-        if (
-          !node[key].startsWith(prefix) &&
-          (!skipPrefix || !skipPrefix.test(node[key]))
-        ) {
-          node[key] = prefix + node[key];
-        }
+      if (
+        key === "type" &&
+        typeof node[key] === "string" &&
+        !node[key].startsWith(prefix) &&
+        (!skipPrefix || !skipPrefix.test(node[key]))
+      ) {
+        node[key] = prefix + node[key];
       }
     }
   }
@@ -302,9 +302,7 @@ async function parseNestedCSS(node, options) {
     }
 
     /* istanbul ignore next */
-    if (!node.raws) {
-      node.raws = {};
-    }
+    node.raws ??= {};
 
     // Custom properties looks like declarations
     if (
@@ -476,9 +474,7 @@ async function parseNestedCSS(node, options) {
       value.startsWith("extend(")
     ) {
       // extend is missing
-      if (!node.extend) {
-        node.extend = node.raws.between === ":";
-      }
+      node.extend ||= node.raws.between === ":";
 
       // `:extend()` is parsed as value
       if (node.extend && !node.selector) {

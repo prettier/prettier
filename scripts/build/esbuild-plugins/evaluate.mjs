@@ -7,7 +7,7 @@ export default function esbuildPluginEvaluate() {
     name: "evaluate",
 
     setup(build) {
-      build.onLoad({ filter: /\.evaluate\.js$/ }, async ({ path }) => {
+      build.onLoad({ filter: /\.evaluate\.c?js$/ }, async ({ path }) => {
         let data = await importModule(path);
 
         if (Object.hasOwn(data, "default")) {

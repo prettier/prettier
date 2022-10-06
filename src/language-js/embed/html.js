@@ -1,4 +1,10 @@
-import { indent, line, hardline, group } from "../../document/builders.js";
+import {
+  indent,
+  line,
+  hardline,
+  group,
+  label,
+} from "../../document/builders.js";
 import { mapDoc } from "../../document/utils.js";
 import {
   printTemplateExpressions,
@@ -77,13 +83,16 @@ async function embedHtmlLike(parser, textToDoc, print, path, options) {
     return group(["`", indent([linebreak, group(contentDoc)]), linebreak, "`"]);
   }
 
-  return group([
-    "`",
-    leadingWhitespace,
-    topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
-    trailingWhitespace,
-    "`",
-  ]);
+  return label(
+    { hug: false },
+    group([
+      "`",
+      leadingWhitespace,
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+      trailingWhitespace,
+      "`",
+    ])
+  );
 }
 
 export const embedHtml = embedHtmlLike.bind(undefined, "html");

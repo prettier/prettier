@@ -281,7 +281,7 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor: (childPath, index) => {
+        processor(childPath, index) {
           const prefix = getPrefix();
           const childNode = childPath.node;
 
@@ -453,7 +453,7 @@ function printListItem(path, options, print, listPrefix) {
   return [
     prefix,
     printChildren(path, options, print, {
-      processor: (childPath, index) => {
+      processor(childPath, index) {
         if (index === 0 && childPath.node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
@@ -652,18 +652,18 @@ function printRoot(path, options, print) {
   }
 
   return printChildren(path, options, print, {
-    processor: (childPath, index) => {
+    processor(childPath, index) {
       if (ignoreRanges.length > 0) {
         const ignoreRange = ignoreRanges[0];
 
         if (index === ignoreRange.start.index) {
           return [
-            children[ignoreRange.start.index].value,
+            printIgnoreComment(children[ignoreRange.start.index]),
             options.originalText.slice(
               ignoreRange.start.offset,
               ignoreRange.end.offset
             ),
-            children[ignoreRange.end.index].value,
+            printIgnoreComment(children[ignoreRange.end.index]),
           ];
         }
 
@@ -733,6 +733,21 @@ function printChildren(path, options, print, events = {}) {
   }, "children");
 
   return postprocessor ? postprocessor(parts) : parts;
+}
+
+function printIgnoreComment(node) {
+  if (node.type === "html") {
+    return node.value;
+  }
+
+  if (
+    node.type === "paragraph" &&
+    Array.isArray(node.children) &&
+    node.children.length === 1 &&
+    node.children[0].type === "esComment"
+  ) {
+    return ["{/* ", node.children[0].value, " */}"];
+  }
 }
 
 function getLastDescendantNode(node) {

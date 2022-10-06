@@ -59,4 +59,4 @@ export {
 };
 export * as util from "./common/util-shared.js";
 export * as doc from "./document/index.js";
-export { default as version } from "./main/version.evaluate.js";
+export { default as version } from "./main/version.evaluate.cjs";

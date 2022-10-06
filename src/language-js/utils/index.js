@@ -14,18 +14,18 @@ import isNodeMatches from "./is-node-matches.js";
 const isIdentifierName = esutils.keyword.isIdentifierNameES5;
 
 /**
- * @typedef {import("../types/estree").Node} Node
- * @typedef {import("../types/estree").TemplateLiteral} TemplateLiteral
- * @typedef {import("../types/estree").Comment} Comment
- * @typedef {import("../types/estree").MemberExpression} MemberExpression
- * @typedef {import("../types/estree").OptionalMemberExpression} OptionalMemberExpression
- * @typedef {import("../types/estree").CallExpression} CallExpression
- * @typedef {import("../types/estree").OptionalCallExpression} OptionalCallExpression
- * @typedef {import("../types/estree").Expression} Expression
- * @typedef {import("../types/estree").Property} Property
- * @typedef {import("../types/estree").ObjectTypeProperty} ObjectTypeProperty
- * @typedef {import("../types/estree").TaggedTemplateExpression} TaggedTemplateExpression
- * @typedef {import("../types/estree").Literal} Literal
+ * @typedef {import("../types/estree.js").Node} Node
+ * @typedef {import("../types/estree.js").TemplateLiteral} TemplateLiteral
+ * @typedef {import("../types/estree.js").Comment} Comment
+ * @typedef {import("../types/estree.js").MemberExpression} MemberExpression
+ * @typedef {import("../types/estree.js").OptionalMemberExpression} OptionalMemberExpression
+ * @typedef {import("../types/estree.js").CallExpression} CallExpression
+ * @typedef {import("../types/estree.js").OptionalCallExpression} OptionalCallExpression
+ * @typedef {import("../types/estree.js").Expression} Expression
+ * @typedef {import("../types/estree.js").Property} Property
+ * @typedef {import("../types/estree.js").ObjectTypeProperty} ObjectTypeProperty
+ * @typedef {import("../types/estree.js").TaggedTemplateExpression} TaggedTemplateExpression
+ * @typedef {import("../types/estree.js").Literal} Literal
  *
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
@@ -511,24 +511,23 @@ function isTestCall(node, parent) {
     if (isUnitTestSetUp(node)) {
       return isAngularTestWrapper(node.arguments[0]);
     }
-  } else if (node.arguments.length === 2 || node.arguments.length === 3) {
-    if (
-      (node.arguments[0].type === "TemplateLiteral" ||
-        isStringLiteral(node.arguments[0])) &&
-      isTestCallCallee(node.callee)
-    ) {
-      // it("name", () => { ... }, 2500)
-      if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
-        return false;
-      }
-      return (
-        (node.arguments.length === 2
-          ? isFunctionOrArrowExpression(node.arguments[1])
-          : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
-            getFunctionParameters(node.arguments[1]).length <= 1) ||
-        isAngularTestWrapper(node.arguments[1])
-      );
+  } else if (
+    (node.arguments.length === 2 || node.arguments.length === 3) &&
+    (node.arguments[0].type === "TemplateLiteral" ||
+      isStringLiteral(node.arguments[0])) &&
+    isTestCallCallee(node.callee)
+  ) {
+    // it("name", () => { ... }, 2500)
+    if (node.arguments[2] && !isNumericLiteral(node.arguments[2])) {
+      return false;
     }
+    return (
+      (node.arguments.length === 2
+        ? isFunctionOrArrowExpression(node.arguments[1])
+        : isFunctionOrArrowExpressionWithBody(node.arguments[1]) &&
+          getFunctionParameters(node.arguments[1]).length <= 1) ||
+      isAngularTestWrapper(node.arguments[1])
+    );
   }
   return false;
 }

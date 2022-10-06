@@ -8,9 +8,14 @@ import { SOURCE_DIR } from "../../utils/index.mjs";
 const generate = babelGenerator.default;
 const atHelperPath = fileURLToPath(new URL("../shims/at.js", import.meta.url));
 
-/* Doesn't work for dependencies, optional chaining, and spread arguments */
+/* Doesn't work for dependencies, optional call, computed property, and spread arguments */
 
-// `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
+/**
+ * `Object.hasOwn(foo, "bar")` -> `Object.prototype.hasOwnProperty.call(foo, "bar")`
+ *
+ * @param {import("@babel/types").Node} node
+ * @returns {boolean}
+ */
 function transformObjectHasOwnCall(node) {
   if (
     !(
@@ -47,16 +52,23 @@ function transformObjectHasOwnCall(node) {
   return true;
 }
 
-// `foo.at(index)` -> `__at(foo, index)`
+/**
+ * `foo.at(index)` -> `__at(false, foo, index)`
+ * `foo?.at(index)` -> `__at(true, foo, index)`
+ *
+ * @param {import("@babel/types").Node} node
+ * @returns {boolean}
+ */
 function transformRelativeIndexingCall(node) {
   if (
     !(
-      node.type === "CallExpression" &&
+      (node.type === "CallExpression" ||
+        node.type === "OptionalCallExpression") &&
       !node.optional &&
       node.arguments.length === 1 &&
       node.arguments.every(({ type }) => type !== "SpreadElement") &&
-      node.callee.type === "MemberExpression" &&
-      !node.callee.optional &&
+      (node.callee.type === "MemberExpression" ||
+        node.callee.type === "OptionalMemberExpression") &&
       !node.callee.computed &&
       node.callee.object.type !== "ThisExpression" &&
       node.callee.property.type === "Identifier" &&
@@ -66,7 +78,13 @@ function transformRelativeIndexingCall(node) {
     return false;
   }
 
-  node.arguments.unshift(node.callee.object);
+  node.arguments.unshift(
+    {
+      type: "BooleanLiteral",
+      value: node.callee.type === "OptionalMemberExpression",
+    },
+    node.callee.object
+  );
   node.callee = { type: "Identifier", name: "__at" };
 
   return true;

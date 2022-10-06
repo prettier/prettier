@@ -56,20 +56,19 @@ function printCallArguments(path, options, print) {
   let anyArgEmptyLine = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = [];
-  iterateCallArgumentsPath(path, (argPath, index) => {
-    const arg = argPath.node;
-    const parts = [print()];
+  iterateCallArgumentsPath(path, ({ node: arg }, index) => {
+    let argDoc = print();
 
     if (index === lastArgIndex) {
       // do nothing
     } else if (isNextLineEmpty(arg, options)) {
       anyArgEmptyLine = true;
-      parts.push(",", hardline, hardline);
+      argDoc = [argDoc, ",", hardline, hardline];
     } else {
-      parts.push(",", line);
+      argDoc = [argDoc, ",", line];
     }
 
-    printedArguments.push(parts);
+    printedArguments.push(argDoc);
   });
 
   // Dynamic imports cannot have trailing commas
@@ -128,7 +127,7 @@ function printCallArguments(path, options, print) {
     ]);
   }
 
-  if (shouldExpandLastArg(args, options)) {
+  if (shouldExpandLastArg(args, printedArguments, options)) {
     const headArgs = printedArguments.slice(0, -1);
     if (headArgs.some(willBreak)) {
       return allArgsBrokenOut();
@@ -221,8 +220,16 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
   );
 }
 
-function shouldExpandLastArg(args, options) {
+function shouldExpandLastArg(args, argDocs, options) {
   const lastArg = args.at(-1);
+
+  if (args.length === 1) {
+    const lastArgDoc = argDocs.at(-1);
+    if (lastArgDoc.label?.embed && lastArgDoc.label?.hug !== false) {
+      return true;
+    }
+  }
+
   const penultimateArg = args.at(-2);
   return (
     !hasComment(lastArg, CommentCheckFlags.Leading) &&

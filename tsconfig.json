@@ -4,10 +4,8 @@
     "checkJs": true,
     "noEmit": true,
     "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
     // TBD it is desired to enabled strict type checking at some point:
     "strict": false,
     "typeRoots": ["./types", "./node_modules/@types"]
@@ -19,7 +17,6 @@
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",
-    "src/common/create-ignorer.js",
     "src/config/resolve-config.js",
     "src/main/options-normalizer.js",
     "src/common/get-file-info.js",
@@ -44,6 +41,7 @@
     "src/index.js",
     "src/standalone.js",
     "index.js",
+    "src/index.cjs",
     "standalone.js",
     "bin/",
     "dist/",
