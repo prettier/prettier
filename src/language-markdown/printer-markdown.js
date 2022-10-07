@@ -586,23 +586,17 @@ function isInSentenceWithCJSpaces(path) {
   };
   for (let i = 0; i < sentenceNode.children.length; ++i) {
     const node = sentenceNode.children[i];
-    if (node.type === "whitespace") {
-      switch (node.value) {
-        case " ":
-        case "": {
-          const previous = sentenceNode.children[i - 1];
-          const next = sentenceNode.children[i + 1];
-          if (
-            !(
-              (previous?.kind === "cj-letter" && next?.kind === "non-cjk") ||
-              (previous?.kind === "non-cjk" && next?.kind === "cj-letter")
-            )
-          ) {
-            continue;
-          }
-          ++cjNonCJKSpacingStatistics[node.value];
-          continue;
-        }
+    if (
+      node.type === "whitespace" &&
+      (node.value === " " || node.value === "")
+    ) {
+      const previousKind = sentenceNode.children[i - 1]?.kind;
+      const nextKind = sentenceNode.children[i + 1]?.kind;
+      if (
+        (previousKind === "cj-letter" && nextKind === "non-cjk") ||
+        (previousKind === "non-cjk" && nextKind === "cj-letter")
+      ) {
+        ++cjNonCJKSpacingStatistics[node.value];
       }
     }
   }
@@ -709,7 +703,11 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
  * @returns {boolean} `true` if `kind` is CJK (including punctuation marks)
  */
 function isCJK(kind) {
-  return kind !== undefined && kind !== KIND_NON_CJK;
+  return (
+    kind === KIND_CJ_LETTER ||
+    kind === KIND_K_LETTER ||
+    kind === KIND_CJK_PUNCTUATION
+  );
 }
 
 /**
@@ -717,7 +715,9 @@ function isCJK(kind) {
  * @returns {boolean} `true` if `kind` is letter (not CJK punctuation)
  */
 function isLetter(kind) {
-  return kind !== undefined && kind !== KIND_CJK_PUNCTUATION;
+  return (
+    kind === KIND_NON_CJK || kind === KIND_CJ_LETTER || kind === KIND_K_LETTER
+  );
 }
 
 /**
