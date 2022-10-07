@@ -647,8 +647,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   if (!adjacentNodes.previous || !adjacentNodes.next) {
     return true;
   }
-  const previousKind = adjacentNodes.previous?.kind;
-  const nextKind = adjacentNodes.next?.kind;
+  const previousKind = adjacentNodes.previous.kind;
+  const nextKind = adjacentNodes.next.kind;
   // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can converted to Space
   // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   if (
@@ -675,8 +675,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
-  const previousLastChar = adjacentNodes.previous?.value?.at(-1);
-  const nextFirstChar = adjacentNodes.next?.value?.at(0);
+  const previousLastChar = adjacentNodes.previous.value?.at(-1);
+  const nextFirstChar = adjacentNodes.next.value?.at(0);
   // The following rules do not precede the above rules (`return false`).
   //
   // Cases:
