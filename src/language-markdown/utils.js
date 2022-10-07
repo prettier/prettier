@@ -42,11 +42,11 @@ const KIND_K_LETTER = "k-letter";
 const KIND_CJK_PUNCTUATION = "cjk-punctuation";
 
 /**
- * @typedef {" " | "\n" | ""} WhiteSpaceValue
+ * @typedef {" " | "\n" | ""} WhitespaceValue
  * @typedef { KIND_NON_CJK | KIND_CJ_LETTER | KIND_K_LETTER | KIND_CJK_PUNCTUATION } WordKind
  * @typedef {{
  *   type: "whitespace",
- *   value: WhiteSpaceValue,
+ *   value: WhitespaceValue,
  *   kind?: undefined,
  *   hasLeadingPunctuation?: undefined,
  *   hasTrailingPunctuation?: undefined,

@@ -65,18 +65,18 @@ const SIBLING_NODE_TYPES = new Set([
  * - Bad:  `"檜原村（\nひのはらむら）"`
  * - Good: `"檜原村\n（ひのはらむら）"` or ``"檜原村（ひ\nのはらむら）"`
  */
-const noBreakAfterSymbolSet = new Set(
+const noBreakAfterCharacterSet = new Set(
   "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«"
 );
 /**
- * The set of characters that must not be immediately followed by a line break
+ * The set of characters that must not immediately follow a line break
  *
  * e.g. `"）"`
  *
  * - Bad:  `"檜原村（ひのはらむら\n）以外には、"`
  * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or `"檜原村（ひのはらむら）\n以外には、"`
  */
-const noBreakBeforeSymbolSet = new Set(
+const noBreakBeforeCharacterSet = new Set(
   "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・"
 );
 /**
@@ -91,7 +91,7 @@ const lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet = new Set(
 /**
  * Unicode punctuation character defined in [CommonMark Spec](https://spec.commonmark.org/0.30/#unicode-punctuation-character)
  */
-const punctuationsRegex =
+const punctuationRegex =
   /(?:\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
 
 function genericPrint(path, options, print) {
@@ -574,10 +574,10 @@ function getAncestorNode(path, typeOrTypes) {
  * @param {*} path current position in nodes tree
  * @returns {boolean} `true` if Space is tend to be inserted between these types of letters, `false` otherwise.
  */
-function isSentenceUseCJDividingSpace(path) {
+function isInSentenceWithCJSpaces(path) {
   const sentenceNode = getAncestorNode(path, "sentence");
-  if (sentenceNode.isCJSpacingUsing !== undefined) {
-    return sentenceNode.isCJSpacingUsing;
+  if (sentenceNode.usesCJSpaces !== undefined) {
+    return sentenceNode.usesCJSpaces;
   }
 
   const cjNonCJKSpacingStatistics = {
@@ -607,14 +607,14 @@ function isSentenceUseCJDividingSpace(path) {
     }
   }
   // Injects a property to cache the result.
-  sentenceNode.isCJSpacingUsing =
+  sentenceNode.usesCJSpaces =
     cjNonCJKSpacingStatistics[" "] > cjNonCJKSpacingStatistics[""];
-  return sentenceNode.isCJSpacingUsing;
+  return sentenceNode.usesCJSpaces;
 }
 
 /**
  * @typedef {import("./utils.js").TextNode} TextNode
- * @typedef {import("./utils.js").WhiteSpaceValue} WhiteSpaceValue
+ * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
  * @typedef {{next?: TextNode | undefined | null, previous?: TextNode | undefined | null}} AdjacentNodes
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -626,11 +626,11 @@ function isSentenceUseCJDividingSpace(path) {
  * For example, if you would like to squash the multi-line string `"You might want\nto use Prettier."` into a single line,
  * you would replace `"\n"` with `" "`. (`"You might want to use Prettier."`)
  *
- * However, you should note that Chinese and Japanese does not use U+0020 Space to divide words, so U+00A0 No-break space must not be replaced with it.
+ * However, you should note that Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
  * Behavior in other languages (e.g. Thai) will not be changed because there are too much things to consider. (PR welcome)
  *
  * @param {AstPath} path path of given node
- * @param {WhiteSpaceValue} value value of given node (typically `" "` or `"\n"`)
+ * @param {WhitespaceValue} value value of given node (typically `" "` or `"\n"`)
  * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
  * @returns {boolean} `true` if given node can be converted to space, `false` if not (i.e. newline or empty character)
  */
@@ -640,12 +640,10 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     return true;
   }
   // no adjacent nodes
-  // Use `!` (no zero, NaN, or empty string)
   if (!adjacentNodes) {
     return true;
   }
   // e.g. " \nletter"
-  // Use `!` (no zero, NaN, or empty string)
   if (!adjacentNodes.previous || !adjacentNodes.next) {
     return true;
   }
@@ -695,15 +693,15 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   }
   // Converting newline between CJ and non-ASCII punctuation to Space does not seem to be better in many cases. (PR welcome)
   if (
-    punctuationsRegex.test(previousLastChar) ||
-    punctuationsRegex.test(nextFirstChar)
+    punctuationRegex.test(previousLastChar) ||
+    punctuationRegex.test(nextFirstChar)
   ) {
     return false;
   }
   // 2. If sentence uses space between CJ and alphanumerics (including hangul because of backward-compatibility),
   //    "\n" can be converted to Space.
-  // Note: Koran uses space to divide words, so it is difficult to determine if "\n" should be converted to Space.
-  return isSentenceUseCJDividingSpace(path);
+  // Note: Korean uses space to divide words, so it is difficult to determine if "\n" should be converted to Space.
+  return isInSentenceWithCJSpaces(path);
 }
 
 /**
@@ -731,10 +729,10 @@ function isWesternOrKoreanLetter(kind) {
 }
 
 /**
- * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhiteSpaceValue`) can converted to `"\n"`
+ * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhitespaceValue`) can converted to `"\n"`
  *
  * @param {AstPath} path
- * @param {WhiteSpaceValue} value
+ * @param {WhitespaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
  * @returns {boolean} `true` if “whitespace” can be converted to `"\n"`
@@ -767,9 +765,9 @@ function isBreakable(path, value, options, adjacentNodes) {
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const isBreakingCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
-      noBreakBeforeSymbolSet.has(adjacentNodes.next?.value?.at(0))) ||
+      noBreakBeforeCharacterSet.has(adjacentNodes.next?.value?.at(0))) ||
     (adjacentNodes.previous?.value !== undefined &&
-      noBreakAfterSymbolSet.has(adjacentNodes.previous?.value?.at(-1)));
+      noBreakAfterCharacterSet.has(adjacentNodes.previous?.value?.at(-1)));
   // For "" (CJK and some non-space) higher priority than the following rule
   if (isBreakingCJKLineBreakingRule) {
     return false;
@@ -779,7 +777,7 @@ function isBreakable(path, value, options, adjacentNodes) {
 
 /**
  * @param {AstPath} path
- * @param {WhiteSpaceValue} value
+ * @param {WhitespaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
  */
