@@ -665,14 +665,13 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   }
   const previousLastChar = adjacentNodes.previous.value?.at(-1);
   const nextFirstChar = adjacentNodes.next.value?.[0];
-  // The following rules do not precede the above rules (`return false`).
+
+  // From here down, only line breaks between CJ and alphanumeric characters are covered.
+
+  // Convert newline between CJ and specific symbol characters (e.g. ASCII punctuation)  to Space.
+  // e.g. :::\n句子句子句子\n::: → ::: 句子句子句子 :::
   //
-  // Cases:
-  // - CJ & non-CJK
-  //
-  // 1. "\n" between special signs and CJ characters
-  // [corresponding sign][Space][any string][CJ][[\n]][target sign]
-  // we wonder if there are other marks to be considered.
+  // Note: Line breaks like "(\n句子句子\n)" or "句子\n." by Prettier are suppressed in `isBreakable(...)`.
   if (
     lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(nextFirstChar) ||
     lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(previousLastChar)
@@ -686,9 +685,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
-  // 2. If sentence uses space between CJ and alphanumerics (including hangul because of backward-compatibility),
-  //    "\n" can be converted to Space.
-  // Note: Korean uses space to divide words, so it is difficult to determine if "\n" should be converted to Space.
+  // If the sentence uses the style that Space is injected in between CJ and alphanumerics, "\n" can be converted to Space.
   return isInSentenceWithCJSpaces(path);
 }
 
