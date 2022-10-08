@@ -63,8 +63,7 @@ const KIND_CJK_PUNCTUATION = "cjk-punctuation";
  * split text into whitespaces and words
  * @param {string} text
  */
-// eslint-disable-next-line no-unused-vars
-function splitText(text, _options) {
+function splitText(text) {
   /** @type {Array<TextNode>} */
   const nodes = [];
 

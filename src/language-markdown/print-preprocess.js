@@ -9,7 +9,7 @@ function preprocess(ast, options) {
   ast = transformInlineCode(ast, options);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
-  ast = splitTextIntoSentences(ast, options);
+  ast = splitTextIntoSentences(ast);
   ast = transformImportExport(ast);
   ast = mergeContinuousImportExport(ast);
   return ast;
@@ -102,7 +102,7 @@ function mergeContinuousTexts(ast) {
   );
 }
 
-function splitTextIntoSentences(ast, options) {
+function splitTextIntoSentences(ast) {
   return mapAst(ast, (node, index, [parentNode]) => {
     if (node.type !== "text") {
       return node;
@@ -122,7 +122,7 @@ function splitTextIntoSentences(ast, options) {
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value, options),
+      children: splitText(value),
     };
   });
 }
