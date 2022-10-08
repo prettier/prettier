@@ -31,7 +31,13 @@ function transformInlineCode(ast) {
       return node;
     }
 
-    return { ...node, value: node.value.replace(/\s+/g, " ") };
+    return {
+      ...node,
+      value: node.value
+        .replace(/^\s+/, " ")
+        .replace(/\n/g, " ")
+        .replace(/\s+$/, " "),
+    };
   });
 }
 
