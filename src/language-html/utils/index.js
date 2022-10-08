@@ -502,7 +502,7 @@ function getNodeCssStyleDisplay(node, options) {
       return "inline";
     case "ignore":
       return "block";
-    default: {
+    default:
       // See https://github.com/prettier/prettier/issues/8151
       if (
         options.parser === "vue" &&
@@ -519,7 +519,6 @@ function getNodeCssStyleDisplay(node, options) {
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
-    }
   }
 }
 

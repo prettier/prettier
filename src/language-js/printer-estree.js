@@ -273,9 +273,9 @@ function printPathNoParens(path, options, print, args) {
     case "AssignmentPattern":
       return [print("left"), " = ", print("right")];
     case "OptionalMemberExpression":
-    case "MemberExpression": {
+    case "MemberExpression":
       return printMemberExpression(path, options, print);
-    }
+
     case "MetaProperty":
       return [print("meta"), ".", print("property")];
     case "BindExpression":
@@ -290,14 +290,14 @@ function printPathNoParens(path, options, print, args) {
       );
 
       return parts;
-    case "Identifier": {
+    case "Identifier":
       return [
         node.name,
         printOptionalToken(path),
         printDefiniteToken(path),
         printTypeAnnotation(path, options, print),
       ];
-    }
+
     case "V8IntrinsicIdentifier":
       return ["%", node.name];
     case "SpreadElement":
@@ -322,7 +322,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return parts;
-    case "AwaitExpression": {
+    case "AwaitExpression":
       parts.push("await");
       if (node.argument) {
         parts.push(" ", print("argument"));
@@ -342,7 +342,7 @@ function printPathNoParens(path, options, print, args) {
         }
       }
       return parts;
-    }
+
     case "ExportDefaultDeclaration":
     case "ExportNamedDeclaration":
       return printExportDeclaration(path, options, print);

@@ -215,6 +215,7 @@ module.exports = {
     "unicorn/prefer-string-starts-ends-with": "error",
     "unicorn/prefer-switch": "error",
     "unicorn/prefer-type-error": "error",
+    "unicorn/switch-case-braces": ["error", "avoid"],
     "unicorn/template-indent": "error",
     "unicorn/text-encoding-identifier-case": "error",
   },

@@ -322,12 +322,11 @@ function printDocToString(doc, options) {
         break;
       }
 
-      case DOC_TYPE_ARRAY: {
+      case DOC_TYPE_ARRAY:
         for (let i = doc.length - 1; i >= 0; i--) {
           cmds.push({ ind, mode, doc: doc[i] });
         }
         break;
-      }
 
       case DOC_TYPE_CURSOR:
         if (printedCursorCount >= 2) {

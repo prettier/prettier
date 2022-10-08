@@ -318,9 +318,9 @@ function printNode(node, parentNode, path, options, print) {
       return [quote, printFlowScalarContent(node.type, raw, options), quote];
     }
     case "blockFolded":
-    case "blockLiteral": {
+    case "blockLiteral":
       return printBlock(path, print, options);
-    }
+
     case "mapping":
     case "sequence":
       return join(hardline, path.map(print, "children"));
@@ -330,9 +330,9 @@ function printNode(node, parentNode, path, options, print) {
     case "mappingValue":
       return !node.content ? "" : print("content");
     case "mappingItem":
-    case "flowMappingItem": {
+    case "flowMappingItem":
       return printMappingItem(node, parentNode, path, print, options);
-    }
+
     case "flowMapping":
       return printFlowMapping(path, print, options);
     case "flowSequence":

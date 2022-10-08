@@ -249,7 +249,7 @@ function embed(path, options) {
   const { node } = path;
 
   switch (node.type) {
-    case "element": {
+    case "element":
       if (isScriptLikeTag(node) || node.type === "interpolation") {
         // Fall through to "text"
         return;
@@ -285,8 +285,8 @@ function embed(path, options) {
         };
       }
       break;
-    }
-    case "text": {
+
+    case "text":
       if (isScriptLikeTag(node.parent)) {
         const parser = inferScriptParser(node.parent, options);
         if (parser) {
@@ -348,8 +348,8 @@ function embed(path, options) {
         };
       }
       break;
-    }
-    case "attribute": {
+
+    case "attribute":
       if (!node.value) {
         break;
       }
@@ -406,7 +406,7 @@ function embed(path, options) {
           ];
         }
       };
-    }
+
     case "front-matter":
       return (textToDoc) => printFrontMatter(node, textToDoc);
   }
