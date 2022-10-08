@@ -670,7 +670,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     return false;
   }
   const previousLastChar = adjacentNodes.previous.value?.at(-1);
-  const nextFirstChar = adjacentNodes.next.value?.at(0);
+  const nextFirstChar = adjacentNodes.next.value?.[0];
   // The following rules do not precede the above rules (`return false`).
   //
   // Cases:
@@ -765,7 +765,7 @@ function isBreakable(path, value, options, adjacentNodes) {
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const isBreakingCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
-      noBreakBeforeCharacterSet.has(adjacentNodes.next?.value?.at(0))) ||
+      noBreakBeforeCharacterSet.has(adjacentNodes.next?.value?.[0])) ||
     (adjacentNodes.previous?.value !== undefined &&
       noBreakAfterCharacterSet.has(adjacentNodes.previous?.value?.at(-1)));
   // For "" (CJK and some non-space) higher priority than the following rule
