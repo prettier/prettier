@@ -233,6 +233,7 @@ export {
   mapAst,
   splitText,
   punctuationPattern,
+  punctuationRegex,
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
   hasGitDiffFriendlyOrderedList,

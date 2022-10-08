@@ -33,6 +33,7 @@ import {
   hasGitDiffFriendlyOrderedList,
   splitText,
   punctuationPattern,
+  punctuationRegex,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
@@ -87,12 +88,6 @@ const noBreakBeforeCharacterSet = new Set(
 const lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet = new Set(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
-
-/**
- * Unicode punctuation character defined in [CommonMark Spec](https://spec.commonmark.org/0.30/#unicode-punctuation-character)
- */
-const punctuationRegex =
-  /(?:\p{Pc}|\p{Pd}|\p{Pe}|\p{Pf}|\p{Pi}|\p{Po}|\p{Ps})/u;
 
 function genericPrint(path, options, print) {
   const { node } = path;
