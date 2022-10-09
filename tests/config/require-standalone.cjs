@@ -46,7 +46,7 @@ module.exports = {
   },
 
   __debug: {
-    parse(input, options, massage) {
+    parse(input, options, devOptions) {
       return vm.runInNewContext(
         `
           const options = {
@@ -56,7 +56,9 @@ module.exports = {
               ...($$$options.plugins || []),
             ],
           };
-          prettier.__debug.parse($$$input, options, ${JSON.stringify(massage)});
+          prettier.__debug.parse($$$input, options, ${JSON.stringify(
+            devOptions
+          )});
         `,
         { $$$input: input, $$$options: options, ...sandbox }
       );

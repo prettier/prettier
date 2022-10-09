@@ -435,11 +435,9 @@ function shouldSkipEolTest(code, options) {
 
 async function parse(source, options) {
   const prettier = await getPrettier();
-  const { ast } = await prettier.__debug.parse(
-    source,
-    options,
-    /* massage */ true
-  );
+  const { ast } = await prettier.__debug.parse(source, options, {
+    massage: true,
+  });
   return ast;
 }
 
