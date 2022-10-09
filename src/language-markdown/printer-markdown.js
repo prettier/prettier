@@ -135,6 +135,7 @@ function genericPrint(path, options, print) {
       return escapedValue;
     }
     case "whitespace": {
+      // WordNode or nullish
       const { next, previous } = path;
 
       const proseWrap =
@@ -525,9 +526,9 @@ function getAncestorNode(path, typeOrTypes) {
 }
 
 /**
- * @typedef {import("./utils.js").TextNode} TextNode
+ * @typedef {import("./utils.js").WordNode} WordNode
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {{next?: TextNode | undefined | null, previous?: TextNode | undefined | null}} AdjacentNodes
+ * @typedef {import("./whitespace").AdjacentNodes} AdjacentNodes
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
  */

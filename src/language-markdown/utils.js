@@ -50,13 +50,16 @@ const KIND_CJK_PUNCTUATION = "cjk-punctuation";
  *   kind?: undefined,
  *   hasLeadingPunctuation?: undefined,
  *   hasTrailingPunctuation?: undefined,
- * } | {
+ * }} WhitespaceNode
+ * @typedef {{
  *   type: "word",
  *   value: string,
  *   kind: WordKind,
  *   hasLeadingPunctuation: boolean,
  *   hasTrailingPunctuation: boolean,
- * }} TextNode
+ * }} WordNode
+ * Node for a single CJK character or a sequence of non-CJK characters
+ * @typedef {WhitespaceNode | WordNode} TextNode
  */
 
 /**
@@ -126,6 +129,20 @@ function splitText(text) {
               hasTrailingPunctuation: false,
             }
       );
+    }
+  }
+
+  // Check for `canBeConvertedToSpace` in ./whitespace.js etc.
+  if (process.env.NODE_ENV !== "production") {
+    for (let i = 1; i < nodes.length; i++) {
+      if (
+        nodes[i].type === "whitespace" &&
+        nodes[i - 1].type === "whitespace"
+      ) {
+        throw new Error(
+          "Internal error: splitText should not create consecutive whitespace nodes"
+        );
+      }
     }
   }
 

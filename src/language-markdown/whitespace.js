@@ -81,10 +81,12 @@ function isInSentenceWithCJSpaces(path) {
   return sentenceNode.usesCJSpaces;
 }
 
+//
 /**
- * @typedef {import("./utils.js").TextNode} TextNode
+ * @typedef {import("./utils.js").WordNode} WordNode
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {{next?: TextNode | undefined | null, previous?: TextNode | undefined | null}} AdjacentNodes
+ * @typedef {{next?: WordNode | undefined | null, previous?: WordNode | undefined | null}} AdjacentNodes
+ * Adjacent node to `WhitespaceNode`. the consecution of `WhitespaceNode` is a bug, so adjacent nodes must be `WordNode`.
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
  */
@@ -144,8 +146,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
-  const previousLastChar = adjacentNodes.previous.value?.at(-1);
-  const nextFirstChar = adjacentNodes.next.value?.[0];
+  const previousLastChar = adjacentNodes.previous.value.at(-1);
+  const nextFirstChar = adjacentNodes.next.value[0];
 
   // From here down, only line breaks between CJ and non-CJK characters are covered.
 
