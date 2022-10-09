@@ -3451,9 +3451,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unicorn@npm:44.0.0":
-  version: 44.0.0
-  resolution: "eslint-plugin-unicorn@npm:44.0.0"
+"eslint-plugin-unicorn@npm:44.0.2":
+  version: 44.0.2
+  resolution: "eslint-plugin-unicorn@npm:44.0.2"
   dependencies:
     "@babel/helper-validator-identifier": ^7.19.1
     ci-info: ^3.4.0
@@ -3471,7 +3471,7 @@ __metadata:
     strip-indent: ^3.0.0
   peerDependencies:
     eslint: ">=8.23.1"
-  checksum: c0017a8b51ebadca10140f088a7b02d3a3877e29e243a9d3545d353d4a24961f985454bd73662cf85733796ecb132920ea2ce905567ae6922406c4290b680823
+  checksum: b0ed6b3a60e36efab5b19a0e2a1ea4e4faba79ef315aa1eff9bdebaf28b70ada059837a0a4cdf20e0b678d8eee6155afc2c6300d0ff7d51b68eced4f0bcb56e0
   languageName: node
   linkType: hard
 
@@ -6642,7 +6642,7 @@ __metadata:
     eslint-plugin-prettier-internal-rules: 2.0.1
     eslint-plugin-react: 7.31.8
     eslint-plugin-regexp: 1.9.0
-    eslint-plugin-unicorn: 44.0.0
+    eslint-plugin-unicorn: 44.0.2
     esm-utils: 4.1.0
     espree: 9.4.0
     esutils: 2.0.3
