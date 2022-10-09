@@ -334,6 +334,7 @@ const prettier = {
       parsed.ast = massageAST(parsed.ast, options);
     }
     if (preprocessForPrint && options.printer.preprocess) {
+      attachComments(parsed.text, parsed.ast, options);
       parsed.ast = options.printer.preprocess(parsed.ast, options);
     }
     return parsed;
