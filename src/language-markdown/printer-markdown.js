@@ -38,7 +38,7 @@ import {
   isAutolink,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
-import { printWhitespace } from "./whitespace.js";
+import { printWhitespace } from "./print-whitespace.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
