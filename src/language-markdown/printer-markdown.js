@@ -666,7 +666,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   const previousLastChar = adjacentNodes.previous.value?.at(-1);
   const nextFirstChar = adjacentNodes.next.value?.[0];
 
-  // From here down, only line breaks between CJ and alphanumeric characters are covered.
+  // From here down, only line breaks between CJ and non-CJK characters are covered.
 
   // Convert newline between CJ and specific symbol characters (e.g. ASCII punctuation)  to Space.
   // e.g. :::\n句子句子句子\n::: → ::: 句子句子句子 :::
@@ -679,6 +679,11 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     return true;
   }
   // Converting newline between CJ and non-ASCII punctuation to Space does not seem to be better in many cases. (PR welcome)
+  // e.g.
+  // 1. “ア〜エの中から1つ選べ。”
+  // "〜" (U+301C) belongs to Pd, and "\n" in "ア〜\nエの中から1つ選べ。" must not be converted to Space.
+  // 2. “これはひどい……なんと汚いコミットログなんだ……”
+  // "…" (U+2026) belongs to Po, and "\n" in "これはひどい……\nなんと汚いコミットログなんだ……" must not, either.
   if (
     punctuationRegex.test(previousLastChar) ||
     punctuationRegex.test(nextFirstChar)
