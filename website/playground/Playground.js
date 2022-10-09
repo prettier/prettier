@@ -283,7 +283,7 @@ class Playground extends React.Component {
                           onChange={editorState.toggleAst}
                         />
                         <Checkbox
-                          label="show preprint AST"
+                          label="show preprocessed AST"
                           checked={editorState.showPreprocessedAst}
                           onChange={editorState.togglePreprocessedAst}
                         />
