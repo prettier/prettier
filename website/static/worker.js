@@ -116,7 +116,7 @@ async function handleFormatMessage(message) {
     },
   };
 
-  for (const key of ["ast", "preprintAst"]) {
+  for (const key of ["ast", "preprocessedAst"]) {
     if (!message.debug[key]) {
       continue;
     }
@@ -129,7 +129,7 @@ async function handleFormatMessage(message) {
             message.code,
             options,
             false,
-            key === "preprintAst"
+            key === "preprocessedAst"
           )
         ).ast
       );
