@@ -27,20 +27,21 @@ function transformImportExport(ast) {
 
 function transformInlineCode(ast, options) {
   return mapAst(ast, (node) => {
-    if (node.type !== "inlineCode" || options.proseWrap === "preserve") {
+    if (node.type !== "inlineCode") {
       return node;
     }
 
-    const valueWithoutNewlines = node.value.replace(/\n/g, " ");
+    const value =
+      options.proseWrap === "preserve"
+        ? node.value
+        : node.value.replace(/\n/g, " ");
 
     return {
       ...node,
       value:
-        valueWithoutNewlines.startsWith(" ") &&
-        valueWithoutNewlines.endsWith(" ") &&
-        valueWithoutNewlines.trim().length > 0
-          ? " " + valueWithoutNewlines + " "
-          : valueWithoutNewlines,
+        value.startsWith(" ") && value.endsWith(" ") && value.trim().length > 0
+          ? " " + value + " "
+          : value,
     };
   });
 }
