@@ -142,10 +142,10 @@ async function format(context, input, opt) {
     } else {
       const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
-        (await prettier.__debug.parse(input, opt, /* massage */ true)).ast
+        (await prettier.__debug.parse(input, opt, { massage: true })).ast
       );
       const past = stringify(
-        (await prettier.__debug.parse(pp, opt, /* massage */ true)).ast
+        (await prettier.__debug.parse(pp, opt, { massage: true })).ast
       );
 
       /* istanbul ignore next */

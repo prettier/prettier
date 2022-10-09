@@ -123,12 +123,9 @@ async function handleFormatMessage(message) {
     let serializedAst;
     let errored = false;
     try {
-      const { ast } = await prettier.__debug.parse(
-        message.code,
-        options,
-        false,
-        key === "preprocessedAst"
-      );
+      const { ast } = await prettier.__debug.parse(message.code, options, {
+        preprocessForPrint: key === "preprocessedAst",
+      });
       serializedAst = serializeAst(ast);
     } catch (e) {
       errored = true;
