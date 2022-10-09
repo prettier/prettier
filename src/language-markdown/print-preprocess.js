@@ -31,16 +31,16 @@ function transformInlineCode(ast) {
       return node;
     }
 
-    // https://spec.commonmark.org/0.30/#backtick-string
-
-    // line endings are treated like spaces
-    const valueWithoutNewlines = node.value.replace(/\n\r?/g, " ");
+    const valueWithoutNewlines = node.value.replace(/\n/g, " ");
 
     return {
       ...node,
-      value: /^ +$/.test(valueWithoutNewlines)
-        ? valueWithoutNewlines // no stripping occurs if the code span contains only spaces
-        : valueWithoutNewlines.replace(/^ +/, " ").replace(/ +$/, " "), // interior spaces are not collapsed
+      value:
+        valueWithoutNewlines.startsWith(" ") &&
+        valueWithoutNewlines.endsWith(" ") &&
+        valueWithoutNewlines.trim().length > 0
+          ? " " + valueWithoutNewlines + " "
+          : valueWithoutNewlines,
     };
   });
 }

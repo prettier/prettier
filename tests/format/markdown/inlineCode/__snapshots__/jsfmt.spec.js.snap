@@ -69,6 +69,31 @@ proseWrap: "always"
 ================================================================================
 `;
 
+exports[`inline-code-multiple-spaces.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+\`   three   spaces   everywhere   \`
+
+\`   three   spaces
+  everywhere   \`
+
+\`   three   spaces 
+ everywhere   \`
+
+=====================================output=====================================
+\`   three   spaces   everywhere   \`
+
+\`   three   spaces   everywhere   \`
+
+\`   three   spaces   everywhere   \`
+
+================================================================================
+`;
+
 exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
