@@ -9,6 +9,7 @@ export default class EditorState extends React.Component {
     this.state = {
       showSidebar: window.innerWidth > window.innerHeight,
       showAst: false,
+      showPreprintAst: false,
       showDoc: false,
       showComments: false,
       showSecondFormat: false,
@@ -17,6 +18,7 @@ export default class EditorState extends React.Component {
       rethrowEmbedErrors: false,
       toggleSidebar: () => this.setState(stateToggler("showSidebar")),
       toggleAst: () => this.setState(stateToggler("showAst")),
+      togglePreprintAst: () => this.setState(stateToggler("showPreprintAst")),
       toggleDoc: () => this.setState(stateToggler("showDoc")),
       toggleComments: () => this.setState(stateToggler("showComments")),
       toggleSecondFormat: () => this.setState(stateToggler("showSecondFormat")),

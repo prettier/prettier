@@ -16,6 +16,7 @@ export default class PrettierFormat extends React.Component {
       "code",
       "options",
       "debugAst",
+      "debugPreprintAst",
       "debugDoc",
       "debugComments",
       "reformat",
@@ -35,6 +36,7 @@ export default class PrettierFormat extends React.Component {
       code,
       options,
       debugAst: ast,
+      debugPreprintAst: preprintAst,
       debugDoc: doc,
       debugComments: comments,
       reformat,
@@ -47,6 +49,7 @@ export default class PrettierFormat extends React.Component {
 
     const result = await worker.format(code, options, {
       ast,
+      preprintAst,
       doc,
       comments,
       reformat,

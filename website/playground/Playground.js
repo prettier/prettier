@@ -218,6 +218,7 @@ class Playground extends React.Component {
             code={content}
             options={options}
             debugAst={editorState.showAst}
+            debugPreprintAst={editorState.showPreprintAst}
             debugDoc={editorState.showDoc}
             debugComments={editorState.showComments}
             reformat={editorState.showSecondFormat}
@@ -282,6 +283,11 @@ class Playground extends React.Component {
                           onChange={editorState.toggleAst}
                         />
                         <Checkbox
+                          label="show preprint AST"
+                          checked={editorState.showPreprintAst}
+                          onChange={editorState.togglePreprintAst}
+                        />
+                        <Checkbox
                           label="show doc"
                           checked={editorState.showDoc}
                           onChange={editorState.toggleDoc}
@@ -343,6 +349,12 @@ class Playground extends React.Component {
                       {editorState.showAst ? (
                         <DebugPanel
                           value={debug.ast || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
+                      ) : null}
+                      {editorState.showPreprintAst ? (
+                        <DebugPanel
+                          value={debug.preprintAst || ""}
                           autoFold={util.getAstAutoFold(options.parser)}
                         />
                       ) : null}
