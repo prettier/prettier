@@ -783,8 +783,9 @@ function printLine(path, value, options, adjacentNodes) {
   if (value !== "\n") {
     return convertToLineIfBreakable(value);
   }
-  // Chinese and Japanese does not use U+0020 Space to divide words, so U+00A0 No-break space must not be replaced with it.
+  // Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
+  // e.g. Word segmentation in Thai etc.
   return convertToLineIfBreakable(
     canBeConvertedToSpace(path, value, adjacentNodes) ? " " : ""
   );
