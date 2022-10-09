@@ -120,28 +120,26 @@ async function handleFormatMessage(message) {
     if (!message.debug[key]) {
       continue;
     }
-    let serializedAst;
+    let ast;
     let errored = false;
     try {
-      const { ast } = await prettier.__debug.parse(message.code, options, {
+      const parsed = await prettier.__debug.parse(message.code, options, {
         preprocessForPrint: key === "preprocessedAst",
       });
-      serializedAst = serializeAst(ast);
+      ast = serializeAst(parsed.ast);
     } catch (e) {
       errored = true;
-      serializedAst = String(e);
+      ast = String(e);
     }
 
     if (!errored) {
       try {
-        serializedAst = (
-          await formatCode(serializedAst, { parser: "json", plugins })
-        ).formatted;
+        ast = (await formatCode(ast, { parser: "json", plugins })).formatted;
       } catch {
-        serializedAst = serializeAst(serializedAst);
+        ast = serializeAst(ast);
       }
     }
-    response.debug[key] = serializedAst;
+    response.debug[key] = ast;
   }
 
   if (message.debug.doc) {
