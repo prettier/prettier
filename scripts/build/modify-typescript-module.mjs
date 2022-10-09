@@ -369,6 +369,11 @@ function modifyTypescriptModule(text) {
     text.includes("ts.getWatchFactory = getWatchFactory;")
   );
 
+  // `import`/`export` cache
+  source.removeSubmodule((text) =>
+    text.includes("ts.createCacheableExportInfoMap = createCacheableExportInfoMap;")
+  );
+
   // `ts.canProduceDiagnostics`, `ts.createGetSymbolAccessibilityDiagnosticForNode`, and `ts.createGetSymbolAccessibilityDiagnosticForNode`
   source.removeSubmodule((text) =>
     text.includes("ts.canProduceDiagnostics = canProduceDiagnostics;")
