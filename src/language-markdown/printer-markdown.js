@@ -66,7 +66,7 @@ const SIBLING_NODE_TYPES = new Set([
  * - Bad:  `"檜原村（\nひのはらむら）"`
  * - Good: `"檜原村\n（ひのはらむら）"` or ``"檜原村（ひ\nのはらむら）"`
  */
-const noBreakAfterCharacterSet = new Set(
+const noBreakAfter = new Set(
   "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«"
 );
 /**
@@ -77,7 +77,7 @@ const noBreakAfterCharacterSet = new Set(
  * - Bad:  `"檜原村（ひのはらむら\n）以外には、"`
  * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or `"檜原村（ひのはらむら）\n以外には、"`
  */
-const noBreakBeforeCharacterSet = new Set(
+const noBreakBefore = new Set(
   "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・"
 );
 /**
@@ -756,9 +756,9 @@ function isBreakable(path, value, options, adjacentNodes) {
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const isBreakingCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
-      noBreakBeforeCharacterSet.has(adjacentNodes.next?.value?.[0])) ||
+      noBreakBefore.has(adjacentNodes.next?.value?.[0])) ||
     (adjacentNodes.previous?.value !== undefined &&
-      noBreakAfterCharacterSet.has(adjacentNodes.previous?.value?.at(-1)));
+      noBreakAfter.has(adjacentNodes.previous?.value?.at(-1)));
   // For "" (CJK and some non-space) higher priority than the following rule
   if (isBreakingCJKLineBreakingRule) {
     return false;
