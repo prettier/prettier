@@ -1,3 +1,4 @@
+import { hardline, line, softline } from "../document/builders.js";
 import { getAncestorNode } from "./printer-markdown.js";
 import {
   KIND_CJK_PUNCTUATION,
@@ -254,4 +255,43 @@ function isBreakable(path, value, options, adjacentNodes) {
   return true;
 }
 
-export { canBeConvertedToSpace, isBreakable };
+/**
+ * @param {AstPath} path
+ * @param {WhitespaceValue} value
+ * @param {*} options
+ * @param {AdjacentNodes | undefined} [adjacentNodes]
+ */
+function printWhitespace(path, value, options, adjacentNodes) {
+  if (options.proseWrap === "preserve" && value === "\n") {
+    return hardline;
+  }
+
+  const isBreakable_ = isBreakable(path, value, options, adjacentNodes);
+
+  // Space or empty
+  if (value !== "\n") {
+    return convertToLineIfBreakable(value);
+  }
+  // Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
+  // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
+  // e.g. Word segmentation in Thai etc.
+  return convertToLineIfBreakable(
+    canBeConvertedToSpace(path, value, adjacentNodes) ? " " : ""
+  );
+
+  /**
+   * @param value {" " | ""}
+   */
+  function convertToLineIfBreakable(value) {
+    if (!isBreakable_) {
+      return value;
+    }
+    return value === " " ? line : softline;
+  }
+}
+
+export {
+  canBeConvertedToSpace,
+  isBreakable,
+  printWhitespace,
+};

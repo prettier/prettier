@@ -38,7 +38,7 @@ import {
   isAutolink,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
-import { canBeConvertedToSpace, isBreakable } from "./whitespace.js";
+import { printWhitespace } from "./whitespace.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
@@ -67,7 +67,7 @@ function genericPrint(path, options, print) {
         ? node.value
         : node.value === ""
         ? ""
-        : printLine(path, node.value, options)
+        : printWhitespace(path, node.value, options)
     );
   }
 
@@ -144,7 +144,7 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printLine(path, node.value, { proseWrap }, { previous, next });
+      return printWhitespace(path, node.value, { proseWrap }, { previous, next });
     }
     case "emphasis": {
       let style;
@@ -523,49 +523,6 @@ function getAncestorCounter(path, typeOrTypes) {
 function getAncestorNode(path, typeOrTypes) {
   const counter = getAncestorCounter(path, typeOrTypes);
   return counter === -1 ? null : path.getParentNode(counter);
-}
-
-/**
- * @typedef {import("./utils.js").WordNode} WordNode
- * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {import("./whitespace").AdjacentNodes} AdjacentNodes
- * @typedef {import("./utils.js").WordKind} WordKind
- * @typedef {import("../common/ast-path.js").default} AstPath
- */
-
-/**
- * @param {AstPath} path
- * @param {WhitespaceValue} value
- * @param {*} options
- * @param {AdjacentNodes | undefined} [adjacentNodes]
- */
-function printLine(path, value, options, adjacentNodes) {
-  if (options.proseWrap === "preserve" && value === "\n") {
-    return hardline;
-  }
-
-  const isBreakable_ = isBreakable(path, value, options, adjacentNodes);
-
-  // Space or empty
-  if (value !== "\n") {
-    return convertToLineIfBreakable(value);
-  }
-  // Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
-  // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
-  // e.g. Word segmentation in Thai etc.
-  return convertToLineIfBreakable(
-    canBeConvertedToSpace(path, value, adjacentNodes) ? " " : ""
-  );
-
-  /**
-   * @param value {" " | ""}
-   */
-  function convertToLineIfBreakable(value) {
-    if (!isBreakable_) {
-      return value;
-    }
-    return value === " " ? line : softline;
-  }
 }
 
 function printTable(path, options, print) {
