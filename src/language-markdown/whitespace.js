@@ -147,8 +147,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
-  const previousLastChar = adjacentNodes.previous.value.at(-1);
-  const nextFirstChar = adjacentNodes.next.value[0];
+  const characterBefore = adjacentNodes.previous.value.at(-1);
+  const characterAfter = adjacentNodes.next.value[0];
 
   // From here down, only line breaks between CJ and non-CJK characters are covered.
 
@@ -157,8 +157,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   //
   // Note: Line breaks like "(\n句子句子\n)" or "句子\n." by Prettier are suppressed in `isBreakable(...)`.
   if (
-    lineBreakBetweenTheseAndCJKConvertsToSpace.has(nextFirstChar) ||
-    lineBreakBetweenTheseAndCJKConvertsToSpace.has(previousLastChar)
+    lineBreakBetweenTheseAndCJKConvertsToSpace.has(characterAfter) ||
+    lineBreakBetweenTheseAndCJKConvertsToSpace.has(characterBefore)
   ) {
     return true;
   }
@@ -169,8 +169,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   // 2. “これはひどい……なんと汚いコミットログなんだ……”
   // "…" (U+2026) belongs to Po, and "\n" in "これはひどい……\nなんと汚いコミットログなんだ……" must not, either.
   if (
-    punctuationRegex.test(previousLastChar) ||
-    punctuationRegex.test(nextFirstChar)
+    punctuationRegex.test(characterBefore) ||
+    punctuationRegex.test(characterAfter)
   ) {
     return false;
   }
