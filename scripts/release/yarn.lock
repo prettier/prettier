@@ -3114,7 +3114,7 @@ __metadata:
     minimist: 1.2.6
     node-fetch: 3.2.10
     outdent: 0.8.0
-    semver: 7.3.7
+    semver: 7.3.8
     string-width: 5.1.2
   languageName: unknown
   linkType: soft
@@ -3140,14 +3140,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.3.7, semver@npm:^7.3.5":
-  version: 7.3.7
-  resolution: "semver@npm:7.3.7"
+"semver@npm:7.3.8, semver@npm:^7.3.5":
+  version: 7.3.8
+  resolution: "semver@npm:7.3.8"
   dependencies:
     lru-cache: ^6.0.0
   bin:
     semver: bin/semver.js
-  checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
+  checksum: ba9c7cbbf2b7884696523450a61fee1a09930d888b7a8d7579025ad93d459b2d1949ee5bbfeb188b2be5f4ac163544c5e98491ad6152df34154feebc2cc337c1
   languageName: node
   linkType: hard
 
