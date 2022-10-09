@@ -37,7 +37,7 @@ const noBreakBefore = new Set(
  *
  * - ASCII punctuation marks
  */
-const lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet = new Set(
+const lineBreakBetweenTheseAndCJKConvertsToSpace = new Set(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
 
@@ -154,8 +154,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   //
   // Note: Line breaks like "(\n句子句子\n)" or "句子\n." by Prettier are suppressed in `isBreakable(...)`.
   if (
-    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(nextFirstChar) ||
-    lineBreakBetweenTheseAndCJKConvertToSpaceSymbolSet.has(previousLastChar)
+    lineBreakBetweenTheseAndCJKConvertsToSpace.has(nextFirstChar) ||
+    lineBreakBetweenTheseAndCJKConvertsToSpace.has(previousLastChar)
   ) {
     return true;
   }
