@@ -144,7 +144,12 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printWhitespace(path, node.value, { proseWrap }, { previous, next });
+      return printWhitespace(
+        path,
+        node.value,
+        { proseWrap },
+        { previous, next }
+      );
     }
     case "emphasis": {
       let style;

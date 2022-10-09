@@ -290,8 +290,4 @@ function printWhitespace(path, value, options, adjacentNodes) {
   }
 }
 
-export {
-  canBeConvertedToSpace,
-  isBreakable,
-  printWhitespace,
-};
+export { printWhitespace };
