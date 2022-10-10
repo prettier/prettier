@@ -324,14 +324,22 @@ async function formatWithCursor(originalText, originalOptions) {
 const prettier = {
   formatWithCursor,
 
-  async parse(originalText, originalOptions, massage) {
+  async parse(originalText, originalOptions, devOptions) {
     const { text, options } = normalizeInputAndOptions(
       originalText,
       await normalizeOptions(originalOptions)
     );
     const parsed = await parse(text, options);
-    if (massage) {
-      parsed.ast = massageAST(parsed.ast, options);
+    if (devOptions) {
+      if (devOptions.massage) {
+        parsed.ast = massageAST(parsed.ast, options);
+      }
+      if (devOptions.preprocessForPrint) {
+        attachComments(parsed.text, parsed.ast, options);
+        if (options.printer.preprocess) {
+          parsed.ast = await options.printer.preprocess(parsed.ast, options);
+        }
+      }
     }
     return parsed;
   },

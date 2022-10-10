@@ -1715,15 +1715,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:2.5.1":
-  version: 2.5.1
-  resolution: "angular-estree-parser@npm:2.5.1"
+"angular-estree-parser@npm:3.0.3":
+  version: 3.0.3
+  resolution: "angular-estree-parser@npm:3.0.3"
   dependencies:
-    lines-and-columns: ^1.1.6
-    tslib: ^2.0.3
+    lines-and-columns: ^2.0.3
+    tslib: ^2.4.0
   peerDependencies:
     "@angular/compiler": ^9.1.0 || ^10.0.0 || ^11.0.0 || ^12.0.0
-  checksum: 31fbe19756d4dbf5019be841bce54a0d32d044bc3be3f456bb83b20834a368e047250e00ea9aa50e2a40a4c934246d9e3abb0a884b0be9f5fb086e57227e27c0
+  checksum: bdcadb3e9cde9bfbfc826bfaca8d30c218c45f00c3271f33484a0bc8c05e86d2ce91e84c1eca7ef289a57a350e16f5ab0ffcb508ec2825a9339d0ccc9d37ccaf
   languageName: node
   linkType: hard
 
@@ -3409,9 +3409,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.31.8":
-  version: 7.31.8
-  resolution: "eslint-plugin-react@npm:7.31.8"
+"eslint-plugin-react@npm:7.31.9":
+  version: 7.31.9
+  resolution: "eslint-plugin-react@npm:7.31.9"
   dependencies:
     array-includes: ^3.1.5
     array.prototype.flatmap: ^1.3.0
@@ -3429,7 +3429,7 @@ __metadata:
     string.prototype.matchall: ^4.0.7
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 0683e2a624a4df6f08264a3f6bc614a81e8f961c83173bdf2d8d3523f84ed5d234cddc976dbc6815913e007c5984df742ba61be0c0592b27c3daabe0f68165a3
+  checksum: 073256ceaaa8b0425f76544a44fe15c2f08ba4786847035f640b1e0144a023f2c854a93d77a3951969303962feaaa93f1d4a038d322b029cdce2190e8e3338a4
   languageName: node
   linkType: hard
 
@@ -5490,7 +5490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lines-and-columns@npm:2.0.3":
+"lines-and-columns@npm:2.0.3, lines-and-columns@npm:^2.0.3":
   version: 2.0.3
   resolution: "lines-and-columns@npm:2.0.3"
   checksum: 5955363dfd7d3d7c476d002eb47944dbe0310d57959e2112dce004c0dc76cecfd479cf8c098fd479ff344acdf04ee0e82b455462a26492231ac152f6c48d17a1
@@ -5599,12 +5599,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:0.26.6, magic-string@npm:~0.26.2":
-  version: 0.26.6
-  resolution: "magic-string@npm:0.26.6"
+"magic-string@npm:0.26.7, magic-string@npm:~0.26.2":
+  version: 0.26.7
+  resolution: "magic-string@npm:0.26.7"
   dependencies:
     sourcemap-codec: ^1.4.8
-  checksum: 0147380c7a21af9dc661fb5282f0bb06854da6ababdc58a669ec0054093cd1afcfb454a0603495587b5f308bad9efcaceeb17b60887df87c51d692ec01ce4a8a
+  checksum: 89b0d60cbb32bbf3d1e23c46ea93db082d18a8230b972027aecb10a40bba51be519ecce0674f995571e3affe917b76b09f59d8dbc9a1b2c9c4102a2b6e8a2b01
   languageName: node
   linkType: hard
 
@@ -6611,7 +6611,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": 5.39.0
     acorn: 8.8.0
     acorn-jsx: 5.3.2
-    angular-estree-parser: 2.5.1
+    angular-estree-parser: 3.0.3
     angular-html-parser: 2.0.0
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
@@ -6640,7 +6640,7 @@ __metadata:
     eslint-plugin-jest: 27.1.1
     eslint-plugin-n: 15.3.0
     eslint-plugin-prettier-internal-rules: 2.0.1
-    eslint-plugin-react: 7.31.8
+    eslint-plugin-react: 7.31.9
     eslint-plugin-regexp: 1.9.0
     eslint-plugin-unicorn: 44.0.2
     esm-utils: 4.1.0
@@ -6672,7 +6672,7 @@ __metadata:
     leven: 4.0.0
     lines-and-columns: 2.0.3
     linguist-languages: 7.21.0
-    magic-string: 0.26.6
+    magic-string: 0.26.7
     mem: 9.0.2
     meriyah: 4.3.2
     micromatch: 4.0.5
@@ -7874,7 +7874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0, tslib@npm:^2.0.3, tslib@npm:^2.2.0":
+"tslib@npm:2.4.0, tslib@npm:^2.2.0, tslib@npm:^2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113

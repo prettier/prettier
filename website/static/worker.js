@@ -116,13 +116,17 @@ async function handleFormatMessage(message) {
     },
   };
 
-  if (message.debug.ast) {
+  for (const key of ["ast", "preprocessedAst"]) {
+    if (!message.debug[key]) {
+      continue;
+    }
     let ast;
     let errored = false;
     try {
-      ast = serializeAst(
-        (await prettier.__debug.parse(message.code, options)).ast
-      );
+      const parsed = await prettier.__debug.parse(message.code, options, {
+        preprocessForPrint: key === "preprocessedAst",
+      });
+      ast = serializeAst(parsed.ast);
     } catch (e) {
       errored = true;
       ast = String(e);
@@ -135,7 +139,7 @@ async function handleFormatMessage(message) {
         ast = serializeAst(ast);
       }
     }
-    response.debug.ast = ast;
+    response.debug[key] = ast;
   }
 
   if (message.debug.doc) {
