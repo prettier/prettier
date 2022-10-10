@@ -56,11 +56,14 @@ module.exports = {
               ...($$$options.plugins || []),
             ],
           };
-          prettier.__debug.parse($$$input, options, ${JSON.stringify(
-            devOptions
-          )});
+          prettier.__debug.parse($$$input, options, $$$devOptions);
         `,
-        { $$$input: input, $$$options: options, ...sandbox }
+        {
+          $$$input: input,
+          $$$options: options,
+          $$$devOptions: devOptions,
+          ...sandbox,
+        }
       );
     },
   },
