@@ -133,7 +133,7 @@ const pluginFiles = [
     input: "src/language-js/parse/angular.js",
     replaceModule: [
       // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
-      // Those files can't be imported, they also not directly runable, because `.mjs` extension is missing
+      // Those files can't be imported, they also not directly runnable, because `.mjs` extension is missing
       {
         module: path.join(
           path.dirname(require.resolve("@angular/compiler/package.json")),
