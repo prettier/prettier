@@ -23,6 +23,19 @@ import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
+function printEmptyArrayLike(path, openBracket, closeBracket, options) {
+  const { node } = path;
+  if (!hasComment(node, CommentCheckFlags.Dangling)) {
+    return [openBracket, closeBracket];
+  }
+  return group([
+    openBracket,
+    printDanglingComments(path, options),
+    softline,
+    closeBracket,
+  ]);
+}
+
 function printArray(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -31,18 +44,7 @@ function printArray(path, options, print) {
   const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   if (node.elements.length === 0) {
-    if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      parts.push(openBracket, closeBracket);
-    } else {
-      parts.push(
-        group([
-          openBracket,
-          printDanglingComments(path, options),
-          softline,
-          closeBracket,
-        ])
-      );
-    }
+    parts.push(printEmptyArrayLike(path, openBracket, closeBracket, options));
   } else {
     const lastElem = node.elements.at(-1);
     const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
@@ -187,4 +189,9 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-export { printArray, printArrayItems, isConciselyPrintedArray };
+export {
+  printArray,
+  printArrayItems,
+  isConciselyPrintedArray,
+  printEmptyArrayLike,
+};

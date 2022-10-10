@@ -23,7 +23,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printArrayItems } from "./array.js";
+import { printArrayItems, printEmptyArrayLike } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -291,8 +291,13 @@ function printTupleType(path, options, print) {
   const types = node[typesField];
   const isNonEmptyTuple = isNonEmptyArray(types);
   const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
+  const openBracket = "[";
+  const closeBracket = "]";
+  if (!isNonEmptyTuple) {
+    return printEmptyArrayLike(path, openBracket, closeBracket, options);
+  }
   return group([
-    "[",
+    openBracket,
     indent([
       bracketsDelimiterLine,
       printArrayItems(path, options, typesField, print),
@@ -300,7 +305,7 @@ function printTupleType(path, options, print) {
     ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
     printDanglingComments(path, options, /* sameIndent */ true),
     bracketsDelimiterLine,
-    "]",
+    closeBracket,
   ]);
 }
 
