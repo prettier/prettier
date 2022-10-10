@@ -336,9 +336,9 @@ const prettier = {
       }
       if (devOptions.preprocessForPrint) {
         attachComments(parsed.text, parsed.ast, options);
-        parsed.ast = options.printer.preprocess
-          ? await options.printer.preprocess(parsed.ast, options)
-          : parsed.ast;
+        if (options.printer.preprocess) {
+          parsed.ast = await options.printer.preprocess(parsed.ast, options);
+        }
       }
     }
     return parsed;
