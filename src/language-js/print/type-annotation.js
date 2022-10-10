@@ -289,7 +289,7 @@ function printTupleType(path, options, print) {
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
   const isEmptyTuple = types.length === 0;
-  const bracketsDelimiterLine = isEmptyTuple ? softline : "";
+  const bracketsDelimiterLine = isEmptyTuple ? "" : softline;
   const openBracket = "[";
   const closeBracket = "]";
   if (isEmptyTuple) {
