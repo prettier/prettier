@@ -22,6 +22,7 @@ const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const noBreakAfter = new Set(
   "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«"
 );
+
 /**
  * The set of characters that must not immediately follow a line break
  *
@@ -33,6 +34,7 @@ const noBreakAfter = new Set(
 const noBreakBefore = new Set(
   "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・"
 );
+
 /**
  * The set of characters whose surrounding newline may be converted to Space
  *
@@ -82,7 +84,6 @@ function isInSentenceWithCJSpaces(path) {
   return sentenceNode.usesCJSpaces;
 }
 
-//
 /**
  * @typedef {import("./utils.js").WordNode} WordNode
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
@@ -111,16 +112,20 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   if (value !== "\n") {
     return true;
   }
+
   // no adjacent nodes
   if (!adjacentNodes) {
     return true;
   }
+
   // e.g. " \nletter"
   if (!adjacentNodes.previous || !adjacentNodes.next) {
     return true;
   }
+
   const previousKind = adjacentNodes.previous.kind;
   const nextKind = adjacentNodes.next.kind;
+
   // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can converted to Space
   // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   if (
@@ -129,6 +134,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return true;
   }
+
   // han & hangul: same way preferred
   if (
     (previousKind === KIND_K_LETTER && nextKind === KIND_CJ_LETTER) ||
@@ -136,6 +142,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return true;
   }
+
   // Do not convert it to Space when:
   if (
     // Shall not be converted to Space around CJK punctuation
@@ -147,6 +154,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
+
   const characterBefore = adjacentNodes.previous.value.at(-1);
   const characterAfter = adjacentNodes.next.value[0];
 
@@ -162,6 +170,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return true;
   }
+
   // Converting newline between CJ and non-ASCII punctuation to Space does not seem to be better in many cases. (PR welcome)
   // e.g.
   // 1. “ア〜エの中から1つ選べ。”
@@ -174,6 +183,7 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   ) {
     return false;
   }
+
   // If the sentence uses the style that Space is injected in between CJ and alphanumerics, "\n" can be converted to Space.
   return isInSentenceWithCJSpaces(path);
 }
@@ -218,19 +228,21 @@ function isWesternOrKoreanLetter(kind) {
  * @returns {boolean} `true` if “whitespace” can be converted to `"\n"`
  */
 function isBreakable(path, value, options, adjacentNodes) {
-  if (options.proseWrap !== "always") {
+  if (
+    options.proseWrap !== "always" ||
+    getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
+  ) {
     return false;
   }
-  if (getAncestorNode(path, SINGLE_LINE_NODE_TYPES)) {
-    return false;
-  }
-  if (adjacentNodes === undefined) {
+
+  if (
+    adjacentNodes === undefined ||
+    // Space & newline are always breakable
+    value !== ""
+  ) {
     return true;
   }
-  // Space & newline are always breakable
-  if (value !== "") {
-    return true;
-  }
+
   // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   // [Latin][""][Hangul] & vice versa => Don't break
   // [han & kana][""][hangul], either
@@ -242,16 +254,19 @@ function isBreakable(path, value, options, adjacentNodes) {
   ) {
     return false;
   }
+
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
-  const isBreakingCJKLineBreakingRule =
+  const violatesCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
       noBreakBefore.has(adjacentNodes.next?.value?.[0])) ||
     (adjacentNodes.previous?.value !== undefined &&
       noBreakAfter.has(adjacentNodes.previous?.value?.at(-1)));
+
   // For "" (CJK and some non-space) higher priority than the following rule
-  if (isBreakingCJKLineBreakingRule) {
+  if (violatesCJKLineBreakingRule) {
     return false;
   }
+
   return true;
 }
 
@@ -272,6 +287,7 @@ function printWhitespace(path, value, options, adjacentNodes) {
   if (value !== "\n") {
     return convertToLineIfBreakable(value);
   }
+
   // Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
   // e.g. Word segmentation in Thai etc.
