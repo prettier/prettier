@@ -371,7 +371,9 @@ function modifyTypescriptModule(text) {
 
   // `import`/`export` cache
   source.removeSubmodule((text) =>
-    text.includes("ts.createCacheableExportInfoMap = createCacheableExportInfoMap;")
+    text.includes(
+      "ts.createCacheableExportInfoMap = createCacheableExportInfoMap;"
+    )
   );
 
   // `ts.canProduceDiagnostics`, `ts.createGetSymbolAccessibilityDiagnosticForNode`, and `ts.createGetSymbolAccessibilityDiagnosticForNode`
