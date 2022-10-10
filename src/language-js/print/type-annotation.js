@@ -289,7 +289,6 @@ function printTupleType(path, options, print) {
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
   const isEmptyTuple = types.length === 0;
-  const bracketsDelimiterLine = isEmptyTuple ? "" : softline;
   const openBracket = "[";
   const closeBracket = "]";
   if (isEmptyTuple) {
@@ -297,12 +296,9 @@ function printTupleType(path, options, print) {
   }
   return group([
     openBracket,
-    indent([
-      bracketsDelimiterLine,
-      printArrayItems(path, options, typesField, print),
-    ]),
+    indent([softline, printArrayItems(path, options, typesField, print)]),
     ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-    bracketsDelimiterLine,
+    softline,
     closeBracket,
   ]);
 }
