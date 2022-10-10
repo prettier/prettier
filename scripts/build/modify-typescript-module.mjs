@@ -372,6 +372,7 @@ function modifyTypescriptModule(text) {
   // `import`/`export` cache
   source.removeSubmodule((text) =>
     text.includes(
+      /* cspell:disable-next-line */
       "ts.createCacheableExportInfoMap = createCacheableExportInfoMap;"
     )
   );
