@@ -1,5 +1,4 @@
-import { printComments, printDanglingComments } from "../../main/comments.js";
-import { isNonEmptyArray } from "../../common/util.js";
+import { printComments } from "../../main/comments.js";
 import {
   group,
   join,
@@ -23,7 +22,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printArrayItems, printEmptyArrayLike } from "./array.js";
+import { printArrayItems, printEmptyArray } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -289,12 +288,12 @@ function printTupleType(path, options, print) {
   const { node } = path;
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
   const types = node[typesField];
-  const isNonEmptyTuple = isNonEmptyArray(types);
-  const bracketsDelimiterLine = isNonEmptyTuple ? softline : "";
+  const isEmptyTuple = types.length === 0;
+  const bracketsDelimiterLine = isEmptyTuple ? softline : "";
   const openBracket = "[";
   const closeBracket = "]";
-  if (!isNonEmptyTuple) {
-    return printEmptyArrayLike(path, openBracket, closeBracket, options);
+  if (isEmptyTuple) {
+    return printEmptyArray(path, openBracket, closeBracket, options);
   }
   return group([
     openBracket,
@@ -302,8 +301,7 @@ function printTupleType(path, options, print) {
       bracketsDelimiterLine,
       printArrayItems(path, options, typesField, print),
     ]),
-    ifBreak(isNonEmptyTuple && shouldPrintComma(options, "all") ? "," : ""),
-    printDanglingComments(path, options, /* sameIndent */ true),
+    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
     bracketsDelimiterLine,
     closeBracket,
   ]);
