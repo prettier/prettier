@@ -1,10 +1,10 @@
 import { hardline, line, softline } from "../document/builders.js";
-import { getAncestorNode } from "./printer-markdown.js";
 import {
   KIND_CJK_PUNCTUATION,
   KIND_CJ_LETTER,
   KIND_K_LETTER,
   KIND_NON_CJK,
+  getAncestorNode,
   punctuationRegex,
 } from "./utils.js";
 
@@ -49,11 +49,11 @@ const lineBreakBetweenTheseAndCJKConvertsToSpace = new Set(
  * (including ideograph aka han or kanji e.g. `字`, hiragana e.g. `あ`, and katakana e.g. `ア`)
  * and other letters (including alphanumerics; e.g. `A` or `1`) in the sentence.
  *
- * @param {*} path current position in nodes tree
+ * @param {AstPath} path current position in nodes tree
  * @returns {boolean} `true` if Space is tend to be inserted between these types of letters, `false` otherwise.
  */
 function isInSentenceWithCJSpaces(path) {
-  const sentenceNode = getAncestorNode(path, "sentence");
+  const sentenceNode = path.parent;
   if (sentenceNode.usesCJSpaces !== undefined) {
     return sentenceNode.usesCJSpaces;
   }

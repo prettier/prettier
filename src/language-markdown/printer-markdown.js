@@ -36,6 +36,8 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
+  getAncestorNode,
+  getAncestorCounter,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 import { printWhitespace } from "./print-whitespace.js";
@@ -510,26 +512,6 @@ function getNthSiblingIndex(node, parentNode, condition) {
   }
 }
 
-function getAncestorCounter(path, typeOrTypes) {
-  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.includes(ancestorNode.type)) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
-}
-
 function printTable(path, options, print) {
   const { node } = path;
 
@@ -892,8 +874,6 @@ function clamp(value, min, max) {
 function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
 }
-
-export { getAncestorNode };
 
 const printer = {
   preprocess,
