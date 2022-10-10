@@ -131,14 +131,33 @@ const pluginFiles = [
   "src/language-js/parse/meriyah.js",
   {
     input: "src/language-js/parse/angular.js",
-    replaceModule: ["ast.js", "lexer.js", "parser.js"].map((file) => ({
-      module: require.resolve(
-        `@angular/compiler/src/expression_parser/${file}`
-      ),
-      path: require.resolve(
-        `@angular/compiler/esm2015/src/expression_parser/${file}`
-      ),
-    })),
+    replaceModule: [
+      // We only use a small set of `@angular/compiler` from `esm2020/src/expression_parser/`
+      // Those files can't be imported, they also not directly runable, because `.mjs` extension is missing
+      {
+        module: path.join(
+          path.dirname(require.resolve("@angular/compiler/package.json")),
+          "fesm2020/compiler.mjs"
+        ),
+        text: /* indent */ `
+          export * from '../esm2020/src/expression_parser/ast.mjs';
+          export {Lexer} from '../esm2020/src/expression_parser/lexer.mjs';
+          export {Parser} from '../esm2020/src/expression_parser/parser.mjs';
+        `,
+      },
+      ...[
+        "expression_parser/lexer.mjs",
+        "expression_parser/parser.mjs",
+        "ml_parser/interpolation_config.mjs",
+      ].map((file) => ({
+        module: path.join(
+          path.dirname(require.resolve("@angular/compiler/package.json")),
+          `esm2020/src/${file}`
+        ),
+        process: (text) =>
+          text.replaceAll(/(?<=import .*? from )'(.{1,2}\/.*)'/g, "'$1.mjs'"),
+      })),
+    ],
   },
   {
     input: "src/language-css/parser-postcss.js",
