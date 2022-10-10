@@ -131,13 +131,14 @@ const pluginFiles = [
   "src/language-js/parse/meriyah.js",
   {
     input: "src/language-js/parse/angular.js",
-    replaceModule: [
-      {
-        module: "*",
-        find: 'require("@angular/compiler/src/',
-        replacement: 'require("@angular/compiler/esm2015/src/',
-      },
-    ],
+    replaceModule: ["ast.js", "lexer.js", "parser.js"].map((file) => ({
+      module: require.resolve(
+        `@angular/compiler/src/expression_parser/${file}`
+      ),
+      path: require.resolve(
+        `@angular/compiler/esm2015/src/expression_parser/${file}`
+      ),
+    })),
   },
   {
     input: "src/language-css/parser-postcss.js",
