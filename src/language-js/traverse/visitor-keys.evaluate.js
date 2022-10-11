@@ -8,7 +8,6 @@ const angularVisitorKeys = {
   NGPipeExpression: ["left", "right", "arguments"],
   NGChainedExpression: ["expressions"],
   NGEmptyExpression: [],
-  NGQuotedExpression: [],
   NGMicrosyntax: ["body"],
   NGMicrosyntaxKey: [],
   NGMicrosyntaxExpression: ["expression", "alias"],
