@@ -17,9 +17,9 @@ function printAngular(path, options, print) {
     case "NGRoot":
       return [
         print("node"),
-        !hasComment(node.node)
-          ? ""
-          : " //" + getComments(node.node)[0].value.trimEnd(),
+        hasComment(node.node)
+          ? " //" + getComments(node.node)[0].value.trimEnd()
+          : "",
       ];
     case "NGPipeExpression":
       return printBinaryishExpression(path, options, print);
@@ -28,8 +28,7 @@ function printAngular(path, options, print) {
         join(
           [";", line],
           path.map(
-            (childPath) =>
-              hasNgSideEffect(childPath) ? print() : ["(", print(), ")"],
+            () => (hasNgSideEffect(path) ? print() : ["(", print(), ")"]),
             "expressions"
           )
         )
@@ -38,12 +37,8 @@ function printAngular(path, options, print) {
       return "";
     case "NGMicrosyntax":
       return path.map(
-        (childPath, index) => [
-          index === 0
-            ? ""
-            : isNgForOf(childPath.node, index, node)
-            ? " "
-            : [";", line],
+        () => [
+          path.isFirst ? "" : isNgForOf(path) ? " " : [";", line],
           print(),
         ],
         "body"
@@ -58,18 +53,16 @@ function printAngular(path, options, print) {
         node.alias === null ? "" : [" as ", print("alias")],
       ];
     case "NGMicrosyntaxKeyedExpression": {
-      const index = path.getName();
-      const parentNode = path.getParentNode();
+      const { index, parent } = path;
       const shouldNotPrintColon =
-        isNgForOf(node, index, parentNode) ||
+        isNgForOf(path) ||
         (((index === 1 &&
           (node.key.name === "then" || node.key.name === "else")) ||
           (index === 2 &&
             node.key.name === "else" &&
-            parentNode.body[index - 1].type ===
-              "NGMicrosyntaxKeyedExpression" &&
-            parentNode.body[index - 1].key.name === "then")) &&
-          parentNode.body[0].type === "NGMicrosyntaxExpression");
+            parent.body[index - 1].type === "NGMicrosyntaxKeyedExpression" &&
+            parent.body[index - 1].key.name === "then")) &&
+          parent.body[0].type === "NGMicrosyntaxExpression");
       return [
         print("key"),
         shouldNotPrintColon ? " " : ": ",
@@ -90,13 +83,13 @@ function printAngular(path, options, print) {
   }
 }
 
-function isNgForOf(node, index, parentNode) {
+function isNgForOf({ node, index, parent }) {
   return (
     node.type === "NGMicrosyntaxKeyedExpression" &&
     node.key.name === "of" &&
     index === 1 &&
-    parentNode.body[0].type === "NGMicrosyntaxLet" &&
-    parentNode.body[0].value === null
+    parent.body[0].type === "NGMicrosyntaxLet" &&
+    parent.body[0].value === null
   );
 }
 
@@ -108,8 +101,6 @@ function isNgForOf(node, index, parentNode) {
 function hasNgSideEffect(path) {
   return hasNode(path.node, (node) => {
     switch (node.type) {
-      case undefined:
-        return false;
       case "CallExpression":
       case "OptionalCallExpression":
       case "AssignmentExpression":
