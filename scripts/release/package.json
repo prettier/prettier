@@ -8,13 +8,14 @@
     "chalk": "4.1.2",
     "enquirer": "2.3.6",
     "execa": "6.1.0",
-    "minimist": "1.2.6",
-    "node-fetch": "3.2.10",
     "outdent": "0.8.0",
     "semver": "7.3.8",
     "string-width": "5.1.2"
   },
   "devDependencies": {
     "jest": "29.1.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

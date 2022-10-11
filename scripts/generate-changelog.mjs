@@ -11,7 +11,6 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import fetch from "node-fetch";
 import createEsmUtils from "esm-utils";
 import enquirer from "enquirer";
 import { CHANGELOG_CATEGORIES } from "./utils/changelog-categories.mjs";
