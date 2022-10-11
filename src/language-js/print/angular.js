@@ -36,8 +36,6 @@ function printAngular(path, options, print) {
       );
     case "NGEmptyExpression":
       return "";
-    case "NGQuotedExpression":
-      return [node.prefix, ": ", node.value.trim()];
     case "NGMicrosyntax":
       return path.map(
         (childPath, index) => [
