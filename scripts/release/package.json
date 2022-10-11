@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "node --test"
   },
   "dependencies": {
     "chalk": "4.1.2",
@@ -11,9 +11,6 @@
     "outdent": "0.8.0",
     "semver": "7.3.8",
     "string-width": "5.1.2"
-  },
-  "devDependencies": {
-    "jest": "29.1.2"
   },
   "engines": {
     "node": ">=18"
