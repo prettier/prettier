@@ -4,6 +4,8 @@ import { outdent } from "outdent";
 import { runGit, readJson } from "./utils.js";
 import parseArguments from "./parse-arguments.js";
 
+const importDefault = async (module) => (await import(module)).default;
+
 async function run() {
   const params = parseArguments();
 
