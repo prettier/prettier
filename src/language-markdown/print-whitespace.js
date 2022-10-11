@@ -237,8 +237,8 @@ function isBreakable(path, value, options, adjacentNodes) {
 
   if (
     adjacentNodes === undefined ||
-    // Space & newline are always breakable
-    value !== ""
+    // Space are always breakable
+    value === " "
   ) {
     return true;
   }
@@ -247,7 +247,8 @@ function isBreakable(path, value, options, adjacentNodes) {
   // [Latin][""][Hangul] & vice versa => Don't break
   // [han & kana][""][hangul], either
   if (
-    (adjacentNodes.previous?.kind === KIND_K_LETTER &&
+    (value === "" &&
+      adjacentNodes.previous?.kind === KIND_K_LETTER &&
       isLetter(adjacentNodes.next?.kind)) ||
     (adjacentNodes.next?.kind === KIND_K_LETTER &&
       isLetter(adjacentNodes.previous?.kind))
@@ -262,7 +263,10 @@ function isBreakable(path, value, options, adjacentNodes) {
     (adjacentNodes.previous?.value !== undefined &&
       noBreakAfter.has(adjacentNodes.previous?.value?.at(-1)));
 
-  // For "" (CJK and some non-space) higher priority than the following rule
+  // Targets not only "" but also "\n"
+  // Intentional violation of the line breaking rules (e.g. “ル\nール守れ\n！”) tends to be “corrected” ("\n" -> "") by formatted with a large value of `printWidth`.
+  // Eventually, by reformatted with a smaller value of `printWidth` or because of a paragraph revision, the rules are going to be applied to the place that used to violate them.
+  // e.g. “シ\nョ\nートカ\nット\n！\n？” (completely violates the rules on purpose) --[printWidth = 6]-->“ショー\nトカッ\nト！？” --[s/^/こんなところで/]--> “こんな\nところ\nで\nショー\nトカッ\nト！？” (completely complies to the rules)
   if (violatesCJKLineBreakingRule) {
     return false;
   }
