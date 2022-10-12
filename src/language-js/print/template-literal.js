@@ -62,6 +62,7 @@ function printTemplateLiteral(path, print, options) {
     if (quasi.tail) {
       return;
     }
+
     // For a template literal of the following form:
     //   `someQuery {
     //     ${call({
@@ -73,7 +74,7 @@ function printTemplateLiteral(path, print, options) {
     // quasi literal), therefore we want to indent the JavaScript
     // expression inside at the beginning of ${ instead of the beginning
     // of the `.
-    let printed = printedExpressions[index];
+    let printedExpression = printedExpressions[index];
 
     if (!isSimple) {
       const expression = node[expressionsKey][index];
@@ -87,16 +88,17 @@ function printTemplateLiteral(path, print, options) {
         expression.type === "TSAsExpression" ||
         isBinaryish(expression)
       ) {
-        printed = [indent([softline, printed]), softline];
+        printedExpression = [indent([softline, printedExpression]), softline];
       }
     }
 
-    const indentSize = getIndentSize(quasi.value.raw, tabWidth) || previousIndention;
+    const indentSize =
+      getIndentSize(quasi.value.raw, tabWidth) || previousIndention;
     previousIndention = indentSize;
     const aligned =
       indentSize === 0 && quasi.value.raw.endsWith("\n")
-        ? align(Number.NEGATIVE_INFINITY, printed)
-        : addAlignmentToDoc(printed, indentSize, tabWidth);
+        ? align(Number.NEGATIVE_INFINITY, printedExpression)
+        : addAlignmentToDoc(printedExpression, indentSize, tabWidth);
 
     parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
   }, "quasis");
