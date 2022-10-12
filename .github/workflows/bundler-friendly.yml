@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   build:
+    name: Build
     uses: ./.github/workflows/build.yml
 
   webpack:
