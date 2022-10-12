@@ -5,7 +5,7 @@ export { default as lintFiles } from "./lint-files.js";
 export { default as runTests } from "./run-tests.js";
 export { default as updateVersion } from "./update-version.js";
 export { default as generateBundles } from "./generate-bundles.js";
-export { default as updateChangeLog } from "./update-changelog.js";
+export { default as updateChangelog } from "./update-changelog.js";
 export { default as pushToGit } from "./push-to-git.js";
 export { default as publishToNpm } from "./publish-to-npm.js";
 export { default as waitForBotRelease } from "./wait-for-bot-release.js";

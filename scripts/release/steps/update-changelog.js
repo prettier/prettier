@@ -53,11 +53,11 @@ export default async function updateChangelog({
       return;
     }
     console.warn(
-      outdentString(chalk`
-        {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
-
-        Press ENTER to continue.
-      `)
+      `${chalk.yellow("warning")} The file ${chalk.bold(
+        blogPost.file
+      )} doesn't exist, but it will be referenced in ${chalk.bold(
+        "CHANGELOG.md"
+      )}. Make sure to create it later.`
     );
   } else {
     const body = await getChangelogForPatch({
@@ -69,7 +69,6 @@ export default async function updateChangelog({
       previousVersion,
       body,
     });
-    console.log("Press ENTER to continue.");
   }
 
   await waitForEnter();

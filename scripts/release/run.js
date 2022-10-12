@@ -37,15 +37,17 @@ for (let step of [
   {
     name: "Linting files",
     process: steps.lintFiles,
+    skip: params.dry,
   },
   {
     name: "Running tests",
     process: steps.runTests,
-    skip: !params.manual,
+    skip: params.dry || !params.manual,
   },
   {
     name: "Bumping version",
     process: steps.updateVersion,
+    skip: params.dry,
   },
   steps.generateBundles,
   steps.updateChangelog,
@@ -54,12 +56,7 @@ for (let step of [
     process: steps.pushToGit,
     skip: params.dry,
   },
-  params.manual
-    ? {
-        name: "Publishing to npm",
-        process: steps.publishToNpm,
-      }
-    : steps.waitForBotRelease,
+  params.manual ? steps.publishToNpm : steps.waitForBotRelease,
   steps.showInstructionsAfterNpmPublish,
   steps.updateDependentsCount,
   steps.bumpPrettier,

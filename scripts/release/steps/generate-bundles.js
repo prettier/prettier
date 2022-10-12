@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { runYarn, logPromise, readJson } from "../utils.js";
 
-export default async function generateBundles({ version, manual }) {
+export default async function generateBundles({ dry, version, manual }) {
   if (!manual) {
     return;
   }
@@ -12,13 +12,17 @@ export default async function generateBundles({ version, manual }) {
   );
 
   const builtPkg = await readJson("dist/package.json");
-  if (builtPkg.version !== version) {
+  if (!dry && builtPkg.version !== version) {
     throw new Error(
       `Expected ${version} in dist/package.json but found ${builtPkg.version}`
     );
   }
 
-  await logPromise("Running tests on generated bundles", runYarn("test:dist"));
+  await logPromise(
+    "Running tests on generated bundles",
+    () => runYarn("test:dist"),
+    /* shouldSkip */ dry
+  );
 
   console.log(chalk.green.bold("Build successful!\n"));
 }

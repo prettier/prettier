@@ -7,8 +7,6 @@ import {
   waitForEnter,
 } from "../utils.js";
 
-const outdentString = outdent.string;
-
 const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
 export function getReleaseUrl(version, previousVersion) {
   const semverDiff = semver.diff(version, previousVersion);
@@ -42,22 +40,22 @@ export default async function showInstructionsAfterNpmPublish({
   const releaseUrl = getReleaseUrl(version, previousVersion);
 
   console.log(
-    outdentString(chalk`
-      {green.bold Prettier ${version} published!}
+    outdent`
+      ${chalk.green.bold(`Prettier ${version} published!`)}
 
-      {yellow.bold Some manual steps are necessary.}
+      ${chalk.yellow.bold("Some manual steps are necessary.")}
 
-      {bold.underline Create a GitHub Release}
-      - Go to {cyan.underline ${releaseUrl}}
-      - Press {bgGreen.black  Publish release }
+      ${chalk.bold.underline("Create a GitHub Release")}
+      - Go to ${chalk.cyan.underline(releaseUrl)}
+      - Press ${chalk.bgGreen.black("Publish release ")}
 
-      {bold.underline Test the new release}
-      - In a new session, run {yellow npm i prettier@latest} in another directory
+      ${chalk.bold.underline("Test the new release")}
+      - In a new session, run ${chalk.yellow("npm i prettier@latest")} in another directory
       - Test the API and CLI
 
       After that, we can proceed to bump this repo's Prettier dependency.
-      Press ENTER to continue.
-    `)
+    `
   );
+
   await waitForEnter();
 }

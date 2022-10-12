@@ -1,19 +1,31 @@
 import { execa } from "execa";
 import enquirer from "enquirer";
+import {waitForEnter} from "../utils.js"
 
 export default async function publishToNpm({ dry }) {
-  const args = ["publish"];
+  console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`)
+
+  await waitForEnter()
+
+
+  const commonArgs = ["publish"];
   if (dry) {
-    args.push("--dry-run");
+    commonArgs.push("--dry-run");
   }
 
   const runNpmPublish = async () => {
-    const { otp } = await enquirer.prompt({
-      type: "input",
-      name: "otp",
-      message: "Please enter your npm OTP",
-    });
-    await execa("npm", [...args, "--otp", otp], { cwd: "./dist" });
+    const args = [...commonArgs];
+
+    if (!dry) {
+      const { otp } = await enquirer.prompt({
+        type: "input",
+        name: "otp",
+        message: "Please enter your npm OTP",
+      });
+      args.push("--otp", otp);
+    }
+
+    await execa("npm", args, { cwd: "./dist" });
   };
 
   /**

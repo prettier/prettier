@@ -9,7 +9,7 @@
   "author": "James Long",
   "type": "module",
   "license": "MIT",
-  "main": "./index.cjs",
+  "main": "./src/index.cjs",
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
   "exports": {

@@ -2,8 +2,6 @@ import chalk from "chalk";
 import outdent from "outdent";
 import { waitForEnter, logPromise } from "../utils.js";
 
-const outdentString = outdent.string;
-
 export async function isVersionReleased(version) {
   const response = await fetch("https://registry.npmjs.org/prettier/");
   const result = await response.json();
@@ -35,35 +33,41 @@ export default async function waitForBotRelease({ dry, version }) {
 
   if (!(await checkBotPermission())) {
     console.log(
-      outdentString(chalk/* indent */ `
-        1. Go to {green.underline https://www.npmjs.com/package/prettier/access}
-        2. Add "{yellow prettier-bot}" as prettier package maintainer.
-
-        Press ENTER to continue.
-      `)
+      outdent`
+        1. Go to ${chalk.green.underline(
+          "https://www.npmjs.com/package/prettier/access"
+        )}
+        2. Add "${chalk.yellow("prettier-bot")}" as prettier package maintainer.
+      `
     );
 
     await waitForEnter();
   }
 
   console.log(
-    outdentString(chalk/* indent */ `
-      1. Go to {green.underline https://www.npmjs.com/package/prettier/access}
-      2. Make sure "{yellow Publishing access}" section is set to "{yellow Require two-factor authentication or automation tokens}".
-
-      Press ENTER to continue.
-    `)
+    outdent`
+      1. Go to ${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+      2. Make sure "${chalk.yellow(
+        "Publishing access"
+      )}" section is set to "{yellow Require two-factor authentication or automation tokens}".
+    `
   );
 
   await waitForEnter();
 
   console.log(
-    outdentString(chalk/* indent */ `
-      1. Go to {green.underline https://github.com/prettier/release-workflow/actions/workflows/release.yml}
-      2. Click "{green Run workflow}" button, type "{yellow.underline ${version}}" in "Version to release", uncheck all checkboxes, hit the "{bgGreen Run workflow}" button.
-
-      Press ENTER to continue.
-    `)
+    outdent`
+      1. Go to ${chalk.green.underline(
+        "https://github.com/prettier/release-workflow/actions/workflows/release.yml"
+      )}
+      2. Click "${chalk.green(
+        "Run workflow"
+      )}" button, type "{yellow.underline ${version}}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
+      "Run workflow"
+    )}" button.
+    `
   );
 
   await waitForEnter();
