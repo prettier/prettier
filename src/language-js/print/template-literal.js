@@ -39,11 +39,11 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressions = path.map(print, expressionsKey);
+  let printedExpressions = path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
-    expressions = expressions.map(
+    printedExpressions = printedExpressions.map(
       (doc) =>
         printDocToString(doc, {
           ...options,
@@ -72,7 +72,7 @@ function printTemplateLiteral(path, print, options) {
     // quasi literal), therefore we want to indent the JavaScript
     // expression inside at the beginning of ${ instead of the beginning
     // of the `.
-    let printed = expressions[index];
+    let printed = printedExpressions[index];
 
     if (!isSimple) {
       const expression = node[expressionsKey][index];
