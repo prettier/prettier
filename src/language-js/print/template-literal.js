@@ -23,10 +23,7 @@ function printTemplateLiteral(path, print, options) {
   const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (
-    isTemplateLiteral &&
-    isJestEachTemplateLiteral(path)
-  ) {
+  if (isTemplateLiteral && isJestEachTemplateLiteral(path)) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
@@ -236,7 +233,7 @@ function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
-function isJestEachTemplateLiteral({node, parent}) {
+function isJestEachTemplateLiteral({ node, parent }) {
   /**
    * describe.each`table`(name, fn)
    * describe.only.each`table`(name, fn)
