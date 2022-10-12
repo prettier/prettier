@@ -1,7 +1,11 @@
 import chalk from "chalk";
 import { runYarn, logPromise, readJson } from "../utils.js";
 
-export default async function generateBundles({ version }) {
+export default async function generateBundles({ version, manual }) {
+  if (!manual) {
+    return;
+  }
+
   await logPromise(
     "Generating bundles",
     runYarn(["build", "--clean", "--print-size", "--compare-size"])

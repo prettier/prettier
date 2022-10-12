@@ -10,23 +10,29 @@ readline.emitKeypressEvents(process.stdin);
 
 const OK = chalk.bgGreen.black(" DONE ");
 const FAIL = chalk.bgRed.black(" FAIL ");
+const SKIPPED = chalk.bgGray.black(" SKIPPED ");
 
 function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns, 80);
-  const WIDTH = columns - stringWidth(OK) + 1;
+  const WIDTH = columns - stringWidth(SKIPPED) + 1;
   if (input.length < WIDTH) {
     input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
 
-async function logPromise(name, promiseOrAsyncFunction) {
+async function logPromise(name, promiseOrAsyncFunction, shouldSkip = false) {
+  process.stdout.write(fitTerminal(name));
+
+  if (shouldSkip) {
+    process.stdout.write(`${SKIPPED}\n`);
+    return;
+  }
+
   const promise =
     typeof promiseOrAsyncFunction === "function"
       ? promiseOrAsyncFunction()
       : promiseOrAsyncFunction;
-
-  process.stdout.write(fitTerminal(name));
 
   try {
     const result = await promise;

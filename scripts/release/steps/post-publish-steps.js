@@ -43,14 +43,14 @@ function twitterAnnouncement() {
   `);
 }
 
-export default async function postPublishSteps() {
-  const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
-
+export default async function postPublishSteps({ dry }) {
   console.log(chalk.bold.green("The script has finished!\n"));
 
-  if (steps.length === 0) {
+  if (dry) {
     return;
   }
+
+  const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
 
   console.log(
     outdentString(chalk`

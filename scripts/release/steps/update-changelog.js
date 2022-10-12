@@ -30,7 +30,15 @@ async function getChangelogForPatch({ version, previousVersion }) {
   return changelog;
 }
 
-export default async function updateChangelog({ version, previousVersion }) {
+export default async function updateChangelog({
+  dry,
+  version,
+  previousVersion,
+}) {
+  if (dry) {
+    return;
+  }
+
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {

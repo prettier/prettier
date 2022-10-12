@@ -23,8 +23,6 @@ async function checkBotPermission() {
   return maintainers.some(({ name }) => name === "prettier-bot");
 }
 
-checkBotPermission();
-
 const sleep = () =>
   new Promise((resolve) => {
     setTimeout(resolve, 30_000);

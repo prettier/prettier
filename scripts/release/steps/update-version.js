@@ -6,7 +6,7 @@ import {
   processFile,
 } from "../utils.js";
 
-async function bump({ version }) {
+export default async function updateVersion({ version }) {
   const pkg = await readJson("package.json");
   pkg.version = version;
   await writeJson("package.json", pkg);
@@ -33,8 +33,4 @@ async function bump({ version }) {
   await runYarn(["update-stable-docs"], {
     cwd: "./website",
   });
-}
-
-export default async function updateVersion(params) {
-  await logPromise("Bumping version", bump(params));
 }
