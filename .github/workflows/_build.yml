@@ -23,10 +23,11 @@ jobs:
         run: yarn install --immutable
 
       - name: Build Package
-        run: yarn build
+        run: yarn build --clean
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
           name: dist
           path: dist
+          if-no-files-found: error

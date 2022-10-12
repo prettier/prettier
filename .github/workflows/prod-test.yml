@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build:
     name: Build
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/_build.yml
 
   lint:
     name: Lint
