@@ -18,6 +18,9 @@ concurrency:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ github.event.inputs.ref }}
+    secrets: inherit
 
   lint:
     name: Lint
