@@ -3,7 +3,6 @@ import readline from "node:readline";
 import chalk from "chalk";
 import { execa } from "execa";
 import stringWidth from "string-width";
-import fetch from "node-fetch";
 import outdent from "outdent";
 import getFormattedDate from "./get-formatted-date.js";
 

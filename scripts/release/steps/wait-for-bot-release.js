@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import outdent from "outdent";
-import fetch from "node-fetch";
 import { waitForEnter, logPromise } from "../utils.js";
 
 const outdentString = outdent.string;

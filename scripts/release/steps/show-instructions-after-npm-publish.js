@@ -9,6 +9,7 @@ import {
 
 const outdentString = outdent.string;
 
+const RELEASE_URL_BASE = "https://github.com/prettier/prettier/releases/new?";
 export function getReleaseUrl(version, previousVersion) {
   const semverDiff = semver.diff(version, previousVersion);
   const isPatch = semverDiff === "patch";
@@ -26,8 +27,12 @@ export function getReleaseUrl(version, previousVersion) {
       body: `🔗 [Release note](https://prettier.io/${blogPostInfo.path})`,
     });
   }
-  body = encodeURIComponent(body);
-  return `https://github.com/prettier/prettier/releases/new?tag=${version}&title=${version}&body=${body}`;
+  const parameters = new URLSearchParams({
+    tag: version,
+    title: version,
+    body,
+  });
+  return `${RELEASE_URL_BASE}${parameters}`;
 }
 
 export default async function showInstructionsAfterNpmPublish({
