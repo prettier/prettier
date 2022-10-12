@@ -315,8 +315,8 @@ printWidth: 80
       2. Go to "\${chalk.green.underline(
         "https://www.npmjs.com/package/prettier/access",
       )}" \${chalk.green.underline(
-    "https://www.npmjs.com/package/prettier/access",
-  )}
+        "https://www.npmjs.com/package/prettier/access",
+      )}
   \`,
   \`
       1. Go to "-{chalk.green.underline(
@@ -327,15 +327,15 @@ printWidth: 80
       2. Go to "\${chalk.green.underline(
         "https://www.npmjs.com/package/prettier/access",
       )}" \${chalk.green.underline(
-    "https://www.npmjs.com/package/prettier/access",
-  )}
+        "https://www.npmjs.com/package/prettier/access",
+      )}
   \`,
   \`
       2. Go to "\${chalk.green.underline(
         "https://www.npmjs.com/package/prettier/access",
       )}" \${chalk.green.underline(
-    "https://www.npmjs.com/package/prettier/access",
-  )}
+        "https://www.npmjs.com/package/prettier/access",
+      )}
       1. Go to "-{chalk.green.underline(
         "https://www.npmjs.com/package/prettier/access"
       )}" \${chalk.green.underline(
@@ -349,10 +349,10 @@ printWidth: 80
             "https://www.npmjs.com/package/prettier/access",
           )}
       2. Go to "\${chalk.green.underline(
-        "https://www.npmjs.com/package/prettier/access",
-      )}" \${chalk.green.underline(
-    "https://www.npmjs.com/package/prettier/access",
-  )}
+            "https://www.npmjs.com/package/prettier/access",
+          )}" \${chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access",
+          )}
   \`,
   \`
       1. Go to "-{chalk.green.underline(
@@ -361,10 +361,10 @@ printWidth: 80
         "https://www.npmjs.com/package/prettier/access",
       )}
           2. Go to "\${chalk.green.underline(
-            "https://www.npmjs.com/package/prettier/access",
-          )}" \${chalk.green.underline(
-    "https://www.npmjs.com/package/prettier/access",
-  )}
+        "https://www.npmjs.com/package/prettier/access",
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}
   \`,
 ];
 
