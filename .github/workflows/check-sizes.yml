@@ -32,4 +32,4 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "./dist/**/*"
           compression: none
-          build-script: "yarn build --clean"
+          build-script: "build --clean"
