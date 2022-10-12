@@ -25,9 +25,9 @@ jobs:
           cache: "yarn"
 
       - name: Check Sizes
-        uses: pkg-size/action@v1.1.1
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        uses: preactjs/compressed-size-action@2.5.0
         with:
-          build-command: yarn build --clean
-          display-size: uncompressed
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          pattern: "./dist/**/*"
+          compression: none
+          build-script: "build --clean"
