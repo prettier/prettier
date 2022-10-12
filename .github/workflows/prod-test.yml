@@ -17,28 +17,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3.5.0
-        with:
-          cache: "yarn"
-
-      - name: Install Dependencies
-        run: yarn install --immutable
-
-      - name: Build Package
-        run: yarn build
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: dist
-          path: dist
+    uses: ./.github/workflows/build.yml
 
   lint:
     name: Lint
