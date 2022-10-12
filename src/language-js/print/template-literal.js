@@ -54,12 +54,12 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  path.each((childPath) => {
-    const i = childPath.getName();
-
+  const { tabWidth } = options;
+  const indentSize = getIndentSize(node.quasis[0].value.raw, tabWidth);
+  path.each(({ index, node: quasi }) => {
     parts.push(print());
 
-    if (i < expressions.length) {
+    if (!quasi.tail) {
       // For a template literal of the following form:
       //   `someQuery {
       //     ${call({
@@ -71,14 +71,10 @@ function printTemplateLiteral(path, print, options) {
       // quasi literal), therefore we want to indent the JavaScript
       // expression inside at the beginning of ${ instead of the beginning
       // of the `.
-      const { tabWidth } = options;
-      const quasi = childPath.node;
-      const indentSize = getIndentSize(quasi.value.raw, tabWidth);
-
-      let printed = expressions[i];
+      let printed = expressions[index];
 
       if (!isSimple) {
-        const expression = node[expressionsKey][i];
+        const expression = node[expressionsKey][index];
         // Breaks at the template element boundaries (${ and }) are preferred to breaking
         // in the middle of a MemberExpression
         if (
