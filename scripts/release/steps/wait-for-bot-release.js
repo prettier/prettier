@@ -66,7 +66,9 @@ export default async function waitForBotRelease({ dry, version }) {
       )}
       2. Click "${chalk.green(
         "Run workflow"
-      )}" button, type "{yellow.underline ${version}}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
+      )}" button, type "${chalk.yellow.underline(
+      version
+    )}" in "Version to release", uncheck all checkboxes, hit the "${chalk.bgGreen(
       "Run workflow"
     )}" button.
     `
