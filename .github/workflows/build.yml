@@ -15,9 +15,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Debug
-        run: echo ${{ github.workflow }}-${{ github.ref }}
-
       - name: Checkout
         uses: actions/checkout@v3.1.0
 
