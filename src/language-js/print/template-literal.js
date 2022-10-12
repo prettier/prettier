@@ -75,10 +75,9 @@ function printTemplateLiteral(path, print, options) {
       const { tabWidth } = options;
       const quasi = childPath.node;
       const text = quasi.value.raw;
-      let indentSize = getIndentSize(text, tabWidth);
-      if (indentSize === 0 && !text.includes("\n")) {
-        indentSize = previousQuasiIndentSize;
-      }
+      const indentSize = text.includes("\n")
+        ? getIndentSize(text, tabWidth)
+        : previousQuasiIndentSize;
       previousQuasiIndentSize = indentSize;
 
       let printed = expressions[i];
