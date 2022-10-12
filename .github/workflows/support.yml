@@ -4,11 +4,18 @@ on:
   issues:
     types: [labeled, unlabeled, reopened]
 
+permissions:
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   support:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/support-requests@v2
+      - uses: dessant/support-requests@v2.1.2
         with:
           github-token: ${{ github.token }}
           support-label: "type:question"
