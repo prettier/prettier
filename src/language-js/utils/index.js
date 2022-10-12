@@ -703,40 +703,6 @@ function isSimpleNumber(numberString) {
 }
 
 /**
- * @param {Node} node
- * @param {Node} parentNode
- * @returns {boolean}
- */
-function isJestEachTemplateLiteral(node, parentNode) {
-  /**
-   * describe.each`table`(name, fn)
-   * describe.only.each`table`(name, fn)
-   * describe.skip.each`table`(name, fn)
-   * test.each`table`(name, fn)
-   * test.only.each`table`(name, fn)
-   * test.skip.each`table`(name, fn)
-   *
-   * Ref: https://github.com/facebook/jest/pull/6102
-   */
-  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
-  return (
-    parentNode.type === "TaggedTemplateExpression" &&
-    parentNode.quasi === node &&
-    parentNode.tag.type === "MemberExpression" &&
-    parentNode.tag.property.type === "Identifier" &&
-    parentNode.tag.property.name === "each" &&
-    ((parentNode.tag.object.type === "Identifier" &&
-      jestEachTriggerRegex.test(parentNode.tag.object.name)) ||
-      (parentNode.tag.object.type === "MemberExpression" &&
-        parentNode.tag.object.property.type === "Identifier" &&
-        (parentNode.tag.object.property.name === "only" ||
-          parentNode.tag.object.property.name === "skip") &&
-        parentNode.tag.object.object.type === "Identifier" &&
-        jestEachTriggerRegex.test(parentNode.tag.object.object.name)))
-  );
-}
-
-/**
  * @param {TemplateLiteral} template
  * @returns {boolean}
  */
@@ -1342,7 +1308,6 @@ export {
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
-  isJestEachTemplateLiteral,
   isJsxNode,
   isLiteral,
   isLongCurriedCallExpression,
