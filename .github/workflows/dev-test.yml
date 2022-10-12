@@ -47,10 +47,10 @@ jobs:
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: ./github/actions/prepare
+      - uses: ./.github/actions/prepare
 
       - name: Prepare
-        uses: ./github/actions/prepare
+        uses: ./.github/actions/prepare
 
       - name: Run Tests
         if: ${{ !matrix.ENABLE_CODE_COVERAGE }}
