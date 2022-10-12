@@ -18,13 +18,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/_build.yml
+
   webpack:
     name: Bundle Prettier with webpack
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
-      - name: Build
-        uses: ./.github/workflows/_build.yml
-
       - name: Checkout
         uses: actions/checkout@v3.1.0
 
