@@ -24,12 +24,9 @@ jobs:
         with:
           cache: "yarn"
 
-      # This step calls `git reset`
-      # It should be the last step
       - name: Check Sizes
-        uses: preactjs/compressed-size-action@2.5.0
+        uses: pkg-size/action@1.1.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          pattern: "./dist/**/*"
-          compression: none
-          build-script: "build --clean"
+          build-command: yarn build --clean
+          display-size: uncompressed
