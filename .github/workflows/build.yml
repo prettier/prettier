@@ -2,10 +2,6 @@ name: Build
 
 on:
   workflow_call:
-    inputs:
-      ref:
-        required: true
-        type: string
 
 permissions:
   contents: read
