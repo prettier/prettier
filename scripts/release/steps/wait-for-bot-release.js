@@ -51,7 +51,9 @@ export default async function waitForBotRelease({ dry, version }) {
       )}
       2. Make sure "${chalk.yellow(
         "Publishing access"
-      )}" section is set to "{yellow Require two-factor authentication or automation tokens}".
+      )}" section is set to "${chalk.yellow(
+      "Require two-factor authentication or automation tokens"
+    )}".
     `
   );
 
