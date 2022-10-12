@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import { execa } from "execa";
 import chalk from "chalk";
-import outdent from "outdent";
 import semver from "semver";
 import {
   waitForEnter,
@@ -10,8 +9,6 @@ import {
   getBlogPostInfo,
   getChangelogContent,
 } from "../utils.js";
-
-const outdentString = outdent.string;
 
 function writeChangelog(params) {
   const changelog = fs.readFileSync("CHANGELOG.md", "utf8");

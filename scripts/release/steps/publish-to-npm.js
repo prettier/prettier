@@ -1,12 +1,11 @@
 import { execa } from "execa";
 import enquirer from "enquirer";
-import {waitForEnter} from "../utils.js"
+import { waitForEnter } from "../utils.js";
 
 export default async function publishToNpm({ dry }) {
-  console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`)
+  console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`);
 
-  await waitForEnter()
-
+  await waitForEnter();
 
   const commonArgs = ["publish"];
   if (dry) {

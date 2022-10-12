@@ -50,7 +50,9 @@ export default async function showInstructionsAfterNpmPublish({
       - Press ${chalk.bgGreen.black("Publish release ")}
 
       ${chalk.bold.underline("Test the new release")}
-      - In a new session, run ${chalk.yellow("npm i prettier@latest")} in another directory
+      - In a new session, run ${chalk.yellow(
+        "npm i prettier@latest"
+      )} in another directory
       - Test the API and CLI
 
       After that, we can proceed to bump this repo's Prettier dependency.

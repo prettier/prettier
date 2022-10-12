@@ -1,10 +1,4 @@
-import {
-  runYarn,
-  logPromise,
-  readJson,
-  writeJson,
-  processFile,
-} from "../utils.js";
+import { runYarn, readJson, writeJson, processFile } from "../utils.js";
 
 export default async function updateVersion({ version }) {
   const pkg = await readJson("package.json");
