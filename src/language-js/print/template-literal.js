@@ -55,6 +55,7 @@ function printTemplateLiteral(path, print, options) {
   parts.push(lineSuffixBoundary, "`");
 
   const { tabWidth } = options;
+  let previousIndention = 0;
   path.each(({ index, node: quasi }) => {
     parts.push(print());
 
@@ -90,7 +91,8 @@ function printTemplateLiteral(path, print, options) {
       }
     }
 
-    const indentSize = getIndentSize(quasi.value.raw, tabWidth);
+    const indentSize = getIndentSize(quasi.value.raw, tabWidth) || previousIndention;
+    previousIndention = indentSize;
     const aligned =
       indentSize === 0 && quasi.value.raw.endsWith("\n")
         ? align(Number.NEGATIVE_INFINITY, printed)
