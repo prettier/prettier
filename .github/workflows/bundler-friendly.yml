@@ -10,6 +10,13 @@ on:
       # This workflow file
       - ".github/workflows/bundler-friendly.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build

@@ -5,6 +5,9 @@ on:
     types:
       - created
 
+permissions:
+  issues: write
+
 jobs:
   mark-duplicate:
     runs-on: ubuntu-latest

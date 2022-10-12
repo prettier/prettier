@@ -12,6 +12,13 @@ on:
       - ".github/workflows/dev-package-test.yml"
       - "tests/config/install-prettier.js"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     timeout-minutes: 60

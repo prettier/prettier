@@ -5,6 +5,13 @@ on:
     paths:
       - "website/data/users.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   prevent-add-users:
     runs-on: ubuntu-latest

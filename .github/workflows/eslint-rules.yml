@@ -12,6 +12,13 @@ on:
       # This workflow file
       - ".github/workflows/eslint-rules.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Test

@@ -4,6 +4,13 @@ on:
   issues:
     types: [labeled, unlabeled, reopened]
 
+permissions:
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   support:
     runs-on: ubuntu-latest

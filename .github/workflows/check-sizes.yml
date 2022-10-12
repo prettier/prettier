@@ -3,6 +3,14 @@ name: Check Sizes
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-sizes:
     name: Check Sizes
@@ -24,3 +32,4 @@ jobs:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           pattern: "./dist/**/*"
           compression: none
+          build-script: "yarn build --clean"
