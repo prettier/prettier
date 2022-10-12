@@ -74,8 +74,11 @@ function printTemplateLiteral(path, print, options) {
       // of the `.
       const { tabWidth } = options;
       const quasi = childPath.node;
-      const indentSize =
-        getIndentSize(quasi.value.raw, tabWidth) || previousQuasiIndentSize;
+      const text = quasi.value.raw;
+      let indentSize = getIndentSize(text, tabWidth);
+      if (indentSize === 0 && !text.includes("\n")) {
+        indentSize = previousQuasiIndentSize;
+      }
       previousQuasiIndentSize = indentSize;
 
       let printed = expressions[i];
@@ -97,7 +100,7 @@ function printTemplateLiteral(path, print, options) {
       }
 
       const aligned =
-        indentSize === 0 && quasi.value.raw.endsWith("\n")
+        indentSize === 0 && text.endsWith("\n")
           ? align(Number.NEGATIVE_INFINITY, printed)
           : addAlignmentToDoc(printed, indentSize, tabWidth);
 
