@@ -42,15 +42,18 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
-      - name: Lint workflow files
-        run: yarn lint:actionlint
-
       - name: Lint docs code block
         # TODO: Lint files in `website/versioned_docs/version-stable` too
         run: yarn "docs/**/*.md"
         env:
           # Make Prettier throws on embeded format
           PRETTIER_DEBUG: true
+
+      - name: Lint workflow files
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+        shell: bash
 
       - name: Validate renovate config
         run: npx --package renovate -c renovate-config-validator
