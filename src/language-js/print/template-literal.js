@@ -55,47 +55,48 @@ function printTemplateLiteral(path, print, options) {
   parts.push(lineSuffixBoundary, "`");
 
   const { tabWidth } = options;
-  const indentSize = getIndentSize(node.quasis[0].value.raw, tabWidth);
   path.each(({ index, node: quasi }) => {
     parts.push(print());
 
-    if (!quasi.tail) {
-      // For a template literal of the following form:
-      //   `someQuery {
-      //     ${call({
-      //       a,
-      //       b,
-      //     })}
-      //   }`
-      // the expression is on its own line (there is a \n in the previous
-      // quasi literal), therefore we want to indent the JavaScript
-      // expression inside at the beginning of ${ instead of the beginning
-      // of the `.
-      let printed = expressions[index];
-
-      if (!isSimple) {
-        const expression = node[expressionsKey][index];
-        // Breaks at the template element boundaries (${ and }) are preferred to breaking
-        // in the middle of a MemberExpression
-        if (
-          hasComment(expression) ||
-          isMemberExpression(expression) ||
-          expression.type === "ConditionalExpression" ||
-          expression.type === "SequenceExpression" ||
-          expression.type === "TSAsExpression" ||
-          isBinaryish(expression)
-        ) {
-          printed = [indent([softline, printed]), softline];
-        }
-      }
-
-      const aligned =
-        indentSize === 0 && quasi.value.raw.endsWith("\n")
-          ? align(Number.NEGATIVE_INFINITY, printed)
-          : addAlignmentToDoc(printed, indentSize, tabWidth);
-
-      parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
+    if (quasi.tail) {
+      return;
     }
+    // For a template literal of the following form:
+    //   `someQuery {
+    //     ${call({
+    //       a,
+    //       b,
+    //     })}
+    //   }`
+    // the expression is on its own line (there is a \n in the previous
+    // quasi literal), therefore we want to indent the JavaScript
+    // expression inside at the beginning of ${ instead of the beginning
+    // of the `.
+    let printed = expressions[index];
+
+    if (!isSimple) {
+      const expression = node[expressionsKey][index];
+      // Breaks at the template element boundaries (${ and }) are preferred to breaking
+      // in the middle of a MemberExpression
+      if (
+        hasComment(expression) ||
+        isMemberExpression(expression) ||
+        expression.type === "ConditionalExpression" ||
+        expression.type === "SequenceExpression" ||
+        expression.type === "TSAsExpression" ||
+        isBinaryish(expression)
+      ) {
+        printed = [indent([softline, printed]), softline];
+      }
+    }
+
+    const indentSize = getIndentSize(quasi.value.raw, tabWidth);
+    const aligned =
+      indentSize === 0 && quasi.value.raw.endsWith("\n")
+        ? align(Number.NEGATIVE_INFINITY, printed)
+        : addAlignmentToDoc(printed, indentSize, tabWidth);
+
+    parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
   }, "quasis");
 
   parts.push("`");
