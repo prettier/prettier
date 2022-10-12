@@ -17,7 +17,7 @@ describe("validate-new-version", () => {
       () => {
         validateNewVersion({ version: "foo" });
       },
-      { message: "Invalid version '${chalk.red.underline(version)}' specified" }
+      { message: `Invalid version '${chalk.red.underline("foo")}' specified` }
     );
   });
   it("throws error when version isn't greater than prev version", () => {

@@ -2,7 +2,8 @@
 .cache/
 coverage/
 .nyc_output/
-.yarn/
+**/.yarn/**
+**/.pnp.*
 /dist*/
 node_modules/
 
