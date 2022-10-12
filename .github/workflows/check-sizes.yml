@@ -1,7 +1,7 @@
 name: Check Sizes
 
 on:
-  pull_request:
+  pull_request_target:
 
 permissions:
   contents: read
