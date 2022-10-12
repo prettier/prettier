@@ -231,6 +231,146 @@ throw new Error(
 ================================================================================
 `;
 
+exports[`indention.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+  \`,
+  \`
+          1. Go to "-{chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access"
+          )}" \${chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access"
+          )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}
+          2. Go to "\${chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access"
+          )}" \${chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access"
+          )}
+  \`,
+]
+
+=====================================output=====================================
+[
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}" \${chalk.green.underline(
+    "https://www.npmjs.com/package/prettier/access",
+  )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}" \${chalk.green.underline(
+    "https://www.npmjs.com/package/prettier/access",
+  )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}" \${chalk.green.underline(
+    "https://www.npmjs.com/package/prettier/access",
+  )}
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}
+  \`,
+  \`
+          1. Go to "-{chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access"
+          )}" \${chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access",
+          )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}" \${chalk.green.underline(
+    "https://www.npmjs.com/package/prettier/access",
+  )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access"
+      )}" \${chalk.green.underline(
+        "https://www.npmjs.com/package/prettier/access",
+      )}
+          2. Go to "\${chalk.green.underline(
+            "https://www.npmjs.com/package/prettier/access",
+          )}" \${chalk.green.underline(
+    "https://www.npmjs.com/package/prettier/access",
+  )}
+  \`,
+];
+
+================================================================================
+`;
+
 exports[`logical-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
