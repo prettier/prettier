@@ -178,14 +178,7 @@ function printNode(path, options, print) {
     }
     case "document": {
       const parts = [];
-      if (
-        shouldPrintDocumentHeadEndMarker(
-          node,
-          path.next,
-          path.parent,
-          options
-        ) === "head"
-      ) {
+      if (shouldPrintDocumentHeadEndMarker(path, options) === "head") {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
           parts.push(print("head"));
         }
@@ -367,18 +360,14 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
   );
 }
 
-function shouldPrintDocumentHeadEndMarker(
-  document,
-  nextDocument,
-  root,
-  options
-) {
+function shouldPrintDocumentHeadEndMarker(path, options) {
+  const document = path.node;
   if (
     /**
      * ---
      * preserve the first document head end marker
      */
-    (root.children[0] === document &&
+    (path.isFirst &&
       /---(?:\s|$)/.test(
         options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
@@ -400,6 +389,7 @@ function shouldPrintDocumentHeadEndMarker(
     return "head";
   }
 
+  const nextDocument = path.next;
   if (shouldPrintDocumentEndMarker(document, nextDocument)) {
     return false;
   }
