@@ -108,7 +108,7 @@ function genericPrint(path, options, print) {
       )
     );
   } else {
-    parts.push(group(printNode(node, parentNode, path, options, print)));
+    parts.push(group(printNode(path, options, print)));
   }
 
   if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
@@ -148,15 +148,13 @@ function genericPrint(path, options, print) {
   return parts;
 }
 
-function printNode(node, parentNode, path, options, print) {
+function printNode(path, options, print) {
+  const { node } = path;
   switch (node.type) {
     case "root": {
-      const { children } = node;
       const parts = [];
-      path.each((childPath, index) => {
-        const document = children[index];
-        const nextDocument = children[index + 1];
-        if (index !== 0) {
+      path.each(({ node: document, next: nextDocument, isFirst }) => {
+        if (!isFirst) {
           parts.push(hardline);
         }
         parts.push(print());
@@ -180,13 +178,12 @@ function printNode(node, parentNode, path, options, print) {
       return parts;
     }
     case "document": {
-      const nextDocument = parentNode.children[path.getName() + 1];
       const parts = [];
       if (
         shouldPrintDocumentHeadEndMarker(
           node,
-          nextDocument,
-          parentNode,
+          path.next,
+          path.parent,
           options
         ) === "head"
       ) {
@@ -331,7 +328,7 @@ function printNode(node, parentNode, path, options, print) {
       return !node.content ? "" : print("content");
     case "mappingItem":
     case "flowMappingItem":
-      return printMappingItem(node, parentNode, path, print, options);
+      return printMappingItem(node, path.parent, path, print, options);
 
     case "flowMapping":
       return printFlowMapping(path, print, options);
