@@ -427,8 +427,8 @@ a = \`
     {
       a = \`
 # foo \${chalk.green.underline(
-        "https://www.example.com/drupedalKangarooTransformer",
-      )}
+  "https://www.example.com/drupedalKangarooTransformer",
+)}
 \`;
       a = \`
  # foo \${chalk.green.underline(
