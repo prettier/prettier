@@ -28,7 +28,7 @@ module.exports = {
           // Forbid `require()` .mjs file
           {
             selector:
-              'CallExpression[callee.name="require"][arguments.0.value=/^..*?.mjs$/]',
+              'CallExpression[callee.name="require"][arguments.0.value=/^\\..*?\\.mjs$/]',
             message: ".mjs file can't be `require()`d",
           },
         ],
