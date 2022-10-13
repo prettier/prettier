@@ -170,15 +170,16 @@ function genericPrint(path, options, print) {
       return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
       const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
-      const style = "`".repeat(backtickCount || 1);
-      const gap =
-        (backtickCount && !/^\s/.test(node.value)) ||
+      const backtickString = "`".repeat(backtickCount || 1);
+      const padding =
+        node.value.startsWith("`") ||
+        node.value.endsWith("`") ||
         (node.value.startsWith(" ") &&
           node.value.endsWith(" ") &&
           node.value.trim() !== "")
           ? " "
           : "";
-      return [style, gap, node.value, gap, style];
+      return [backtickString, padding, node.value, padding, backtickString];
     }
     case "wikiLink": {
       let contents = "";
