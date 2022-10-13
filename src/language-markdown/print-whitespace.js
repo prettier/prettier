@@ -256,6 +256,11 @@ function isBreakable(path, value, options, adjacentNodes) {
     return false;
   }
 
+  // If `false`, joined with `" "` -> divided into 2 lines by `" "` loop occurs
+  if (value === "\n" && canBeConvertedToSpace(path, value, adjacentNodes)) {
+    return true;
+  }
+
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const violatesCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
