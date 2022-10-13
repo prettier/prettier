@@ -171,7 +171,13 @@ function genericPrint(path, options, print) {
     case "inlineCode": {
       const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
       const style = "`".repeat(backtickCount || 1);
-      const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
+      const gap =
+        (backtickCount && !/^\s/.test(node.value)) ||
+        (node.value.startsWith(" ") &&
+          node.value.endsWith(" ") &&
+          node.value.trim() !== "")
+          ? " "
+          : "";
       return [style, gap, node.value, gap, style];
     }
     case "wikiLink": {

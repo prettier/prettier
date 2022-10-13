@@ -36,13 +36,7 @@ function transformInlineCode(ast, options) {
         ? node.value
         : node.value.replace(/\n/g, " ");
 
-    return {
-      ...node,
-      value:
-        value.startsWith(" ") && value.endsWith(" ") && value.trim().length > 0
-          ? " " + value + " "
-          : value,
-    };
+    return { ...node, value };
   });
 }
 

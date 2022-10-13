@@ -33,11 +33,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    const value = ast.value.replace(/\n/g, " ");
-    newObj.value =
-      value.startsWith(" ") && value.endsWith(" ") && value.trim().length > 0
-        ? " " + value + " "
-        : value;
+    newObj.value = ast.value.replace(/\n/g, " ");
   }
 
   if (ast.type === "wikiLink") {
