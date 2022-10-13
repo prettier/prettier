@@ -174,8 +174,8 @@ function genericPrint(path, options, print) {
       const padding =
         node.value.startsWith("`") ||
         node.value.endsWith("`") ||
-        (node.value.startsWith(" ") &&
-          node.value.endsWith(" ") &&
+        (/^[\n ]/.test(node.value) &&
+          /[\n ]$/.test(node.value) &&
           /[^\n ]/.test(node.value))
           ? " "
           : "";

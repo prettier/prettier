@@ -1,6 +1,6 @@
 const fixtures = {
   importMeta: import.meta,
-  snippets: ["` \n `"],
+  snippets: ["` \n `", "` \na  `"],
 };
 
 run_spec(fixtures, ["markdown"], { proseWrap: "preserve" });
