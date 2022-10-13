@@ -7,10 +7,6 @@ on:
 permissions:
   issues: write
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   support:
     runs-on: ubuntu-latest
