@@ -128,7 +128,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
           let output = bundle.output.file;
           if (
             file.output.file === "index.cjs" &&
-            bundle.output.file === "esm/doc.mjs"
+            bundle.output.file === "doc.mjs"
           ) {
             output = "doc.js";
           }
