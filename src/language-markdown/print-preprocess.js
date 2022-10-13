@@ -27,16 +27,11 @@ function transformImportExport(ast) {
 
 function transformInlineCode(ast, options) {
   return mapAst(ast, (node) => {
-    if (node.type !== "inlineCode") {
+    if (node.type !== "inlineCode" || options.proseWrap === "preserve") {
       return node;
     }
 
-    const value =
-      options.proseWrap === "preserve"
-        ? node.value
-        : node.value.replace(/\n/g, " ");
-
-    return { ...node, value };
+    return { ...node, value: node.value.replace(/\n/g, " ") };
   });
 }
 
