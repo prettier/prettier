@@ -97,11 +97,17 @@ test("global objects", async () => {
   }
 });
 
-const getFileExports = async (file) => Object.keys(await importModule(file));
+const getFileExports = async (file) => {
+  let module = await importModule(file);
+  if (Object.hasOwn(module, "default")) {
+    module = module.default;
+  }
+  return Object.keys(module);
+};
 
 describe("exports", () => {
   for (const file of buildConfig) {
-    if (file.isMeta || file.output === "bin/prettier.cjs") {
+    if (file.isMetaFile || file.output.format === "cjs") {
       continue;
     }
 

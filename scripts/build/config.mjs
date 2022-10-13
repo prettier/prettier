@@ -30,7 +30,7 @@ const { require, dirname } = createEsmUtils(import.meta);
  * @property {'node' | 'universal'} platform - ESBuild platform
  * @property {BuildOptions} buildOptions - ESBuild options
  * @property {boolean?} isPlugin - file is a plugin
- * @property {boolean?} isMeta - file is a meta file (package.json, LICENSE README.md)
+ * @property {boolean?} isMetaFile - file is a meta file (package.json, LICENSE README.md)
  */
 
 /*
