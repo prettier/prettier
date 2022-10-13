@@ -176,7 +176,7 @@ function genericPrint(path, options, print) {
         node.value.endsWith("`") ||
         (node.value.startsWith(" ") &&
           node.value.endsWith(" ") &&
-          /[^ ]/.test(node.value))
+          /[^\n ]/.test(node.value))
           ? " "
           : "";
       return [backtickString, padding, node.value, padding, backtickString];
