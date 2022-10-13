@@ -328,7 +328,7 @@ function printNode(path, options, print) {
       return !node.content ? "" : print("content");
     case "mappingItem":
     case "flowMappingItem":
-      return printMappingItem(node, path.parent, path, print, options);
+      return printMappingItem(path, print, options);
 
     case "flowMapping":
       return printFlowMapping(path, print, options);
