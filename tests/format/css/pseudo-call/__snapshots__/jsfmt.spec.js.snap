@@ -1,5 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`is.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+:is(ol, ul, menu:unsupported) :is(ol, ul) {
+    color: green;
+}
+
+:is(ol, ul) :is(ol, ul) ol {
+    list-style-type: lower-greek;
+    color: chocolate;
+}
+
+:is(ol, ul, menu, dir) :is(ol, ul, menu, dir) :is(ul, menu, dir) {
+  list-style-type: square;
+}
+
+/* Level 0 */
+h1 {
+  font-size: 30px;
+}
+/* Level 1 */
+:is(section, article, aside, nav) h1 {
+  font-size: 25px;
+}
+/* Level 2 */
+:is(section, article, aside, nav) :is(section, article, aside, nav) h1 {
+  font-size: 20px;
+}
+/* Level 3 */
+:is(section, article, aside, nav)  :is(section, article, aside, nav)  :is(section, article, aside, nav)  h1 {
+  font-size: 15px;
+}
+
+some-element:is(::before, ::after) {
+  display: block;
+}
+
+=====================================output=====================================
+:is(ol, ul, menu:unsupported) :is(ol, ul) {
+  color: green;
+}
+
+:is(ol, ul) :is(ol, ul) ol {
+  list-style-type: lower-greek;
+  color: chocolate;
+}
+
+:is(ol, ul, menu, dir) :is(ol, ul, menu, dir) :is(ul, menu, dir) {
+  list-style-type: square;
+}
+
+/* Level 0 */
+h1 {
+  font-size: 30px;
+}
+/* Level 1 */
+:is(section, article, aside, nav) h1 {
+  font-size: 25px;
+}
+/* Level 2 */
+:is(section, article, aside, nav) :is(section, article, aside, nav) h1 {
+  font-size: 20px;
+}
+/* Level 3 */
+:is(section, article, aside, nav)
+  :is(section, article, aside, nav)
+  :is(section, article, aside, nav)
+  h1 {
+  font-size: 15px;
+}
+
+some-element:is(::before, ::after) {
+  display: block;
+}
+
+================================================================================
+`;
+
 exports[`pseudo_call.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
@@ -11,6 +92,63 @@ div:not(:last-child) {
 
 =====================================output=====================================
 div:not(:last-child) {
+}
+
+================================================================================
+`;
+
+exports[`where.css format 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+:where(#p0:checked ~ #play:checked ~ #c1:checked, #p1:checked ~ #play:checked ~ #c2:checked, #p2:checked ~ #play:checked ~ #cO:checked) ~ #result >
+#c { display: block; }
+
+:where(ol, ul, menu:unsupported) :where(ol, ul) {
+    color: green;
+}
+
+:where(ol, ul) :where(ol, ul) ol {
+    list-style-type: lower-greek;
+    color: chocolate;
+}
+
+:is(section.is-styling, aside.is-styling, footer.is-styling) a {
+  color: red;
+}
+
+:where(section.where-styling, aside.where-styling, footer.where-styling) a {
+  color: orange;
+}
+
+=====================================output=====================================
+:where(
+    #p0:checked ~ #play:checked ~ #c1:checked,
+    #p1:checked ~ #play:checked ~ #c2:checked,
+    #p2:checked ~ #play:checked ~ #cO:checked
+  )
+  ~ #result
+  > #c {
+  display: block;
+}
+
+:where(ol, ul, menu:unsupported) :where(ol, ul) {
+  color: green;
+}
+
+:where(ol, ul) :where(ol, ul) ol {
+  list-style-type: lower-greek;
+  color: chocolate;
+}
+
+:is(section.is-styling, aside.is-styling, footer.is-styling) a {
+  color: red;
+}
+
+:where(section.where-styling, aside.where-styling, footer.where-styling) a {
+  color: orange;
 }
 
 ================================================================================
