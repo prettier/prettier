@@ -100,39 +100,18 @@ test("global objects", async () => {
 const getFileExports = async (file) => Object.keys(await importModule(file));
 
 describe("exports", () => {
-  const files = buildConfig.map((bundle) => {
-    const output = path.join(distDirectory, bundle.output);
-
-    const outputFiles = /^(?:standalone|parser-.*)\.js$/.test(bundle.output)
-      ? [
-          output,
-          path.join(
-            distDirectory,
-            `esm/${bundle.output.replace(".js", ".mjs")}`
-          ),
-        ]
-      : [output];
-
-    return {
-      ...bundle,
-      sourceFile: path.join(projectRoot, bundle.input),
-      outputFiles,
-    };
-  });
-
-  for (const bundle of files) {
-    if (bundle.output === "bin-prettier.js") {
+  for (const file of buildConfig) {
+    if (file.isMeta || file.output === "bin/prettier.cjs") {
       continue;
     }
 
-    test(bundle.output, async () => {
-      const sourceFileExports = await getFileExports(bundle.sourceFile);
+    const sourceFile = path.join(projectRoot, file.input);
+    const distFile = path.join(distDirectory, file.output.file);
 
-      for (const file of bundle.outputFiles) {
-        const outputFileExports = await getFileExports(file);
-
-        expect(outputFileExports).toEqual(sourceFileExports);
-      }
+    test(file.output.file, async () => {
+      expect(await getFileExports(sourceFile)).toEqual(
+        await getFileExports(distFile)
+      );
     });
   }
 });
