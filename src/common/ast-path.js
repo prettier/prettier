@@ -57,6 +57,10 @@ class AstPath {
     return this.stack.length === 1;
   }
 
+  get root() {
+    return this.stack[0];
+  }
+
   // The name of the current property is always the penultimate element of
   // this.stack, and always a string/number/symbol.
   getName() {

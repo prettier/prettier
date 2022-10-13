@@ -98,7 +98,6 @@ function genericPrint(path, options, print) {
     ]);
   }
 
-  const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
       replaceEndOfLine(
@@ -115,7 +114,7 @@ function genericPrint(path, options, print) {
     parts.push(
       lineSuffix([
         node.type === "mappingValue" && !node.content ? "" : " ",
-        parentNode.type === "mappingKey" &&
+        path.parent.type === "mappingKey" &&
         path.getParentNode(2).type === "mapping" &&
         isInlineNode(node)
           ? ""
