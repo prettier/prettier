@@ -50,6 +50,7 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
+  let previousQuasiIndentSize = 0;
   path.each(({ index, node: quasi }) => {
     parts.push(print());
 
@@ -69,7 +70,11 @@ function printTemplateLiteral(path, print, options) {
     // expression inside at the beginning of ${ instead of the beginning
     // of the `.
     const { tabWidth } = options;
-    const indentSize = getIndentSize(quasi.value.raw, tabWidth);
+    const text = quasi.value.raw;
+    const indentSize = text.includes("\n")
+      ? getIndentSize(text, tabWidth)
+      : previousQuasiIndentSize;
+    previousQuasiIndentSize = indentSize;
 
     let expressionDoc = expressionDocs[index];
 
@@ -90,7 +95,7 @@ function printTemplateLiteral(path, print, options) {
     }
 
     const aligned =
-      indentSize === 0 && quasi.value.raw.endsWith("\n")
+      indentSize === 0 && text.endsWith("\n")
         ? align(Number.NEGATIVE_INFINITY, expressionDoc)
         : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
 

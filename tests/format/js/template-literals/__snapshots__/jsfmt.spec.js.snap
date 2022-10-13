@@ -231,6 +231,190 @@ throw new Error(
 ================================================================================
 `;
 
+exports[`indention.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+  \`,
+  \`
+          1. Go to "-{chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer"
+          )}" \${chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer"
+          )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}
+          2. Go to "\${chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer"
+          )}" \${chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer"
+          )}
+  \`,
+\`
+# blabla \${a} \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+
+    2. Go to "\${chalk.green.underline(
+      "https://www.example.com/drupedalKangarooTransformer",
+    )}"
+
+# blabla \${a} \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+\`,
+  \`
+  # blabla \${a} \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}"
+
+  # blabla \${a} \${chalk.green.underline("https://www.example.com/drupedalKangarooTransformer")}
+  \`,
+]
+
+=====================================output=====================================
+[
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+  \`,
+  \`
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+  \`,
+  \`
+          1. Go to "-{chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer"
+          )}" \${chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer",
+          )}
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+  \`,
+  \`
+      1. Go to "-{chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer"
+      )}" \${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}
+          2. Go to "\${chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer",
+          )}" \${chalk.green.underline(
+            "https://www.example.com/drupedalKangarooTransformer",
+          )}
+  \`,
+  \`
+# blabla \${a} \${chalk.green.underline(
+    "https://www.example.com/drupedalKangarooTransformer",
+  )}
+
+    2. Go to "\${chalk.green.underline(
+      "https://www.example.com/drupedalKangarooTransformer",
+    )}"
+
+# blabla \${a} \${chalk.green.underline(
+    "https://www.example.com/drupedalKangarooTransformer",
+  )}
+\`,
+  \`
+  # blabla \${a} \${chalk.green.underline(
+    "https://www.example.com/drupedalKangarooTransformer",
+  )}
+
+      2. Go to "\${chalk.green.underline(
+        "https://www.example.com/drupedalKangarooTransformer",
+      )}"
+
+  # blabla \${a} \${chalk.green.underline(
+    "https://www.example.com/drupedalKangarooTransformer",
+  )}
+  \`,
+];
+
+================================================================================
+`;
+
 exports[`logical-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
