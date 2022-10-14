@@ -5,7 +5,6 @@ import {
   KIND_K_LETTER,
   KIND_NON_CJK,
   getAncestorNode,
-  punctuationRegex,
 } from "./utils.js";
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
@@ -178,8 +177,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
   // 2. “これはひどい……なんと汚いコミットログなんだ……”
   // "…" (U+2026) belongs to Po, and "\n" in "これはひどい……\nなんと汚いコミットログなんだ……" must not, either.
   if (
-    punctuationRegex.test(characterBefore) ||
-    punctuationRegex.test(characterAfter)
+    adjacentNodes.previous.hasTrailingPunctuation ||
+    adjacentNodes.next.hasLeadingPunctuation
   ) {
     return false;
   }
