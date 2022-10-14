@@ -83,7 +83,6 @@ const pluginFiles = [
               "process.cwd()",
               JSON.stringify("/prettier-security-dirname-placeholder")
             )
-            .replace("extra.projects = ", "extra.projects = [] || ")
             .replace("warnAboutTSVersion();", "// warnAboutTSVersion();")
             .replace(
               "const isRunningSupportedTypeScriptVersion = ",
