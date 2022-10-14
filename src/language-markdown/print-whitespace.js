@@ -247,11 +247,11 @@ function isBreakable(path, value, options, adjacentNodes) {
   // [Latin][""][Hangul] & vice versa => Don't break
   // [han & kana][""][hangul], either
   if (
-    (value === "" &&
-      adjacentNodes.previous?.kind === KIND_K_LETTER &&
+    value === "" &&
+    ((adjacentNodes.previous?.kind === KIND_K_LETTER &&
       isLetter(adjacentNodes.next?.kind)) ||
-    (adjacentNodes.next?.kind === KIND_K_LETTER &&
-      isLetter(adjacentNodes.previous?.kind))
+      (adjacentNodes.next?.kind === KIND_K_LETTER &&
+        isLetter(adjacentNodes.previous?.kind)))
   ) {
     return false;
   }
