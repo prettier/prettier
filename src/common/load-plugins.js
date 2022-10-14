@@ -144,7 +144,7 @@ async function findPluginsInNodeModules(nodeModulesDir) {
 
 async function findPluginDirsInPnpmVirtualStore(searchDirectory) {
   const pluginPackageJsonPaths = await fastGlob(
-    ["prettier-plugin-*", "@*/node_modules"],
+    ["prettier-plugin-*", "@prettier+plugin-*", "@*+prettier-plugin-*"],
     {
       cwd: searchDirectory,
       onlyDirectories: true,
