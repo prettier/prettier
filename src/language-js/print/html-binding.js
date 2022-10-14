@@ -7,45 +7,28 @@ import {
 } from "../../document/builders.js";
 
 function printHtmlBinding(path, options, print) {
-  const { node } = path;
+  const { node, isRoot } = path;
 
-  if (options.__onHtmlBindingRoot && path.getName() === null) {
-    options.__onHtmlBindingRoot(node, options);
+  if (isRoot) {
+    options.__onHtmlBindingRoot?.(node, options);
   }
 
   if (node.type !== "File") {
     return;
   }
 
-  if (options.__isVueForBindingLeft) {
-    return path.call(
-      (functionDeclarationPath) => {
-        const printed = join(
-          [",", line],
-          functionDeclarationPath.map(print, "params")
-        );
+  if (options.__isVueBindings || options.__isVueForBindingLeft) {
+    const parameterDocs = path.map(print, "program", "body", 0, "params");
 
-        const { params } = functionDeclarationPath.node;
-        if (params.length === 1) {
-          return printed;
-        }
+    if (parameterDocs.length === 1) {
+      return parameterDocs[0];
+    }
 
-        return ["(", indent([softline, group(printed)]), softline, ")"];
-      },
-      "program",
-      "body",
-      0
-    );
-  }
+    const doc = join([",", line], parameterDocs);
 
-  if (options.__isVueBindings) {
-    return path.call(
-      (functionDeclarationPath) =>
-        join([",", line], functionDeclarationPath.map(print, "params")),
-      "program",
-      "body",
-      0
-    );
+    return options.__isVueForBindingLeft
+      ? ["(", indent([softline, group(doc)]), softline, ")"]
+      : doc;
   }
 }
 
