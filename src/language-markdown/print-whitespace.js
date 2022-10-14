@@ -61,14 +61,14 @@ function isInSentenceWithCJSpaces(path) {
     " ": 0,
     "": 0,
   };
-  for (let i = 0; i < sentenceNode.children.length; ++i) {
+  for (let i = 1; i < sentenceNode.children.length - 1; ++i) {
     const node = sentenceNode.children[i];
     if (
       node.type === "whitespace" &&
       (node.value === " " || node.value === "")
     ) {
-      const previousKind = sentenceNode.children[i - 1]?.kind;
-      const nextKind = sentenceNode.children[i + 1]?.kind;
+      const previousKind = sentenceNode.children[i - 1].kind;
+      const nextKind = sentenceNode.children[i + 1].kind;
       if (
         (previousKind === "cj-letter" && nextKind === "non-cjk") ||
         (previousKind === "non-cjk" && nextKind === "cj-letter")
