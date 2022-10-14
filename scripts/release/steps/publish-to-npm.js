@@ -1,19 +1,35 @@
 import { execa } from "execa";
 import enquirer from "enquirer";
-import { logPromise } from "../utils.js";
+import { waitForEnter } from "../utils.js";
 
-/**
- * Retry "npm publish" when to enter OTP is failed.
- */
-async function retryNpmPublish() {
+export default async function publishToNpm({ dry }) {
+  console.log(`Ready to publish to NPM${dry ? "(--dry-run)" : ""}`);
+
+  await waitForEnter();
+
+  const commonArgs = ["publish"];
+  if (dry) {
+    commonArgs.push("--dry-run");
+  }
+
   const runNpmPublish = async () => {
-    const { otp } = await enquirer.prompt({
-      type: "input",
-      name: "otp",
-      message: "Please enter your npm OTP",
-    });
-    await execa("npm", ["publish", "--otp", otp], { cwd: "./dist" });
+    const args = [...commonArgs];
+
+    if (!dry) {
+      const { otp } = await enquirer.prompt({
+        type: "input",
+        name: "otp",
+        message: "Please enter your npm OTP",
+      });
+      args.push("--otp", otp);
+    }
+
+    await execa("npm", args, { cwd: "./dist" });
   };
+
+  /**
+   * Retry "npm publish" when to enter OTP is failed.
+   */
   for (let i = 5; i > 0; i--) {
     try {
       return await runNpmPublish();
@@ -25,12 +41,4 @@ async function retryNpmPublish() {
       throw error;
     }
   }
-}
-
-export default async function publishToNpm({ dry }) {
-  if (dry) {
-    return;
-  }
-
-  await logPromise("Publishing to npm", retryNpmPublish());
 }
