@@ -45,7 +45,6 @@ const getVisitorKeys = createGetVisitorKeys(visitorKeys);
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
@@ -82,12 +81,7 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [
-        normalizeDoc(printRoot(path, options, print)),
-        !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
-          ? hardline
-          : "",
-      ];
+      return [normalizeDoc(printRoot(path, options, print)), hardline];
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill,
@@ -712,23 +706,15 @@ function printChildren(path, options, print, events = {}) {
       if (shouldPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        // Can't find a case to pass `shouldPrePrintTripleHardline`
-        /* istanbul ignore next */
-        if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
-          if (shouldPrePrintTripleHardline(childNode, data)) {
-            parts.push(hardline);
-          }
-        } else {
-          if (
-            shouldPrePrintDoubleHardline(childNode, data) ||
-            shouldPrePrintTripleHardline(childNode, data)
-          ) {
-            parts.push(hardline);
-          }
+        if (
+          shouldPrePrintDoubleHardline(childNode, data) ||
+          shouldPrePrintTripleHardline(childNode, data)
+        ) {
+          parts.push(hardline);
+        }
 
-          if (shouldPrePrintTripleHardline(childNode, data)) {
-            parts.push(hardline);
-          }
+        if (shouldPrePrintTripleHardline(childNode, data)) {
+          parts.push(hardline);
         }
       }
 
