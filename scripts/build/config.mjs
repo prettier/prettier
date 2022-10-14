@@ -65,23 +65,34 @@ const pluginFiles = [
         module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/parser.js"
         ),
-        process: (text) =>
-          text
-            .replaceAll('require("globby")', "{}")
-            .replaceAll('require("is-glob")', "{}")
-            .replaceAll('require("semver")', "{}")
-            .replaceAll('require("path")', "{}")
-            .replaceAll(/require\("\.\/create-program\/.*?"\)/g, "{}")
-            .replaceAll(
+        process(text) {
+          text = text
+            .replace('require("globby")', "{}")
+            .replace('require("is-glob")', "{}")
+            .replace('require("semver")', "{}")
+            .replace('require("path")', "{}")
+            .replace('require("./create-program/createDefaultProgram")', "{}")
+            .replace('require("./create-program/createIsolatedProgram")', "{}")
+            .replace('require("./create-program/createProjectProgram")', "{}")
+            .replace(
+              'require("./create-program/shared")',
+              "{ensureAbsolutePath: path => path}"
+            )
+            .replace('require("./create-program/useProvidedPrograms")', "{}")
+            .replace(
               "process.cwd()",
               JSON.stringify("/prettier-security-dirname-placeholder")
             )
-            .replaceAll("extra.projects = ", "extra.projects = []; //")
-            .replaceAll("warnAboutTSVersion();", "// warnAboutTSVersion();")
-            .replaceAll(
-              "inferSingleRun(options);",
-              "// inferSingleRun(options);"
-            ),
+            .replace("extra.projects = ", "extra.projects = []; //")
+            .replace("warnAboutTSVersion();", "// warnAboutTSVersion();")
+            .replace(
+              "const isRunningSupportedTypeScriptVersion = ",
+              "const isRunningSupportedTypeScriptVersion = true || "
+            )
+            .replace("extra.projects = ", "extra.projects = [] || ")
+            .replace("inferSingleRun(options);", "// inferSingleRun(options);");
+          return text;
+        },
       },
       {
         module: require.resolve(
