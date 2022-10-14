@@ -11,8 +11,8 @@ function reuseDocumentModule() {
 
       export const {
       ${Object.keys(module)
-          .map((specifier) => `  ${specifier},`)
-          .join("\n")}
+        .map((specifier) => `  ${specifier},`)
+        .join("\n")}
       } = ${name};
     `,
   }));
