@@ -1,3 +1,0 @@
->     code
-
->    not code

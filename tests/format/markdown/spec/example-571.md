@@ -1,1 +1,0 @@
-< http://foo.bar >

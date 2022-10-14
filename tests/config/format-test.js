@@ -172,7 +172,7 @@ function runSpec(fixtures, parsers, options) {
 
   const files = fs
     .readdirSync(dirname, { withFileTypes: true })
-    .map((file) => {
+    .flatMap((file) => {
       const basename = file.name;
       const filename = path.join(dirname, basename);
       if (
@@ -185,8 +185,17 @@ function runSpec(fixtures, parsers, options) {
       ) {
         return;
       }
-
       const text = fs.readFileSync(filename, "utf8");
+
+      if (basename === "snippets.spec.json") {
+        return JSON.parse(text).map((test, index) => {
+          test = typeof test === "string" ? { code: test } : test;
+          return {
+            ...test,
+            name: `snippets.spec.json: ${test.name || `#${index}`}`,
+          };
+        });
+      }
 
       return {
         name: basename,

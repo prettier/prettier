@@ -1,4 +1,0 @@
-Foo
-<div>
-bar
-</div>

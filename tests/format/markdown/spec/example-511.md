@@ -1,3 +1,0 @@
-[bar][foo\!]
-
-[foo!]: /url

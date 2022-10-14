@@ -1,3 +1,0 @@
-<Warning>
-*bar*
-</Warning>
