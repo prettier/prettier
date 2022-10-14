@@ -742,14 +742,6 @@ function printIgnoreComment(node) {
   }
 }
 
-function getLastDescendantNode(node) {
-  let current = node;
-  while (isNonEmptyArray(current.children)) {
-    current = current.children.at(-1);
-  }
-  return current;
-}
-
 /** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
   let match;
