@@ -57,54 +57,32 @@ const pluginFiles = [
   {
     input: "src/language-js/parse/typescript.js",
     replaceModule: [
-      // `@typescript-eslint/typescript-estree` v4
-      {
-        module: "*",
-        find: 'require("globby")',
-        replacement: "{}",
-      },
-      {
-        module: "*",
-        find: "extra.projects = prepareAndTransformProjects(",
-        replacement: "extra.projects = [] || prepareAndTransformProjects(",
-      },
-      {
-        module: "*",
-        find: "process.versions.node",
-        replacement: JSON.stringify("999.999.999"),
-      },
-      {
-        module: "*",
-        find: "process.cwd()",
-        replacement: JSON.stringify("/prettier-security-dirname-placeholder"),
-      },
-      {
-        module: "*",
-        find: 'require("perf_hooks")',
-        replacement: "{}",
-      },
-      {
-        module: "*",
-        find: 'require("inspector")',
-        replacement: "{}",
-      },
-      {
-        module: "*",
-        find: "typescriptVersionIsAtLeast[version] = semverCheck(version);",
-        replacement: "typescriptVersionIsAtLeast[version] = true;",
-      },
-      // The next two replacement fixed webpack warning `Critical dependency: require function is used in a way in which dependencies cannot be statically extracted`
-      // #12338
-      {
-        module: require.resolve(
-          "@typescript-eslint/typescript-estree/dist/create-program/shared.js"
-        ),
-        find: "moduleResolver = require(moduleResolverPath);",
-        replacement: "throw new Error('Dynamic require is not supported');",
-      },
       {
         module: require.resolve("typescript"),
         process: modifyTypescriptModule,
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parser.js"
+        ),
+        process: (text) =>
+          text
+            .replaceAll('require("globby")', "{}")
+            .replaceAll('require("is-glob")', "{}")
+            .replaceAll('require("semver")', "{}")
+            .replaceAll(/require\("\.\/create-program\/.*?"\)/g, "{}")
+            .replaceAll(
+              "process.cwd()",
+              JSON.stringify("/prettier-security-dirname-placeholder")
+            )
+            .replaceAll("extra.projects = ", "extra.projects = []; //")
+            .replaceAll("warnAboutTSVersion();", "// warnAboutTSVersion();"),
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/version-check.js"
+        ),
+        text: "module.exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
       {
         module: require.resolve("debug/src/browser.js"),
