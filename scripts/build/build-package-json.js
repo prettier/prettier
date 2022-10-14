@@ -18,6 +18,10 @@ async function buildPackageJson({ files }) {
   packageJson.bin = `./${bin}`;
   packageJson.main = "./index.cjs";
   packageJson.exports = {
+    ".": {
+      require: "./index.cjs",
+      default: "./index.mjs",
+    },
     "./*": "./",
     ...Object.fromEntries(
       files
