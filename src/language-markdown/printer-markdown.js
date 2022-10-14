@@ -2,7 +2,6 @@ import {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
-  isNonEmptyArray,
 } from "../common/util.js";
 import {
   breakParent,
