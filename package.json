@@ -13,10 +13,6 @@
   "browser": "./standalone.js",
   "unpkg": "./standalone.js",
   "exports": {
-    ".": {
-      "require": "./src/index.cjs",
-      "default": "./src/index.js"
-    },
     "./*": "./"
   },
   "engines": {
