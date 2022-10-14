@@ -70,13 +70,18 @@ const pluginFiles = [
             .replaceAll('require("globby")', "{}")
             .replaceAll('require("is-glob")', "{}")
             .replaceAll('require("semver")', "{}")
+            .replaceAll('require("path")', "{}")
             .replaceAll(/require\("\.\/create-program\/.*?"\)/g, "{}")
             .replaceAll(
               "process.cwd()",
               JSON.stringify("/prettier-security-dirname-placeholder")
             )
             .replaceAll("extra.projects = ", "extra.projects = []; //")
-            .replaceAll("warnAboutTSVersion();", "// warnAboutTSVersion();"),
+            .replaceAll("warnAboutTSVersion();", "// warnAboutTSVersion();")
+            .replaceAll(
+              "inferSingleRun(options);",
+              "// inferSingleRun(options);"
+            ),
       },
       {
         module: require.resolve(
