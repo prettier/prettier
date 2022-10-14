@@ -44,11 +44,9 @@ function embed(path, options) {
       return (textToDoc) => printFrontMatter(node, textToDoc);
 
     // MDX
-    case "importExport":
-      return async (textToDoc) => [
-        await textToDoc(node.value, { parser: "babel" }),
-        hardline,
-      ];
+    case "import":
+    case "export":
+      return (textToDoc) => textToDoc(node.value, { parser: "babel" });
     case "jsx":
       return (textToDoc) =>
         textToDoc(`<$>${node.value}</$>`, {

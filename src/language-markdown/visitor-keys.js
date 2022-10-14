@@ -30,7 +30,6 @@ const visitorKeys = {
   liquidNode: [],
   import: [],
   export: [],
-  importExport: [],
   esComment: [],
   jsx: [],
   math: [],

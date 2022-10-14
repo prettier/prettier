@@ -1468,7 +1468,6 @@ exports[`visitor keys remark 1`] = `
   "image": [],
   "imageReference": [],
   "import": [],
-  "importExport": [],
   "inlineCode": [],
   "inlineMath": [],
   "jsx": [],

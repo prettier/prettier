@@ -426,12 +426,12 @@ function genericPrint(path, options, print) {
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
-    case "importExport":
-      return [node.value, hardline];
-    case "esComment":
-      return ["{/* ", node.value, " */}"];
+    case "import":
+    case "export":
     case "jsx":
       return node.value;
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "math":
       return [
         "$$",
@@ -447,8 +447,6 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
-    case "import": // transformed in to `importExport`
-    case "export": // transformed in to `importExport`
     default:
       /* istanbul ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
