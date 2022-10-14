@@ -96,6 +96,16 @@ const pluginFiles = [
       },
       {
         module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/create-program/getScriptKind.js"
+        ),
+        process: (text) =>
+          text.replace(
+            'require("path")',
+            "{extname: file => file.split('.').pop()}"
+          ),
+      },
+      {
+        module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/version-check.js"
         ),
         text: "module.exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
