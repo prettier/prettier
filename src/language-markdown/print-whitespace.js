@@ -104,7 +104,7 @@ function isInSentenceWithCJSpaces(path) {
  * @param {AstPath} path path of given node
  * @param {WhitespaceValue} value value of given node (typically `" "` or `"\n"`)
  * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
- * @returns {boolean} `true` if given node can be converted to space, `false` if not (i.e. newline or empty character)
+ * @returns {boolean} `true` if given node can be convertedIoSpace, `false` if not (i.e. newline or empty character)
  */
 function canBeConvertedToSpace(path, value, adjacentNodes) {
   // "\n" or " ", of course " " always can be converted to Space
@@ -147,8 +147,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     // Shall not be converted to Space around CJK punctuation
     previousKind === KIND_CJK_PUNCTUATION ||
     nextKind === KIND_CJK_PUNCTUATION ||
-    // "\n" between CJ always SHALL NOT be converted to space
-    // "\n" between Korean and CJ is better not to be converted to space
+    // "\n" between CJ always SHALL NOT be convertedIoSpace
+    // "\n" between Korean and CJ is better not to be convertedIoSpace
     (isCJK(previousKind) && isCJK(nextKind))
   ) {
     return false;
@@ -224,7 +224,7 @@ function isWesternOrKoreanLetter(kind) {
  * @param {WhitespaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
- * @returns {boolean} `true` if “whitespace” can be converted to `"\n"`
+ * @returns {boolean | "trueIfSpace"} `true` if “whitespace” can be converted to `"\n"`; `trueIfSpace` equals to true only if `canBeConvertedToSpace` retuns `true`
  */
 function isBreakable(path, value, options, adjacentNodes) {
   if (
@@ -255,11 +255,6 @@ function isBreakable(path, value, options, adjacentNodes) {
     return false;
   }
 
-  // If `false`, joined with `" "` -> divided into 2 lines by `" "` loop occurs
-  if (value === "\n" && canBeConvertedToSpace(path, value, adjacentNodes)) {
-    return true;
-  }
-
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const violatesCJKLineBreakingRule =
     (adjacentNodes.next?.value !== undefined &&
@@ -272,7 +267,8 @@ function isBreakable(path, value, options, adjacentNodes) {
   // Eventually, by reformatted with a smaller value of `printWidth` or because of a paragraph revision, the rules are going to be applied to the place that used to violate them.
   // e.g. “シ\nョ\nートカ\nット\n！\n？” (completely violates the rules on purpose) --[printWidth = 6]-->“ショー\nトカッ\nト！？” --[s/^/こんなところで/]--> “こんな\nところ\nで\nショー\nトカッ\nト！？” (completely complies to the rules)
   if (violatesCJKLineBreakingRule) {
-    return false;
+    // If `false` even Space, joined with `" "` -> divided into 2 lines by `" "` loop occurs
+    return value === "\n" ? "trueIfSpace" : false;
   }
 
   return true;
@@ -293,25 +289,35 @@ function printWhitespace(path, value, options, adjacentNodes) {
 
   // Space or empty
   if (value !== "\n") {
-    return convertToLineIfBreakable(value);
+    return convertToLineIfBreakable(value, isBreakable_);
   }
 
   // Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
   // e.g. Word segmentation in Thai etc.
   return convertToLineIfBreakable(
-    canBeConvertedToSpace(path, value, adjacentNodes) ? " " : ""
+    canBeConvertedToSpace(path, value, adjacentNodes) ? " " : "",
+    isBreakable_
   );
+}
 
-  /**
-   * @param value {" " | ""}
-   */
-  function convertToLineIfBreakable(value) {
-    if (!isBreakable_) {
-      return value;
-    }
-    return value === " " ? line : softline;
+/**
+ * @param {" " | ""} value
+ * @param {ReturnType<typeof isBreakable>} isBreakable_
+ */
+function convertToLineIfBreakable(value, isBreakable_) {
+  if (!isBreakable_) {
+    return value;
   }
+  if (value === " ") {
+    return line;
+  }
+  // value === ""
+  if (isBreakable_ === "trueIfSpace") {
+    return "";
+  }
+  // isBreakable === true
+  return softline;
 }
 
 export { printWhitespace };
