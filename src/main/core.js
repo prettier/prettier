@@ -39,6 +39,14 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
   const { ast, text } = await parse(originalText, opts);
 
+  if (opts.cursorOffset === -9) {
+    ast.a = "a";
+    ast.b = "a";
+    ast.c = "a";
+    ast.d = "a";
+    ast.e = "a";
+  }
+
   if (opts.cursorOffset >= 0) {
     const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
     if (nodeResult && nodeResult.node) {
