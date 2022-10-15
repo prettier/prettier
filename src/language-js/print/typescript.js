@@ -144,7 +144,7 @@ function printTypescript(path, options, print) {
       return printTypeParameter(path, options, print);
     case "TSAsExpression": {
       parts.push(print("expression"), " as ", print("typeAnnotation"));
-      const {parent} = path;
+      const { parent } = path;
       if (
         (isCallExpression(parent) && parent.callee === node) ||
         (isMemberExpression(parent) && parent.object === node)
@@ -199,7 +199,7 @@ function printTypescript(path, options, print) {
     case "TSTypeQuery":
       return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
-      const {parent} = path;
+      const { parent } = path;
 
       // The typescript parser accepts multiple parameters here. If you're
       // using them, it makes sense to have a trailing comma. But if you
@@ -432,7 +432,7 @@ function printTypescript(path, options, print) {
     case "TSExternalModuleReference":
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
-      const {parent} = path;
+      const { parent } = path;
       const isExternalModule = isLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration =

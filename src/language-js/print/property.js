@@ -18,7 +18,7 @@ function printPropertyKey(path, options, print) {
     return ["[", print("key"), "]"];
   }
 
-  const {parent} = path;
+  const { parent } = path;
   const { key } = node;
 
   // flow has `Identifier` key, other parsers use `PrivateIdentifier` (ESTree) or `PrivateName`

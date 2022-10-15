@@ -471,9 +471,7 @@ function needsParens(path, options) {
 
     case "FunctionTypeAnnotation": {
       const ancestor =
-        parent.type === "NullableTypeAnnotation"
-          ? path.grandparent
-          : parent;
+        parent.type === "NullableTypeAnnotation" ? path.grandparent : parent;
 
       return (
         ancestor.type === "UnionTypeAnnotation" ||

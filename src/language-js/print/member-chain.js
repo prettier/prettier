@@ -48,7 +48,7 @@ import {
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
 function printMemberChain(path, options, print) {
-  const {parent} = path;
+  const { parent } = path;
   const isExpressionStatement =
     !parent || parent.type === "ExpressionStatement";
 

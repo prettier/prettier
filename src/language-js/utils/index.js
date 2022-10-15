@@ -322,7 +322,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
     return false;
   }
 
-  const {parent} = path;
+  const { parent } = path;
 
   return parent.type === "Program" && parent.body.length === 1;
 }
@@ -775,7 +775,7 @@ function isFunctionCompositionArgs(args) {
  */
 function isLongCurriedCallExpression(path) {
   const { node } = path;
-  const {parent} = path;
+  const { parent } = path;
   return (
     isCallExpression(node) &&
     isCallExpression(parent) &&

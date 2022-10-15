@@ -422,7 +422,7 @@ function separatorWithWhitespace(
 }
 
 function maybeWrapJsxElementInParens(path, elem, options) {
-  const {parent} = path;
+  const { parent } = path;
   /* istanbul ignore next */
   if (!parent) {
     return elem;

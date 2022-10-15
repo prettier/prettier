@@ -28,7 +28,7 @@ import {
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
   const { node } = path;
-  const {parent} = path;
+  const { parent } = path;
   const parentParent = path.grandparent;
   const isInsideParenthesis =
     node !== parent.body &&
@@ -278,7 +278,7 @@ function printBinaryishExpressions(
 
   // If there's only a single binary expression, we want to create a group
   // in order to avoid having a small right part like -1 be on its own line.
-  const {parent} = path;
+  const { parent } = path;
   const shouldBreak = hasComment(
     node.left,
     CommentCheckFlags.Trailing | CommentCheckFlags.Line

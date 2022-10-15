@@ -21,7 +21,7 @@ function printBlock(path, options, print) {
   }
 
   if (node.type === "ClassBody" && isNonEmptyArray(node.body)) {
-    const {parent} = path;
+    const { parent } = path;
     parts.push(printHardlineAfterHeritage(parent));
   }
 
@@ -30,7 +30,7 @@ function printBlock(path, options, print) {
   if (printed) {
     parts.push(indent([hardline, printed]), hardline);
   } else {
-    const {parent} = path;
+    const { parent } = path;
     const parentParent = path.grandparent;
     if (
       !(
@@ -94,7 +94,7 @@ function printBlockBody(path, options, print) {
   }
 
   if (node.type === "Program") {
-    const {parent} = path;
+    const { parent } = path;
     if (!parent || parent.type !== "ModuleExpression") {
       parts.push(hardline);
     }

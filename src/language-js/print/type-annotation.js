@@ -130,7 +130,7 @@ function printUnionType(path, options, print) {
   // | B
   // | C
 
-  const {parent} = path;
+  const { parent } = path;
 
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
@@ -208,7 +208,7 @@ function printFunctionType(path, options, print) {
   // FunctionTypeAnnotation is ambiguous:
   // declare function foo(a: B): void; OR
   // var A: (a: B) => void;
-  const {parent} = path;
+  const { parent } = path;
   const parentParent = path.grandparent;
   const parentParentParent = path.getParentNode(2);
   let isArrowFunctionTypeAnnotation =
