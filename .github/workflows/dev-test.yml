@@ -23,11 +23,11 @@ jobs:
       matrix:
         os:
           - "ubuntu-latest"
-          - "macos-latest"
-          - "windows-latest"
+          # - "macos-latest"
+          # - "windows-latest"
         node:
           - "18"
-          - "16"
+          # - "16"
         include:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
@@ -65,10 +65,11 @@ jobs:
 
       - name: Run Tests (coverage)
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        run: yarn c8 yarn test
+        run: yarn c8 yarn test tests/unit
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v3.1.1
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
         with:
           fail_ci_if_error: true
+          verbose: true
