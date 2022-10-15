@@ -17,7 +17,7 @@ function printNextEmptyLine(path, originalText) {
     isNextEmptyLinePrintedSet.add(node.position.end.line);
     if (
       isNextLineEmpty(node, originalText) &&
-      !shouldPrintEndComments(path.getParentNode())
+      !shouldPrintEndComments(path.parent)
     ) {
       return softline;
     }

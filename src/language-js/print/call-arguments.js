@@ -86,7 +86,7 @@ function printCallArguments(path, options, print) {
 
   if (
     anyArgEmptyLine ||
-    (path.getParentNode().type !== "Decorator" &&
+    (path.parent.type !== "Decorator" &&
       isFunctionCompositionArgs(args))
   ) {
     return allArgsBrokenOut();

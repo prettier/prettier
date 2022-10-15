@@ -35,7 +35,7 @@ function printDecorators(path, options, print) {
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
-    hasDecoratorsBeforeExport(path.getParentNode())
+    hasDecoratorsBeforeExport(path.parent)
   ) {
     return;
   }

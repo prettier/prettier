@@ -9,7 +9,7 @@ import { printOptionalToken } from "./misc.js";
 function printMemberExpression(path, options, print) {
   const { node } = path;
 
-  const parent = path.getParentNode();
+  const {parent} = path;
   let firstNonMemberParent;
   let i = 0;
   do {

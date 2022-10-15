@@ -108,7 +108,7 @@ function printTernaryTest(path, options, print) {
     ? "alternate"
     : "falseType";
 
-  const parent = path.getParentNode();
+  const {parent} = path;
 
   const printed = isConditionalExpression
     ? print("test")
@@ -206,7 +206,7 @@ function printTernary(path, options, print) {
   // We print a ConditionalExpression in either "JSX mode" or "normal mode".
   // See `tests/format/jsx/conditional-expression.js` for more info.
   let jsxMode = false;
-  const parent = path.getParentNode();
+  const {parent} = path;
   const isParentTest =
     parent.type === node.type &&
     testNodePropertyNames.some((prop) => parent[prop] === node);

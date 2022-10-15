@@ -220,7 +220,7 @@ function printPathNoParens(path, options, print, args) {
         options.parser === "__vue_event_binding" ||
         options.parser === "__vue_ts_event_binding"
       ) {
-        const parent = path.getParentNode();
+        const {parent} = path;
         if (
           parent.type === "Program" &&
           parent.body.length === 1 &&
@@ -326,7 +326,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push("await");
       if (node.argument) {
         parts.push(" ", print("argument"));
-        const parent = path.getParentNode();
+        const {parent} = path;
         if (
           (isCallExpression(parent) && parent.callee === node) ||
           (isMemberExpression(parent) && parent.object === node)
@@ -395,7 +395,7 @@ function printPathNoParens(path, options, print, args) {
     case "TupleExpression":
       return printArray(path, options, print);
     case "SequenceExpression": {
-      const parent = path.getParentNode();
+      const {parent} = path;
       if (
         parent.type === "ExpressionStatement" ||
         parent.type === "ForStatement"
@@ -454,7 +454,7 @@ function printPathNoParens(path, options, print, args) {
 
       // We generally want to terminate all variable declarations with a
       // semicolon, except when they in the () part of for loops.
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
 
       const isParentForLoop =
         parentNode.type === "ForStatement" ||

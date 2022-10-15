@@ -187,7 +187,7 @@ function printFlow(path, options, print) {
     case "FunctionTypeParam": {
       const name = node.name
         ? print("name")
-        : path.getParentNode().this === node
+        : path.parent.this === node
         ? "this"
         : "";
       return [

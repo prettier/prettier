@@ -49,7 +49,7 @@ function genericPrint(path, options, print) {
     case "NumericLiteral":
       return JSON.stringify(node.value);
     case "Identifier": {
-      const parent = path.getParentNode();
+      const {parent} = path;
       if (parent && parent.type === "ObjectProperty" && parent.key === node) {
         return JSON.stringify(node.name);
       }

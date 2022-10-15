@@ -85,7 +85,7 @@ function print(path, options, print) {
     }
 
     case "BlockStatement": {
-      const pp = path.getParentNode(1);
+      const pp = path.grandparent;
 
       const isElseIfLike =
         pp &&
@@ -550,7 +550,7 @@ function printElseBlock(node, options) {
 }
 
 function printElseIfLikeBlock(path, print, ifLikeKeyword) {
-  const parentNode = path.getParentNode(1);
+  const parentNode = path.grandparent;
 
   return [
     printInverseBlockOpeningMustache(parentNode),

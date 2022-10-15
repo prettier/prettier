@@ -130,7 +130,7 @@ function printUnionType(path, options, print) {
   // | B
   // | C
 
-  const parent = path.getParentNode();
+  const {parent} = path;
 
   // If there's a leading comment, the parent is doing the indentation
   const shouldIndent =
@@ -144,7 +144,7 @@ function printUnionType(path, options, print) {
     !(
       parent.type === "FunctionTypeParam" &&
       !parent.name &&
-      path.getParentNode(1).this !== parent
+      path.grandparent.this !== parent
     ) &&
     !(
       (parent.type === "TypeAlias" ||
@@ -208,8 +208,8 @@ function printFunctionType(path, options, print) {
   // FunctionTypeAnnotation is ambiguous:
   // declare function foo(a: B): void; OR
   // var A: (a: B) => void;
-  const parent = path.getParentNode(0);
-  const parentParent = path.getParentNode(1);
+  const {parent} = path;
+  const parentParent = path.grandparent;
   const parentParentParent = path.getParentNode(2);
   let isArrowFunctionTypeAnnotation =
     node.type === "TSFunctionType" ||

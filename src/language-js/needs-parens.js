@@ -226,7 +226,7 @@ function needsParens(path, options) {
         return true;
       }
       if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
-        const grandParent = path.getParentNode(1);
+        const grandParent = path.grandparent;
         if (
           grandParent.type === "BinaryExpression" &&
           grandParent.operator === "|>"
@@ -443,7 +443,7 @@ function needsParens(path, options) {
         (key === "objectType" && parent.type === "TSIndexedAccessType") ||
         parent.type === "TSTypeOperator" ||
         (parent.type === "TSTypeAnnotation" &&
-          path.getParentNode(1).type.startsWith("TSJSDoc"))
+          path.grandparent.type.startsWith("TSJSDoc"))
       );
 
     case "ArrayTypeAnnotation":
@@ -472,7 +472,7 @@ function needsParens(path, options) {
     case "FunctionTypeAnnotation": {
       const ancestor =
         parent.type === "NullableTypeAnnotation"
-          ? path.getParentNode(1)
+          ? path.grandparent
           : parent;
 
       return (
@@ -516,7 +516,7 @@ function needsParens(path, options) {
         !parent.directive
       ) {
         // To avoid becoming a directive
-        const grandParent = path.getParentNode(1);
+        const grandParent = path.grandparent;
 
         return (
           grandParent.type === "Program" ||
@@ -531,7 +531,7 @@ function needsParens(path, options) {
       );
 
     case "AssignmentExpression": {
-      const grandParent = path.getParentNode(1);
+      const grandParent = path.grandparent;
 
       if (key === "body" && parent.type === "ArrowFunctionExpression") {
         return true;
@@ -684,7 +684,7 @@ function needsParens(path, options) {
 
     case "OptionalMemberExpression":
     case "OptionalCallExpression": {
-      const parentParent = path.getParentNode(1);
+      const parentParent = path.grandparent;
       if (
         (key === "object" && parent.type === "MemberExpression") ||
         (key === "callee" &&

@@ -55,7 +55,7 @@ function printFunction(path, print, options, args) {
       node.type === "FunctionExpression") &&
     args?.expandLastArg
   ) {
-    const parent = path.getParentNode();
+    const {parent} = path;
     if (
       isCallExpression(parent) &&
       (getCallArguments(parent).length > 1 ||
@@ -246,7 +246,7 @@ function printArrowChain(
   tailNode
 ) {
   const name = path.getName();
-  const parent = path.getParentNode();
+  const {parent} = path;
   const isCallee = isCallLikeExpression(parent) && name === "callee";
   const isAssignmentRhs = Boolean(args && args.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
@@ -364,7 +364,7 @@ function printArrowFunction(path, options, print, args) {
   // we should align the expression's closing } with the line with the opening {.
   const shouldAddSoftLine =
     (args?.expandLastArg ||
-      path.getParentNode().type === "JSXExpressionContainer") &&
+      path.parent.type === "JSXExpressionContainer") &&
     !hasComment(node);
 
   const printTrailingComma =

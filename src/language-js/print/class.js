@@ -147,7 +147,7 @@ function printList(path, options, print, listName) {
 
 function printSuperClass(path, options, print) {
   const printed = print("superClass");
-  const parent = path.getParentNode();
+  const {parent} = path;
   if (parent.type === "AssignmentExpression") {
     return group(
       ifBreak(["(", indent([softline, printed]), softline, ")"], printed)
