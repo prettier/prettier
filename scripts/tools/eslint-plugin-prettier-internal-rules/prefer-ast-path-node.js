@@ -27,27 +27,18 @@ module.exports = {
   },
   create(context) {
     const report = (node, argumentsLength, getterName) => {
-      const data =
-        getterName === "node"
-          ? {
-              getter: "`path.node`",
-              method: "`path.getValue()` or `path.getNode()`",
-            }
-          : getterName === "parent"
-          ? {
-              getter: "`path.parent`",
-              method: "`path.getParent()`",
-            }
-          : getterName === "grandparent"
-          ? {
-              getter: "`path.grandparent`",
-              method: "`path.getParent(1)`",
-            }
-          : null;
+      const getterMethodMap = new Map([
+        ["node", "`path.getValue()` or `path.getNode()`"],
+        ["parent", "`path.getParent()`"],
+        ["grandparent", "`path.getParent(1)"],
+      ]);
       context.report({
         node,
         messageId,
-        data,
+        data: {
+          getter: getterName,
+          method: getterMethodMap.get(getterName),
+        },
         fix: (fixer) => [
           fixer.replaceTextRange(
             [
