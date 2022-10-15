@@ -5,7 +5,7 @@ const selector = [
   "> MemberExpression",
 ].join("");
 
-const messageId = "prefer-ast-path-node";
+const messageId = "prefer-ast-path-getters";
 
 const getNodeFunctionNames = new Set(["getValue", "getNode"]);
 const getParentNodeFunctionName = "getParentNode";
@@ -18,19 +18,19 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-ast-path-node.js",
+      url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-ast-path-getters.js",
     },
     fixable: "code",
     messages: {
-      [messageId]: "Prefer {{ getter }} instead of {{ method }} for path.",
+      [messageId]: "Prefer {{ getter }} instead of {{ method }}.",
     },
   },
   create(context) {
     const report = (node, argumentsLength, getterName) => {
       const getterMethodMap = new Map([
-        ["node", "`path.getValue()` or `path.getNode()`"],
-        ["parent", "`path.getParent()`"],
-        ["grandparent", "`path.getParent(1)"],
+        ["`node`", "`path.getValue()` or `path.getNode()`"],
+        ["`parent`", "`path.getParent()`"],
+        ["`grandparent`", "`path.getParent(1)"],
       ]);
       context.report({
         node,

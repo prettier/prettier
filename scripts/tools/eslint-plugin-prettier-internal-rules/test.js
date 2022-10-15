@@ -497,15 +497,22 @@ test("prefer-fs-promises-submodule", {
   })),
 });
 
-test("prefer-ast-path-node", {
+test("prefer-ast-path-getters", {
   valid: [
     "path.getNode(2)",
     "path.getNode",
     "getNode",
     "this.getNode()",
     "path.node",
+    "path.getParentNode(2)",
+    "path.getParentNode",
+    "getParentNode",
+    "this.getParentNode()",
+    "path.parent",
+    "path.grandparent",
   ],
   invalid: [
+    // path.getNode
     {
       code: "path.getNode()",
       output: "path.node",
@@ -516,6 +523,13 @@ test("prefer-ast-path-node", {
       output: "const node = path.node",
       errors: 1,
     },
+    {
+      code: "fooPath.getNode()",
+      output: "fooPath.node",
+      errors: 1,
+    },
+
+    // path.getValue()
     {
       code: "path.getValue()",
       output: "path.node",
@@ -531,9 +545,85 @@ test("prefer-ast-path-node", {
       output: "fooPath.node",
       errors: 1,
     },
+
+    // path.getParentNode()
     {
-      code: "fooPath.getNode()",
-      output: "fooPath.node",
+      code: "path.getParentNode()",
+      output: "path.parent",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getParentNode()",
+      output: "const node = path.parent",
+      errors: 1,
+    },
+    {
+      code: "path.getParentNode()",
+      output: "path.parent",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getParentNode()",
+      output: "const node = path.parent",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getParentNode()",
+      output: "fooPath.parent",
+      errors: 1,
+    },
+
+    // path.getParentNode(0)
+    {
+      code: "path.getParentNode(0)",
+      output: "path.parent",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getParentNode(0)",
+      output: "const node = path.parent",
+      errors: 1,
+    },
+    {
+      code: "path.getParentNode(0)",
+      output: "path.parent",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getParentNode(0)",
+      output: "const node = path.parent",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getParentNode(0)",
+      output: "fooPath.parent",
+      errors: 1,
+    },
+
+    // path.getParentNode(1)
+    {
+      code: "path.getParentNode(1)",
+      output: "path.grandparent",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getParentNode(1)",
+      output: "const node = path.grandparent",
+      errors: 1,
+    },
+    {
+      code: "path.getParentNode(1)",
+      output: "path.grandparent",
+      errors: 1,
+    },
+    {
+      code: "const node = path.getParentNode(1)",
+      output: "const node = path.grandparent",
+      errors: 1,
+    },
+    {
+      code: "fooPath.getParentNode(1)",
+      output: "fooPath.grandparent",
       errors: 1,
     },
   ],
