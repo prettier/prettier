@@ -6,5 +6,4 @@ coverage:
     project:
       default:
         target: 95%
-        branches:
-          - next
+        
