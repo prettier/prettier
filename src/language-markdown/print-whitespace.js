@@ -93,7 +93,7 @@ function isInSentenceWithCJSpaces(path) {
  */
 
 /**
- * Checks if given node can be converted to Space
+ * Checks if given `"\n"` node can be converted to Space
  *
  * For example, if you would like to squash the multi-line string `"You might want\nto use Prettier."` into a single line,
  * you would replace `"\n"` with `" "`. (`"You might want to use Prettier."`)
@@ -102,16 +102,10 @@ function isInSentenceWithCJSpaces(path) {
  * Behavior in other languages (e.g. Thai) will not be changed because there are too much things to consider. (PR welcome)
  *
  * @param {AstPath} path path of given node
- * @param {WhitespaceValue} value value of given node (typically `" "` or `"\n"`)
  * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
- * @returns {boolean} `true` if given node can be convertedIoSpace, `false` if not (i.e. newline or empty character)
+ * @returns {boolean} `true` if given node can be convertedToSpace, `false` if not (i.e. newline or empty character)
  */
-function canBeConvertedToSpace(path, value, adjacentNodes) {
-  // "\n" or " ", of course " " always can be converted to Space
-  if (value !== "\n") {
-    return true;
-  }
-
+function canBeConvertedToSpace(path, adjacentNodes) {
   // no adjacent nodes
   if (!adjacentNodes) {
     return true;
@@ -147,8 +141,8 @@ function canBeConvertedToSpace(path, value, adjacentNodes) {
     // Shall not be converted to Space around CJK punctuation
     previousKind === KIND_CJK_PUNCTUATION ||
     nextKind === KIND_CJK_PUNCTUATION ||
-    // "\n" between CJ always SHALL NOT be convertedIoSpace
-    // "\n" between Korean and CJ is better not to be convertedIoSpace
+    // "\n" between CJ always SHALL NOT be convertedToSpace
+    // "\n" between Korean and CJ is better not to be convertedToSpace
     (isCJK(previousKind) && isCJK(nextKind))
   ) {
     return false;
@@ -224,7 +218,7 @@ function isWesternOrKoreanLetter(kind) {
  * @param {WhitespaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
- * @returns {boolean | "trueIfSpace"} `true` if “whitespace” can be converted to `"\n"`; `trueIfSpace` equals to true only if `canBeConvertedToSpace` retuns `true`
+ * @returns {boolean | "trueIfSpace"} `true` if “whitespace” can be converted to `"\n"`; `trueIfSpace` equals to true only if `canBeConvertedToSpace` returns `true`
  */
 function isBreakable(path, value, options, adjacentNodes) {
   if (
@@ -296,7 +290,7 @@ function printWhitespace(path, value, options, adjacentNodes) {
   // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
   // e.g. Word segmentation in Thai etc.
   return convertToLineIfBreakable(
-    canBeConvertedToSpace(path, value, adjacentNodes) ? " " : "",
+    canBeConvertedToSpace(path, adjacentNodes) ? " " : "",
     isBreakable_
   );
 }
