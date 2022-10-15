@@ -69,27 +69,23 @@ module.exports = {
         const propertyName = node.property?.name;
         const callExprArguments = node.parent.arguments;
 
-        // path.getNode() or path.getValue()
         if (
           getNodeFunctionNames.has(propertyName) &&
           callExprArguments.length === 0
         ) {
+          // path.getNode() or path.getValue()
           report(node, callExprArguments.length, "node");
-          return;
         }
 
         if (propertyName === getParentNodeFunctionName) {
-          // path.getParentNode()
           if (callExprArguments.length === 0) {
+            // path.getParentNode()
             report(node, callExprArguments.length, "parent");
-            return;
-          }
-          // path.getParentNode(0)
-          if (callExprArguments[0].value === 0) {
+          } else if (callExprArguments[0].value === 0) {
+            // path.getParentNode(0)
             report(node, callExprArguments.arguments, "parent");
-          }
-          // path.getParentNode(1)
-          if (callExprArguments[0].value === 1) {
+          } else if (callExprArguments[0].value === 1) {
+            // path.getParentNode(1)
             report(node, callExprArguments.length, "grandparent");
           }
         }
