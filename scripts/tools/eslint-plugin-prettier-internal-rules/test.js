@@ -516,115 +516,220 @@ test("prefer-ast-path-getters", {
     {
       code: "path.getNode()",
       output: "path.node",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+        },
+      ],
     },
     {
       code: "const node = path.getNode()",
       output: "const node = path.node",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+        },
+      ],
     },
     {
       code: "fooPath.getNode()",
       output: "fooPath.node",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+        },
+      ],
     },
 
     // path.getValue()
     {
       code: "path.getValue()",
       output: "path.node",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+        },
+      ],
     },
     {
       code: "const node = path.getValue()",
       output: "const node = path.node",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+        },
+      ],
     },
     {
       code: "fooPath.getValue()",
       output: "fooPath.node",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+        },
+      ],
     },
 
     // path.getParentNode()
     {
       code: "path.getParentNode()",
       output: "path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "const node = path.getParentNode()",
       output: "const node = path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "path.getParentNode()",
       output: "path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "const node = path.getParentNode()",
       output: "const node = path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "fooPath.getParentNode()",
       output: "fooPath.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
 
     // path.getParentNode(0)
     {
       code: "path.getParentNode(0)",
       output: "path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "const node = path.getParentNode(0)",
       output: "const node = path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "path.getParentNode(0)",
       output: "path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "const node = path.getParentNode(0)",
       output: "const node = path.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
     {
       code: "fooPath.getParentNode(0)",
       output: "fooPath.parent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+        },
+      ],
     },
 
     // path.getParentNode(1)
     {
       code: "path.getParentNode(1)",
       output: "path.grandparent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+        },
+      ],
     },
     {
       code: "const node = path.getParentNode(1)",
       output: "const node = path.grandparent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+        },
+      ],
     },
     {
       code: "path.getParentNode(1)",
       output: "path.grandparent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+        },
+      ],
     },
     {
       code: "const node = path.getParentNode(1)",
       output: "const node = path.grandparent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+        },
+      ],
     },
     {
       code: "fooPath.getParentNode(1)",
       output: "fooPath.grandparent",
-      errors: 1,
+      errors: [
+        {
+          message:
+            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+        },
+      ],
     },
   ],
 });

@@ -28,7 +28,7 @@ module.exports = {
   create(context) {
     const report = (node, argumentsLength, getterName) => {
       const getterMethodMap = new Map([
-        ["node", "`path.getValue()`` or `path.getNode()`"],
+        ["node", "`path.getValue()` or `path.getNode()`"],
         ["parent", "`path.getParentNode()` or `path.getParentNode(0)`"],
         ["grandparent", "`path.getParentNode(1)`"],
       ]);
@@ -36,7 +36,7 @@ module.exports = {
         node,
         messageId,
         data: {
-          getter: "`" + getterName + "`",
+          getter: `\`path.${getterName}\``,
           method: getterMethodMap.get(getterName),
         },
         fix: (fixer) => [
