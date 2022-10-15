@@ -34,8 +34,9 @@ module.exports = {
     messages: {
       [messageId]: "Do not access node.comments.",
     },
-    schema: [
-      {
+    schema: {
+      type: "array",
+      items: {
         anyOf: [
           { type: "string" },
           {
@@ -50,7 +51,7 @@ module.exports = {
           },
         ],
       },
-    ],
+    },
   },
   create(context) {
     const fileName = context.getFilename();
