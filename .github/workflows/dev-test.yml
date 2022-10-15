@@ -65,7 +65,7 @@ jobs:
 
       - name: Run Tests (coverage)
         if: ${{ matrix.ENABLE_CODE_COVERAGE }}
-        run: yarn c8 yarn test
+        run: yarn c8 yarn test unit
 
       - name: Upload Coverage
         uses: codecov/codecov-action@v3.1.1
