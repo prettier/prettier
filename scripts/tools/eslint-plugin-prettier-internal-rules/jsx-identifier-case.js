@@ -15,6 +15,10 @@ module.exports = {
       [MESSAGE_ID]: "Please rename '{{name}}' to '{{fixed}}'.",
     },
     fixable: "code",
+    schema: {
+      type: "array",
+      uniqueItems: true,
+    },
   },
   create(context) {
     const ignored = new Set(context.options);
@@ -37,9 +41,5 @@ module.exports = {
         });
       },
     };
-  },
-  schema: {
-    type: "array",
-    uniqueItems: true,
   },
 };
