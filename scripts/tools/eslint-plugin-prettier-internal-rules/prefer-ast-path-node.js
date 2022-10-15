@@ -83,7 +83,7 @@ module.exports = {
             report(node, callExprArguments.length, "parent");
           } else if (callExprArguments[0].value === 0) {
             // path.getParentNode(0)
-            report(node, callExprArguments.arguments, "parent");
+            report(node, callExprArguments.length, "parent");
           } else if (callExprArguments[0].value === 1) {
             // path.getParentNode(1)
             report(node, callExprArguments.length, "grandparent");
