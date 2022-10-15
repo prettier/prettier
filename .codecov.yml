@@ -1,7 +1,7 @@
 coverage:
+  notify:
+    wait_for_ci: false
   status:
-    default_rules:
-      flag_coverage_not_uploaded_behavior: exclude
     patch:
       default:
         target: 80%
