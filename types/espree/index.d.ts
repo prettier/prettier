@@ -15,6 +15,8 @@ declare module "espree" {
       | 10
       | 11
       | 12
+      | 13
+      | 14
       | 2015
       | 2016
       | 2017
@@ -23,6 +25,7 @@ declare module "espree" {
       | 2020
       | 2021
       | 2022
+      | 2023
       | "latest";
     sourceType?: "script" | "module";
     ecmaFeatures?: {
