@@ -1,6 +1,5 @@
 coverage:
-  notify:
-    wait_for_ci: false
+  require_ci_to_pass: false
   status:
     patch:
       default:
