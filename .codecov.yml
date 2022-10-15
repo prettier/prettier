@@ -1,9 +1,11 @@
 coverage:
   status:
+    default_rules:
+      flag_coverage_not_uploaded_behavior: exclude
     patch:
       default:
         target: 80%
     project:
       default:
         target: 95%
-        
+
