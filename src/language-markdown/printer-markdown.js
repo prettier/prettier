@@ -64,19 +64,17 @@ function genericPrint(path, options, print) {
         node.position.start.offset,
         node.position.end.offset
       )
-    ).map((node, i, nodes) =>
+    ).map((node) =>
       node.type === "word"
         ? node.value
         : node.value === ""
         ? ""
-        : printWhitespace(path, node.value, options, {
-            // The nodes next to `WhitespaceNode` are guaranteed to be `WordNode`
-            // `prettier-ignore` is required due to https://github.com/prettier/prettier/issues/8171
-            // prettier-ignore
-            previous: /** @type {import("./utils.js").WordNode} */ (nodes[i - 1]),
-            // prettier-ignore
-            next: /** @type {import("./utils.js").WordNode} */ (nodes[i + 1]),
-          })
+        : printWhitespace(
+            path,
+            node.value,
+            options
+            // `Unset adjacentNodes` because the deep equality test will fail if set
+          )
     );
   }
 
