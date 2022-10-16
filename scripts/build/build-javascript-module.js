@@ -83,11 +83,11 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       process: (text) =>
         text
           .replace(
-            "const line = (0, _detectNewline().default)(docblock) || _os().EOL;",
+            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
             'const line = "\\n"'
           )
           .replace(
-            "const line = (0, _detectNewline().default)(comments) || _os().EOL;",
+            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
             'const line = "\\n"'
           )
           .replace(/\nfunction _os().*?\n}/s, "")
