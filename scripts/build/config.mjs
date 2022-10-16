@@ -6,6 +6,7 @@ import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
+import reuseDocumentModule from "./reuse-document-module.js";
 
 const { require, dirname } = createEsmUtils(import.meta);
 
@@ -324,6 +325,7 @@ const nodejsFiles = [
         replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
       },
       replaceDiffPackageEntry("lib/diff/array.js"),
+      ...reuseDocumentModule(),
     ],
   },
   {
