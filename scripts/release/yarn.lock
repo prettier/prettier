@@ -19,10 +19,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.1.0":
-  version: 5.1.0
-  resolution: "chalk@npm:5.1.0"
-  checksum: c1aa0bf0064a5a59bc06e3e385685fdcc5bb122159152bb57755fc48f9ef93c30cb3a36c9a2c39ead23e5261d787c87c4c097e1a889e1370478102a0112fe0e0
+"chalk@npm:5.1.2":
+  version: 5.1.2
+  resolution: "chalk@npm:5.1.2"
+  checksum: 804d7485e33531abe45b14e91026ceb5615974a8c04259ab0806f214a7666f6ea03e39ab124f7d5a0c78a83fda89005f236db3c5f10c2abe9ae875f7aa56bcb5
   languageName: node
   linkType: hard
 
@@ -171,7 +171,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    chalk: 5.1.0
+    chalk: 5.1.2
     enquirer: 2.3.6
     execa: 6.1.0
     outdent: 0.8.0
