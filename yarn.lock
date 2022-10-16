@@ -2229,10 +2229,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.0.1":
-  version: 5.0.1
-  resolution: "chalk@npm:5.0.1"
-  checksum: 7b45300372b908f0471fbf7389ce2f5de8d85bb949026fd51a1b95b10d0ed32c7ed5aab36dd5e9d2bf3191867909b4404cef75c5f4d2d1daeeacd301dd280b76
+"chalk@npm:5.1.2":
+  version: 5.1.2
+  resolution: "chalk@npm:5.1.2"
+  checksum: 804d7485e33531abe45b14e91026ceb5615974a8c04259ab0806f214a7666f6ea03e39ab124f7d5a0c78a83fda89005f236db3c5f10c2abe9ae875f7aa56bcb5
   languageName: node
   linkType: hard
 
@@ -6619,7 +6619,7 @@ __metadata:
     browserslist-to-esbuild: 1.2.0
     c8: 7.12.0
     camelcase: 7.0.0
-    chalk: 5.0.1
+    chalk: 5.1.2
     ci-info: 3.5.0
     cjk-regex: 2.0.1
     cosmiconfig: 7.0.1
