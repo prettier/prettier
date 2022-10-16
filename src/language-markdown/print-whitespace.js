@@ -287,24 +287,19 @@ function printWhitespace(path, value, options, adjacentNodes) {
     value = canBeConvertedToSpace(path, adjacentNodes) ? " " : "";
   }
 
-  return convertToLineIfBreakable(value, isBreakable_);
-}
-
-/**
- * @param {" " | ""} value
- * @param {ReturnType<typeof isBreakable>} isBreakable_
- */
-function convertToLineIfBreakable(value, isBreakable_) {
   if (!isBreakable_) {
     return value;
   }
+
   if (value === " ") {
     return line;
   }
+
   // value === ""
   if (isBreakable_ === "trueIfSpace") {
     return "";
   }
+
   // isBreakable === true
   return softline;
 }
