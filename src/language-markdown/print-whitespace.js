@@ -44,12 +44,12 @@ const lineBreakBetweenTheseAndCJKConvertsToSpace = new Set(
 );
 
 /**
- * Finds out if Space is tend to be inserted between Chinese or Japanese characters
+ * Finds out if Space tends to be inserted between Chinese or Japanese characters
  * (including ideograph aka han or kanji e.g. `字`, hiragana e.g. `あ`, and katakana e.g. `ア`)
  * and other letters (including alphanumerics; e.g. `A` or `1`) in the sentence.
  *
  * @param {AstPath} path current position in nodes tree
- * @returns {boolean} `true` if Space is tend to be inserted between these types of letters, `false` otherwise.
+ * @returns {boolean} `true` if Space tends to be inserted between these types of letters, `false` otherwise.
  */
 function isInSentenceWithCJSpaces(path) {
   const sentenceNode = path.parent;
@@ -57,10 +57,8 @@ function isInSentenceWithCJSpaces(path) {
     return sentenceNode.usesCJSpaces;
   }
 
-  const cjNonCJKSpacingStatistics = {
-    " ": 0,
-    "": 0,
-  };
+  const stats = { " ": 0, "": 0 };
+
   for (let i = 1; i < sentenceNode.children.length - 1; ++i) {
     const node = sentenceNode.children[i];
     if (
@@ -70,16 +68,16 @@ function isInSentenceWithCJSpaces(path) {
       const previousKind = sentenceNode.children[i - 1].kind;
       const nextKind = sentenceNode.children[i + 1].kind;
       if (
-        (previousKind === "cj-letter" && nextKind === "non-cjk") ||
-        (previousKind === "non-cjk" && nextKind === "cj-letter")
+        (previousKind === KIND_CJ_LETTER && nextKind === KIND_NON_CJK) ||
+        (previousKind === KIND_NON_CJK && nextKind === KIND_CJ_LETTER)
       ) {
-        ++cjNonCJKSpacingStatistics[node.value];
+        ++stats[node.value];
       }
     }
   }
+
   // Injects a property to cache the result.
-  sentenceNode.usesCJSpaces =
-    cjNonCJKSpacingStatistics[" "] > cjNonCJKSpacingStatistics[""];
+  sentenceNode.usesCJSpaces = stats[" "] > stats[""];
   return sentenceNode.usesCJSpaces;
 }
 
@@ -98,7 +96,7 @@ function isInSentenceWithCJSpaces(path) {
  * For example, if you would like to squash the multi-line string `"You might want\nto use Prettier."` into a single line,
  * you would replace `"\n"` with `" "`. (`"You might want to use Prettier."`)
  *
- * However, you should note that Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
+ * However, you should note that Chinese and Japanese do not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
  * Behavior in other languages (e.g. Thai) will not be changed because there are too much things to consider. (PR welcome)
  *
  * @param {AstPath} path path of given node
@@ -119,7 +117,7 @@ function canBeConvertedToSpace(path, adjacentNodes) {
   const previousKind = adjacentNodes.previous.kind;
   const nextKind = adjacentNodes.next.kind;
 
-  // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can converted to Space
+  // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can be converted to Space
   // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   if (
     isWesternOrKoreanLetter(previousKind) &&
@@ -177,7 +175,7 @@ function canBeConvertedToSpace(path, adjacentNodes) {
     return false;
   }
 
-  // If the sentence uses the style that Space is injected in between CJ and alphanumerics, "\n" can be converted to Space.
+  // If the sentence uses the style with spaces between CJ and alphanumerics, "\n" can be converted to Space.
   return isInSentenceWithCJSpaces(path);
 }
 
@@ -212,13 +210,14 @@ function isWesternOrKoreanLetter(kind) {
 }
 
 /**
- * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhitespaceValue`) can converted to `"\n"`
+ * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhitespaceValue`) can be converted to `"\n"`
  *
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {*} options
  * @param {AdjacentNodes | undefined} [adjacentNodes]
- * @returns {boolean | "trueIfSpace"} `true` if “whitespace” can be converted to `"\n"`; `trueIfSpace` equals to true only if `canBeConvertedToSpace` returns `true`
+ * @returns {boolean | "trueIfSpace"} `true` if “whitespace” can be converted to `"\n"`;
+ * `trueIfSpace` means it can be converted only if `canBeConvertedToSpace` returns `true`
  */
 function isBreakable(path, value, options, adjacentNodes) {
   if (
@@ -251,10 +250,10 @@ function isBreakable(path, value, options, adjacentNodes) {
 
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const violatesCJKLineBreakingRule =
-    (adjacentNodes.next?.value !== undefined &&
-      noBreakBefore.has(adjacentNodes.next?.value?.[0])) ||
-    (adjacentNodes.previous?.value !== undefined &&
-      noBreakAfter.has(adjacentNodes.previous?.value?.at(-1)));
+    (adjacentNodes.next !== undefined &&
+      noBreakBefore.has(adjacentNodes.next.value[0])) ||
+    (adjacentNodes.previous !== undefined &&
+      noBreakAfter.has(adjacentNodes.previous.value.at(-1)));
 
   // Targets not only "" but also "\n"
   // Intentional violation of the line breaking rules (e.g. “ル\nール守れ\n！”) tends to be “corrected” ("\n" -> "") by formatted with a large value of `printWidth`.
@@ -281,18 +280,14 @@ function printWhitespace(path, value, options, adjacentNodes) {
 
   const isBreakable_ = isBreakable(path, value, options, adjacentNodes);
 
-  // Space or empty
-  if (value !== "\n") {
-    return convertToLineIfBreakable(value, isBreakable_);
+  if (value === "\n") {
+    // Chinese and Japanese do not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
+    // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
+    // e.g. Word segmentation in Thai etc.
+    value = canBeConvertedToSpace(path, adjacentNodes) ? " " : "";
   }
 
-  // Chinese and Japanese does not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
-  // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
-  // e.g. Word segmentation in Thai etc.
-  return convertToLineIfBreakable(
-    canBeConvertedToSpace(path, adjacentNodes) ? " " : "",
-    isBreakable_
-  );
+  return convertToLineIfBreakable(value, isBreakable_);
 }
 
 /**
