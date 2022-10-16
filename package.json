@@ -17,7 +17,7 @@
       "require": "./src/index.cjs",
       "default": "./src/index.js"
     },
-    "./*": "./"
+    "./*": "./*"
   },
   "engines": {
     "node": ">=16"
