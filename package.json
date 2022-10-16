@@ -43,7 +43,7 @@
     "angular-estree-parser": "4.0.1",
     "angular-html-parser": "2.0.0",
     "camelcase": "7.0.0",
-    "chalk": "5.0.1",
+    "chalk": "5.1.2",
     "ci-info": "3.5.0",
     "cjk-regex": "2.0.1",
     "cosmiconfig": "7.0.1",
