@@ -202,11 +202,11 @@ function isWesternOrKoreanLetter(kind) {
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {*} options
- * @param {AdjacentNodes | undefined} [adjacentNodes]
- * @returns {boolean | "trueIfSpace"} `true` if “whitespace” can be converted to `"\n"`;
- * `trueIfSpace` means it can be converted only if `canBeConvertedToSpace` returns `true`
+ * @param {AdjacentNodes | undefined} adjacentNodes
+ * @param {boolean} canBeSpace
+ * @returns {boolean} `true` if “whitespace” can be converted to `"\n"`
  */
-function isBreakable(path, value, options, adjacentNodes) {
+function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
   if (
     options.proseWrap !== "always" ||
     getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
@@ -252,7 +252,7 @@ function isBreakable(path, value, options, adjacentNodes) {
   // On the contrary, if `false` even should be Space, the following loop will occur:
   //   the surrounding lines are joined with `" "` -> divided into 2 lines by `" "` -> joined again -> ...
   if (violatesCJKLineBreakingRule) {
-    return value === "\n" ? "trueIfSpace" : false;
+    return value === "\n" ? canBeSpace : false;
   }
 
   return true;
@@ -269,30 +269,15 @@ function printWhitespace(path, value, options, adjacentNodes) {
     return hardline;
   }
 
-  const isBreakable_ = isBreakable(path, value, options, adjacentNodes);
+  const canBeSpace =
+    value === " " ||
+    (value === "\n" && canBeConvertedToSpace(path, adjacentNodes));
 
-  if (value === "\n") {
-    // Chinese and Japanese do not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
-    // Behavior in other languages will not be changed because there are too much things to consider. (PR welcome)
-    // e.g. Word segmentation in Thai etc.
-    value = canBeConvertedToSpace(path, adjacentNodes) ? " " : "";
+  if (isBreakable(path, value, options, adjacentNodes, canBeSpace)) {
+    return canBeSpace ? line : softline;
   }
 
-  if (!isBreakable_) {
-    return value;
-  }
-
-  if (value === " ") {
-    return line;
-  }
-
-  // value === ""
-  if (isBreakable_ === "trueIfSpace") {
-    return "";
-  }
-
-  // isBreakable === true
-  return softline;
+  return canBeSpace ? " " : "";
 }
 
 export { printWhitespace };
