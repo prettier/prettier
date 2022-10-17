@@ -183,7 +183,7 @@ function runSpec(fixtures, parsers, options) {
         // VSCode creates this file sometime https://github.com/microsoft/vscode/issues/105191
         basename === "debug.log"
       ) {
-        return;
+        return [];
       }
       const text = fs.readFileSync(filename, "utf8");
 
@@ -202,8 +202,7 @@ function runSpec(fixtures, parsers, options) {
         filename,
         code: text,
       };
-    })
-    .filter(Boolean);
+    });
 
   // Make sure tests are in correct location
   if (process.env.CHECK_TEST_PARSERS) {

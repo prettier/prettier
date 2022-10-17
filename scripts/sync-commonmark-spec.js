@@ -28,7 +28,7 @@ const response = await fetch(SPEC_TEXT_URL);
 const text = await response.text();
 
 const examples = [...text.matchAll(EXAMPLE_REGEXP)].map((match, index) => ({
-  name: `example-${index + 1}.md`,
+  filename: `example-${index + 1}.md`,
   code: match.groups.markdownCode.replaceAll("→", "\t"),
 }));
 
