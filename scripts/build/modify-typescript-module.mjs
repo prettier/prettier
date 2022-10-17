@@ -156,6 +156,11 @@ function modifyTypescriptModule(text) {
   source.removeSubmodule((text) =>
     text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
   );
+  source.replaceAlignedCode({
+    start: "function createLanguageService(host, documentRegistry, syntaxOnlyOrLanguageServiceMode) {",
+    end: "}",
+    replacement: "function createLanguageService() {}",
+  });
 
   // `ts.Version`
   source.removeSubmodule((text) => text.includes("ts.Version = Version;"));
