@@ -30,8 +30,14 @@ const { specVersion } = text.match(
   /(?<=\nversion: ')(?<specVersion>[\d.]+)(?='\n)/
 ).groups;
 
-const examples = [...text.matchAll(EXAMPLE_REGEXP)].map((match, index) => ({
-  filename: `commonmark-${specVersion}-example-${index + 1}.md`,
+const matches = [...text.matchAll(EXAMPLE_REGEXP)];
+const maxIndexLength = String(matches.length + 1).length;
+
+const examples = matches.map((match, index) => ({
+  filename: `commonmark-${specVersion}-example-${String(index + 1).padStart(
+    maxIndexLength,
+    "0"
+  )}.md`,
   code: match.groups.markdownCode.replaceAll("→", "\t"),
 }));
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`commonmark-0.30-example-1.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-001.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -15,7 +15,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-2.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-002.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -30,7 +30,7 @@ foo baz bim
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-3.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-003.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -47,7 +47,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-4.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-004.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -66,7 +66,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-5.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-005.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -85,7 +85,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-6.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-006.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -100,7 +100,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-7.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-007.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -115,7 +115,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-8.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-008.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -132,7 +132,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-9.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-009.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -151,7 +151,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-10.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-010.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -166,7 +166,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-11.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-011.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -181,7 +181,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-12.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-012.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -196,7 +196,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-13.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-013.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -211,7 +211,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-14.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-014.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -236,7 +236,7 @@ character entity
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-15.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-015.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -251,7 +251,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-16.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-016.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -268,7 +268,7 @@ bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-17.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-017.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -283,7 +283,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-18.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-018.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -298,7 +298,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-19.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-019.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -317,7 +317,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-20.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-020.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -332,7 +332,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-21.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-021.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -347,7 +347,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-22.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-022.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -362,7 +362,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-23.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-023.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -381,7 +381,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-24.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-024.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -400,7 +400,7 @@ foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-25.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-025.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -418,7 +418,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-26.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-026.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -433,7 +433,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-27.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-027.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -448,7 +448,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-28.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-028.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -466,7 +466,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-29.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-029.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -481,7 +481,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-30.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-030.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -496,7 +496,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-31.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-031.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -511,7 +511,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-32.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-032.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -526,7 +526,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-33.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-033.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -545,7 +545,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-34.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-034.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -564,7 +564,7 @@ foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-35.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-035.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -579,7 +579,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-36.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-036.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -594,7 +594,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-37.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-037.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -610,7 +610,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-38.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-038.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -629,7 +629,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-39.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-039.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -644,7 +644,7 @@ foo&#10;&#10;bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-40.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-040.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -659,7 +659,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-41.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-041.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -674,7 +674,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-42.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-042.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -691,7 +691,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-43.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-043.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -712,7 +712,7 @@ ___
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-44.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-044.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -727,7 +727,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-45.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-045.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -742,7 +742,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-46.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-046.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -759,7 +759,7 @@ __
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-47.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-047.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -780,7 +780,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-48.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-048.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -795,7 +795,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-49.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-049.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -811,7 +811,7 @@ Foo \\*\\*\\*
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-50.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-050.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -826,7 +826,7 @@ _____________________________________
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-51.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-051.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -841,7 +841,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-52.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-052.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -856,7 +856,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-53.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-053.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -871,7 +871,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-54.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-054.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -886,7 +886,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-55.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-055.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -909,7 +909,7 @@ a------
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-56.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-056.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -924,7 +924,7 @@ _-_
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-57.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-057.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -945,7 +945,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-58.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-058.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -966,7 +966,7 @@ bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-59.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-059.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -985,7 +985,7 @@ bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-60.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-060.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1006,7 +1006,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-61.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-061.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1023,7 +1023,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-62.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-062.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1053,7 +1053,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-63.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-063.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1068,7 +1068,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-64.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-064.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1087,7 +1087,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-65.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-065.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1102,7 +1102,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-66.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-066.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1117,7 +1117,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-67.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-067.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1132,7 +1132,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-68.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-068.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1153,7 +1153,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-69.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-069.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1168,7 +1168,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-70.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-070.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1184,7 +1184,7 @@ foo # bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-71.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-071.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1202,7 +1202,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-72.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-072.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1220,7 +1220,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-73.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-073.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1235,7 +1235,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-74.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-074.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1250,7 +1250,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-75.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-075.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1265,7 +1265,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-76.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-076.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1286,7 +1286,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-77.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-077.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1307,7 +1307,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-78.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-078.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1328,7 +1328,7 @@ Bar foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-79.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-079.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1349,7 +1349,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-80.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-080.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1370,7 +1370,7 @@ Foo *bar*
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-81.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-081.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1387,7 +1387,7 @@ Foo _bar baz_ ====
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-82.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-082.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1404,7 +1404,7 @@ Foo _bar baz_ ====
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-83.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-083.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1425,7 +1425,7 @@ Foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-84.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-084.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1451,7 +1451,7 @@ Foo ===
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-85.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-085.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1475,7 +1475,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-86.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-086.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1493,7 +1493,7 @@ Foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-87.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-087.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1509,7 +1509,7 @@ Foo ---
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-88.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-088.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1532,7 +1532,7 @@ Foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-89.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-089.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1548,7 +1548,7 @@ Foo
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-90.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-090.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1564,7 +1564,7 @@ Foo\\
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-91.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-091.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1591,7 +1591,7 @@ of dashes"/>
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-92.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-092.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1609,7 +1609,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-93.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-093.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1628,7 +1628,7 @@ bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-94.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-094.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1646,7 +1646,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-95.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-095.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1665,7 +1665,7 @@ Foo Bar
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-96.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-096.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1691,7 +1691,7 @@ Baz
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-97.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-097.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1707,7 +1707,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-98.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-098.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1724,7 +1724,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`commonmark-0.30-example-99.md - {"proseWrap":"always"} format 1`] = `
+exports[`commonmark-0.30-example-099.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
