@@ -1,1 +1,1 @@
-[link](/uri "title")
+__a<http://foo.bar/?q=__>

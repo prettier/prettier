@@ -1,1 +1,1 @@
-<a><bab><c2c>
+foo@bar.example.com

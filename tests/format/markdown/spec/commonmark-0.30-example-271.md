@@ -1,5 +1,3 @@
-    indented code
+  10.  foo
 
-paragraph
-
-    more code
+           bar

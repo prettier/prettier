@@ -1,1 +1,1 @@
-**foo [bar](/url)**
+**** is not an empty strong emphasis

@@ -1,1 +1,1 @@
-[foo`](/uri)`
+[foo <bar attr="](baz)">

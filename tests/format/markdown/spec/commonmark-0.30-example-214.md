@@ -1,4 +1,3 @@
+# [Foo]
 [foo]: /url
-bar
-===
-[foo]
+> bar

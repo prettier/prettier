@@ -1,3 +1,3 @@
--    foo
+   foo
 
-  bar
+bar

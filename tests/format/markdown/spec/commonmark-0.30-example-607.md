@@ -1,1 +1,1 @@
-<m:abc>
+< http://foo.bar >

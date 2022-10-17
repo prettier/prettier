@@ -1,1 +1,1 @@
-*foo bar *
+_foo*

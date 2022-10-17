@@ -1,1 +1,3 @@
-<http://foo.bar.baz>
+\![foo]
+
+[foo]: /url "title"

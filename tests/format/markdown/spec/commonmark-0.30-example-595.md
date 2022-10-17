@@ -1,1 +1,1 @@
-<MAILTO:FOO@BAR.BAZ>
+<irc://foo.bar:2233/baz>

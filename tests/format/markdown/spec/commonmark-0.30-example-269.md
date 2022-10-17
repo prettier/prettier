@@ -1,3 +1,1 @@
-- foo
-
-      bar
+-1. not ok

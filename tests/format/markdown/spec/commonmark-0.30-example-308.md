@@ -1,9 +1,7 @@
--   foo
-
-    notcode
-
--   foo
+- foo
+- bar
 
 <!-- -->
 
-    code
+- baz
+- bim

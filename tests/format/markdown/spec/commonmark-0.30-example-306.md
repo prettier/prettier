@@ -1,6 +1,6 @@
 - foo
-  - bar
-    - baz
+
+- bar
 
 
-      bim
+- baz

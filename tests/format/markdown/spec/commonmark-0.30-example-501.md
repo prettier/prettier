@@ -1,1 +1,1 @@
-[link](foo%20b&auml;)
+[link](foo\bar)

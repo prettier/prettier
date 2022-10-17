@@ -1,3 +1,3 @@
-[foo][BaR]
+[foo<http://example.com/?search=][ref]>
 
-[bar]: /url "title"
+[ref]: /uri

@@ -1,1 +1,1 @@
-[link](foo\)\:)
+[link](<foo(and(bar)>)

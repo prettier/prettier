@@ -1,6 +1,6 @@
-  1.  A paragraph
-with two lines.
+    1.  A paragraph
+        with two lines.
 
-          indented code
+            indented code
 
-      > A block quote.
+        > A block quote.

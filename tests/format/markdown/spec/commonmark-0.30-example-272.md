@@ -1,5 +1,5 @@
-1.     indented code
+    indented code
 
-   paragraph
+paragraph
 
-       more code
+    more code

@@ -1,1 +1,1 @@
-<33> <__>
+Foo <responsive-image src="foo.jpg" />

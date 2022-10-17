@@ -1,1 +1,1 @@
-`<a href="`">`
+[not a `link](/foo`)

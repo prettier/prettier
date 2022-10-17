@@ -1,1 +1,2 @@
-hello $.;'there
+foo 
+ baz

@@ -1,1 +1,1 @@
-foo <![CDATA[>&<]]>
+foo <!ELEMENT br EMPTY>

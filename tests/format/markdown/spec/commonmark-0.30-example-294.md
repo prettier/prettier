@@ -1,4 +1,4 @@
 - foo
- - bar
-  - baz
-   - boo
+  - bar
+    - baz
+      - boo

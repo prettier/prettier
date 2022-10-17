@@ -1,2 +1,1 @@
-foo <!-- this is a --
-comment - with hyphens -->
+</a href="foo">

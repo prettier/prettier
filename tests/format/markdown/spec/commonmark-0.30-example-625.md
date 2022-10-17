@@ -1,1 +1,3 @@
-foo <?php echo $a; ?>
+foo <!--> foo -->
+
+foo <!---> foo -->

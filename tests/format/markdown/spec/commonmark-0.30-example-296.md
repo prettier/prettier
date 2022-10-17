@@ -1,2 +1,2 @@
 10) foo
-   - bar
+    - bar

@@ -1,3 +1,3 @@
->     code
-
->    not code
+>>> foo
+> bar
+>>baz

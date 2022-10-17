@@ -1,1 +1,1 @@
-a*"foo"*
+a * foo bar*

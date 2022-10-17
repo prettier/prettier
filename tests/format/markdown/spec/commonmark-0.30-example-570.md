@@ -1,1 +1,4 @@
-![foo](/url "title")
+[foo][bar][baz]
+
+[baz]: /url1
+[foo]: /url2

@@ -1,7 +1,6 @@
 - foo
-- bar
+  - bar
+    - baz
 
-<!-- -->
 
-- baz
-- bim
+      bim

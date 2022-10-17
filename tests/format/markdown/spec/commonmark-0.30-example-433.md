@@ -1,1 +1,1 @@
-____ is not an empty strong emphasis
+__ is not an empty emphasis

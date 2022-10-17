@@ -1,1 +1,1 @@
-<http://example.com/\[\>
+<http://foo.bar/baz bim>

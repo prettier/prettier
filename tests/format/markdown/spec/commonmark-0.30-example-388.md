@@ -1,1 +1,1 @@
-foo-__(bar)__
+__foo, __bar__, baz__

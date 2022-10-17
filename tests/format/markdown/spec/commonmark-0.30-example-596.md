@@ -1,1 +1,1 @@
-<a+b+c:d>
+<MAILTO:FOO@BAR.BAZ>

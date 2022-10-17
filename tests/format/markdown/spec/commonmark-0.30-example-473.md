@@ -1,1 +1,1 @@
-*<img src="foo" title="*"/>
+_foo [bar_](/url)

@@ -1,1 +1,1 @@
-__a<http://foo.bar/?q=__>
+**a<http://foo.bar/?q=**>

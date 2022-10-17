@@ -1,3 +1,3 @@
-  10.  foo
+- foo
 
-           bar
+      bar

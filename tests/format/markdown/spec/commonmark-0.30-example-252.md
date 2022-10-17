@@ -1,6 +1,3 @@
-A paragraph
-with two lines.
+>     code
 
-    indented code
-
-> A block quote.
+>    not code

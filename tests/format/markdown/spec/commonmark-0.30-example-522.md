@@ -1,1 +1,1 @@
-[foo <bar attr="](baz)">
+*foo [bar* baz]

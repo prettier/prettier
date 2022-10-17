@@ -1,1 +1,3 @@
-![foo](train.jpg)
+![foo *bar*][foobar]
+
+[FOOBAR]: train.jpg "train & tracks"

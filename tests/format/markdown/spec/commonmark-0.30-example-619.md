@@ -1,4 +1,1 @@
-< a><
-foo><bar/ >
-<foo bar=baz
-bim!bop />
+<a href="hi'> <a href=hi'>

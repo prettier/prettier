@@ -1,5 +1,3 @@
 aaa
-bbb
 
-ccc
-ddd
+bbb

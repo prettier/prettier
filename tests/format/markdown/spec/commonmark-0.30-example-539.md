@@ -1,4 +1,3 @@
-[Foo
-  bar]: /url
+[ẞ]
 
-[Baz][Foo bar]
+[SS]: /url

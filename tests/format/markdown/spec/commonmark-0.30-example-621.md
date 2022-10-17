@@ -1,1 +1,1 @@
-</a></foo >
+<a href='bar'title=title>

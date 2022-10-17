@@ -1,3 +1,3 @@
-aaa
+[foo]
 
-bbb
+> [foo]: /url

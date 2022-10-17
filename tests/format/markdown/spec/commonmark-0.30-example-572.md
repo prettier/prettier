@@ -1,1 +1,3 @@
-![foo ![bar](/url)](/url2)
+![foo *bar*]
+
+[foo *bar*]: train.jpg "train & tracks"

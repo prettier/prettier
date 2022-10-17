@@ -1,3 +1,3 @@
-[foo *bar][ref]*
+*[foo*][ref]
 
 [ref]: /uri

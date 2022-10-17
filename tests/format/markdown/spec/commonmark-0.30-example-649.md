@@ -1,1 +1,1 @@
-Foo χρῆν
+hello $.;'there

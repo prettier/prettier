@@ -1,3 +1,4 @@
 [foo]: /url
+bar
 ===
 [foo]

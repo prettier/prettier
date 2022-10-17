@@ -1,1 +1,1 @@
-<localhost:5001/foo>
+<http://../>

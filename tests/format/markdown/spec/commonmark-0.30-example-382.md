@@ -1,2 +1,1 @@
-__
-foo bar__
+__ foo bar__

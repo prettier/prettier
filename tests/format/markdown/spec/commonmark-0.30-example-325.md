@@ -1,7 +1,4 @@
-- a
-  - b
-  - c
+* foo
+  * bar
 
-- d
-  - e
-  - f
+  baz

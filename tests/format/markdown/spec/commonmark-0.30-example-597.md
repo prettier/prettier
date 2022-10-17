@@ -1,1 +1,1 @@
-<made-up-scheme://foo,bar>
+<a+b+c:d>

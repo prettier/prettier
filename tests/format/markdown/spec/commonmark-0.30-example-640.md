@@ -1,2 +1,2 @@
-<a href="foo  
-bar">
+`code\
+span`

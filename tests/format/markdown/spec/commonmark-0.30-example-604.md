@@ -1,1 +1,1 @@
-<foo\+@bar.example.com>
+<foo+special@Bar.baz-bar0.com>

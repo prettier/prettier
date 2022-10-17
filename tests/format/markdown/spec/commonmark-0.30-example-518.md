@@ -1,1 +1,1 @@
-![[[foo](uri1)](uri2)](uri3)
+[foo *[bar [baz](/uri)](/uri)*](/uri)

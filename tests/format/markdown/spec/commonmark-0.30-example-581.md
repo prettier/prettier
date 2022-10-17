@@ -1,3 +1,3 @@
 ![foo][bar]
 
-[BAR]: /url
+[bar]: /url

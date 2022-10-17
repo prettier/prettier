@@ -1,9 +1,4 @@
-1.  foo
+- foo
 
-    ```
-    bar
-    ```
 
-    baz
-
-    > bam
+  bar

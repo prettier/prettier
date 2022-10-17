@@ -1,7 +1,9 @@
-- a
- - b
-  - c
-   - d
-  - e
- - f
-- g
+-   foo
+
+    notcode
+
+-   foo
+
+<!-- -->
+
+    code

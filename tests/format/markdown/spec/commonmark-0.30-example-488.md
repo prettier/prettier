@@ -1,2 +1,1 @@
-[link](foo
-bar)
+[link](</my uri>)

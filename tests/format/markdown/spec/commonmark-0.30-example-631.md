@@ -1,2 +1,1 @@
-foo  
-baz
+<a href="\"">

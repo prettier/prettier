@@ -1,1 +1,1 @@
-<irc://foo.bar:2233/baz>
+<http://foo.bar.baz/test?q=hello&id=22&boolean>

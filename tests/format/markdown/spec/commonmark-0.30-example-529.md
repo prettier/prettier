@@ -1,3 +1,3 @@
-[![moon](moon.jpg)][ref]
+[link *foo **bar** `#`*][ref]
 
 [ref]: /uri

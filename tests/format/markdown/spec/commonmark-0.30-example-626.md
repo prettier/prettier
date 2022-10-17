@@ -1,1 +1,1 @@
-foo <!ELEMENT br EMPTY>
+foo <?php echo $a; ?>

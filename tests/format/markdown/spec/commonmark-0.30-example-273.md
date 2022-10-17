@@ -1,4 +1,4 @@
-1.      indented code
+1.     indented code
 
    paragraph
 

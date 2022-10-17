@@ -1,2 +1,2 @@
-foo\
+foo  
 baz

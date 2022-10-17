@@ -1,3 +1,2 @@
-foo <!--> foo -->
-
-foo <!---> foo -->
+foo <!-- this is a --
+comment - with hyphens -->

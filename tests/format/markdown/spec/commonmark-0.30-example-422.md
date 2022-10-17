@@ -1,1 +1,2 @@
-__foo _bar_ baz__
+**foo
+bar**

@@ -1,1 +1,1 @@
-<http://foo.bar/baz bim>
+<localhost:5001/foo>

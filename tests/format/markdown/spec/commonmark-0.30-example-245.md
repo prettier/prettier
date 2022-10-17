@@ -1,3 +1,2 @@
-> aaa
-***
-> bbb
+foo
+> bar

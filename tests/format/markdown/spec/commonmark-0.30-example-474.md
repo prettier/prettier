@@ -1,1 +1,1 @@
-**<a href="**">
+*<img src="foo" title="*"/>

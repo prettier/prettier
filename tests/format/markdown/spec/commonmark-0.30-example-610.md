@@ -1,1 +1,1 @@
-foo@bar.example.com
+http://example.com

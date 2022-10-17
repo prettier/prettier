@@ -1,1 +1,1 @@
-[link]()
+[](./target.md)

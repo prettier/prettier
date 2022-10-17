@@ -1,1 +1,1 @@
-**** is not an empty strong emphasis
+** is not an empty emphasis

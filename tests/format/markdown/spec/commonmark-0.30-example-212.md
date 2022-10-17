@@ -1,4 +1,5 @@
-Foo
-[bar]: /baz
+```
+[foo]: /url
+```
 
-[bar]
+[foo]
