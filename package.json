@@ -181,6 +181,14 @@
     "reporter": [
       "lcov",
       "text"
+    ],
+    "include": [
+      "src/**",
+      "bin/**"
+    ],
+    "exclude": [
+      "src/standalone.js",
+      "src/document/debug.js"
     ]
   },
   "browserslist": [
