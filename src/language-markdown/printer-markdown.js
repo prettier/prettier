@@ -2,7 +2,6 @@ import {
   getMinNotPresentContinuousCount,
   getMaxContinuousCount,
   getStringWidth,
-  isNonEmptyArray,
 } from "../common/util.js";
 import {
   breakParent,
@@ -45,7 +44,6 @@ const getVisitorKeys = createGetVisitorKeys(visitorKeys);
  * @typedef {import("../document/builders.js").Doc} Doc
  */
 
-const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 const SIBLING_NODE_TYPES = new Set([
   "listItem",
@@ -82,12 +80,7 @@ function genericPrint(path, options, print) {
       if (node.children.length === 0) {
         return "";
       }
-      return [
-        normalizeDoc(printRoot(path, options, print)),
-        !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
-          ? hardline
-          : "",
-      ];
+      return [normalizeDoc(printRoot(path, options, print)), hardline];
     case "paragraph":
       return printChildren(path, options, print, {
         postprocessor: fill,
@@ -426,12 +419,12 @@ function genericPrint(path, options, print) {
     // MDX
     // fallback to the original text if multiparser failed
     // or `embeddedLanguageFormatting: "off"`
-    case "importExport":
-      return [node.value, hardline];
-    case "esComment":
-      return ["{/* ", node.value, " */}"];
+    case "import":
+    case "export":
     case "jsx":
       return node.value;
+    case "esComment":
+      return ["{/* ", node.value, " */}"];
     case "math":
       return [
         "$$",
@@ -447,8 +440,6 @@ function genericPrint(path, options, print) {
     case "tableRow": // handled in "table"
     case "listItem": // handled in "list"
     case "text": // handled in other types
-    case "import": // transformed in to `importExport`
-    case "export": // transformed in to `importExport`
     default:
       /* istanbul ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
@@ -714,23 +705,15 @@ function printChildren(path, options, print, events = {}) {
       if (shouldPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        // Can't find a case to pass `shouldPrePrintTripleHardline`
-        /* istanbul ignore next */
-        if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
-          if (shouldPrePrintTripleHardline(childNode, data)) {
-            parts.push(hardline);
-          }
-        } else {
-          if (
-            shouldPrePrintDoubleHardline(childNode, data) ||
-            shouldPrePrintTripleHardline(childNode, data)
-          ) {
-            parts.push(hardline);
-          }
+        if (
+          shouldPrePrintDoubleHardline(childNode, data) ||
+          shouldPrePrintTripleHardline(childNode, data)
+        ) {
+          parts.push(hardline);
+        }
 
-          if (shouldPrePrintTripleHardline(childNode, data)) {
-            parts.push(hardline);
-          }
+        if (shouldPrePrintTripleHardline(childNode, data)) {
+          parts.push(hardline);
         }
       }
 
@@ -756,14 +739,6 @@ function printIgnoreComment(node) {
   ) {
     return ["{/* ", node.children[0].value, " */}"];
   }
-}
-
-function getLastDescendantNode(node) {
-  let current = node;
-  while (isNonEmptyArray(current.children)) {
-    current = current.children.at(-1);
-  }
-  return current;
 }
 
 /** @return {false | 'next' | 'start' | 'end'} */
