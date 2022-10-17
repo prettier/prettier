@@ -22,22 +22,17 @@ module.exports = {
     },
     fixable: "code",
     messages: {
-      [messageId]: "Prefer {{ getter }} instead of {{ method }}.",
+      [messageId]: "Prefer `AstPath#{{ getter }}` over `AstPath#{{ method }}`.",
     },
   },
   create(context) {
     const report = (node, argumentsLength, getterName) => {
-      const getterMethodMap = new Map([
-        ["node", "`path.getValue()` or `path.getNode()`"],
-        ["parent", "`path.getParentNode()` or `path.getParentNode(0)`"],
-        ["grandparent", "`path.getParentNode(1)`"],
-      ]);
       context.report({
         node,
         messageId,
         data: {
-          getter: `\`path.${getterName}\``,
-          method: getterMethodMap.get(getterName),
+          getter: getterName,
+          method: node.property.name,
         },
         fix: (fixer) => [
           fixer.replaceTextRange(
@@ -57,7 +52,7 @@ module.exports = {
           return;
         }
 
-        const propertyName = node.property?.name;
+        const propertyName = node.property.name;
         const callExprArguments = node.parent.arguments;
 
         if (
@@ -69,11 +64,13 @@ module.exports = {
         }
 
         if (propertyName === getParentNodeFunctionName) {
-          if (callExprArguments.length === 0) {
+          if (
             // path.getParentNode()
-            report(node, callExprArguments.length, "parent");
-          } else if (callExprArguments[0].value === 0) {
+            callExprArguments.length === 0 ||
             // path.getParentNode(0)
+            callExprArguments[0].value === 0
+          ) {
+            // path.getParentNode()
             report(node, callExprArguments.length, "parent");
           } else if (callExprArguments[0].value === 1) {
             // path.getParentNode(1)
