@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import { locStart, locEnd } from "./loc.js";
 import {
   cjkPattern,
@@ -135,14 +136,10 @@ function splitText(text) {
   // Check for `canBeConvertedToSpace` in ./whitespace.js etc.
   if (process.env.NODE_ENV !== "production") {
     for (let i = 1; i < nodes.length; i++) {
-      if (
-        nodes[i].type === "whitespace" &&
-        nodes[i - 1].type === "whitespace"
-      ) {
-        throw new Error(
-          "Internal error: splitText should not create consecutive whitespace nodes"
-        );
-      }
+      assert(
+        !(nodes[i - 1].type === "whitespace" && nodes[i].type === "whitespace"),
+        "splitText should not create consecutive whitespace nodes"
+      );
     }
   }
 
@@ -151,8 +148,7 @@ function splitText(text) {
   function appendNode(node) {
     const lastNode = nodes.at(-1);
     if (
-      lastNode &&
-      lastNode.type === "word" &&
+      lastNode?.type === "word" &&
       !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
       // disallow leading/trailing full-width whitespace
       ![lastNode.value, node.value].some((value) => /\u3000/.test(value))
