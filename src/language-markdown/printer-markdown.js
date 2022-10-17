@@ -169,10 +169,19 @@ function genericPrint(path, options, print) {
     case "delete":
       return ["~~", printChildren(path, options, print), "~~"];
     case "inlineCode": {
-      const backtickCount = getMinNotPresentContinuousCount(node.value, "`");
-      const style = "`".repeat(backtickCount || 1);
-      const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
-      return [style, gap, node.value, gap, style];
+      const code =
+        options.proseWrap === "preserve"
+          ? node.value
+          : node.value.replace(/\n/g, " ");
+      const backtickCount = getMinNotPresentContinuousCount(code, "`");
+      const backtickString = "`".repeat(backtickCount || 1);
+      const padding =
+        code.startsWith("`") ||
+        code.endsWith("`") ||
+        (/^[\n ]/.test(code) && /[\n ]$/.test(code) && /[^\n ]/.test(code))
+          ? " "
+          : "";
+      return [backtickString, padding, code, padding, backtickString];
     }
     case "wikiLink": {
       let contents = "";

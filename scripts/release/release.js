@@ -26,5 +26,5 @@ await runCommand("git fetch --tags");
 // Install script's dependencies before any require
 await runCommand("yarn");
 
-const { default: run } = await import("./run.js");
-await run();
+// Ready to run
+await import("./run.js");

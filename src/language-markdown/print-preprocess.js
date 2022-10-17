@@ -6,7 +6,6 @@ const isSingleCharRegex = /^.$/su;
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
   ast = mergeContinuousTexts(ast);
-  ast = transformInlineCode(ast, options);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
   ast = splitTextIntoSentences(ast, options);
@@ -22,16 +21,6 @@ function transformImportExport(ast) {
     }
 
     return { ...node, type: "importExport" };
-  });
-}
-
-function transformInlineCode(ast, options) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "inlineCode" || options.proseWrap === "preserve") {
-      return node;
-    }
-
-    return { ...node, value: node.value.replace(/\s+/g, " ") };
   });
 }
 

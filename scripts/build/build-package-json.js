@@ -22,7 +22,7 @@ async function buildPackageJson({ files }) {
       require: "./index.cjs",
       default: "./index.mjs",
     },
-    "./*": "./",
+    "./*": "./*",
     ...Object.fromEntries(
       files
         .filter((file) => file.output.format === "umd")
