@@ -71,7 +71,9 @@ function genericPrint(path, options, print) {
             path,
             node.value,
             options
-            // Leave `adjacentNodes` unset because the deep equality test will fail if set
+            // Without the `adjacentNodes` argument `printWhitespace` wraps/unwraps
+            // text in such a way that the normalized form of a link label stays the same.
+            // See https://spec.commonmark.org/0.30/#matches
           )
     );
   }
