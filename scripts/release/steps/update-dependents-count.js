@@ -71,7 +71,11 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + " million";
 }
 
-export default async function updateDependentsCount() {
+export default async function updateDependentsCount({ dry }) {
+  if (dry) {
+    return;
+  }
+
   try {
     await update();
   } catch (error) {

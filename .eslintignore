@@ -13,3 +13,5 @@
 /website/static/playground.js
 /website/static/lib/
 /scripts/benchmark/*/
+**/.yarn/**
+**/.pnp.*

@@ -6,33 +6,10 @@ const isSingleCharRegex = /^.$/su;
 function preprocess(ast, options) {
   ast = restoreUnescapedCharacter(ast, options);
   ast = mergeContinuousTexts(ast);
-  ast = transformInlineCode(ast, options);
   ast = transformIndentedCodeblockAndMarkItsParentList(ast, options);
   ast = markAlignedList(ast, options);
   ast = splitTextIntoSentences(ast);
-  ast = transformImportExport(ast);
-  ast = mergeContinuousImportExport(ast);
   return ast;
-}
-
-function transformImportExport(ast) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "import" && node.type !== "export") {
-      return node;
-    }
-
-    return { ...node, type: "importExport" };
-  });
-}
-
-function transformInlineCode(ast, options) {
-  return mapAst(ast, (node) => {
-    if (node.type !== "inlineCode" || options.proseWrap === "preserve") {
-      return node;
-    }
-
-    return { ...node, value: node.value.replace(/\s+/g, " ") };
-  });
 }
 
 function restoreUnescapedCharacter(ast, options) {
@@ -50,22 +27,6 @@ function restoreUnescapedCharacter(ast, options) {
             node.position.end.offset
           ),
         }
-  );
-}
-
-function mergeContinuousImportExport(ast) {
-  return mergeChildren(
-    ast,
-    (prevNode, node) =>
-      prevNode.type === "importExport" && node.type === "importExport",
-    (prevNode, node) => ({
-      type: "importExport",
-      value: prevNode.value + "\n\n" + node.value,
-      position: {
-        start: prevNode.position.start,
-        end: node.position.end,
-      },
-    })
   );
 }
 

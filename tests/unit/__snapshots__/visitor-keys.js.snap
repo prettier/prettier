@@ -487,7 +487,6 @@ exports[`visitor keys estree 1`] = `
     "right",
     "arguments",
   ],
-  "NGQuotedExpression": [],
   "NGRoot": [
     "node",
   ],
@@ -1469,7 +1468,6 @@ exports[`visitor keys remark 1`] = `
   "image": [],
   "imageReference": [],
   "import": [],
-  "importExport": [],
   "inlineCode": [],
   "inlineMath": [],
   "jsx": [],

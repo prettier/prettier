@@ -1,4 +1,5 @@
 import path from "node:path";
+import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
@@ -51,10 +52,14 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       process: transform,
     },
     // #12493, not sure what the problem is, but replace the cjs version with esm version seems fix it
-    {
-      module: require.resolve("tslib"),
-      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
-    },
+    ...[
+      require.resolve("tslib"),
+      createRequire(require.resolve("vnopts")).resolve("tslib"),
+      createRequire(require.resolve("tsutils")).resolve("tslib"),
+    ].map((file) => ({
+      module: file,
+      path: file.replace(/tslib\.js$/, "tslib.es6.js"),
+    })),
     // https://github.com/evanw/esbuild/issues/2103
     {
       module: path.join(
@@ -78,11 +83,11 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       process: (text) =>
         text
           .replace(
-            "const line = (0, _detectNewline().default)(docblock) || _os().EOL;",
+            "const line = (0, _detectNewline().default)(docblock) ?? _os().EOL;",
             'const line = "\\n"'
           )
           .replace(
-            "const line = (0, _detectNewline().default)(comments) || _os().EOL;",
+            "const line = (0, _detectNewline().default)(comments) ?? _os().EOL;",
             'const line = "\\n"'
           )
           .replace(/\nfunction _os().*?\n}/s, "")
@@ -128,7 +133,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
           let output = bundle.output.file;
           if (
             file.output.file === "index.cjs" &&
-            bundle.output.file === "esm/doc.mjs"
+            bundle.output.file === "doc.mjs"
           ) {
             output = "doc.js";
           }

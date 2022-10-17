@@ -5,13 +5,20 @@ on:
     paths:
       - "website/data/users.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   prevent-add-users:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.1.0
       - name: Prevent file change
-        uses: xalvarez/prevent-file-change-action@v1
+        uses: xalvarez/prevent-file-change-action@v1.3.0
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           pattern: website/data/users.yml

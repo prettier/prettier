@@ -5,7 +5,6 @@ import {
   group,
   hardline,
   ifBreak,
-  join,
   line,
 } from "../../document/builders.js";
 import {
@@ -19,7 +18,8 @@ import {
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
-function printMappingItem(node, parentNode, path, print, options) {
+function printMappingItem(path, print, options) {
+  const { node, parent } = path;
   const { key, value } = node;
 
   const isEmptyMappingKey = isEmptyNode(key);
@@ -33,7 +33,7 @@ function printMappingItem(node, parentNode, path, print, options) {
   const spaceBeforeColon = needsSpaceInFrontOfMappingValue(node) ? " " : "";
 
   if (isEmptyMappingValue) {
-    if (node.type === "flowMappingItem" && parentNode.type === "flowMapping") {
+    if (node.type === "flowMappingItem" && parent.type === "flowMapping") {
       return printedKey;
     }
 
@@ -41,7 +41,7 @@ function printMappingItem(node, parentNode, path, print, options) {
       node.type === "mappingItem" &&
       isAbsolutelyPrintedAsSingleLineNode(key.content, options) &&
       !hasTrailingComment(key.content) &&
-      (!parentNode.tag || parentNode.tag.value !== "tag:yaml.org,2002:set")
+      parent.tag?.value !== "tag:yaml.org,2002:set"
     ) {
       return [printedKey, spaceBeforeColon, ":"];
     }
@@ -60,12 +60,7 @@ function printMappingItem(node, parentNode, path, print, options) {
       "? ",
       alignWithSpaces(2, printedKey),
       hardline,
-      join(
-        "",
-        path
-          .map(print, "value", "leadingComments")
-          .map((comment) => [comment, hardline])
-      ),
+      ...path.map(() => [print(), hardline], "value", "leadingComments"),
       ": ",
       alignWithSpaces(2, printedValue),
     ];
@@ -107,7 +102,7 @@ function printMappingItem(node, parentNode, path, print, options) {
     (hasEndComments(value) &&
       value.content &&
       !isNode(value.content, ["mapping", "sequence"])) ||
-    (parentNode.type === "mapping" &&
+    (parent.type === "mapping" &&
       hasTrailingComment(key.content) &&
       isInlineNode(value.content)) ||
     (isNode(value.content, ["mapping", "sequence"]) &&

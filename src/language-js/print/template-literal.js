@@ -14,7 +14,6 @@ import { printDocToString } from "../../document/printer.js";
 import { mapDoc } from "../../document/utils.js";
 import {
   isBinaryish,
-  isJestEachTemplateLiteral,
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
@@ -24,10 +23,7 @@ function printTemplateLiteral(path, print, options) {
   const { node } = path;
   const isTemplateLiteral = node.type === "TemplateLiteral";
 
-  if (
-    isTemplateLiteral &&
-    isJestEachTemplateLiteral(node, path.getParentNode())
-  ) {
+  if (isTemplateLiteral && isJestEachTemplateLiteral(path)) {
     const printed = printJestEachTemplateLiteral(path, options, print);
     if (printed) {
       return printed;
@@ -39,11 +35,11 @@ function printTemplateLiteral(path, print, options) {
   }
   const parts = [];
 
-  let expressions = path.map(print, expressionsKey);
+  let expressionDocs = path.map(print, expressionsKey);
   const isSimple = isSimpleTemplateLiteral(node);
 
   if (isSimple) {
-    expressions = expressions.map(
+    expressionDocs = expressionDocs.map(
       (doc) =>
         printDocToString(doc, {
           ...options,
@@ -54,52 +50,56 @@ function printTemplateLiteral(path, print, options) {
 
   parts.push(lineSuffixBoundary, "`");
 
-  path.each((childPath) => {
-    const i = childPath.getName();
-
+  let previousQuasiIndentSize = 0;
+  path.each(({ index, node: quasi }) => {
     parts.push(print());
 
-    if (i < expressions.length) {
-      // For a template literal of the following form:
-      //   `someQuery {
-      //     ${call({
-      //       a,
-      //       b,
-      //     })}
-      //   }`
-      // the expression is on its own line (there is a \n in the previous
-      // quasi literal), therefore we want to indent the JavaScript
-      // expression inside at the beginning of ${ instead of the beginning
-      // of the `.
-      const { tabWidth } = options;
-      const quasi = childPath.node;
-      const indentSize = getIndentSize(quasi.value.raw, tabWidth);
-
-      let printed = expressions[i];
-
-      if (!isSimple) {
-        const expression = node[expressionsKey][i];
-        // Breaks at the template element boundaries (${ and }) are preferred to breaking
-        // in the middle of a MemberExpression
-        if (
-          hasComment(expression) ||
-          isMemberExpression(expression) ||
-          expression.type === "ConditionalExpression" ||
-          expression.type === "SequenceExpression" ||
-          expression.type === "TSAsExpression" ||
-          isBinaryish(expression)
-        ) {
-          printed = [indent([softline, printed]), softline];
-        }
-      }
-
-      const aligned =
-        indentSize === 0 && quasi.value.raw.endsWith("\n")
-          ? align(Number.NEGATIVE_INFINITY, printed)
-          : addAlignmentToDoc(printed, indentSize, tabWidth);
-
-      parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
+    if (quasi.tail) {
+      return;
     }
+
+    // For a template literal of the following form:
+    //   `someQuery {
+    //     ${call({
+    //       a,
+    //       b,
+    //     })}
+    //   }`
+    // the expression is on its own line (there is a \n in the previous
+    // quasi literal), therefore we want to indent the JavaScript
+    // expression inside at the beginning of ${ instead of the beginning
+    // of the `.
+    const { tabWidth } = options;
+    const text = quasi.value.raw;
+    const indentSize = text.includes("\n")
+      ? getIndentSize(text, tabWidth)
+      : previousQuasiIndentSize;
+    previousQuasiIndentSize = indentSize;
+
+    let expressionDoc = expressionDocs[index];
+
+    if (!isSimple) {
+      const expression = node[expressionsKey][index];
+      // Breaks at the template element boundaries (${ and }) are preferred to breaking
+      // in the middle of a MemberExpression
+      if (
+        hasComment(expression) ||
+        isMemberExpression(expression) ||
+        expression.type === "ConditionalExpression" ||
+        expression.type === "SequenceExpression" ||
+        expression.type === "TSAsExpression" ||
+        isBinaryish(expression)
+      ) {
+        expressionDoc = [indent([softline, expressionDoc]), softline];
+      }
+    }
+
+    const aligned =
+      indentSize === 0 && text.endsWith("\n")
+        ? align(Number.NEGATIVE_INFINITY, expressionDoc)
+        : addAlignmentToDoc(expressionDoc, indentSize, tabWidth);
+
+    parts.push(group(["${", aligned, lineSuffixBoundary, "}"]));
   }, "quasis");
 
   parts.push("`");
@@ -236,6 +236,35 @@ function escapeTemplateCharacters(doc, raw) {
 
 function uncookTemplateElementValue(cookedValue) {
   return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+}
+
+function isJestEachTemplateLiteral({ node, parent }) {
+  /**
+   * describe.each`table`(name, fn)
+   * describe.only.each`table`(name, fn)
+   * describe.skip.each`table`(name, fn)
+   * test.each`table`(name, fn)
+   * test.only.each`table`(name, fn)
+   * test.skip.each`table`(name, fn)
+   *
+   * Ref: https://github.com/facebook/jest/pull/6102
+   */
+  const jestEachTriggerRegex = /^[fx]?(?:describe|it|test)$/;
+  return (
+    parent.type === "TaggedTemplateExpression" &&
+    parent.quasi === node &&
+    parent.tag.type === "MemberExpression" &&
+    parent.tag.property.type === "Identifier" &&
+    parent.tag.property.name === "each" &&
+    ((parent.tag.object.type === "Identifier" &&
+      jestEachTriggerRegex.test(parent.tag.object.name)) ||
+      (parent.tag.object.type === "MemberExpression" &&
+        parent.tag.object.property.type === "Identifier" &&
+        (parent.tag.object.property.name === "only" ||
+          parent.tag.object.property.name === "skip") &&
+        parent.tag.object.object.type === "Identifier" &&
+        jestEachTriggerRegex.test(parent.tag.object.object.name)))
+  );
 }
 
 export {

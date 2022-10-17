@@ -3,8 +3,7 @@ import { hasEndComments, isNextLineEmpty, isNode } from "../utils.js";
 
 const printedEmptyLineCache = new WeakMap();
 function printNextEmptyLine(path, originalText) {
-  const { node } = path;
-  const root = path.stack[0];
+  const { node, root } = path;
 
   let isNextEmptyLinePrintedSet;
   if (printedEmptyLineCache.has(root)) {

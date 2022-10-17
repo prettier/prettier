@@ -98,7 +98,6 @@ function genericPrint(path, options, print) {
     ]);
   }
 
-  const parentNode = path.getParentNode();
   if (hasPrettierIgnore(path)) {
     parts.push(
       replaceEndOfLine(
@@ -108,14 +107,14 @@ function genericPrint(path, options, print) {
       )
     );
   } else {
-    parts.push(group(printNode(node, parentNode, path, options, print)));
+    parts.push(group(printNode(path, options, print)));
   }
 
   if (hasTrailingComment(node) && !isNode(node, ["document", "documentHead"])) {
     parts.push(
       lineSuffix([
         node.type === "mappingValue" && !node.content ? "" : " ",
-        parentNode.type === "mappingKey" &&
+        path.parent.type === "mappingKey" &&
         path.getParentNode(2).type === "mapping" &&
         isInlineNode(node)
           ? ""
@@ -132,8 +131,8 @@ function genericPrint(path, options, print) {
         join(
           hardline,
           path.map(
-            (path) => [
-              isPreviousLineEmpty(options.originalText, path.node, locStart)
+            ({ node }) => [
+              isPreviousLineEmpty(options.originalText, node, locStart)
                 ? hardline
                 : "",
               print(),
@@ -148,15 +147,13 @@ function genericPrint(path, options, print) {
   return parts;
 }
 
-function printNode(node, parentNode, path, options, print) {
+function printNode(path, options, print) {
+  const { node } = path;
   switch (node.type) {
     case "root": {
-      const { children } = node;
       const parts = [];
-      path.each((childPath, index) => {
-        const document = children[index];
-        const nextDocument = children[index + 1];
-        if (index !== 0) {
+      path.each(({ node: document, next: nextDocument, isFirst }) => {
+        if (!isFirst) {
           parts.push(hardline);
         }
         parts.push(print());
@@ -180,16 +177,8 @@ function printNode(node, parentNode, path, options, print) {
       return parts;
     }
     case "document": {
-      const nextDocument = parentNode.children[path.getName() + 1];
       const parts = [];
-      if (
-        shouldPrintDocumentHeadEndMarker(
-          node,
-          nextDocument,
-          parentNode,
-          options
-        ) === "head"
-      ) {
+      if (shouldPrintDocumentHeadEndMarker(path, options) === "head") {
         if (node.head.children.length > 0 || node.head.endComments.length > 0) {
           parts.push(print("head"));
         }
@@ -331,7 +320,7 @@ function printNode(node, parentNode, path, options, print) {
       return !node.content ? "" : print("content");
     case "mappingItem":
     case "flowMappingItem":
-      return printMappingItem(node, parentNode, path, print, options);
+      return printMappingItem(path, print, options);
 
     case "flowMapping":
       return printFlowMapping(path, print, options);
@@ -371,18 +360,14 @@ function shouldPrintDocumentEndMarker(document, nextDocument) {
   );
 }
 
-function shouldPrintDocumentHeadEndMarker(
-  document,
-  nextDocument,
-  root,
-  options
-) {
+function shouldPrintDocumentHeadEndMarker(path, options) {
+  const document = path.node;
   if (
     /**
      * ---
      * preserve the first document head end marker
      */
-    (root.children[0] === document &&
+    (path.isFirst &&
       /---(?:\s|$)/.test(
         options.originalText.slice(locStart(document), locStart(document) + 4)
       )) ||
@@ -404,6 +389,7 @@ function shouldPrintDocumentHeadEndMarker(
     return "head";
   }
 
+  const nextDocument = path.next;
   if (shouldPrintDocumentEndMarker(document, nextDocument)) {
     return false;
   }

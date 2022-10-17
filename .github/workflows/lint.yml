@@ -8,16 +8,23 @@ on:
       - next
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.1.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.5.1
         with:
           cache: "yarn"
 
@@ -42,15 +49,18 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
-      - name: Lint workflow files
-        run: yarn lint:actionlint
-
       - name: Lint docs code block
         # TODO: Lint files in `website/versioned_docs/version-stable` too
         run: yarn "docs/**/*.md"
         env:
           # Make Prettier throws on embeded format
           PRETTIER_DEBUG: true
+
+      - name: Lint workflow files
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
+        shell: bash
 
       - name: Validate renovate config
         run: npx --package renovate -c renovate-config-validator
