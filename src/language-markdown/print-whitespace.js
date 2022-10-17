@@ -103,7 +103,7 @@ function isInSentenceWithCJSpaces(path) {
  * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
  * @returns {boolean} `true` if given node can be convertedToSpace, `false` if not (i.e. newline or empty character)
  */
-function canBeConvertedToSpace(path, adjacentNodes) {
+function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
   if (
     // no adjacent nodes - this happens for linkReference and imageReference nodes
     !adjacentNodes ||
@@ -197,10 +197,10 @@ function isWesternOrKoreanLetter(kind) {
 }
 
 /**
- * Returns whether “whitespace” (`"" | " " | "\n"`; see `WhitespaceValue`) can be converted to `"\n"`
+ * Checks whether whitespace can be printed as a line break
  *
  * @param {AstPath} path
- * @param {WhitespaceValue} value
+ * @param {WhitespaceValue} value (`"" | " " | "\n"`)
  * @param {*} options
  * @param {AdjacentNodes | undefined} adjacentNodes
  * @param {boolean} canBeSpace
@@ -222,25 +222,24 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
     return true;
   }
 
+  const { previous, next } = adjacentNodes;
+
   // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   // [Latin][""][Hangul] & vice versa => Don't break
   // [han & kana][""][hangul], either
   if (
     value === "" &&
-    ((adjacentNodes.previous?.kind === KIND_K_LETTER &&
-      isLetter(adjacentNodes.next?.kind)) ||
-      (adjacentNodes.next?.kind === KIND_K_LETTER &&
-        isLetter(adjacentNodes.previous?.kind)))
+    ((previous?.kind === KIND_K_LETTER && isLetter(next?.kind)) ||
+      (next?.kind === KIND_K_LETTER && isLetter(previous?.kind)))
   ) {
     return false;
   }
 
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
   const violatesCJKLineBreakingRule =
-    (adjacentNodes.next !== undefined &&
-      noBreakBefore.has(adjacentNodes.next.value[0])) ||
-    (adjacentNodes.previous !== undefined &&
-      noBreakAfter.has(adjacentNodes.previous.value.at(-1)));
+    !canBeSpace &&
+    ((next && noBreakBefore.has(next.value[0])) ||
+      (previous && noBreakAfter.has(previous.value.at(-1))));
 
   // When violates the CJK line breaking rules if breaks lines there ("") or leaves surrounding lines divided ("\n")...
   // - ""   => always `false` (i.e. disallows to break lines there)
@@ -252,7 +251,7 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
   // On the contrary, if `false` even should be Space, the following loop will occur:
   //   the surrounding lines are joined with `" "` -> divided into 2 lines by `" "` -> joined again -> ...
   if (violatesCJKLineBreakingRule) {
-    return value === "\n" && canBeSpace;
+    return false;
   }
 
   return true;
@@ -271,7 +270,7 @@ function printWhitespace(path, value, options, adjacentNodes) {
 
   const canBeSpace =
     value === " " ||
-    (value === "\n" && canBeConvertedToSpace(path, adjacentNodes));
+    (value === "\n" && lineBreakCanBeConvertedToSpace(path, adjacentNodes));
 
   if (isBreakable(path, value, options, adjacentNodes, canBeSpace)) {
     return canBeSpace ? line : softline;
