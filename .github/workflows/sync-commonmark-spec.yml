@@ -26,9 +26,6 @@ jobs:
           node-version: "18"
           cache: "yarn"
 
-      - name: Install Dependencies
-        run: yarn install --immutable
-
       - name: Sync
         run: node scripts/sync-commonmark-spec.js
 
