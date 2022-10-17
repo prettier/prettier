@@ -4,7 +4,8 @@ import installPrettier from "./tests/config/install-prettier.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
 const isProduction = process.env.NODE_ENV === "production";
-const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
+// Disabled https://github.com/nicolo-ribaudo/jest-light-runner/pull/13
+// const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
 const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
 const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
 // When debugging production test, this flag can skip installing package
@@ -58,7 +59,7 @@ const config = {
     "<rootDir>/tests/unit/**/*.js",
   ],
   testPathIgnorePatterns,
-  collectCoverage: ENABLE_CODE_COVERAGE,
+  // collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
   coveragePathIgnorePatterns: [
     "<rootDir>/src/standalone.js",
