@@ -27,27 +27,6 @@ module.exports = {
     },
   },
   create(context) {
-    const report = (node, callExprArgumentValues, getterName) => {
-      context.report({
-        node,
-        messageId,
-        data: {
-          getter: getterName,
-          method: node.property.name,
-          arg: callExprArgumentValues,
-        },
-        fix: (fixer) => [
-          fixer.replaceTextRange(
-            [
-              node.property.range[0],
-              // remove `()` for CallExpression
-              node.property.range[1] + 2 + callExprArgumentValues.length,
-            ],
-            getterName
-          ),
-        ],
-      });
-    };
     return {
       [selector](node) {
         if (!isPathMemberExpression(node)) {
@@ -59,12 +38,30 @@ module.exports = {
           ({ value }) => value
         );
 
+        const report = (getterName) => {
+          context.report({
+            node,
+            messageId,
+            data: {
+              getter: getterName,
+              method: propertyName,
+              arg: callExprArgumentValues,
+            },
+            fix: (fixer) => [
+              fixer.replaceTextRange(
+                [node.property.range[0], node.parent.range[1]],
+                getterName
+              ),
+            ],
+          });
+        };
+
         if (
           getNodeFunctionNames.has(propertyName) &&
           callExprArgumentValues.length === 0
         ) {
           // path.getNode() or path.getValue()
-          report(node, callExprArgumentValues, "node");
+          report("node");
         }
 
         if (propertyName === getParentNodeFunctionName) {
@@ -75,10 +72,10 @@ module.exports = {
             callExprArgumentValues[0] === 0
           ) {
             // path.getParentNode()
-            report(node, callExprArgumentValues, "parent");
+            report("parent");
           } else if (callExprArgumentValues[0] === 1) {
             // path.getParentNode(1)
-            report(node, callExprArgumentValues, "grandparent");
+            report("grandparent");
           }
         }
       },
