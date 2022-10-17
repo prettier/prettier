@@ -140,7 +140,7 @@ function canBeConvertedToSpace(path, adjacentNodes) {
     previousKind === KIND_CJK_PUNCTUATION ||
     nextKind === KIND_CJK_PUNCTUATION ||
     // "\n" between CJ always SHALL NOT be convertedToSpace
-    (isCJK(previousKind) && isCJK(nextKind))
+    (previousKind === KIND_CJ_LETTER && nextKind === KIND_CJ_LETTER)
   ) {
     return false;
   }
@@ -176,18 +176,6 @@ function canBeConvertedToSpace(path, adjacentNodes) {
 
   // If the sentence uses the style with spaces between CJ and alphanumerics, "\n" can be converted to Space.
   return isInSentenceWithCJSpaces(path);
-}
-
-/**
- * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is CJK (including punctuation marks)
- */
-function isCJK(kind) {
-  return (
-    kind === KIND_CJ_LETTER ||
-    kind === KIND_K_LETTER ||
-    kind === KIND_CJK_PUNCTUATION
-  );
 }
 
 /**

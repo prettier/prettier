@@ -133,7 +133,7 @@ function splitText(text) {
     }
   }
 
-  // Check for `canBeConvertedToSpace` in ./whitespace.js etc.
+  // Check for `canBeConvertedToSpace` in ./print-whitespace.js etc.
   if (process.env.NODE_ENV !== "production") {
     for (let i = 1; i < nodes.length; i++) {
       assert(
