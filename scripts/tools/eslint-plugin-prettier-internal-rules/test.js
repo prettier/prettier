@@ -518,8 +518,7 @@ test("prefer-ast-path-getters", {
       output: "path.node",
       errors: [
         {
-          message:
-            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+          message: "Prefer `AstPath#node` over `AstPath#getNode()`.",
         },
       ],
     },
@@ -528,8 +527,7 @@ test("prefer-ast-path-getters", {
       output: "const node = path.node",
       errors: [
         {
-          message:
-            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+          message: "Prefer `AstPath#node` over `AstPath#getNode()`.",
         },
       ],
     },
@@ -538,8 +536,7 @@ test("prefer-ast-path-getters", {
       output: "fooPath.node",
       errors: [
         {
-          message:
-            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+          message: "Prefer `AstPath#node` over `AstPath#getNode()`.",
         },
       ],
     },
@@ -550,8 +547,7 @@ test("prefer-ast-path-getters", {
       output: "path.node",
       errors: [
         {
-          message:
-            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+          message: "Prefer `AstPath#node` over `AstPath#getValue()`.",
         },
       ],
     },
@@ -560,8 +556,7 @@ test("prefer-ast-path-getters", {
       output: "const node = path.node",
       errors: [
         {
-          message:
-            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+          message: "Prefer `AstPath#node` over `AstPath#getValue()`.",
         },
       ],
     },
@@ -570,8 +565,7 @@ test("prefer-ast-path-getters", {
       output: "fooPath.node",
       errors: [
         {
-          message:
-            "Prefer `path.node` instead of `path.getValue()` or `path.getNode()`.",
+          message: "Prefer `AstPath#node` over `AstPath#getValue()`.",
         },
       ],
     },
@@ -582,8 +576,7 @@ test("prefer-ast-path-getters", {
       output: "path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
         },
       ],
     },
@@ -592,8 +585,7 @@ test("prefer-ast-path-getters", {
       output: "const node = path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
         },
       ],
     },
@@ -602,8 +594,7 @@ test("prefer-ast-path-getters", {
       output: "path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
         },
       ],
     },
@@ -612,8 +603,7 @@ test("prefer-ast-path-getters", {
       output: "const node = path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
         },
       ],
     },
@@ -622,8 +612,7 @@ test("prefer-ast-path-getters", {
       output: "fooPath.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
         },
       ],
     },
@@ -634,8 +623,7 @@ test("prefer-ast-path-getters", {
       output: "path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
         },
       ],
     },
@@ -644,8 +632,7 @@ test("prefer-ast-path-getters", {
       output: "const node = path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
         },
       ],
     },
@@ -654,8 +641,7 @@ test("prefer-ast-path-getters", {
       output: "path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
         },
       ],
     },
@@ -664,8 +650,7 @@ test("prefer-ast-path-getters", {
       output: "const node = path.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
         },
       ],
     },
@@ -674,8 +659,7 @@ test("prefer-ast-path-getters", {
       output: "fooPath.parent",
       errors: [
         {
-          message:
-            "Prefer `path.parent` instead of `path.getParentNode()` or `path.getParentNode(0)`.",
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
         },
       ],
     },
@@ -687,7 +671,7 @@ test("prefer-ast-path-getters", {
       errors: [
         {
           message:
-            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
         },
       ],
     },
@@ -697,7 +681,7 @@ test("prefer-ast-path-getters", {
       errors: [
         {
           message:
-            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
         },
       ],
     },
@@ -707,7 +691,7 @@ test("prefer-ast-path-getters", {
       errors: [
         {
           message:
-            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
         },
       ],
     },
@@ -717,7 +701,7 @@ test("prefer-ast-path-getters", {
       errors: [
         {
           message:
-            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
         },
       ],
     },
@@ -727,7 +711,7 @@ test("prefer-ast-path-getters", {
       errors: [
         {
           message:
-            "Prefer `path.grandparent` instead of `path.getParentNode(1)`.",
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
         },
       ],
     },

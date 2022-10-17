@@ -22,24 +22,26 @@ module.exports = {
     },
     fixable: "code",
     messages: {
-      [messageId]: "Prefer `AstPath#{{ getter }}` over `AstPath#{{ method }}`.",
+      [messageId]:
+        "Prefer `AstPath#{{ getter }}` over `AstPath#{{ method }}({{ arg }})`.",
     },
   },
   create(context) {
-    const report = (node, argumentsLength, getterName) => {
+    const report = (node, callExprArgumentValues, getterName) => {
       context.report({
         node,
         messageId,
         data: {
           getter: getterName,
           method: node.property.name,
+          arg: callExprArgumentValues,
         },
         fix: (fixer) => [
           fixer.replaceTextRange(
             [
               node.property.range[0],
               // remove `()` for CallExpression
-              node.property.range[1] + 2 + argumentsLength,
+              node.property.range[1] + 2 + callExprArgumentValues.length,
             ],
             getterName
           ),
@@ -53,28 +55,30 @@ module.exports = {
         }
 
         const propertyName = node.property.name;
-        const callExprArguments = node.parent.arguments;
+        const callExprArgumentValues = node.parent.arguments.map(
+          ({ value }) => value
+        );
 
         if (
           getNodeFunctionNames.has(propertyName) &&
-          callExprArguments.length === 0
+          callExprArgumentValues.length === 0
         ) {
           // path.getNode() or path.getValue()
-          report(node, callExprArguments.length, "node");
+          report(node, callExprArgumentValues, "node");
         }
 
         if (propertyName === getParentNodeFunctionName) {
           if (
             // path.getParentNode()
-            callExprArguments.length === 0 ||
+            callExprArgumentValues.length === 0 ||
             // path.getParentNode(0)
-            callExprArguments[0].value === 0
+            callExprArgumentValues[0] === 0
           ) {
             // path.getParentNode()
-            report(node, callExprArguments.length, "parent");
-          } else if (callExprArguments[0].value === 1) {
+            report(node, callExprArgumentValues, "parent");
+          } else if (callExprArgumentValues[0] === 1) {
             // path.getParentNode(1)
-            report(node, callExprArguments.length, "grandparent");
+            report(node, callExprArgumentValues, "grandparent");
           }
         }
       },
