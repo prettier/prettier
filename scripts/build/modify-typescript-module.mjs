@@ -157,7 +157,8 @@ function modifyTypescriptModule(text) {
     text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
   );
   source.replaceAlignedCode({
-    start: "function createLanguageService(host, documentRegistry, syntaxOnlyOrLanguageServiceMode) {",
+    start:
+      "function createLanguageService(host, documentRegistry, syntaxOnlyOrLanguageServiceMode) {",
     end: "}",
     replacement: "function createLanguageService() {}",
   });
