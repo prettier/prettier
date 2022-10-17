@@ -58,7 +58,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       createRequire(require.resolve("tsutils")).resolve("tslib"),
     ].map((file) => ({
       module: file,
-      path: file.replace(/tslib\.js$/, "tslib.es6.js"),
+      path: require.resolve("tslib").replace(/tslib\.js$/, "tslib.es6.js"),
     })),
     // https://github.com/evanw/esbuild/issues/2103
     {
