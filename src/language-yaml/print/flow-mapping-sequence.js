@@ -42,24 +42,21 @@ function printFlowMapping(path, print, options) {
 }
 
 function printChildren(path, print, options) {
-  const { node } = path;
-  const parts = path.map(
-    (childPath, index) => [
+  return path.map(
+    ({ isLast, node, next }) => [
       print(),
-      index === node.children.length - 1
+      isLast
         ? ""
         : [
             ",",
             line,
-            node.children[index].position.start.line !==
-            node.children[index + 1].position.start.line
-              ? printNextEmptyLine(childPath, options.originalText)
+            node.position.start.line !== next.position.start.line
+              ? printNextEmptyLine(path, options.originalText)
               : "",
           ],
     ],
     "children"
   );
-  return parts;
 }
 
 export {

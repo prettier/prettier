@@ -109,10 +109,10 @@ function hasPrettierIgnore(path) {
   const { node } = path;
 
   if (node.type === "documentBody") {
-    const document = path.getParentNode();
+    const documentHead = path.parent.head;
     return (
-      hasEndComments(document.head) &&
-      isPrettierIgnore(document.head.endComments.at(-1))
+      hasEndComments(documentHead) &&
+      isPrettierIgnore(documentHead.endComments.at(-1))
     );
   }
 
