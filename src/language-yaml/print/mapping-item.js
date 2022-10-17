@@ -61,10 +61,7 @@ function printMappingItem(path, print, options) {
       "? ",
       alignWithSpaces(2, printedKey),
       hardline,
-      join(
-        "",
-        path.map(() => [print(), hardline], "value", "leadingComments")
-      ),
+      ...path.map(() => [print(), hardline], "value", "leadingComments"),
       ": ",
       alignWithSpaces(2, printedValue),
     ];
