@@ -71,7 +71,7 @@ function genericPrint(path, options, print) {
             path,
             node.value,
             options
-            // `Unset adjacentNodes` because the deep equality test will fail if set
+            // Leave `adjacentNodes` unset because the deep equality test will fail if set
           )
     );
   }
