@@ -1,0 +1,36 @@
+name: Sync_Commonmark_Spec
+
+on:
+  schedule:
+    # “At 00:00 on Sunday.” https://crontab.guru/#0%C2%A00%C2%A0*%C2%A0*%C2%A00
+    - cron: "0 0 * * 0"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: "18"
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Sync
+        run: node scripts/sync-commonmark-spec.js
+
+      - name: Check File Changes
+        run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
