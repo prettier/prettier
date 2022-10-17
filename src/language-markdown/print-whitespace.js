@@ -84,7 +84,7 @@ function isInSentenceWithCJSpaces(path) {
 /**
  * @typedef {import("./utils.js").WordNode} WordNode
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {{next?: WordNode | undefined | null, previous?: WordNode | undefined | null}} AdjacentNodes
+ * @typedef {{ next?: WordNode | null, previous?: WordNode | null }} AdjacentNodes
  * Adjacent node to `WhitespaceNode`. the consecution of `WhitespaceNode` is a bug, so adjacent nodes must be `WordNode`.
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -104,13 +104,13 @@ function isInSentenceWithCJSpaces(path) {
  * @returns {boolean} `true` if given node can be convertedToSpace, `false` if not (i.e. newline or empty character)
  */
 function canBeConvertedToSpace(path, adjacentNodes) {
-  // no adjacent nodes
-  if (!adjacentNodes) {
-    return true;
-  }
-
-  // e.g. " \nletter"
-  if (!adjacentNodes.previous || !adjacentNodes.next) {
+  if (
+    // no adjacent nodes - this happens for linkReference and imageReference nodes
+    !adjacentNodes ||
+    // e.g. " \nletter"
+    !adjacentNodes.previous ||
+    !adjacentNodes.next
+  ) {
     return true;
   }
 
@@ -252,7 +252,7 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
   // On the contrary, if `false` even should be Space, the following loop will occur:
   //   the surrounding lines are joined with `" "` -> divided into 2 lines by `" "` -> joined again -> ...
   if (violatesCJKLineBreakingRule) {
-    return value === "\n" ? canBeSpace : false;
+    return value === "\n" && canBeSpace;
   }
 
   return true;
