@@ -1,0 +1,9 @@
+-   foo
+
+    notcode
+
+-   foo
+
+<!-- -->
+
+    code

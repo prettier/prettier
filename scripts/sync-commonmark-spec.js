@@ -4,11 +4,11 @@ import fs from "node:fs/promises";
 // https://github.com/commonmark/commonmark-spec/blob/ea177af1066ef0eefcf2ffebc23f8bf968b69f67/test/spec_tests.py#L105
 const EXAMPLE_BLOCK_MARK = "`".repeat(32);
 // https://github.com/commonmark/commonmark-spec/blob/ea177af1066ef0eefcf2ffebc23f8bf968b69f67/test/spec_tests.py#L121
-const CODE_SEPERATOR = ".";
+const CODE_SEPARATOR = ".";
 const SPEC_TEXT_URL =
   "https://raw.githubusercontent.com/commonmark/commonmark-spec/HEAD/spec.txt";
-const FIXTURES = new URL(
-  "../tests/format/markdown/spec/snippets.spec.json",
+const TEST_DIRECTORY = new URL(
+  "../tests/format/markdown/spec/",
   import.meta.url
 );
 const EXAMPLE_REGEXP = new RegExp(
@@ -16,7 +16,7 @@ const EXAMPLE_REGEXP = new RegExp(
     "",
     `${EXAMPLE_BLOCK_MARK} example`,
     "(?<markdownCode>.*?)",
-    `\\${CODE_SEPERATOR}`,
+    `\\${CODE_SEPARATOR}`,
     "(?<htmlCode>.*?)",
     EXAMPLE_BLOCK_MARK,
     "",
@@ -26,10 +26,23 @@ const EXAMPLE_REGEXP = new RegExp(
 
 const response = await fetch(SPEC_TEXT_URL);
 const text = await response.text();
+const { specVersion } = text.match(
+  /(?<=\nversion: ')(?<specVersion>[\d.]+)(?='\n)/
+).groups;
 
 const examples = [...text.matchAll(EXAMPLE_REGEXP)].map((match, index) => ({
-  filename: `example-${index + 1}.md`,
+  filename: `commonmark-${specVersion}-example-${index + 1}.md`,
   code: match.groups.markdownCode.replaceAll("→", "\t"),
 }));
 
-await fs.writeFile(FIXTURES, JSON.stringify(examples, undefined, 2) + "\n");
+await Promise.all(
+  (await fs.readdir(TEST_DIRECTORY))
+    .filter((filename) => filename.endsWith(".md"))
+    .map((filename) => fs.rm(new URL(filename, TEST_DIRECTORY)))
+);
+
+await Promise.all(
+  examples.map(({ filename, code }) =>
+    fs.writeFile(new URL(filename, TEST_DIRECTORY), `${code}\n`)
+  )
+);

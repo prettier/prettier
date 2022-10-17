@@ -1,0 +1,6 @@
+# Heading
+    foo
+Heading
+------
+    foo
+----

@@ -1,0 +1,2 @@
+[link](foo
+bar)

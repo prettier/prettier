@@ -1,0 +1,1 @@
+foo <?php echo $a; ?>

@@ -1,0 +1,1 @@
+<MAILTO:FOO@BAR.BAZ>
