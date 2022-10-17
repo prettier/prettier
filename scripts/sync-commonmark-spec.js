@@ -18,7 +18,8 @@ Examples stored like
 
 https://github.com/commonmark/commonmark-spec/blob/ea177af1066ef0eefcf2ffebc23f8bf968b69f67/test/spec_tests.py#L105
 */
-const EXAMPLE_REGEXP = /\n`{32} example\n(?<markdownCode>.*?)\n\.(?<htmlCode>.*?\n)?`{32}\n/gsu
+const EXAMPLE_REGEXP =
+  /\n`{32} example\n(?<markdownCode>.*?)\n\.(?:(?<htmlCode>.*?)\n)?`{32}\n/gsu;
 
 const response = await fetch(SPEC_TEXT_URL);
 const text = await response.text();
@@ -26,16 +27,18 @@ const { specVersion } = text.match(
   /(?<=\nversion: ')(?<specVersion>[\d.]+)(?='\n)/
 ).groups;
 
-const matches = [...text.matchAll(EXAMPLE_REGEXP)];
-const maxIndexLength = String(matches.length + 1).length;
-
-const examples = matches.map((match, index) => ({
-  filename: `commonmark-${specVersion}-example-${String(index + 1).padStart(
-    maxIndexLength,
-    "0"
-  )}.md`,
-  code: match.groups.markdownCode.replaceAll("→", "\t"),
-}));
+const examples = [...text.matchAll(EXAMPLE_REGEXP)].map(
+  (match, index, matches) => {
+    const number = String(index + 1).padStart(
+      String(matches.length + 1).length,
+      "0"
+    );
+    return {
+      filename: `commonmark-${specVersion}-example-${number}.md`,
+      code: match.groups.markdownCode.replaceAll("→", "\t"),
+    };
+  }
+);
 
 await Promise.all(
   (await fs.readdir(TEST_DIRECTORY))
