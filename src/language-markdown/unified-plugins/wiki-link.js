@@ -32,6 +32,7 @@ const wikiLinkConstruct = {
 
     /** @type {import('micromark-util-types').State} */
     function start(code) {
+      effects.enter("wikiLinkStart");
       effects.consume(code);
       return openDelimiter;
     }
@@ -40,7 +41,8 @@ const wikiLinkConstruct = {
     function openDelimiter(code) {
       if (code === codes.leftSquareBracket) {
         effects.consume(code);
-        effects.enter("wikiLink");
+        effects.exit("wikiLinkStart");
+        effects.enter("wikiLinkContent");
         return content;
       }
       return nok(code);
@@ -51,9 +53,12 @@ const wikiLinkConstruct = {
       if (code === codes.rightSquareBracket) {
         return effects.check(
           wikiLinkEndConstruct,
-          end,
+          startEnd,
           skipBracketContent
         )(code);
+      }
+      if (code === codes.eof) {
+        return nok(code);
       }
       effects.consume(code);
       return content;
@@ -62,22 +67,36 @@ const wikiLinkConstruct = {
     // used to skip a lone ] in the wiki link
     /** @type {import('micromark-util-types').State} */
     function skipBracketContent(code) {
+      if (code === codes.eof) {
+        return nok(code);
+      }
       effects.consume(code);
       return content;
     }
 
     // code + next code === "]]"
     /** @type {import('micromark-util-types').State} */
+    function startEnd(code) {
+      effects.exit("wikiLinkContent");
+      effects.enter("wikiLinkEnd");
+      effects.consume(code);
+      return end;
+    }
+
+    /** @type {import('micromark-util-types').State} */
     function end(code) {
-      effects.exit("wikiLink");
-      // should never fail
-      return effects.attempt(wikiLinkConstruct, ok, nok)(code);
+      effects.consume(code);
+      effects.exit("wikiLinkEnd");
+      return ok;
     }
   },
 };
 
 /** @type {import('micromark-util-types').Extension} */
 const wikiLink = {
+  flow: {
+    [codes.leftSquareBracket]: wikiLinkConstruct,
+  },
   text: {
     [codes.leftSquareBracket]: wikiLinkConstruct,
   },
@@ -86,12 +105,12 @@ const wikiLink = {
 /** @type {import('mdast-util-from-markdown').Extension} */
 const wikiLinkMDAST = {
   enter: {
-    liquid(token) {
+    wikiLinkContent(token) {
       this.enter({ type: "wikiLink", value: "", children: [] }, token);
     },
   },
   exit: {
-    liquid(token) {
+    wikiLinkContent(token) {
       const node = this.exit(token);
       node.value = this.sliceSerialize(token);
     },
