@@ -325,6 +325,7 @@ async function runTest({
 }) {
   let formatOptions = mainParserFormatOptions;
   let formatResult = mainParserFormatResult;
+  expect(formatResult).toBeDefined();
 
   // Verify parsers or error tests
   if (
