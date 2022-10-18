@@ -44,7 +44,7 @@
     "src/index.cjs",
     "standalone.js",
     "bin/",
-    "dist/",
+    "dist*/",
     "docs/",
     "scripts/",
     "tests/",

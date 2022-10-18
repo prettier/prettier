@@ -20,7 +20,11 @@ import { locStart, locEnd } from "./loc.js";
  *   recognizeSelfClosing?: boolean;
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
- *   shouldParseAsRawText?: () => boolean;
+ *   shouldParseAsRawText?: (tagName: string, prefix: string, hasParent: boolean, attrs: Array<{
+ *      prefix: string;
+ *      name: string;
+ *      value?: string;
+ *   }>) => boolean;
  * }} ParserOptions
  * @typedef {{
  *   parser: 'html' | 'angular' | 'vue' | 'lwc',
