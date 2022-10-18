@@ -150,9 +150,6 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
   // The rest of this function deals only with line breaks between CJ and
   // non-CJK characters.
 
-  const characterBefore = previous.value.at(-1);
-  const characterAfter = next.value[0];
-
   // Convert a line break between CJ and certain non-letter characters (e.g.
   // ASCII punctuation) to a space.
   //
@@ -161,8 +158,8 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
   // Note: line breaks like "(\n句子句子\n)" or "句子\n." are suppressed in
   // `isBreakable(...)`.
   if (
-    lineBreakBetweenTheseAndCJConvertsToSpace.has(characterAfter) ||
-    lineBreakBetweenTheseAndCJConvertsToSpace.has(characterBefore)
+    lineBreakBetweenTheseAndCJConvertsToSpace.has(next.value[0]) ||
+    lineBreakBetweenTheseAndCJConvertsToSpace.has(previous.value.at(-1))
   ) {
     return true;
   }
@@ -244,12 +241,12 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
   }
 
   // https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
-  const violatesCJKLineBreakingRule =
+  const violatesCJKLineBreakingRules =
     !canBeSpace &&
     ((next && noBreakBefore.has(next.value[0])) ||
       (previous && noBreakAfter.has(previous.value.at(-1))));
 
-  if (violatesCJKLineBreakingRule) {
+  if (violatesCJKLineBreakingRules) {
     return false;
   }
 
@@ -260,8 +257,8 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
- * @param {boolean} [isLink] Wrap/unwrap text so that the normalized form of a
- * link label stays the same. See https://spec.commonmark.org/0.30/#matches
+ * @param {boolean} [isLink] Special mode of (un)wrapping that preserves the
+ * normalized form of link labels. https://spec.commonmark.org/0.30/#matches
  */
 function printWhitespace(path, value, proseWrap, isLink) {
   if (proseWrap === "preserve" && value === "\n") {
