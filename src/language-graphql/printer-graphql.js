@@ -20,21 +20,12 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.kind) {
-    case "Document": {
-      const parts = [];
-      path.each((pathChild, index, definitions) => {
-        parts.push(print());
-        if (index !== definitions.length - 1) {
-          parts.push(hardline);
-          if (
-            isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }
-      }, "definitions");
-      return [...parts, hardline];
-    }
+    case "Document":
+      return [
+        ...join(hardline, printSequence(path, options, print, "definitions")),
+        hardline,
+      ];
+
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
       const hasName = Boolean(node.name);
@@ -475,13 +466,10 @@ function printDirectives(path, print, node) {
 }
 
 function printSequence(path, options, print, property) {
-  return path.map((path, index, sequence) => {
+  return path.map(({ isLast, node }) => {
     const printed = print();
 
-    if (
-      index < sequence.length - 1 &&
-      isNextLineEmpty(options.originalText, path.node, locEnd)
-    ) {
+    if (!isLast && isNextLineEmpty(options.originalText, node, locEnd)) {
       return [printed, hardline];
     }
 
