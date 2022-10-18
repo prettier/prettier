@@ -2,17 +2,17 @@ import { markdownLineEnding } from "micromark-util-character";
 import { codes } from "micromark-util-symbol/codes";
 import { markdownPlugin } from "./markdown-plugin.js";
 
-/** @type {import('micromark-util-types').Construct} */
-const liquidConstruct = {
-  name: "liquid",
+/** @type {(type: string) => import('micromark-util-types').Construct} */
+const liquidConstruct = (type) => ({
+  name: type,
   concrete: true,
   tokenize(effects, ok, nok) {
-    let type;
+    let kind;
     return start;
 
     /** @type {import('micromark-util-types').State} */
     function start(code) {
-      effects.enter("liquid");
+      effects.enter(type);
       effects.consume(code);
       return openDelimiter;
     }
@@ -20,12 +20,12 @@ const liquidConstruct = {
     /** @type {import('micromark-util-types').State} */
     function openDelimiter(code) {
       if (code === codes.percentSign) {
-        type = "tag";
+        kind = "tag";
         effects.consume(code);
         return content;
       }
       if (code === codes.leftCurlyBrace) {
-        type = "variable";
+        kind = "variable";
         effects.consume(code);
         return content;
       }
@@ -34,11 +34,11 @@ const liquidConstruct = {
 
     /** @type {import('micromark-util-types').State} */
     function content(code) {
-      if (type === "tag" && code === codes.percentSign) {
+      if (kind === "tag" && code === codes.percentSign) {
         effects.consume(code);
         return closeDelimiter;
       }
-      if (type === "variable" && code === codes.rightCurlyBrace) {
+      if (kind === "variable" && code === codes.rightCurlyBrace) {
         effects.consume(code);
         return closeDelimiter;
       }
@@ -50,7 +50,7 @@ const liquidConstruct = {
     function closeDelimiter(code) {
       if (code === codes.rightCurlyBrace) {
         effects.consume(code);
-        effects.exit("liquid");
+        effects.exit(type);
         return ok;
       }
       if (code === codes.eof) {
@@ -60,15 +60,15 @@ const liquidConstruct = {
       return content;
     }
   },
-};
+});
 
 /** @type {import('micromark-util-types').Extension} */
 const liquid = {
-  flow: {
-    [codes.leftCurlyBrace]: liquidConstruct,
-  },
   text: {
-    [codes.leftCurlyBrace]: liquidConstruct,
+    [codes.leftCurlyBrace]: liquidConstruct("liquid"),
+  },
+  flow: {
+    [codes.leftCurlyBrace]: liquidConstruct("liquidFlow"),
   },
 };
 
@@ -78,9 +78,16 @@ const liquidMDAST = {
     liquid(token) {
       this.enter({ type: "liquidNode", value: "", children: [] }, token);
     },
+    liquidFlow(token) {
+      this.enter({ type: "liquidBlock", value: "", children: [] }, token);
+    },
   },
   exit: {
     liquid(token) {
+      const node = this.exit(token);
+      node.value = this.sliceSerialize(token);
+    },
+    liquidFlow(token) {
       const node = this.exit(token);
       node.value = this.sliceSerialize(token);
     },
