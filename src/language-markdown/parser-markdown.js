@@ -10,6 +10,7 @@ import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
 import looseItems from "./unified-plugins/loose-items.js";
+import assert from "assert";
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -26,18 +27,16 @@ import looseItems from "./unified-plugins/loose-items.js";
  * interface InlineCode { children: Array<Sentence> }
  */
 function createParse({ isMDX }) {
+  // assert(!isMDX);
   const processor = unified()
-    .use(remarkParse, {
-      commonmark: true,
-      ...(isMDX && { blocks: [BLOCKS_REGEX] }),
-    })
+    .use(remarkParse, { commonmark: true })
     .use(footnotes)
     .use(remarkMath)
-    .use(isMDX ? esSyntax : identity)
+    // .use(isMDX ? esSyntax : identity)
     .use(liquid)
-    .use(isMDX ? htmlToJsx : identity)
-    .use(wikiLink)
-    .use(looseItems);
+    // .use(isMDX ? htmlToJsx : identity)
+    .use(wikiLink);
+  // .use(looseItems);
 
   return async (text) => {
     const { frontMatter, content } = parseFrontMatter(text);
