@@ -74,7 +74,7 @@ function printTypeParameters(path, options, print, paramsKey) {
       : getFunctionParameters(node).length === 1 &&
         isTSXFile(options) &&
         !node[paramsKey][0].constraint &&
-        path.getParentNode().type === "ArrowFunctionExpression"
+        path.parent.type === "ArrowFunctionExpression"
       ? ","
       : shouldPrintComma(options, "all")
       ? ifBreak(",")
@@ -112,7 +112,7 @@ function printDanglingCommentsForInline(path, options) {
 function printTypeParameter(path, options, print) {
   const { node } = path;
   const parts = [];
-  const parent = path.getParentNode();
+  const { parent } = path;
 
   const name = node.type === "TSTypeParameter" ? print("name") : node.name;
 

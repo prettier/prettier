@@ -192,7 +192,7 @@ const isExportDeclaration = createTypeCheckFunction([
  * @returns {Node | null}
  */
 function getParentExportDeclaration(path) {
-  const parentNode = path.getParentNode();
+  const parentNode = path.parent;
   if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
     return parentNode;
   }
@@ -322,7 +322,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
     return false;
   }
 
-  const parent = path.getParentNode();
+  const { parent } = path;
 
   return parent.type === "Program" && parent.body.length === 1;
 }
@@ -775,7 +775,7 @@ function isFunctionCompositionArgs(args) {
  */
 function isLongCurriedCallExpression(path) {
   const { node } = path;
-  const parent = path.getParentNode();
+  const { parent } = path;
   return (
     isCallExpression(node) &&
     isCallExpression(parent) &&

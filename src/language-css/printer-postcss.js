@@ -132,7 +132,7 @@ function genericPrint(path, options, print) {
       ];
 
     case "css-decl": {
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
 
       const { between: rawBetween } = node.raws;
       const trimmedBetween = rawBetween.trim();
@@ -189,7 +189,7 @@ function genericPrint(path, options, print) {
       ];
     }
     case "css-atrule": {
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
       const isTemplatePlaceholderNodeWithoutSemiColon =
         isTemplatePlaceholderNode(node) &&
         !parentNode.raws.semicolon &&
@@ -385,7 +385,7 @@ function genericPrint(path, options, print) {
       return adjustStrings(node.value, options);
 
     case "selector-tag": {
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
       const index = parentNode && parentNode.nodes.indexOf(node);
       const prevNode = index && parentNode.nodes[index - 1];
 
@@ -433,7 +433,7 @@ function genericPrint(path, options, print) {
         node.value === "~" ||
         node.value === ">>>"
       ) {
-        const parentNode = path.getParentNode();
+        const parentNode = path.parent;
         const leading =
           parentNode.type === "selector-selector" &&
           parentNode.nodes[0] === node
@@ -484,7 +484,7 @@ function genericPrint(path, options, print) {
       }
 
       // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
       if (parentNode.raws && parentNode.raws.selector) {
         const start = locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
@@ -492,7 +492,7 @@ function genericPrint(path, options, print) {
       }
 
       // Same reason above
-      const grandParent = path.getParentNode(1);
+      const grandParent = path.grandparent;
       if (
         parentNode.type === "value-paren_group" &&
         grandParent &&
@@ -519,8 +519,8 @@ function genericPrint(path, options, print) {
       return options.originalText.slice(locStart(node), locEnd(node));
 
     case "value-comma_group": {
-      const parentNode = path.getParentNode();
-      const parentParentNode = path.getParentNode(1);
+      const parentNode = path.parent;
+      const parentParentNode = path.grandparent;
       const declAncestorProp = getPropOfDeclNode(path);
       const isGridValue =
         declAncestorProp &&
@@ -867,7 +867,7 @@ function genericPrint(path, options, print) {
       return group(indent(fill(parts)));
     }
     case "value-paren_group": {
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
       const printedGroups = path.map(() => {
         const child = path.node;
         return typeof child === "string" ? child : print();
@@ -1004,7 +1004,7 @@ function genericPrint(path, options, print) {
       return node.value;
 
     case "value-colon": {
-      const parentNode = path.getParentNode();
+      const parentNode = path.parent;
       const index = parentNode && parentNode.groups.indexOf(node);
       const prevNode = index && parentNode.groups[index - 1];
       return [

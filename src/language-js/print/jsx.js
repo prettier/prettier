@@ -106,7 +106,7 @@ function printJsxElementInternal(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
-  const isMdxBlock = path.getParentNode().rootMarker === "mdx";
+  const isMdxBlock = path.parent.rootMarker === "mdx";
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = isMdxBlock
@@ -422,7 +422,7 @@ function separatorWithWhitespace(
 }
 
 function maybeWrapJsxElementInParens(path, elem, options) {
-  const parent = path.getParentNode();
+  const { parent } = path;
   /* istanbul ignore next */
   if (!parent) {
     return elem;
@@ -514,7 +514,7 @@ function printJsxExpressionContainer(path, options, print) {
         (isJsxNode(parent) &&
           (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
-  if (shouldInline(node.expression, path.getParentNode(0))) {
+  if (shouldInline(node.expression, path.parent)) {
     return group(["{", print("expression"), lineSuffixBoundary, "}"]);
   }
 

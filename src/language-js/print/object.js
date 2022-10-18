@@ -62,7 +62,7 @@ function printObject(path, options, print) {
     propsAndLoc.sort((a, b) => a.loc - b.loc);
   }
 
-  const parent = path.getParentNode(0);
+  const { parent } = path;
   const isFlowInterfaceLikeBody =
     isTypeAnnotation &&
     parent &&

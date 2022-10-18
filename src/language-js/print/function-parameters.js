@@ -60,7 +60,7 @@ function printFunctionParameters(
     ];
   }
 
-  const parent = path.getParentNode();
+  const { parent } = path;
   const isParametersInTestCall = isTestCall(parent);
   const shouldHugParameters = shouldHugTheOnlyFunctionParameter(functionNode);
   const printed = [];

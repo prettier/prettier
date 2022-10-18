@@ -8,7 +8,7 @@ function printOptionalToken(path) {
     !node.optional ||
     // It's an optional computed method parsed by typescript-estree.
     // "?" is printed in `printMethod`.
-    (node.type === "Identifier" && node === path.getParentNode().key)
+    (node.type === "Identifier" && node === path.parent.key)
   ) {
     return "";
   }
@@ -49,7 +49,7 @@ function printTypeAnnotation(path, options, print) {
     return "";
   }
 
-  const parentNode = path.getParentNode();
+  const parentNode = path.parent;
 
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;

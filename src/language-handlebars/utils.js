@@ -2,7 +2,7 @@ import { htmlVoidElements } from "html-void-elements";
 
 function isLastNodeOfSiblings(path) {
   const { node } = path;
-  const parentNode = path.getParentNode(0);
+  const parentNode = path.parent;
 
   if (
     isParentOfSomeType(path, ["ElementNode"]) &&
@@ -49,7 +49,7 @@ function isNodeOfSomeType(node, types) {
 }
 
 function isParentOfSomeType(path, types) {
-  const parentNode = path.getParentNode(0);
+  const parentNode = path.parent;
   return isNodeOfSomeType(parentNode, types);
 }
 
@@ -65,7 +65,7 @@ function isNextNodeOfSomeType(path, types) {
 
 function getSiblingNode(path, offset) {
   const { node } = path;
-  const parentNode = path.getParentNode(0) ?? {};
+  const parentNode = path.parent ?? {};
   const children =
     parentNode.children ?? parentNode.body ?? parentNode.parts ?? [];
   const index = children.indexOf(node);

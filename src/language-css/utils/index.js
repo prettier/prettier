@@ -109,7 +109,7 @@ function isVarFunctionNode(node) {
 }
 
 function isLastNode(path, node) {
-  const nodes = path.getParentNode()?.nodes;
+  const nodes = path.parent?.nodes;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
 }
 
@@ -262,7 +262,7 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
-  const parentParentNode = path.getParentNode(1);
+  const parentParentNode = path.grandparent;
 
   // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
   if (

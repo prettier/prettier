@@ -497,44 +497,223 @@ test("prefer-fs-promises-submodule", {
   })),
 });
 
-test("prefer-ast-path-node", {
+test("prefer-ast-path-getters", {
   valid: [
     "path.getNode(2)",
     "path.getNode",
     "getNode",
     "this.getNode()",
     "path.node",
+    "path.getParentNode(2)",
+    "path.getParentNode",
+    "getParentNode",
+    "this.getParentNode()",
+    "path.parent",
+    "path.grandparent",
   ],
   invalid: [
+    // path.getNode
     {
       code: "path.getNode()",
       output: "path.node",
-      errors: 1,
+      errors: [
+        {
+          message: "Prefer `AstPath#node` over `AstPath#getNode()`.",
+        },
+      ],
     },
     {
       code: "const node = path.getNode()",
       output: "const node = path.node",
-      errors: 1,
-    },
-    {
-      code: "path.getValue()",
-      output: "path.node",
-      errors: 1,
-    },
-    {
-      code: "const node = path.getValue()",
-      output: "const node = path.node",
-      errors: 1,
-    },
-    {
-      code: "fooPath.getValue()",
-      output: "fooPath.node",
-      errors: 1,
+      errors: [
+        {
+          message: "Prefer `AstPath#node` over `AstPath#getNode()`.",
+        },
+      ],
     },
     {
       code: "fooPath.getNode()",
       output: "fooPath.node",
-      errors: 1,
+      errors: [
+        {
+          message: "Prefer `AstPath#node` over `AstPath#getNode()`.",
+        },
+      ],
+    },
+
+    // path.getValue()
+    {
+      code: "path.getValue()",
+      output: "path.node",
+      errors: [
+        {
+          message: "Prefer `AstPath#node` over `AstPath#getValue()`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getValue()",
+      output: "const node = path.node",
+      errors: [
+        {
+          message: "Prefer `AstPath#node` over `AstPath#getValue()`.",
+        },
+      ],
+    },
+    {
+      code: "fooPath.getValue()",
+      output: "fooPath.node",
+      errors: [
+        {
+          message: "Prefer `AstPath#node` over `AstPath#getValue()`.",
+        },
+      ],
+    },
+
+    // path.getParentNode()
+    {
+      code: "path.getParentNode()",
+      output: "path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getParentNode()",
+      output: "const node = path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
+        },
+      ],
+    },
+    {
+      code: "path.getParentNode()",
+      output: "path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getParentNode()",
+      output: "const node = path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
+        },
+      ],
+    },
+    {
+      code: "fooPath.getParentNode()",
+      output: "fooPath.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode()`.",
+        },
+      ],
+    },
+
+    // path.getParentNode(0)
+    {
+      code: "path.getParentNode(0)",
+      output: "path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getParentNode(0)",
+      output: "const node = path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
+        },
+      ],
+    },
+    {
+      code: "path.getParentNode(0)",
+      output: "path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getParentNode(0)",
+      output: "const node = path.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
+        },
+      ],
+    },
+    {
+      code: "fooPath.getParentNode(0)",
+      output: "fooPath.parent",
+      errors: [
+        {
+          message: "Prefer `AstPath#parent` over `AstPath#getParentNode(0)`.",
+        },
+      ],
+    },
+
+    // path.getParentNode(1)
+    {
+      code: "path.getParentNode(1)",
+      output: "path.grandparent",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getParentNode(1)",
+      output: "const node = path.grandparent",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
+        },
+      ],
+    },
+    {
+      code: "path.getParentNode(1)",
+      output: "path.grandparent",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
+        },
+      ],
+    },
+    {
+      code: "const node = path.getParentNode(1)",
+      output: "const node = path.grandparent",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
+        },
+      ],
+    },
+    {
+      code: "fooPath.getParentNode(1)",
+      output: "fooPath.grandparent",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
+        },
+      ],
     },
   ],
 });
