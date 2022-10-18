@@ -117,7 +117,7 @@ function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
   const previousKind = adjacentNodes.previous.kind;
   const nextKind = adjacentNodes.next.kind;
 
-  // "\n" between not western or Korean (han, kana, CJK punctuations) characters always can be converted to Space
+  // "\n" between western or Korean characters always can be converted to Space
   // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   if (
     isWesternOrKoreanLetter(previousKind) &&
