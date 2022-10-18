@@ -7,10 +7,9 @@ const selector = [
   '[callee.type="MemberExpression"]',
   "[callee.computed=false]",
   "[callee.optional=false]",
-  '[callee.property.type="Identifier"]',
-  '[callee.type="MemberExpression"]',
   '[callee.object.type="Identifier"]',
   "[callee.object.name=/[pP]ath$/]",
+  '[callee.property.type="Identifier"]',
 ].join("");
 
 const messageId = "prefer-ast-path-getters";
