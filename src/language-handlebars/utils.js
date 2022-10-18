@@ -35,16 +35,6 @@ function isParentOfSomeType(path, types) {
   return isNodeOfSomeType(parentNode, types);
 }
 
-function isPreviousNodeOfSomeType(path, types) {
-  const previousNode = getPreviousNode(path);
-  return isNodeOfSomeType(previousNode, types);
-}
-
-function isNextNodeOfSomeType(path, types) {
-  const nextNode = getNextNode(path);
-  return isNodeOfSomeType(nextNode, types);
-}
-
 function getSiblingNode(path, offset) {
   const { node } = path;
   const parentNode = path.parent ?? {};
@@ -82,9 +72,7 @@ export {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
-  isNextNodeOfSomeType,
   isParentOfSomeType,
-  isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
 };

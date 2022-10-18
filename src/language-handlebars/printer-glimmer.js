@@ -17,9 +17,7 @@ import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
   hasPrettierIgnore,
-  isNextNodeOfSomeType,
   isParentOfSomeType,
-  isPreviousNodeOfSomeType,
   isVoid,
   isWhitespaceNode,
 } from "./utils.js";
@@ -48,7 +46,7 @@ function print(path, options, print) {
 
       const escapeNextElementNode =
         options.htmlWhitespaceSensitivity === "ignore" &&
-        isNextNodeOfSomeType(path, ["ElementNode"])
+        path.next?.type === "ElementNode"
           ? softline
           : "";
 
@@ -189,13 +187,13 @@ function print(path, options, print) {
 
           if (isParentOfSomeType(path, ["ConcatStatement"])) {
             if (
-              isPreviousNodeOfSomeType(path, ["MustacheStatement"]) &&
+              path.previous?.type === "MustacheStatement" &&
               /^\s/.test(text)
             ) {
               leadingSpace = true;
             }
             if (
-              isNextNodeOfSomeType(path, ["MustacheStatement"]) &&
+              path.next?.type === "MustacheStatement" &&
               /\s$/.test(text) &&
               formattedClasses !== ""
             ) {
@@ -304,11 +302,17 @@ function print(path, options, print) {
         );
         trailingLineBreaksCount = 0;
       } else {
-        if (isNextNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
+        if (
+          path.next?.type === "BlockStatement" ||
+          path.next?.type === "ElementNode"
+        ) {
           trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
         }
 
-        if (isPreviousNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
+        if (
+          path.previous?.type === "BlockStatement" ||
+          path.previous?.type === "ElementNode"
+        ) {
           leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
         }
       }
@@ -318,14 +322,14 @@ function print(path, options, print) {
 
       if (
         trailingLineBreaksCount === 0 &&
-        isNextNodeOfSomeType(path, ["MustacheStatement"])
+        path.next?.type === "MustacheStatement"
       ) {
         trailingSpace = " ";
       }
 
       if (
         leadingLineBreaksCount === 0 &&
-        isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+        path.previous?.type === "MustacheStatement"
       ) {
         leadingSpace = " ";
       }
@@ -582,7 +586,7 @@ function printCloseBlock(path, print, options) {
 
 function blockStatementHasOnlyWhitespaceInProgram(node) {
   return (
-node.type === "BlockStatement" &&
+    node.type === "BlockStatement" &&
     node.program.body.every((node) => isWhitespaceNode(node))
   );
 }
