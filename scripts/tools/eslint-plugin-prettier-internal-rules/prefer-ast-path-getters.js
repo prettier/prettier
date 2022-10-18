@@ -1,17 +1,54 @@
 "use strict";
 
 const selector = [
-  "CallExpression[arguments.length<2]",
-  "> MemberExpression",
+  "CallExpression",
+  "[optional=false]",
+  "[arguments.length<2]",
+  '[callee.type="MemberExpression"]',
+  "[callee.computed=false]",
+  "[callee.optional=false]",
+  '[callee.property.type="Identifier"]',
+  '[callee.type="MemberExpression"]',
+  '[callee.object.type="Identifier"]',
+  "[callee.object.name=/[pP]ath$/]",
 ].join("");
 
 const messageId = "prefer-ast-path-getters";
 
-const getNodeFunctionNames = new Set(["getValue", "getNode"]);
-const getParentNodeFunctionName = "getParentNode";
+function getReplacement(callExpression) {
+  const method = callExpression.callee.property.name;
+  const description = `${method}()`;
+  switch (method) {
+    case "getValue":
+    case "getNode":
+      if (callExpression.arguments.length === 0) {
+        return { getter: "node", description };
+      }
+      break;
 
-function isPathMemberExpression(node) {
-  return node.object?.name?.toLowerCase().endsWith("path");
+    case "getParentNode": {
+      // `path.getParentNode()`
+      if (callExpression.arguments.length === 0) {
+        return { getter: "parent", description };
+      }
+
+      // `path.getParentNode(count)`
+      const [countNode] = callExpression.arguments;
+      if (countNode.type !== "Literal") {
+        return;
+      }
+
+      const count = countNode.value;
+      if (count === 0) {
+        return { getter: "parent", description: `${method}(0)` };
+      }
+
+      if (count === 1) {
+        return { getter: "grandparent", description: `${method}(1)` };
+      }
+      break;
+    }
+  }
 }
 
 module.exports = {
@@ -23,61 +60,33 @@ module.exports = {
     fixable: "code",
     messages: {
       [messageId]:
-        "Prefer `AstPath#{{ getter }}` over `AstPath#{{ method }}({{ arg }})`.",
+        "Prefer `AstPath#{{ getter }}` over `AstPath#{{ description }}`.",
     },
   },
   create(context) {
     return {
-      [selector](node) {
-        if (!isPathMemberExpression(node)) {
+      [selector](callExpression) {
+        const replacement = getReplacement(callExpression);
+        if (!replacement) {
           return;
         }
 
-        const propertyName = node.property.name;
-        const callExprArgumentValues = node.parent.arguments.map(
-          ({ value }) => value
-        );
-
-        const report = (getterName) => {
-          context.report({
-            node,
-            messageId,
-            data: {
-              getter: getterName,
-              method: propertyName,
-              arg: callExprArgumentValues,
-            },
-            fix: (fixer) => [
-              fixer.replaceTextRange(
-                [node.property.range[0], node.parent.range[1]],
-                getterName
-              ),
-            ],
-          });
-        };
-
-        if (
-          getNodeFunctionNames.has(propertyName) &&
-          callExprArgumentValues.length === 0
-        ) {
-          // path.getNode() or path.getValue()
-          report("node");
-        }
-
-        if (propertyName === getParentNodeFunctionName) {
-          if (
-            // path.getParentNode()
-            callExprArgumentValues.length === 0 ||
-            // path.getParentNode(0)
-            callExprArgumentValues[0] === 0
-          ) {
-            // path.getParentNode()
-            report("parent");
-          } else if (callExprArgumentValues[0] === 1) {
-            // path.getParentNode(1)
-            report("grandparent");
-          }
-        }
+        context.report({
+          node: callExpression.callee,
+          messageId,
+          data: {
+            getter: replacement.getter,
+            description: replacement.description,
+          },
+          fix: (fixer) =>
+            fixer.replaceTextRange(
+              [
+                callExpression.callee.property.range[0],
+                callExpression.range[1],
+              ],
+              replacement.getter
+            ),
+        });
       },
     };
   },
