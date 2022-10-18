@@ -18,29 +18,32 @@ const parseFunctions = [
   },
 ];
 
-function parseIeConditionalComment(node, parseHtml) {
+function parseIeConditionalComment(angularHtmlParser, node, parseHtml) {
   if (node.value) {
     for (const { regex, parse } of parseFunctions) {
       const match = node.value.match(regex);
       if (match) {
-        return parse(node, parseHtml, match);
+        return parse(angularHtmlParser, node, parseHtml, match);
       }
     }
   }
   return null;
 }
 
-async function parseIeConditionalStartEndComment(node, parseHtml, match) {
+function parseIeConditionalStartEndComment(
+  angularHtmlParser,
+  node,
+  parseHtml,
+  match
+) {
   const [, openingTagSuffix, condition, data] = match;
   const offset = "<!--".length + openingTagSuffix.length;
   const contentStartSpan = node.sourceSpan.start.moveBy(offset);
   const contentEndSpan = contentStartSpan.moveBy(data.length);
-  const { ParseSourceSpan } = await import(
-    "angular-html-parser/lib/compiler/src/parse_util.js"
-  );
-  const [complete, children] = await (async () => {
+  const { ParseSourceSpan } = angularHtmlParser;
+  const [complete, children] = (() => {
     try {
-      return [true, (await parseHtml(data, contentStartSpan)).children];
+      return [true, parseHtml(data, contentStartSpan).children];
     } catch {
       const text = {
         type: "text",
@@ -64,7 +67,12 @@ async function parseIeConditionalStartEndComment(node, parseHtml, match) {
   };
 }
 
-function parseIeConditionalStartComment(node, parseHtml, match) {
+function parseIeConditionalStartComment(
+  angularHtmlParser,
+  node,
+  parseHtml,
+  match
+) {
   const [, condition] = match;
   return {
     type: "ieConditionalStartComment",
@@ -73,7 +81,10 @@ function parseIeConditionalStartComment(node, parseHtml, match) {
   };
 }
 
-function parseIeConditionalEndComment(node /*, parseHtml, match */) {
+function parseIeConditionalEndComment(
+  angularHtmlParser,
+  node /*, parseHtml, match */
+) {
   return {
     type: "ieConditionalEndComment",
     sourceSpan: node.sourceSpan,
