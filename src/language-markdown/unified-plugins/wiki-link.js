@@ -71,9 +71,7 @@ const wikiLinkConstruct = {
     function end(code) {
       effects.exit("wikiLink");
       // should never fail
-      return effects.attempt(wikiLinkConstruct, ok, () => {
-        throw new Error("we already checked this!");
-      })(code);
+      return effects.attempt(wikiLinkConstruct, ok, nok)(code);
     }
   },
 };
