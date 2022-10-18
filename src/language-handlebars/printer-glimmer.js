@@ -110,23 +110,24 @@ function print(path, options, print) {
       ]);
 
     case "AttrNode": {
-      const isText = node.value.type === "TextNode";
-      const isEmptyText = isText && node.value.chars === "";
+      const { name, value } = node;
+      const isText = value.type === "TextNode";
+      const isEmptyText = isText && value.chars === "";
 
       // If the text is empty and the value's loc start and end offsets are the
       // same, there is no value for this AttrNode and it should be printed
       // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
-      if (isEmptyText && locStart(node.value) === locEnd(node.value)) {
-        return node.name;
+      if (isEmptyText && locStart(value) === locEnd(value)) {
+        return name;
       }
 
       // Let's assume quotes inside the content of text nodes are already
       // properly escaped with entities, otherwise the parse wouldn't have parsed them.
       const quote = isText
-        ? getPreferredQuote(node.value.chars, favoriteQuote).quote
-        : node.value.type === "ConcatStatement"
+        ? getPreferredQuote(value.chars, favoriteQuote).quote
+        : value.type === "ConcatStatement"
         ? getPreferredQuote(
-            node.value.parts
+            value.parts
               .filter((part) => part.type === "TextNode")
               .map((part) => part.chars)
               .join(""),
@@ -137,10 +138,10 @@ function print(path, options, print) {
       const valueDoc = print("value");
 
       return [
-        node.name,
+        name,
         "=",
         quote,
-        node.name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
+        name === "class" && quote ? group(indent(valueDoc)) : valueDoc,
         quote,
       ];
     }
@@ -409,8 +410,8 @@ function printStartingTag(path, print) {
   const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
 
   for (const attributeType of types) {
-    path.each((attributePath) => {
-      const index = attributes.indexOf(attributePath.node);
+    path.each(({ node }) => {
+      const index = attributes.indexOf(node);
       attributes.splice(index, 1, [line, print()]);
     }, attributeType);
   }
@@ -429,10 +430,10 @@ function printChildren(path, options, print) {
     return "";
   }
 
-  return path.map((childPath, childIndex) => {
+  return path.map(({ isFirst }) => {
     const printedChild = print();
 
-    if (childIndex === 0 && options.htmlWhitespaceSensitivity === "ignore") {
+    if (isFirst && options.htmlWhitespaceSensitivity === "ignore") {
       return [softline, printedChild];
     }
 
@@ -731,14 +732,14 @@ function printSubExpressionPathAndParams(path, print) {
 /* misc. print helpers */
 
 function printPathAndParams(path, print) {
-  const p = printPath(path, print);
-  const params = printParams(path, print);
+  const pathDoc = printPath(path, print);
+  const paramsDoc = printParams(path, print);
 
-  if (!params) {
-    return p;
+  if (!paramsDoc) {
+    return pathDoc;
   }
 
-  return [indent([p, line, params]), softline];
+  return [indent([pathDoc, line, paramsDoc]), softline];
 }
 
 function printPath(path, print) {
@@ -750,13 +751,11 @@ function printParams(path, print) {
   const parts = [];
 
   if (node.params.length > 0) {
-    const params = path.map(print, "params");
-    parts.push(...params);
+    parts.push(...path.map(print, "params"));
   }
 
-  if (node.hash && node.hash.pairs.length > 0) {
-    const hash = print("hash");
-    parts.push(hash);
+  if (node.hash?.pairs.length > 0) {
+    parts.push(print("hash"));
   }
 
   if (parts.length === 0) {
