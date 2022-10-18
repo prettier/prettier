@@ -78,7 +78,13 @@ function adjustClause(node, clause, forceSpace) {
     return ";";
   }
 
-  if (node.type === "BlockStatement" || forceSpace) {
+  if (
+    node.type === "BlockStatement" ||
+    node.type === "BreakStatement" ||
+    node.type === "ContinueStatement" ||
+    node.type === "DebuggerStatement" ||
+    forceSpace
+  ) {
     return [" ", clause];
   }
 

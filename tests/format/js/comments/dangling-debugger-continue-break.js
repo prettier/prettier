@@ -8,3 +8,17 @@ for (;;) {
   if(a) debugger; // comment
   else foo();
 }
+
+for (;;) {
+
+  if (true) break // comment
+;
+  else foo();
+
+}
+
+for (;;) {
+  if (true)
+    break; // comment
+  else foo();
+}

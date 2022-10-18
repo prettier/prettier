@@ -1324,6 +1324,20 @@ for (;;) {
   else foo();
 }
 
+for (;;) {
+
+  if (true) break // comment
+;
+  else foo();
+
+}
+
+for (;;) {
+  if (true)
+    break; // comment
+  else foo();
+}
+
 =====================================output=====================================
 for (;;) {
   if (a) break // comment
@@ -1333,6 +1347,16 @@ for (;;) {
   else foo()
 
   if (a) debugger // comment
+  else foo()
+}
+
+for (;;) {
+  if (true) break // comment
+  else foo()
+}
+
+for (;;) {
+  if (true) break // comment
   else foo()
 }
 
@@ -1356,6 +1380,20 @@ for (;;) {
   else foo();
 }
 
+for (;;) {
+
+  if (true) break // comment
+;
+  else foo();
+
+}
+
+for (;;) {
+  if (true)
+    break; // comment
+  else foo();
+}
+
 =====================================output=====================================
 for (;;) {
   if (a) break; // comment
@@ -1365,6 +1403,16 @@ for (;;) {
   else foo();
 
   if (a) debugger; // comment
+  else foo();
+}
+
+for (;;) {
+  if (true) break; // comment
+  else foo();
+}
+
+for (;;) {
+  if (true) break; // comment
   else foo();
 }
 

@@ -186,7 +186,7 @@ function printPathNoParens(path, options, print, args) {
 
   const { node } = path;
   const semi = options.semi ? ";" : "";
-  /** @type{Doc[]} */
+  /** @type {Doc[]} */
   let parts = [];
 
   switch (node.type) {
