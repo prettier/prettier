@@ -369,8 +369,9 @@ async function runTest({
       try {
         expect(secondOutput).not.toEqual(firstOutput);
       } catch {
+        /** @see unstableTests */
         throw new Error(
-          `There is an unstable test that is now becoming stable, please remove it.\n${filename}`
+          `There is an unstable test that is now becoming stable, please remove it in \`unstableTests\`.\n${filename}`
         );
       }
     } else {
