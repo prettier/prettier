@@ -5,6 +5,7 @@ import { markdownPlugin } from "./markdown-plugin.js";
 /** @type {import('micromark-util-types').Construct} */
 const liquidConstruct = {
   name: "liquid",
+  concrete: true,
   tokenize(effects, ok, nok) {
     let type;
     return start;
@@ -63,6 +64,9 @@ const liquidConstruct = {
 
 /** @type {import('micromark-util-types').Extension} */
 const liquid = {
+  flow: {
+    [codes.leftCurlyBrace]: liquidConstruct,
+  },
   text: {
     [codes.leftCurlyBrace]: liquidConstruct,
   },
