@@ -7,6 +7,14 @@ function getPrettierInternal() {
     return import(entry).then((module) => module.default);
   }
 
+  const { PRETTIER_INSTALLED_DIR } = process.env;
+
+  if (PRETTIER_INSTALLED_DIR) {
+    return import(
+      pathToFileURL(path.join(PRETTIER_INSTALLED_DIR, "index-proxy.mjs"))
+    );
+  }
+
   const entry = pathToFileURL(
     path.join(
       process.env.PRETTIER_DIR,

@@ -15,12 +15,15 @@ const SKIP_TESTS_WITH_NEW_SYNTAX = process.versions.node.startsWith("14.");
 let PRETTIER_DIR = isProduction
   ? path.join(PROJECT_ROOT, "dist")
   : PROJECT_ROOT;
+let PRETTIER_INSTALLED_DIR = "";
 if (
   INSTALL_PACKAGE ||
   (isProduction && !TEST_STANDALONE && !SKIP_PRODUCTION_INSTALL)
 ) {
-  PRETTIER_DIR = installPrettier(PRETTIER_DIR);
+  PRETTIER_INSTALLED_DIR = installPrettier(PRETTIER_DIR);
+  PRETTIER_DIR = path.join(PRETTIER_INSTALLED_DIR, "node_modules/prettier");
 }
+process.env.PRETTIER_INSTALLED_DIR = PRETTIER_INSTALLED_DIR;
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];

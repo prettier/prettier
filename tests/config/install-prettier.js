@@ -2,7 +2,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { outdent } from "outdent";
 import { execaSync } from "execa";
-import { temporaryDirectory as getTemporaryDirectory } from "tempy";
+import { temporaryDirectory as createTemporaryDirectory } from "tempy";
 import chalk from "chalk";
 
 const allowedClients = new Set(["yarn", "npm", "pnpm"]);
@@ -38,18 +38,19 @@ function cleanUp() {
   }
 }
 
-function installPrettier(packageDir) {
-  const tmpDir = getTemporaryDirectory();
-  directoriesToClean.add(tmpDir);
+function installPrettier(packageDirectory) {
+  const temporaryDirectory = createTemporaryDirectory();
+  directoriesToClean.add(temporaryDirectory);
   const fileName = execaSync("npm", ["pack"], {
-    cwd: packageDir,
+    cwd: packageDirectory,
   }).stdout.trim();
-  const file = path.join(packageDir, fileName);
-  const packed = path.join(tmpDir, fileName);
+  const file = path.join(packageDirectory, fileName);
+  const packed = path.join(temporaryDirectory, fileName);
   fs.copyFileSync(file, packed);
   fs.unlinkSync(file);
 
-  const runNpmClient = (args) => execaSync(client, args, { cwd: tmpDir });
+  const runNpmClient = (args) =>
+    execaSync(client, args, { cwd: temporaryDirectory });
 
   runNpmClient(client === "pnpm" ? ["init"] : ["init", "-y"]);
 
@@ -71,19 +72,23 @@ function installPrettier(packageDir) {
 
   fs.unlinkSync(packed);
 
-  const installed = path.join(tmpDir, "node_modules/prettier");
   console.log(
     chalk.green(
       outdent`
         Prettier installed
-          at ${chalk.inverse(installed)}
-          from ${chalk.inverse(packageDir)}
+          at ${chalk.inverse(temporaryDirectory)}
+          from ${chalk.inverse(packageDirectory)}
           with ${chalk.inverse(client)}.
       `
     )
   );
 
-  return installed;
+  fs.writeFileSync(
+    path.join(temporaryDirectory, "index-proxy.mjs"),
+    "export * from 'prettier';"
+  );
+
+  return temporaryDirectory;
 }
 
 export default installPrettier;
