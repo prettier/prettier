@@ -5,6 +5,10 @@ declare module "mdast" {
     type: "liquidNode";
     children: [];
   }
+  interface WikiLink extends Literal {
+    type: "wikiLink";
+    children: [];
+  }
   interface StaticPhrasingContentMap {
     liquidNode: LiquidNode;
   }
