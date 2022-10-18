@@ -368,7 +368,7 @@ async function runTest({
       // if it fails, just remove the file from `unstableTests`
       try {
         expect(secondOutput).not.toEqual(firstOutput);
-      } catch (error) {
+      } catch {
         throw new Error(
           `There is an unstable test that is now becoming stable, please remove it.\n${filename}`
         );
