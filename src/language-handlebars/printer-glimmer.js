@@ -17,7 +17,6 @@ import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
   hasPrettierIgnore,
-  isParentOfSomeType,
   isVoid,
   isWhitespaceNode,
 } from "./utils.js";
@@ -185,7 +184,7 @@ function print(path, options, print) {
           let leadingSpace = false;
           let trailingSpace = false;
 
-          if (isParentOfSomeType(path, ["ConcatStatement"])) {
+          if (path.parent.type === "ConcatStatement") {
             if (
               path.previous?.type === "MustacheStatement" &&
               /^\s/.test(text)
@@ -223,9 +222,9 @@ function print(path, options, print) {
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
-          isLast && isParentOfSomeType(path, ["Template"]);
+          isLast && path.parent.type === "Template";
         const shouldTrimLeadingNewlines =
-          isFirst && isParentOfSomeType(path, ["Template"]);
+          isFirst && path.parent.type === "Template";
 
         if (isWhitespaceOnly) {
           if (shouldTrimLeadingNewlines || shouldTrimTrailingNewlines) {
@@ -290,7 +289,9 @@ function print(path, options, print) {
       if (
         (isFirst || isLast) &&
         isWhitespaceOnly &&
-        isParentOfSomeType(path, ["Block", "ElementNode", "Template"])
+        (path.parent.type === "Block" ||
+          path.parent.type === "ElementNode" ||
+          path.parent.type === "Template")
       ) {
         return "";
       }

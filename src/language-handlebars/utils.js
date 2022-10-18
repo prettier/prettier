@@ -26,15 +26,6 @@ function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
-function isNodeOfSomeType(node, types) {
-  return node && types.includes(node.type);
-}
-
-function isParentOfSomeType(path, types) {
-  const parentNode = path.parent;
-  return isNodeOfSomeType(parentNode, types);
-}
-
 function getSiblingNode(path, offset) {
   const { node } = path;
   const parentNode = path.parent ?? {};
@@ -72,7 +63,6 @@ export {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
-  isParentOfSomeType,
   isVoid,
   isWhitespaceNode,
 };
