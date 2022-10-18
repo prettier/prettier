@@ -1,3 +1,4 @@
+import vnopts from "vnopts";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
@@ -15,10 +16,7 @@ import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.js";
 import createIgnorer from "./common/create-ignorer.js";
 import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
-import {
-  normalizeApiOptions,
-  normalizeCliOptions,
-} from "./main/options-normalizer.js";
+import normalizeOptions from "./main/options-normalizer.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
 import { isNonEmptyArray } from "./common/util.js";
@@ -80,9 +78,9 @@ const sharedWithCli = {
   coreOptions,
   createIgnorer,
   optionsHiddenDefaults,
-  normalizeApiOptions,
-  normalizeCliOptions,
+  normalizeOptions,
   getSupportInfoWithoutPlugins,
+  vnopts,
   utils: {
     arrayify,
     isNonEmptyArray,

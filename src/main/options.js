@@ -2,7 +2,7 @@ import path from "node:path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import getInterpreter from "../utils/get-interpreter.js";
-import { normalizeApiOptions } from "./options-normalizer.js";
+import normalizeOptions from "./options-normalizer.js";
 import { resolveParser } from "./parser.js";
 
 const hiddenDefaults = {
@@ -52,7 +52,7 @@ async function normalize(options, opts = {}) {
 
   const parser = await resolveParser(
     // @ts-expect-error
-    normalizeApiOptions(
+    normalizeOptions(
       rawOptions,
       [supportOptions.find((x) => x.name === "parser")],
       { passThrough: true, logger: false }
@@ -90,7 +90,7 @@ async function normalize(options, opts = {}) {
     rawOptions.trailingComma = "none";
   }
 
-  return normalizeApiOptions(rawOptions, supportOptions, {
+  return normalizeOptions(rawOptions, supportOptions, {
     passThrough: Object.keys(hiddenDefaults),
     ...opts,
   });

@@ -1,6 +1,6 @@
 import dashify from "dashify";
 import { resolveConfig } from "../../index.js";
-import { normalizeApiOptions } from "../prettier-internal.js";
+import { normalizeOptions as normalizeApiOptions } from "../prettier-internal.js";
 import minimist from "./minimist.js";
 import createMinimistOptions from "./create-minimist-options.js";
 import normalizeCliOptions from "./normalize-cli-options.js";
