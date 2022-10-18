@@ -5,6 +5,10 @@ declare module "mdast" {
     type: "liquidNode";
     children: [];
   }
+  interface LiquidBlock extends Literal {
+    type: "liquidBlock";
+    children: [];
+  }
   interface WikiLink extends Literal {
     type: "wikiLink";
     children: [];
