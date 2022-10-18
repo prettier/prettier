@@ -55,6 +55,7 @@ function ngHtmlParser(
     getHtmlTagDefinition,
     TagContentType,
   } = angularHtmlParser;
+
   let { rootNodes, errors } = parse(input, {
     canSelfClose: recognizeSelfClosing,
     allowHtmComponentClosingTags,
@@ -308,6 +309,7 @@ function _parse(
   const { frontMatter, content } = shouldParseFrontMatter
     ? parseFrontMatter(text)
     : { frontMatter: null, content: text };
+
   const { ParseSourceFile, ParseLocation, ParseSourceSpan } = angularHtmlParser;
 
   const file = new ParseSourceFile(text, options.filepath);
