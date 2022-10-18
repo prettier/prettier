@@ -701,13 +701,13 @@ function printStringLiteral(stringLiteral, favoriteQuote) {
 
 function needsOppositeQuote(path) {
   let index = 0;
-  let parentNode = path.getParentNode(index);
-  while (parentNode && parentNode.type === "SubExpression") {
+  let ancestor = path.getParentNode(index);
+  while (ancestor?.type === "SubExpression") {
     index++;
-    parentNode = path.getParentNode(index);
+    ancestor = path.getParentNode(index);
   }
   if (
-    parentNode &&
+    ancestor &&
     path.getParentNode(index + 1).type === "ConcatStatement" &&
     path.getParentNode(index + 2).type === "AttrNode"
   ) {
