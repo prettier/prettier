@@ -18,7 +18,6 @@ import clean from "./clean.js";
 import {
   hasPrettierIgnore,
   isNextNodeOfSomeType,
-  isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
   isVoid,
@@ -583,7 +582,7 @@ function printCloseBlock(path, print, options) {
 
 function blockStatementHasOnlyWhitespaceInProgram(node) {
   return (
-    isNodeOfSomeType(node, ["BlockStatement"]) &&
+node.type === "BlockStatement" &&
     node.program.body.every((node) => isWhitespaceNode(node))
   );
 }
@@ -592,13 +591,13 @@ function blockStatementHasElseIfLike(node) {
   return (
     blockStatementHasElse(node) &&
     node.inverse.body.length === 1 &&
-    isNodeOfSomeType(node.inverse.body[0], ["BlockStatement"]) &&
+    node.inverse.body[0].type === "BlockStatement" &&
     node.inverse.body[0].path.parts[0] === node.path.parts[0]
   );
 }
 
 function blockStatementHasElse(node) {
-  return isNodeOfSomeType(node, ["BlockStatement"]) && node.inverse;
+  return node.type === "BlockStatement" && node.inverse;
 }
 
 function printProgram(path, print, options) {
@@ -703,14 +702,14 @@ function printStringLiteral(stringLiteral, favoriteQuote) {
 function needsOppositeQuote(path) {
   let index = 0;
   let parentNode = path.getParentNode(index);
-  while (parentNode && isNodeOfSomeType(parentNode, ["SubExpression"])) {
+  while (parentNode && parentNode.type === "SubExpression") {
     index++;
     parentNode = path.getParentNode(index);
   }
   if (
     parentNode &&
-    isNodeOfSomeType(path.getParentNode(index + 1), ["ConcatStatement"]) &&
-    isNodeOfSomeType(path.getParentNode(index + 2), ["AttrNode"])
+    path.getParentNode(index + 1).type === "ConcatStatement" &&
+    path.getParentNode(index + 2).type === "AttrNode"
   ) {
     return true;
   }

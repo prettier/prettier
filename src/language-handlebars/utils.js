@@ -6,7 +6,7 @@ function isUppercase(string) {
 
 function isGlimmerComponent(node) {
   return (
-    isNodeOfSomeType(node, ["ElementNode"]) &&
+    node.type === "ElementNode" &&
     typeof node.tag === "string" &&
     !node.tag.startsWith(":") &&
     (isUppercase(node.tag[0]) || node.tag.includes("."))
@@ -23,7 +23,7 @@ function isVoid(node) {
 }
 
 function isWhitespaceNode(node) {
-  return isNodeOfSomeType(node, ["TextNode"]) && !/\S/.test(node.chars);
+  return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
 function isNodeOfSomeType(node, types) {
@@ -64,7 +64,7 @@ function getNextNode(path) {
 
 function isPrettierIgnoreNode(node) {
   return (
-    isNodeOfSomeType(node, ["MustacheCommentStatement"]) &&
+    node?.type === "MustacheCommentStatement" &&
     typeof node.value === "string" &&
     node.value.trim() === "prettier-ignore"
   );
@@ -83,7 +83,6 @@ export {
   getPreviousNode,
   hasPrettierIgnore,
   isNextNodeOfSomeType,
-  isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
   isVoid,
