@@ -640,6 +640,10 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push(semi);
 
+      if (hasComment(node, CommentCheckFlags.Dangling)) {
+        parts.push(" ", printDanglingComments(path, options, true));
+      }
+
       return parts;
     case "LabeledStatement":
       if (node.body.type === "EmptyStatement") {
@@ -739,7 +743,13 @@ function printPathNoParens(path, options, print, args) {
     }
     // JSX extensions below.
     case "DebuggerStatement":
-      return ["debugger", semi];
+      parts.push("debugger", semi);
+
+      if (hasComment(node, CommentCheckFlags.Dangling)) {
+        parts.push(" ", printDanglingComments(path, options, true));
+      }
+
+      return parts;
 
     case "ClassDeclaration":
     case "ClassExpression":

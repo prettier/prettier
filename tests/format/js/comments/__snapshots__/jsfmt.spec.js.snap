@@ -1306,6 +1306,71 @@ for (;;);
 ================================================================================
 `;
 
+exports[`dangling-debugger-continue-break.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+for (;;) {
+  if (a) break; // comment
+  else foo();
+
+  if(a) continue; // comment
+  else foo();
+
+  if(a) debugger; // comment
+  else foo();
+}
+
+=====================================output=====================================
+for (;;) {
+  if (a) break // comment
+  else foo()
+
+  if (a) continue // comment
+  else foo()
+
+  if (a) debugger // comment
+  else foo()
+}
+
+================================================================================
+`;
+
+exports[`dangling-debugger-continue-break.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (;;) {
+  if (a) break; // comment
+  else foo();
+
+  if(a) continue; // comment
+  else foo();
+
+  if(a) debugger; // comment
+  else foo();
+}
+
+=====================================output=====================================
+for (;;) {
+  if (a) break; // comment
+  else foo();
+
+  if (a) continue; // comment
+  else foo();
+
+  if (a) debugger; // comment
+  else foo();
+}
+
+================================================================================
+`;
+
 exports[`dynamic_imports.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
