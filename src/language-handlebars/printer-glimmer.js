@@ -15,11 +15,7 @@ import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
-import {
-  hasPrettierIgnore,
-  isVoidElement,
-  isWhitespaceNode,
-} from "./utils.js";
+import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys);
@@ -77,19 +73,10 @@ function print(path, options, print) {
       ];
     }
 
-    case "BlockStatement": {
-      const pp = path.grandparent;
-
-      const isElseIfLike =
-        pp &&
-        pp.inverse &&
-        pp.inverse.body.length === 1 &&
-        pp.inverse.body[0] === node &&
-        pp.inverse.body[0].path.parts[0] === pp.path.parts[0];
-
-      if (isElseIfLike) {
+    case "BlockStatement":
+      if (isElseIfLike(path)) {
         return [
-          printElseIfLikeBlock(path, print, pp.inverse.body[0].path.parts[0]),
+          printElseIfLikeBlock(path, print),
           printProgram(path, print, options),
           printInverse(path, print, options),
         ];
@@ -103,7 +90,6 @@ function print(path, options, print) {
           printCloseBlock(path, print, options),
         ]),
       ];
-    }
 
     case "ElementModifierStatement":
       return group(["{{", printPathAndParams(path, print), "}}"]);
@@ -549,16 +535,24 @@ function printElseBlock(node, options) {
   ];
 }
 
-function printElseIfLikeBlock(path, print, ifLikeKeyword) {
-  const parentNode = path.grandparent;
+function isElseIfLike(path) {
+  const { grandparent, node } = path;
+  return (
+    grandparent?.inverse?.body.length === 1 &&
+    grandparent.inverse.body[0] === node &&
+    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
+  );
+}
 
+function printElseIfLikeBlock(path, print) {
+  const { grandparent } = path;
   return [
-    printInverseBlockOpeningMustache(parentNode),
+    printInverseBlockOpeningMustache(grandparent),
     "else ",
-    ifLikeKeyword,
+    grandparent.inverse.body[0].path.parts[0],
     " ",
     printParams(path, print),
-    printInverseBlockClosingMustache(parentNode),
+    printInverseBlockClosingMustache(grandparent),
   ];
 }
 

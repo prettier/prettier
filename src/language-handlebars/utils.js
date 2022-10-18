@@ -59,10 +59,20 @@ function hasPrettierIgnore(path) {
   );
 }
 
+function isElseIfLike(path) {
+  const { grandparent, node } = path;
+  return (
+    grandparent?.inverse?.body.length === 1 &&
+    grandparent.inverse.body[0] === node &&
+    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
+  );
+}
+
 export {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
   isVoidElement,
   isWhitespaceNode,
+  isElseIfLike,
 };
