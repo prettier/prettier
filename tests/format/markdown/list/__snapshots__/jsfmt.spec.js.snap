@@ -932,15 +932,10 @@ tabWidth: 0
 * hello6
 =====================================output=====================================
 - hello1
-
 - hello2
-
 - hello3
-
 - hello4
-
 - hello5
-
 - hello6
 
 ================================================================================
@@ -969,15 +964,10 @@ tabWidth: 4
 * hello6
 =====================================output=====================================
 -   hello1
-
 -   hello2
-
 -   hello3
-
 -   hello4
-
 -   hello5
-
 -   hello6
 
 ================================================================================
@@ -1006,15 +996,10 @@ tabWidth: 999
 * hello6
 =====================================output=====================================
 - hello1
-
 - hello2
-
 - hello3
-
 - hello4
-
 - hello5
-
 - hello6
 
 ================================================================================
@@ -1042,15 +1027,10 @@ proseWrap: "always"
 * hello6
 =====================================output=====================================
 - hello1
-
 - hello2
-
 - hello3
-
 - hello4
-
 - hello5
-
 - hello6
 
 ================================================================================
@@ -2138,16 +2118,16 @@ tabWidth: 0
     e e e
 =====================================output=====================================
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
 
 1. a a a  
-    b b b  
+   b b b  
    c c c  
-    d d d  
-    e e e
+   d d d  
+   e e e
 
 ================================================================================
 `;
@@ -2173,16 +2153,16 @@ tabWidth: 4
     e e e
 =====================================output=====================================
 -   a a  
-     b b  
-     c c  
-     d d  
+    b b  
+    c c  
+    d d  
     e e
 
 1.  a a a  
-     b b b  
+    b b b  
     c c c  
-     d d d  
-     e e e
+    d d d  
+    e e e
 
 ================================================================================
 `;
@@ -2208,16 +2188,16 @@ tabWidth: 999
     e e e
 =====================================output=====================================
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
 
 1. a a a  
-    b b b  
+   b b b  
    c c c  
-    d d d  
-    e e e
+   d d d  
+   e e e
 
 ================================================================================
 `;
@@ -2242,16 +2222,16 @@ proseWrap: "always"
     e e e
 =====================================output=====================================
 - a a  
-   b b  
-   c c  
-   d d  
+  b b  
+  c c  
+  d d  
   e e
 
 1.  a a a  
-     b b b  
+    b b b  
     c c c  
-     d d d  
-     e e e
+    d d d  
+    e e e
 
 ================================================================================
 `;
@@ -2822,7 +2802,9 @@ tabWidth: 0
 - Top level list item 1
 - Top level list item 2
   - Nested List item 1
-  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -2866,7 +2848,9 @@ tabWidth: 4
 -   Top level list item 1
 -   Top level list item 2
     -   Nested List item 1
-    -   Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+    -   Nested List item 2
+        -   Sub-Nested List item 1
+        -   Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -2910,7 +2894,9 @@ tabWidth: 999
 - Top level list item 1
 - Top level list item 2
      - Nested List item 1
-     - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+     - Nested List item 2
+          - Sub-Nested List item 1
+          - Sub-Nested List item 2
 
 ================================================================================
 `;
@@ -2953,7 +2939,9 @@ proseWrap: "always"
 - Top level list item 1
 - Top level list item 2
   - Nested List item 1
-  - Nested List item 2 _ Sub-Nested List item 1 _ Sub-Nested List item 2
+  - Nested List item 2
+    - Sub-Nested List item 1
+    - Sub-Nested List item 2
 
 ================================================================================
 `;

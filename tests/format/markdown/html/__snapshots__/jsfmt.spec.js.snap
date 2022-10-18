@@ -28,6 +28,7 @@ quoted sentence2</p>
 
 =====================================output=====================================
 - A list item.
+
 <details><summary>Summary</summary>
 <p>
 
@@ -37,6 +38,7 @@ quoted sentence2</p>
 </details>
 
 - A list item.
+
 <blockquote>
 
 <p>quoted sentence1<br>
