@@ -86,6 +86,9 @@ function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {"always" | "never" | "preserve"} ProseWrap
+ * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
+ * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
+ * `word`.
  */
 
 /**
@@ -113,6 +116,7 @@ function lineBreakCanBeConvertedToSpace(path, isLink) {
     return true;
   }
 
+  /** @type {AdjacentNodes} */
   const { previous, next } = path;
 
   // e.g. " \nletter"
@@ -227,6 +231,7 @@ function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
     return true;
   }
 
+  /** @type {AdjacentNodes} */
   const { previous, next } = path;
 
   // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516

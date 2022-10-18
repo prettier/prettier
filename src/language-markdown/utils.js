@@ -48,9 +48,7 @@ const KIND_CJK_PUNCTUATION = "cjk-punctuation";
  * @typedef {{
  *   type: "whitespace",
  *   value: WhitespaceValue,
- *   kind?: undefined,
- *   hasLeadingPunctuation?: undefined,
- *   hasTrailingPunctuation?: undefined,
+ *   kind?: never
  * }} WhitespaceNode
  * @typedef {{
  *   type: "word",
