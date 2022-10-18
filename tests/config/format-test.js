@@ -36,7 +36,6 @@ const unstableTests = new Map(
     ["flow/no-semi/comments.js", (options) => options.semi === false],
     "typescript/prettier-ignore/mapped-types.ts",
     "js/comments/html-like/comment.js",
-    "js/for/continue-and-break-comment-without-blocks.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -367,7 +366,13 @@ async function runTest({
     if (isUnstableTest) {
       // To keep eye on failed tests, this assert never supposed to pass,
       // if it fails, just remove the file from `unstableTests`
-      expect(secondOutput).not.toEqual(firstOutput);
+      try {
+        expect(secondOutput).not.toEqual(firstOutput);
+      } catch (error) {
+        throw new Error(
+          `There is an unstable test that is now becoming stable, please remove it.\n${filename}`
+        );
+      }
     } else {
       expect(secondOutput).toEqual(firstOutput);
     }
