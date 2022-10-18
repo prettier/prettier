@@ -52,7 +52,7 @@ const liquidConstruct = {
         effects.exit("liquid");
         return ok;
       }
-      if (code === codes.eof || markdownLineEnding(code)) {
+      if (code === codes.eof) {
         return nok(code);
       }
       effects.consume(code);
