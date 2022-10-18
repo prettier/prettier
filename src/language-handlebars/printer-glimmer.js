@@ -17,7 +17,7 @@ import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
   hasPrettierIgnore,
-  isVoid,
+  isVoidElement,
   isWhitespaceNode,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
@@ -49,7 +49,7 @@ function print(path, options, print) {
           ? softline
           : "";
 
-      if (isVoid(node)) {
+      if (isVoidElement(node)) {
         return [startingTag, escapeNextElementNode];
       }
 
@@ -455,7 +455,7 @@ function printChildren(path, options, print) {
 }
 
 function printStartingTagEndMarker(node) {
-  if (isVoid(node)) {
+  if (isVoidElement(node)) {
     return ifBreak([softline, "/>"], [" />", softline]);
   }
 

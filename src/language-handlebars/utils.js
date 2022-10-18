@@ -14,7 +14,7 @@ function isGlimmerComponent(node) {
 }
 
 const voidTags = new Set(htmlVoidElements);
-function isVoid(node) {
+function isVoidElement(node) {
   return (
     voidTags.has(node.tag) ||
     (isGlimmerComponent(node) &&
@@ -63,6 +63,6 @@ export {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
-  isVoid,
+  isVoidElement,
   isWhitespaceNode,
 };
