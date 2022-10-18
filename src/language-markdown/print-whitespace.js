@@ -7,6 +7,17 @@ import {
   getAncestorNode,
 } from "./utils.js";
 
+/**
+ * @typedef {import("./utils.js").WordNode} WordNode
+ * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
+ * @typedef {import("./utils.js").WordKind} WordKind
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {"always" | "never" | "preserve"} ProseWrap
+ * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
+ * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
+ * `word`.
+ */
+
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 
 /**
@@ -79,17 +90,6 @@ function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
 
   return sentenceNode.usesCJSpaces;
 }
-
-/**
- * @typedef {import("./utils.js").WordNode} WordNode
- * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {import("./utils.js").WordKind} WordKind
- * @typedef {import("../common/ast-path.js").default} AstPath
- * @typedef {"always" | "never" | "preserve"} ProseWrap
- * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
- * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
- * `word`.
- */
 
 /**
  * Check whether the given `"\n"` node can be converted to a space.
