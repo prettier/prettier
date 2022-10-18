@@ -9,103 +9,112 @@ import {
 
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
 
-// https://en.wikipedia.org/wiki/Line_breaking_rules_in_East_Asian_languages
 /**
- * The set of characters that must not immediately precede a line break
+ * These characters must not immediately precede a line break.
  *
- * e.g. `"（"`
+ * e.g. `"（"`:
  *
  * - Bad:  `"檜原村（\nひのはらむら）"`
- * - Good: `"檜原村\n（ひのはらむら）"` or ``"檜原村（ひ\nのはらむら）"`
+ * - Good: `"檜原村\n（ひのはらむら）"` or
+ *         `"檜原村（ひ\nのはらむら）"`
  */
 const noBreakAfter = new Set(
   "$(£¥·'\"〈《「『【〔〖〝﹙﹛＄（［｛￡￥[{‵︴︵︷︹︻︽︿﹁﹃﹏〘｟«"
 );
 
 /**
- * The set of characters that must not immediately follow a line break
+ * These characters must not immediately follow a line break.
  *
- * e.g. `"）"`
+ * e.g. `"）"`:
  *
  * - Bad:  `"檜原村（ひのはらむら\n）以外には、"`
- * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or `"檜原村（ひのはらむら）\n以外には、"`
+ * - Good: `"檜原村（ひのはらむ\nら）以外には、"` or
+ *         `"檜原村（ひのはらむら）\n以外には、"`
  */
 const noBreakBefore = new Set(
   "!%),.:;?]}¢°·'\"†‡›℃∶、。〃〆〕〗〞﹚﹜！＂％＇），．：；？］｝～–—•〉》」︰︱︲︳﹐﹑﹒﹓﹔﹕﹖﹘︶︸︺︼︾﹀﹂﹗｜､』】〙〟｠»ヽヾーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ々〻‐゠〜～‼⁇⁈⁉・"
 );
 
 /**
- * The set of characters whose surrounding newline may be converted to Space
- *
- * - ASCII punctuation marks
+ * A line break between a character from this set and CJ can be converted to a
+ * space. Includes only ASCII punctuation marks for now.
  */
-const lineBreakBetweenTheseAndCJKConvertsToSpace = new Set(
+const lineBreakBetweenTheseAndCJConvertsToSpace = new Set(
   "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 );
 
 /**
- * Finds out if Space tends to be inserted between Chinese or Japanese characters
- * (including ideograph aka han or kanji e.g. `字`, hiragana e.g. `あ`, and katakana e.g. `ア`)
- * and other letters (including alphanumerics; e.g. `A` or `1`) in the sentence.
+ * Determine the preferred style of spacing between Chinese or Japanese and non-CJK
+ * characters in the parent `sentence` node.
  *
- * @param {AstPath} path current position in nodes tree
- * @returns {boolean} `true` if Space tends to be inserted between these types of letters, `false` otherwise.
+ * @param {AstPath} path
+ * @returns {boolean} `true` if Space tends to be inserted between CJ and
+ * non-CJK, `false` otherwise.
  */
-function isInSentenceWithCJSpaces(path) {
-  const sentenceNode = path.parent;
-  if (sentenceNode.usesCJSpaces !== undefined) {
-    return sentenceNode.usesCJSpaces;
-  }
+function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
+  if (sentenceNode.usesCJSpaces === undefined) {
+    const stats = { " ": 0, "": 0 };
+    const { children } = sentenceNode;
 
-  const stats = { " ": 0, "": 0 };
-
-  for (let i = 1; i < sentenceNode.children.length - 1; ++i) {
-    const node = sentenceNode.children[i];
-    if (
-      node.type === "whitespace" &&
-      (node.value === " " || node.value === "")
-    ) {
-      const previousKind = sentenceNode.children[i - 1].kind;
-      const nextKind = sentenceNode.children[i + 1].kind;
+    for (let i = 1; i < children.length - 1; ++i) {
+      const node = children[i];
       if (
-        (previousKind === KIND_CJ_LETTER && nextKind === KIND_NON_CJK) ||
-        (previousKind === KIND_NON_CJK && nextKind === KIND_CJ_LETTER)
+        node.type === "whitespace" &&
+        (node.value === " " || node.value === "")
       ) {
-        ++stats[node.value];
+        const previousKind = children[i - 1].kind;
+        const nextKind = children[i + 1].kind;
+        if (
+          (previousKind === KIND_CJ_LETTER && nextKind === KIND_NON_CJK) ||
+          (previousKind === KIND_NON_CJK && nextKind === KIND_CJ_LETTER)
+        ) {
+          ++stats[node.value];
+        }
       }
     }
+
+    // Inject a property to cache the result.
+    sentenceNode.usesCJSpaces = stats[" "] > stats[""];
   }
 
-  // Injects a property to cache the result.
-  sentenceNode.usesCJSpaces = stats[" "] > stats[""];
   return sentenceNode.usesCJSpaces;
 }
 
 /**
  * @typedef {import("./utils.js").WordNode} WordNode
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {{ next?: WordNode | null, previous?: WordNode | null }} AdjacentNodes
- * Adjacent node to `WhitespaceNode`. the consecution of `WhitespaceNode` is a bug, so adjacent nodes must be `WordNode`.
+ * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
+ * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
+ * `word`.
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {"always" | "never" | "preserve"} ProseWrap
  */
 
 /**
- * Checks if given `"\n"` node can be converted to Space
+ * Check whether the given `"\n"` node can be converted to a space.
  *
- * For example, if you would like to squash the multi-line string `"You might want\nto use Prettier."` into a single line,
- * you would replace `"\n"` with `" "`. (`"You might want to use Prettier."`)
+ * For example, if you would like to squash English text
  *
- * However, you should note that Chinese and Japanese do not use U+0020 Space to divide words, so U+000A End of Line must not be replaced with it.
- * Behavior in other languages (e.g. Thai) will not be changed because there are too much things to consider. (PR welcome)
+ *     "You might want\nto use Prettier."
+ *
+ * into a single line, you would replace `"\n"` with `" "`:
+ *
+ *     "You might want to use Prettier."
+ *
+ * However, Chinese and Japanese don't use U+0020 Space to divide words, so line
+ * breaks shouldn't be replaced with spaces for those languages.
+ *
+ * PRs are welcome to support line breaking rules for other languages.
  *
  * @param {AstPath} path path of given node
- * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of given node
- * @returns {boolean} `true` if given node can be convertedToSpace, `false` if not (i.e. newline or empty character)
+ * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of
+ * the given node
+ * @returns {boolean}
  */
 function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
   if (
-    // no adjacent nodes - this happens for linkReference and imageReference nodes
+    // no adjacent nodes - happens for linkReference and imageReference nodes
     !adjacentNodes ||
     // e.g. " \nletter"
     !adjacentNodes.previous ||
@@ -117,56 +126,62 @@ function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
   const previousKind = adjacentNodes.previous.kind;
   const nextKind = adjacentNodes.next.kind;
 
-  // "\n" between western or Korean characters always can be converted to Space
-  // Korean hangul simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
   if (
-    isWesternOrKoreanLetter(previousKind) &&
-    isWesternOrKoreanLetter(nextKind)
-  ) {
-    return true;
-  }
-
-  // han & hangul: same way preferred
-  if (
+    // "\n" between non-CJK or Korean characters always can be converted to a
+    // space. Korean Hangul simulates Latin words. See
+    // https://github.com/prettier/prettier/issues/6516
+    (isNonCJKOrKoreanLetter(previousKind) &&
+      isNonCJKOrKoreanLetter(nextKind)) ||
+    // Han & Hangul: same way preferred
     (previousKind === KIND_K_LETTER && nextKind === KIND_CJ_LETTER) ||
     (nextKind === KIND_K_LETTER && previousKind === KIND_CJ_LETTER)
   ) {
     return true;
   }
 
-  // Do not convert it to Space when:
+  // Do not convert \n to a space:
   if (
-    // Shall not be converted to Space around CJK punctuation
+    // around CJK punctuation
     previousKind === KIND_CJK_PUNCTUATION ||
     nextKind === KIND_CJK_PUNCTUATION ||
-    // "\n" between CJ always SHALL NOT be convertedToSpace
+    // between CJ
     (previousKind === KIND_CJ_LETTER && nextKind === KIND_CJ_LETTER)
   ) {
     return false;
   }
 
+  // The rest of this function deals only with line breaks between CJ and
+  // non-CJK characters.
+
   const characterBefore = adjacentNodes.previous.value.at(-1);
   const characterAfter = adjacentNodes.next.value[0];
 
-  // From here down, only line breaks between CJ and non-CJK characters are covered.
-
-  // Convert newline between CJ and specific symbol characters (e.g. ASCII punctuation)  to Space.
-  // e.g. :::\n句子句子句子\n::: → ::: 句子句子句子 :::
+  // Convert a line break between CJ and certain non-letter characters (e.g.
+  // ASCII punctuation) to a space.
   //
-  // Note: Line breaks like "(\n句子句子\n)" or "句子\n." by Prettier are suppressed in `isBreakable(...)`.
+  // E.g. :::\n句子句子句子\n::: → ::: 句子句子句子 :::
+  //
+  // Note: line breaks like "(\n句子句子\n)" or "句子\n." are suppressed in
+  // `isBreakable(...)`.
   if (
-    lineBreakBetweenTheseAndCJKConvertsToSpace.has(characterAfter) ||
-    lineBreakBetweenTheseAndCJKConvertsToSpace.has(characterBefore)
+    lineBreakBetweenTheseAndCJConvertsToSpace.has(characterAfter) ||
+    lineBreakBetweenTheseAndCJConvertsToSpace.has(characterBefore)
   ) {
     return true;
   }
 
-  // Converting newline between CJ and non-ASCII punctuation to Space does not seem to be better in many cases. (PR welcome)
-  // e.g.
-  // 1. “ア〜エの中から1つ選べ。”
-  // "〜" (U+301C) belongs to Pd, and "\n" in "ア〜\nエの中から1つ選べ。" must not be converted to Space.
-  // 2. “これはひどい……なんと汚いコミットログなんだ……”
-  // "…" (U+2026) belongs to Po, and "\n" in "これはひどい……\nなんと汚いコミットログなんだ……" must not, either.
+  // Converting a line break between CJ and non-ASCII punctuation to a space is
+  // undesired in many cases. PRs are welcome to fine-tune this logic.
+  //
+  // Examples where \n must not be converted to a space:
+  //
+  // 1. "〜" (U+301C, belongs to Pd) in
+  //
+  //     "ア〜\nエの中から1つ選べ。"
+  //
+  // 2. "…" (U+2026, belongs to Po) in
+  //
+  //     "これはひどい……\nなんと汚いコミットログなんだ……"
   if (
     adjacentNodes.previous.hasTrailingPunctuation ||
     adjacentNodes.next.hasLeadingPunctuation
@@ -174,13 +189,14 @@ function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
     return false;
   }
 
-  // If the sentence uses the style with spaces between CJ and alphanumerics, "\n" can be converted to Space.
+  // If the sentence uses the style with spaces between CJ and non-CJK, "\n" can
+  // be converted to a space.
   return isInSentenceWithCJSpaces(path);
 }
 
 /**
  * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is letter (not CJK punctuation)
+ * @returns {boolean} `true` if `kind` is defined and not CJK punctuation
  */
 function isLetter(kind) {
   return (
@@ -190,33 +206,31 @@ function isLetter(kind) {
 
 /**
  * @param {WordKind | undefined} kind
- * @returns {boolean} `true` if `kind` is western or Korean letters (divides words by Space)
+ * @returns {boolean} `true` if `kind` is Korean letter or non-CJK
  */
-function isWesternOrKoreanLetter(kind) {
+function isNonCJKOrKoreanLetter(kind) {
   return kind === KIND_NON_CJK || kind === KIND_K_LETTER;
 }
 
 /**
- * Checks whether whitespace can be printed as a line break
+ * Check whether whitespace can be printed as a line break.
  *
  * @param {AstPath} path
- * @param {WhitespaceValue} value (`"" | " " | "\n"`)
- * @param {*} options
+ * @param {WhitespaceValue} value
+ * @param {ProseWrap} proseWrap
  * @param {AdjacentNodes | undefined} adjacentNodes
  * @param {boolean} canBeSpace
- * @returns {boolean} `true` if “whitespace” can be converted to `"\n"`
+ * @returns {boolean}
  */
-function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
-  if (
-    options.proseWrap !== "always" ||
-    getAncestorNode(path, SINGLE_LINE_NODE_TYPES)
-  ) {
+function isBreakable(path, value, proseWrap, adjacentNodes, canBeSpace) {
+  if (proseWrap !== "always" || getAncestorNode(path, SINGLE_LINE_NODE_TYPES)) {
     return false;
   }
 
   if (
+    // no adjacent nodes - happens for linkReference and imageReference nodes
     adjacentNodes === undefined ||
-    // Space are always breakable
+    // Spaces are always breakable
     value === " "
   ) {
     return true;
@@ -224,9 +238,9 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
 
   const { previous, next } = adjacentNodes;
 
-  // Simulates latin words; see #6516 (https://github.com/prettier/prettier/issues/6516)
+  // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516
   // [Latin][""][Hangul] & vice versa => Don't break
-  // [han & kana][""][hangul], either
+  // [Han & Kana][""][Hangul], either
   if (
     value === "" &&
     ((previous?.kind === KIND_K_LETTER && isLetter(next?.kind)) ||
@@ -241,14 +255,6 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
     ((next && noBreakBefore.has(next.value[0])) ||
       (previous && noBreakAfter.has(previous.value.at(-1))));
 
-  // When violates the CJK line breaking rules if breaks lines there ("") or leaves surrounding lines divided ("\n")...
-  // - ""   => always `false` (i.e. disallows to break lines there)
-  // - "\n" => `true` (i.e. don't force surrounding lines to be joined) only when it should be converted to Space
-  //           `false` (i.e. join surrounding lines into a single line) otherwise
-  // The mandatory joining behavior ("\n" -> "") when Space is not allowed at "\n" is necessary because intentional violation of the line breaking rules (e.g. “ル\nール守れ\n！”) tends to be “corrected” ("\n" -> "") after re-editing the document or changing the value of `printWidth`.
-  // e.g. “シ\nョ\nートカ\nット\n！\n？” (completely violates the rules on purpose) --[printWidth = 6]-->“ショー\nトカッ\nト！？” --[s/^/こんなところで/]--> “こんな\nところ\nで\nショー\nトカッ\nト！？” (completely complies to the rules)
-  // On the contrary, if `false` even should be Space (joins lines with an unbreakable " "), the following loop will occur:
-  //   the 2 lines surrounding `"\n"` are joined with `" "` -> divided into 2 lines by `" "` again -> joined again -> ...
   if (violatesCJKLineBreakingRule) {
     return false;
   }
@@ -259,11 +265,11 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
 /**
  * @param {AstPath} path
  * @param {WhitespaceValue} value
- * @param {*} options
- * @param {AdjacentNodes | undefined} [adjacentNodes]
+ * @param {ProseWrap} proseWrap
+ * @param {AdjacentNodes} [adjacentNodes]
  */
-function printWhitespace(path, value, options, adjacentNodes) {
-  if (options.proseWrap === "preserve" && value === "\n") {
+function printWhitespace(path, value, proseWrap, adjacentNodes) {
+  if (proseWrap === "preserve" && value === "\n") {
     return hardline;
   }
 
@@ -271,7 +277,7 @@ function printWhitespace(path, value, options, adjacentNodes) {
     value === " " ||
     (value === "\n" && lineBreakCanBeConvertedToSpace(path, adjacentNodes));
 
-  if (isBreakable(path, value, options, adjacentNodes, canBeSpace)) {
+  if (isBreakable(path, value, proseWrap, adjacentNodes, canBeSpace)) {
     return canBeSpace ? line : softline;
   }
 
