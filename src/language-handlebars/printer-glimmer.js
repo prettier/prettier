@@ -16,10 +16,7 @@ import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import {
-  getNextNode,
-  getPreviousNode,
   hasPrettierIgnore,
-  isLastNodeOfSiblings,
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
@@ -219,8 +216,7 @@ function print(path, options, print) {
 
       const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
       const isWhitespaceOnly = whitespacesOnlyRE.test(text);
-      const isFirstElement = !getPreviousNode(path);
-      const isLastElement = !getNextNode(path);
+      const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
         // https://infra.spec.whatwg.org/#ascii-whitespace
@@ -230,9 +226,9 @@ function print(path, options, print) {
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
-          isLastElement && isParentOfSomeType(path, ["Template"]);
+          isLast && isParentOfSomeType(path, ["Template"]);
         const shouldTrimLeadingNewlines =
-          isFirstElement && isParentOfSomeType(path, ["Template"]);
+          isFirst && isParentOfSomeType(path, ["Template"]);
 
         if (isWhitespaceOnly) {
           if (shouldTrimLeadingNewlines || shouldTrimTrailingNewlines) {
@@ -246,7 +242,7 @@ function print(path, options, print) {
             breaks = generateHardlines(newlines);
           }
 
-          if (isLastNodeOfSiblings(path)) {
+          if (isLast) {
             breaks = breaks.map((newline) => dedent(newline));
           }
 
@@ -278,7 +274,7 @@ function print(path, options, print) {
               trailBreaks = generateHardlines(trailingNewlines);
             }
 
-            if (isLastNodeOfSiblings(path)) {
+            if (isLast) {
               trailBreaks = trailBreaks.map((hardline) => dedent(hardline));
             }
           }
@@ -295,7 +291,7 @@ function print(path, options, print) {
       let trailingLineBreaksCount = countTrailingNewLines(text);
 
       if (
-        (isFirstElement || isLastElement) &&
+        (isFirst || isLast) &&
         isWhitespaceOnly &&
         isParentOfSomeType(path, ["Block", "ElementNode", "Template"])
       ) {
@@ -335,12 +331,12 @@ function print(path, options, print) {
         leadingSpace = " ";
       }
 
-      if (isFirstElement) {
+      if (isFirst) {
         leadingLineBreaksCount = 0;
         leadingSpace = "";
       }
 
-      if (isLastElement) {
+      if (isLast) {
         trailingLineBreaksCount = 0;
         trailingSpace = "";
       }
