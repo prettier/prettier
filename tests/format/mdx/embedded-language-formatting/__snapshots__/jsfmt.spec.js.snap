@@ -80,41 +80,39 @@ export const Test = () => {
 =====================================output=====================================
 # title
 
-{/* prettier-ignore-start */}
+{/\\* prettier-ignore-start _/}
 export const Test = () => {
 return <p>test</p>;
 };
+<Test />
+{/_ prettier-ignore-end \\*/}
 
-   <Test />
-{/* prettier-ignore-end */}
-
-{/* prettier-ignore-start */}
-
-export const Test = () => {
-   return <p>test</p>;
- };
-   <Test />
-{/* prettier-ignore-end */}
-
-{/* prettier-ignore-start */}
-export const Test = () => {
-   return <p>test</p>;
- };
-   <Test />
-
-{/* prettier-ignore-end */}
-
-{/* prettier-ignore-start */}
+{/\\* prettier-ignore-start \\*/}
 
 export const Test = () => {
-   return <p>test</p>;
- };
-   <Test />
+return <p>test</p>;
+};
+<Test />
+{/\\* prettier-ignore-end \\*/}
 
-{/* prettier-ignore-end */}
+{/\\* prettier-ignore-start \\*/}
+export const Test = () => {
+return <p>test</p>;
+};
+<Test />
+
+{/\\* prettier-ignore-end \\*/}
+
+{/\\* prettier-ignore-start \\*/}
+
+export const Test = () => {
+return <p>test</p>;
+};
+<Test />
+
+{/\\* prettier-ignore-end \\*/}
 
 <!-- prettier-ignore-start -->
-
 export const Test = () => {
    return <p>test</p>;
  };
@@ -140,9 +138,9 @@ printWidth: 80
 =====================================output=====================================
 # title
 
-{/* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. */}
+{ /\\* Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \\*/ }
 
-{/* Some more. */}
+{/\\* Some more. \\*/}
 
 ================================================================================
 `;

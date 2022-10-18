@@ -39,9 +39,15 @@ foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriou
 
 An ignore comment (ES):
 
-{/* prettier-ignore */}
+{/\\* prettier-ignore \\*/}
+
 \`\`\`js
-foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne(),
+)
 \`\`\`
 
 No comment:
@@ -96,9 +102,15 @@ foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriou
 
 An ignore comment (ES):
 
-{/* prettier-ignore */}
+{/\\* prettier-ignore \\*/}
+
 \`\`\`js
-foo(reallyLongArg(), omgSoManyParameters(), IShouldRefactorThis(), isThereSeriouslyAnotherOne());
+foo(
+  reallyLongArg(),
+  omgSoManyParameters(),
+  IShouldRefactorThis(),
+  isThereSeriouslyAnotherOne(),
+);
 \`\`\`
 
 No comment:
@@ -400,37 +412,37 @@ A {/* JS-style comment */} comment.
 }
 
 =====================================output=====================================
-<Heading hi="there">Hello, world!</Heading>
+<Heading hi='there'>Hello, world!
+</Heading>
 
 ---
 
 <Hello>
-  test <World /> test
-</Hello>
-123
-
----
-
-<Hello>
-  test <World /> test
-</Hello>
-<Hello>
-  test <World /> test
+    test   <World />   test
 </Hello>123
 
 ---
 
 <Hello>
-  test <World /> test
-</Hello> 123
+    test   <World />   test
+</Hello>
 <Hello>
-  test <World /> test
-</Hello> 234
+    test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
 
 ---
 
 <>
-  test <World /> test
+test <World        /> test
 </> 123
 
 ---
@@ -441,9 +453,11 @@ A {/* JS-style comment */} comment.
 
 ---
 
-A {/* JS-style comment */} comment.
+A {/\\* JS-style comment \\*/} comment.
 
-{/* Another JS-style comment */}
+{
+/\\* Another JS-style comment \\*/
+}
 
 ================================================================================
 `;
@@ -502,37 +516,37 @@ A {/* JS-style comment */} comment.
 }
 
 =====================================output=====================================
-<Heading hi="there">Hello, world!</Heading>
+<Heading hi='there'>Hello, world!
+</Heading>
 
 ---
 
 <Hello>
-  test <World /> test
-</Hello>
-123
-
----
-
-<Hello>
-  test <World /> test
-</Hello>
-<Hello>
-  test <World /> test
+    test   <World />   test
 </Hello>123
 
 ---
 
 <Hello>
-  test <World /> test
-</Hello> 123
+    test   <World />   test
+</Hello>
 <Hello>
-  test <World /> test
-</Hello> 234
+    test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
 
 ---
 
 <>
-  test <World /> test
+test <World        /> test
 </> 123
 
 ---
@@ -543,9 +557,11 @@ A {/* JS-style comment */} comment.
 
 ---
 
-A {/* JS-style comment */} comment.
+A {/\\* JS-style comment \\*/} comment.
 
-{/* Another JS-style comment */}
+{
+/\\* Another JS-style comment \\*/
+}
 
 ================================================================================
 `;
@@ -638,27 +654,27 @@ test
 
 
 =====================================output=====================================
-import { Foo, Bar } from "./Fixture"
+import { Foo, Bar } from './Fixture'
 
 # Hello, world!
 
-<Foo bg="red">
-  <div style={{ display: "block" }}>
-    <Bar>hi </Bar>
-    {hello}
-    {/* another comment */}
-  </div>
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
 </Foo>
 
 asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
 
-<Foo />
+<Foo/>
 test
 
 <ul>
-  <li>item </li>
-  <li />
-</ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
 
 ================================================================================
 `;
@@ -693,27 +709,27 @@ test
 
 
 =====================================output=====================================
-import { Foo, Bar } from "./Fixture";
+import { Foo, Bar } from './Fixture'
 
 # Hello, world!
 
-<Foo bg="red">
-  <div style={{ display: "block" }}>
-    <Bar>hi </Bar>
-    {hello}
-    {/* another comment */}
-  </div>
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
 </Foo>
 
 asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
 
-<Foo />
+<Foo/>
 test
 
 <ul>
-  <li>item </li>
-  <li />
-</ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
 
 ================================================================================
 `;
@@ -768,12 +784,15 @@ npm i -g foo
 export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
-import { Baz } from "./Fixture"
-import { Buz } from "./Fixture"
+import { Baz } from './Fixture'
+import { Buz } from './Fixture'
 
 export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
+hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+authors: [
+'fred',
+'sally'
+]
 }
 
 # Hello, world!
@@ -782,10 +801,10 @@ I'm an awesome paragraph.
 
 <!-- I'm a comment -->
 
-<Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another comment */}
+<Foo bg='red'>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
 </Foo>
 
 \`\`\`
@@ -804,7 +823,7 @@ npm i -g foo
 | :--- | :---- |
 | Col1 | Col2  |
 
-export default ({ children }) => <div>{children}</div>
+export default ({children }) => < div>{ children}</div>
 
 ================================================================================
 `;
@@ -858,13 +877,16 @@ npm i -g foo
 export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
-import { Baz } from "./Fixture";
-import { Buz } from "./Fixture";
+import { Baz } from './Fixture'
+import { Buz } from './Fixture'
 
 export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
-};
+hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+authors: [
+'fred',
+'sally'
+]
+}
 
 # Hello, world!
 
@@ -872,10 +894,10 @@ I'm an awesome paragraph.
 
 <!-- I'm a comment -->
 
-<Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another comment */}
+<Foo bg='red'>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
 </Foo>
 
 \`\`\`
@@ -894,7 +916,7 @@ npm i -g foo
 | :--- | :---- |
 | Col1 | Col2  |
 
-export default ({ children }) => <div>{children}</div>;
+export default ({children }) => < div>{ children}</div>
 
 ================================================================================
 `;

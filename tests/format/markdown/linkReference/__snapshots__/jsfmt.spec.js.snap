@@ -10,7 +10,8 @@ proseWrap: "always"
 [這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
 
 =====================================output=====================================
-[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
+[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很
+長很長的段落][]
 
 ================================================================================
 `;
@@ -233,22 +234,18 @@ proseWrap: "always"
 [other-ref]:
   https://example.com
   (Shakespeare's "Romeo and Juliet" is a famous play)
-
-[a]: https://example.com "\\"" [a]: https://example.com '\\"' [a]:
-https://example.com (\\")
-
+[a]: https://example.com '"'
+[a]: https://example.com '"'
+[a]: https://example.com '"'
 [a]: https://example.com "'"
-
-[a]: https://example.com '\\'' [a]: https://example.com (\\')
-
+[a]: https://example.com "'"
+[a]: https://example.com "'"
 [a]: https://example.com "'"
 [a]: https://example.com ")"
-
-[a]: https://example.com (\\))
-
-[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]:
-https://example.com (\\\\\\))
-
+[a]: https://example.com ")"
+[a]: https://example.com '"'
+[a]: https://example.com "'"
+[a]: https://example.com ")"
 [a]: https://example.com "'"
 [a]: https://example.com '"'
 [a]: https://example.com '"'
@@ -317,20 +314,18 @@ proseWrap: "never"
 =====================================output=====================================
 [ref]: https://example.com "bar"
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
-
-[a]: https://example.com "\\"" [a]: https://example.com '\\"' [a]: https://example.com (\\")
-
+[a]: https://example.com '"'
+[a]: https://example.com '"'
+[a]: https://example.com '"'
 [a]: https://example.com "'"
-
-[a]: https://example.com '\\'' [a]: https://example.com (\\')
-
+[a]: https://example.com "'"
+[a]: https://example.com "'"
 [a]: https://example.com "'"
 [a]: https://example.com ")"
-
-[a]: https://example.com (\\))
-
-[a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]: https://example.com (\\\\\\))
-
+[a]: https://example.com ")"
+[a]: https://example.com '"'
+[a]: https://example.com "'"
+[a]: https://example.com ")"
 [a]: https://example.com "'"
 [a]: https://example.com '"'
 [a]: https://example.com '"'

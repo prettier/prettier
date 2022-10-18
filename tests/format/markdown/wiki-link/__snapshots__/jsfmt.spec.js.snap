@@ -725,7 +725,7 @@ singleQuote: true
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
@@ -740,7 +740,7 @@ proseWrap: "always"
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
@@ -755,7 +755,7 @@ proseWrap: "never"
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
@@ -770,7 +770,7 @@ proseWrap: "preserve"
 [[ Here is a link with leading and trailing whitespace.    ]]
 
 =====================================output=====================================
-[[Here is a link with leading and trailing whitespace.]]
+[[ Here is a link with leading and trailing whitespace.    ]]
 
 ================================================================================
 `;
