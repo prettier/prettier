@@ -83,9 +83,6 @@ function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
 /**
  * @typedef {import("./utils.js").WordNode} WordNode
  * @typedef {import("./utils.js").WhitespaceValue} WhitespaceValue
- * @typedef {{ next?: WordNode | null, previous?: WordNode | null }}
- * AdjacentNodes Nodes adjacent to a `whitespace` node. Are always of type
- * `word`.
  * @typedef {import("./utils.js").WordKind} WordKind
  * @typedef {import("../common/ast-path.js").default} AstPath
  * @typedef {"always" | "never" | "preserve"} ProseWrap
@@ -107,24 +104,24 @@ function isInSentenceWithCJSpaces({ parent: sentenceNode }) {
  *
  * PRs are welcome to support line breaking rules for other languages.
  *
- * @param {AstPath} path path of given node
- * @param {AdjacentNodes | undefined} adjacentNodes adjacent sibling nodes of
- * the given node
+ * @param {AstPath} path
+ * @param {boolean} isLink
  * @returns {boolean}
  */
-function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
-  if (
-    // no adjacent nodes - happens for linkReference and imageReference nodes
-    !adjacentNodes ||
-    // e.g. " \nletter"
-    !adjacentNodes.previous ||
-    !adjacentNodes.next
-  ) {
+function lineBreakCanBeConvertedToSpace(path, isLink) {
+  if (isLink) {
     return true;
   }
 
-  const previousKind = adjacentNodes.previous.kind;
-  const nextKind = adjacentNodes.next.kind;
+  const { previous, next } = path;
+
+  // e.g. " \nletter"
+  if (!previous || !next) {
+    return true;
+  }
+
+  const previousKind = previous.kind;
+  const nextKind = next.kind;
 
   if (
     // "\n" between non-CJK or Korean characters always can be converted to a
@@ -153,8 +150,8 @@ function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
   // The rest of this function deals only with line breaks between CJ and
   // non-CJK characters.
 
-  const characterBefore = adjacentNodes.previous.value.at(-1);
-  const characterAfter = adjacentNodes.next.value[0];
+  const characterBefore = previous.value.at(-1);
+  const characterAfter = next.value[0];
 
   // Convert a line break between CJ and certain non-letter characters (e.g.
   // ASCII punctuation) to a space.
@@ -182,10 +179,7 @@ function lineBreakCanBeConvertedToSpace(path, adjacentNodes) {
   // 2. "…" (U+2026, belongs to Po) in
   //
   //     "これはひどい……\nなんと汚いコミットログなんだ……"
-  if (
-    adjacentNodes.previous.hasTrailingPunctuation ||
-    adjacentNodes.next.hasLeadingPunctuation
-  ) {
+  if (previous.hasTrailingPunctuation || next.hasLeadingPunctuation) {
     return false;
   }
 
@@ -218,25 +212,25 @@ function isNonCJKOrKoreanLetter(kind) {
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
- * @param {AdjacentNodes | undefined} adjacentNodes
+ * @param {boolean} isLink
  * @param {boolean} canBeSpace
  * @returns {boolean}
  */
-function isBreakable(path, value, proseWrap, adjacentNodes, canBeSpace) {
+function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
   if (proseWrap !== "always" || getAncestorNode(path, SINGLE_LINE_NODE_TYPES)) {
     return false;
   }
 
-  if (
-    // no adjacent nodes - happens for linkReference and imageReference nodes
-    adjacentNodes === undefined ||
-    // Spaces are always breakable
-    value === " "
-  ) {
+  if (isLink) {
+    return value !== "";
+  }
+
+  // Spaces are always breakable
+  if (value === " ") {
     return true;
   }
 
-  const { previous, next } = adjacentNodes;
+  const { previous, next } = path;
 
   // Simulates Latin words; see https://github.com/prettier/prettier/issues/6516
   // [Latin][""][Hangul] & vice versa => Don't break
@@ -266,18 +260,19 @@ function isBreakable(path, value, proseWrap, adjacentNodes, canBeSpace) {
  * @param {AstPath} path
  * @param {WhitespaceValue} value
  * @param {ProseWrap} proseWrap
- * @param {AdjacentNodes} [adjacentNodes]
+ * @param {boolean} [isLink] Wrap/unwrap text so that the normalized form of a
+ * link label stays the same. See https://spec.commonmark.org/0.30/#matches
  */
-function printWhitespace(path, value, proseWrap, adjacentNodes) {
+function printWhitespace(path, value, proseWrap, isLink) {
   if (proseWrap === "preserve" && value === "\n") {
     return hardline;
   }
 
   const canBeSpace =
     value === " " ||
-    (value === "\n" && lineBreakCanBeConvertedToSpace(path, adjacentNodes));
+    (value === "\n" && lineBreakCanBeConvertedToSpace(path, isLink));
 
-  if (isBreakable(path, value, proseWrap, adjacentNodes, canBeSpace)) {
+  if (isBreakable(path, value, proseWrap, isLink, canBeSpace)) {
     return canBeSpace ? line : softline;
   }
 

@@ -65,16 +65,7 @@ function genericPrint(path, options, print) {
     ).map((node) =>
       node.type === "word"
         ? node.value
-        : node.value === ""
-        ? ""
-        : printWhitespace(
-            path,
-            node.value,
-            options.proseWrap
-            // Without the `adjacentNodes` argument `printWhitespace` wraps/unwraps
-            // text in such a way that the normalized form of a link label stays the same.
-            // See https://spec.commonmark.org/0.30/#matches
-          )
+        : printWhitespace(path, node.value, options.proseWrap, true)
     );
   }
 
@@ -137,8 +128,7 @@ function genericPrint(path, options, print) {
       return escapedValue;
     }
     case "whitespace": {
-      // WordNode or nullish
-      const { previous, next } = path;
+      const { next } = path;
 
       const proseWrap =
         // leading char that may cause different syntax
@@ -146,7 +136,7 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printWhitespace(path, node.value, proseWrap, { previous, next });
+      return printWhitespace(path, node.value, proseWrap);
     }
     case "emphasis": {
       let style;
