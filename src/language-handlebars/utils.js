@@ -1,23 +1,5 @@
 import { htmlVoidElements } from "html-void-elements";
 
-function isLastNodeOfSiblings(path) {
-  const { node } = path;
-  const parentNode = path.parent;
-
-  if (
-    isParentOfSomeType(path, ["ElementNode"]) &&
-    parentNode.children.at(-1) === node
-  ) {
-    return true;
-  }
-
-  if (isParentOfSomeType(path, ["Block"]) && parentNode.body.at(-1) === node) {
-    return true;
-  }
-
-  return false;
-}
-
 function isUppercase(string) {
   return string.toUpperCase() === string;
 }
@@ -100,7 +82,6 @@ export {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
-  isLastNodeOfSiblings,
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
