@@ -26,23 +26,6 @@ function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
-function getSiblingNode(path, offset) {
-  const { node } = path;
-  const parentNode = path.parent ?? {};
-  const children =
-    parentNode.children ?? parentNode.body ?? parentNode.parts ?? [];
-  const index = children.indexOf(node);
-  return index !== -1 && children[index + offset];
-}
-
-function getPreviousNode(path, lookBack = 1) {
-  return getSiblingNode(path, -lookBack);
-}
-
-function getNextNode(path) {
-  return getSiblingNode(path, 1);
-}
-
 function isPrettierIgnoreNode(node) {
   return (
     node?.type === "MustacheCommentStatement" &&
@@ -52,27 +35,14 @@ function isPrettierIgnoreNode(node) {
 }
 
 function hasPrettierIgnore(path) {
-  const { node } = path;
-  const previousPreviousNode = getPreviousNode(path, 2);
   return (
-    isPrettierIgnoreNode(node) || isPrettierIgnoreNode(previousPreviousNode)
+    isPrettierIgnoreNode(path.node) ||
+    (path.isInArray &&
+      (path.key === "children" ||
+        path.key === "body" ||
+        path.key === "parts") &&
+      isPrettierIgnoreNode(path.siblings[path.index - 2]))
   );
 }
 
-function isElseIfLike(path) {
-  const { grandparent, node } = path;
-  return (
-    grandparent?.inverse?.body.length === 1 &&
-    grandparent.inverse.body[0] === node &&
-    grandparent.inverse.body[0].path.parts[0] === grandparent.path.parts[0]
-  );
-}
-
-export {
-  getNextNode,
-  getPreviousNode,
-  hasPrettierIgnore,
-  isVoidElement,
-  isWhitespaceNode,
-  isElseIfLike,
-};
+export { hasPrettierIgnore, isVoidElement, isWhitespaceNode };
