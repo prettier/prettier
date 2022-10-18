@@ -245,11 +245,10 @@ function isBreakable(path, value, options, adjacentNodes, canBeSpace) {
   // - ""   => always `false` (i.e. disallows to break lines there)
   // - "\n" => `true` (i.e. don't force surrounding lines to be joined) only when it should be converted to Space
   //           `false` (i.e. join surrounding lines into a single line) otherwise
-  // The mandatory joining behavior when Space is not allowed is necessary because intentional violation of the line breaking rules (e.g. “ル\nール守れ\n！”) tends to be “corrected” ("\n" -> "") by formatted with a large value of `printWidth`.
-  // Eventually, by reformatted with a smaller value of `printWidth` or because of a paragraph revision, the rules are going to be applied to the place that used to violate them.
+  // The mandatory joining behavior ("\n" -> "") when Space is not allowed at "\n" is necessary because intentional violation of the line breaking rules (e.g. “ル\nール守れ\n！”) tends to be “corrected” ("\n" -> "") after re-editing the document or changing the value of `printWidth`.
   // e.g. “シ\nョ\nートカ\nット\n！\n？” (completely violates the rules on purpose) --[printWidth = 6]-->“ショー\nトカッ\nト！？” --[s/^/こんなところで/]--> “こんな\nところ\nで\nショー\nトカッ\nト！？” (completely complies to the rules)
-  // On the contrary, if `false` even should be Space, the following loop will occur:
-  //   the surrounding lines are joined with `" "` -> divided into 2 lines by `" "` -> joined again -> ...
+  // On the contrary, if `false` even should be Space (joins lines with an unbreakable " "), the following loop will occur:
+  //   the 2 lines surrounding `"\n"` are joined with `" "` -> divided into 2 lines by `" "` again -> joined again -> ...
   if (violatesCJKLineBreakingRule) {
     return false;
   }
