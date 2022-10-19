@@ -59,7 +59,7 @@ async function statSafe(filePath) {
   try {
     return await fs.stat(filePath);
   } catch (error) {
-    /* c8 ignore next */
+    /* c8 ignore next 3 */
     if (error.code !== "ENOENT") {
       throw error;
     }

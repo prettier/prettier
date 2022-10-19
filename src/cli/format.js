@@ -25,11 +25,11 @@ async function diff(a, b) {
 function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
-    /* c8 ignore start */
+    /* c8 ignore next 3 */
     if ((context.argv.write || context.argv.ignoreUnknown) && printedFilename) {
       printedFilename.clear();
     }
-    /* c8 ignore stop */
+
     if (context.argv.ignoreUnknown) {
       return;
     }
@@ -149,7 +149,7 @@ async function format(context, input, opt) {
         (await prettier.__debug.parse(pp, opt, { massage: true })).ast
       );
 
-      /* c8 ignore next */
+      /* c8 ignore start */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
@@ -163,6 +163,7 @@ async function format(context, input, opt) {
             (await diff(input, pp))
         );
       }
+      /* c8 ignore end */
     }
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }

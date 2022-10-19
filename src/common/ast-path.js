@@ -180,7 +180,7 @@ class AstPath {
     let node = this.stack[stackPointer--];
 
     for (const predicate of predicates) {
-      /* c8 ignore next */
+      /* c8 ignore next 3 */
       if (node === undefined) {
         return false;
       }

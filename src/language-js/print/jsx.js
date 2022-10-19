@@ -762,7 +762,7 @@ function printJsx(path, options, print) {
       /* c8 ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
     default:
-      /* c8 ignore next */  
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSX");
   }
 }
