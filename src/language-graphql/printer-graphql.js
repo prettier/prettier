@@ -303,7 +303,7 @@ function genericPrint(path, options, print) {
           : "",
         node.repeatable ? " repeatable" : "",
         " on ",
-        join(" | ", path.map(print, "locations")),
+        ...join(" | ", path.map(print, "locations")),
       ];
 
     case "EnumTypeExtension":
