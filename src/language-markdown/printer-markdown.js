@@ -76,6 +76,7 @@ function genericPrint(path, options, print) {
         node.position.end.offset
       );
     case "root":
+      /* c8 ignore next 3 */
       if (node.children.length === 0) {
         return "";
       }

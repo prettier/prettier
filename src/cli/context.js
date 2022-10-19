@@ -76,6 +76,7 @@ class Context {
       };
     }
 
+    /* c8 ignore start */
     const { PRETTIER_PERF_REPEAT } = process.env;
     if (PRETTIER_PERF_REPEAT && /^\d+$/.test(PRETTIER_PERF_REPEAT)) {
       return {
@@ -83,6 +84,7 @@ class Context {
         debugRepeat: Number(PRETTIER_PERF_REPEAT),
       };
     }
+    /* c8 ignore stop */
   }
 }
 

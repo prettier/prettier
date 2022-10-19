@@ -155,6 +155,7 @@ function trim(out) {
       continue;
     }
 
+    /* c8 ignore next 3 */
     if (process.env.NODE_ENV !== "production" && typeof last !== "string") {
       throw new Error(`Unexpected value in trim: '${typeof last}'`);
     }

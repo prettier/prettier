@@ -324,6 +324,7 @@ function isKeyInValuePairNode(node, parentNode) {
   const { groups } = parentNode;
   const index = groups.indexOf(node);
 
+  /* c8 ignore next 3 */
   if (index === -1) {
     return false;
   }

@@ -1,5 +1,6 @@
 import escapeStringRegexp from "escape-string-regexp";
 import {
+  skip,
   skipWhitespace,
   skipSpaces,
   skipToLineEnd,
@@ -13,47 +14,6 @@ import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
  */
-
-/**
- * @param {string | RegExp} chars
- * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
- */
-function skip(chars) {
-  return (text, index, opts) => {
-    const backwards = opts && opts.backwards;
-
-    // Allow `skip` functions to be threaded together without having
-    // to check for failures (did someone say monads?).
-    /* c8 ignore next 3 */
-    if (index === false) {
-      return false;
-    }
-
-    const { length } = text;
-    let cursor = index;
-    while (cursor >= 0 && cursor < length) {
-      const c = text.charAt(cursor);
-      if (chars instanceof RegExp) {
-        if (!chars.test(c)) {
-          return cursor;
-        }
-      } else if (!chars.includes(c)) {
-        return cursor;
-      }
-
-      backwards ? cursor-- : cursor++;
-    }
-
-    if (cursor === -1 || cursor === length) {
-      // If we reached the beginning or end of the file, return the
-      // out-of-bounds cursor. It's up to the caller to handle this
-      // correctly. We don't want to indicate `false` though if it
-      // actually skipped valid characters.
-      return cursor;
-    }
-    return false;
-  };
-}
 
 /**
  * @param {string} text
@@ -204,6 +164,7 @@ function getAlignmentSize(value, tabWidth, startIndex = 0) {
  */
 function getIndentSize(value, tabWidth) {
   const lastNewlineIndex = value.lastIndexOf("\n");
+  /* c8 ignore next 3 */
   if (lastNewlineIndex === -1) {
     return 0;
   }

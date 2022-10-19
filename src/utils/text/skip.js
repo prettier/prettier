@@ -60,4 +60,4 @@ const skipToLineEnd = skip(",; \t");
  */
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 
-export { skipWhitespace, skipSpaces, skipToLineEnd, skipEverythingButNewLine };
+export { skip, skipWhitespace, skipSpaces, skipToLineEnd, skipEverythingButNewLine };

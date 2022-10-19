@@ -63,6 +63,7 @@ class FormatResultsCache {
     const changed =
       fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
 
+    /* c8 ignore next 3 */
     if (fileDescriptor.notFound) {
       return false;
     }

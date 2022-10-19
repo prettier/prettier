@@ -99,6 +99,7 @@ function mapDoc(doc, cb) {
         return cb(doc);
 
       default:
+        /* c8 ignore next 3 */
         throw new InvalidDocError(doc);
     }
   }
@@ -343,6 +344,7 @@ function cleanDocFn(doc) {
       // No op
       break;
     default:
+      /* c8 ignore next 3 */
       throw new InvalidDocError(doc);
   }
 
