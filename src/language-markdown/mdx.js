@@ -55,7 +55,7 @@ const tokenizeEsComment = (eat, value) => {
   }
 };
 
-/* istanbul ignore next */
+/* c8 ignore next 2 */
 tokenizeEsSyntax.locator = (value /*, fromIndex*/) =>
   isExport(value) || isImport(value) ? -1 : 1;
 

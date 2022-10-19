@@ -1036,7 +1036,7 @@ function genericPrint(path, options, print) {
 
     case "value-comma": // Handled in `value-comma_group`
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "PostCSS");
   }
 }

@@ -18,7 +18,7 @@ function skipNewline(text, index, opts) {
   const atIndex = text.charAt(index);
   if (backwards) {
     // We already replace `\r\n` with `\n` before parsing
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
       return index - 2;
     }
@@ -32,7 +32,7 @@ function skipNewline(text, index, opts) {
     }
   } else {
     // We already replace `\r\n` with `\n` before parsing
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
       return index + 2;
     }

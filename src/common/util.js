@@ -24,7 +24,7 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (index === false) {
       return false;
     }
@@ -161,7 +161,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
 }
 
 // Not using, but it's public utils
-/* istanbul ignore next */
+/* c8 ignore start */
 /**
  * @param {string} text
  * @param {number} index
@@ -172,6 +172,7 @@ function hasSpaces(text, index, opts = {}) {
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
+/* c8 ignore stop */
 
 /**
  * @param {string} value

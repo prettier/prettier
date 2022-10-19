@@ -12,7 +12,7 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (index === false) {
       return false;
     }

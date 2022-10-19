@@ -516,7 +516,7 @@ function printTypescript(path, options, print) {
     case "TSInstantiationExpression":
       return [print("expression"), print("typeParameters")];
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "TypeScript");
   }
 }

@@ -4,7 +4,7 @@
  * @returns {number | false}
  */
 function skipInlineComment(text, index) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (index === false) {
     return false;
   }

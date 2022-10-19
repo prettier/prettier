@@ -70,7 +70,7 @@ async function parse(text /*, options */) {
       throw createError(error.message, { loc: location, cause: error });
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     throw error;
   }
 

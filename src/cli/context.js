@@ -60,13 +60,14 @@ class Context {
   // eslint-disable-next-line getter-return
   get performanceTestFlag() {
     const { debugBenchmark, debugRepeat } = this.argv;
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (debugBenchmark) {
       return {
         name: "--debug-benchmark",
         debugBenchmark: true,
       };
     }
+    /* c8 ignore stop */
 
     if (debugRepeat > 0) {
       return {

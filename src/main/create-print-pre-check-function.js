@@ -23,7 +23,7 @@ function createPrintPreCheckFunction(options) {
       return;
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     throw Object.assign(new Error("Calling `print()` on non-node object."), {
       parentNode: parent,
       allowedProperties: visitorKeys,
@@ -34,6 +34,7 @@ function createPrintPreCheckFunction(options) {
           ? ["...", ...path.stack.slice(-5)]
           : [...path.stack],
     });
+    /* c8 ignore stop */
   };
 }
 

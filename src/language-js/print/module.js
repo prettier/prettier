@@ -203,7 +203,7 @@ function printModuleSpecifiers(path, options, print) {
       ) {
         groupedSpecifiers.push(print());
       } else {
-        /* istanbul ignore next */
+        /* c8 ignore next 3 */
         throw new Error(
           `Unknown specifier type ${JSON.stringify(specifierType)}`
         );
@@ -353,7 +353,7 @@ function isShorthandSpecifier(specifier) {
     case "Identifier":
       return local.name === importedOrExported.name;
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       return false;
   }
 }

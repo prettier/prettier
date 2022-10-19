@@ -6,7 +6,7 @@ import { skipEverythingButNewLine } from "./skip.js";
  * @returns {number | false}
  */
 function skipTrailingComment(text, index) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (index === false) {
     return false;
   }

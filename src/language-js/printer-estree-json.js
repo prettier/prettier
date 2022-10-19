@@ -61,7 +61,7 @@ function genericPrint(path, options, print) {
     case "TemplateElement":
       return JSON.stringify(node.value.cooked);
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new Error("unknown type: " + JSON.stringify(node.type));
   }
 }

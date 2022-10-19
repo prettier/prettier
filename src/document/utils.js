@@ -25,7 +25,7 @@ const getDocParts = (doc) => {
     return doc;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (doc.type !== DOC_TYPE_FILL) {
     throw new Error(`Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`);
   }

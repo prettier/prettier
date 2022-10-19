@@ -93,8 +93,8 @@ function generateInd(ind, newPart, options) {
         lastTabs += 1;
         lastSpaces += part.n;
         break;
-      /* istanbul ignore next */
       default:
+        /* c8 ignore next */
         throw new Error(`Unexpected type '${part.type}'`);
     }
   }

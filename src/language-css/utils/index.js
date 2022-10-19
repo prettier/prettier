@@ -118,7 +118,7 @@ function isDetachedRulesetDeclarationNode(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!selector) {
     return false;
   }

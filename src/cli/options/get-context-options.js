@@ -20,13 +20,14 @@ function apiOptionToCliOption(apiOption) {
     forwardToApi: apiOption.name,
   };
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
   if (apiOption.deprecated) {
     delete cliOption.forwardToApi;
     delete cliOption.description;
     delete cliOption.oppositeDescription;
     cliOption.deprecated = true;
   }
+  /* c8 ignore stop */
 
   return normalizeDetailedOption(cliOption);
 }
@@ -41,7 +42,7 @@ function normalizeDetailedOption(option) {
         deprecated: false,
         ...(typeof choice === "object" ? choice : { value: choice }),
       };
-      /* istanbul ignore next */
+      /* c8 ignore next 3 */
       if (newChoice.value === true) {
         newChoice.value = ""; // backward compatibility for original boolean option
       }

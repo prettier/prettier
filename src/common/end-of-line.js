@@ -31,7 +31,7 @@ function countEndOfLineChars(text, eol) {
       regex = /\r\n/g;
       break;
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new Error(`Unexpected "eol" ${JSON.stringify(eol)}.`);
   }
 

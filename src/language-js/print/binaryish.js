@@ -300,7 +300,7 @@ function printBinaryishExpressions(
   // only for the left and right parts
   if (isNested && hasComment(node)) {
     const printed = cleanDoc(printComments(path, parts, options));
-    /* istanbul ignore else */
+    /* c8 ignore next 3 */
     if (Array.isArray(printed) || printed.type === DOC_TYPE_FILL) {
       return getDocParts(printed);
     }

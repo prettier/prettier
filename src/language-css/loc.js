@@ -21,11 +21,8 @@ function calculateLocStart(node, text) {
     return lineColumnToIndex(node.source.start, text);
   }
 
-  /* istanbul ignore next */
-  // eslint-disable-next-line no-console
-  console.log(node);
-  /* istanbul ignore next */
-  throw new Error("Can not locate node.");
+  /* c8 ignore next */
+  throw Object.assign(new Error("Can not locate node."), { node });
 }
 
 function calculateLocEnd(node, text) {

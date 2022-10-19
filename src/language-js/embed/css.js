@@ -23,7 +23,7 @@ async function embedCss(textToDoc, print, path /*, options*/) {
   const quasisDoc = await textToDoc(text, { parser: "scss" });
   const expressionDocs = printTemplateExpressions(path, print);
   const newDoc = replacePlaceholders(quasisDoc, expressionDocs);
-  /* istanbul ignore if */
+  /* c8 ignore next 3 */
   if (!newDoc) {
     throw new Error("Couldn't insert all the expressions");
   }

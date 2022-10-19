@@ -27,7 +27,7 @@ function createParseError(error) {
     return createError(message, { loc: { start }, cause: error });
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   return error;
 }
 

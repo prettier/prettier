@@ -25,7 +25,7 @@ async function parse(text) {
       });
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     throw error;
   }
 }

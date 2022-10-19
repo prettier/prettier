@@ -105,7 +105,7 @@ function printCallArguments(path, options, print) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
       }
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw caught;
     }
 
@@ -140,7 +140,7 @@ function printCallArguments(path, options, print) {
       if (caught instanceof ArgExpansionBailout) {
         return allArgsBrokenOut();
       }
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw caught;
     }
 

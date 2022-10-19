@@ -71,7 +71,7 @@ class AstPath {
     }
     // Since the name is a string/number/symbol, null is a safe sentinel value
     // to return if we do not know the name of the (root) value.
-    /* istanbul ignore next */
+    /* c8 ignore next */
     return null;
   }
 
@@ -180,7 +180,7 @@ class AstPath {
     let node = this.stack[stackPointer--];
 
     for (const predicate of predicates) {
-      /* istanbul ignore next */
+      /* c8 ignore next */
       if (node === undefined) {
         return false;
       }

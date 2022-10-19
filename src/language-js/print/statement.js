@@ -237,7 +237,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
       return true;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   return false;
 }
 

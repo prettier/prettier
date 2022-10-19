@@ -163,7 +163,6 @@ function splitWithSingleSpace(text) {
 
   let lastPart;
   for (const part of text.split(/( +)/)) {
-    /* istanbul ignore else */
     if (part !== " ") {
       if (lastPart === " ") {
         parts.push(part);
@@ -177,7 +176,7 @@ function splitWithSingleSpace(text) {
     lastPart = part;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (lastPart === " ") {
     parts.push((parts.pop() || "") + " ");
   }
@@ -329,7 +328,7 @@ function getBlockValueLineContents(
 }
 
 function isInlineNode(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node) {
     return true;
   }

@@ -309,7 +309,7 @@ function printMemberChain(path, options, print) {
   }
 
   function printIndentedGroup(groups) {
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (groups.length === 0) {
       return "";
     }

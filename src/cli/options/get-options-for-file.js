@@ -94,11 +94,10 @@ function applyConfigPrecedence(context, options) {
         return options || parseArgsToOptions(context);
     }
   } catch (error) {
-    /* istanbul ignore next */
+    /* c8 ignore start */
     context.logger.error(error.toString());
-
-    /* istanbul ignore next */
     process.exit(2);
+    /* c8 ignore stop */
   }
 }
 

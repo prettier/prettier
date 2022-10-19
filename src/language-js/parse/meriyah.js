@@ -66,14 +66,14 @@ function createParseError(error) {
   if (matches) {
     message = matches.message;
 
-    /* istanbul ignore next */
+    /* c8 ignore next 4 */
     if (typeof line !== "number") {
       line = Number(matches.line);
       column = Number(matches.column);
     }
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (typeof line !== "number") {
     return error;
   }

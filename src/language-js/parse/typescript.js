@@ -20,7 +20,7 @@ const parseOptions = {
 function createParseError(error) {
   const { message, lineNumber, column } = error;
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (typeof lineNumber !== "number") {
     return error;
   }

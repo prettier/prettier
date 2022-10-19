@@ -115,7 +115,7 @@ function genericPrint(path, options, print) {
     }
     case "cdata": // Transformed into `text`
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "HTML");
   }
 }

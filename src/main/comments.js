@@ -112,7 +112,7 @@ function decorateComment(node, comment, options, enclosingNode) {
       continue;
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     throw new Error("Comment location overlaps with node location");
   }
 
@@ -228,7 +228,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(enclosingNode, comment);
       } else {
         // There are no nodes, let's attach it to the root of the ast
-        /* istanbul ignore next */
+        /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
     } else if (isEndOfLineComment(text, options, decoratedComments, index)) {
@@ -245,7 +245,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(enclosingNode, comment);
       } else {
         // There are no nodes, let's attach it to the root of the ast
-        /* istanbul ignore next */
+        /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
     } else {
@@ -274,7 +274,7 @@ function attach(comments, ast, text, options) {
         addDanglingComment(enclosingNode, comment);
       } else {
         // There are no nodes, let's attach it to the root of the ast
-        /* istanbul ignore next */
+        /* c8 ignore next */
         addDanglingComment(ast, comment);
       }
     }
@@ -423,7 +423,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 
   // We haven't found it, it probably means that some of the locations are off.
   // Let's just return the first one.
-  /* istanbul ignore next */
+  /* c8 ignore next */
   return 0;
 }
 
