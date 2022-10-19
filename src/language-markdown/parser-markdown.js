@@ -29,7 +29,7 @@ import assert from "assert";
 function createParse({ isMDX }) {
   // assert(!isMDX);
   const processor = unified()
-    .use(remarkParse, { commonmark: true })
+    .use(remarkParse)
     .use(footnotes)
     .use(remarkMath)
     // .use(isMDX ? esSyntax : identity)
