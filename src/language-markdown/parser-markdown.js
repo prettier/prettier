@@ -6,6 +6,7 @@ import footnotes from "remark-footnotes";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
+import gfm from "./unified-plugins/gfm.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
