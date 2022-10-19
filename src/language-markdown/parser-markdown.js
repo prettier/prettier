@@ -1,6 +1,7 @@
 import remarkParse from "remark-parse";
 import unified from "unified";
 import remarkMath from "remark-math";
+import remarkGFM from "remark-gfm";
 import footnotes from "remark-footnotes";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
@@ -32,6 +33,7 @@ function createParse({ isMDX }) {
     .use(remarkParse)
     .use(footnotes)
     .use(remarkMath)
+    .use(remarkGFM)
     // .use(isMDX ? esSyntax : identity)
     .use(liquid)
     // .use(isMDX ? htmlToJsx : identity)
