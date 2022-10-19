@@ -182,6 +182,7 @@
       "lcov",
       "text"
     ],
+    "all": true,
     "include": [
       "src/**",
       "bin/**"
