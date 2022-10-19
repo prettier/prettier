@@ -12,7 +12,6 @@ import {
   rawText,
   shouldPrintComma,
 } from "../utils/index.js";
-import { locStart, locEnd } from "../loc.js";
 import { printClass } from "./class.js";
 import {
   printOpaqueType,
@@ -287,36 +286,11 @@ function printFlow(path, options, print) {
       ];
 
     case "TypeParameterDeclaration":
-    case "TypeParameterInstantiation": {
-      const printed = printTypeParameters(path, options, print, "params");
-
-      if (options.parser === "flow") {
-        const start = locStart(node);
-        const end = locEnd(node);
-        const commentStartIndex = options.originalText.lastIndexOf("/*", start);
-        const commentEndIndex = options.originalText.indexOf("*/", end);
-        if (commentStartIndex !== -1 && commentEndIndex !== -1) {
-          const comment = options.originalText
-            .slice(commentStartIndex + 2, commentEndIndex)
-            .trim();
-          if (
-            comment.startsWith("::") &&
-            !comment.includes("/*") &&
-            !comment.includes("*/")
-          ) {
-            return ["/*:: ", printed, " */"];
-          }
-        }
-      }
-
-      return printed;
-    }
+    case "TypeParameterInstantiation":
+      return printTypeParameters(path, options, print, "params");
 
     case "InferredPredicate":
       return "%checks";
-    // Unhandled types below. If encountered, nodes of these types should
-    // be either left alone or desugared into AST types that are fully
-    // supported by the pretty-printer.
     case "DeclaredPredicate":
       return ["%checks(", print("value"), ")"];
     case "AnyTypeAnnotation":

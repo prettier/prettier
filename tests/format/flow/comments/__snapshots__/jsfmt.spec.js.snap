@@ -18,14 +18,14 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {}
 
 =====================================output=====================================
 // Error
-const a = (data /*: Object */) => {};
+const a = (data: Object) => {};
 
 // OK
-const b = (data /*: Object */, secondData /*: Object */) => {};
+const b = (data: Object, secondData: Object) => {};
 
-const c = (data /*: /* this is an object *-/ Object */) => {};
+const c = (data: /* this is an object */ Object) => {};
 
-const run = (cmd /*: string */) /*: Promise<void> */ => {};
+const run = (cmd: string): Promise<void> => {};
 
 ================================================================================
 `;
@@ -44,9 +44,9 @@ class A {
 
 =====================================output=====================================
 class A {
-  x /*: string */;
+  x: string;
 
-  method(a /*: T */, b /*: T */) /*: T */ {}
+  method(a: T, b: T): T {}
 }
 
 ================================================================================
@@ -61,7 +61,7 @@ printWidth: 80
 function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
 
 =====================================output=====================================
-function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
+function foo<T>(bar: T[], baz: T): S {}
 
 ================================================================================
 `;
@@ -85,17 +85,17 @@ foo/*::<bar>*/(baz);
 foo/*::<bar>*/();
 
 =====================================output=====================================
-const Component = branch/*:: <Props, ExternalProps> */(
+const Component = branch<Props, ExternalProps>(
   ({ src }) => !src,
   // $FlowFixMe
   renderNothing,
 )(BaseComponent);
 
-const C = b/*:: <A> */(foo) + c/*:: <B> */(bar);
+const C = b<A>(foo) + c<B>(bar);
 
-foo/*:: <bar> */(baz);
+foo<bar>(baz);
 
-foo/*:: <bar> */();
+foo<bar>();
 
 ================================================================================
 `;
@@ -212,8 +212,8 @@ let foo /*: Groups<T> */;
 let bar /*: string */ = 'a';
 
 =====================================output=====================================
-let foo /*: Groups<T> */;
-let bar /*: string */ = "a";
+let foo: Groups<T>;
+let bar: string = "a";
 
 ================================================================================
 `;
@@ -278,18 +278,18 @@ new (window.Request/*: Class<Request> */)("");
 const x = (input /*: string */) /*: string */ => {};
 
 =====================================output=====================================
-new (window.Request /*: Class<Request> */)("");
+new (window.Request: Class<Request>)("");
 
-(this /*: any */).foo = 5;
+(this: any).foo = 5;
 
-(this /*: any */).foo = 5;
+(this: any).foo = 5;
 
 // This next example illustrates that Prettier will not remove a line break
 // and unintentionally create a type annotation that was not there before.
 this /*
 : any */.foo = 5;
 
-const x = (input /*: string */) /*: string */ => {};
+const x = (input: string): string => {};
 
 ================================================================================
 `;
@@ -305,7 +305,7 @@ class Foo {
   bar( data: Array<string>) {}
 }
 =====================================output=====================================
-foo/*:: <bar> */(baz);
+foo<bar>(baz);
 class Foo {
   bar(data: Array<string>) {}
 }

@@ -20,7 +20,6 @@ import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
 import pathNeedsParens from "./needs-parens.js";
 import preprocess from "./print-preprocess.js";
 import {
-  hasFlowShorthandAnnotationComment,
   hasComment,
   CommentCheckFlags,
   isTheOnlyJsxElementInMarkdown,
@@ -152,12 +151,6 @@ function genericPrint(path, options, print, args) {
 
   if (needsSemi) {
     parts.unshift(";");
-  }
-
-  if (hasFlowShorthandAnnotationComment(node)) {
-    const [comment] = node.trailingComments;
-    parts.push(" /*", comment.value.trimStart(), "*/");
-    comment.printed = true;
   }
 
   if (isClassExpressionWithDecorators) {
