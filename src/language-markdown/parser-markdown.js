@@ -1,6 +1,7 @@
 import remarkParse from "remark-parse";
 import unified from "unified";
 import remarkMath from "remark-math";
+import remarkGFM from "remark-gfm";
 import footnotes from "remark-footnotes";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
