@@ -601,18 +601,36 @@ exports[`snippet: #32 [json5] format 1`] = `
 `;
 
 exports[`snippet: #33 [json] format 1`] = `
-"Invalid left-hand side in prefix operation. (1:5)
-> 1 | ----123
-    |     ^"
+"Identifier 'identifier' is not allowed in JSON. (1:16)
+> 1 | {"identifier": identifier}
+    |                ^^^^^^^^^^"
 `;
 
 exports[`snippet: #33 [json-stringify] format 1`] = `
+"Identifier 'identifier' is not allowed in JSON. (1:16)
+> 1 | {"identifier": identifier}
+    |                ^^^^^^^^^^"
+`;
+
+exports[`snippet: #33 [json5] format 1`] = `
+"Identifier 'identifier' is not allowed in JSON. (1:16)
+> 1 | {"identifier": identifier}
+    |                ^^^^^^^^^^"
+`;
+
+exports[`snippet: #34 [json] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^"
 `;
 
-exports[`snippet: #33 [json5] format 1`] = `
+exports[`snippet: #34 [json-stringify] format 1`] = `
+"Invalid left-hand side in prefix operation. (1:5)
+> 1 | ----123
+    |     ^"
+`;
+
+exports[`snippet: #34 [json5] format 1`] = `
 "Invalid left-hand side in prefix operation. (1:5)
 > 1 | ----123
     |     ^"

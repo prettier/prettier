@@ -35,6 +35,7 @@ run_spec(
       "-false",
       "+'string'",
       "{key: +{}}",
+      '{"identifier": identifier}',
       // JSON6 allow this, but babel can't parse
       "----123",
     ],
