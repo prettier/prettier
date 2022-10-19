@@ -1,12 +1,11 @@
 import remarkParse from "remark-parse";
 import unified from "unified";
 import remarkMath from "remark-math";
-import remarkGFM from "remark-gfm";
-import footnotes from "remark-footnotes";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import { BLOCKS_REGEX, esSyntax } from "./mdx.js";
+import gfm from "./unified-plugins/gfm.js";
 import htmlToJsx from "./unified-plugins/html-to-jsx.js";
 import liquid from "./unified-plugins/liquid.js";
 import wikiLink from "./unified-plugins/wiki-link.js";
@@ -31,9 +30,8 @@ function createParse({ isMDX }) {
   // assert(!isMDX);
   const processor = unified()
     .use(remarkParse)
-    .use(footnotes)
     .use(remarkMath)
-    .use(remarkGFM)
+    .use(gfm)
     // .use(isMDX ? esSyntax : identity)
     .use(liquid)
     // .use(isMDX ? htmlToJsx : identity)
