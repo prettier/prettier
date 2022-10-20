@@ -275,7 +275,18 @@ const pluginFiles = [
     ],
   },
   "src/language-graphql/parser-graphql.js",
-  "src/language-markdown/parser-markdown.js",
+  {
+    input: "src/language-markdown/parser-markdown.js",
+    replaceModule: [
+      {
+        module: path.join(
+          require.resolve("decode-named-character-reference"),
+          "../index.dom.js"
+        ),
+        path: require.resolve("decode-named-character-reference"),
+      },
+    ],
+  },
   {
     input: "src/language-handlebars/parser-glimmer.js",
     replaceModule: [
