@@ -232,6 +232,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     logLevel: "error",
     format: file.output.format,
     outfile: path.join(DIST_DIR, cliOptions.saveAs ?? file.output.file),
+    // https://esbuild.github.io/api/#main-fields
+    mainFields: file.platform === "node" ? ["module", "main"] : undefined,
   };
 
   if (file.platform === "universal") {
