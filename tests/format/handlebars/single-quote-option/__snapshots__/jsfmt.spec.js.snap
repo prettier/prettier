@@ -99,8 +99,8 @@ singleQuote: false
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
-<div title="{{t 'my.title'}}"></div>
-<div title="{{t 'my.title'}}"></div>
+<div title="{{t 'my.title'}}" />
+<div title="{{t 'my.title'}}" />
 
 <a href="/{{url}}/{{url}}"></a>
 <a href="/{{url}}/{{url}}"></a>
@@ -126,7 +126,7 @@ singleQuote: false
   class="padding
     {{if foo (if fooAgain 'bar' (if fooAgainAgain 'bar' 'foo'))}}
     baz"
-></div>
+/>
 ================================================================================
 `;
 
@@ -161,8 +161,8 @@ singleQuote: true
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
-<div title='{{t "my.title"}}'></div>
-<div title='{{t "my.title"}}'></div>
+<div title='{{t "my.title"}}' />
+<div title='{{t "my.title"}}' />
 
 <a href='/{{url}}/{{url}}'></a>
 <a href='/{{url}}/{{url}}'></a>
@@ -188,7 +188,7 @@ singleQuote: true
   class='padding
     {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}}
     baz'
-></div>
+/>
 ================================================================================
 `;
 
