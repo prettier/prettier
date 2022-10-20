@@ -7,7 +7,6 @@ function isUppercase(string) {
 function isGlimmerComponent(node) {
   return (
     node.type === "ElementNode" &&
-    typeof node.tag === "string" &&
     !node.tag.startsWith(":") &&
     (isUppercase(node.tag[0]) || node.tag.includes("."))
   );
@@ -16,9 +15,10 @@ function isGlimmerComponent(node) {
 const voidTags = new Set(htmlVoidElements);
 function isVoidElement(node) {
   return (
-    voidTags.has(node.tag) ||
-    (isGlimmerComponent(node) &&
-      node.children.every((node) => isWhitespaceNode(node)))
+    node.type === "ElementNode" &&
+    (voidTags.has(node.tag) ||
+      (isGlimmerComponent(node) &&
+        node.children.every((node) => isWhitespaceNode(node))))
   );
 }
 
