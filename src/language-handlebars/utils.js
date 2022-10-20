@@ -28,7 +28,7 @@ function isWhitespaceNode(node) {
 
 function isPrettierIgnoreComment(node) {
   return (
-    node?.type === "MustacheCommentStatement" &&
+    node.type === "MustacheCommentStatement" &&
     node.value.trim() === "prettier-ignore"
   );
 }
@@ -55,7 +55,11 @@ function hasPrettierIgnore(path) {
   <div></div>
   ```
   */
-  if (previous.type === "TextNode" && /^\n[\t ]*$/.test(previous.chars)) {
+  if (
+    path.index > 1 &&
+    previous.type === "TextNode" &&
+    /^\n[\t ]*$/.test(previous.chars)
+  ) {
     return isPrettierIgnoreComment(path.siblings[path.index - 2]);
   }
 
