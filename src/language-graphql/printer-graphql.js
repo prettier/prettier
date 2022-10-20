@@ -13,6 +13,7 @@ import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
 import visitorKeys from "./visitor-keys.evaluate.js";
+import printDescription from "./print/description.js";
 
 const getVisitorKeys = createGetVisitorKeys(visitorKeys, "kind");
 
@@ -20,21 +21,12 @@ function genericPrint(path, options, print) {
   const { node } = path;
 
   switch (node.kind) {
-    case "Document": {
-      const parts = [];
-      path.each((pathChild, index, definitions) => {
-        parts.push(print());
-        if (index !== definitions.length - 1) {
-          parts.push(hardline);
-          if (
-            isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd)
-          ) {
-            parts.push(hardline);
-          }
-        }
-      }, "definitions");
-      return [...parts, hardline];
-    }
+    case "Document":
+      return [
+        ...join(hardline, printSequence(path, options, print, "definitions")),
+        hardline,
+      ];
+
     case "OperationDefinition": {
       const hasOperation = options.originalText[locStart(node)] !== "{";
       const hasName = Boolean(node.name);
@@ -231,9 +223,7 @@ function genericPrint(path, options, print) {
       const parts = [];
 
       if (kind.endsWith("TypeDefinition")) {
-        if (node.description) {
-          parts.push(print("description"), hardline);
-        }
+        parts.push(printDescription(path, options, print));
       } else {
         parts.push("extend ");
       }
@@ -270,8 +260,7 @@ function genericPrint(path, options, print) {
 
     case "FieldDefinition":
       return [
-        print("description"),
-        node.description ? hardline : "",
+        printDescription(path, options, print),
         print("name"),
         node.arguments.length > 0
           ? group([
@@ -294,8 +283,7 @@ function genericPrint(path, options, print) {
 
     case "DirectiveDefinition":
       return [
-        print("description"),
-        node.description ? hardline : "",
+        printDescription(path, options, print),
         "directive ",
         "@",
         print("name"),
@@ -315,13 +303,13 @@ function genericPrint(path, options, print) {
           : "",
         node.repeatable ? " repeatable" : "",
         " on ",
-        join(" | ", path.map(print, "locations")),
+        ...join(" | ", path.map(print, "locations")),
       ];
 
     case "EnumTypeExtension":
     case "EnumTypeDefinition":
       return [
-        ...(node.description ? [print("description"), hardline] : []),
+        printDescription(path, options, print),
         node.kind === "EnumTypeExtension" ? "extend " : "",
         "enum ",
         print("name"),
@@ -341,16 +329,14 @@ function genericPrint(path, options, print) {
 
     case "EnumValueDefinition":
       return [
-        print("description"),
-        node.description ? hardline : "",
+        printDescription(path, options, print),
         print("name"),
         printDirectives(path, print, node),
       ];
 
     case "InputValueDefinition":
       return [
-        print("description"),
-        node.description ? (node.description.block ? hardline : line) : "",
+        printDescription(path, options, print),
         print("name"),
         ": ",
         print("type"),
@@ -380,8 +366,7 @@ function genericPrint(path, options, print) {
 
     case "SchemaDefinition":
       return [
-        print("description"),
-        node.description ? hardline : "",
+        printDescription(path, options, print),
         "schema",
         printDirectives(path, print, node),
         " {",
@@ -416,7 +401,7 @@ function genericPrint(path, options, print) {
     case "UnionTypeExtension":
     case "UnionTypeDefinition":
       return group([
-        ...(node.description ? [print("description"), hardline] : []),
+        printDescription(path, options, print),
         group([
           node.kind === "UnionTypeExtension" ? "extend " : "",
           "union ",
@@ -438,7 +423,7 @@ function genericPrint(path, options, print) {
     case "ScalarTypeExtension":
     case "ScalarTypeDefinition":
       return [
-        ...(node.description ? [print("description"), hardline] : []),
+        printDescription(path, options, print),
         node.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
         print("name"),
@@ -475,13 +460,10 @@ function printDirectives(path, print, node) {
 }
 
 function printSequence(path, options, print, property) {
-  return path.map((path, index, sequence) => {
+  return path.map(({ isLast, node }) => {
     const printed = print();
 
-    if (
-      index < sequence.length - 1 &&
-      isNextLineEmpty(options.originalText, path.node, locEnd)
-    ) {
+    if (!isLast && isNextLineEmpty(options.originalText, node, locEnd)) {
       return [printed, hardline];
     }
 
