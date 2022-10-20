@@ -46,11 +46,11 @@ printWidth: 80
 <MyComponent @prop={{true}} @prop2={{true}} @prop3={{true}} @prop4={{true}} as |thing|></MyComponent>
 
 <div />
-<div ></div>
+<div></div>
 <custom-component />
-<custom-component> </custom-component>
+<custom-component></custom-component>
 <i />
-<i></i >
+<i></i>
 <Component />
 <Component></Component>
 
@@ -104,7 +104,7 @@ printWidth: 80
 <div />
 <div></div>
 <custom-component />
-<custom-component> </custom-component>
+<custom-component></custom-component>
 <i />
 <i></i>
 <Component />
