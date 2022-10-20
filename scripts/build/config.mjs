@@ -275,15 +275,7 @@ const pluginFiles = [
     ],
   },
   "src/language-graphql/parser-graphql.js",
-  {
-    input: "src/language-markdown/parser-markdown.js",
-    replaceModule: [
-      {
-        module: require.resolve("parse-entities/decode-entity.browser.js"),
-        path: require.resolve("parse-entities/decode-entity.js"),
-      },
-    ],
-  },
+  "src/language-markdown/parser-markdown.js",
   {
     input: "src/language-handlebars/parser-glimmer.js",
     replaceModule: [
