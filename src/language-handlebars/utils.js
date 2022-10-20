@@ -26,23 +26,40 @@ function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
-function isPrettierIgnoreNode(node) {
+function isPrettierIgnoreComment(node) {
   return (
     node?.type === "MustacheCommentStatement" &&
-    typeof node.value === "string" &&
     node.value.trim() === "prettier-ignore"
   );
 }
 
 function hasPrettierIgnore(path) {
-  return (
-    isPrettierIgnoreNode(path.node) ||
-    (path.isInArray &&
-      (path.key === "children" ||
-        path.key === "body" ||
-        path.key === "parts") &&
-      isPrettierIgnoreNode(path.siblings[path.index - 2]))
-  );
+  if (!path.isInArray || path.node.type !== "ElementNode" || path.isFirst) {
+    return false;
+  }
+
+  const {previous} = path;
+
+  /*
+  ```handlebars
+  {{! prettier-ignore }}<div></div>
+  ```
+  */
+  if (isPrettierIgnoreComment(previous)) {
+    return true;
+  }
+
+  /*
+  ```handlebars
+  {{! prettier-ignore }}
+  <div></div>
+  ```
+  */
+  if (previous.type === "TextNode" && /^\n[\t ]*$/.test(previous.chars)) {
+    return isPrettierIgnoreComment(path.siblings[path.index - 2])
+  }
+
+  return false
 }
 
 export { hasPrettierIgnore, isVoidElement, isWhitespaceNode };

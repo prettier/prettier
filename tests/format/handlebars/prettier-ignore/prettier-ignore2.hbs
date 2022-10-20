@@ -1,0 +1,25 @@
+{{! prettier-ignore }}
+<ignored>{{     ugly }}</ignored>
+<not-ignored>{{     ugly }}</not-ignored>
+
+<div>
+  {{! prettier-ignore }}
+  <ignored>{{     ugly }}</ignored>
+  <not-ignored>{{     ugly }}</not-ignored>
+</div>
+
+{{! prettier-ignore }}text
+<not-ignored>{{     ugly }}</not-ignored>
+<not-ignored>{{     ugly }}</not-ignored>
+
+{{! prettier-ignore }}<ignored>{{     ugly }}</ignored><not-ignored>{{     ugly }}</not-ignored>
+
+{{! prettier-ignore }} <not-ignored>{{     ugly }}</not-ignored><not-ignored>{{     ugly }}</not-ignored>
+{{! prettier-ignore }}text<not-ignored>{{     ugly }}</not-ignored><not-ignored>{{     ugly }}</not-ignored>
+
+
+{{!                prettier-ignore }}
+<div>
+  `prettier-ignore` comment self should not be ignored.
+  {{     ugly }}
+</div>
