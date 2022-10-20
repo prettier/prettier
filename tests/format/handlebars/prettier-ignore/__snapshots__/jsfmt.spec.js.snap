@@ -9,15 +9,23 @@ printWidth: 80
 {{! prettier-ignore }}
 {{        ugly}}
 
+{{! prettier-ignore }}{{        ugly}}
+
 {{! prettier-ignore }}
         ugly
+
+{{! prettier-ignore }}          ugly
 
 {{! prettier-ignore }}
 {{#        ugly}}
 {{/        ugly}}
 
+{{! prettier-ignore }}{{#        ugly}}{{/        ugly}}
+
 {{! prettier-ignore }}
 {{!        ugly}}
+
+{{! prettier-ignore }}{{!        ugly}}
 
 {{! prettier-ignore }}
 <div>
@@ -53,9 +61,15 @@ printWidth: 80
 
   {{/another-sibling}}
 </div>
+
 =====================================output=====================================
 {{! prettier-ignore }}
 {{        ugly}}
+
+{{! prettier-ignore }}{{ugly}}
+
+{{! prettier-ignore }}
+ugly
 
 {{! prettier-ignore }}
 ugly
@@ -64,8 +78,12 @@ ugly
 {{#        ugly}}
 {{/        ugly}}
 
+{{! prettier-ignore }}{{#ugly}}{{/ugly}}
+
 {{! prettier-ignore }}
 {{!        ugly}}
+
+{{! prettier-ignore }}{{!        ugly}}
 
 {{! prettier-ignore }}
 <div>
