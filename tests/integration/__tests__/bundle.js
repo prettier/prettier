@@ -107,7 +107,11 @@ const getFileExports = async (file) => {
 
 describe("exports", () => {
   for (const file of buildConfig) {
-    if (file.isMetaFile || file.output.format === "cjs") {
+    if (
+      file.isMetaFile ||
+      file.input === "src/index.cjs" ||
+      file.input === "bin/prettier.cjs"
+    ) {
       continue;
     }
 
