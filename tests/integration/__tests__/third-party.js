@@ -1,6 +1,8 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import createEsmUtils from "esm-utils";
+import outdent from "outdent";
+import stripAnsi from "strip-ansi";
 import { thirdParty } from "../env.js";
 import jestPathSerializer from "../path-serializer.js";
 
@@ -58,11 +60,21 @@ describe("cosmiconfig", () => {
 
   // #8815, please make sure this error contains code frame
   test("Invalid json file", async () => {
-    await expect(
-      cosmiconfig("prettier").search(
-        path.join(__dirname, "../cli/config/invalid/broken-json")
-      )
-    ).rejects.toThrowErrorMatchingSnapshot();
+    const result = cosmiconfig("prettier").search(
+      path.join(__dirname, "../cli/config/invalid/broken-json")
+    );
+    await expect(result).rejects.toThrow();
+
+    try {
+      await result;
+    } catch (error) {
+      const message = stripAnsi(error.message);
+      expect(message).toContain(outdent`
+        > 1 | {a':}
+            |  ^
+          2 |
+      `);
+    }
   });
 });
 
