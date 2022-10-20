@@ -38,7 +38,7 @@ function hasPrettierIgnore(path) {
     return false;
   }
 
-  const {previous} = path;
+  const { previous } = path;
 
   /*
   ```handlebars
@@ -56,10 +56,10 @@ function hasPrettierIgnore(path) {
   ```
   */
   if (previous.type === "TextNode" && /^\n[\t ]*$/.test(previous.chars)) {
-    return isPrettierIgnoreComment(path.siblings[path.index - 2])
+    return isPrettierIgnoreComment(path.siblings[path.index - 2]);
   }
 
-  return false
+  return false;
 }
 
 export { hasPrettierIgnore, isVoidElement, isWhitespaceNode };
