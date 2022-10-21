@@ -24,8 +24,8 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string} [cliCategory]
  * @property {string} [cliDescription]
  *
- * @typedef {number | boolean | string} OptionValue
- * @typedef {OptionValue | [{ value: OptionValue[] }] | Array<{ since: string, value: OptionValue}>} OptionValueInfo
+ * @typedef {number | boolean | string | []} OptionValue
+ * @typedef {OptionValue | [{ value: OptionValue }] | (() => OptionValue)} OptionValueInfo
  *
  * @typedef {Object} OptionRedirectInfo
  * @property {string} option
