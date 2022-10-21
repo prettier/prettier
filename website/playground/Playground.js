@@ -70,7 +70,7 @@ class Playground extends React.Component {
 
     // 1.8.2 ~ 1.9.0
     if (typeof options.proseWrap === "boolean") {
-      options.proseWrap = options.proseWrap ? "preserve" : "never";
+      options.proseWrap = options.proseWrap ? "always" : "never";
     }
 
     // 0.0.0 ~ 1.9.0
