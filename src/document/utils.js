@@ -203,7 +203,6 @@ function removeLines(doc) {
   return mapDoc(doc, removeLinesFn);
 }
 
-
 function stripTrailingHardlineFromParts(parts) {
   parts = [...parts];
 
@@ -236,19 +235,20 @@ function stripTrailingHardlineFromDoc(doc) {
     }
 
     case DOC_TYPE_IF_BREAK: {
-      const breakContents = stripTrailingHardlineFromDoc(doc.breakContents);
-      const flatContents = stripTrailingHardlineFromDoc(doc.flatContents);
+      let { breakContents, flatContents } = doc;
+      breakContents &&= stripTrailingHardlineFromDoc(breakContents);
+      flatContents &&= stripTrailingHardlineFromDoc(flatContents);
       return { ...doc, breakContents, flatContents };
     }
 
     case DOC_TYPE_FILL:
-      return {...doc, parts: stripTrailingHardlineFromParts(doc.parts)}
+      return { ...doc, parts: stripTrailingHardlineFromParts(doc.parts) };
 
     case DOC_TYPE_ARRAY:
-      return stripTrailingHardlineFromParts(doc)
+      return stripTrailingHardlineFromParts(doc);
 
     case DOC_TYPE_STRING:
-      return doc.replace(/[\n\r]*$/, "")
+      return doc.replace(/[\n\r]*$/, "");
 
     case DOC_TYPE_CURSOR:
     case DOC_TYPE_TRIM:
