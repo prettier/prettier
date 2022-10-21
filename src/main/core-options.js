@@ -137,7 +137,7 @@ const options = {
   plugins: {
     type: "path",
     array: true,
-    default: [{ value: [] }],
+    default: [],
     category: CATEGORY_GLOBAL,
     description:
       "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
@@ -149,7 +149,7 @@ const options = {
   pluginSearchDirs: {
     type: "path",
     array: true,
-    default: [{ value: [] }],
+    default: [],
     category: CATEGORY_GLOBAL,
     description: outdent`
       Custom directory that contains prettier plugins in node_modules subdirectory.
