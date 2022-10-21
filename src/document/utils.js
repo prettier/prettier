@@ -248,7 +248,7 @@ function stripTrailingHardlineFromDoc(doc) {
       return stripTrailingHardlineFromParts(doc)
 
     case DOC_TYPE_STRING:
-      return doc.replace(/(?:\r?\n|\r)*$/, "")
+      return doc.replace(/[\n\r]*$/, "")
 
     case DOC_TYPE_CURSOR:
     case DOC_TYPE_TRIM:
