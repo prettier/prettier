@@ -1,6 +1,3 @@
-import semverCompare from "semver/functions/compare.js";
-import semverGte from "semver/functions/gte.js";
-import semverLt from "semver/functions/lt.js";
 import arrayify from "../utils/arrayify.js";
 import { options as coreOptions } from "./core-options.js";
 import currentVersion from "./version.evaluate.cjs";
@@ -16,14 +13,12 @@ import currentVersion from "./version.evaluate.cjs";
  * @param {object} param0
  * @param {(string | object)[]=} param0.plugins Strings are resolved by `withPlugins`.
  * @param {string[]=} param0.pluginSearchDirs Added by `withPlugins`.
- * @param {boolean=} param0.showUnreleased
  * @param {boolean=} param0.showDeprecated
  * @param {boolean=} param0.showInternal
  * @return {{ languages: Array<any>, options: Array<NamedOptionInfo> }}
  */
 function getSupportInfo({
   plugins = [],
-  showUnreleased = false,
   showDeprecated = false,
   showInternal = false,
 } = {}) {
@@ -31,34 +26,21 @@ function getSupportInfo({
   // we need to treat it as the normal one so as to test new features.
   const version = currentVersion.split("-", 1)[0];
 
-  const languages = plugins
-    .flatMap((plugin) => plugin.languages || [])
-    .filter(filterSince);
+  const languages = plugins.flatMap((plugin) => plugin.languages || []);
 
   const options = arrayify(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
-    .filter((option) => filterSince(option) && filterDeprecated(option))
+    .filter((option) => filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .map(mapInternal)
     .map((option) => {
       option = { ...option };
 
-      if (Array.isArray(option.default)) {
-        option.default =
-          option.default.length === 1
-            ? option.default[0].value
-            : option.default
-                .filter(filterSince)
-                .sort((info1, info2) =>
-                  semverCompare(info2.since, info1.since)
-                )[0].value;
-      }
-
       if (Array.isArray(option.choices)) {
-        option.choices = option.choices.filter(
-          (option) => filterSince(option) && filterDeprecated(option)
+        option.choices = option.choices.filter((option) =>
+          filterDeprecated(option)
         );
 
         if (option.name === "parser") {
@@ -81,20 +63,8 @@ function getSupportInfo({
 
   return { languages, options };
 
-  function filterSince(object) {
-    return (
-      showUnreleased ||
-      !("since" in object) ||
-      (object.since && semverGte(version, object.since))
-    );
-  }
-
   function filterDeprecated(object) {
-    return (
-      showDeprecated ||
-      !("deprecated" in object) ||
-      (object.deprecated && semverLt(version, object.deprecated))
-    );
+    return showDeprecated || !("deprecated" in object) || object.deprecated;
   }
 
   function mapInternal(object) {

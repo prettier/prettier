@@ -10,7 +10,6 @@ const CATEGORY_SPECIAL = "Special";
 
 /**
  * @typedef {Object} OptionInfo
- * @property {string} [since] - available since version
  * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path' | 'string' | 'flag'} type
  * @property {boolean} [array] - indicate it's an array of the specified type
@@ -40,7 +39,6 @@ const CATEGORY_SPECIAL = "Special";
  * @typedef {Object} OptionChoiceInfo
  * @property {boolean | string} value - boolean for the option that is originally boolean type
  * @property {string} description
- * @property {string} [since] - undefined if available since the first version of the option
  * @property {string} [deprecated] - deprecated since version
  * @property {OptionValueInfo} [redirect] - redirect deprecated value
  */
@@ -48,7 +46,6 @@ const CATEGORY_SPECIAL = "Special";
 /** @type {{ [name: string]: OptionInfo }} */
 const options = {
   cursorOffset: {
-    since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
     default: -1,
@@ -60,13 +57,9 @@ const options = {
     cliCategory: CATEGORY_EDITOR,
   },
   endOfLine: {
-    since: "1.15.0",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: [
-      { since: "1.15.0", value: "auto" },
-      { since: "2.0.0", value: "lf" },
-    ],
+    default: "lf",
     description: "Which end of line characters to apply.",
     choices: [
       {
@@ -93,7 +86,6 @@ const options = {
     ],
   },
   filepath: {
-    since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "path",
     description:
@@ -103,7 +95,6 @@ const options = {
     cliDescription: "Path to the file to pretend that stdin comes from.",
   },
   insertPragma: {
-    since: "1.8.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
@@ -111,52 +102,39 @@ const options = {
     cliCategory: CATEGORY_OTHER,
   },
   parser: {
-    since: "0.0.10",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: [
-      { since: "0.0.10", value: "babylon" },
-      { since: "1.13.0", value: undefined },
-    ],
+    default: undefined,
     description: "Which parser to use.",
     exception: (value) =>
       typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
-      { value: "babel", since: "1.16.0", description: "JavaScript" },
-      { value: "babel-flow", since: "1.16.0", description: "Flow" },
-      { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
-      { value: "typescript", since: "1.4.0", description: "TypeScript" },
-      { value: "acorn", since: "2.6.0", description: "JavaScript" },
-      { value: "espree", since: "2.2.0", description: "JavaScript" },
-      { value: "meriyah", since: "2.2.0", description: "JavaScript" },
-      { value: "css", since: "1.7.1", description: "CSS" },
-      { value: "less", since: "1.7.1", description: "Less" },
-      { value: "scss", since: "1.7.1", description: "SCSS" },
-      { value: "json", since: "1.5.0", description: "JSON" },
-      { value: "json5", since: "1.13.0", description: "JSON5" },
-      {
-        value: "json-stringify",
-        since: "1.13.0",
-        description: "JSON.stringify",
-      },
-      { value: "graphql", since: "1.5.0", description: "GraphQL" },
-      { value: "markdown", since: "1.8.0", description: "Markdown" },
-      { value: "mdx", since: "1.15.0", description: "MDX" },
-      { value: "vue", since: "1.10.0", description: "Vue" },
-      { value: "yaml", since: "1.14.0", description: "YAML" },
-      { value: "glimmer", since: "2.3.0", description: "Ember / Handlebars" },
-      { value: "html", since: "1.15.0", description: "HTML" },
-      { value: "angular", since: "1.15.0", description: "Angular" },
-      {
-        value: "lwc",
-        since: "1.17.0",
-        description: "Lightning Web Components",
-      },
+      { value: "babel", description: "JavaScript" },
+      { value: "babel-flow", description: "Flow" },
+      { value: "babel-ts", description: "TypeScript" },
+      { value: "typescript", description: "TypeScript" },
+      { value: "acorn", description: "JavaScript" },
+      { value: "espree", description: "JavaScript" },
+      { value: "meriyah", description: "JavaScript" },
+      { value: "css", description: "CSS" },
+      { value: "less", description: "Less" },
+      { value: "scss", description: "SCSS" },
+      { value: "json", description: "JSON" },
+      { value: "json5", description: "JSON5" },
+      { value: "json-stringify", description: "JSON.stringify" },
+      { value: "graphql", description: "GraphQL" },
+      { value: "markdown", description: "Markdown" },
+      { value: "mdx", description: "MDX" },
+      { value: "vue", description: "Vue" },
+      { value: "yaml", description: "YAML" },
+      { value: "glimmer", description: "Ember / Handlebars" },
+      { value: "html", description: "HTML" },
+      { value: "angular", description: "Angular" },
+      { value: "lwc", description: "Lightning Web Components" },
     ],
   },
   plugins: {
-    since: "1.10.0",
     type: "path",
     array: true,
     default: [{ value: [] }],
@@ -169,7 +147,6 @@ const options = {
     cliCategory: CATEGORY_CONFIG,
   },
   pluginSearchDirs: {
-    since: "1.13.0",
     type: "path",
     array: true,
     default: [{ value: [] }],
@@ -185,7 +162,6 @@ const options = {
     cliCategory: CATEGORY_CONFIG,
   },
   printWidth: {
-    since: "0.0.0",
     category: CATEGORY_GLOBAL,
     type: "int",
     default: 80,
@@ -193,7 +169,6 @@ const options = {
     range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
   },
   rangeEnd: {
-    since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
     default: Number.POSITIVE_INFINITY,
@@ -206,7 +181,6 @@ const options = {
     cliCategory: CATEGORY_EDITOR,
   },
   rangeStart: {
-    since: "1.4.0",
     category: CATEGORY_SPECIAL,
     type: "int",
     default: 0,
@@ -219,7 +193,6 @@ const options = {
     cliCategory: CATEGORY_EDITOR,
   },
   requirePragma: {
-    since: "1.7.0",
     category: CATEGORY_SPECIAL,
     type: "boolean",
     default: false,
@@ -237,17 +210,15 @@ const options = {
     range: { start: 0, end: Number.POSITIVE_INFINITY, step: 1 },
   },
   useTabs: {
-    since: "1.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
     default: false,
     description: "Indent with tabs instead of spaces.",
   },
   embeddedLanguageFormatting: {
-    since: "2.1.0",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: [{ since: "2.1.0", value: "auto" }],
+    default: "auto",
     description:
       "Control how Prettier formats quoted code embedded in the file.",
     choices: [

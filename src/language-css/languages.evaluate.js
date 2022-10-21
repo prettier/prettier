@@ -3,7 +3,6 @@ import createLanguage from "../utils/create-language.js";
 
 const languages = [
   createLanguage(linguistLanguages.CSS, (data) => ({
-    since: "1.4.0",
     parsers: ["css"],
     vscodeLanguageIds: ["css"],
     extensions: [
@@ -14,17 +13,14 @@ const languages = [
     ],
   })),
   createLanguage(linguistLanguages.PostCSS, () => ({
-    since: "1.4.0",
     parsers: ["css"],
     vscodeLanguageIds: ["postcss"],
   })),
   createLanguage(linguistLanguages.Less, () => ({
-    since: "1.4.0",
     parsers: ["less"],
     vscodeLanguageIds: ["less"],
   })),
   createLanguage(linguistLanguages.SCSS, () => ({
-    since: "1.4.0",
     parsers: ["scss"],
     vscodeLanguageIds: ["scss"],
   })),

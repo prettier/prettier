@@ -60,7 +60,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter((choice) => !choice.deprecated && choice.since !== null)
+        .filter((choice) => !choice.deprecated)
         .map((choice) => choice.value)
         .join("|")}>`;
     default:
@@ -69,9 +69,7 @@ function createOptionUsageType(option) {
 }
 
 function createChoiceUsages(choices, margin, indentation) {
-  const activeChoices = choices.filter(
-    (choice) => !choice.deprecated && choice.since !== null
-  );
+  const activeChoices = choices.filter((choice) => !choice.deprecated);
   const threshold =
     Math.max(0, ...activeChoices.map((choice) => choice.value.length)) + margin;
   return activeChoices.map((choice) =>
