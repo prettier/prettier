@@ -63,7 +63,7 @@ class Playground extends React.Component {
 
     const options = Object.assign(defaultOptions, original.options);
 
-    // 0.0.10 ~ 0.0.10
+    // 0.0.0 ~ 0.0.10
     if (options.parser === "babylon") {
       options.parser = "babel";
     }
