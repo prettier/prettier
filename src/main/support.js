@@ -59,7 +59,7 @@ function getSupportInfo({
   return { languages, options };
 
   function filterDeprecated(object) {
-    return showDeprecated || !("deprecated" in object) || object.deprecated;
+    return showDeprecated || !object.deprecated;
   }
 
   function mapInternal(object) {

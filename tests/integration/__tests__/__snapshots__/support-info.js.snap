@@ -147,10 +147,6 @@ exports[`API getSupportInfo() 1`] = `
       "default": false,
       "type": "boolean",
     },
-    "jsxBracketSameLine": {
-      "default": undefined,
-      "type": "boolean",
-    },
     "jsxSingleQuote": {
       "default": false,
       "type": "boolean",
@@ -891,14 +887,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       "default": false,
       "description": "Insert @format pragma into file's first docblock comment.",
       "name": "insertPragma",
-      "pluginDefaults": {},
-      "type": "boolean"
-    },
-    {
-      "category": "JavaScript",
-      "deprecated": "2.4.0",
-      "description": "Put > on the last line instead of at a new line.",
-      "name": "jsxBracketSameLine",
       "pluginDefaults": {},
       "type": "boolean"
     },
