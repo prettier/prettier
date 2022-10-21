@@ -1,6 +1,5 @@
 import arrayify from "../utils/arrayify.js";
 import { options as coreOptions } from "./core-options.js";
-import currentVersion from "./version.evaluate.cjs";
 
 /**
  * @typedef {import("./core-options.js").OptionInfo} OptionInfo
@@ -22,10 +21,6 @@ function getSupportInfo({
   showDeprecated = false,
   showInternal = false,
 } = {}) {
-  // pre-release version is smaller than the normal version in semver,
-  // we need to treat it as the normal one so as to test new features.
-  const version = currentVersion.split("-", 1)[0];
-
   const languages = plugins.flatMap((plugin) => plugin.languages || []);
 
   const options = arrayify(
