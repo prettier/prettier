@@ -1,3 +1,5 @@
+
+import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
 import {
   hasNewline,
   skipWhitespace,
@@ -7,7 +9,6 @@ import {
 } from "../../common/util.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
-import isEs5IdentifierName from "./is-es5-identifier-name.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
 
