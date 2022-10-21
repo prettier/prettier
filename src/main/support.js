@@ -35,7 +35,9 @@ function getSupportInfo({
 
       if (Array.isArray(option.default)) {
         // eslint-disable-next-line no-console
-        console.warn("the default value of option should be a primitive value or a function.")
+        console.warn(
+          "the default value of option should be a primitive value or a function."
+        );
         option.default = option.default[0].value;
       } else if (typeof option.default === "function") {
         option.default = option.default();
