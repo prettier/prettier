@@ -211,7 +211,8 @@ const pluginFiles = [
         module: require.resolve(
           "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
-        process: text => text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};")
+        process: (text) =>
+          text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
       },
     ],
   },
