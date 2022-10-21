@@ -115,11 +115,7 @@ const pluginFiles = [
         module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/ast-converter.js"
         ),
-        process: (text) =>
-          text.replace(
-            'require("./simple-traverse")',
-            "{}"
-          ),
+        process: (text) => text.replace('require("./simple-traverse")', "{}"),
       },
       {
         module: require.resolve("debug/src/browser.js"),
