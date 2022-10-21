@@ -1326,6 +1326,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prettier/is-es5-identifier-name@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@prettier/is-es5-identifier-name@npm:0.0.2"
+  checksum: f7b3490ad7d7764099cf6803b0acac167bac1833553cc3841249ae9b7a34c0504db6a3b6ddfa56436be4d3bf9d234930c502762e6e4e1c53e7ffbb43b4b0860d
+  languageName: node
+  linkType: hard
+
 "@prettier/parse-srcset@npm:2.0.2":
   version: 2.0.2
   resolution: "@prettier/parse-srcset@npm:2.0.2"
@@ -3659,7 +3666,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esutils@npm:2.0.3, esutils@npm:^2.0.2":
+"esutils@npm:^2.0.2":
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 22b5b08f74737379a840b8ed2036a5fb35826c709ab000683b092d9054e5c2a82c27818f12604bfc2a9a76b90b6834ef081edbc1c7ae30d1627012e067c6ec87
@@ -6595,6 +6602,7 @@ __metadata:
     "@glimmer/reference": 0.84.2
     "@glimmer/syntax": 0.84.2
     "@iarna/toml": 2.2.5
+    "@prettier/is-es5-identifier-name": 0.0.2
     "@prettier/parse-srcset": 2.0.2
     "@types/estree": 1.0.0
     "@types/file-entry-cache": 5.0.2
@@ -6639,7 +6647,6 @@ __metadata:
     eslint-plugin-unicorn: 44.0.2
     esm-utils: 4.1.0
     espree: 9.4.0
-    esutils: 2.0.3
     execa: 6.1.0
     fast-glob: 3.2.12
     fast-json-stable-stringify: 2.1.0
