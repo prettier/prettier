@@ -206,6 +206,13 @@ const pluginFiles = [
           "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
         ),
       },
+      // This passed to plugins, our plugin don't need access to the options
+      {
+        module: require.resolve(
+          "@glimmer/syntax/dist/modules/es2017/lib/parser/tokenizer-event-handlers.js"
+        ),
+        process: text => text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};")
+      },
     ],
   },
   "src/language-html/parser-html.js",
