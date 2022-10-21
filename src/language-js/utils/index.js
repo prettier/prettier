@@ -1,4 +1,3 @@
-import esutils from "esutils";
 import {
   hasNewline,
   skipWhitespace,
@@ -8,10 +7,9 @@ import {
 } from "../../common/util.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
+import isEs5IdentifierName from "./is-es5-identifier-name.js";
 import isBlockComment from "./is-block-comment.js";
 import isNodeMatches from "./is-node-matches.js";
-
-const isIdentifierName = esutils.keyword.isIdentifierNameES5;
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -680,7 +678,7 @@ function isStringPropSafeToUnquote(node, options) {
     options.parser !== "json" &&
     isStringLiteral(node.key) &&
     rawText(node.key).slice(1, -1) === node.key.value &&
-    ((isIdentifierName(node.key.value) &&
+    ((isEs5IdentifierName(node.key.value) &&
       // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
       // See https://github.com/microsoft/TypeScript/pull/20075
       !(

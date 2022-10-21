@@ -3659,7 +3659,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esutils@npm:2.0.3, esutils@npm:^2.0.2":
+"esutils@npm:^2.0.2":
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 22b5b08f74737379a840b8ed2036a5fb35826c709ab000683b092d9054e5c2a82c27818f12604bfc2a9a76b90b6834ef081edbc1c7ae30d1627012e067c6ec87
@@ -6639,7 +6639,6 @@ __metadata:
     eslint-plugin-unicorn: 44.0.2
     esm-utils: 4.1.0
     espree: 9.4.0
-    esutils: 2.0.3
     execa: 6.1.0
     fast-glob: 3.2.12
     fast-json-stable-stringify: 2.1.0
