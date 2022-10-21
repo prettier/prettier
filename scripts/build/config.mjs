@@ -214,6 +214,16 @@ const pluginFiles = [
         process: (text) =>
           text.replace(/\nconst syntax = \{.*?\n\};/su, "\nconst syntax = {};"),
       },
+      {
+        module: path.join(
+          path.dirname(require.resolve("@handlebars/parser/package.json")),
+          "dist/esm/index.js"
+        ),
+        path: path.join(
+          path.dirname(require.resolve("@handlebars/parser/package.json")),
+          "dist/esm/parse.js"
+        ),
+      },
     ],
   },
   "src/language-html/parser-html.js",
