@@ -1,4 +1,3 @@
-
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
 import {
   hasNewline,
