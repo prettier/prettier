@@ -68,7 +68,7 @@ function printClosingTagSuffix(node, options) {
 
 function printClosingTagStartMarker(node, options) {
   assert(!node.isSelfClosing);
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (shouldNotPrintClosingTag(node, options)) {
     return "";
   }

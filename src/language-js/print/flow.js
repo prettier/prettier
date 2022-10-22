@@ -353,7 +353,7 @@ function printFlow(path, options, print) {
     case "Comment":
     case "MemberTypeAnnotation": // Flow
     case "Type":
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new Error("unprintable type: " + JSON.stringify(node.type));
   }
 }

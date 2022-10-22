@@ -16,6 +16,7 @@ const clear = (stream, text) => () => {
   const lineCount = countLines(stream, text);
 
   for (let line = 0; line < lineCount; line++) {
+    /* c8 ignore next 3 */
     if (line > 0) {
       readline.moveCursor(stream, 0, -1);
     }

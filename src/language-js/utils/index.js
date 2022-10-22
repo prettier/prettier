@@ -1155,6 +1155,7 @@ function getCallArgumentSelector(node, index) {
   if (index < 0) {
     index = node.arguments.length + index;
   }
+  /* c8 ignore next 3 */
   if (index < 0 || index >= node.arguments.length) {
     throw new RangeError("Invalid argument index");
   }

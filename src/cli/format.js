@@ -25,10 +25,11 @@ async function diff(a, b) {
 function handleError(context, filename, error, printedFilename) {
   if (error instanceof errors.UndefinedParserError) {
     // Can't test on CI, `isTTY()` is always false, see ./is-tty.js
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if ((context.argv.write || context.argv.ignoreUnknown) && printedFilename) {
       printedFilename.clear();
     }
+
     if (context.argv.ignoreUnknown) {
       return;
     }
@@ -60,7 +61,7 @@ function handleError(context, filename, error, printedFilename) {
     context.logger.error(`${filename}: ${error.message}`);
   } else {
     // `invalid.js: Error: Some unexpected error\n[stack trace]`
-    /* istanbul ignore next */
+    /* c8 ignore next */
     context.logger.error(filename + ": " + (error.stack || error));
   }
 
@@ -148,7 +149,7 @@ async function format(context, input, opt) {
         (await prettier.__debug.parse(pp, opt, { massage: true })).ast
       );
 
-      /* istanbul ignore next */
+      /* c8 ignore start */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
@@ -162,6 +163,7 @@ async function format(context, input, opt) {
             (await diff(input, pp))
         );
       }
+      /* c8 ignore end */
     }
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
@@ -368,20 +370,18 @@ async function formatFiles(context) {
       input = await fs.readFile(filename, "utf8");
     } catch (error) {
       // Add newline to split errors from filename line.
-      /* istanbul ignore next */
+      /* c8 ignore start */
       context.logger.log("");
 
-      /* istanbul ignore next */
       context.logger.error(
         `Unable to read file: ${filename}\n${error.message}`
       );
 
       // Don't exit the process if one file failed
-      /* istanbul ignore next */
       process.exitCode = 2;
 
-      /* istanbul ignore next */
       continue;
+      /* c8 ignore stop */
     }
 
     if (fileIgnored) {
@@ -438,14 +438,14 @@ async function formatFiles(context) {
         try {
           await fs.writeFile(filename, output, "utf8");
         } catch (error) {
-          /* istanbul ignore next */
+          /* c8 ignore start */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
 
           // Don't exit the process if one file failed
-          /* istanbul ignore next */
           process.exitCode = 2;
+          /* c8 ignore stop */
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${chalk.grey(filename)} ${Date.now() - start}ms`;
@@ -456,10 +456,10 @@ async function formatFiles(context) {
         }
       }
     } else if (context.argv.debugCheck) {
-      /* istanbul ignore else */
       if (result.filepath) {
         context.logger.log(result.filepath);
       } else {
+        /* c8 ignore next */
         process.exitCode = 2;
       }
     } else if (!context.argv.check && !context.argv.listDifferent) {

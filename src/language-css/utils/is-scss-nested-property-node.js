@@ -3,7 +3,7 @@ function isSCSSNestedPropertyNode(node, options) {
     return false;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node.selector) {
     return false;
   }

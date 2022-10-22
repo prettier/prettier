@@ -31,7 +31,7 @@ function printComment(commentPath, options) {
     ];
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 

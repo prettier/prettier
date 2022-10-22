@@ -791,7 +791,7 @@ function printPathNoParens(path, options, print, args) {
     }
 
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");
   }
 }

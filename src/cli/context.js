@@ -60,13 +60,14 @@ class Context {
   // eslint-disable-next-line getter-return
   get performanceTestFlag() {
     const { debugBenchmark, debugRepeat } = this.argv;
-    /* istanbul ignore next */
+    /* c8 ignore start */
     if (debugBenchmark) {
       return {
         name: "--debug-benchmark",
         debugBenchmark: true,
       };
     }
+    /* c8 ignore stop */
 
     if (debugRepeat > 0) {
       return {
@@ -75,6 +76,7 @@ class Context {
       };
     }
 
+    /* c8 ignore start */
     const { PRETTIER_PERF_REPEAT } = process.env;
     if (PRETTIER_PERF_REPEAT && /^\d+$/.test(PRETTIER_PERF_REPEAT)) {
       return {
@@ -82,6 +84,7 @@ class Context {
         debugRepeat: Number(PRETTIER_PERF_REPEAT),
       };
     }
+    /* c8 ignore stop */
   }
 }
 

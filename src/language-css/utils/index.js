@@ -118,7 +118,7 @@ function isDetachedRulesetDeclarationNode(node) {
   // If a Less file ends up being parsed with the SCSS parser, Less
   // variable declarations will be parsed as atrules with names ending
   // with a colon, so keep the original case then.
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!selector) {
     return false;
   }
@@ -324,6 +324,7 @@ function isKeyInValuePairNode(node, parentNode) {
   const { groups } = parentNode;
   const index = groups.indexOf(node);
 
+  /* c8 ignore next 3 */
   if (index === -1) {
     return false;
   }

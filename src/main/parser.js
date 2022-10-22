@@ -11,7 +11,7 @@ function resolveParser({ plugins, parser }) {
     }
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 5 */
   if (process.env.PRETTIER_TARGET === "universal") {
     throw new ConfigError(
       `Couldn't resolve parser "${parser}". Parsers must be explicitly added to the standalone bundle.`
@@ -52,7 +52,7 @@ async function handleParseError(error, text) {
     throw error;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   throw error;
 }
 

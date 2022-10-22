@@ -77,12 +77,12 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (node.type === "attribute") {
     return false;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node.parent) {
     return false;
   }

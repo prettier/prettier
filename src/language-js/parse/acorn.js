@@ -20,7 +20,7 @@ const parseOptions = {
 function createParseError(error) {
   const { message, loc } = error;
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!loc) {
     return error;
   }

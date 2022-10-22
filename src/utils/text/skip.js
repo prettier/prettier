@@ -12,7 +12,7 @@ function skip(chars) {
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
-    /* istanbul ignore next */
+    /* c8 ignore next 3 */
     if (index === false) {
       return false;
     }
@@ -60,4 +60,10 @@ const skipToLineEnd = skip(",; \t");
  */
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 
-export { skipWhitespace, skipSpaces, skipToLineEnd, skipEverythingButNewLine };
+export {
+  skip,
+  skipWhitespace,
+  skipSpaces,
+  skipToLineEnd,
+  skipEverythingButNewLine,
+};

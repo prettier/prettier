@@ -182,13 +182,18 @@
       "lcov",
       "text"
     ],
+    "all": true,
     "include": [
       "src/**",
       "bin/**"
     ],
     "exclude": [
+      "bin/prettier.js",
       "src/standalone.js",
-      "src/document/debug.js"
+      "src/index.cjs",
+      "src/document/debug.js",
+      "src/utils/unexpected-node-error.js",
+      "src/language-js/types/estree.d.ts"
     ]
   },
   "browserslist": [

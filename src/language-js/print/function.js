@@ -418,7 +418,7 @@ function shouldPrintParamsWithoutParens(path, options) {
   }
 
   // Fallback default; should be unreachable
-  /* istanbul ignore next */
+  /* c8 ignore next */
   return false;
 }
 

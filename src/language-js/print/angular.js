@@ -78,7 +78,7 @@ function printAngular(path, options, print) {
     case "NGMicrosyntaxAs":
       return [print("key"), " as ", print("alias")];
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Angular");
   }
 }

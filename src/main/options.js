@@ -100,7 +100,7 @@ function getPlugin(options) {
   const { astFormat } = options;
 
   // TODO: test this with plugins
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!astFormat) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
@@ -108,7 +108,7 @@ function getPlugin(options) {
     (plugin) => plugin.printers && plugin.printers[astFormat]
   );
   // TODO: test this with plugins
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!printerPlugin) {
     throw new Error(`Couldn't find plugin for AST format "${astFormat}"`);
   }

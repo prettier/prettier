@@ -106,7 +106,7 @@ async function parseValueNode(valueNode, options) {
       }
       parenGroup.close = node;
 
-      /* istanbul ignore next */
+      /* c8 ignore next 3 */
       if (commaGroupStack.length === 1) {
         throw new Error("Unbalanced parenthesis");
       }
@@ -276,7 +276,7 @@ async function parseMediaQuery(params) {
     result = mediaParser(params);
   } catch {
     // Ignore bad media queries
-    /* istanbul ignore next */
+    /* c8 ignore next 4 */
     return {
       type: "selector-unknown",
       value: params,
@@ -301,7 +301,7 @@ async function parseNestedCSS(node, options) {
       return node;
     }
 
-    /* istanbul ignore next */
+    /* c8 ignore next */
     node.raws ??= {};
 
     // Custom properties looks like declarations
@@ -411,13 +411,13 @@ async function parseNestedCSS(node, options) {
     // Ignore LESS mixin declaration
     if (selector.trim().length > 0) {
       // TODO: confirm this code is dead
-      /* istanbul ignore next */
+      /* c8 ignore next 3 */
       if (selector.startsWith("@") && selector.endsWith(":")) {
         return node;
       }
 
       // TODO: confirm this code is dead
-      /* istanbul ignore next */
+      /* c8 ignore next 6 */
       // Ignore LESS mixins
       if (node.mixin) {
         node.selector = await parseValue(selector, options);
@@ -651,7 +651,7 @@ async function parseWithParser(parse, text, options) {
     });
   } catch (error) {
     const { name, reason, line, column } = error;
-    /* istanbul ignore next */
+    /* c8 ignore 3 */
     if (typeof line !== "number") {
       throw error;
     }

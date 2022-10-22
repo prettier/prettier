@@ -6,8 +6,10 @@ const PLACEHOLDER = null;
  * unspecified boolean flag without default value is parsed as `undefined` instead of `false`
  */
 export default function minimistParse(args, options) {
-  const boolean = options.boolean || [];
-  const defaults = options.default || {};
+  /* c8 ignore next */
+  const boolean = options.boolean ?? [];
+  /* c8 ignore next */
+  const defaults = options.default ?? {};
 
   const booleanWithoutDefault = boolean.filter((key) => !(key in defaults));
   const newDefaults = {

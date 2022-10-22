@@ -12,7 +12,7 @@ function getDocErrorMessage(doc) {
     return `Unexpected doc '${type}', \nExpected it to be 'string' or 'object'.`;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (getDocType(doc)) {
     throw new Error("doc is valid.");
   }

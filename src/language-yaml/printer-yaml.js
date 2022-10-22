@@ -329,7 +329,7 @@ function printNode(path, options, print) {
     case "flowSequenceItem":
       return print("content");
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "YAML");
   }
 }

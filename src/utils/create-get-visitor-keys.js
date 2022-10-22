@@ -6,7 +6,7 @@ function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
   function getVisitorKeys(node) {
     const type = node[typeProperty];
 
-    /* istanbul ignore next */
+    /* c8 ignore next 5 */
     if (process.env.NODE_ENV !== "production" && typeof type === "undefined") {
       throw new Error(
         `Can't get node type, you must pass the wrong typeProperty '${typeProperty}'`
@@ -14,7 +14,7 @@ function createGetVisitorKeys(visitorKeys, typeProperty = "type") {
     }
 
     const keys = visitorKeys[type];
-    /* istanbul ignore next */
+    /* c8 ignore next 5 */
     if (!Array.isArray(keys)) {
       throw Object.assign(new Error(`Missing visitor keys for '${type}'.`), {
         node,

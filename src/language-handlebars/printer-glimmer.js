@@ -390,7 +390,7 @@ function print(path, options, print) {
       return "null";
 
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Handlebars");
   }
 }
@@ -656,20 +656,20 @@ function getCurrentAttributeName(path) {
 }
 
 function countNewLines(string) {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   string = typeof string === "string" ? string : "";
   return string.split("\n").length - 1;
 }
 
 function countLeadingNewLines(string) {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/^([^\S\n\r]*[\n\r])+/g) || [])[0] || "";
   return countNewLines(newLines);
 }
 
 function countTrailingNewLines(string) {
-  /* istanbul ignore next */
+  /* c8 ignore next */
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/([\n\r][^\S\n\r]*)+$/g) || [])[0] || "";
   return countNewLines(newLines);

@@ -46,7 +46,7 @@ function assertDoc(val) {
     return;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
 }
 

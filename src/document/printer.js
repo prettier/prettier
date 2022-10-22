@@ -93,8 +93,8 @@ function generateInd(ind, newPart, options) {
         lastTabs += 1;
         lastSpaces += part.n;
         break;
-      /* istanbul ignore next */
       default:
+        /* c8 ignore next */
         throw new Error(`Unexpected type '${part.type}'`);
     }
   }
@@ -155,6 +155,7 @@ function trim(out) {
       continue;
     }
 
+    /* c8 ignore next 3 */
     if (process.env.NODE_ENV !== "production" && typeof last !== "string") {
       throw new Error(`Unexpected value in trim: '${typeof last}'`);
     }

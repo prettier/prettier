@@ -437,7 +437,7 @@ function genericPrint(path, options, print) {
       return ["[", print("type"), "]"];
 
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Graphql", "kind");
   }
 }
@@ -481,7 +481,7 @@ function printComment(commentPath) {
     return "#" + comment.value.trimEnd();
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next */
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 

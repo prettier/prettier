@@ -423,7 +423,7 @@ function separatorWithWhitespace(
 
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!parent) {
     return elem;
   }
@@ -759,10 +759,10 @@ function printJsx(path, options, print) {
     case "JSXEmptyExpression":
       return printJsxEmptyExpression(path, options /*, print*/);
     case "JSXText":
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new Error("JSXTest should be handled by JSXElement");
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSX");
   }
 }

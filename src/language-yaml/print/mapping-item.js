@@ -178,8 +178,8 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
       return !node.value.includes("\n");
     case "always":
       return !/[\n ]/.test(node.value);
-    // istanbul ignore next
     default:
+      /* c8 ignore next */
       return false;
   }
 }
@@ -189,7 +189,7 @@ function needsSpaceInFrontOfMappingValue(node) {
 }
 
 function isSingleLineNode(node) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node) {
     return true;
   }

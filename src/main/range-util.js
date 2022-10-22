@@ -160,7 +160,7 @@ const graphqlSourceElements = new Set([
   "ScalarTypeDefinition",
 ]);
 function isSourceElement(opts, node, parentNode) {
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (!node) {
     return false;
   }

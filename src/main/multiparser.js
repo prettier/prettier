@@ -48,7 +48,7 @@ async function printEmbeddedLanguages(
         embeds.set(node, doc);
       }
     } catch (error) {
-      /* istanbul ignore if */
+      /* c8 ignore next 3 */
       if (process.env.PRETTIER_DEBUG) {
         throw error;
       }

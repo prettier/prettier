@@ -23,8 +23,8 @@ function normalizeOptions(
   } = {}
 ) {
   // TODO: Move CLI related part into `/src/cli`
-  /* istanbul ignore next */
   if (isCLI) {
+    /* c8 ignore start */
     if (!FlagSchema) {
       throw new Error("'FlagSchema' option is required.");
     }
@@ -32,6 +32,7 @@ function normalizeOptions(
     if (!descriptor) {
       throw new Error("'descriptor' option is required.");
     }
+    /* c8 ignore stop */
   } else {
     descriptor = vnopts.apiDescriptor;
   }
@@ -187,7 +188,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
       SchemaConstructor = vnopts.StringSchema;
       break;
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new Error(`Unexpected type ${optionInfo.type}`);
   }
 
@@ -199,7 +200,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
       value === undefined || schema.validate(value, utils);
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
   if (optionInfo.redirect) {
     handlers.redirect = (value) =>
       !value
@@ -211,8 +212,9 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
             },
           };
   }
+  /* c8 ignore stop */
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (optionInfo.deprecated) {
     handlers.deprecated = true;
   }

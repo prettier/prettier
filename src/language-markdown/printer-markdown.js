@@ -76,6 +76,7 @@ function genericPrint(path, options, print) {
         node.position.end.offset
       );
     case "root":
+      /* c8 ignore next 3 */
       if (node.children.length === 0) {
         return "";
       }
@@ -374,7 +375,7 @@ function genericPrint(path, options, print) {
     }
     // `footnote` requires `.use(footnotes, {inlineNotes: true})`, we are not using this option
     // https://github.com/remarkjs/remark-footnotes#optionsinlinenotes
-    /* istanbul ignore next */
+    /* c8 ignore next 2 */
     case "footnote":
       return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
@@ -440,7 +441,7 @@ function genericPrint(path, options, print) {
     case "listItem": // handled in "list"
     case "text": // handled in other types
     default:
-      /* istanbul ignore next */
+      /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Markdown");
   }
 }

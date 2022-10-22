@@ -25,7 +25,7 @@ const getDocParts = (doc) => {
     return doc;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore next 3 */
   if (doc.type !== DOC_TYPE_FILL) {
     throw new Error(`Expect doc to be 'array' or '${DOC_TYPE_FILL}'.`);
   }
@@ -99,6 +99,7 @@ function mapDoc(doc, cb) {
         return cb(doc);
 
       default:
+        /* c8 ignore next 3 */
         throw new InvalidDocError(doc);
     }
   }
@@ -343,6 +344,7 @@ function cleanDocFn(doc) {
       // No op
       break;
     default:
+      /* c8 ignore next 3 */
       throw new InvalidDocError(doc);
   }
 

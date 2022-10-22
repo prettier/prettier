@@ -80,7 +80,7 @@ function ngHtmlParser(
 
     if (!isVueHtml) {
       const shouldParseAsHTML = (/** @type {AstNode} */ node) => {
-        /* istanbul ignore next */
+        /* c8 ignore next 3 */
         if (!node) {
           return false;
         }
@@ -123,7 +123,7 @@ function ngHtmlParser(
             const endOffset = endSourceSpan.start.offset;
             for (const error of result.errors) {
               const { offset } = error.span.start;
-              /* istanbul ignore next */
+              /* c8 ignore next 4 */
               if (startOffset < offset && offset < endOffset) {
                 errors = [error];
                 break;
@@ -355,7 +355,7 @@ function _parse(
     // @ts-expect-error
     const firstText = subAst.children[0];
     if (firstText.length === offset) {
-      /* istanbul ignore next */ // @ts-expect-error
+      /* c8 ignore next */ // @ts-expect-error
       subAst.children.shift();
     } else {
       firstText.sourceSpan = new ParseSourceSpan(
