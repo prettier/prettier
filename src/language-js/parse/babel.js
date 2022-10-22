@@ -159,7 +159,7 @@ function createParse(parseMethod, ...optionsCombinations) {
 const parse = createParse("parse", appendPlugins(["jsx", "flow"]));
 const parseFlow = createParse(
   "parse",
-  appendPlugins(["jsx", ["flow", { all: true, enums: true }]])
+  appendPlugins(["jsx", ["flow", { all: true, enums: true }], "flowComments"])
 );
 const parseTypeScript = createParse(
   "parse",

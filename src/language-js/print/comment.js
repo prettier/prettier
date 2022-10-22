@@ -21,14 +21,7 @@ function printComment(commentPath, options) {
       return printIndentableBlockComment(comment);
     }
 
-    const commentEnd = locEnd(comment);
-    const isInsideFlowComment =
-      options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
-    return [
-      "/*",
-      replaceEndOfLine(comment.value),
-      isInsideFlowComment ? "*-/" : "*/",
-    ];
+    return ["/*", replaceEndOfLine(comment.value), "*/"];
   }
 
   /* c8 ignore next */

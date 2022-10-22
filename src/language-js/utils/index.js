@@ -1,7 +1,6 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
 import {
   hasNewline,
-  skipWhitespace,
   isNonEmptyArray,
   isNextLineEmptyAfterIndex,
   getStringWidth,
@@ -27,47 +26,6 @@ import isNodeMatches from "./is-node-matches.js";
  *
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
-
-// We match any whitespace except line terminators because
-// Flow annotation comments cannot be split across lines. For example:
-//
-// (this /*
-// : any */).foo = 5;
-//
-// is not picked up by Flow (see https://github.com/facebook/flow/issues/7050), so
-// removing the newline would create a type annotation that the user did not intend
-// to create.
-const NON_LINE_TERMINATING_WHITE_SPACE = "(?:(?=.)\\s)";
-const FLOW_SHORTHAND_ANNOTATION = new RegExp(
-  `^${NON_LINE_TERMINATING_WHITE_SPACE}*:`
-);
-const FLOW_ANNOTATION = new RegExp(`^${NON_LINE_TERMINATING_WHITE_SPACE}*::`);
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
-function hasFlowShorthandAnnotationComment(node) {
-  // https://flow.org/en/docs/types/comments/
-  // Syntax example: const r = new (window.Request /*: Class<Request> */)("");
-
-  return (
-    node.extra?.parenthesized &&
-    isBlockComment(node.trailingComments?.[0]) &&
-    FLOW_SHORTHAND_ANNOTATION.test(node.trailingComments[0].value)
-  );
-}
-
-/**
- * @param {Comment[]} comments
- * @returns {boolean}
- */
-function hasFlowAnnotationComment(comments) {
-  const firstComment = comments?.[0];
-  return (
-    isBlockComment(firstComment) && FLOW_ANNOTATION.test(firstComment.value)
-  );
-}
 
 /**
  * @param {Node} node
@@ -615,21 +573,6 @@ function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
   }
 
   return keyword;
-}
-
-/**
- * @param {string} text
- * @param {Node} typeAnnotation
- * @returns {boolean}
- */
-function isFlowAnnotationComment(text, typeAnnotation) {
-  const start = locStart(typeAnnotation);
-  const end = skipWhitespace(text, locEnd(typeAnnotation));
-  return (
-    end !== false &&
-    text.slice(start, start + 2) === "/*" &&
-    text.slice(end, end + 2) === "*/"
-  );
 }
 
 /**
@@ -1287,8 +1230,6 @@ export {
   getLeftSidePathName,
   getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
-  hasFlowAnnotationComment,
-  hasFlowShorthandAnnotationComment,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
   hasNode,
@@ -1302,7 +1243,6 @@ export {
   isCallExpression,
   isMemberExpression,
   isExportDeclaration,
-  isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,
   isFunctionOrArrowExpression,

@@ -2,7 +2,6 @@ import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import {
   getFunctionParameters,
   getLeftSidePathName,
-  hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
   hasNode,
   isBitwiseOperator,
@@ -34,16 +33,6 @@ function needsParens(path, options) {
   // Only statements don't need parentheses.
   if (isStatement(node)) {
     return false;
-  }
-
-  if (
-    // Preserve parens if we have a Flow annotation comment, unless we're using the Flow
-    // parser. The Flow parser turns Flow comments into type annotation nodes in its
-    // AST, which we handle separately.
-    options.parser !== "flow" &&
-    hasFlowShorthandAnnotationComment(node)
-  ) {
-    return true;
   }
 
   // Identifiers never need parentheses.

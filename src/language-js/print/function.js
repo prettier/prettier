@@ -22,7 +22,6 @@ import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
-  isFlowAnnotationComment,
   isJsxNode,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
@@ -95,7 +94,7 @@ function printFunction(path, print, options, args) {
     options,
     expandArg
   );
-  const returnTypeDoc = printReturnType(path, print, options);
+  const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc
@@ -160,7 +159,7 @@ function printMethod(path, options, print) {
 function printMethodInternal(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
-  const returnTypeDoc = printReturnType(path, print, options);
+  const returnTypeDoc = printReturnType(path, print);
   const shouldGroupParameters = shouldGroupFunctionParameters(
     node,
     returnTypeDoc
@@ -194,7 +193,7 @@ function printArrowFunctionSignature(path, options, print, args) {
     parts.push(print(["params", 0]));
   } else {
     const expandArg = args && (args.expandLastArg || args.expandFirstArg);
-    let returnTypeDoc = printReturnType(path, print, options);
+    let returnTypeDoc = printReturnType(path, print);
     if (expandArg) {
       if (willBreak(returnTypeDoc)) {
         throw new ArgExpansionBailout();
@@ -423,16 +422,9 @@ function shouldPrintParamsWithoutParens(path, options) {
 }
 
 /** @returns {Doc} */
-function printReturnType(path, print, options) {
+function printReturnType(path, print) {
   const { node } = path;
   const returnType = print("returnType");
-
-  if (
-    node.returnType &&
-    isFlowAnnotationComment(options.originalText, node.returnType)
-  ) {
-    return [" /*: ", returnType, " */"];
-  }
 
   const parts = [returnType];
 

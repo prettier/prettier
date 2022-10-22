@@ -2,7 +2,6 @@ import { join, group } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   getCallArguments,
-  hasFlowAnnotationComment,
   isCallExpression,
   isMemberish,
   isStringLiteral,
@@ -56,21 +55,6 @@ function printCallExpression(path, options, print) {
     }
   }
 
-  // Inline Flow annotation comments following Identifiers in Call nodes need to
-  // stay with the Identifier. For example:
-  //
-  // foo /*:: <SomeGeneric> */(bar);
-  //
-  // Here, we ensure that such comments stay between the Identifier and the Callee.
-  const isIdentifierWithFlowAnnotation =
-    (options.parser === "babel" || options.parser === "babel-flow") &&
-    node.callee &&
-    node.callee.type === "Identifier" &&
-    hasFlowAnnotationComment(node.callee.trailingComments);
-  if (isIdentifierWithFlowAnnotation) {
-    node.callee.trailingComments[0].printed = true;
-  }
-
   // We detect calls on member lookups and possibly print them in a
   // special chain format. See `printMemberChain` for more info.
   if (
@@ -86,9 +70,6 @@ function printCallExpression(path, options, print) {
     isNew ? "new " : "",
     isDynamicImport ? "import" : print("callee"),
     optional,
-    isIdentifierWithFlowAnnotation
-      ? `/*:: ${node.callee.trailingComments[0].value.slice(2).trim()} */`
-      : "",
     printFunctionTypeParameters(path, options, print),
     printCallArguments(path, options, print),
   ];

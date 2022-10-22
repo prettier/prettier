@@ -1,6 +1,5 @@
 import { isNonEmptyArray } from "../../common/util.js";
 import { indent, join, line } from "../../document/builders.js";
-import { isFlowAnnotationComment } from "../utils/index.js";
 
 function printOptionalToken(path) {
   const { node } = path;
@@ -53,10 +52,6 @@ function printTypeAnnotation(path, options, print) {
 
   const isFunctionDeclarationIdentifier =
     parentNode.type === "DeclareFunction" && parentNode.id === node;
-
-  if (isFlowAnnotationComment(options.originalText, node.typeAnnotation)) {
-    return [" /*: ", print("typeAnnotation"), " */"];
-  }
 
   return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
 }

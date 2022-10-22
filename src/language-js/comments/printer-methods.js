@@ -1,13 +1,8 @@
 import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import { hasJsxIgnoreComment } from "../print/jsx.js";
 import {
-  CommentCheckFlags,
-  getComments,
   getFunctionParameters,
-  hasFlowAnnotationComment,
-  hasFlowShorthandAnnotationComment,
   hasNodeIgnoreComment,
-  isCallExpression,
   isJsxNode,
   isLineComment,
 } from "../utils/index.js";
@@ -71,15 +66,8 @@ function hasPrettierIgnore(path) {
  * @returns {boolean}
  */
 function willPrintOwnComments({ node, parent }) {
-  const hasFlowAnnotations = (node) =>
-    hasFlowAnnotationComment(getComments(node, CommentCheckFlags.Leading)) ||
-    hasFlowAnnotationComment(getComments(node, CommentCheckFlags.Trailing));
-
   return (
-    ((node &&
-      (isJsxNode(node) ||
-        hasFlowShorthandAnnotationComment(node) ||
-        (isCallExpression(parent) && hasFlowAnnotations(node)))) ||
+    ((node && isJsxNode(node)) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||
