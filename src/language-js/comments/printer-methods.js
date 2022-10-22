@@ -82,6 +82,14 @@ function willPrintOwnComments({ node, parent }) {
   );
 }
 
+function getGapRegex(enclosingNode, { parser }) {
+  if (parser === "flow" || parser === "babel-flow") {
+    // Example: (a /* b */ /* : c */)
+    //                gap ^^^^
+    return /^[\s(]*(\/\*[\s(]*)?$/;
+  }
+}
+
 export * as handleComments from "./handle-comments.js";
 export { printComment } from "../print/comment.js";
 export {
@@ -90,4 +98,5 @@ export {
   hasPrettierIgnore,
   isBlockComment,
   willPrintOwnComments,
+  getGapRegex,
 };

@@ -353,17 +353,15 @@ function breakTies(tiesToBreak, text, options) {
   const { precedingNode, followingNode, enclosingNode } = tiesToBreak[0];
 
   const gapRegExp =
-    (options.printer.getGapRegex &&
-      options.printer.getGapRegex(enclosingNode)) ||
-    /^[\s(]*$/;
+    options.printer.getGapRegex?.(enclosingNode, options) || /^[\s(]*$/;
 
   let gapEndPos = options.locStart(followingNode);
 
-  // Iterate backwards through tiesToBreak, examining the gaps
-  // between the tied comments. In order to qualify as leading, a
-  // comment must be separated from followingNode by an unbroken series of
-  // gaps (or other comments). Gaps should only contain whitespace or open
-  // parentheses.
+  // Iterate backwards through tiesToBreak, examining the gaps between the tied
+  // comments. In order to qualify as leading, a comment must be separated from
+  // followingNode by an unbroken series of gaps (or other comments). By
+  // default, unless printer.getGapRegex returns a custom regex, gaps should
+  // only contain whitespace or open parentheses.
   let indexOfFirstLeadingComment;
   for (
     indexOfFirstLeadingComment = tieCount;
