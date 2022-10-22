@@ -356,52 +356,6 @@ function cleanDoc(doc) {
   return mapDoc(doc, (currentDoc) => cleanDocFn(currentDoc));
 }
 
-function normalizeParts(parts) {
-  const newParts = [];
-
-  const restParts = parts.filter(Boolean);
-  while (restParts.length > 0) {
-    const part = restParts.shift();
-
-    if (!part) {
-      continue;
-    }
-
-    if (Array.isArray(part)) {
-      restParts.unshift(...part);
-      continue;
-    }
-
-    if (
-      newParts.length > 0 &&
-      typeof newParts.at(-1) === "string" &&
-      typeof part === "string"
-    ) {
-      newParts[newParts.length - 1] += part;
-      continue;
-    }
-
-    newParts.push(part);
-  }
-
-  return newParts;
-}
-
-function normalizeDoc(doc) {
-  return mapDoc(doc, (currentDoc) => {
-    if (Array.isArray(currentDoc)) {
-      return normalizeParts(currentDoc);
-    }
-    if (!currentDoc.parts) {
-      return currentDoc;
-    }
-    return {
-      ...currentDoc,
-      parts: normalizeParts(currentDoc.parts),
-    };
-  });
-}
-
 function replaceEndOfLine(doc, replacement = literalline) {
   return mapDoc(doc, (currentDoc) =>
     typeof currentDoc === "string"
@@ -429,8 +383,6 @@ export {
   propagateBreaks,
   removeLines,
   stripTrailingHardline,
-  normalizeParts,
-  normalizeDoc,
   cleanDoc,
   replaceEndOfLine,
   canBreak,

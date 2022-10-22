@@ -3,6 +3,7 @@ import {
   getMaxContinuousCount,
   getStringWidth,
 } from "../common/util.js";
+import { DOC_TYPE_FILL, DOC_TYPE_ARRAY } from "../document/constants.js";
 import {
   breakParent,
   join,
@@ -18,7 +19,7 @@ import {
   group,
   hardlineWithoutBreakParent,
 } from "../document/builders.js";
-import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
+import { mapDoc, replaceEndOfLine, getDocType } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
@@ -849,6 +850,48 @@ function clamp(value, min, max) {
 
 function hasPrettierIgnore(path) {
   return path.index > 0 && isPrettierIgnore(path.previous) === "next";
+}
+
+function normalizeParts(parts) {
+  return parts.reduce((current, part) => {
+    const lastPart = current.at(-1);
+
+    if (typeof lastPart === "string" && typeof part === "string") {
+      current.splice(-1, 1, lastPart + part);
+    } else {
+      current.push(part);
+    }
+
+    return current;
+  }, []);
+}
+
+function normalizeDoc(doc) {
+  return mapDoc(doc, (currentDoc) => {
+    const type = getDocType(currentDoc);
+    if (type !== DOC_TYPE_ARRAY && type !== DOC_TYPE_FILL) {
+      return currentDoc;
+    }
+
+    if (type === DOC_TYPE_ARRAY && currentDoc.length === 1) {
+      return currentDoc[0];
+    }
+
+    let parts = type === DOC_TYPE_ARRAY ? currentDoc : currentDoc.parts;
+
+    parts = parts.reduce((parts, part) => {
+      if (Array.isArray(part)) {
+        parts.push(...part);
+      } else if (part !== "") {
+        parts.push(part);
+      }
+      return parts;
+    }, []);
+
+    parts = normalizeParts(parts);
+
+    return type === DOC_TYPE_ARRAY ? parts : { ...currentDoc, parts };
+  });
 }
 
 const printer = {
