@@ -33,14 +33,9 @@ function getSupportInfo({
     .map((option) => {
       option = { ...option };
 
+      // This work this way because we used support `[{value: [], since: '0.0.0'}]`
       if (Array.isArray(option.default)) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          "the default value of option should be a primitive value or a function."
-        );
-        option.default = option.default[0].value;
-      } else if (typeof option.default === "function") {
-        option.default = option.default();
+        option.default = option.default.at(-1).value;
       }
 
       if (Array.isArray(option.choices)) {

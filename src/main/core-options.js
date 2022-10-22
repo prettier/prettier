@@ -25,7 +25,7 @@ const CATEGORY_SPECIAL = "Special";
  * @property {string} [cliDescription]
  *
  * @typedef {number | boolean | string | []} OptionValue
- * @typedef {OptionValue | [{ value: OptionValue }] | (() => OptionValue)} OptionValueInfo
+ * @typedef {OptionValue | [{ value: OptionValue }]} OptionValueInfo
  *
  * @typedef {Object} OptionRedirectInfo
  * @property {string} option
@@ -137,7 +137,7 @@ const options = {
   plugins: {
     type: "path",
     array: true,
-    default: () => [],
+    default: [{ value: [] }],
     category: CATEGORY_GLOBAL,
     description:
       "Add a plugin. Multiple plugins can be passed as separate `--plugin`s.",
@@ -149,7 +149,7 @@ const options = {
   pluginSearchDirs: {
     type: "path",
     array: true,
-    default: () => [],
+    default: [{ value: [] }],
     category: CATEGORY_GLOBAL,
     description: outdent`
       Custom directory that contains prettier plugins in node_modules subdirectory.
