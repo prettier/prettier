@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import { format, getSupportInfo } from "../index.js";
+import { format } from "../index.js";
+import { getSupportInfo } from "../src/main/support.js";
 import generateSchema from "./utils/generate-schema.mjs";
 
 console.log(
-  format(JSON.stringify(generateSchema(getSupportInfo().options)), {
+  await format(JSON.stringify(generateSchema(getSupportInfo().options)), {
     parser: "json",
   })
 );

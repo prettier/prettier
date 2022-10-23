@@ -63,9 +63,30 @@ class Playground extends React.Component {
 
     const options = Object.assign(defaultOptions, original.options);
 
-    // backwards support for old parser `babylon`
+    // 0.0.0 ~ 0.0.10
     if (options.parser === "babylon") {
       options.parser = "babel";
+    }
+
+    // 0.0.0 ~ 0.0.10
+    if (options.useFlowParser) {
+      options.parser ??= "flow";
+    }
+
+    // 1.8.2 ~ 1.9.0
+    if (typeof options.proseWrap === "boolean") {
+      options.proseWrap = options.proseWrap ? "always" : "never";
+    }
+
+    // 0.0.0 ~ 1.9.0
+    if (typeof options.trailingComma === "boolean") {
+      options.trailingComma = options.trailingComma ? "es5" : "none";
+    }
+
+    // 0.17.0 ~ 2.4.0
+    if (options.jsxBracketSameLine) {
+      delete options.jsxBracketSameLine;
+      options.bracketSameLine ??= options.jsxBracketSameLine;
     }
 
     const codeSample = getCodeSample(options.parser);

@@ -79,7 +79,6 @@ function handleMessage(message) {
 
 async function handleMetaMessage() {
   const supportInfo = await prettier.getSupportInfo({
-    showUnreleased: true,
     plugins: [docExplorerPlugin],
   });
 

@@ -19,7 +19,6 @@ async function normalize(options, opts = {}) {
 
   const supportOptions = getSupportInfo({
     plugins: options.plugins,
-    showUnreleased: true,
     showDeprecated: true,
   }).options;
 
@@ -118,9 +117,7 @@ function getPlugin(options) {
 
 function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
-  const languages = getSupportInfo({ plugins }).languages.filter(
-    (language) => language.since !== null
-  );
+  const { languages } = getSupportInfo({ plugins });
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,

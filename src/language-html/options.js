@@ -6,7 +6,6 @@ const CATEGORY_HTML = "HTML";
 const options = {
   bracketSameLine: commonOptions.bracketSameLine,
   htmlWhitespaceSensitivity: {
-    since: "1.15.0",
     category: CATEGORY_HTML,
     type: "choice",
     default: "css",
@@ -28,7 +27,6 @@ const options = {
   },
   singleAttributePerLine: commonOptions.singleAttributePerLine,
   vueIndentScriptAndStyle: {
-    since: "1.19.0",
     category: CATEGORY_HTML,
     type: "boolean",
     default: false,
