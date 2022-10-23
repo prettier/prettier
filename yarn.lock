@@ -84,14 +84,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/generator@npm:7.19.5, @babel/generator@npm:^7.18.10, @babel/generator@npm:^7.7.2":
-  version: 7.19.5
-  resolution: "@babel/generator@npm:7.19.5"
+"@babel/generator@npm:7.19.6, @babel/generator@npm:^7.18.10, @babel/generator@npm:^7.7.2":
+  version: 7.19.6
+  resolution: "@babel/generator@npm:7.19.6"
   dependencies:
     "@babel/types": ^7.19.4
     "@jridgewell/gen-mapping": ^0.3.2
     jsesc: ^2.5.1
-  checksum: a66eafc540f80fc36c1b009b28bde1d12aff85e7916e7f5adf49c5a8866fecee4906b3c3c6db315d2723ea54e4e5ddfb2913fe6ab424f51dbccf753000930eaf
+  checksum: 734fcb1fbef182e7b8967459cb39b81edd2701dd13170c154b368d4e086842f72ef214798c5a37e67e0a695dfb34b13143277bedcd9795b3b1b83da8e1d236c6
   languageName: node
   linkType: hard
 
@@ -6595,7 +6595,7 @@ __metadata:
   dependencies:
     "@angular/compiler": 14.2.7
     "@babel/code-frame": 7.18.6
-    "@babel/generator": 7.19.5
+    "@babel/generator": 7.19.6
     "@babel/parser": 7.19.6
     "@babel/types": 7.19.4
     "@esbuild-plugins/node-modules-polyfill": 0.1.4
