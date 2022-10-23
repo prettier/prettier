@@ -115,6 +115,7 @@ module.exports = {
     // Internal rules
     "prettier-internal-rules/jsx-identifier-case": "error",
     "prettier-internal-rules/no-identifier-n": "error",
+    "prettier-internal-rules/prefer-fs-promises-submodule": "error",
 
     // @typescript-eslint/eslint-plugin
     "@typescript-eslint/prefer-ts-expect-error": "error",
@@ -343,7 +344,6 @@ module.exports = {
         "prettier-internal-rules/prefer-ast-path-each": "error",
         "prettier-internal-rules/prefer-indent-if-break": "error",
         "prettier-internal-rules/prefer-is-non-empty-array": "error",
-        "prettier-internal-rules/prefer-fs-promises-submodule": "error",
         "prettier-internal-rules/prefer-ast-path-getters": "error",
       },
     },
