@@ -1,5 +1,5 @@
 import path from "node:path";
-import { promises as fs } from "node:fs";
+import fs from "node:fs/promises";
 import { outdent } from "outdent";
 import { DIST_DIR, PROJECT_ROOT } from "../utils/index.mjs";
 
