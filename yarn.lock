@@ -6712,7 +6712,6 @@ __metadata:
     remark-footnotes: 2.0.0
     remark-math: 3.0.1
     remark-parse: 8.0.3
-    rimraf: 3.0.2
     rollup-plugin-license: 2.8.2
     sdbm: 2.0.0
     semver: 7.3.8
@@ -7090,7 +7089,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:3.0.2, rimraf@npm:^3.0.2":
+"rimraf@npm:^3.0.2":
   version: 3.0.2
   resolution: "rimraf@npm:3.0.2"
   dependencies:

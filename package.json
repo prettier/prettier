@@ -144,7 +144,6 @@
     "path-browserify": "1.0.1",
     "prettier": "2.7.1",
     "pretty-bytes": "6.0.0",
-    "rimraf": "3.0.2",
     "rollup-plugin-license": "2.8.2",
     "semver": "7.3.8",
     "snapshot-diff": "0.10.0",
