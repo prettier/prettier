@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const flowParser = require("flow-parser");
 const fastGlob = require("fast-glob");
-const rimraf = require("rimraf");
 
 const DEFAULT_SPEC_CONTENT = "run_spec(__dirname);\n";
 const SPEC_FILE_NAME = "jsfmt.spec.js";
@@ -50,7 +49,7 @@ function syncTests(syncDir) {
 
   const skipped = [];
 
-  rimraf.sync(FLOW_TESTS_DIR);
+  fs.rmSync(FLOW_TESTS_DIR);
 
   for (const file of filesToCopy) {
     const content = fs.readFileSync(file, "utf8");
