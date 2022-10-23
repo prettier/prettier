@@ -1,7 +1,6 @@
 import path from "node:path";
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
-import rimraf from "rimraf";
 
 function resolveDir(dir) {
   return fileURLToPath(new URL(`../${dir}/`, import.meta.url));
@@ -26,8 +25,11 @@ describe("--cache option", () => {
   });
 
   afterEach(async () => {
-    rimraf.sync(path.join(dir, "node_modules"));
-    rimraf.sync(nonDefaultCacheFilePath);
+    await fs.rm(path.join(dir, "node_modules"), {
+      force: true,
+      recursive: true,
+    });
+    await fs.rm(nonDefaultCacheFilePath, { force: true });
     await fs.writeFile(path.join(dir, "a.js"), contentA);
     await fs.writeFile(path.join(dir, "b.js"), contentB);
   });
