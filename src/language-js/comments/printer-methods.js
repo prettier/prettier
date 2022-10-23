@@ -86,7 +86,7 @@ function getGapRegex(enclosingNode, { parser }) {
   if (parser === "flow" || parser === "babel-flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
-    return /^[\s(]*(\/\*[\s(]*)?$/;
+    return /^[\s(]*(\/\*(\s*::)?[\s(]*)?$/;
   }
 }
 
