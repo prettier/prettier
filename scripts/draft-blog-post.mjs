@@ -2,8 +2,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import rimraf from "rimraf";
 import createEsmUtils from "esm-utils";
+import fg from "fast-glob";
 import {
   getEntries,
   replaceVersions,
@@ -67,7 +67,9 @@ for (const dir of changelogUnreleasedDirs) {
   category.entries = getEntries(dirPath);
 }
 
-rimraf.sync(postGlob);
+for (const filePath of fg.sync(postGlob)) {
+  fs.rmSync(filePath);
+}
 
 const introFileData = fs.readFileSync(introFile, "utf8").trim();
 
