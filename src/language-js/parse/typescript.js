@@ -8,6 +8,8 @@ import postprocess from "./postprocess/index.js";
 const parseOptions = {
   // `jest@<=26.4.2` rely on `loc`
   // https://github.com/facebook/jest/issues/10444
+  // Set `loc` and `range` to `true` also prevent AST traverse
+  // https://github.com/typescript-eslint/typescript-eslint/blob/733b3598c17d3a712cf6f043115587f724dbe3ef/packages/typescript-estree/src/ast-converter.ts#L38
   loc: true,
   range: true,
   comment: true,

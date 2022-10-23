@@ -110,6 +110,13 @@ const pluginFiles = [
         ),
         text: "module.exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
+      // Only needed if `range`/`loc` in parse options is `false`
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/ast-converter.js"
+        ),
+        process: (text) => text.replace('require("./simple-traverse")', "{}"),
+      },
       {
         module: require.resolve("debug/src/browser.js"),
         path: path.join(dirname, "./shims/debug.js"),
