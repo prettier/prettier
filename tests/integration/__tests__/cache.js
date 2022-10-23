@@ -95,8 +95,8 @@ describe("--cache option", () => {
           listDifferent: false,
           trailingCommaAll: false,
         }
-      ) => {
-        return [
+      ) =>
+        [
           "--cache",
           "--cache-strategy",
           strategy,
@@ -106,7 +106,6 @@ describe("--cache option", () => {
           trailingCommaAll && "all",
           ".",
         ].filter(Boolean);
-      };
 
     describe("--cache-strategy metadata", () => {
       const getCliArguments = createGetCliArguments("metadata");
@@ -471,15 +470,14 @@ describe("--cache option", () => {
   describe("--cache-location", () => {
     const getCliArguments = (
       { write, cacheLocation } = { write: false, cacheLocation: undefined }
-    ) => {
-      return [
+    ) =>
+      [
         "--cache",
         write && "--write",
         cacheLocation && "--cache-location",
         cacheLocation,
         ".",
       ].filter(Boolean);
-    };
 
     it("doesn't create default cache file when `--cache-location` exists", async () => {
       await expect(fs.stat(defaultCacheFile)).rejects.toHaveProperty(
