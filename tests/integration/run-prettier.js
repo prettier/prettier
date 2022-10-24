@@ -46,6 +46,10 @@ async function run(dir, args, options) {
     .spyOn(fs.promises, "writeFile")
     // eslint-disable-next-line require-await
     .mockImplementation(async (filename, content) => {
+      const error = (options.mockWriteFileErrors || {})[filename];
+      if (error) {
+        throw new Error(error);
+      }
       write.push({ filename, content });
     });
 
