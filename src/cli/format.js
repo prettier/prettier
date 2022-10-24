@@ -488,21 +488,15 @@ async function formatFiles(context) {
   if (context.argv.check) {
     if (numberOfUnformattedFilesFound === 0) {
       context.logger.log("All matched files use Prettier code style!");
-    } else if (numberOfUnformattedFilesFound === 1) {
-      context.logger.warn(
-        context.argv.write
-          ? "Code style issues fixed in the above file."
-          : "Code style issues found in the above file. Forgot to run Prettier?"
-      );
     } else {
+      const files =
+        numberOfUnformattedFilesFound === 1
+          ? "the above file"
+          : `${numberOfUnformattedFilesFound} files`;
       context.logger.warn(
         context.argv.write
-          ? "Code style issues fixed in " +
-              numberOfUnformattedFilesFound +
-              " files."
-          : "Code style issues found in " +
-              numberOfUnformattedFilesFound +
-              " files. Run Prettier to fix."
+          ? `Code style issues fixed in ${files}.`
+          : `Code style issues found in ${files}. Run Prettier to fix.`
       );
     }
   }
