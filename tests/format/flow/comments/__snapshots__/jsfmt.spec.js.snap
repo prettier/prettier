@@ -30,6 +30,28 @@ const run = (cmd: string): Promise<void> => {};
 ================================================================================
 `;
 
+exports[`cast.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(a /* b */ /*: c */);
+(a /* b */   : c   );
+(a /* b */ /*  : c */);
+(a /* b */ /*:: : c */);
+(a /* b */ /*  :: : c */);
+
+=====================================output=====================================
+(a: /* b */ c);
+(a: /* b */ c);
+(a: /* b */ c);
+(a: /* b */ c);
+(a: /* b */ c);
+
+================================================================================
+`;
+
 exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
@@ -62,6 +84,26 @@ function foo<T>(bar  /*: T[] */, baz  /*: T */) /*: S */ {}
 
 =====================================output=====================================
 function foo<T>(bar: T[], baz: T): S {}
+
+================================================================================
+`;
+
+exports[`functions2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f1(a /* b */ /*: c */){}
+function f2(a /* b */   : c   ){}
+function f3(a /* b */ /*  : c */){}
+function f4(a /* b */ /*:: : c */){}
+
+=====================================output=====================================
+function f1(a: /* b */ c) {}
+function f2(a: /* b */ c) {}
+function f3(a: /* b */ c) {}
+function f4(a: /* b */ c) {}
 
 ================================================================================
 `;
@@ -309,6 +351,32 @@ foo<bar>(baz);
 class Foo {
   bar(data: Array<string>) {}
 }
+
+================================================================================
+`;
+
+exports[`type_annotations-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type { OneType } from './oneFile.js'
+/*::
+import type { HelloType } from './otherFile.js'
+*/
+
+type PropTypes = {|
+  TestComponent: React.AbstractComponent<any>,
+  hello: HelloType,
+|};
+=====================================output=====================================
+import type { OneType } from "./oneFile.js";
+import type { HelloType } from "./otherFile.js";
+type PropTypes = {|
+  TestComponent: React.AbstractComponent<any>,
+  hello: HelloType,
+|};
 
 ================================================================================
 `;

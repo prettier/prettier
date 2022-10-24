@@ -82,6 +82,15 @@ function willPrintOwnComments({ node, parent }) {
   );
 }
 
+function isGap(text, { parser }) {
+  if (parser === "flow" || parser === "babel-flow") {
+    // Example: (a /* b */ /* : c */)
+    //                gap ^^^^
+    text = text.replace(/[\s(]/g, "");
+    return text === "" || text === "/*" || text === "/*::";
+  }
+}
+
 export * as handleComments from "./handle-comments.js";
 export { printComment } from "../print/comment.js";
 export {
@@ -90,4 +99,5 @@ export {
   hasPrettierIgnore,
   isBlockComment,
   willPrintOwnComments,
+  isGap,
 };
