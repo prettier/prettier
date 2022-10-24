@@ -11,6 +11,10 @@ async function run() {
   Date.now = () => 0;
   // eslint-disable-next-line require-await
   fs.promises.writeFile = async (filename, content) => {
+    const error = (options.mockWriteFileErrors || {})[filename];
+    if (error) {
+      throw new Error(error);
+    }
     parentPort.postMessage({
       action: "write-file",
       data: { filename, content },

@@ -39,7 +39,7 @@ class FormatResultsCache {
   #fileEntryCache;
 
   /**
-   * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/prettier-cache`)
+   * @param {string} cacheFileLocation The path of cache file location. (default: `node_modules/.cache/prettier/.prettier-cache`)
    * @param {string} cacheStrategy
    */
   constructor(cacheFileLocation, cacheStrategy) {
@@ -58,21 +58,18 @@ class FormatResultsCache {
    */
   existsAvailableFormatResultsCache(filePath, options) {
     const fileDescriptor = this.#fileEntryCache.getFileDescriptor(filePath);
-    const hashOfOptions = getHashOfOptions(options);
-    const meta = getMetadataFromFileDescriptor(fileDescriptor);
-    const changed =
-      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
 
     /* c8 ignore next 3 */
     if (fileDescriptor.notFound) {
       return false;
     }
 
-    if (changed) {
-      return false;
-    }
+    const hashOfOptions = getHashOfOptions(options);
+    const meta = getMetadataFromFileDescriptor(fileDescriptor);
+    const changed =
+      fileDescriptor.changed || meta.hashOfOptions !== hashOfOptions;
 
-    return true;
+    return !changed;
   }
 
   /**
@@ -85,6 +82,13 @@ class FormatResultsCache {
     if (fileDescriptor && !fileDescriptor.notFound) {
       meta.hashOfOptions = getHashOfOptions(options);
     }
+  }
+
+  /**
+   * @param {string} filePath
+   */
+  removeFormatResultsCache(filePath) {
+    this.#fileEntryCache.removeEntry(filePath);
   }
 
   reconcile() {

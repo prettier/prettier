@@ -411,9 +411,8 @@ async function formatFiles(context) {
       continue;
     }
 
-    formatResultsCache?.setFormatResultsCache(filename, options);
-
     const isDifferent = output !== input;
+    let shouldSetCache = !isDifferent;
 
     if (printedFilename) {
       // Remove previously printed filename to log it with duration.
@@ -437,15 +436,16 @@ async function formatFiles(context) {
 
         try {
           await fs.writeFile(filename, output, "utf8");
+
+          // Set cache if format succeeds
+          shouldSetCache = true;
         } catch (error) {
-          /* c8 ignore start */
           context.logger.error(
             `Unable to write file: ${filename}\n${error.message}`
           );
 
           // Don't exit the process if one file failed
           process.exitCode = 2;
-          /* c8 ignore stop */
         }
       } else if (!context.argv.check && !context.argv.listDifferent) {
         const message = `${chalk.grey(filename)} ${Date.now() - start}ms`;
@@ -464,6 +464,12 @@ async function formatFiles(context) {
       }
     } else if (!context.argv.check && !context.argv.listDifferent) {
       writeOutput(context, result, options);
+    }
+
+    if (shouldSetCache) {
+      formatResultsCache?.setFormatResultsCache(filename, options);
+    } else {
+      formatResultsCache?.removeFormatResultsCache(filename);
     }
 
     if (isDifferent) {
