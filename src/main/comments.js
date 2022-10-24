@@ -350,18 +350,15 @@ function breakTies(tiesToBreak, text, options) {
   if (tieCount === 0) {
     return;
   }
-  const { precedingNode, followingNode, enclosingNode } = tiesToBreak[0];
-
-  const gapRegExp =
-    options.printer.getGapRegex?.(enclosingNode, options) || /^[\s(]*$/;
+  const { precedingNode, followingNode } = tiesToBreak[0];
 
   let gapEndPos = options.locStart(followingNode);
 
   // Iterate backwards through tiesToBreak, examining the gaps between the tied
   // comments. In order to qualify as leading, a comment must be separated from
   // followingNode by an unbroken series of gaps (or other comments). By
-  // default, unless printer.getGapRegex returns a custom regex, gaps should
-  // only contain whitespace or open parentheses.
+  // default, gaps should only contain whitespace or open parentheses.
+  // printer.isGap can be used to define custom logic for checking gaps.
   let indexOfFirstLeadingComment;
   for (
     indexOfFirstLeadingComment = tieCount;
@@ -378,7 +375,7 @@ function breakTies(tiesToBreak, text, options) {
 
     const gap = text.slice(options.locEnd(comment), gapEndPos);
 
-    if (gapRegExp.test(gap)) {
+    if (options.printer.isGap?.(gap, options) ?? /^[\s(]*$/.test(gap)) {
       gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open

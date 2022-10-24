@@ -82,11 +82,12 @@ function willPrintOwnComments({ node, parent }) {
   );
 }
 
-function getGapRegex(enclosingNode, { parser }) {
+function isGap(text, { parser }) {
   if (parser === "flow" || parser === "babel-flow") {
     // Example: (a /* b */ /* : c */)
     //                gap ^^^^
-    return /^[\s(]*(\/\*(\s*::)?[\s(]*)?$/;
+    text = text.replace(/[\s(]/g, "");
+    return text === "" || text === "/*" || text === "/*::";
   }
 }
 
@@ -98,5 +99,5 @@ export {
   hasPrettierIgnore,
   isBlockComment,
   willPrintOwnComments,
-  getGapRegex,
+  isGap,
 };
