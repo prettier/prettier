@@ -22,7 +22,7 @@ export default function esbuildPluginEvaluate() {
             }
 
             return format === "cjs"
-              ? `exports[${key}] = ${value};`
+              ? `exports.${key} = ${value};`
               : `export const ${key} = ${value};`;
           })
           .join("\n");
