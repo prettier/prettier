@@ -1,5 +1,5 @@
 import camelCase from "camelcase";
-import * as constant from "./constant.js";
+import { categoryOrder, usageSummary } from "./constants.evaluate.js";
 import { groupBy } from "./utils.js";
 import { optionsHiddenDefaults } from "./prettier-internal.js";
 
@@ -126,10 +126,10 @@ function createUsage(context) {
   );
   const groupedOptions = groupBy(options, (option) => option.category);
 
-  const firstCategories = constant.categoryOrder.slice(0, -1);
-  const lastCategories = constant.categoryOrder.slice(-1);
+  const firstCategories = categoryOrder.slice(0, -1);
+  const lastCategories = categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    (category) => !constant.categoryOrder.includes(category)
+    (category) => !categoryOrder.includes(category)
   );
   const allCategories = [
     ...firstCategories,
@@ -146,7 +146,7 @@ function createUsage(context) {
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
 
-  return [constant.usageSummary, ...optionsUsage, ""].join("\n\n");
+  return [usageSummary, ...optionsUsage, ""].join("\n\n");
 }
 
 function createPluginDefaults(pluginDefaults) {
