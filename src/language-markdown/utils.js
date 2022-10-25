@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { locStart, locEnd } from "./loc.js";
 import {
   cjkPattern,
-  kPattern,
+  kRegex,
   punctuationPattern,
 } from "./constants.evaluate.js";
 
@@ -34,7 +34,6 @@ const INLINE_NODE_WRAPPER_TYPES = [
   "heading",
 ];
 
-const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
 
 const KIND_NON_CJK = "non-cjk";
