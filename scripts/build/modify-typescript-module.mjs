@@ -173,6 +173,7 @@ function modifyTypescriptModule(text) {
     })
     .replace("ts.createLanguageService = createLanguageService;", "");
 
+  /* spell-checker: disable */
   // `ts.createParenthesizerRules`
   source
     .replaceAlignedCode({
@@ -183,6 +184,7 @@ function modifyTypescriptModule(text) {
       "ts.createParenthesizerRules = createParenthesizerRules;",
       "ts.createParenthesizerRules = () => ts.nullParenthesizerRules;"
     );
+  /* spell-checker: enable */
 
   // `ts.createNodeConverters`
   source
