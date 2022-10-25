@@ -2,7 +2,7 @@ import commonOptions from "../common/common-options.js";
 
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
-// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.evaluate.js
 const options = {
   arrowParens: {
     category: CATEGORY_JAVASCRIPT,

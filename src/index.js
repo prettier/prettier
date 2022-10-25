@@ -13,7 +13,7 @@ import {
 } from "./config/resolve-config.js";
 import * as languages from "./languages.js";
 import * as errors from "./common/errors.js";
-import * as coreOptions from "./main/core-options.js";
+import * as coreOptions from "./main/core-options.evaluate.js";
 import createIgnorer from "./common/create-ignorer.js";
 import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
 import normalizeOptions from "./main/options-normalizer.js";

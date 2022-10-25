@@ -2,7 +2,7 @@ import commonOptions from "../common/common-options.js";
 
 const CATEGORY_HTML = "HTML";
 
-// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
+// format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.evaluate.js
 const options = {
   bracketSameLine: commonOptions.bracketSameLine,
   htmlWhitespaceSensitivity: {

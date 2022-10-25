@@ -1,8 +1,8 @@
 import arrayify from "../utils/arrayify.js";
-import { options as coreOptions } from "./core-options.js";
+import { options as coreOptions } from "./core-options.evaluate.js";
 
 /**
- * @typedef {import("./core-options.js").OptionInfo} OptionInfo
+ * @typedef {import("./core-options.evaluate.js").OptionInfo} OptionInfo
  * @typedef {{ name: string; pluginDefaults: Array<any> } & OptionInfo} NamedOptionInfo
  */
 
