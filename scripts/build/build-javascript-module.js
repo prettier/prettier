@@ -113,7 +113,7 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     define.process = undefined;
     // @babel/code-frame/lib/index.js
     define["process.emitWarning"] = undefined;
-    // @babel/code-frame/lib/index.js
+    // postcss/lib/postcss.js
     define["process.env.LANG"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
