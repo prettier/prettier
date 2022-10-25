@@ -1,4 +1,5 @@
 import vnopts from "vnopts";
+import fastGlob from "fast-glob";
 import core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
@@ -81,6 +82,7 @@ const sharedWithCli = {
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   vnopts,
+  fastGlob,
   utils: {
     arrayify,
     isNonEmptyArray,
