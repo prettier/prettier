@@ -58,12 +58,7 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       }
 
       case DOC_TYPE_IF_BREAK:
-        if (doc.flatContents) {
-          docsStack.push(doc.flatContents);
-        }
-        if (doc.breakContents) {
-          docsStack.push(doc.breakContents);
-        }
+        docsStack.push(doc.flatContents, doc.breakContents);
         break;
 
       case DOC_TYPE_GROUP:

@@ -83,8 +83,8 @@ Expects the `docs` argument to be an array of alternating content and line break
 
 ```ts
 declare function ifBreak(
-  ifBreak: Doc,
-  noBreak?: Doc,
+  breakContents: Doc,
+  flatContents?: Doc,
   options?: { groupId?: symbol }
 ): Doc;
 ```

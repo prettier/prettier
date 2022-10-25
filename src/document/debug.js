@@ -46,7 +46,7 @@ function flattenDoc(doc) {
     return {
       ...doc,
       contents: flattenDoc(doc.contents),
-      expandedStates: doc.expandedStates && doc.expandedStates.map(flattenDoc),
+      expandedStates: doc.expandedStates?.map(flattenDoc),
     };
   }
 

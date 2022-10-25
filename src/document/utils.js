@@ -65,12 +65,12 @@ function mapDoc(doc, cb) {
       case DOC_TYPE_FILL:
         return cb({ ...doc, parts: doc.parts.map(rec) });
 
-      case DOC_TYPE_IF_BREAK: {
-        let { breakContents, flatContents } = doc;
-        breakContents &&= rec(breakContents);
-        flatContents &&= rec(flatContents);
-        return cb({ ...doc, breakContents, flatContents });
-      }
+      case DOC_TYPE_IF_BREAK:
+        return cb({
+          ...doc,
+          breakContents: rec(doc.breakContents),
+          flatContents: rec(doc.flatContents),
+        });
 
       case DOC_TYPE_GROUP: {
         let { expandedStates, contents } = doc;
@@ -194,7 +194,7 @@ function removeLinesFn(doc) {
   }
 
   if (doc.type === DOC_TYPE_IF_BREAK) {
-    return doc.flatContents || "";
+    return doc.flatContents;
   }
 
   return doc;
@@ -235,12 +235,12 @@ function stripTrailingHardlineFromDoc(doc) {
       return { ...doc, contents };
     }
 
-    case DOC_TYPE_IF_BREAK: {
-      let { breakContents, flatContents } = doc;
-      breakContents &&= stripTrailingHardlineFromDoc(breakContents);
-      flatContents &&= stripTrailingHardlineFromDoc(flatContents);
-      return { ...doc, breakContents, flatContents };
-    }
+    case DOC_TYPE_IF_BREAK:
+      return {
+        ...doc,
+        breakContents: stripTrailingHardlineFromDoc(doc.breakContents),
+        flatContents: stripTrailingHardlineFromDoc(doc.flatContents),
+      };
 
     case DOC_TYPE_FILL:
       return { ...doc, parts: stripTrailingHardlineFromParts(doc.parts) };

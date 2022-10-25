@@ -143,12 +143,12 @@ function fill(parts) {
 }
 
 /**
- * @param {Doc} [breakContents]
+ * @param {Doc} breakContents
  * @param {Doc} [flatContents]
  * @param {object} [opts] - TBD ???
  * @returns Doc
  */
-function ifBreak(breakContents, flatContents, opts = {}) {
+function ifBreak(breakContents, flatContents = "", opts = {}) {
   if (process.env.NODE_ENV !== "production") {
     if (breakContents) {
       assertDoc(breakContents);
