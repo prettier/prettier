@@ -6,7 +6,7 @@ import {
   punctuationPattern,
 } from "./constants.evaluate.js";
 
-const INLINE_NODE_TYPES = [
+const INLINE_NODE_TYPES = new Set([
   "liquidNode",
   "inlineCode",
   "emphasis",
@@ -25,14 +25,14 @@ const INLINE_NODE_TYPES = [
   "word",
   "break",
   "inlineMath",
-];
+]);
 
-const INLINE_NODE_WRAPPER_TYPES = [
+const INLINE_NODE_WRAPPER_TYPES = new Set([
   ...INLINE_NODE_TYPES,
   "tableCell",
   "paragraph",
   "heading",
-];
+]);
 
 const punctuationRegex = new RegExp(punctuationPattern);
 
