@@ -3,7 +3,7 @@ function stringify(value) {
     value !== null &&
     !["boolean", "number", "string", "undefined"].includes(typeof value)
   ) {
-    throw Object.assign(new TypeError("value not allowed"), {value});
+    throw Object.assign(new TypeError("value not allowed"), { value });
   }
 
   return JSON.stringify(value);
