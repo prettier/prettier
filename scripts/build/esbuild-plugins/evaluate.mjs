@@ -1,34 +1,32 @@
 import createEsmUtils from "esm-utils";
+import serialize from "serialize-javascript";
 
 const { importModule } = createEsmUtils(import.meta);
-
-function serialize(value) {
-  return JSON.stringify(
-    value,
-    (_, v) => {
-      if (typeof v === "function") {
-        throw new TypeError("Cannot evaluate functions.");
-      }
-      return v;
-    },
-    2
-  );
-}
 
 export default function esbuildPluginEvaluate() {
   return {
     name: "evaluate",
-
     setup(build) {
+      const { format } = build.initialOptions;
+
       build.onLoad({ filter: /\.evaluate\.c?js$/ }, async ({ path }) => {
         const module = await importModule(path);
         const text = Object.entries(module)
-          .map(([key, value]) =>
-            key === "default"
-              ? `export default ${serialize(value)};`
-              : `export const ${key} = ${serialize(value)};`
-          )
+          .map(([key, value]) => {
+            value = serialize(value, { space: 2 });
+
+            if (key === "default") {
+              return format === "cjs"
+                ? `module.exports = ${value};`
+                : `export default ${value};`;
+            }
+
+            return format === "cjs"
+              ? `exports[${key}] = ${value};`
+              : `export const ${key} = ${value};`;
+          })
           .join("\n");
+
         return { contents: text };
       });
     },
