@@ -1,7 +1,7 @@
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParserByLanguage from "../utils/infer-parser-by-language.js";
 import createError from "../common/parser-create-error.js";
-import HTML_TAGS from "./utils/html-tag-names.js";
+import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
 import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 import { hasPragma } from "./pragma.js";
@@ -230,7 +230,7 @@ function ngHtmlParser(
       ) {
         node.name = lowerCaseIfFn(
           node.name,
-          (lowerCasedName) => lowerCasedName in HTML_TAGS
+          (lowerCasedName) => HTML_TAGS.has(lowerCasedName)
         );
       }
 
