@@ -41,8 +41,7 @@ function createParse({ isMDX }) {
   return async (text) => {
     const { frontMatter, content } = parseFrontMatter(text);
     if (frontMatter) {
-      const spacer = frontMatter.raw.replace(/./g, " ");
-      const ast = await processor.run(processor.parse(spacer + content));
+      const ast = await processor.run(processor.parse(content));
       ast.children.unshift(frontMatter);
       return ast;
     }
