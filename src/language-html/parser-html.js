@@ -2,7 +2,7 @@ import parseFrontMatter from "../utils/front-matter/parse.js";
 import inferParserByLanguage from "../utils/infer-parser-by-language.js";
 import createError from "../common/parser-create-error.js";
 import HTML_TAGS from "./utils/html-tag-names.evaluate.js";
-import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.js";
+import HTML_ELEMENT_ATTRIBUTES from "./utils/html-elements-attributes.evaluate.js";
 import isUnknownNamespace from "./utils/is-unknown-namespace.js";
 import { hasPragma } from "./pragma.js";
 import { Node } from "./ast.js";
@@ -228,23 +228,22 @@ function ngHtmlParser(
           node.namespace === node.tagDefinition.implicitNamespacePrefix ||
           isUnknownNamespace(node))
       ) {
-        node.name = lowerCaseIfFn(
-          node.name,
-          (lowerCasedName) => HTML_TAGS.has(lowerCasedName)
+        node.name = lowerCaseIfFn(node.name, (lowerCasedName) =>
+          HTML_TAGS.has(lowerCasedName)
         );
       }
 
       if (normalizeAttributeName) {
-        const CURRENT_HTML_ELEMENT_ATTRIBUTES =
-          HTML_ELEMENT_ATTRIBUTES[node.name] || Object.create(null);
         for (const attr of node.attrs) {
           if (!attr.namespace) {
             attr.name = lowerCaseIfFn(
               attr.name,
               (lowerCasedAttrName) =>
-                node.name in HTML_ELEMENT_ATTRIBUTES &&
-                (lowerCasedAttrName in HTML_ELEMENT_ATTRIBUTES["*"] ||
-                  lowerCasedAttrName in CURRENT_HTML_ELEMENT_ATTRIBUTES)
+                HTML_ELEMENT_ATTRIBUTES.has(node.name) &&
+                (HTML_ELEMENT_ATTRIBUTES.get("*").has(lowerCasedAttrName) ||
+                  HTML_ELEMENT_ATTRIBUTES.get(node.name).has(
+                    lowerCasedAttrName
+                  ))
             );
           }
         }

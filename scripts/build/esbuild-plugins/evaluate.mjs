@@ -26,7 +26,6 @@ export default function esbuildPluginEvaluate() {
               : `export const ${key} = ${value};`;
           })
           .join("\n");
-
         return { contents: text };
       });
     },
