@@ -118,6 +118,11 @@ class TypeScriptModuleSource {
     return this;
   }
 
+  replace(...args) {
+    this.#source.replace(...args);
+    return this;
+  }
+
   replaceAll(...args) {
     this.#source.replaceAll(...args);
     return this;
@@ -147,6 +152,11 @@ function modifyTypescriptModule(text) {
   source.remove(positionOfGlobalThisShim, text.length);
   source.append("module.exports = ts;");
 
+  // `Map`/`Set` shim
+  source.removeSubmodule((text) =>
+    text.includes("ShimCollections = ts.ShimCollections")
+  );
+
   // File system
   source.removeSubmodule((text) =>
     text.includes("ts.generateDjb2Hash = generateDjb2Hash;")
@@ -156,18 +166,54 @@ function modifyTypescriptModule(text) {
   source.removeSubmodule((text) =>
     text.includes("ts.TypeScriptServicesFactory = TypeScriptServicesFactory;")
   );
-  source.replaceAlignedCode({
-    start:
-      "function createLanguageService(host, documentRegistry, syntaxOnlyOrLanguageServiceMode) {",
-    end: "}",
-    replacement: "function createLanguageService() {}",
-  });
+  source
+    .replaceAlignedCode({
+      start: "function createLanguageService(",
+      end: "}",
+    })
+    .replace("ts.createLanguageService = createLanguageService;", "");
+
+  // `ts.createParenthesizerRules`
+  source
+    .replaceAlignedCode({
+      start: "function createParenthesizerRules(",
+      end: "}",
+    })
+    .replace(
+      "ts.createParenthesizerRules = createParenthesizerRules;",
+      "ts.createParenthesizerRules = () => ts.nullParenthesizerRules;"
+    );
+
+  // `ts.createNodeConverters`
+  source
+    .replaceAlignedCode({
+      start: "function createNodeConverters(",
+      end: "}",
+    })
+    .replace(
+      "ts.createNodeConverters = createNodeConverters;",
+      "ts.createNodeConverters = () => ts.nullNodeConverters;"
+    );
+
+  // `ts.getScriptTargetFeatures`
+  source
+    .replaceAlignedCode({
+      start: "function getScriptTargetFeatures(",
+      end: "}",
+    })
+    .replace("ts.getScriptTargetFeatures = getScriptTargetFeatures;", "");
 
   // `ts.Version`
   source.removeSubmodule((text) => text.includes("ts.Version = Version;"));
 
   // `ts.transform`
   source.removeSubmodule((text) => text.includes("ts.transform = transform;"));
+  source.removeSubmodule((text) =>
+    text.includes("ts.getOrCreateEmitNode = getOrCreateEmitNode;")
+  );
+  source.removeSubmodule((text) =>
+    text.includes("ts.createEmitHelperFactory = createEmitHelperFactory;")
+  );
 
   // `ts.BreakpointResolver`
   source.removeSubmodule((text) =>
