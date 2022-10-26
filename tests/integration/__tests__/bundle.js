@@ -95,3 +95,16 @@ test("global objects", async () => {
     expect(globalObjects).toStrictEqual({});
   }
 });
+
+test("Commonjs version", () => {
+  const prettierCommonjsVersion = require(path.join(
+    distDirectory,
+    "index.cjs"
+  ));
+
+  expect(typeof prettierCommonjsVersion.format).toBe("function");
+  expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
+  expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
+  expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
+  expect(typeof prettierCommonjsVersion.version).toBe("string");
+});

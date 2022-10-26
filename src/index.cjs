@@ -15,8 +15,25 @@ const functionNames = [
 
 const prettier = Object.create(null);
 for (const name of functionNames) {
-  prettier[name] = function (...args) {
-    return prettierPromise.then((prettier) => prettier[name](...args));
+  prettier[name] = async (...args) => {
+    const prettier = await prettierPromise;
+    return prettier[name](...args);
+  };
+}
+
+const debugApiFunctionNames = [
+  "parse",
+  "formatAST",
+  "formatDoc",
+  "printToDoc",
+  "printDocToString",
+];
+
+prettier.__debug = Object.create(null);
+for (const name of debugApiFunctionNames) {
+  prettier[name] = async (...args) => {
+    const prettier = await prettierPromise;
+    return prettier.__debug[name](...args);
   };
 }
 
