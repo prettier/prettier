@@ -29,13 +29,14 @@ const debugApiFunctionNames = [
   "printDocToString",
 ];
 
-prettier.__debug = Object.create(null);
+const debugApis = Object.create(null);
 for (const name of debugApiFunctionNames) {
-  prettier[name] = async (...args) => {
+  debugApis[name] = async (...args) => {
     const prettier = await prettierPromise;
     return prettier.__debug[name](...args);
   };
 }
+prettier.__debug = debugApis;
 
 if (process.env.NODE_ENV === "production") {
   prettier.util = require("./common/util-shared.js");

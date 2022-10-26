@@ -3,6 +3,7 @@ import path from "node:path";
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
 import { projectRoot } from "../env.js";
+import prettier from "../../config/prettier-entry.js";
 import createSandBox from "../../config/utils/create-sandbox.cjs";
 import * as coreOptions from "../../../src/main/core-options.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
@@ -102,9 +103,19 @@ test("Commonjs version", () => {
     "index.cjs"
   ));
 
+  expect(Object.keys(prettierCommonjsVersion)).toEqual(Object.keys(prettier));
   expect(typeof prettierCommonjsVersion.format).toBe("function");
+
+  expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
+    Object.keys(prettier.doc)
+  );
   expect(typeof prettierCommonjsVersion.doc.builders.fill).toBe("function");
+
+  expect(Object.keys(prettierCommonjsVersion.util)).toEqual(
+    Object.keys(prettier.util)
+  );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
-  expect(typeof prettierCommonjsVersion.version).toBe("string");
+
+  expect(prettierCommonjsVersion.version).toBe(prettier.version);
 });
