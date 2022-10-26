@@ -193,7 +193,12 @@ function handleIfStatementComments({
     precedingNode === enclosingNode.consequent &&
     followingNode === enclosingNode.alternate
   ) {
-    if (precedingNode.type === "BlockStatement") {
+    if (
+      precedingNode.type === "BlockStatement" ||
+      precedingNode.type === "BreakStatement" ||
+      precedingNode.type === "ContinueStatement" ||
+      precedingNode.type === "DebuggerStatement"
+    ) {
       addTrailingComment(precedingNode, comment);
     } else {
       const isSingleLineComment =
