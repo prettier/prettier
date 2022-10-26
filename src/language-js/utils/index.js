@@ -546,7 +546,7 @@ function isSimpleTemplateLiteral(node) {
     }
 
     if (expr.type === "ChainExpression") {
-      expr = expr.expression
+      expr = expr.expression;
     }
 
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
