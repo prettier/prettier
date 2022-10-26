@@ -1,4 +1,3 @@
-import { markdownLineEnding } from "micromark-util-character";
 import { codes } from "micromark-util-symbol/codes";
 import { markdownPlugin } from "./markdown-plugin.js";
 
