@@ -1,22 +1,8 @@
-import isNonEmptyArray from "../utils/is-non-empty-array.js";
-
 /**
  * @typedef {import("./types/estree.js").Node} Node
  */
 
-function locStart(node, opts) {
-  const { ignoreDecorators } = opts || {};
-
-  // Handle nodes with decorators. They should start at the first decorator
-  if (!ignoreDecorators) {
-    const decorators =
-      (node.declaration && node.declaration.decorators) || node.decorators;
-
-    if (isNonEmptyArray(decorators)) {
-      return locStart(decorators[0]);
-    }
-  }
-
+function locStart(node) {
   return node.range ? node.range[0] : node.start;
 }
 

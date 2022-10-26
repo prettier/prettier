@@ -7,7 +7,8 @@ function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
   return async function parse(text /*, options */) {
-    const { parseExpression } = await import("@babel/parser");
+    // const { parseExpression } = await import("@babel/parser");
+    const { parseExpression } = await import("./babel-parser.cjs");
     let ast;
     try {
       ast = parseExpression(text, {
