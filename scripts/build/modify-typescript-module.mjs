@@ -173,6 +173,26 @@ function modifyTypescriptModule(text) {
     })
     .replace("ts.createLanguageService = createLanguageService;", "");
 
+  // `ts.scanner`
+  // This is a big module, most code except `ts.scanner` is not used
+  source.replaceSubmodule(
+    (text) => text.includes("ts.findPackageJson = findPackageJson;"),
+    "ts.scanner = ts.createScanner(99 /* ScriptTarget.Latest */, /*skipTrivia*/ true);"
+  );
+
+  // `ts.visitNode`
+  source.removeSubmodule((text) => text.includes("ts.visitNode = visitNode;"));
+
+  // `ts.createGetSymbolWalker`
+  source.removeSubmodule((text) =>
+    text.includes("ts.createGetSymbolWalker = createGetSymbolWalker;")
+  );
+
+  // `ts.getModuleInstanceState `
+  source.removeSubmodule((text) =>
+    text.includes("ts.getModuleInstanceState = getModuleInstanceState;")
+  );
+
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
   source
@@ -199,7 +219,9 @@ function modifyTypescriptModule(text) {
 
   // `ts.classifier`
   source.removeSubmodule((text) => text.includes("classifier = ts.classifier"));
-  source.removeSubmodule((text) => text.includes("ts.createClassifier = createClassifier;"));
+  source.removeSubmodule((text) =>
+    text.includes("ts.createClassifier = createClassifier;")
+  );
 
   // `ts.getScriptTargetFeatures`
   source
