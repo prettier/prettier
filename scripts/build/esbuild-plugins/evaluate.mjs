@@ -1,5 +1,6 @@
 import createEsmUtils from "esm-utils";
 import serialize from "serialize-javascript";
+import { isValidIdentifier } from "@babel/types";
 
 const { importModule } = createEsmUtils(import.meta);
 
@@ -12,18 +13,22 @@ export default function esbuildPluginEvaluate() {
       build.onLoad({ filter: /\.evaluate\.c?js$/ }, async ({ path }) => {
         const module = await importModule(path);
         const text = Object.entries(module)
-          .map(([key, value]) => {
+          .map(([specifier, value]) => {
             value = serialize(value, { space: 2 });
 
-            if (key === "default") {
+            if (specifier === "default") {
               return format === "cjs"
                 ? `module.exports = ${value};`
                 : `export default ${value};`;
             }
 
+            if (!isValidIdentifier(specifier)) {
+              throw new Error(`${specifier} is not a valid specifier`);
+            }
+
             return format === "cjs"
-              ? `exports[${key}] = ${value};`
-              : `export const ${key} = ${value};`;
+              ? `exports[${specifier}] = ${value};`
+              : `export const ${specifier} = ${value};`;
           })
           .join("\n");
         return { contents: text };
