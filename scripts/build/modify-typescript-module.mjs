@@ -197,6 +197,10 @@ function modifyTypescriptModule(text) {
       "ts.createNodeConverters = () => ts.nullNodeConverters;"
     );
 
+  // `ts.classifier`
+  source.removeSubmodule((text) => text.includes("classifier = ts.classifier"));
+  source.removeSubmodule((text) => text.includes("ts.createClassifier = createClassifier;"));
+
   // `ts.getScriptTargetFeatures`
   source
     .replaceAlignedCode({
