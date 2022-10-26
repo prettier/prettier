@@ -782,11 +782,9 @@ function needsParens(path, options) {
     // fallthrough
     case "CallExpression":
     case "MemberExpression":
-    case "TaggedTemplateExpression":
-    case "TSNonNullExpression":
       if (
         isOptionalChainingRoot(path) &&
-        path.match(
+        (path.match(
           undefined,
           undefined,
           (node, name) =>
@@ -796,11 +794,42 @@ function needsParens(path, options) {
             (name === "object" &&
               node.type === "MemberExpression" &&
               !node.optional)
+        ) ||
+          path.match(
+            undefined,
+            undefined,
+            (node, name) =>
+              name === "expression" && node.type === "TSNonNullExpression",
+            (node, name) =>
+              name === "object" && node.type === "MemberExpression"
+          ))
+      ) {
+        return true;
+      }
+
+      // Babel treat `(a?.().b!).c` and `(a?.().b)!.c` the same,
+      // Use this to align with babel
+      if (
+        key === "expression" &&
+        (node.type === "CallExpression" || node.type === "MemberExpression") &&
+        parent.type === "TSNonNullExpression" &&
+        path.callParent(
+          () =>
+            isOptionalChainingRoot(path) &&
+            path.match(
+              undefined,
+              undefined,
+              (node, name) =>
+                name === "object" && node.type === "MemberExpression"
+            )
         )
       ) {
         return true;
       }
 
+    // fallthrough
+    case "TaggedTemplateExpression":
+    case "TSNonNullExpression":
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -1029,14 +1058,14 @@ function shouldWrapFunctionForExportDefault(path, options) {
   );
 }
 
+// Estree
 function isOptionalChainingRoot(path) {
-  return (
-    // Estree
-    path.match(
-      (node) =>
-        node.type === "MemberExpression" || node.type === "CallExpression",
-      (node, name) => name === "expression" && node.type === "ChainExpression"
-    )
+  return path.match(
+    (node) =>
+      node.type === "MemberExpression" ||
+      node.type === "CallExpression" ||
+      node.type === "TSNonNullExpression",
+    (node, name) => name === "expression" && node.type === "ChainExpression"
   );
 }
 
