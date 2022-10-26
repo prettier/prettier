@@ -20,7 +20,7 @@ console.log(
   /* 10 */
 )
 
-console.log(
+a =
   // prettier-ignore
   /* 1 */
   (
@@ -41,4 +41,4 @@ console.log(
     /* 9 */
   )
   /* 10 */
-)
+;
