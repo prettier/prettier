@@ -766,25 +766,39 @@ function needsParens(path, options) {
       }
 
     case "OptionalMemberExpression":
-    case "OptionalCallExpression": {
-      const parentParent = path.grandparent;
-      if (
-        (key === "object" && parent.type === "MemberExpression") ||
-        (key === "callee" &&
-          (parent.type === "CallExpression" ||
-            parent.type === "NewExpression")) ||
-        (parent.type === "TSNonNullExpression" &&
-          parentParent.type === "MemberExpression" &&
-          parentParent.object === parent)
-      ) {
-        return true;
-      }
-    }
-    // fallthrough
+    case "OptionalCallExpression":
     case "CallExpression":
     case "MemberExpression":
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
+      if (isOptionalChainingRoot(path)) {
+        if (
+          (node.type === "OptionalMemberExpression" ||
+            node.type === "OptionalCallExpression") &&
+          ((key === "object" && parent.type === "MemberExpression") ||
+            (key === "callee" &&
+              (parent.type === "CallExpression" ||
+                parent.type === "NewExpression")) ||
+            (parent.type === "TSNonNullExpression" &&
+              path.grandparent.type === "MemberExpression" &&
+              path.grandparent.object === parent))
+        ) {
+          return true;
+        }
+
+        if (
+          (parent.type === "ChainExpression" ||
+            parent.type === "TSNonNullExpression") &&
+          (((path.grandparent.type === "CallExpression" ||
+            path.grandparent.type === "NewExpression") &&
+            path.grandparent.callee === parent) ||
+            (path.grandparent.type === "MemberExpression" &&
+              path.grandparent.object === parent))
+        ) {
+          return true;
+        }
+      }
+
       if (
         key === "callee" &&
         (parent.type === "BindExpression" || parent.type === "NewExpression")
@@ -1010,6 +1024,28 @@ function shouldWrapFunctionForExportDefault(path, options) {
   return path.call(
     () => shouldWrapFunctionForExportDefault(path, options),
     ...getLeftSidePathName(node)
+  );
+}
+
+function isOptionalChainingRoot(path) {
+  return (
+    path.match(
+      (node) =>
+        node.type === "OptionalMemberExpression" ||
+        node.type === "OptionalCallExpression",
+      (node, name) =>
+        !(
+          (node.type === "OptionalMemberExpression" && name === "object") ||
+          (node.type === "OptionalCallExpression" && name === "callee")
+        )
+    ) ||
+    path.match(
+      (node) =>
+        node.type === "MemberExpression" || node.type === "CallExpression",
+      (node, name) =>
+        name === "expression" &&
+        (node.type === "ChainExpression" || node.type === "TSNonNullExpression")
+    )
   );
 }
 
