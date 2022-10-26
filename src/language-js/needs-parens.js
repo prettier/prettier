@@ -789,11 +789,13 @@ function needsParens(path, options) {
         if (
           (parent.type === "ChainExpression" ||
             parent.type === "TSNonNullExpression") &&
-          (((path.grandparent.type === "CallExpression" ||
+          ((((path.grandparent.type === "CallExpression" &&
+            !path.grandparent.optional) ||
             path.grandparent.type === "NewExpression") &&
             path.grandparent.callee === parent) ||
             (path.grandparent.type === "MemberExpression" &&
-              path.grandparent.object === parent))
+              path.grandparent.object === parent &&
+              !path.grandparent.optional))
         ) {
           return true;
         }
@@ -1029,6 +1031,7 @@ function shouldWrapFunctionForExportDefault(path, options) {
 
 function isOptionalChainingRoot(path) {
   return (
+    // Babel
     path.match(
       (node) =>
         node.type === "OptionalMemberExpression" ||
@@ -1039,6 +1042,7 @@ function isOptionalChainingRoot(path) {
           (node.type === "OptionalCallExpression" && name === "callee")
         )
     ) ||
+    // Estree
     path.match(
       (node) =>
         node.type === "MemberExpression" || node.type === "CallExpression",
