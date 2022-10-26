@@ -15,8 +15,8 @@ const {
   CommentCheckFlags,
   isCallExpression,
   isMemberExpression,
-  isObjectProperty,
   isEnabledHackPipeline,
+  isAssignmentLike,
 } = require("../utils/index.js");
 
 /** @typedef {import("../../document").Doc} Doc */
@@ -77,6 +77,14 @@ function printBinaryishExpression(path, options, print) {
     return group([indent([softline, ...parts]), softline]);
   }
 
+  if (
+    parent.type === "ConditionalExpression" &&
+    parent.test === node &&
+    isAssignmentLike(parentParent)
+  ) {
+    return indent([softline, parts]);
+  }
+
   // Avoid indenting sub-expressions in some cases where the first sub-expression is already
   // indented accordingly. We should indent sub-expressions where the first case isn't indented.
   const shouldNotIndent =
@@ -98,14 +106,7 @@ function printBinaryishExpression(path, options, print) {
       !isCallExpression(parentParent)) ||
     parent.type === "TemplateLiteral";
 
-  const shouldIndentIfInlining =
-    parent.type === "AssignmentExpression" ||
-    parent.type === "VariableDeclarator" ||
-    parent.type === "ClassProperty" ||
-    parent.type === "PropertyDefinition" ||
-    parent.type === "TSAbstractPropertyDefinition" ||
-    parent.type === "ClassPrivateProperty" ||
-    isObjectProperty(parent);
+  const shouldIndentIfInlining = isAssignmentLike(parent);
 
   const samePrecedenceSubExpression =
     isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
@@ -288,6 +289,7 @@ function printBinaryishExpressions(
     lineBeforeOperator ? "" : " ",
     shouldGroup ? group(right, { shouldBreak }) : right
   );
+  // const isParentTernary = node.parent?.type === "ConditionalExpression"
 
   // The root comments are already printed, but we need to manually print
   // the other ones since we don't call the normal print on BinaryExpression,
@@ -298,7 +300,6 @@ function printBinaryishExpressions(
     if (isConcat(printed) || printed.type === "fill") {
       return getDocParts(printed);
     }
-
     return [printed];
   }
 

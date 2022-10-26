@@ -1,5 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`binary.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const a = foooo === foo ? bar: baz;
+
+a.b = foooooooo === foo ? bar: baz;
+
+const c = a === foo ? bar: baz ? bar: baz;
+
+const d = foo ? bar: a === foo;
+
+const e = foo ? (foo ? bar: baz): baz;
+
+const f = foo ? (foo === bar): baz;
+
+const g = foooo && fooo ? bar: baz;
+
+const h = foooo ?? fooo ? bar: baz;
+
+const i = foooo || fooo ? bar: baz;
+
+const j = fooooo > fooo ? bar: baz;
+
+const k = fooooo < fooo ? bar: baz;
+
+const l = foooo >= fooo ? bar: baz;
+
+const m = foooo <= fooo ? bar: baz;
+
+const n = foooo != fooo ? bar: baz;
+
+const o = foooo != fooo && fooo != fooo ? bar: baz;
+
+const x = {
+  prop1: fooooo === foo ? foo: foo,
+}
+
+class X {
+  prop1 = foooo === foo ? foo: foo;
+  #prop2 = fooo === foo ? foo: foo;
+}
+
+
+=====================================output=====================================
+const a = foooo === foo ? bar : baz;
+
+a.b = foooooooo === foo ? bar : baz;
+
+const c = a === foo ? bar : baz ? bar : baz;
+
+const d = foo ? bar : a === foo;
+
+const e = foo ? (foo ? bar : baz) : baz;
+
+const f = foo ? foo === bar : baz;
+
+const g = foooo && fooo ? bar : baz;
+
+const h = foooo ?? fooo ? bar : baz;
+
+const i = foooo || fooo ? bar : baz;
+
+const j = fooooo > fooo ? bar : baz;
+
+const k = fooooo < fooo ? bar : baz;
+
+const l = foooo >= fooo ? bar : baz;
+
+const m = foooo <= fooo ? bar : baz;
+
+const n = foooo != fooo ? bar : baz;
+
+const o = foooo != fooo && fooo != fooo ? bar : baz;
+
+const x = {
+  prop1: fooooo === foo ? foo : foo,
+};
+
+class X {
+  prop1 = foooo === foo ? foo : foo;
+  #prop2 = fooo === foo ? foo : foo;
+}
+
+================================================================================
+`;
+
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -112,27 +201,25 @@ test ? test /* c
 c */? foo : bar : bar;
 
 =====================================output=====================================
-var inspect =
-  4 === util.inspect.length
-    ? // node <= 0.8.x
-      function (v, colors) {
-        return util.inspect(v, void 0, void 0, colors);
-      }
-    : // node > 0.8.x
-      function (v, colors) {
-        return util.inspect(v, { colors: colors });
-      };
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    function (v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    }
+  : // node > 0.8.x
+    function (v, colors) {
+      return util.inspect(v, { colors: colors });
+    };
 
-var inspect =
-  4 === util.inspect.length
-    ? // node <= 0.8.x
-      function (v, colors) {
-        return util.inspect(v, void 0, void 0, colors);
-      }
-    : // node > 0.8.x
-      function (v, colors) {
-        return util.inspect(v, { colors: colors });
-      };
+var inspect = 4 === util.inspect.length
+  ? // node <= 0.8.x
+    function (v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    }
+  : // node > 0.8.x
+    function (v, colors) {
+      return util.inspect(v, { colors: colors });
+    };
 
 const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
@@ -148,10 +235,9 @@ const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure tha
   ? { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const { configureStore } =
-  process.env.NODE_ENV === "production"
-    ? require("./configureProdStore") // a
-    : require("./configureDevStore"); // b
+const { configureStore } = process.env.NODE_ENV === "production"
+  ? require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
 
 test /* comment
   comment
