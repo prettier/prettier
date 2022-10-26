@@ -900,6 +900,7 @@ function startsWithNoLookaheadToken(node, predicate) {
       return node.object && startsWithNoLookaheadToken(node.object, predicate);
     case "SequenceExpression":
       return startsWithNoLookaheadToken(node.expressions[0], predicate);
+    case "ChainExpression":
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
