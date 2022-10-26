@@ -7,11 +7,13 @@ import isNonEmptyArray from "../utils/is-non-empty-array.js";
 function locStart(node) {
   const start = node.range ? node.range[0] : node.start;
 
+  // Handle nodes with decorators. They should start at the first decorator
   const decorators = node.declaration?.decorators ?? node.decorators;
+  if (isNonEmptyArray(decorators)) {
+    return Math.min(locStart(decorators[0]), start);
+  }
 
-  return isNonEmptyArray(decorators)
-    ? Math.min(locStart(decorators[0]), start)
-    : start;
+  return start;
 }
 
 function locEnd(node) {
