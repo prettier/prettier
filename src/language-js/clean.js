@@ -28,6 +28,11 @@ function clean(ast, newObj, parent) {
     delete newObj.sourceType;
   }
 
+  // TODO: Fix this
+  if (ast.type === "ChainExpression") {
+    return newObj.expression;
+  }
+
   if (
     (ast.type === "BigIntLiteral" ||
       ast.type === "BigIntLiteralTypeAnnotation") &&
