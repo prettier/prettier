@@ -103,7 +103,11 @@ test("Commonjs version", () => {
     "index.cjs"
   ));
 
-  expect(Object.keys(prettierCommonjsVersion)).toEqual(Object.keys(prettier));
+  expect(Object.keys(prettierCommonjsVersion).sort()).toEqual(
+    Object.keys(prettier)
+      .filter((key) => key !== "__internal")
+      .sort()
+  );
   expect(typeof prettierCommonjsVersion.format).toBe("function");
 
   expect(Object.keys(prettierCommonjsVersion.doc)).toEqual(
@@ -115,6 +119,10 @@ test("Commonjs version", () => {
     Object.keys(prettier.util)
   );
   expect(typeof prettierCommonjsVersion.util.getStringWidth).toBe("function");
+
+  expect(Object.keys(prettierCommonjsVersion.__debug).sort()).toEqual(
+    Object.keys(prettier.__debug).sort()
+  );
   expect(typeof prettierCommonjsVersion.__debug.parse).toBe("function");
 
   expect(prettierCommonjsVersion.version).toBe(prettier.version);
