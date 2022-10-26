@@ -787,8 +787,7 @@ function needsParens(path, options) {
         }
 
         if (
-          (parent.type === "ChainExpression" ||
-            parent.type === "TSNonNullExpression") &&
+          parent.type === "ChainExpression" &&
           ((((path.grandparent.type === "CallExpression" &&
             !path.grandparent.optional) ||
             path.grandparent.type === "NewExpression") &&
@@ -1046,9 +1045,7 @@ function isOptionalChainingRoot(path) {
     path.match(
       (node) =>
         node.type === "MemberExpression" || node.type === "CallExpression",
-      (node, name) =>
-        name === "expression" &&
-        (node.type === "ChainExpression" || node.type === "TSNonNullExpression")
+      (node, name) => name === "expression" && node.type === "ChainExpression"
     )
   );
 }
