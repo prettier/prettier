@@ -1,9 +1,17 @@
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+
 /**
  * @typedef {import("./types/estree.js").Node} Node
  */
 
 function locStart(node) {
-  return node.range ? node.range[0] : node.start;
+  const start = node.range ? node.range[0] : node.start;
+
+  const decorators = node.declaration?.decorators ?? node.decorators;
+
+  return isNonEmptyArray(decorators)
+    ? Math.min(locStart(decorators[0]), start)
+    : start;
 }
 
 function locEnd(node) {
