@@ -544,6 +544,10 @@ function isSimpleTemplateLiteral(node) {
       return true;
     }
 
+    if (expr.type === "ChainExpression") {
+      expr = expr.expression
+    }
+
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
     if (isMemberExpression(expr)) {
       let head = expr;
