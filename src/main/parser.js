@@ -1,7 +1,13 @@
 import { ConfigError } from "../common/errors.js";
 
 function resolveParser({ plugins, parser }) {
-  for (const { parsers } of plugins) {
+  /*
+  Loop from end to allow plugins override builtin plugins,
+  this is how `resolveParser` works in v2.
+  This is a temporarily solution, see #13729
+  */
+  for (let index = plugins.length - 1; index >= 0; index--) {
+    const { parsers } = plugins[index];
     if (parsers && Object.hasOwn(parsers, parser)) {
       const parserOrParserInitFunction = parsers[parser];
 
