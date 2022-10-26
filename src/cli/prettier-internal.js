@@ -8,4 +8,5 @@ export const {
   normalizeOptions,
   getSupportInfoWithoutPlugins,
   vnopts,
+  fastGlob,
 } = sharedWithCli;
