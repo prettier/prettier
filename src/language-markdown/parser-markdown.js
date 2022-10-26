@@ -42,10 +42,6 @@ function createParse({ isMDX }) {
   };
 }
 
-function identity(x) {
-  return x;
-}
-
 const baseParser = {
   astFormat: "mdast",
   hasPragma,
