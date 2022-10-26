@@ -764,40 +764,41 @@ function needsParens(path, options) {
         default:
           return false;
       }
-
     case "OptionalMemberExpression":
-    case "OptionalCallExpression":
+    case "OptionalCallExpression": {
+      const parentParent = path.grandparent;
+      if (
+        (key === "object" && parent.type === "MemberExpression") ||
+        (key === "callee" &&
+          (parent.type === "CallExpression" ||
+            parent.type === "NewExpression")) ||
+        (parent.type === "TSNonNullExpression" &&
+          parentParent.type === "MemberExpression" &&
+          parentParent.object === parent)
+      ) {
+        return true;
+      }
+    }
+    // fallthrough
     case "CallExpression":
     case "MemberExpression":
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
-      if (isOptionalChainingRoot(path)) {
-        if (
-          (node.type === "OptionalMemberExpression" ||
-            node.type === "OptionalCallExpression") &&
-          ((key === "object" && parent.type === "MemberExpression") ||
-            (key === "callee" &&
-              (parent.type === "CallExpression" ||
-                parent.type === "NewExpression")) ||
-            (parent.type === "TSNonNullExpression" &&
-              path.grandparent.type === "MemberExpression" &&
-              path.grandparent.object === parent))
-        ) {
-          return true;
-        }
-
-        if (
-          parent.type === "ChainExpression" &&
-          ((((path.grandparent.type === "CallExpression" &&
-            !path.grandparent.optional) ||
-            path.grandparent.type === "NewExpression") &&
-            path.grandparent.callee === parent) ||
-            (path.grandparent.type === "MemberExpression" &&
-              path.grandparent.object === parent &&
-              !path.grandparent.optional))
-        ) {
-          return true;
-        }
+      if (
+        isOptionalChainingRoot(path) &&
+        path.match(
+          undefined,
+          undefined,
+          (node, name) =>
+            (name === "callee" &&
+              ((node.type === "CallExpression" && !node.optional) ||
+                node.type === "NewExpression")) ||
+            (name === "object" &&
+              node.type === "MemberExpression" &&
+              !node.optional)
+        )
+      ) {
+        return true;
       }
 
       if (
@@ -1030,17 +1031,6 @@ function shouldWrapFunctionForExportDefault(path, options) {
 
 function isOptionalChainingRoot(path) {
   return (
-    // Babel
-    path.match(
-      (node) =>
-        node.type === "OptionalMemberExpression" ||
-        node.type === "OptionalCallExpression",
-      (node, name) =>
-        !(
-          (node.type === "OptionalMemberExpression" && name === "object") ||
-          (node.type === "OptionalCallExpression" && name === "callee")
-        )
-    ) ||
     // Estree
     path.match(
       (node) =>
