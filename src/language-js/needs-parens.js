@@ -783,7 +783,12 @@ function needsParens(path, options) {
     case "CallExpression":
     case "MemberExpression":
       if (
-        isOptionalChainingRoot(path) &&
+        path.match(
+          () =>
+            node.type === "CallExpression" || node.type === "MemberExpression",
+          (node, name) =>
+            name === "expression" && node.type === "ChainExpression"
+        ) &&
         (path.match(
           undefined,
           undefined,
@@ -810,18 +815,14 @@ function needsParens(path, options) {
       // Babel treat `(a?.().b!).c` and `(a?.().b)!.c` the same,
       // Use this to align with babel
       if (
-        key === "expression" &&
-        (node.type === "CallExpression" || node.type === "MemberExpression") &&
-        parent.type === "TSNonNullExpression" &&
-        path.callParent(
+        path.match(
           () =>
-            isOptionalChainingRoot(path) &&
-            path.match(
-              undefined,
-              undefined,
-              (node, name) =>
-                name === "object" && node.type === "MemberExpression"
-            )
+            node.type === "CallExpression" || node.type === "MemberExpression",
+          (node, name) =>
+            name === "expression" && node.type === "TSNonNullExpression",
+          (node, name) =>
+            name === "expression" && node.type === "ChainExpression",
+          (node, name) => name === "object" && node.type === "MemberExpression"
         )
       ) {
         return true;
@@ -1055,17 +1056,6 @@ function shouldWrapFunctionForExportDefault(path, options) {
   return path.call(
     () => shouldWrapFunctionForExportDefault(path, options),
     ...getLeftSidePathName(node)
-  );
-}
-
-// Estree
-function isOptionalChainingRoot(path) {
-  return path.match(
-    (node) =>
-      node.type === "MemberExpression" ||
-      node.type === "CallExpression" ||
-      node.type === "TSNonNullExpression",
-    (node, name) => name === "expression" && node.type === "ChainExpression"
   );
 }
 
