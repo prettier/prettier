@@ -496,6 +496,8 @@ function printJsxExpressionContainer(path, options, print) {
           (shouldInline(node.argument, node) ||
             node.argument.type === "JSXElement")) ||
         isCallExpression(node) ||
+        (node.type === "ChainExpression" &&
+          isCallExpression(node.expression)) ||
         node.type === "FunctionExpression" ||
         node.type === "TemplateLiteral" ||
         node.type === "TaggedTemplateExpression" ||
