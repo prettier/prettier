@@ -347,11 +347,6 @@ const nodejsFiles = [
           };
         `,
       },
-      {
-        module: require.resolve("n-readlines"),
-        find: "const readBuffer = new Buffer(this.options.readChunk);",
-        replacement: "const readBuffer = Buffer.alloc(this.options.readChunk);",
-      },
       replaceDiffPackageEntry("lib/diff/array.js"),
       ...reuseDocumentModule(),
     ],
