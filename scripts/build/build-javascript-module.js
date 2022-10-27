@@ -14,6 +14,7 @@ import esbuildPluginVisualizer from "./esbuild-plugins/visualizer.mjs";
 import esbuildPluginStripNodeProtocol from "./esbuild-plugins/strip-node-protocol.mjs";
 import esbuildPluginThrowWarnings from "./esbuild-plugins/throw-warnings.mjs";
 import esbuildPluginShimCommonjsObjects from "./esbuild-plugins/shim-commonjs-objects.mjs";
+import esbuildPluginPrimitiveDefine from "./esbuild-plugins/primitive-define.mjs";
 import transform from "./transform/index.js";
 
 const { dirname, readJsonSync, require } = createEsmUtils(import.meta);
@@ -96,8 +97,8 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
   ];
 
   const define = {
-    "process.env.PRETTIER_TARGET": JSON.stringify(file.platform),
-    "process.env.NODE_ENV": JSON.stringify("production"),
+    "process.env.PRETTIER_TARGET": file.platform,
+    "process.env.NODE_ENV": "production",
   };
 
   if (file.platform === "universal") {
@@ -109,15 +110,17 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       replacement: "globalThis.PRETTIER_DEBUG",
     });
 
-    define.process = JSON.stringify({ env: {}, argv: [] });
+    define.process = undefined;
+    // @babel/code-frame/lib/index.js
+    define["process.emitWarning"] = undefined;
+    // postcss/lib/postcss.js
+    define["process.env.LANG"] = "";
 
     // Replace `__dirname` and `__filename` with a fake value
     // So `parser-typescript.js` won't contain a path of working directory
     // See #8268
-    define.__filename = JSON.stringify(
-      "/prettier-security-filename-placeholder.js"
-    );
-    define.__dirname = JSON.stringify("/prettier-security-dirname-placeholder");
+    define.__filename = "/prettier-security-filename-placeholder.js";
+    define.__dirname = "/prettier-security-dirname-placeholder";
   }
 
   if (file.platform === "node") {
@@ -198,10 +201,10 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
 
   const esbuildOptions = {
     entryPoints: [path.join(PROJECT_ROOT, file.input)],
-    define,
     bundle: true,
     metafile: true,
     plugins: [
+      esbuildPluginPrimitiveDefine(define),
       esbuildPluginEvaluate(),
       esbuildPluginStripNodeProtocol(),
       esbuildPluginReplaceModule({
