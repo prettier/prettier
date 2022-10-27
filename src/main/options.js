@@ -40,7 +40,10 @@ async function normalize(options, opts = {}) {
       );
       rawOptions.parser = "babel";
     } else {
-      rawOptions.parser = inferParser(rawOptions.filepath, rawOptions.plugins);
+      rawOptions.parser = await inferParser(
+        rawOptions.filepath,
+        rawOptions.plugins
+      );
       if (!rawOptions.parser) {
         throw new UndefinedParserError(
           `No parser could be inferred for file: ${rawOptions.filepath}`
@@ -115,7 +118,7 @@ function getPlugin(options) {
   return printerPlugin;
 }
 
-function inferParser(filepath, plugins) {
+async function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
   const { languages } = getSupportInfo({ plugins });
 
@@ -137,11 +140,13 @@ function inferParser(filepath, plugins) {
     !language &&
     !filename.includes(".")
   ) {
-    const interpreter = getInterpreter(filepath);
-    language = languages.find(
-      (language) =>
-        language.interpreters && language.interpreters.includes(interpreter)
-    );
+    const interpreter = await getInterpreter(filepath);
+    if (interpreter) {
+      language = languages.find(
+        (language) =>
+          language.interpreters && language.interpreters.includes(interpreter)
+      );
+    }
   }
 
   return language && language.parsers[0];
