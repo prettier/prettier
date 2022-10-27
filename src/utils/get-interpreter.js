@@ -1,12 +1,12 @@
 import fs from "node:fs";
-import readline from "node:readline/promises";
+import { promises as readlinePromises } from "node:readline";
 
 async function readFirstLine(filepath) {
-  const rl = readline.createInterface({
+  const readline = readlinePromises.createInterface({
     input: fs.createReadStream(filepath),
     crlfDelay: Number.POSITIVE_INFINITY,
   });
-  const { value: firstLine } = await rl[Symbol.asyncIterator]().next();
+  const { value: firstLine } = await readline[Symbol.asyncIterator]().next();
 
   return firstLine;
 }
