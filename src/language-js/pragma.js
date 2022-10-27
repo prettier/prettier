@@ -15,8 +15,8 @@ function parseDocBlock(text) {
 }
 
 function hasPragma(text) {
-  const pragmas = Object.keys(parseDocBlock(text).pragmas);
-  return pragmas.includes("prettier") || pragmas.includes("format");
+  const { pragmas } = parseDocBlock(text);
+  return Object.hasOwn(pragmas, "prettier") || Object.hasOwn(pragmas, "format");
 }
 
 function insertPragma(originalText) {
