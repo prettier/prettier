@@ -1,6 +1,6 @@
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
-function massageAST(ast, options) {
+function massageAst(ast, options) {
   const {
     printer: {
       massageAstNode: cleanFunction,
@@ -49,4 +49,4 @@ function massageAST(ast, options) {
   }
 }
 
-export default massageAST;
+export default massageAst;
