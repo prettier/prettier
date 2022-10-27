@@ -1,5 +1,5 @@
 import estreeVisitorKeys from "../../src/language-js/traverse/visitor-keys.evaluate.js";
-import jsonVisitorKeys from "../../src/language-js/traverse/json-visitor-keys.js";
+import jsonVisitorKeys from "../../src/language-json/visitor-keys.js";
 import postcssVisitorKeys from "../../src/language-css/visitor-keys.js";
 import graphqlVisitorKeys from "../../src/language-graphql/visitor-keys.evaluate.js";
 import glimmerVisitorKeys from "../../src/language-handlebars/visitor-keys.evaluate.js";
