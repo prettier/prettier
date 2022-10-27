@@ -2,7 +2,7 @@ import massageAst from "../../src/main/massage-ast.js";
 
 test("massageAst", () => {
   const nonNodeObject = { foo: "foo" };
-  const nodeObject = {type: "child"}
+  const nodeObject = { type: "child" };
   const ast = {
     type: "root",
     nodeObject,
