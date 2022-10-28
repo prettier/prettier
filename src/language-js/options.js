@@ -1,5 +1,3 @@
-import commonOptions from "../common/common-options.js";
-
 const CATEGORY_JAVASCRIPT = "JavaScript";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
@@ -20,8 +18,6 @@ const options = {
       },
     ],
   },
-  bracketSameLine: commonOptions.bracketSameLine,
-  bracketSpacing: commonOptions.bracketSpacing,
   jsxBracketSameLine: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
@@ -36,7 +32,6 @@ const options = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them.",
   },
-  singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
     category: CATEGORY_JAVASCRIPT,
     type: "boolean",
@@ -83,7 +78,6 @@ const options = {
       { value: "none", description: "No trailing commas." },
     ],
   },
-  singleAttributePerLine: commonOptions.singleAttributePerLine,
 };
 
 export default options;

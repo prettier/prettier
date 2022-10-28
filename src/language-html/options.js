@@ -1,10 +1,7 @@
-import commonOptions from "../common/common-options.js";
-
 const CATEGORY_HTML = "HTML";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 const options = {
-  bracketSameLine: commonOptions.bracketSameLine,
   htmlWhitespaceSensitivity: {
     category: CATEGORY_HTML,
     type: "choice",
@@ -25,7 +22,6 @@ const options = {
       },
     ],
   },
-  singleAttributePerLine: commonOptions.singleAttributePerLine,
   vueIndentScriptAndStyle: {
     category: CATEGORY_HTML,
     type: "boolean",

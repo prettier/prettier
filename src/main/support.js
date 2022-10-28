@@ -1,4 +1,5 @@
 import arrayify from "../utils/arrayify.js";
+import commonOptions from "../common/common-options.js";
 import { options as coreOptions } from "./core-options.js";
 
 /**
@@ -24,7 +25,12 @@ function getSupportInfo({
   const languages = plugins.flatMap((plugin) => plugin.languages || []);
 
   const options = arrayify(
-    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
+    Object.assign(
+      {},
+      commonOptions,
+      ...plugins.map(({ options }) => options),
+      coreOptions,
+    ),
     "name"
   )
     .filter((option) => filterDeprecated(option))
