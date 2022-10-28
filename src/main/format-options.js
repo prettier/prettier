@@ -1,5 +1,9 @@
 import { CATEGORY_FORMAT } from "./option-categories.js";
 
+/*
+TODO: Move some of these options to languages and only pass them when printer support that, see #13746.
+*/
+
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 const options = {
   arrowParens: {
