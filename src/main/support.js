@@ -1,6 +1,6 @@
 import arrayify from "../utils/arrayify.js";
-import formatOptions from "../format-options.js";
 import coreOptions from "./core-options.js";
+import formatOptions from "./format-options.js";
 
 /**
  * @typedef {import("./core-options.js").OptionInfo} OptionInfo
