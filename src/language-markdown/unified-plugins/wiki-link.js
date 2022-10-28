@@ -94,9 +94,6 @@ const wikiLinkConstruct = {
 
 /** @type {import('micromark-util-types').Extension} */
 const wikiLink = {
-  flow: {
-    [codes.leftSquareBracket]: wikiLinkConstruct,
-  },
   text: {
     [codes.leftSquareBracket]: wikiLinkConstruct,
   },
