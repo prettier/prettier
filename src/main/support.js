@@ -29,7 +29,7 @@ function getSupportInfo({
       {},
       formatOptions,
       ...plugins.map(({ options }) => options),
-      coreOptions,
+      coreOptions
     ),
     "name"
   )

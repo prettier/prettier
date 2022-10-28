@@ -5,7 +5,7 @@ import {
   CATEGORY_OTHER,
   CATEGORY_GLOBAL,
   CATEGORY_SPECIAL,
-} from "./option-categories.js"
+} from "./option-categories.js";
 
 /**
  * @typedef {Object} OptionInfo

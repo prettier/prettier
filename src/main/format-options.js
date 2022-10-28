@@ -1,4 +1,4 @@
-import {CATEGORY_FORMAT} from "./option-categories.js"
+import { CATEGORY_FORMAT } from "./option-categories.js";
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
 const options = {

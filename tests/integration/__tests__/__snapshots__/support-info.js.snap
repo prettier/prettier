@@ -766,7 +766,7 @@ exports[`CLI --support-info (stdout) 1`] = `
   ],
   "options": [
     {
-      "category": "JavaScript",
+      "category": "Format",
       "choices": [
         {
           "description": "Always include parens. Example: \`(x) => x\`",
@@ -784,7 +784,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "choice"
     },
     {
-      "category": "Common",
+      "category": "Format",
       "default": false,
       "description": "Put > of opening tags on the last line instead of on a new line.",
       "name": "bracketSameLine",
@@ -792,7 +792,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
-      "category": "Common",
+      "category": "Format",
       "default": true,
       "description": "Print spaces between brackets.",
       "name": "bracketSpacing",
@@ -861,7 +861,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "path"
     },
     {
-      "category": "HTML",
+      "category": "Format",
       "choices": [
         {
           "description": "Respect the default value of CSS display property.",
@@ -891,7 +891,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
-      "category": "JavaScript",
+      "category": "Format",
       "default": false,
       "description": "Use single quotes in JSX.",
       "name": "jsxSingleQuote",
@@ -958,7 +958,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "int"
     },
     {
-      "category": "Common",
+      "category": "Format",
       "choices": [
         {
           "description": "Wrap prose if it exceeds the print width.",
@@ -974,7 +974,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "choice"
     },
     {
-      "category": "JavaScript",
+      "category": "Format",
       "choices": [
         {
           "description": "Only add quotes around object properties where required.",
@@ -1022,7 +1022,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
-      "category": "JavaScript",
+      "category": "Format",
       "default": true,
       "description": "Print semicolons.",
       "name": "semi",
@@ -1031,7 +1031,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
-      "category": "Common",
+      "category": "Format",
       "default": false,
       "description": "Enforce single attribute per line in HTML, Vue and JSX.",
       "name": "singleAttributePerLine",
@@ -1039,7 +1039,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
-      "category": "Common",
+      "category": "Format",
       "default": false,
       "description": "Use single quotes instead of double quotes.",
       "name": "singleQuote",
@@ -1056,7 +1056,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "int"
     },
     {
-      "category": "JavaScript",
+      "category": "Format",
       "choices": [
         {
           "description": "Trailing commas wherever possible (including function arguments).",
@@ -1083,7 +1083,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       "type": "boolean"
     },
     {
-      "category": "HTML",
+      "category": "Format",
       "default": false,
       "description": "Indent script and style tags in Vue files.",
       "name": "vueIndentScriptAndStyle",
