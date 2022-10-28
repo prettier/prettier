@@ -1,7 +1,7 @@
 import dashify from "dashify";
 import { getSupportInfo } from "../../index.js";
 import {
-  coreOptions,
+  optionCategories,
   getSupportInfoWithoutPlugins,
 } from "../prettier-internal.js";
 import { options as cliOptionsMap } from "../constant.js";
@@ -16,7 +16,7 @@ function apiOptionToCliOption(apiOption) {
     ...apiOption,
     name: apiOption.cliName || dashify(apiOption.name),
     description: apiOption.cliDescription || apiOption.description,
-    category: apiOption.cliCategory || coreOptions.CATEGORY_FORMAT,
+    category: apiOption.cliCategory || optionCategories.CATEGORY_FORMAT,
     forwardToApi: apiOption.name,
   };
 
@@ -34,7 +34,7 @@ function apiOptionToCliOption(apiOption) {
 
 function normalizeDetailedOption(option) {
   return {
-    category: coreOptions.CATEGORY_OTHER,
+    category: optionCategories.CATEGORY_OTHER,
     ...option,
     choices: option.choices?.map((choice) => {
       const newChoice = {

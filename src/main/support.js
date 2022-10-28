@@ -1,6 +1,6 @@
 import arrayify from "../utils/arrayify.js";
 import commonOptions from "../common/common-options.js";
-import { options as coreOptions } from "./core-options.js";
+import coreOptions from "./core-options.js";
 
 /**
  * @typedef {import("./core-options.js").OptionInfo} OptionInfo

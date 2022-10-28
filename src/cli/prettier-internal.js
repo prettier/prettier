@@ -2,7 +2,7 @@ import { __internal as sharedWithCli } from "../index.js";
 
 export const {
   errors,
-  coreOptions,
+  optionCategories,
   createIgnorer,
   optionsHiddenDefaults,
   normalizeOptions,

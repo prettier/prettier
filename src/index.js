@@ -14,7 +14,7 @@ import {
 } from "./config/resolve-config.js";
 import * as languages from "./languages.js";
 import * as errors from "./common/errors.js";
-import * as coreOptions from "./main/core-options.js";
+import optionCategories from "./main/option-categories.js";
 import createIgnorer from "./common/create-ignorer.js";
 import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
 import normalizeOptions from "./main/options-normalizer.js";
@@ -76,7 +76,7 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 // Internal shared with cli
 const sharedWithCli = {
   errors,
-  coreOptions,
+  optionCategories,
   createIgnorer,
   optionsHiddenDefaults,
   normalizeOptions,
