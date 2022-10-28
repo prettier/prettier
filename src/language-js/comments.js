@@ -320,10 +320,14 @@ function handleTryStatementComments({
   }
 
   if (followingNode.type === "CatchClause") {
-    addBlockOrNotComment(followingNode.body, comment);
+    if (precedingNode.type === "BlockStatement") {
+      addLeadingComment(followingNode, comment);
+    } else {
+      addBlockOrNotComment(followingNode.body, comment);
+    }
     return true;
   }
-
+  
   return false;
 }
 
