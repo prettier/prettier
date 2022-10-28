@@ -1,5 +1,5 @@
 import arrayify from "../utils/arrayify.js";
-import commonOptions from "../common/common-options.js";
+import formatOptions from "../format-options.js";
 import coreOptions from "./core-options.js";
 
 /**
@@ -27,7 +27,7 @@ function getSupportInfo({
   const options = arrayify(
     Object.assign(
       {},
-      commonOptions,
+      formatOptions,
       ...plugins.map(({ options }) => options),
       coreOptions,
     ),
