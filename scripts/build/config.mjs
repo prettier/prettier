@@ -189,6 +189,26 @@ const pluginFiles = [
         module: path.join(require.resolve("postcss"), "../map-generator.js"),
         text: "module.exports = class { generate() {} };",
       },
+      // Prevent `node:util`, `node:utl`, and `node:path` shim
+      {
+        module: require.resolve("postcss-values-parser/lib/tokenize.js"),
+        process: (text) =>
+          text
+            .replace("require('util')", "{}")
+            .replace(
+              "let message = util.format('Unclosed %s at line: %d, column: %d, token: %d', what, line, pos - offset, pos);",
+              "let message = `Unclosed ${what} at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+            )
+            .replace(
+              "let message = util.format('Syntax error at line: %d, column: %d, token: %d', line, pos - offset, pos);",
+              "let message = `Syntax error at line: ${line}, column: ${pos - offset}, token: ${pos}`;"
+            ),
+      },
+      {
+        module: path.join(require.resolve("postcss"), "../input.js"),
+        process: (text) =>
+          text.replace("require('url')", "{}").replace("require('path')", "{}"),
+      },
     ],
   },
   "src/language-graphql/parser-graphql.js",
