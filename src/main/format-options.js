@@ -5,7 +5,7 @@ TODO: Move some of these options to languages and only pass them when printer su
 */
 
 // format based on https://github.com/prettier/prettier/blob/main/src/main/core-options.js
-const options = {
+const formatOptions = {
   arrowParens: {
     category: CATEGORY_FORMAT,
     type: "choice",
@@ -156,4 +156,4 @@ const options = {
   },
 };
 
-export default options;
+export default formatOptions;;
