@@ -156,4 +156,4 @@ const formatOptions = {
   },
 };
 
-export default formatOptions;;
+export default formatOptions;
