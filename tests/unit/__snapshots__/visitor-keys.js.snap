@@ -868,6 +868,10 @@ exports[`visitor keys estree 1`] = `
   "TSRestType": [
     "typeAnnotation",
   ],
+  "TSSatisfiesExpression": [
+    "expression",
+    "typeAnnotation",
+  ],
   "TSStaticKeyword": [],
   "TSStringKeyword": [],
   "TSSymbolKeyword": [],
