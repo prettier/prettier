@@ -1,4 +1,3 @@
-import path from "node:path";
 import { UndefinedParserError } from "../common/errors.js";
 import { getSupportInfo } from "../main/support.js";
 import getInterpreter from "../utils/get-interpreter.js";
@@ -115,8 +114,14 @@ function getPlugin(options) {
   return printerPlugin;
 }
 
+// Don't use `path.basename` here because it's not available in universal bundle
+function getFileBasename(filepath) {
+  const lastSlashIndex = filepath.replace(/\\/g, "/").lastIndexOf("/");
+  return lastSlashIndex === -1 ? filepath : filepath.slice(lastSlashIndex + 1);
+}
+
 function inferParser(filepath, plugins) {
-  const filename = path.basename(filepath).toLowerCase();
+  const filename = getFileBasename(filepath).toLowerCase();
   const { languages } = getSupportInfo({ plugins });
 
   // If the file has no extension, we can try to infer the language from the
@@ -124,12 +129,8 @@ function inferParser(filepath, plugins) {
   // do it last.
   let language = languages.find(
     (language) =>
-      (language.extensions &&
-        language.extensions.some((extension) =>
-          filename.endsWith(extension)
-        )) ||
-      (language.filenames &&
-        language.filenames.some((name) => name.toLowerCase() === filename))
+      language.extensions?.some((extension) => filename.endsWith(extension)) ||
+      language.filenames?.some((name) => name.toLowerCase() === filename)
   );
 
   if (
