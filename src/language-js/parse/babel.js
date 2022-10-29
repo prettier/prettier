@@ -41,6 +41,7 @@ const parseOptions = {
     "destructuringPrivate",
     "decoratorAutoAccessors",
     "importReflection",
+    "explicitResourceManagement",
   ],
   tokens: true,
   ranges: true,
