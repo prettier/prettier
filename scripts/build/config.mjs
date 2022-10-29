@@ -54,7 +54,13 @@ const extensions = {
 
 const pluginFiles = [
   "src/language-js/parse/babel.js",
-  "src/language-js/parse/flow.js",
+  {
+    input: "src/language-js/parse/flow.js",
+    replaceModule: ["constants", "fs"].map((module) => ({
+      module,
+      path: path.join(dirname, "shims/empty-commonjs-module.cjs"),
+    })),
+  },
   {
     input: "src/language-js/parse/typescript.js",
     replaceModule: [

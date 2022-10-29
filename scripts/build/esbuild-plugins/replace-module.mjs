@@ -1,4 +1,6 @@
 import fs from "node:fs/promises";
+import { builtinModules } from "node:module";
+const isBuiltinModule = (module) => builtinModules.includes(module);
 
 const DEFAULT_ON_RESOLVE_CONCEPTS = { filter: /./, namespace: "file" };
 const DEFAULT_ON_LOAD_CONCEPTS = {
@@ -133,7 +135,12 @@ function setupOnResolveListener(build, { concepts, replacements }) {
     }
     seenModules.add(key);
 
-    const resolveResult = await build.resolve(args.path, {
+    const { path } = args;
+    if (isBuiltinModule(path)) {
+      return replacements.has(path) ? replacements.get(path) : undefined;
+    }
+
+    const resolveResult = await build.resolve(path, {
       importer: args.importer,
       namespace: args.namespace,
       resolveDir: args.resolveDir,

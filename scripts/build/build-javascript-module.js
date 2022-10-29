@@ -2,7 +2,6 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
-import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
 import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
@@ -149,30 +148,18 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     );
   } else {
     replaceModule.push(
-      // When running build script with `--no-minify`, `esbuildPluginNodeModulePolyfills` shim `module` module incorrectly
+      // TODO[@fisker]: Find a better way to shim these modules
       {
         module: "*",
         find: 'import { createRequire } from "node:module";',
         replacement: "",
       },
-      // Prevent `esbuildPluginNodeModulePolyfills` shim `assert`, which will include a big `buffer` shim
-      // TODO[@fisker]: Find a better way
       {
         module: "*",
         find: ' from "node:assert";',
         replacement: ` from ${JSON.stringify(
           path.join(dirname, "./shims/assert.js")
         )};`,
-      },
-      // Prevent `esbuildPluginNodeModulePolyfills` include shim for this module
-      {
-        module: "assert",
-        path: path.join(dirname, "./shims/assert.js"),
-      },
-      // `esbuildPluginNodeModulePolyfills` didn't shim this module
-      {
-        module: "module",
-        text: "export const createRequire = () => {};",
       }
     );
 
@@ -210,7 +197,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
       esbuildPluginReplaceModule({
         replacements: [...replaceModule, ...(buildOptions.replaceModule ?? [])],
       }),
-      file.platform === "universal" && esbuildPluginNodeModulePolyfills(),
       shouldCollectLicenses &&
         esbuildPluginLicense({
           cwd: PROJECT_ROOT,
