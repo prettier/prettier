@@ -4,7 +4,7 @@ import {
   optionCategories,
   getSupportInfoWithoutPlugins,
 } from "../prettier-internal.js";
-import { options as cliOptionsMap } from "../constant.js";
+import { options as cliOptionsMap } from "../constants.evaluate.js";
 import { arrayify } from "../utils.js";
 
 const detailedCliOptions = arrayify(cliOptionsMap, "name").map((option) =>

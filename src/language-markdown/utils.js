@@ -2,11 +2,11 @@ import assert from "node:assert";
 import { locStart, locEnd } from "./loc.js";
 import {
   cjkPattern,
-  kPattern,
+  kRegex,
   punctuationPattern,
 } from "./constants.evaluate.js";
 
-const INLINE_NODE_TYPES = [
+const INLINE_NODE_TYPES = new Set([
   "liquidNode",
   "inlineCode",
   "emphasis",
@@ -25,16 +25,15 @@ const INLINE_NODE_TYPES = [
   "word",
   "break",
   "inlineMath",
-];
+]);
 
-const INLINE_NODE_WRAPPER_TYPES = [
+const INLINE_NODE_WRAPPER_TYPES = new Set([
   ...INLINE_NODE_TYPES,
   "tableCell",
   "paragraph",
   "heading",
-];
+]);
 
-const kRegex = new RegExp(kPattern);
 const punctuationRegex = new RegExp(punctuationPattern);
 
 const KIND_NON_CJK = "non-cjk";

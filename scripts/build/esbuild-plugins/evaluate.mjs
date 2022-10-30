@@ -1,35 +1,37 @@
 import createEsmUtils from "esm-utils";
+import serialize from "serialize-javascript";
+import { isValidIdentifier } from "@babel/types";
 
 const { importModule } = createEsmUtils(import.meta);
 
 export default function esbuildPluginEvaluate() {
   return {
     name: "evaluate",
-
     setup(build) {
+      const { format } = build.initialOptions;
+
       build.onLoad({ filter: /\.evaluate\.c?js$/ }, async ({ path }) => {
-        let data = await importModule(path);
+        const module = await importModule(path);
+        const text = Object.entries(module)
+          .map(([specifier, value]) => {
+            value = serialize(value, { space: 2 });
 
-        if (Object.hasOwn(data, "default")) {
-          if (Object.keys(data).length !== 1) {
-            throw new TypeError("Mixed export not allowed.");
-          }
-
-          data = data.default;
-        }
-
-        const json = JSON.stringify(
-          data,
-          (_, v) => {
-            if (typeof v === "function") {
-              throw new TypeError("Cannot evaluate functions.");
+            if (specifier === "default") {
+              return format === "cjs"
+                ? `module.exports = ${value};`
+                : `export default ${value};`;
             }
-            return v;
-          },
-          2
-        );
 
-        return { loader: "json", contents: json };
+            if (!isValidIdentifier(specifier)) {
+              throw new Error(`${specifier} is not a valid specifier`);
+            }
+
+            return format === "cjs"
+              ? `exports[${specifier}] = ${value};`
+              : `export const ${specifier} = ${value};`;
+          })
+          .join("\n");
+        return { contents: text };
       });
     },
   };
