@@ -7,6 +7,14 @@ const PROJECT_LICENSE_FILE = path.join(PROJECT_ROOT, "LICENSE");
 const LICENSE_FILE = path.join(DIST_DIR, "LICENSE");
 const separator = `\n${"-".repeat(40)}\n\n`;
 
+function toBlockQuote(text) {
+  return text
+    .trim()
+    .split("\n")
+    .map((line) => (line ? `> ${line}` : ">"))
+    .join("\n");
+}
+
 async function getLicenseText(files) {
   let dependencies = files.flatMap((file) => file.dependencies);
 
@@ -66,14 +74,28 @@ async function getLicenseText(files) {
 
       const meta = [];
 
+      if (dependency.description) {
+        meta.push(toBlockQuote(dependency.description) + "\n");
+      }
+
       if (dependency.license) {
         meta.push(`License: ${dependency.license}`);
       }
-      if (dependency.author?.name) {
-        meta.push(`By: ${dependency.author.name}`);
+      if (dependency.homepage) {
+        meta.push(`Homepage: <${dependency.homepage}>`);
       }
       if (dependency.repository?.url) {
         meta.push(`Repository: <${dependency.repository.url}>`);
+      }
+      if (dependency.author) {
+        meta.push(`Author: ${dependency.author.text()}`);
+      }
+      if (dependency.contributors?.length > 0) {
+        const contributors = dependency.contributors
+          .map((contributor) => ` - ${contributor.text()}`)
+          .join("\n");
+
+        meta.push(`Contributors:\n${contributors}`);
       }
 
       if (meta.length > 0) {
@@ -81,14 +103,7 @@ async function getLicenseText(files) {
       }
 
       if (dependency.licenseText) {
-        text +=
-          "\n" +
-          dependency.licenseText
-            .trim()
-            .split("\n")
-            .map((line) => (line ? `> ${line}` : ">"))
-            .join("\n") +
-          "\n";
+        text += "\n" + toBlockQuote(dependency.licenseText) + "\n";
       }
       return text;
     })
