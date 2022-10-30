@@ -227,6 +227,7 @@ function needsParens(path, options) {
     // fallthrough
     case "TSTypeAssertion":
     case "TSAsExpression":
+    case "TSSatisfiesExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "TSAsExpression":

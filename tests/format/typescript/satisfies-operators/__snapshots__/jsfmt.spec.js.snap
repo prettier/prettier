@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`argument-expansion.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const bar1 = [1,2,3].reduce((carry, value) => {
+  return [...carry, value];
+}, ([] satisfies unknown) satisfies number[]);
+
+const bar2 = [1,2,3].reduce((carry, value) => {
+  return [...carry, value];
+}, ([1, 2, 3] satisfies unknown) satisfies number[]);
+
+const bar3 = [1,2,3].reduce((carry, value) => {
+  return {...carry, [value]: true};
+}, ({} satisfies unknown) satisfies {[key: number]: boolean});
+
+const bar4 = [1,2,3].reduce((carry, value) => {
+  return {...carry, [value]: true};
+}, ({1: true} satisfies unknown) satisfies {[key: number]: boolean});
+
+const bar5 = [1,2,3].reduce((carry, value) => {
+  return [...carry, value];
+}, [] satisfies foo);
+
+=====================================output=====================================
+const bar1 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value]
+  },
+  [] satisfies unknown satisfies number[],
+)
+
+const bar2 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value]
+  },
+  [1, 2, 3] satisfies unknown satisfies number[],
+)
+
+const bar3 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return { ...carry, [value]: true }
+  },
+  {} satisfies unknown satisfies { [key: number]: boolean },
+)
+
+const bar4 = [1, 2, 3].reduce(
+  (carry, value) => {
+    return { ...carry, [value]: true }
+  },
+  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
+)
+
+const bar5 = [1, 2, 3].reduce((carry, value) => {
+  return [...carry, value]
+}, [] satisfies foo)
+
+================================================================================
+`;
+
 exports[`argument-expansion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
@@ -58,6 +121,79 @@ const bar4 = [1, 2, 3].reduce(
 const bar5 = [1, 2, 3].reduce((carry, value) => {
   return [...carry, value];
 }, [] satisfies foo);
+
+================================================================================
+`;
+
+exports[`basic.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const t1 = { a: 1 } satisfies I1;
+const t2 = { a: 1, b: 1 } satisfies I1;
+const t3 = { } satisfies I1;
+const t4: T1 = { a: "a" } satisfies T1;
+const t5 = (m => m.substring(0)) satisfies T2;
+const t6 = [1, 2] satisfies [number, number];
+let t7 = { a: 'test' } satisfies A;
+let t8 = { a: 'test', b: 'test' } satisfies A;
+
+const p = {
+  isEven: n => n % 2 === 0,
+  isOdd: n => n % 2 === 1
+} satisfies Predicates;
+
+let obj: { f(s: string): void } & Record<string, unknown> = {
+    f(s) { },
+    g(s) { }
+} satisfies { g(s: string): void } & Record<string, unknown>;
+
+({ f(x) { } }) satisfies { f(s: string): void };
+
+const car = {
+    start() { },
+    move(d) {
+        // d should be number
+    },
+    stop() { }
+} satisfies Movable & Record<string, unknown>;
+
+var v = undefined satisfies 1;
+
+=====================================output=====================================
+const t1 = { a: 1 } satisfies I1
+const t2 = { a: 1, b: 1 } satisfies I1
+const t3 = {} satisfies I1
+const t4: T1 = { a: "a" } satisfies T1
+const t5 = (m) => m.substring(0) satisfies T2
+const t6 = [1, 2] satisfies [number, number]
+let t7 = { a: "test" } satisfies A
+let t8 = { a: "test", b: "test" } satisfies A
+
+const p = {
+  isEven: (n) => n % 2 === 0,
+  isOdd: (n) => n % 2 === 1,
+} satisfies Predicates
+
+let obj: { f(s: string): void } & Record<string, unknown> = {
+  f(s) {},
+  g(s) {},
+} satisfies { g(s: string): void } & Record<string, unknown>
+
+;({ f(x) {} } satisfies { f(s: string): void })
+
+const car = {
+  start() {},
+  move(d) {
+    // d should be number
+  },
+  stop() {},
+} satisfies Movable & Record<string, unknown>
+
+var v = undefined satisfies 1
 
 ================================================================================
 `;
@@ -134,6 +270,40 @@ var v = undefined satisfies 1;
 ================================================================================
 `;
 
+exports[`comments.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const t1 = {
+    prop1: 1,
+    prop2: 2,
+    prop3: 3
+} satisfies
+// Comment
+Record<string, number>;
+
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
+
+=====================================output=====================================
+const t1 = {
+  prop1: 1,
+  prop2: 2,
+  prop3: 3,
+} satisfies // Comment
+Record<string, number>
+
+const t2 = {} /* comment */ satisfies {}
+const t3 = {} satisfies /* comment */ {}
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {}
+
+================================================================================
+`;
+
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
@@ -167,6 +337,21 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 ================================================================================
 `;
 
+exports[`export-default-as.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+export default (function log() {} satisfies typeof console.log)
+
+=====================================output=====================================
+export default (function log() {} satisfies typeof console.log)
+
+================================================================================
+`;
+
 exports[`export-default-as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
@@ -177,6 +362,61 @@ export default (function log() {} satisfies typeof console.log)
 
 =====================================output=====================================
 export default (function log() {} satisfies typeof console.log);
+
+================================================================================
+`;
+
+exports[`gt-lt.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+x satisfies boolean <= y; // (x satisfies boolean) <= y;
+x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
+
+=====================================output=====================================
+;(x satisfies boolean) <= y // (x satisfies boolean) <= y;
+;(x satisfies boolean) ?? y // (x satisfies boolean) ?? y;
+
+================================================================================
+`;
+
+exports[`gt-lt.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+x satisfies boolean <= y; // (x satisfies boolean) <= y;
+x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
+
+=====================================output=====================================
+(x satisfies boolean) <= y; // (x satisfies boolean) <= y;
+(x satisfies boolean) ?? y; // (x satisfies boolean) ?? y;
+
+================================================================================
+`;
+
+exports[`hug-args.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+window.postMessage(
+    {
+      context: item.context,
+      topic: item.topic
+    } satisfies IActionMessage
+  );
+=====================================output=====================================
+window.postMessage({
+  context: item.context,
+  topic: item.topic,
+} satisfies IActionMessage)
 
 ================================================================================
 `;
@@ -202,6 +442,62 @@ window.postMessage({
 ================================================================================
 `;
 
+exports[`non-null.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+// the 2nd line needs ASI protection
+const el = ReactDOM.findDOMNode(ref)
+;(el satisfies HTMLElement)!.style.cursor = 'pointer'
+
+=====================================output=====================================
+// the 2nd line needs ASI protection
+const el = ReactDOM.findDOMNode(ref)
+;(el satisfies HTMLElement)!.style.cursor = "pointer"
+
+================================================================================
+`;
+
+exports[`non-null.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// the 2nd line needs ASI protection
+const el = ReactDOM.findDOMNode(ref)
+;(el satisfies HTMLElement)!.style.cursor = 'pointer'
+
+=====================================output=====================================
+// the 2nd line needs ASI protection
+const el = ReactDOM.findDOMNode(ref);
+(el satisfies HTMLElement)!.style.cursor = "pointer";
+
+================================================================================
+`;
+
+exports[`satisfies.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+({}) satisfies {};
+({}) satisfies X;
+() => ({}) satisfies X;
+
+=====================================output=====================================
+;({} satisfies {})
+;({} satisfies X)
+;() => ({} satisfies X)
+
+================================================================================
+`;
+
 exports[`satisfies.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
@@ -216,6 +512,38 @@ printWidth: 80
 ({} satisfies {});
 ({} satisfies X);
 () => ({} satisfies X);
+
+================================================================================
+`;
+
+exports[`template-literal.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const a = \`\${(foo + bar) satisfies baz}\`;
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz}\`;
+const b = \`\${(foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz}\`;
+const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
+const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
+
+=====================================output=====================================
+const a = \`\${foo + bar satisfies baz}\`
+const b = \`\${
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar satisfies baz
+}\`
+const b = \`\${
+  foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies baz
+}\`
+const b = \`\${
+  foo + bar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+}\`
+const b = \`\${
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+}\`
 
 ================================================================================
 `;
@@ -247,6 +575,109 @@ const b = \`\${
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
     veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
+
+================================================================================
+`;
+
+exports[`ternary.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz) satisfies Fooooooooooo;
+
+foo = (condition ? firstValue : secondValue) satisfies SomeType;
+
+const foo = (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+  ? baaaaaaaaaaaaaaaaaaaaar
+  : baaaaaaaaaaaaaaaaaaaaaz) satisfies Fooooooooooo;
+
+function foo() {
+  return (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz) satisfies Fooooooooooo;
+}
+
+function foo() {
+  throw (coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz) satisfies Fooooooooooo;
+}
+
+function foo() {
+  void ((coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz) satisfies Fooooooooooo);
+}
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+
+=====================================output=====================================
+foo =
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+ satisfies Fooooooooooo
+
+foo = condition ? firstValue : secondValue satisfies SomeType
+
+const foo =
+  coooooooooooooooooooooooooooooooooooooooooooooooooooond
+    ? baaaaaaaaaaaaaaaaaaaaar
+    : baaaaaaaaaaaaaaaaaaaaaz
+ satisfies Fooooooooooo
+
+function foo() {
+  return
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+   satisfies Fooooooooooo
+}
+
+function foo() {
+  throw
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+   satisfies Fooooooooooo
+}
+
+function foo() {
+  void (
+    coooooooooooooooooooooooooooooooooooooooooooooooooooond
+      ? baaaaaaaaaaaaaaaaaaaaar
+      : baaaaaaaaaaaaaaaaaaaaaz
+   satisfies Fooooooooooo)
+}
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay)
+
+bifornCringerMoshedPerplexSawder =
+  askTrovenaBeenaDependsRowans +
+  (glimseGlyphsHazardNoopsTieTie === 0 &&
+  kochabCooieGameOnOboleUnweave === Math.PI
+    ? averredBathersBoxroomBuggyNurl
+    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay)
 
 ================================================================================
 `;
@@ -330,25 +761,25 @@ function foo() {
 }
 
 function foo() {
-  void
+  void (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo;
+   satisfies Fooooooooooo);
 }
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
-  glimseGlyphsHazardNoopsTieTie === 0
+  (glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay;
+    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
-  glimseGlyphsHazardNoopsTieTie === 0 &&
+  (glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay;
+    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay);
 
 ================================================================================
 `;
