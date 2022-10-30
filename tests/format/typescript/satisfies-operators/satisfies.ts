@@ -15,3 +15,5 @@ scrollTop > (visibilityHeight satisfies number);
 async function g1() {
   const test = (await 'foo') satisfies number;
 }
+
+var x = (v => v) satisfies (x: number) => string;

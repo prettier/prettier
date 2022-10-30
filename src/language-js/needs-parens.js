@@ -604,6 +604,7 @@ function needsParens(path, options) {
         case "TSTypeAssertion":
         case "TypeCastExpression":
         case "TSAsExpression":
+        case "TSSatisfiesExpression":
         case "TSNonNullExpression":
           return true;
 
@@ -653,6 +654,7 @@ function needsParens(path, options) {
           return key === "object";
 
         case "TSAsExpression":
+        case "TSSatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":

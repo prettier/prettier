@@ -279,7 +279,7 @@ const t1 = { a: 1 } satisfies I1
 const t2 = { a: 1, b: 1 } satisfies I1
 const t3 = {} satisfies I1
 const t4: T1 = { a: "a" } satisfies T1
-const t5 = (m) => m.substring(0) satisfies T2
+const t5 = ((m) => m.substring(0)) satisfies T2
 const t6 = [1, 2] satisfies [number, number]
 let t7 = { a: "test" } satisfies A
 let t8 = { a: "test", b: "test" } satisfies A
@@ -351,7 +351,7 @@ const t1 = { a: 1 } satisfies I1;
 const t2 = { a: 1, b: 1 } satisfies I1;
 const t3 = {} satisfies I1;
 const t4: T1 = { a: "a" } satisfies T1;
-const t5 = (m) => m.substring(0) satisfies T2;
+const t5 = ((m) => m.substring(0)) satisfies T2;
 const t6 = [1, 2] satisfies [number, number];
 let t7 = { a: "test" } satisfies A;
 let t8 = { a: "test", b: "test" } satisfies A;
@@ -666,6 +666,8 @@ async function g1() {
   const test = (await 'foo') satisfies number;
 }
 
+var x = (v => v) satisfies (x: number) => string;
+
 =====================================output=====================================
 ;({} satisfies {})
 ;({} satisfies X)
@@ -684,6 +686,8 @@ scrollTop > (visibilityHeight satisfies number)
 async function g1() {
   const test = (await "foo") satisfies number
 }
+
+var x = ((v) => v) satisfies (x: number) => string
 
 ================================================================================
 `;
@@ -712,6 +716,8 @@ async function g1() {
   const test = (await 'foo') satisfies number;
 }
 
+var x = (v => v) satisfies (x: number) => string;
+
 =====================================output=====================================
 ({} satisfies {});
 ({} satisfies X);
@@ -730,6 +736,8 @@ scrollTop > (visibilityHeight satisfies number);
 async function g1() {
   const test = (await "foo") satisfies number;
 }
+
+var x = ((v) => v) satisfies (x: number) => string;
 
 ================================================================================
 `;
@@ -846,56 +854,56 @@ bifornCringerMoshedPerplexSawder =
     : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
 
 =====================================output=====================================
-foo =
+foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
- satisfies Fooooooooooo
+) satisfies Fooooooooooo
 
-foo = condition ? firstValue : secondValue satisfies SomeType
+foo = (condition ? firstValue : secondValue) satisfies SomeType
 
-const foo =
+const foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
- satisfies Fooooooooooo
+) satisfies Fooooooooooo
 
 function foo() {
-  return
+  return (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo
+  ) satisfies Fooooooooooo
 }
 
 function foo() {
-  throw
+  throw (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo
+  ) satisfies Fooooooooooo
 }
 
 function foo() {
-  void (
+  void ((
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo)
+  ) satisfies Fooooooooooo)
 }
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
-  (glimseGlyphsHazardNoopsTieTie === 0
+  ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay)
+    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay)
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
-  (glimseGlyphsHazardNoopsTieTie === 0 &&
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay)
+    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay)
 
 ================================================================================
 `;
@@ -948,56 +956,93 @@ bifornCringerMoshedPerplexSawder =
     : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
 
 =====================================output=====================================
-foo =
+foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
- satisfies Fooooooooooo;
+) satisfies Fooooooooooo;
 
-foo = condition ? firstValue : secondValue satisfies SomeType;
+foo = (condition ? firstValue : secondValue) satisfies SomeType;
 
-const foo =
+const foo = (
   coooooooooooooooooooooooooooooooooooooooooooooooooooond
     ? baaaaaaaaaaaaaaaaaaaaar
     : baaaaaaaaaaaaaaaaaaaaaz
- satisfies Fooooooooooo;
+) satisfies Fooooooooooo;
 
 function foo() {
-  return
+  return (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo;
+  ) satisfies Fooooooooooo;
 }
 
 function foo() {
-  throw
+  throw (
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo;
+  ) satisfies Fooooooooooo;
 }
 
 function foo() {
-  void (
+  void ((
     coooooooooooooooooooooooooooooooooooooooooooooooooooond
       ? baaaaaaaaaaaaaaaaaaaaar
       : baaaaaaaaaaaaaaaaaaaaaz
-   satisfies Fooooooooooo);
+  ) satisfies Fooooooooooo);
 }
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
-  (glimseGlyphsHazardNoopsTieTie === 0
+  ((glimseGlyphsHazardNoopsTieTie === 0
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay);
+    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
 
 bifornCringerMoshedPerplexSawder =
   askTrovenaBeenaDependsRowans +
-  (glimseGlyphsHazardNoopsTieTie === 0 &&
+  ((glimseGlyphsHazardNoopsTieTie === 0 &&
   kochabCooieGameOnOboleUnweave === Math.PI
     ? averredBathersBoxroomBuggyNurl
-    : anodyneCondosMalateOverateRetinol satisfies AnnularCooeedSplicesWalksWayWay);
+    : anodyneCondosMalateOverateRetinol) satisfies AnnularCooeedSplicesWalksWayWay);
+
+================================================================================
+`;
+
+exports[`types-comments.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+(() => {
+  // swallow error and fallback to using directory as path
+}) satisfies string[];
+  
+=====================================output=====================================
+;(() => {
+  // swallow error and fallback to using directory as path
+}) satisfies string[]
+
+================================================================================
+`;
+
+exports[`types-comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(() => {
+  // swallow error and fallback to using directory as path
+}) satisfies string[];
+  
+=====================================output=====================================
+(() => {
+  // swallow error and fallback to using directory as path
+}) satisfies string[];
 
 ================================================================================
 `;
