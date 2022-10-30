@@ -287,7 +287,7 @@ function isHopefullyShortCallArgument(node) {
     return isHopefullyShortCallArgument(node.expression);
   }
 
-  if (node.type === "TSAsExpression") {
+  if (isTSTypeExpression(node)) {
     let { typeAnnotation } = node;
     if (typeAnnotation.type === "TSArrayType") {
       typeAnnotation = typeAnnotation.elementType;
