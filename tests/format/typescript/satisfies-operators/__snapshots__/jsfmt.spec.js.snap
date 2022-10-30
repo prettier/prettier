@@ -32,28 +32,28 @@ const bar1 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value]
   },
-  [] satisfies unknown satisfies number[],
+  ([] satisfies unknown) satisfies number[],
 )
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value]
   },
-  [1, 2, 3] satisfies unknown satisfies number[],
+  ([1, 2, 3] satisfies unknown) satisfies number[],
 )
 
 const bar3 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true }
   },
-  {} satisfies unknown satisfies { [key: number]: boolean },
+  ({} satisfies unknown) satisfies { [key: number]: boolean },
 )
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true }
   },
-  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
+  ({ 1: true } satisfies unknown) satisfies { [key: number]: boolean },
 )
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
@@ -94,33 +94,100 @@ const bar1 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [] satisfies unknown satisfies number[],
+  ([] satisfies unknown) satisfies number[],
 );
 
 const bar2 = [1, 2, 3].reduce(
   (carry, value) => {
     return [...carry, value];
   },
-  [1, 2, 3] satisfies unknown satisfies number[],
+  ([1, 2, 3] satisfies unknown) satisfies number[],
 );
 
 const bar3 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  {} satisfies unknown satisfies { [key: number]: boolean },
+  ({} satisfies unknown) satisfies { [key: number]: boolean },
 );
 
 const bar4 = [1, 2, 3].reduce(
   (carry, value) => {
     return { ...carry, [value]: true };
   },
-  { 1: true } satisfies unknown satisfies { [key: number]: boolean },
+  ({ 1: true } satisfies unknown) satisfies { [key: number]: boolean },
 );
 
 const bar5 = [1, 2, 3].reduce((carry, value) => {
   return [...carry, value];
 }, [] satisfies foo);
+
+================================================================================
+`;
+
+exports[`assignment.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const extraRendererAttrs = ((attrs.rendererAttrs &&
+  this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
+  Object.create(null)) satisfies FieldService.RendererAttributes;
+
+const annotate = (angular.injector satisfies any).$$annotate satisfies (
+  fn: Function
+) => string[];
+  
+const originalPrototype = originalConstructor.prototype satisfies TComponent & InjectionTarget,
+  propertyToServiceName = originalPrototype._inject;
+
+=====================================output=====================================
+const extraRendererAttrs = ((attrs.rendererAttrs &&
+  this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
+  Object.create(null)) satisfies FieldService.RendererAttributes
+
+const annotate = (angular.injector satisfies any).$$annotate satisfies (
+  fn: Function,
+) => string[]
+
+const originalPrototype = originalConstructor.prototype satisfies TComponent &
+    InjectionTarget,
+  propertyToServiceName = originalPrototype._inject
+
+================================================================================
+`;
+
+exports[`assignment.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const extraRendererAttrs = ((attrs.rendererAttrs &&
+  this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
+  Object.create(null)) satisfies FieldService.RendererAttributes;
+
+const annotate = (angular.injector satisfies any).$$annotate satisfies (
+  fn: Function
+) => string[];
+  
+const originalPrototype = originalConstructor.prototype satisfies TComponent & InjectionTarget,
+  propertyToServiceName = originalPrototype._inject;
+
+=====================================output=====================================
+const extraRendererAttrs = ((attrs.rendererAttrs &&
+  this.utils.safeParseJsonString(attrs.rendererAttrs)) ||
+  Object.create(null)) satisfies FieldService.RendererAttributes;
+
+const annotate = (angular.injector satisfies any).$$annotate satisfies (
+  fn: Function,
+) => string[];
+
+const originalPrototype = originalConstructor.prototype satisfies TComponent &
+    InjectionTarget,
+  propertyToServiceName = originalPrototype._inject;
 
 ================================================================================
 `;
@@ -489,11 +556,27 @@ semi: false
 ({}) satisfies {};
 ({}) satisfies X;
 () => ({}) satisfies X;
+this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
+
+'current' in (props.pagination satisfies Object);
+('current' in props.pagination) satisfies Object;
+start + (yearSelectTotal satisfies number);
+(start + yearSelectTotal) satisfies number;
+scrollTop > (visibilityHeight satisfies number);
+(scrollTop > visibilityHeight) satisfies number;
 
 =====================================output=====================================
 ;({} satisfies {})
 ;({} satisfies X)
 ;() => ({} satisfies X)
+this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement)
+
+"current" in (props.pagination satisfies Object)
+;("current" in props.pagination) satisfies Object
+start + (yearSelectTotal satisfies number)
+;(start + yearSelectTotal) satisfies number
+scrollTop > (visibilityHeight satisfies number)
+;(scrollTop > visibilityHeight) satisfies number
 
 ================================================================================
 `;
@@ -507,11 +590,27 @@ printWidth: 80
 ({}) satisfies {};
 ({}) satisfies X;
 () => ({}) satisfies X;
+this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
+
+'current' in (props.pagination satisfies Object);
+('current' in props.pagination) satisfies Object;
+start + (yearSelectTotal satisfies number);
+(start + yearSelectTotal) satisfies number;
+scrollTop > (visibilityHeight satisfies number);
+(scrollTop > visibilityHeight) satisfies number;
 
 =====================================output=====================================
 ({} satisfies {});
 ({} satisfies X);
 () => ({} satisfies X);
+this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
+
+"current" in (props.pagination satisfies Object);
+("current" in props.pagination) satisfies Object;
+start + (yearSelectTotal satisfies number);
+(start + yearSelectTotal) satisfies number;
+scrollTop > (visibilityHeight satisfies number);
+(scrollTop > visibilityHeight) satisfies number;
 
 ================================================================================
 `;
@@ -530,19 +629,19 @@ const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVer
 const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
 
 =====================================output=====================================
-const a = \`\${foo + bar satisfies baz}\`
+const a = \`\${(foo + bar) satisfies baz}\`
 const b = \`\${
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar satisfies baz
+  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz
 }\`
 const b = \`\${
-  foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies baz
+  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz
 }\`
 const b = \`\${
-  foo + bar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+  (foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`
 const b = \`\${
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`
 
 ================================================================================
@@ -561,19 +660,19 @@ const b = \`\${(foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVer
 const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz}\`;
 
 =====================================output=====================================
-const a = \`\${foo + bar satisfies baz}\`;
+const a = \`\${(foo + bar) satisfies baz}\`;
 const b = \`\${
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar satisfies baz
+  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) satisfies baz
 }\`;
 const b = \`\${
-  foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies baz
+  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies baz
 }\`;
 const b = \`\${
-  foo + bar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+  (foo + bar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
 const b = \`\${
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) satisfies veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
 
 ================================================================================
