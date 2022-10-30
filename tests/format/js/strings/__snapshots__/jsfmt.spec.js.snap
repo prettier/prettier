@@ -66,60 +66,6 @@ const loremIpsumFooBazBar2 =
 ================================================================================
 `;
 
-exports[`multiline-literal.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// https://github.com/prettier/prettier/pull/13274
-
-const loremIpsumFooBazBar1 = 'Multiline string\\
-         Multiline string\\
-'
-
-const loremIpsumFooBazBar2 = 'Multiline string\\
-         Multiline string\\
-         Multiline string'
-
-=====================================output=====================================
-// https://github.com/prettier/prettier/pull/13274
-
-const loremIpsumFooBazBar1 =
-  "Multiline string\\
-         Multiline string\\
-";
-
-const loremIpsumFooBazBar2 =
-  "Multiline string\\
-         Multiline string\\
-         Multiline string";
-
-================================================================================
-`;
-
-exports[`non-octal-eight-and-nine.js [acorn] format 1`] = `
-"Invalid escape sequence (3:3)
-  1 | // https://github.com/babel/babel/pull/11852
-  2 |
-> 3 | "\\8","\\9";
-    |   ^
-  4 | () => {
-  5 |   "use strict";
-  6 |   "\\8", "\\9";"
-`;
-
-exports[`non-octal-eight-and-nine.js [espree] format 1`] = `
-"Invalid escape sequence (3:3)
-  1 | // https://github.com/babel/babel/pull/11852
-  2 |
-> 3 | "\\8","\\9";
-    |   ^
-  4 | () => {
-  5 |   "use strict";
-  6 |   "\\8", "\\9";"
-`;
-
 exports[`non-octal-eight-and-nine.js - {"trailingComma":"all"} [acorn] format 1`] = `
 "Invalid escape sequence (3:3)
   1 | // https://github.com/babel/babel/pull/11852

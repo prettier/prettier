@@ -5053,9 +5053,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-light-runner@npm:0.4.0":
-  version: 0.4.0
-  resolution: "jest-light-runner@npm:0.4.0"
+"jest-light-runner@npm:0.4.1":
+  version: 0.4.1
+  resolution: "jest-light-runner@npm:0.4.1"
   dependencies:
     "@jest/expect": ^29.0.1
     jest-circus: ^29.0.1
@@ -5066,7 +5066,7 @@ __metadata:
     supports-color: ^9.2.1
   peerDependencies:
     jest: ^27.5.0 || ^28.0.0 || ^29.0.0
-  checksum: 8ad449a830bd1b039d505baa40881e6e7d1badc8698d844c456c156f820bf0a4b58563ef07678dbed368ca968262bccd28ba756a3d4dc1a8e19f49a57bf82775
+  checksum: e1a3019e9d3cd03627f85e2a7cfd10f89c6b34e88f6fbd8496575fe995cad1e333a7aed476137612cbd2f2de0474c4bc6c5191a28c4db8b231c9ea957d09d07b
   languageName: node
   linkType: hard
 
@@ -6681,7 +6681,7 @@ __metadata:
     import-meta-resolve: 2.1.0
     jest: 29.2.1
     jest-docblock: 29.2.0
-    jest-light-runner: 0.4.0
+    jest-light-runner: 0.4.1
     jest-snapshot-serializer-ansi: 1.0.0
     jest-snapshot-serializer-raw: 1.2.0
     jest-watch-typeahead: 2.2.0
