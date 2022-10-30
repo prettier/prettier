@@ -167,6 +167,20 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 ================================================================================
 `;
 
+exports[`export-default-as.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default (function log() {} satisfies typeof console.log)
+
+=====================================output=====================================
+export default (function log() {} satisfies typeof console.log);
+
+================================================================================
+`;
+
 exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]

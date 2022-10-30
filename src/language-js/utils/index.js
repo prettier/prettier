@@ -62,7 +62,7 @@ function hasNakedLeftSide(node) {
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
-    node.type === "TSAsExpression" ||
+    isTSTypeExpression(node) ||
     node.type === "TSNonNullExpression"
   );
 }
