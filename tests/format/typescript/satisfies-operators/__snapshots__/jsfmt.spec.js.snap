@@ -388,26 +388,11 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-const t1 = {
-    prop1: 1,
-    prop2: 2,
-    prop3: 3
-} satisfies
-// Comment
-Record<string, number>;
-
 const t2 = {} /* comment */ satisfies {};
 const t3 = {} satisfies /* comment */ {};
 const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 =====================================output=====================================
-const t1 = {
-  prop1: 1,
-  prop2: 2,
-  prop3: 3,
-} satisfies // Comment
-Record<string, number>
-
 const t2 = {} /* comment */ satisfies {}
 const t3 = {} satisfies /* comment */ {}
 const t4 = {} /* comment1 */ satisfies /* comment2 */ {}
@@ -421,6 +406,25 @@ parsers: ["babel-ts"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
+
+=====================================output=====================================
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
+
+================================================================================
+`;
+
+exports[`comments-unstable.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 const t1 = {
     prop1: 1,
     prop2: 2,
@@ -429,9 +433,30 @@ const t1 = {
 // Comment
 Record<string, number>;
 
-const t2 = {} /* comment */ satisfies {};
-const t3 = {} satisfies /* comment */ {};
-const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
+=====================================output=====================================
+const t1 = {
+  prop1: 1,
+  prop2: 2,
+  prop3: 3,
+} satisfies // Comment
+Record<string, number>
+
+================================================================================
+`;
+
+exports[`comments-unstable.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const t1 = {
+    prop1: 1,
+    prop2: 2,
+    prop3: 3
+} satisfies
+// Comment
+Record<string, number>;
 
 =====================================output=====================================
 const t1 = {
@@ -440,10 +465,6 @@ const t1 = {
   prop3: 3,
 } satisfies // Comment
 Record<string, number>;
-
-const t2 = {} /* comment */ satisfies {};
-const t3 = {} satisfies /* comment */ {};
-const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 ================================================================================
 `;
@@ -661,7 +682,6 @@ start + (yearSelectTotal satisfies number);
 (start + yearSelectTotal) satisfies number;
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
-
 (bValue satisfies boolean) ? 0 : -1;
 
 async function g1() {
@@ -682,7 +702,6 @@ start + (yearSelectTotal satisfies number)
 ;(start + yearSelectTotal) satisfies number
 scrollTop > (visibilityHeight satisfies number)
 ;(scrollTop > visibilityHeight) satisfies number
-
 ;(bValue satisfies boolean) ? 0 : -1
 
 async function g1() {
@@ -711,7 +730,6 @@ start + (yearSelectTotal satisfies number);
 (start + yearSelectTotal) satisfies number;
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
-
 (bValue satisfies boolean) ? 0 : -1;
 
 async function g1() {
@@ -732,7 +750,6 @@ start + (yearSelectTotal satisfies number);
 (start + yearSelectTotal) satisfies number;
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
-
 (bValue satisfies boolean) ? 0 : -1;
 
 async function g1() {

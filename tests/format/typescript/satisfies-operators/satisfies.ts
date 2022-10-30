@@ -9,7 +9,6 @@ start + (yearSelectTotal satisfies number);
 (start + yearSelectTotal) satisfies number;
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
-
 (bValue satisfies boolean) ? 0 : -1;
 
 async function g1() {
