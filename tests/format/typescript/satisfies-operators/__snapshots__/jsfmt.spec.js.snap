@@ -523,6 +523,7 @@ window.postMessage(
       topic: item.topic
     } satisfies IActionMessage
   );
+
 =====================================output=====================================
 window.postMessage({
   context: item.context,
@@ -544,6 +545,7 @@ window.postMessage(
       topic: item.topic
     } satisfies IActionMessage
   );
+
 =====================================output=====================================
 window.postMessage({
   context: item.context,
@@ -1020,7 +1022,7 @@ semi: false
 (() => {
   // swallow error and fallback to using directory as path
 }) satisfies string[];
-  
+
 =====================================output=====================================
 ;(() => {
   // swallow error and fallback to using directory as path
@@ -1038,7 +1040,7 @@ printWidth: 80
 (() => {
   // swallow error and fallback to using directory as path
 }) satisfies string[];
-  
+
 =====================================output=====================================
 (() => {
   // swallow error and fallback to using directory as path
