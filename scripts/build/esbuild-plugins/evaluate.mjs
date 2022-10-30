@@ -27,7 +27,7 @@ export default function esbuildPluginEvaluate() {
             }
 
             return format === "cjs"
-              ? `exports[${specifier}] = ${value};`
+              ? `exports.${specifier} = ${value};`
               : `export const ${specifier} = ${value};`;
           })
           .join("\n");
