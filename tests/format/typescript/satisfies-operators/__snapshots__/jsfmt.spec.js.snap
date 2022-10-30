@@ -104,3 +104,24 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 ================================================================================
 `;
+
+exports[`hug-args.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+window.postMessage(
+    {
+      context: item.context,
+      topic: item.topic
+    } satisfies IActionMessage
+  );
+=====================================output=====================================
+window.postMessage({
+  context: item.context,
+  topic: item.topic,
+} satisfies IActionMessage);
+
+================================================================================
+`;

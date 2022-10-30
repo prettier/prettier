@@ -1219,6 +1219,12 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
+function isTSTypeExpression(node) {
+  return (
+    node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
+  );
+}
+
 export {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1280,4 +1286,5 @@ export {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
+  isTSTypeExpression,
 };
