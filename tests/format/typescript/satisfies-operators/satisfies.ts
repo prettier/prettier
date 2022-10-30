@@ -16,3 +16,7 @@ async function g1() {
 }
 
 var x = (v => v) satisfies (x: number) => string;
+
+foo satisfies unknown satisfies Bar;
+foo satisfies unknown as Bar;
+foo as unknown satisfies Bar;
