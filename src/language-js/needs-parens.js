@@ -230,10 +230,13 @@ function needsParens(path, options) {
     case "TSSatisfiesExpression":
     case "LogicalExpression":
       switch (parent.type) {
-        case "TSSatisfiesExpression":
         case "TSAsExpression":
           // example: foo as unknown as Bar
           return node.type !== "TSAsExpression";
+
+        case "TSSatisfiesExpression":
+          // example: foo satisfies unknown satisfies Bar
+          return node.type !== "TSSatisfiesExpression";
 
         case "ConditionalExpression":
           return node.type === "TSAsExpression";

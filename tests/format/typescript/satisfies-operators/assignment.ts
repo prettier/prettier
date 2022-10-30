@@ -8,3 +8,14 @@ const annotate = (angular.injector satisfies any).$$annotate satisfies (
   
 const originalPrototype = originalConstructor.prototype satisfies TComponent & InjectionTarget,
   propertyToServiceName = originalPrototype._inject;
+
+this.previewPlayerHandle = (setInterval(async () => {
+  if (this.previewIsPlaying) {
+    await this.fetchNextPreviews();
+    this.currentPreviewIndex++;
+  }
+}, this.refreshDelay) satisfies unknown) satisfies number;
+
+this.intervalID = (setInterval(() => {
+  self.step();
+}, 30) satisfies unknown) satisfies number;
