@@ -238,10 +238,7 @@ function needsParens(path, options) {
           //   foo satisfies unknown satisfies Bar
           //   foo satisfies unknown as Bar
           //   foo as unknown satisfies Bar
-          return (
-            node.type !== "TSAsExpression" &&
-            node.type !== "TSSatisfiesExpression"
-          );
+          return !isTSTypeExpression(node);
 
         case "ConditionalExpression":
           return isTSTypeExpression(node);
@@ -276,11 +273,10 @@ function needsParens(path, options) {
           return (
             key === "left" &&
             (node.type === "TSTypeAssertion" ||
-              node.type === "TSAsExpression" ||
               // babel-parser cannot parse `satisfies` operator in left side of assignment
               // https://github.com/babel/babel/issues/15095
               // TODO: Add tests after the bug is fixed
-              node.type === "TSSatisfiesExpression")
+              isTSTypeExpression(node))
           );
 
         case "LogicalExpression":
