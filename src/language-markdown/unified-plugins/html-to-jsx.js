@@ -8,7 +8,7 @@ function htmlToJsx() {
         node.type !== "html" ||
         // Keep HTML-style comments (legacy MDX)
         COMMENT_REGEX.test(node.value) ||
-        INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
+        INLINE_NODE_WRAPPER_TYPES.has(parent.type)
       ) {
         return node;
       }

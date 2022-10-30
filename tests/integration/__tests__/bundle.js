@@ -5,7 +5,7 @@ import fastGlob from "fast-glob";
 import { projectRoot } from "../env.js";
 import prettier from "../../config/prettier-entry.js";
 import createSandBox from "../../config/utils/create-sandbox.cjs";
-import * as coreOptions from "../../../src/main/core-options.js";
+import * as coreOptions from "../../../src/main/core-options.evaluate.js";
 import codeSamples from "../../../website/playground/codeSamples.mjs";
 import jestPathSerializer from "../path-serializer.js";
 

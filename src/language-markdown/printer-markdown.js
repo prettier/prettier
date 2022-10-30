@@ -733,11 +733,10 @@ function isPrettierIgnore(node) {
 
 function shouldPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
+  const isInlineNode = INLINE_NODE_TYPES.has(node.type);
 
   const isInlineHTML =
-    node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
+    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(data.parentNode.type);
 
   return !isFirstNode && !isInlineNode && !isInlineHTML;
 }
