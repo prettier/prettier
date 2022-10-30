@@ -371,6 +371,7 @@ function needsParens(path, options) {
         case "SpreadElement":
         case "SpreadProperty":
         case "TSAsExpression":
+        case "TSSatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
           return true;

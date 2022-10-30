@@ -11,3 +11,7 @@ scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
 
 (bValue satisfies boolean) ? 0 : -1;
+
+async function g1() {
+  const test = (await 'foo') satisfies number;
+}

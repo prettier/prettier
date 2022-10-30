@@ -553,6 +553,57 @@ window.postMessage({
 ================================================================================
 `;
 
+exports[`nested-await-and-satisfies.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const getAccountCount = async () =>
+  (await
+    ((await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")) satisfies TreeItem
+  ).getChildren()
+  ).length
+
+=====================================output=====================================
+const getAccountCount = async () =>
+  (
+    await ((await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")) satisfies TreeItem).getChildren()
+  ).length
+
+================================================================================
+`;
+
+exports[`nested-await-and-satisfies.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const getAccountCount = async () =>
+  (await
+    ((await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")) satisfies TreeItem
+  ).getChildren()
+  ).length
+
+=====================================output=====================================
+const getAccountCount = async () =>
+  (
+    await ((await (
+      await focusOnSection(BOOKMARKED_PROJECTS_SECTION_NAME)
+    ).findItem("My bookmarks")) satisfies TreeItem).getChildren()
+  ).length;
+
+================================================================================
+`;
+
 exports[`non-null.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]
@@ -611,6 +662,10 @@ scrollTop > (visibilityHeight satisfies number);
 
 (bValue satisfies boolean) ? 0 : -1;
 
+async function g1() {
+  const test = (await 'foo') satisfies number;
+}
+
 =====================================output=====================================
 ;({} satisfies {})
 ;({} satisfies X)
@@ -625,6 +680,10 @@ scrollTop > (visibilityHeight satisfies number)
 ;(scrollTop > visibilityHeight) satisfies number
 
 ;(bValue satisfies boolean) ? 0 : -1
+
+async function g1() {
+  const test = (await "foo") satisfies number
+}
 
 ================================================================================
 `;
@@ -649,6 +708,10 @@ scrollTop > (visibilityHeight satisfies number);
 
 (bValue satisfies boolean) ? 0 : -1;
 
+async function g1() {
+  const test = (await 'foo') satisfies number;
+}
+
 =====================================output=====================================
 ({} satisfies {});
 ({} satisfies X);
@@ -663,6 +726,10 @@ scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
 
 (bValue satisfies boolean) ? 0 : -1;
+
+async function g1() {
+  const test = (await "foo") satisfies number;
+}
 
 ================================================================================
 `;
