@@ -2786,16 +2786,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"codemirror-graphql@npm:2.0.0":
-  version: 2.0.0
-  resolution: "codemirror-graphql@npm:2.0.0"
+"codemirror-graphql@npm:2.0.1":
+  version: 2.0.1
+  resolution: "codemirror-graphql@npm:2.0.1"
   dependencies:
-    graphql-language-service: ^5.1.0
+    graphql-language-service: 5.0.6
   peerDependencies:
     "@codemirror/language": ^0.20.0
     codemirror: ^5.65.3
     graphql: ^15.5.0 || ^16.0.0
-  checksum: 73cb3fd9c2c06ece261812d348cbb9815d906e7dab855c4a2b64605177d01e9c49d6e532070546e213220d1c9ca396a18b50bde8b262b212f6f77add0befc07e
+  checksum: 0bf67db8846d1420d4fbe82140c65a85e1d52222a0206f49c4e95b1560e3b336805c24d320b9ee7f3ae0d8bf9170338a911fd36b9269690aed5fa1496b716aa1
   languageName: node
   linkType: hard
 
@@ -5044,17 +5044,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-language-service@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "graphql-language-service@npm:5.1.0"
+"graphql-language-service@npm:5.0.6":
+  version: 5.0.6
+  resolution: "graphql-language-service@npm:5.0.6"
   dependencies:
     nullthrows: ^1.0.0
-    vscode-languageserver-types: ^3.17.1
+    vscode-languageserver-types: ^3.15.1
   peerDependencies:
     graphql: ^15.5.0 || ^16.0.0
   bin:
     graphql: dist/temp-bin.js
-  checksum: 705aab1f7fea7ce509b9c4f6e4cbcad724f4049d4d40c4d458eb3dde5199ab506adfc747df7643a167a9345b6e7f5bd4b6618f612fe8bf00600963ecd04a8a69
+  checksum: a7155ba934aa428278cce0f460fa3b8b12020a26a0355e60738974617a66d9b2f1bb7d41cbd72a1620a29e61f10ca438cbf72cbf2405b8f653edddfc69fec02a
   languageName: node
   linkType: hard
 
@@ -8648,7 +8648,7 @@ __metadata:
     "@sandhose/prettier-animated-logo": 1.0.3
     babel-loader: 8.2.5
     clipboard: 2.0.11
-    codemirror-graphql: 2.0.0
+    codemirror-graphql: 2.0.1
     concurrently: 7.5.0
     docusaurus: 1.14.7
     js-yaml: 4.1.0
@@ -10056,7 +10056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-languageserver-types@npm:^3.17.1":
+"vscode-languageserver-types@npm:^3.15.1":
   version: 3.17.2
   resolution: "vscode-languageserver-types@npm:3.17.2"
   checksum: ef2d862d22f622b64de0f428773d50a5928ec6cdd485960a7564ebe4fd4a3c8bcd956f29eb15bc45a0f353846e62f39f6c764d2ab85ce774b8724411ba84342f
