@@ -11,6 +11,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isTSTypeExpression,
 } from "./utils/index.js";
 
 function needsParens(path, options) {
@@ -239,7 +240,7 @@ function needsParens(path, options) {
           return node.type !== "TSSatisfiesExpression";
 
         case "ConditionalExpression":
-          return node.type === "TSAsExpression";
+          return isTSTypeExpression(node);
 
         case "CallExpression":
         case "NewExpression":

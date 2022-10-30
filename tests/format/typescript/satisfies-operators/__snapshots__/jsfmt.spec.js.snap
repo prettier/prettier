@@ -609,6 +609,8 @@ start + (yearSelectTotal satisfies number);
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
 
+(bValue satisfies boolean) ? 0 : -1;
+
 =====================================output=====================================
 ;({} satisfies {})
 ;({} satisfies X)
@@ -621,6 +623,8 @@ start + (yearSelectTotal satisfies number)
 ;(start + yearSelectTotal) satisfies number
 scrollTop > (visibilityHeight satisfies number)
 ;(scrollTop > visibilityHeight) satisfies number
+
+;(bValue satisfies boolean) ? 0 : -1
 
 ================================================================================
 `;
@@ -643,6 +647,8 @@ start + (yearSelectTotal satisfies number);
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
 
+(bValue satisfies boolean) ? 0 : -1;
+
 =====================================output=====================================
 ({} satisfies {});
 ({} satisfies X);
@@ -655,6 +661,8 @@ start + (yearSelectTotal satisfies number);
 (start + yearSelectTotal) satisfies number;
 scrollTop > (visibilityHeight satisfies number);
 (scrollTop > visibilityHeight) satisfies number;
+
+(bValue satisfies boolean) ? 0 : -1;
 
 ================================================================================
 `;
