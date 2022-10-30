@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const t1 = { a: 1 } satisfies I1;
+const t2 = { a: 1, b: 1 } satisfies I1;
+const t3 = { } satisfies I1;
+const t4: T1 = { a: "a" } satisfies T1;
+const t5 = (m => m.substring(0)) satisfies T2;
+const t6 = [1, 2] satisfies [number, number];
+let t7 = { a: 'test' } satisfies A;
+let t8 = { a: 'test', b: 'test' } satisfies A;
+
+const p = {
+  isEven: n => n % 2 === 0,
+  isOdd: n => n % 2 === 1
+} satisfies Predicates;
+
+let obj: { f(s: string): void } & Record<string, unknown> = {
+    f(s) { },
+    g(s) { }
+} satisfies { g(s: string): void } & Record<string, unknown>;
+
+({ f(x) { } }) satisfies { f(s: string): void };
+
+const car = {
+    start() { },
+    move(d) {
+        // d should be number
+    },
+    stop() { }
+} satisfies Movable & Record<string, unknown>;
+
+var v = undefined satisfies 1;
+
+=====================================output=====================================
+const t1 = { a: 1 } satisfies I1;
+const t2 = { a: 1, b: 1 } satisfies I1;
+const t3 = {} satisfies I1;
+const t4: T1 = { a: "a" } satisfies T1;
+const t5 = (m) => m.substring(0) satisfies T2;
+const t6 = [1, 2] satisfies [number, number];
+let t7 = { a: "test" } satisfies A;
+let t8 = { a: "test", b: "test" } satisfies A;
+
+const p = {
+  isEven: (n) => n % 2 === 0,
+  isOdd: (n) => n % 2 === 1,
+} satisfies Predicates;
+
+let obj: { f(s: string): void } & Record<string, unknown> = {
+  f(s) {},
+  g(s) {},
+} satisfies { g(s: string): void } & Record<string, unknown>;
+
+{ f(x) {} } satisfies { f(s: string): void };
+
+const car = {
+  start() {},
+  move(d) {
+    // d should be number
+  },
+  stop() {},
+} satisfies Movable & Record<string, unknown>;
+
+var v = undefined satisfies 1;
+
+================================================================================
+`;
+
+exports[`comments.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const t1 = {
+    prop1: 1,
+    prop2: 2,
+    prop3: 3
+} satisfies
+// Comment
+Record<string, number>;
+
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
+
+=====================================output=====================================
+const t1 = {
+  prop1: 1,
+  prop2: 2,
+  prop3: 3,
+} satisfies // Comment
+Record<string, number>;
+
+const t2 = {} /* comment */ satisfies {};
+const t3 = {} satisfies /* comment */ {};
+const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
+
+================================================================================
+`;
