@@ -119,7 +119,7 @@ let obj: { f(s: string): void } & Record<string, unknown> = {
   g(s) {},
 } satisfies { g(s: string): void } & Record<string, unknown>;
 
-{ f(x) {} } satisfies { f(s: string): void };
+({ f(x) {} } satisfies { f(s: string): void });
 
 const car = {
   start() {},
@@ -198,6 +198,24 @@ window.postMessage({
   context: item.context,
   topic: item.topic,
 } satisfies IActionMessage);
+
+================================================================================
+`;
+
+exports[`satisfies.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+({}) satisfies {};
+({}) satisfies X;
+() => ({}) satisfies X;
+
+=====================================output=====================================
+({} satisfies {});
+({} satisfies X);
+() => ({} satisfies X);
 
 ================================================================================
 `;

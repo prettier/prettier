@@ -898,6 +898,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
         forbidFunctionClassAndDoExpr
       );
     case "TSAsExpression":
+    case "TSSatisfiesExpression":
     case "TSNonNullExpression":
       return startsWithNoLookaheadToken(
         node.expression,
