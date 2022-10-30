@@ -515,6 +515,8 @@ function printTypescript(path, options, print) {
       return printJSDocType(path, print, /* token */ "!");
     case "TSInstantiationExpression":
       return [print("expression"), print("typeParameters")];
+    case "TSSatisfiesExpression":
+      return [print("expression"), " satisfies ", print("typeAnnotation")];
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "TypeScript");
