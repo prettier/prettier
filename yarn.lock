@@ -6712,7 +6712,7 @@ __metadata:
     remark-footnotes: 2.0.0
     remark-math: 3.0.1
     remark-parse: 8.0.3
-    rollup-plugin-license: 2.8.2
+    rollup-plugin-license: 3.0.0
     sdbm: 2.0.0
     semver: 7.3.8
     serialize-javascript: 6.0.0
@@ -7121,9 +7121,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-license@npm:2.8.2":
-  version: 2.8.2
-  resolution: "rollup-plugin-license@npm:2.8.2"
+"rollup-plugin-license@npm:3.0.0":
+  version: 3.0.0
+  resolution: "rollup-plugin-license@npm:3.0.0"
   dependencies:
     commenting: ~1.1.0
     glob: ~7.2.0
@@ -7135,8 +7135,8 @@ __metadata:
     spdx-expression-validate: ~2.0.0
     spdx-satisfies: ~5.0.1
   peerDependencies:
-    rollup: ^1.0.0 || ^2.0.0
-  checksum: cd646a8d9e100a06c42ae9b9cbb9f29d0d8c7334d2f7c20334ec8a73135a05be8be995b56ac099d214aadca6070a5dd49ce93f034ef701302bf9451538c699cb
+    rollup: ^1.0.0 || ^2.0.0 || ^3.0.0
+  checksum: ebea7cba439d37c22264b495a70cf39c7c69775a88537cc8e15848e49b61e6d8c97a02522d254e1c1c69ef69851c83fb1fc516d009725ccc3a10cf9bb26b127b
   languageName: node
   linkType: hard
 
