@@ -53,18 +53,26 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   }
 }
 
-function throwErrorForInvalidNodes(ast, options) {
+function getTsNode(node, options) {
   const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
     options.tsParseResult;
+  const tsNode = esTreeNodeToTSNodeMap.get(node);
+  if (!tsNode) {
+    return;
+  }
 
-  visitNode(ast, (node) => {
-    const tsNode = esTreeNodeToTSNodeMap.get(node);
+  const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
+  if (esTreeNode !== node) {
+    return;
+  }
+
+  return tsNode;
+}
+
+function throwErrorForInvalidNodes(ast, options) {
+  visitNode(ast, (esTreeNode) => {
+    const tsNode = getTsNode(esTreeNode, options);
     if (!tsNode) {
-      return;
-    }
-
-    const esTreeNode = tsNodeToESTreeNodeMap.get(tsNode);
-    if (esTreeNode !== node) {
       return;
     }
 
