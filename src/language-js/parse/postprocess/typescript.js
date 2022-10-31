@@ -50,20 +50,22 @@ function throwErrorForInvalidDecorator(tsNode) {
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   if (
-    tsNode.kind !== SyntaxKind.PropertyDeclaration ||
-    (tsNode.modifiers &&
-      !tsNode.modifiers.some(
+    !(
+      tsNode.kind === SyntaxKind.PropertyDeclaration &&
+      tsNode.initializer &&
+      esTreeNode.value === null &&
+      tsNode.modifiers.some(
         (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
-      ))
+      )
+    )
   ) {
     return;
   }
-  if (tsNode.initializer && esTreeNode.value === null) {
-    throwTsSyntaxError(
-      esTreeNode,
-      "Abstract property cannot have an initializer"
-    );
-  }
+
+  throwTsSyntaxError(
+    esTreeNode,
+    "Abstract property cannot have an initializer"
+  );
 }
 
 function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
