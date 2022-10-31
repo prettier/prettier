@@ -2,9 +2,28 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
+// Taken from `typescript` package
+const SyntaxKind = {
+  AbstractKeyword: 126,
+  SourceFile: 305,
+  DeclareKeyword: 135,
+  PropertyDeclaration: 167,
+};
+
+function getTsNodeLocation(nodeOrToken) {
+  const sourceFile = getSourceFileOfNode(nodeOrToken);
+  const [start, end] = [nodeOrToken.pos, nodeOrToken.end].map((position) => {
+    const { line, character: column } =
+      sourceFile.getLineAndCharacterOfPosition(position);
+    return { line: line + 1, column };
+  });
+
+  return { start, end };
+}
+
 // Copied from https://unpkg.com/typescript@4.8.2/lib/typescript.js
 function getSourceFileOfNode(node) {
-  while (node && node.kind !== 305 /* SyntaxKind.SourceFile */) {
+  while (node && node.kind !== SyntaxKind.SourceFile) {
     node = node.parent;
   }
   return node;
@@ -21,26 +40,20 @@ function throwErrorForInvalidDecorator(tsNode) {
 
   const [{ expression }] = illegalDecorators;
 
-  const sourceFile = getSourceFileOfNode(expression);
-  const [start, end] = [expression.pos, expression.end].map((position) => {
-    const { line, character: column } =
-      sourceFile.getLineAndCharacterOfPosition(position);
-    return { line: line + 1, column };
-  });
-
-  throwTsSyntaxError({ loc: { start, end } }, "Decorators are not valid here.");
+  throwTsSyntaxError(
+    { loc: getTsNodeLocation(expression) },
+    "Decorators are not valid here."
+  );
 }
 
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
-  const SYNTAX_KIND_PROPERTY_DEFINITION = 167;
-  const SYNTAX_KIND_ABSTRACT_KEYWORD = 126;
   if (
-    tsNode.kind !== SYNTAX_KIND_PROPERTY_DEFINITION ||
+    tsNode.kind !== SyntaxKind.PropertyDeclaration ||
     (tsNode.modifiers &&
       !tsNode.modifiers.some(
-        (modifier) => modifier.kind === SYNTAX_KIND_ABSTRACT_KEYWORD
+        (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
       ))
   ) {
     return;
@@ -51,6 +64,22 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
       "Abstract property cannot have an initializer"
     );
   }
+}
+
+function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
+  const declareKeyword = tsNode.modifiers.find(
+    (modifier) => modifier.kind === SyntaxKind.DeclareKeyword
+  );
+
+  if (!declareKeyword) {
+    return;
+  }
+
+  throwTsSyntaxError(
+    { loc: getTsNodeLocation(declareKeyword) },
+    /* cspell:disable-next-line */
+    `'declare' is not allowed in ${esTreeNode.kind}ters.`
+  );
 }
 
 function getTsNode(node, options) {
@@ -76,10 +105,22 @@ function throwErrorForInvalidNodes(ast, options) {
     // declare in accessor
     !/@|abstract|declare/.test(options.originalText)
   ) {
-    return
+    return;
   }
 
   visitNode(ast, (esTreeNode) => {
+    if (
+      esTreeNode.type === "MethodDefinition" &&
+      (esTreeNode.kind === "get" || esTreeNode.kind === "set")
+    ) {
+      const tsNode = getTsNode(esTreeNode, options);
+      if (!tsNode) {
+        return;
+      }
+
+      throwErrorForInvalidDeclare(tsNode, esTreeNode);
+    }
+
     const tsNode = getTsNode(esTreeNode, options);
     if (!tsNode) {
       return;
