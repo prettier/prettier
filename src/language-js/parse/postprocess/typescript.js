@@ -67,6 +67,15 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
 }
 
 function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
+  if (
+    !(
+      esTreeNode.type === "MethodDefinition" &&
+      (esTreeNode.kind === "get" || esTreeNode.kind === "set")
+    )
+  ) {
+    return;
+  }
+
   const declareKeyword = tsNode.modifiers.find(
     (modifier) => modifier.kind === SyntaxKind.DeclareKeyword
   );
@@ -109,23 +118,12 @@ function throwErrorForInvalidNodes(ast, options) {
   }
 
   visitNode(ast, (esTreeNode) => {
-    if (
-      esTreeNode.type === "MethodDefinition" &&
-      (esTreeNode.kind === "get" || esTreeNode.kind === "set")
-    ) {
-      const tsNode = getTsNode(esTreeNode, options);
-      if (!tsNode) {
-        return;
-      }
-
-      throwErrorForInvalidDeclare(tsNode, esTreeNode);
-    }
-
     const tsNode = getTsNode(esTreeNode, options);
     if (!tsNode) {
       return;
     }
 
+    throwErrorForInvalidDeclare(tsNode, esTreeNode);
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
   });
