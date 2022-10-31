@@ -54,7 +54,7 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
       tsNode.kind === SyntaxKind.PropertyDeclaration &&
       tsNode.initializer &&
       esTreeNode.value === null &&
-      tsNode.modifiers.some(
+      tsNode.modifiers?.some(
         (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
       )
     )
@@ -78,7 +78,7 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
     return;
   }
 
-  const declareKeyword = tsNode.modifiers.find(
+  const declareKeyword = tsNode.modifiers?.find(
     (modifier) => modifier.kind === SyntaxKind.DeclareKeyword
   );
 
