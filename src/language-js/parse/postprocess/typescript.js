@@ -70,6 +70,15 @@ function getTsNode(node, options) {
 }
 
 function throwErrorForInvalidNodes(ast, options) {
+  if (
+    // decorators
+    // abstract properties
+    // declare in accessor
+    !/@|abstract|declare/.test(options.originalText)
+  ) {
+    return
+  }
+
   visitNode(ast, (esTreeNode) => {
     const tsNode = getTsNode(esTreeNode, options);
     if (!tsNode) {

@@ -5,18 +5,9 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import isBlockComment from "../../utils/is-block-comment.js";
 import isIndentableBlockComment from "../../utils/is-indentable-block-comment.js";
 import visitNode from "./visit-node.js";
-import { throwErrorForInvalidNodes } from "./typescript.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 function postprocess(ast, options) {
-  if (
-    options.parser === "typescript" &&
-    // decorators or abstract properties
-    /@|abstract/.test(options.originalText)
-  ) {
-    throwErrorForInvalidNodes(ast, options);
-  }
-
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (
     options.parser !== "typescript" &&
