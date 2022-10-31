@@ -38,6 +38,10 @@ function printImportDeclaration(path, options, print) {
 
   parts.push("import");
 
+  if (node.module) {
+    parts.push(" module");
+  }
+
   if (importKind && importKind !== "value") {
     parts.push(" ", importKind);
   }
