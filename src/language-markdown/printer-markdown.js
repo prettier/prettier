@@ -787,9 +787,10 @@ function shouldRemainTheSameContent(path) {
     "imageReference",
   ]);
 
-  return !(
-    ancestorNode?.type === "linkReference" &&
-    ancestorNode.referenceType === "full"
+  return (
+    ancestorNode &&
+    (ancestorNode.type !== "linkReference" ||
+      ancestorNode.referenceType !== "full")
   );
 }
 
