@@ -272,11 +272,7 @@ function needsParens(path, options) {
         case "AssignmentPattern":
           return (
             key === "left" &&
-            (node.type === "TSTypeAssertion" ||
-              // babel-parser cannot parse `satisfies` operator in left side of assignment
-              // https://github.com/babel/babel/issues/15095
-              // TODO: Add tests after the bug is fixed
-              isTSTypeExpression(node))
+            (node.type === "TSTypeAssertion" || isTSTypeExpression(node))
           );
 
         case "LogicalExpression":
