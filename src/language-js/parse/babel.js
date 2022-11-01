@@ -144,7 +144,7 @@ function createParse(parseMethod, ...optionsCombinations) {
     const parseFunction =
       parseMethod === "parseExpression" ? parseExpression : babelParse;
     const { result: ast, error } = tryCombinations(
-      ...combinations.map(
+      combinations.map(
         (options) => () => parseWithOptions(parseFunction, text, options)
       )
     );

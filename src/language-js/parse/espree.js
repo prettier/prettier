@@ -45,11 +45,10 @@ function parse(text, options = {}) {
       espreeParse(text, { ...parseOptions, sourceType })
   );
 
-  const { result: ast, error: moduleParseError } =
-    tryCombinations(combinations);
+  const { result: ast, error } = tryCombinations(combinations);
 
   if (!ast) {
-    throw createParseError(moduleParseError);
+    throw createParseError(error);
   }
 
   options.originalText = text;
