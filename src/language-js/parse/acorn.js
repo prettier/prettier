@@ -10,9 +10,9 @@ const require = createRequire(import.meta.url);
 /** @type {import("acorn").Options} */
 const parseOptions = {
   ecmaVersion: "latest",
-  sourceType: "module",
+  // sourceType: "module",
   allowReturnOutsideFunction: true,
-  allowImportExportEverywhere: true,
+  // allowImportExportEverywhere: true,
   allowSuperOutsideMethod: true,
   locations: true,
   ranges: true,
@@ -56,6 +56,7 @@ function parseWithOptions(text, sourceType) {
   const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
+    allowImportExportEverywhere: sourceType === "module",
     onComment: comments,
     onToken: tokens,
   });
