@@ -3,16 +3,16 @@ run_spec(
     importMeta: import.meta,
     snippets: [
       {
-        code: 'import foo from "foo"',
-        filename: "foo.cjs",
+        code: 'import "foo"',
+        filename: "script.cjs",
       },
       {
         code: "with(foo) {}",
-        filename: "foo.mjs",
+        filename: "module.mjs",
       },
       {
         code: "delete foo",
-        filename: "foo.mjs",
+        filename: "module.mjs",
       },
     ],
   },

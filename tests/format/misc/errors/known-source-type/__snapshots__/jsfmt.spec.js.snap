@@ -2,20 +2,20 @@
 
 exports[`snippet: #0 [acorn] format 1`] = `
 "'import' and 'export' may appear only with 'sourceType: module' (1:1)
-> 1 | import foo from "foo"
+> 1 | import "foo"
     | ^"
 `;
 
 exports[`snippet: #0 [espree] format 1`] = `
 "'import' and 'export' may appear only with 'sourceType: module' (1:1)
-> 1 | import foo from "foo"
+> 1 | import "foo"
     | ^"
 `;
 
 exports[`snippet: #0 [meriyah] format 1`] = `
-"The import keyword can only be used with the module goal (1:10)
-> 1 | import foo from "foo"
-    |          ^"
+"The import keyword can only be used with the module goal (1:12)
+> 1 | import "foo"
+    |            ^"
 `;
 
 exports[`snippet: #1 [acorn] format 1`] = `

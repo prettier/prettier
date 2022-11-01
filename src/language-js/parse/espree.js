@@ -48,7 +48,6 @@ function parse(text, options = {}) {
     tryCombinations(combinations);
 
   if (!ast) {
-    // throw the error for first pase
     throw createParseError(moduleParseError);
   }
 
