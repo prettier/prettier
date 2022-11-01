@@ -160,7 +160,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos, FlagSchema }) {
     case "choice":
       SchemaConstructor = vnopts.ChoiceSchema;
       parameters.choices = optionInfo.choices.map((choiceInfo) =>
-        typeof choiceInfo === "object" && choiceInfo.redirect
+        choiceInfo?.redirect
           ? {
               ...choiceInfo,
               redirect: {

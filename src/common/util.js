@@ -385,7 +385,7 @@ function addTrailingComment(node, comment) {
 }
 
 function isFrontMatterNode(node) {
-  return node && node.type === "front-matter";
+  return node?.type === "front-matter";
 }
 
 /**

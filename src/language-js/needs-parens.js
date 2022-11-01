@@ -44,8 +44,7 @@ function needsParens(path, options) {
     // If the inner JS formatter removes the parens, the expression might change its meaning:
     //     f((a + b) / 2)  vs  f(a + b / 2)
     if (
-      node.extra &&
-      node.extra.parenthesized &&
+      node.extra?.parenthesized &&
       /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
     ) {
       return true;
@@ -215,7 +214,7 @@ function needsParens(path, options) {
       if (node.operator === "in" && isPathInForStatementInitializer(path)) {
         return true;
       }
-      if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
+      if (node.operator === "|>" && node.extra?.parenthesized) {
         const grandParent = path.grandparent;
         if (
           grandParent.type === "BinaryExpression" &&
@@ -485,9 +484,7 @@ function needsParens(path, options) {
         (parent.type === "FunctionTypeParam" &&
           parent.name === null &&
           getFunctionParameters(node).some(
-            (param) =>
-              param.typeAnnotation &&
-              param.typeAnnotation.type === "NullableTypeAnnotation"
+            (param) => param.typeAnnotation?.type === "NullableTypeAnnotation"
           ))
       );
     }
@@ -562,7 +559,6 @@ function needsParens(path, options) {
 
       if (
         parent.type === "SequenceExpression" &&
-        grandParent &&
         grandParent.type === "ForStatement" &&
         (grandParent.init === parent || grandParent.update === parent)
       ) {
@@ -572,7 +568,6 @@ function needsParens(path, options) {
       if (
         key === "value" &&
         parent.type === "Property" &&
-        grandParent &&
         grandParent.type === "ObjectPattern" &&
         grandParent.properties.includes(parent)
       ) {
@@ -637,9 +632,7 @@ function needsParens(path, options) {
     case "ArrowFunctionExpression":
       switch (parent.type) {
         case "BinaryExpression":
-          return (
-            parent.operator !== "|>" || (node.extra && node.extra.parenthesized)
-          );
+          return parent.operator !== "|>" || node.extra?.parenthesized;
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
@@ -742,7 +735,7 @@ function needsParens(path, options) {
         parent.type === "NGMicrosyntaxExpression" ||
         (parent.type === "ObjectProperty" &&
           // Preserve parens for compatibility with AngularJS expressions
-          !(node.extra && node.extra.parenthesized)) ||
+          !node.extra?.parenthesized) ||
         parent.type === "ArrayExpression" ||
         (key === "arguments" && isCallExpression(parent)) ||
         (key === "right" && parent.type === "NGPipeExpression") ||
@@ -849,7 +842,7 @@ function isPathInForStatementInitializer(path) {
   let { node } = path;
   while (node) {
     const parent = path.getParentNode(i++);
-    if (parent && parent.type === "ForStatement" && parent.init === node) {
+    if (parent?.type === "ForStatement" && parent.init === node) {
       return true;
     }
     node = parent;

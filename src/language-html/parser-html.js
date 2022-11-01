@@ -87,11 +87,8 @@ function ngHtmlParser(
         if (node.type !== "element" || node.name !== "template") {
           return false;
         }
-        const langAttr = node.attrs.find((attr) => attr.name === "lang");
-        const langValue = langAttr && langAttr.value;
-        return (
-          !langValue || inferParserByLanguage(langValue, options) === "html"
-        );
+        const language = node.attrs.find((attr) => attr.name === "lang")?.value;
+        return !language || inferParserByLanguage(language, options) === "html";
       };
       if (rootNodes.some(shouldParseAsHTML)) {
         /** @type {ParserTreeResult | undefined} */

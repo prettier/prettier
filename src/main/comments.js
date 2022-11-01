@@ -118,7 +118,7 @@ function decorateComment(node, comment, options, enclosingNode) {
 
   // We don't want comments inside of different expressions inside of the same
   // template literal to move to another expression.
-  if (enclosingNode && enclosingNode.type === "TemplateLiteral") {
+  if (enclosingNode?.type === "TemplateLiteral") {
     const { quasis } = enclosingNode;
     const commentIndex = findExpressionIndexForComment(
       quasis,
@@ -427,7 +427,7 @@ function printLeadingComment(path, options) {
   const parts = [printComment(path, options)];
 
   const { printer, originalText, locStart, locEnd } = options;
-  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
+  const isBlock = printer.isBlockComment?.(comment);
 
   // Leading block comments should see if they need to stay on the
   // same line or not.
@@ -551,7 +551,7 @@ function printCommentsSeparately(path, options, ignored) {
   let printedTrailingComment;
   path.each(() => {
     const comment = path.node;
-    if (ignored && ignored.has(comment)) {
+    if (ignored?.has(comment)) {
       return;
     }
 

@@ -43,15 +43,13 @@ function printFunctionTypeParameters(path, options, print) {
 }
 
 function printTypeAnnotation(path, options, print) {
-  const { node } = path;
+  const { node, parent, key } = path;
   if (!node.typeAnnotation) {
     return "";
   }
 
-  const parentNode = path.parent;
-
   const isFunctionDeclarationIdentifier =
-    parentNode.type === "DeclareFunction" && parentNode.id === node;
+    parent.type === "DeclareFunction" && key === "id";
 
   return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
 }

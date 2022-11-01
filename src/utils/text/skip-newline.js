@@ -10,7 +10,7 @@
  * @returns {number | false}
  */
 function skipNewline(text, index, opts) {
-  const backwards = opts && opts.backwards;
+  const backwards = Boolean(opts?.backwards);
   if (index === false) {
     return false;
   }

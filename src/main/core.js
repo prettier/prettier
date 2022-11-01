@@ -41,7 +41,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
-    if (nodeResult && nodeResult.node) {
+    if (nodeResult?.node) {
       opts.cursorNode = nodeResult.node;
     }
   }

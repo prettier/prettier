@@ -113,8 +113,7 @@ function genericPrint(path, options, print) {
         node.important ? " !important" : "",
         node.nodes
           ? [
-              node.selector &&
-              node.selector.type === "selector-unknown" &&
+              node.selector?.type === "selector-unknown" &&
               lastLineHasInlineComment(node.selector.value)
                 ? line
                 : node.selector
@@ -236,8 +235,7 @@ function genericPrint(path, options, print) {
       }
       const isImportUnknownValueEndsWithSemiColon =
         node.name === "import" &&
-        node.params &&
-        node.params.type === "value-unknown" &&
+        node.params?.type === "value-unknown" &&
         node.params.value.endsWith(";");
 
       return [
@@ -477,7 +475,7 @@ function genericPrint(path, options, print) {
       const ruleAncestorNode = getAncestorNode(path, "css-rule");
 
       // Nested SCSS property
-      if (ruleAncestorNode && ruleAncestorNode.isSCSSNesterProperty) {
+      if (ruleAncestorNode?.isSCSSNesterProperty) {
         return adjustNumbers(
           adjustStrings(maybeToLowerCase(node.value), options)
         );
@@ -495,8 +493,7 @@ function genericPrint(path, options, print) {
       const grandParent = path.grandparent;
       if (
         parentNode.type === "value-paren_group" &&
-        grandParent &&
-        grandParent.type === "value-func" &&
+        grandParent?.type === "value-func" &&
         grandParent.value === "selector"
       ) {
         const start = locEnd(parentNode.open) + 1;
@@ -718,14 +715,14 @@ function genericPrint(path, options, print) {
           !hasEmptyRawBefore(iNextNode);
 
         const requireSpaceBeforeOperator =
-          (iNextNextNode && iNextNextNode.type === "value-func") ||
+          iNextNextNode?.type === "value-func" ||
           (iNextNextNode && isWordNode(iNextNextNode)) ||
           iNode.type === "value-func" ||
           isWordNode(iNode);
         const requireSpaceAfterOperator =
           iNextNode.type === "value-func" ||
           isWordNode(iNextNode) ||
-          (iPrevNode && iPrevNode.type === "value-func") ||
+          iPrevNode?.type === "value-func" ||
           (iPrevNode && isWordNode(iPrevNode));
 
         // Formatting `/`, `+`, `-` sign
@@ -806,7 +803,7 @@ function genericPrint(path, options, print) {
           continue;
         }
         // allow function(returns-list($list)...)
-        if (iNextNode && iNextNode.value === "...") {
+        if (iNextNode?.value === "...") {
           continue;
         }
 
@@ -897,7 +894,7 @@ function genericPrint(path, options, print) {
       const isSCSSMapItem = isSCSSMapItemNode(path, options);
 
       const lastItem = node.groups.at(-1);
-      const isLastItemComment = lastItem && lastItem.type === "value-comment";
+      const isLastItemComment = lastItem?.type === "value-comment";
       const isKey = isKeyInValuePairNode(node, parentNode);
       const isConfiguration = isConfigurationNode(node, parentNode);
       const isVarFunction = isVarFunctionNode(parentNode);
@@ -933,8 +930,7 @@ function genericPrint(path, options, print) {
                   child.type === "value-comma_group" &&
                   child.groups &&
                   child.groups[0].type !== "value-paren_group" &&
-                  child.groups[2] &&
-                  child.groups[2].type === "value-paren_group"
+                  child.groups[2]?.type === "value-paren_group"
                 ) {
                   const parts = getDocParts(printed[0].contents.contents);
                   parts[1] = group(parts[1]);
@@ -1010,8 +1006,7 @@ function genericPrint(path, options, print) {
       return [
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
-        (prevNode &&
-          typeof prevNode.value === "string" &&
+        (typeof prevNode?.value === "string" &&
           prevNode.value.endsWith("\\")) ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
@@ -1046,8 +1041,7 @@ function printNodeSequence(path, options, print) {
   path.each((pathChild, i, nodes) => {
     const prevNode = nodes[i - 1];
     if (
-      prevNode &&
-      prevNode.type === "css-comment" &&
+      prevNode?.type === "css-comment" &&
       prevNode.text.trim() === "prettier-ignore"
     ) {
       const childNode = pathChild.getValue();

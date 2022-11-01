@@ -51,9 +51,7 @@ function getSupportInfo({
       const pluginDefaults = Object.fromEntries(
         plugins
           .filter(
-            (plugin) =>
-              plugin.defaultOptions &&
-              plugin.defaultOptions[option.name] !== undefined
+            (plugin) => plugin.defaultOptions?.[option.name] !== undefined
           )
           .map((plugin) => [plugin.name, plugin.defaultOptions[option.name]])
       );
@@ -83,9 +81,7 @@ function collectParsersFromLanguages(option, languages, plugins) {
       for (const value of language.parsers) {
         if (!existingValues.has(value)) {
           existingValues.add(value);
-          const plugin = plugins.find(
-            (plugin) => plugin.parsers && plugin.parsers[value]
-          );
+          const plugin = plugins.find((plugin) => plugin.parsers?.[value]);
           let description = language.name;
           if (plugin && plugin.name) {
             description += ` (plugin: ${plugin.name})`;

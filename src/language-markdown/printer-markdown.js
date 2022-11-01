@@ -261,11 +261,9 @@ function genericPrint(path, options, print) {
       ];
     }
     case "html": {
-      const { parent } = path;
+      const { parent, isLast } = path;
       const value =
-        parent.type === "root" && parent.children.at(-1) === node
-          ? node.value.trimEnd()
-          : node.value;
+        parent.type === "root" && isLast ? node.value.trimEnd() : node.value;
       const isHtmlComment = /^<!--.*-->$/s.test(value);
 
       return replaceEndOfLine(
@@ -742,7 +740,7 @@ function shouldPrePrintHardline(node, data) {
 }
 
 function shouldPrePrintDoubleHardline(node, data) {
-  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
+  const isSequence = data.prevNode?.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
   const isInTightListItem =
@@ -789,10 +787,9 @@ function shouldRemainTheSameContent(path) {
     "imageReference",
   ]);
 
-  return (
-    ancestorNode &&
-    (ancestorNode.type !== "linkReference" ||
-      ancestorNode.referenceType !== "full")
+  return !(
+    ancestorNode?.type === "linkReference" &&
+    ancestorNode.referenceType === "full"
   );
 }
 

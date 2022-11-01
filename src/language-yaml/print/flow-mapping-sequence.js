@@ -21,8 +21,7 @@ function printFlowMapping(path, print, options) {
   }
   const lastItem = node.children.at(-1);
   const isLastItemEmptyMappingItem =
-    lastItem &&
-    lastItem.type === "flowMappingItem" &&
+    lastItem?.type === "flowMappingItem" &&
     isEmptyNode(lastItem.key) &&
     isEmptyNode(lastItem.value);
 

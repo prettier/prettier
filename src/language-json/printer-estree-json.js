@@ -50,7 +50,7 @@ function genericPrint(path, options, print) {
       return JSON.stringify(node.value);
     case "Identifier": {
       const { parent } = path;
-      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
+      if (parent.type === "ObjectProperty" && parent.key === node) {
         return JSON.stringify(node.name);
       }
       return node.name;

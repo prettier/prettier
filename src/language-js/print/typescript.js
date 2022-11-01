@@ -437,8 +437,7 @@ function printTypescript(path, options, print) {
       const { parent } = path;
       const isExternalModule = isLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
-      const bodyIsDeclaration =
-        node.body && node.body.type === "TSModuleDeclaration";
+      const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
 
       if (parentIsDeclaration) {
         parts.push(".");

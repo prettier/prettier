@@ -80,9 +80,7 @@ function printDocToDebug(doc) {
 
     if (doc.type === DOC_TYPE_LINE) {
       const withBreakParent =
-        Array.isArray(parentParts) &&
-        parentParts[index + 1] &&
-        parentParts[index + 1].type === DOC_TYPE_BREAK_PARENT;
+        parentParts?.[index + 1]?.type === DOC_TYPE_BREAK_PARENT;
       if (doc.literal) {
         return withBreakParent
           ? "literalline"
@@ -99,9 +97,7 @@ function printDocToDebug(doc) {
 
     if (doc.type === DOC_TYPE_BREAK_PARENT) {
       const afterHardline =
-        Array.isArray(parentParts) &&
-        parentParts[index - 1] &&
-        parentParts[index - 1].type === DOC_TYPE_LINE &&
+        parentParts?.[index + 1]?.type === DOC_TYPE_LINE &&
         parentParts[index - 1].hard;
       return afterHardline ? undefined : "breakParent";
     }

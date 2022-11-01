@@ -49,7 +49,7 @@ function printInterface(path, options, print) {
   }
 
   if (
-    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
+    hasComment(node.id, CommentCheckFlags.Trailing) ||
     isNonEmptyArray(node.extends)
   ) {
     if (shouldIndentOnlyHeritageClauses) {

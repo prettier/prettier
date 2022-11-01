@@ -185,7 +185,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 }
 
 function needsSpaceInFrontOfMappingValue(node) {
-  return node.key.content && node.key.content.type === "alias";
+  return node.key.content?.type === "alias";
 }
 
 function isSingleLineNode(node) {

@@ -69,8 +69,7 @@ function getEmbedder(path) {
  */
 function isMarkdown({ node, parent }) {
   return (
-    parent &&
-    parent.type === "TaggedTemplateExpression" &&
+    parent?.type === "TaggedTemplateExpression" &&
     node.quasis.length === 1 &&
     parent.tag.type === "Identifier" &&
     (parent.tag.name === "md" || parent.tag.name === "markdown")
@@ -94,12 +93,10 @@ function isStyledJsx({ node, parent, grandparent }) {
       grandparent.openingElement.attributes.some(
         (attribute) => attribute.name.name === "jsx"
       )) ||
-    (parent &&
-      parent.type === "TaggedTemplateExpression" &&
+    (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "Identifier" &&
       parent.tag.name === "css") ||
-    (parent &&
-      parent.type === "TaggedTemplateExpression" &&
+    (parent?.type === "TaggedTemplateExpression" &&
       parent.tag.type === "MemberExpression" &&
       parent.tag.object.name === "css" &&
       (parent.tag.property.name === "global" ||
@@ -205,9 +202,8 @@ function isStyledComponents({ parent }) {
  */
 function isCssProp({ parent, grandparent }) {
   return (
-    grandparent &&
+    grandparent?.type === "JSXAttribute" &&
     parent.type === "JSXExpressionContainer" &&
-    grandparent.type === "JSXAttribute" &&
     grandparent.name.type === "JSXIdentifier" &&
     grandparent.name.name === "css"
   );

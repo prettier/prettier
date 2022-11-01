@@ -47,7 +47,7 @@ function printArray(path, options, print) {
     parts.push(printEmptyArray(path, openBracket, closeBracket, options));
   } else {
     const lastElem = node.elements.at(-1);
-    const canHaveTrailingComma = !(lastElem && lastElem.type === "RestElement");
+    const canHaveTrailingComma = lastElem?.type !== "RestElement";
 
     // JavaScript allows you to have empty elements in an array which
     // changes its length based on the number of commas. The algorithm

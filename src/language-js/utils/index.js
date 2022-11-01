@@ -1112,8 +1112,7 @@ function isPrettierIgnoreComment(comment) {
 
 function hasNodeIgnoreComment(node) {
   return (
-    node &&
-    (node.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore))
+    node?.prettierIgnore || hasComment(node, CommentCheckFlags.PrettierIgnore)
   );
 }
 

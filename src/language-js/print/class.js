@@ -38,10 +38,9 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
-    (node.id && hasComment(node.id, CommentCheckFlags.Trailing)) ||
-    (node.typeParameters &&
-      hasComment(node.typeParameters, CommentCheckFlags.Trailing)) ||
-    (node.superClass && hasComment(node.superClass)) ||
+    hasComment(node.id, CommentCheckFlags.Trailing) ||
+    hasComment(node.typeParameters, CommentCheckFlags.Trailing) ||
+    hasComment(node.superClass) ||
     isNonEmptyArray(node.extends) || // DeclareClass
     isNonEmptyArray(node.mixins) ||
     isNonEmptyArray(node.implements);
