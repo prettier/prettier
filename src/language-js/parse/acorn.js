@@ -72,8 +72,7 @@ function parse(text, options = {}) {
     (sourceType) => () => parseWithOptions(text, sourceType)
   );
 
-  const { result: ast, error } =
-    tryCombinations(combinations);
+  const { result: ast, error } = tryCombinations(combinations);
 
   if (!ast) {
     throw createParseError(error);
