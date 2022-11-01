@@ -56,7 +56,6 @@ async function parse(text, options = {}) {
   }
 
   options.originalText = text;
-  options.tsParseResult = result;
 
   throwErrorForInvalidNodes(result.ast, options);
 

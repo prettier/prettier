@@ -93,9 +93,8 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
   );
 }
 
-function getTsNode(node, options) {
-  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } =
-    options.tsParseResult;
+function getTsNode(node, tsParseResult) {
+  const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } = tsParseResult;
   const tsNode = esTreeNodeToTSNodeMap.get(node);
   if (!tsNode) {
     return;
@@ -109,7 +108,7 @@ function getTsNode(node, options) {
   return tsNode;
 }
 
-function throwErrorForInvalidNodes(ast, options) {
+function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
     // decorators
     // abstract properties
@@ -119,7 +118,7 @@ function throwErrorForInvalidNodes(ast, options) {
     return;
   }
 
-  visitNode(ast, (esTreeNode) => {
+  visitNode(tsParseResult.ast, (esTreeNode) => {
     const tsNode = getTsNode(esTreeNode, options);
     if (!tsNode) {
       return;
@@ -129,6 +128,8 @@ function throwErrorForInvalidNodes(ast, options) {
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
   });
+
+  return tsParseResult.ast
 }
 
 export { throwErrorForInvalidNodes };
