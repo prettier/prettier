@@ -19,6 +19,7 @@ import {
   isRegExpLiteral,
   isSimpleType,
   isCallLikeExpression,
+  isTSTypeExpression,
 } from "../utils/index.js";
 
 import {
@@ -186,7 +187,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
     (arg.type === "ArrayExpression" &&
       (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
-    (arg.type === "TSAsExpression" && couldExpandArg(arg.expression)) ||
+    (isTSTypeExpression(arg) && couldExpandArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
@@ -286,7 +287,7 @@ function isHopefullyShortCallArgument(node) {
     return isHopefullyShortCallArgument(node.expression);
   }
 
-  if (node.type === "TSAsExpression") {
+  if (isTSTypeExpression(node)) {
     let { typeAnnotation } = node;
     if (typeAnnotation.type === "TSArrayType") {
       typeAnnotation = typeAnnotation.elementType;
