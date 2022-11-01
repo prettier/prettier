@@ -49,8 +49,8 @@ function genericPrint(path, options, print) {
     case "NumericLiteral":
       return JSON.stringify(node.value);
     case "Identifier": {
-      const { parent } = path;
-      if (parent.type === "ObjectProperty" && parent.key === node) {
+      const { parent, key } = path;
+      if (parent.type === "ObjectProperty" && key === "key") {
         return JSON.stringify(node.name);
       }
       return node.name;

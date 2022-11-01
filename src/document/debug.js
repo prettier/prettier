@@ -97,7 +97,7 @@ function printDocToDebug(doc) {
 
     if (doc.type === DOC_TYPE_BREAK_PARENT) {
       const afterHardline =
-        parentParts?.[index + 1]?.type === DOC_TYPE_LINE &&
+        parentParts?.[index - 1]?.type === DOC_TYPE_LINE &&
         parentParts[index - 1].hard;
       return afterHardline ? undefined : "breakParent";
     }
