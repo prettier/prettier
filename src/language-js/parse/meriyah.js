@@ -2,11 +2,12 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
 // https://github.com/meriyah/meriyah/blob/4676f60b6c149d7082bde2c9147f9ae2359c8075/src/parser.ts#L185
 const parseOptions = {
   // Allow module code
-  module: true,
+  // module: true,
   // Enable stage 3 support (ESNext)
   next: true,
   // Enable start and end offsets to each node
@@ -39,14 +40,14 @@ const parseOptions = {
   uniqueKeyInPattern: false,
 };
 
-function parseWithOptions(parse, text, module) {
+function parseWithOptions(parse, text, sourceType) {
   const comments = [];
   const tokens = [];
 
   /** @type {any} */
   const ast = parse(text, {
     ...parseOptions,
-    module,
+    module: sourceType === "module",
     onComment: comments,
     onToken: tokens,
   });
@@ -86,14 +87,15 @@ function createParseError(error) {
 
 async function parse(text, options = {}) {
   const { parse } = await import("meriyah");
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parseWithOptions(parse, text, /* module */ true),
-    () => parseWithOptions(parse, text, /* module */ false)
+
+  const sourceType = getSourceType(options);
+  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
+    (sourceType) => () => parseWithOptions(parse, text, sourceType)
   );
+  const { result: ast, error } = tryCombinations(combinations);
 
   if (!ast) {
-    // Throw the error for `module` parsing
-    throw createParseError(moduleParseError);
+    throw createParseError(error);
   }
 
   options.originalText = text;

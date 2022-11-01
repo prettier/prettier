@@ -3,6 +3,7 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
 const require = createRequire(import.meta.url);
 
@@ -65,13 +66,15 @@ function parseWithOptions(text, sourceType) {
 }
 
 function parse(text, options = {}) {
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parseWithOptions(text, /* sourceType */ "module"),
-    () => parseWithOptions(text, /* sourceType */ "script")
+  const sourceType = getSourceType(options);
+  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
+    (sourceType) => () => parseWithOptions(text, sourceType)
   );
 
+  const { result: ast, error: moduleParseError } =
+    tryCombinations(combinations);
+
   if (!ast) {
-    // throw the error for `module` parsing
     throw createParseError(moduleParseError);
   }
 
