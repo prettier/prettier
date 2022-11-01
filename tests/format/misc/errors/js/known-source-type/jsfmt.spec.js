@@ -12,7 +12,7 @@ run_spec(
       },
       {
         code: "delete foo",
-        filename: "module.mjs",
+        filename: "module.mJs",
       },
     ],
   },
