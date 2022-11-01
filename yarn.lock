@@ -228,21 +228,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:7.20.1":
+"@babel/parser@npm:7.20.1, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.18.10, @babel/parser@npm:^7.18.11":
   version: 7.20.1
   resolution: "@babel/parser@npm:7.20.1"
   bin:
     parser: ./bin/babel-parser.js
   checksum: 2db7ba692b8b3054df129876b115ed8b265d5c138dee5e1db56a999209df3dd3d508e0985bf3cc44fc432498da094c164906b531d049608e55e208dae0678d42
-  languageName: node
-  linkType: hard
-
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.18.10, @babel/parser@npm:^7.18.11":
-  version: 7.20.0
-  resolution: "@babel/parser@npm:7.20.0"
-  bin:
-    parser: ./bin/babel-parser.js
-  checksum: d54d68e45ff1b9a0c50a3f79d9031f482eb58f18928525949dc20da5b1658ee79167e756129371fd75d3e8fc7e218ab707727145a68958636be9672c7b71768e
   languageName: node
   linkType: hard
 
