@@ -41,7 +41,8 @@ function parse(text, options = {}) {
 
   const sourceType = getSourceType(options);
   const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
-    (sourceType) => () => espreeParse(text, { ...parseOptions, sourceType })
+    (/** @type {"module"|"script"} */ sourceType) => () =>
+      espreeParse(text, { ...parseOptions, sourceType })
   );
 
   const { result: ast, error: moduleParseError } =

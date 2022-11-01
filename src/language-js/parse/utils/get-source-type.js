@@ -1,3 +1,4 @@
+/** @returns {"module" | "script" | undefined} */
 function getSourceType(options) {
   let { filepath } = options;
   if (!filepath) {
