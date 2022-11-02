@@ -17,6 +17,7 @@ import {
   isSimpleTemplateLiteral,
   hasComment,
   isMemberExpression,
+  isTSTypeExpression,
 } from "../utils/index.js";
 
 function printTemplateLiteral(path, print, options) {
@@ -87,7 +88,7 @@ function printTemplateLiteral(path, print, options) {
         isMemberExpression(expression) ||
         expression.type === "ConditionalExpression" ||
         expression.type === "SequenceExpression" ||
-        expression.type === "TSAsExpression" ||
+        isTSTypeExpression(expression) ||
         isBinaryish(expression)
       ) {
         expressionDoc = [indent([softline, expressionDoc]), softline];

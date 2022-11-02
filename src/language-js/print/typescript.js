@@ -142,8 +142,10 @@ function printTypescript(path, options, print) {
       return printTypeParameters(path, options, print, "params");
     case "TSTypeParameter":
       return printTypeParameter(path, options, print);
-    case "TSAsExpression": {
-      parts.push(print("expression"), " as ", print("typeAnnotation"));
+    case "TSAsExpression":
+    case "TSSatisfiesExpression": {
+      const operator = node.type === "TSAsExpression" ? "as" : "satisfies";
+      parts.push(print("expression"), ` ${operator} `, print("typeAnnotation"));
       const { parent } = path;
       if (
         (isCallExpression(parent) && parent.callee === node) ||

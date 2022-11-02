@@ -11,6 +11,7 @@ import {
   isCallExpression,
   isMemberExpression,
   isObjectProperty,
+  isTSTypeExpression,
 } from "./utils/index.js";
 
 function needsParens(path, options) {
@@ -227,14 +228,20 @@ function needsParens(path, options) {
     // fallthrough
     case "TSTypeAssertion":
     case "TSAsExpression":
+    case "TSSatisfiesExpression":
     case "LogicalExpression":
       switch (parent.type) {
         case "TSAsExpression":
-          // example: foo as unknown as Bar
-          return node.type !== "TSAsExpression";
+        case "TSSatisfiesExpression":
+          // examples:
+          //   foo as unknown as Bar
+          //   foo satisfies unknown satisfies Bar
+          //   foo satisfies unknown as Bar
+          //   foo as unknown satisfies Bar
+          return !isTSTypeExpression(node);
 
         case "ConditionalExpression":
-          return node.type === "TSAsExpression";
+          return isTSTypeExpression(node);
 
         case "CallExpression":
         case "NewExpression":
@@ -265,7 +272,7 @@ function needsParens(path, options) {
         case "AssignmentPattern":
           return (
             key === "left" &&
-            (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
+            (node.type === "TSTypeAssertion" || isTSTypeExpression(node))
           );
 
         case "LogicalExpression":
@@ -360,6 +367,7 @@ function needsParens(path, options) {
         case "SpreadElement":
         case "SpreadProperty":
         case "TSAsExpression":
+        case "TSSatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
           return true;
@@ -592,6 +600,7 @@ function needsParens(path, options) {
         case "TSTypeAssertion":
         case "TypeCastExpression":
         case "TSAsExpression":
+        case "TSSatisfiesExpression":
         case "TSNonNullExpression":
           return true;
 
@@ -641,6 +650,7 @@ function needsParens(path, options) {
           return key === "object";
 
         case "TSAsExpression":
+        case "TSSatisfiesExpression":
         case "TSNonNullExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":

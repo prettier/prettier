@@ -1,7 +1,7 @@
-import isNonEmptyArray from "../../utils/is-non-empty-array.js";
-import createError from "../../common/parser-create-error.js";
-import createParser from "./utils/create-parser.js";
-import createBabelParseError from "./utils/create-babel-parse-error.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
+import createError from "../common/parser-create-error.js";
+import createParser from "../language-js/parse/utils/create-parser.js";
+import createBabelParseError from "../language-js/parse/utils/create-babel-parse-error.js";
 
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;

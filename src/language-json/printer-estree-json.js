@@ -1,7 +1,7 @@
 import { hardline, indent, join } from "../document/builders.js";
 import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
-import visitorKeys from "./traverse/json-visitor-keys.js";
-import preprocess from "./print-preprocess.js";
+import preprocess from "../language-js/print-preprocess.js";
+import visitorKeys from "./visitor-keys.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
