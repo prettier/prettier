@@ -6,20 +6,16 @@ const isNonEmptyArray = require("../utils/is-non-empty-array.js");
  * @typedef {import("./types/estree").Node} Node
  */
 
-function locStart(node, opts) {
-  const { ignoreDecorators } = opts || {};
+function locStart(node) {
+  const start = node.range ? node.range[0] : node.start;
 
   // Handle nodes with decorators. They should start at the first decorator
-  if (!ignoreDecorators) {
-    const decorators =
-      (node.declaration && node.declaration.decorators) || node.decorators;
-
-    if (isNonEmptyArray(decorators)) {
-      return locStart(decorators[0]);
-    }
+  const decorators = node.declaration?.decorators ?? node.decorators;
+  if (isNonEmptyArray(decorators)) {
+    return Math.min(locStart(decorators[0]), start);
   }
 
-  return node.range ? node.range[0] : node.start;
+  return start;
 }
 
 function locEnd(node) {
