@@ -252,41 +252,6 @@ for (using /* 1 */ foo of bar());
 ================================================================================
 `;
 
-exports[`valid-for-await-using-binding-escaped-of-of.js [acorn] format 1`] = `
-"Unexpected token (1:5)
-> 1 | for await (using \\u006ff of of);
-    |     ^
-  2 |"
-`;
-
-exports[`valid-for-await-using-binding-escaped-of-of.js [espree] format 1`] = `
-"Unexpected token await (1:5)
-> 1 | for await (using \\u006ff of of);
-    |     ^
-  2 |"
-`;
-
-exports[`valid-for-await-using-binding-escaped-of-of.js [flow] format 1`] = `
-"Unexpected token \`await\`, expected the token \`(\` (1:5)
-> 1 | for await (using \\u006ff of of);
-    |     ^^^^^
-  2 |"
-`;
-
-exports[`valid-for-await-using-binding-escaped-of-of.js [meriyah] format 1`] = `
-"for await (... of ...) is only valid in async functions and async generators (1:18)
-> 1 | for await (using \\u006ff of of);
-    |                  ^
-  2 |"
-`;
-
-exports[`valid-for-await-using-binding-escaped-of-of.js [typescript] format 1`] = `
-"Keywords cannot contain escape characters. (1:18)
-> 1 | for await (using \\u006ff of of);
-    |                  ^
-  2 |"
-`;
-
 exports[`valid-for-await-using-binding-escaped-of-of.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -301,41 +266,6 @@ printWidth: 80
 // for await (using \\u006ff of of);
 
 ================================================================================
-`;
-
-exports[`valid-for-using-binding-escaped-of-of.js [acorn] format 1`] = `
-"Unexpected token (1:12)
-> 1 | for (using o\\u0066 of of);
-    |            ^
-  2 |"
-`;
-
-exports[`valid-for-using-binding-escaped-of-of.js [espree] format 1`] = `
-"Unexpected token o\\u0066 (1:12)
-> 1 | for (using o\\u0066 of of);
-    |            ^
-  2 |"
-`;
-
-exports[`valid-for-using-binding-escaped-of-of.js [flow] format 1`] = `
-"Unexpected token \`of\`, expected the token \`)\` (1:23)
-> 1 | for (using o\\u0066 of of);
-    |                       ^^
-  2 |"
-`;
-
-exports[`valid-for-using-binding-escaped-of-of.js [meriyah] format 1`] = `
-"Expected ';' (1:12)
-> 1 | for (using o\\u0066 of of);
-    |            ^
-  2 |"
-`;
-
-exports[`valid-for-using-binding-escaped-of-of.js [typescript] format 1`] = `
-"Keywords cannot contain escape characters. (1:12)
-> 1 | for (using o\\u0066 of of);
-    |            ^
-  2 |"
 `;
 
 exports[`valid-for-using-binding-escaped-of-of.js format 1`] = `
