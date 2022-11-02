@@ -72,8 +72,7 @@ function hasDecoratorsBeforeExport(node) {
   const decorators = node.declaration && node.declaration.decorators;
 
   return (
-    isNonEmptyArray(decorators) &&
-    locStart(node, { ignoreDecorators: true }) > locStart(decorators[0])
+    isNonEmptyArray(decorators) && locStart(node) === locStart(decorators[0])
   );
 }
 
