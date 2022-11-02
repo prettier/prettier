@@ -119,7 +119,7 @@ function throwErrorForInvalidNodes(tsParseResult, options) {
   }
 
   visitNode(tsParseResult.ast, (esTreeNode) => {
-    const tsNode = getTsNode(esTreeNode, options);
+    const tsNode = getTsNode(esTreeNode, tsParseResult);
     if (!tsNode) {
       return;
     }
@@ -128,8 +128,6 @@ function throwErrorForInvalidNodes(tsParseResult, options) {
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
   });
-
-  return tsParseResult.ast
 }
 
 export { throwErrorForInvalidNodes };
