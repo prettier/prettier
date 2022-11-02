@@ -3,15 +3,16 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
 const require = createRequire(import.meta.url);
 
 /** @type {import("acorn").Options} */
 const parseOptions = {
   ecmaVersion: "latest",
-  sourceType: "module",
+  // sourceType: "module",
   allowReturnOutsideFunction: true,
-  allowImportExportEverywhere: true,
+  // allowImportExportEverywhere: true,
   allowSuperOutsideMethod: true,
   locations: true,
   ranges: true,
@@ -55,6 +56,7 @@ function parseWithOptions(text, sourceType) {
   const ast = parser.parse(text, {
     ...parseOptions,
     sourceType,
+    allowImportExportEverywhere: sourceType === "module",
     onComment: comments,
     onToken: tokens,
   });
@@ -65,14 +67,15 @@ function parseWithOptions(text, sourceType) {
 }
 
 function parse(text, options = {}) {
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => parseWithOptions(text, /* sourceType */ "module"),
-    () => parseWithOptions(text, /* sourceType */ "script")
+  const sourceType = getSourceType(options);
+  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
+    (sourceType) => () => parseWithOptions(text, sourceType)
   );
 
+  const { result: ast, error } = tryCombinations(combinations);
+
   if (!ast) {
-    // throw the error for `module` parsing
-    throw createParseError(moduleParseError);
+    throw createParseError(error);
   }
 
   options.originalText = text;

@@ -1,4 +1,4 @@
-function tryCombinations(...combinations) {
+function tryCombinations(combinations) {
   let firstError;
   for (const [index, fn] of combinations.entries()) {
     try {

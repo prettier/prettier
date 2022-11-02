@@ -3,6 +3,7 @@ import createError from "../../common/parser-create-error.js";
 import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
 const require = createRequire(import.meta.url);
 
@@ -38,14 +39,16 @@ function createParseError(error) {
 function parse(text, options = {}) {
   const { parse: espreeParse } = require("espree");
 
-  const { result: ast, error: moduleParseError } = tryCombinations(
-    () => espreeParse(text, { ...parseOptions, sourceType: "module" }),
-    () => espreeParse(text, { ...parseOptions, sourceType: "script" })
+  const sourceType = getSourceType(options);
+  const combinations = (sourceType ? [sourceType] : ["module", "script"]).map(
+    (/** @type {"module"|"script"} */ sourceType) => () =>
+      espreeParse(text, { ...parseOptions, sourceType })
   );
 
+  const { result: ast, error } = tryCombinations(combinations);
+
   if (!ast) {
-    // throw the error for `module` parsing
-    throw createParseError(moduleParseError);
+    throw createParseError(error);
   }
 
   options.originalText = text;

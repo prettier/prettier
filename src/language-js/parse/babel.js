@@ -6,6 +6,7 @@ import jsonParsers from "../../language-json/parser-json.js";
 import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
+import getSourceType from "./utils/get-source-type.js";
 
 /**
  * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
@@ -106,7 +107,8 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     let combinations = optionsCombinations;
-    if (opts.__babelSourceType === "script") {
+    const sourceType = opts.__babelSourceType ?? getSourceType(opts);
+    if (sourceType === "script") {
       combinations = combinations.map((options) => ({
         ...options,
         sourceType: "script",
@@ -143,7 +145,7 @@ function createParse(parseMethod, ...optionsCombinations) {
     const parseFunction =
       parseMethod === "parseExpression" ? parseExpression : babelParse;
     const { result: ast, error } = tryCombinations(
-      ...combinations.map(
+      combinations.map(
         (options) => () => parseWithOptions(parseFunction, text, options)
       )
     );

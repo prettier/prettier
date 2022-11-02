@@ -42,16 +42,16 @@ async function parse(text, options = {}) {
   const { parseWithNodeMaps } = await import(
     "@typescript-eslint/typescript-estree/dist/parser.js"
   );
-  const { result, error: firstError } = tryCombinations(
+  const { result, error } = tryCombinations([
     // Try passing with our best guess first.
     () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx }),
     // But if we get it wrong, try the opposite.
-    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx })
-  );
+    () => parseWithNodeMaps(textToParse, { ...parseOptions, jsx: !jsx }),
+  ]);
 
   if (!result) {
     // Suppose our guess is correct, throw the first error
-    throw createParseError(firstError);
+    throw createParseError(error);
   }
 
   options.originalText = text;
