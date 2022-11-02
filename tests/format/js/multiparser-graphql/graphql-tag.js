@@ -156,3 +156,15 @@ ${fragment}#comment
 
 fragment another on User { name
 }${ fragment }`
+
+// Using CallExpression
+
+gql(`
+      {
+    user(   id :   5  )  {
+      firstName
+
+      lastName
+    }
+  }
+`);
