@@ -1,50 +1,40 @@
 import fs from "node:fs";
-import readlines from "n-readlines";
+import { promises as readlinePromises } from "node:readline";
 
-function getInterpreter(filepath) {
+async function readFirstLine(filepath) {
+  const readline = readlinePromises.createInterface({
+    input: fs.createReadStream(filepath),
+    crlfDelay: Number.POSITIVE_INFINITY,
+  });
+  const { value: firstLine } = await readline[Symbol.asyncIterator]().next();
+
+  return firstLine;
+}
+
+async function getInterpreter(filepath) {
   /* c8 ignore next 3 */
   if (typeof filepath !== "string") {
-    return "";
+    return;
   }
 
-  let fd;
+  let firstLine;
   try {
-    fd = fs.openSync(filepath, "r");
+    firstLine = await readFirstLine(filepath);
   } catch {
-    /* c8 ignore next */
-    return "";
+    // No op
   }
 
-  try {
-    const liner = new readlines(fd);
-    const firstLine = liner.next().toString("utf8");
+  if (!firstLine) {
+    return;
+  }
 
+  const match =
     // #!/bin/env node, #!/usr/bin/env node
-    const m1 = firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(\S+)/);
-    if (m1) {
-      return m1[1];
-    }
-
+    firstLine.match(/^#!\/(?:usr\/)?bin\/env\s+(?<interpreter>\S+)/) ??
     // #!/bin/node, #!/usr/bin/node, #!/usr/local/bin/node
-    const m2 = firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(\S+)/);
-    if (m2) {
-      return m2[1];
-    }
-    return "";
-  } catch {
-    // There are some weird cases where paths are missing, causing Jest
-    // failures. It's unclear what these correspond to in the real world.
-    /* c8 ignore next */
-    return "";
-  } finally {
-    try {
-      // There are some weird cases where paths are missing, causing Jest
-      // failures. It's unclear what these correspond to in the real world.
-      fs.closeSync(fd);
-    } catch {
-      // nop
-    }
-  }
+    firstLine.match(/^#!\/(?:usr\/(?:local\/)?)?bin\/(?<interpreter>\S+)/);
+
+  return match?.groups.interpreter;
 }
 
 export default getInterpreter;
