@@ -1,4 +1,4 @@
-const replaceAll = ({
+const stringReplaceAll = ({
   object: original,
   isOptionalObject,
   arguments: [pattern, replacement],
@@ -19,4 +19,4 @@ const replaceAll = ({
   return original.split(pattern).join(replacement);
 };
 
-export default replaceAll;
+export default stringReplaceAll;
