@@ -107,8 +107,8 @@ function genericPrint(path, options, print) {
         quote,
         replaceEndOfLine(
           quote === '"'
-            ? value.replace(/"/g, "&quot;")
-            : value.replace(/'/g, "&apos;")
+            ? value.replaceAll('"', "&quot;")
+            : value.replaceAll("'", "&apos;")
         ),
         quote,
       ];

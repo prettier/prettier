@@ -67,7 +67,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "media-feature") {
-    newObj.value = newObj.value.replace(/ /g, "");
+    newObj.value = newObj.value.replaceAll(" ", "");
   }
 
   if (
@@ -187,7 +187,7 @@ function clean(ast, newObj, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
+  return value.replaceAll("'", '"').replace(/\\([^\dA-Fa-f])/g, "$1");
 }
 
 export default clean;

@@ -571,7 +571,7 @@ function countChars(text, char) {
 }
 
 function unescapeQuoteEntities(text) {
-  return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+  return text.replaceAll("&apos;", "'").replaceAll("&quot;", '"');
 }
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block

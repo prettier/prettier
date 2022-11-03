@@ -212,6 +212,7 @@ module.exports = {
     "unicorn/prefer-regexp-test": "error",
     "unicorn/prefer-set-has": "error",
     "unicorn/prefer-spread": "error",
+    "unicorn/prefer-string-replace-all": "error",
     "unicorn/prefer-string-slice": "error",
     "unicorn/prefer-string-starts-ends-with": "error",
     "unicorn/prefer-switch": "error",

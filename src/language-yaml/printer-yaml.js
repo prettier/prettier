@@ -279,8 +279,8 @@ function printNode(path, options, print) {
             node.type === "quoteDouble"
               ? raw
                   // double quote needs to be escaped by backslash in quoteDouble
-                  .replace(/\\"/g, doubleQuote)
-                  .replace(/'/g, singleQuote.repeat(2))
+                  .replaceAll('\\"', doubleQuote)
+                  .replaceAll("'", singleQuote.repeat(2))
               : raw,
             options
           ),
@@ -295,7 +295,7 @@ function printNode(path, options, print) {
             node.type,
             node.type === "quoteSingle"
               ? // single quote needs to be escaped by 2 single quotes in quoteSingle
-                raw.replace(/''/g, singleQuote)
+                raw.replaceAll("''", singleQuote)
               : raw,
             options
           ),
