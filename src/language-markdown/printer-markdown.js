@@ -89,7 +89,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word": {
       let escapedValue = node.value
-        .replaceAll("*", "\\$&") // escape all `*`
+        .replaceAll("*", "\\*") // escape all `*`
         .replace(
           new RegExp(
             [

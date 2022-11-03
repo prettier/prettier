@@ -16,6 +16,7 @@ const stringReplaceAll = ({
     return original.replace(pattern, replacement);
   }
 
+  // doesn't work for substitutes, eg `.replaceAll("*", "\\$&")`
   return original.split(pattern).join(replacement);
 };
 
