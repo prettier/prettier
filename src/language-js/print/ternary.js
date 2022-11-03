@@ -6,6 +6,7 @@ const {
   getComments,
   isCallExpression,
   isMemberExpression,
+  isTSTypeExpression,
 } = require("../utils/index.js");
 const { locStart, locEnd } = require("../loc.js");
 const isBlockComment = require("../utils/is-block-comment.js");
@@ -165,7 +166,7 @@ function shouldExtraIndentForConditionalExpression(path) {
 
     if (
       (node.type === "NewExpression" && node.callee === child) ||
-      (node.type === "TSAsExpression" && node.expression === child)
+      (isTSTypeExpression(node) && node.expression === child)
     ) {
       parent = path.getParentNode(ancestorCount + 1);
       child = node;
