@@ -5,13 +5,13 @@ Note:
 2. `postcss` contains `Container` class with `.at` method
 */
 
-const at = ({ object, isOptionalObject, arguments: [index, ...args] }) => {
+const at = ({ object, isOptionalObject, arguments: [index] }) => {
   if (isOptionalObject && (object === undefined || object === null)) {
     return;
   }
 
   return object.at
-    ? object.at(index, ...args)
+    ? object.at(index)
     : object[index < 0 ? object.length + index : index];
 };
 
