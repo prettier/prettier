@@ -16,6 +16,7 @@ const {
   isCallExpression,
   isStringLiteral,
   isObjectProperty,
+  isTSTypeExpression,
 } = require("../utils/index.js");
 
 const {
@@ -190,7 +191,7 @@ function couldGroupArg(arg, arrowChainRecursion = false) {
     (arg.type === "ArrayExpression" &&
       (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
-    (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
+    (isTSTypeExpression(arg) && couldGroupArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords

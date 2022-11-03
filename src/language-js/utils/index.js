@@ -106,7 +106,7 @@ function hasNakedLeftSide(node) {
     node.type === "TaggedTemplateExpression" ||
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
-    node.type === "TSAsExpression" ||
+    isTSTypeExpression(node) ||
     node.type === "TSNonNullExpression"
   );
 }
@@ -998,6 +998,8 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
         node.expressions[0],
         forbidFunctionClassAndDoExpr
       );
+    // @ts-expect-error
+    case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
       return startsWithNoLookaheadToken(
@@ -1305,6 +1307,12 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
+function isTSTypeExpression(node) {
+  return (
+    node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
+  );
+}
+
 module.exports = {
   getFunctionParameters,
   iterateFunctionParametersPath,
@@ -1369,4 +1377,5 @@ module.exports = {
   getComments,
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
+  isTSTypeExpression,
 };
