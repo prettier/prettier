@@ -25,27 +25,55 @@ test(".at", () => {
   expect(transform("foo.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(false, foo, -1);"
+    __at({
+      object: foo,
+      isOptionalObject: false,
+      arguments: [-1]
+    });"
   `);
 
   expect(transform("foo?.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(true, foo, -1);"
+    __at({
+      object: foo,
+      isOptionalObject: true,
+      arguments: [-1]
+    });"
   `);
 
   expect(transform("foo?.bar.baz.at(-1)")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(true, foo?.bar.baz, -1);"
+    __at({
+      object: foo?.bar.baz,
+      isOptionalObject: true,
+      arguments: [-1]
+    });"
   `);
 
   expect(transform("foo.at(-1)?.bar")).toMatchInlineSnapshot(`
     "import __at from "<SHIMS>/at.js";
 
-    __at(false, foo, -1)?.bar;"
+    __at({
+      object: foo,
+      isOptionalObject: false,
+      arguments: [-1]
+    })?.bar;"
   `);
 
   // Don't support optional call
   expect(transform("foo.at?.(-1)")).toMatchInlineSnapshot(`"foo.at?.(-1)"`);
+});
+
+test(".replaceAll", () => {
+  expect(transform("foo.replaceAll('a', 'b')")).toMatchInlineSnapshot(`
+    "import __stringReplaceAll from "<SHIMS>/string-replace-all.js";
+
+    __stringReplaceAll({
+      object: foo,
+      isOptionalObject: false,
+      arguments: ['a', 'b']
+    });"
+  `);
 });
