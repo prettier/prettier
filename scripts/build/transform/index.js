@@ -59,7 +59,7 @@ function transformObjectHasOwnCall(node) {
  * @param {import("@babel/types").Node} node
  * @returns {boolean}
  */
-function transformRelativeIndexingCall(node) {
+function transformMethodCall({ node, method, replacement }) {
   if (
     !(
       (node.type === "CallExpression" ||
@@ -72,7 +72,7 @@ function transformRelativeIndexingCall(node) {
       !node.callee.computed &&
       node.callee.object.type !== "ThisExpression" &&
       node.callee.property.type === "Identifier" &&
-      node.callee.property.name === "at"
+      node.callee.property.name === method
     )
   ) {
     return false;
@@ -85,7 +85,7 @@ function transformRelativeIndexingCall(node) {
     },
     node.callee.object
   );
-  node.callee = { type: "Identifier", name: "__at" };
+  node.callee = { type: "Identifier", name: replacement };
 
   return true;
 }
@@ -104,11 +104,15 @@ function transform(original, file) {
   const ast = parse(original, { sourceType: "module" });
   traverse(ast, (node) => {
     const hasObjectHasOwnCall = transformObjectHasOwnCall(node);
-    changed ||= hasObjectHasOwnCall;
 
-    const hasRelativeIndexingCall = transformRelativeIndexingCall(node);
+    const hasRelativeIndexingCall = transformMethodCall({
+      node,
+      method: "at",
+      replacement: "__at",
+    });
     shouldInjectRelativeIndexingHelper ||= hasRelativeIndexingCall;
-    changed ||= hasRelativeIndexingCall;
+
+    changed ||= hasObjectHasOwnCall || hasRelativeIndexingCall;
   });
 
   if (!changed) {
