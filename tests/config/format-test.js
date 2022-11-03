@@ -40,6 +40,7 @@ const unstableTests = new Map(
     "typescript/prettier-ignore/mapped-types.ts",
     "js/comments/html-like/comment.js",
     "js/for/continue-and-break-comment-without-blocks.js",
+    "typescript/satisfies-operators/comments-unstable.ts",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
