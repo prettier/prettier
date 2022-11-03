@@ -291,6 +291,7 @@ module.exports = {
         "logical-assignment-operators": "off",
         "unicorn/prefer-array-flat": "off",
         "unicorn/prefer-array-flat-map": "off",
+        "unicorn/prefer-string-replace-all": "off",
       },
       globals: {
         run_spec: "readonly",

@@ -32,7 +32,7 @@ module.exports = {
           return;
         }
 
-        const fixed = name.replace(/JSX/g, "Jsx");
+        const fixed = name.replaceAll("JSX", "Jsx");
         context.report({
           node,
           messageId: MESSAGE_ID,
