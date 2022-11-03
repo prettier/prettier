@@ -7,6 +7,9 @@ import { SOURCE_DIR } from "../../utils/index.mjs";
 
 const generate = babelGenerator.default;
 const atHelperPath = fileURLToPath(new URL("../shims/at.js", import.meta.url));
+const stringReplaceAllHelperPath = fileURLToPath(
+  new URL("../shims/string-replace-all.js", import.meta.url)
+);
 
 /* Doesn't work for dependencies, optional call, computed property, and spread arguments */
 
@@ -59,13 +62,18 @@ function transformObjectHasOwnCall(node) {
  * @param {import("@babel/types").Node} node
  * @returns {boolean}
  */
-function transformMethodCall({ node, method, replacement = `__${method}` }) {
+function transformMethodCall({
+  node,
+  method,
+  replacement = `__${method}`,
+  argumentsLength,
+}) {
   if (
     !(
       (node.type === "CallExpression" ||
         node.type === "OptionalCallExpression") &&
       !node.optional &&
-      node.arguments.length === 1 &&
+      node.arguments.length === argumentsLength &&
       node.arguments.every(({ type }) => type !== "SpreadElement") &&
       (node.callee.type === "MemberExpression" ||
         node.callee.type === "OptionalMemberExpression") &&
@@ -115,14 +123,19 @@ function transformMethodCall({ node, method, replacement = `__${method}` }) {
 function transform(original, file) {
   if (
     file === atHelperPath ||
+    file === stringReplaceAllHelperPath ||
     !file.startsWith(SOURCE_DIR) ||
-    (!original.includes(".at(") && !original.includes("Object.hasOwn("))
+    (!original.includes(".at(") &&
+      !original.includes(".replaceAll(") &&
+      !original.includes("Object.hasOwn("))
   ) {
     return original;
   }
 
   let changed = false;
   let shouldInjectRelativeIndexingHelper = false;
+  let shouldInjectStringReplaceAllHelperPath = false;
+
   const ast = parse(original, { sourceType: "module" });
   traverse(ast, (node) => {
     const hasObjectHasOwnCall = transformObjectHasOwnCall(node);
@@ -130,10 +143,22 @@ function transform(original, file) {
     const hasRelativeIndexingCall = transformMethodCall({
       node,
       method: "at",
+      argumentsLength: 1,
     });
     shouldInjectRelativeIndexingHelper ||= hasRelativeIndexingCall;
 
-    changed ||= hasObjectHasOwnCall || hasRelativeIndexingCall;
+    const hasStringReplaceAllCall = transformMethodCall({
+      node,
+      method: "replaceAll",
+      replacement: "__stringReplaceAll",
+      argumentsLength: 2,
+    });
+    shouldInjectStringReplaceAllHelperPath ||= hasStringReplaceAllCall;
+
+    changed ||=
+      hasObjectHasOwnCall ||
+      hasRelativeIndexingCall ||
+      shouldInjectStringReplaceAllHelperPath;
   });
 
   if (!changed) {
@@ -142,9 +167,22 @@ function transform(original, file) {
 
   let { code } = generate(ast);
 
-  if (shouldInjectRelativeIndexingHelper) {
+  const helpers = [
+    shouldInjectRelativeIndexingHelper && { name: "__at", path: atHelperPath },
+    shouldInjectStringReplaceAllHelperPath && {
+      name: "__stringReplaceAll",
+      path: stringReplaceAllHelperPath,
+    },
+  ]
+    .filter(Boolean)
+    .map(
+      (helper) => `import ${helper.name} from ${JSON.stringify(helper.path)};`
+    )
+    .join("\n");
+
+  if (helpers) {
     code = outdent`
-      import __at from ${JSON.stringify(atHelperPath)};
+      ${helpers}
 
       ${code}
     `;
