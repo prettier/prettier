@@ -4,11 +4,7 @@ import lineColumnToIndex from "../utils/line-column-to-index.js";
 
 function calculateLocStart(node, text) {
   // `postcss>=8`
-  if (
-    node.source &&
-    node.source.start &&
-    typeof node.source.start.offset === "number"
-  ) {
+  if (typeof node.source?.start?.offset === "number") {
     return node.source.start.offset;
   }
 
@@ -17,7 +13,7 @@ function calculateLocStart(node, text) {
     return node.sourceIndex;
   }
 
-  if (node.source && node.source.start) {
+  if (node.source?.start) {
     return lineColumnToIndex(node.source.start, text);
   }
 
@@ -31,11 +27,7 @@ function calculateLocEnd(node, text) {
   }
 
   // `postcss>=8`
-  if (
-    node.source &&
-    node.source.end &&
-    typeof node.source.end.offset === "number"
-  ) {
+  if (typeof node.source?.end?.offset === "number") {
     // https://github.com/postcss/postcss/issues/1450
     return node.source.end.offset + 1;
   }
@@ -106,11 +98,7 @@ function getValueRootOffset(node) {
       1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/)[0].length;
   }
 
-  if (
-    node.type !== "css-atrule" &&
-    node.raws &&
-    typeof node.raws.between === "string"
-  ) {
+  if (node.type !== "css-atrule" && typeof node.raws?.between === "string") {
     result += node.raws.between.length;
   }
 

@@ -6,7 +6,7 @@ import {
   breakParent,
   group,
 } from "../../document/builders.js";
-import { locStart, locEnd } from "../loc.js";
+import { locEnd, hasSameLocStart } from "../loc.js";
 import { getParentExportDeclaration } from "../utils/index.js";
 
 function printClassMemberDecorators(path, options, print) {
@@ -71,11 +71,9 @@ function hasDecoratorsBeforeExport(node) {
     return false;
   }
 
-  const decorators = node.declaration && node.declaration.decorators;
+  const decorators = node.declaration?.decorators;
 
-  return (
-    isNonEmptyArray(decorators) && locStart(node) === locStart(decorators[0])
-  );
+  return isNonEmptyArray(decorators) && hasSameLocStart(node, decorators[0]);
 }
 
 export {

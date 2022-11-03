@@ -220,7 +220,7 @@ function printFunctionType(path, options, print) {
         !parent.optional &&
         locStart(parent) === locStart(node)) ||
       parent.type === "ObjectTypeCallProperty" ||
-      (parentParentParent && parentParentParent.type === "DeclareFunction")
+      parentParentParent?.type === "DeclareFunction"
     );
 
   let needsColon =

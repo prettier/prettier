@@ -8,7 +8,7 @@
  */
 function skip(chars) {
   return (text, index, opts) => {
-    const backwards = opts && opts.backwards;
+    const backwards = Boolean(opts?.backwards);
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).

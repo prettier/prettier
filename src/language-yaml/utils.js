@@ -18,9 +18,7 @@ function getAncestorCount(path, filter) {
  */
 function isNode(value, types) {
   return (
-    value &&
-    typeof value.type === "string" &&
-    (!types || types.includes(value.type))
+    typeof value?.type === "string" && (!types || types.includes(value.type))
   );
 }
 

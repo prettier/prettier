@@ -61,7 +61,7 @@ async function parseValueNode(valueNode, options) {
     }
 
     if (node.type === "func" && node.value === "url") {
-      const groups = (node.group && node.group.groups) || [];
+      const groups = node.group?.groups ?? [];
 
       // Create a view with any top-level comma groups flattened.
       let groupList = [];
@@ -339,12 +339,7 @@ async function parseNestedCSS(node, options) {
         } catch {
           // noop
         }
-        if (
-          ast &&
-          ast.nodes &&
-          ast.nodes.length === 1 &&
-          ast.nodes[0].type === "css-rule"
-        ) {
+        if (ast?.nodes?.length === 1 && ast.nodes[0].type === "css-rule") {
           rules = ast.nodes[0].nodes;
         }
       }
@@ -529,8 +524,7 @@ async function parseNestedCSS(node, options) {
         // `@color :blue;`
         if (
           !["page", "nest", "keyframes"].includes(node.name) &&
-          node.params &&
-          node.params[0] === ":"
+          node.params?.[0] === ":"
         ) {
           node.variable = true;
           node.value = await parseValue(node.params.slice(1), options);

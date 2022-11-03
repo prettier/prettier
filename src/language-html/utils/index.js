@@ -136,9 +136,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   if (
     isLeadingSpaceSensitive &&
     !node.prev &&
-    node.parent &&
-    node.parent.tagDefinition &&
-    node.parent.tagDefinition.ignoreFirstLf
+    node.parent?.tagDefinition?.ignoreFirstLf
   ) {
     return node.type === "interpolation";
   }
@@ -331,7 +329,7 @@ function getLastDescendant(node) {
 }
 
 function hasNonTextChild(node) {
-  return node.children && node.children.some((child) => child.type !== "text");
+  return node.children?.some((child) => child.type !== "text");
 }
 
 function _inferScriptParser(node) {
@@ -480,7 +478,7 @@ function hasParent(node, fn) {
 }
 
 function getNodeCssStyleDisplay(node, options) {
-  if (node.prev && node.prev.type === "comment") {
+  if (node.prev?.type === "comment") {
     // <!-- display: block -->
     const match = node.prev.value.match(/^\s*display:\s*([a-z]+)\s*$/);
     if (match) {
@@ -504,11 +502,7 @@ function getNodeCssStyleDisplay(node, options) {
       return "block";
     default:
       // See https://github.com/prettier/prettier/issues/8151
-      if (
-        options.parser === "vue" &&
-        node.parent &&
-        node.parent.type === "root"
-      ) {
+      if (options.parser === "vue" && node.parent?.type === "root") {
         return "block";
       }
       return (

@@ -391,7 +391,7 @@ function handleClassComments({
   if (classLikeNodeTypes.has(enclosingNode?.type)) {
     if (
       isNonEmptyArray(enclosingNode.decorators) &&
-      !(followingNode && followingNode.type === "Decorator")
+      !(followingNode?.type === "Decorator")
     ) {
       addTrailingComment(enclosingNode.decorators.at(-1), comment);
       return true;
@@ -699,7 +699,7 @@ function handleOnlyComments({
   isLastComment,
 }) {
   // With Flow the enclosingNode is undefined so use the AST instead.
-  if (ast && ast.body && ast.body.length === 0) {
+  if (ast?.body?.length === 0) {
     if (isLastComment) {
       addDanglingComment(ast, comment);
     } else {
@@ -710,7 +710,7 @@ function handleOnlyComments({
 
   if (
     enclosingNode?.type === "Program" &&
-    enclosingNode?.body.length === 0 &&
+    enclosingNode.body.length === 0 &&
     !isNonEmptyArray(enclosingNode.directives)
   ) {
     if (isLastComment) {
@@ -723,7 +723,7 @@ function handleOnlyComments({
 
   if (
     followingNode?.type === "Program" &&
-    followingNode?.body.length === 0 &&
+    followingNode.body.length === 0 &&
     enclosingNode?.type === "ModuleExpression"
   ) {
     addDanglingComment(followingNode, comment);

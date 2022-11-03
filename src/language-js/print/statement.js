@@ -168,7 +168,7 @@ const isClassProperty = ({ type }) =>
  * @returns {boolean}
  */
 function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const name = node.key && node.key.name;
+  const name = node.key?.name;
   // this isn't actually possible yet with most parsers available today
   // so isn't properly tested yet.
   if (
@@ -191,7 +191,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   }
 
   if (!nextNode.computed) {
-    const name = nextNode.key && nextNode.key.name;
+    const name = nextNode.key?.name;
     if (name === "in" || name === "instanceof") {
       return true;
     }

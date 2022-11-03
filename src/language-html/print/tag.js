@@ -143,8 +143,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
    *     >
    */
   return (
-    node.lastChild &&
-    node.lastChild.isTrailingSpaceSensitive &&
+    node.lastChild?.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&
     !isTextLikeNode(getLastDescendant(node.lastChild)) &&
     !isPreLikeNode(node)
@@ -227,8 +226,7 @@ function printAttributes(path, options, print) {
   }
 
   const ignoreAttributeData =
-    node.prev &&
-    node.prev.type === "comment" &&
+    node.prev?.type === "comment" &&
     getPrettierIgnoreAttributeCommentData(node.prev.value);
 
   const hasPrettierIgnoreAttribute =

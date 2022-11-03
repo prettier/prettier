@@ -113,10 +113,7 @@ function printJsxElementInternal(path, options, print) {
     ? " "
     : ifBreak([rawJsxWhitespace, softline], " ");
 
-  const isFacebookTranslationTag =
-    node.openingElement &&
-    node.openingElement.name &&
-    node.openingElement.name.name === "fbt";
+  const isFacebookTranslationTag = node.openingElement?.name?.name === "fbt";
 
   const children = printJsxChildren(
     path,
@@ -393,7 +390,7 @@ function separatorNoWhitespace(
 
   if (
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
-    (nextNode && nextNode.type === "JSXElement" && !nextNode.closingElement)
+    (nextNode?.type === "JSXElement" && !nextNode.closingElement)
   ) {
     return child.length === 1 ? softline : hardline;
   }
@@ -413,7 +410,7 @@ function separatorWithWhitespace(
 
   if (child.length === 1) {
     return (childNode.type === "JSXElement" && !childNode.closingElement) ||
-      (nextNode && nextNode.type === "JSXElement" && !nextNode.closingElement)
+      (nextNode?.type === "JSXElement" && !nextNode.closingElement)
       ? hardline
       : softline;
   }
@@ -531,8 +528,7 @@ function printJsxOpeningElement(path, options, print) {
   const { node } = path;
 
   const nameHasComments =
-    (node.name && hasComment(node.name)) ||
-    (node.typeParameters && hasComment(node.typeParameters));
+    hasComment(node.name) || hasComment(node.typeParameters);
 
   // Don't break self-closing elements with no attributes and no comments
   if (node.selfClosing && node.attributes.length === 0 && !nameHasComments) {
@@ -541,8 +537,7 @@ function printJsxOpeningElement(path, options, print) {
 
   // don't break up opening elements with a single long text attribute
   if (
-    node.attributes &&
-    node.attributes.length === 1 &&
+    node.attributes?.length === 1 &&
     node.attributes[0].value &&
     isStringLiteral(node.attributes[0].value) &&
     !node.attributes[0].value.value.includes("\n") &&
@@ -570,14 +565,12 @@ function printJsxOpeningElement(path, options, print) {
 
   // We should print the opening element expanded if any prop value is a
   // string literal with newlines
-  const shouldBreak =
-    node.attributes &&
-    node.attributes.some(
-      (attr) =>
-        attr.value &&
-        isStringLiteral(attr.value) &&
-        attr.value.value.includes("\n")
-    );
+  const shouldBreak = node.attributes?.some(
+    (attr) =>
+      attr.value &&
+      isStringLiteral(attr.value) &&
+      attr.value.value.includes("\n")
+  );
 
   const attributeLine =
     options.singleAttributePerLine && node.attributes.length > 1

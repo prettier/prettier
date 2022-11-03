@@ -453,13 +453,13 @@ function printStartingTagEndMarker(node) {
 
 function printOpeningMustache(node) {
   const mustache = node.escaped === false ? "{{{" : "{{";
-  const strip = node.strip && node.strip.open ? "~" : "";
+  const strip = node.strip?.open ? "~" : "";
   return [mustache, strip];
 }
 
 function printClosingMustache(node) {
   const mustache = node.escaped === false ? "}}}" : "}}";
-  const strip = node.strip && node.strip.close ? "~" : "";
+  const strip = node.strip?.close ? "~" : "";
   return [strip, mustache];
 }
 
@@ -649,7 +649,7 @@ function splitByHtmlWhitespace(string) {
 function getCurrentAttributeName(path) {
   for (let depth = 0; depth < 2; depth++) {
     const parentNode = path.getParentNode(depth);
-    if (parentNode && parentNode.type === "AttrNode") {
+    if (parentNode?.type === "AttrNode") {
       return parentNode.name.toLowerCase();
     }
   }

@@ -46,8 +46,7 @@ function getCommentChildNodes(node, options) {
       options.parser === "meriyah" ||
       options.parser === "__babel_estree") &&
     node.type === "MethodDefinition" &&
-    node.value &&
-    node.value.type === "FunctionExpression" &&
+    node.value?.type === "FunctionExpression" &&
     getFunctionParameters(node.value).length === 0 &&
     !node.value.returnType &&
     !isNonEmptyArray(node.value.typeParameters) &&
@@ -67,7 +66,7 @@ function hasPrettierIgnore(path) {
  */
 function willPrintOwnComments({ node, parent }) {
   return (
-    ((node && isJsxNode(node)) ||
+    (isJsxNode(node) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||

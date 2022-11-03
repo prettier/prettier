@@ -237,8 +237,7 @@ function isComplexDestructuring(node) {
       leftNode.properties.some(
         (property) =>
           isObjectProperty(property) &&
-          (!property.shorthand ||
-            (property.value && property.value.type === "AssignmentPattern"))
+          (!property.shorthand || property.value?.type === "AssignmentPattern")
       )
     );
   }
@@ -269,7 +268,7 @@ function isComplexTypeAliasParams(node) {
 }
 
 function getTypeParametersFromTypeAlias(node) {
-  if (isTypeAlias(node) && node.typeParameters && node.typeParameters.params) {
+  if (isTypeAlias(node) && node.typeParameters?.params) {
     return node.typeParameters.params;
   }
   return null;
@@ -304,17 +303,12 @@ function hasComplexTypeAnnotation(node) {
 function isArrowFunctionVariableDeclarator(node) {
   return (
     node.type === "VariableDeclarator" &&
-    node.init &&
-    node.init.type === "ArrowFunctionExpression"
+    node.init?.type === "ArrowFunctionExpression"
   );
 }
 
 function getTypeParametersFromTypeReference(node) {
-  if (
-    isTypeReference(node) &&
-    node.typeParameters &&
-    node.typeParameters.params
-  ) {
+  if (isTypeReference(node) && node.typeParameters?.params) {
     return node.typeParameters.params;
   }
   return null;
@@ -463,10 +457,7 @@ function isCallExpressionWithComplexTypeArguments(node, print) {
 }
 
 function getTypeArgumentsFromCallExpression(node) {
-  return (
-    (node.typeParameters && node.typeParameters.params) ||
-    (node.typeArguments && node.typeArguments.params)
-  );
+  return (node.typeParameters ?? node.typeArguments)?.params;
 }
 
 export {

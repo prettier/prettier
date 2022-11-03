@@ -44,8 +44,7 @@ function isWideKeywords(value) {
 function isKeyframeAtRuleKeywords(path, value) {
   const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
   return (
-    atRuleAncestorNode?.name &&
-    atRuleAncestorNode.name.toLowerCase().endsWith("keyframes") &&
+    atRuleAncestorNode?.name?.toLowerCase().endsWith("keyframes") &&
     ["from", "to"].includes(value.toLowerCase())
   );
 }

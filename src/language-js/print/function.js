@@ -192,7 +192,7 @@ function printArrowFunctionSignature(path, options, print, args) {
   if (shouldPrintParamsWithoutParens(path, options)) {
     parts.push(print(["params", 0]));
   } else {
-    const expandArg = args && (args.expandLastArg || args.expandFirstArg);
+    const expandArg = args?.expandLastArg || args?.expandFirstArg;
     let returnTypeDoc = printReturnType(path, print);
     if (expandArg) {
       if (willBreak(returnTypeDoc)) {
@@ -247,14 +247,14 @@ function printArrowChain(
   const name = path.getName();
   const { parent } = path;
   const isCallee = isCallLikeExpression(parent) && name === "callee";
-  const isAssignmentRhs = Boolean(args && args.assignmentLayout);
+  const isAssignmentRhs = Boolean(args?.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
     tailNode.body.type !== "ObjectExpression" &&
     tailNode.body.type !== "SequenceExpression";
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
-    (args && args.assignmentLayout === "chain-tail-arrow-chain");
+    args?.assignmentLayout === "chain-tail-arrow-chain";
 
   const groupId = Symbol("arrow-chain");
 
@@ -429,7 +429,7 @@ function printReturnType(path, print) {
   const parts = [returnType];
 
   // prepend colon to TypeScript type annotation
-  if (node.returnType && node.returnType.typeAnnotation) {
+  if (node.returnType?.typeAnnotation) {
     parts.unshift(": ");
   }
 

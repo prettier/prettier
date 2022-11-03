@@ -119,8 +119,7 @@ function clean(ast, newObj, parent) {
   // We change quotes
   if (
     ast.type === "JSXAttribute" &&
-    ast.value &&
-    ast.value.type === "Literal" &&
+    ast.value?.type === "Literal" &&
     /["']|&quot;|&apos;/.test(ast.value.value)
   ) {
     newObj.value.value = newObj.value.value.replace(/["']|&quot;|&apos;/g, '"');

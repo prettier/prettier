@@ -58,8 +58,7 @@ function clean(ast, newObj, parent) {
 
   // for insert pragma
   if (
-    parent &&
-    parent.type === "root" &&
+    parent?.type === "root" &&
     parent.children.length > 0 &&
     (parent.children[0] === ast ||
       (isFrontMatterNode(parent.children[0]) && parent.children[1] === ast)) &&

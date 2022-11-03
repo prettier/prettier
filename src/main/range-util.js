@@ -22,7 +22,7 @@ function dropRootParents(parents) {
   let lastParentIndex = parents.length - 1;
   for (;;) {
     const parent = parents[lastParentIndex];
-    if (parent && (parent.type === "Program" || parent.type === "File")) {
+    if (parent?.type === "Program" || parent?.type === "File") {
       lastParentIndex--;
     } else {
       break;
@@ -174,7 +174,7 @@ function isSourceElement(opts, node, parentNode) {
     case "espree":
     case "meriyah":
     case "__babel_estree":
-      return isJsSourceElement(node.type, parentNode && parentNode.type);
+      return isJsSourceElement(node.type, parentNode?.type);
     case "json":
     case "json5":
     case "json-stringify":

@@ -67,9 +67,7 @@ async function normalize(options, opts = {}) {
   const pluginDefaults = Object.fromEntries(
     supportOptions
       .filter(
-        (optionInfo) =>
-          optionInfo.pluginDefaults &&
-          optionInfo.pluginDefaults[plugin.name] !== undefined
+        (optionInfo) => optionInfo.pluginDefaults?.[plugin.name] !== undefined
       )
       .map((optionInfo) => [
         optionInfo.name,
@@ -104,7 +102,7 @@ function getPlugin(options) {
     throw new Error("getPlugin() requires astFormat to be set");
   }
   const printerPlugin = options.plugins.find(
-    (plugin) => plugin.printers && plugin.printers[astFormat]
+    (plugin) => plugin.printers?.[astFormat]
   );
   // TODO: test this with plugins
   /* c8 ignore next 3 */
@@ -124,12 +122,8 @@ function inferParser(filepath, plugins) {
   // do it last.
   let language = languages.find(
     (language) =>
-      (language.extensions &&
-        language.extensions.some((extension) =>
-          filename.endsWith(extension)
-        )) ||
-      (language.filenames &&
-        language.filenames.some((name) => name.toLowerCase() === filename))
+      language.extensions?.some((extension) => filename.endsWith(extension)) ||
+      language.filenames?.some((name) => name.toLowerCase() === filename)
   );
 
   if (
@@ -138,13 +132,14 @@ function inferParser(filepath, plugins) {
     !filename.includes(".")
   ) {
     const interpreter = getInterpreter(filepath);
-    language = languages.find(
-      (language) =>
-        language.interpreters && language.interpreters.includes(interpreter)
-    );
+    if (interpreter) {
+      language = languages.find((language) =>
+        language.interpreters?.includes(interpreter)
+      );
+    }
   }
 
-  return language && language.parsers[0];
+  return language?.parsers[0];
 }
 
 export { normalize, hiddenDefaults, inferParser };

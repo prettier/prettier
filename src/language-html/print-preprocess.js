@@ -61,11 +61,9 @@ function mergeIfConditionalStartEndCommentIntoElementOpeningTag(
    */
   const isTarget = (node) =>
     node.type === "element" &&
-    node.prev &&
-    node.prev.type === "ieConditionalStartComment" &&
+    node.prev?.type === "ieConditionalStartComment" &&
     node.prev.sourceSpan.end.offset === node.startSourceSpan.start.offset &&
-    node.firstChild &&
-    node.firstChild.type === "ieConditionalEndComment" &&
+    node.firstChild?.type === "ieConditionalEndComment" &&
     node.firstChild.sourceSpan.start.offset === node.startSourceSpan.end.offset;
   ast.walk((node) => {
     if (node.children) {
@@ -154,10 +152,8 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     !node.hasLeadingSpaces &&
     node.isTrailingSpaceSensitive &&
     !node.hasTrailingSpaces &&
-    node.prev &&
-    node.prev.type === "text" &&
-    node.next &&
-    node.next.type === "text";
+    node.prev?.type === "text" &&
+    node.next?.type === "text";
   ast.walk((node) => {
     if (node.children) {
       for (let i = 0; i < node.children.length; i++) {

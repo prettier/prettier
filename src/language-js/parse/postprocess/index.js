@@ -32,10 +32,7 @@ function postprocess(ast, options) {
     // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
 
     ast = visitNode(ast, (node) => {
-      if (
-        node.leadingComments &&
-        node.leadingComments.some(isTypeCastComment)
-      ) {
+      if (node.leadingComments?.some(isTypeCastComment)) {
         startOffsetsOfTypeCastedNodes.add(locStart(node));
       }
     });
@@ -75,7 +72,7 @@ function postprocess(ast, options) {
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = node.declarations.at(-1);
-        if (lastDeclaration && lastDeclaration.init) {
+        if (lastDeclaration?.init) {
           overrideLocEnd(node, lastDeclaration);
         }
         break;
@@ -133,11 +130,7 @@ function postprocess(ast, options) {
       // TODO: Remove this when https://github.com/meriyah/meriyah/issues/200 get fixed
       case "ExportAllDeclaration": {
         const { exported } = node;
-        if (
-          options.parser === "meriyah" &&
-          exported &&
-          exported.type === "Identifier"
-        ) {
+        if (options.parser === "meriyah" && exported?.type === "Identifier") {
           const raw = options.originalText.slice(
             locStart(exported),
             locEnd(exported)
