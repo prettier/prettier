@@ -136,9 +136,7 @@ function transform(original, file) {
     shouldInjectStringReplaceAllHelperPath ||= hasStringReplaceAllCall;
 
     changed ||=
-      hasObjectHasOwnCall ||
-      hasRelativeIndexingCall ||
-      shouldInjectStringReplaceAllHelperPath;
+      hasObjectHasOwnCall || hasRelativeIndexingCall || hasStringReplaceAllCall;
   });
 
   if (!changed) {
