@@ -770,11 +770,11 @@ const containsNonJsxWhitespaceRegex = new RegExp(
 const trimJsxWhitespace = (text) =>
   text.replace(
     new RegExp(
-      "(?:^" +
+      "^" +
         matchJsxWhitespaceRegex.source +
         "|" +
         matchJsxWhitespaceRegex.source +
-        "$)"
+        "$"
     ),
     ""
   );

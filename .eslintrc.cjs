@@ -167,6 +167,7 @@ module.exports = {
       },
     ],
     "regexp/no-useless-lazy": "error",
+    "regexp/no-useless-non-capturing-group": "error",
 
     // eslint-plugin-unicorn
     "unicorn/better-regex": "error",
