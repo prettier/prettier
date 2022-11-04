@@ -5,7 +5,7 @@ Note:
 2. `postcss` contains `Container` class with `.at` method
 */
 
-const at = ({ object, isOptionalObject, arguments: [index] }) => {
+const at = (isOptionalObject, object, index) => {
   if (isOptionalObject && (object === undefined || object === null)) {
     return;
   }

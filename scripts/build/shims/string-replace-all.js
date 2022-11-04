@@ -1,8 +1,4 @@
-const stringReplaceAll = ({
-  object: original,
-  isOptionalObject,
-  arguments: [pattern, replacement],
-}) => {
+const stringReplaceAll = (isOptionalObject, original, pattern, replacement) => {
   if (isOptionalObject && (original === undefined || original === null)) {
     return;
   }

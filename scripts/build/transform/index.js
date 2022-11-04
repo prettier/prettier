@@ -86,35 +86,15 @@ function transformMethodCall({
     return false;
   }
 
-  // `__at({object, isOptionalObject, arguments})`
-  node.arguments = [
+  // `__at(isOptionalObject, object, ...arguments)`
+  node.arguments.unshift(
     {
-      type: "ObjectExpression",
-      properties: [
-        {
-          type: "ObjectProperty",
-          key: { type: "Identifier", name: "object" },
-          value: node.callee.object,
-        },
-        {
-          type: "ObjectProperty",
-          key: { type: "Identifier", name: "isOptionalObject" },
-          value: {
-            type: "BooleanLiteral",
-            value: node.callee.type === "OptionalMemberExpression",
-          },
-        },
-        {
-          type: "ObjectProperty",
-          key: { type: "Identifier", name: "arguments" },
-          value: {
-            type: "ArrayExpression",
-            elements: node.arguments,
-          },
-        },
-      ],
+      type: "BooleanLiteral",
+      value: node.callee.type === "OptionalMemberExpression",
+      leadingComments: [{ type: "CommentBlock", value: " isOptionalObject" }],
     },
-  ];
+    node.callee.object
+  );
   node.callee = { type: "Identifier", name: replacement };
 
   return true;
