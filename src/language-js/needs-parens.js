@@ -349,12 +349,7 @@ function needsParens(path, options) {
       }
 
     case "YieldExpression":
-      if (
-        parent.type === "UnaryExpression" ||
-        parent.type === "AwaitExpression" ||
-        parent.type === "TSAsExpression" ||
-        parent.type === "TSNonNullExpression"
-      ) {
+      if (parent.type === "AwaitExpression") {
         return true;
       }
     // else fallthrough
