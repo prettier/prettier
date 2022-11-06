@@ -109,7 +109,7 @@ const pluginFiles = [
         module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
         ),
-        text: "module.exports = () => true;",
+        text: "module.exports = () => false;",
       },
       {
         module: require.resolve(
