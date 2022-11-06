@@ -68,31 +68,48 @@ const pluginFiles = [
         ),
         process(text) {
           text = text
-            .replace('require("globby")', "{}")
-            .replace('require("is-glob")', "{}")
             .replace('require("semver")', "{}")
             .replace('require("path")', "{}")
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
+            .replace('require("./create-program/useProvidedPrograms")', "{}");
+          return text;
+        },
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
+        ),
+        process(text) {
+          return text
+            .replace('require("globby")', "{}")
+            .replace('require("is-glob")', "{}")
             .replace(
-              'require("./create-program/shared")',
+              'require("../create-program/shared")',
               "{ensureAbsolutePath: path => path}"
             )
-            .replace('require("./create-program/useProvidedPrograms")', "{}")
             .replace(
               "process.cwd()",
               JSON.stringify("/prettier-security-dirname-placeholder")
             )
-            .replace("warnAboutTSVersion();", "// warnAboutTSVersion();")
             .replace(
-              "const isRunningSupportedTypeScriptVersion = ",
-              "const isRunningSupportedTypeScriptVersion = true || "
-            )
-            .replace("extra.projects = ", "extra.projects = [] || ")
-            .replace("inferSingleRun(options);", "// inferSingleRun(options);");
-          return text;
+              "parseSettings.projects = ",
+              "parseSettings.projects = [] || "
+            );
         },
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
+        ),
+        text: "exports.inferSingleRun = () => false;",
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
+        ),
+        text: "exports.warnAboutTSVersion = () => {};",
       },
       {
         module: require.resolve(
@@ -108,7 +125,7 @@ const pluginFiles = [
         module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/version-check.js"
         ),
-        text: "module.exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
+        text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
       // Only needed if `range`/`loc` in parse options is `false`
       {
