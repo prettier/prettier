@@ -73,13 +73,7 @@ const pluginFiles = [
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
-            .replace('require("./create-program/useProvidedPrograms")', "{}")
-            .replace(
-              "const isRunningSupportedTypeScriptVersion = ",
-              "const isRunningSupportedTypeScriptVersion = true || "
-            )
-            .replace("extra.projects = ", "extra.projects = [] || ")
-            .replace("inferSingleRun(options);", "// inferSingleRun(options);");
+            .replace('require("./create-program/useProvidedPrograms")', "{}");
           return text;
         },
       },
@@ -92,16 +86,16 @@ const pluginFiles = [
             .replace('require("globby")', "{}")
             .replace('require("is-glob")', "{}")
             .replace(
-              'require("./warnAboutTSVersion")',
-              "{warnAboutTSVersion() {} }"
-            )
-            .replace(
               'require("../create-program/shared")',
               "{ensureAbsolutePath: path => path}"
             )
             .replace(
               "process.cwd()",
               JSON.stringify("/prettier-security-dirname-placeholder")
+            )
+            .replace(
+              "parseSettings.projects = ",
+              "parseSettings.projects = [] || "
             );
         },
       },
@@ -109,7 +103,13 @@ const pluginFiles = [
         module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
         ),
-        text: "module.exports = () => false;",
+        text: "exports.inferSingleRun = () => false;",
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/warnAboutTSVersion.js"
+        ),
+        text: "exports.warnAboutTSVersion = () => {};",
       },
       {
         module: require.resolve(
