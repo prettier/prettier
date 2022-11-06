@@ -399,7 +399,7 @@ function embed(path, options) {
             '="',
             group(
               mapDoc(embeddedAttributeValueDoc, (doc) =>
-                typeof doc === "string" ? doc.replace(/"/g, "&quot;") : doc
+                typeof doc === "string" ? doc.replaceAll('"', "&quot;") : doc
               )
             ),
             '"',

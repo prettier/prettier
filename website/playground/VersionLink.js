@@ -11,7 +11,7 @@ export default function VersionLink({ version }) {
   } else if (/\.0$/.test(version)) {
     href = `releases/tag/${version}`;
   } else {
-    href = `blob/main/CHANGELOG.md#${version.replace(/\./g, "")}`;
+    href = `blob/main/CHANGELOG.md#${version.replaceAll(".", "")}`;
   }
 
   const formattedVersion = match ? `PR #${match[1]}` : `v${version}`;

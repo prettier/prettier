@@ -474,8 +474,8 @@ function printJsxAttribute(path, options, print) {
       // all quotes so we get an accurate preferred quote
       let final = raw
         .slice(1, -1)
-        .replace(/&apos;/g, "'")
-        .replace(/&quot;/g, '"');
+        .replaceAll("&apos;", "'")
+        .replaceAll("&quot;", '"');
       const { escaped, quote, regex } = getPreferredQuote(
         final,
         options.jsxSingleQuote ? "'" : '"'

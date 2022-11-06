@@ -25,7 +25,7 @@ async function update() {
       .match(
         /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/
       )[1]
-      .replace(/,/g, "")
+      .replaceAll(",", "")
   );
   if (Number.isNaN(dependentsCountNpm)) {
     throw new TypeError(

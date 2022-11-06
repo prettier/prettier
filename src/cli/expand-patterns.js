@@ -180,9 +180,9 @@ function sortPaths(paths) {
 function escapePathForGlob(path) {
   return fastGlob
     .escapePath(
-      path.replace(/\\/g, "\0") // Workaround for fast-glob#262 (part 1)
+      path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
     )
-    .replace(/\\!/g, "@(!)") // Workaround for fast-glob#261
+    .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
     .replace(/\0/g, "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
 
@@ -196,7 +196,7 @@ const isWindows = path.sep === "\\";
  * @param {string} pattern
  */
 function fixWindowsSlashes(pattern) {
-  return isWindows ? pattern.replace(/\\/g, "/") : pattern;
+  return isWindows ? pattern.replaceAll("\\", "/") : pattern;
 }
 
 export { expandPatterns, fixWindowsSlashes };

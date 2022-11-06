@@ -89,7 +89,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word": {
       let escapedValue = node.value
-        .replace(/\*/g, "\\$&") // escape all `*`
+        .replaceAll("*", "\\*") // escape all `*`
         .replace(
           new RegExp(
             [
@@ -102,7 +102,7 @@ function genericPrint(path, options, print) {
             (underscore1
               ? `${text1}${underscore1}`
               : `${underscore2}${text2}`
-            ).replace(/_/g, "\\_")
+            ).replaceAll("_", "\\_")
         ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
 
       const isFirstSentence = (node, name, index) =>
@@ -122,7 +122,7 @@ function genericPrint(path, options, print) {
       ) {
         // backslash is parsed as part of autolinks, so we need to remove it
         escapedValue = escapedValue.replace(/^(\\?[*_])+/, (prefix) =>
-          prefix.replace(/\\/g, "")
+          prefix.replaceAll("\\", "")
         );
       }
 
