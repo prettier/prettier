@@ -125,7 +125,7 @@ const pluginFiles = [
         module: require.resolve(
           "@typescript-eslint/typescript-estree/dist/version-check.js"
         ),
-        text: "module.exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
+        text: "exports.typescriptVersionIsAtLeast = new Proxy({}, {get: () => true})",
       },
       // Only needed if `range`/`loc` in parse options is `false`
       {
