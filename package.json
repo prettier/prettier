@@ -144,7 +144,7 @@
     "path-browserify": "1.0.1",
     "prettier": "2.7.1",
     "pretty-bytes": "6.0.0",
-    "rollup-plugin-license": "3.0.0",
+    "rollup-plugin-license": "3.0.1",
     "semver": "7.3.8",
     "serialize-javascript": "6.0.0",
     "snapshot-diff": "0.10.0",
