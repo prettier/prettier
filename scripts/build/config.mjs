@@ -68,23 +68,16 @@ const pluginFiles = [
         ),
         process(text) {
           text = text
-            .replace('require("globby")', "{}")
-            .replace('require("is-glob")', "{}")
             .replace('require("semver")', "{}")
             .replace('require("path")', "{}")
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
-            .replace(
-              'require("./create-program/shared")',
-              "{ensureAbsolutePath: path => path}"
-            )
             .replace('require("./create-program/useProvidedPrograms")', "{}")
             .replace(
               "process.cwd()",
               JSON.stringify("/prettier-security-dirname-placeholder")
             )
-            .replace("warnAboutTSVersion();", "// warnAboutTSVersion();")
             .replace(
               "const isRunningSupportedTypeScriptVersion = ",
               "const isRunningSupportedTypeScriptVersion = true || "
@@ -93,6 +86,30 @@ const pluginFiles = [
             .replace("inferSingleRun(options);", "// inferSingleRun(options);");
           return text;
         },
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/createParseSettings.js"
+        ),
+        process(text) {
+          return text
+            .replace('require("globby")', "{}")
+            .replace('require("is-glob")', "{}")
+            .replace(
+              'require("./warnAboutTSVersion")',
+              "{warnAboutTSVersion() {} }"
+            )
+            .replace(
+              'require("../create-program/shared")',
+              "{ensureAbsolutePath: path => path}"
+            );
+        },
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/parseSettings/inferSingleRun.js"
+        ),
+        text: "module.exports = () => true;",
       },
       {
         module: require.resolve(
