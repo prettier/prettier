@@ -54,7 +54,7 @@
     "editorconfig": "0.15.3",
     "editorconfig-to-prettier": "0.2.0",
     "escape-string-regexp": "5.0.0",
-    "espree": "9.4.0",
+    "espree": "9.4.1",
     "fast-glob": "3.2.12",
     "fast-json-stable-stringify": "2.1.0",
     "file-entry-cache": "6.0.1",
