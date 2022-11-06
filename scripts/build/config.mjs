@@ -75,10 +75,6 @@ const pluginFiles = [
             .replace('require("./create-program/createProjectProgram")', "{}")
             .replace('require("./create-program/useProvidedPrograms")', "{}")
             .replace(
-              "process.cwd()",
-              JSON.stringify("/prettier-security-dirname-placeholder")
-            )
-            .replace(
               "const isRunningSupportedTypeScriptVersion = ",
               "const isRunningSupportedTypeScriptVersion = true || "
             )
@@ -102,6 +98,10 @@ const pluginFiles = [
             .replace(
               'require("../create-program/shared")',
               "{ensureAbsolutePath: path => path}"
+            )
+            .replace(
+              "process.cwd()",
+              JSON.stringify("/prettier-security-dirname-placeholder")
             );
         },
       },
