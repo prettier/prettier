@@ -3,7 +3,7 @@ const stringReplaceAll = (isOptionalObject, original, pattern, replacement) => {
     return;
   }
 
-  if (String.prototype.replaceAll) {
+  if (original.replaceAll) {
     return original.replaceAll(pattern, replacement);
   }
 
