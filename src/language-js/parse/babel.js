@@ -40,7 +40,6 @@ const parseOptions = {
     "regexpUnicodeSets",
     "destructuringPrivate",
     "decoratorAutoAccessors",
-    // @ts-expect-error - https://github.com/babel/babel/issues/15093
     "importReflection",
   ],
   tokens: true,
