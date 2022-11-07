@@ -40,9 +40,11 @@ function transform(original, file) {
       }
 
       transform.transform(node);
+
       if (transform.inject) {
         injected.add(transform.inject);
       }
+
       changed ||= true;
     }
   });
