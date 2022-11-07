@@ -1,6 +1,6 @@
-import createMethodCallTransfrom from "./method-call.js";
+import createMethodCallTransform from "./method-call.js";
 
-const transformStringReplaceAll = createMethodCallTransfrom({
+const transformStringReplaceAll = createMethodCallTransform({
   method: "replaceAll",
   argumentsLength: 2,
   functionName: "__stringReplaceAll",

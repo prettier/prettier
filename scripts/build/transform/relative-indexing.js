@@ -1,6 +1,6 @@
-import createMethodCallTransfrom from "./method-call.js";
+import createMethodCallTransform from "./method-call.js";
 
-const transformRelativeIndexing = createMethodCallTransfrom({
+const transformRelativeIndexing = createMethodCallTransform({
   method: "at",
   argumentsLength: 1,
   functionImplementation: new URL("../shims/at.js", import.meta.url),

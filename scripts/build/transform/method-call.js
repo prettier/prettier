@@ -41,7 +41,7 @@ function transformMethodCallToFunctionCall(node, functionName) {
   node.callee = { type: "Identifier", name: functionName };
 }
 
-function createMethodCallTransfrom({
+function createMethodCallTransform({
   method,
   argumentsLength,
   functionName = `__${method}`,
@@ -60,4 +60,4 @@ function createMethodCallTransfrom({
   };
 }
 
-export default createMethodCallTransfrom;
+export default createMethodCallTransform;
