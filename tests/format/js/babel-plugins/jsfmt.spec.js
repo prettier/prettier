@@ -54,11 +54,8 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "async-do-expressions.js",
       "regex-v-flag.js",
       "decorator-auto-accessors.js",
-<<<<<<< HEAD
       "import-reflection.js",
-=======
       "explicit-resource-management.js",
->>>>>>> 432233640 (Fix test)
     ],
     meriyah: [
       "decimal.js",
@@ -85,11 +82,8 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "module-blocks.js",
       "async-do-expressions.js",
       "regex-v-flag.js",
-<<<<<<< HEAD
       "import-reflection.js",
-=======
       "explicit-resource-management.js",
->>>>>>> 432233640 (Fix test)
     ],
   },
 });
