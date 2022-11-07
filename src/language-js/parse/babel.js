@@ -40,6 +40,7 @@ const parseOptions = {
     "regexpUnicodeSets",
     "destructuringPrivate",
     "decoratorAutoAccessors",
+    "importReflection",
   ],
   tokens: true,
   ranges: true,
