@@ -3,7 +3,7 @@
 */
 
 const transformObjectHasOwnCall = {
-  skip: (text) => !text.includes("Object.hasOwn("),
+  shouldSkip: (text) => !text.includes("Object.hasOwn("),
   /**
    * @param {import("@babel/types").Node} node
    * @returns {boolean}

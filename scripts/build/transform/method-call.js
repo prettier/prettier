@@ -50,7 +50,7 @@ function createMethodCallTransform({
   functionImplementation = fileURLToPath(functionImplementation);
 
   return {
-    skip: (text, file) =>
+    shouldSkip: (text, file) =>
       !text.includes(`.${method}(`) || file === functionImplementation,
     test: (node) => isMethodCall(node, { method, argumentsLength }),
     transform: (node) => transformMethodCallToFunctionCall(node, functionName),

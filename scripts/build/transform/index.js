@@ -22,7 +22,7 @@ function transform(original, file) {
   }
 
   const transforms = allTransforms.filter(
-    (transform) => !transform.skip(original, file)
+    (transform) => !transform.shouldSkip(original, file)
   );
 
   if (transforms.length === 0) {
