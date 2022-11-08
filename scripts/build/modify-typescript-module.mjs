@@ -4,7 +4,7 @@ import { outdent } from "outdent";
 import MagicString from "magic-string";
 import { writeFile, PROJECT_ROOT } from "../utils/index.mjs";
 
-function* getSubmodules(text) {
+function* getModules(text) {
   const parts = text.split(/(?<=\n)( {2}\/\/ src\/\S+\n)/);
 
   let start = parts[0].length;
@@ -36,7 +36,7 @@ class TypeScriptModuleSource {
 
   constructor(text) {
     this.#source = new MagicString(text);
-    this.modules = [...getSubmodules(text)];
+    this.modules = [...getModules(text)];
   }
 
   replaceModule(module, replacement) {
@@ -54,20 +54,6 @@ class TypeScriptModuleSource {
 
   removeModule(module) {
     return this.replaceModule(module, "");
-  }
-
-  removeSubmodule(testFunction) {
-    return this.replaceSubmodule(testFunction, "");
-  }
-
-  replaceSubmodules(testFunction, replacement = "") {
-    const modules = this.modules.filter((module) => testFunction(module));
-
-    for (const { start, end } of modules) {
-      this.#source.overwrite(start, end, replacement);
-    }
-
-    return this;
   }
 
   replaceAlignedCode({ start, end, replacement = "" }) {
@@ -117,7 +103,7 @@ class TypeScriptModuleSource {
   applyChanges() {
     const text = this.#source.toString();
     this.#source = new MagicString(text);
-    this.modules = getSubmodules(text);
+    this.modules = getModules(text);
   }
 
   toString() {
@@ -227,10 +213,10 @@ function modifyTypescriptModule(text) {
   // performanceCore
   source.replaceModule(
     "src/compiler/performanceCore.ts",
+    outdent`
+      var tryGetNativePerformanceHooks = () => {};
+      var timestamp = Date.now;
     `
-    var tryGetNativePerformanceHooks = () => {};
-    var timestamp = Date.now;
-  `
   );
 
 
@@ -240,9 +226,9 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/factory/emitHelpers.ts");
   source.replaceModule(
     "src/compiler/factory/nodeConverters.ts",
+    outdent`
+      var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
     `
-    var createNodeConverters = () => new Proxy({}, {get: () => () => {}})
-  `
   );
 
   /* spell-checker: disable */
