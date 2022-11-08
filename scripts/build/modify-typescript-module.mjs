@@ -140,6 +140,7 @@ function unwrap(text) {
 
 function modifyTypescriptModule(text) {
   text = unwrap(text);
+
   const source = new TypeScriptModuleSource(text);
 
   // Deprecated
@@ -212,6 +213,7 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/moduleNameResolver.ts");
   source.removeModule("src/compiler/checker.ts");
   source.removeModule("src/compiler/visitorPublic.ts");
+  source.removeModule("src/compiler/_namespaces/ts.performance.ts");
 
   // File system
   source.replaceModule("src/compiler/sys.ts", "var sys");
@@ -231,6 +233,8 @@ function modifyTypescriptModule(text) {
   `
   );
 
+
+
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
@@ -241,45 +245,27 @@ function modifyTypescriptModule(text) {
   `
   );
 
-  source.prepend("var require;");
-  source.append("module.exports = __toCommonJS(typescript_exports);");
-  // source
-  //   .replaceAlignedCode({
-  //     start: "function createParenthesizerRules(",
-  //     end: "}",
-  //   })
-  //   .replace(
-  //     "ts.createParenthesizerRules = createParenthesizerRules;",
-  //     "ts.createParenthesizerRules = () => ts.nullParenthesizerRules;"
-  //   );
-
-  source.applyChanges();
-  for (const module of source.modules) {
-    console.log(module.path);
-  }
-
-  return source.toString();
-
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
-  source
-    .replaceAlignedCode({
-      start: "function createParenthesizerRules(",
-      end: "}",
-    })
-    .replace(
-      "ts.createParenthesizerRules = createParenthesizerRules;",
-      "ts.createParenthesizerRules = () => ts.nullParenthesizerRules;"
-    );
+  source.replaceAlignedCode({
+    start: "function createParenthesizerRules(",
+    end: "}",
+  });
   /* spell-checker: enable */
 
-  // `ts.getScriptTargetFeatures`
-  source
-    .replaceAlignedCode({
-      start: "function getScriptTargetFeatures(",
-      end: "}",
-    })
-    .replace("ts.getScriptTargetFeatures = getScriptTargetFeatures;", "");
+  source.replaceAlignedCode({
+    start: "function getScriptTargetFeatures(",
+    end: "}",
+  });
+
+  source.replaceAlignedCode({
+    start: "var __require = ",
+    end: "});",
+  });
+
+  source.append("export default typescript_exports;");
+
+  return source.toString();
 }
 
 // Save modified code to `{PROJECT_ROOT}/.tmp/modified-typescript.js` for debug
