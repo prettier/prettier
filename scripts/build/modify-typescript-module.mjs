@@ -249,7 +249,7 @@ function modifyTypescriptModule(text) {
     end: "});",
   });
 
-  source.append("export default typescript_exports;");
+  source.append("module.exports = __toCommonJS(typescript_exports);");
 
   return source.toString();
 }
