@@ -387,7 +387,7 @@ function genericPrint(path, options, print) {
         node.namespace
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
-        path.previous.type === "selector-nesting"
+        path.previous?.type === "selector-nesting"
           ? node.value
           : adjustNumbers(
               isKeyframeAtRuleKeywords(path, node.value)
