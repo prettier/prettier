@@ -384,7 +384,7 @@ function genericPrint(path, options, print) {
 
     case "selector-tag": {
       const parentNode = path.parent;
-      const index = parentNode && parentNode.nodes.indexOf(node);
+      const index = parentNode?.nodes.indexOf(node);
       const prevNode = index && parentNode.nodes[index - 1];
 
       return [
@@ -483,7 +483,7 @@ function genericPrint(path, options, print) {
 
       // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
       const parentNode = path.parent;
-      if (parentNode.raws && parentNode.raws.selector) {
+      if (parentNode.raws?.selector) {
         const start = locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
         return options.originalText.slice(start, end).trim();
@@ -633,8 +633,7 @@ function genericPrint(path, options, print) {
 
         // Ignore escaped `/`
         if (
-          iPrevNode &&
-          iPrevNode.value &&
+          iPrevNode?.value &&
           iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
           iNode.type === "value-operator" &&
           iNode.value === "/"
@@ -1001,7 +1000,7 @@ function genericPrint(path, options, print) {
 
     case "value-colon": {
       const parentNode = path.parent;
-      const index = parentNode && parentNode.groups.indexOf(node);
+      const index = parentNode?.groups.indexOf(node);
       const prevNode = index && parentNode.groups[index - 1];
       return [
         node.value,

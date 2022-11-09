@@ -209,8 +209,7 @@ function shouldGroupFunctionParameters(functionNode, returnTypeDoc) {
     return false;
   }
 
-  const typeParameters =
-    functionNode.typeParameters && functionNode.typeParameters.params;
+  const typeParameters = functionNode.typeParameters?.params;
   if (typeParameters) {
     if (typeParameters.length > 1) {
       return false;

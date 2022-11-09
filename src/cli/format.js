@@ -45,8 +45,8 @@ function handleError(context, filename, error, printedFilename) {
     process.stdout.write("\n");
   }
 
-  const isParseError = Boolean(error && error.loc);
-  const isValidationError = /^Invalid \S+ value\./.test(error && error.message);
+  const isParseError = Boolean(error?.loc);
+  const isValidationError = /^Invalid \S+ value\./.test(error?.message);
 
   if (isParseError) {
     // `invalid.js: SyntaxError: Unexpected token (1:1)`.
