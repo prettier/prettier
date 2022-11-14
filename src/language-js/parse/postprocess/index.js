@@ -105,15 +105,6 @@ function postprocess(ast, options) {
         }
         break;
 
-      case "SequenceExpression": {
-        // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
-        const lastExpression = node.expressions.at(-1);
-        node.range = [
-          locStart(node),
-          Math.min(locEnd(lastExpression), locEnd(node)),
-        ];
-        break;
-      }
       // For hack-style pipeline
       case "TopicReference":
         options.__isUsingHackPipeline = true;
