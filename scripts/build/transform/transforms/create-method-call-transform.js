@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
  * @param {import("@babel/types").Node} node
  * @returns {boolean}
  */
-function isMethodCall(node, { method, argumentsLength }) {
+function isMethodCall(node, { methodName, argumentsLength }) {
   return (
     (node.type === "CallExpression" ||
       node.type === "OptionalCallExpression") &&
@@ -16,7 +16,7 @@ function isMethodCall(node, { method, argumentsLength }) {
     !node.callee.computed &&
     node.callee.object.type !== "ThisExpression" &&
     node.callee.property.type === "Identifier" &&
-    node.callee.property.name === method
+    node.callee.property.name === methodName
   );
 }
 
@@ -42,20 +42,20 @@ function transformMethodCallToFunctionCall(node, functionName) {
 }
 
 function createMethodCallTransform({
-  method,
+  methodName,
   argumentsLength,
-  functionName = `__${method}`,
-  functionImplementation,
+  functionName = `__${methodName}`,
+  functionImplementationUrl,
 }) {
-  functionImplementation = fileURLToPath(functionImplementation);
+  const functionImplementationPath = fileURLToPath(functionImplementationUrl);
 
   return {
     shouldSkip: (text, file) =>
-      !text.includes(`.${method}(`) || file === functionImplementation,
-    test: (node) => isMethodCall(node, { method, argumentsLength }),
+      !text.includes(`.${methodName}(`) || file === functionImplementationPath,
+    test: (node) => isMethodCall(node, { methodName, argumentsLength }),
     transform: (node) => transformMethodCallToFunctionCall(node, functionName),
     inject: `import ${functionName} from ${JSON.stringify(
-      functionImplementation
+      functionImplementationPath
     )};`,
   };
 }

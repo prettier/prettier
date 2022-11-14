@@ -3,16 +3,9 @@ import { traverseFast as traverse } from "@babel/types";
 import babelGenerator from "@babel/generator";
 import { outdent } from "outdent";
 import { SOURCE_DIR } from "../../utils/index.mjs";
-import transformObjectHasOwnCall from "./object-has-own.js";
-import transformRelativeIndexing from "./relative-indexing.js";
-import transformStringReplaceAll from "./string-replace-all.js";
+import allTransforms from "./transforms/index.js";
 
 const generate = babelGenerator.default;
-const allTransforms = [
-  transformObjectHasOwnCall,
-  transformRelativeIndexing,
-  transformStringReplaceAll,
-];
 
 /* Doesn't work for dependencies, optional call, computed property, and spread arguments */
 

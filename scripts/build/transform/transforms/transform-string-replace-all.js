@@ -1,11 +1,11 @@
-import createMethodCallTransform from "./method-call.js";
+import createMethodCallTransform from "./create-method-call-transform.js";
 
 const transformStringReplaceAll = createMethodCallTransform({
-  method: "replaceAll",
+  methodName: "replaceAll",
   argumentsLength: 2,
   functionName: "__stringReplaceAll",
-  functionImplementation: new URL(
-    "../shims/string-replace-all.js",
+  functionImplementationUrl: new URL(
+    "../../shims/string-replace-all.js",
     import.meta.url
   ),
 });
