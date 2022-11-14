@@ -60,9 +60,9 @@ function parseWithOptions(parse, text, sourceType) {
 function createParseError(error) {
   let { message, line, column } = error;
 
-  const matches = (
-    message.match(/^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/) || {}
-  ).groups;
+  const matches = message.match(
+    /^\[(?<line>\d+):(?<column>\d+)]: (?<message>.*)$/
+  )?.groups;
 
   if (matches) {
     message = matches.message;

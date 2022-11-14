@@ -104,7 +104,7 @@ function applyConfigPrecedence(context, options) {
 async function getOptionsForFile(context, filepath) {
   const options = await getOptionsOrDie(context, filepath);
 
-  const hasPlugins = options && options.plugins;
+  const hasPlugins = options?.plugins;
   if (hasPlugins) {
     await context.pushContextPlugins(options.plugins);
   }

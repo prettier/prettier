@@ -7,7 +7,7 @@ import { version as prettierVersion } from "../index.js";
 import { createHash } from "./utils.js";
 
 const optionsHashCache = new WeakMap();
-const nodeVersion = process && process.version;
+const nodeVersion = process.version;
 
 /**
  * @param {*} options

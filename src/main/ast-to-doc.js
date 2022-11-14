@@ -129,7 +129,7 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
   let printedComments;
 
   // Escape hatch
-  if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
+  if (printer.hasPrettierIgnore?.(path)) {
     ({ doc, printedComments } = printPrettierIgnoredNode(node, options));
   } else if (embeds.has(node)) {
     doc = embeds.get(node);

@@ -382,16 +382,12 @@ function genericPrint(path, options, print) {
     case "selector-string":
       return adjustStrings(node.value, options);
 
-    case "selector-tag": {
-      const parentNode = path.parent;
-      const index = parentNode && parentNode.nodes.indexOf(node);
-      const prevNode = index && parentNode.nodes[index - 1];
-
+    case "selector-tag":
       return [
         node.namespace
           ? [node.namespace === true ? "" : node.namespace.trim(), "|"]
           : "",
-        prevNode.type === "selector-nesting"
+        path.previous?.type === "selector-nesting"
           ? node.value
           : adjustNumbers(
               isKeyframeAtRuleKeywords(path, node.value)
@@ -399,7 +395,7 @@ function genericPrint(path, options, print) {
                 : node.value
             ),
       ];
-    }
+
     case "selector-id":
       return ["#", node.value];
 
@@ -483,7 +479,7 @@ function genericPrint(path, options, print) {
 
       // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
       const parentNode = path.parent;
-      if (parentNode.raws && parentNode.raws.selector) {
+      if (parentNode.raws?.selector) {
         const start = locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
         return options.originalText.slice(start, end).trim();
@@ -633,8 +629,7 @@ function genericPrint(path, options, print) {
 
         // Ignore escaped `/`
         if (
-          iPrevNode &&
-          iPrevNode.value &&
+          iPrevNode?.value &&
           iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
           iNode.type === "value-operator" &&
           iNode.value === "/"
@@ -1000,14 +995,12 @@ function genericPrint(path, options, print) {
       return node.value;
 
     case "value-colon": {
-      const parentNode = path.parent;
-      const index = parentNode && parentNode.groups.indexOf(node);
-      const prevNode = index && parentNode.groups[index - 1];
+      const { previous } = path;
       return [
         node.value,
         // Don't add spaces on escaped colon `:`, e.g: grid-template-rows: [row-1-00\:00] auto;
-        (typeof prevNode?.value === "string" &&
-          prevNode.value.endsWith("\\")) ||
+        (typeof previous?.value === "string" &&
+          previous.value.endsWith("\\")) ||
         // Don't add spaces on `:` in `url` function (i.e. `url(fbglyph: cross-outline, fig-white)`)
         insideValueFunctionNode(path, "url")
           ? ""

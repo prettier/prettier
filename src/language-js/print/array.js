@@ -67,7 +67,7 @@ function printArray(path, options, print) {
       !options.__inJestEach &&
       node.elements.length > 1 &&
       node.elements.every((element, i, elements) => {
-        const elementType = element && element.type;
+        const elementType = element?.type;
         if (
           elementType !== "ArrayExpression" &&
           elementType !== "ObjectExpression"

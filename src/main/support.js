@@ -83,7 +83,7 @@ function collectParsersFromLanguages(option, languages, plugins) {
           existingValues.add(value);
           const plugin = plugins.find((plugin) => plugin.parsers?.[value]);
           let description = language.name;
-          if (plugin && plugin.name) {
+          if (plugin?.name) {
             description += ` (plugin: ${plugin.name})`;
           }
           option.choices.push({ value, description });
