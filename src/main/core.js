@@ -10,7 +10,7 @@ import {
   normalizeEndOfLine,
 } from "../common/end-of-line.js";
 import { normalize as normalizeOptions } from "./options.js";
-import massageAST from "./massage-ast.js";
+import massageAst from "./massage-ast.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
@@ -332,7 +332,7 @@ const prettier = {
     const parsed = await parse(text, options);
     if (devOptions) {
       if (devOptions.massage) {
-        parsed.ast = massageAST(parsed.ast, options);
+        parsed.ast = massageAst(parsed.ast, options);
       }
       if (devOptions.preprocessForPrint) {
         attachComments(parsed.text, parsed.ast, options);
