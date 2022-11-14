@@ -159,6 +159,7 @@ module.exports = {
         allows: ["dotAll"],
       },
     ],
+    "regexp/no-missing-g-flag": "error",
     "regexp/no-unused-capturing-group": "error",
     "regexp/no-useless-flag": [
       "error",
