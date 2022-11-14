@@ -61,7 +61,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@prettier/bundle-test@workspace:."
   dependencies:
-    webpack: 5.74.0
+    webpack: 5.75.0
   languageName: unknown
   linkType: soft
 
@@ -693,9 +693,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.74.0":
-  version: 5.74.0
-  resolution: "webpack@npm:5.74.0"
+"webpack@npm:5.75.0":
+  version: 5.75.0
+  resolution: "webpack@npm:5.75.0"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^0.0.51
@@ -726,6 +726,6 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 320c41369a75051b19e18c63f408b3dcc481852e992f83d311771c5ec0f05f2946385e8ebef62030cf3587f0a3d2f12779ffdb191569a966847289ba7313f946
+  checksum: 2bcc5f3c195f375944e8af2f00bf2feea39cb9fda5f763b0d1b00077f1c51783db25c94d3fae96a07dead9fa085e6ae7474417e5ab31719c9776ea5969ceb83a
   languageName: node
   linkType: hard
