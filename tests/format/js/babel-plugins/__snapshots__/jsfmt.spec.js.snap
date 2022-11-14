@@ -815,6 +815,64 @@ import(prettier).then((module) => console.log(module));
 ================================================================================
 `;
 
+exports[`explicit-resource-management.js [acorn] format 1`] = `
+"Unexpected token (2:9)
+  1 | function * g() {
+> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
+    |         ^
+  3 | } // cleanup
+  4 |
+  5 | {"
+`;
+
+exports[`explicit-resource-management.js [espree] format 1`] = `
+"Unexpected token handle (2:9)
+  1 | function * g() {
+> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
+    |         ^
+  3 | } // cleanup
+  4 |
+  5 | {"
+`;
+
+exports[`explicit-resource-management.js [meriyah] format 1`] = `
+"Unexpected token: 'identifier' (2:14)
+  1 | function * g() {
+> 2 |   using handle = acquireFileHandle(); // block-scoped critical resource
+    |              ^
+  3 | } // cleanup
+  4 |
+  5 | {"
+`;
+
+exports[`explicit-resource-management.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "babel-ts", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function * g() {
+  using handle = acquireFileHandle(); // block-scoped critical resource
+} // cleanup
+
+{
+  using obj = g(); // block-scoped declaration
+  const r = obj.next();
+} // calls finally blocks in \`g\`
+
+=====================================output=====================================
+function* g() {
+  using handle = acquireFileHandle(); // block-scoped critical resource
+} // cleanup
+
+{
+  using obj = g(); // block-scoped declaration
+  const r = obj.next();
+} // calls finally blocks in \`g\`
+
+================================================================================
+`;
+
 exports[`export-default-from.js [acorn] format 1`] = `
 "Unexpected token (4:8)
   2 |

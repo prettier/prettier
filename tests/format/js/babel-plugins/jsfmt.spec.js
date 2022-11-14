@@ -28,6 +28,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "regex-v-flag.js",
       "decorator-auto-accessors.js",
       "import-reflection.js",
+      "explicit-resource-management.js",
     ],
     espree: [
       "decimal.js",
@@ -54,6 +55,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "regex-v-flag.js",
       "decorator-auto-accessors.js",
       "import-reflection.js",
+      "explicit-resource-management.js",
     ],
     meriyah: [
       "decimal.js",
@@ -81,6 +83,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "async-do-expressions.js",
       "regex-v-flag.js",
       "import-reflection.js",
+      "explicit-resource-management.js",
     ],
   },
 });
