@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`declare-getter.ts [typescript] format 1`] = `
+"'declare' is not allowed in getters. (1:12)
+> 1 | class Foo {
+    |            ^
+> 2 |   declare get foo()
+    | ^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
+exports[`declare-setter.ts [typescript] format 1`] = `
+"'declare' is not allowed in setters. (1:12)
+> 1 | class Foo {
+    |            ^
+> 2 |   declare set foo(v)
+    | ^^^^^^^^^^
+  3 | }
+  4 |"
+`;
+
 exports[`default-escaped.ts [typescript] format 1`] = `
 "Declaration or statement expected. (1:1)
 > 1 | export asyn\\u{63} from "async";

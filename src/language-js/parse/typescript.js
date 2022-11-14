@@ -3,6 +3,7 @@ import tryCombinations from "../../utils/try-combinations.js";
 import createParser from "./utils/create-parser.js";
 import replaceHashbang from "./utils/replace-hashbang.js";
 import postprocess from "./postprocess/index.js";
+import { throwErrorForInvalidNodes } from "./postprocess/typescript.js";
 
 /** @type {import("@typescript-eslint/typescript-estree").TSESTreeOptions} */
 const parseOptions = {
@@ -55,7 +56,9 @@ async function parse(text, options = {}) {
   }
 
   options.originalText = text;
-  options.tsParseResult = result;
+
+  throwErrorForInvalidNodes(result, options);
+
   return postprocess(result.ast, options);
 }
 
