@@ -26,5 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.1.0
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2.1.32
+
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v2.1.32
