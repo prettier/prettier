@@ -6,8 +6,11 @@ on:
       - main
       - patch-release
       - next
-      - codeql
   pull_request:
+    branches:
+      - main
+      - patch-release
+      - next
 
 permissions:
   actions: read
