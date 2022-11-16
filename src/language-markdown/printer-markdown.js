@@ -836,7 +836,7 @@ function printTitle(title, options, printSpace = true) {
       : options.singleQuote
       ? "'"
       : '"';
-  title = title.replace(/\\/, "\\\\");
+  title = title.replaceAll("\\", "\\\\");
   title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
 }
