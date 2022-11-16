@@ -3,7 +3,9 @@
 "use strict";
 
 importScripts("lib/parsers-location.js");
-importScripts("https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.1/sw-toolbox.js");
+importScripts(
+  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.1/sw-toolbox.js"
+);
 
 const plugins = [
   ...new Set(Object.values(parsersLocation).map((file) => `lib/${file}`)),
