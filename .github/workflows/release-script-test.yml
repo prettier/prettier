@@ -13,6 +13,10 @@ concurrency:
 
 on:
   push:
+    branches:
+      - main
+      - patch-release
+      - next
     paths:
       - "scripts/release/**"
       - ".github/workflows/release-script-test.yml"

@@ -2,6 +2,10 @@ name: Internal_ESLint_Rules_Test
 
 on:
   push:
+    branches:
+      - main
+      - patch-release
+      - next
     paths:
       - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
       # This workflow file
