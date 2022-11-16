@@ -11,6 +11,7 @@ on:
       - main
       - patch-release
       - next
+      - "!renovate/**"
 
 permissions:
   actions: read
