@@ -8,9 +8,6 @@ on:
       - next
   pull_request:
     branches:
-      - main
-      - patch-release
-      - next
       - "!renovate/**"
 
 permissions:
