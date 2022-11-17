@@ -166,6 +166,11 @@ function runSpec(fixtures, parsers, options) {
 
   snippets = snippets.map((test, index) => {
     test = typeof test === "string" ? { code: test } : test;
+
+    if (typeof test.code !== "string") {
+      throw Object.assign(new Error("Invalid test"), {test});
+    }
+
     return {
       ...test,
       name: `snippet: ${test.name || `#${index}`}`,
