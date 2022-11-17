@@ -168,7 +168,7 @@ function runSpec(fixtures, parsers, options) {
     test = typeof test === "string" ? { code: test } : test;
 
     if (typeof test.code !== "string") {
-      throw Object.assign(new Error("Invalid test"), {test});
+      throw Object.assign(new Error("Invalid test"), { test });
     }
 
     return {

@@ -1,4 +1,4 @@
-import {outdent} from "outdent";
+import { outdent } from "outdent";
 
 run_spec(
   {
@@ -10,17 +10,13 @@ run_spec(
       'let x4 = <div>{"foo"}></div>;',
       'let x5 = <div>}{"foo"}</div>;',
       'let x6 = <div>>{"foo"}</div>;',
-      ...[
-        "export",
-        "static",
-        "readonly",
-        "abstract",
-        "declare",
-      ].map(modifier => outdent`
+      ...["export", "static", "readonly", "abstract", "declare"].map(
+        (modifier) => outdent`
         interface Foo {
           ${modifier} e();
         }
-      `),
+      `
+      ),
     ],
   },
   ["typescript"]

@@ -97,7 +97,10 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
 }
 
 function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
-  if (esTreeNode.type !== "TSMethodSignature" || tsNode.kind !== SyntaxKind.TypeParameter) {
+  if (
+    esTreeNode.type !== "TSMethodSignature" ||
+    tsNode.kind !== SyntaxKind.TypeParameter
+  ) {
     return;
   }
 
