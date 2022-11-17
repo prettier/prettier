@@ -10,7 +10,7 @@ run_spec(
       'let x4 = <div>{"foo"}></div>;',
       'let x5 = <div>}{"foo"}</div>;',
       'let x6 = <div>>{"foo"}</div>;',
-      [
+      ...[
         "export",
         "static",
         "readonly",

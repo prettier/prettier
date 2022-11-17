@@ -94,7 +94,50 @@ exports[`snippet: #5 [typescript] format 1`] = `
     |               ^"
 `;
 
-exports[`snippet: #6 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'indexOf')"`;
+exports[`snippet: #6 [typescript] format 1`] = `
+"This modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   export e();
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #7 [typescript] format 1`] = `
+"This modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   static e();
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #8 [typescript] format 1`] = `
+"This modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   readonly e();
+    | ^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #9 [typescript] format 1`] = `
+"This modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   abstract e();
+    | ^^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #10 [typescript] format 1`] = `
+"This modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   declare e();
+    | ^^^^^^^^^^
+  3 | }"
+`;
 
 exports[`value-of-abstract-property.ts [typescript] format 1`] = `
 "Abstract property cannot have an initializer (2:3)
