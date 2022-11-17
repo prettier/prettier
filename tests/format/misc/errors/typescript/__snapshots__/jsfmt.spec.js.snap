@@ -94,6 +94,8 @@ exports[`snippet: #5 [typescript] format 1`] = `
     |               ^"
 `;
 
+exports[`snippet: #6 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'indexOf')"`;
+
 exports[`value-of-abstract-property.ts [typescript] format 1`] = `
 "Abstract property cannot have an initializer (2:3)
   1 | abstract class Foo {

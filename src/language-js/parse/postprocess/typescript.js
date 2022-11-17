@@ -8,6 +8,9 @@ const SyntaxKind = {
   SourceFile: 305,
   DeclareKeyword: 135,
   PropertyDeclaration: 167,
+  InKeyword: 101,
+  OutKeyword: 144,
+  TypeParameter: 168,
 };
 
 function getTsNodeLocation(nodeOrToken) {
@@ -93,6 +96,29 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
   );
 }
 
+function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
+  if (esTreeNode.type !== "TSMethodSignature" || tsNode.kind !== SyntaxKind.TypeParameter) {
+    return;
+  }
+
+  const invalidModifier = tsNode.modifiers.find(
+    (modifier) =>
+      !(
+        modifier.kind === SyntaxKind.InKeyword ||
+        modifier.kind === SyntaxKind.OutKeyword
+      )
+  );
+
+  if (!invalidModifier) {
+    return;
+  }
+
+  throwTsSyntaxError(
+    { loc: getTsNodeLocation(invalidModifier) },
+    "This modifier cannot appear on a type member"
+  );
+}
+
 function getTsNode(node, tsParseResult) {
   const { esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap } = tsParseResult;
   const tsNode = esTreeNodeToTSNodeMap.get(node);
@@ -113,7 +139,8 @@ function throwErrorForInvalidNodes(tsParseResult, options) {
     // decorators
     // abstract properties
     // declare in accessor
-    !/@|abstract|declare/.test(options.originalText)
+    // modifiers on type parameter
+    !/@|abstract|declare|interface/.test(options.originalText)
   ) {
     return;
   }
@@ -127,6 +154,7 @@ function throwErrorForInvalidNodes(tsParseResult, options) {
     throwErrorForInvalidDeclare(tsNode, esTreeNode);
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
+    throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode);
   });
 }
 

@@ -210,7 +210,6 @@ const allowedMessageCodes = new Set([
   "ReadonlyForMethodSignature",
   "ClassMethodHasDeclare",
   "ClassMethodHasReadonly",
-  "InvalidModifierOnTypeMember",
   "DuplicateAccessibilityModifier",
   "IndexSignatureHasDeclare",
 
