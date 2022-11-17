@@ -661,23 +661,6 @@ const shouldFail: { important: boolean } = output.x.children;
 ================================================================================
 `;
 
-exports[`modifiersOnInterfaceIndexSignature1.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-interface I {
-  public [a: string]: number;
-}
-=====================================output=====================================
-interface I {
-  public [a: string]: number;
-}
-
-================================================================================
-`;
-
 exports[`privacyGloImport.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
