@@ -402,6 +402,10 @@ class X {
     optionalMethod?() {}
 }
 
+interface Iterable<T> {
+  [Symbol.iterator](): Iterator<T>;
+}
+
 export class Check {
   private static property = 'test';
 }
@@ -409,6 +413,10 @@ export class Check {
 =====================================output=====================================
 class X {
   optionalMethod?() {}
+}
+
+interface Iterable<T> {
+  [Symbol.iterator](): Iterator<T>;
 }
 
 export class Check {
