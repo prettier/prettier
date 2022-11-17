@@ -4,7 +4,7 @@
 
 importScripts("lib/parsers-location.js");
 importScripts(
-  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.1/sw-toolbox.js"
+  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js"
 );
 
 const plugins = [
@@ -17,7 +17,7 @@ toolbox.precache([
   "lib/parsers-location.js",
   ...plugins,
   "playground.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.1/sw-toolbox.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/sw-toolbox/3.6.0/sw-toolbox.js",
 
   // CodeMirror; keep this in sync with website/pages/playground/index.html
   "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css",
