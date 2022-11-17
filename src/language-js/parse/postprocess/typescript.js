@@ -104,7 +104,7 @@ function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
     return;
   }
 
-  const invalidModifier = tsNode.modifiers.find(
+  const invalidModifier = tsNode.modifiers?.find(
     (modifier) =>
       !(
         modifier.kind === SyntaxKind.InKeyword ||
