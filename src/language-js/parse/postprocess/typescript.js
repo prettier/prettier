@@ -5,12 +5,13 @@ import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 // Taken from `typescript` package
 const SyntaxKind = {
   AbstractKeyword: 126,
-  SourceFile: 305,
-  DeclareKeyword: 135,
-  PropertyDeclaration: 167,
+  SourceFile: 308,
+  DeclareKeyword: 136,
+  PropertyDeclaration: 169,
   InKeyword: 101,
-  OutKeyword: 144,
-  TypeParameter: 168,
+  OutKeyword: 145,
+  /* FIXME: This is actually `SyntaxKind.MethodSignature`, mistake in #15853 */
+  TypeParameter: 170,
 };
 
 function getTsNodeLocation(nodeOrToken) {
