@@ -152,11 +152,6 @@ function modifyTypescriptModule(text) {
   source.remove(positionOfGlobalThisShim, text.length);
   source.append("module.exports = ts;");
 
-  // `Map`/`Set` shim
-  source.removeSubmodule((text) =>
-    text.includes("ShimCollections = ts.ShimCollections")
-  );
-
   // File system
   source.removeSubmodule((text) =>
     text.includes("ts.generateDjb2Hash = generateDjb2Hash;")
