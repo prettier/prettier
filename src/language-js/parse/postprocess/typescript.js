@@ -4,9 +4,16 @@ const isNonEmptyArray = require("../../../utils/is-non-empty-array.js");
 const visitNode = require("./visit-node.js");
 const throwSyntaxError = require("./throw-syntax-error.js");
 
+// Taken from `typescript` package
+const SyntaxKind = {
+  AbstractKeyword: 126,
+  SourceFile: 308,
+  PropertyDeclaration: 169,
+};
+
 // Copied from https://unpkg.com/typescript@4.8.2/lib/typescript.js
 function getSourceFileOfNode(node) {
-  while (node && node.kind !== 305 /* SyntaxKind.SourceFile */) {
+  while (node && node.kind !== SyntaxKind.SourceFile) {
     node = node.parent;
   }
   return node;
@@ -36,13 +43,11 @@ function throwErrorForInvalidDecorator(tsNode) {
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
-  const SYNTAX_KIND_PROPERTY_DEFINITION = 167;
-  const SYNTAX_KIND_ABSTRACT_KEYWORD = 126;
   if (
-    tsNode.kind !== SYNTAX_KIND_PROPERTY_DEFINITION ||
+    tsNode.kind !== SyntaxKind.PropertyDeclaration ||
     (tsNode.modifiers &&
       !tsNode.modifiers.some(
-        (modifier) => modifier.kind === SYNTAX_KIND_ABSTRACT_KEYWORD
+        (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
       ))
   ) {
     return;
