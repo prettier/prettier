@@ -320,13 +320,6 @@ function printTypescript(path, options, print) {
       parts.push(
         node.accessibility ? [node.accessibility, " "] : "",
         kind,
-        node.export ? "export " : "",
-        node.static ? "static " : "",
-        node.readonly ? "readonly " : "",
-        // "abstract" and "declare" are supported by only "babel-ts"
-        // https://github.com/prettier/prettier/issues/9760
-        node.abstract ? "abstract " : "",
-        node.declare ? "declare " : "",
         node.computed ? "[" : "",
         print("key"),
         node.computed ? "]" : "",

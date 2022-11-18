@@ -207,10 +207,8 @@ const allowedMessageCodes = new Set([
   "InvalidTupleMemberLabel",
 
   "NonClassMethodPropertyHasAbstractModifer",
-  "ReadonlyForMethodSignature",
   "ClassMethodHasDeclare",
   "ClassMethodHasReadonly",
-  "InvalidModifierOnTypeMember",
   "DuplicateAccessibilityModifier",
   "IndexSignatureHasDeclare",
 

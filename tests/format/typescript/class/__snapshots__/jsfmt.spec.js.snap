@@ -392,17 +392,6 @@ interface AudioBufferList {
 ================================================================================
 `;
 
-exports[`methods.ts [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (6:10)
-  4 |
-  5 | interface Iterable<T> {
-> 6 |   export [Symbol.iterator](): Iterator<T>;
-    |          ^
-  7 | }
-  8 |
-  9 | export class Check {"
-`;
-
 exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -414,7 +403,7 @@ class X {
 }
 
 interface Iterable<T> {
-  export [Symbol.iterator](): Iterator<T>;
+  [Symbol.iterator](): Iterator<T>;
 }
 
 export class Check {
@@ -427,7 +416,7 @@ class X {
 }
 
 interface Iterable<T> {
-  export [Symbol.iterator](): Iterator<T>;
+  [Symbol.iterator](): Iterator<T>;
 }
 
 export class Check {
