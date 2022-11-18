@@ -169,6 +169,7 @@ module.exports = {
     ],
     "regexp/no-useless-lazy": "error",
     "regexp/no-useless-non-capturing-group": "error",
+    /* cspell:disable-next-line */
     "regexp/prefer-lookaround": [
       "error",
       {
