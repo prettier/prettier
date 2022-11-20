@@ -1,18 +1,7 @@
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
-
-// Taken from `typescript` package
-const SyntaxKind = {
-  AbstractKeyword: 126,
-  SourceFile: 308,
-  DeclareKeyword: 136,
-  PropertyDeclaration: 169,
-  InKeyword: 101,
-  OutKeyword: 145,
-  /* FIXME: This is actually `SyntaxKind.MethodSignature`, mistake in #15853 */
-  TypeParameter: 170,
-};
+import * as SyntaxKind from "./ts-syntax-kind.evaluate.js";
 
 function getTsNodeLocation(nodeOrToken) {
   const sourceFile = getSourceFileOfNode(nodeOrToken);
@@ -100,7 +89,7 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
 function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
   if (
     esTreeNode.type !== "TSMethodSignature" ||
-    tsNode.kind !== SyntaxKind.TypeParameter
+    tsNode.kind !== SyntaxKind.MethodSignature
   ) {
     return;
   }
