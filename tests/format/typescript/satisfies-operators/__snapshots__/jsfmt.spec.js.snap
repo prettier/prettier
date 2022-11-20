@@ -2,7 +2,7 @@
 
 exports[`argument-expansion.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -59,7 +59,7 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 
 exports[`argument-expansion.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -115,7 +115,7 @@ const bar5 = [1, 2, 3].reduce((carry, value) => {
 
 exports[`assignment.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -171,7 +171,7 @@ this.intervalID = setInterval(() => {
 
 exports[`assignment.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -226,7 +226,7 @@ this.intervalID = setInterval(() => {
 
 exports[`basic.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -299,7 +299,7 @@ var v = undefined satisfies 1
 
 exports[`basic.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -371,7 +371,7 @@ var v = undefined satisfies 1;
 
 exports[`comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -390,7 +390,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {}
 
 exports[`comments.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -408,7 +408,7 @@ const t4 = {} /* comment1 */ satisfies /* comment2 */ {};
 
 exports[`comments-unstable.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -434,7 +434,7 @@ Record<string, number>
 
 exports[`comments-unstable.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -459,7 +459,7 @@ Record<string, number>;
 
 exports[`export-default-as.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -474,7 +474,7 @@ export default (function log() {} satisfies typeof console.log)
 
 exports[`export-default-as.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -488,7 +488,7 @@ export default (function log() {} satisfies typeof console.log);
 
 exports[`gt-lt.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -505,7 +505,7 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 
 exports[`gt-lt.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -521,7 +521,7 @@ x satisfies boolean ?? y; // (x satisfies boolean) ?? y;
 
 exports[`hug-args.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -544,7 +544,7 @@ window.postMessage({
 
 exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -566,7 +566,7 @@ window.postMessage({
 
 exports[`lhs.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -594,7 +594,7 @@ semi: false
 
 exports[`lhs.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -621,7 +621,7 @@ printWidth: 80
 
 exports[`nested-await-and-satisfies.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -649,7 +649,7 @@ const getAccountCount = async () =>
 
 exports[`nested-await-and-satisfies.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -676,7 +676,7 @@ const getAccountCount = async () =>
 
 exports[`non-null.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -695,7 +695,7 @@ const el = ReactDOM.findDOMNode(ref)
 
 exports[`non-null.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -713,7 +713,7 @@ const el = ReactDOM.findDOMNode(ref);
 
 exports[`satisfies.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -770,7 +770,7 @@ foo as unknown satisfies Bar
 
 exports[`satisfies.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -826,7 +826,7 @@ foo as unknown satisfies Bar;
 
 exports[`template-literal.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -858,7 +858,7 @@ const b = \`\${
 
 exports[`template-literal.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -889,7 +889,7 @@ const b = \`\${
 
 exports[`ternary.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -992,7 +992,7 @@ bifornCringerMoshedPerplexSawder =
 
 exports[`ternary.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1094,7 +1094,7 @@ bifornCringerMoshedPerplexSawder =
 
 exports[`types-comments.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1113,7 +1113,7 @@ semi: false
 
 exports[`types-comments.ts format 1`] = `
 ====================================options=====================================
-parsers: ["babel-ts"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
