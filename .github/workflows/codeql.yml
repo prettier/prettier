@@ -32,9 +32,9 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2.1.32
+        uses: github/codeql-action/init@v2.1.33
         with:
           config-file: ./.github/codeql/codeql-config.yml
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2.1.32
+        uses: github/codeql-action/analyze@v2.1.33
