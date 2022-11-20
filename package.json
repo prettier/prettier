@@ -128,7 +128,7 @@
     "eslint-plugin-jest": "27.1.5",
     "eslint-plugin-n": "15.5.1",
     "eslint-plugin-prettier-internal-rules": "2.0.1",
-    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react": "7.31.11",
     "eslint-plugin-regexp": "1.10.0",
     "eslint-plugin-unicorn": "44.0.2",
     "esm-utils": "4.1.0",
