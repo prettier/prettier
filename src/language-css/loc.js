@@ -224,7 +224,7 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text.slice(start, end).replace(/["'*]/g, " ") +
+      text.slice(start, end).replaceAll(/["'*]/g, " ") +
       text.slice(end);
   }
 

@@ -40,7 +40,7 @@ function countEndOfLineChars(text, eol) {
 }
 
 function normalizeEndOfLine(text) {
-  return text.replace(/\r\n?/g, "\n");
+  return text.replaceAll(/\r\n?/g, "\n");
 }
 
 export {

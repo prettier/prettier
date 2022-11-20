@@ -80,7 +80,7 @@ function genericPrint(path, options, print) {
         group([
           printOpeningTagStart(node, options),
           " ",
-          node.value.replace(/^html\b/i, "html").replace(/\s+/g, " "),
+          node.value.replace(/^html\b/i, "html").replaceAll(/\s+/g, " "),
         ]),
         printClosingTagEnd(node, options),
       ];

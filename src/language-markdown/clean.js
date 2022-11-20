@@ -33,17 +33,17 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/\n/g, " ");
+    newObj.value = ast.value.replaceAll("\n", " ");
   }
 
   if (ast.type === "wikiLink") {
-    newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
+    newObj.value = ast.value.trim().replaceAll(/[\t\n]+/g, " ");
   }
 
   if (ast.type === "definition" || ast.type === "linkReference") {
     newObj.label = ast.label
       .trim()
-      .replace(/[\t\n ]+/g, " ")
+      .replaceAll(/[\t\n ]+/g, " ")
       .toLowerCase();
   }
 
@@ -53,7 +53,7 @@ function clean(ast, newObj, parent) {
       ast.type === "image") &&
     ast.title
   ) {
-    newObj.title = ast.title.replace(/\\(?=["')])/g, "");
+    newObj.title = ast.title.replaceAll(/\\(?=["')])/g, "");
   }
 
   // for insert pragma

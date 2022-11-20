@@ -333,7 +333,7 @@ function _parse(
 
   const parseSubHtml = (subContent, startSpan) => {
     const { offset } = startSpan;
-    const fakeContent = text.slice(0, offset).replace(/[^\n\r]/g, " ");
+    const fakeContent = text.slice(0, offset).replaceAll(/[^\n\r]/g, " ");
     const realContent = subContent;
     const subAst = _parse(
       angularHtmlParser,

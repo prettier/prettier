@@ -59,5 +59,5 @@ function getDescription(option) {
   const description = option.inverted
     ? option.oppositeDescription
     : option.description;
-  return description && description.replace(/\n/g, " ");
+  return description && description.replaceAll("\n", " ");
 }

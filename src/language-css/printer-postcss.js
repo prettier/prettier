@@ -147,7 +147,7 @@ function genericPrint(path, options, print) {
       }
 
       return [
-        node.raws.before.replace(/[\s;]/g, ""),
+        node.raws.before.replaceAll(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
@@ -335,7 +335,7 @@ function genericPrint(path, options, print) {
 
     case "media-feature":
       return maybeToLowerCase(
-        adjustStrings(node.value.replace(/ +/g, " "), options)
+        adjustStrings(node.value.replaceAll(/ +/g, " "), options)
       );
 
     case "media-colon":
@@ -349,7 +349,7 @@ function genericPrint(path, options, print) {
 
     case "media-url":
       return adjustStrings(
-        node.value.replace(/^url\(\s+/gi, "url(").replace(/\s+\)$/g, ")"),
+        node.value.replaceAll(/^url\(\s+/gi, "url(").replaceAll(/\s+\)$/g, ")"),
         options
       );
 
@@ -1086,7 +1086,7 @@ const ADJUST_NUMBERS_REGEX = new RegExp(
 );
 
 function adjustStrings(value, options) {
-  return value.replace(STRING_REGEX, (match) => printString(match, options));
+  return value.replaceAll(STRING_REGEX, (match) => printString(match, options));
 }
 
 function quoteAttributeValue(value, options) {

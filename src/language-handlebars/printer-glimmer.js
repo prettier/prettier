@@ -159,7 +159,7 @@ function print(path, options, print) {
       /* if `{{my-component}}` (or any text containing "{{")
        * makes it to the TextNode, it means it was escaped,
        * so let's print it escaped, ie.; `\{{my-component}}` */
-      let text = node.chars.replace(/{{/g, "\\{{");
+      let text = node.chars.replaceAll("{{", "\\{{");
 
       const attrName = getCurrentAttributeName(path);
 
@@ -333,7 +333,7 @@ function print(path, options, print) {
       }
 
       text = text
-        .replace(/^[\t\n\f\r ]+/g, leadingSpace)
+        .replaceAll(/^[\t\n\f\r ]+/g, leadingSpace)
         .replace(/[\t\n\f\r ]+$/, trailingSpace);
 
       return [

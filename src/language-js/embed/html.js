@@ -55,7 +55,7 @@ async function embedHtmlLike(parser, textToDoc, print, path, options) {
         if (component) {
           component = uncookTemplateElementValue(component);
           if (options.__embeddedInHtml) {
-            component = component.replace(/<\/(script)\b/gi, "<\\/$1");
+            component = component.replaceAll(/<\/(script)\b/gi, "<\\/$1");
           }
           parts.push(component);
         }

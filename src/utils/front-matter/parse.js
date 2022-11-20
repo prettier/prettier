@@ -41,7 +41,7 @@ function parse(text) {
 
   return {
     frontMatter,
-    content: raw.replace(/[^\n]/g, " ") + text.slice(raw.length),
+    content: raw.replaceAll(/[^\n]/g, " ") + text.slice(raw.length),
   };
 }
 

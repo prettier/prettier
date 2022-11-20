@@ -5,7 +5,7 @@ function clean(ast, newNode /*, parent*/) {
     if (!trimmed) {
       return null;
     }
-    newNode.chars = trimmed.replace(/[\t\n\f\r ]+/g, " ");
+    newNode.chars = trimmed.replaceAll(/[\t\n\f\r ]+/g, " ");
   }
 
   // `class` is reformatted

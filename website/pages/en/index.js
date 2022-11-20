@@ -204,7 +204,7 @@ const Editor = ({ content = "", image, name }) => (
     <img className="editorImage" src={image} />
     <div className="editorInfo">
       <h3 className="editorName">{name}</h3>
-      <MarkdownBlock>{content.replace(/\n/g, "  \n")}</MarkdownBlock>
+      <MarkdownBlock>{content.replaceAll("\n", "  \n")}</MarkdownBlock>
     </div>
   </div>
 );

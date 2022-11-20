@@ -90,7 +90,7 @@ function genericPrint(path, options, print) {
     case "word": {
       let escapedValue = node.value
         .replaceAll("*", "\\*") // escape all `*`
-        .replace(
+        .replaceAll(
           new RegExp(
             [
               `(^|${punctuationPattern})(_+)`,
@@ -165,7 +165,7 @@ function genericPrint(path, options, print) {
       const code =
         options.proseWrap === "preserve"
           ? node.value
-          : node.value.replace(/\n/g, " ");
+          : node.value.replaceAll("\n", " ");
       const backtickCount = getMinNotPresentContinuousCount(code, "`");
       const backtickString = "`".repeat(backtickCount || 1);
       const padding =
@@ -181,7 +181,7 @@ function genericPrint(path, options, print) {
       if (options.proseWrap === "preserve") {
         contents = node.value;
       } else {
-        contents = node.value.replace(/[\t\n]+/g, " ");
+        contents = node.value.replaceAll(/[\t\n]+/g, " ");
       }
 
       return ["[[", contents, "]]"];
@@ -820,7 +820,7 @@ function printTitle(title, options, printSpace = true) {
   }
 
   // title is escaped after `remark-parse` v7
-  title = title.replace(/\\(?=["')])/g, "");
+  title = title.replaceAll(/\\(?=["')])/g, "");
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
@@ -837,7 +837,7 @@ function printTitle(title, options, printSpace = true) {
       ? "'"
       : '"';
   title = title.replaceAll("\\", "\\\\");
-  title = title.replace(new RegExp(`(${quote})`, "g"), "\\$1");
+  title = title.replaceAll(new RegExp(`(${quote})`, "g"), "\\$1");
   return `${quote}${title}${quote}`;
 }
 

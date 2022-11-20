@@ -63,7 +63,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "selector-combinator") {
-    newObj.value = newObj.value.replace(/\s+/g, " ");
+    newObj.value = newObj.value.replaceAll(/\s+/g, " ");
   }
 
   if (ast.type === "media-feature") {
@@ -92,7 +92,7 @@ function clean(ast, newObj, parent) {
     newObj.unit = newObj.unit.toLowerCase();
   }
   if (ast.type === "value-unknown") {
-    newObj.value = newObj.value.replace(/;$/g, "");
+    newObj.value = newObj.value.replaceAll(/;$/g, "");
   }
 
   if (
@@ -124,7 +124,7 @@ function clean(ast, newObj, parent) {
     }
 
     if (newObj.value) {
-      newObj.value = newObj.value.trim().replace(/^["']|["']$/g, "");
+      newObj.value = newObj.value.trim().replaceAll(/^["']|["']$/g, "");
       delete newObj.quoted;
     }
   }
@@ -139,7 +139,7 @@ function clean(ast, newObj, parent) {
       ast.type === "selector-tag") &&
     newObj.value
   ) {
-    newObj.value = newObj.value.replace(
+    newObj.value = newObj.value.replaceAll(
       /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
@@ -187,7 +187,7 @@ function clean(ast, newObj, parent) {
 clean.ignoredProperties = ignoredProperties;
 
 function cleanCSSStrings(value) {
-  return value.replaceAll("'", '"').replace(/\\([^\dA-Fa-f])/g, "$1");
+  return value.replaceAll("'", '"').replaceAll(/\\([^\dA-Fa-f])/g, "$1");
 }
 
 export default clean;

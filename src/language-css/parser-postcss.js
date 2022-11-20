@@ -324,7 +324,7 @@ async function parseNestedCSS(node, options) {
             node.source.start.offset + node.prop.length,
             node.source.end.offset + 1
           );
-        const fakeContent = textBefore.replace(/[^\n]/g, " ") + nodeText;
+        const fakeContent = textBefore.replaceAll(/[^\n]/g, " ") + nodeText;
         let parse;
         if (options.parser === "scss") {
           parse = parseScss;

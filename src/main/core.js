@@ -200,7 +200,7 @@ async function formatRange(originalText, opts) {
       );
     }
 
-    formatted = formatted.replace(/\n/g, eol);
+    formatted = formatted.replaceAll("\n", eol);
   }
 
   return { formatted, cursorOffset, comments: rangeResult.comments };

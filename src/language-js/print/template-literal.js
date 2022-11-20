@@ -227,7 +227,7 @@ function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, (currentDoc) => {
     if (typeof currentDoc === "string") {
       return raw
-        ? currentDoc.replace(/(\\*)`/g, "$1$1\\`")
+        ? currentDoc.replaceAll(/(\\*)`/g, "$1$1\\`")
         : uncookTemplateElementValue(currentDoc);
     }
 
@@ -236,7 +236,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function uncookTemplateElementValue(cookedValue) {
-  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
+  return cookedValue.replaceAll(/([\\`]|\${)/g, "\\$1");
 }
 
 function isJestEachTemplateLiteral({ node, parent }) {

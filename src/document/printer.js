@@ -317,7 +317,7 @@ function printDocToString(doc, options) {
     const { ind, mode, doc } = cmds.pop();
     switch (getDocType(doc)) {
       case DOC_TYPE_STRING: {
-        const formatted = newLine !== "\n" ? doc.replace(/\n/g, newLine) : doc;
+        const formatted = newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         out.push(formatted);
         pos += getStringWidth(formatted);
         break;
