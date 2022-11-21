@@ -82,7 +82,7 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
 
 // Based on `checkGrammarModifiers` function in `typescript`
 function throwErrorForInvalidModifierOnTypeMember(node, esNode) {
-  const modifiers = node.modifiers;
+  const { modifiers } = node;
   if (!isNonEmptyArray(modifiers)) {
     return;
   }
@@ -123,16 +123,28 @@ function throwErrorForInvalidModifierOnTypeMember(node, esNode) {
 
     if (
       modifier.kind !== SyntaxKind.InKeyword &&
-      modifier.kind !== SyntaxKind.OutKeyword
+      modifier.kind !== SyntaxKind.OutKeyword &&
+      node.kind === SyntaxKind.TypeParameter
     ) {
-      if (node.kind === SyntaxKind.TypeParameter) {
-        throwErrorOnTsNode(
-          modifier,
-          `'${ts.tokenToString(
-            modifier.kind
-          )}' modifier cannot appear on a type parameter`
-        );
-      }
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a type parameter`
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.ReadonlyKeyword &&
+      node.kind !== SyntaxKind.PropertyDeclaration &&
+      node.kind !== SyntaxKind.PropertySignature &&
+      node.kind !== SyntaxKind.IndexSignature &&
+      node.kind !== SyntaxKind.Parameter
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        "'readonly' modifier can only appear on a property declaration or index signature."
+      );
     }
   }
 }

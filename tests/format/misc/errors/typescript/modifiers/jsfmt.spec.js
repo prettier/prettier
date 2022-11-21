@@ -12,7 +12,6 @@ run_spec(
         "private",
         "protected",
         "public",
-        // "readonly",
         "in",
         "out",
       ].flatMap((modifier) => [
@@ -27,6 +26,11 @@ run_spec(
           }
         `,
       ]),
+      outdent`
+        interface Foo {
+          readonly method();
+        }
+      `,
       ...[
         "abstract",
         "declare",
