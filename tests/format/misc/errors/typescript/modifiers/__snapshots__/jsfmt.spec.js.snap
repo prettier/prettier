@@ -498,3 +498,37 @@ exports[`snippet: #31 [typescript] format 1`] = `
     | ^^^^^^^^^^^
   3 | }"
 `;
+
+exports[`snippet: #32 [babel-ts] format 1`] = `
+"'declare' is not allowed in getters. (2:3)
+  1 | class Foo {
+> 2 |   declare get getter() {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #32 [typescript] format 1`] = `
+"'declare' is not allowed in getters. (1:12)
+> 1 | class Foo {
+    |            ^
+> 2 |   declare get getter() {}
+    | ^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #33 [babel-ts] format 1`] = `
+"'declare' is not allowed in setters. (2:3)
+  1 | class Foo {
+> 2 |   declare set setter(v) {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #33 [typescript] format 1`] = `
+"'declare' is not allowed in setters. (1:12)
+> 1 | class Foo {
+    |            ^
+> 2 |   declare set setter(v) {}
+    | ^^^^^^^^^^
+  3 | }"
+`;

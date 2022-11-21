@@ -51,6 +51,16 @@ run_spec(
             }
           `
       ),
+      outdent`
+        class Foo {
+          declare get getter() {}
+        }
+      `,
+      outdent`
+        class Foo {
+          declare set setter(v) {}
+        }
+      `,
     ],
   },
   ["babel-ts", "typescript"]
