@@ -1,10 +1,11 @@
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
-import * as SyntaxKind from "./ts-syntax-kind.evaluate.js";
+
+let ts;
 
 function getTsNodeLocation(nodeOrToken) {
-  const sourceFile = getSourceFileOfNode(nodeOrToken);
+  const sourceFile = ts.getSourceFileOfNode(nodeOrToken);
   const [start, end] = [nodeOrToken.pos, nodeOrToken.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
@@ -14,12 +15,8 @@ function getTsNodeLocation(nodeOrToken) {
   return { start, end };
 }
 
-// Copied from https://unpkg.com/typescript@4.8.2/lib/typescript.js
-function getSourceFileOfNode(node) {
-  while (node && node.kind !== SyntaxKind.SourceFile) {
-    node = node.parent;
-  }
-  return node;
+function throwErrorOnTsNode(node, message) {
+  throwTsSyntaxError({ loc: getTsNodeLocation(node) }, message);
 }
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
@@ -33,10 +30,7 @@ function throwErrorForInvalidDecorator(tsNode) {
 
   const [{ expression }] = illegalDecorators;
 
-  throwTsSyntaxError(
-    { loc: getTsNodeLocation(expression) },
-    "Decorators are not valid here."
-  );
+  throwErrorOnTsNode(expression, "Decorators are not valid here.");
 }
 
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
@@ -44,11 +38,11 @@ function throwErrorForInvalidDecorator(tsNode) {
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   if (
     !(
-      tsNode.kind === SyntaxKind.PropertyDeclaration &&
+      tsNode.kind === ts.SyntaxKind.PropertyDeclaration &&
       tsNode.initializer &&
       esTreeNode.value === null &&
       tsNode.modifiers?.some(
-        (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
+        (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword
       )
     )
   ) {
@@ -72,15 +66,15 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
   }
 
   const declareKeyword = tsNode.modifiers?.find(
-    (modifier) => modifier.kind === SyntaxKind.DeclareKeyword
+    (modifier) => modifier.kind === ts.SyntaxKind.DeclareKeyword
   );
 
   if (!declareKeyword) {
     return;
   }
 
-  throwTsSyntaxError(
-    { loc: getTsNodeLocation(declareKeyword) },
+  throwErrorOnTsNode(
+    declareKeyword,
     /* cspell:disable-next-line */
     `'declare' is not allowed in ${esTreeNode.kind}ters.`
   );
@@ -89,7 +83,7 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
 function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
   if (
     esTreeNode.type !== "TSMethodSignature" ||
-    tsNode.kind !== SyntaxKind.MethodSignature
+    tsNode.kind !== ts.SyntaxKind.MethodSignature
   ) {
     return;
   }
@@ -97,8 +91,8 @@ function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
   const invalidModifier = tsNode.modifiers?.find(
     (modifier) =>
       !(
-        modifier.kind === SyntaxKind.InKeyword ||
-        modifier.kind === SyntaxKind.OutKeyword
+        modifier.kind === ts.SyntaxKind.InKeyword ||
+        modifier.kind === ts.SyntaxKind.OutKeyword
       )
   );
 
@@ -106,8 +100,8 @@ function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
     return;
   }
 
-  throwTsSyntaxError(
-    { loc: getTsNodeLocation(invalidModifier) },
+  throwErrorOnTsNode(
+    invalidModifier,
     "This modifier cannot appear on a type member"
   );
 }
@@ -127,7 +121,7 @@ function getTsNode(node, tsParseResult) {
   return tsNode;
 }
 
-function throwErrorForInvalidNodes(tsParseResult, options) {
+async function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
     // decorators
     // abstract properties
@@ -136,6 +130,10 @@ function throwErrorForInvalidNodes(tsParseResult, options) {
     !/@|abstract|declare|interface/.test(options.originalText)
   ) {
     return;
+  }
+
+  if (!ts) {
+    ({ default: ts } = await import("typescript"));
   }
 
   visitNode(tsParseResult.ast, (esTreeNode) => {
