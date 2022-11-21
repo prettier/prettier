@@ -1,5 +1,3 @@
-import { outdent } from "outdent";
-
 run_spec(
   {
     importMeta: import.meta,
