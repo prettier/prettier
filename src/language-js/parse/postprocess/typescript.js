@@ -81,7 +81,7 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
 }
 
 // Based on `checkGrammarModifiers` function in `typescript`
-function throwErrorForInvalidModifierOnTypeMember(node, esNode) {
+function throwErrorForInvalidModifierOnTypeMember(node) {
   const { modifiers } = node;
   if (!isNonEmptyArray(modifiers)) {
     return;
@@ -188,7 +188,7 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
     throwErrorForInvalidDeclare(tsNode, esTreeNode);
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
-    throwErrorForInvalidModifierOnTypeMember(tsNode, esTreeNode);
+    throwErrorForInvalidModifierOnTypeMember(tsNode);
   });
 }
 
