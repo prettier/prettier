@@ -156,8 +156,8 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
     // decorators
     // abstract properties
-    // modifiers on type member & class member
-    !/@|abstract|declare|interface|class/.test(options.originalText)
+    // modifiers on type member, class member & index signature
+    !/@|abstract|declare|interface|class|module/.test(options.originalText)
   ) {
     return;
   }

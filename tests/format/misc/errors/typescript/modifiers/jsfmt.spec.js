@@ -15,6 +15,7 @@ run_spec(
         "in",
         "out",
         "override",
+        "async",
       ].flatMap((modifier) => [
         outdent`
           interface Foo {
@@ -26,12 +27,31 @@ run_spec(
             ${modifier} property;
           }
         `,
+        outdent`
+          module Foo {
+            ${modifier} indexSignature {}
+          }
+        `,
       ]),
       outdent`
         interface Foo {
           readonly method();
         }
       `,
+      outdent`
+        module Foo {
+          readonly indexSignature {}
+        }
+      `,
+      // TODO[@fisker]: Fix these tests
+      // ...["abstract", "static", "private", "protected", "public"].map(
+      //   (modifier) =>
+      //     outdent`
+      //       module Foo {
+      //         ${modifier} module Bar {}
+      //       }
+      //     `
+      // ),
       ...[
         "abstract",
         "declare",
@@ -42,6 +62,8 @@ run_spec(
         "public",
         "readonly",
         "override",
+        "async",
+        "enum",
       ].map((modifier) => `interface Foo<${modifier} T> {}`),
       ...["declare", "readonly"].map(
         (modifier) =>

@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`keywords.ts [babel-ts] format 1`] = `
-"Unexpected token, expected "{" (9:12)
-   7 |
-   8 |     // Apparently this parses :P
->  9 |     export private public protected static readonly abstract async enum X { }
-     |            ^
-  10 |
-  11 |     interface x {
-  12 |         export private static readonly [x: any]: any;"
+"Missing semicolon. (4:11)
+  2 |
+  3 | module Y4 {
+> 4 |     public enum Color { Blue, Red }
+    |           ^
+  5 | }
+  6 |
+  7 | module YY3 {"
 `;
 
 exports[`keywords.ts format 1`] = `
@@ -18,19 +18,6 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // All of these should be an error
-
-module Y3 {
-    public module Module {
-        class A { s: string }
-    }
-
-    // Apparently this parses :P
-    export private public protected static readonly abstract async enum X { }
-
-    interface x {
-        export private static readonly [x: any]: any;
-    }
-}
 
 module Y4 {
     public enum Color { Blue, Red }
@@ -58,21 +45,6 @@ module YYY4 {
 
 =====================================output=====================================
 // All of these should be an error
-
-module Y3 {
-  public module Module {
-    class A {
-      s: string;
-    }
-  }
-
-  // Apparently this parses :P
-  export private public protected static readonly abstract async enum X {}
-
-  interface x {
-    export private static readonly [x: any]: any;
-  }
-}
 
 module Y4 {
   public enum Color {
@@ -195,17 +167,6 @@ class G {
 ================================================================================
 `;
 
-exports[`module.ts [babel-ts] format 1`] = `
-"Unexpected token, expected "{" (7:10)
-   5 |
-   6 |   // Apparently this parses :P
->  7 |   export private public protected static readonly abstract async enum X { }
-     |          ^
-   8 |
-   9 |   interface x {
-  10 |       export private static readonly [x: any]: any;"
-`;
-
 exports[`module.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -213,31 +174,29 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 module Y3 {
-  public module Module {
+  module Module {
       class A { s: string }
   }
 
-  // Apparently this parses :P
-  export private public protected static readonly abstract async enum X { }
+  export enum X { }
 
   interface x {
-      export private static readonly [x: any]: any;
+      readonly [x: any]: any;
   }
 }
 
 =====================================output=====================================
 module Y3 {
-  public module Module {
+  module Module {
     class A {
       s: string;
     }
   }
 
-  // Apparently this parses :P
-  export private public protected static readonly abstract async enum X {}
+  export enum X {}
 
   interface x {
-    export private static readonly [x: any]: any;
+    readonly [x: any]: any;
   }
 }
 

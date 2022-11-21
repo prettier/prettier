@@ -35,26 +35,25 @@ exports[`snippet: #1 [typescript] format 1`] = `
 `;
 
 exports[`snippet: #2 [babel-ts] format 1`] = `
-"'declare' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   declare method();
-    |   ^
+"Unexpected token, expected "class" (2:12)
+  1 | module Foo {
+> 2 |   abstract indexSignature {}
+    |            ^
   3 | }"
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
-"'declare' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   declare method();
-    | ^^^^^^^^^^
+"Unexpected keyword or identifier. (2:3)
+  1 | module Foo {
+> 2 |   abstract indexSignature {}
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #3 [babel-ts] format 1`] = `
 "'declare' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
-> 2 |   declare property;
+> 2 |   declare method();
     |   ^
   3 | }"
 `;
@@ -63,37 +62,70 @@ exports[`snippet: #3 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
-> 2 |   declare property;
+> 2 |   declare method();
     | ^^^^^^^^^^
   3 | }"
 `;
 
 exports[`snippet: #4 [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:10)
+"'declare' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
-> 2 |   export method();
-    |          ^
+> 2 |   declare property;
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
-"'export' modifier cannot appear on a type member (1:16)
+"'declare' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
-> 2 |   export method();
-    | ^^^^^^^^^
+> 2 |   declare property;
+    | ^^^^^^^^^^
   3 | }"
 `;
 
 exports[`snippet: #5 [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:10)
-  1 | interface Foo {
-> 2 |   export property;
+"Missing semicolon. (2:10)
+  1 | module Foo {
+> 2 |   declare indexSignature {}
     |          ^
   3 | }"
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:11)
+  1 | module Foo {
+> 2 |   declare indexSignature {}
+    |           ^
+  3 | }"
+`;
+
+exports[`snippet: #6 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:10)
+  1 | interface Foo {
+> 2 |   export method();
+    |          ^
+  3 | }"
+`;
+
+exports[`snippet: #6 [typescript] format 1`] = `
+"'export' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   export method();
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #7 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:10)
+  1 | interface Foo {
+> 2 |   export property;
+    |          ^
+  3 | }"
+`;
+
+exports[`snippet: #7 [typescript] format 1`] = `
 "'export' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
@@ -102,66 +134,98 @@ exports[`snippet: #5 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #6 [babel-ts] format 1`] = `
-"'static' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   static method();
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #6 [typescript] format 1`] = `
-"'static' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   static method();
-    | ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #7 [babel-ts] format 1`] = `
-"'static' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   static property;
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #7 [typescript] format 1`] = `
-"'static' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   static property;
-    | ^^^^^^^^^
-  3 | }"
-`;
-
 exports[`snippet: #8 [babel-ts] format 1`] = `
-"'private' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   private method();
-    |   ^
+"Unexpected token, expected "{" (2:10)
+  1 | module Foo {
+> 2 |   export indexSignature {}
+    |          ^
   3 | }"
 `;
 
 exports[`snippet: #8 [typescript] format 1`] = `
-"'private' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   private method();
-    | ^^^^^^^^^^
+"Declaration or statement expected. (2:3)
+  1 | module Foo {
+> 2 |   export indexSignature {}
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #9 [babel-ts] format 1`] = `
-"'private' modifier cannot appear on a type member. (2:3)
+"'static' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
-> 2 |   private property;
+> 2 |   static method();
     |   ^
   3 | }"
 `;
 
 exports[`snippet: #9 [typescript] format 1`] = `
+"'static' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   static method();
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #10 [babel-ts] format 1`] = `
+"'static' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   static property;
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #10 [typescript] format 1`] = `
+"'static' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   static property;
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #11 [babel-ts] format 1`] = `
+"Missing semicolon. (2:9)
+  1 | module Foo {
+> 2 |   static indexSignature {}
+    |         ^
+  3 | }"
+`;
+
+exports[`snippet: #11 [typescript] format 1`] = `
+"Declaration or statement expected. (2:3)
+  1 | module Foo {
+> 2 |   static indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #12 [babel-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   private method();
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #12 [typescript] format 1`] = `
+"'private' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   private method();
+    | ^^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #13 [babel-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   private property;
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #13 [typescript] format 1`] = `
 "'private' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
@@ -170,151 +234,231 @@ exports[`snippet: #9 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #10 [babel-ts] format 1`] = `
-"'protected' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   protected method();
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #10 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   protected method();
-    | ^^^^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #11 [babel-ts] format 1`] = `
-"'protected' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   protected property;
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #11 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   protected property;
-    | ^^^^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #12 [babel-ts] format 1`] = `
-"'public' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   public method();
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #12 [typescript] format 1`] = `
-"'public' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   public method();
-    | ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #13 [babel-ts] format 1`] = `
-"'public' modifier cannot appear on a type member. (2:3)
-  1 | interface Foo {
-> 2 |   public property;
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #13 [typescript] format 1`] = `
-"'public' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   public property;
-    | ^^^^^^^^^
-  3 | }"
-`;
-
 exports[`snippet: #14 [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:6)
-  1 | interface Foo {
-> 2 |   in method();
-    |      ^
+"Missing semicolon. (2:10)
+  1 | module Foo {
+> 2 |   private indexSignature {}
+    |          ^
   3 | }"
 `;
 
 exports[`snippet: #14 [typescript] format 1`] = `
-"'in' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   in method();
-    | ^^^^^
+"Declaration or statement expected. (2:3)
+  1 | module Foo {
+> 2 |   private indexSignature {}
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #15 [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:6)
+"'protected' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
-> 2 |   in property;
-    |      ^
+> 2 |   protected method();
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #15 [typescript] format 1`] = `
-"'in' modifier cannot appear on a type member (1:16)
+"'protected' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
-> 2 |   in property;
-    | ^^^^^
+> 2 |   protected method();
+    | ^^^^^^^^^^^^
   3 | }"
 `;
 
 exports[`snippet: #16 [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:7)
+"'protected' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
-> 2 |   out method();
-    |       ^
+> 2 |   protected property;
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #16 [typescript] format 1`] = `
-"'out' modifier cannot appear on a type member (1:16)
+"'protected' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
-> 2 |   out method();
-    | ^^^^^^
+> 2 |   protected property;
+    | ^^^^^^^^^^^^
   3 | }"
 `;
 
 exports[`snippet: #17 [babel-ts] format 1`] = `
-"Unexpected token, expected ";" (2:7)
-  1 | interface Foo {
-> 2 |   out property;
-    |       ^
+"Missing semicolon. (2:12)
+  1 | module Foo {
+> 2 |   protected indexSignature {}
+    |            ^
   3 | }"
 `;
 
 exports[`snippet: #17 [typescript] format 1`] = `
-"'out' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   out property;
-    | ^^^^^^
+"Declaration or statement expected. (2:3)
+  1 | module Foo {
+> 2 |   protected indexSignature {}
+    |   ^
   3 | }"
 `;
 
 exports[`snippet: #18 [babel-ts] format 1`] = `
-"'override' modifier cannot appear on a type member. (2:3)
+"'public' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
-> 2 |   override method();
+> 2 |   public method();
     |   ^
   3 | }"
 `;
 
 exports[`snippet: #18 [typescript] format 1`] = `
+"'public' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   public method();
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #19 [babel-ts] format 1`] = `
+"'public' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   public property;
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #19 [typescript] format 1`] = `
+"'public' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   public property;
+    | ^^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #20 [babel-ts] format 1`] = `
+"Missing semicolon. (2:9)
+  1 | module Foo {
+> 2 |   public indexSignature {}
+    |         ^
+  3 | }"
+`;
+
+exports[`snippet: #20 [typescript] format 1`] = `
+"Declaration or statement expected. (2:3)
+  1 | module Foo {
+> 2 |   public indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #21 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:6)
+  1 | interface Foo {
+> 2 |   in method();
+    |      ^
+  3 | }"
+`;
+
+exports[`snippet: #21 [typescript] format 1`] = `
+"'in' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   in method();
+    | ^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #22 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:6)
+  1 | interface Foo {
+> 2 |   in property;
+    |      ^
+  3 | }"
+`;
+
+exports[`snippet: #22 [typescript] format 1`] = `
+"'in' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   in property;
+    | ^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #23 [babel-ts] format 1`] = `
+"Unexpected token (2:3)
+  1 | module Foo {
+> 2 |   in indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #23 [typescript] format 1`] = `
+"Expression expected. (2:3)
+  1 | module Foo {
+> 2 |   in indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #24 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:7)
+  1 | interface Foo {
+> 2 |   out method();
+    |       ^
+  3 | }"
+`;
+
+exports[`snippet: #24 [typescript] format 1`] = `
+"'out' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   out method();
+    | ^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #25 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:7)
+  1 | interface Foo {
+> 2 |   out property;
+    |       ^
+  3 | }"
+`;
+
+exports[`snippet: #25 [typescript] format 1`] = `
+"'out' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   out property;
+    | ^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #26 [babel-ts] format 1`] = `
+"Missing semicolon. (2:6)
+  1 | module Foo {
+> 2 |   out indexSignature {}
+    |      ^
+  3 | }"
+`;
+
+exports[`snippet: #26 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | module Foo {
+> 2 |   out indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #27 [babel-ts] format 1`] = `
+"'override' modifier cannot appear on a type member. (2:3)
+  1 | interface Foo {
+> 2 |   override method();
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #27 [typescript] format 1`] = `
 "'override' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
@@ -323,7 +467,7 @@ exports[`snippet: #18 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #19 [babel-ts] format 1`] = `
+exports[`snippet: #28 [babel-ts] format 1`] = `
 "'override' modifier cannot appear on a type member. (2:3)
   1 | interface Foo {
 > 2 |   override property;
@@ -331,7 +475,7 @@ exports[`snippet: #19 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #19 [typescript] format 1`] = `
+exports[`snippet: #28 [typescript] format 1`] = `
 "'override' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
@@ -340,7 +484,73 @@ exports[`snippet: #19 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #20 [babel-ts] format 1`] = `
+exports[`snippet: #29 [babel-ts] format 1`] = `
+"Missing semicolon. (2:11)
+  1 | module Foo {
+> 2 |   override indexSignature {}
+    |           ^
+  3 | }"
+`;
+
+exports[`snippet: #29 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | module Foo {
+> 2 |   override indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #30 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:9)
+  1 | interface Foo {
+> 2 |   async method();
+    |         ^
+  3 | }"
+`;
+
+exports[`snippet: #30 [typescript] format 1`] = `
+"'async' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   async method();
+    | ^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #31 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (2:9)
+  1 | interface Foo {
+> 2 |   async property;
+    |         ^
+  3 | }"
+`;
+
+exports[`snippet: #31 [typescript] format 1`] = `
+"'async' modifier cannot appear on a type member (1:16)
+> 1 | interface Foo {
+    |                ^
+> 2 |   async property;
+    | ^^^^^^^^
+  3 | }"
+`;
+
+exports[`snippet: #32 [babel-ts] format 1`] = `
+"Missing semicolon. (2:8)
+  1 | module Foo {
+> 2 |   async indexSignature {}
+    |        ^
+  3 | }"
+`;
+
+exports[`snippet: #32 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (2:3)
+  1 | module Foo {
+> 2 |   async indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #33 [babel-ts] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (2:3)
   1 | interface Foo {
 > 2 |   readonly method();
@@ -348,7 +558,7 @@ exports[`snippet: #20 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #20 [typescript] format 1`] = `
+exports[`snippet: #33 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (1:16)
 > 1 | interface Foo {
     |                ^
@@ -357,115 +567,155 @@ exports[`snippet: #20 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #21 [babel-ts] format 1`] = `
+exports[`snippet: #34 [babel-ts] format 1`] = `
+"Missing semicolon. (2:11)
+  1 | module Foo {
+> 2 |   readonly indexSignature {}
+    |           ^
+  3 | }"
+`;
+
+exports[`snippet: #34 [typescript] format 1`] = `
+"Declaration or statement expected. (2:3)
+  1 | module Foo {
+> 2 |   readonly indexSignature {}
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #35 [babel-ts] format 1`] = `
 "'abstract' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<abstract T> {}
     |               ^"
 `;
 
-exports[`snippet: #21 [typescript] format 1`] = `
+exports[`snippet: #35 [typescript] format 1`] = `
 "'abstract' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<abstract T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #22 [babel-ts] format 1`] = `
+exports[`snippet: #36 [babel-ts] format 1`] = `
 "'declare' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<declare T> {}
     |               ^"
 `;
 
-exports[`snippet: #22 [typescript] format 1`] = `
+exports[`snippet: #36 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<declare T> {}
     |               ^^^^^^^"
 `;
 
-exports[`snippet: #23 [babel-ts] format 1`] = `
+exports[`snippet: #37 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | interface Foo<export T> {}
     |                      ^"
 `;
 
-exports[`snippet: #23 [typescript] format 1`] = `
+exports[`snippet: #37 [typescript] format 1`] = `
 "Type parameter declaration expected. (1:15)
 > 1 | interface Foo<export T> {}
     |               ^"
 `;
 
-exports[`snippet: #24 [babel-ts] format 1`] = `
+exports[`snippet: #38 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | interface Foo<static T> {}
     |                      ^"
 `;
 
-exports[`snippet: #24 [typescript] format 1`] = `
+exports[`snippet: #38 [typescript] format 1`] = `
 "'static' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<static T> {}
     |               ^^^^^^"
 `;
 
-exports[`snippet: #25 [babel-ts] format 1`] = `
+exports[`snippet: #39 [babel-ts] format 1`] = `
 "'private' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<private T> {}
     |               ^"
 `;
 
-exports[`snippet: #25 [typescript] format 1`] = `
+exports[`snippet: #39 [typescript] format 1`] = `
 "'private' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<private T> {}
     |               ^^^^^^^"
 `;
 
-exports[`snippet: #26 [babel-ts] format 1`] = `
+exports[`snippet: #40 [babel-ts] format 1`] = `
 "'protected' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<protected T> {}
     |               ^"
 `;
 
-exports[`snippet: #26 [typescript] format 1`] = `
+exports[`snippet: #40 [typescript] format 1`] = `
 "'protected' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<protected T> {}
     |               ^^^^^^^^^"
 `;
 
-exports[`snippet: #27 [babel-ts] format 1`] = `
+exports[`snippet: #41 [babel-ts] format 1`] = `
 "'public' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<public T> {}
     |               ^"
 `;
 
-exports[`snippet: #27 [typescript] format 1`] = `
+exports[`snippet: #41 [typescript] format 1`] = `
 "'public' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<public T> {}
     |               ^^^^^^"
 `;
 
-exports[`snippet: #28 [babel-ts] format 1`] = `
+exports[`snippet: #42 [babel-ts] format 1`] = `
 "'readonly' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<readonly T> {}
     |               ^"
 `;
 
-exports[`snippet: #28 [typescript] format 1`] = `
+exports[`snippet: #42 [typescript] format 1`] = `
 "'readonly' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<readonly T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #29 [babel-ts] format 1`] = `
+exports[`snippet: #43 [babel-ts] format 1`] = `
 "'override' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<override T> {}
     |               ^"
 `;
 
-exports[`snippet: #29 [typescript] format 1`] = `
+exports[`snippet: #43 [typescript] format 1`] = `
 "'override' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<override T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #30 [babel-ts] format 1`] = `
+exports[`snippet: #44 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:21)
+> 1 | interface Foo<async T> {}
+    |                     ^"
+`;
+
+exports[`snippet: #44 [typescript] format 1`] = `
+"'async' modifier cannot appear on a type parameter (1:15)
+> 1 | interface Foo<async T> {}
+    |               ^^^^^"
+`;
+
+exports[`snippet: #45 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:20)
+> 1 | interface Foo<enum T> {}
+    |                    ^"
+`;
+
+exports[`snippet: #45 [typescript] format 1`] = `
+"Type parameter declaration expected. (1:15)
+> 1 | interface Foo<enum T> {}
+    |               ^"
+`;
+
+exports[`snippet: #46 [babel-ts] format 1`] = `
 "Class methods cannot have the 'declare' modifier. (2:3)
   1 | class Foo {
 > 2 |   declare method() {}
@@ -473,7 +723,7 @@ exports[`snippet: #30 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #30 [typescript] format 1`] = `
+exports[`snippet: #46 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (1:12)
 > 1 | class Foo {
     |            ^
@@ -482,7 +732,7 @@ exports[`snippet: #30 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #31 [babel-ts] format 1`] = `
+exports[`snippet: #47 [babel-ts] format 1`] = `
 "Class methods cannot have the 'readonly' modifier. (2:3)
   1 | class Foo {
 > 2 |   readonly method() {}
@@ -490,7 +740,7 @@ exports[`snippet: #31 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #31 [typescript] format 1`] = `
+exports[`snippet: #47 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (1:12)
 > 1 | class Foo {
     |            ^
@@ -499,7 +749,7 @@ exports[`snippet: #31 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #32 [babel-ts] format 1`] = `
+exports[`snippet: #48 [babel-ts] format 1`] = `
 "'declare' is not allowed in getters. (2:3)
   1 | class Foo {
 > 2 |   declare get getter() {}
@@ -507,7 +757,7 @@ exports[`snippet: #32 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #32 [typescript] format 1`] = `
+exports[`snippet: #48 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (1:12)
 > 1 | class Foo {
     |            ^
@@ -516,7 +766,7 @@ exports[`snippet: #32 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #33 [babel-ts] format 1`] = `
+exports[`snippet: #49 [babel-ts] format 1`] = `
 "'declare' is not allowed in setters. (2:3)
   1 | class Foo {
 > 2 |   declare set setter(v) {}
@@ -524,7 +774,7 @@ exports[`snippet: #33 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #33 [typescript] format 1`] = `
+exports[`snippet: #49 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (1:12)
 > 1 | class Foo {
     |            ^
