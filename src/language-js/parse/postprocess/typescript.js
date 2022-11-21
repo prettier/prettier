@@ -55,31 +55,6 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   );
 }
 
-function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
-  if (
-    !(
-      esTreeNode.type === "MethodDefinition" &&
-      (esTreeNode.kind === "get" || esTreeNode.kind === "set")
-    )
-  ) {
-    return;
-  }
-
-  const declareKeyword = tsNode.modifiers?.find(
-    (modifier) => modifier.kind === ts.SyntaxKind.DeclareKeyword
-  );
-
-  if (!declareKeyword) {
-    return;
-  }
-
-  throwErrorOnTsNode(
-    declareKeyword,
-    /* cspell:disable-next-line */
-    `'declare' is not allowed in ${esTreeNode.kind}ters.`
-  );
-}
-
 // Based on `checkGrammarModifiers` function in `typescript`
 function throwErrorForInvalidModifier(node) {
   const { modifiers } = node;
@@ -181,7 +156,6 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
     // decorators
     // abstract properties
-    // declare in accessor
     // modifiers on type member & class member
     !/@|abstract|declare|interface|class/.test(options.originalText)
   ) {
@@ -198,7 +172,6 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
       return;
     }
 
-    throwErrorForInvalidDeclare(tsNode, esTreeNode);
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
     throwErrorForInvalidModifier(tsNode);
