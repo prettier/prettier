@@ -80,30 +80,61 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
   );
 }
 
-function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
-  if (
-    esTreeNode.type !== "TSMethodSignature" ||
-    tsNode.kind !== ts.SyntaxKind.MethodSignature
-  ) {
+// Based on `checkGrammarModifiers` function in `typescript`
+function throwErrorForInvalidModifierOnTypeMember(node) {
+  const modifiers = node.modifiers;
+  if (!isNonEmptyArray(modifiers)) {
     return;
   }
 
-  const invalidModifier = tsNode.modifiers?.find(
-    (modifier) =>
-      !(
-        modifier.kind === ts.SyntaxKind.InKeyword ||
-        modifier.kind === ts.SyntaxKind.OutKeyword
-      )
-  );
+  const { SyntaxKind } = ts;
 
-  if (!invalidModifier) {
-    return;
+  for (const modifier of modifiers) {
+    if (ts.isDecorator(modifier)) {
+      continue;
+    }
+
+    if (modifier.kind !== SyntaxKind.ReadonlyKeyword) {
+      if (
+        node.kind === SyntaxKind.PropertySignature ||
+        node.kind === SyntaxKind.MethodSignature
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on a type member`
+        );
+      }
+
+      if (
+        node.kind === SyntaxKind.IndexSignature &&
+        (modifier.kind !== SyntaxKind.StaticKeyword ||
+          !ts.isClassLike(node.parent))
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on a type member`
+        );
+      }
+    }
+
+    if (
+      modifier.kind !== SyntaxKind.InKeyword &&
+      modifier.kind !== SyntaxKind.OutKeyword
+    ) {
+      if (node.kind === SyntaxKind.TypeParameter) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on a type member`
+        );
+      }
+    }
   }
-
-  throwErrorOnTsNode(
-    invalidModifier,
-    "This modifier cannot appear on a type member"
-  );
 }
 
 function getTsNode(node, tsParseResult) {
@@ -145,7 +176,7 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
     throwErrorForInvalidDeclare(tsNode, esTreeNode);
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
-    throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode);
+    throwErrorForInvalidModifierOnTypeMember(tsNode, esTreeNode);
   });
 }
 

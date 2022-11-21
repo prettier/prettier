@@ -12,7 +12,7 @@ run_spec(
         "private",
         "protected",
         "public",
-        "readonly",
+        // "readonly",
       ].map(
         (modifier) => outdent`
           interface Foo {

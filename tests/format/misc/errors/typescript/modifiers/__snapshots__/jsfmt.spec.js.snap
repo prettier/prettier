@@ -9,7 +9,7 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'abstract' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   abstract e();
@@ -26,7 +26,7 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'declare' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   declare e();
@@ -43,7 +43,7 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'export' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   export e();
@@ -60,7 +60,7 @@ exports[`snippet: #3 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'static' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   static e();
@@ -77,7 +77,7 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'private' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   private e();
@@ -94,7 +94,7 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'protected' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   protected e();
@@ -111,27 +111,10 @@ exports[`snippet: #6 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #6 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
+"'public' modifier cannot appear on a type member (1:16)
 > 1 | interface Foo {
     |                ^
 > 2 |   public e();
     | ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #7 [babel-ts] format 1`] = `
-"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
-  1 | interface Foo {
-> 2 |   readonly e();
-    |   ^
-  3 | }"
-`;
-
-exports[`snippet: #7 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   readonly e();
-    | ^^^^^^^^^^^
   3 | }"
 `;
