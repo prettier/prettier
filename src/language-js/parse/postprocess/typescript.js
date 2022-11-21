@@ -123,7 +123,7 @@ function throwErrorForInvalidModifier(node) {
     }
 
     if (
-      modifier.kind === SyntaxKind.DeclareKeyword&&
+      modifier.kind === SyntaxKind.DeclareKeyword &&
       ts.isClassLike(node.parent) &&
       !ts.isPropertyDeclaration(node)
     ) {
