@@ -7,6 +7,30 @@ interface RelayProps {
   } | null> | null | void,
 }
 
+interface RelayProps {
+  articles: Array<{
+    __id: string,
+  } | null> 
+  | null // articles type may be null 
+  | void, // articles type may be void
+}
+
+type FooBar = null // null 
+| { /** x **/
+  y: number;
+  z: string;
+} // this documents the first option
+  | void // this documents the second option
+  ;
+
+type FooBarWithoutComment = null
+  | {
+  y: number;
+  z: string;
+}
+  | void
+  ;
+
 type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: "Not_begun"}
