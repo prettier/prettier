@@ -81,7 +81,7 @@ function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
 }
 
 // Based on `checkGrammarModifiers` function in `typescript`
-function throwErrorForInvalidModifierOnTypeMember(node) {
+function throwErrorForInvalidModifierOnTypeMember(node, esNode) {
   const modifiers = node.modifiers;
   if (!isNonEmptyArray(modifiers)) {
     return;
@@ -116,7 +116,7 @@ function throwErrorForInvalidModifierOnTypeMember(node) {
           modifier,
           `'${ts.tokenToString(
             modifier.kind
-          )}' modifier cannot appear on a type member`
+          )}' modifier cannot appear on an index signature`
         );
       }
     }
@@ -130,7 +130,7 @@ function throwErrorForInvalidModifierOnTypeMember(node) {
           modifier,
           `'${ts.tokenToString(
             modifier.kind
-          )}' modifier cannot appear on a type member`
+          )}' modifier cannot appear on a type parameter`
         );
       }
     }
