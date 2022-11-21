@@ -146,6 +146,19 @@ function throwErrorForInvalidModifierOnTypeMember(node) {
         "'readonly' modifier can only appear on a property declaration or index signature."
       );
     }
+
+    if (
+      modifier.kind === SyntaxKind.DeclareKeyword&&
+      ts.isClassLike(node.parent) &&
+      !ts.isPropertyDeclaration(node)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}'modifier cannot appear on class elements of this kind.`
+      );
+    }
   }
 }
 
@@ -169,8 +182,8 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
     // decorators
     // abstract properties
     // declare in accessor
-    // modifiers on type parameter
-    !/@|abstract|declare|interface/.test(options.originalText)
+    // modifiers on type member & class member
+    !/@|abstract|declare|interface|class/.test(options.originalText)
   ) {
     return;
   }

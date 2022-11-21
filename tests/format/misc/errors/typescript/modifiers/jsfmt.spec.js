@@ -14,6 +14,7 @@ run_spec(
         "public",
         "in",
         "out",
+        "override",
       ].flatMap((modifier) => [
         outdent`
           interface Foo {
@@ -40,7 +41,16 @@ run_spec(
         "protected",
         "public",
         "readonly",
+        "override",
       ].map((modifier) => `interface Foo<${modifier} T> {}`),
+      ...["declare", "readonly"].map(
+        (modifier) =>
+          outdent`
+            class Foo {
+              ${modifier} method() {}
+            }
+          `
+      ),
     ],
   },
   ["babel-ts", "typescript"]
