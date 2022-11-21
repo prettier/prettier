@@ -220,6 +220,7 @@ module.exports = {
     "unicorn/prefer-optional-catch-binding": "error",
     "unicorn/prefer-regexp-test": "error",
     "unicorn/prefer-set-has": "error",
+    "unicorn/prefer-set-size": "error",
     "unicorn/prefer-spread": "error",
     "unicorn/prefer-string-replace-all": "error",
     "unicorn/prefer-string-slice": "error",
