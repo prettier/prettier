@@ -18,7 +18,7 @@ export default async function updateVersion({ version }) {
 
   // Update unpkg link in docs
   processFile("docs/browser.md", (content) =>
-    content.replace(
+    content.replaceAll(
       /(\/\/unpkg\.com\/(?:browse\/)?prettier@).*?\//g,
       `$1${version}/`
     )

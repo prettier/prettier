@@ -132,7 +132,7 @@ function genericPrint(path, options, print) {
       }
       return [
         '"',
-        node.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
+        node.value.replaceAll(/["\\]/g, "\\$&").replaceAll("\n", "\\n"),
         '"',
       ];
 

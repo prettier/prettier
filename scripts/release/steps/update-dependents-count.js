@@ -21,7 +21,7 @@ async function update() {
   );
   const dependentsCountGithub = Number(
     githubPage
-      .replace(/\n/g, "")
+      .replaceAll("\n", "")
       .match(
         /<svg.*?octicon-code-square.*?>.*?<\/svg>\s*([\d,]+)\s*Repositories\s*<\/a>/
       )[1]

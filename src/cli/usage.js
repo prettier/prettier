@@ -8,7 +8,7 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function indent(str, spaces) {
-  return str.replace(/^/gm, " ".repeat(spaces));
+  return str.replaceAll(/^/gm, " ".repeat(spaces));
 }
 
 function createDefaultValueDisplay(value) {
@@ -49,7 +49,7 @@ function createOptionUsageRow(header, content, threshold) {
       ? `\n${" ".repeat(threshold)}`
       : " ".repeat(threshold - header.length);
 
-  const description = content.replace(/\n/g, `\n${" ".repeat(threshold)}`);
+  const description = content.replaceAll("\n", `\n${" ".repeat(threshold)}`);
 
   return `${header}${separator}${description}`;
 }

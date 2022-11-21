@@ -39,7 +39,7 @@ function parseVueFor(value) {
     return;
   }
 
-  const alias = inMatch[1].trim().replace(stripParensRE, "");
+  const alias = inMatch[1].trim().replaceAll(stripParensRE, "");
   const iteratorMatch = alias.match(forIteratorRE);
   if (iteratorMatch) {
     res.alias = alias.replace(forIteratorRE, "");

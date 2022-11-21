@@ -183,7 +183,7 @@ function escapePathForGlob(path) {
       path.replaceAll("\\", "\0") // Workaround for fast-glob#262 (part 1)
     )
     .replaceAll("\\!", "@(!)") // Workaround for fast-glob#261
-    .replace(/\0/g, "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
+    .replaceAll("\0", "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
 
 const isWindows = path.sep === "\\";

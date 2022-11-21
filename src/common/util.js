@@ -260,7 +260,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
-  const newContent = rawContent.replace(regex, (match, escaped, quote) => {
+  const newContent = rawContent.replaceAll(regex, (match, escaped, quote) => {
     // If we matched an escape, and the escaped character is a quote of the
     // other type than we intend to enclose the string with, there's no need for
     // it to be escaped, so return it _without_ the backslash.

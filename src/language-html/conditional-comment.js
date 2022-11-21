@@ -57,7 +57,7 @@ function parseIeConditionalStartEndComment(
     type: "ieConditionalComment",
     complete,
     children,
-    condition: condition.trim().replace(/\s+/g, " "),
+    condition: condition.trim().replaceAll(/\s+/g, " "),
     sourceSpan: node.sourceSpan,
     startSourceSpan: new ParseSourceSpan(
       node.sourceSpan.start,
@@ -76,7 +76,7 @@ function parseIeConditionalStartComment(
   const [, condition] = match;
   return {
     type: "ieConditionalStartComment",
-    condition: condition.trim().replace(/\s+/g, " "),
+    condition: condition.trim().replaceAll(/\s+/g, " "),
     sourceSpan: node.sourceSpan,
   };
 }
