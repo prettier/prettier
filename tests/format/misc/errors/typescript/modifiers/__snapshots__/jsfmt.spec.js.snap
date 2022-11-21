@@ -474,7 +474,7 @@ exports[`snippet: #30 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #30 [typescript] format 1`] = `
-"'declare'modifier cannot appear on class elements of this kind. (1:12)
+"'declare' modifier cannot appear on class elements of this kind. (1:12)
 > 1 | class Foo {
     |            ^
 > 2 |   declare method() {}

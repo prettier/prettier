@@ -156,7 +156,7 @@ function throwErrorForInvalidModifier(node) {
         modifier,
         `'${ts.tokenToString(
           modifier.kind
-        )}'modifier cannot appear on class elements of this kind.`
+        )}' modifier cannot appear on class elements of this kind.`
       );
     }
   }
