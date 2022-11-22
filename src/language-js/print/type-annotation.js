@@ -15,14 +15,12 @@ import {
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
-  shouldPrintComma,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printArrayItems } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
