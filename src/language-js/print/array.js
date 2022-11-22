@@ -23,7 +23,7 @@ import { printOptionalToken, printTypeAnnotation } from "./misc.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
-function printEmptyArray(path, openBracket, closeBracket, options) {
+function printEmptyArray(path, options, openBracket, closeBracket) {
   const { node } = path;
   if (!hasComment(node, CommentCheckFlags.Dangling)) {
     return [openBracket, closeBracket];
@@ -36,6 +36,7 @@ function printEmptyArray(path, openBracket, closeBracket, options) {
   ]);
 }
 
+// `ArrayExpression`, `ArrayPattern`, and `TupleExpression`
 function printArray(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -44,7 +45,7 @@ function printArray(path, options, print) {
   const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   if (node.elements.length === 0) {
-    parts.push(printEmptyArray(path, openBracket, closeBracket, options));
+    parts.push(printEmptyArray(path, options, openBracket, closeBracket));
   } else {
     const lastElem = node.elements.at(-1);
     const canHaveTrailingComma = lastElem?.type !== "RestElement";
@@ -132,13 +133,12 @@ function printArray(path, options, print) {
 function printTupleType(path, options, print) {
   const { node } = path;
   const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const types = node[typesField];
-  const isEmptyTuple = types.length === 0;
   const openBracket = "[";
   const closeBracket = "]";
-  if (isEmptyTuple) {
-    return printEmptyArray(path, openBracket, closeBracket, options);
+  if (node[typesField].length === 0) {
+    return printEmptyArray(path, options, openBracket, closeBracket);
   }
+
   return group([
     openBracket,
     indent([softline, printArrayItems(path, options, typesField, print)]),
@@ -168,18 +168,18 @@ function isConciselyPrintedArray(node, options) {
   );
 }
 
-function printArrayItems(path, options, printPath, print) {
+function printArrayItems(path, options, elementsProperty, print) {
   const printedElements = [];
   let separatorParts = [];
 
-  path.each((childPath) => {
-    printedElements.push(separatorParts, group(print()));
+  path.each(({ node }) => {
+    printedElements.push(separatorParts, node ? group(print()) : "");
 
     separatorParts = [",", line];
-    if (childPath.node && isNextLineEmpty(childPath.node, options)) {
+    if (node && isNextLineEmpty(node, options)) {
       separatorParts.push(softline);
     }
-  }, printPath);
+  }, elementsProperty);
 
   return printedElements;
 }
@@ -214,5 +214,4 @@ export {
   printTupleType,
   printArrayItems,
   isConciselyPrintedArray,
-  printEmptyArray,
 };

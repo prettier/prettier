@@ -22,7 +22,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printArrayItems, printEmptyArray } from "./array.js";
+import { printArrayItems } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
