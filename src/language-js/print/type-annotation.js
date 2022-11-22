@@ -307,7 +307,6 @@ export {
   printIntersectionType,
   printUnionType,
   printFunctionType,
-  printTupleType,
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
