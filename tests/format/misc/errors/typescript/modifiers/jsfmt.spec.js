@@ -27,20 +27,16 @@ run_spec(
             ${modifier} property;
           }
         `,
+        // index signature
         outdent`
-          module Foo {
-            ${modifier} indexSignature {}
+          interface Foo {
+            ${modifier} [key: string]: number
           }
         `,
       ]),
       outdent`
         interface Foo {
           readonly method();
-        }
-      `,
-      outdent`
-        module Foo {
-          readonly indexSignature {}
         }
       `,
       // TODO[@fisker]: Fix these tests
