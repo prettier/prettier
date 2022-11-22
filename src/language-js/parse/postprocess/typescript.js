@@ -154,10 +154,27 @@ function getTsNode(node, tsParseResult) {
 
 async function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
-    // decorators
-    // abstract properties
-    // modifiers on type member, class member & index signature
-    !/@|abstract|declare|interface|class|module/.test(options.originalText)
+    // decorators and modifiers
+    !new RegExp(
+      [
+        "@",
+        "abstract",
+        "accessor",
+        "async",
+        "const",
+        "declare",
+        "default",
+        "export",
+        "static",
+        "in",
+        "out",
+        "override",
+        "public",
+        "private",
+        "protected",
+        "readonly",
+      ].join("|")
+    ).test(options.originalText)
   ) {
     return;
   }

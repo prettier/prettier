@@ -30,8 +30,13 @@ run_spec(
         // index signature
         outdent`
           interface Foo {
-            ${modifier} [key: string]: number
+            ${modifier} [index: string]: number
           }
+        `,
+        outdent`
+          const foo: {
+            ${modifier} [index: string] : string
+          } = {};
         `,
       ]),
       outdent`
