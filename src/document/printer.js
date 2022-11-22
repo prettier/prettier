@@ -30,8 +30,6 @@ const MODE_BREAK = Symbol("MODE_BREAK");
 /** @type {unique symbol} */
 const MODE_FLAT = Symbol("MODE_FLAT");
 
-const CURSOR_PLACEHOLDER = Symbol("cursor");
-
 function rootIndent() {
   return { value: "", length: 0, queue: [] };
 }
@@ -141,47 +139,30 @@ function generateInd(ind, newPart, options) {
   }
 }
 
-// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of line
-function trim(out) {
-  let trimCount = 0;
-  let cursorCount = 0;
-  let outIndex = out.length;
-
-  outer: while (outIndex--) {
-    const last = out[outIndex];
-
-    if (last === CURSOR_PLACEHOLDER) {
-      cursorCount++;
-      continue;
-    }
-
-    /* c8 ignore next 3 */
-    if (process.env.NODE_ENV !== "production" && typeof last !== "string") {
-      throw new Error(`Unexpected value in trim: '${typeof last}'`);
-    }
-
-    // Not using a regexp here because regexps for trimming off trailing
-    // characters are known to have performance issues.
-    for (let charIndex = last.length - 1; charIndex >= 0; charIndex--) {
-      const char = last[charIndex];
-      if (char === " " || char === "\t") {
-        trimCount++;
-      } else {
-        out[outIndex] = last.slice(0, charIndex + 1);
-        break outer;
-      }
+function getTrailingSpaceCount(string) {
+  let count = 0;
+  // Not using a regexp here because regexps for trimming off trailing
+  // characters are known to have performance issues.
+  for (let charIndex = string.length - 1; charIndex >= 0; charIndex--) {
+    const char = string[charIndex];
+    if (char === " " || char === "\t") {
+      count++;
+    } else {
+      break;
     }
   }
 
-  if (trimCount > 0 || cursorCount > 0) {
-    out.length = outIndex + 1;
+  return count;
+}
 
-    while (cursorCount-- > 0) {
-      out.push(CURSOR_PLACEHOLDER);
-    }
-  }
+// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of string
+function trim(string) {
+  const spaceCount = getTrailingSpaceCount(string);
 
-  return trimCount;
+  return {
+    string: spaceCount !== 0 ? string.slice(0, -spaceCount) : string,
+    count: spaceCount,
+  };
 }
 
 /**
@@ -206,7 +187,7 @@ function fits(
   const cmds = [next];
   // `out` is only used for width counting because `trim` requires to look
   // backwards for space characters.
-  const out = [];
+  let out = "";
   while (width >= 0) {
     if (cmds.length === 0) {
       if (restIdx === 0) {
@@ -221,7 +202,7 @@ function fits(
 
     switch (getDocType(doc)) {
       case DOC_TYPE_STRING:
-        out.push(doc);
+        out += doc;
         width -= getStringWidth(doc);
         break;
 
@@ -241,9 +222,12 @@ function fits(
         cmds.push({ mode, doc: doc.contents });
         break;
 
-      case DOC_TYPE_TRIM:
-        width += trim(out);
+      case DOC_TYPE_TRIM: {
+        const { string, count } = trim(out);
+        out = string;
+        width += count;
         break;
+      }
 
       case DOC_TYPE_GROUP: {
         if (mustBeFlat && doc.break) {
@@ -276,7 +260,7 @@ function fits(
           return true;
         }
         if (!doc.soft) {
-          out.push(" ");
+          out += " ";
           width--;
         }
         break;
@@ -307,11 +291,11 @@ function printDocToString(doc, options) {
   // cmds to the array instead of recursively calling `print`.
   /** @type Command[] */
   const cmds = [{ ind: rootIndent(), mode: MODE_BREAK, doc }];
-  const out = [];
+  let out = "";
+  let cursorPositions = [];
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
-  let printedCursorCount = 0;
 
   while (cmds.length > 0) {
     const { ind, mode, doc } = cmds.pop();
@@ -319,7 +303,7 @@ function printDocToString(doc, options) {
       case DOC_TYPE_STRING: {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
-        out.push(formatted);
+        out += formatted;
         pos += getStringWidth(formatted);
         break;
       }
@@ -331,11 +315,10 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_CURSOR:
-        if (printedCursorCount >= 2) {
+        if (cursorPositions.length >= 2) {
           throw new Error("There are too many 'cursor' in doc.");
         }
-        out.push(CURSOR_PLACEHOLDER);
-        printedCursorCount++;
+        cursorPositions.push(out.length);
         break;
 
       case DOC_TYPE_INDENT:
@@ -350,9 +333,15 @@ function printDocToString(doc, options) {
         });
         break;
 
-      case DOC_TYPE_TRIM:
-        pos -= trim(out);
+      case DOC_TYPE_TRIM: {
+        const { string, count } = trim(out);
+        out = string;
+        pos -= count;
+        cursorPositions = cursorPositions.map((position) =>
+          Math.min(position, string.length)
+        );
         break;
+      }
 
       case DOC_TYPE_GROUP:
         switch (mode) {
@@ -564,7 +553,7 @@ function printDocToString(doc, options) {
           case MODE_FLAT:
             if (!doc.hard) {
               if (!doc.soft) {
-                out.push(" ");
+                out += " ";
 
                 pos += 1;
               }
@@ -590,15 +579,20 @@ function printDocToString(doc, options) {
 
             if (doc.literal) {
               if (ind.root) {
-                out.push(newLine, ind.root.value);
+                out += newLine + ind.root.value;
                 pos = ind.root.length;
               } else {
-                out.push(newLine);
+                out += newLine;
                 pos = 0;
               }
             } else {
-              pos -= trim(out);
-              out.push(newLine + ind.value);
+              const { string, count } = trim(out);
+              out = string;
+              pos -= count;
+              cursorPositions = cursorPositions.map((position) =>
+                Math.min(position, string.length)
+              );
+              out += newLine + ind.value;
               pos = ind.length;
             }
             break;
@@ -625,26 +619,16 @@ function printDocToString(doc, options) {
     }
   }
 
-  const cursorPlaceholderIndex = out.indexOf(CURSOR_PLACEHOLDER);
-  if (cursorPlaceholderIndex !== -1) {
-    const otherCursorPlaceholderIndex = out.indexOf(
-      CURSOR_PLACEHOLDER,
-      cursorPlaceholderIndex + 1
-    );
-    const beforeCursor = out.slice(0, cursorPlaceholderIndex).join("");
-    const aroundCursor = out
-      .slice(cursorPlaceholderIndex + 1, otherCursorPlaceholderIndex)
-      .join("");
-    const afterCursor = out.slice(otherCursorPlaceholderIndex + 1).join("");
+  const result = { formatted: out };
 
-    return {
-      formatted: beforeCursor + aroundCursor + afterCursor,
-      cursorNodeStart: beforeCursor.length,
-      cursorNodeText: aroundCursor,
-    };
+  if (cursorPositions.length > 0) {
+    const [start, end] = cursorPositions;
+
+    result.cursorNodeStart = start;
+    result.cursorNodeText = out.slice(start, end);
   }
 
-  return { formatted: out.join("") };
+  return result;
 }
 
 export { printDocToString };
