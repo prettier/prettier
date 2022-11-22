@@ -155,16 +155,6 @@ function getTrailingSpaceCount(string) {
   return count;
 }
 
-// Trim `Tab(U+0009)` and `Space(U+0020)` at the end of string
-function trim(string) {
-  const spaceCount = getTrailingSpaceCount(string);
-
-  return {
-    string: spaceCount !== 0 ? string.slice(0, -spaceCount) : string,
-    count: spaceCount,
-  };
-}
-
 /**
  * @param {Command} next
  * @param {Command[]} restCommands
@@ -223,9 +213,11 @@ function fits(
         break;
 
       case DOC_TYPE_TRIM: {
-        const { string, count } = trim(out);
-        out = string;
-        width += count;
+        const spaceCount = getTrailingSpaceCount(out);
+        if (spaceCount) {
+          out = out.slice(0, -spaceCount);
+          width += spaceCount;
+        }
         break;
       }
 
@@ -292,7 +284,7 @@ function printDocToString(doc, options) {
   /** @type Command[] */
   const cmds = [{ ind: rootIndent(), mode: MODE_BREAK, doc }];
   let out = "";
-  let cursorPositions = [];
+  const cursorPositions = [];
   let shouldRemeasure = false;
   /** @type Command[] */
   const lineSuffix = [];
@@ -333,15 +325,9 @@ function printDocToString(doc, options) {
         });
         break;
 
-      case DOC_TYPE_TRIM: {
-        const { string, count } = trim(out);
-        out = string;
-        pos -= count;
-        cursorPositions = cursorPositions.map((position) =>
-          Math.min(position, string.length)
-        );
+      case DOC_TYPE_TRIM:
+        trim()
         break;
-      }
 
       case DOC_TYPE_GROUP:
         switch (mode) {
@@ -586,12 +572,7 @@ function printDocToString(doc, options) {
                 pos = 0;
               }
             } else {
-              const { string, count } = trim(out);
-              out = string;
-              pos -= count;
-              cursorPositions = cursorPositions.map((position) =>
-                Math.min(position, string.length)
-              );
+              trim();
               out += newLine + ind.value;
               pos = ind.length;
             }
@@ -629,6 +610,21 @@ function printDocToString(doc, options) {
   }
 
   return result;
+
+  // Trim `Tab(U+0009)` and `Space(U+0020)` at the end of string
+  function trim() {
+    const spaceCount = getTrailingSpaceCount(out);
+    if (spaceCount === 0) {
+      return;
+    }
+
+    out = out.slice(0, -spaceCount);
+    pos -= spaceCount;
+
+    for (const [index, position] of cursorPositions) {
+      cursorPositions[index] = Math.min(position, out.length);
+    }
+  }
 }
 
 export { printDocToString };
