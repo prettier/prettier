@@ -1,22 +1,31 @@
 import { outdent } from "outdent";
 
+const POSSIBLE_MODIFIERS = [
+  "abstract",
+  "accessor",
+  "async",
+  "const",
+  "declare",
+  "default",
+  "export",
+  "static",
+  "in",
+  "out",
+  "override",
+  "public",
+  "private",
+  "protected",
+  "readonly",
+];
+
 run_spec(
   {
     importMeta: import.meta,
     snippets: [
-      ...[
-        "abstract",
-        "declare",
-        "export",
-        "static",
-        "private",
-        "protected",
-        "public",
-        "in",
-        "out",
-        "override",
-        "async",
-      ].flatMap((modifier) => [
+      // Only `readonly` allowed in some places
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) => modifier !== "readonly"
+      ).flatMap((modifier) => [
         outdent`
           interface Foo {
             ${modifier} method();
@@ -44,6 +53,7 @@ run_spec(
           readonly method();
         }
       `,
+
       // TODO[@fisker]: Fix these tests
       // ...["abstract", "static", "private", "protected", "public"].map(
       //   (modifier) =>
@@ -53,19 +63,12 @@ run_spec(
       //       }
       //     `
       // ),
-      ...[
-        "abstract",
-        "declare",
-        "export",
-        "static",
-        "private",
-        "protected",
-        "public",
-        "readonly",
-        "override",
-        "async",
-        "enum",
-      ].map((modifier) => `interface Foo<${modifier} T> {}`),
+
+      // Only `in` and `out` allowed in type parameter
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) => modifier !== "in" && modifier !== "out"
+      ).map((modifier) => `interface Foo<${modifier} T> {}`),
+
       ...["declare", "readonly"].map(
         (modifier) =>
           outdent`
