@@ -186,6 +186,7 @@ module.exports = {
     "unicorn/no-array-push-push": "error",
     "unicorn/no-lonely-if": "error",
     "unicorn/no-new-array": "error",
+    "unicorn/no-typeof-undefined": "error",
     "unicorn/no-unreadable-iife": "error",
     "unicorn/no-useless-length-check": "error",
     "unicorn/no-useless-promise-resolve-reject": "error",

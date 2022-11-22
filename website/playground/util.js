@@ -22,7 +22,7 @@ export function buildCliArgs(availableOptions, options) {
   for (const option of availableOptions) {
     const value = options[option.name];
 
-    if (typeof value === "undefined") {
+    if (value === undefined) {
       continue;
     }
 

@@ -172,7 +172,7 @@ function printPathNoParens(path, options, print, args) {
     printTypescript,
   ]) {
     const printed = printer(path, options, print);
-    if (typeof printed !== "undefined") {
+    if (printed !== undefined) {
       return printed;
     }
   }
