@@ -15,7 +15,7 @@ test("Should trim blank first line", () => {
   ).toBe("\nPrettier\n");
 });
 
-test("Should properly trim with cursor", () => {
+test.only("Should properly trim with cursor", () => {
   expect(
     printDocToString(
       [cursor, "Prettier  \t", cursor, "\t \t", hardline],

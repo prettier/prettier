@@ -326,7 +326,7 @@ function printDocToString(doc, options) {
         break;
 
       case DOC_TYPE_TRIM:
-        trim()
+        trim();
         break;
 
       case DOC_TYPE_GROUP:
@@ -621,7 +621,7 @@ function printDocToString(doc, options) {
     out = out.slice(0, -spaceCount);
     pos -= spaceCount;
 
-    for (const [index, position] of cursorPositions) {
+    for (const [index, position] of cursorPositions.entries()) {
       cursorPositions[index] = Math.min(position, out.length);
     }
   }
