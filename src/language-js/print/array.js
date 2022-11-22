@@ -128,6 +128,26 @@ function printArray(path, options, print) {
   return parts;
 }
 
+// `TSTupleType` and `TupleTypeAnnotation`
+function printTupleType(path, options, print) {
+  const { node } = path;
+  const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
+  const types = node[typesField];
+  const isEmptyTuple = types.length === 0;
+  const openBracket = "[";
+  const closeBracket = "]";
+  if (isEmptyTuple) {
+    return printEmptyArray(path, openBracket, closeBracket, options);
+  }
+  return group([
+    openBracket,
+    indent([softline, printArrayItems(path, options, typesField, print)]),
+    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+    softline,
+    closeBracket,
+  ]);
+}
+
 function isConciselyPrintedArray(node, options) {
   return (
     node.elements.length > 1 &&
@@ -191,6 +211,7 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
 
 export {
   printArray,
+  printTupleType,
   printArrayItems,
   isConciselyPrintedArray,
   printEmptyArray,

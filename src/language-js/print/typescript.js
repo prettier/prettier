@@ -28,7 +28,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printTemplateLiteral } from "./template-literal.js";
-import { printArrayItems } from "./array.js";
+import { printTupleType, printArrayItems } from "./array.js";
 import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -41,7 +41,6 @@ import {
   printIntersectionType,
   printUnionType,
   printFunctionType,
-  printTupleType,
   printIndexedAccessType,
   printJSDocType,
 } from "./type-annotation.js";
