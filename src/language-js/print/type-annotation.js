@@ -16,6 +16,7 @@ import {
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   shouldPrintComma,
+  hasComment,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -47,7 +48,9 @@ function shouldHugType(node) {
         node.type === "TSTypeReference"
     );
 
-    if (node.types.length - 1 === voidCount && hasObject) {
+    const hasComments = node.types.some((node) => hasComment(node));
+
+    if (node.types.length - 1 === voidCount && hasObject && !hasComments) {
       return true;
     }
   }
