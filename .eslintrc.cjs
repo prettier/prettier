@@ -159,6 +159,7 @@ module.exports = {
         allows: ["dotAll"],
       },
     ],
+    /* cspell:disable-next-line */
     "regexp/no-extra-lookaround-assertions": "error",
     "regexp/no-missing-g-flag": "error",
     "regexp/no-unused-capturing-group": "error",
