@@ -74,7 +74,7 @@ function clean(ast, newObj, parent) {
     (ast.type === "value-word" &&
       ((ast.isColor && ast.isHex) ||
         ["initial", "inherit", "unset", "revert"].includes(
-          newObj.value.replace().toLowerCase()
+          newObj.value.toLowerCase()
         ))) ||
     ast.type === "media-feature" ||
     ast.type === "selector-root-invalid" ||
