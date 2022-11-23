@@ -1,13 +1,11 @@
 import { VALID_OBJECT_DOC_TYPES } from "./constants.js";
 import getDocType from "./utils/get-doc-type.js";
 
-// TODO: Use `new Intl.ListFormat("en-US", { type: "disjunction" }).format()` when we drop support for iOS 12.5
-// Only works for array with more than 1 elements
 const disjunctionListFormat = (list) =>
-  [...list.slice(0, -1), `or ${list.at(-1)}`].join(", ");
+  new Intl.ListFormat("en-US", { type: "disjunction" }).format(list);
 
 function getDocErrorMessage(doc) {
-  const type = doc === null ? null : typeof doc;
+  const type = doc === null ? "null" : typeof doc;
   if (type !== "string" && type !== "object") {
     return `Unexpected doc '${type}', \nExpected it to be 'string' or 'object'.`;
   }
