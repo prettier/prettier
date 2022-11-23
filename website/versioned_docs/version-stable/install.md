@@ -104,7 +104,7 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    npm install --save-dev husky lint-staged
    npx husky install
-   npm set-script prepare "husky install"
+   npm pkg set scripts.prepare="husky install"
    npx husky add .husky/pre-commit "npx lint-staged"
    ```
 
@@ -113,15 +113,13 @@ For example, you can do the following to have Prettier run before each commit:
    ```bash
    yarn add --dev husky lint-staged
    npx husky install
-   npm set-script prepare "husky install"
+   npm pkg set scripts.prepare="husky install"
    npx husky add .husky/pre-commit "npx lint-staged"
    ```
 
    > If you use Yarn 2, see https://typicode.github.io/husky/#/?id=yarn-2
 
    <!--END_DOCUSAURUS_CODE_TABS-->
-
-> Note: npm **set-script** command requires at least **npm v7.x**. See https://docs.npmjs.com/cli/v7/commands/npm-set-script.
 
 2. Add the following to your `package.json`:
 
