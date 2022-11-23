@@ -2561,7 +2561,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:7.1.0, cosmiconfig@npm:^7.1.0":
+"cosmiconfig@npm:8.0.0":
+  version: 8.0.0
+  resolution: "cosmiconfig@npm:8.0.0"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: ff4cdf89ac1ae52e7520816622c21a9e04380d04b82d653f5139ec581aa4f7f29e096d46770bc76c4a63c225367e88a1dfa233ea791669a35101f5f9b972c7d1
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^7.1.0":
   version: 7.1.0
   resolution: "cosmiconfig@npm:7.1.0"
   dependencies:
@@ -6704,7 +6716,7 @@ __metadata:
     chalk: 5.1.2
     ci-info: 3.6.1
     cjk-regex: 2.0.1
-    cosmiconfig: 7.1.0
+    cosmiconfig: 8.0.0
     cross-env: 7.0.3
     cspell: 6.14.3
     css-units-list: 2.0.1
