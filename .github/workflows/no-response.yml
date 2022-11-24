@@ -7,8 +7,8 @@ on:
     types:
       - created
   schedule:
-    # “At minute 5.” https://crontab.guru/#5_*_*_*_*
-    - cron: "5 * * * *"
+    # “At minute 0.” https://crontab.guru/#0_*_*_*_*
+    - cron: "0 * * * *"
 
 permissions:
   issues: write
