@@ -1,4 +1,0 @@
-- id: prettier
-  name: prettier
-  entry: prettier --write --list-different --ignore-unknown
-  language: node

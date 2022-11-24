@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`computed-members.ts [babel-ts] format 1`] = `
+"Unexpected token (2:3)
+  1 | enum A {
+> 2 |   [i++],
+    |   ^
+  3 | }
+  4 |
+  5 | const bar = "bar""
+`;
+
+exports[`computed-members.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+enum A {
+  [i++],
+}
+
+const bar = "bar"
+enum B {
+  [bar] = 2,
+}
+
+const foo = () => "foo";
+enum C {
+  [foo()] = 2,
+}
+
+=====================================output=====================================
+enum A {
+  [i++],
+}
+
+const bar = "bar";
+enum B {
+  [bar] = 2,
+}
+
+const foo = () => "foo";
+enum C {
+  [foo()] = 2,
+}
+
+================================================================================
+`;
+
+exports[`enum.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+enum Direction {
+    Up = 1,
+    Down,
+    Left,
+    Right
+}
+
+enum FileAccess {
+    // constant members
+    None,
+    Read    = 1 << 1,
+    Write   = 1 << 2,
+    ReadWrite  = Read | Write,
+    // computed member
+    G = "123".length
+}
+
+enum Empty {
+}
+
+const enum Enum {
+    A = 1,
+    B = A * 2
+}
+
+=====================================output=====================================
+enum Direction {
+  Up = 1,
+  Down,
+  Left,
+  Right,
+}
+
+enum FileAccess {
+  // constant members
+  None,
+  Read = 1 << 1,
+  Write = 1 << 2,
+  ReadWrite = Read | Write,
+  // computed member
+  G = "123".length,
+}
+
+enum Empty {}
+
+const enum Enum {
+  A = 1,
+  B = A * 2,
+}
+
+================================================================================
+`;
+
+exports[`multiline.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare enum
+E
+{}
+
+=====================================output=====================================
+declare enum E {}
+
+================================================================================
+`;

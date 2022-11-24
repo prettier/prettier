@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> (yield y)}
+    |                                       ^"
+`;
+
+exports[`snippet: #1 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> (yield)}
+    |                                       ^"
+`;
+
+exports[`snippet: #2 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> (await y)}
+    |                                       ^"
+`;
+
+exports[`snippet: #3 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> (a?.b)}
+    |                                       ^"
+`;
+
+exports[`snippet: #4 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> a?.b}
+    |                                       ^"
+`;
+
+exports[`snippet: #5 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> (a.b())}
+    |                                       ^"
+`;
+
+exports[`snippet: #6 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> a.b()}
+    |                                       ^"
+`;
+
+exports[`snippet: #7 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> (a.b?.())}
+    |                                       ^"
+`;
+
+exports[`snippet: #8 [babel] format 1`] = `
+"Hack-style pipe body does not contain a topic reference; Hack-style pipes must use topic at least once. (1:39)
+> 1 | async function * a() { a |> foo(%) |> a.b?.()}
+    |                                       ^"
+`;
+
+exports[`snippet: #9 [babel] format 1`] = `
+"Hack-style pipe body cannot be an unparenthesized yield expression; please wrap it in parentheses. (1:39)
+> 1 | async function * a() { a |> foo(%) |> yield}
+    |                                       ^"
+`;
+
+exports[`v8intrinsic.js [babel] format 1`] = `
+"Topic reference is unbound; it must be inside a pipe body. (1:16)
+> 1 | const status = %GetOptimizationStatus(fn) |> console.log(%);
+    |                ^
+  2 |"
+`;

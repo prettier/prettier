@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-const.js [acorn] format 1`] = `
+"Unexpected token (1:10)
+> 1 | const foo;
+    |          ^
+  2 |"
+`;
+
+exports[`invalid-const.js [babel] format 1`] = `
+"Missing initializer in const declaration. (1:10)
+> 1 | const foo;
+    |          ^
+  2 |"
+`;
+
+exports[`invalid-const.js [espree] format 1`] = `
+"Unexpected token ; (1:10)
+> 1 | const foo;
+    |          ^
+  2 |"
+`;
+
+exports[`invalid-const.js [meriyah] format 1`] = `
+"Missing initializer in const declaration (1:10)
+> 1 | const foo;
+    |          ^
+  2 |"
+`;

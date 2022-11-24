@@ -1,0 +1,32 @@
+name: Internal_ESLint_Rules_Test
+
+on:
+  push:
+    paths:
+      - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
+      # This workflow file
+      - ".github/workflows/eslint-rules.yml"
+  pull_request:
+    paths:
+      - "scripts/tools/eslint-plugin-prettier-internal-rules/**"
+      # This workflow file
+      - ".github/workflows/eslint-rules.yml"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Test
+        run: cd scripts/tools/eslint-plugin-prettier-internal-rules && yarn test-coverage

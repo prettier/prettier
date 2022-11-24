@@ -1,6 +1,9 @@
-export default function (parser) {
+export default function getCodeSamples(parser) {
   switch (parser) {
     case "babel":
+    case "acorn":
+    case "espree":
+    case "meriyah":
       return [
         'function HelloWorld({greeting = "hello", greeted = \'"World"\', silent = false, onMouseOver,}) {',
         "",
@@ -304,6 +307,24 @@ export default function (parser) {
         '    <SCRIPT src="https://www.google-analytics.com/analytics.js" ASYNC DEFER></SCRIPT>',
         "  </body>",
         "</HTML>",
+      ].join("\n");
+    case "doc-explorer":
+      return [
+        "group([",
+        '  "(*",',
+        "  indent([",
+        "    line,",
+        '    "Prettier:",',
+        "    line,",
+        '    "Opinionated,",',
+        "    line,",
+        '    "Code,",',
+        "    line,",
+        '    "Formatter",',
+        "  ]),",
+        "  line,",
+        '  "*)",',
+        "])",
       ].join("\n");
     default:
       return "";

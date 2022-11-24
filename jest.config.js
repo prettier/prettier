@@ -1,37 +1,97 @@
 "use strict";
 
-const installPrettier = require("./scripts/install-prettier");
+const path = require("path");
+const installPrettier = require("./tests/config/install-prettier.js");
 
-const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
-if (process.env.NODE_ENV === "production" || process.env.INSTALL_PACKAGE) {
-  process.env.PRETTIER_DIR = installPrettier();
+const PROJECT_ROOT = __dirname;
+const isProduction = process.env.NODE_ENV === "production";
+const ENABLE_CODE_COVERAGE = Boolean(process.env.ENABLE_CODE_COVERAGE);
+const TEST_STANDALONE = Boolean(process.env.TEST_STANDALONE);
+const INSTALL_PACKAGE = Boolean(process.env.INSTALL_PACKAGE);
+const SKIP_TESTS_WITH_NEW_SYNTAX =
+  process.versions.node.startsWith("10.") ||
+  process.versions.node.startsWith("12.");
+
+let PRETTIER_DIR = isProduction
+  ? path.join(PROJECT_ROOT, "dist")
+  : PROJECT_ROOT;
+if (INSTALL_PACKAGE || (isProduction && !TEST_STANDALONE)) {
+  PRETTIER_DIR = installPrettier(PRETTIER_DIR);
 }
-const { TEST_STANDALONE } = process.env;
+process.env.PRETTIER_DIR = PRETTIER_DIR;
+
+const testPathIgnorePatterns = [];
+let transform = {};
+if (TEST_STANDALONE) {
+  testPathIgnorePatterns.push("<rootDir>/tests/integration/");
+}
+if (isProduction) {
+  // `esm` bundles need transform
+  transform = {
+    "(?:\\.mjs|codeSamples\\.js)$": [
+      "babel-jest",
+      {
+        presets: [
+          [
+            "@babel/env",
+            {
+              targets: { node: "current" },
+              exclude: [
+                "transform-async-to-generator",
+                "transform-classes",
+                "proposal-async-generator-functions",
+                "transform-regenerator",
+              ],
+            },
+          ],
+        ],
+      },
+    ],
+  };
+} else {
+  // Only test bundles for production
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests/integration/__tests__/bundle.js"
+  );
+}
+
+if (SKIP_TESTS_WITH_NEW_SYNTAX) {
+  testPathIgnorePatterns.push(
+    "<rootDir>/tests/integration/__tests__/help-options.js"
+  );
+}
 
 module.exports = {
-  setupFiles: ["<rootDir>/tests_config/setup.js"],
+  setupFiles: ["<rootDir>/tests/config/setup.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
     "jest-snapshot-serializer-ansi",
   ],
+  snapshotFormat: {
+    escapeString: false,
+    printBasicPrototype: false,
+  },
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: TEST_STANDALONE
-    ? ["<rootDir>/tests_integration/"]
-    : [],
+  testPathIgnorePatterns,
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["<rootDir>/src/**/*.js", "<rootDir>/bin/**/*.js"],
-  coveragePathIgnorePatterns: ["<rootDir>/src/document/doc-debug.js"],
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/standalone.js",
+    "<rootDir>/src/document/doc-debug.js",
+  ],
   coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
-    "prettier/local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier/standalone": "<rootDir>/tests_config/require_standalone.js",
+    "prettier-local": "<rootDir>/tests/config/require-prettier.js",
+    "prettier-standalone": "<rootDir>/tests/config/require-standalone.js",
   },
-  modulePathIgnorePatterns: ["<rootDir>/dist"],
-  testEnvironment: "node",
-  transform: {},
+  modulePathIgnorePatterns: [
+    "<rootDir>/dist",
+    "<rootDir>/website",
+    "<rootDir>/scripts/release",
+  ],
+  transform,
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
-  verbose: Boolean(process.env.FULL_TEST),
 };

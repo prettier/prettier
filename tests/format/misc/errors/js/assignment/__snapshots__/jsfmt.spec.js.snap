@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [acorn] format 1`] = `
+"Assigning to rvalue (1:1)
+> 1 | ({}) = x;
+    | ^"
+`;
+
+exports[`snippet: #0 [babel] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | ({}) = x;
+    | ^"
+`;
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Invalid parenthesized assignment pattern. (1:1)
+> 1 | ({}) = x;
+    | ^"
+`;
+
+exports[`snippet: #0 [espree] format 1`] = `
+"Assigning to rvalue (1:1)
+> 1 | ({}) = x;
+    | ^"
+`;
+
+exports[`snippet: #0 [meriyah] format 1`] = `
+"Invalid left-hand side in assignment (1:6)
+> 1 | ({}) = x;
+    |      ^"
+`;

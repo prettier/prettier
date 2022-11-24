@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`delete-variable.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function foo() {
+  var bar = 1;
+  delete bar;}
+
+=====================================output=====================================
+function foo() {
+  var bar = 1;
+  delete bar;
+}
+
+================================================================================
+`;
+
+exports[`eval-arguments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function myfunc() {
+  eval = 1
+  arguments = arguments;
+}
+
+=====================================output=====================================
+function myfunc() {
+  eval = 1;
+  arguments = arguments;
+}
+
+================================================================================
+`;
+
+exports[`eval-arguments-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function myfunc() {
+  var eval
+  var arguments;
+}
+
+=====================================output=====================================
+function myfunc() {
+  var eval;
+  var arguments;
+}
+
+================================================================================
+`;
+
+exports[`function-declaration-in-if.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+if (false) function foo(){}
+
+=====================================output=====================================
+if (false) function foo() {}
+
+================================================================================
+`;
+
+exports[`function-declaration-in-while.js [acorn] format 1`] = `
+"Unexpected token (1:15)
+> 1 | while (false) function foo(){}
+    |               ^
+  2 |"
+`;
+
+exports[`function-declaration-in-while.js [espree] format 1`] = `
+"Unexpected token function (1:15)
+> 1 | while (false) function foo(){}
+    |               ^
+  2 |"
+`;
+
+exports[`function-declaration-in-while.js [flow] format 1`] = `
+"In non-strict mode code, functions can only be declared at top level, inside a block, or as the body of an if statement. (1:15)
+> 1 | while (false) function foo(){}
+    |               ^^^^^^^^^^^^^^^^
+  2 |"
+`;
+
+exports[`function-declaration-in-while.js [meriyah] format 1`] = `
+"In strict mode code, functions can only be declared at top level or inside a block (1:22)
+> 1 | while (false) function foo(){}
+    |                      ^
+  2 |"
+`;
+
+exports[`function-declaration-in-while.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+while (false) function foo(){}
+
+=====================================output=====================================
+while (false) function foo() {}
+
+================================================================================
+`;
+
+exports[`labeled-function-declaration.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo: function bar() {}
+
+=====================================output=====================================
+foo: function bar() {}
+
+================================================================================
+`;

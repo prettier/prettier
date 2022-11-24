@@ -3,10 +3,10 @@ import "codemirror-graphql/mode";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Playground from "./Playground";
-import VersionLink from "./VersionLink";
-import WorkerApi from "./WorkerApi";
-import { fixPrettierVersion } from "./util";
+import Playground from "./Playground.js";
+import VersionLink from "./VersionLink.js";
+import WorkerApi from "./WorkerApi.js";
+import { fixPrettierVersion } from "./util.js";
 
 class App extends React.Component {
   constructor() {

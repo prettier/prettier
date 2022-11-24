@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-await.ts [babel-ts] format 1`] = `
+"'await' is only allowed within async functions and at the top levels of modules. (2:13)
+  1 | namespace N {
+> 2 |   const x = await 42;
+    |             ^
+  3 | }
+  4 |"
+`;
+
+exports[`invalid-await.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+namespace N {
+  const x = await 42;
+}
+
+=====================================output=====================================
+namespace N {
+  const x = await 42;
+}
+
+================================================================================
+`;

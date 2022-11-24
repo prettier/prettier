@@ -1,0 +1,32 @@
+query MyFirstQuery {
+  hello
+}
+
+mutation
+MyFirstMutation {
+  world
+}
+
+subscription, ThisIsASub, {
+  excellent
+}
+
+, query, ThisIsASub, {
+  excellent
+}
+
+query {
+  noName
+}
+
+{
+  noOperationType
+}
+
+query ($unnamed: String) {
+  id
+}
+
+query Named($var: String) {
+  id
+}

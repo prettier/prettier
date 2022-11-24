@@ -1,0 +1,17 @@
+<div title='My title'></div>
+<div title="My title"></div>
+<div title='My "title"'></div>
+<div title="My other 'title'"></div>
+
+<div title="{{t 'my.title'}}" />
+<div title='{{t "my.title"}}' />
+
+<a href="/{{url}}/{{url}}"></a>
+<a href='/{{url}}/{{url}}'></a>
+
+<button class="padding width-{{locales.length}} {{if (has locale) "uk-button-primary"}}"></button>
+<button class="padding width-{{locales.length}} {{if (has locale) 'uk-button-primary'}}"></button>
+<button class='padding width-{{locales.length}} {{if (has locale) "uk-button-primary"}}'></button>
+<button class='padding width-{{locales.length}} {{if (has locale) 'uk-button-primary'}}'></button>
+
+<div class="padding {{if foo (if fooAgain "bar" (if fooAgainAgain "bar" "foo"))}} baz" />

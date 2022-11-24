@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty-table.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+Text
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
+
+=====================================output=====================================
+Text
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| ---------------------------------------------------- | ----------------------------------------------------------------------: |
+
+Text
+
+================================================================================
+`;
+
+exports[`empty-table.md - {"proseWrap":"never"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+Text
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
+
+=====================================output=====================================
+Text
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| --- | --: |
+
+Text
+
+================================================================================
+`;
+
+exports[`empty-table.md - {"proseWrap":"preserve"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "preserve"
+                                                                                | printWidth
+=====================================input======================================
+Text
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
+
+=====================================output=====================================
+Text
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| ---------------------------------------------------- | ----------------------------------------------------------------------: |
+
+Text
+
+================================================================================
+`;
+
+exports[`empty-table.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+Text
+
+| Specify the selected option : | Option 1 |
+|:--| --- |
+
+Text
+
+|    Should print as compact table when --proseWrap=never|a long long long long long long long long long long long long long head|
+|---|--:|
+
+Text
+
+=====================================output=====================================
+Text
+
+| Specify the selected option : | Option 1 |
+| :---------------------------- | -------- |
+
+Text
+
+| Should print as compact table when --proseWrap=never | a long long long long long long long long long long long long long head |
+| ---------------------------------------------------- | ----------------------------------------------------------------------: |
+
+Text
+
+================================================================================
+`;

@@ -1,42 +1,44 @@
 "use strict";
 
-const { getParserName, getMaxContinuousCount } = require("../common/util");
 const {
-  builders: { hardline, concat, markAsRoot },
-  utils: { replaceNewlinesWithLiterallines },
-} = require("../document");
-const { print: printFrontMatter } = require("../utils/front-matter");
-const { getFencedCodeBlockValue } = require("./utils");
+  inferParserByLanguage,
+  getMaxContinuousCount,
+} = require("../common/util.js");
+const {
+  builders: { hardline, markAsRoot },
+  utils: { replaceEndOfLine },
+} = require("../document/index.js");
+const printFrontMatter = require("../utils/front-matter/print.js");
+const { getFencedCodeBlockValue } = require("./utils.js");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
 
   if (node.type === "code" && node.lang !== null) {
-    // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
-    const langMatch = node.lang.match(/^[\w-]+/);
-    const lang = langMatch ? langMatch[0] : "";
-    const parser = getParserName(lang, options);
+    const parser = inferParserByLanguage(node.lang, options);
     if (parser) {
       const styleUnit = options.__inJsTemplate ? "~" : "`";
       const style = styleUnit.repeat(
         Math.max(3, getMaxContinuousCount(node.value, styleUnit) + 1)
       );
+      const newOptions = { parser };
+      if (node.lang === "tsx") {
+        newOptions.filepath = "dummy.tsx";
+      }
       const doc = textToDoc(
         getFencedCodeBlockValue(node, options.originalText),
-        { parser },
+        newOptions,
         { stripTrailingHardline: true }
       );
-      return markAsRoot(
-        concat([
-          style,
-          node.lang,
-          node.meta ? " " + node.meta : "",
-          hardline,
-          replaceNewlinesWithLiterallines(doc),
-          hardline,
-          style,
-        ])
-      );
+      return markAsRoot([
+        style,
+        node.lang,
+        node.meta ? " " + node.meta : "",
+        hardline,
+        replaceEndOfLine(doc),
+        hardline,
+        style,
+      ]);
     }
   }
 
@@ -46,14 +48,14 @@ function embed(path, print, textToDoc, options) {
 
     // MDX
     case "importExport":
-      return concat([
+      return [
         textToDoc(
           node.value,
           { parser: "babel" },
           { stripTrailingHardline: true }
         ),
         hardline,
-      ]);
+      ];
     case "jsx":
       return textToDoc(
         `<$>${node.value}</$>`,

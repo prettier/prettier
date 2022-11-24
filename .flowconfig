@@ -1,4 +1,0 @@
-[ignore]
-.*/tests/.*
-.*/node_modules/.*
-.*/dist/.*

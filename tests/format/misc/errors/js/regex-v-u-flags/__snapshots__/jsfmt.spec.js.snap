@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`invalid-flags.js [acorn] format 1`] = `
+"Invalid regular expression flag (1:2)
+> 1 | /a/ugv;
+    |  ^
+  2 |"
+`;
+
+exports[`invalid-flags.js [babel] format 1`] = `
+"The 'u' and 'v' regular expression flags cannot be enabled at the same time. (1:7)
+> 1 | /a/ugv;
+    |       ^
+  2 |"
+`;
+
+exports[`invalid-flags.js [espree] format 1`] = `
+"Invalid regular expression flag (1:2)
+> 1 | /a/ugv;
+    |  ^
+  2 |"
+`;
+
+exports[`invalid-flags.js [meriyah] format 1`] = `
+"Unexpected regular expression flag (1:5)
+> 1 | /a/ugv;
+    |     ^
+  2 |"
+`;
+
+exports[`invalid-flags2.js [acorn] format 1`] = `
+"Invalid regular expression flag (1:2)
+> 1 | /a/vu;
+    |  ^
+  2 |"
+`;
+
+exports[`invalid-flags2.js [babel] format 1`] = `
+"The 'u' and 'v' regular expression flags cannot be enabled at the same time. (1:6)
+> 1 | /a/vu;
+    |      ^
+  2 |"
+`;
+
+exports[`invalid-flags2.js [espree] format 1`] = `
+"Invalid regular expression flag (1:2)
+> 1 | /a/vu;
+    |  ^
+  2 |"
+`;
+
+exports[`invalid-flags2.js [meriyah] format 1`] = `
+"Unexpected regular expression flag (1:3)
+> 1 | /a/vu;
+    |   ^
+  2 |"
+`;

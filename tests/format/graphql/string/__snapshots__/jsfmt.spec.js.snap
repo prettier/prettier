@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`description.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+""" Customer """
+type Person {name: String}
+
+""" Customer """
+type Person {name: String}
+
+"""
+
+    Customer
+
+
+"""
+type Person {name: String}
+
+""""""
+type Person {name: String}
+
+"""    """
+type Person {name: String}
+
+"""
+    1
+  2
+"""
+type Person {name: String}
+
+
+"""
+
+
+Empty lines before
+"""
+type Person {name: String}
+
+"""
+Empty lines after
+
+
+"""
+type Person {name: String}
+
+"""
+
+
+Empty lines around
+
+
+"""
+type Person {name: String}
+
+"""
+First line
+
+Second Line
+"""
+type Person {name: String}
+
+"""
+
+
+First line
+
+Second Line
+"""
+type Person {name: String}
+
+"""
+First line
+
+Second Line
+
+
+"""
+type Person {name: String}
+
+=====================================output=====================================
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+Customer
+"""
+type Person {
+  name: String
+}
+
+"""
+"""
+type Person {
+  name: String
+}
+
+"""
+"""
+type Person {
+  name: String
+}
+
+"""
+  1
+2
+"""
+type Person {
+  name: String
+}
+
+"""
+Empty lines before
+"""
+type Person {
+  name: String
+}
+
+"""
+Empty lines after
+"""
+type Person {
+  name: String
+}
+
+"""
+Empty lines around
+"""
+type Person {
+  name: String
+}
+
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+
+"""
+First line
+
+Second Line
+"""
+type Person {
+  name: String
+}
+
+================================================================================
+`;
+
+exports[`string.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") { a }
+
+"""abc"""
+type T {
+  a: Int
+}
+
+"""
+abc
+"""
+type T {
+  a: Int
+}
+
+"""
+  a
+    b
+      c
+         """
+type T { a: Int }
+
+type Foo {
+"""
+This is a description
+of the \`one\` field.
+"""
+  one: Type
+}
+
+type Foo {
+q("docs" field: String): Type
+q("A long string of description of the field parameter to make this break" field: String): Type
+q("""docs""" field: String): Type
+}
+
+enum Enum {
+"""
+Description of \`one\`
+"""
+one
+}
+
+input Input {
+"""
+Description of \`one\`
+"""
+one: string
+}
+
+{
+  foo(input: {multiline: "ab\\ncd"}) { id }
+}
+
+{
+  foo(input: {multiline: """    foo    """}) { id }
+}
+
+{
+  foo(input: {multiline: """    """}) { id }
+}
+
+=====================================output=====================================
+query X($a: Int) @relay(meta: "{\\"lowPri\\": true}") {
+  a
+}
+
+"""
+abc
+"""
+type T {
+  a: Int
+}
+
+"""
+abc
+"""
+type T {
+  a: Int
+}
+
+"""
+a
+  b
+    c
+"""
+type T {
+  a: Int
+}
+
+type Foo {
+  """
+  This is a description
+  of the \`one\` field.
+  """
+  one: Type
+}
+
+type Foo {
+  q("docs" field: String): Type
+  q(
+    "A long string of description of the field parameter to make this break"
+    field: String
+  ): Type
+  q(
+    """
+    docs
+    """
+    field: String
+  ): Type
+}
+
+enum Enum {
+  """
+  Description of \`one\`
+  """
+  one
+}
+
+input Input {
+  """
+  Description of \`one\`
+  """
+  one: string
+}
+
+{
+  foo(input: { multiline: "ab\\ncd" }) {
+    id
+  }
+}
+
+{
+  foo(
+    input: {
+      multiline: """
+      foo
+      """
+    }
+  ) {
+    id
+  }
+}
+
+{
+  foo(
+    input: {
+      multiline: """
+      """
+    }
+  ) {
+    id
+  }
+}
+
+================================================================================
+`;

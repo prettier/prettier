@@ -1,8 +1,8 @@
 "use strict";
 
-const path = require("path");
-const { ConfigError } = require("../common/errors");
-const jsLoc = require("../language-js/loc");
+const { ConfigError } = require("../common/errors.js");
+const jsLoc = require("../language-js/loc.js");
+const loadParser = require("./load-parser.js");
 
 const { locStart, locEnd } = jsLoc;
 
@@ -27,9 +27,7 @@ function getParsers(options) {
   return parsers;
 }
 
-function resolveParser(opts, parsers) {
-  parsers = parsers || getParsers(opts);
-
+function resolveParser(opts, parsers = getParsers(opts)) {
   if (typeof opts.parser === "function") {
     // Custom parser API always works with JavaScript.
     return {
@@ -52,17 +50,7 @@ function resolveParser(opts, parsers) {
       );
     }
 
-    try {
-      return {
-        parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
-        astFormat: "estree",
-        locStart,
-        locEnd,
-      };
-    } catch (err) {
-      /* istanbul ignore next */
-      throw new ConfigError(`Couldn't resolve parser "${opts.parser}"`);
-    }
+    return loadParser(opts.parser);
   }
 }
 
@@ -71,15 +59,19 @@ function parse(text, opts) {
 
   // Create a new object {parserName: parseFn}. Uses defineProperty() to only call
   // the parsers getters when actually calling the parser `parse` function.
-  const parsersForCustomParserApi = Object.keys(parsers).reduce(
-    (object, parserName) =>
-      Object.defineProperty(object, parserName, {
-        enumerable: true,
-        get() {
-          return parsers[parserName].parse;
+  const parsersForCustomParserApi = Object.defineProperties(
+    {},
+    Object.fromEntries(
+      Object.keys(parsers).map((parserName) => [
+        parserName,
+        {
+          enumerable: true,
+          get() {
+            return parsers[parserName].parse;
+          },
         },
-      }),
-    {}
+      ])
+    )
   );
 
   const parser = resolveParser(opts, parsers);
@@ -97,16 +89,14 @@ function parse(text, opts) {
     const { loc } = error;
 
     if (loc) {
-      const codeFrame = require("@babel/code-frame");
-      error.codeFrame = codeFrame.codeFrameColumns(text, loc, {
-        highlightCode: true,
-      });
+      const { codeFrameColumns } = require("@babel/code-frame");
+      error.codeFrame = codeFrameColumns(text, loc, { highlightCode: true });
       error.message += "\n" + error.codeFrame;
       throw error;
     }
 
     /* istanbul ignore next */
-    throw error.stack;
+    throw error;
   }
 }
 

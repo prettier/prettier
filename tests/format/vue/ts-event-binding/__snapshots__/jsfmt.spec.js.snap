@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script setup lang="ts">
+let x = 1;
+function log(...args) {
+  console.log(...args);
+}
+</script>
+
+<template>
+  <div @click="if (x === 1 as number) { log('hello') } else { log('nonhello') };">{{ x }}</div>
+</template>
+
+=====================================output=====================================
+<script setup lang="ts">
+let x = 1;
+function log(...args) {
+  console.log(...args);
+}
+</script>
+
+<template>
+  <div
+    @click="
+      if (x === (1 as number)) {
+        log('hello');
+      } else {
+        log('nonhello');
+      }
+    "
+  >
+    {{ x }}
+  </div>
+</template>
+
+================================================================================
+`;

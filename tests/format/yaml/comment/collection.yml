@@ -1,0 +1,29 @@
+a: # a.trailingComment
+  123
+  # implicitMappingValue
+
+? b
+  # explicitMappingKey
+: c
+  # explicitMappingValue
+
+d:
+  - 123
+  # sequence
+
+e:
+  - 123
+    # sequenceItem
+
+f:
+  - a
+  # b.leadingComments
+  - b
+    # b.endComments
+  - c
+    # c.endComments
+  # sequence.endComments
+# documentBody.children
+
+empty_content:
+  # hello world

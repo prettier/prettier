@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignore.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function a() {
+  // Incorrectly indented on purpose
+      function f</* prettier-ignore */ T    :    B>(
+        a : Array  <   number   > // prettier-ignore
+      ) {
+
+        call(
+          f(         1          )
+          // prettier-ignore
+        )
+      }
+}
+
+=====================================output=====================================
+function a() {
+  // Incorrectly indented on purpose
+  function f</* prettier-ignore */ T    :    B>(
+    a : Array  <   number   > // prettier-ignore
+  ) {
+    call(
+      f(         1          )
+      // prettier-ignore
+    );
+  }
+}
+
+================================================================================
+`;
+
+exports[`type-cast-expression.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+transform(
+  // prettier-ignore
+  (pointTransformer: T)
+);
+
+transform(
+  // prettier-ignore
+  (/* comment */pointTransformer: T /* comment */)
+);
+
+transform(
+  /* prettier-ignore */(/* prettier-ignore */pointTransformer: (Point => Point))
+);
+
+=====================================output=====================================
+transform(
+  // prettier-ignore
+  (pointTransformer: T)
+);
+
+transform(
+  // prettier-ignore
+  (/* comment */pointTransformer: T /* comment */)
+);
+
+transform(
+  /* prettier-ignore */ (/* prettier-ignore */pointTransformer: (Point => Point))
+);
+
+================================================================================
+`;

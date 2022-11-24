@@ -1,8 +1,8 @@
 "use strict";
 
 const { parseWithComments, strip, extract, print } = require("jest-docblock");
-const { getShebang } = require("../common/util");
-const { normalizeEndOfLine } = require("../common/end-of-line");
+const { normalizeEndOfLine } = require("../common/end-of-line.js");
+const getShebang = require("./utils/get-shebang.js");
 
 function parseDocBlock(text) {
   const shebang = getShebang(text);

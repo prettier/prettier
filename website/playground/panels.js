@@ -19,11 +19,18 @@ class CodeMirrorPanel extends React.Component {
     delete options.rulerColor;
     delete options.value;
     delete options.onChange;
+    delete options.onFormat;
 
     options.rulers = [makeRuler(this.props)];
 
     if (options.foldGutter) {
       options.gutters = ["CodeMirror-linenumbers", "CodeMirror-foldgutter"];
+    }
+
+    if (this.props.onFormat) {
+      options.extraKeys = {
+        "Shift-Alt-F": this.handleFormat.bind(this),
+      };
     }
 
     this._codeMirror = CodeMirror.fromTextArea(
@@ -112,6 +119,17 @@ class CodeMirrorPanel extends React.Component {
     }
   }
 
+  handleFormat() {
+    const result = this.props.onFormat();
+    if (!result) {
+      return;
+    }
+    Promise.resolve(result).then(({ value, cursor }) => {
+      this.props.onChange(value);
+      this._codeMirror.setCursor(cursor);
+    });
+  }
+
   render() {
     return (
       <div className="editor input">
@@ -122,13 +140,13 @@ class CodeMirrorPanel extends React.Component {
 }
 
 function getIndexPosition(text, indexes) {
-  indexes = indexes.slice();
+  indexes = [...indexes];
   let line = 0;
   let count = 0;
   let lineStart = 0;
   const result = [];
 
-  while (indexes.length) {
+  while (indexes.length > 0) {
     const index = indexes.shift();
 
     while (count < index && count < text.length) {

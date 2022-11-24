@@ -1,7 +1,8 @@
 "use strict";
 
-const lineColumnToIndex = require("../utils/line-column-to-index");
-const { getLast, skipEverythingButNewLine } = require("../common/util");
+const { skipEverythingButNewLine } = require("../utils/text/skip.js");
+const getLast = require("../utils/get-last.js");
+const lineColumnToIndex = require("../utils/line-column-to-index.js");
 
 function calculateLocStart(node, text) {
   // value-* nodes have this
@@ -69,18 +70,25 @@ function calculateValueNodeLoc(node, rootOffset, text) {
 }
 
 function getValueRootOffset(node) {
-  return (
-    node.source.startOffset +
-    (typeof node.prop === "string" ? node.prop.length : 0) +
-    (node.type === "css-atrule" && typeof node.name === "string"
-      ? 1 + node.name.length + getLeadingWhitespaceLength(node.raws.afterName)
-      : 0) +
-    (node.type !== "css-atrule" &&
+  let result = node.source.startOffset;
+  if (typeof node.prop === "string") {
+    result += node.prop.length;
+  }
+
+  if (node.type === "css-atrule" && typeof node.name === "string") {
+    result +=
+      1 + node.name.length + node.raws.afterName.match(/^\s*:?\s*/)[0].length;
+  }
+
+  if (
+    node.type !== "css-atrule" &&
     node.raws &&
     typeof node.raws.between === "string"
-      ? node.raws.between.length
-      : 0)
-  );
+  ) {
+    result += node.raws.between.length;
+  }
+
+  return result;
 }
 
 /**
@@ -209,12 +217,17 @@ function replaceQuotesInInlineComments(text) {
   return text;
 }
 
-function getLeadingWhitespaceLength(string) {
-  const m = string.match(/^\s*/);
-  return m ? m[0].length : 0;
+function locStart(node) {
+  return node.source.startOffset;
+}
+
+function locEnd(node) {
+  return node.source.endOffset;
 }
 
 module.exports = {
+  locStart,
+  locEnd,
   calculateLoc,
   replaceQuotesInInlineComments,
 };

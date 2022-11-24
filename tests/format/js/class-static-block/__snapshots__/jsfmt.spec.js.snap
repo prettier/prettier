@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class-static-block.js [meriyah] format 1`] = `
+"Unexpected token: '{' (4:10)
+  2 |   static #x = 42;
+  3 |   static y;
+> 4 |   static {
+    |          ^
+  5 |     try {
+  6 |       this.y = doSomethingWith(this.#x);
+  7 |     } catch {"
+`;
+
+exports[`class-static-block.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+  
+class Foo {
+  static {}
+}
+  
+class A1 {
+  static {
+    foo;
+  }
+}
+  
+class A2 {
+  static {
+    foo;
+    bar;
+  }
+}
+  
+=====================================output=====================================
+class C {
+  static #x = 42;
+  static y;
+  static {
+    try {
+      this.y = doSomethingWith(this.#x);
+    } catch {
+      this.y = "unknown";
+    }
+  }
+}
+
+class Foo {
+  static {}
+}
+
+class A1 {
+  static {
+    foo;
+  }
+}
+
+class A2 {
+  static {
+    foo;
+    bar;
+  }
+}
+
+================================================================================
+`;
+
+exports[`with-line-breaks.js [meriyah] format 1`] = `
+"Unexpected token: '{' (3:3)
+  1 | class Foo {
+  2 |   static
+> 3 |   {
+    |   ^
+  4 |      1 + 1;
+  5 |   }
+  6 | };"
+`;
+
+exports[`with-line-breaks.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  static
+  {
+     1 + 1;
+  }
+};
+
+=====================================output=====================================
+class Foo {
+  static {
+    1 + 1;
+  }
+}
+
+================================================================================
+`;

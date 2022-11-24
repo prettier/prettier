@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`abstract-construct-types.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type T = abstract new () => void;
+type T = abstract    new () => void;
+type T = abstract
+  new () => void;
+
+=====================================output=====================================
+type T = abstract new () => void;
+type T = abstract new () => void;
+type T = abstract new () => void;
+
+================================================================================
+`;

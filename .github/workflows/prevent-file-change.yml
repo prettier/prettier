@@ -1,0 +1,17 @@
+name: Prevent File change
+
+on:
+  pull_request:
+    paths:
+      - "website/data/users.yml"
+
+jobs:
+  prevent-add-users:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prevent file change
+        uses: xalvarez/prevent-file-change-action@v1
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          pattern: website/data/users.yml

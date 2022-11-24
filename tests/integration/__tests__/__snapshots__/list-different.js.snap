@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`--list-different works in CI just as in a non-TTY mode (stderr) 1`] = `""`;
+
+exports[`--list-different works in CI just as in a non-TTY mode (stderr) 2`] = `""`;
+
+exports[`--list-different works in CI just as in a non-TTY mode (stdout) 1`] = `
+"unformatted.js
+"
+`;
+
+exports[`--list-different works in CI just as in a non-TTY mode (stdout) 2`] = `
+"unformatted.js
+"
+`;
+
+exports[`--list-different works in CI just as in a non-TTY mode (write) 1`] = `[]`;
+
+exports[`--list-different works in CI just as in a non-TTY mode (write) 2`] = `[]`;
+
+exports[`checks stdin with --list-different (write) 1`] = `[]`;
+
+exports[`checks stdin with -l (alias for --list-different) (write) 1`] = `[]`;

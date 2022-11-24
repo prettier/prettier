@@ -7,13 +7,11 @@ const siteConfig = require(process.cwd() + "/siteConfig.js");
 
 class Users extends React.Component {
   render() {
-    const showcase = siteConfig.users.map((user, i) => {
-      return (
-        <a key={i} href={user.infoLink}>
-          <img src={user.image} title={user.caption} />
-        </a>
-      );
-    });
+    const showcase = siteConfig.users.map((user, i) => (
+      <a key={i} href={user.infoLink}>
+        <img src={user.image} title={user.caption} />
+      </a>
+    ));
 
     return (
       <div>
@@ -21,28 +19,37 @@ class Users extends React.Component {
           <Container padding={["bottom", "top"]}>
             <div className="showcaseSection">
               <div className="prose">
-                <h1>
-                  Who
-                  {"'"}s Using This?
-                </h1>
-                <p>
-                  A few of the{" "}
-                  <a href="https://www.npmjs.com/browse/depended/prettier">
-                    many projects
-                  </a>{" "}
-                  using Prettier
-                </p>
+                <h1>Who’s Using This?</h1>
               </div>
+              <blockquote
+                style={{
+                  fontSize: "125%",
+                  textAlign: "left",
+                }}
+              >
+                <p>Prettier is regularly used by:</p>
+                <ul>
+                  <li>
+                    <a href="https://2021.stateofjs.com/en-US/other-tools/#utilities">
+                      More than <strong>83%</strong> of respondents to State of
+                      JS 2021 (10282 developers out of 12360).
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://2020.stateofjs.com/en-US/other-tools/#utilities">
+                      More than <strong>70%</strong> of respondents to State of
+                      JS 2020 (14880 developers out of 20974).
+                    </a>
+                  </li>
+                </ul>
+              </blockquote>
               <div className="logos">{showcase}</div>
               <div className="prose">
-                <p>Are you using this project?</p>
+                ...and{" "}
+                <a href="https://www.npmjs.com/browse/depended/prettier">
+                  many more projects
+                </a>
               </div>
-              <a
-                href={`${siteConfig.githubUrl}/edit/master/website/data/users.yml`}
-                className="button"
-              >
-                Add your company
-              </a>
             </div>
           </Container>
         </div>

@@ -3,7 +3,7 @@ name: Prod
 on:
   push:
     branches:
-      - master
+      - main
       - patch-release
   pull_request:
 
@@ -13,43 +13,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
-
-      - name: Cache Build Results
-        id: build-cache
-        uses: actions/cache@v2
-        with:
-          path: .cache
-          key: v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-          restore-keys: |
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
-            v2-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/master-
 
       - name: Build Package
         run: yarn build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: dist
-
-      # This step calls `git reset`
-      # It should be the last step
-      # The cache step might saving the result of master branch, need investigate
-      - name: Check Sizes
-        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'dependabot/npm_and_yarn/')
-        uses: preactjs/compressed-size-action@v2.0.1
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          compression: none
 
   lint:
     name: Lint
@@ -57,25 +38,27 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
 
       - name: Lint Code
-        run: yarn lint:dist
+        run: yarn test:dist-lint
 
   test:
-    timeout-minutes: 60
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -84,16 +67,26 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
+          - "18"
+          - "16"
           - "14"
           - "12"
           - "10"
         include:
           - os: "ubuntu-latest"
-            node: "14"
+            node: "18"
             FULL_TEST: true
         exclude:
           - os: "macos-latest"
+            node: "16"
+          - os: "macos-latest"
+            node: "14"
+          - os: "macos-latest"
             node: "12"
+          - os: "windows-latest"
+            node: "16"
+          - os: "windows-latest"
+            node: "14"
           - os: "windows-latest"
             node: "12"
     env:
@@ -103,41 +96,71 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2.1.1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
+          cache: "yarn"
+
+      - name: Config `ignore-engines=true` (Node.js < 14)
+        if: ${{ matrix.node == '10' || matrix.node == '12' }}
+        run: yarn config set ignore-engines true
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: dist
           path: dist
 
       - name: Run Tests (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist --maxWorkers=4
 
       - name: Run Tests (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist --maxWorkers=2
 
       - name: Run Tests (standalone) (macOS)
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os == 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=4
 
       - name: Run Tests (standalone) (Linux and Windows)
-        if: matrix.os != 'macos-latest'
+        if: ${{ matrix.os != 'macos-latest' }}
         run: yarn test:dist-standalone --maxWorkers=2
 
       # #8073 test
       - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
-        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        run: yarn test "tests/integration/__tests__/(config|plugin)"
         env:
           NODE_ENV: production
           PRETTIER_FALLBACK_RESOLVE: true
+
+  cli:
+    name: CLI
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: "0.10.48"
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Validate Node.js Version
+        run: node -v | grep "v0.10.48" || exit 1
+
+      - name: Run CLI on Node.js v0.10.48
+        run: node dist/bin-prettier --version 2>&1 >/dev/null | grep "prettier requires at least version 10.13.0 of Node, please upgrade" || exit 1

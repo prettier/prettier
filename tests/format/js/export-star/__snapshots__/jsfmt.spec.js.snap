@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`export-star.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * from "mod";
+
+
+=====================================output=====================================
+export * from "mod";
+
+================================================================================
+`;
+
+exports[`export-star-as.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as ns from "mod";
+
+
+=====================================output=====================================
+export * as ns from "mod";
+
+================================================================================
+`;
+
+exports[`export-star-as-default.js [flow] format 1`] = `
+"Unexpected token \`default\` (1:13)
+> 1 | export * as default from 'foo'
+    |             ^^^^^^^
+  2 |"
+`;
+
+exports[`export-star-as-default.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as default from 'foo'
+
+=====================================output=====================================
+export * as default from "foo";
+
+================================================================================
+`;
+
+exports[`export-star-as-string.js [flow] format 1`] = `
+"Unexpected string, expected an identifier (1:13)
+> 1 | export * as 'foo' from 'foo'
+    |             ^^^^^
+  2 |"
+`;
+
+exports[`export-star-as-string.js [typescript] format 1`] = `
+"Identifier expected. (1:13)
+> 1 | export * as 'foo' from 'foo'
+    |             ^
+  2 |"
+`;
+
+exports[`export-star-as-string.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as 'foo' from 'foo'
+
+=====================================output=====================================
+export * as "foo" from "foo";
+
+================================================================================
+`;
+
+exports[`export-star-as-string2.js [flow] format 1`] = `
+"Unexpected string, expected an identifier (1:13)
+> 1 | export * as "foo" from 'foo'
+    |             ^^^^^
+  2 |"
+`;
+
+exports[`export-star-as-string2.js [typescript] format 1`] = `
+"Identifier expected. (1:13)
+> 1 | export * as "foo" from 'foo'
+    |             ^
+  2 |"
+`;
+
+exports[`export-star-as-string2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as "foo" from 'foo'
+
+=====================================output=====================================
+export * as "foo" from "foo";
+
+================================================================================
+`;

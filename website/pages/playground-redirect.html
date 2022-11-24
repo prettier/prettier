@@ -16,9 +16,10 @@
       />
     </p>
     <script>
-      const match = /^https:\/\/github\.com\/prettier\/prettier\/pull\/(\d+)/.exec(
-        document.referrer
-      );
+      const match =
+        /^https:\/\/github\.com\/prettier\/prettier\/pull\/(\d+)/.exec(
+          document.referrer
+        );
       if (match != null) {
         const [, /* url */ pr] = match;
         location.replace(

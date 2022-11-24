@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare_class_fields.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class B {p: number;}
+class C extends B {declare p: 256 | 1000;}
+class D {
+  declare field = "field";
+}
+declare class D {
+  field = "field";
+}
+
+=====================================output=====================================
+class B {
+  p: number;
+}
+class C extends B {
+  declare p: 256 | 1000;
+}
+class D {
+  declare field = "field";
+}
+declare class D {
+  field = "field";
+}
+
+================================================================================
+`;
+
+exports[`declare_enum.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare const enum Foo {}
+declare enum Bar {}
+
+=====================================output=====================================
+declare const enum Foo {}
+declare enum Bar {}
+
+================================================================================
+`;
+
+exports[`declare_function.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare function x();
+declare function y(): void;
+
+declare namespace A {
+    function x();
+    function y(): void;
+}
+
+declare function f([]?)
+
+=====================================output=====================================
+declare function x();
+declare function y(): void;
+
+declare namespace A {
+  function x();
+  function y(): void;
+}
+
+declare function f([]?);
+
+================================================================================
+`;
+
+exports[`declare_function_with_body.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Invalid, but recoverable
+declare function foo() {}
+declare function bar() {
+  // comment
+}
+
+=====================================output=====================================
+// Invalid, but recoverable
+declare function foo() {};
+declare function bar() {
+  // comment
+};
+
+================================================================================
+`;
+
+exports[`declare_interface.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare interface Dictionary<T> {
+  [index: string]: T
+}
+
+declare interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+=====================================output=====================================
+declare interface Dictionary<T> {
+  [index: string]: T;
+}
+
+declare interface B {
+  foo([]?): void;
+  bar({}, []?): any;
+  baz(a: string, b: number, []?): void;
+}
+
+================================================================================
+`;
+
+exports[`declare_module.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare module m {
+  class C {
+    field = "field";
+  }
+}
+
+=====================================output=====================================
+declare module m {
+  class C {
+    field = "field";
+  }
+}
+
+================================================================================
+`;
+
+exports[`declare_namespace.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare namespace m {
+  class C {
+    field = "field";
+  }
+}
+
+=====================================output=====================================
+declare namespace m {
+  class C {
+    field = "field";
+  }
+}
+
+================================================================================
+`;
+
+exports[`declare_var.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// tslint:disable-next-line:no-use-before-declare
+const hello = 5;
+
+// tslint:disable-next-line:no-use-before-declare
+declare const hello2 = 5;
+
+=====================================output=====================================
+// tslint:disable-next-line:no-use-before-declare
+const hello = 5;
+
+// tslint:disable-next-line:no-use-before-declare
+declare const hello2 = 5;
+
+================================================================================
+`;
+
+exports[`declare-get-set-field.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  declare get: string
+  declare set: string;
+}
+
+=====================================output=====================================
+class C {
+  declare get: string;
+  declare set: string;
+}
+
+================================================================================
+`;

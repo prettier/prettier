@@ -1,24 +1,24 @@
 "use strict";
 
-const diff = require("diff");
+const { diffArrays } = require("diff");
 
 const {
   printer: { printDocToString },
   debug: { printDocToDebug },
-} = require("../document");
-const { getAlignmentSize } = require("../common/util");
+} = require("../document/index.js");
+const { getAlignmentSize } = require("../common/util.js");
 const {
   guessEndOfLine,
   convertEndOfLineToChars,
   countEndOfLineChars,
   normalizeEndOfLine,
-} = require("../common/end-of-line");
-const normalizeOptions = require("./options").normalize;
-const massageAST = require("./massage-ast");
-const comments = require("./comments");
-const parser = require("./parser");
-const printAstToDoc = require("./ast-to-doc");
-const rangeUtil = require("./range-util");
+} = require("../common/end-of-line.js");
+const normalizeOptions = require("./options.js").normalize;
+const massageAST = require("./massage-ast.js");
+const comments = require("./comments.js");
+const parser = require("./parser.js");
+const printAstToDoc = require("./ast-to-doc.js");
+const rangeUtil = require("./range-util.js");
 
 const BOM = "\uFEFF";
 
@@ -36,16 +36,12 @@ function attachComments(text, ast, opts) {
   return astComments;
 }
 
-function coreFormat(text, opts, addAlignmentSize) {
-  if (!text || !text.trim().length) {
-    return { formatted: "", cursorOffset: -1 };
+function coreFormat(originalText, opts, addAlignmentSize = 0) {
+  if (!originalText || originalText.trim().length === 0) {
+    return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  addAlignmentSize = addAlignmentSize || 0;
-
-  const parsed = parser.parse(text, opts);
-  const { ast } = parsed;
-  text = parsed.text;
+  const { ast, text } = parser.parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = rangeUtil.findNodeAtOffset(ast, opts.cursorOffset, opts);
@@ -106,22 +102,23 @@ function coreFormat(text, opts, addAlignmentSize) {
       return {
         formatted: result.formatted,
         cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
+        comments: astComments,
       };
     }
 
     // diff old and new cursor node texts, with a special cursor
     // symbol inserted to find out where it moves to
 
-    const oldCursorNodeCharArray = oldCursorNodeText.split("");
+    const oldCursorNodeCharArray = [...oldCursorNodeText];
     oldCursorNodeCharArray.splice(
       cursorOffsetRelativeToOldCursorNode,
       0,
       CURSOR
     );
 
-    const newCursorNodeCharArray = newCursorNodeText.split("");
+    const newCursorNodeCharArray = [...newCursorNodeText];
 
-    const cursorNodeDiff = diff.diffArrays(
+    const cursorNodeDiff = diffArrays(
       oldCursorNodeCharArray,
       newCursorNodeCharArray
     );
@@ -137,17 +134,18 @@ function coreFormat(text, opts, addAlignmentSize) {
       }
     }
 
-    return { formatted: result.formatted, cursorOffset };
+    return { formatted: result.formatted, cursorOffset, comments: astComments };
   }
 
-  return { formatted: result.formatted, cursorOffset: -1 };
+  return {
+    formatted: result.formatted,
+    cursorOffset: -1,
+    comments: astComments,
+  };
 }
 
-function formatRange(text, opts) {
-  const parsed = parser.parse(text, opts);
-  const { ast } = parsed;
-  text = parsed.text;
-
+function formatRange(originalText, opts) {
+  const { ast, text } = parser.parse(originalText, opts);
   const { rangeStart, rangeEnd } = rangeUtil.calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
@@ -167,10 +165,10 @@ function formatRange(text, opts) {
     {
       ...opts,
       rangeStart: 0,
-      rangeEnd: Infinity,
+      rangeEnd: Number.POSITIVE_INFINITY,
       // Track the cursor offset only if it's within our range
       cursorOffset:
-        opts.cursorOffset > rangeStart && opts.cursorOffset < rangeEnd
+        opts.cursorOffset > rangeStart && opts.cursorOffset <= rangeEnd
           ? opts.cursorOffset - rangeStart
           : -1,
       // Always use `lf` to format, we'll replace it later
@@ -184,10 +182,9 @@ function formatRange(text, opts) {
   const rangeTrimmed = rangeResult.formatted.trimEnd();
 
   let { cursorOffset } = opts;
-  if (cursorOffset >= rangeEnd) {
+  if (cursorOffset > rangeEnd) {
     // handle the case where the cursor was past the end of the range
-    cursorOffset =
-      opts.cursorOffset + (rangeTrimmed.length - rangeString.length);
+    cursorOffset += rangeTrimmed.length - rangeString.length;
   } else if (rangeResult.cursorOffset >= 0) {
     // handle the case where the cursor was in the range
     cursorOffset = rangeResult.cursorOffset + rangeStart;
@@ -208,83 +205,117 @@ function formatRange(text, opts) {
     formatted = formatted.replace(/\n/g, eol);
   }
 
-  return { formatted, cursorOffset };
+  return { formatted, cursorOffset, comments: rangeResult.comments };
 }
 
-function format(originalText, opts) {
-  const selectedParser = parser.resolveParser(opts);
-
-  const hasBOM = originalText.charAt(0) === BOM;
-  let text = hasBOM ? originalText.slice(1) : originalText;
-
-  const hasCursor = opts.cursorOffset >= 0;
-  if (!hasCursor) {
-    opts.cursorOffset = -1;
+function ensureIndexInText(text, index, defaultValue) {
+  if (
+    typeof index !== "number" ||
+    Number.isNaN(index) ||
+    index < 0 ||
+    index > text.length
+  ) {
+    return defaultValue;
   }
 
-  const hasPragma = !selectedParser.hasPragma || selectedParser.hasPragma(text);
-  if (opts.requirePragma && !hasPragma) {
-    return { formatted: originalText, cursorOffset: opts.cursorOffset };
-  }
+  return index;
+}
 
-  if (opts.endOfLine === "auto") {
-    opts.endOfLine = guessEndOfLine(text);
-  }
+function normalizeIndexes(text, options) {
+  let { cursorOffset, rangeStart, rangeEnd } = options;
+  cursorOffset = ensureIndexInText(text, cursorOffset, -1);
+  rangeStart = ensureIndexInText(text, rangeStart, 0);
+  rangeEnd = ensureIndexInText(text, rangeEnd, text.length);
 
-  const hasRangeStart = opts.rangeStart > 0;
-  const hasRangeEnd = opts.rangeEnd < text.length;
+  return { ...options, cursorOffset, rangeStart, rangeEnd };
+}
+
+function normalizeInputAndOptions(text, options) {
+  let { cursorOffset, rangeStart, rangeEnd, endOfLine } = normalizeIndexes(
+    text,
+    options
+  );
+
+  const hasBOM = text.charAt(0) === BOM;
 
   if (hasBOM) {
-    if (hasCursor) {
-      opts.cursorOffset--;
-    }
-    if (hasRangeStart) {
-      opts.rangeStart--;
-    }
-    if (hasRangeEnd) {
-      opts.rangeEnd--;
-    }
+    text = text.slice(1);
+    cursorOffset--;
+    rangeStart--;
+    rangeEnd--;
+  }
+
+  if (endOfLine === "auto") {
+    endOfLine = guessEndOfLine(text);
   }
 
   // get rid of CR/CRLF parsing
   if (text.includes("\r")) {
-    const countCrlfBefore = (position) =>
-      countEndOfLineChars(text.slice(0, position), "\r\n");
-    if (hasCursor) {
-      opts.cursorOffset -= countCrlfBefore(opts.cursorOffset);
-    }
-    if (hasRangeStart) {
-      opts.rangeStart -= countCrlfBefore(opts.rangeStart);
-    }
-    if (hasRangeEnd) {
-      opts.rangeEnd -= countCrlfBefore(opts.rangeEnd);
-    }
+    const countCrlfBefore = (index) =>
+      countEndOfLineChars(text.slice(0, Math.max(index, 0)), "\r\n");
+
+    cursorOffset -= countCrlfBefore(cursorOffset);
+    rangeStart -= countCrlfBefore(rangeStart);
+    rangeEnd -= countCrlfBefore(rangeEnd);
 
     text = normalizeEndOfLine(text);
   }
 
-  if (opts.rangeStart < 0) {
-    opts.rangeStart = 0;
-  }
-  if (opts.rangeEnd > text.length) {
-    opts.rangeEnd = text.length;
+  return {
+    hasBOM,
+    text,
+    options: normalizeIndexes(text, {
+      ...options,
+      cursorOffset,
+      rangeStart,
+      rangeEnd,
+      endOfLine,
+    }),
+  };
+}
+
+function hasPragma(text, options) {
+  const selectedParser = parser.resolveParser(options);
+  return !selectedParser.hasPragma || selectedParser.hasPragma(text);
+}
+
+function formatWithCursor(originalText, originalOptions) {
+  let { hasBOM, text, options } = normalizeInputAndOptions(
+    originalText,
+    normalizeOptions(originalOptions)
+  );
+
+  if (
+    (options.rangeStart >= options.rangeEnd && text !== "") ||
+    (options.requirePragma && !hasPragma(text, options))
+  ) {
+    return {
+      formatted: originalText,
+      cursorOffset: originalOptions.cursorOffset,
+      comments: [],
+    };
   }
 
   let result;
 
-  if (hasRangeStart || hasRangeEnd) {
-    result = formatRange(text, opts);
+  if (options.rangeStart > 0 || options.rangeEnd < text.length) {
+    result = formatRange(text, options);
   } else {
-    if (!hasPragma && opts.insertPragma && opts.printer.insertPragma) {
-      text = opts.printer.insertPragma(text);
+    if (
+      !options.requirePragma &&
+      options.insertPragma &&
+      options.printer.insertPragma &&
+      !hasPragma(text, options)
+    ) {
+      text = options.printer.insertPragma(text);
     }
-    result = coreFormat(text, opts);
+    result = coreFormat(text, options);
   }
 
   if (hasBOM) {
     result.formatted = BOM + result.formatted;
 
-    if (hasCursor && result.cursorOffset >= 0) {
+    if (result.cursorOffset >= 0) {
       result.cursorOffset++;
     }
   }
@@ -293,43 +324,42 @@ function format(originalText, opts) {
 }
 
 module.exports = {
-  formatWithCursor(text, opts) {
-    opts = normalizeOptions(opts);
-    return format(text, opts);
-  },
+  formatWithCursor,
 
-  parse(text, opts, massage) {
-    opts = normalizeOptions(opts);
-    text = normalizeEndOfLine(text.charAt(0) === BOM ? text.slice(1) : text);
-    const parsed = parser.parse(text, opts);
+  parse(originalText, originalOptions, massage) {
+    const { text, options } = normalizeInputAndOptions(
+      originalText,
+      normalizeOptions(originalOptions)
+    );
+    const parsed = parser.parse(text, options);
     if (massage) {
-      parsed.ast = massageAST(parsed.ast, opts);
+      parsed.ast = massageAST(parsed.ast, options);
     }
     return parsed;
   },
 
-  formatAST(ast, opts) {
-    opts = normalizeOptions(opts);
-    const doc = printAstToDoc(ast, opts);
-    return printDocToString(doc, opts);
+  formatAST(ast, options) {
+    options = normalizeOptions(options);
+    const doc = printAstToDoc(ast, options);
+    return printDocToString(doc, options);
   },
 
   // Doesn't handle shebang for now
-  formatDoc(doc, opts) {
-    opts = normalizeOptions({ ...opts, parser: "babel" });
-    const debug = printDocToDebug(doc);
-    return format(debug, opts).formatted;
+  formatDoc(doc, options) {
+    return formatWithCursor(printDocToDebug(doc), {
+      ...options,
+      parser: "__js_expression",
+    }).formatted;
   },
 
-  printToDoc(originalText, opts) {
-    opts = normalizeOptions(opts);
-    const parsed = parser.parse(originalText, opts);
-    const { ast, text } = parsed;
-    attachComments(text, ast, opts);
-    return printAstToDoc(ast, opts);
+  printToDoc(originalText, options) {
+    options = normalizeOptions(options);
+    const { ast, text } = parser.parse(originalText, options);
+    attachComments(text, ast, options);
+    return printAstToDoc(ast, options);
   },
 
-  printDocToString(doc, opts) {
-    return printDocToString(doc, normalizeOptions(opts));
+  printDocToString(doc, options) {
+    return printDocToString(doc, normalizeOptions(options));
   },
 };

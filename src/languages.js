@@ -3,17 +3,17 @@
 // We need to list the parsers and getters so we can load them only when necessary.
 module.exports = [
   // JS
-  require("./language-js"),
+  require("./language-js/index.js"),
   // CSS
-  require("./language-css"),
+  require("./language-css/index.js"),
   // Handlebars
-  require("./language-handlebars"),
+  require("./language-handlebars/index.js"),
   // GraphQL
-  require("./language-graphql"),
+  require("./language-graphql/index.js"),
   // Markdown
-  require("./language-markdown"),
+  require("./language-markdown/index.js"),
   // HTML
-  require("./language-html"),
+  require("./language-html/index.js"),
   // YAML
-  require("./language-yaml"),
+  require("./language-yaml/index.js"),
 ];

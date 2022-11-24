@@ -25,6 +25,27 @@ coverage
 
 It’s recommended to have a `.prettierignore` in your project! This way you can run `prettier --write .` to make sure that everything is formatted (without mangling files you don’t want, or choking on generated files). And – your editor will know which files _not_ to format!
 
+By default prettier ignores files in version control systems directories (".git", ".svn" and ".hg") and `node_modules` (if [`--with-node-modules` CLI option](cli.md#--with-node-modules) not specified)
+
+So by default it will be
+
+```js
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+```
+
+and
+
+```js
+**/.git
+**/.svn
+**/.hg
+```
+
+if [`--with-node-modules` CLI option](cli.md#--with-node-modules) provided
+
 (See also the [`--ignore-path` CLI option](cli.md#--ignore-path).)
 
 ## JavaScript
@@ -160,3 +181,13 @@ hello: world
   {{/my-crazy-component}}
 </div>
 ```
+
+## Command Line File Patterns
+
+For one-off commands, when you want to exclude some files without adding them to `.prettierignore`, negative patterns can come in handy:
+
+```bash
+prettier --write . '!**/*.{js,jsx,vue}'
+```
+
+See [fast-glob](https://prettier.io/docs/en/cli.html#file-patterns) to learn more about advanced glob syntax.

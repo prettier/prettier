@@ -1,11 +1,14 @@
 "use strict";
 
-const createError = require("../common/parser-create-error");
-const { hasPragma } = require("./pragma");
+const createError = require("../common/parser-create-error.js");
+const { hasPragma } = require("./pragma.js");
+const { locStart, locEnd } = require("./loc.js");
 
 function parse(text) {
+  const { parse } = require("yaml-unist-parser");
+
   try {
-    const root = require("yaml-unist-parser").parse(text);
+    const root = parse(text);
 
     /**
      * suppress `comment not printed` error
@@ -17,7 +20,7 @@ function parse(text) {
 
     return root;
   } catch (error) {
-    if (error && error.position) {
+    if (error?.position) {
       throw createError(error.message, error.position);
     }
 
@@ -30,13 +33,8 @@ const parser = {
   astFormat: "yaml",
   parse,
   hasPragma,
-  locStart(node) {
-    return node.position.start.offset;
-  },
-  /* istanbul ignore next */
-  locEnd(node) {
-    return node.position.end.offset;
-  },
+  locStart,
+  locEnd,
 };
 
 module.exports = {

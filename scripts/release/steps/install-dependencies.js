@@ -1,13 +1,14 @@
-"use strict";
-
-const execa = require("execa");
-const { logPromise } = require("../utils");
+import { execa } from "execa";
+import { runYarn, runGit, logPromise } from "../utils.js";
 
 async function install() {
   await execa("rm", ["-rf", "node_modules"]);
-  await execa("yarn", ["install"]);
+  await runYarn(["install"]);
 
-  const status = await execa.stdout("git", ["ls-files", "-m"]);
+  await execa("rm", ["-rf", "node_modules"], { cwd: "./website" });
+  await runYarn(["install"], { cwd: "./website" });
+
+  const { stdout: status } = await runGit(["ls-files", "-m"]);
   if (status) {
     throw new Error(
       "The lockfile needs to be updated, commit it before making the release."
@@ -15,6 +16,6 @@ async function install() {
   }
 }
 
-module.exports = function () {
+export default function installDependencies() {
   return logPromise("Installing NPM dependencies", install());
-};
+}

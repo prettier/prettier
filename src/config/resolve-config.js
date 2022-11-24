@@ -1,15 +1,27 @@
 "use strict";
 
 const path = require("path");
-const minimatch = require("minimatch");
-const mem = require("mem");
-const thirdParty = require("../common/third-party");
+const micromatch = require("micromatch");
+const thirdParty = require("../common/third-party.js");
 
-const loadToml = require("../utils/load-toml");
-const loadJson5 = require("../utils/load-json5");
-const resolve = require("../common/resolve");
-const resolveEditorConfig = require("./resolve-config-editorconfig");
+const loadToml = require("../utils/load-toml.js");
+const loadJson5 = require("../utils/load-json5.js");
+const partition = require("../utils/partition.js");
+const resolve = require("../common/resolve.js");
+const { default: mem, memClear } = require("../../vendors/mem.js");
+const resolveEditorConfig = require("./resolve-config-editorconfig.js");
 
+/**
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfig>} Explorer
+ * @typedef {ReturnType<import("cosmiconfig").cosmiconfigSync>} SyncExplorer
+ * @typedef {{sync?: boolean; cache?: boolean }} Options
+ */
+
+/**
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
+ */
 const getExplorerMemoized = mem(
   (opts) => {
     const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
@@ -20,11 +32,11 @@ const getExplorerMemoized = mem(
           if (typeof result.config === "string") {
             const dir = path.dirname(result.filepath);
             const modulePath = resolve(result.config, { paths: [dir] });
-            result.config = eval("require")(modulePath);
+            result.config = require(modulePath);
           }
 
           if (typeof result.config !== "object") {
-            throw new Error(
+            throw new TypeError(
               "Config is only allowed to be an object, " +
                 `but received ${typeof result.config} in "${result.filepath}"`
             );
@@ -58,7 +70,11 @@ const getExplorerMemoized = mem(
   { cacheKey: JSON.stringify }
 );
 
-/** @param {{ cache: boolean, sync: boolean }} opts */
+/**
+ * @template {Options} Opts
+ * @param {Opts} opts
+ * @return {Opts["sync"] extends true ? SyncExplorer : Explorer}
+ */
 function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = { sync: false, cache: false, ...opts };
@@ -68,12 +84,13 @@ function getExplorer(opts) {
 function _resolveConfig(filePath, opts, sync) {
   opts = { useCache: true, ...opts };
   const loadOpts = {
-    cache: !!opts.useCache,
-    sync: !!sync,
-    editorconfig: !!opts.editorconfig,
+    cache: Boolean(opts.useCache),
+    sync: Boolean(sync),
+    editorconfig: Boolean(opts.editorconfig),
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
+  /** @type {[any, any]} */
   const arr = [
     opts.config ? load(opts.config) : search(filePath),
     loadEditorConfig(filePath),
@@ -85,7 +102,7 @@ function _resolveConfig(filePath, opts, sync) {
       ...mergeOverrides(result, filePath),
     };
 
-    ["plugins", "pluginSearchDirs"].forEach((optionName) => {
+    for (const optionName of ["plugins", "pluginSearchDirs"]) {
       if (Array.isArray(merged[optionName])) {
         merged[optionName] = merged[optionName].map((value) =>
           typeof value === "string" && value.startsWith(".") // relative path
@@ -93,7 +110,7 @@ function _resolveConfig(filePath, opts, sync) {
             : value
         );
       }
-    });
+    }
 
     if (!result && !editorConfigured) {
       return null;
@@ -116,7 +133,7 @@ const resolveConfig = (filePath, opts) => _resolveConfig(filePath, opts, false);
 resolveConfig.sync = (filePath, opts) => _resolveConfig(filePath, opts, true);
 
 function clearCache() {
-  mem.clear(getExplorerMemoized);
+  memClear(getExplorerMemoized);
   resolveEditorConfig.clearCache();
 }
 
@@ -155,15 +172,24 @@ function mergeOverrides(configResult, filePath) {
 
 // Based on eslint: https://github.com/eslint/eslint/blob/master/lib/config/config-ops.js
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
-  const patternList = [].concat(patterns);
-  const excludedPatternList = [].concat(excludedPatterns || []);
-  const opts = { matchBase: true, dot: true };
+  const patternList = Array.isArray(patterns) ? patterns : [patterns];
+  // micromatch always matches against basename when the option is enabled
+  // use only patterns without slashes with it to match minimatch behavior
+  const [withSlashes, withoutSlashes] = partition(patternList, (pattern) =>
+    pattern.includes("/")
+  );
 
   return (
-    patternList.some((pattern) => minimatch(filePath, pattern, opts)) &&
-    !excludedPatternList.some((excludedPattern) =>
-      minimatch(filePath, excludedPattern, opts)
-    )
+    micromatch.isMatch(filePath, withoutSlashes, {
+      ignore: excludedPatterns,
+      basename: true,
+      dot: true,
+    }) ||
+    micromatch.isMatch(filePath, withSlashes, {
+      ignore: excludedPatterns,
+      basename: false,
+      dot: true,
+    })
   );
 }
 

@@ -77,6 +77,12 @@ const user = {
 [stylesheets]: https://github.com/prettier/prettier/issues/74#issuecomment-275262094
 [keyed methods]: https://github.com/prettier/prettier/pull/495#issuecomment-275745434
 
+> #### ♻️ A note on formatting reversibility
+>
+> The semi-manual formatting for object literals is in fact a workaround, not a feature. It was implemented only because at the time a good heuristic wasn’t found and an urgent fix was needed. However, as a general strategy, Prettier avoids _non-reversible_ formatting like that, so the team is still looking for heuristics that would allow either to remove this behavior completely or at least to reduce the number of situations where it’s applied.
+>
+> What does **reversible** mean? Once an object literal becomes multiline, Prettier won’t collapse it back. If in Prettier-formatted code, we add a property to an object literal, run Prettier, then change our mind, remove the added property, and then run Prettier again, we might end up with a formatting not identical to the initial one. This useless change might even get included in a commit, which is exactly the kind of situation Prettier was created to prevent.
+
 ### Decorators
 
 Just like with objects, decorators are used for a lot of different things. Sometimes it makes sense to write decorators _above_ the line they're decorating, sometimes it’s nicer if they're on the _same_ line. We haven’t been able to find a good rule for this, so Prettier keeps your decorator positioned like you wrote them (if they fit on the line). This isn’t ideal, but a pragmatic solution to a difficult problem.

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default-escaped.ts [typescript] format 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export asyn\\u{63} from "async";
+    | ^
+  2 |"
+`;
+
+exports[`export-declare.ts [typescript] format 1`] = `
+"Declaration or statement expected. (1:1)
+> 1 | export declare foo;
+    | ^
+  2 |"
+`;
+
+exports[`invalid-jsx-1.ts [typescript] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
+  1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
+  2 |
+> 3 | let directions = <div>Navigate to: Menu Bar > Tools > Options</div>
+    |                                             ^
+  4 |"
+`;
+
+exports[`module-attributes-static.ts [typescript] format 1`] = `
+"';' expected. (1:28)
+> 1 | import foo from "foo.json" with type: "json";
+    |                            ^
+  2 |"
+`;
+
+exports[`newline-before-arrow.ts [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | async x
+    | ^
+  2 | => x
+  3 |"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"Unexpected token. Did you mean \`{'}'}\` or \`&rbrace;\`? (1:15)
+> 1 | let x1 = <div>}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #1 [typescript] format 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (1:15)
+> 1 | let x2 = <div>></div>;
+    |               ^"
+`;
+
+exports[`snippet: #2 [typescript] format 1`] = `
+"':' expected. (1:21)
+> 1 | let x3 = <div>{"foo"}}</div>;
+    |                     ^"
+`;
+
+exports[`snippet: #3 [typescript] format 1`] = `
+"':' expected. (1:21)
+> 1 | let x4 = <div>{"foo"}></div>;
+    |                     ^"
+`;
+
+exports[`snippet: #4 [typescript] format 1`] = `
+"Expression expected. (1:15)
+> 1 | let x5 = <div>}{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`snippet: #5 [typescript] format 1`] = `
+"Expression expected. (1:15)
+> 1 | let x6 = <div>>{"foo"}</div>;
+    |               ^"
+`;
+
+exports[`value-of-abstract-property.ts [typescript] format 1`] = `
+"Abstract property cannot have an initializer (2:3)
+  1 | abstract class Foo {
+> 2 |   abstract prop = 3;
+    |   ^^^^^^^^^^^^^^^^^^
+  3 | }
+  4 |"
+`;

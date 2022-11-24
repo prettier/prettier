@@ -4,7 +4,7 @@ title: Plugins
 original_id: plugins
 ---
 
-Plugins are ways of adding new languages to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
+Plugins are ways of adding new languages or formatting rules to Prettier. Prettier’s own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you’ll need to install a plugin.
 
 ## Using Plugins
 
@@ -14,52 +14,68 @@ Plugins are automatically loaded if you have them installed in the same `node_mo
 
 When plugins cannot be found automatically, you can load them with:
 
-- The [CLI](cli.md), via the `--plugin` and `--plugin-search-dir`:
+- The [CLI](cli.md), via `--plugin-search-dir` and `--plugin`:
 
   ```bash
-  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=./foo-plugin
+  prettier --write main.foo --plugin-search-dir=./dir-with-plugins --plugin=prettier-plugin-foo
   ```
 
-  > Tip: You can set `--plugin` or `--plugin-search-dir` options multiple times.
+  > Tip: You can set `--plugin-search-dir` or `--plugin` options multiple times.
 
-- Or the [API](api.md), via the `plugins` and `pluginSearchDirs` options:
+- The [API](api.md), via the `pluginSearchDirs` and `plugins` options:
 
   ```js
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"],
+    plugins: ["prettier-plugin-foo"],
   });
   ```
 
-Prettier expects each of `pluginSearchDirs` to contain `node_modules` subdirectory, where `@prettier/plugin-*`, `@*/prettier-plugin-*` and `prettier-plugin-*` will be searched. For instance, this can be your project directory or the location of global npm modules.
+- The [Configuration File](configuration.md):
 
-Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns off plugin autoloading in the default directory (i.e. `node_modules` above `prettier` binary).
+  ```json
+  {
+    "pluginSearchDirs": ["./dir-with-plugins"],
+    "plugins": ["prettier-plugin-foo"]
+  }
+  ```
+
+`pluginSearchDirs` and `plugins` are independent and one does not require the other.
+
+The paths that are provided to `pluginSearchDirs` will be searched for `@prettier/plugin-*`, `prettier-plugin-*`, and `@*/prettier-plugin-*`. For instance, these can be your project directory, a `node_modules` directory, the location of global npm modules, or any arbitrary directory that contains plugins.
+
+Strings provided to `plugins` are ultimately passed to `require()`, so you can provide a module/package name, a path, or anything else `require()` takes. (`pluginSearchDirs` works the same way. That is, valid plugin paths that it finds are passed to `require()`.)
+
+To turn off plugin autoloading, use `--no-plugin-search` when using Prettier CLI or add `{ pluginSearchDirs: false }` to options in `prettier.format()` or to the config file.
 
 ## Official Plugins
 
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
-- [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 - [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
 - [`prettier-plugin-apex`](https://github.com/dangmai/prettier-plugin-apex) by [**@dangmai**](https://github.com/dangmai)
+- [`prettier-plugin-astro`](https://github.com/withastro/prettier-plugin-astro) by [**@withastro contributors**](https://github.com/withastro/prettier-plugin-astro/graphs/contributors)
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
+- [`prettier-plugin-erb`](https://github.com/adamzapasnik/prettier-plugin-erb) by [**@adamzapasnik**](https://github.com/adamzapasnik)
+- [`prettier-plugin-glsl`](https://github.com/NaridaL/glsl-language-toolkit/tree/main/packages/prettier-plugin-glsl) by [**@NaridaL**](https://github.com/NaridaL)
+- [`prettier-plugin-go-template`](https://github.com/NiklasPor/prettier-plugin-go-template) by [**@NiklasPor**](https://github.com/NiklasPor)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
+- [`prettier-plugin-jsonata`](https://github.com/Stedi/prettier-plugin-jsonata) by [**@Stedi**](https://github.com/Stedi)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
-- [`prettier-plugin-package`](https://github.com/shellscape/prettier-plugin-package) by [**@shellscape**](https://github.com/shellscape)
-- [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) by [**@matzkoh**](https://github.com/matzkoh)
-- [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
+- [`prettier-plugin-motoko`](https://github.com/dfinity/prettier-plugin-motoko) by [**@dfinity**](https://github.com/dfinity)
+- [`prettier-plugin-nginx`](https://github.com/joedeandev/prettier-plugin-nginx) by [**@joedeandev**](https://github.com/joedeandev)
+- [`prettier-plugin-prisma`](https://github.com/umidbekk/prettier-plugin-prisma) by [**@umidbekk**](https://github.com/umidbekk)
 - [`prettier-plugin-properties`](https://github.com/eemeli/prettier-plugin-properties) by [**@eemeli**](https://github.com/eemeli)
+- [`prettier-plugin-sh`](https://github.com/un-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
+- [`prettier-plugin-sql`](https://github.com/un-ts/prettier/tree/master/packages/sql) by [**@JounQin**](https://github.com/JounQin)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
-- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) by [**@simonhaenisch**](https://github.com/simonhaenisch)
-- [`prettier-plugin-pkg`](https://github.com/rx-ts/prettier/tree/master/packages/pkg) by [**@JounQin**](https://github.com/JounQin)
-- [`prettier-plugin-sh`](https://github.com/rx-ts/prettier/tree/master/packages/sh) by [**@JounQin**](https://github.com/JounQin)
 
 ## Developing Plugins
 
@@ -149,6 +165,7 @@ export const printers = {
     canAttachComment,
     isBlockComment,
     printComment,
+    getCommentChildNodes,
     handleComments: {
       ownLine,
       endOfLine,
@@ -160,17 +177,17 @@ export const printers = {
 
 #### The printing process
 
-Prettier uses an intermediate representation, called a Doc, which Prettier then turns into a string (based on options like `printWidth`). A _printer_'s job is to take the AST generated by `parsers[<parser name>].parse` and return a Doc. A Doc is constructed using [builder commands](https://github.com/prettier/prettier/blob/master/commands.md):
+Prettier uses an intermediate representation, called a Doc, which Prettier then turns into a string (based on options like `printWidth`). A _printer_'s job is to take the AST generated by `parsers[<parser name>].parse` and return a Doc. A Doc is constructed using [builder commands](https://github.com/prettier/prettier/blob/main/commands.md):
 
 ```js
-const { concat, join, line, ifBreak, group } = require("prettier").doc.builders;
+const { join, line, ifBreak, group } = require("prettier").doc.builders;
 ```
 
 The printing process works as follows:
 
 1. `preprocess(ast: AST, options: object): AST`, if available, is called. It is passed the AST from the _parser_. The AST returned by `preprocess` will be used by Prettier. If `preprocess` is not defined, the AST returned from the _parser_ will be used.
 2. Comments are attached to the AST (see _Handling comments in a printer_ for details).
-3. A Doc is recursively constructed from the AST. i) `embed(path: FastPath, print, textToDoc, options: object): Doc | null` is called on each AST node. If `embed` returns a Doc, that Doc is used. ii) If `embed` is undefined or returns a falsy value, `print(path: FastPath, options: object, print): Doc` is called on each AST node.
+3. A Doc is recursively constructed from the AST. i) `embed(path: AstPath, print, textToDoc, options: object): Doc | null` is called on each AST node. If `embed` returns a Doc, that Doc is used. ii) If `embed` is undefined or returns a falsy value, `print(path: AstPath, options: object, print): Doc` is called on each AST node.
 
 #### `print`
 
@@ -179,25 +196,51 @@ Most of the work of a plugin's printer will take place in its `print` function, 
 ```ts
 function print(
   // Path to the AST node to print
-  path: FastPath,
+  path: AstPath,
   options: object,
   // Recursively print a child node
-  print: (path: FastPath) => Doc
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc
 ): Doc;
 ```
 
-The `print` function is passed a `path` object, which can be used to access nodes in the AST via `path.getValue()`. It is also passed a persistent `options` object (which contains global options and which a plugin may mutate), and a `print` function used for making recursive calls. A basic `print` function might be as follows:
+The `print` function is passed the following parameters:
+
+- **`path`**: An object, which can be used to access nodes in the AST. It’s a stack-like data structure that maintains the current state of the recursion. It is called “path” because it represents the path to the current node from the root of the AST. The current node is returned by `path.getValue()`.
+- **`options`**: A persistent object, which contains global options and which a plugin may mutate to store contextual data.
+- **`print`**: A callback for printing sub-nodes. This function contains the core printing logic that consists of steps whose implementation is provided by plugins. In particular, it calls the printer’s `print` function and passes itself to it. Thus, the two `print` functions – the one from the core and the one from the plugin – call each other while descending down the AST recursively.
+
+Here’s a simplified example to give an idea of what a typical implementation of `print` looks like:
 
 ```js
-const { builders } = require("prettier").doc;
+const {
+  builders: { group, indent, join, line, softline },
+} = require("prettier").doc;
 
 function print(path, options, print) {
   const node = path.getValue();
 
-  if (Array.isArray(node)) {
-    return builders.concat(path.map(print));
+  switch (node.type) {
+    case "list":
+      return group([
+        "(",
+        indent([softline, join(line, path.map(print, "elements"))]),
+        softline,
+        ")",
+      ]);
+
+    case "pair":
+      return group([
+        "(",
+        indent([softline, print("left"), line, ". ", print("right")]),
+        softline,
+        ")",
+      ]);
+
+    case "symbol":
+      return node.name;
   }
-  return node.value;
+
+  throw new Error(`Unknown node type: ${node.type}`);
 }
 ```
 
@@ -210,9 +253,9 @@ The `embed` function is called when the plugin needs to print one language insid
 ```ts
 function embed(
   // Path to the current AST node
-  path: FastPath,
+  path: AstPath,
   // Print a node with the current printer
-  print: (path: FastPath) => Doc,
+  print: (selector?: string | number | Array<string | number> | AstPath) => Doc,
   // Parse and print some text using a different parser.
   // You should set `options.parser` to specify which parser to use.
   textToDoc: (text: string, options: object) => Doc,
@@ -257,6 +300,21 @@ Comments are often not part of a language's AST and present a challenge for pret
 
 By default, if the AST has a top-level `comments` property, Prettier assumes that `comments` stores an array of comment nodes. Prettier will then use the provided `parsers[<plugin>].locStart`/`locEnd` functions to search for the AST node that each comment "belongs" to. Comments are then attached to these nodes **mutating the AST in the process**, and the `comments` property is deleted from the AST root. The `*Comment` functions are used to adjust Prettier's algorithm. Once the comments are attached to the AST, Prettier will automatically call the `printComment(path, options): Doc` function and insert the returned doc into the (hopefully) correct place.
 
+#### (optional) `getCommentChildNodes`
+
+By default, Prettier searches all object properties (except for a few predefined ones) of each node recursively. This function can be provided to override that behavior. It has the signature:
+
+```ts
+function getCommentChildNodes(
+  // The node whose children should be returned.
+  node: AST,
+  // Current options
+  options: object
+): AST[] | undefined;
+```
+
+Return `[]` if the node has no children or `undefined` to fall back on the default behavior.
+
 #### (optional) `printComment`
 
 Called whenever a comment node needs to be printed. It has the signature:
@@ -264,7 +322,7 @@ Called whenever a comment node needs to be printed. It has the signature:
 ```ts
 function printComment(
   // Path to the current comment node
-  commentPath: FastPath,
+  commentPath: AstPath,
   // Current options
   options: object
 ): Doc;
@@ -343,6 +401,8 @@ Nodes with comments are expected to have a `comments` property containing an arr
 <!-- TODO: add a note that this might change in the future -->
 
 The example above uses `util.addTrailingComment`, which automatically sets `comment.leading`/`trailing`/`printed` to appropriate values and adds the comment to the AST node's `comments` array.
+
+The `--debug-print-comments` CLI flag can help with debugging comment attachment issues. It prints a detailed list of comments, which includes information on how every comment was classified (`ownLine`/`endOfLine`/`remaining`, `leading`/`trailing`/`dangling`) and to which node it was attached. For Prettier’s built-in languages, this information is also available on the Playground (the 'show comments' checkbox in the Debug section).
 
 ### `options`
 

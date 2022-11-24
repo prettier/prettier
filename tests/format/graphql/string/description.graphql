@@ -1,0 +1,74 @@
+""" Customer """
+type Person {name: String}
+
+""" Customer """
+type Person {name: String}
+
+"""
+
+    Customer
+
+
+"""
+type Person {name: String}
+
+""""""
+type Person {name: String}
+
+"""    """
+type Person {name: String}
+
+"""
+    1
+  2
+"""
+type Person {name: String}
+
+
+"""
+
+
+Empty lines before
+"""
+type Person {name: String}
+
+"""
+Empty lines after
+
+
+"""
+type Person {name: String}
+
+"""
+
+
+Empty lines around
+
+
+"""
+type Person {name: String}
+
+"""
+First line
+
+Second Line
+"""
+type Person {name: String}
+
+"""
+
+
+First line
+
+Second Line
+"""
+type Person {name: String}
+
+"""
+First line
+
+Second Line
+
+
+"""
+type Person {name: String}

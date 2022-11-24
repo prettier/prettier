@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with-pragma.md - {"requirePragma":true} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
+{/* @prettier */}
+
+I     should      be      formatted       !!
+
+=====================================output=====================================
+{/* @prettier */}
+
+I should be formatted !!
+
+================================================================================
+`;
+
+exports[`without-pragma.md - {"requirePragma":true} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+requirePragma: true
+                                                                                | printWidth
+=====================================input======================================
+I     should      stay      as-is   !!
+
+=====================================output=====================================
+I     should      stay      as-is   !!
+
+================================================================================
+`;
