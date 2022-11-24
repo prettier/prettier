@@ -19,13 +19,12 @@ import {
   printIntersectionType,
   printUnionType,
   printFunctionType,
-  printTupleType,
   printIndexedAccessType,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
-import { printArrayItems } from "./array.js";
+import { printTupleType, printArrayItems } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import {

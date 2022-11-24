@@ -15,7 +15,6 @@ import {
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
-  shouldPrintComma,
   hasComment,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
@@ -23,7 +22,6 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printArrayItems, printEmptyArray } from "./array.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -286,26 +284,6 @@ function printFunctionType(path, options, print) {
   return group(parts);
 }
 
-// `TSTupleType` and `TupleTypeAnnotation`
-function printTupleType(path, options, print) {
-  const { node } = path;
-  const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const types = node[typesField];
-  const isEmptyTuple = types.length === 0;
-  const openBracket = "[";
-  const closeBracket = "]";
-  if (isEmptyTuple) {
-    return printEmptyArray(path, openBracket, closeBracket, options);
-  }
-  return group([
-    openBracket,
-    indent([softline, printArrayItems(path, options, typesField, print)]),
-    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-    softline,
-    closeBracket,
-  ]);
-}
-
 // `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
 function printIndexedAccessType(path, options, print) {
   const { node } = path;
@@ -330,7 +308,6 @@ export {
   printIntersectionType,
   printUnionType,
   printFunctionType,
-  printTupleType,
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
