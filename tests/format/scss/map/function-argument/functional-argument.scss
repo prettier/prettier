@@ -11,75 +11,75 @@ $display-breakpoints: map-deep-merge(
 
 
 //list test
-@each 
-$size 
-in 
+@each
+$size
+in
 $sizes {
 .icon
-#{$size} 
+#{$size}
 {
 border
-: 
-"#{$size + "px"}" 
-solid 
+:
+"#{$size + "px"}"
+solid
 red;
 }
 }
 
-@each 
-$size 
-in 
+@each
+$size
+in
 $sizes {
-.icon-#{$size} 
+.icon-#{$size}
 {
 border
-: 
-"#{$size + "px"}" 
-solid 
+:
+"#{$size + "px"}"
+solid
 red;
 }
 }
 
 //map test
 $font-weights
-: 
+:
 ("regular": 400
-, 
-"medium": 500, 
-"bold": 
+,
+"medium": 500,
+"bold":
 700);
-@each 
-$name, 
-$boldness 
-in 
+@each
+$name,
+$boldness
+in
 $icons {
 .text
 #{
 $name
 } {
 color: red;
-font-weight: 
+font-weight:
 "#{$boldness}"
 }
 }
 
 $font-weights
-: 
+:
 ("regular": 400
-, 
-"medium": 500, 
-"bold": 
+,
+"medium": 500,
+"bold":
 700);
-@each 
-$name, 
-$boldness 
-in 
+@each
+$name,
+$boldness
+in
 $icons {
 .text-#{
 $name
 } {
 color: red;
-font-weight: 
+font-weight:
 "#{$boldness}"
 }
 }
