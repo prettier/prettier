@@ -4,7 +4,8 @@ name: No Response
 # to work properly.
 on:
   issue_comment:
-    types: [created]
+    types:
+      - created
   schedule:
     # “At minute 5.” https://crontab.guru/#5_*_*_*_*
     - cron: "5 * * * *"
