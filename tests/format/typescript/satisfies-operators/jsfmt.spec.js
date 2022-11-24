@@ -1,2 +1,2 @@
-run_spec(import.meta, ["babel-ts"]);
-run_spec(import.meta, ["babel-ts"], { semi: false });
+run_spec(import.meta, ["typescript"]);
+run_spec(import.meta, ["typescript"], { semi: false });
