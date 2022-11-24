@@ -2,6 +2,7 @@ name: "Lock"
 
 on:
   schedule:
+    # “At 00:00.” https://crontab.guru/#0_0_*_*_*
     - cron: "0 0 * * *"
 
 jobs:
