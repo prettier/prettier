@@ -1,10 +1,11 @@
 import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
-import * as SyntaxKind from "./ts-syntax-kind.evaluate.js";
+
+let ts;
 
 function getTsNodeLocation(nodeOrToken) {
-  const sourceFile = getSourceFileOfNode(nodeOrToken);
+  const sourceFile = ts.getSourceFileOfNode(nodeOrToken);
   const [start, end] = [nodeOrToken.pos, nodeOrToken.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
@@ -14,12 +15,8 @@ function getTsNodeLocation(nodeOrToken) {
   return { start, end };
 }
 
-// Copied from https://unpkg.com/typescript@4.8.2/lib/typescript.js
-function getSourceFileOfNode(node) {
-  while (node && node.kind !== SyntaxKind.SourceFile) {
-    node = node.parent;
-  }
-  return node;
+function throwErrorOnTsNode(node, message) {
+  throwTsSyntaxError({ loc: getTsNodeLocation(node) }, message);
 }
 
 // Invalid decorators are removed since `@typescript-eslint/typescript-estree` v4
@@ -33,10 +30,7 @@ function throwErrorForInvalidDecorator(tsNode) {
 
   const [{ expression }] = illegalDecorators;
 
-  throwTsSyntaxError(
-    { loc: getTsNodeLocation(expression) },
-    "Decorators are not valid here."
-  );
+  throwErrorOnTsNode(expression, "Decorators are not valid here.");
 }
 
 // Values of abstract property is removed since `@typescript-eslint/typescript-estree` v5
@@ -44,11 +38,11 @@ function throwErrorForInvalidDecorator(tsNode) {
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   if (
     !(
-      tsNode.kind === SyntaxKind.PropertyDeclaration &&
+      tsNode.kind === ts.SyntaxKind.PropertyDeclaration &&
       tsNode.initializer &&
       esTreeNode.value === null &&
       tsNode.modifiers?.some(
-        (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
+        (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword
       )
     )
   ) {
@@ -61,55 +55,86 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   );
 }
 
-function throwErrorForInvalidDeclare(tsNode, esTreeNode) {
-  if (
-    !(
-      esTreeNode.type === "MethodDefinition" &&
-      (esTreeNode.kind === "get" || esTreeNode.kind === "set")
-    )
-  ) {
+// Based on `checkGrammarModifiers` function in `typescript`
+function throwErrorForInvalidModifier(node) {
+  const { modifiers } = node;
+  if (!isNonEmptyArray(modifiers)) {
     return;
   }
 
-  const declareKeyword = tsNode.modifiers?.find(
-    (modifier) => modifier.kind === SyntaxKind.DeclareKeyword
-  );
+  const { SyntaxKind } = ts;
 
-  if (!declareKeyword) {
-    return;
+  for (const modifier of modifiers) {
+    if (ts.isDecorator(modifier)) {
+      continue;
+    }
+
+    if (modifier.kind !== SyntaxKind.ReadonlyKeyword) {
+      if (
+        node.kind === SyntaxKind.PropertySignature ||
+        node.kind === SyntaxKind.MethodSignature
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on a type member`
+        );
+      }
+
+      if (
+        node.kind === SyntaxKind.IndexSignature &&
+        (modifier.kind !== SyntaxKind.StaticKeyword ||
+          !ts.isClassLike(node.parent))
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          `'${ts.tokenToString(
+            modifier.kind
+          )}' modifier cannot appear on an index signature`
+        );
+      }
+    }
+
+    if (
+      modifier.kind !== SyntaxKind.InKeyword &&
+      modifier.kind !== SyntaxKind.OutKeyword &&
+      node.kind === SyntaxKind.TypeParameter
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a type parameter`
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.ReadonlyKeyword &&
+      node.kind !== SyntaxKind.PropertyDeclaration &&
+      node.kind !== SyntaxKind.PropertySignature &&
+      node.kind !== SyntaxKind.IndexSignature &&
+      node.kind !== SyntaxKind.Parameter
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        "'readonly' modifier can only appear on a property declaration or index signature."
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.DeclareKeyword &&
+      ts.isClassLike(node.parent) &&
+      !ts.isPropertyDeclaration(node)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on class elements of this kind.`
+      );
+    }
   }
-
-  throwTsSyntaxError(
-    { loc: getTsNodeLocation(declareKeyword) },
-    /* cspell:disable-next-line */
-    `'declare' is not allowed in ${esTreeNode.kind}ters.`
-  );
-}
-
-function throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode) {
-  if (
-    esTreeNode.type !== "TSMethodSignature" ||
-    tsNode.kind !== SyntaxKind.MethodSignature
-  ) {
-    return;
-  }
-
-  const invalidModifier = tsNode.modifiers?.find(
-    (modifier) =>
-      !(
-        modifier.kind === SyntaxKind.InKeyword ||
-        modifier.kind === SyntaxKind.OutKeyword
-      )
-  );
-
-  if (!invalidModifier) {
-    return;
-  }
-
-  throwTsSyntaxError(
-    { loc: getTsNodeLocation(invalidModifier) },
-    "This modifier cannot appear on a type member"
-  );
 }
 
 function getTsNode(node, tsParseResult) {
@@ -127,15 +152,35 @@ function getTsNode(node, tsParseResult) {
   return tsNode;
 }
 
-function throwErrorForInvalidNodes(tsParseResult, options) {
+async function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
-    // decorators
-    // abstract properties
-    // declare in accessor
-    // modifiers on type parameter
-    !/@|abstract|declare|interface/.test(options.originalText)
+    // decorators and modifiers
+    !new RegExp(
+      [
+        "@",
+        "abstract",
+        "accessor",
+        "async",
+        "const",
+        "declare",
+        "default",
+        "export",
+        "static",
+        "in",
+        "out",
+        "override",
+        "public",
+        "private",
+        "protected",
+        "readonly",
+      ].join("|")
+    ).test(options.originalText)
   ) {
     return;
+  }
+
+  if (!ts) {
+    ({ default: ts } = await import("typescript"));
   }
 
   visitNode(tsParseResult.ast, (esTreeNode) => {
@@ -144,10 +189,9 @@ function throwErrorForInvalidNodes(tsParseResult, options) {
       return;
     }
 
-    throwErrorForInvalidDeclare(tsNode, esTreeNode);
     throwErrorForInvalidDecorator(tsNode);
     throwErrorForInvalidAbstractProperty(tsNode, esTreeNode);
-    throwErrorForInvalidModifierOnTypeParameter(tsNode, esTreeNode);
+    throwErrorForInvalidModifier(tsNode);
   });
 }
 

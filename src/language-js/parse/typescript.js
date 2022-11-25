@@ -57,7 +57,7 @@ async function parse(text, options = {}) {
 
   options.originalText = text;
 
-  throwErrorForInvalidNodes(result, options);
+  await throwErrorForInvalidNodes(result, options);
 
   return postprocess(result.ast, options);
 }

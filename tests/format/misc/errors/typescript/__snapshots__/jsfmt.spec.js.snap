@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`declare-getter.ts [typescript] format 1`] = `
-"'declare' is not allowed in getters. (1:12)
+"'declare' modifier cannot appear on class elements of this kind. (1:12)
 > 1 | class Foo {
     |            ^
 > 2 |   declare get foo()
@@ -11,7 +11,7 @@ exports[`declare-getter.ts [typescript] format 1`] = `
 `;
 
 exports[`declare-setter.ts [typescript] format 1`] = `
-"'declare' is not allowed in setters. (1:12)
+"'declare' modifier cannot appear on class elements of this kind. (1:12)
 > 1 | class Foo {
     |            ^
 > 2 |   declare set foo(v)
@@ -92,78 +92,6 @@ exports[`snippet: #5 [typescript] format 1`] = `
 "Expression expected. (1:15)
 > 1 | let x6 = <div>>{"foo"}</div>;
     |               ^"
-`;
-
-exports[`snippet: #6 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   abstract e();
-    | ^^^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #7 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   declare e();
-    | ^^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #8 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   export e();
-    | ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #9 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   static e();
-    | ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #10 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   private e();
-    | ^^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #11 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   protected e();
-    | ^^^^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #12 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   public e();
-    | ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #13 [typescript] format 1`] = `
-"This modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
-> 2 |   readonly e();
-    | ^^^^^^^^^^^
-  3 | }"
 `;
 
 exports[`value-of-abstract-property.ts [typescript] format 1`] = `
