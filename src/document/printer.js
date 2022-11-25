@@ -320,6 +320,7 @@ function printDocToString(doc, options) {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         out.push(formatted);
+        // Plugins may print single string, should skip measure the width
         if (cmds.length > 0) {
           pos += getStringWidth(formatted);
         }
