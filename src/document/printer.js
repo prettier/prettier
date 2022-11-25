@@ -320,7 +320,9 @@ function printDocToString(doc, options) {
         const formatted =
           newLine !== "\n" ? doc.replaceAll("\n", newLine) : doc;
         out.push(formatted);
-        pos += getStringWidth(formatted);
+        if (cmds.length > 0) {
+          pos += getStringWidth(formatted);
+        }
         break;
       }
 
