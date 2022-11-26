@@ -20,13 +20,15 @@ yarn add --dev --exact prettier
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Then, create an empty config file to let editors and other tools know you are using Prettier:
+Then, create an empty `prettier.config.js` file to let editors and other tools know you are using Prettier and add the content below:
+```js
+/** @type {import('prettier').Config} */
+module.exports = {
 
-<!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
-
-```bash
-echo {}> .prettierrc.json
+}
 ```
+This way, the editor will autocomplete the options you have available according to your installed version of Prettier.
+
 
 Next, create a [.prettierignore](ignore.md) file to let the Prettier CLI and editors know which files to _not_ format. Here’s an example:
 
