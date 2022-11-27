@@ -3643,13 +3643,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-utils@npm:4.1.0":
-  version: 4.1.0
-  resolution: "esm-utils@npm:4.1.0"
+"esm-utils@npm:4.1.1":
+  version: 4.1.1
+  resolution: "esm-utils@npm:4.1.1"
   dependencies:
-    import-meta-resolve: 2.1.0
+    import-meta-resolve: 2.2.0
     url-or-path: 2.1.0
-  checksum: 9574a599b7f4a8eaae49db3fb77987cb37f51bbcf18d0768748aa5667b429f2c972064df961db2c2be91a0879db96183e4118bd3a147f4480850f920270046fa
+  checksum: 91650786a307238d6fd544f0eca0ac7f68a8497f6823fcb862804878333a069204b38562c1b0c738ba855b6cb07be0d07f387a62c53fc337a1dd9b3a7a68679f
   languageName: node
   linkType: hard
 
@@ -4474,6 +4474,13 @@ __metadata:
   version: 2.1.0
   resolution: "import-meta-resolve@npm:2.1.0"
   checksum: 4554ea5e2daecbdeb7ebe4df23ced97e6a64ad41ed26889b3c86ed896830dbbe63889c8fad49b7dea76c0f9aad46f7d32412fa727c335e11f3cc79f63a91f8e1
+  languageName: node
+  linkType: hard
+
+"import-meta-resolve@npm:2.2.0":
+  version: 2.2.0
+  resolution: "import-meta-resolve@npm:2.2.0"
+  checksum: 35a012c07bdaaed907ad150021b47a4bd8b2c77c88f02a2c5a15a5cb5c146072a94b6633cc528eaccf187bca12196c0fb2ff44a54b3b2a03bcf200511b3f1e50
   languageName: node
   linkType: hard
 
@@ -6739,7 +6746,7 @@ __metadata:
     eslint-plugin-react: 7.31.11
     eslint-plugin-regexp: 1.11.0
     eslint-plugin-unicorn: 45.0.0
-    esm-utils: 4.1.0
+    esm-utils: 4.1.1
     espree: 9.4.1
     execa: 6.1.0
     fast-glob: 3.2.12
