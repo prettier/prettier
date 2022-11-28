@@ -43,7 +43,15 @@ function clean(ast, newObj, parent) {
     newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
   }
 
-  if (ast.type === "definition" || ast.type === "linkReference") {
+  if (
+    ast.type === "definition" ||
+    ast.type === "linkReference" ||
+    ast.type === "imageReference" ||
+    // The following two types of nodes seems not allow space inside
+    // keep them here since we use the same function to print them
+    ast.type === "footnoteReference" ||
+    ast.type === "footnoteDefinition"
+  ) {
     newObj.label = collapseWhiteSpace(ast.label);
   }
 
