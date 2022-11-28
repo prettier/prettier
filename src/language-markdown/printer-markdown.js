@@ -390,7 +390,7 @@ function genericPrint(path, options, print) {
     case "footnote":
       return ["[^", printChildren(path, options, print), "]"];
     case "footnoteReference":
-      return printLinkReference(node);
+      return printFootnoteReference(node);
     case "footnoteDefinition": {
       const nextNode = path.getParentNode().children[path.getName() + 1];
       const shouldInlineFootnote =
@@ -401,7 +401,7 @@ function genericPrint(path, options, print) {
             node.children[0].position.start.line ===
               node.children[0].position.end.line));
       return [
-        printLinkReference(node),
+        printFootnoteReference(node),
         ": ",
         shouldInlineFootnote
           ? printChildren(path, options, print)
@@ -915,9 +915,11 @@ function hasPrettierIgnore(path) {
 // `remark-parse` lowercase the `label` as `identifier`, we don't want do that
 // https://github.com/remarkjs/remark/blob/daddcb463af2d5b2115496c395d0571c0ff87d15/packages/remark-parse/lib/tokenize/reference.js
 function printLinkReference(node) {
-  const shouldPrintCaret =
-    node.type === "footnoteReference" || node.type === "footnoteDefinition";
-  return `[${shouldPrintCaret ? "^" : ""}${collapseWhiteSpace(node.label)}]`;
+  return `[${collapseWhiteSpace(node.label)}]`;
+}
+
+function printFootnoteReference(node) {
+  return `[^${node.label}]`;
 }
 
 module.exports = {

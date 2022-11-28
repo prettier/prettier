@@ -46,11 +46,7 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "definition" ||
     ast.type === "linkReference" ||
-    ast.type === "imageReference" ||
-    // The following two types of nodes seems not allow space inside
-    // keep them here since we use the same function to print them
-    ast.type === "footnoteReference" ||
-    ast.type === "footnoteDefinition"
+    ast.type === "imageReference"
   ) {
     newObj.label = collapseWhiteSpace(ast.label);
   }
