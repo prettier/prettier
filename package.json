@@ -36,6 +36,7 @@
     "chalk": "5.0.1",
     "ci-info": "3.3.0",
     "cjk-regex": "2.0.1",
+    "collapse-white-space": "1.0.6",
     "cosmiconfig": "7.0.1",
     "css-units-list": "1.1.0",
     "dashify": "2.0.0",
