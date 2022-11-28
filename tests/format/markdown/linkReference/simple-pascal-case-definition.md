@@ -1,1 +1,0 @@
-[`AsyncGeneratorFunction`]: ./index.html
