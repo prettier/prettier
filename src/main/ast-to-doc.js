@@ -1,5 +1,10 @@
 import AstPath from "../common/ast-path.js";
-import { hardline, addAlignmentToDoc } from "../document/builders.js";
+import {
+  hardline,
+  addAlignmentToDoc,
+  cursor,
+  label,
+} from "../document/builders.js";
 import { propagateBreaks } from "../document/utils.js";
 import { printComments } from "./comments.js";
 import { printEmbeddedLanguages } from "./multiparser.js";
@@ -146,6 +151,15 @@ function callPluginPrintFunction(path, options, printPath, args, embeds) {
     // printComments will call the plugin print function and check for
     // comments to print
     doc = printComments(path, doc, options, printedComments);
+  }
+
+  if (node === options.cursorNode) {
+    doc = label(
+      // Propagate object labels so that the printing logic for ancestor nodes
+      // could easily check them.
+      typeof doc.label === "object" && { commented: true, ...doc.label },
+      [cursor, doc, cursor]
+    );
   }
 
   return doc;

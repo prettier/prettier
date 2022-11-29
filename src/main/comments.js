@@ -6,7 +6,6 @@ import {
   indent,
   lineSuffix,
   join,
-  cursor,
   label,
 } from "../document/builders.js";
 import {
@@ -539,11 +538,9 @@ function printCommentsSeparately(path, options, ignored) {
   if (ignored) {
     comments = comments.filter((comment) => !ignored.has(comment));
   }
-  const isCursorNode = value === options.cursorNode;
 
   if (comments.length === 0) {
-    const maybeCursor = isCursorNode ? cursor : "";
-    return { leading: maybeCursor, trailing: maybeCursor };
+    return { leading: "", trailing: "" };
   }
 
   const leadingParts = [];
@@ -567,11 +564,6 @@ function printCommentsSeparately(path, options, ignored) {
       trailingParts.push(printedTrailingComment.doc);
     }
   }, "comments");
-
-  if (isCursorNode) {
-    leadingParts.unshift(cursor);
-    trailingParts.push(cursor);
-  }
 
   return { leading: leadingParts, trailing: trailingParts };
 }
