@@ -14,7 +14,8 @@ import massageAst from "./massage-ast.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
 import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
-import { calculateRange, findNodeAtOffset } from "./range-util.js";
+import { calculateRange } from "./range-util.js";
+import getCursorNode from "./get-cursor-node.js";
 
 const BOM = "\uFEFF";
 
@@ -40,10 +41,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const { ast, text } = await parse(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
-    const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
-    if (nodeResult?.node) {
-      opts.cursorNode = nodeResult.node;
-    }
+    opts.cursorNode = getCursorNode(ast, opts);
   }
 
   const astComments = attachComments(text, ast, opts);
