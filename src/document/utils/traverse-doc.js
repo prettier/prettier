@@ -36,6 +36,11 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
       docsStack.push(doc, traverseDocOnExitStackMarker);
     }
 
+    const docType = getDocType(doc);
+    if (!docType) {
+      throw new InvalidDocError(doc);
+    }
+
     // Should Recurse
     if (onEnter?.(doc) === false) {
       continue;
@@ -46,7 +51,6 @@ function traverseDoc(doc, onEnter, onExit, shouldTraverseConditionalGroups) {
     // so that they are processed in the original order
     // when the stack is popped.
 
-    const docType = getDocType(doc);
     switch (docType) {
       case DOC_TYPE_ARRAY:
       case DOC_TYPE_FILL: {

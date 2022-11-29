@@ -13,6 +13,7 @@ import {
   DOC_TYPE_LABEL,
   DOC_TYPE_BREAK_PARENT,
 } from "./constants.js";
+import { assertDoc, assertDocArray } from "./utils/assert-doc.js";
 
 /**
  * TBD properly tagged union for Doc object type is needed here.
@@ -28,36 +29,11 @@ import {
  */
 
 /**
- * @param {Doc} val
- */
-function assertDoc(val) {
-  if (typeof val === "string") {
-    return;
-  }
-
-  if (Array.isArray(val)) {
-    for (const doc of val) {
-      assertDoc(doc);
-    }
-    return;
-  }
-
-  if (val && typeof val.type === "string") {
-    return;
-  }
-
-  /* c8 ignore next */
-  throw new Error("Value " + JSON.stringify(val) + " is not a valid document");
-}
-
-/**
  * @param {Doc} contents
  * @returns Doc
  */
 function indent(contents) {
-  if (process.env.NODE_ENV !== "production") {
-    assertDoc(contents);
-  }
+  assertDoc(contents);
 
   return { type: DOC_TYPE_INDENT, contents };
 }
@@ -68,9 +44,7 @@ function indent(contents) {
  * @returns Doc
  */
 function align(widthOrString, contents) {
-  if (process.env.NODE_ENV !== "production") {
-    assertDoc(contents);
-  }
+  assertDoc(contents);
 
   return { type: DOC_TYPE_ALIGN, contents, n: widthOrString };
 }
@@ -81,9 +55,8 @@ function align(widthOrString, contents) {
  * @returns Doc
  */
 function group(contents, opts = {}) {
-  if (process.env.NODE_ENV !== "production") {
-    assertDoc(contents);
-  }
+  assertDoc(contents);
+  assertDocArray(opts.expandedStates, /* optional */ true);
 
   return {
     type: DOC_TYPE_GROUP,
@@ -133,11 +106,7 @@ function conditionalGroup(states, opts) {
  * @returns Doc
  */
 function fill(parts) {
-  if (process.env.NODE_ENV !== "production") {
-    for (const part of parts) {
-      assertDoc(part);
-    }
-  }
+  assertDocArray(parts);
 
   return { type: DOC_TYPE_FILL, parts };
 }
@@ -149,13 +118,9 @@ function fill(parts) {
  * @returns Doc
  */
 function ifBreak(breakContents, flatContents = "", opts = {}) {
-  if (process.env.NODE_ENV !== "production") {
-    if (breakContents) {
-      assertDoc(breakContents);
-    }
-    if (flatContents) {
-      assertDoc(flatContents);
-    }
+  assertDoc(breakContents);
+  if (flatContents !== "") {
+    assertDoc(flatContents);
   }
 
   return {
@@ -173,6 +138,8 @@ function ifBreak(breakContents, flatContents = "", opts = {}) {
  * @returns Doc
  */
 function indentIfBreak(contents, opts) {
+  assertDoc(contents);
+
   return {
     type: DOC_TYPE_INDENT_IF_BREAK,
     contents,
@@ -186,9 +153,8 @@ function indentIfBreak(contents, opts) {
  * @returns Doc
  */
 function lineSuffix(contents) {
-  if (process.env.NODE_ENV !== "production") {
-    assertDoc(contents);
-  }
+  assertDoc(contents);
+
   return { type: DOC_TYPE_LINE_SUFFIX, contents };
 }
 
@@ -211,22 +177,25 @@ const literalline = [literallineWithoutBreakParent, breakParent];
 const cursor = { type: DOC_TYPE_CURSOR };
 
 /**
- * @param {Doc} sep
- * @param {Doc[]} arr
+ * @param {Doc} separator
+ * @param {Doc[]} docs
  * @returns Doc
  */
-function join(sep, arr) {
-  const res = [];
+function join(separator, docs) {
+  assertDoc(separator);
+  assertDocArray(docs);
 
-  for (let i = 0; i < arr.length; i++) {
+  const parts = [];
+
+  for (let i = 0; i < docs.length; i++) {
     if (i !== 0) {
-      res.push(sep);
+      parts.push(separator);
     }
 
-    res.push(arr[i]);
+    parts.push(docs[i]);
   }
 
-  return res;
+  return parts;
 }
 
 /**
@@ -235,6 +204,8 @@ function join(sep, arr) {
  * @param {number} tabWidth
  */
 function addAlignmentToDoc(doc, size, tabWidth) {
+  assertDoc(doc);
+
   let aligned = doc;
   if (size > 0) {
     // Use indent to add tabs for all the levels of tabs we need
@@ -256,6 +227,8 @@ function addAlignmentToDoc(doc, size, tabWidth) {
  * @param {Doc} contents
  */
 function label(label, contents) {
+  assertDoc(contents);
+
   return label ? { type: DOC_TYPE_LABEL, label, contents } : contents;
 }
 
