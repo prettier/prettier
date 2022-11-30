@@ -4,4 +4,4 @@ import WhitespaceUtils from "./whitespace-utils.js";
 const HTML_WHITESPACE_CHARACTERS = ["\t", "\n", "\f", "\r", " "];
 const htmlWhitespaceUtils = new WhitespaceUtils(HTML_WHITESPACE_CHARACTERS);
 
-export default htmlWhitespaceUtils
+export default htmlWhitespaceUtils;

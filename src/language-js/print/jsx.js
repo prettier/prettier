@@ -33,8 +33,14 @@ import {
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
 
-// Only space, newline, carriage return, and tab are treated as whitespace
-// inside JSX.
+/*
+Only the following are treated as whitespace inside JSX.
+
+- U+0020 SPACE
+- U+000A LF
+- U+000D CR
+- U+0009 TAB
+*/
 const jsxWhitespaceUtils = new WhitespaceUtils(" \n\r\t");
 
 const isEmptyStringOrAnyLine = (doc) =>

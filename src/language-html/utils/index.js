@@ -515,7 +515,7 @@ function getMinIndentation(text) {
 
     const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
     if (indentation === 0) {
-      return 0
+      return 0;
     }
 
     if (lineText.length === indentation) {

@@ -1,6 +1,20 @@
 import WhitespaceUtils from "../../src/utils/whitespace-utils.js";
 
-const utils = new WhitespaceUtils([" "]);
+it("constructor", () => {
+  expect(() => new WhitespaceUtils()).toThrow(TypeError)
+  expect(() => new WhitespaceUtils(1)).toThrow(TypeError)
+  expect(() => new WhitespaceUtils("")).toThrow(TypeError)
+  expect(() => new WhitespaceUtils([])).toThrow(TypeError)
+  expect(() => new WhitespaceUtils([""])).toThrow(TypeError)
+  expect(() => new WhitespaceUtils(["a"])).toThrow(TypeError)
+  expect(() => new WhitespaceUtils("a")).toThrow(TypeError)
+  expect(() => new WhitespaceUtils(["\r\n"])).toThrow(TypeError)
+
+  expect(new WhitespaceUtils("\r\n")).toBeInstanceOf(WhitespaceUtils)
+  expect(new WhitespaceUtils(["\r", "\n"])).toBeInstanceOf(WhitespaceUtils)
+})
+
+const utils = new WhitespaceUtils(" ");
 describe("trimStart", () => {
   for (const [string, expected] of [
     ["", ""],
@@ -92,7 +106,7 @@ describe("split", () => {
     "a" + " ".repeat(3),
     " a ",
     " ".repeat(3) + "a" + " ".repeat(3),
-    " a a   a "
+    " a a   a ",
   ]) {
     it(JSON.stringify(string), () => {
       expect(utils.split(string)).toEqual(string.split(/ +/));

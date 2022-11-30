@@ -333,11 +333,11 @@ function print(path, options, print) {
       }
 
       if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
-        text = leadingSpace + htmlWhitespaceUtils.trimStart(text)
+        text = leadingSpace + htmlWhitespaceUtils.trimStart(text);
       }
 
       if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
-        text =  htmlWhitespaceUtils.trimEnd(text) + trailingSpace
+        text = htmlWhitespaceUtils.trimEnd(text) + trailingSpace;
       }
 
       return [
