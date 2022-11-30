@@ -678,7 +678,7 @@ function printChildren(path, options, print, events = {}) {
     }
   }, "children");
 
-  return postprocessor ? postprocessor(parts) : parts;
+  return postprocessor(parts);
 }
 
 function printIgnoreComment(node) {
