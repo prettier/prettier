@@ -8,10 +8,11 @@ class WhitespaceUtils {
 
     if (
       process.env.NODE_ENV !== "production" &&
-      (!Array.prototype.every.call(characters, (character) =>
-        /^\s$/.test(character)
-      ) ||
-        this.#characters.size === 0)
+      (this.#characters.size === 0 ||
+        Array.prototype.some.call(
+          characters,
+          (character) => !/^\s$/.test(character)
+        ))
     ) {
       throw new TypeError(`Invalid characters: ${JSON.stringify(characters)}`);
     }
@@ -21,12 +22,12 @@ class WhitespaceUtils {
     const characters = this.#characters;
     let count = 0;
 
-    for (let index = 0; index < string.length; index++) {
-      if (characters.has(string.charAt(index))) {
-        count++;
-      } else {
-        break;
-      }
+    for (
+      let index = 0;
+      index < string.length && characters.has(string.charAt(index));
+      index++
+    ) {
+      count++;
     }
 
     return count;
@@ -36,12 +37,12 @@ class WhitespaceUtils {
     const characters = this.#characters;
     let count = 0;
 
-    for (let index = string.length - 1; index >= 0; index--) {
-      if (characters.has(string.charAt(index))) {
-        count++;
-      } else {
-        break;
-      }
+    for (
+      let index = string.length - 1;
+      index >= 0 && characters.has(string.charAt(index));
+      index--
+    ) {
+      count++;
     }
 
     return count;
@@ -49,12 +50,12 @@ class WhitespaceUtils {
 
   getLeadingWhitespace(string) {
     const count = this.getLeadingWhitespaceCount(string);
-    return count === 0 ? "" : string.slice(0, count);
+    return string.slice(0, count);
   }
 
   getTrailingWhitespace(string) {
     const count = this.getTrailingWhitespaceCount(string);
-    return count === 0 ? "" : string.slice(-count);
+    return string.slice(string.length - count);
   }
 
   hasLeadingWhitespace(string) {
@@ -67,12 +68,12 @@ class WhitespaceUtils {
 
   trimStart(string) {
     const count = this.getLeadingWhitespaceCount(string);
-    return count === 0 ? string : string.slice(count);
+    return string.slice(count);
   }
 
   trimEnd(string) {
     const count = this.getTrailingWhitespaceCount(string);
-    return count === 0 ? string : string.slice(0, -count);
+    return string.slice(0, string.length - count);
   }
 
   trim(string) {

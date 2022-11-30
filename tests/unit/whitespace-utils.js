@@ -1,18 +1,18 @@
 import WhitespaceUtils from "../../src/utils/whitespace-utils.js";
 
 it("constructor", () => {
-  expect(() => new WhitespaceUtils()).toThrow(TypeError)
-  expect(() => new WhitespaceUtils(1)).toThrow(TypeError)
-  expect(() => new WhitespaceUtils("")).toThrow(TypeError)
-  expect(() => new WhitespaceUtils([])).toThrow(TypeError)
-  expect(() => new WhitespaceUtils([""])).toThrow(TypeError)
-  expect(() => new WhitespaceUtils(["a"])).toThrow(TypeError)
-  expect(() => new WhitespaceUtils("a")).toThrow(TypeError)
-  expect(() => new WhitespaceUtils(["\r\n"])).toThrow(TypeError)
+  expect(() => new WhitespaceUtils()).toThrow(TypeError);
+  expect(() => new WhitespaceUtils(1)).toThrow(TypeError);
+  expect(() => new WhitespaceUtils("")).toThrow(TypeError);
+  expect(() => new WhitespaceUtils([])).toThrow(TypeError);
+  expect(() => new WhitespaceUtils([""])).toThrow(TypeError);
+  expect(() => new WhitespaceUtils(["a"])).toThrow(TypeError);
+  expect(() => new WhitespaceUtils("a")).toThrow(TypeError);
+  expect(() => new WhitespaceUtils(["\r\n"])).toThrow(TypeError);
 
-  expect(new WhitespaceUtils("\r\n")).toBeInstanceOf(WhitespaceUtils)
-  expect(new WhitespaceUtils(["\r", "\n"])).toBeInstanceOf(WhitespaceUtils)
-})
+  expect(new WhitespaceUtils("\r\n")).toBeInstanceOf(WhitespaceUtils);
+  expect(new WhitespaceUtils(["\r", "\n"])).toBeInstanceOf(WhitespaceUtils);
+});
 
 const utils = new WhitespaceUtils(" ");
 describe("trimStart", () => {
