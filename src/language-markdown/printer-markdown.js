@@ -281,7 +281,7 @@ function genericPrint(path, options, print) {
       );
 
       return printChildren(path, options, print, {
-        processor(childPath, index) {
+        processor(childPath) {
           const prefix = getPrefix();
           const childNode = childPath.node;
 
@@ -304,11 +304,11 @@ function genericPrint(path, options, print) {
 
           function getPrefix() {
             const rawPrefix = node.ordered
-              ? (index === 0
+              ? (childPath.isFirst
                   ? node.start
                   : isGitDiffFriendlyOrderedList
                   ? 1
-                  : node.start + index) +
+                  : node.start + childPath.index) +
                 (nthSiblingIndex % 2 === 0 ? ". " : ") ")
               : nthSiblingIndex % 2 === 0
               ? "- "
@@ -396,8 +396,8 @@ function genericPrint(path, options, print) {
               align(
                 " ".repeat(4),
                 printChildren(path, options, print, {
-                  processor: (childPath, index) =>
-                    index === 0 ? group([softline, print()]) : print(),
+                  processor: ({ isFirst }) =>
+                    isFirst ? group([softline, print()]) : print(),
                 })
               ),
               path.next?.type === "footnoteDefinition" ? softline : "",
@@ -450,8 +450,8 @@ function printListItem(path, options, print, listPrefix) {
   return [
     prefix,
     printChildren(path, options, print, {
-      processor(childPath, index) {
-        if (index === 0 && childPath.node.type !== "list") {
+      processor({ node, isFirst }) {
+        if (isFirst && node.type !== "list") {
           return align(" ".repeat(prefix.length), print());
         }
 
@@ -612,7 +612,7 @@ function printRoot(path, options, print) {
   }
 
   return printChildren(path, options, print, {
-    processor(childPath, index) {
+    processor({ index }) {
       if (ignoreRanges.length > 0) {
         const ignoreRange = ignoreRanges[0];
 
@@ -643,22 +643,18 @@ function printRoot(path, options, print) {
 }
 
 function printChildren(path, options, print, events = {}) {
-  const { postprocessor } = events;
-  const processor = events.processor || (() => print());
+  const { postprocessor = (parts) => parts, processor = () => print() } =
+    events;
 
   const { node } = path;
   const parts = [];
 
-  let lastChildNode;
-
-  path.each((childPath, index) => {
-    const childNode = childPath.node;
-
-    const result = processor(childPath, index);
+  path.each(({ node: childNode, previous }) => {
+    const result = processor(path);
     if (result !== false) {
       const data = {
         parts,
-        prevNode: lastChildNode,
+        prevNode: previous,
         parentNode: node,
         options,
       };
@@ -679,8 +675,6 @@ function printChildren(path, options, print, events = {}) {
       }
 
       parts.push(result);
-
-      lastChildNode = childNode;
     }
   }, "children");
 
