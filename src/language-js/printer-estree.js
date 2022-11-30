@@ -687,16 +687,15 @@ function printPathNoParens(path, options, print, args) {
               hardline,
               join(
                 hardline,
-                path.map((casePath, index, cases) => {
-                  const caseNode = casePath.node;
-                  return [
+                path.map(
+                  ({ node, isLast }) => [
                     print(),
-                    index !== cases.length - 1 &&
-                    isNextLineEmpty(caseNode, options)
+                    !isLast && isNextLineEmpty(node, options)
                       ? hardline
                       : "",
-                  ];
-                }, "cases")
+                  ],
+                  "cases"
+                )
               ),
             ])
           : "",

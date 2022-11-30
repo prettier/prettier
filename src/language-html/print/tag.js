@@ -236,14 +236,15 @@ function printAttributes(path, options, print) {
       ? (attribute) => ignoreAttributeData.includes(attribute.rawName)
       : () => false;
 
-  const printedAttributes = path.map((attributePath) => {
-    const attribute = attributePath.node;
-    return hasPrettierIgnoreAttribute(attribute)
-      ? replaceEndOfLine(
-          options.originalText.slice(locStart(attribute), locEnd(attribute))
-        )
-      : print();
-  }, "attrs");
+  const printedAttributes = path.map(
+    ({ node: attribute }) =>
+      hasPrettierIgnoreAttribute(attribute)
+        ? replaceEndOfLine(
+            options.originalText.slice(locStart(attribute), locEnd(attribute))
+          )
+        : print(),
+    "attrs"
+  );
 
   const forceNotToBreakAttrContent =
     node.type === "element" &&

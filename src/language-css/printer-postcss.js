@@ -903,9 +903,7 @@ function genericPrint(path, options, print) {
             softline,
             join(
               [line],
-              path.map((childPath, index) => {
-                const child = childPath.node;
-                const isLast = index === node.groups.length - 1;
+              path.map(({node: child, isLast}) => {
                 const hasComma = () =>
                   Boolean(
                     child.source &&
