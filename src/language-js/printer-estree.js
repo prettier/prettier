@@ -690,9 +690,7 @@ function printPathNoParens(path, options, print, args) {
                 path.map(
                   ({ node, isLast }) => [
                     print(),
-                    !isLast && isNextLineEmpty(node, options)
-                      ? hardline
-                      : "",
+                    !isLast && isNextLineEmpty(node, options) ? hardline : "",
                   ],
                   "cases"
                 )
