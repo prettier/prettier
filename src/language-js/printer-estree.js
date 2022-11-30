@@ -766,6 +766,7 @@ function printPathNoParens(path, options, print, args) {
     case "PropertyDefinition":
     case "ClassPrivateProperty":
     case "ClassAccessorProperty":
+    case "AccessorProperty":
       return printClassProperty(path, options, print);
     case "TemplateElement":
       return replaceTextEndOfLine(node.value.raw);

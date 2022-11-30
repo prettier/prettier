@@ -209,7 +209,11 @@ function printClassProperty(path, options, print) {
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractPropertyDefinition" || node.abstract) {
+  if (
+    node.type === "TSAbstractPropertyDefinition" ||
+    node.type === "TSAbstractAccessorProperty" ||
+    node.abstract
+  ) {
     parts.push("abstract ");
   }
   if (node.override) {
@@ -221,7 +225,11 @@ function printClassProperty(path, options, print) {
   if (node.variance) {
     parts.push(print("variance"));
   }
-  if (node.type === "ClassAccessorProperty") {
+  if (
+    node.type === "ClassAccessorProperty" ||
+    node.type === "AccessorProperty" ||
+    node.type === "TSAbstractAccessorProperty"
+  ) {
     parts.push("accessor ");
   }
   parts.push(
