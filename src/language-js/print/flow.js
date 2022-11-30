@@ -1,16 +1,13 @@
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
 import assert from "node:assert";
-import { printDanglingComments } from "../../main/comments.js";
 import { printString, printNumber } from "../../common/util.js";
-import { hardline, softline, group, indent } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import {
   getParentExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
-  shouldPrintComma,
 } from "../utils/index.js";
 import { printClass } from "./class.js";
 import {
@@ -24,9 +21,10 @@ import {
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
-import { printTupleType, printArrayItems } from "./array.js";
+import { printTupleType } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
+import printEnumMembers from "./enum-members.js";
 import {
   printOptionalToken,
   printTypeAnnotation,
@@ -143,33 +141,7 @@ function printFlow(path, options, print) {
         }
         parts.push("of ", type, " ");
       }
-      if (node.members.length === 0 && !node.hasUnknownMembers) {
-        parts.push(
-          group(["{", printDanglingComments(path, options), softline, "}"])
-        );
-      } else {
-        const members =
-          node.members.length > 0
-            ? [
-                hardline,
-                printArrayItems(path, options, "members", print),
-                node.hasUnknownMembers || shouldPrintComma(options) ? "," : "",
-              ]
-            : [];
-
-        parts.push(
-          group([
-            "{",
-            indent([
-              ...members,
-              ...(node.hasUnknownMembers ? [hardline, "..."] : []),
-            ]),
-            printDanglingComments(path, options, /* sameIndent */ true),
-            hardline,
-            "}",
-          ])
-        );
-      }
+      parts.push(printEnumMembers(path, print, options));
       return parts;
 
     case "EnumBooleanMember":

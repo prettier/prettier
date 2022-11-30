@@ -3,7 +3,6 @@ import { hasNewlineInRange } from "../../common/util.js";
 import {
   join,
   line,
-  hardline,
   softline,
   group,
   indent,
@@ -28,7 +27,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printTemplateLiteral } from "./template-literal.js";
-import { printTupleType, printArrayItems } from "./array.js";
+import { printTupleType } from "./array.js";
 import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -44,6 +43,7 @@ import {
   printIndexedAccessType,
   printJSDocType,
 } from "./type-annotation.js";
+import printEnumMembers from "./enum-members.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -360,40 +360,15 @@ function printTypescript(path, options, print) {
 
       return group(parts);
     case "TSEnumDeclaration":
-      if (node.declare) {
-        parts.push("declare ");
-      }
-
-      if (node.modifiers) {
-        parts.push(printTypeScriptModifiers(path, options, print));
-      }
-      if (node.const) {
-        parts.push("const ");
-      }
-
-      parts.push("enum ", print("id"), " ");
-
-      if (node.members.length === 0) {
-        parts.push(
-          group(["{", printDanglingComments(path, options), softline, "}"])
-        );
-      } else {
-        parts.push(
-          group([
-            "{",
-            indent([
-              hardline,
-              printArrayItems(path, options, "members", print),
-              shouldPrintComma(options, "es5") ? "," : "",
-            ]),
-            printDanglingComments(path, options, /* sameIndent */ true),
-            hardline,
-            "}",
-          ])
-        );
-      }
-
-      return parts;
+      return [
+        node.declare ? "declare " : "",
+        printTypeScriptModifiers(path, options, print),
+        node.const ? "const " : "",
+        "enum ",
+        print("id"),
+        " ",
+        printEnumMembers(path, print, options),
+      ];
     case "TSEnumMember":
       if (node.computed) {
         parts.push("[", print("id"), "]");
