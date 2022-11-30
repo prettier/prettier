@@ -15,9 +15,6 @@ import {
 import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
-// https://infra.spec.whatwg.org/#ascii-whitespace
-const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
-
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
@@ -516,11 +513,10 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (!HTML_WHITESPACE.has(lineText[0])) {
-      return 0;
-    }
-
     const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
+    if (indentation === 0) {
+      return 0
+    }
 
     if (lineText.length === indentation) {
       continue;

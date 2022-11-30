@@ -77,6 +77,10 @@ class WhitespaceUtils {
 
     return false;
   }
+
+  isWhitespaceOnly(string) {
+    return this.getLeadingWhitespaceCount(string) === string.length
+  }
 }
 
 export default WhitespaceUtils;

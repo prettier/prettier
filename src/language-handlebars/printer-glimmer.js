@@ -13,6 +13,7 @@ import { replaceEndOfLine } from "../document/utils.js";
 import getPreferredQuote from "../utils/get-preferred-quote.js";
 import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
+import htmlWhitespaceUtils from "../utils/html-whitespace-utils.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
@@ -199,8 +200,7 @@ function print(path, options, print) {
         return replaceEndOfLine(text);
       }
 
-      const whitespacesOnlyRE = /^[\t\n\f\r ]*$/;
-      const isWhitespaceOnly = whitespacesOnlyRE.test(text);
+      const isWhitespaceOnly = htmlWhitespaceUtils.isWhitespaceOnly(text);
       const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
@@ -234,27 +234,27 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const [lead] = text.match(leadingWhitespacesRE);
-        const [tail] = text.match(trailingWhitespacesRE);
+        const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text)
 
         let leadBreaks = [];
-        if (lead) {
+        if (leadingWhitespace) {
           leadBreaks = [line];
 
-          const leadingNewlines = countNewLines(lead);
+          const leadingNewlines = countNewLines(leadingWhitespace);
           if (leadingNewlines) {
             leadBreaks = generateHardlines(leadingNewlines);
           }
 
-          text = text.replace(leadingWhitespacesRE, "");
+          text = text.slice(leadingWhitespace.length);
         }
 
+        const tailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text)
         let trailBreaks = [];
-        if (tail) {
+        if (tailingWhitespace) {
           if (!shouldTrimTrailingNewlines) {
             trailBreaks = [line];
 
-            const trailingNewlines = countNewLines(tail);
+            const trailingNewlines = countNewLines(tailingWhitespace);
             if (trailingNewlines) {
               trailBreaks = generateHardlines(trailingNewlines);
             }
@@ -264,7 +264,7 @@ function print(path, options, print) {
             }
           }
 
-          text = text.replace(trailingWhitespacesRE, "");
+          text = text.slice(0, -tailingWhitespace.length);
         }
 
         return [...leadBreaks, fill(getTextValueParts(text)), ...trailBreaks];
