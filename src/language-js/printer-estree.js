@@ -98,6 +98,8 @@ function genericPrint(path, options, print, args) {
     type === "ClassPrivateMethod" ||
     type === "ClassProperty" ||
     type === "ClassAccessorProperty" ||
+    type === "AccessorProperty" ||
+    type === "TSAbstractAccessorProperty" ||
     type === "PropertyDefinition" ||
     type === "TSAbstractPropertyDefinition" ||
     type === "ClassPrivateProperty" ||
