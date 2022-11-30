@@ -204,10 +204,6 @@ function print(path, options, print) {
       const { isFirst, isLast } = path;
 
       if (options.htmlWhitespaceSensitivity !== "ignore") {
-        // https://infra.spec.whatwg.org/#ascii-whitespace
-        const leadingWhitespacesRE = /^[\t\n\f\r ]*/;
-        const trailingWhitespacesRE = /[\t\n\f\r ]*$/;
-
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
         const shouldTrimTrailingNewlines =
@@ -234,7 +230,8 @@ function print(path, options, print) {
           return breaks;
         }
 
-        const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text)
+        const leadingWhitespace =
+          htmlWhitespaceUtils.getLeadingWhitespace(text);
 
         let leadBreaks = [];
         if (leadingWhitespace) {
@@ -248,7 +245,8 @@ function print(path, options, print) {
           text = text.slice(leadingWhitespace.length);
         }
 
-        const tailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text)
+        const tailingWhitespace =
+          htmlWhitespaceUtils.getTrailingWhitespace(text);
         let trailBreaks = [];
         if (tailingWhitespace) {
           if (!shouldTrimTrailingNewlines) {
@@ -334,9 +332,13 @@ function print(path, options, print) {
         trailingSpace = "";
       }
 
-      text = text
-        .replaceAll(/^[\t\n\f\r ]+/g, leadingSpace)
-        .replace(/[\t\n\f\r ]+$/, trailingSpace);
+      if (htmlWhitespaceUtils.hasLeadingWhitespace(text)) {
+        text = leadingSpace + htmlWhitespaceUtils.trimStart(text)
+      }
+
+      if (htmlWhitespaceUtils.hasTrailingWhitespace(text)) {
+        text =  htmlWhitespaceUtils.trimEnd(text) + trailingSpace
+      }
 
       return [
         ...generateHardlines(leadingLineBreaksCount),
@@ -643,11 +645,7 @@ function printInverse(path, print, options) {
 /* TextNode print helpers */
 
 function getTextValueParts(value) {
-  return join(line, splitByHtmlWhitespace(value));
-}
-
-function splitByHtmlWhitespace(string) {
-  return string.split(/[\t\n\f\r ]+/);
+  return join(line, htmlWhitespaceUtils.split(value));
 }
 
 function getCurrentAttributeName(path) {

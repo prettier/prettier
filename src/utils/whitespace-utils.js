@@ -47,6 +47,16 @@ class WhitespaceUtils {
     return count === 0 ? "" : string.slice(-count);
   }
 
+  hasLeadingWhitespace(string) {
+    const characters = this.#characters;
+    return characters.has(string.charAt(0))
+  }
+
+  hasTrailingWhitespace(string) {
+    const characters = this.#characters;
+    return characters.has(string.at(- 1))
+  }
+
   trimStart(string) {
     const count = this.getLeadingWhitespaceCount(string)
     return count === 0 ? string : string.slice(count);
