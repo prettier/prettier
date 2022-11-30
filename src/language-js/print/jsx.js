@@ -17,6 +17,7 @@ import {
 import { willBreak, replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import getPreferredQuote from "../../utils/get-preferred-quote.js";
+import WhitespaceUtils from "../../utils/whitespace-utils.js";
 import {
   isJsxElement,
   rawText,
@@ -31,6 +32,10 @@ import {
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
+
+// Only space, newline, carriage return, and tab are treated as whitespace
+// inside JSX.
+const jsxWhitespaceUtils = new WhitespaceUtils(" \n\r\t");
 
 const isEmptyStringOrAnyLine = (doc) =>
   doc === "" || doc === line || doc === hardline || doc === softline;
@@ -276,7 +281,10 @@ function printJsxChildren(
 
       // Contains a non-whitespace character
       if (isMeaningfulJsxText(node)) {
-        const words = text.split(matchJsxWhitespaceRegex);
+        const words = jsxWhitespaceUtils.split(
+          text,
+          /* captureWhitespace */ true
+        );
 
         // Starts with whitespace
         if (words[0] === "") {
@@ -356,9 +364,8 @@ function printJsxChildren(
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
-        const firstWord = trimJsxWhitespace(rawText(next)).split(
-          matchJsxWhitespaceRegex
-        )[0];
+        const trimmed = jsxWhitespaceUtils.trim(rawText(next));
+        const [firstWord] = jsxWhitespaceUtils.split(trimmed);
         parts.push(
           separatorNoWhitespace(isFacebookTranslationTag, firstWord, node, next)
         );
@@ -751,25 +758,6 @@ function printJsx(path, options, print) {
   }
 }
 
-// Only space, newline, carriage return, and tab are treated as whitespace
-// inside JSX.
-const jsxWhitespaceChars = " \n\r\t";
-const matchJsxWhitespaceRegex = new RegExp("([" + jsxWhitespaceChars + "]+)");
-const containsNonJsxWhitespaceRegex = new RegExp(
-  "[^" + jsxWhitespaceChars + "]"
-);
-const trimJsxWhitespace = (text) =>
-  text.replace(
-    new RegExp(
-      "^" +
-        matchJsxWhitespaceRegex.source +
-        "|" +
-        matchJsxWhitespaceRegex.source +
-        "$"
-    ),
-    ""
-  );
-
 /**
  * @param {JSXElement} node
  * @returns {boolean}
@@ -797,7 +785,7 @@ function isEmptyJsxElement(node) {
 function isMeaningfulJsxText(node) {
   return (
     node.type === "JSXText" &&
-    (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
+    (jsxWhitespaceUtils.hasNonWhitespaceCharacter(rawText(node)) ||
       !/\n/.test(rawText(node)))
   );
 }

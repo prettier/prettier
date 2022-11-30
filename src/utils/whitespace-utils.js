@@ -71,8 +71,9 @@ class WhitespaceUtils {
     return this.trimEnd(this.trimStart(string))
   }
 
-  split(string) {
-    const regexp = new RegExp(`[${escapeStringRegexp([...this.#characters].join(""))}]+`)
+  split(string, captureWhitespace = false) {
+    const pattern = `[${escapeStringRegexp([...this.#characters].join(""))}]+`
+    const regexp = new RegExp(captureWhitespace ? `(${pattern})` : pattern)
     return string.split(regexp)
   }
 
@@ -81,6 +82,18 @@ class WhitespaceUtils {
 
     for (let index = 0; index < string.length; index ++) {
       if (characters.has(string.charAt(index))) {
+        return true
+      }
+    }
+
+    return false;
+  }
+
+  hasNonWhitespaceCharacter(string) {
+    const characters = this.#characters;
+
+    for (let index = 0; index < string.length; index ++) {
+      if (!characters.has(string.charAt(index))) {
         return true
       }
     }
