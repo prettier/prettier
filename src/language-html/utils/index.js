@@ -12,30 +12,33 @@ import {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } from "../constants.evaluate.js";
+import htmlWhitespaceUtils from "../../utils/html-whitespace-utils.js";
 import isUnknownNamespace from "./is-unknown-namespace.js";
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
 const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
-const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
-const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
-const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
+
 const htmlTrimLeadingBlankLines = (string) =>
   string.replaceAll(/^[\t\f\r ]*\n/g, "");
 const htmlTrimPreserveIndentation = (string) =>
-  htmlTrimLeadingBlankLines(htmlTrimEnd(string));
-const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
-const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+  htmlTrimLeadingBlankLines(htmlWhitespaceUtils.trimEnd(string));
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
-  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
-    /^([\t\n\f\r ]*)(.*?)([\t\n\f\r ]*)$/s
-  );
+  let text = string;
+  const leadingWhitespace = htmlWhitespaceUtils.getLeadingWhitespace(text);
+  if (leadingWhitespace) {
+    text = text.slice(leadingWhitespace.length);
+  }
+  const trailingWhitespace = htmlWhitespaceUtils.getTrailingWhitespace(text);
+  if (trailingWhitespace) {
+    text = text.slice(0, -trailingWhitespace.length);
+  }
+
   return {
     leadingWhitespace,
     trailingWhitespace,
     text,
   };
 };
-const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
 function shouldPreserveContent(node, options) {
   // unterminated node in ie conditional comment
@@ -517,7 +520,7 @@ function getMinIndentation(text) {
       return 0;
     }
 
-    const indentation = getLeadingHtmlWhitespace(lineText).length;
+    const indentation = htmlWhitespaceUtils.getLeadingWhitespaceCount(lineText);
 
     if (lineText.length === indentation) {
       continue;
@@ -612,7 +615,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : join(line, splitByHtmlWhitespace(value));
+    : join(line, htmlWhitespaceUtils.split(value));
 }
 
 function isVueScriptTag(node, options) {
@@ -620,9 +623,7 @@ function isVueScriptTag(node, options) {
 }
 
 export {
-  htmlTrim,
   htmlTrimPreserveIndentation,
-  hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   countChars,
@@ -655,4 +656,5 @@ export {
   shouldPreserveContent,
   unescapeQuoteEntities,
   getTextValueParts,
+  htmlWhitespaceUtils,
 };
