@@ -646,30 +646,22 @@ function printChildren(path, options, print, events = {}) {
   const { postprocessor = (parts) => parts, processor = () => print() } =
     events;
 
-  const { node } = path;
   const parts = [];
 
-  path.each(({ node: childNode, previous }) => {
+  path.each(() => {
     const result = processor(path);
     if (result !== false) {
-      const data = {
-        parts,
-        prevNode: previous,
-        parentNode: node,
-        options,
-      };
-
-      if (shouldPrePrintHardline(childNode, data)) {
+      if (parts.length > 0 && shouldPrePrintHardline(path)) {
         parts.push(hardline);
 
         if (
-          shouldPrePrintDoubleHardline(childNode, data) ||
-          shouldPrePrintTripleHardline(childNode, data)
+          shouldPrePrintDoubleHardline(path) ||
+          shouldPrePrintTripleHardline(path)
         ) {
           parts.push(hardline);
         }
 
-        if (shouldPrePrintTripleHardline(childNode, data)) {
+        if (shouldPrePrintTripleHardline(path)) {
           parts.push(hardline);
         }
       }
@@ -723,38 +715,36 @@ function isPrettierIgnore(node) {
   return match ? match[1] || "next" : false;
 }
 
-function shouldPrePrintHardline(node, data) {
-  const isFirstNode = data.parts.length === 0;
+function shouldPrePrintHardline({ node, parent }) {
   const isInlineNode = INLINE_NODE_TYPES.has(node.type);
 
   const isInlineHTML =
-    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(data.parentNode.type);
+    node.type === "html" && INLINE_NODE_WRAPPER_TYPES.has(parent.type);
 
-  return !isFirstNode && !isInlineNode && !isInlineHTML;
+  return !isInlineNode && !isInlineHTML;
 }
 
-function shouldPrePrintDoubleHardline(node, data) {
-  const isSequence = data.prevNode?.type === node.type;
+function shouldPrePrintDoubleHardline({ node, previous, parent }) {
+  const isSequence = previous.type === node.type;
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
-  const isInTightListItem =
-    data.parentNode.type === "listItem" && !data.parentNode.loose;
+  const isInTightListItem = parent.type === "listItem" && !parent.loose;
 
   const isPrevNodeLooseListItem =
-    data.prevNode?.type === "listItem" && data.prevNode.loose;
+    previous.type === "listItem" && previous.loose;
 
-  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
+  const isPrevNodePrettierIgnore = isPrettierIgnore(previous) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
     node.type === "html" &&
-    data.prevNode?.type === "html" &&
-    data.prevNode.position.end.line + 1 === node.position.start.line;
+    previous.type === "html" &&
+    previous.position.end.line + 1 === node.position.start.line;
 
   const isHtmlDirectAfterListItem =
     node.type === "html" &&
-    data.parentNode.type === "listItem" &&
-    data.prevNode?.type === "paragraph" &&
-    data.prevNode.position.end.line + 1 === node.position.start.line;
+    parent.type === "listItem" &&
+    previous.type === "paragraph" &&
+    previous.position.end.line + 1 === node.position.start.line;
 
   return (
     isPrevNodeLooseListItem ||
@@ -768,8 +758,8 @@ function shouldPrePrintDoubleHardline(node, data) {
   );
 }
 
-function shouldPrePrintTripleHardline(node, data) {
-  const isPrevNodeList = data.prevNode?.type === "list";
+function shouldPrePrintTripleHardline({ node, previous }) {
+  const isPrevNodeList = previous.type === "list";
   const isIndentedCode = node.type === "code" && node.isIndented;
 
   return isPrevNodeList && isIndentedCode;
