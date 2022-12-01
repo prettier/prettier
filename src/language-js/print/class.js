@@ -224,7 +224,6 @@ function printClassProperty(path, options, print) {
   if (node.type === "ClassAccessorProperty") {
     parts.push("accessor ");
   }
-
   parts.push(
     printPropertyKey(path, options, print),
     printOptionalToken(path),
