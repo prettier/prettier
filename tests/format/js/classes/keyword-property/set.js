@@ -1,4 +1,4 @@
 class A {
   set;
-  foo() {}
+  foo(v) {}
 }
