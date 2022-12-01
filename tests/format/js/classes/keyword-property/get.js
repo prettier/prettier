@@ -1,4 +1,4 @@
 class A {
   get;
-  foo;
+  foo() {}
 }
