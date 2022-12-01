@@ -54,13 +54,19 @@ run_spec(
         }
       `,
 
-      ...["abstract", "static", "private", "protected", "public"].map(
-        (modifier) =>
+      ...["abstract", "static", "private", "protected", "public"].flatMap(
+        (modifier) => [
           outdent`
             module Foo {
               ${modifier} module Bar {}
             }
-          `
+          `,
+          outdent`
+            module Foo {
+              ${modifier} enum Bar {}
+            }
+          `,
+        ]
       ),
 
       // Only `declare` and `export` allowed in interface

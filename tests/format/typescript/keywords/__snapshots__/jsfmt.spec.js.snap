@@ -1,60 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keywords.ts [babel-ts] format 1`] = `
-"Missing semicolon. (4:11)
-  2 |
-  3 | module Y4 {
-> 4 |     public enum Color { Blue, Red }
-    |           ^
-  5 | }
-  6 |
-  7 | module YY3 {"
-`;
-
 exports[`keywords.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// All of these should be an error
-
 module Y4 {
-    public enum Color { Blue, Red }
+    enum Color { Blue, Red }
 }
 
 module YY3 {
-    private module Module {
+    module Module {
         class A { s: string }
     }
 }
 
 module YY4 {
-    private enum Color { Blue, Red }
+    enum Color { Blue, Red }
 }
 
 module YYY3 {
-    static module Module {
+    module Module {
         class A { s: string }
     }
 }
 
 module YYY4 {
-    static enum Color { Blue, Red }
+    enum Color { Blue, Red }
 }
 
 =====================================output=====================================
-// All of these should be an error
-
 module Y4 {
-  public enum Color {
+  enum Color {
     Blue,
     Red,
   }
 }
 
 module YY3 {
-  private module Module {
+  module Module {
     class A {
       s: string;
     }
@@ -62,14 +47,14 @@ module YY3 {
 }
 
 module YY4 {
-  private enum Color {
+  enum Color {
     Blue,
     Red,
   }
 }
 
 module YYY3 {
-  static module Module {
+  module Module {
     class A {
       s: string;
     }
@@ -77,7 +62,7 @@ module YYY3 {
 }
 
 module YYY4 {
-  static enum Color {
+  enum Color {
     Blue,
     Red,
   }
