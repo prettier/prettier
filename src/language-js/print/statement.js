@@ -167,8 +167,6 @@ const isClassProperty = ({ type }) =>
  */
 function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
   const name = node.key?.name;
-  // this isn't actually possible yet with most parsers available today
-  // so isn't properly tested yet.
   if (
     (name === "static" || name === "get" || name === "set") &&
     !node.value &&
