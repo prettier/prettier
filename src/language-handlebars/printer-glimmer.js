@@ -563,6 +563,13 @@ function printElseBlock(node, options) {
 }
 
 function printElseIfLikeBlock(path, print, ifLikeKeyword) {
+  const node = path.getValue();
+  let blockParams = [];
+
+  if (isNonEmptyArray(node.program.blockParams)) {
+    blockParams = [" ", ...printBlockParams(node.program)];
+  }
+
   const parentNode = path.getParentNode(1);
 
   return [
@@ -571,6 +578,7 @@ function printElseIfLikeBlock(path, print, ifLikeKeyword) {
     ifLikeKeyword,
     " ",
     printParams(path, print),
+    ...blockParams,
     printInverseBlockClosingMustache(parentNode),
   ];
 }
