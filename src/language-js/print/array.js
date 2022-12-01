@@ -169,37 +169,34 @@ function isConciselyPrintedArray(node, options) {
 }
 
 function printArrayItems(path, options, elementsProperty, print) {
-  const printedElements = [];
-  let separatorParts = [];
+  const parts = [];
 
-  path.each(({ node }) => {
-    printedElements.push(separatorParts, node ? group(print()) : "");
+  path.each(({ node, isLast }) => {
+    parts.push(node ? group(print()) : "");
 
-    separatorParts = [",", line];
-    if (node && isNextLineEmpty(node, options)) {
-      separatorParts.push(softline);
+    if (!isLast) {
+      parts.push([
+        ",",
+        line,
+        node && isNextLineEmpty(node, options) ? softline : "",
+      ]);
     }
   }, elementsProperty);
 
-  return printedElements;
+  return parts;
 }
 
 function printArrayItemsConcisely(path, options, print, trailingComma) {
   const parts = [];
 
-  path.each((childPath, i, elements) => {
-    const isLast = i === elements.length - 1;
-
+  path.each(({ node, isLast, next }) => {
     parts.push([print(), isLast ? trailingComma : ","]);
 
     if (!isLast) {
       parts.push(
-        isNextLineEmpty(childPath.node, options)
+        isNextLineEmpty(node, options)
           ? [hardline, hardline]
-          : hasComment(
-              elements[i + 1],
-              CommentCheckFlags.Leading | CommentCheckFlags.Line
-            )
+          : hasComment(next, CommentCheckFlags.Leading | CommentCheckFlags.Line)
           ? hardline
           : line
       );
