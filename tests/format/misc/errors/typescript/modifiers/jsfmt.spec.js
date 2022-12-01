@@ -72,15 +72,12 @@ run_spec(
       // Only `declare` and `export` allowed in interface
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) => modifier !== "declare" && modifier !== "export"
-      )
-        // TODO[@fisker]: Fix these two cases
-        .filter((modifier) => modifier !== "accessor" && modifier !== "async")
-        .map(
-          (modifier) =>
-            outdent`
-              ${modifier} interface Foo {}
-            `
-        ),
+      ).map(
+        (modifier) =>
+          outdent`
+            ${modifier} interface Foo {}
+          `
+      ),
 
       // Only `in` and `out` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(

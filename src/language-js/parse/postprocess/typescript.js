@@ -167,6 +167,29 @@ function throwErrorForInvalidModifier(node) {
         )}' modifier cannot appear on a module or namespace element.`
       );
     }
+
+    if (
+      modifier.kind === SyntaxKind.AccessorKeyword &&
+      node.kind !== SyntaxKind.PropertyDeclaration
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a module or namespace element.`
+      );
+    }
+
+    // `checkGrammarAsyncModifier` function in `typescript`
+    if (
+      modifier.kind === SyntaxKind.AsyncKeyword &&
+      node.kind !== SyntaxKind.MethodDeclaration &&
+      node.kind !== SyntaxKind.FunctionDeclaration &&
+      node.kind !== SyntaxKind.FunctionExpression &&
+      node.kind !== SyntaxKind.ArrowFunction
+    ) {
+      throwErrorOnTsNode(modifier, "'async' modifier cannot be used here.");
+    }
   }
 }
 
