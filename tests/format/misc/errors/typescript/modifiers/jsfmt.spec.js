@@ -8,14 +8,14 @@ const POSSIBLE_MODIFIERS = [
   "declare",
   "default",
   "export",
-  "static",
   "in",
   "out",
   "override",
-  "public",
   "private",
   "protected",
+  "public",
   "readonly",
+  "static",
 ];
 
 run_spec(

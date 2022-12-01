@@ -208,29 +208,31 @@ function getTsNode(node, tsParseResult) {
   return tsNode;
 }
 
+// `isModifierKind` in `typescript`
+const POSSIBLE_MODIFIERS = [
+  "abstract",
+  "accessor",
+  "async",
+  "const",
+  "declare",
+  "default",
+  "export",
+  "in",
+  "out",
+  "override",
+  "private",
+  "protected",
+  "public",
+  "readonly",
+  "static",
+];
+
 async function throwErrorForInvalidNodes(tsParseResult, options) {
   if (
-    // decorators and modifiers
-    !new RegExp(
-      [
-        "@",
-        "abstract",
-        "accessor",
-        "async",
-        "const",
-        "declare",
-        "default",
-        "export",
-        "static",
-        "in",
-        "out",
-        "override",
-        "public",
-        "private",
-        "protected",
-        "readonly",
-      ].join("|")
-    ).test(options.originalText)
+    // decorators or modifiers
+    !new RegExp(["@", ...POSSIBLE_MODIFIERS].join("|")).test(
+      options.originalText
+    )
   ) {
     return;
   }
