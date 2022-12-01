@@ -150,6 +150,10 @@ exports[`visitor keys estree 1`] = `
     "implements",
     "body",
   ],
+  "DeclareEnum": [
+    "id",
+    "body",
+  ],
   "DeclareExportAllDeclaration": [
     "source",
   ],

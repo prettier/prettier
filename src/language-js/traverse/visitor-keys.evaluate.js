@@ -42,6 +42,7 @@ const additionalVisitorKeys = {
   QualifiedTypeofIdentifier: ["id", "qualification"],
   ClassProperty: ["variance"],
   ClassPrivateProperty: ["variance"],
+  DeclareEnum: flowVisitorKeys.EnumDeclaration,
 
   // Unknown
   Property: ["decorators"],

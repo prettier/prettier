@@ -117,8 +117,11 @@ function printFlow(path, options, print) {
       return [print("elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
-    case "EnumDeclaration":
-      return ["enum ", print("id"), " ", print("body")];
+    case "DeclareEnum":
+    case "EnumDeclaration": {
+      const doc = ["enum ", print("id"), " ", print("body")];
+      return node.type === "DeclareEnum" ? printFlowDeclaration(path, doc) : doc
+    }
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumStringBody":
