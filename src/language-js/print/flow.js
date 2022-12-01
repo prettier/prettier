@@ -63,12 +63,8 @@ function printFlow(path, options, print) {
       ]);
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", print("id"), semi]);
-    case "DeclareOpaqueType":
-      return printFlowDeclaration(path, printOpaqueType(path, options, print));
     case "DeclareInterface":
       return printFlowDeclaration(path, printInterface(path, options, print));
-    case "DeclareTypeAlias":
-      return printFlowDeclaration(path, printTypeAlias(path, options, print));
     case "DeclareExportDeclaration":
       return printFlowDeclaration(
         path,
@@ -79,10 +75,20 @@ function printFlow(path, options, print) {
         path,
         printExportAllDeclaration(path, options, print)
       );
-    case "OpaqueType":
-      return printOpaqueType(path, options, print);
-    case "TypeAlias":
-      return printTypeAlias(path, options, print);
+    case "DeclareOpaqueType":
+    case "OpaqueType": {
+      const doc = printOpaqueType(path, options, print);
+      return node.type === "DeclareOpaqueType"
+        ? printFlowDeclaration(path, doc)
+        : doc;
+    }
+    case "DeclareTypeAlias":
+    case "TypeAlias": {
+      const doc = printTypeAlias(path, options, print);
+      return node.type === "DeclareTypeAlias"
+        ? printFlowDeclaration(path, doc)
+        : doc;
+    }
     case "IntersectionTypeAnnotation":
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
@@ -120,7 +126,9 @@ function printFlow(path, options, print) {
     case "DeclareEnum":
     case "EnumDeclaration": {
       const doc = ["enum ", print("id"), " ", print("body")];
-      return node.type === "DeclareEnum" ? printFlowDeclaration(path, doc) : doc
+      return node.type === "DeclareEnum"
+        ? printFlowDeclaration(path, doc)
+        : doc;
     }
     case "EnumBooleanBody":
     case "EnumNumberBody":
