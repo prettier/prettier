@@ -1,0 +1,4 @@
+class A {
+  set;
+  foo;
+}
