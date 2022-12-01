@@ -1,5 +1,6 @@
 const errors = {
   flow: ["static.js"],
+  // TODO: Remove this when fixing https://github.com/prettier/prettier/pull/13927
   meriyah: ["static.js"],
 };
 
