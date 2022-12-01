@@ -903,7 +903,7 @@ function genericPrint(path, options, print) {
             softline,
             join(
               [line],
-              path.map(({ node: child, isLast }) => {
+              path.map(({ node: child, isLast, index }) => {
                 const hasComma = () =>
                   Boolean(
                     child.source &&
@@ -914,7 +914,10 @@ function genericPrint(path, options, print) {
                   );
                 const shouldPrintComma =
                   !isLast || (isVarFunction && hasComma());
-                const printed = [print(), shouldPrintComma ? "," : ""];
+                const printed = [
+                  printedGroups[index],
+                  shouldPrintComma ? "," : "",
+                ];
 
                 // Key/Value pair in open paren already indented
                 if (
