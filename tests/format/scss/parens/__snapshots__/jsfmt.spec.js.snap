@@ -28,6 +28,7 @@ $icons: (
     left: 253,
     top: 73,
   ),
+
   /* Should preserve empty lines */ cal-week-group:
     (
       left: 1,
