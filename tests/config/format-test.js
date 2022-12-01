@@ -83,10 +83,7 @@ const meriyahDisabledTests = new Set([
     __dirname,
     "../format/js/classes/keyword-property/static-static.js"
   ),
-  path.join(
-    __dirname,
-    "../format/js/classes/keyword-property/static.js"
-  ),
+  path.join(__dirname, "../format/js/classes/keyword-property/static.js"),
 ]);
 
 const isUnstable = (filename, options) => {
