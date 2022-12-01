@@ -25,6 +25,7 @@ import { printTupleType } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import printEnumMembers from "./enum-members.js";
+import { printBigInt } from "./literal.js";
 import {
   printOptionalToken,
   printTypeAnnotation,
@@ -252,13 +253,9 @@ function printFlow(path, options, print) {
     case "StringLiteralTypeAnnotation":
       return replaceEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
-      assert.strictEqual(typeof node.value, "number");
-    // fall through
+      return printNumber(node.raw ?? node.extra.raw);
     case "BigIntLiteralTypeAnnotation":
-      if (node.extra) {
-        return printNumber(node.extra.raw);
-      }
-      return printNumber(node.raw);
+      return printBigInt(node.raw ?? node.extra.raw);
     case "TypeCastExpression":
       return [
         "(",
