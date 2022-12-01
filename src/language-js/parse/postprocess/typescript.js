@@ -134,6 +134,39 @@ function throwErrorForInvalidModifier(node) {
         )}' modifier cannot appear on class elements of this kind.`
       );
     }
+
+    if (
+      modifier.kind === SyntaxKind.AbstractKeyword &&
+      node.kind !== SyntaxKind.ClassDeclaration &&
+      node.kind !== SyntaxKind.ConstructorType &&
+      node.kind !== SyntaxKind.MethodDeclaration &&
+      node.kind !== SyntaxKind.PropertyDeclaration &&
+      node.kind !== SyntaxKind.GetAccessor &&
+      node.kind !== SyntaxKind.SetAccessor
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier can only appear on a class, method, or property declaration.`
+      );
+    }
+
+    if (
+      (modifier.kind === SyntaxKind.StaticKeyword ||
+        modifier.kind === SyntaxKind.PublicKeyword ||
+        modifier.kind === SyntaxKind.ProtectedKeyword ||
+        modifier.kind === SyntaxKind.PrivateKeyword) &&
+      (node.parent.kind === SyntaxKind.ModuleBlock ||
+        node.parent.kind === SyntaxKind.SourceFile)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a module or namespace element.`
+      );
+    }
   }
 }
 

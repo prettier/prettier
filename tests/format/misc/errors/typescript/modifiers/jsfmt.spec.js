@@ -54,15 +54,14 @@ run_spec(
         }
       `,
 
-      // TODO[@fisker]: Fix these tests
-      // ...["abstract", "static", "private", "protected", "public"].map(
-      //   (modifier) =>
-      //     outdent`
-      //       module Foo {
-      //         ${modifier} module Bar {}
-      //       }
-      //     `
-      // ),
+      ...["abstract", "static", "private", "protected", "public"].map(
+        (modifier) =>
+          outdent`
+            module Foo {
+              ${modifier} module Bar {}
+            }
+          `
+      ),
 
       // Only `in` and `out` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
