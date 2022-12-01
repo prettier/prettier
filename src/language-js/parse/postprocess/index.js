@@ -153,6 +153,26 @@ function postprocess(ast, options) {
         }
         break;
       }
+      // TODO: Remove this when https://github.com/meriyah/meriyah/issues/231 get fixed
+      case "PropertyDefinition":
+        if (
+          options.parser === "meriyah" &&
+          node.static &&
+          !node.computed &&
+          !node.key
+        ) {
+          const name = "static";
+          const start = locStart(node);
+          Object.assign(node, {
+            static: false,
+            key: {
+              type: "Identifier",
+              name,
+              range: [start, start + name.length],
+            },
+          });
+        }
+        break;
     }
   });
 
