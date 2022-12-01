@@ -267,13 +267,12 @@ function printJsxChildren(
   isFacebookTranslationTag
 ) {
   const parts = [];
-  path.each((childPath, i, children) => {
-    const child = childPath.node;
-    if (isLiteral(child)) {
-      const text = rawText(child);
+  path.each(({ node, next }) => {
+    if (isLiteral(node)) {
+      const text = rawText(node);
 
       // Contains a non-whitespace character
-      if (isMeaningfulJsxText(child)) {
+      if (isMeaningfulJsxText(node)) {
         const words = text.split(matchJsxWhitespaceRegex);
 
         // Starts with whitespace
@@ -281,12 +280,11 @@ function printJsxChildren(
           parts.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            const next = children[i + 1];
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
-                child,
+                node,
                 next
               )
             );
@@ -318,12 +316,11 @@ function printJsxChildren(
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            const next = children[i + 1];
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 parts.at(-1),
-                child,
+                node,
                 next
               )
             );
@@ -331,12 +328,11 @@ function printJsxChildren(
             parts.push(jsxWhitespace);
           }
         } else {
-          const next = children[i + 1];
           parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
               parts.at(-1),
-              child,
+              node,
               next
             )
           );
@@ -354,7 +350,6 @@ function printJsxChildren(
       const printedChild = print();
       parts.push(printedChild);
 
-      const next = children[i + 1];
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
@@ -362,12 +357,7 @@ function printJsxChildren(
           matchJsxWhitespaceRegex
         )[0];
         parts.push(
-          separatorNoWhitespace(
-            isFacebookTranslationTag,
-            firstWord,
-            child,
-            next
-          )
+          separatorNoWhitespace(isFacebookTranslationTag, firstWord, node, next)
         );
       } else {
         parts.push(hardline);

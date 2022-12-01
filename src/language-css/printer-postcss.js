@@ -308,8 +308,7 @@ function genericPrint(path, options, print) {
     // postcss-media-query-parser
     case "media-query-list": {
       const parts = [];
-      path.each((childPath) => {
-        const { node } = childPath;
+      path.each(({ node }) => {
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -904,9 +903,7 @@ function genericPrint(path, options, print) {
             softline,
             join(
               [line],
-              path.map((childPath, index) => {
-                const child = childPath.node;
-                const isLast = index === node.groups.length - 1;
+              path.map(({ node: child, isLast }) => {
                 const hasComma = () =>
                   Boolean(
                     child.source &&
@@ -1031,40 +1028,40 @@ function genericPrint(path, options, print) {
 
 function printNodeSequence(path, options, print) {
   const parts = [];
-  path.each((pathChild, i, nodes) => {
-    const prevNode = nodes[i - 1];
+  path.each(() => {
+    const { node, previous } = path;
     if (
-      prevNode?.type === "css-comment" &&
-      prevNode.text.trim() === "prettier-ignore"
+      previous?.type === "css-comment" &&
+      previous.text.trim() === "prettier-ignore"
     ) {
-      const childNode = pathChild.getValue();
-      parts.push(
-        options.originalText.slice(locStart(childNode), locEnd(childNode))
-      );
+      parts.push(options.originalText.slice(locStart(node), locEnd(node)));
     } else {
       parts.push(print());
     }
 
-    if (i !== nodes.length - 1) {
+    if (path.isLast) {
+      return;
+    }
+
+    const { next } = path;
+    if (
+      (next.type === "css-comment" &&
+        !hasNewline(options.originalText, locStart(next), {
+          backwards: true,
+        }) &&
+        !isFrontMatterNode(node)) ||
+      (next.type === "css-atrule" &&
+        next.name === "else" &&
+        node.type !== "css-comment")
+    ) {
+      parts.push(" ");
+    } else {
+      parts.push(options.__isHTMLStyleAttribute ? line : hardline);
       if (
-        (nodes[i + 1].type === "css-comment" &&
-          !hasNewline(options.originalText, locStart(nodes[i + 1]), {
-            backwards: true,
-          }) &&
-          !isFrontMatterNode(nodes[i])) ||
-        (nodes[i + 1].type === "css-atrule" &&
-          nodes[i + 1].name === "else" &&
-          nodes[i].type !== "css-comment")
+        isNextLineEmpty(options.originalText, node, locEnd) &&
+        !isFrontMatterNode(node)
       ) {
-        parts.push(" ");
-      } else {
-        parts.push(options.__isHTMLStyleAttribute ? line : hardline);
-        if (
-          isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd) &&
-          !isFrontMatterNode(nodes[i])
-        ) {
-          parts.push(hardline);
-        }
+        parts.push(hardline);
       }
     }
   }, "nodes");

@@ -242,7 +242,7 @@ function printBinaryishExpressions(
             ": ",
             join(
               [line, ": "],
-              path.map(print, "arguments").map((arg) => align(2, group(arg)))
+              path.map(() => align(2, group(print())), "arguments")
             ),
           ])
         )

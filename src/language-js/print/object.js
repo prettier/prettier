@@ -48,14 +48,14 @@ function printObject(path, options, print) {
   // interleaved in the source code. So we need to reorder them before
   // printing them.
   const propsAndLoc = fields.flatMap((field) =>
-    path.map((childPath) => {
-      const { node } = childPath;
-      return {
+    path.map(
+      ({ node }) => ({
         node,
         printed: print(),
         loc: locStart(node),
-      };
-    }, field)
+      }),
+      field
+    )
   );
 
   if (fields.length > 1) {

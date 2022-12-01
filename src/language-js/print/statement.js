@@ -22,9 +22,7 @@ function printStatementSequence(path, options, print, property) {
   const isClassBody = node.type === "ClassBody";
   const lastStatement = getLastStatement(node[property]);
 
-  path.each((path, index, statements) => {
-    const { node } = path;
-
+  path.each(({ node, next }) => {
     // Skip printing EmptyStatement nodes to avoid leaving stray
     // semicolons lying around.
     if (node.type === "EmptyStatement") {
@@ -56,7 +54,7 @@ function printStatementSequence(path, options, print, property) {
       isClassProperty(node) &&
       // `ClassBody` don't allow `EmptyStatement`,
       // so we can use `statements` to get next node
-      shouldPrintSemicolonAfterClassProperty(node, statements[index + 1])
+      shouldPrintSemicolonAfterClassProperty(node, next)
     ) {
       parts.push(";");
     }
