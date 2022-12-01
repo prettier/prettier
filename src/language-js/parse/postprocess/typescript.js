@@ -227,13 +227,12 @@ const POSSIBLE_MODIFIERS = [
   "static",
 ];
 
+const decoratorOrModifierRegExp = new RegExp(
+  ["@", ...POSSIBLE_MODIFIERS].join("|")
+);
+
 async function throwErrorForInvalidNodes(tsParseResult, options) {
-  if (
-    // decorators or modifiers
-    !new RegExp(["@", ...POSSIBLE_MODIFIERS].join("|")).test(
-      options.originalText
-    )
-  ) {
+  if (!decoratorOrModifierRegExp.test(options.originalText)) {
     return;
   }
 
