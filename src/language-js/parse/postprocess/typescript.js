@@ -252,4 +252,8 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
   });
 }
 
-export { throwErrorForInvalidNodes };
+export {
+  throwErrorForInvalidNodes,
+  // For test
+  POSSIBLE_MODIFIERS,
+};
