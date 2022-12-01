@@ -159,12 +159,12 @@ function postprocess(ast, options) {
           options.parser === "meriyah" &&
           node.static &&
           !node.computed &&
-          node.key === null
+          !node.key
         ) {
           const name = "static";
           const start = locStart(node);
           Object.assign(node, {
-            static: true,
+            static: false,
             key: {
               type: "Identifier",
               name,
