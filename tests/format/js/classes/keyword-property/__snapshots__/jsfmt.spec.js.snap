@@ -12,9 +12,19 @@ class A {
   foo() {};
 }
 
+class B {
+  async = 1;
+  foo() {}
+}
+
 =====================================output=====================================
 class A {
   async
+  foo() {}
+}
+
+class B {
+  async = 1
   foo() {}
 }
 
@@ -32,9 +42,19 @@ class A {
   foo() {};
 }
 
+class B {
+  async = 1;
+  foo() {}
+}
+
 =====================================output=====================================
 class A {
   async;
+  foo() {}
+}
+
+class B {
+  async = 1;
   foo() {}
 }
 
@@ -53,9 +73,19 @@ class A {
   foo() {}
 }
 
+class B {
+  get = 1;
+  foo() {}
+}
+
 =====================================output=====================================
 class A {
   get;
+  foo() {}
+}
+
+class B {
+  get = 1
   foo() {}
 }
 
@@ -73,9 +103,19 @@ class A {
   foo() {}
 }
 
+class B {
+  get = 1;
+  foo() {}
+}
+
 =====================================output=====================================
 class A {
   get;
+  foo() {}
+}
+
+class B {
+  get = 1;
   foo() {}
 }
 
@@ -94,9 +134,19 @@ class A {
   foo(v) {}
 }
 
+class B {
+  set = 1;
+  foo(v) {}
+}
+
 =====================================output=====================================
 class A {
   set;
+  foo(v) {}
+}
+
+class B {
+  set = 1
   foo(v) {}
 }
 
@@ -114,9 +164,19 @@ class A {
   foo(v) {}
 }
 
+class B {
+  set = 1;
+  foo(v) {}
+}
+
 =====================================output=====================================
 class A {
   set;
+  foo(v) {}
+}
+
+class B {
+  set = 1;
   foo(v) {}
 }
 
@@ -133,8 +193,6 @@ exports[`static.js [flow] format 1`] = `
   5 |"
 `;
 
-exports[`static.js [meriyah] format 1`] = `"Cannot read properties of null (reading 'type')"`;
-
 exports[`static.js - {"semi":false} [flow] format 1`] = `
 "Unexpected token \`;\`, expected an identifier (2:9)
   1 | class A {
@@ -144,8 +202,6 @@ exports[`static.js - {"semi":false} [flow] format 1`] = `
   4 | }
   5 |"
 `;
-
-exports[`static.js - {"semi":false} [meriyah] format 1`] = `"Cannot read properties of null (reading 'type')"`;
 
 exports[`static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
@@ -159,9 +215,18 @@ class A {
   foo() {};
 }
 
+class B {
+  static = 1;
+  foo() {};
+}
 =====================================output=====================================
 class A {
   static;
+  foo() {}
+}
+
+class B {
+  static = 1
   foo() {}
 }
 
@@ -179,16 +244,25 @@ class A {
   foo() {};
 }
 
+class B {
+  static = 1;
+  foo() {};
+}
 =====================================output=====================================
 class A {
   static;
   foo() {}
 }
 
+class B {
+  static = 1;
+  foo() {}
+}
+
 ================================================================================
 `;
 
-exports[`static-properties.js - {"semi":false} format 1`] = `
+exports[`static-async.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -197,27 +271,29 @@ semi: false
 =====================================input======================================
 class A {
   static async;
-  a() {}
-  static get;
-  b() {}
-  static set;
-  c(v) {}
+  foo() {}
+}
+
+class B {
+  static async = 1;
+  foo() {}
 }
 
 =====================================output=====================================
 class A {
   static async
-  a() {}
-  static get;
-  b() {}
-  static set;
-  c(v) {}
+  foo() {}
+}
+
+class B {
+  static async = 1
+  foo() {}
 }
 
 ================================================================================
 `;
 
-exports[`static-properties.js format 1`] = `
+exports[`static-async.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -225,21 +301,206 @@ printWidth: 80
 =====================================input======================================
 class A {
   static async;
-  a() {}
-  static get;
-  b() {}
-  static set;
-  c(v) {}
+  foo() {}
+}
+
+class B {
+  static async = 1;
+  foo() {}
 }
 
 =====================================output=====================================
 class A {
   static async;
-  a() {}
+  foo() {}
+}
+
+class B {
+  static async = 1;
+  foo() {}
+}
+
+================================================================================
+`;
+
+exports[`static-get.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class A {
   static get;
-  b() {}
+  foo() {}
+}
+
+class B {
+  static get = 1;
+  foo() {}
+}
+
+=====================================output=====================================
+class A {
+  static get;
+  foo() {}
+}
+
+class B {
+  static get = 1
+  foo() {}
+}
+
+================================================================================
+`;
+
+exports[`static-get.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  static get;
+  foo() {}
+}
+
+class B {
+  static get = 1;
+  foo() {}
+}
+
+=====================================output=====================================
+class A {
+  static get;
+  foo() {}
+}
+
+class B {
+  static get = 1;
+  foo() {}
+}
+
+================================================================================
+`;
+
+exports[`static-set.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class A {
   static set;
-  c(v) {}
+  foo(v) {}
+}
+
+class B {
+  static set = 1;
+  foo(v) {}
+}
+
+=====================================output=====================================
+class A {
+  static set;
+  foo(v) {}
+}
+
+class B {
+  static set = 1
+  foo(v) {}
+}
+
+================================================================================
+`;
+
+exports[`static-set.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  static set;
+  foo(v) {}
+}
+
+class B {
+  static set = 1;
+  foo(v) {}
+}
+
+=====================================output=====================================
+class A {
+  static set;
+  foo(v) {}
+}
+
+class B {
+  static set = 1;
+  foo(v) {}
+}
+
+================================================================================
+`;
+
+exports[`static-static.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  static static;
+  foo() {}
+}
+
+class B {
+  static static = 1;
+  foo() {}
+}
+
+=====================================output=====================================
+class A {
+  static static;
+  foo() {}
+}
+
+class B {
+  static static = 1
+  foo() {}
+}
+
+================================================================================
+`;
+
+exports[`static-static.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  static static;
+  foo() {}
+}
+
+class B {
+  static static = 1;
+  foo() {}
+}
+
+=====================================output=====================================
+class A {
+  static static;
+  foo() {}
+}
+
+class B {
+  static static = 1;
+  foo() {}
 }
 
 ================================================================================

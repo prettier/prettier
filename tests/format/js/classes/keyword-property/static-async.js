@@ -1,9 +1,9 @@
 class A {
-  get;
+  static async;
   foo() {}
 }
 
 class B {
-  get = 1;
+  static async = 1;
   foo() {}
 }

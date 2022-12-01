@@ -1,9 +1,9 @@
 class A {
-  set;
+  static set;
   foo(v) {}
 }
 
 class B {
-  set = 1;
+  static set = 1;
   foo(v) {}
 }

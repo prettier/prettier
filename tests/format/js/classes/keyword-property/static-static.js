@@ -1,9 +1,9 @@
 class A {
-  get;
+  static static;
   foo() {}
 }
 
 class B {
-  get = 1;
+  static static = 1;
   foo() {}
 }
