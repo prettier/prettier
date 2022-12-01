@@ -106,3 +106,15 @@
 {{~else when anotherCondition~}}
   Another thing
 {{~/when~}}
+
+{{#when a as |b|}}
+  {{b}}
+{{else when c as |d|}}
+  {{d}}
+{{else when e as |f|}}
+  {{f}}
+{{else when g as |h|}}
+  {{h}}
+{{else}}
+  j
+{{/when}}
