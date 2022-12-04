@@ -124,6 +124,10 @@ For example, you can do the following to have Prettier run before each commit:
 
 ```json
 {
+  ...
+  "scripts": {
+  ...
+  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   }
