@@ -180,6 +180,7 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
     (name === "static" ||
       name === "get" ||
       name === "set" ||
+      // TODO: Remove this https://github.com/microsoft/TypeScript/issues/51707 is fixed
       name === "accessor") &&
     !node.value &&
     !node.typeAnnotation
