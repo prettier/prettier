@@ -148,6 +148,13 @@ function postprocess(ast, options) {
           });
         }
         break;
+
+      // TODO: Remove this when https://github.com/facebook/flow/issues/8962 get fixed
+      case "Literal":
+        if (options.parser === "flow" && node.bigint && !node.raw) {
+          node.raw = node.bigint + "n";
+        }
+        break;
     }
   });
 

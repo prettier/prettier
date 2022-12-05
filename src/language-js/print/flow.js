@@ -25,6 +25,7 @@ import { printTupleType } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import printEnumMembers from "./enum-members.js";
+import { printBigInt } from "./literal.js";
 import {
   printOptionalToken,
   printTypeAnnotation,
@@ -63,12 +64,8 @@ function printFlow(path, options, print) {
       ]);
     case "DeclareVariable":
       return printFlowDeclaration(path, ["var ", print("id"), semi]);
-    case "DeclareOpaqueType":
-      return printFlowDeclaration(path, printOpaqueType(path, options, print));
     case "DeclareInterface":
       return printFlowDeclaration(path, printInterface(path, options, print));
-    case "DeclareTypeAlias":
-      return printFlowDeclaration(path, printTypeAlias(path, options, print));
     case "DeclareExportDeclaration":
       return printFlowDeclaration(
         path,
@@ -79,10 +76,20 @@ function printFlow(path, options, print) {
         path,
         printExportAllDeclaration(path, options, print)
       );
-    case "OpaqueType":
-      return printOpaqueType(path, options, print);
-    case "TypeAlias":
-      return printTypeAlias(path, options, print);
+    case "DeclareOpaqueType":
+    case "OpaqueType": {
+      const doc = printOpaqueType(path, options, print);
+      return node.type === "DeclareOpaqueType"
+        ? printFlowDeclaration(path, doc)
+        : doc;
+    }
+    case "DeclareTypeAlias":
+    case "TypeAlias": {
+      const doc = printTypeAlias(path, options, print);
+      return node.type === "DeclareTypeAlias"
+        ? printFlowDeclaration(path, doc)
+        : doc;
+    }
     case "IntersectionTypeAnnotation":
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
@@ -117,8 +124,13 @@ function printFlow(path, options, print) {
       return [print("elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
-    case "EnumDeclaration":
-      return ["enum ", print("id"), " ", print("body")];
+    case "DeclareEnum":
+    case "EnumDeclaration": {
+      const doc = ["enum ", print("id"), " ", print("body")];
+      return node.type === "DeclareEnum"
+        ? printFlowDeclaration(path, doc)
+        : doc;
+    }
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumStringBody":
@@ -241,13 +253,9 @@ function printFlow(path, options, print) {
     case "StringLiteralTypeAnnotation":
       return replaceEndOfLine(printString(rawText(node), options));
     case "NumberLiteralTypeAnnotation":
-      assert.strictEqual(typeof node.value, "number");
-    // fall through
+      return printNumber(node.raw ?? node.extra.raw);
     case "BigIntLiteralTypeAnnotation":
-      if (node.extra) {
-        return printNumber(node.extra.raw);
-      }
-      return printNumber(node.raw);
+      return printBigInt(node.raw ?? node.extra.raw);
     case "TypeCastExpression":
       return [
         "(",

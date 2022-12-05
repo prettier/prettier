@@ -8,8 +8,7 @@ function printLiteral(path, options /*, print*/) {
     case "RegExpLiteral": // Babel 6 Literal split
       return printRegex(node);
     case "BigIntLiteral":
-      // babel: node.extra.raw, flow: node.bigint
-      return printBigInt(node.bigint || node.extra.raw);
+      return printBigInt(node.extra.raw);
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(node.extra.raw);
     case "StringLiteral": // Babel 6 Literal split
@@ -57,4 +56,4 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
-export { printLiteral };
+export { printLiteral, printBigInt };
