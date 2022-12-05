@@ -567,20 +567,24 @@ function printElseIfLikeBlock(path, print, ifLikeKeyword) {
   let blockParams = [];
 
   if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [" ", ...printBlockParams(node.program)];
+    blockParams = [line, printBlockParams(node.program)];
   }
 
   const parentNode = path.getParentNode(1);
 
-  return [
+  return group([
     printInverseBlockOpeningMustache(parentNode),
-    "else ",
-    ifLikeKeyword,
-    " ",
-    printParams(path, print),
-    ...blockParams,
+    indent(
+      group([
+        group(["else", line, ifLikeKeyword]),
+        line,
+        printParams(path, print),
+      ])
+    ),
+    indent(blockParams),
+    softline,
     printInverseBlockClosingMustache(parentNode),
-  ];
+  ]);
 }
 
 function printCloseBlock(path, print, options) {
