@@ -20,6 +20,46 @@ class C {
 ================================================================================
 `;
 
+exports[`decorator-auto-accessors-new-line.ts format 1`] = `
+====================================options=====================================
+parsers: ["babel-ts"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  ["bar"];
+}
+
+class Foo {
+  static accessor
+  bar;
+}
+
+class Foo {
+  accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor;
+  ["bar"];
+}
+
+class Foo {
+  static accessor;
+  bar;
+}
+
+class Foo {
+  accessor;
+  bar;
+}
+
+================================================================================
+`;
+
 exports[`invalid-modifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]

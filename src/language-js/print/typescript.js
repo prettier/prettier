@@ -115,6 +115,7 @@ function printTypescript(path, options, print) {
     case "TSAbstractMethodDefinition":
     case "TSDeclareMethod":
       return printClassMethod(path, options, print);
+    case "TSAbstractAccessorProperty":
     case "TSAbstractPropertyDefinition":
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":

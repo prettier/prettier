@@ -1,5 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`await-with-parens.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+function foo(promise) { await (promise); }
+
+function a() {
+  return await (1)
+}
+
+() => { await (x) };
+
+function foo() {
+  await
+  (foo);
+}
+
+export class C {
+  p = await (0);
+}
+
+await (0);
+
+=====================================output=====================================
+function foo(promise) {
+  await(promise)
+}
+
+function a() {
+  return await(1)
+}
+
+;() => {
+  await(x)
+}
+
+function foo() {
+  await(foo)
+}
+
+export class C {
+  p = await(0)
+}
+
+await 0
+
+================================================================================
+`;
+
 exports[`await-with-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -51,6 +103,409 @@ await 0;
 ================================================================================
 `;
 
+exports[`decorator-auto-accessor-like-property-name.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  accessor;
+  bar;
+}
+
+=====================================output=====================================
+class C {
+  accessor;
+  bar
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessor-like-property-name.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C {
+  accessor;
+  bar;
+}
+
+=====================================output=====================================
+class C {
+  accessor;
+  bar;
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-abstract-class.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+  declare accessor prop7: number;
+  private accessor #p: any;
+
+  accessor a!;
+  abstract accessor #s;
+  accessor #d?;
+  abstract accessor f;
+  readonly accessor g;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  declare accessor prop7: number
+  private accessor #p: any
+
+  accessor a!
+  abstract accessor #s
+  accessor #d?
+  abstract accessor f
+  readonly accessor g
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-abstract-class.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+  declare accessor prop7: number;
+  private accessor #p: any;
+
+  accessor a!;
+  abstract accessor #s;
+  accessor #d?;
+  abstract accessor f;
+  readonly accessor g;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  declare accessor prop7: number;
+  private accessor #p: any;
+
+  accessor a!;
+  abstract accessor #s;
+  accessor #d?;
+  abstract accessor f;
+  readonly accessor g;
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-declara-class.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+declare class C {
+  accessor x = 1;
+  #y = 1;
+}
+
+=====================================output=====================================
+declare class C {
+  accessor x = 1
+  #y = 1
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-declara-class.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare class C {
+  accessor x = 1;
+  #y = 1;
+}
+
+=====================================output=====================================
+declare class C {
+  accessor x = 1;
+  #y = 1;
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-mixed-modifiers.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+  accessor prop: number = 1;
+  static accessor prop2: number = 1;
+  accessor #prop3: number = 1;
+  accessor [prop4]: number = 1;
+  private accessor prop5: number = 1;
+  abstract accessor prop6: number;
+  private accessor #p: any;
+
+  accessor a!: any;
+  accessor aa!: any;
+  abstract accessor #s;
+  readonly accessor g;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  accessor prop: number = 1
+  static accessor prop2: number = 1
+  accessor #prop3: number = 1
+  accessor [prop4]: number = 1
+  private accessor prop5: number = 1
+  abstract accessor prop6: number
+  private accessor #p: any
+
+  accessor a!: any
+  accessor aa!: any
+  abstract accessor #s
+  readonly accessor g
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-mixed-modifiers.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+  accessor prop: number = 1;
+  static accessor prop2: number = 1;
+  accessor #prop3: number = 1;
+  accessor [prop4]: number = 1;
+  private accessor prop5: number = 1;
+  abstract accessor prop6: number;
+  private accessor #p: any;
+
+  accessor a!: any;
+  accessor aa!: any;
+  abstract accessor #s;
+  readonly accessor g;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  accessor prop: number = 1;
+  static accessor prop2: number = 1;
+  accessor #prop3: number = 1;
+  accessor [prop4]: number = 1;
+  private accessor prop5: number = 1;
+  abstract accessor prop6: number;
+  private accessor #p: any;
+
+  accessor a!: any;
+  accessor aa!: any;
+  abstract accessor #s;
+  readonly accessor g;
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-new-line.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  ["bar"];
+}
+
+class Foo {
+  static accessor
+  bar;
+}
+
+class Foo {
+  accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor ["bar"]
+}
+
+class Foo {
+  static accessor bar
+}
+
+class Foo {
+  accessor bar
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-new-line.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  accessor
+  ["bar"];
+}
+
+class Foo {
+  static accessor
+  bar;
+}
+
+class Foo {
+  accessor
+  bar;
+}
+
+=====================================output=====================================
+class Foo {
+  accessor ["bar"];
+}
+
+class Foo {
+  static accessor bar;
+}
+
+class Foo {
+  accessor bar;
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-type-annotations.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+  accessor prop: number = 1;
+  static accessor prop2: number = 1;
+  accessor #prop3: number = 1;
+  accessor [prop4]: number = 1;
+  private accessor prop5: number = 1;
+  abstract accessor prop6: number;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  accessor prop: number = 1
+  static accessor prop2: number = 1
+  accessor #prop3: number = 1
+  accessor [prop4]: number = 1
+  private accessor prop5: number = 1
+  abstract accessor prop6: number
+}
+
+================================================================================
+`;
+
+exports[`decorator-auto-accessors-type-annotations.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+abstract class Foo {
+  accessor prop: number = 1;
+  static accessor prop2: number = 1;
+  accessor #prop3: number = 1;
+  accessor [prop4]: number = 1;
+  private accessor prop5: number = 1;
+  abstract accessor prop6: number;
+}
+
+=====================================output=====================================
+abstract class Foo {
+  accessor prop: number = 1;
+  static accessor prop2: number = 1;
+  accessor #prop3: number = 1;
+  accessor [prop4]: number = 1;
+  private accessor prop5: number = 1;
+  abstract accessor prop6: number;
+}
+
+================================================================================
+`;
+
+exports[`invalid-modifiers.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  private a();
+  public b();
+  protected c();
+  static d();
+  declare e();
+  abstract f();
+  readonly g();
+}
+
+class Bar {
+  declare e() {};
+  abstract f() {};
+  readonly g() {};
+}
+
+=====================================output=====================================
+interface Foo {
+  private a()
+  public b()
+  protected c()
+  static d()
+  e()
+  f()
+  readonly g()
+}
+
+class Bar {
+  e() {}
+  abstract f() {}
+  g() {}
+}
+
+================================================================================
+`;
+
 exports[`invalid-modifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -93,6 +548,23 @@ class Bar {
 ================================================================================
 `;
 
+exports[`parenthesized-decorators-call-expression.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+@(test().x("global").y())
+class X {}
+
+=====================================output=====================================
+@test().x("global").y()
+class X {}
+
+================================================================================
+`;
+
 exports[`parenthesized-decorators-call-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -105,6 +577,27 @@ class X {}
 =====================================output=====================================
 @test().x("global").y()
 class X {}
+
+================================================================================
+`;
+
+exports[`parenthesized-decorators-tagged-template.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class Test {
+  @foo\`bar\`
+  text: string = "text"
+}
+
+=====================================output=====================================
+class Test {
+  @foo\`bar\`
+  text: string = "text"
+}
 
 ================================================================================
 `;
@@ -125,6 +618,27 @@ class Test {
   @foo\`bar\`
   text: string = "text";
 }
+
+================================================================================
+`;
+
+exports[`prettier-ignore-parenthesized-type.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+type Foo =
+  // prettier-ignore
+  (
+    aa
+  );
+
+=====================================output=====================================
+type Foo =
+  // prettier-ignore
+  aa
 
 ================================================================================
 `;
