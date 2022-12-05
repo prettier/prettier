@@ -170,6 +170,7 @@ const isClassProperty = ({ type }) =>
   type === "ClassPrivateProperty" ||
   type === "ClassAccessorProperty" ||
   type === "AccessorProperty" ||
+  type === "TSAbstractPropertyDefinition" ||
   type === "TSAbstractAccessorProperty";
 /**
  * @returns {boolean}
