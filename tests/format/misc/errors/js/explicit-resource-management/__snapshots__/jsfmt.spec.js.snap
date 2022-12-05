@@ -112,10 +112,10 @@ exports[`invalid-using-binding-let.js [typescript] format 1`] = `
 `;
 
 exports[`invalid-using-binding-pattern.js [babel] format 1`] = `
-"Using declaration cannot have destructuring patterns. (2:9)
+"Unexpected token (2:17)
   1 | {
 > 2 |   using { foo } = f();
-    |         ^
+    |                 ^
   3 |   using [ bar ] = g();
   4 |   for (using { qux } of h());
   5 |   for (using [ quux ] of i());"
