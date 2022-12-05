@@ -176,7 +176,7 @@ const isClassProperty = ({ type }) =>
  * @returns {boolean}
  */
 function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const name = node.key && node.key.name;
+  const { name } = node.key;
   if (
     (name === "static" ||
       name === "get" ||
