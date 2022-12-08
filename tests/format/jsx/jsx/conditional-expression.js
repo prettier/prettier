@@ -84,6 +84,13 @@ jsxModeFromElementBreaking ? (
   {a ? "a" : b ? "b" : "c"}
 </div>;
 
+// This chain of ConditionalExpressions prints in JSX mode because the parent of
+// the outermost ConditionalExpression is a JSXExpressionContainer. It is
+// breaking.
+<div>
+  {thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo ? "a" : b ? "b" : "c"}
+</div>;
+
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is non-breaking.
 cable ? "satellite" : isPublic ? "affairs" : network ? <span id="c" /> : "dun";

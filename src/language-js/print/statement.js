@@ -161,14 +161,21 @@ const isClassProperty = ({ type }) =>
   type === "ClassProperty" ||
   type === "PropertyDefinition" ||
   type === "ClassPrivateProperty" ||
-  type === "ClassAccessorProperty";
+  type === "ClassAccessorProperty" ||
+  type === "AccessorProperty" ||
+  type === "TSAbstractPropertyDefinition" ||
+  type === "TSAbstractAccessorProperty";
 /**
  * @returns {boolean}
  */
 function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const name = node.key?.name;
+  const { name } = node.key;
   if (
-    (name === "static" || name === "get" || name === "set") &&
+    (name === "static" ||
+      name === "get" ||
+      name === "set" ||
+      // TODO: Remove this https://github.com/microsoft/TypeScript/issues/51707 is fixed
+      name === "accessor") &&
     !node.value &&
     !node.typeAnnotation
   ) {
