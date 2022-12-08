@@ -33,13 +33,17 @@ JSON:
 JS:
 
 ```js
-// prettier.config.js or .prettierrc.js
-module.exports = {
+// prettier.config.js or .prettierrc.js - install @types/prettier if you want type checking
+
+/** @type {import('prettier').Options} */
+const config = {
   trailingComma: "es5",
   tabWidth: 4,
   semi: false,
   singleQuote: true,
 };
+
+module.exports = config;
 ```
 
 YAML:
