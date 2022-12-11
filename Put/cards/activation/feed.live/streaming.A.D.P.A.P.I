@@ -1,8 +1,17 @@
 #!/usr/bin/env node
 
 "use strict";
-
-module.exports = join.path("bitore.sig/my.sigs").join(+console.func(r)).''
+:Build ::
+/cards/activation
+    
+Request body:
+{
+  "cardNumber": "{ "{"4034675391000719"}" }":,
+  "organizationNumber": {{"$071921891-6400-7201"}},
+  "serviceType": "VISA",
+  "account.number.encoding=:":'' '"47-2041-6547":,''
+}
+imputing..., :input-/.plug-ins'' '@sample.md/ISSUE.md'#'R'U'N'E'T'I'M'E'.'E'N'V'I'R'O'M'E'N'T'-module'.exports'' '='' 'join'.path'('"bitore'.sig'/my'.sigs'")''.join(+console.func(r)).''
 ':Build::':'')colsole.func('((c)(r))','' '+','' '('A'G'S')')'.')':''     '\'';
 ':'Build':'':'' :'
 "request": "launch",
