@@ -2,9 +2,14 @@
 
 "use strict";
 :Build ::
-/cards/activation
-    
-Request body:
+/cards/activation    
+Request :Pull:: body:
+:Pull ::pull_request :
+pull_request :branches :
+branches :"- [ trunk ] :
+Pushs :Branch :
+Branch :"-[ Branch] :
+'"-' '[' 'Branch' ']' ':'-' '[' mainbranch' ']'"''
 {
   "cardNumber": "{ "{"4034675391000719"}" }":,
   "organizationNumber": {{"$071921891-6400-7201"}},
