@@ -8050,62 +8050,20 @@ Fri, Dec 9 at 10:05 PM												Business Checking For 24-hour account informat
 		DALLAS, TX 75235		                         FICA - Social Security 0        8854            FUTA        0        0                                                                                                                                                                                                                                                                                                                     									
 				70842745000                                                              SUTA - 0       0									
 				+                        ATAA -                                          RUTA - 0       0      									
-				Report Range 5/4/2022 - 6/4/2022 88-1656496  Loca ID:      28 :l ID: 633441725 State: All Local ID: txdl 00037305581 SRVCCHG /*  */$2,267,700.00                                                                                                                                                                                                                                                                                                                                                                									
-		For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see separate instructions.                                                                        								                        Q4 2020                        Q4  2019                			
-		Cat. No. 11320B                                                                        								Income Statement                                                                 			
-		Form 1040 (2021)                                                                        								USD in "000'"s                                                                			
-		Reported Normalized and Operating Income/Expense Supplemental Section                                                                        								Repayments for Long Term Debt                        Dec. 31, 2020                        Dec. 31, 2019                	Net Income after Non-Controlling/Minority Interests        76033000000        20642000000        18936000000        18525000000        17930000000        15227000000        11247000000        6959000000		
-		Total Revenue as Reported, Supplemental                                                                        								Costs and expenses:                                                                			
-		Total Operating Profit/Loss as Reported, Supplemental                                                                        								Cost of revenues                        182527                        161857                	Reported Effective Tax Rate        0.162                0.179        0.157        0.158                0.158        0.159		
-		Reported Effective Tax Rate                                                                        								Research and development                                                                	Net Income from Continuing Operations        76033000000        20642000000        18936000000        18525000000        17930000000        15227000000        11247000000        6959000000		
-		Reported Normalized Income                                                                        								Sales and marketing                        84732                        71896                	Net Income after Extraordinary Items and Discontinued Operations        76033000000        20642000000        18936000000        18525000000        17930000000        15227000000        11247000000        6959000000		
-		Reported Normalized Operating Profit                                                                        								General and administrative                        27573                        26018                			
-		Other Adjustments to Net Income Available to Common Stockholders                                                                        								European Commission fines                        17946                        18464                	Net Income Available to Common Stockholders        76033000000        20642000000        18936000000        18525000000        17930000000        15227000000        11247000000        6959000000		
-		Discontinued Operations                                                                        								Total costs and expenses                        11052                        9551                	Diluted Net Income Available to Common Stockholders        76033000000        20642000000        18936000000        18525000000        17930000000        15227000000        11247000000        6959000000		
-		Basic EPS                                                                        								Income from operations                        0                        1697                	Income Statement Supplemental Section                                                                		
-		Basic EPS from Continuing Operations                                                                        								Other income (expense), net                        141303                        127626                	Reported Normalized and Operating Income/Expense Supplemental Section                                                                		
-		Basic EPS from Discontinued Operations                                                                        								Income before income taxes                        41224                        34231                	Other Income/Expense, Non-Operating        -1497000000        -108000000        -484000000        -613000000        -292000000        -825000000        -223000000        -222000000		
-		Diluted EPS                                                                        								Provision for income taxes                        6858000000                        5394                			
-		Diluted EPS from Continuing Operations                                                                        								Net income                        22677000000                        19289000000                			
-		Diluted EPS from Discontinued Operations                                                                        								*include interest paid, capital obligation, and underweighting                        22677000000                        19289000000                			
-		Basic Weighted Average Shares Outstanding                                                                        								                        22677000000                        19289000000                			
-		Diluted Weighted Average Shares Outstanding                                                                        								Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)                                                                	Total Operating Profit/Loss as Reported, Supplemental        78714000000        21885000000        21031000000        19361000000        16437000000        15651000000        11213000000        6383000000		
-		Reported Normalized Diluted EPS                                                                        								Diluted net income per share of Class A and Class B common stock and Class C capital stock (in dollars par share)                                                                	Total Revenue as Reported, Supplemental        2.57637E+11        75325000000        65118000000        61880000000        55314000000        56898000000        46173000000        38297000000		
-		Basic EPS                                                                        											
-		Diluted EPS                                                                        									Cost of Goods and Services        -1.10939E+11        -32988000000        -27621000000        -26227000000        -24103000000        -26080000000        -21117000000        -18553000000		
-		Basic WASO                                                                        								For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see the seperate Instructions.                                                                			
-		Diluted WASO                                                                        											
-		Fiscal year end September 28th., 2022. | USD                                                                        								Returned for Signature                                                                			
-										Date.______________09/01/2022                        			
-		For Paperwork Reduction Act Notice, see the seperate Instructions.                                                                        											
-													
-													
-													
-													
-													
-													
-		important information                                                                        											
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-													
-		________________________        ________________________          DATE OF THIS NOTICE:        2022-03-18                                                                                                                                                                                                                                                                                        											
-													
-													
-													
-													
+		x 000000000..1913e2fb5
+--- /dev/null
++++ b/script/validate-data/settings.json
+@@ -0,0 +1,6 @@
++{
++  "folders": [
++    "../../ci",
++    "../../automation"
++  ]
++}
+\ No newline at end of file
+diff --git a/script/validate-data/tsconfig.json b/script/validate-data/tsconfig.json
+new file mode 100644
+index 000000000..7c50a205d
 													
 													
 													
