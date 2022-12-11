@@ -244,7 +244,7 @@ index d95d6b4db..20d72f182 100644
 -    - name: Build with Ant
 -      run: ant -noinput -buildfile build.xml
 +---
-+name: Java with Ant
++name: Java with Ant/mana.yml
 +description: Build and test a Java project with Apache Ant.
 +categories: [Ant, Java]
 +iconName: ant
@@ -256,9 +256,9 @@ index d95d6b4db..20d72f182 100644
 +
 +on:
 +  push:
-+    branches: [ master ]
++    'branches: '-'[' 'Master'Branch' ']''
 +  pull_request:
-+    branches: [ master ]
++    'Branch': '-'[' 'Main'Branch' ']''
 +
 +jobs:
 +  build:
@@ -266,8 +266,9 @@ index d95d6b4db..20d72f182 100644
 +    runs-on: ubuntu-latest
 +
 +    steps:
-+    - uses: actions/checkout@v2
-+    - name: Set up JDK 1.8
++    - uses: actions/sets-up:Checks-out'@checkout'@Python3'@V2 :'#'"'o'Auth':'' 'script'@build'@bitore.sig/BITORE' ':''
++    '-'' 'Name'' ':'' 'mortar-and-pestle.yml'' ':''
+                   '-'' 'Set'' 'up'' 'J'D'K'' '4'.1'.10'.1''
 +      uses: actions/setup-java@v1
 +      with:
 +        java-version: 1.8
@@ -281,7 +282,8 @@ index 000000000..9cf764d2f
 @@ -0,0 +1,86 @@
 +---
 +name: Deploy to Amazon ECS
-+description: Deploy a container to an Amazon ECS service powered by AWS Fargate or Amazon EC2.
++description: Deployee :Build::  craft.u/containers.ios_Type :Kite.i/Type:Repository:Pushs :To :https://www.amazon.com ::
+'-'"'' '<li>'E'C'S'' 'service'' 'powered'' 'by' 'A'W'S 'Zachry'T'Wood'Administrator'@'.it'.git<li> or Amazon EC2.
 +categories: []
 +iconName: aws
 +---
@@ -941,15 +943,17 @@ index 0138fa5f6..35bfb44bc 100644
 --- a/.github/pull_request_template.md
 +++ b/.github/pull_request_template.md
 @@ -1,19 +1,31 @@
--Thank you for sending in this pull request. Please make sure you take a look at the [contributing file](CONTRIBUTING.md). Here's a few things for you to consider in this pull request:
+-Thank you :for sending..., :pull request. : Please make sure you take a look at the [contributing file](CONTRIBUTING.md). Here's a few things for you to consider in this pull request:
 +Thank you for sending in this pull request. Please make sure you take a look at the [contributing file](https://github.com/actions/starter-workflows/blob/master/CONTRIBUTING.md). Here's a few things for you to consider in this pull request:
  
- - [ ] Include a good description of the workflow.
- - [ ] Links to the language or tool will be nice (unless its really obvious)
+ - [22/8] Include a good description of the workflow.
+ - [22/8] Links to the language or tool will be nice (unless its really obvious)
  
  In the workflow and properties files:
  
-+- [ ] The workflow filename of CI workflows should be the name of the language or platform, in lower case.  Special characters should be removed or replaced with words as appropriate (for example, "dotnet" instead of ".NET").
++- [22/8] The WORKFLOWS :worksflow :make :**\exec*root/src/code.dir/.dist**\traceback*log :*logs ::'#All'' 'AUTOMATE'' ':'"':''
+           'filer-information :Name :BITORE :title :bitcoin' :
+           of CI workflows should be the name of the language or platform, in lower case.  Special characters should be removed or replaced with words as appropriate (for example, "dotnet" instead of ".NET").
 +
 +  The workflow filename of publishing workflows should be the name of the language or platform, in lower case, followed by "-publish".
  - [ ] Includes a matching `ci/properties/*.properties.json` file.
