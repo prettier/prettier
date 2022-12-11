@@ -106,4 +106,4 @@ Show the world you're using _Prettier_ → [![code style: prettier](https://img.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](read.md).
