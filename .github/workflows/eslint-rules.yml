@@ -30,3 +30,4 @@ jobs:
 
       - name: Test
         run: cd scripts/tools/eslint-plugin-prettier-internal-rules && yarn test-coverage
+make :exec .dist*\check** :
