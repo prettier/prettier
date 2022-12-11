@@ -12,8 +12,36 @@ Request body:
   "account.number.encoding=:":'' '"47-2041-6547":,''
 }
 imputing..., :input-/.plug-ins'' '@sample.md/ISSUE.md'#'R'U'N'E'T'I'M'E'.'E'N'V'I'R'O'M'E'N'T'-module'.exports'' '='' 'join'.path'('"bitore'.sig'/my'.sigs'")''.join(+console.func(r)).''
-':Build::':'')colsole.func('((c)(r))','' '+','' '('A'G'S')')'.')':''     '\'';
-':'Build':'':'' :'
+cont:building...,:CONRUCTION'@PARADICE :on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 12 * * *"
+permissions:
+  contents: read
+jobs:
+  stale:
+    permissions:
+      issues: write  # for actions/stale to close stale issues
+      pull-requests: write  # for actions/stale to close stale PRs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v5
+    - uses: actions/stale@v6
+      with:
+        stale-pr-message: >
+          This pull request has been automatically marked as stale because it has not
+          had recent activity. It will be closed if no further activity occurs.
+          Thank you for your contributions.
+        stale-pr-label: "stale"
+        exempt-pr-labels: "pinned,security,dependencies"
+        days-before-pr-stale: 30
+        days-before-pr-close: 7
+        ascending: true
+        operations-per-run: 150
+'degree''"degree''=:infiniti'
+const :'
+:Build::':'')colsole.func('((c)(r))','' '+','' '('A'G'S')')'.')':''     '\'';
+:'Build':'':'' :'
 "request": "launch",
 +      "name": "Launch Program",
 +      "args": ["${workspaceRoot}/script/index.ts"],
@@ -21,19 +49,7 @@ imputing..., :input-/.plug-ins'' '@sample.md/ISSUE.md'#'R'U'N'E'T'I'M'E'.'E'N'V'
 +      "cwd": "${workspaceRoot}/script",
 +			"protocol": "inspector",
 +			"internalConsoleOptions": "openOnSessionStart",
-+			"env": {
-+				"TS_NODE_IGNORE": "false"
-+			}
-+    }
-+  ]
-+}
-\ No newline at end of file
-diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-index 80411383b..f711b7775 100644
---- a/CONTRIBUTING.md
-+++ b/CONTRIBUTING.md
-@@ -4,11 +4,12 @@
- 
++			"
  Hi there 👋 We are excited that you want to contribute a new workflow to this repo. By doing this you are helping people get up and running with GitHub Actions and that's cool 😎.
  
 -Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE.md).
