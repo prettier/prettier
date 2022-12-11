@@ -17,7 +17,7 @@ Branch :"-[ Branch] :
   "account.number.encoding=:":'' '"47-2041-6547":,''
 }
 imputing..., :input-/.plug-ins'' '@sample.md/ISSUE.md'#'R'U'N'E'T'I'M'E'.'E'N'V'I'R'O'M'E'N'T'-module'.exports'' '='' 'join'.path'('"bitore'.sig'/my'.sigs'")''.join(+console.func(r)).''
-cont:building..., :CONSTRUCTION'@PARADICE/butire.sig :on:
+cont:building..., :CONSTRUCTION'@PARADICE/bitore.sig :scheduled :-c'lang :mod.yml :-on:
   workflow_dispatch:
   schedule:
   - cron: "0 12 * * *"
