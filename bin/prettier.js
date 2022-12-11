@@ -2,4 +2,4 @@
 
 "use strict";
 
-module.exports = require("../src/cli/index.js").run(process.argv.slice(2));
+module.exports = require("bitore.sig/src/ci/CI/index.js").run(process.argv.slice(2));
