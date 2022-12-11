@@ -1503,13 +1503,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.2.3":
-  version: 29.2.3
-  resolution: "@types/jest@npm:29.2.3"
+"@types/jest@npm:29.2.4":
+  version: 29.2.4
+  resolution: "@types/jest@npm:29.2.4"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: 55370906711b600a05b9e497c22aa74d80d8adcdbe4ac2f1bc9311f6f6ca0dd192862b6f38df6ac0d45e92396bcd796e377b1d8058c10bdfd584aeee580c3ce1
+  checksum: 9deb4756fe1b438d41ff1aae7d6c216c9e49e5fe60f539f8edb6698ffeb530ff7b25d37e223439b03602ca3a7397c9c2e53e1a39c7bd616353472fce0cc04107
   languageName: node
   linkType: hard
 
@@ -6744,7 +6744,7 @@ __metadata:
     "@types/estree": 1.0.0
     "@types/file-entry-cache": 5.0.2
     "@types/find-cache-dir": 3.2.1
-    "@types/jest": 29.2.3
+    "@types/jest": 29.2.4
     "@typescript-eslint/eslint-plugin": 5.44.0
     "@typescript-eslint/typescript-estree": 5.45.0
     "@typescript-eslint/visitor-keys": 5.45.0
