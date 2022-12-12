@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -36,6 +37,7 @@ jobs:
           path: dist
 
   webpack:
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     name: Bundle Prettier with webpack
     runs-on: ubuntu-latest
     needs: [build]

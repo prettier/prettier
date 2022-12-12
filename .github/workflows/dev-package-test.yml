@@ -14,6 +14,7 @@ on:
 
 jobs:
   test:
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     timeout-minutes: 60
     strategy:
       fail-fast: false
