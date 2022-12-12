@@ -347,6 +347,22 @@ module {
 ================================================================================
 `;
 
+exports[`valid-using-as-identifier-computed-member.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+using [x] = 0;
+for (using [x] of []);
+
+=====================================output=====================================
+using[x] = 0;
+for (using[x] of []);
+
+================================================================================
+`;
+
 exports[`valid-using-as-identifier-expression-statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -391,9 +407,15 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 for (using in []);
+for (using.foo in []);
+for (using().foo in []);
+for (using\`\`.foo in []);
 
 =====================================output=====================================
 for (using in []);
+for (using.foo in []);
+for (using().foo in []);
+for (using\`\`.foo in []);
 
 ================================================================================
 `;
@@ -421,9 +443,15 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 for (using of of);
+for (using.foo of of);
+for (using().foo of of);
+for (using\`\`.foo of of);
 
 =====================================output=====================================
 for (using of of);
+for (using.foo of of);
+for (using().foo of of);
+for (using\`\`.foo of of);
 
 ================================================================================
 `;

@@ -54,7 +54,18 @@ const extensions = {
 
 const pluginFiles = [
   "src/language-js/parse/babel.js",
-  "src/language-js/parse/flow.js",
+  {
+    input: "src/language-js/parse/flow.js",
+    replaceModule: [
+      {
+        module: require.resolve("flow-parser"),
+        process: (text) =>
+          text
+            .replaceAll('require("fs")', "{}")
+            .replaceAll('require("constants")', "{}"),
+      },
+    ],
+  },
   {
     input: "src/language-js/parse/typescript.js",
     replaceModule: [

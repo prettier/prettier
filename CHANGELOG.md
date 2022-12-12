@@ -1,3 +1,56 @@
+# 2.8.1
+
+[diff](https://github.com/prettier/prettier/compare/2.8.0...2.8.1)
+
+#### Fix SCSS map in arguments ([#9184](https://github.com/prettier/prettier/pull/9184) by [@agamkrbit](https://github.com/agamkrbit))
+
+<!-- prettier-ignore -->
+```scss
+// Input
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})",
+  ),
+  $display-breakpoints
+);
+
+// Prettier 2.8.0
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, " sm
+      ")-1})",
+  ),
+  $display-breakpoints
+);
+
+// Prettier 2.8.1
+$display-breakpoints: map-deep-merge(
+  (
+    "print-only": "only print",
+    "screen-only": "only screen",
+    "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})",
+  ),
+  $display-breakpoints
+);
+```
+
+#### Support auto accessors syntax ([#13919](https://github.com/prettier/prettier/pull/13919) by [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+Support for [Auto Accessors Syntax](https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/#auto-accessors-in-classes) landed in TypeScript 4.9.
+
+(Doesn't work well with `babel-ts` parser)
+
+<!-- prettier-ignore -->
+```tsx
+class Foo {
+  accessor foo: number = 3;
+}
+```
+
 # 2.8.0
 
 [diff](https://github.com/prettier/prettier/compare/2.7.1...2.8.0)

@@ -5,7 +5,7 @@
     "test": "node --test"
   },
   "dependencies": {
-    "chalk": "5.1.2",
+    "chalk": "5.2.0",
     "enquirer": "2.3.6",
     "execa": "6.1.0",
     "outdent": "0.8.0",

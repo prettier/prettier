@@ -265,3 +265,17 @@ import module from "./module.wasm";
 
 ================================================================================
 `;
+
+exports[`valid-module-as-default-binding-2.mjs format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import module, { createRequire } from "node:module";
+
+=====================================output=====================================
+import module, { createRequire } from "node:module";
+
+================================================================================
+`;
