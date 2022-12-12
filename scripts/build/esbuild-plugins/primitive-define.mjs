@@ -6,7 +6,7 @@ function stringify(value) {
     throw Object.assign(new TypeError("value not allowed"), { value });
   }
 
-  return JSON.stringify(value);
+  return value === undefined ? "undefined" : JSON.stringify(value);
 }
 
 /*
