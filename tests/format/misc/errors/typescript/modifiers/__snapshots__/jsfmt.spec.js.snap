@@ -9,11 +9,10 @@ exports[`snippet: #0 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #0 [typescript] format 1`] = `
-"'abstract' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'abstract' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   abstract method();
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -26,11 +25,10 @@ exports[`snippet: #1 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #1 [typescript] format 1`] = `
-"'abstract' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'abstract' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   abstract property;
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -43,11 +41,10 @@ exports[`snippet: #2 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #2 [typescript] format 1`] = `
-"'abstract' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'abstract' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   abstract [index: string]: number
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -60,11 +57,10 @@ exports[`snippet: #3 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #3 [typescript] format 1`] = `
-"'abstract' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'abstract' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   abstract [index: string] : string
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | } = {};"
 `;
 
@@ -77,11 +73,10 @@ exports[`snippet: #4 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #4 [typescript] format 1`] = `
-"'accessor' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'accessor' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   accessor method();
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -94,11 +89,10 @@ exports[`snippet: #5 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #5 [typescript] format 1`] = `
-"'accessor' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'accessor' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   accessor property;
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -111,11 +105,10 @@ exports[`snippet: #6 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #6 [typescript] format 1`] = `
-"'accessor' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'accessor' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   accessor [index: string]: number
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -128,11 +121,10 @@ exports[`snippet: #7 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #7 [typescript] format 1`] = `
-"'accessor' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'accessor' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   accessor [index: string] : string
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | } = {};"
 `;
 
@@ -145,11 +137,10 @@ exports[`snippet: #8 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #8 [typescript] format 1`] = `
-"'async' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'async' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   async method();
-    | ^^^^^^^^
+    |   ^^^^^
   3 | }"
 `;
 
@@ -162,11 +153,10 @@ exports[`snippet: #9 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #9 [typescript] format 1`] = `
-"'async' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'async' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   async property;
-    | ^^^^^^^^
+    |   ^^^^^
   3 | }"
 `;
 
@@ -179,11 +169,10 @@ exports[`snippet: #10 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #10 [typescript] format 1`] = `
-"'async' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'async' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   async [index: string]: number
-    | ^^^^^^^^
+    |   ^^^^^
   3 | }"
 `;
 
@@ -196,11 +185,10 @@ exports[`snippet: #11 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #11 [typescript] format 1`] = `
-"'async' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'async' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   async [index: string] : string
-    | ^^^^^^^^
+    |   ^^^^^
   3 | } = {};"
 `;
 
@@ -277,11 +265,10 @@ exports[`snippet: #16 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #16 [typescript] format 1`] = `
-"'declare' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'declare' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   declare method();
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -294,11 +281,10 @@ exports[`snippet: #17 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #17 [typescript] format 1`] = `
-"'declare' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'declare' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   declare property;
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -311,11 +297,10 @@ exports[`snippet: #18 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #18 [typescript] format 1`] = `
-"'declare' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'declare' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   declare [index: string]: number
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -328,11 +313,10 @@ exports[`snippet: #19 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #19 [typescript] format 1`] = `
-"'declare' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'declare' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   declare [index: string] : string
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | } = {};"
 `;
 
@@ -409,11 +393,10 @@ exports[`snippet: #24 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #24 [typescript] format 1`] = `
-"'export' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'export' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   export method();
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -426,11 +409,10 @@ exports[`snippet: #25 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #25 [typescript] format 1`] = `
-"'export' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'export' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   export property;
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -443,11 +425,10 @@ exports[`snippet: #26 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #26 [typescript] format 1`] = `
-"'export' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'export' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   export [index: string]: number
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -460,11 +441,10 @@ exports[`snippet: #27 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #27 [typescript] format 1`] = `
-"'export' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'export' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   export [index: string] : string
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | } = {};"
 `;
 
@@ -477,11 +457,10 @@ exports[`snippet: #28 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #28 [typescript] format 1`] = `
-"'in' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'in' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   in method();
-    | ^^^^^
+    |   ^^
   3 | }"
 `;
 
@@ -494,11 +473,10 @@ exports[`snippet: #29 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #29 [typescript] format 1`] = `
-"'in' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'in' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   in property;
-    | ^^^^^
+    |   ^^
   3 | }"
 `;
 
@@ -511,11 +489,10 @@ exports[`snippet: #30 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #30 [typescript] format 1`] = `
-"'in' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'in' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   in [index: string]: number
-    | ^^^^^
+    |   ^^
   3 | }"
 `;
 
@@ -528,11 +505,10 @@ exports[`snippet: #31 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #31 [typescript] format 1`] = `
-"'in' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'in' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   in [index: string] : string
-    | ^^^^^
+    |   ^^
   3 | } = {};"
 `;
 
@@ -545,11 +521,10 @@ exports[`snippet: #32 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #32 [typescript] format 1`] = `
-"'out' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'out' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   out method();
-    | ^^^^^^
+    |   ^^^
   3 | }"
 `;
 
@@ -562,11 +537,10 @@ exports[`snippet: #33 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #33 [typescript] format 1`] = `
-"'out' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'out' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   out property;
-    | ^^^^^^
+    |   ^^^
   3 | }"
 `;
 
@@ -579,11 +553,10 @@ exports[`snippet: #34 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #34 [typescript] format 1`] = `
-"'out' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'out' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   out [index: string]: number
-    | ^^^^^^
+    |   ^^^
   3 | }"
 `;
 
@@ -596,11 +569,10 @@ exports[`snippet: #35 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #35 [typescript] format 1`] = `
-"'out' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'out' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   out [index: string] : string
-    | ^^^^^^
+    |   ^^^
   3 | } = {};"
 `;
 
@@ -613,11 +585,10 @@ exports[`snippet: #36 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #36 [typescript] format 1`] = `
-"'override' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'override' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   override method();
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -630,11 +601,10 @@ exports[`snippet: #37 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #37 [typescript] format 1`] = `
-"'override' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'override' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   override property;
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -647,11 +617,10 @@ exports[`snippet: #38 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #38 [typescript] format 1`] = `
-"'override' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'override' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   override [index: string]: number
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -664,11 +633,10 @@ exports[`snippet: #39 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #39 [typescript] format 1`] = `
-"'override' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'override' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   override [index: string] : string
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | } = {};"
 `;
 
@@ -681,11 +649,10 @@ exports[`snippet: #40 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #40 [typescript] format 1`] = `
-"'private' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'private' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   private method();
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -698,11 +665,10 @@ exports[`snippet: #41 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #41 [typescript] format 1`] = `
-"'private' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'private' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   private property;
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -715,11 +681,10 @@ exports[`snippet: #42 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #42 [typescript] format 1`] = `
-"'private' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'private' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   private [index: string]: number
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -732,11 +697,10 @@ exports[`snippet: #43 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #43 [typescript] format 1`] = `
-"'private' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'private' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   private [index: string] : string
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | } = {};"
 `;
 
@@ -749,11 +713,10 @@ exports[`snippet: #44 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #44 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'protected' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   protected method();
-    | ^^^^^^^^^^^^
+    |   ^^^^^^^^^
   3 | }"
 `;
 
@@ -766,11 +729,10 @@ exports[`snippet: #45 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #45 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'protected' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   protected property;
-    | ^^^^^^^^^^^^
+    |   ^^^^^^^^^
   3 | }"
 `;
 
@@ -783,11 +745,10 @@ exports[`snippet: #46 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #46 [typescript] format 1`] = `
-"'protected' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'protected' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   protected [index: string]: number
-    | ^^^^^^^^^^^^
+    |   ^^^^^^^^^
   3 | }"
 `;
 
@@ -800,11 +761,10 @@ exports[`snippet: #47 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #47 [typescript] format 1`] = `
-"'protected' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'protected' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   protected [index: string] : string
-    | ^^^^^^^^^^^^
+    |   ^^^^^^^^^
   3 | } = {};"
 `;
 
@@ -817,11 +777,10 @@ exports[`snippet: #48 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #48 [typescript] format 1`] = `
-"'public' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'public' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   public method();
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -834,11 +793,10 @@ exports[`snippet: #49 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #49 [typescript] format 1`] = `
-"'public' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'public' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   public property;
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -851,11 +809,10 @@ exports[`snippet: #50 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #50 [typescript] format 1`] = `
-"'public' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'public' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   public [index: string]: number
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -868,11 +825,10 @@ exports[`snippet: #51 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #51 [typescript] format 1`] = `
-"'public' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'public' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   public [index: string] : string
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | } = {};"
 `;
 
@@ -885,11 +841,10 @@ exports[`snippet: #52 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #52 [typescript] format 1`] = `
-"'static' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'static' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   static method();
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -902,11 +857,10 @@ exports[`snippet: #53 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #53 [typescript] format 1`] = `
-"'static' modifier cannot appear on a type member (1:16)
-> 1 | interface Foo {
-    |                ^
+"'static' modifier cannot appear on a type member (2:3)
+  1 | interface Foo {
 > 2 |   static property;
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -919,11 +873,10 @@ exports[`snippet: #54 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #54 [typescript] format 1`] = `
-"'static' modifier cannot appear on an index signature (1:16)
-> 1 | interface Foo {
-    |                ^
+"'static' modifier cannot appear on an index signature (2:3)
+  1 | interface Foo {
 > 2 |   static [index: string]: number
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -936,11 +889,10 @@ exports[`snippet: #55 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #55 [typescript] format 1`] = `
-"'static' modifier cannot appear on an index signature (1:13)
-> 1 | const foo: {
-    |             ^
+"'static' modifier cannot appear on an index signature (2:3)
+  1 | const foo: {
 > 2 |   static [index: string] : string
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | } = {};"
 `;
 
@@ -953,11 +905,10 @@ exports[`snippet: #56 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #56 [typescript] format 1`] = `
-"'readonly' modifier can only appear on a property declaration or index signature. (1:16)
-> 1 | interface Foo {
-    |                ^
+"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
+  1 | interface Foo {
 > 2 |   readonly method();
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -970,11 +921,10 @@ exports[`snippet: #57 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #57 [typescript] format 1`] = `
-"'abstract' modifier can only appear on a class, method, or property declaration. (1:13)
-> 1 | module Foo {
-    |             ^
+"'abstract' modifier can only appear on a class, method, or property declaration. (2:3)
+  1 | module Foo {
 > 2 |   abstract module Bar {}
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -987,11 +937,10 @@ exports[`snippet: #58 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #58 [typescript] format 1`] = `
-"'abstract' modifier can only appear on a class, method, or property declaration. (1:13)
-> 1 | module Foo {
-    |             ^
+"'abstract' modifier can only appear on a class, method, or property declaration. (2:3)
+  1 | module Foo {
 > 2 |   abstract enum Bar {}
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -1004,11 +953,10 @@ exports[`snippet: #59 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #59 [typescript] format 1`] = `
-"'static' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'static' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   static module Bar {}
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -1021,11 +969,10 @@ exports[`snippet: #60 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #60 [typescript] format 1`] = `
-"'static' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'static' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   static enum Bar {}
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -1038,11 +985,10 @@ exports[`snippet: #61 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #61 [typescript] format 1`] = `
-"'private' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'private' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   private module Bar {}
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -1055,11 +1001,10 @@ exports[`snippet: #62 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #62 [typescript] format 1`] = `
-"'private' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'private' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   private enum Bar {}
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -1072,11 +1017,10 @@ exports[`snippet: #63 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #63 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'protected' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   protected module Bar {}
-    | ^^^^^^^^^^^^
+    |   ^^^^^^^^^
   3 | }"
 `;
 
@@ -1089,11 +1033,10 @@ exports[`snippet: #64 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #64 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'protected' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   protected enum Bar {}
-    | ^^^^^^^^^^^^
+    |   ^^^^^^^^^
   3 | }"
 `;
 
@@ -1106,11 +1049,10 @@ exports[`snippet: #65 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #65 [typescript] format 1`] = `
-"'public' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'public' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   public module Bar {}
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -1123,11 +1065,10 @@ exports[`snippet: #66 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #66 [typescript] format 1`] = `
-"'public' modifier cannot appear on a module or namespace element. (1:13)
-> 1 | module Foo {
-    |             ^
+"'public' modifier cannot appear on a module or namespace element. (2:3)
+  1 | module Foo {
 > 2 |   public enum Bar {}
-    | ^^^^^^^^^
+    |   ^^^^^^
   3 | }"
 `;
 
@@ -1452,11 +1393,10 @@ exports[`snippet: #93 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #93 [typescript] format 1`] = `
-"'declare' modifier cannot appear on class elements of this kind. (1:12)
-> 1 | class Foo {
-    |            ^
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
 > 2 |   declare method() {}
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -1469,11 +1409,10 @@ exports[`snippet: #94 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #94 [typescript] format 1`] = `
-"'readonly' modifier can only appear on a property declaration or index signature. (1:12)
-> 1 | class Foo {
-    |            ^
+"'readonly' modifier can only appear on a property declaration or index signature. (2:3)
+  1 | class Foo {
 > 2 |   readonly method() {}
-    | ^^^^^^^^^^^
+    |   ^^^^^^^^
   3 | }"
 `;
 
@@ -1486,11 +1425,10 @@ exports[`snippet: #95 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #95 [typescript] format 1`] = `
-"'declare' modifier cannot appear on class elements of this kind. (1:12)
-> 1 | class Foo {
-    |            ^
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
 > 2 |   declare get getter() {}
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;
 
@@ -1503,10 +1441,9 @@ exports[`snippet: #96 [babel-ts] format 1`] = `
 `;
 
 exports[`snippet: #96 [typescript] format 1`] = `
-"'declare' modifier cannot appear on class elements of this kind. (1:12)
-> 1 | class Foo {
-    |            ^
+"'declare' modifier cannot appear on class elements of this kind. (2:3)
+  1 | class Foo {
 > 2 |   declare set setter(v) {}
-    | ^^^^^^^^^^
+    |   ^^^^^^^
   3 | }"
 `;

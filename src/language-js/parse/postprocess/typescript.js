@@ -6,7 +6,8 @@ let ts;
 
 function getTsNodeLocation(nodeOrToken) {
   const sourceFile = ts.getSourceFileOfNode(nodeOrToken);
-  const [start, end] = [nodeOrToken.pos, nodeOrToken.end].map((position) => {
+  const position = ts.rangeOfNode(nodeOrToken);
+  const [start, end] = [position.pos, position.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
     return { line: line + 1, column };
