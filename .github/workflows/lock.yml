@@ -7,6 +7,7 @@ on:
 
 jobs:
   lock:
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/lock-threads@v3

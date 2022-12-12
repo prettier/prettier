@@ -7,14 +7,15 @@ on:
     types:
       - created
   schedule:
-    # “At minute 0.” https://crontab.guru/#0_*_*_*_*
-    - cron: "0 * * * *"
+    # “At 00:00.” https://crontab.guru/#0_0_*_*_*
+    - cron: "0 0 * * *"
 
 permissions:
   issues: write
 
 jobs:
   no-response:
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     runs-on: ubuntu-latest
     steps:
       - uses: lee-dohm/no-response@v0.5.0
