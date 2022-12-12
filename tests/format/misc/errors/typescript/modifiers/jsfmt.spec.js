@@ -1,22 +1,5 @@
 import { outdent } from "outdent";
-
-const POSSIBLE_MODIFIERS = [
-  "abstract",
-  "accessor",
-  "async",
-  "const",
-  "declare",
-  "default",
-  "export",
-  "static",
-  "in",
-  "out",
-  "override",
-  "public",
-  "private",
-  "protected",
-  "readonly",
-];
+import { POSSIBLE_MODIFIERS } from "../../../../../../src/language-js/parse/postprocess/typescript.js";
 
 run_spec(
   {
@@ -54,15 +37,30 @@ run_spec(
         }
       `,
 
-      // TODO[@fisker]: Fix these tests
-      // ...["abstract", "static", "private", "protected", "public"].map(
-      //   (modifier) =>
-      //     outdent`
-      //       module Foo {
-      //         ${modifier} module Bar {}
-      //       }
-      //     `
-      // ),
+      ...["abstract", "static", "private", "protected", "public"].flatMap(
+        (modifier) => [
+          outdent`
+            module Foo {
+              ${modifier} module Bar {}
+            }
+          `,
+          outdent`
+            module Foo {
+              ${modifier} enum Bar {}
+            }
+          `,
+        ]
+      ),
+
+      // Only `declare` and `export` allowed in interface
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) => modifier !== "declare" && modifier !== "export"
+      ).map(
+        (modifier) =>
+          outdent`
+            ${modifier} interface Foo {}
+          `
+      ),
 
       // Only `in` and `out` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
