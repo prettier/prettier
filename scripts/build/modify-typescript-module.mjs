@@ -113,7 +113,7 @@ class TypeScriptModuleSource {
 
 function unwrap(text) {
   const startMark = "var ts = (() => {";
-  const endMark = "return __toCommonJS(typescript_exports);";
+  const endMark = "return require_typescript();";
   const start = text.indexOf(startMark);
   const end = text.lastIndexOf(endMark);
 
@@ -249,7 +249,7 @@ function modifyTypescriptModule(text) {
     end: "});",
   });
 
-  source.append("module.exports = __toCommonJS(typescript_exports);");
+  source.append("module.exports = require_typescript();");
 
   return source.toString();
 }
