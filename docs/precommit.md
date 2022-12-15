@@ -66,9 +66,10 @@ Read more at [mirror of prettier package for pre-commit](https://github.com/pre-
 **Use Case:** A dotnet solution to use Prettier along with other code quality tools (e.g. dotnet-format, ESLint, Stylelint, etc.). It supports multiple file states (staged - last-commit, git-files etc.)
 
 ```bash
+dotnet new tool-manifest
 dotnet tool install husky
 dotnet husky install
-dotnet husky add .husky/pre-commit
+dotnet husky add pre-commit
 ```
 
 after installation you can add prettier task to the `task-runner.json`.
