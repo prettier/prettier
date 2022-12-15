@@ -545,16 +545,28 @@ function isElseIfLike(path) {
   );
 }
 
-function printElseIfLikeBlock(path, print) {
-  const { grandparent } = path;
-  return [
+function printElseIfLikeBlock(path, print, ) {
+  const { node, grandparent } = path;
+  let blockParams = [];
+
+  if (isNonEmptyArray(node.program.blockParams)) {
+    blockParams = [line, printBlockParams(node.program)];
+  }
+
+  return group([
     printInverseBlockOpeningMustache(grandparent),
-    "else ",
-    grandparent.inverse.body[0].path.parts[0],
-    " ",
+    indent(
+      group([
+        group(["else", line, grandparent.inverse.body[0].path.parts[0]]),
+        line,
+        printParams(path, print),
+      ])
+    ),
+    indent(blockParams),
+    softline,
     printParams(path, print),
     printInverseBlockClosingMustache(grandparent),
-  ];
+  ]);
 }
 
 function printCloseBlock(path, print, options) {

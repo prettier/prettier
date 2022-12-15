@@ -1,3 +1,4 @@
+import collapseWhiteSpace from "collapse-white-space";
 import { isFrontMatterNode } from "../common/util.js";
 import { startWithPragma } from "./pragma.js";
 
@@ -40,11 +41,12 @@ function clean(ast, newObj, parent) {
     newObj.value = ast.value.trim().replaceAll(/[\t\n]+/g, " ");
   }
 
-  if (ast.type === "definition" || ast.type === "linkReference") {
-    newObj.label = ast.label
-      .trim()
-      .replaceAll(/[\t\n ]+/g, " ")
-      .toLowerCase();
+  if (
+    ast.type === "definition" ||
+    ast.type === "linkReference" ||
+    ast.type === "imageReference"
+  ) {
+    newObj.label = collapseWhiteSpace(ast.label);
   }
 
   if (
