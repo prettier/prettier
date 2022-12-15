@@ -219,8 +219,6 @@ function modifyTypescriptModule(text) {
     `
   );
 
-
-
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
