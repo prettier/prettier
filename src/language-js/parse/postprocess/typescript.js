@@ -38,7 +38,6 @@ function throwErrorForInvalidDecorator(tsNode) {
 // https://github.com/typescript-eslint/typescript-eslint/releases/tag/v5.0.0
 function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
   if (
-<<<<<<< HEAD
     !(
       tsNode.kind === ts.SyntaxKind.PropertyDeclaration &&
       tsNode.initializer &&
@@ -47,13 +46,6 @@ function throwErrorForInvalidAbstractProperty(tsNode, esTreeNode) {
         (modifier) => modifier.kind === ts.SyntaxKind.AbstractKeyword
       )
     )
-=======
-    tsNode.kind !== SyntaxKind.PropertyDeclaration ||
-    (tsNode.modifiers &&
-      !tsNode.modifiers.some(
-        (modifier) => modifier.kind === SyntaxKind.AbstractKeyword
-      ))
->>>>>>> 3eca0c556 (Fix test)
   ) {
     return;
   }
