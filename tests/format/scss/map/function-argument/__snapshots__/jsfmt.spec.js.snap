@@ -92,6 +92,15 @@ font-weight:
 }
 }
 
+@each $name, $hue in $hues {
+  $map: map.merge(
+    $map,
+    (
+      '#{$prefix}-#{$name}': blend.set($base, $hue: $hue),
+    )
+  );
+}
+
 =====================================output=====================================
 //simple test
 $display-breakpoints: map-deep-merge(
@@ -140,6 +149,10 @@ $font-weights: (
     color: red;
     font-weight: "#{$boldness}";
   }
+}
+
+@each $name, $hue in $hues {
+  $map: map.merge($map, ('#{$prefix}-#{$name}': blend.set($base $hue: $hue)));
 }
 
 ================================================================================
