@@ -918,7 +918,8 @@ function genericPrint(path, options, print) {
               path.map((childPath, index) => {
                 const child = childPath.getValue();
                 const isLast = index === node.groups.length - 1;
-                const printed = [print(), isLast ? "" : ","];
+
+                let printed = [print(), isLast ? "" : ","];
 
                 // Key/Value pair in open paren already indented
                 if (
@@ -931,7 +932,7 @@ function genericPrint(path, options, print) {
                 ) {
                   const parts = getDocParts(printed[0].contents.contents);
                   parts[1] = group(parts[1]);
-                  return group(dedent(printed));
+                  printed = [group(dedent(printed))];
                 }
 
                 if (
@@ -939,9 +940,14 @@ function genericPrint(path, options, print) {
                   child.type === "value-comma_group" &&
                   isNonEmptyArray(child.groups)
                 ) {
-                  const last = getLast(child.groups);
+                  let last = getLast(child.groups);
+
+                  // `value-paren_group` does not have location info, but its closing parenthesis does.
+                  if (!last.source && last.close) {
+                    last = last.close;
+                  }
+
                   if (
-                    // `value-paren_group` missing location info
                     last.source &&
                     isNextLineEmpty(options.originalText, last, locEnd)
                   ) {
