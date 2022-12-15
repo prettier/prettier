@@ -1,5 +1,6 @@
 "use strict";
 
+const collapseWhiteSpace = require("collapse-white-space");
 const { isFrontMatterNode } = require("../common/util.js");
 const { startWithPragma } = require("./pragma.js");
 
@@ -42,11 +43,12 @@ function clean(ast, newObj, parent) {
     newObj.value = ast.value.trim().replace(/[\t\n]+/g, " ");
   }
 
-  if (ast.type === "definition" || ast.type === "linkReference") {
-    newObj.label = ast.label
-      .trim()
-      .replace(/[\t\n ]+/g, " ")
-      .toLowerCase();
+  if (
+    ast.type === "definition" ||
+    ast.type === "linkReference" ||
+    ast.type === "imageReference"
+  ) {
+    newObj.label = collapseWhiteSpace(ast.label);
   }
 
   if (
