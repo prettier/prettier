@@ -152,7 +152,7 @@ $font-weights: (
 }
 
 @each $name, $hue in $hues {
-  $map: map.merge($map, ('#{$prefix}-#{$name}': blend.set($base $hue: $hue)));
+  $map: map.merge($map, ('#{$prefix}-#{$name}': blend.set($base, $hue: $hue)));
 }
 
 ================================================================================

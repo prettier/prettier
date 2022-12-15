@@ -5,7 +5,11 @@ function stringifyNode(node) {
     const open = node.open?.value || "";
     const groups = node.groups
       .map((currentValue) => stringifyNode(currentValue))
-      .join(node.groups[0]?.type === "comma_group" ? "," : "");
+      .join(
+        node.type === "paren_group" || node.groups[0]?.type === "comma_group"
+          ? ","
+          : ""
+      );
     const close = node.close?.value || "";
 
     return open + groups + close;
