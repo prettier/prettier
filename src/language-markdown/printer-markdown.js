@@ -1,4 +1,3 @@
-
 import collapseWhiteSpace from "collapse-white-space";
 import {
   getMinNotPresentContinuousCount,

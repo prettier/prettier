@@ -545,7 +545,7 @@ function isElseIfLike(path) {
   );
 }
 
-function printElseIfLikeBlock(path, print, ) {
+function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
   let blockParams = [];
 
@@ -564,7 +564,6 @@ function printElseIfLikeBlock(path, print, ) {
     ),
     indent(blockParams),
     softline,
-    printParams(path, print),
     printInverseBlockClosingMustache(grandparent),
   ]);
 }
