@@ -96,7 +96,7 @@ const TldrSection = ({ language }) => (
         <div style={{ display: "flex", flexDirection: "column" }}>
           <h2>Why?</h2>
           <ul style={{ flex: "1" }}>
-            <li>You press save and code is formatted</li>
+            <li>Your code is formatted on save</li>
             <li>No need to discuss style in code review</li>
             <li>Saves you time and energy</li>
             <li>
