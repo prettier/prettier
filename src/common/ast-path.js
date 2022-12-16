@@ -222,7 +222,7 @@ class AstPath {
   *getAncestors() {
     const { stack } = this;
 
-    for (let index = stack.length - 1; index >= 0; index -= 2) {
+    for (let index = stack.length - 3; index >= 0; index -= 2) {
       const value = stack[index];
       if (!Array.isArray(value)) {
         yield value;
