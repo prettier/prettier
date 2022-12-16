@@ -36,7 +36,6 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-  getAncestorCounter,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
 import { printWhitespace } from "./print-whitespace.js";
@@ -326,13 +325,14 @@ function genericPrint(path, options, print) {
       });
     }
     case "thematicBreak": {
-      const counter = getAncestorCounter(path, "list");
+      const ancestors = [...path.getAncestors()];
+      const counter = ancestors.findIndex((node) => node.type === "list");
       if (counter === -1) {
         return "---";
       }
       const nthSiblingIndex = getNthListSiblingIndex(
-        path.getParentNode(counter),
-        path.getParentNode(counter + 1)
+        ancestors[counter],
+        ancestors[counter + 1]
       );
       return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
