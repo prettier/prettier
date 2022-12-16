@@ -6,7 +6,13 @@ foo = [];
 foo = [];
 (let[a].b.c.e = 1);
 
+foo = [];
 foo[let[a]] = 1;
+
+foo = [];
 (let)[let[a]] = 1;
+
+foo = [];
+(let[a] ??= 1);
 
 foo = let[a];

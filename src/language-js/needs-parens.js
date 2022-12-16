@@ -978,6 +978,7 @@ function isAssignmentExpressionLeft(path) {
   const name = path.getName();
   const parent = path.getParentNode();
 
+  // "OptionalMemberExpression" can't be here
   if (name === "object" && parent.type === "MemberExpression") {
     return path.callParent(isAssignmentExpressionLeft);
   }
