@@ -325,7 +325,7 @@ function genericPrint(path, options, print) {
       });
     }
     case "thematicBreak": {
-      const ancestors = [...path.getAncestors()];
+      const { ancestors } = path;
       const counter = ancestors.findIndex((node) => node.type === "list");
       if (counter === -1) {
         return "---";

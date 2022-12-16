@@ -711,7 +711,7 @@ function printStringLiteral(stringLiteral, favoriteQuote) {
 }
 
 function needsOppositeQuote(path) {
-  const ancestors = [...path.getAncestors()];
+  const { ancestors } = path;
   const level = ancestors.findIndex((node) => node.type !== "SubExpression");
 
   return (

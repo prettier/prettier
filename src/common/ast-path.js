@@ -61,6 +61,10 @@ class AstPath {
     return this.stack[0];
   }
 
+  get ancestors() {
+    return [...this.#getAncestors()];
+  }
+
   // The name of the current property is always the penultimate element of
   // this.stack, and always a string/number/symbol.
   getName() {
@@ -212,7 +216,7 @@ class AstPath {
    * @internal Unstable API. Don't use in plugins for now.
    */
   findAncestor(predicate) {
-    for (const node of this.getAncestors()) {
+    for (const node of this.#getAncestors()) {
       if (predicate(node)) {
         return node;
       }
@@ -222,7 +226,7 @@ class AstPath {
   /**
    * @internal Unstable API. Don't use in plugins for now.
    */
-  *getAncestors() {
+  *#getAncestors() {
     const { stack } = this;
 
     for (let index = stack.length - 3; index >= 0; index -= 2) {

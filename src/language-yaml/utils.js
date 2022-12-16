@@ -1,15 +1,5 @@
 import { isNonEmptyArray } from "../common/util.js";
 
-function getAncestorCount(path, filter) {
-  let counter = 0;
-  for (const node of path.getAncestors()) {
-    if (filter(node)) {
-      counter++;
-    }
-  }
-  return counter;
-}
-
 /**
  * @param {any} value
  * @param {string[]=} types
@@ -343,7 +333,6 @@ function isInlineNode(node) {
 }
 
 export {
-  getAncestorCount,
   isNode,
   isEmptyNode,
   isInlineNode,
