@@ -77,7 +77,7 @@ function needsParens(path, options) {
       return true;
     }
 
-    // `let[a] = 1`
+    // `(let)[a] = 1`
     if (
       name === "object" &&
       node.name === "let" &&
