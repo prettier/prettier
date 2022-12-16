@@ -4,7 +4,6 @@
 
 import { fill, group, hardline } from "../document/builders.js";
 import { cleanDoc, replaceEndOfLine } from "../document/utils.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import {
@@ -24,9 +23,7 @@ import {
 } from "./print/tag.js";
 import { printElement } from "./print/element.js";
 import { printChildren } from "./print/children.js";
-import visitorKeys from "./visitor-keys.js";
-
-const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;

@@ -19,12 +19,11 @@ import {
   breakParent,
 } from "../document/builders.js";
 import { removeLines, getDocParts } from "../document/utils.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
-import visitorKeys from "./visitor-keys.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 import {
   getAncestorNode,
@@ -76,8 +75,6 @@ import {
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
-
-const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
