@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snippet: #0 [acorn] format 1`] = `
-"Parenthesized pattern (1:1)
+"Assigning to rvalue (1:1)
 > 1 | ({}) = x;
     | ^"
 `;
@@ -10,6 +10,12 @@ exports[`snippet: #0 [acorn] format 2`] = `
 "The keyword 'let' is reserved (1:1)
 > 1 | let?.()[a] =1
     | ^"
+`;
+
+exports[`snippet: #0 [acorn] format 3`] = `
+"The keyword 'let' is reserved (1:21)
+> 1 | class Foo extends ((let)[0] = 1) {}
+    |                     ^"
 `;
 
 exports[`snippet: #0 [babel] format 1`] = `
@@ -37,7 +43,7 @@ exports[`snippet: #0 [babel-ts] format 2`] = `
 `;
 
 exports[`snippet: #0 [espree] format 1`] = `
-"Parenthesized pattern (1:1)
+"Assigning to rvalue (1:1)
 > 1 | ({}) = x;
     | ^"
 `;
@@ -49,6 +55,12 @@ exports[`snippet: #0 [espree] format 2`] = `
 `;
 
 exports[`snippet: #0 [espree] format 3`] = `
+"The keyword 'let' is reserved (1:21)
+> 1 | class Foo extends ((let)[0] = 1) {}
+    |                     ^"
+`;
+
+exports[`snippet: #0 [espree] format 4`] = `
 "The keyword 'let' is reserved (1:18)
 > 1 | export default ((let)[0] = 1);
     |                  ^"
@@ -61,6 +73,12 @@ exports[`snippet: #0 [meriyah] format 1`] = `
 `;
 
 exports[`snippet: #0 [meriyah] format 2`] = `
+"The identifier 'let' must not be in expression position in strict mode (1:24)
+> 1 | class Foo extends ((let)[0] = 1) {}
+    |                        ^"
+`;
+
+exports[`snippet: #0 [meriyah] format 3`] = `
 "The identifier 'let' must not be in expression position in strict mode (1:21)
 > 1 | export default ((let)[0] = 1);
     |                     ^"
@@ -90,20 +108,8 @@ exports[`snippet: #1 [espree] format 1`] = `
     | ^"
 `;
 
-exports[`snippet: #1 [espree] format 2`] = `
-"The keyword 'let' is reserved (1:21)
-> 1 | class Foo extends ((let)[0] = 1) {}
-    |                     ^"
-`;
-
 exports[`snippet: #1 [meriyah] format 1`] = `
 "\`let\` declaration not allowed here and \`let\` cannot be a regular var name in strict mode (1:5)
 > 1 | let?.[a] = 1
     |     ^"
-`;
-
-exports[`snippet: #1 [meriyah] format 2`] = `
-"The identifier 'let' must not be in expression position in strict mode (1:24)
-> 1 | class Foo extends ((let)[0] = 1) {}
-    |                        ^"
 `;
