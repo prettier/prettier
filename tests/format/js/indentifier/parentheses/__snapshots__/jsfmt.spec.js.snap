@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`let.js - {"semi":false} format 1`] = `
+exports[`let-in-assignment.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -67,7 +67,7 @@ foo(let[a])[a] = 1
 ================================================================================
 `;
 
-exports[`let.js format 1`] = `
+exports[`let-in-assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
