@@ -25,3 +25,9 @@ foo(let)[a] = 1;
 
 foo = [];
 foo(let[a])[a] = 1;
+
+foo = [];
+(let[0] = 1);
+
+foo = [];
+(let["a"] = 1);
