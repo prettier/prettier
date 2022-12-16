@@ -77,6 +77,17 @@ function needsParens(path, options) {
       return true;
     }
 
+    // `let[a] = 1`
+    if (
+      name === "object" &&
+      node.name === "let" &&
+      parent.type === "MemberExpression" &&
+      parent.computed &&
+      !parent.optional
+    ) {
+      return path.callParent(isAssignmentExpressionLeft);
+    }
+
     return false;
   }
 
@@ -961,6 +972,17 @@ function shouldWrapFunctionForExportDefault(path, options) {
     (childPath) => shouldWrapFunctionForExportDefault(childPath, options),
     ...getLeftSidePathName(path, node)
   );
+}
+
+function isAssignmentExpressionLeft(path) {
+  const name = path.getName();
+  const parent = path.getParentNode();
+
+  if (name === "object" && parent.type === "MemberExpression") {
+    return path.callParent(isAssignmentExpressionLeft);
+  }
+
+  return name === "left" && parent.type === "AssignmentExpression";
 }
 
 module.exports = needsParens;
