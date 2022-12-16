@@ -767,13 +767,12 @@ function shouldPrePrintTripleHardline({ node, previous }) {
 }
 
 function shouldRemainTheSameContent(path) {
-  for (const node of path.getAncestors()) {
-    if (node.type === "linkReference" || node.type === "imageReference") {
-      return node.type !== "linkReference" || node.referenceType !== "full";
-    }
-  }
-
-  return false;
+  const node = path.findAncestor(
+    (node) => node.type === "linkReference" || node.type === "imageReference"
+  );
+  return (
+    node && (node.type !== "linkReference" || node.referenceType !== "full")
+  );
 }
 
 /**

@@ -208,7 +208,7 @@ class AstPath {
    * Traverses the ancestors of the current node heading toward the tree root
    * until it finds a node that matches the provided predicate function. Will
    * return the first matching ancestor. If no such node exists, returns undefined.
-   * @param {(node: any, name: string, number: number | null) => boolean} predicate
+   * @param {(node) => boolean} predicate
    * @internal Unstable API. Don't use in plugins for now.
    */
   findAncestor(predicate) {
