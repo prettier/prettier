@@ -219,6 +219,9 @@ class AstPath {
     }
   }
 
+  /**
+   * @internal Unstable API. Don't use in plugins for now.
+   */
   *getAncestors() {
     const { stack } = this;
 
