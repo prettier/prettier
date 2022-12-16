@@ -27,7 +27,6 @@ import { insertPragma } from "./pragma.js";
 import visitorKeys from "./visitor-keys.js";
 
 import {
-  getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
   insideValueFunctionNode,
@@ -359,7 +358,11 @@ function genericPrint(path, options, print) {
     case "selector-root":
       return group([
         insideAtRuleNode(path, "custom-selector")
-          ? [getAncestorNode(path, "css-atrule").customSelector, line]
+          ? [
+              path.findAncestor((node) => node.type === "css-atrule")
+                .customSelector,
+              line,
+            ]
           : "",
         join(
           [
@@ -467,7 +470,9 @@ function genericPrint(path, options, print) {
       return node.value;
 
     case "selector-unknown": {
-      const ruleAncestorNode = getAncestorNode(path, "css-rule");
+      const ruleAncestorNode = path.findAncestor(
+        (node) => node.type === "css-rule"
+      );
 
       // Nested SCSS property
       if (ruleAncestorNode?.isSCSSNesterProperty) {
@@ -519,7 +524,9 @@ function genericPrint(path, options, print) {
         parentNode.type === "value-value" &&
         (declAncestorProp === "grid" ||
           declAncestorProp.startsWith("grid-template"));
-      const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+      const atRuleAncestorNode = path.findAncestor(
+        (node) => node.type === "css-atrule"
+      );
       const isControlDirective =
         atRuleAncestorNode &&
         isSCSSControlDirectiveNode(atRuleAncestorNode, options);
