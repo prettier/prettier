@@ -36,7 +36,6 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-  getAncestorNode,
   getAncestorCounter,
 } from "./utils.js";
 import visitorKeys from "./visitor-keys.js";
@@ -154,7 +153,10 @@ function genericPrint(path, options, print) {
             next.children[0]?.type === "word" &&
             !next.children[0].hasLeadingPunctuation);
         style =
-          hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+          hasPrevOrNextWord ||
+          path.findAncestor((node) => node.type === "emphasis")
+            ? "*"
+            : "_";
       }
       return [style, printChildren(path, options, print), style];
     }
@@ -765,16 +767,13 @@ function shouldPrePrintTripleHardline({ node, previous }) {
 }
 
 function shouldRemainTheSameContent(path) {
-  const ancestorNode = getAncestorNode(path, [
-    "linkReference",
-    "imageReference",
-  ]);
+  for (const node of path.getAncestors()) {
+    if (node.type === "linkReference" || node.type === "imageReference") {
+      return node.type !== "linkReference" || node.referenceType !== "full";
+    }
+  }
 
-  return (
-    ancestorNode &&
-    (ancestorNode.type !== "linkReference" ||
-      ancestorNode.referenceType !== "full")
-  );
+  return false;
 }
 
 /**

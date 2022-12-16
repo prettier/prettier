@@ -253,11 +253,6 @@ function getAncestorCounter(path, typeOrTypes) {
   return -1;
 }
 
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
-}
-
 export {
   mapAst,
   splitText,
@@ -273,5 +268,4 @@ export {
   KIND_K_LETTER,
   KIND_CJK_PUNCTUATION,
   getAncestorCounter,
-  getAncestorNode,
 };

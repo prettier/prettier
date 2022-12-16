@@ -212,26 +212,21 @@ class AstPath {
    * @internal Unstable API. Don't use in plugins for now.
    */
   findAncestor(predicate) {
-    let stackPointer = this.stack.length - 1;
-
-    let name = null;
-    let node = this.stack[stackPointer--];
-
-    while (node) {
-      // skip index/array
-      let number = null;
-      if (typeof name === "number") {
-        number = name;
-        name = this.stack[stackPointer--];
-        node = this.stack[stackPointer--];
-      }
-
-      if (name !== null && predicate(node, name, number)) {
+    for (const node of this.getAncestors()) {
+      if (predicate(node)) {
         return node;
       }
+    }
+  }
 
-      name = this.stack[stackPointer--];
-      node = this.stack[stackPointer--];
+  *getAncestors() {
+    const { stack } = this;
+
+    for (let index = stack.length - 1; index >= 0; index -= 2) {
+      const value = stack[index];
+      if (!Array.isArray(value)) {
+        yield value;
+      }
     }
   }
 }
