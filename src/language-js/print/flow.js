@@ -24,7 +24,11 @@ import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
 import { printTupleType } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
-import printEnumMembers from "./enum-members.js";
+import {
+  printEnumDeclaration,
+  printEnumBody,
+  printEnumMember,
+} from "./enum.js";
 import { printBigInt } from "./literal.js";
 import {
   printOptionalToken,
@@ -105,52 +109,23 @@ function printFlow(path, options, print) {
       return [print("elementType"), "[]"];
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
+
     case "DeclareEnum":
     case "EnumDeclaration":
-      return [
-        node.type === "DeclareEnum" &&
-        path.parent.type !== "DeclareExportDeclaration"
-          ? "declare "
-          : "",
-        "enum ",
-        print("id"),
-        " ",
-        print("body"),
-      ];
+      return printEnumDeclaration(path, print, options);
 
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumStringBody":
-    case "EnumSymbolBody": {
-      let type;
-      if (node.type === "EnumSymbolBody" || node.explicitType) {
-        switch (node.type) {
-          case "EnumBooleanBody":
-            type = "boolean";
-            break;
-          case "EnumNumberBody":
-            type = "number";
-            break;
-          case "EnumStringBody":
-            type = "string";
-            break;
-          case "EnumSymbolBody":
-            type = "symbol";
-            break;
-        }
-      }
-      return [
-        type ? `of ${type} ` : "",
-        printEnumMembers(path, print, options),
-      ];
-    }
+    case "EnumSymbolBody":
+      return printEnumBody(path, print, options);
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
     case "EnumStringMember":
-      return [print("id"), " = ", print("init")];
     case "EnumDefaultedMember":
-      return print("id");
+      return printEnumMember(path, print);
+
     case "FunctionTypeParam": {
       const name = node.name
         ? print("name")
