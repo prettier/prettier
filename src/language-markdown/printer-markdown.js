@@ -153,7 +153,7 @@ function genericPrint(path, options, print) {
             !next.children[0].hasLeadingPunctuation);
         style =
           hasPrevOrNextWord ||
-          path.findAncestor((node) => node.type === "emphasis")
+          path.hasAncestor((node) => node.type === "emphasis")
             ? "*"
             : "_";
       }

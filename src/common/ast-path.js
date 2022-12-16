@@ -224,6 +224,24 @@ class AstPath {
   }
 
   /**
+   * Traverses the ancestors of the current node heading toward the tree root
+   * until it finds a node that matches the provided predicate function.
+   * returns true if matched node found.
+   * @param {(node) => boolean} predicate
+   * @returns {boolean}
+   * @internal Unstable API. Don't use in plugins for now.
+   */
+  hasAncestor(predicate) {
+    for (const node of this.#getAncestors()) {
+      if (predicate(node)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * @internal Unstable API. Don't use in plugins for now.
    */
   *#getAncestors() {

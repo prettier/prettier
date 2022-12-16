@@ -224,7 +224,7 @@ function isNonCJKOrKoreanLetter(kind) {
 function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
   if (
     proseWrap !== "always" ||
-    path.findAncestor((node) => SINGLE_LINE_NODE_TYPES.has(node.type))
+    path.hasAncestor((node) => SINGLE_LINE_NODE_TYPES.has(node.type))
   ) {
     return false;
   }
