@@ -154,6 +154,19 @@ TABLE {}
 
 .foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
 
+// do not change case of property name if inside a variable declaration
+@var: {
+  notVar: 0;
+  @notVarNested: {
+    notVar: 0;
+    notVar2: 0;
+  };
+};
+
+@not-var {
+  notVar: @var[@notVarNested][notVar];
+}
+
 =====================================output=====================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -204,7 +217,7 @@ svg[viewBox] linearGradient,
 }
 
 @KeepDetachedRuleset: /*:*/ {
-  background: RED;
+  BACKGROUND: RED;
 };
 
 %KeepScssPlaceholderSelector {
@@ -317,6 +330,19 @@ TABLE {
   }
   &-100\\.200 {
   }
+}
+
+// do not change case of property name if inside a variable declaration
+@var: {
+  notVar: 0;
+  @notVarNested: {
+    notVar: 0;
+    notVar2: 0;
+  };
+};
+
+@not-var {
+  notvar: @var[ @notVarNested][notVar];
 }
 
 ================================================================================

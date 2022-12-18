@@ -145,3 +145,16 @@ a:AFTER {
 TABLE {}
 
 .foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\.200 {} }
+
+// do not change case of property name if inside a variable declaration
+@var: {
+  notVar: 0;
+  @notVarNested: {
+    notVar: 0;
+    notVar2: 0;
+  };
+};
+
+@not-var {
+  notVar: @var[@notVarNested][notVar];
+}
