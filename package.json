@@ -91,7 +91,7 @@
     "postcss-values-parser": "2.0.1",
     "regexp-util": "1.2.2",
     "remark-footnotes": "2.0.0",
-    "remark-math": "3.0.1",
+    "remark-math": "5.1.1",
     "remark-parse": "8.0.3",
     "sdbm": "2.0.0",
     "string-width": "5.0.1",
