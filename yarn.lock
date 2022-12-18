@@ -2372,10 +2372,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase@npm:7.0.0":
-  version: 7.0.0
-  resolution: "camelcase@npm:7.0.0"
-  checksum: 162d59607b3b46e910af151348d5e40af579048a5d07f3c06370b096ca0d42ba4a88bd92cf4e3482645ba1ffdd6f744d8273c1b9594e493fc10883d54adf7cbe
+"camelcase@npm:7.0.1":
+  version: 7.0.1
+  resolution: "camelcase@npm:7.0.1"
+  checksum: 86ab8f3ebf08bcdbe605a211a242f00ed30d8bfb77dab4ebb744dd36efbc84432d1c4adb28975ba87a1b8be40a80fbd1e60e2f06565315918fa7350011a26d3d
   languageName: node
   linkType: hard
 
@@ -6738,7 +6738,7 @@ __metadata:
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
     c8: 7.12.0
-    camelcase: 7.0.0
+    camelcase: 7.0.1
     chalk: 5.1.2
     ci-info: 3.7.0
     cjk-regex: 2.0.1
