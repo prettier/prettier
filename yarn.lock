@@ -2563,7 +2563,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"collapse-white-space@npm:1.0.6, collapse-white-space@npm:^1.0.2":
+"collapse-white-space@npm:2.1.0":
+  version: 2.1.0
+  resolution: "collapse-white-space@npm:2.1.0"
+  checksum: c8978b1f4e7d68bf846cfdba6c6689ce8910511df7d331eb6e6757e51ceffb52768d59a28db26186c91dcf9594955b59be9f8ccd473c485790f5d8b90dc6726f
+  languageName: node
+  linkType: hard
+
+"collapse-white-space@npm:^1.0.2":
   version: 1.0.6
   resolution: "collapse-white-space@npm:1.0.6"
   checksum: 9673fb797952c5c888341435596c69388b22cd5560c8cd3f40edb72734a9c820f56a7c9525166bcb7068b5d5805372e6fd0c4b9f2869782ad070cb5d3faf26e7
@@ -6742,7 +6749,7 @@ __metadata:
     chalk: 5.1.2
     ci-info: 3.7.0
     cjk-regex: 2.0.1
-    collapse-white-space: 1.0.6
+    collapse-white-space: 2.1.0
     cosmiconfig: 8.0.0
     cross-env: 7.0.3
     cspell: 6.17.0
