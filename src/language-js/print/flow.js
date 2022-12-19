@@ -121,7 +121,7 @@ function printFlow(path, options, print) {
     case "EnumNumberBody":
     case "EnumStringBody":
     case "EnumSymbolBody": {
-      let type = "";
+      let type;
       if (node.type === "EnumSymbolBody" || node.explicitType) {
         switch (node.type) {
           case "EnumBooleanBody":
