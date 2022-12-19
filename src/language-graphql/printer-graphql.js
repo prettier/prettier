@@ -8,14 +8,11 @@ import {
   ifBreak,
 } from "../document/builders.js";
 import { isNextLineEmpty, isNonEmptyArray } from "../common/util.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { insertPragma } from "./pragma.js";
 import { locStart, locEnd } from "./loc.js";
-import visitorKeys from "./visitor-keys.evaluate.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 import printDescription from "./print/description.js";
-
-const getVisitorKeys = createGetVisitorKeys(visitorKeys, "kind");
 
 function genericPrint(path, options, print) {
   const { node } = path;

@@ -3,6 +3,7 @@
 import assert from "node:assert";
 import { printString, printNumber } from "../../common/util.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   getParentExportDeclaration,
   isFunctionNotation,
@@ -303,7 +304,7 @@ function printFlow(path, options, print) {
     case "MemberTypeAnnotation": // Flow
     case "Type":
       /* c8 ignore next */
-      throw new Error("unprintable type: " + JSON.stringify(node.type));
+      throw new UnexpectedNodeError(node, "Flow");
   }
 }
 

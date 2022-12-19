@@ -1,4 +1,5 @@
 import { isNonEmptyArray } from "../../common/util.js";
+import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   softline,
   group,
@@ -208,9 +209,7 @@ function printModuleSpecifiers(path, options, print) {
         groupedSpecifiers.push(print());
       } else {
         /* c8 ignore next 3 */
-        throw new Error(
-          `Unknown specifier type ${JSON.stringify(specifierType)}`
-        );
+        throw new UnexpectedNodeError(node, "specifier");
       }
     }, "specifiers");
 
