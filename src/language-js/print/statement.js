@@ -176,8 +176,10 @@ const isClassProperty = ({ type }) =>
  * @returns {boolean}
  */
 function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const { name } = node.key;
+  const { type, name } = node.key;
   if (
+    !node.computed &&
+    type === "Identifier" &&
     (name === "static" ||
       name === "get" ||
       name === "set" ||
