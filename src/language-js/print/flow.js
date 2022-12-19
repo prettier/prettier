@@ -159,11 +159,7 @@ function printFlow(path, options, print) {
     case "EnumBooleanMember":
     case "EnumNumberMember":
     case "EnumStringMember":
-      return [
-        print("id"),
-        " = ",
-        typeof node.init === "object" ? print("init") : String(node.init),
-      ];
+      return [print("id"), " = ", print("init")];
     case "EnumDefaultedMember":
       return print("id");
     case "FunctionTypeParam": {
