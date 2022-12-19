@@ -57,6 +57,11 @@ function printImportDeclaration(path, options, print) {
   return parts;
 }
 
+/*
+- `ExportDefaultDeclaration`
+- `ExportNamedDeclaration`
+- `DeclareExportDeclaration`(flow)
+*/
 function printExportDeclaration(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -69,6 +74,10 @@ function printExportDeclaration(path, options, print) {
   }
 
   const { type, exportKind, declaration } = node;
+
+  if (type === "DeclareExportDeclaration") {
+    parts.push("declare ");
+  }
 
   parts.push("export");
 
@@ -106,13 +115,21 @@ function printExportDeclaration(path, options, print) {
   return parts;
 }
 
+/*
+- `ExportAllDeclaration`
+- `DeclareExportAllDeclaration`(flow)
+*/
 function printExportAllDeclaration(path, options, print) {
   const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
   const parts = [];
 
-  const { exportKind, exported } = node;
+  const { exportKind, exported, type } = node;
+
+  if (type === "DeclareExportAllDeclaration") {
+    parts.push("declare ");
+  }
 
   parts.push("export");
 

@@ -5,7 +5,6 @@ import { printString, printNumber } from "../../common/util.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  getParentExportDeclaration,
   isFunctionNotation,
   isGetterOrSetter,
   rawText,
@@ -36,61 +35,42 @@ import {
 function printFlow(path, options, print) {
   const { node } = path;
   const semi = options.semi ? ";" : "";
-  /** @type{Doc[]} */
-  const parts = [];
+
   switch (node.type) {
     case "DeclareClass":
-      return printFlowDeclaration(path, printClass(path, options, print));
+      return printClass(path, options, print);
     case "DeclareFunction":
-      return printFlowDeclaration(path, [
+      return [
+        path.parent.type !== "DeclareExportDeclaration" ? "declare " : "",
         "function ",
         print("id"),
         node.predicate ? " " : "",
         print("predicate"),
         semi,
-      ]);
+      ];
     case "DeclareModule":
-      return printFlowDeclaration(path, [
-        "module ",
-        print("id"),
-        " ",
-        print("body"),
-      ]);
+      return ["declare module ", print("id"), " ", print("body")];
     case "DeclareModuleExports":
-      return printFlowDeclaration(path, [
-        "module.exports",
-        ": ",
-        print("typeAnnotation"),
-        semi,
-      ]);
+      return ["declare module.exports", ": ", print("typeAnnotation"), semi];
     case "DeclareVariable":
-      return printFlowDeclaration(path, ["var ", print("id"), semi]);
-    case "DeclareInterface":
-      return printFlowDeclaration(path, printInterface(path, options, print));
+      return [
+        path.parent.type !== "DeclareExportDeclaration" ? "declare " : "",
+        "var ",
+        print("id"),
+        semi,
+      ];
     case "DeclareExportDeclaration":
-      return printFlowDeclaration(
-        path,
-        printExportDeclaration(path, options, print)
-      );
+      return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":
-      return printFlowDeclaration(
-        path,
-        printExportAllDeclaration(path, options, print)
-      );
+      return printExportAllDeclaration(path, options, print);
     case "DeclareOpaqueType":
-    case "OpaqueType": {
-      const doc = printOpaqueType(path, options, print);
-      return node.type === "DeclareOpaqueType"
-        ? printFlowDeclaration(path, doc)
-        : doc;
-    }
+    case "OpaqueType":
+      return printOpaqueType(path, options, print);
+
     case "DeclareTypeAlias":
-    case "TypeAlias": {
-      const doc = printTypeAlias(path, options, print);
-      return node.type === "DeclareTypeAlias"
-        ? printFlowDeclaration(path, doc)
-        : doc;
-    }
+    case "TypeAlias":
+      return printTypeAlias(path, options, print);
+
     case "IntersectionTypeAnnotation":
       return printIntersectionType(path, options, print);
     case "UnionTypeAnnotation":
@@ -126,18 +106,24 @@ function printFlow(path, options, print) {
     case "BooleanLiteralTypeAnnotation":
       return String(node.value);
     case "DeclareEnum":
-    case "EnumDeclaration": {
-      const doc = ["enum ", print("id"), " ", print("body")];
-      return node.type === "DeclareEnum"
-        ? printFlowDeclaration(path, doc)
-        : doc;
-    }
+    case "EnumDeclaration":
+      return [
+        node.type === "DeclareEnum" &&
+        path.parent.type !== "DeclareExportDeclaration"
+          ? "declare "
+          : "",
+        "enum ",
+        print("id"),
+        " ",
+        print("body"),
+      ];
+
     case "EnumBooleanBody":
     case "EnumNumberBody":
     case "EnumStringBody":
-    case "EnumSymbolBody":
+    case "EnumSymbolBody": {
+      let type;
       if (node.type === "EnumSymbolBody" || node.explicitType) {
-        let type = null;
         switch (node.type) {
           case "EnumBooleanBody":
             type = "boolean";
@@ -152,10 +138,12 @@ function printFlow(path, options, print) {
             type = "symbol";
             break;
         }
-        parts.push("of ", type, " ");
       }
-      parts.push(printEnumMembers(path, print, options));
-      return parts;
+      return [
+        type ? `of ${type} ` : "",
+        printEnumMembers(path, print, options),
+      ];
+    }
 
     case "EnumBooleanMember":
     case "EnumNumberMember":
@@ -177,6 +165,7 @@ function printFlow(path, options, print) {
       ];
     }
 
+    case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation":
       return printInterface(path, options, print);
@@ -191,13 +180,8 @@ function printFlow(path, options, print) {
       return kind === "plus" ? "+" : "-";
     }
     case "ObjectTypeCallProperty":
-      if (node.static) {
-        parts.push("static ");
-      }
+      return [node.static ? "static " : "", print("value")];
 
-      parts.push(print("value"));
-
-      return parts;
     case "ObjectTypeIndexer":
       return [
         node.static ? "static " : "",
@@ -306,20 +290,6 @@ function printFlow(path, options, print) {
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "Flow");
   }
-}
-
-function printFlowDeclaration(path, printed) {
-  const parentExportDecl = getParentExportDeclaration(path);
-
-  if (parentExportDecl) {
-    assert.strictEqual(parentExportDecl.type, "DeclareExportDeclaration");
-    return printed;
-  }
-
-  // If the parent node has type DeclareExportDeclaration, then it
-  // will be responsible for printing the "declare" token. Otherwise
-  // it needs to be printed with this non-exported declaration node.
-  return ["declare ", printed];
 }
 
 export { printFlow };
