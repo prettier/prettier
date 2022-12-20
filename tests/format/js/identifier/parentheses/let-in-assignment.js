@@ -89,3 +89,9 @@ switch (foo) {
 }
 
 with (let[0] = 1);
+
+(let[x]).foo();
+
+let.let[x].foo();
+
+a = let[x].foo();

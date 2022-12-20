@@ -939,74 +939,56 @@ function shouldPrintComma(options, level = "es5") {
 }
 
 /**
- * Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
- * holds) `function`, `class`, or `do {}`. Will be overzealous if there's
- * already necessary grouping parentheses.
+ * Tests if an expression starts with something forbidden specified by the
+ * `forbid` predicate. E.g., used to check if expression statements start with:
+ *
+ * - `{`
+ * - `function`, `class`, or `do {}`
+ * - `let[`
+ *
+ * Will be overzealous if there's already necessary grouping parentheses.
  *
  * @param {Node} node
- * @param {boolean} forbidFunctionClassAndDoExpr
+ * @param {(leftmostNode: Node) => boolean} forbid
  * @returns {boolean}
  */
-function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
-  node = getLeftMost(node);
+function startsWithNoLookaheadToken(node, forbid) {
   switch (node.type) {
-    case "FunctionExpression":
-    case "ClassExpression":
-    case "DoExpression":
-      return forbidFunctionClassAndDoExpr;
-    case "ObjectExpression":
-      return true;
+    case "BinaryExpression":
+    case "LogicalExpression":
+    case "AssignmentExpression":
+    case "NGPipeExpression":
+      return startsWithNoLookaheadToken(node.left, forbid);
     case "MemberExpression":
     case "OptionalMemberExpression":
-      return startsWithNoLookaheadToken(
-        node.object,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.object, forbid);
     case "TaggedTemplateExpression":
       if (node.tag.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
+      return startsWithNoLookaheadToken(node.tag, forbid);
     case "CallExpression":
     case "OptionalCallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(
-        node.callee,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.callee, forbid);
     case "ConditionalExpression":
-      return startsWithNoLookaheadToken(
-        node.test,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.test, forbid);
     case "UpdateExpression":
-      return (
-        !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
-      );
+      return !node.prefix && startsWithNoLookaheadToken(node.argument, forbid);
     case "BindExpression":
-      return (
-        node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
-      );
+      return node.object && startsWithNoLookaheadToken(node.object, forbid);
     case "SequenceExpression":
-      return startsWithNoLookaheadToken(
-        node.expressions[0],
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.expressions[0], forbid);
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
-      return startsWithNoLookaheadToken(
-        node.expression,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.expression, forbid);
     default:
-      return false;
+      return forbid(node);
   }
 }
 
@@ -1090,13 +1072,6 @@ const PRECEDENCE = new Map(
 );
 function getPrecedence(operator) {
   return PRECEDENCE.get(operator);
-}
-
-function getLeftMost(node) {
-  while (node.left) {
-    node = node.left;
-  }
-  return node;
 }
 
 function isBitwiseOperator(operator) {

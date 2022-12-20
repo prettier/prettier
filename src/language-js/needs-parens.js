@@ -85,7 +85,18 @@ function needsParens(path, options) {
       parent.computed &&
       !parent.optional
     ) {
-      return path.callParent(isAssignmentExpressionLeft);
+      const expressionStatement = path.findAncestor(
+        (node) => node.type === "ExpressionStatement"
+      );
+      if (
+        expressionStatement &&
+        startsWithNoLookaheadToken(
+          expressionStatement.expression,
+          (leftmostNode) => leftmostNode === node
+        )
+      ) {
+        return true;
+      }
     }
 
     return false;
@@ -168,7 +179,11 @@ function needsParens(path, options) {
       if (
         startsWithNoLookaheadToken(
           node,
-          /* forbidFunctionClassAndDoExpr */ true
+          (node) =>
+            node.type === "ObjectExpression" ||
+            node.type === "FunctionExpression" ||
+            node.type === "ClassExpression" ||
+            node.type === "DoExpression"
         )
       ) {
         return true;
@@ -181,7 +196,7 @@ function needsParens(path, options) {
         node.type !== "SequenceExpression" && // these have parens added anyway
         startsWithNoLookaheadToken(
           node,
-          /* forbidFunctionClassAndDoExpr */ false
+          (node) => node.type === "ObjectExpression"
         )
       ) {
         return true;
@@ -972,18 +987,6 @@ function shouldWrapFunctionForExportDefault(path, options) {
     (childPath) => shouldWrapFunctionForExportDefault(childPath, options),
     ...getLeftSidePathName(path, node)
   );
-}
-
-function isAssignmentExpressionLeft(path) {
-  const name = path.getName();
-  const parent = path.getParentNode();
-
-  // "OptionalMemberExpression" can't be here
-  if (name === "object" && parent.type === "MemberExpression") {
-    return path.callParent(isAssignmentExpressionLeft);
-  }
-
-  return name === "left" && parent.type === "AssignmentExpression";
 }
 
 module.exports = needsParens;

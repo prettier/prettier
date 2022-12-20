@@ -373,7 +373,10 @@ function printArrowFunction(path, options, print, args) {
   // a <= a ? a : a
   const shouldAddParens =
     node.body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(node.body, /* forbidFunctionAndClass */ false);
+    !startsWithNoLookaheadToken(
+      node.body,
+      (node) => node.type === "ObjectExpression"
+    );
 
   return group([
     ...parts,
