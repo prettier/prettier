@@ -81,6 +81,8 @@ throw (let[0] = 1);
 [(let[0] = 1)];
 
 for ((let[0] = 1);;);
+for ((let)[0] in {});
+for ((let)[0] of []);
 
 switch (let[0] = 1) {}
 
