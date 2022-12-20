@@ -85,13 +85,24 @@ function needsParens(path, options) {
       parent.computed &&
       !parent.optional
     ) {
-      const expressionStatement = path.findAncestor(
-        (node) => node.type === "ExpressionStatement"
+      const statement = path.findAncestor(
+        (node) =>
+          node.type === "ExpressionStatement" ||
+          node.type === "ForStatement" ||
+          node.type === "ForInStatement" ||
+          node.type === "ForOfStatement"
       );
+      const expression = !statement
+        ? undefined
+        : statement.type === "ExpressionStatement"
+        ? statement.expression
+        : statement.type === "ForStatement"
+        ? statement.init
+        : statement.left;
       if (
-        expressionStatement &&
+        expression &&
         startsWithNoLookaheadToken(
-          expressionStatement.expression,
+          expression,
           (leftmostNode) => leftmostNode === node
         )
       ) {
