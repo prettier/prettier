@@ -939,56 +939,59 @@ function shouldPrintComma(options, level = "es5") {
 }
 
 /**
- * Tests if an expression starts with something forbidden specified by the
- * `forbid` predicate. E.g., used to check if expression statements start with:
+ * Tests if the leftmost node of the expression matches the predicate. E.g.,
+ * used to check whether an expression statement needs to be wrapped in extra
+ * parentheses because it starts with:
  *
  * - `{`
  * - `function`, `class`, or `do {}`
  * - `let[`
  *
- * Will be overzealous if there's already necessary grouping parentheses.
+ * Will be overzealous if there already are necessary grouping parentheses.
  *
  * @param {Node} node
- * @param {(leftmostNode: Node) => boolean} forbid
+ * @param {(leftmostNode: Node) => boolean} predicate
  * @returns {boolean}
  */
-function startsWithNoLookaheadToken(node, forbid) {
+function startsWithNoLookaheadToken(node, predicate) {
   switch (node.type) {
     case "BinaryExpression":
     case "LogicalExpression":
     case "AssignmentExpression":
     case "NGPipeExpression":
-      return startsWithNoLookaheadToken(node.left, forbid);
+      return startsWithNoLookaheadToken(node.left, predicate);
     case "MemberExpression":
     case "OptionalMemberExpression":
-      return startsWithNoLookaheadToken(node.object, forbid);
+      return startsWithNoLookaheadToken(node.object, predicate);
     case "TaggedTemplateExpression":
       if (node.tag.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.tag, forbid);
+      return startsWithNoLookaheadToken(node.tag, predicate);
     case "CallExpression":
     case "OptionalCallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.callee, forbid);
+      return startsWithNoLookaheadToken(node.callee, predicate);
     case "ConditionalExpression":
-      return startsWithNoLookaheadToken(node.test, forbid);
+      return startsWithNoLookaheadToken(node.test, predicate);
     case "UpdateExpression":
-      return !node.prefix && startsWithNoLookaheadToken(node.argument, forbid);
+      return (
+        !node.prefix && startsWithNoLookaheadToken(node.argument, predicate)
+      );
     case "BindExpression":
-      return node.object && startsWithNoLookaheadToken(node.object, forbid);
+      return node.object && startsWithNoLookaheadToken(node.object, predicate);
     case "SequenceExpression":
-      return startsWithNoLookaheadToken(node.expressions[0], forbid);
+      return startsWithNoLookaheadToken(node.expressions[0], predicate);
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":
-      return startsWithNoLookaheadToken(node.expression, forbid);
+      return startsWithNoLookaheadToken(node.expression, predicate);
     default:
-      return forbid(node);
+      return predicate(node);
   }
 }
 
