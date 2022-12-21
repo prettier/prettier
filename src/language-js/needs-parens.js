@@ -456,7 +456,14 @@ function needsParens(path, options) {
         (parent.type === "TSTypeAnnotation" &&
           path.getParentNode(1).type.startsWith("TSJSDoc"))
       );
-
+    case "TSTypeQuery":
+      if(
+        parent.type === "TSIndexedAccessType" ||
+        parent.type === "TSArrayType"
+      ) {
+        return true;
+      }
+    // fallthrough
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
 
