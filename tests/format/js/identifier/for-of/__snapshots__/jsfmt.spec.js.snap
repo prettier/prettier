@@ -8,17 +8,15 @@ printWidth: 80
 =====================================input======================================
 async function a() {
   for await((let).a of foo);
-}
-async function b() {
   for await((let)[a] of foo);
+  for await((let)()[a] of foo);
 }
 
 =====================================output=====================================
 async function a() {
   for await ((let).a of foo);
-}
-async function b() {
   for await ((let)[a] of foo);
+  for await ((let)()[a] of foo);
 }
 
 ================================================================================
@@ -37,6 +35,7 @@ for (foo of let[a]);
 for ((let.a) of foo);
 for ((let[a]) of foo);
 for ((let)().a of foo);
+for (letFoo of foo);
 
 for ((let.a) in foo);
 for ((let[a]) in foo);
@@ -49,6 +48,7 @@ for (foo of let[a]);
 for ((let).a of foo);
 for ((let)[a] of foo);
 for ((let)().a of foo);
+for (letFoo of foo);
 
 for (let.a in foo);
 for ((let)[a] in foo);
