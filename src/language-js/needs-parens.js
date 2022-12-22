@@ -81,7 +81,7 @@ function needsParens(path, options) {
     if (name === "object" && node.name === "let") {
       const expression = path.findAncestor(
         (node) => node.type === "ForOfStatement"
-      )?.left
+      )?.left;
       if (
         expression &&
         startsWithNoLookaheadToken(
