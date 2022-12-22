@@ -105,8 +105,7 @@ function needsParens(path, options) {
         (node) =>
           node.type === "ExpressionStatement" ||
           node.type === "ForStatement" ||
-          node.type === "ForInStatement" ||
-          node.type === "ForOfStatement"
+          node.type === "ForInStatement"
       );
       const expression = !statement
         ? undefined
