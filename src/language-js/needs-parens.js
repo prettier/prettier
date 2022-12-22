@@ -77,6 +77,39 @@ function needsParens(path, options) {
       return true;
     }
 
+    // `(let)[a] = 1`
+    if (
+      name === "object" &&
+      node.name === "let" &&
+      parent.type === "MemberExpression" &&
+      parent.computed &&
+      !parent.optional
+    ) {
+      const statement = path.findAncestor(
+        (node) =>
+          node.type === "ExpressionStatement" ||
+          node.type === "ForStatement" ||
+          node.type === "ForInStatement" ||
+          node.type === "ForOfStatement"
+      );
+      const expression = !statement
+        ? undefined
+        : statement.type === "ExpressionStatement"
+        ? statement.expression
+        : statement.type === "ForStatement"
+        ? statement.init
+        : statement.left;
+      if (
+        expression &&
+        startsWithNoLookaheadToken(
+          expression,
+          (leftmostNode) => leftmostNode === node
+        )
+      ) {
+        return true;
+      }
+    }
+
     return false;
   }
 
@@ -157,7 +190,11 @@ function needsParens(path, options) {
       if (
         startsWithNoLookaheadToken(
           node,
-          /* forbidFunctionClassAndDoExpr */ true
+          (node) =>
+            node.type === "ObjectExpression" ||
+            node.type === "FunctionExpression" ||
+            node.type === "ClassExpression" ||
+            node.type === "DoExpression"
         )
       ) {
         return true;
@@ -170,7 +207,7 @@ function needsParens(path, options) {
         node.type !== "SequenceExpression" && // these have parens added anyway
         startsWithNoLookaheadToken(
           node,
-          /* forbidFunctionClassAndDoExpr */ false
+          (node) => node.type === "ObjectExpression"
         )
       ) {
         return true;
