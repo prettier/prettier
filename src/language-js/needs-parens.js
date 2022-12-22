@@ -78,7 +78,11 @@ function needsParens(path, options) {
     }
 
     // `for ((let.a) of []);`
-    if (name === "object" && node.name === "let") {
+    if (
+      name === "object" &&
+      node.name === "let" &&
+      parent.type === "MemberExpression"
+    ) {
       const expression = path.findAncestor(
         (node) => node.type === "ForOfStatement"
       )?.left;
