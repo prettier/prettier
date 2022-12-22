@@ -43,7 +43,7 @@ import {
   printIndexedAccessType,
   printJSDocType,
 } from "./type-annotation.js";
-import printEnumMembers from "./enum-members.js";
+import { printEnumDeclaration, printEnumMember } from "./enum.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -361,26 +361,11 @@ function printTypescript(path, options, print) {
 
       return group(parts);
     case "TSEnumDeclaration":
-      return [
-        node.declare ? "declare " : "",
-        printTypeScriptModifiers(path, options, print),
-        node.const ? "const " : "",
-        "enum ",
-        print("id"),
-        " ",
-        printEnumMembers(path, print, options),
-      ];
-    case "TSEnumMember":
-      if (node.computed) {
-        parts.push("[", print("id"), "]");
-      } else {
-        parts.push(print("id"));
-      }
+      return printEnumDeclaration(path, print, options);
 
-      if (node.initializer) {
-        parts.push(" = ", print("initializer"));
-      }
-      return parts;
+    case "TSEnumMember":
+      return printEnumMember(path, print);
+
     case "TSImportEqualsDeclaration":
       if (node.isExport) {
         parts.push("export ");
