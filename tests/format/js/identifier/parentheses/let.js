@@ -97,3 +97,7 @@ with (let[0] = 1);
 let.let[x].foo();
 
 a = let[x].foo();
+
+(let)[2];
+
+a[1] + (let[2] = 2);
