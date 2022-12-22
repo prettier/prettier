@@ -1,6 +1,6 @@
 import traverseDoc from "./traverse-doc.js";
 
-const checked = new WeakSet();
+const checked = process.env.NODE_ENV === "production" && new WeakSet();
 const noop = () => {};
 const assertDoc =
   process.env.NODE_ENV === "production"
