@@ -19,7 +19,7 @@ import InvalidDocError from "../../src/document/invalid-doc-error.js";
 const invalidDoc = { type: "invalid-type" };
 const validDoc = "string";
 const notArray = {};
-test("Invalid usage", () => {
+describe("doc builders", () => {
   const invalid = [
     () => indent(),
     () => indent(invalidDoc),
@@ -84,17 +84,21 @@ test("Invalid usage", () => {
     ifBreak(validDoc, undefined),
   ];
 
-  for (let invalidCase of invalid) {
-    if (!Array.isArray(invalidCase)) {
-      invalidCase = [invalidCase, InvalidDocError];
+  describe("Invalid usage", () => {
+    for (let invalidCase of invalid) {
+      if (!Array.isArray(invalidCase)) {
+        invalidCase = [invalidCase, InvalidDocError];
+      }
+
+      test(invalidCase[0].toString(), () => {
+        expect(invalidCase[0]).toThrow(invalidCase[1]);
+      });
     }
+  });
 
-    test(invalidCase[0].toString(), () => {
-      expect(invalidCase[0]).toThrow(invalidCase[1]);
-    });
-  }
-
-  for (const doc of valid) {
-    expect(doc).toBeDefined();
-  }
+  test("Valid usage", () => {
+    for (const doc of valid) {
+      expect(doc).toBeDefined();
+    }
+  });
 });
