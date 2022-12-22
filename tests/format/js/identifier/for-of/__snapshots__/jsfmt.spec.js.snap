@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`await.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function a() {
+  for await((let).a of foo);
+}
+async function b() {
+  for await((let)[a] of foo);
+}
+
+=====================================output=====================================
+async function a() {
+  for await ((let).a of foo);
+}
+async function b() {
+  for await ((let)[a] of foo);
+}
+
+================================================================================
+`;
+
 exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
