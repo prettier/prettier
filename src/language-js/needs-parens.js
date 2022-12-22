@@ -67,14 +67,31 @@ function needsParens(path, options) {
       return true;
     }
 
-    // `for (async of []);` is invalid
+    // `for ((async) of []);` and `for ((let) of []);`
     if (
       name === "left" &&
-      node.name === "async" &&
+      (node.name === "async" || node.name === "let") &&
       parent.type === "ForOfStatement" &&
       !parent.await
     ) {
       return true;
+    }
+
+    // `for ((let.a) of []);`
+    if (name === "object" && node.name === "let") {
+      const statement = path.findAncestor(
+        (node) => node.type === "ForOfStatement"
+      );
+      const expression = statement.left;
+      if (
+        expression &&
+        startsWithNoLookaheadToken(
+          expression,
+          (leftmostNode) => leftmostNode === node
+        )
+      ) {
+        return true;
+      }
     }
 
     // `(let)[a] = 1`
