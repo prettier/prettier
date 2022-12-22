@@ -4,3 +4,6 @@ for (foo of let.a);
 for (foo of let[a]);
 for ((let.a) of foo);
 for ((let[a]) of foo);
+
+for ((let.a) in foo);
+for ((let[a]) in foo);
