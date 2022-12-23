@@ -14,22 +14,6 @@
     "rad",
     "turn"
   ],
-  "containerQueryLengthUnits": [
-    "cqw",
-    "cqh",
-    "cqi",
-    "cqb",
-    "cqmin",
-    "cqmax"
-  ],
-  "containerRelativeLengths": [
-    "cqw",
-    "cqh",
-    "cqi",
-    "cqb",
-    "cqmin",
-    "cqmax"
-  ],
   "default": [
     "em",
     "rem",
@@ -85,13 +69,7 @@
     "dpi",
     "dpcm",
     "dppx",
-    "x",
-    "cqw",
-    "cqh",
-    "cqi",
-    "cqb",
-    "cqmin",
-    "cqmax"
+    "x"
   ],
   "durationUnits": [
     "s",
