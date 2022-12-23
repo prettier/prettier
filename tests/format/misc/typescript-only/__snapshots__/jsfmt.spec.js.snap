@@ -406,63 +406,6 @@ class Foo {
 ================================================================================
 `;
 
-exports[`decorator-auto-accessors-type-annotations.ts - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-abstract class Foo {
-  accessor prop: number = 1;
-  static accessor prop2: number = 1;
-  accessor #prop3: number = 1;
-  accessor [prop4]: number = 1;
-  private accessor prop5: number = 1;
-  abstract accessor prop6: number;
-}
-
-=====================================output=====================================
-abstract class Foo {
-  accessor prop: number = 1
-  static accessor prop2: number = 1
-  accessor #prop3: number = 1
-  accessor [prop4]: number = 1
-  private accessor prop5: number = 1
-  abstract accessor prop6: number
-}
-
-================================================================================
-`;
-
-exports[`decorator-auto-accessors-type-annotations.ts format 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-abstract class Foo {
-  accessor prop: number = 1;
-  static accessor prop2: number = 1;
-  accessor #prop3: number = 1;
-  accessor [prop4]: number = 1;
-  private accessor prop5: number = 1;
-  abstract accessor prop6: number;
-}
-
-=====================================output=====================================
-abstract class Foo {
-  accessor prop: number = 1;
-  static accessor prop2: number = 1;
-  accessor #prop3: number = 1;
-  accessor [prop4]: number = 1;
-  private accessor prop5: number = 1;
-  abstract accessor prop6: number;
-}
-
-================================================================================
-`;
-
 exports[`invalid-modifiers.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
