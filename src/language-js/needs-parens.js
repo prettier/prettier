@@ -457,7 +457,7 @@ function needsParens(path, options) {
           path.getParentNode(1).type.startsWith("TSJSDoc"))
       );
     case "TSTypeQuery":
-      if(
+      if (
         parent.type === "TSIndexedAccessType" ||
         parent.type === "TSArrayType"
       ) {
