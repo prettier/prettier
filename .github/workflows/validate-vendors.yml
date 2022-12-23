@@ -8,8 +8,8 @@ on:
     paths:
       - "package.json"
   pull_request:
-    paths:
-      - "package.json"
+    # paths:
+    #   - "package.json"
 
 jobs:
   validate-vendor-versions:
@@ -28,4 +28,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Validate Vendors
-        run: yarn run vendors:bundle && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed."
+        run: yarn run vendors:bundle && echo "Listing changed files:" && git diff --exit-code && echo "No files changed."
