@@ -747,7 +747,7 @@
     {
       "name": "fast-glob",
       "maintainers": [],
-      "version": "3.2.11",
+      "version": "3.2.12",
       "description": "It's a very fast and efficient glob library for Node.js",
       "repository": "mrmlnc/fast-glob",
       "homepage": null,
@@ -1185,7 +1185,7 @@
     {
       "name": "fastq",
       "maintainers": [],
-      "version": "1.13.0",
+      "version": "1.14.0",
       "description": "Fast, in memory work queue",
       "repository": {
         "type": "git",
@@ -1252,7 +1252,7 @@
     {
       "name": "ignore",
       "maintainers": [],
-      "version": "5.2.0",
+      "version": "5.2.4",
       "description": "Ignore is a manager and filter for .gitignore rules, the one used by eslint, gitbook and many others.",
       "repository": {
         "type": "git",
@@ -1306,7 +1306,7 @@
     {
       "name": "graceful-fs",
       "maintainers": [],
-      "version": "4.2.9",
+      "version": "4.2.10",
       "description": "A drop-in replacement for fs, making various improvements.",
       "repository": {
         "type": "git",
@@ -1315,7 +1315,7 @@
       "homepage": null,
       "private": false,
       "license": "ISC",
-      "licenseText": "The ISC License\n\nCopyright (c) Isaac Z. Schlueter, Ben Noordhuis, and Contributors\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES\nWITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR\nANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR\nIN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n",
+      "licenseText": "The ISC License\n\nCopyright (c) 2011-2022 Isaac Z. Schlueter, Ben Noordhuis, and Contributors\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES\nWITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR\nANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR\nIN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n",
       "author": null,
       "contributors": []
     },
@@ -1486,7 +1486,7 @@
     {
       "name": "glob",
       "maintainers": [],
-      "version": "7.2.0",
+      "version": "7.2.3",
       "description": "a little globber",
       "repository": {
         "type": "git",
@@ -1651,7 +1651,7 @@
     {
       "name": "del",
       "maintainers": [],
-      "version": "6.0.0",
+      "version": "6.1.1",
       "description": "Delete files and directories",
       "repository": "sindresorhus/del",
       "homepage": null,

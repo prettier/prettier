@@ -2,39 +2,10 @@
 // This file is generated automatically
 var __create = Object.create;
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __objRest = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -50,7 +21,10 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/isexe/windows.js
@@ -559,10 +533,25 @@ var require_signals = __commonJS({
       "SIGTERM"
     ];
     if (process.platform !== "win32") {
-      module2.exports.push("SIGVTALRM", "SIGXCPU", "SIGXFSZ", "SIGUSR2", "SIGTRAP", "SIGSYS", "SIGQUIT", "SIGIOT");
+      module2.exports.push(
+        "SIGVTALRM",
+        "SIGXCPU",
+        "SIGXFSZ",
+        "SIGUSR2",
+        "SIGTRAP",
+        "SIGSYS",
+        "SIGQUIT",
+        "SIGIOT"
+      );
     }
     if (process.platform === "linux") {
-      module2.exports.push("SIGIO", "SIGPOLL", "SIGPWR", "SIGSTKFLT", "SIGUNUSED");
+      module2.exports.push(
+        "SIGIO",
+        "SIGPOLL",
+        "SIGPWR",
+        "SIGSTKFLT",
+        "SIGUNUSED"
+      );
     }
   }
 });
@@ -731,7 +720,7 @@ var require_buffer_stream = __commonJS({
     "use strict";
     var { PassThrough: PassThroughStream } = require("stream");
     module2.exports = (options) => {
-      options = __spreadValues({}, options);
+      options = { ...options };
       const { array } = options;
       let { encoding } = options;
       const isBuffer = encoding === "buffer";
@@ -789,9 +778,10 @@ var require_get_stream = __commonJS({
       if (!inputStream) {
         throw new Error("Expected a stream");
       }
-      options = __spreadValues({
-        maxBuffer: Infinity
-      }, options);
+      options = {
+        maxBuffer: Infinity,
+        ...options
+      };
       const { maxBuffer } = options;
       const stream2 = bufferStream(options);
       await new Promise((resolve, reject) => {
@@ -818,8 +808,8 @@ var require_get_stream = __commonJS({
       return stream2.getBufferedValue();
     }
     module2.exports = getStream2;
-    module2.exports.buffer = (stream2, options) => getStream2(stream2, __spreadProps(__spreadValues({}, options), { encoding: "buffer" }));
-    module2.exports.array = (stream2, options) => getStream2(stream2, __spreadProps(__spreadValues({}, options), { array: true }));
+    module2.exports.buffer = (stream2, options) => getStream2(stream2, { ...options, encoding: "buffer" });
+    module2.exports.array = (stream2, options) => getStream2(stream2, { ...options, array: true });
     module2.exports.MaxBufferError = MaxBufferError;
   }
 });
@@ -929,9 +919,8 @@ function npmRunPath(options = {}) {
   result.push(import_node_path.default.resolve(cwdString, execPath, ".."));
   return [...result, path_].join(import_node_path.default.delimiter);
 }
-function npmRunPathEnv(_a = {}) {
-  var _b = _a, { env = import_node_process.default.env } = _b, options = __objRest(_b, ["env"]);
-  env = __spreadValues({}, env);
+function npmRunPathEnv({ env = import_node_process.default.env, ...options } = {}) {
+  env = { ...env };
   const path3 = pathKey({ env });
   options.path = env[path3];
   env[path3] = npmRunPath(options);
@@ -971,7 +960,7 @@ var changeToString = (to, from, name) => {
   const withName = name === "" ? "" : `with ${name.trim()}() `;
   const newToString = wrappedToString.bind(null, withName, from.toString());
   Object.defineProperty(newToString, "name", toStringName);
-  Object.defineProperty(to, "toString", __spreadProps(__spreadValues({}, toStringDescriptor), { value: newToString }));
+  Object.defineProperty(to, "toString", { ...toStringDescriptor, value: newToString });
 };
 function mimicFunction(to, from, { ignoreNonConfigurable = false } = {}) {
   const { name } = to;
@@ -1338,9 +1327,10 @@ var getSignalsByName = function() {
   return signals.reduce(getSignalByName, {});
 };
 var getSignalByName = function(signalByNameMemo, { name, number, description, supported, action, forced, standard }) {
-  return __spreadProps(__spreadValues({}, signalByNameMemo), {
+  return {
+    ...signalByNameMemo,
     [name]: { name, number, description, supported, action, forced, standard }
-  });
+  };
 };
 var signalsByName = getSignalsByName();
 var getSignalsByNumber = function() {
@@ -1639,7 +1629,7 @@ var descriptors = ["then", "catch", "finally"].map((property) => [
 var mergePromise = (spawned, promise) => {
   for (const [property, descriptor] of descriptors) {
     const value = typeof promise === "function" ? (...args) => Reflect.apply(descriptor.value, promise(), args) : descriptor.value.bind(promise);
-    Reflect.defineProperty(spawned, property, __spreadProps(__spreadValues({}, descriptor), { value }));
+    Reflect.defineProperty(spawned, property, { ...descriptor, value });
   }
   return spawned;
 };
@@ -1691,7 +1681,7 @@ var parseCommand = (command) => {
 // node_modules/execa/index.js
 var DEFAULT_MAX_BUFFER = 1e3 * 1e3 * 100;
 var getEnv = ({ env: envOption, extendEnv, preferLocal, localDir, execPath }) => {
-  const env = extendEnv ? __spreadValues(__spreadValues({}, import_node_process2.default.env), envOption) : envOption;
+  const env = extendEnv ? { ...import_node_process2.default.env, ...envOption } : envOption;
   if (preferLocal) {
     return npmRunPathEnv({ env, cwd: localDir, execPath });
   }
@@ -1702,7 +1692,7 @@ var handleArguments = (file, args, options = {}) => {
   file = parsed.command;
   args = parsed.args;
   options = parsed.options;
-  options = __spreadValues({
+  options = {
     maxBuffer: DEFAULT_MAX_BUFFER,
     buffer: true,
     stripFinalNewline: true,
@@ -1714,8 +1704,9 @@ var handleArguments = (file, args, options = {}) => {
     reject: true,
     cleanup: true,
     all: false,
-    windowsHide: true
-  }, options);
+    windowsHide: true,
+    ...options
+  };
   options.env = getEnv(options);
   options.stdio = normalizeStdio(options);
   if (import_node_process2.default.platform === "win32" && import_node_path2.default.basename(file, ".exe") === "cmd") {
@@ -1879,17 +1870,22 @@ function execaNode(scriptPath, args, options = {}) {
     nodePath = import_node_process2.default.execPath,
     nodeOptions = defaultExecArgv
   } = options;
-  return execa(nodePath, [
-    ...nodeOptions,
-    scriptPath,
-    ...Array.isArray(args) ? args : []
-  ], __spreadProps(__spreadValues({}, options), {
-    stdin: void 0,
-    stdout: void 0,
-    stderr: void 0,
-    stdio,
-    shell: false
-  }));
+  return execa(
+    nodePath,
+    [
+      ...nodeOptions,
+      scriptPath,
+      ...Array.isArray(args) ? args : []
+    ],
+    {
+      ...options,
+      stdin: void 0,
+      stdout: void 0,
+      stderr: void 0,
+      stdio,
+      shell: false
+    }
+  );
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
