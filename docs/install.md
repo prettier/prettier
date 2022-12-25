@@ -8,13 +8,13 @@ First, install Prettier locally:
 <!--DOCUSAURUS_CODE_TABS-->
 <!--npm-->
 
-```bash
+```shell
 npm install --save-dev --save-exact prettier
 ```
 
 <!--yarn-->
 
-```bash
+```shell
 yarn add --dev --exact prettier
 ```
 
@@ -24,7 +24,7 @@ Then, create an empty config file to let editors and other tools know you are us
 
 <!-- Note: `echo "{}" > .prettierrc.json` would result in `"{}"<SPACE>` on Windows. The below version works in cmd.exe, bash, zsh, fish. -->
 
-```bash
+```shell
 echo {}> .prettierrc.json
 ```
 
@@ -45,7 +45,7 @@ Now, format all files with Prettier:
 <!--DOCUSAURUS_CODE_TABS-->
 <!--npm-->
 
-```bash
+```shell
 npx prettier --write .
 ```
 
@@ -55,7 +55,7 @@ npx prettier --write .
 
 <!--yarn-->
 
-```bash
+```shell
 yarn prettier --write .
 ```
 
@@ -67,7 +67,7 @@ yarn prettier --write .
 
 If you have a CI setup, run the following as part of it to make sure that everyone runs Prettier. This avoids merge conflicts and other collaboration issues!
 
-```bash
+```shell
 npx prettier --check .
 ```
 
@@ -100,7 +100,7 @@ For example, you can do the following to have Prettier run before each commit:
    <!--DOCUSAURUS_CODE_TABS-->
    <!--npm-->
 
-   ```bash
+   ```shell
    npm install --save-dev husky lint-staged
    npx husky install
    npm pkg set scripts.prepare="husky install"
@@ -109,7 +109,7 @@ For example, you can do the following to have Prettier run before each commit:
 
    <!--yarn-->
 
-   ```bash
+   ```shell
    yarn add --dev husky lint-staged
    npx husky install
    npm pkg set scripts.prepare="husky install"
