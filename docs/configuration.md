@@ -42,6 +42,22 @@ module.exports = {
 };
 ```
 
+JS with type checking (eg. `checkJs: true` in `tsconfig.json`):
+
+```js
+// prettier.config.js or .prettierrc.js, install @types/prettier
+
+/** @type {import('prettier').Options} */
+const config = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true,
+};
+
+module.exports = config;
+```
+
 YAML:
 
 ```yaml
