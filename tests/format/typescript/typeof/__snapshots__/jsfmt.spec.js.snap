@@ -6,12 +6,10 @@ parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://github.com/typescript-eslint/typescript-eslint/pull/4382
 a as (typeof node.children)[number]
 a as (typeof node.children)[]
 a as ((typeof node.children)[number])[]
 =====================================output=====================================
-// https://github.com/typescript-eslint/typescript-eslint/pull/4382
 a as (typeof node.children)[number];
 a as (typeof node.children)[];
 a as (typeof node.children)[number][];
