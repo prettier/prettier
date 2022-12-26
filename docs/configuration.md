@@ -32,6 +32,9 @@ JSON:
 
 JS:
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--untyped-->
+
 ```js
 // prettier.config.js or .prettierrc.js
 module.exports = {
@@ -42,10 +45,11 @@ module.exports = {
 };
 ```
 
-JS with type checking (eg. `checkJs: true` in `tsconfig.json`):
+<!--with JSDoc types-->
 
 ```js
-// prettier.config.js or .prettierrc.js, install @types/prettier
+// prettier.config.js or .prettierrc.js
+// JS with type checking (eg. `checkJs: true` in `tsconfig.json`), install @types/prettier
 
 /** @type {import('prettier').Options} */
 const config = {
@@ -57,6 +61,8 @@ const config = {
 
 module.exports = config;
 ```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 YAML:
 
