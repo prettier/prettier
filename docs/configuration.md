@@ -49,7 +49,7 @@ module.exports = {
 
 ```js
 // prettier.config.js or .prettierrc.js
-// Needs JS type checking enabled (eg. `checkJs: true` in `tsconfig.json`) and @types/prettier installed
+// Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and install @types/prettier
 
 /** @type {import('prettier').Options} */
 const config = {
