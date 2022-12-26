@@ -33,7 +33,7 @@ JSON:
 JS:
 
 <!--DOCUSAURUS_CODE_TABS-->
-<!--untyped-->
+<!--Untyped-->
 
 ```js
 // prettier.config.js or .prettierrc.js
@@ -45,11 +45,11 @@ module.exports = {
 };
 ```
 
-<!--with JSDoc types-->
+<!--JSDoc types-->
 
 ```js
 // prettier.config.js or .prettierrc.js
-// JS with type checking (eg. `checkJs: true` in `tsconfig.json`), install @types/prettier
+// Needs JS type checking enabled (eg. `checkJs: true` in `tsconfig.json`) and @types/prettier installed
 
 /** @type {import('prettier').Options} */
 const config = {
