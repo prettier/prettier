@@ -16,6 +16,8 @@ import {
   isNextLineEmpty,
   isNumericLiteral,
   isSignedNumericLiteral,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import { locStart } from "../loc.js";
 
@@ -70,8 +72,8 @@ function printArray(path, options, print) {
       node.elements.every((element, i, elements) => {
         const elementType = element?.type;
         if (
-          elementType !== "ArrayExpression" &&
-          elementType !== "ObjectExpression"
+          !isArrayOrTupleExpression(element) &&
+          !isObjectOrRecordExpression(element)
         ) {
           return false;
         }
@@ -81,8 +83,9 @@ function printArray(path, options, print) {
           return false;
         }
 
-        const itemsKey =
-          elementType === "ArrayExpression" ? "elements" : "properties";
+        const itemsKey = isArrayOrTupleExpression(element)
+          ? "elements"
+          : "properties";
 
         return element[itemsKey] && element[itemsKey].length > 1;
       });
