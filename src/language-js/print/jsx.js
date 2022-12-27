@@ -25,6 +25,8 @@ import {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
@@ -408,26 +410,23 @@ function separatorWithWhitespace(
   return hardline;
 }
 
+const NO_WRAP_PARENTS = new Set([
+  "ArrayExpression",
+  "RecordExpression",
+  "JSXAttribute",
+  "JSXElement",
+  "JSXExpressionContainer",
+  "JSXFragment",
+  "ExpressionStatement",
+  "CallExpression",
+  "OptionalCallExpression",
+  "ConditionalExpression",
+  "JsExpressionRoot",
+]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
-  /* c8 ignore next 3 */
-  if (!parent) {
-    return elem;
-  }
 
-  const NO_WRAP_PARENTS = {
-    ArrayExpression: true,
-    JSXAttribute: true,
-    JSXElement: true,
-    JSXExpressionContainer: true,
-    JSXFragment: true,
-    ExpressionStatement: true,
-    CallExpression: true,
-    OptionalCallExpression: true,
-    ConditionalExpression: true,
-    JsExpressionRoot: true,
-  };
-  if (NO_WRAP_PARENTS[parent.type]) {
+  if (NO_WRAP_PARENTS.has(parent.type)) {
     return elem;
   }
 
@@ -487,8 +486,8 @@ function printJsxExpressionContainer(path, options, print) {
   const shouldInline = (node, parent) =>
     node.type === "JSXEmptyExpression" ||
     (!hasComment(node) &&
-      (node.type === "ArrayExpression" ||
-        node.type === "ObjectExpression" ||
+      (isArrayOrTupleExpression(node) ||
+        isObjectOrRecordExpression(node) ||
         node.type === "ArrowFunctionExpression" ||
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||
