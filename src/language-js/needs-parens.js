@@ -12,6 +12,8 @@ import {
   isMemberExpression,
   isObjectProperty,
   isTSTypeExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "./utils/index.js";
 
 function needsParens(path, options) {
@@ -25,7 +27,7 @@ function needsParens(path, options) {
   if (
     options.__isInHtmlInterpolation &&
     !options.bracketSpacing &&
-    endsWithRightBracket(node) &&
+    isObjectOrRecordExpression(node) &&
     isFollowedByRightBracket(path)
   ) {
     return true;
@@ -783,7 +785,7 @@ function needsParens(path, options) {
         (parent.type === "ObjectProperty" &&
           // Preserve parens for compatibility with AngularJS expressions
           !node.extra?.parenthesized) ||
-        parent.type === "ArrayExpression" ||
+        isArrayOrTupleExpression(parent) ||
         (key === "arguments" && isCallExpression(parent)) ||
         (key === "right" && parent.type === "NGPipeExpression") ||
         (key === "property" && parent.type === "MemberExpression") ||
@@ -799,7 +801,7 @@ function needsParens(path, options) {
         (key === "left" &&
           parent.type === "BinaryExpression" &&
           parent.operator === "<") ||
-        (parent.type !== "ArrayExpression" &&
+        (!isArrayOrTupleExpression(parent) &&
           parent.type !== "ArrowFunctionExpression" &&
           parent.type !== "AssignmentExpression" &&
           parent.type !== "AssignmentPattern" &&
@@ -910,15 +912,6 @@ function includesFunctionTypeInObjectType(node) {
         )) ||
       undefined
   );
-}
-
-function endsWithRightBracket(node) {
-  switch (node.type) {
-    case "ObjectExpression":
-      return true;
-    default:
-      return false;
-  }
 }
 
 function isFollowedByRightBracket(path) {
