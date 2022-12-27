@@ -51,6 +51,7 @@ module.exports = {
 ```js
 // prettier.config.js or .prettierrc.js
 // Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and install @types/prettier
+
 /** @type {import('prettier').Options} */
 const config = {
   trailingComma: "es5",
@@ -58,6 +59,7 @@ const config = {
   semi: false,
   singleQuote: true,
 };
+
 module.exports = config;
 ```
 
