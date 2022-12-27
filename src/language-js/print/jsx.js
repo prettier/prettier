@@ -412,7 +412,7 @@ function separatorWithWhitespace(
 
 const NO_WRAP_PARENTS = new Set([
   "ArrayExpression",
-  "RecordExpression",
+  "TupleExpression",
   "JSXAttribute",
   "JSXElement",
   "JSXExpressionContainer",
