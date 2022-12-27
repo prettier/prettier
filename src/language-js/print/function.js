@@ -36,6 +36,8 @@ import {
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import {
@@ -250,7 +252,7 @@ function printArrowChain(
   const isAssignmentRhs = Boolean(args?.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
-    tailNode.body.type !== "ObjectExpression" &&
+    !isObjectOrRecordExpression(tailNode.body) &&
     tailNode.body.type !== "SequenceExpression";
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
@@ -335,8 +337,8 @@ function printArrowFunction(path, options, print, args) {
   // as the arrow.
   if (
     !hasLeadingOwnLineComment(options.originalText, node.body) &&
-    (node.body.type === "ArrayExpression" ||
-      node.body.type === "ObjectExpression" ||
+    (isArrayOrTupleExpression(node.body) ||
+      isObjectOrRecordExpression(node.body) ||
       node.body.type === "BlockStatement" ||
       isJsxNode(node.body) ||
       (body[0].label?.hug !== false &&
