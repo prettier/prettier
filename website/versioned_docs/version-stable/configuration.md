@@ -1,7 +1,6 @@
 ---
-id: version-stable-configuration
+id: configuration
 title: Configuration File
-original_id: configuration
 ---
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure Prettier via (in order of precedence):
@@ -33,6 +32,9 @@ JSON:
 
 JS:
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--Untyped-->
+
 ```js
 // prettier.config.js or .prettierrc.js
 module.exports = {
@@ -42,6 +44,23 @@ module.exports = {
   singleQuote: true,
 };
 ```
+
+<!--JSDoc types-->
+
+```js
+// prettier.config.js or .prettierrc.js
+// Enable JS type checking (eg. `checkJs: true` in `tsconfig.json`) and install @types/prettier
+/** @type {import('prettier').Options} */
+const config = {
+  trailingComma: "es5",
+  tabWidth: 4,
+  semi: false,
+  singleQuote: true,
+};
+module.exports = config;
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 YAML:
 
@@ -136,7 +155,6 @@ An example configuration repository is available [here](https://github.com/azz/p
 >   semi: false,
 > };
 > ```
-
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.
@@ -184,14 +202,12 @@ Here’s an annotated description of how different properties map to Prettier’
 ```ini
 # Stop the editor from looking for .editorconfig files in the parent directories
 # root = true
-
 [*]
 # Non-configurable Prettier behaviors
 charset = utf-8
 insert_final_newline = true
 # Caveat: Prettier won’t trim trailing whitespace inside template strings, but your editor might.
 # trim_trailing_whitespace = true
-
 # Configurable Prettier behaviors
 # (change these if your Prettier config differs)
 end_of_line = lf
