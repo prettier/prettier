@@ -1,6 +1,7 @@
 ---
-id: configuration
+id: version-stable-configuration
 title: Configuration File
+original_id: configuration
 ---
 
 Prettier uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for configuration file support. This means you can configure Prettier via (in order of precedence):
