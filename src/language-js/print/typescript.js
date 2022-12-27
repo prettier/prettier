@@ -68,7 +68,7 @@ function printTypescript(path, options, print) {
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
         isArrayOrTupleExpression(node.expression) ||
-isObjectOrRecordExpression(node.expression)
+        isObjectOrRecordExpression(node.expression)
       );
 
       const castGroup = group([

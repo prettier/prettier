@@ -185,7 +185,7 @@ function shouldHugTheOnlyFunctionParameter(node) {
           parameter.left.type === "ArrayPattern") &&
         (parameter.right.type === "Identifier" ||
           (isObjectOrRecordExpression(parameter.right) &&
-          parameter.right.properties.length === 0) ||
+            parameter.right.properties.length === 0) ||
           (isArrayOrTupleExpression(parameter.right) &&
             parameter.right.elements.length === 0))))
   );
