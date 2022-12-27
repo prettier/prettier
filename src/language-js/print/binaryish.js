@@ -21,6 +21,8 @@ import {
   isMemberExpression,
   isObjectProperty,
   isEnabledHackPipeline,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
@@ -317,13 +319,13 @@ function shouldInlineLogicalExpression(node) {
   }
 
   if (
-    node.right.type === "ObjectExpression" &&
+    isObjectOrRecordExpression(node.right) &&
     node.right.properties.length > 0
   ) {
     return true;
   }
 
-  if (node.right.type === "ArrayExpression" && node.right.elements.length > 0) {
+  if (isArrayOrTupleExpression(node.right) && node.right.elements.length > 0) {
     return true;
   }
 
