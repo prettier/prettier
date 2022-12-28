@@ -39,17 +39,17 @@ function printTypeParameters(path, options, print, paramsKey) {
       !(node[paramsKey].length === 1 && isObjectType(node[paramsKey][0])),
     undefined,
     (node, name) => name === "typeAnnotation",
-    (node, name) => node.type === "Identifier" && name === "id",
+    (node) => node.type === "Identifier",
     isArrowFunctionVariableDeclarator
   );
 
   const shouldInline =
-    !isArrowFunctionVariable &&
-    (isParameterInTestCall ||
-      node[paramsKey].length === 0 ||
-      (node[paramsKey].length === 1 &&
-        (node[paramsKey][0].type === "NullableTypeAnnotation" ||
-          shouldHugType(node[paramsKey][0]))));
+    node[paramsKey].length === 0 ||
+    (!isArrowFunctionVariable &&
+      (isParameterInTestCall ||
+        (node[paramsKey].length === 1 &&
+          (node[paramsKey][0].type === "NullableTypeAnnotation" ||
+            shouldHugType(node[paramsKey][0])))));
 
   if (shouldInline) {
     return [
