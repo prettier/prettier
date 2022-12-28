@@ -4,10 +4,16 @@ import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printTypeScriptModifiers } from "./misc.js";
 
+/*
+- `TSInterfaceDeclaration`(TypeScript)
+- `DeclareInterface`(flow)
+- `InterfaceDeclaration`(flow)
+- `InterfaceTypeAnnotation`(flow)
+*/
 function printInterface(path, options, print) {
   const { node } = path;
   const parts = [];
-  if (node.declare) {
+  if (node.declare || node.type === "DeclareInterface") {
     parts.push("declare ");
   }
 

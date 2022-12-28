@@ -1,7 +1,7 @@
 import { hardline, indent, join } from "../document/builders.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import preprocess from "../language-js/print-preprocess.js";
-import visitorKeys from "./visitor-keys.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -62,7 +62,7 @@ function genericPrint(path, options, print) {
       return JSON.stringify(node.value.cooked);
     default:
       /* c8 ignore next */
-      throw new Error("unknown type: " + JSON.stringify(node.type));
+      throw new UnexpectedNodeError(node, "JSON");
   }
 }
 
@@ -111,7 +111,7 @@ const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

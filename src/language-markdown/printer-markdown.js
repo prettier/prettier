@@ -21,7 +21,6 @@ import {
 } from "../document/builders.js";
 import { normalizeDoc, replaceEndOfLine } from "../document/utils.js";
 import { printDocToString } from "../document/printer.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
@@ -37,10 +36,8 @@ import {
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
 } from "./utils.js";
-import visitorKeys from "./visitor-keys.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 import { printWhitespace } from "./print-whitespace.js";
-
-const getVisitorKeys = createGetVisitorKeys(visitorKeys);
 
 /**
  * @typedef {import("../document/builders.js").Doc} Doc

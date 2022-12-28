@@ -56,10 +56,22 @@ function shouldHugType(node) {
   return false;
 }
 
+/*
+- `DeclareOpaqueType`(flow)
+- `OpaqueType`(flow)
+*/
 function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
   const { node } = path;
   const parts = [];
+
+  if (
+    node.type === "DeclareOpaqueType" &&
+    path.parent.type !== "DeclareExportDeclaration"
+  ) {
+    parts.push("declare ");
+  }
+
   parts.push("opaque type ", print("id"), print("typeParameters"));
 
   if (node.supertype) {
@@ -75,11 +87,21 @@ function printOpaqueType(path, options, print) {
   return parts;
 }
 
+/*
+- `DeclareTypeAlias`(flow)
+- `TypeAlias`(flow)
+- `TSTypeAliasDeclaration`(TypeScript)
+*/
 function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
   const { node } = path;
   const parts = [];
-  if (node.declare) {
+
+  if (
+    node.declare ||
+    (node.type === "DeclareTypeAlias" &&
+      path.parent.type !== "DeclareExportDeclaration")
+  ) {
     parts.push("declare ");
   }
   parts.push("type ", print("id"), print("typeParameters"));
@@ -284,7 +306,11 @@ function printFunctionType(path, options, print) {
   return group(parts);
 }
 
-// `TSIndexedAccessType`, `IndexedAccessType`, and `OptionalIndexedAccessType`
+/*
+- `TSIndexedAccessType`(TypeScript)
+- `IndexedAccessType`(flow)
+- `OptionalIndexedAccessType`(flow)
+*/
 function printIndexedAccessType(path, options, print) {
   const { node } = path;
   const leftDelimiter =

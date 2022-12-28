@@ -39,6 +39,7 @@ const unstableTests = new Map(
     "js/for/continue-and-break-comment-without-blocks.js",
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
+    ["js/identifier/parentheses/let.js", (options) => options.semi === false],
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture

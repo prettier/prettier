@@ -11,14 +11,11 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
-import visitorKeys from "./visitor-keys.evaluate.js";
-
-const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+import getVisitorKeys from "./get-visitor-keys.js";
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 

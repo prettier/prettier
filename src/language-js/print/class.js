@@ -21,11 +21,20 @@ import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 
+/*
+- `ClassDeclaration`
+- `ClassExpression`
+- `DeclareClass`(flow)
+*/
 function printClass(path, options, print) {
   const { node } = path;
   const parts = [];
 
-  if (node.declare) {
+  if (
+    node.declare ||
+    (node.type === "DeclareClass" &&
+      path.parent.type !== "DeclareExportDeclaration")
+  ) {
     parts.push("declare ");
   }
 
