@@ -8,7 +8,6 @@ import {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
-  createTypeCheckFunction,
 } from "../../common/util.js";
 import {
   getFunctionParameters,
@@ -20,6 +19,7 @@ import {
   isObjectProperty,
   isLineComment,
   markerForIfWithoutBlockAndSameLineComment,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";

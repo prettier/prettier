@@ -419,8 +419,8 @@ function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
-    node.arguments.length === 1 &&
-    unitTestSetUpRe.test(node.callee.name)
+    unitTestSetUpRe.test(node.callee.name) &&
+    node.arguments.length === 1
   );
 }
 
@@ -715,13 +715,14 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const { node, parent, key } = path;
+  const { node } = path;
+  const { parent } = path;
   return (
-    key === "callee" &&
     isCallExpression(node) &&
     isCallExpression(parent) &&
-    parent.arguments.length > 0 &&
-    node.arguments.length > parent.arguments.length
+    parent.callee === node &&
+    node.arguments.length > parent.arguments.length &&
+    parent.arguments.length > 0
   );
 }
 
@@ -1263,4 +1264,5 @@ export {
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
   isTSTypeExpression,
+  createTypeCheckFunction,
 };
