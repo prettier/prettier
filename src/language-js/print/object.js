@@ -19,6 +19,7 @@ import {
   CommentCheckFlags,
   isNextLineEmpty,
   isObjectType,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 
@@ -220,9 +221,7 @@ function printObject(path, options, print) {
     (!shouldBreak &&
       path.match(
         (node) => node.type === "ObjectPattern",
-        (node) =>
-          node.type === "AssignmentExpression" ||
-          node.type === "VariableDeclarator"
+        createTypeCheckFunction(["AssignmentExpression", "VariableDeclarator"])
       ))
   ) {
     return content;

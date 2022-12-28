@@ -18,7 +18,7 @@ const isTypeAccess = (node, parameterName) => {
     !node.computed &&
     node.object.type === "Identifier" &&
     node.object.name === parameterName &&
-    node.property.type === "Identifier"&&
+    node.property.type === "Identifier" &&
     node.property.name === "type"
   );
 };
@@ -111,7 +111,9 @@ module.exports = {
           messageId: MESSAGE_ID,
         };
 
-        if (context.getSourceCode().getCommentsInside(functionNode).length === 0) {
+        if (
+          context.getSourceCode().getCommentsInside(functionNode).length === 0
+        ) {
           problem.fix = (fixer) => {
             let text = `createTypeCheckFunction(${JSON.stringify(
               types,
@@ -132,7 +134,7 @@ module.exports = {
             }
 
             return fixer.replaceText(functionNode, text);
-          }
+          };
         }
 
         context.report(problem);

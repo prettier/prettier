@@ -29,6 +29,7 @@ import {
   isCallExpression,
   isMemberExpression,
   markerForIfWithoutBlockAndSameLineComment,
+  createTypeCheckFunction,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
@@ -328,8 +329,7 @@ function printPathNoParens(path, options, print, args) {
         ) {
           parts = [indent([softline, ...parts]), softline];
           const parentAwaitOrBlock = path.findAncestor(
-            (node) =>
-              node.type === "AwaitExpression" || node.type === "BlockStatement"
+            createTypeCheckFunction(["AwaitExpression", "BlockStatement"])
           );
           if (parentAwaitOrBlock?.type !== "AwaitExpression") {
             return group(parts);

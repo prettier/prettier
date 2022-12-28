@@ -8,6 +8,7 @@ import {
   addDanglingComment,
   getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
+  createTypeCheckFunction,
 } from "../../common/util.js";
 import {
   getFunctionParameters,
@@ -893,22 +894,20 @@ function handleSwitchDefaultCaseComments({
  * @param {Node} node
  * @returns {boolean}
  */
-function isRealFunctionLikeNode(node) {
-  return (
-    node.type === "ArrowFunctionExpression" ||
-    node.type === "FunctionExpression" ||
-    node.type === "FunctionDeclaration" ||
-    node.type === "ObjectMethod" ||
-    node.type === "ClassMethod" ||
-    node.type === "TSDeclareFunction" ||
-    node.type === "TSCallSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
-    node.type === "TSMethodSignature" ||
-    node.type === "TSConstructorType" ||
-    node.type === "TSFunctionType" ||
-    node.type === "TSDeclareMethod"
-  );
-}
+const isRealFunctionLikeNode = createTypeCheckFunction([
+  "ArrowFunctionExpression",
+  "FunctionExpression",
+  "FunctionDeclaration",
+  "ObjectMethod",
+  "ClassMethod",
+  "TSDeclareFunction",
+  "TSCallSignatureDeclaration",
+  "TSConstructSignatureDeclaration",
+  "TSMethodSignature",
+  "TSConstructorType",
+  "TSFunctionType",
+  "TSDeclareMethod",
+]);
 
 // TODO: Make this default behavior
 const avoidAstMutation = true;

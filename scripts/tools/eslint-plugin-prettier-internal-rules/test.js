@@ -414,7 +414,7 @@ test("prefer-create-type-check-function", {
       function isGetterOrSetter(node) {
         return node.kind === "get" || node.kind === "set";
       }
-    `
+    `,
   ],
   invalid: [
     {
