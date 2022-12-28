@@ -708,20 +708,14 @@ function printStringLiteral(stringLiteral, favoriteQuote) {
 }
 
 function needsOppositeQuote(path) {
-  let index = 0;
-  let ancestor = path.getParentNode(index);
-  while (ancestor?.type === "SubExpression") {
-    index++;
-    ancestor = path.getParentNode(index);
-  }
-  if (
-    ancestor &&
-    path.getParentNode(index + 1).type === "ConcatStatement" &&
-    path.getParentNode(index + 2).type === "AttrNode"
-  ) {
-    return true;
-  }
-  return false;
+  const { ancestors } = path;
+  const level = ancestors.findIndex((node) => node.type !== "SubExpression");
+
+  return (
+    level !== -1 &&
+    ancestors[level + 1].type === "ConcatStatement" &&
+    ancestors[level + 2].type === "AttrNode"
+  );
 }
 
 /* SubExpression print helpers */

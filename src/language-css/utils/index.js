@@ -26,14 +26,10 @@ const colorAdjusterFunctions = new Set([
   "hwba",
 ]);
 
-function getAncestorNode(path, type) {
-  return path.findAncestor((node) => node.type === type);
-}
-
 function getPropOfDeclNode(path) {
-  const declAncestorNode = getAncestorNode(path, "css-decl");
-
-  return declAncestorNode?.prop?.toLowerCase();
+  return path
+    .findAncestor((node) => node.type === "css-decl")
+    ?.prop?.toLowerCase();
 }
 
 const wideKeywords = new Set(["initial", "inherit", "unset", "revert"]);
@@ -42,7 +38,9 @@ function isWideKeywords(value) {
 }
 
 function isKeyframeAtRuleKeywords(path, value) {
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+  const atRuleAncestorNode = path.findAncestor(
+    (node) => node.type === "css-atrule"
+  );
   return (
     atRuleAncestorNode?.name?.toLowerCase().endsWith("keyframes") &&
     ["from", "to"].includes(value.toLowerCase())
@@ -62,12 +60,16 @@ function maybeToLowerCase(value) {
 }
 
 function insideValueFunctionNode(path, functionName) {
-  const funcAncestorNode = getAncestorNode(path, "value-func");
+  const funcAncestorNode = path.findAncestor(
+    (node) => node.type === "value-func"
+  );
   return funcAncestorNode?.value?.toLowerCase() === functionName;
 }
 
 function insideICSSRuleNode(path) {
-  const ruleAncestorNode = getAncestorNode(path, "css-rule");
+  const ruleAncestorNode = path.findAncestor(
+    (node) => node.type === "css-rule"
+  );
   const selector = ruleAncestorNode?.raws?.selector;
 
   return (
@@ -80,7 +82,9 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
   const atRuleNames = Array.isArray(atRuleNameOrAtRuleNames)
     ? atRuleNameOrAtRuleNames
     : [atRuleNameOrAtRuleNames];
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+  const atRuleAncestorNode = path.findAncestor(
+    (node) => node.type === "css-atrule"
+  );
 
   return (
     atRuleAncestorNode &&
@@ -90,12 +94,10 @@ function insideAtRuleNode(path, atRuleNameOrAtRuleNames) {
 
 function insideURLFunctionInImportAtRuleNode(path) {
   const { node } = path;
-  const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
-
   return (
-    atRuleAncestorNode?.name === "import" &&
     node.groups[0].value === "url" &&
-    node.groups.length === 2
+    node.groups.length === 2 &&
+    path.findAncestor((node) => node.type === "css-atrule")?.name === "import"
   );
 }
 
@@ -271,7 +273,7 @@ function isSCSSMapItemNode(path, options) {
     return false;
   }
 
-  const declNode = getAncestorNode(path, "css-decl");
+  const declNode = path.findAncestor((node) => node.type === "css-decl");
 
   // SCSS map declaration (i.e. `$map: (key: value, other-key: other-value)`)
   if (declNode?.prop?.startsWith("$")) {
@@ -384,7 +386,6 @@ function isParenGroupNode(node) {
 }
 
 export {
-  getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
   insideValueFunctionNode,

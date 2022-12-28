@@ -11,19 +11,17 @@ import {
   markAsRoot,
 } from "../../document/builders.js";
 import {
-  getAncestorCount,
   getBlockValueLineContents,
   hasIndicatorComment,
   isLastDescendantNode,
-  isNode,
 } from "../utils.js";
 import { alignWithSpaces } from "./misc.js";
 
 function printBlock(path, print, options) {
   const { node } = path;
-  const parentIndent = getAncestorCount(path, (ancestorNode) =>
-    isNode(ancestorNode, ["sequence", "mapping"])
-  );
+  const parentIndent = path.ancestors.filter(
+    (node) => node.type === "sequence" || node.type === "mapping"
+  ).length;
   const isLastDescendant = isLastDescendantNode(path);
   /** @type {Doc[]} */
   const parts = [node.type === "blockFolded" ? ">" : "|"];

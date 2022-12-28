@@ -35,8 +35,6 @@ import {
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES,
   isAutolink,
-  getAncestorNode,
-  getAncestorCounter,
 } from "./utils.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 import { printWhitespace } from "./print-whitespace.js";
@@ -151,7 +149,10 @@ function genericPrint(path, options, print) {
             next.children[0]?.type === "word" &&
             !next.children[0].hasLeadingPunctuation);
         style =
-          hasPrevOrNextWord || getAncestorNode(path, "emphasis") ? "*" : "_";
+          hasPrevOrNextWord ||
+          path.hasAncestor((node) => node.type === "emphasis")
+            ? "*"
+            : "_";
       }
       return [style, printChildren(path, options, print), style];
     }
@@ -321,13 +322,14 @@ function genericPrint(path, options, print) {
       });
     }
     case "thematicBreak": {
-      const counter = getAncestorCounter(path, "list");
+      const { ancestors } = path;
+      const counter = ancestors.findIndex((node) => node.type === "list");
       if (counter === -1) {
         return "---";
       }
       const nthSiblingIndex = getNthListSiblingIndex(
-        path.getParentNode(counter),
-        path.getParentNode(counter + 1)
+        ancestors[counter],
+        ancestors[counter + 1]
       );
       return nthSiblingIndex % 2 === 0 ? "***" : "---";
     }
@@ -762,15 +764,11 @@ function shouldPrePrintTripleHardline({ node, previous }) {
 }
 
 function shouldRemainTheSameContent(path) {
-  const ancestorNode = getAncestorNode(path, [
-    "linkReference",
-    "imageReference",
-  ]);
-
+  const node = path.findAncestor(
+    (node) => node.type === "linkReference" || node.type === "imageReference"
+  );
   return (
-    ancestorNode &&
-    (ancestorNode.type !== "linkReference" ||
-      ancestorNode.referenceType !== "full")
+    node && (node.type !== "linkReference" || node.referenceType !== "full")
   );
 }
 
