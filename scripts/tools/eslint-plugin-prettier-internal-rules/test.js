@@ -410,6 +410,11 @@ test("prefer-create-type-check-function", {
       code: 'const isIdentifier = node => node.type === "Identifier";',
       options: [{ ignoreSingleType: true }],
     },
+    outdent`
+      function isGetterOrSetter(node) {
+        return node.kind === "get" || node.kind === "set";
+      }
+    `
   ],
   invalid: [
     {

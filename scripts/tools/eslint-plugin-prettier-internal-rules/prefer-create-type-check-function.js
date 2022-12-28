@@ -17,7 +17,9 @@ const isTypeAccess = (node, parameterName) => {
     node.type === "MemberExpression" &&
     !node.computed &&
     node.object.type === "Identifier" &&
-    node.object.name === parameterName
+    node.object.name === parameterName &&
+    node.property.type === "Identifier"&&
+    node.property.name === "type"
   );
 };
 
