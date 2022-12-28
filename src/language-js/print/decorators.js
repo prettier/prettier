@@ -7,7 +7,7 @@ import {
   group,
 } from "../../document/builders.js";
 import { locEnd, hasSameLocStart } from "../loc.js";
-import { getParentExportDeclaration } from "../utils/index.js";
+import { isExportDeclaration } from "../utils/index.js";
 
 function printClassMemberDecorators(path, options, print) {
   const { node } = path;
@@ -27,7 +27,7 @@ function printDecoratorsBeforeExport(path, options, print) {
 }
 
 function printDecorators(path, options, print) {
-  const { node } = path;
+  const { node, parent } = path;
   const { decorators } = node;
 
   if (
@@ -35,7 +35,7 @@ function printDecorators(path, options, print) {
     // If the parent node is an export declaration and the decorator
     // was written before the export, the export will be responsible
     // for printing the decorators.
-    hasDecoratorsBeforeExport(path.parent)
+    hasDecoratorsBeforeExport(parent)
   ) {
     return;
   }
@@ -46,7 +46,7 @@ function printDecorators(path, options, print) {
     hasNewlineBetweenOrAfterDecorators(node, options);
 
   return [
-    getParentExportDeclaration(path)
+    path.key === "declaration" && isExportDeclaration(parent)
       ? hardline
       : shouldBreak
       ? breakParent
@@ -63,11 +63,7 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
 }
 
 function hasDecoratorsBeforeExport(node) {
-  if (
-    node.type !== "ExportDefaultDeclaration" &&
-    node.type !== "ExportNamedDeclaration" &&
-    node.type !== "DeclareExportDeclaration"
-  ) {
+  if (!isExportDeclaration(node)) {
     return false;
   }
 

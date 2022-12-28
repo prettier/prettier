@@ -137,24 +137,10 @@ const isLineComment = createTypeCheckFunction([
  */
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
-  "ExportDefaultSpecifier",
   "DeclareExportDeclaration",
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
 ]);
-
-/**
- * @param {AstPath} path
- * @returns {Node | null}
- */
-function getParentExportDeclaration(path) {
-  const parentNode = path.parent;
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
-    return parentNode;
-  }
-
-  return null;
-}
 
 /**
  * @param {Node} node
@@ -1212,7 +1198,6 @@ export {
   hasRestParameter,
   getLeftSide,
   getLeftSidePathName,
-  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
