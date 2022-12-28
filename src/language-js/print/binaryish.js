@@ -27,11 +27,9 @@ import {
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
-  const { node } = path;
-  const { parent } = path;
-  const parentParent = path.grandparent;
+  const { node, parent, parentParent, key } = path;
   const isInsideParenthesis =
-    node !== parent.body &&
+    key !== "body" &&
     (parent.type === "IfStatement" ||
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||

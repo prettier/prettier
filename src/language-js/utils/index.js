@@ -419,8 +419,8 @@ function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
-    unitTestSetUpRe.test(node.callee.name) &&
-    node.arguments.length === 1
+    node.arguments.length === 1 &&
+    unitTestSetUpRe.test(node.callee.name)
   );
 }
 
@@ -715,14 +715,13 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const { node } = path;
-  const { parent } = path;
+  const { node, parent, key } = path;
   return (
+    key === "callee" &&
     isCallExpression(node) &&
     isCallExpression(parent) &&
-    parent.callee === node &&
-    node.arguments.length > parent.arguments.length &&
-    parent.arguments.length > 0
+    parent.arguments.length > 0 &&
+    node.arguments.length > parent.arguments.length
   );
 }
 
@@ -1197,11 +1196,10 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-function isTSTypeExpression(node) {
-  return (
-    node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
-  );
-}
+const isTSTypeExpression = createTypeCheckFunction([
+  "TSAsExpression",
+  "TSSatisfiesExpression",
+]);
 
 export {
   getFunctionParameters,
