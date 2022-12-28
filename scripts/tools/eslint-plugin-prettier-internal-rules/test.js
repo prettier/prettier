@@ -506,6 +506,18 @@ test("prefer-create-type-check-function", {
       `,
       errors: 1,
     },
+    // Skip fix if comments inside
+    {
+      code: outdent`
+        const foo = node =>
+          node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
+      `,
+      output: outdent`
+        const foo = node =>
+          node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
+      `,
+      errors: 1,
+    },
   ].map((testCase) => ({
     ...testCase,
     parserOptions: { sourceType: "module" },

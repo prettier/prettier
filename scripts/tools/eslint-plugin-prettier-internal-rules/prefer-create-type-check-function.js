@@ -106,10 +106,13 @@ module.exports = {
           return;
         }
 
-        context.report({
+        const problem = {
           node: functionNode,
           messageId: MESSAGE_ID,
-          fix(fixer) {
+        };
+
+        if (context.getSourceCode().getCommentsInside(functionNode).length === 0) {
+          problem.fix = (fixer) => {
             let text = `createTypeCheckFunction(${JSON.stringify(
               types,
               undefined,
@@ -129,8 +132,10 @@ module.exports = {
             }
 
             return fixer.replaceText(functionNode, text);
-          },
-        });
+          }
+        }
+
+        context.report(problem);
       },
     };
   },
