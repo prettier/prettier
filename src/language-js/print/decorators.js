@@ -63,7 +63,11 @@ function hasNewlineBetweenOrAfterDecorators(node, options) {
 }
 
 function hasDecoratorsBeforeExport(node) {
-  if (!isExportDeclaration(node)) {
+  if (
+    node.type !== "ExportDefaultDeclaration" &&
+    node.type !== "ExportNamedDeclaration" &&
+    node.type !== "DeclareExportDeclaration"
+  ) {
     return false;
   }
 

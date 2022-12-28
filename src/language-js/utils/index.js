@@ -140,6 +140,7 @@ const isExportDeclaration = createTypeCheckFunction([
   "DeclareExportDeclaration",
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
+  "DeclareExportAllDeclaration",
 ]);
 
 /**
