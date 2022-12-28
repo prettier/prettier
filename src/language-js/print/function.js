@@ -27,9 +27,7 @@ import {
   shouldPrintComma,
   startsWithNoLookaheadToken,
   isBinaryish,
-  isLineComment,
   hasComment,
-  getComments,
   CommentCheckFlags,
   isCallLikeExpression,
   isCallExpression,
@@ -452,41 +450,43 @@ function printReturnOrThrowArgument(path, options, print) {
   const parts = [];
 
   if (node.argument) {
+    let argumentDoc = print("argument");
+
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([" (", indent([hardline, print("argument")]), hardline, ")"]);
+      argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
     ) {
-      parts.push(
-        group([
-          ifBreak(" (", " "),
-          indent([softline, print("argument")]),
-          softline,
-          ifBreak(")"),
-        ])
-      );
-    } else {
-      parts.push(" ", print("argument"));
+      argumentDoc = group([
+        ifBreak("("),
+        indent([softline, argumentDoc]),
+        softline,
+        ifBreak(")"),
+      ]);
     }
+
+    parts.push(" ", argumentDoc);
   }
 
-  const comments = getComments(node);
-  const lastComment = comments.at(-1);
-  const isLastCommentLine = lastComment && isLineComment(lastComment);
+  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
+  const shouldPrintSemiBeforeComments =
+    semi &&
+    hasDanglingComments &&
+    hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
 
-  if (isLastCommentLine) {
+  if (shouldPrintSemiBeforeComments) {
     parts.push(semi);
   }
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  if (hasDanglingComments) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
     );
   }
 
-  if (!isLastCommentLine) {
+  if (!shouldPrintSemiBeforeComments) {
     parts.push(semi);
   }
 
