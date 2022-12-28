@@ -268,10 +268,9 @@ function isComplexTypeAliasParams(node) {
 }
 
 function getTypeParametersFromTypeAlias(node) {
-  if (isTypeAlias(node) && node.typeParameters?.params) {
-    return node.typeParameters.params;
+  if (isTypeAlias(node)) {
+    return node.typeParameters?.params;
   }
-  return null;
 }
 
 function isTypeAlias(node) {
@@ -308,10 +307,9 @@ function isArrowFunctionVariableDeclarator(node) {
 }
 
 function getTypeParametersFromTypeReference(node) {
-  if (isTypeReference(node) && node.typeParameters?.params) {
-    return node.typeParameters.params;
+  if (isTypeReference(node)) {
+    return node.typeParameters?.params;
   }
-  return null;
 }
 
 function isTypeReference(node) {

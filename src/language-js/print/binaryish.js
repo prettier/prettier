@@ -27,11 +27,9 @@ import {
 
 let uid = 0;
 function printBinaryishExpression(path, options, print) {
-  const { node } = path;
-  const { parent } = path;
-  const parentParent = path.grandparent;
+  const { node, parent, grandparent, key } = path;
   const isInsideParenthesis =
-    node !== parent.body &&
+    key !== "body" &&
     (parent.type === "IfStatement" ||
       parent.type === "WhileStatement" ||
       parent.type === "SwitchStatement" ||
@@ -87,19 +85,19 @@ function printBinaryishExpression(path, options, print) {
     parent.type === "ReturnStatement" ||
     parent.type === "ThrowStatement" ||
     (parent.type === "JSXExpressionContainer" &&
-      parentParent.type === "JSXAttribute") ||
+      grandparent.type === "JSXAttribute") ||
     (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
     (node.type !== "NGPipeExpression" &&
       ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
         (parent.type === "NGMicrosyntaxExpression" &&
-          parentParent.type === "NGMicrosyntax" &&
-          parentParent.body.length === 1))) ||
+          grandparent.type === "NGMicrosyntax" &&
+          grandparent.body.length === 1))) ||
     (node === parent.body && parent.type === "ArrowFunctionExpression") ||
     (node !== parent.body && parent.type === "ForStatement") ||
     (parent.type === "ConditionalExpression" &&
-      parentParent.type !== "ReturnStatement" &&
-      parentParent.type !== "ThrowStatement" &&
-      !isCallExpression(parentParent)) ||
+      grandparent.type !== "ReturnStatement" &&
+      grandparent.type !== "ThrowStatement" &&
+      !isCallExpression(grandparent)) ||
     parent.type === "TemplateLiteral";
 
   const shouldIndentIfInlining =
