@@ -121,15 +121,18 @@ module.exports = {
               2
             )})`;
             if (functionNode.type === "FunctionDeclaration") {
-              text = `${text};`;
+              const functionName =
+                functionNode.id?.name ?? "__please_name_this_function";
+              text = `const ${functionName} = ${text};`;
 
               if (
-                !(
-                  functionNode.parent.type === "ExportDefaultDeclaration" &&
-                  functionNode.parent.declaration === functionNode
-                )
+                functionNode.parent.type === "ExportDefaultDeclaration" &&
+                functionNode.parent.declaration === functionNode
               ) {
-                text = `const ${functionNode.id.name} = ${text}`;
+                return fixer.replaceText(
+                  functionNode.parent,
+                  `${text}\nexport default ${functionName};`
+                );
               }
             }
 

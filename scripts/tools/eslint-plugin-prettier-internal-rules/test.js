@@ -437,9 +437,24 @@ test("prefer-create-type-check-function", {
         }
       `,
       output: outdent`
-        export default createTypeCheckFunction([
+        const isIdentifier = createTypeCheckFunction([
           "Identifier"
         ]);
+        export default isIdentifier;
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        export default function (node) {
+          return node.type === "Identifier";
+        }
+      `,
+      output: outdent`
+        const __please_name_this_function = createTypeCheckFunction([
+          "Identifier"
+        ]);
+        export default __please_name_this_function;
       `,
       errors: 1,
     },
