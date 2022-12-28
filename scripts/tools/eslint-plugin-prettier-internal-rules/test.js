@@ -406,6 +406,10 @@ test("prefer-create-type-check-function", {
         return node.type === "Identifier" || node.type === "FunctionExpression" || notTypeChecking();
       }
     `,
+    {
+      code: 'const isIdentifier = node => node.type === "Identifier";',
+      options: [{ ignoreSingleType: true }],
+    },
   ],
   invalid: [
     {

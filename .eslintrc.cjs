@@ -385,7 +385,7 @@ module.exports = {
           "src/language-js/parse/json.js",
           "src/language-js/parse/acorn.js",
         ],
-        "prettier-internal-rules/prefer-create-type-check-function": "error",
+        "prettier-internal-rules/prefer-create-type-check-function": ["error", {ignoreSingleType: true}],
       },
     },
     {

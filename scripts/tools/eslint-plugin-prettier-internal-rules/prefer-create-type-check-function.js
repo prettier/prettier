@@ -58,9 +58,25 @@ module.exports = {
       [MESSAGE_ID]:
         "Prefer use `createTypeCheckFunction` to create this function",
     },
+    schema: [
+      {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          ignoreSingleType: {
+            type: "boolean",
+            default: false,
+          },
+        },
+      },
+    ],
     fixable: "code",
   },
   create(context) {
+    const { ignoreSingleType } = {
+      ignoreSingleType: false,
+      ...context.options[0],
+    };
     return {
       ':function[params.length=1][params.0.type="Identifier"][async!=true][generator!=true]'(
         functionNode
@@ -81,6 +97,10 @@ module.exports = {
         const parameterName = functionNode.params[0].name;
         const types = getTypes(returnStatementArgument, parameterName);
         if (!types) {
+          return;
+        }
+
+        if (ignoreSingleType && types.length === 1) {
           return;
         }
 
