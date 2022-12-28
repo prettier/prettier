@@ -340,6 +340,169 @@ test("prefer-ast-path-each", {
   ],
 });
 
+test("prefer-create-type-check-function", {
+  valid: [
+    'node.type === "Identifier"',
+    'node.type === "Identifier" || node.type === "FunctionExpression"',
+    "const isIdentifier = node => {}",
+    'const isIdentifier = async node => node.type === "Identifier"',
+    outdent`
+      function * isIdentifier(node){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      async function isIdentifier(node){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      async function * isIdentifier(node){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return;
+      }
+    `,
+    outdent`
+      function isIdentifier(node, extraParameter){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier({node}){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type === "Identifier" && node.type === "FunctionExpression";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type === Identifier;
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type !== "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node[type] === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type === "Identifier" || node.type === "FunctionExpression" || notTypeChecking();
+      }
+    `,
+  ],
+  invalid: [
+    {
+      code: outdent`
+        function isIdentifier(node) {
+          return node.type === "Identifier";
+        }
+      `,
+      output: outdent`
+        const isIdentifier = createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        export default function isIdentifier(node) {
+          return node.type === "Identifier";
+        }
+      `,
+      output: outdent`
+        export default createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        use(function isIdentifier(node) {
+          return node.type === "Identifier";
+        })
+      `,
+      output: outdent`
+        use(createTypeCheckFunction([
+          "Identifier"
+        ]))
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node => node.type === "Identifier";
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node => {
+          return node.type === "Identifier";
+        };
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node =>
+          node.type === "Identifier" || node.type === "FunctionExpression";
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier",
+          "FunctionExpression"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node =>
+          node.type === "Identifier" || node?.type === "FunctionExpression";
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier",
+          "FunctionExpression"
+        ]);
+      `,
+      errors: 1,
+    },
+  ].map((testCase) => ({
+    ...testCase,
+    parserOptions: { sourceType: "module" },
+  })),
+});
+
 test("prefer-indent-if-break", {
   valid: [
     "ifBreak(indent(doc))",
