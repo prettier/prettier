@@ -70,7 +70,7 @@ function needsParens(path, options) {
     // `for ((async) of []);` and `for ((let) of []);`
     if (
       name === "left" &&
-      ((node.name === "async" && !parent.await) || node.name === "left") &&
+      ((node.name === "async" && !parent.await) || node.name === "let") &&
       parent.type === "ForOfStatement"
     ) {
       return true;
