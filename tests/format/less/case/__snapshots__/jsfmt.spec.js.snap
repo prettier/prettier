@@ -158,13 +158,18 @@ TABLE {}
 @var: {
   notVar: 0;
   @notVarNested: {
-    notVar: 0;
-    notVar2: 0;
+    notVar: 1;
+    notVar2: 2;
   };
+};
+
+@var2 : {
+  notVar: 5;
 };
 
 @not-var {
   notVar: @var[@notVarNested][notVar];
+  notVar2: @var2[notVar];
 }
 
 =====================================output=====================================
@@ -336,13 +341,18 @@ TABLE {
 @var: {
   notVar: 0;
   @notVarNested: {
-    notVar: 0;
-    notVar2: 0;
+    notVar: 1;
+    notVar2: 2;
   };
+};
+
+@var2: {
+  notVar: 5;
 };
 
 @not-var {
   notvar: @var[@notVarNested][notVar];
+  notvar2: @var2[notVar];
 }
 
 ================================================================================
