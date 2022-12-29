@@ -884,7 +884,9 @@ function handleSwitchDefaultCaseComments({
   if (
     !enclosingNode ||
     enclosingNode.type !== "SwitchCase" ||
-    enclosingNode.test
+    enclosingNode.test ||
+    !followingNode ||
+    followingNode !== enclosingNode.consequent[0]
   ) {
     return false;
   }
