@@ -6,20 +6,33 @@ const indent = (text) =>
     .join("\n");
 
 const snippets = [
+  "/* comment */ 'use strict';",
   "'use strict' /* comment */;",
+  outdent`
+    // comment
+    'use strict';
+  `,
   outdent`
     'use strict' // comment
   `,
   outdent`
     'use strict';
-
     /* comment */
     (function () {})();
   `,
   outdent`
+    /* comment */
     'use strict';
-
+    (function () {})();
+  `,
+  outdent`
+    'use strict';
     // comment
+    (function () {})();
+  `,
+  outdent`
+    // comment
+    'use strict';
     (function () {})();
   `,
 ].flatMap((code) => [
