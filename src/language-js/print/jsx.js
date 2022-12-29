@@ -3,6 +3,7 @@
 const {
   printComments,
   printDanglingComments,
+  printCommentsSeparately,
 } = require("../../main/comments.js");
 const {
   builders: {
@@ -490,7 +491,11 @@ function printJsxAttribute(path, options, print) {
         options.jsxSingleQuote ? "'" : '"'
       );
       final = final.replace(regex, escaped);
-      res = [quote, final, quote];
+      const { leading, trailing } = path.call(
+        () => printCommentsSeparately(path, options),
+        "value"
+      );
+      res = [leading, quote, final, quote, trailing];
     } else {
       res = print("value");
     }
@@ -766,7 +771,7 @@ function printJsx(path, options, print) {
       return printJsxEmptyExpression(path, options /*, print*/);
     case "JSXText":
       /* istanbul ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
+      throw new Error("JSXText should be handled by JSXElement");
     default:
       /* istanbul ignore next */
       throw new Error(`Unknown JSX node type: ${JSON.stringify(node.type)}.`);
