@@ -86,11 +86,10 @@ function needsParens(path, options) {
       !parent.optional
     ) {
       const statement = path.findAncestor(
-        createTypeCheckFunction([
-          "ExpressionStatement",
-          "ForStatement",
-          "ForInStatement",
-        ])
+        (node) =>
+          node.type === "ExpressionStatement" ||
+          node.type === "ForStatement" ||
+          node.type === "ForInStatement"
       );
       const expression = !statement
         ? undefined
@@ -190,12 +189,11 @@ function needsParens(path, options) {
       if (
         startsWithNoLookaheadToken(
           node,
-          createTypeCheckFunction([
-            "ObjectExpression",
-            "FunctionExpression",
-            "ClassExpression",
-            "DoExpression",
-          ])
+          (node) =>
+            node.type === "ObjectExpression" ||
+            node.type === "FunctionExpression" ||
+            node.type === "ClassExpression" ||
+            node.type === "DoExpression"
         )
       ) {
         return true;

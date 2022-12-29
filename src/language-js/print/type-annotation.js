@@ -16,7 +16,6 @@ import {
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   hasComment,
-  createTypeCheckFunction,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -31,22 +30,20 @@ function shouldHugType(node) {
 
   if (node.type === "UnionTypeAnnotation" || node.type === "TSUnionType") {
     const voidCount = node.types.filter(
-      createTypeCheckFunction([
-        "VoidTypeAnnotation",
-        "TSVoidKeyword",
-        "NullLiteralTypeAnnotation",
-        "TSNullKeyword",
-      ])
+      (node) =>
+        node.type === "VoidTypeAnnotation" ||
+        node.type === "TSVoidKeyword" ||
+        node.type === "NullLiteralTypeAnnotation" ||
+        node.type === "TSNullKeyword"
     ).length;
 
     const hasObject = node.types.some(
-      createTypeCheckFunction([
-        "ObjectTypeAnnotation",
-        "TSTypeLiteral",
+      (node) =>
+        node.type === "ObjectTypeAnnotation" ||
+        node.type === "TSTypeLiteral" ||
         // This is a bit aggressive but captures Array<{x}>
-        "GenericTypeAnnotation",
-        "TSTypeReference",
-      ])
+        node.type === "GenericTypeAnnotation" ||
+        node.type === "TSTypeReference"
     );
 
     const hasComments = node.types.some((node) => hasComment(node));

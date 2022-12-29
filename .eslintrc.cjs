@@ -389,6 +389,7 @@ module.exports = {
           "error",
           {
             ignoreSingleType: true,
+            onlyTopLevelFunctions: true,
           },
         ],
       },
