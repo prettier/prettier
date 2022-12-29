@@ -152,7 +152,7 @@ function printArray(path, options, print) {
 
 function isConciselyPrintedArray(node, options) {
   return (
-    node.type === "ArrayExpression" &&
+    isArrayOrTupleExpression(element) &&
     node.elements.length > 1 &&
     node.elements.every(
       (element) =>
