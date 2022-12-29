@@ -1,44 +1,30 @@
-
-
 <div
   attr=/* comment */"foo"
->
-  {foo}
-</div>;
+></div>;
 
 <div
   attr=
   /* comment */
   "foo"
->
-  {foo}
-</div>;
+></div>;
 
 <div
   attr= /* comment */
   "foo"
->
-  {foo}
-</div>;
+></div>;
 
 <div
   attr=
   /* comment */ "foo"
->
-  {foo}
-</div>;
+></div>;
 
 <div
   attr=
   // comment
   "foo"
->
-  {foo}
-</div>;
+></div>;
 
 <div
   attr= // comment
   "foo"
->
-  {foo}
-</div>;
+></div>;
