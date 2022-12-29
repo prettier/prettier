@@ -42,6 +42,8 @@ for (letFoo of foo);
 for ((let.a) in foo);
 for ((let[a]) in foo);
 
+for (let of of let);
+
 =====================================output=====================================
 for ((let) of foo);
 for (foo of let);
@@ -54,6 +56,8 @@ for (letFoo of foo);
 
 for (let.a in foo);
 for ((let)[a] in foo);
+
+for (let of of let);
 
 ================================================================================
 `;
