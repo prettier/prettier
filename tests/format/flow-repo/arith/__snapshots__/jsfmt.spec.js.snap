@@ -168,7 +168,7 @@ let tests = [
     x + ""; // error
     "" + x; // error
     x + {}; // error
-    ({} + x); // error
+    ({}) + x; // error
   },
 
   // when one side is a string or number and the other is invalid, we
@@ -344,10 +344,10 @@ let tests = [
 "foo" < 1; // error
 "foo" < "bar";
 1 < { foo: 1 }; // error
-({ foo: 1 } < 1); // error
-({ foo: 1 } < { foo: 1 }); // error
+({ foo: 1 }) < 1; // error
+({ foo: 1 }) < { foo: 1 }; // error
 "foo" < { foo: 1 }; // error
-({ foo: 1 } < "foo"); // error
+({ foo: 1 }) < "foo"; // error
 
 var x = (null: ?number);
 1 < x; // 2 errors: null !~> number; undefined !~> number
