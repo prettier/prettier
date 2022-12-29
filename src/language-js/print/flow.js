@@ -21,7 +21,7 @@ import {
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printExportDeclaration, printExportAllDeclaration } from "./module.js";
-import { printTupleType } from "./array.js";
+import { printArray } from "./array.js";
 import { printObject } from "./object.js";
 import { printPropertyKey } from "./property.js";
 import {
@@ -82,7 +82,7 @@ function printFlow(path, options, print) {
     case "FunctionTypeAnnotation":
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
-      return printTupleType(path, options, print);
+      return printArray(path, options, print);
     case "GenericTypeAnnotation":
       return [
         print("id"),

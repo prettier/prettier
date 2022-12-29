@@ -4,7 +4,6 @@ import {
   KIND_CJ_LETTER,
   KIND_K_LETTER,
   KIND_NON_CJK,
-  getAncestorNode,
 } from "./utils.js";
 
 /**
@@ -18,7 +17,12 @@ import {
  * `word`.
  */
 
-const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link", "wikiLink"];
+const SINGLE_LINE_NODE_TYPES = new Set([
+  "heading",
+  "tableCell",
+  "link",
+  "wikiLink",
+]);
 
 /**
  * These characters must not immediately precede a line break.
@@ -218,7 +222,10 @@ function isNonCJKOrKoreanLetter(kind) {
  * @returns {boolean}
  */
 function isBreakable(path, value, proseWrap, isLink, canBeSpace) {
-  if (proseWrap !== "always" || getAncestorNode(path, SINGLE_LINE_NODE_TYPES)) {
+  if (
+    proseWrap !== "always" ||
+    path.hasAncestor((node) => SINGLE_LINE_NODE_TYPES.has(node.type))
+  ) {
     return false;
   }
 

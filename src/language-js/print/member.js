@@ -7,22 +7,12 @@ import {
 import { printOptionalToken } from "./misc.js";
 
 function printMemberExpression(path, options, print) {
-  const { node } = path;
-
-  const { parent } = path;
-  let firstNonMemberParent;
-  let i = 0;
-  do {
-    firstNonMemberParent = path.getParentNode(i);
-    i++;
-  } while (
-    firstNonMemberParent &&
-    (isMemberExpression(firstNonMemberParent) ||
-      firstNonMemberParent.type === "TSNonNullExpression")
-  );
-
   const objectDoc = print("object");
   const lookupDoc = printMemberLookup(path, options, print);
+  const { node, parent } = path;
+  const firstNonMemberParent = path.findAncestor(
+    (node) => !(isMemberExpression(node) || node.type === "TSNonNullExpression")
+  );
 
   const shouldInline =
     (firstNonMemberParent &&

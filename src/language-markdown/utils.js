@@ -238,26 +238,6 @@ function isAutolink(node) {
   return locStart(node) === locStart(child) && locEnd(node) === locEnd(child);
 }
 
-function getAncestorCounter(path, typeOrTypes) {
-  const types = Array.isArray(typeOrTypes) ? typeOrTypes : [typeOrTypes];
-
-  let counter = -1;
-  let ancestorNode;
-
-  while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.includes(ancestorNode.type)) {
-      return counter;
-    }
-  }
-
-  return -1;
-}
-
-function getAncestorNode(path, typeOrTypes) {
-  const counter = getAncestorCounter(path, typeOrTypes);
-  return counter === -1 ? null : path.getParentNode(counter);
-}
-
 export {
   mapAst,
   splitText,
@@ -272,6 +252,4 @@ export {
   KIND_CJ_LETTER,
   KIND_K_LETTER,
   KIND_CJK_PUNCTUATION,
-  getAncestorCounter,
-  getAncestorNode,
 };

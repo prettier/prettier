@@ -29,7 +29,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printTemplateLiteral } from "./template-literal.js";
-import { printTupleType } from "./array.js";
+import { printArray } from "./array.js";
 import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -449,7 +449,7 @@ function printTypescript(path, options, print) {
     case "TSFunctionType":
       return printFunctionType(path, options, print);
     case "TSTupleType":
-      return printTupleType(path, options, print);
+      return printArray(path, options, print);
     case "TSTypeReference":
       return [
         print("typeName"),

@@ -38,7 +38,13 @@ function printEmptyArray(path, options, openBracket, closeBracket) {
   ]);
 }
 
-// `ArrayExpression`, `ArrayPattern`, and `TupleExpression`
+/*
+- `ArrayExpression`
+- `TupleExpression`
+- `ArrayPattern`
+- `TSTupleType`(TypeScript)
+- `TupleTypeAnnotation`(Flow)
+*/
 function printArray(path, options, print) {
   const { node } = path;
   /** @type{Doc[]} */
@@ -46,10 +52,17 @@ function printArray(path, options, print) {
 
   const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
-  if (node.elements.length === 0) {
+  const elementsProperty =
+    node.type === "TSTupleType"
+      ? "elementTypes"
+      : node.type === "TupleTypeAnnotation"
+      ? "types"
+      : "elements";
+  const elements = node[elementsProperty];
+  if (elements.length === 0) {
     parts.push(printEmptyArray(path, options, openBracket, closeBracket));
   } else {
-    const lastElem = node.elements.at(-1);
+    const lastElem = elements.at(-1);
     const canHaveTrailingComma = lastElem?.type !== "RestElement";
 
     // JavaScript allows you to have empty elements in an array which
@@ -68,8 +81,8 @@ function printArray(path, options, print) {
 
     const shouldBreak =
       !options.__inJestEach &&
-      node.elements.length > 1 &&
-      node.elements.every((element, i, elements) => {
+      elements.length > 1 &&
+      elements.every((element, i, elements) => {
         const elementType = element?.type;
         if (
           !isArrayOrTupleExpression(element) &&
@@ -96,7 +109,12 @@ function printArray(path, options, print) {
       ? ""
       : needsForcedTrailingComma
       ? ","
-      : !shouldPrintComma(options)
+      : !shouldPrintComma(
+          options,
+          node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
+            ? "all"
+            : "es5"
+        )
       ? ""
       : shouldUseConciseFormatting
       ? ifBreak(",", "", { groupId })
@@ -111,7 +129,7 @@ function printArray(path, options, print) {
             shouldUseConciseFormatting
               ? printArrayItemsConcisely(path, options, print, trailingComma)
               : [
-                  printArrayItems(path, options, "elements", print),
+                  printArrayItems(path, options, elementsProperty, print),
                   trailingComma,
                 ],
             printDanglingComments(path, options, /* sameIndent */ true),
@@ -132,27 +150,9 @@ function printArray(path, options, print) {
   return parts;
 }
 
-// `TSTupleType` and `TupleTypeAnnotation`
-function printTupleType(path, options, print) {
-  const { node } = path;
-  const typesField = node.type === "TSTupleType" ? "elementTypes" : "types";
-  const openBracket = "[";
-  const closeBracket = "]";
-  if (node[typesField].length === 0) {
-    return printEmptyArray(path, options, openBracket, closeBracket);
-  }
-
-  return group([
-    openBracket,
-    indent([softline, printArrayItems(path, options, typesField, print)]),
-    ifBreak(shouldPrintComma(options, "all") ? "," : ""),
-    softline,
-    closeBracket,
-  ]);
-}
-
 function isConciselyPrintedArray(node, options) {
   return (
+    node.type === "ArrayExpression" &&
     node.elements.length > 1 &&
     node.elements.every(
       (element) =>
@@ -209,4 +209,4 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-export { printArray, printTupleType, printArrayItems, isConciselyPrintedArray };
+export { printArray, printArrayItems, isConciselyPrintedArray };
