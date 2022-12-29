@@ -458,8 +458,8 @@ function needsParens(path, options) {
       );
     case "TSTypeQuery":
       if (
-        parent.type === "TSIndexedAccessType" ||
-        parent.type === "TSArrayType"
+        name === "objectType" &&
+        (parent.type === "TSIndexedAccessType" || parent.type === "TSArrayType")
       ) {
         return true;
       }
