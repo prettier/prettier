@@ -9,6 +9,7 @@ printWidth: 80
 a as (typeof node.children)[number]
 a as (typeof node.children)[]
 a as ((typeof node.children)[number])[]
+
 =====================================output=====================================
 a as (typeof node.children)[number];
 a as (typeof node.children)[];
