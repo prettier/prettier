@@ -244,10 +244,7 @@ function shouldExpandLastArg(args, argDocs, options) {
     (args.length !== 2 ||
       penultimateArg.type !== "ArrowFunctionExpression" ||
       !isArrayOrTupleExpression(lastArg)) &&
-    !(
-      args.length > 1 &&
-      isConciselyPrintedArray(lastArg, options)
-    )
+    !(args.length > 1 && isConciselyPrintedArray(lastArg, options))
   );
 }
 
