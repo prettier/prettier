@@ -9,3 +9,5 @@ for (letFoo of foo);
 
 for ((let.a) in foo);
 for ((let[a]) in foo);
+
+for (let of of let);

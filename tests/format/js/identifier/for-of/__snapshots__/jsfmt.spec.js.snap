@@ -7,6 +7,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 async function a() {
+  for await((let) of foo);
   for await((let).a of foo);
   for await((let)[a] of foo);
   for await((let)()[a] of foo);
@@ -14,6 +15,7 @@ async function a() {
 
 =====================================output=====================================
 async function a() {
+  for await ((let) of foo);
   for await ((let).a of foo);
   for await ((let)[a] of foo);
   for await ((let)()[a] of foo);
@@ -40,6 +42,8 @@ for (letFoo of foo);
 for ((let.a) in foo);
 for ((let[a]) in foo);
 
+for (let of of let);
+
 =====================================output=====================================
 for ((let) of foo);
 for (foo of let);
@@ -52,6 +56,8 @@ for (letFoo of foo);
 
 for (let.a in foo);
 for ((let)[a] in foo);
+
+for (let of of let);
 
 ================================================================================
 `;
