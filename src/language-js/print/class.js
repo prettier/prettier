@@ -16,6 +16,7 @@ import {
   printOptionalToken,
   printTypeAnnotation,
   printDefiniteToken,
+  printDeclareToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
@@ -28,21 +29,11 @@ import { printClassMemberDecorators } from "./decorators.js";
 */
 function printClass(path, options, print) {
   const { node } = path;
-  const parts = [];
-
-  if (
-    node.declare ||
-    (node.type === "DeclareClass" &&
-      path.parent.type !== "DeclareExportDeclaration")
-  ) {
-    parts.push("declare ");
-  }
-
-  if (node.abstract) {
-    parts.push("abstract ");
-  }
-
-  parts.push("class");
+  const parts = [
+    printDeclareToken(path),
+    node.abstract ? "abstract " : "",
+    "class",
+  ];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -201,9 +192,9 @@ function printClassProperty(path, options, print) {
   if (node.accessibility) {
     parts.push(node.accessibility + " ");
   }
-  if (node.declare) {
-    parts.push("declare ");
-  }
+
+  parts.push(printDeclareToken(path));
+
   if (node.static) {
     parts.push("static ");
   }

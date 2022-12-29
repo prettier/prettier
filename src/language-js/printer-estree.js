@@ -49,6 +49,7 @@ import {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
+  printDeclareToken,
 } from "./print/misc.js";
 import {
   printImportDeclaration,
@@ -467,7 +468,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       parts = [
-        node.declare ? "declare " : "",
+        printDeclareToken(path),
         node.kind,
         firstVariable ? [" ", firstVariable] : "",
         indent(

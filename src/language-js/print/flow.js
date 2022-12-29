@@ -34,6 +34,7 @@ import {
   printOptionalToken,
   printTypeAnnotation,
   printRestSpread,
+  printDeclareToken,
 } from "./misc.js";
 
 function printFlow(path, options, print) {
@@ -45,7 +46,7 @@ function printFlow(path, options, print) {
       return printClass(path, options, print);
     case "DeclareFunction":
       return [
-        path.parent.type !== "DeclareExportDeclaration" ? "declare " : "",
+        printDeclareToken(path),
         "function ",
         print("id"),
         node.predicate ? " " : "",
@@ -57,12 +58,7 @@ function printFlow(path, options, print) {
     case "DeclareModuleExports":
       return ["declare module.exports", ": ", print("typeAnnotation"), semi];
     case "DeclareVariable":
-      return [
-        path.parent.type !== "DeclareExportDeclaration" ? "declare " : "",
-        "var ",
-        print("id"),
-        semi,
-      ];
+      return [printDeclareToken(path), "var ", print("id"), semi];
     case "DeclareExportDeclaration":
       return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":

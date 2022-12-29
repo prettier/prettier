@@ -2,7 +2,7 @@ import { isNonEmptyArray } from "../../common/util.js";
 import { join, line, group, indent, ifBreak } from "../../document/builders.js";
 import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
-import { printTypeScriptModifiers } from "./misc.js";
+import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
 
 /*
 - `TSInterfaceDeclaration`(TypeScript)
@@ -12,10 +12,7 @@ import { printTypeScriptModifiers } from "./misc.js";
 */
 function printInterface(path, options, print) {
   const { node } = path;
-  const parts = [];
-  if (node.declare || node.type === "DeclareInterface") {
-    parts.push("declare ");
-  }
+  const parts = [printDeclareToken(path)];
 
   if (node.type === "TSInterfaceDeclaration") {
     parts.push(
