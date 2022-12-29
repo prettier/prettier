@@ -1,11 +1,5 @@
 "use strict";
 
-/*
-- `function foo() {return node.type === 'Identifier'}`
-- `() => {return node.type === 'Identifier'}`
-- `() => node.type === 'Identifier'`
-*/
-
 const MESSAGE_ID = "prefer-create-type-check-function";
 
 const isTypeAccess = (node, parameterName) => {
@@ -50,6 +44,23 @@ function getTypes(node, parameterName) {
   }
 }
 
+function isTopLevelFunction(node) {
+  return (
+    node.parent.type === "Program" ||
+    (node.parent.type === "VariableDeclarator" &&
+      node.parent.parent.type === "VariableDeclaration" &&
+      node.parent.type === "Program")
+  );
+}
+
+const selector = [
+  ":function",
+  "[params.length=1]",
+  '[params.0.type="Identifier"]',
+  "[async!=true]",
+  "[generator!=true]",
+].join("");
+
 module.exports = {
   meta: {
     type: "suggestion",
@@ -69,20 +80,28 @@ module.exports = {
             type: "boolean",
             default: false,
           },
+          onlyTopLevelFunctions: {
+            type: "boolean",
+            default: false,
+          },
         },
       },
     ],
     fixable: "code",
   },
   create(context) {
-    const { ignoreSingleType } = {
+    const { ignoreSingleType, onlyTopLevelFunctions } = {
       ignoreSingleType: false,
+      onlyTopLevelFunctions: false,
       ...context.options[0],
     };
+
     return {
-      ':function[params.length=1][params.0.type="Identifier"][async!=true][generator!=true]'(
-        functionNode
-      ) {
+      [selector](functionNode) {
+        if (onlyTopLevelFunctions && !isTopLevelFunction(functionNode)) {
+          return;
+        }
+
         let returnStatementArgument = functionNode.body;
         if (functionNode.body.type === "BlockStatement") {
           const { body } = functionNode;

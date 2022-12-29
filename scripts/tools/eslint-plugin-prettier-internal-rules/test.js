@@ -410,6 +410,14 @@ test("prefer-create-type-check-function", {
       code: 'const isIdentifier = node => node.type === "Identifier";',
       options: [{ ignoreSingleType: true }],
     },
+    {
+      code: outdent`
+        function foo() {
+          use(node => node.type === "Identifier" || node.type === "FunctionExpression");
+        }
+      `,
+      options: [{ onlyTopLevelFunctions: true }],
+    },
     outdent`
       function isGetterOrSetter(node) {
         return node.kind === "get" || node.kind === "set";
