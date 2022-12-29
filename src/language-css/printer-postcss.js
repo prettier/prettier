@@ -744,6 +744,18 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // No space before unary minus followed by an opening parenthesis `-(`
+        if (
+          (options.parser === "scss" || options.parser === "less") &&
+          isMathOperator &&
+          iNode.value === "-" &&
+          isParenGroupNode(iNextNode) &&
+          locEnd(iNode) === locStart(iNextNode.open) &&
+          iNextNode.open.value === "("
+        ) {
+          continue;
+        }
+
         // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
         if (isInlineValueCommentNode(iNode)) {
           if (parentNode.type === "value-paren_group") {
