@@ -73,6 +73,7 @@ const meriyahDisabledTests = new Set([
     "static.js",
     "with-semicolon-1.js",
     "with-semicolon-2.js",
+    "comments.js",
   ].map((filename) =>
     path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
   ),
