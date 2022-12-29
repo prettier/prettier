@@ -13,7 +13,8 @@ function printOptionalToken(path) {
   }
   if (
     node.type === "OptionalCallExpression" ||
-    (node.type === "OptionalMemberExpression" && node.computed)
+    (node.type === "OptionalMemberExpression" && node.computed) ||
+    node.type === "OptionalIndexedAccessType"
   ) {
     return "?.";
   }
