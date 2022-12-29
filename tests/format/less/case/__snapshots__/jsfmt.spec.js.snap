@@ -342,7 +342,7 @@ TABLE {
 };
 
 @not-var {
-  notvar: @var[ @notVarNested][notVar];
+  notvar: @var[@notVarNested][notVar];
 }
 
 ================================================================================
