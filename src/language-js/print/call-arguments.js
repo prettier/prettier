@@ -246,7 +246,6 @@ function shouldExpandLastArg(args, argDocs, options) {
       !isArrayOrTupleExpression(lastArg)) &&
     !(
       args.length > 1 &&
-      isArrayOrTupleExpression(lastArg) &&
       isConciselyPrintedArray(lastArg, options)
     )
   );
