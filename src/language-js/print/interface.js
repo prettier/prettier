@@ -4,6 +4,10 @@ import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
 /*
 - `TSInterfaceDeclaration`(TypeScript)
 - `DeclareInterface`(flow)
@@ -12,6 +16,7 @@ import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
 */
 function printInterface(path, options, print) {
   const { node } = path;
+  /** @type {Doc[]} */
   const parts = [printDeclareToken(path)];
 
   if (node.type === "TSInterfaceDeclaration") {

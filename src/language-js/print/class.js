@@ -22,6 +22,10 @@ import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 
+/**
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
 /*
 - `ClassDeclaration`
 - `ClassExpression`
@@ -29,6 +33,7 @@ import { printClassMemberDecorators } from "./decorators.js";
 */
 function printClass(path, options, print) {
   const { node } = path;
+  /** @type {Doc[]} */
   const parts = [
     printDeclareToken(path),
     node.abstract ? "abstract " : "",
