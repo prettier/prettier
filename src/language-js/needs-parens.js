@@ -12,6 +12,7 @@ import {
   isMemberExpression,
   isObjectProperty,
   isTSTypeExpression,
+  createTypeCheckFunction,
 } from "./utils/index.js";
 
 function needsParens(path, options) {
@@ -832,58 +833,56 @@ function needsParens(path, options) {
   return false;
 }
 
-function isStatement(node) {
-  return (
-    node.type === "BlockStatement" ||
-    node.type === "BreakStatement" ||
-    node.type === "ClassBody" ||
-    node.type === "ClassDeclaration" ||
-    node.type === "ClassMethod" ||
-    node.type === "ClassProperty" ||
-    node.type === "PropertyDefinition" ||
-    node.type === "ClassPrivateProperty" ||
-    node.type === "ContinueStatement" ||
-    node.type === "DebuggerStatement" ||
-    node.type === "DeclareClass" ||
-    node.type === "DeclareExportAllDeclaration" ||
-    node.type === "DeclareExportDeclaration" ||
-    node.type === "DeclareFunction" ||
-    node.type === "DeclareInterface" ||
-    node.type === "DeclareModule" ||
-    node.type === "DeclareModuleExports" ||
-    node.type === "DeclareVariable" ||
-    node.type === "DeclareEnum" ||
-    node.type === "DoWhileStatement" ||
-    node.type === "EnumDeclaration" ||
-    node.type === "ExportAllDeclaration" ||
-    node.type === "ExportDefaultDeclaration" ||
-    node.type === "ExportNamedDeclaration" ||
-    node.type === "ExpressionStatement" ||
-    node.type === "ForInStatement" ||
-    node.type === "ForOfStatement" ||
-    node.type === "ForStatement" ||
-    node.type === "FunctionDeclaration" ||
-    node.type === "IfStatement" ||
-    node.type === "ImportDeclaration" ||
-    node.type === "InterfaceDeclaration" ||
-    node.type === "LabeledStatement" ||
-    node.type === "MethodDefinition" ||
-    node.type === "ReturnStatement" ||
-    node.type === "SwitchStatement" ||
-    node.type === "ThrowStatement" ||
-    node.type === "TryStatement" ||
-    node.type === "TSDeclareFunction" ||
-    node.type === "TSEnumDeclaration" ||
-    node.type === "TSImportEqualsDeclaration" ||
-    node.type === "TSInterfaceDeclaration" ||
-    node.type === "TSModuleDeclaration" ||
-    node.type === "TSNamespaceExportDeclaration" ||
-    node.type === "TypeAlias" ||
-    node.type === "VariableDeclaration" ||
-    node.type === "WhileStatement" ||
-    node.type === "WithStatement"
-  );
-}
+const isStatement = createTypeCheckFunction([
+  "BlockStatement",
+  "BreakStatement",
+  "ClassBody",
+  "ClassDeclaration",
+  "ClassMethod",
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ContinueStatement",
+  "DebuggerStatement",
+  "DeclareClass",
+  "DeclareExportAllDeclaration",
+  "DeclareExportDeclaration",
+  "DeclareFunction",
+  "DeclareInterface",
+  "DeclareModule",
+  "DeclareModuleExports",
+  "DeclareVariable",
+  "DeclareEnum",
+  "DoWhileStatement",
+  "EnumDeclaration",
+  "ExportAllDeclaration",
+  "ExportDefaultDeclaration",
+  "ExportNamedDeclaration",
+  "ExpressionStatement",
+  "ForInStatement",
+  "ForOfStatement",
+  "ForStatement",
+  "FunctionDeclaration",
+  "IfStatement",
+  "ImportDeclaration",
+  "InterfaceDeclaration",
+  "LabeledStatement",
+  "MethodDefinition",
+  "ReturnStatement",
+  "SwitchStatement",
+  "ThrowStatement",
+  "TryStatement",
+  "TSDeclareFunction",
+  "TSEnumDeclaration",
+  "TSImportEqualsDeclaration",
+  "TSInterfaceDeclaration",
+  "TSModuleDeclaration",
+  "TSNamespaceExportDeclaration",
+  "TypeAlias",
+  "VariableDeclaration",
+  "WhileStatement",
+  "WithStatement",
+]);
 
 function isPathInForStatementInitializer(path) {
   let i = 0;

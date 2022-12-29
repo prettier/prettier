@@ -15,6 +15,7 @@ module.exports = {
     "no-node-comments": require("./no-node-comments.js"),
     "no-unnecessary-ast-path-call": require("./no-unnecessary-ast-path-call.js"),
     "prefer-ast-path-each": require("./prefer-ast-path-each.js"),
+    "prefer-create-type-check-function": require("./prefer-create-type-check-function.js"),
     "prefer-indent-if-break": require("./prefer-indent-if-break.js"),
     "prefer-is-non-empty-array": require("./prefer-is-non-empty-array.js"),
     "prefer-fs-promises-submodule": require("./prefer-fs-promises-submodule.js"),
