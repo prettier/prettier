@@ -49,7 +49,7 @@ function isTopLevelFunction(node) {
     node.parent.type === "Program" ||
     (node.parent.type === "VariableDeclarator" &&
       node.parent.parent.type === "VariableDeclaration" &&
-      node.parent.type === "Program") ||
+      node.parent.parent.parent.type === "Program") ||
     node.parent.type === "ExportDefaultDeclaration"
   );
 }
