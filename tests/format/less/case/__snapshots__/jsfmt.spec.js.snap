@@ -416,7 +416,7 @@ printWidth: 80
 };
 
 @var: /* comment */ {
-  preservecase: 5;
+  preserveCase: 5;
 };
 
 @var: /* comment */ {
@@ -424,7 +424,7 @@ printWidth: 80
 };
 
 @var: {
-  preservecase: 5;
+  preserveCase: 5;
 };
 
 @var // comment
