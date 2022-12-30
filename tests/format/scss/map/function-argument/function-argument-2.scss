@@ -1,6 +1,5 @@
 $display-breakpoints: map-deep-merge(
   (
-    "foo": "bar",
     "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
   ),
   $display-breakpoints
