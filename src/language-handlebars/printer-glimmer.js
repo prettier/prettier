@@ -30,6 +30,10 @@ const {
   isWhitespaceNode,
 } = require("./utils.js");
 
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
@@ -529,6 +533,7 @@ function printInverseBlockClosingMustache(node) {
 
 function printOpenBlock(path, print) {
   const node = path.getValue();
+  /** @type {Doc[]} */
   const parts = [
     printOpeningBlockOpeningMustache(node),
     indent(printPath(path, print)),
@@ -560,6 +565,7 @@ function printElseBlock(node, options) {
 function printElseIfLikeBlock(path, print, ifLikeKeyword) {
   const node = path.getValue();
   const parentNode = path.getParentNode(1);
+  /** @type {Doc[]} */
   const parts = [
     printInverseBlockOpeningMustache(parentNode),
     indent(group(["else", line, ifLikeKeyword])),
