@@ -128,7 +128,7 @@ function parseValueNode(valueNode, options) {
           if (
             group.value &&
             typeof group.value === "string" &&
-            group.value.includes("#{")
+            /#{.+\(.+/.test(group.value)
           ) {
             commaGroup.groups = [
               stringifyNode({
