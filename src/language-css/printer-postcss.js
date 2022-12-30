@@ -857,6 +857,13 @@ function genericPrint(path, options, print) {
         }
 
         if (isMapItemNode) {
+          // Nodes after the colon are considered to be the value part of a key-value pair
+          //   $foo: map-fn(
+          //     (
+          //       "foo"                 :                 "bar #{inner-fn($baz)}"
+          //       ^^^^^(node.groups[0]) ^(node.groups[1]) ^^^^^^^^^^^^^^^^^^^^^^^(isPartOfValue === true)
+          //     )
+          //   );
           const isPartOfValue =
             node.groups?.[1]?.type === "value-colon" && i > 1;
           if (
