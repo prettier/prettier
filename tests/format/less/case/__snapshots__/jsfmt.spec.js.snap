@@ -328,9 +328,8 @@ parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// Do not change case of property name if inside a variable declaration
 
-
-// do not change case of property name if inside a variable declaration
 @var: {
   notVar: 0;
   @notVarNested: {
@@ -389,7 +388,8 @@ printWidth: 80
 }
 
 =====================================output=====================================
-// do not change case of property name if inside a variable declaration
+// Do not change case of property name if inside a variable declaration
+
 @var: {
   notVar: 0;
   @notVarNested: {
