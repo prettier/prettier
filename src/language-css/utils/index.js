@@ -276,7 +276,8 @@ function isSCSSMapItemNode(path) {
   // Check open parens contain key/value pair (i.e. `(key: value)` and `(key: (value, other-value)`)
   if (
     !isKeyValuePairInParenGroupNode(node) &&
-    !(parentParentNode && isKeyValuePairInParenGroupNode(parentParentNode))
+    !(parentParentNode && isKeyValuePairInParenGroupNode(parentParentNode)) &&
+    !isKeyValuePairNode(node)
   ) {
     return false;
   }

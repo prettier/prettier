@@ -543,6 +543,9 @@ function genericPrint(path, options, print) {
 
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
+
+      const isMapItemNode = isSCSSMapItemNode(path);
+
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
@@ -851,6 +854,20 @@ function genericPrint(path, options, print) {
           isParenGroupNode(iNextNode.group)
         ) {
           continue;
+        }
+
+        if (isMapItemNode) {
+          const isPartOfValue =
+            node.groups?.[1]?.type === "value-colon" && i > 1;
+          if (
+            isPartOfValue &&
+            ((iNode.type === "value-string" &&
+              iNextNode?.type === "value-word") ||
+              (iNode.type === "value-word" &&
+                iPrevNode?.type === "value-string"))
+          ) {
+            continue;
+          }
         }
 
         // Be default all values go through `line`
