@@ -529,31 +529,23 @@ function printInverseBlockClosingMustache(node) {
 
 function printOpenBlock(path, print) {
   const node = path.getValue();
+  const parts = [
+    printOpeningBlockOpeningMustache(node),
+    indent(printPath(path, print)),
+  ];
 
-  const openingMustache = printOpeningBlockOpeningMustache(node);
-  const closingMustache = printOpeningBlockClosingMustache(node);
-
-  const blockKeyword = [printPath(path, print)];
-
-  const printParamsResult = printParams(path, print);
-  let params = [];
-  if (printParamsResult) {
-    params = [line, group(printParamsResult)];
+  const paramsDoc = printParams(path, print);
+  if (paramsDoc) {
+    parts.push(indent([line, group(paramsDoc)]));
   }
 
-  let blockParams = [];
   if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [line, printBlockParams(node.program)];
+    parts.push(indent([line, printBlockParams(node.program)]));
   }
 
-  return group([
-    openingMustache,
-    indent(blockKeyword),
-    indent(params),
-    indent(blockParams),
-    softline,
-    closingMustache,
-  ]);
+  parts.push(softline, printOpeningBlockClosingMustache(node));
+
+  return group(parts);
 }
 
 function printElseBlock(node, options) {
@@ -567,26 +559,20 @@ function printElseBlock(node, options) {
 
 function printElseIfLikeBlock(path, print, ifLikeKeyword) {
   const node = path.getValue();
+  const parentNode = path.getParentNode(1);
+  const parts = [
+    printInverseBlockOpeningMustache(parentNode),
+    indent(group(["else", line, ifLikeKeyword])),
+    indent([line, group(printParams(path, print))]),
+  ];
 
-  const elseBlockKeywords = group(["else", line, ifLikeKeyword]);
-
-  const params = [line, group(printParams(path, print))];
-
-  let blockParams = [];
   if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [line, printBlockParams(node.program)];
+    parts.push(indent([line, printBlockParams(node.program)]));
   }
 
-  const parentNode = path.getParentNode(1);
+  parts.push(softline, printInverseBlockClosingMustache(parentNode));
 
-  return group([
-    printInverseBlockOpeningMustache(parentNode),
-    indent(elseBlockKeywords),
-    indent(params),
-    indent(blockParams),
-    softline,
-    printInverseBlockClosingMustache(parentNode),
-  ]);
+  return group(parts);
 }
 
 function printCloseBlock(path, print, options) {
