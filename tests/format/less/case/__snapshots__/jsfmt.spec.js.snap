@@ -154,24 +154,6 @@ TABLE {}
 
 .foo { &-KeepSelector {} &-KeepSelector & .KeepClassSelector {} &-100\\.200 {} }
 
-// do not change case of property name if inside a variable declaration
-@var: {
-  notVar: 0;
-  @notVarNested: {
-    notVar: 1;
-    notVar2: 2;
-  };
-};
-
-@var2 : {
-  notVar: 5;
-};
-
-@not-var {
-  notVar: @var[@notVarNested][notVar];
-  notVar2: @var2[notVar];
-}
-
 =====================================output=====================================
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
@@ -337,6 +319,17 @@ TABLE {
   }
 }
 
+================================================================================
+`;
+
+exports[`variable.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
 // do not change case of property name if inside a variable declaration
 @var: {
   notVar: 0;
@@ -346,13 +339,104 @@ TABLE {
   };
 };
 
-@var2: {
-  notVar: 5;
+@var    :    {
+  shouldNotChangeCase: 5;
+};
+
+@var:    {
+  shouldNotChangeCase: 5;
+};
+
+@var    :{
+  shouldNotChangeCase: 5;
+};
+
+@var /* comment */ : /* comment */ {
+  shouldNotChangeCase: 5;
+};
+
+@var: /* comment */ {
+  shouldNotChangeCase: 5;
+};
+
+@var /* comment */ :{
+  shouldNotChangeCase: 5;
+};
+
+@var // comment
+: // comment
+{
+  shouldNotChangeCase: 5;
+};
+
+@var: // comment
+{
+  shouldNotChangeCase: 5;
+};
+
+@var // comment
+:{
+  shouldNotChangeCase: 5;
 };
 
 @not-var {
+  notVar: @var[@notVarNested][notVar];
+  notVar2: @var[notVar];
+}
+
+=====================================output=====================================
+// do not change case of property name if inside a variable declaration
+@var: {
+  notVar: 0;
+  @notVarNested: {
+    notVar: 1;
+    notVar2: 2;
+  };
+};
+
+@var: {
+  shouldNotChangeCase: 5;
+};
+
+@var: {
+  shouldNotChangeCase: 5;
+};
+
+@var: {
+  shouldNotChangeCase: 5;
+};
+
+@var: /* comment */ {
+  shouldnotchangecase: 5;
+};
+
+@var: /* comment */ {
+  shouldNotChangeCase: 5;
+};
+
+@var: {
+  shouldnotchangecase: 5;
+};
+
+@var // comment
+: // comment
+{
+  shouldnotchangecase: 5;
+}
+
+@var: // comment
+{
+  shouldNotChangeCase: 5;
+};
+
+@var // comment
+: {
+  shouldnotchangecase: 5;
+}
+
+@not-var {
   notvar: @var[ @notVarNested][notVar];
-  notvar2: @var2[notVar];
+  notvar2: @var[notVar];
 }
 
 ================================================================================
