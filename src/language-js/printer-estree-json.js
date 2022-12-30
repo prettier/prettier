@@ -48,15 +48,13 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral":
       return node.value ? "true" : "false";
     case "StringLiteral":
-    case "NumericLiteral":
       return JSON.stringify(node.value);
-    case "Identifier": {
-      const parent = path.getParentNode();
-      if (parent && parent.type === "ObjectProperty" && parent.key === node) {
-        return JSON.stringify(node.name);
-      }
-      return node.name;
-    }
+    case "NumericLiteral":
+      return isObjectKey(path)
+        ? JSON.stringify(String(node.value))
+        : JSON.stringify(node.value);
+    case "Identifier":
+      return isObjectKey(path) ? JSON.stringify(node.name) : node.name;
     case "TemplateLiteral":
       // There is only one `TemplateElement`
       return print(["quasis", 0]);
@@ -66,6 +64,12 @@ function genericPrint(path, options, print) {
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(node.type));
   }
+}
+
+function isObjectKey(path) {
+  return (
+    path.getName() === "key" && path.getParentNode().type === "ObjectProperty"
+  );
 }
 
 const ignoredProperties = new Set([
@@ -85,8 +89,13 @@ const ignoredProperties = new Set([
 function clean(node, newNode /*, parent*/) {
   const { type } = node;
   // We print quoted key
-  if (type === "ObjectProperty" && node.key.type === "Identifier") {
-    newNode.key = { type: "StringLiteral", value: node.key.name };
+  if (type === "ObjectProperty") {
+    const { key } = node;
+    if (key.type === "Identifier") {
+      newNode.key = { type: "StringLiteral", value: key.name };
+    } else if (key.type === "NumericLiteral") {
+      newNode.key = { type: "StringLiteral", value: String(key.value) };
+    }
     return;
   }
   if (type === "UnaryExpression" && node.operator === "+") {
