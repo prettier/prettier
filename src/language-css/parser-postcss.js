@@ -128,6 +128,8 @@ function parseValueNode(valueNode, options) {
           if (
             group.value &&
             typeof group.value === "string" &&
+            // e.g. `#{map-get($grid-breakpoints, `
+            // https://github.com/prettier/prettier/issues/13984
             /#{.+\(.+/.test(group.value)
           ) {
             commaGroup.groups = [
