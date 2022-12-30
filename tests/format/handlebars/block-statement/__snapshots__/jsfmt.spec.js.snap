@@ -281,6 +281,14 @@ printWidth: 80
   j
 {{/when}}
 
+{{#when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrst as |b|}}
+  {{b}}
+{{else when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnop as |d|}}
+  {{d}}
+{{else when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz as |f|}}
+  {{f}}
+{{/when}}
+
 {{#when abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy as |b|}}
   {{b}}
 {{else when abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy as |d|}}
@@ -411,6 +419,23 @@ printWidth: 80
   {{h}}
 {{else}}
   j
+{{/when}}
+
+{{#when
+  abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrst
+  as |b|
+}}
+  {{b}}
+{{else when
+  abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnop
+  as |d|
+}}
+  {{d}}
+{{else when
+  abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+  as |f|
+}}
+  {{f}}
 {{/when}}
 
 {{#when
