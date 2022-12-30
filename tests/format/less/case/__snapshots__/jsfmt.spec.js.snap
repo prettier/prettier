@@ -378,6 +378,11 @@ printWidth: 80
   preserveCase: 5;
 };
 
+// Known css properties
+@var: {
+  COLoR: RED;
+};
+
 @not-var {
   preserveCase: @var[@notVarNested][notVar];
   preserveCase: @var[    @notVarNested][notVar];
@@ -437,6 +442,11 @@ printWidth: 80
 : {
   preservecase: 5;
 }
+
+// Known css properties
+@var: {
+  COLoR: RED;
+};
 
 @not-var {
   preservecase: @var[ @notVarNested][notVar];
