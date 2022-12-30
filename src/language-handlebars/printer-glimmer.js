@@ -534,23 +534,24 @@ function printInverseBlockClosingMustache(node) {
 function printOpenBlock(path, print) {
   const node = path.getValue();
   /** @type {Doc[]} */
-  const parts = [
-    printOpeningBlockOpeningMustache(node),
-    indent(printPath(path, print)),
-  ];
+  const parts = [];
 
   const paramsDoc = printParams(path, print);
   if (paramsDoc) {
-    parts.push(indent([line, group(paramsDoc)]));
+    parts.push(group(paramsDoc));
   }
 
   if (isNonEmptyArray(node.program.blockParams)) {
-    parts.push(indent([line, printBlockParams(node.program)]));
+    parts.push(printBlockParams(node.program));
   }
 
-  parts.push(softline, printOpeningBlockClosingMustache(node));
-
-  return group(parts);
+  return group([
+    printOpeningBlockOpeningMustache(node),
+    printPath(path, print),
+    parts.length > 0 ? indent([line, join(line, parts)]) : "",
+    softline,
+    printOpeningBlockClosingMustache(node),
+  ]);
 }
 
 function printElseBlock(node, options) {
@@ -565,20 +566,20 @@ function printElseBlock(node, options) {
 function printElseIfLikeBlock(path, print, ifLikeKeyword) {
   const node = path.getValue();
   const parentNode = path.getParentNode(1);
-  /** @type {Doc[]} */
-  const parts = [
+
+  return group([
     printInverseBlockOpeningMustache(parentNode),
-    indent(group(["else", line, ifLikeKeyword])),
-    indent([line, group(printParams(path, print))]),
-  ];
-
-  if (isNonEmptyArray(node.program.blockParams)) {
-    parts.push(indent([line, printBlockParams(node.program)]));
-  }
-
-  parts.push(softline, printInverseBlockClosingMustache(parentNode));
-
-  return group(parts);
+    group(["else", line, ifLikeKeyword]),
+    indent([
+      line,
+      group(printParams(path, print)),
+      ...(isNonEmptyArray(node.program.blockParams)
+        ? [line, printBlockParams(node.program)]
+        : []),
+    ]),
+    softline,
+    printInverseBlockClosingMustache(parentNode),
+  ]);
 }
 
 function printCloseBlock(path, print, options) {
