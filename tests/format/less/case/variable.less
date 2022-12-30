@@ -50,6 +50,10 @@
 };
 
 @not-var {
-  notVar: @var[@notVarNested][notVar];
-  notVar2: @var[notVar];
+  shouldNotChangeCase: @var[@notVarNested][notVar];
+  shouldNotChangeCase: @var[    @notVarNested][notVar];
+  shouldNotChangeCase: @var[@notVarNested    ][notVar];
+  shouldNotChangeCase: @var[@notVarNested][    notVar];
+  shouldNotChangeCase: @var[@notVarNested][notVar    ];
+  shouldNotChangeCase: @var[notVar];
 }

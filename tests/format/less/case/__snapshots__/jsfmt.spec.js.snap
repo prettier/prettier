@@ -380,8 +380,12 @@ printWidth: 80
 };
 
 @not-var {
-  notVar: @var[@notVarNested][notVar];
-  notVar2: @var[notVar];
+  shouldNotChangeCase: @var[@notVarNested][notVar];
+  shouldNotChangeCase: @var[    @notVarNested][notVar];
+  shouldNotChangeCase: @var[@notVarNested    ][notVar];
+  shouldNotChangeCase: @var[@notVarNested][    notVar];
+  shouldNotChangeCase: @var[@notVarNested][notVar    ];
+  shouldNotChangeCase: @var[notVar];
 }
 
 =====================================output=====================================
@@ -435,8 +439,12 @@ printWidth: 80
 }
 
 @not-var {
-  notvar: @var[ @notVarNested][notVar];
-  notvar2: @var[notVar];
+  shouldnotchangecase: @var[ @notVarNested][notVar];
+  shouldnotchangecase: @var[ @notVarNested][notVar];
+  shouldnotchangecase: @var[ @notVarNested ][notVar];
+  shouldnotchangecase: @var[ @notVarNested][ notVar];
+  shouldnotchangecase: @var[ @notVarNested][notVar ];
+  shouldnotchangecase: @var[notVar];
 }
 
 ================================================================================
