@@ -101,7 +101,10 @@ function genericPrint(path, options, print) {
       return [node.raw, hardline];
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
-      const after = node.raws.after.trim();
+      let after = node.raws.after.trim();
+      if (after.startsWith(";")) {
+        after = after.slice(1).trim();
+      }
 
       return [
         nodes,
