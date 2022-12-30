@@ -301,6 +301,12 @@ printWidth: 80
   {{d}}
 {{/when}}
 
+{{#abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst param param param as |foo|}}
+  1
+{{else abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst param param param as |bar|}}
+  2
+{{/abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst}}
+
 =====================================output=====================================
 <h1>
   {{#when isAtWork}}
@@ -465,6 +471,18 @@ printWidth: 80
 }}
   {{d}}
 {{/when}}
+
+{{#abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst
+  param param param
+  as |foo|
+}}
+  1
+{{else abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst
+  param param param
+  as |bar|
+}}
+  2
+{{/abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst}}
 ================================================================================
 `;
 
