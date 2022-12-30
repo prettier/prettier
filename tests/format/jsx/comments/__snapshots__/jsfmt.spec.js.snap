@@ -27,6 +27,62 @@ const render = (items) => (
 ================================================================================
 `;
 
+exports[`in-attributes.js - {"bracketSameLine":true} format 1`] = `
+====================================options=====================================
+bracketSameLine: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div
+  attr=/* comment */"foo"
+></div>;
+
+<div
+  attr=
+  /* comment */
+  "foo"
+></div>;
+
+<div
+  attr= /* comment */
+  "foo"
+></div>;
+
+<div
+  attr=
+  /* comment */ "foo"
+></div>;
+
+<div
+  attr=
+  // comment
+  "foo"
+></div>;
+
+<div
+  attr= // comment
+  "foo"
+></div>;
+
+=====================================output=====================================
+<div attr=/* comment */ "foo"></div>;
+
+<div attr=/* comment */
+"foo"></div>;
+
+<div attr /* comment */="foo"></div>;
+
+<div attr=/* comment */ "foo"></div>;
+
+<div attr=// comment
+"foo"></div>;
+
+<div attr="foo"></div>; // comment
+
+================================================================================
+`;
+
 exports[`in-end-tag.js - {"bracketSameLine":true} [typescript] format 1`] = `
 "Identifier expected. (2:6)
   1 | /* =========== before slash =========== */
