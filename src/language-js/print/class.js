@@ -78,12 +78,12 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(printHeritageList(path, options, print, "extends"));
+    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    printHeritageList(path, options, print, "mixins"),
-    printHeritageList(path, options, print, "implements")
+    printHeritageClauses(path, options, print, "mixins"),
+    printHeritageClauses(path, options, print, "implements")
   );
 
   if (groupMode) {
@@ -128,7 +128,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printHeritageList(path, options, print, listName) {
+function printHeritageClauses(path, options, print, listName) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
