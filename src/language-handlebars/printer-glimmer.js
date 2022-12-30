@@ -569,7 +569,7 @@ function printElseIfLikeBlock(path, print, ifLikeKeyword) {
 
   return group([
     printInverseBlockOpeningMustache(parentNode),
-    indent(group(["else", line, ifLikeKeyword])),
+    ["else", " ", ifLikeKeyword],
     indent([
       line,
       group(printParams(path, print)),

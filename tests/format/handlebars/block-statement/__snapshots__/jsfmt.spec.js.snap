@@ -834,8 +834,7 @@ printWidth: 80
                                                                           a
                                                                         }}
                                                                           1
-                                                                        {{else
-                                                                          if
+                                                                        {{else if
                                                                           b
                                                                         }}
                                                                           2
