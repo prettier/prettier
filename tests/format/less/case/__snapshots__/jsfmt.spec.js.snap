@@ -386,12 +386,12 @@ printWidth: 80
 };
 
 @not-var {
-  preserveCase: @var[@notVarNested][notVar];
-  preserveCase: @var[    @notVarNested][notVar];
-  preserveCase: @var[@notVarNested    ][notVar];
-  preserveCase: @var[@notVarNested][    notVar];
-  preserveCase: @var[@notVarNested][notVar    ];
-  preserveCase: @var[notVar];
+  canChangeCase: @var[@notVarNested][notVar];
+  canChangeCase: @var[    @notVarNested][notVar];
+  canChangeCase: @var[@notVarNested    ][notVar];
+  canChangeCase: @var[@notVarNested][    notVar];
+  canChangeCase: @var[@notVarNested][notVar    ];
+  canChangeCase: @var[notVar];
 }
 
 =====================================output=====================================
@@ -453,12 +453,12 @@ printWidth: 80
 };
 
 @not-var {
-  preservecase: @var[ @notVarNested][notVar];
-  preservecase: @var[ @notVarNested][notVar];
-  preservecase: @var[ @notVarNested ][notVar];
-  preservecase: @var[ @notVarNested][ notVar];
-  preservecase: @var[ @notVarNested][notVar ];
-  preservecase: @var[notVar];
+  canchangecase: @var[ @notVarNested][notVar];
+  canchangecase: @var[ @notVarNested][notVar];
+  canchangecase: @var[ @notVarNested ][notVar];
+  canchangecase: @var[ @notVarNested][ notVar];
+  canchangecase: @var[ @notVarNested][notVar ];
+  canchangecase: @var[notVar];
 }
 
 ================================================================================

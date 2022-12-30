@@ -56,10 +56,10 @@
 };
 
 @not-var {
-  preserveCase: @var[@notVarNested][notVar];
-  preserveCase: @var[    @notVarNested][notVar];
-  preserveCase: @var[@notVarNested    ][notVar];
-  preserveCase: @var[@notVarNested][    notVar];
-  preserveCase: @var[@notVarNested][notVar    ];
-  preserveCase: @var[notVar];
+  canChangeCase: @var[@notVarNested][notVar];
+  canChangeCase: @var[    @notVarNested][notVar];
+  canChangeCase: @var[@notVarNested    ][notVar];
+  canChangeCase: @var[@notVarNested][    notVar];
+  canChangeCase: @var[@notVarNested][notVar    ];
+  canChangeCase: @var[notVar];
 }
