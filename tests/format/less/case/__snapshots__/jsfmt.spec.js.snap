@@ -365,6 +365,7 @@ printWidth: 80
 @var // comment
 : // comment
 {
+  /* FIXME: should not change case */
   preserveCase: 5;
 };
 
@@ -375,6 +376,7 @@ printWidth: 80
 
 @var // comment
 :{
+  /* FIXME: should not change case */
   preserveCase: 5;
 };
 
@@ -430,6 +432,7 @@ printWidth: 80
 @var // comment
 : // comment
 {
+  /* FIXME: should not change case */
   preservecase: 5;
 }
 
@@ -440,6 +443,7 @@ printWidth: 80
 
 @var // comment
 : {
+  /* FIXME: should not change case */
   preservecase: 5;
 }
 
