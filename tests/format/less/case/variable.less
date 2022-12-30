@@ -9,50 +9,50 @@
 };
 
 @var    :    {
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var:    {
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var    :{
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var /* comment */ : /* comment */ {
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var: /* comment */ {
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var /* comment */ :{
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var // comment
 : // comment
 {
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var: // comment
 {
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @var // comment
 :{
-  shouldNotChangeCase: 5;
+  preserveCase: 5;
 };
 
 @not-var {
-  shouldNotChangeCase: @var[@notVarNested][notVar];
-  shouldNotChangeCase: @var[    @notVarNested][notVar];
-  shouldNotChangeCase: @var[@notVarNested    ][notVar];
-  shouldNotChangeCase: @var[@notVarNested][    notVar];
-  shouldNotChangeCase: @var[@notVarNested][notVar    ];
-  shouldNotChangeCase: @var[notVar];
+  preserveCase: @var[@notVarNested][notVar];
+  preserveCase: @var[    @notVarNested][notVar];
+  preserveCase: @var[@notVarNested    ][notVar];
+  preserveCase: @var[@notVarNested][    notVar];
+  preserveCase: @var[@notVarNested][notVar    ];
+  preserveCase: @var[notVar];
 }
