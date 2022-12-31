@@ -857,15 +857,15 @@ function genericPrint(path, options, print) {
         }
 
         if (isMapItemNode) {
-          // Nodes after the colon are considered to be the value part of a key-value pair
-          //   $foo: map-fn(
-          //     (
-          //       "foo"                 :                 "bar #{inner-fn($baz)}"
-          //       ^^^^^(node.groups[0]) ^(node.groups[1]) ^^^^^^^^^^^^^^^^^^^^^^^(isPartOfValue === true)
-          //     )
-          //   );
           const isPartOfValue =
             node.groups?.[1]?.type === "value-colon" && i > 1;
+          // For example, there is the below key-value pair:
+          //
+          //   "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})"
+          //
+          // "only screen and (max-width: #{map-get($grid-breakpoints, " is a "value-string"
+          // and "sm" is a "value-word"
+          // We should not insert any spaces and lines here.
           if (
             isPartOfValue &&
             ((iNode.type === "value-string" &&
