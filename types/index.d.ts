@@ -429,11 +429,7 @@ export interface Plugin<T = any> {
 }
 
 export interface Parser<T = any> {
-  parse: (
-    text: string,
-    parsers: { [parserName: string]: Parser },
-    options: ParserOptions<T>
-  ) => T;
+  parse: (text: string, options: ParserOptions<T>) => T | Promise<T>;
   astFormat: string;
   hasPragma?: ((text: string) => boolean) | undefined;
   locStart: (node: T) => number;
