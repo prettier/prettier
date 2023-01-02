@@ -523,13 +523,13 @@ export interface CursorResult {
 /**
  * `format` is used to format text using Prettier. [Options](https://prettier.io/docs/en/options.html) may be provided to override the defaults.
  */
-export function format(source: string, options?: Options): string;
+export function format(source: string, options?: Options): Promise<string>;
 
 /**
  * `check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`.
  * This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
  */
-export function check(source: string, options?: Options): boolean;
+export function check(source: string, options?: Options): Promise<boolean>;
 
 /**
  * `formatWithCursor` both formats the code, and translates a cursor position from unformatted code to formatted code.
@@ -540,7 +540,7 @@ export function check(source: string, options?: Options): boolean;
 export function formatWithCursor(
   source: string,
   options: CursorOptions
-): CursorResult;
+): Promise<CursorResult>;
 
 export interface ResolveConfigOptions {
   /**
@@ -580,12 +580,6 @@ export function resolveConfig(
   filePath: string,
   options?: ResolveConfigOptions
 ): Promise<Options | null>;
-export namespace resolveConfig {
-  function sync(
-    filePath: string,
-    options?: ResolveConfigOptions
-  ): Options | null;
-}
 
 /**
  * `resolveConfigFile` can be used to find the path of the Prettier configuration file,
@@ -599,15 +593,12 @@ export namespace resolveConfig {
  * The promise will be rejected if there was an error parsing the configuration file.
  */
 export function resolveConfigFile(filePath?: string): Promise<string | null>;
-export namespace resolveConfigFile {
-  function sync(filePath?: string): string | null;
-}
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
  * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
-export function clearConfigCache(): void;
+export function clearConfigCache(): Promise<void>;
 
 export interface SupportLanguage {
   name: string;
@@ -767,14 +758,10 @@ export function getFileInfo(
   options?: FileInfoOptions
 ): Promise<FileInfoResult>;
 
-export namespace getFileInfo {
-  function sync(filePath: string, options?: FileInfoOptions): FileInfoResult;
-}
-
 /**
  * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
  */
-export function getSupportInfo(): SupportInfo;
+export function getSupportInfo(): Promise<SupportInfo>;
 
 /**
  * `version` field in `package.json`
