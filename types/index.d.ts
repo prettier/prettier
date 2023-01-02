@@ -542,6 +542,8 @@ export function formatWithCursor(
   options: CursorOptions
 ): Promise<CursorResult>;
 
+export function formatAST(ast: any, options?: Options): Promise<string>;
+
 export interface ResolveConfigOptions {
   /**
    * If set to `false`, all caching will be bypassed.
