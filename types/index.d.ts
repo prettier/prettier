@@ -1,14 +1,6 @@
-// Project: https://prettier.io
-//          https://github.com/prettier/prettier
-// Definitions by: Ika <https://github.com/ikatyang>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 Florian Imdahl <https://github.com/ffflorian>
-//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
-//                 Christopher Quadflieg <https://github.com/Shinigami92>
-//                 Georgii Dolzhykov <https://github.com/thorn0>
-//                 JounQin <https://github.com/JounQin>
-//                 Chuah Chee Shian <https://github.com/shian15810>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// This is copied from `@types/prettier`
+// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/5bb07fc4b087cb7ee91084afa6fe750551a7bbb1/types/prettier/index.d.ts
+
 // Minimum TypeScript Version: 4.2
 
 // Adding export {} here to shut off automatic exporting from index.d.ts. There
