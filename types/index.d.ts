@@ -277,9 +277,8 @@ export type BuiltInParsers = Record<BuiltInParserName, BuiltInParser>;
 
 export type CustomParser = (
   text: string,
-  parsers: BuiltInParsers,
   options: Options
-) => AST;
+) => AST | Promise<AST>;
 
 /**
  * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js` or `prettier.config.cjs`.
