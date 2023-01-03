@@ -188,7 +188,9 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "value-comma_group" &&
     ast.groups.some(
-      (node) => node.value.endsWith("[") || node.value.startsWith("]")
+      (node) =>
+        typeof node.value === "string" &&
+        (node.value.endsWith("[") || node.value.startsWith("]"))
     )
   ) {
     return {
