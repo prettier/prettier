@@ -548,8 +548,6 @@ function genericPrint(path, options, print) {
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
 
-      const isMapItemNode = isSCSSMapItemNode(path);
-
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
@@ -598,11 +596,11 @@ function genericPrint(path, options, print) {
 
         // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
         const isStartSCSSInterpolationInString =
-          iNode.type === "value-string" && iNode.value.startsWith("#{");
+          iNode.type === "value-string" && iNode.value.includes("#{");
         const isEndingSCSSInterpolationInString =
           insideSCSSInterpolationInString &&
           iNextNode.type === "value-string" &&
-          iNextNode.value.endsWith("}");
+          iNextNode.value.includes("}");
 
         if (
           isStartSCSSInterpolationInString ||
@@ -856,24 +854,6 @@ function genericPrint(path, options, print) {
           iNode.value?.endsWith("#") &&
           iNextNode.value === "{" &&
           isParenGroupNode(iNextNode.group)
-        ) {
-          continue;
-        }
-
-        if (
-          isMapItemNode &&
-          node.groups?.[1]?.type === "value-colon" &&
-          i > 1 &&
-          // For example, there is the below key-value pair:
-          //
-          //   "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})"
-          //
-          // "only screen and (max-width: #{map-get($grid-breakpoints, " is a "value-string"
-          // and "sm" is a "value-word"
-          // We should not insert any spaces and lines here
-          ((iNode.type === "value-string" &&
-            iNextNode?.type === "value-word") ||
-            (iNode.type === "value-word" && iPrevNode?.type === "value-string"))
         ) {
           continue;
         }
