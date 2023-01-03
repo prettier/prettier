@@ -9,8 +9,9 @@ printWidth: 80
 $display-breakpoints: map-deep-merge(
   (
     "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
-    "sm-only": "inside a long long long long long long long long long long long long sting #{call("")}",
-    "sm-only": "inside a long long long long long long long long long long long long #{$foo} and #{call("")}",
+    "sm-only": "inside a long long long long long long long long long long long long long long string #{call("")}",
+    "sm-only": "inside a long long long long long long long long long long long long long long string #{$foo} and #{call("")}",
+    "sm-only": "inside a long long long long long long long long long long long long long long string #{call($a)}",
   ),
   $display-breakpoints
 );
@@ -29,9 +30,11 @@ $display-breakpoints: map-deep-merge(
   (
     "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
     "sm-only":
-      "inside a long long long long long long long long long long long long sting #{call("")}",
+      "inside a long long long long long long long long long long long long long long string #{call("")}",
     "sm-only":
-      "inside a long long long long long long long long long long long long #{$foo} and #{call("")}",
+      "inside a long long long long long long long long long long long long long long string #{$foo} and #{call("")}",
+    "sm-only":
+      "inside a long long long long long long long long long long long long long long string #{call($a)}",
   ),
   $display-breakpoints
 );
