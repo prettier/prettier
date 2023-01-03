@@ -158,7 +158,11 @@ function genericPrint(path, options, print) {
 
       return [
         node.raws.before.replace(/[\s;]/g, ""),
-        insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
+        // Less variable
+        (parentNode.type === "css-atrule" && parentNode.variable) ||
+        insideICSSRuleNode(path)
+          ? node.prop
+          : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend ? "" : " ",
