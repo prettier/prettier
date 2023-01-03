@@ -627,13 +627,18 @@ function genericPrint(path, options, print) {
             @var[ @notVarNested ][notVar]
             ^^^^
             */
-            iNode.value.endsWith("[") ||
-            /*
-            @var[ @notVarNested ][notVar]
-                                ^^^^^^^^^
-            */
-            (iNextNode?.type === "value-word" &&
-              iNextNode.value.startsWith("]")))
+            iNode.value.endsWith("["))
+        ) {
+          continue;
+        }
+
+        /*
+        @var[ @notVarNested ][notVar]
+                            ^^^^^^^^^
+        */
+        if (
+          iNextNode.type === "value-word" &&
+          iNextNode.value.startsWith("]")
         ) {
           continue;
         }

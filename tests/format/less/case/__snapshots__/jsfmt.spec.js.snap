@@ -466,11 +466,11 @@ printWidth: 80
   canchangecase: @var[@notVarNested][notVar];
   canchangecase: @var[@notVarNested][notVar];
   canchangecase: @var[@notVarNested][notVar];
-  canchangecase: @var[@notVarNested][notVar ];
+  canchangecase: @var[@notVarNested][notVar];
   canchangecase: @var[notVar];
   canchangecase: @var[notVar];
   canchangecase: @var[notVar];
-  canchangecase: @var[notVar ];
+  canchangecase: @var[notVar];
 }
 
 ================================================================================
