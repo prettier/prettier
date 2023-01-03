@@ -856,25 +856,22 @@ function genericPrint(path, options, print) {
           continue;
         }
 
-        if (isMapItemNode) {
-          const isPartOfValue =
-            node.groups?.[1]?.type === "value-colon" && i > 1;
+        if (
+          isMapItemNode &&
+          node.groups?.[1]?.type === "value-colon" &&
+          i > 1 &&
           // For example, there is the below key-value pair:
           //
           //   "xs-only": "only screen and (max-width: #{map-get($grid-breakpoints, "sm")-1})"
           //
           // "only screen and (max-width: #{map-get($grid-breakpoints, " is a "value-string"
           // and "sm" is a "value-word"
-          // We should not insert any spaces and lines here.
-          if (
-            isPartOfValue &&
-            ((iNode.type === "value-string" &&
-              iNextNode?.type === "value-word") ||
-              (iNode.type === "value-word" &&
-                iPrevNode?.type === "value-string"))
-          ) {
-            continue;
-          }
+          // We should not insert any spaces and lines here
+          ((iNode.type === "value-string" &&
+            iNextNode?.type === "value-word") ||
+            (iNode.type === "value-word" && iPrevNode?.type === "value-string"))
+        ) {
+          continue;
         }
 
         // Be default all values go through `line`
