@@ -453,11 +453,11 @@ printWidth: 80
 };
 
 @not-var {
-  canchangecase: @var[ @notVarNested][notVar];
-  canchangecase: @var[ @notVarNested][notVar];
-  canchangecase: @var[ @notVarNested ][notVar];
-  canchangecase: @var[ @notVarNested][ notVar];
-  canchangecase: @var[ @notVarNested][notVar ];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
   canchangecase: @var[notVar];
 }
 
