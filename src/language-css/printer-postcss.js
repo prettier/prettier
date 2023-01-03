@@ -625,7 +625,7 @@ function genericPrint(path, options, print) {
           (iNode.value === "" ||
             /*
             @var[ @notVarNested ][notVar]
-            ^^^^
+            ^^^^^
             */
             iNode.value.endsWith("["))
         ) {
