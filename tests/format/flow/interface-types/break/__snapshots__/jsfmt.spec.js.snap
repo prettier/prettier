@@ -2,7 +2,7 @@
 
 exports[`break.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -183,7 +183,7 @@ export interface ExtendsLongOneWithGenerics
 
 exports[`break.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -364,7 +364,7 @@ export interface ExtendsLongOneWithGenerics
 
 exports[`break.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["flow", "babel-flow"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
