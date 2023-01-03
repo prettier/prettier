@@ -1,6 +1,8 @@
 $display-breakpoints: map-deep-merge(
   (
     "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
+    "sm-only": "inside a long long long long long long long long long long long long sting #{call("")}",
+    "sm-only": "inside a long long long long long long long long long long long long #{$foo} and #{call("")}",
   ),
   $display-breakpoints
 );

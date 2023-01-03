@@ -595,20 +595,20 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
-        const isStartSCSSInterpolationInString =
-          iNode.type === "value-string" && iNode.value.includes("#{");
-        const isEndingSCSSInterpolationInString =
-          insideSCSSInterpolationInString &&
-          iNextNode.type === "value-string" &&
-          iNextNode.value.includes("}");
-
-        if (
-          isStartSCSSInterpolationInString ||
-          isEndingSCSSInterpolationInString
-        ) {
-          insideSCSSInterpolationInString = !insideSCSSInterpolationInString;
-
-          continue;
+        if (iNode.type === "value-string" && iNode.quoted) {
+          const positionOfOpeningInterpolation = iNode.value.lastIndexOf("#{");
+          const positionOfClosingInterpolation = iNode.value.lastIndexOf("}");
+          if (
+            positionOfOpeningInterpolation !== -1 &&
+            positionOfClosingInterpolation !== -1
+          ) {
+            insideSCSSInterpolationInString =
+              positionOfOpeningInterpolation > positionOfClosingInterpolation;
+          } else if (positionOfOpeningInterpolation !== -1) {
+            insideSCSSInterpolationInString = true;
+          } else {
+            insideSCSSInterpolationInString = false;
+          }
         }
 
         if (insideSCSSInterpolationInString) {
