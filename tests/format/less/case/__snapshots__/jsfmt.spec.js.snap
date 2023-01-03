@@ -389,9 +389,15 @@ printWidth: 80
   canChangeCase: @var[@notVarNested][notVar];
   canChangeCase: @var[    @notVarNested][notVar];
   canChangeCase: @var[@notVarNested    ][notVar];
+  canChangeCase: @var[    @notVarNested    ][notVar];
+  canChangeCase: @var[@notVarNested][notVar];
   canChangeCase: @var[@notVarNested][    notVar];
   canChangeCase: @var[@notVarNested][notVar    ];
+  canChangeCase: @var[@notVarNested][    notVar    ];
   canChangeCase: @var[notVar];
+  canChangeCase: @var[    notVar];
+  canChangeCase: @var[notVar    ];
+  canChangeCase: @var[    notVar    ];
 }
 
 =====================================output=====================================
@@ -458,7 +464,13 @@ printWidth: 80
   canchangecase: @var[@notVarNested][notVar];
   canchangecase: @var[@notVarNested][notVar];
   canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar ];
   canchangecase: @var[notVar];
+  canchangecase: @var[notVar];
+  canchangecase: @var[notVar];
+  canchangecase: @var[notVar ];
 }
 
 ================================================================================
