@@ -606,7 +606,7 @@ function genericPrint(path, options, print) {
               positionOfOpeningInterpolation > positionOfClosingInterpolation;
           } else if (positionOfOpeningInterpolation !== -1) {
             insideSCSSInterpolationInString = true;
-          } else {
+          } else if (positionOfClosingInterpolation !== -1) {
             insideSCSSInterpolationInString = false;
           }
         }
