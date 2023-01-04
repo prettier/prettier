@@ -282,7 +282,7 @@ let obj: { f(s: string): void } & Record<string, unknown> = {
   g(s) {},
 } satisfies { g(s: string): void } & Record<string, unknown>
 
-;({ f(x) {} } satisfies { f(s: string): void })
+;({ f(x) {} }) satisfies { f(s: string): void }
 
 const car = {
   start() {},
@@ -354,7 +354,7 @@ let obj: { f(s: string): void } & Record<string, unknown> = {
   g(s) {},
 } satisfies { g(s: string): void } & Record<string, unknown>;
 
-({ f(x) {} } satisfies { f(s: string): void });
+({ f(x) {} }) satisfies { f(s: string): void };
 
 const car = {
   start() {},
@@ -742,8 +742,8 @@ foo satisfies unknown as Bar;
 foo as unknown satisfies Bar;
 
 =====================================output=====================================
-;({} satisfies {})
-;({} satisfies X)
+;({}) satisfies {}
+;({}) satisfies X
 ;() => ({} satisfies X)
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement)
 
@@ -798,8 +798,8 @@ foo satisfies unknown as Bar;
 foo as unknown satisfies Bar;
 
 =====================================output=====================================
-({} satisfies {});
-({} satisfies X);
+({}) satisfies {};
+({}) satisfies X;
 () => ({} satisfies X);
 this.isTabActionBar((e.target || e.srcElement) satisfies HTMLElement);
 

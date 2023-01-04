@@ -127,6 +127,26 @@ function needsParens(path, options) {
     return false;
   }
 
+  if (
+    node.type === "ObjectExpression" ||
+    node.type === "FunctionExpression" ||
+    node.type === "ClassExpression" ||
+    node.type === "DoExpression"
+  ) {
+    const expression = path.findAncestor(
+      (node) => node.type === "ExpressionStatement"
+    )?.expression;
+    if (
+      expression &&
+      startsWithNoLookaheadToken(
+        expression,
+        (leftmostNode) => leftmostNode === node
+      )
+    ) {
+      return true;
+    }
+  }
+
   switch (parent.type) {
     case "ParenthesizedExpression":
       return false;
@@ -196,21 +216,6 @@ function needsParens(path, options) {
               return true;
           }
         }
-        return true;
-      }
-      break;
-    }
-    case "ExpressionStatement": {
-      if (
-        startsWithNoLookaheadToken(
-          node,
-          (node) =>
-            node.type === "ObjectExpression" ||
-            node.type === "FunctionExpression" ||
-            node.type === "ClassExpression" ||
-            node.type === "DoExpression"
-        )
-      ) {
         return true;
       }
       break;
