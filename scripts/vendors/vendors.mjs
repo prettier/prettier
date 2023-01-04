@@ -5,7 +5,6 @@ const vendors = [
   "execa",
   "html-element-attributes",
   "html-tag-names",
-  "html-void-elements",
   "leven",
   "mem",
   "sdbm",
