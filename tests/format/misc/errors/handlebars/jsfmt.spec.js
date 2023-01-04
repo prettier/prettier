@@ -37,6 +37,9 @@ run_spec(
         "isindex",
         "menuitem",
         "nextid",
+        // Upper case
+        "IMG",
+        "INPUT",
       ].map((tag) => ({ name: tag, code: `<${tag}>` })),
     ],
   },

@@ -38,6 +38,30 @@ Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL'
   4 |"
 `;
 
+exports[`snippet: IMG [glimmer] format 1`] = `
+"Unclosed element \`IMG\`: 
+
+|
+|  <IMG>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <IMG>
+    | ^^^^^"
+`;
+
+exports[`snippet: INPUT [glimmer] format 1`] = `
+"Unclosed element \`INPUT\`: 
+
+|
+|  <INPUT>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <INPUT>
+    | ^^^^^^^"
+`;
+
 exports[`snippet: area [glimmer] format 1`] = `
 "<area> elements do not need end tags. You should remove it: 
 
