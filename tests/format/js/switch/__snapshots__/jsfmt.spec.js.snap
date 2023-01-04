@@ -136,6 +136,66 @@ switch (x) {
 ================================================================================
 `;
 
+exports[`comments2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+switch(1){default: // comment1
+}
+
+switch(2){default: // comment2
+//comment2a
+}
+
+switch(3){default: // comment3
+break;// comment3a
+}
+
+switch(4){default: // comment4
+// comment4a
+break;// comment4b
+}
+
+switch(5){default: // comment5
+// comment5a
+foo();bar();//comment5b
+break;// comment5c
+}
+
+=====================================output=====================================
+switch (1) {
+  default: // comment1
+}
+
+switch (2) {
+  default: // comment2
+  //comment2a
+}
+
+switch (3) {
+  default: // comment3
+    break; // comment3a
+}
+
+switch (4) {
+  default: // comment4
+    // comment4a
+    break; // comment4b
+}
+
+switch (5) {
+  default: // comment5
+    // comment5a
+    foo();
+    bar(); //comment5b
+    break; // comment5c
+}
+
+================================================================================
+`;
+
 exports[`empty_lines.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

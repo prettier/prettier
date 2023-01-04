@@ -1,4 +1,8 @@
-import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  printComments,
+  printDanglingComments,
+  printCommentsSeparately,
+} from "../../main/comments.js";
 import {
   line,
   hardline,
@@ -470,7 +474,11 @@ function printJsxAttribute(path, options, print) {
         options.jsxSingleQuote ? "'" : '"'
       );
       final = final.replace(regex, escaped);
-      res = [quote, final, quote];
+      const { leading, trailing } = path.call(
+        () => printCommentsSeparately(path, options),
+        "value"
+      );
+      res = [leading, quote, final, quote, trailing];
     } else {
       res = print("value");
     }
@@ -742,7 +750,7 @@ function printJsx(path, options, print) {
       return printJsxEmptyExpression(path, options /*, print*/);
     case "JSXText":
       /* c8 ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
+      throw new Error("JSXText should be handled by JSXElement");
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSX");

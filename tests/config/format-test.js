@@ -40,6 +40,7 @@ const unstableTests = new Map(
     "js/sequence-expression/parenthesized.js",
     "typescript/satisfies-operators/comments-unstable.ts",
     ["js/identifier/parentheses/let.js", (options) => options.semi === false],
+    "jsx/comments/in-attributes.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -71,6 +72,7 @@ const meriyahDisabledTests = new Set([
     "static.js",
     "with-semicolon-1.js",
     "with-semicolon-2.js",
+    "comments.js",
   ].map((filename) =>
     path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
   ),

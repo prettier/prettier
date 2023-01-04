@@ -418,10 +418,10 @@ a {
   );
   padding-top: var(--paddingC);
   margin: 1 * 1 (1) * 1 1 * (1) (1) * (1);
-  prop: -1 * -1 - (-1) * -1 -1 * -(-1) - (-1) * -(-1);
+  prop: -1 * -1 -(-1) * -1 -1 * -(-1) -(-1) * -(-1);
   prop1: #{($m) * (10)};
   prop2: #{$m * 10};
-  prop3: #{- (-$m) * -(-10)};
+  prop3: #{-(-$m) * -(-10)};
   prop4: +1;
   prop5: -1;
   prop6: word + 1; /* word1 */
@@ -469,7 +469,7 @@ a {
   prop41: --(1);
   prop42: 1px+1px+1px+1px;
   prop43: 1px + 1px + 1px + 1px;
-  prop44: -1+-1 - (-1)+-1 -1+-(-1) - (-1)+-(-1);
+  prop44: -1+-1 -(-1)+-1 -1+-(-1) -(-1)+-(-1);
   prop45: round(1.5) * 2 round(1.5) * 2 round(1.5) * 2 round(1.5) * 2;
   prop46: 2 * round(1.5) 2 * round(1.5) 2 * round(1.5) 2 * round(1.5);
   prop47: (round(1.5) * 2) (round(1.5) * 2) (round(1.5) * 2) (round(1.5) * 2);

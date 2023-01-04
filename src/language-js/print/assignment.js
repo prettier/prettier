@@ -20,6 +20,7 @@ import {
   hasComment,
   isSignedNumericLiteral,
   isObjectProperty,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
@@ -267,15 +268,14 @@ function isComplexTypeAliasParams(node) {
   return false;
 }
 
+const isTypeAlias = createTypeCheckFunction([
+  "TSTypeAliasDeclaration",
+  "TypeAlias",
+]);
 function getTypeParametersFromTypeAlias(node) {
-  if (isTypeAlias(node) && node.typeParameters?.params) {
-    return node.typeParameters.params;
+  if (isTypeAlias(node)) {
+    return node.typeParameters?.params;
   }
-  return null;
-}
-
-function isTypeAlias(node) {
-  return node.type === "TSTypeAliasDeclaration" || node.type === "TypeAlias";
 }
 
 function hasComplexTypeAnnotation(node) {
@@ -307,17 +307,14 @@ function isArrowFunctionVariableDeclarator(node) {
   );
 }
 
+const isTypeReference = createTypeCheckFunction([
+  "TSTypeReference",
+  "GenericTypeAnnotation",
+]);
 function getTypeParametersFromTypeReference(node) {
-  if (isTypeReference(node) && node.typeParameters?.params) {
-    return node.typeParameters.params;
+  if (isTypeReference(node)) {
+    return node.typeParameters?.params;
   }
-  return null;
-}
-
-function isTypeReference(node) {
-  return (
-    node.type === "TSTypeReference" || node.type === "GenericTypeAnnotation"
-  );
 }
 
 /**
