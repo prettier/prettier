@@ -29,6 +29,8 @@ import {
   isCallExpression,
   isMemberExpression,
   markerForIfWithoutBlockAndSameLineComment,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
@@ -246,8 +248,8 @@ function printPathNoParens(path, options, print, args) {
     case "ParenthesizedExpression": {
       const shouldHug =
         !hasComment(node.expression) &&
-        (node.expression.type === "ObjectExpression" ||
-          node.expression.type === "ArrayExpression");
+        (isObjectOrRecordExpression(node.expression) ||
+          isArrayOrTupleExpression(node.expression));
       if (shouldHug) {
         return ["(", print("expression"), ")"];
       }

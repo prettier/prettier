@@ -16,6 +16,8 @@ import {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
@@ -65,8 +67,8 @@ function printTypescript(path, options, print) {
       return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
-        node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression"
+        isArrayOrTupleExpression(node.expression) ||
+        isObjectOrRecordExpression(node.expression)
       );
 
       const castGroup = group([

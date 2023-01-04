@@ -20,6 +20,8 @@ import {
   isSimpleType,
   isCallLikeExpression,
   isTSTypeExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 
 import {
@@ -182,9 +184,9 @@ function printCallArguments(path, options, print) {
 
 function couldExpandArg(arg, arrowChainRecursion = false) {
   return (
-    (arg.type === "ObjectExpression" &&
+    (isObjectOrRecordExpression(arg) &&
       (arg.properties.length > 0 || hasComment(arg))) ||
-    (arg.type === "ArrayExpression" &&
+    (isArrayOrTupleExpression(arg) &&
       (arg.elements.length > 0 || hasComment(arg))) ||
     (arg.type === "TSTypeAssertion" && couldExpandArg(arg.expression)) ||
     (isTSTypeExpression(arg) && couldExpandArg(arg.expression)) ||
@@ -209,8 +211,8 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
       (arg.body.type === "BlockStatement" ||
         (arg.body.type === "ArrowFunctionExpression" &&
           couldExpandArg(arg.body, true)) ||
-        arg.body.type === "ObjectExpression" ||
-        arg.body.type === "ArrayExpression" ||
+        isObjectOrRecordExpression(arg.body) ||
+        isArrayOrTupleExpression(arg.body) ||
         (!arrowChainRecursion &&
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
@@ -241,12 +243,8 @@ function shouldExpandLastArg(args, argDocs, options) {
     // useMemo(() => func(), [foo, bar, baz])
     (args.length !== 2 ||
       penultimateArg.type !== "ArrowFunctionExpression" ||
-      lastArg.type !== "ArrayExpression") &&
-    !(
-      args.length > 1 &&
-      lastArg.type === "ArrayExpression" &&
-      isConciselyPrintedArray(lastArg, options)
-    )
+      !isArrayOrTupleExpression(lastArg)) &&
+    !(args.length > 1 && isConciselyPrintedArray(lastArg, options))
   );
 }
 

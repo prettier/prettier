@@ -21,6 +21,8 @@ import {
   shouldPrintComma,
   hasComment,
   isNextLineEmpty,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import { ArgExpansionBailout } from "../../common/errors.js";
@@ -182,9 +184,9 @@ function shouldHugTheOnlyFunctionParameter(node) {
         (parameter.left.type === "ObjectPattern" ||
           parameter.left.type === "ArrayPattern") &&
         (parameter.right.type === "Identifier" ||
-          (parameter.right.type === "ObjectExpression" &&
+          (isObjectOrRecordExpression(parameter.right) &&
             parameter.right.properties.length === 0) ||
-          (parameter.right.type === "ArrayExpression" &&
+          (isArrayOrTupleExpression(parameter.right) &&
             parameter.right.elements.length === 0))))
   );
 }

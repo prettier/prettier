@@ -166,6 +166,24 @@ const isLiteral = createTypeCheckFunction([
  * @param {Node} node
  * @returns {boolean}
  */
+const isArrayOrTupleExpression = createTypeCheckFunction([
+  "ArrayExpression",
+  "TupleExpression",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isObjectOrRecordExpression = createTypeCheckFunction([
+  "ObjectExpression",
+  "RecordExpression",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
@@ -756,13 +774,13 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (node.type === "ObjectExpression") {
+  if (isObjectOrRecordExpression(node)) {
     return node.properties.every(
       (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
 
-  if (node.type === "ArrayExpression") {
+  if (isArrayOrTupleExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -1249,5 +1267,7 @@ export {
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
   isTSTypeExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
   createTypeCheckFunction,
 };

@@ -1,4 +1,5 @@
 import isBlockComment from "./utils/is-block-comment.js";
+import { isArrayOrTupleExpression } from "./utils/index.js";
 
 const ignoredProperties = new Set([
   "range",
@@ -143,7 +144,7 @@ function clean(ast, newObj, parent) {
     ] of newObj.expression.arguments[0].properties.entries()) {
       switch (astProps[index].key.name) {
         case "styles":
-          if (prop.value.type === "ArrayExpression") {
+          if (isArrayOrTupleExpression(prop.value)) {
             removeTemplateElementsValue(prop.value.elements[0]);
           }
           break;
