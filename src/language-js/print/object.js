@@ -33,8 +33,14 @@ function printObject(path, options, print) {
   const { node } = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isEnumBody =
+    node.type === "TSEnumDeclaration" ||
+    node.type === "EnumBooleanBody" ||
+    node.type === "EnumNumberBody" ||
+    node.type === "EnumStringBody" ||
+    node.type === "EnumSymbolBody";
   const fields = [
-    node.type === "TSTypeLiteral"
+    node.type === "TSTypeLiteral" || isEnumBody
       ? "members"
       : node.type === "TSInterfaceBody"
       ? "body"
@@ -72,6 +78,7 @@ function printObject(path, options, print) {
     path.getName() === "body";
   const shouldBreak =
     node.type === "TSInterfaceBody" ||
+    isEnumBody ||
     isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
@@ -124,7 +131,7 @@ function printObject(path, options, print) {
     return result;
   });
 
-  if (node.inexact) {
+  if (node.inexact || node.hasUnknownMembers) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
@@ -151,6 +158,7 @@ function printObject(path, options, print) {
 
   const canHaveTrailingSeparator = !(
     node.inexact ||
+    node.hasUnknownMembers ||
     (lastElem &&
       (lastElem.type === "RestElement" ||
         ((lastElem.type === "TSPropertySignature" ||

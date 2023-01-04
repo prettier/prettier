@@ -209,4 +209,4 @@ function printArrayItemsConcisely(path, options, print, trailingComma) {
   return fill(parts);
 }
 
-export { printArray, printArrayItems, isConciselyPrintedArray };
+export { printArray, isConciselyPrintedArray };
