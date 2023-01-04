@@ -1,6 +1,5 @@
 "use strict";
 
-const { htmlVoidElements } = require("../../vendors/html-void-elements.json");
 const getLast = require("../utils/get-last.js");
 
 function isLastNodeOfSiblings(path) {
@@ -37,10 +36,8 @@ function isGlimmerComponent(node) {
   );
 }
 
-const voidTags = new Set(htmlVoidElements);
 function isVoid(node) {
   return (
-    voidTags.has(node.tag) ||
     node.selfClosing === true ||
     (isGlimmerComponent(node) &&
       node.children.every((node) => isWhitespaceNode(node)))
