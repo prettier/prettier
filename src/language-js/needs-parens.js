@@ -28,7 +28,7 @@ function needsParens(path, options) {
   if (
     options.__isInHtmlInterpolation &&
     !options.bracketSpacing &&
-    isObjectOrRecordExpression(node) &&
+    endsWithRightBracket(node) &&
     isFollowedByRightBracket(path)
   ) {
     return true;
@@ -914,6 +914,10 @@ function includesFunctionTypeInObjectType(node) {
         )) ||
       undefined
   );
+}
+
+function endsWithRightBracket(node) {
+  return isObjectOrRecordExpression(node);
 }
 
 function isFollowedByRightBracket(path) {
