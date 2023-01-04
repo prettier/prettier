@@ -727,9 +727,9 @@ x
 x
 ;(() => {})()
 x
-;({ a: 1 }.entries())
+;({ a: 1 }).entries()
 x
-;({ a: 1 }.entries())
+;({ a: 1 }).entries()
 x
 ;<Hello />
 x
@@ -910,9 +910,9 @@ x;
 x;
 (() => {})();
 x;
-({ a: 1 }.entries());
+({ a: 1 }).entries();
 x;
-({ a: 1 }.entries());
+({ a: 1 }).entries();
 x;
 <Hello />;
 x;

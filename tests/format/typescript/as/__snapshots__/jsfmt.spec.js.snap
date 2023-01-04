@@ -81,14 +81,14 @@ export default class Column<T> extends (RcTable.Column as React.ComponentClass<
 >) {}
 export const MobxTypedForm = class extends (Form as { new (): any }) {};
 export abstract class MobxTypedForm1 extends (Form as { new (): any }) {}
-({} as {});
+({}) as {};
 function* g() {
   const test = (yield "foo") as number;
 }
 async function g1() {
   const test = (await "foo") as number;
 }
-({} as X);
+({}) as X;
 () => ({} as X);
 const state = JSON.stringify({
   next: window.location.href,
