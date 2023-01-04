@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typeof.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a as (typeof node.children)[number]
+a as (typeof node.children)[]
+a as ((typeof node.children)[number])[]
+a as number[(typeof node.children)]
+
+=====================================output=====================================
+a as (typeof node.children)[number];
+a as (typeof node.children)[];
+a as (typeof node.children)[number][];
+a as number[typeof node.children];
+
+================================================================================
+`;
