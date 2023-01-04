@@ -244,9 +244,8 @@ function printArrowChain(
   bodyDoc,
   tailNode
 ) {
-  const name = path.getName();
-  const { parent } = path;
-  const isCallee = isCallLikeExpression(parent) && name === "callee";
+  const { parent, key } = path;
+  const isCallee = isCallLikeExpression(parent) && key === "callee";
   const isAssignmentRhs = Boolean(args?.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
