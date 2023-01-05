@@ -194,6 +194,18 @@ exports[`snippet: hr [glimmer] format 1`] = `
     |    ^^^^^"
 `;
 
+exports[`snippet: imG [glimmer] format 1`] = `
+"Unclosed element \`imG\`: 
+
+|
+|  <imG>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <imG>
+    | ^^^^^"
+`;
+
 exports[`snippet: image [glimmer] format 1`] = `
 "Unclosed element \`image\`: 
 
@@ -252,6 +264,18 @@ exports[`snippet: keygen [glimmer] format 1`] = `
 (error occurred in 'an unknown module' @ line 1 : column 8) (1:8)
 > 1 | <keygen></keygen>
     |        ^^^^^^^^^"
+`;
+
+exports[`snippet: lINk [glimmer] format 1`] = `
+"Unclosed element \`lINk\`: 
+
+|
+|  <lINk>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <lINk>
+    | ^^^^^^"
 `;
 
 exports[`snippet: link [glimmer] format 1`] = `

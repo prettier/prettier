@@ -40,6 +40,8 @@ run_spec(
         // Upper case
         "IMG",
         "INPUT",
+        "imG",
+        "lINk"
       ].map((tag) => ({ name: tag, code: `<${tag}>` })),
     ],
   },
