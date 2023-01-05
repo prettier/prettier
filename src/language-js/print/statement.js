@@ -8,6 +8,7 @@ import {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
@@ -157,14 +158,15 @@ function printSwitchCaseConsequent(path, options, print) {
   return printStatementSequence(path, options, print, "consequent");
 }
 
-const isClassProperty = ({ type }) =>
-  type === "ClassProperty" ||
-  type === "PropertyDefinition" ||
-  type === "ClassPrivateProperty" ||
-  type === "ClassAccessorProperty" ||
-  type === "AccessorProperty" ||
-  type === "TSAbstractPropertyDefinition" ||
-  type === "TSAbstractAccessorProperty";
+const isClassProperty = createTypeCheckFunction([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty"
+]);
 /**
  * @returns {boolean}
  */
