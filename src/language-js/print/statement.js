@@ -165,7 +165,7 @@ const isClassProperty = createTypeCheckFunction([
   "ClassAccessorProperty",
   "AccessorProperty",
   "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty"
+  "TSAbstractAccessorProperty",
 ]);
 /**
  * @returns {boolean}
