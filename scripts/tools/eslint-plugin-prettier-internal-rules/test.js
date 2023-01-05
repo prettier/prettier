@@ -423,6 +423,11 @@ test("prefer-create-type-check-function", {
         return node.kind === "get" || node.kind === "set";
       }
     `,
+    outdent`
+      const isClassProperty = ({ notType }) =>
+        notType === "ClassProperty" ||
+        notType === "PropertyDefinition";
+    `,
   ],
   invalid: [
     {
@@ -538,6 +543,20 @@ test("prefer-create-type-check-function", {
       output: outdent`
         const foo = node =>
           node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const isClassProperty = ({ type }) =>
+          type === "ClassProperty" ||
+          type === "PropertyDefinition";
+      `,
+      output: outdent`
+        const isClassProperty = createTypeCheckFunction([
+          "ClassProperty",
+          "PropertyDefinition"
+        ]);
       `,
       errors: 1,
     },
