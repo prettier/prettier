@@ -41,7 +41,7 @@ run_spec(
         "IMG",
         "INPUT",
         "imG",
-        "lINk"
+        "lINk",
       ].map((tag) => ({ name: tag, code: `<${tag}>` })),
     ],
   },
