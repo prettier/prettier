@@ -41,6 +41,7 @@ const voidTags = new Set(htmlVoidElements);
 function isVoid(node) {
   return (
     voidTags.has(node.tag) ||
+    node.selfClosing === true ||
     (isGlimmerComponent(node) &&
       node.children.every((node) => isWhitespaceNode(node)))
   );
