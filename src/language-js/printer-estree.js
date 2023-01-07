@@ -23,7 +23,6 @@ const {
   isLineComment,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
-  rawText,
   hasIgnoreComment,
   isCallExpression,
   isMemberExpression,
@@ -47,6 +46,7 @@ const {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
+  printDirective,
 } = require("./print/misc.js");
 const {
   printImportDeclaration,
@@ -215,11 +215,6 @@ function printPathNoParens(path, options, print, args) {
     case "EmptyStatement":
       return "";
     case "ExpressionStatement": {
-      // Detect Flow and TypeScript directives
-      if (node.directive) {
-        return [printDirective(node.expression, options), semi];
-      }
-
       if (
         options.parser === "__vue_event_binding" ||
         options.parser === "__vue_ts_event_binding"
@@ -429,7 +424,7 @@ function printPathNoParens(path, options, print, args) {
     case "Directive":
       return [print("value"), semi]; // Babel 6
     case "DirectiveLiteral":
-      return printDirective(node, options);
+      return printDirective(node.extra.raw, options);
     case "UnaryExpression":
       parts.push(node.operator);
 
@@ -811,25 +806,6 @@ function printPathNoParens(path, options, print, args) {
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(node.type));
   }
-}
-
-function printDirective(node, options) {
-  const raw = rawText(node);
-  const rawContent = raw.slice(1, -1);
-
-  // Check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
-  if (rawContent.includes('"') || rawContent.includes("'")) {
-    return raw;
-  }
-
-  const enclosingQuote = options.singleQuote ? "'" : '"';
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  return enclosingQuote + rawContent + enclosingQuote;
 }
 
 function canAttachComment(node) {

@@ -3,6 +3,7 @@
  * @param {Array<Array<T>>} array
  * @returns {Array<T>}
  */
+// TODO: Remove this when we drop support for Node.js v10
 // eslint-disable-next-line unicorn/prefer-spread
 const flat = (array) => [].concat(...array);
 

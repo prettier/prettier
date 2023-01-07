@@ -1,6 +1,7 @@
 "use strict";
 const { printString, printNumber } = require("../../common/util.js");
 const { replaceTextEndOfLine } = require("../../document/doc-utils.js");
+const { printDirective } = require("./misc.js");
 
 function printLiteral(path, options /*, print*/) {
   const node = path.getNode();
@@ -41,12 +42,23 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        return replaceTextEndOfLine(printString(node.raw, options));
+        return isDirective(path)
+          ? printDirective(node.raw, options)
+          : replaceTextEndOfLine(printString(node.raw, options));
       }
 
       return String(value);
     }
   }
+}
+
+function isDirective(path) {
+  if (path.getName() !== "expression") {
+    return;
+  }
+
+  const parent = path.getParentNode();
+  return parent.type === "ExpressionStatement" && parent.directive;
 }
 
 function printBigInt(raw) {
