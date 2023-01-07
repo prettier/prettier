@@ -1,5 +1,6 @@
 import arrayify from "../utils/arrayify.js";
-import { options as coreOptions } from "./core-options.evaluate.js";
+import coreOptions from "./core-options.evaluate.js";
+import formatOptions from "./format-options.evaluate.js";
 
 /**
  * @typedef {import("./core-options.evaluate.js").OptionInfo} OptionInfo
@@ -24,7 +25,12 @@ function getSupportInfo({
   const languages = plugins.flatMap((plugin) => plugin.languages || []);
 
   const options = arrayify(
-    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
+    Object.assign(
+      {},
+      formatOptions,
+      ...plugins.map(({ options }) => options),
+      coreOptions
+    ),
     "name"
   )
     .filter((option) => filterDeprecated(option))

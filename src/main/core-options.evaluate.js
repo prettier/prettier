@@ -1,12 +1,11 @@
 import { outdent } from "outdent";
-
-const CATEGORY_CONFIG = "Config";
-const CATEGORY_EDITOR = "Editor";
-const CATEGORY_FORMAT = "Format";
-const CATEGORY_OTHER = "Other";
-const CATEGORY_OUTPUT = "Output";
-const CATEGORY_GLOBAL = "Global";
-const CATEGORY_SPECIAL = "Special";
+import {
+  CATEGORY_CONFIG,
+  CATEGORY_EDITOR,
+  CATEGORY_OTHER,
+  CATEGORY_GLOBAL,
+  CATEGORY_SPECIAL,
+} from "./option-categories.js";
 
 /**
  * @typedef {Object} OptionInfo
@@ -44,7 +43,7 @@ const CATEGORY_SPECIAL = "Special";
  */
 
 /** @type {{ [name: string]: OptionInfo }} */
-const options = {
+const coreOptions = {
   cursorOffset: {
     category: CATEGORY_SPECIAL,
     type: "int",
@@ -235,13 +234,4 @@ const options = {
   },
 };
 
-export {
-  CATEGORY_CONFIG,
-  CATEGORY_EDITOR,
-  CATEGORY_FORMAT,
-  CATEGORY_OTHER,
-  CATEGORY_OUTPUT,
-  CATEGORY_GLOBAL,
-  CATEGORY_SPECIAL,
-  options,
-};
+export default coreOptions;
