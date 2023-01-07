@@ -59,7 +59,13 @@
   canChangeCase: @var[@notVarNested][notVar];
   canChangeCase: @var[    @notVarNested][notVar];
   canChangeCase: @var[@notVarNested    ][notVar];
+  canChangeCase: @var[    @notVarNested    ][notVar];
+  canChangeCase: @var[@notVarNested][notVar];
   canChangeCase: @var[@notVarNested][    notVar];
   canChangeCase: @var[@notVarNested][notVar    ];
+  canChangeCase: @var[@notVarNested][    notVar    ];
   canChangeCase: @var[notVar];
+  canChangeCase: @var[    notVar];
+  canChangeCase: @var[notVar    ];
+  canChangeCase: @var[    notVar    ];
 }

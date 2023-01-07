@@ -183,6 +183,27 @@ function clean(ast, newObj, parent) {
       });
     }
   }
+
+  // We parse `@var[ foo ]` and `@var[foo]` differently
+  if (
+    ast.type === "value-comma_group" &&
+    ast.groups.some(
+      (node) =>
+        (node.type === "value-atword" && node.value.endsWith("[")) ||
+        (node.type === "value-word" && node.value.startsWith("]"))
+    )
+  ) {
+    return {
+      type: "value-atword",
+      value: ast.groups.map((node) => node.value).join(""),
+      group: {
+        open: null,
+        close: null,
+        groups: [],
+        type: "value-paren_group",
+      },
+    };
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;

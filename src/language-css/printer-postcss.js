@@ -621,7 +621,26 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore `@` in Less (i.e. `@@var;`)
-        if (iNode.type === "value-atword" && iNode.value === "") {
+        if (
+          iNode.type === "value-atword" &&
+          (iNode.value === "" ||
+            /*
+            @var[ @notVarNested ][notVar]
+            ^^^^^
+            */
+            iNode.value.endsWith("["))
+        ) {
+          continue;
+        }
+
+        /*
+        @var[ @notVarNested ][notVar]
+                            ^^^^^^^^^
+        */
+        if (
+          iNextNode.type === "value-word" &&
+          iNextNode.value.startsWith("]")
+        ) {
           continue;
         }
 
