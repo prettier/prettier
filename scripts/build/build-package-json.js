@@ -33,7 +33,7 @@ async function buildPackageJson({ files }) {
             file.isPlugin ? `./plugins/${basename}` : `./${basename}`,
             {
               types: `./types/${
-                file.isPlugin ? `/plugins/${basename}.d.ts` : `${basename}.d.ts`
+                file.isPlugin ? `plugins/${basename}.d.ts` : `${basename}.d.ts`
               }`,
               require: `./${file.output.file}`,
               default: `./${file.output.file.replace(/\.js$/, ".mjs")}`,
