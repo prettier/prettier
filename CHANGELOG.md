@@ -65,7 +65,7 @@ We now don't strictly follow the release notes format suggested by [Keep a Chang
 <!-- prettier-ignore -->
 ```hbs
 {{! Input }}
-{#when isAtWork as |work|}}
+{{#when isAtWork as |work|}}
   Ship that
   {{work}}!
 {{else when isReading as |book|}}
@@ -89,7 +89,7 @@ We now don't strictly follow the release notes format suggested by [Keep a Chang
 {{/when}}
 
 {{! Prettier 2.8.2 }}
-{#when isAtWork as |work|}}
+{{#when isAtWork as |work|}}
   Ship that
   {{work}}!
 {{else when isReading as |book|}}
