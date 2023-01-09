@@ -8,7 +8,7 @@
     "resolveJsonModule": true,
     // TBD it is desired to enabled strict type checking at some point:
     "strict": false,
-    "typeRoots": ["third-party-types", "./node_modules/@types"]
+    "typeRoots": ["types", "./node_modules/@types"]
   },
   "exclude": [
     "coverage/",
@@ -49,6 +49,6 @@
     "scripts/",
     "tests/",
     "website/",
-    "third-party-types"
+    "types"
   ]
 }
