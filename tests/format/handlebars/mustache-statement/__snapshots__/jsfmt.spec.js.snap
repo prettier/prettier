@@ -351,6 +351,7 @@ singleQuote: true
   type="checkbox"
   value="active"
   {{{onlyIf active 'checked="checked"'}}}
+  {{{ with space }}}
 />
 
 =====================================output=====================================
@@ -409,7 +410,8 @@ singleQuote: true
   name='is-active'
   type='checkbox'
   value='active'
-  {{onlyIf active 'checked="checked"'}}
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{with space}}}
 />
 ================================================================================
 `;
@@ -441,6 +443,7 @@ printWidth: 80
   type="checkbox"
   value="active"
   {{{onlyIf active 'checked="checked"'}}}
+  {{{ with space }}}
 />
 
 =====================================output=====================================
@@ -499,7 +502,8 @@ printWidth: 80
   name="is-active"
   type="checkbox"
   value="active"
-  {{onlyIf active 'checked="checked"'}}
+  {{{onlyIf active 'checked="checked"'}}}
+  {{{with space}}}
 />
 ================================================================================
 `;
