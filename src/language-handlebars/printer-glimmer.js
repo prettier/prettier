@@ -122,15 +122,14 @@ function print(path, options, print) {
     }
 
     case "ElementModifierStatement": {
-      const start = locStart(node);
-      const end = locEnd(node);
       let openingMustache = "{{";
       let closingMustache = "}}";
       // https://github.com/prettier/prettier/issues/14090
-      if (
-        options.originalText.slice(start, start + 3) === "{{{" &&
-        options.originalText.slice(end - 3, end) === "}}}"
-      ) {
+      const originalText = options.originalText.slice(
+        locStart(node),
+        locEnd(node)
+      );
+      if (originalText.startsWith("{{{") && originalText.endsWith("}}}")) {
         openingMustache = "{{{";
         closingMustache = "}}}";
       }
