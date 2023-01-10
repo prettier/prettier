@@ -922,5 +922,19 @@ test("prefer-ast-path-getters", {
         },
       ],
     },
+    {
+      code: "path.getName()",
+      output: "path.getName()",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#key` or `AstPath#index` over `AstPath#getName()`.",
+          suggestions: [
+            { desc: "Use `AstPath#key`.", output: "path.key" },
+            { desc: "Use `AstPath#index`.", output: "path.index" },
+          ],
+        },
+      ],
+    },
   ],
 });

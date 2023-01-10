@@ -68,14 +68,13 @@ function printObject(path, options, print) {
     propsAndLoc.sort((a, b) => a.loc - b.loc);
   }
 
-  const { parent } = path;
+  const { parent, key } = path;
   const isFlowInterfaceLikeBody =
     isTypeAnnotation &&
-    parent &&
+    key === "body" &&
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
-      parent.type === "DeclareClass") &&
-    path.getName() === "body";
+      parent.type === "DeclareClass");
   const shouldBreak =
     node.type === "TSInterfaceBody" ||
     isEnumBody ||
