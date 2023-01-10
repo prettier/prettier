@@ -50,7 +50,7 @@ function printLiteral(path, options /*, print*/) {
 }
 
 function isDirective(path) {
-  if (path.getName() !== "expression") {
+  if (path.key !== "expression") {
     return;
   }
 
