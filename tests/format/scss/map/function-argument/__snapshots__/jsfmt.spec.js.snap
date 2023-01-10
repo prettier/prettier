@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`function-argument-2.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$display-breakpoints: map-deep-merge(
+  (
+    "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
+    "sm-only": "inside a long long long long long long long long long long long long long long string #{call("")}",
+    "sm-only": "inside a long long long long long long long long long long long long long long string #{$foo} and #{call("")}",
+    "sm-only": "inside a long long long long long long long long long long long long long long string #{call($a)}",
+  ),
+  $display-breakpoints
+);
+
+@each $name, $hue in $hues {
+  $map: map.merge(
+    $map,
+    (
+      '#{$prefix}-#{$name}': blend.set($base, $hue: $hue),
+    )
+  );
+}
+
+=====================================output=====================================
+$display-breakpoints: map-deep-merge(
+  (
+    "sm-only": "only screen and (min-width: #{$map-get + $grid-breakpoints + "hogehoge"}) and (max-width: #{$a})",
+    "sm-only":
+      "inside a long long long long long long long long long long long long long long string #{call("")}",
+    "sm-only":
+      "inside a long long long long long long long long long long long long long long string #{$foo} and #{call("")}",
+    "sm-only":
+      "inside a long long long long long long long long long long long long long long string #{call($a)}",
+  ),
+  $display-breakpoints
+);
+
+@each $name, $hue in $hues {
+  $map: map.merge(
+    $map,
+    (
+      "#{$prefix}-#{$name}": blend.set($base, $hue: $hue),
+    )
+  );
+}
+
+================================================================================
+`;
+
 exports[`functional-argument.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

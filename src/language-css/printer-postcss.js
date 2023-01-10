@@ -544,6 +544,7 @@ function genericPrint(path, options, print) {
 
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
+
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
@@ -591,20 +592,20 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
-        const isStartSCSSInterpolationInString =
-          iNode.type === "value-string" && iNode.value.startsWith("#{");
-        const isEndingSCSSInterpolationInString =
-          insideSCSSInterpolationInString &&
-          iNextNode.type === "value-string" &&
-          iNextNode.value.endsWith("}");
-
-        if (
-          isStartSCSSInterpolationInString ||
-          isEndingSCSSInterpolationInString
-        ) {
-          insideSCSSInterpolationInString = !insideSCSSInterpolationInString;
-
-          continue;
+        if (iNode.type === "value-string" && iNode.quoted) {
+          const positionOfOpeningInterpolation = iNode.value.lastIndexOf("#{");
+          const positionOfClosingInterpolation = iNode.value.lastIndexOf("}");
+          if (
+            positionOfOpeningInterpolation !== -1 &&
+            positionOfClosingInterpolation !== -1
+          ) {
+            insideSCSSInterpolationInString =
+              positionOfOpeningInterpolation > positionOfClosingInterpolation;
+          } else if (positionOfOpeningInterpolation !== -1) {
+            insideSCSSInterpolationInString = true;
+          } else if (positionOfClosingInterpolation !== -1) {
+            insideSCSSInterpolationInString = false;
+          }
         }
 
         if (insideSCSSInterpolationInString) {
@@ -617,7 +618,26 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore `@` in Less (i.e. `@@var;`)
-        if (iNode.type === "value-atword" && iNode.value === "") {
+        if (
+          iNode.type === "value-atword" &&
+          (iNode.value === "" ||
+            /*
+            @var[ @notVarNested ][notVar]
+            ^^^^^
+            */
+            iNode.value.endsWith("["))
+        ) {
+          continue;
+        }
+
+        /*
+        @var[ @notVarNested ][notVar]
+                            ^^^^^^^^^
+        */
+        if (
+          iNextNode.type === "value-word" &&
+          iNextNode.value.startsWith("]")
+        ) {
           continue;
         }
 
