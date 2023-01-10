@@ -54,7 +54,7 @@ function isDirective(path) {
     return;
   }
 
-  const {parent} = path;
+  const { parent } = path;
   return parent.type === "ExpressionStatement" && parent.directive;
 }
 

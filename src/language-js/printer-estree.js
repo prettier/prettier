@@ -25,11 +25,6 @@ import {
   isTheOnlyJsxElementInMarkdown,
   isNextLineEmpty,
   needsHardlineAfterDanglingComment,
-<<<<<<< HEAD
-  rawText,
-=======
-  hasIgnoreComment,
->>>>>>> main
   isCallExpression,
   isMemberExpression,
   markerForIfWithoutBlockAndSameLineComment,
@@ -55,14 +50,9 @@ import {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
-<<<<<<< HEAD
+  printDirective,
 } from "./print/misc.js";
 import {
-=======
-  printDirective,
-} = require("./print/misc.js");
-const {
->>>>>>> main
   printImportDeclaration,
   printExportDeclaration,
   printExportAllDeclaration,
