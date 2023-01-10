@@ -56,9 +56,14 @@ const siteConfig = {
   },
   usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html", "css"],
   useEnglishUrl: true,
-  scripts: ["https://buttons.github.io/buttons.js"],
+  scripts: [
+    "https://buttons.github.io/buttons.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
+    "/js/code-block-buttons.js",
+  ],
   stylesheets: [
     "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css",
+    "/css/code-block-buttons.css",
   ],
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
