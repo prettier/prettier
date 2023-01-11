@@ -1,9 +1,7 @@
-import createParsers from "../utils/create-parsers.js";
-
-const parsers = createParsers([
-  [
-    () => import("./parser-html.js"),
-    [
+const parsers = [
+  {
+    importPlugin: () => import("./parser-html.js"),
+    parserNames: [
       // HTML
       "html",
       // Vue
@@ -13,7 +11,7 @@ const parsers = createParsers([
       // Lightning Web Components
       "lwc",
     ],
-  ],
-]);
+  },
+];
 
 export default parsers;

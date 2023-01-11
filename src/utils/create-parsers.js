@@ -1,7 +1,7 @@
 function createParsers(modules) {
   const parsers = Object.create(null);
 
-  for (const [importPlugin, parserNames] of modules) {
+  for (const { importPlugin, parserNames } of modules) {
     for (const parserName of parserNames) {
       parsers[parserName] = async () => {
         const {
