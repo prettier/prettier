@@ -26,7 +26,12 @@ const parsers = [
   },
   {
     importPlugin: () => import("./angular.js"),
-    parserNames: ["__ng_binding", "__ng_interpolation", "__ng_directive"],
+    parserNames: [
+      "__ng_action",
+      "__ng_binding",
+      "__ng_interpolation",
+      "__ng_directive",
+    ],
   },
   {
     importPlugin: () => import("./acorn-and-espree.js"),
