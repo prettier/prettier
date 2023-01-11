@@ -18,7 +18,6 @@ import clean from "./clean.js";
 import { insertPragma } from "./pragma.js";
 import * as commentsRelatedPrinterMethods from "./comments/printer-methods.js";
 import pathNeedsParens from "./needs-parens.js";
-import preprocess from "./print-preprocess.js";
 import {
   hasComment,
   CommentCheckFlags,
@@ -787,7 +786,6 @@ function printPathNoParens(path, options, print, args) {
 }
 
 const printer = {
-  preprocess,
   print: genericPrint,
   embed,
   insertPragma,
