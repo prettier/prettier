@@ -22,9 +22,7 @@ function printStatementSequence(path, options, print, property) {
   const isClassBody = node.type === "ClassBody";
   const lastStatement = getLastStatement(node[property]);
 
-  path.each((path, index, statements) => {
-    const { node } = path;
-
+  path.each(({ node, next }) => {
     // Skip printing EmptyStatement nodes to avoid leaving stray
     // semicolons lying around.
     if (node.type === "EmptyStatement") {
@@ -56,7 +54,7 @@ function printStatementSequence(path, options, print, property) {
       isClassProperty(node) &&
       // `ClassBody` don't allow `EmptyStatement`,
       // so we can use `statements` to get next node
-      shouldPrintSemicolonAfterClassProperty(node, statements[index + 1])
+      shouldPrintSemicolonAfterClassProperty(node, next)
     ) {
       parts.push(";");
     }
@@ -163,16 +161,23 @@ const isClassProperty = ({ type }) =>
   type === "ClassProperty" ||
   type === "PropertyDefinition" ||
   type === "ClassPrivateProperty" ||
-  type === "ClassAccessorProperty";
+  type === "ClassAccessorProperty" ||
+  type === "AccessorProperty" ||
+  type === "TSAbstractPropertyDefinition" ||
+  type === "TSAbstractAccessorProperty";
 /**
  * @returns {boolean}
  */
 function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const name = node.key?.name;
-  // this isn't actually possible yet with most parsers available today
-  // so isn't properly tested yet.
+  const { type, name } = node.key;
   if (
-    (name === "static" || name === "get" || name === "set") &&
+    !node.computed &&
+    type === "Identifier" &&
+    (name === "static" ||
+      name === "get" ||
+      name === "set" ||
+      // TODO: Remove this https://github.com/microsoft/TypeScript/issues/51707 is fixed
+      name === "accessor") &&
     !node.value &&
     !node.typeAnnotation
   ) {

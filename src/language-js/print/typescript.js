@@ -3,7 +3,6 @@ import { hasNewlineInRange } from "../../common/util.js";
 import {
   join,
   line,
-  hardline,
   softline,
   group,
   indent,
@@ -17,6 +16,8 @@ import {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
@@ -28,7 +29,7 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printTemplateLiteral } from "./template-literal.js";
-import { printTupleType, printArrayItems } from "./array.js";
+import { printArray } from "./array.js";
 import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -44,6 +45,7 @@ import {
   printIndexedAccessType,
   printJSDocType,
 } from "./type-annotation.js";
+import { printEnumDeclaration, printEnumMember } from "./enum.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -65,8 +67,8 @@ function printTypescript(path, options, print) {
       return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
-        node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression"
+        isArrayOrTupleExpression(node.expression) ||
+        isObjectOrRecordExpression(node.expression)
       );
 
       const castGroup = group([
@@ -108,6 +110,7 @@ function printTypescript(path, options, print) {
     case "TSAbstractMethodDefinition":
     case "TSDeclareMethod":
       return printClassMethod(path, options, print);
+    case "TSAbstractAccessorProperty":
     case "TSAbstractPropertyDefinition":
       return printClassProperty(path, options, print);
     case "TSInterfaceHeritage":
@@ -360,51 +363,11 @@ function printTypescript(path, options, print) {
 
       return group(parts);
     case "TSEnumDeclaration":
-      if (node.declare) {
-        parts.push("declare ");
-      }
+      return printEnumDeclaration(path, print, options);
 
-      if (node.modifiers) {
-        parts.push(printTypeScriptModifiers(path, options, print));
-      }
-      if (node.const) {
-        parts.push("const ");
-      }
-
-      parts.push("enum ", print("id"), " ");
-
-      if (node.members.length === 0) {
-        parts.push(
-          group(["{", printDanglingComments(path, options), softline, "}"])
-        );
-      } else {
-        parts.push(
-          group([
-            "{",
-            indent([
-              hardline,
-              printArrayItems(path, options, "members", print),
-              shouldPrintComma(options, "es5") ? "," : "",
-            ]),
-            printDanglingComments(path, options, /* sameIndent */ true),
-            hardline,
-            "}",
-          ])
-        );
-      }
-
-      return parts;
     case "TSEnumMember":
-      if (node.computed) {
-        parts.push("[", print("id"), "]");
-      } else {
-        parts.push(print("id"));
-      }
+      return printEnumMember(path, print);
 
-      if (node.initializer) {
-        parts.push(" = ", print("initializer"));
-      }
-      return parts;
     case "TSImportEqualsDeclaration":
       if (node.isExport) {
         parts.push("export ");
@@ -439,22 +402,14 @@ function printTypescript(path, options, print) {
         }
         parts.push(printTypeScriptModifiers(path, options, print));
 
-        const textBetweenNodeAndItsId = options.originalText.slice(
-          locStart(node),
-          locStart(node.id)
-        );
-
         // Global declaration looks like this:
         // (declare)? global { ... }
-        const isGlobalDeclaration =
-          node.id.type === "Identifier" &&
-          node.id.name === "global" &&
-          !/namespace|module/.test(textBetweenNodeAndItsId);
-
-        if (!isGlobalDeclaration) {
+        if (!node.global) {
           parts.push(
             isExternalModule ||
-              /(?:^|\s)module(?:\s|$)/.test(textBetweenNodeAndItsId)
+              /(?:^|\s)module(?:\s|$)/.test(
+                options.originalText.slice(locStart(node), locStart(node.id))
+              )
               ? "module "
               : "namespace "
           );
@@ -486,7 +441,7 @@ function printTypescript(path, options, print) {
     case "TSFunctionType":
       return printFunctionType(path, options, print);
     case "TSTupleType":
-      return printTupleType(path, options, print);
+      return printArray(path, options, print);
     case "TSTypeReference":
       return [
         print("typeName"),

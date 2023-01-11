@@ -1,7 +1,7 @@
 import { hardline, indent, join } from "../document/builders.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
+import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import preprocess from "../language-js/print-preprocess.js";
-import visitorKeys from "./visitor-keys.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 function genericPrint(path, options, print) {
   const { node } = path;
@@ -46,15 +46,13 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral":
       return node.value ? "true" : "false";
     case "StringLiteral":
-    case "NumericLiteral":
       return JSON.stringify(node.value);
-    case "Identifier": {
-      const { parent, key } = path;
-      if (parent.type === "ObjectProperty" && key === "key") {
-        return JSON.stringify(node.name);
-      }
-      return node.name;
-    }
+    case "NumericLiteral":
+      return isObjectKey(path)
+        ? JSON.stringify(String(node.value))
+        : JSON.stringify(node.value);
+    case "Identifier":
+      return isObjectKey(path) ? JSON.stringify(node.name) : node.name;
     case "TemplateLiteral":
       // There is only one `TemplateElement`
       return print(["quasis", 0]);
@@ -62,8 +60,12 @@ function genericPrint(path, options, print) {
       return JSON.stringify(node.value.cooked);
     default:
       /* c8 ignore next */
-      throw new Error("unknown type: " + JSON.stringify(node.type));
+      throw new UnexpectedNodeError(node, "JSON");
   }
+}
+
+function isObjectKey(path) {
+  return path.key === "key" && path.parent.type === "ObjectProperty";
 }
 
 const ignoredProperties = new Set([
@@ -83,8 +85,13 @@ const ignoredProperties = new Set([
 function clean(node, newNode /*, parent*/) {
   const { type } = node;
   // We print quoted key
-  if (type === "ObjectProperty" && node.key.type === "Identifier") {
-    newNode.key = { type: "StringLiteral", value: node.key.name };
+  if (type === "ObjectProperty") {
+    const { key } = node;
+    if (key.type === "Identifier") {
+      newNode.key = { type: "StringLiteral", value: key.name };
+    } else if (key.type === "NumericLiteral") {
+      newNode.key = { type: "StringLiteral", value: String(key.value) };
+    }
     return;
   }
   if (type === "UnaryExpression" && node.operator === "+") {
@@ -111,7 +118,7 @@ const printer = {
   preprocess,
   print: genericPrint,
   massageAstNode: clean,
-  getVisitorKeys: createGetVisitorKeys(visitorKeys),
+  getVisitorKeys,
 };
 
 export default printer;

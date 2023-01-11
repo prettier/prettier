@@ -29,12 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2.1.34
+        uses: github/codeql-action/init@v2
         with:
           config-file: ./.github/codeql/codeql-config.yml
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2.1.34
+        uses: github/codeql-action/analyze@v2

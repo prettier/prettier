@@ -38,7 +38,7 @@ exports[`basic.js - {"semi":false} [espree] format 1`] = `
 
 exports[`basic.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -57,7 +57,7 @@ class Foo {
 
 exports[`basic.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -68,6 +68,91 @@ class Foo {
 =====================================output=====================================
 class Foo {
   accessor bar;
+}
+
+================================================================================
+`;
+
+exports[`comments.js [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js - {"semi":false} [acorn] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js - {"semi":false} [espree] format 1`] = `
+"Unexpected character '@' (2:3)
+  1 | class A {
+> 2 |   @dec()
+    |   ^
+  3 |   // comment
+  4 |   accessor b;
+  5 | }"
+`;
+
+exports[`comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "babel-flow"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+
+=====================================output=====================================
+class A {
+  @dec()
+  // comment
+  accessor b
+}
+
+================================================================================
+`;
+
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+  @dec()
+  // comment
+  accessor b;
+}
+
+=====================================output=====================================
+class A {
+  @dec()
+  // comment
+  accessor b;
 }
 
 ================================================================================
@@ -111,7 +196,7 @@ exports[`computed.js - {"semi":false} [espree] format 1`] = `
 
 exports[`computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -130,7 +215,7 @@ class Foo {
 
 exports[`computed.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -141,47 +226,6 @@ class Foo {
 =====================================output=====================================
 class Foo {
   accessor ["bar"];
-}
-
-================================================================================
-`;
-
-exports[`computed-with-newline.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  accessor
-  ["bar"];
-}
-
-=====================================output=====================================
-class Foo {
-  accessor;
-  ["bar"]
-}
-
-================================================================================
-`;
-
-exports[`computed-with-newline.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  accessor
-  ["bar"];
-}
-
-=====================================output=====================================
-class Foo {
-  accessor;
-  ["bar"];
 }
 
 ================================================================================
@@ -189,7 +233,7 @@ class Foo {
 
 exports[`not-accessor-method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -208,7 +252,7 @@ class Foo {
 
 exports[`not-accessor-method.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -226,7 +270,7 @@ class Foo {
 
 exports[`not-accessor-property.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -245,7 +289,7 @@ class Foo {
 
 exports[`not-accessor-property.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -299,7 +343,7 @@ exports[`private.js - {"semi":false} [espree] format 1`] = `
 
 exports[`private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -318,7 +362,7 @@ class Foo {
 
 exports[`private.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -372,7 +416,7 @@ exports[`static.js - {"semi":false} [espree] format 1`] = `
 
 exports[`static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -391,7 +435,7 @@ class Foo {
 
 exports[`static.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -445,7 +489,7 @@ exports[`static-computed.js - {"semi":false} [espree] format 1`] = `
 
 exports[`static-computed.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -464,7 +508,7 @@ class Foo {
 
 exports[`static-computed.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -518,7 +562,7 @@ exports[`static-private.js - {"semi":false} [espree] format 1`] = `
 
 exports[`static-private.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -537,7 +581,7 @@ class Foo {
 
 exports[`static-private.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -548,88 +592,6 @@ class Foo {
 =====================================output=====================================
 class Foo {
   static accessor #bar;
-}
-
-================================================================================
-`;
-
-exports[`static-with-newline.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  static accessor
-  bar;
-}
-
-=====================================output=====================================
-class Foo {
-  static accessor
-  bar
-}
-
-================================================================================
-`;
-
-exports[`static-with-newline.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  static accessor
-  bar;
-}
-
-=====================================output=====================================
-class Foo {
-  static accessor;
-  bar;
-}
-
-================================================================================
-`;
-
-exports[`with-newline.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  accessor
-  bar;
-}
-
-=====================================output=====================================
-class Foo {
-  accessor
-  bar
-}
-
-================================================================================
-`;
-
-exports[`with-newline.js format 1`] = `
-====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class Foo {
-  accessor
-  bar;
-}
-
-=====================================output=====================================
-class Foo {
-  accessor;
-  bar;
 }
 
 ================================================================================
@@ -677,7 +639,7 @@ exports[`with-semicolon-1.js - {"semi":false} [espree] format 1`] = `
 
 exports[`with-semicolon-1.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -698,7 +660,7 @@ class C {
 
 exports[`with-semicolon-1.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -758,7 +720,7 @@ exports[`with-semicolon-2.js - {"semi":false} [espree] format 1`] = `
 
 exports[`with-semicolon-2.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -779,7 +741,7 @@ class C {
 
 exports[`with-semicolon-2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "babel-ts", "babel-flow"]
+parsers: ["babel", "typescript", "babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

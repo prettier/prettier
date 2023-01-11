@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`case-and-space.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# \`linkReference\`
+
+[   See   \`AsyncGeneratorFunction\`   ][   See   \`AsyncGeneratorFunction\`   ]
+
+# \`imageReference\`
+
+![   See   \`AsyncGeneratorFunction\`   ][   See   \`AsyncGeneratorFunction\`   ]
+
+# \`definition\`
+
+[   See   \`AsyncGeneratorFunction\`   ]: ./index.html
+
+# \`footnoteReference\`
+
+[^See\`AsyncGeneratorFunction\`]
+
+# \`footnoteDefinition\`
+
+[^See\`AsyncGeneratorFunction\`]: ./index.html
+
+=====================================output=====================================
+# \`linkReference\`
+
+[ See \`AsyncGeneratorFunction\` ][ See \`AsyncGeneratorFunction\` ]
+
+# \`imageReference\`
+
+![   See   \`AsyncGeneratorFunction\`   ][ See \`AsyncGeneratorFunction\` ]
+
+# \`definition\`
+
+[ See \`AsyncGeneratorFunction\` ]: ./index.html
+
+# \`footnoteReference\`
+
+[^See\`AsyncGeneratorFunction\`]
+
+# \`footnoteDefinition\`
+
+[^See\`AsyncGeneratorFunction\`]: ./index.html
+
+================================================================================
+`;
+
+exports[`issue-3835.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[1][Test Text](http://example.com)
+
+=====================================output=====================================
+[1][Test Text](http://example.com)
+
+================================================================================
+`;
+
+exports[`issue-7118.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+- see[Link to Foo][master-LinkToFoo]
+
+[master-LinkToFoo]: http://foo.com
+
+Bla bla [PascalCase][] bla.
+
+[PascalCase]: ./PascalCase.md
+
+## [Unreleased]
+…
+[Unreleased]: https://github.com/username/project/compare/v1.0.0...HEAD
+
+[darktable]: https://www.darktable.org/
+[js;dr]: https://indieweb.org/js;dr
+[LinuxFest Northwest]: https://www.linuxfestnorthwest.org/
+[OpenStreetMap]: https://www.openstreetmap.org/about
+[SeaGL]: https://seagl.org/
+[uBlock Origin]: https://github.com/gorhill/uBlock
+
+=====================================output=====================================
+- see[Link to Foo][master-LinkToFoo]
+
+[master-LinkToFoo]: http://foo.com
+
+Bla bla [PascalCase][] bla.
+
+[PascalCase]: ./PascalCase.md
+
+## [Unreleased]
+
+…
+[Unreleased]: https://github.com/username/project/compare/v1.0.0...HEAD
+
+[darktable]: https://www.darktable.org/
+[js;dr]: https://indieweb.org/js;dr
+[LinuxFest Northwest]: https://www.linuxfestnorthwest.org/
+[OpenStreetMap]: https://www.openstreetmap.org/about
+[SeaGL]: https://seagl.org/
+[uBlock Origin]: https://github.com/gorhill/uBlock
+
+================================================================================
+`;

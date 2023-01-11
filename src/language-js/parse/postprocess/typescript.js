@@ -6,7 +6,8 @@ let ts;
 
 function getTsNodeLocation(nodeOrToken) {
   const sourceFile = ts.getSourceFileOfNode(nodeOrToken);
-  const [start, end] = [nodeOrToken.pos, nodeOrToken.end].map((position) => {
+  const position = ts.rangeOfNode(nodeOrToken);
+  const [start, end] = [position.pos, position.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
     return { line: line + 1, column };
@@ -134,6 +135,62 @@ function throwErrorForInvalidModifier(node) {
         )}' modifier cannot appear on class elements of this kind.`
       );
     }
+
+    if (
+      modifier.kind === SyntaxKind.AbstractKeyword &&
+      node.kind !== SyntaxKind.ClassDeclaration &&
+      node.kind !== SyntaxKind.ConstructorType &&
+      node.kind !== SyntaxKind.MethodDeclaration &&
+      node.kind !== SyntaxKind.PropertyDeclaration &&
+      node.kind !== SyntaxKind.GetAccessor &&
+      node.kind !== SyntaxKind.SetAccessor
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier can only appear on a class, method, or property declaration.`
+      );
+    }
+
+    if (
+      (modifier.kind === SyntaxKind.StaticKeyword ||
+        modifier.kind === SyntaxKind.PublicKeyword ||
+        modifier.kind === SyntaxKind.ProtectedKeyword ||
+        modifier.kind === SyntaxKind.PrivateKeyword) &&
+      (node.parent.kind === SyntaxKind.ModuleBlock ||
+        node.parent.kind === SyntaxKind.SourceFile)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a module or namespace element.`
+      );
+    }
+
+    if (
+      modifier.kind === SyntaxKind.AccessorKeyword &&
+      node.kind !== SyntaxKind.PropertyDeclaration
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a module or namespace element.`
+      );
+    }
+
+    // `checkGrammarAsyncModifier` function in `typescript`
+    if (
+      modifier.kind === SyntaxKind.AsyncKeyword &&
+      node.kind !== SyntaxKind.MethodDeclaration &&
+      node.kind !== SyntaxKind.FunctionDeclaration &&
+      node.kind !== SyntaxKind.FunctionExpression &&
+      node.kind !== SyntaxKind.ArrowFunction
+    ) {
+      throwErrorOnTsNode(modifier, "'async' modifier cannot be used here.");
+    }
   }
 }
 
@@ -152,30 +209,31 @@ function getTsNode(node, tsParseResult) {
   return tsNode;
 }
 
+// `isModifierKind` in `typescript`
+const POSSIBLE_MODIFIERS = [
+  "abstract",
+  "accessor",
+  "async",
+  "const",
+  "declare",
+  "default",
+  "export",
+  "in",
+  "out",
+  "override",
+  "private",
+  "protected",
+  "public",
+  "readonly",
+  "static",
+];
+
+const decoratorOrModifierRegExp = new RegExp(
+  ["@", ...POSSIBLE_MODIFIERS].join("|")
+);
+
 async function throwErrorForInvalidNodes(tsParseResult, options) {
-  if (
-    // decorators and modifiers
-    !new RegExp(
-      [
-        "@",
-        "abstract",
-        "accessor",
-        "async",
-        "const",
-        "declare",
-        "default",
-        "export",
-        "static",
-        "in",
-        "out",
-        "override",
-        "public",
-        "private",
-        "protected",
-        "readonly",
-      ].join("|")
-    ).test(options.originalText)
-  ) {
+  if (!decoratorOrModifierRegExp.test(options.originalText)) {
     return;
   }
 
@@ -195,4 +253,8 @@ async function throwErrorForInvalidNodes(tsParseResult, options) {
   });
 }
 
-export { throwErrorForInvalidNodes };
+export {
+  throwErrorForInvalidNodes,
+  // For test
+  POSSIBLE_MODIFIERS,
+};

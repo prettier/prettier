@@ -48,6 +48,7 @@ const ENABLED_OPTIONS = [
   "vueIndentScriptAndStyle",
   "embeddedLanguageFormatting",
   "bracketSameLine",
+  "singleAttributePerLine",
 ];
 
 class Playground extends React.Component {

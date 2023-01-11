@@ -1,4 +1,8 @@
-import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  printComments,
+  printDanglingComments,
+  printCommentsSeparately,
+} from "../../main/comments.js";
 import {
   line,
   hardline,
@@ -25,6 +29,8 @@ import {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
@@ -267,13 +273,12 @@ function printJsxChildren(
   isFacebookTranslationTag
 ) {
   const parts = [];
-  path.each((childPath, i, children) => {
-    const child = childPath.node;
-    if (isLiteral(child)) {
-      const text = rawText(child);
+  path.each(({ node, next }) => {
+    if (isLiteral(node)) {
+      const text = rawText(node);
 
       // Contains a non-whitespace character
-      if (isMeaningfulJsxText(child)) {
+      if (isMeaningfulJsxText(node)) {
         const words = text.split(matchJsxWhitespaceRegex);
 
         // Starts with whitespace
@@ -281,12 +286,11 @@ function printJsxChildren(
           parts.push("");
           words.shift();
           if (/\n/.test(words[0])) {
-            const next = children[i + 1];
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 words[1],
-                child,
+                node,
                 next
               )
             );
@@ -318,12 +322,11 @@ function printJsxChildren(
 
         if (endWhitespace !== undefined) {
           if (/\n/.test(endWhitespace)) {
-            const next = children[i + 1];
             parts.push(
               separatorWithWhitespace(
                 isFacebookTranslationTag,
                 parts.at(-1),
-                child,
+                node,
                 next
               )
             );
@@ -331,12 +334,11 @@ function printJsxChildren(
             parts.push(jsxWhitespace);
           }
         } else {
-          const next = children[i + 1];
           parts.push(
             separatorNoWhitespace(
               isFacebookTranslationTag,
               parts.at(-1),
-              child,
+              node,
               next
             )
           );
@@ -354,7 +356,6 @@ function printJsxChildren(
       const printedChild = print();
       parts.push(printedChild);
 
-      const next = children[i + 1];
       const directlyFollowedByMeaningfulText =
         next && isMeaningfulJsxText(next);
       if (directlyFollowedByMeaningfulText) {
@@ -362,12 +363,7 @@ function printJsxChildren(
           matchJsxWhitespaceRegex
         )[0];
         parts.push(
-          separatorNoWhitespace(
-            isFacebookTranslationTag,
-            firstWord,
-            child,
-            next
-          )
+          separatorNoWhitespace(isFacebookTranslationTag, firstWord, node, next)
         );
       } else {
         parts.push(hardline);
@@ -418,26 +414,23 @@ function separatorWithWhitespace(
   return hardline;
 }
 
+const NO_WRAP_PARENTS = new Set([
+  "ArrayExpression",
+  "TupleExpression",
+  "JSXAttribute",
+  "JSXElement",
+  "JSXExpressionContainer",
+  "JSXFragment",
+  "ExpressionStatement",
+  "CallExpression",
+  "OptionalCallExpression",
+  "ConditionalExpression",
+  "JsExpressionRoot",
+]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
-  /* c8 ignore next 3 */
-  if (!parent) {
-    return elem;
-  }
 
-  const NO_WRAP_PARENTS = {
-    ArrayExpression: true,
-    JSXAttribute: true,
-    JSXElement: true,
-    JSXExpressionContainer: true,
-    JSXFragment: true,
-    ExpressionStatement: true,
-    CallExpression: true,
-    OptionalCallExpression: true,
-    ConditionalExpression: true,
-    JsExpressionRoot: true,
-  };
-  if (NO_WRAP_PARENTS[parent.type]) {
+  if (NO_WRAP_PARENTS.has(parent.type)) {
     return elem;
   }
 
@@ -481,7 +474,11 @@ function printJsxAttribute(path, options, print) {
         options.jsxSingleQuote ? "'" : '"'
       );
       final = final.replace(regex, escaped);
-      res = [quote, final, quote];
+      const { leading, trailing } = path.call(
+        () => printCommentsSeparately(path, options),
+        "value"
+      );
+      res = [leading, quote, final, quote, trailing];
     } else {
       res = print("value");
     }
@@ -497,8 +494,8 @@ function printJsxExpressionContainer(path, options, print) {
   const shouldInline = (node, parent) =>
     node.type === "JSXEmptyExpression" ||
     (!hasComment(node) &&
-      (node.type === "ArrayExpression" ||
-        node.type === "ObjectExpression" ||
+      (isArrayOrTupleExpression(node) ||
+        isObjectOrRecordExpression(node) ||
         node.type === "ArrowFunctionExpression" ||
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||
@@ -753,7 +750,7 @@ function printJsx(path, options, print) {
       return printJsxEmptyExpression(path, options /*, print*/);
     case "JSXText":
       /* c8 ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
+      throw new Error("JSXText should be handled by JSXElement");
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSX");

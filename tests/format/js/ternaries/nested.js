@@ -93,3 +93,32 @@ a
     }
     ? line
     : softline
+
+const config = {
+    onFailure: onFailure !== undefined ? onFailure :   (
+      error => {
+          notify(
+              typeof error === 'string' ?
+                  error
+              : error.message || 'ra.notification.http_error',
+              'warning',
+              {
+                  _:
+                      typeof error === 'string' ? error
+                      : error && error.message ? error.message
+                      : undefined,
+              }
+          );
+          refresh();
+      }
+    )
+}
+
+showNotification(
+    typeof error === 'string' ? error :   error.message || body,
+    level || 'warning',
+    {
+        messageArgs,
+        undoable: false,
+    }
+)

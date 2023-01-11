@@ -3,6 +3,7 @@ import {
   hasComment,
   CommentCheckFlags,
   isObjectProperty,
+  isArrayOrTupleExpression,
 } from "./utils/index.js";
 import embedMarkdown from "./embed/markdown.js";
 import embedCss from "./embed/css.js";
@@ -121,7 +122,7 @@ function isStyledJsx({ node, parent, grandparent }) {
 function isAngularComponentStyles(path) {
   return path.match(
     (node) => node.type === "TemplateLiteral",
-    (node, name) => node.type === "ArrayExpression" && name === "elements",
+    (node, name) => isArrayOrTupleExpression(node) && name === "elements",
     (node, name) =>
       isObjectProperty(node) &&
       node.key.type === "Identifier" &&

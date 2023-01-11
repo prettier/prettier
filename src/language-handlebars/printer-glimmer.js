@@ -11,14 +11,11 @@ import {
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
-import visitorKeys from "./visitor-keys.evaluate.js";
-
-const getVisitorKeys = createGetVisitorKeys(visitorKeys);
+import getVisitorKeys from "./get-visitor-keys.js";
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
@@ -546,15 +543,26 @@ function isElseIfLike(path) {
 }
 
 function printElseIfLikeBlock(path, print) {
-  const { grandparent } = path;
-  return [
+  const { node, grandparent } = path;
+  let blockParams = [];
+
+  if (isNonEmptyArray(node.program.blockParams)) {
+    blockParams = [line, printBlockParams(node.program)];
+  }
+
+  return group([
     printInverseBlockOpeningMustache(grandparent),
-    "else ",
-    grandparent.inverse.body[0].path.parts[0],
-    " ",
-    printParams(path, print),
+    indent(
+      group([
+        group(["else", line, grandparent.inverse.body[0].path.parts[0]]),
+        line,
+        printParams(path, print),
+      ])
+    ),
+    indent(blockParams),
+    softline,
     printInverseBlockClosingMustache(grandparent),
-  ];
+  ]);
 }
 
 function printCloseBlock(path, print, options) {
@@ -700,20 +708,14 @@ function printStringLiteral(stringLiteral, favoriteQuote) {
 }
 
 function needsOppositeQuote(path) {
-  let index = 0;
-  let ancestor = path.getParentNode(index);
-  while (ancestor?.type === "SubExpression") {
-    index++;
-    ancestor = path.getParentNode(index);
-  }
-  if (
-    ancestor &&
-    path.getParentNode(index + 1).type === "ConcatStatement" &&
-    path.getParentNode(index + 2).type === "AttrNode"
-  ) {
-    return true;
-  }
-  return false;
+  const { ancestors } = path;
+  const level = ancestors.findIndex((node) => node.type !== "SubExpression");
+
+  return (
+    level !== -1 &&
+    ancestors[level + 1].type === "ConcatStatement" &&
+    ancestors[level + 2].type === "AttrNode"
+  );
 }
 
 /* SubExpression print helpers */

@@ -443,26 +443,6 @@ function isPreLikeNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-/**
- * @param {AstPath} path
- * @param {(any) => boolean} predicate
- */
-function countParents(path, predicate) {
-  let counter = 0;
-  for (let i = path.stack.length - 1; i >= 0; i--) {
-    const value = path.stack[i];
-    if (
-      value &&
-      typeof value === "object" &&
-      !Array.isArray(value) &&
-      predicate(value)
-    ) {
-      counter++;
-    }
-  }
-  return counter;
-}
-
 function hasParent(node, fn) {
   let current = node;
 
@@ -646,7 +626,6 @@ export {
   getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   countChars,
-  countParents,
   dedentString,
   forceBreakChildren,
   forceBreakContent,

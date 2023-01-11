@@ -137,24 +137,11 @@ const isLineComment = createTypeCheckFunction([
  */
 const isExportDeclaration = createTypeCheckFunction([
   "ExportDefaultDeclaration",
-  "ExportDefaultSpecifier",
   "DeclareExportDeclaration",
   "ExportNamedDeclaration",
   "ExportAllDeclaration",
+  "DeclareExportAllDeclaration",
 ]);
-
-/**
- * @param {AstPath} path
- * @returns {Node | null}
- */
-function getParentExportDeclaration(path) {
-  const parentNode = path.parent;
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
-    return parentNode;
-  }
-
-  return null;
-}
 
 /**
  * @param {Node} node
@@ -173,6 +160,24 @@ const isLiteral = createTypeCheckFunction([
   "TemplateLiteral",
   "TSTypeLiteral",
   "JSXText",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isArrayOrTupleExpression = createTypeCheckFunction([
+  "ArrayExpression",
+  "TupleExpression",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isObjectOrRecordExpression = createTypeCheckFunction([
+  "ObjectExpression",
+  "RecordExpression",
 ]);
 
 /**
@@ -419,8 +424,8 @@ function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
-    unitTestSetUpRe.test(node.callee.name) &&
-    node.arguments.length === 1
+    node.arguments.length === 1 &&
+    unitTestSetUpRe.test(node.callee.name)
   );
 }
 
@@ -715,14 +720,13 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const { node } = path;
-  const { parent } = path;
+  const { node, parent, key } = path;
   return (
+    key === "callee" &&
     isCallExpression(node) &&
     isCallExpression(parent) &&
-    parent.callee === node &&
-    node.arguments.length > parent.arguments.length &&
-    parent.arguments.length > 0
+    parent.arguments.length > 0 &&
+    node.arguments.length > parent.arguments.length
   );
 }
 
@@ -770,13 +774,13 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (node.type === "ObjectExpression") {
+  if (isObjectOrRecordExpression(node)) {
     return node.properties.every(
       (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
 
-  if (node.type === "ArrayExpression") {
+  if (isArrayOrTupleExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -838,74 +842,59 @@ function shouldPrintComma(options, level = "es5") {
 }
 
 /**
- * Tests if an expression starts with `{`, or (if forbidFunctionClassAndDoExpr
- * holds) `function`, `class`, or `do {}`. Will be overzealous if there's
- * already necessary grouping parentheses.
+ * Tests if the leftmost node of the expression matches the predicate. E.g.,
+ * used to check whether an expression statement needs to be wrapped in extra
+ * parentheses because it starts with:
+ *
+ * - `{`
+ * - `function`, `class`, or `do {}`
+ * - `let[`
+ *
+ * Will be overzealous if there already are necessary grouping parentheses.
  *
  * @param {Node} node
- * @param {boolean} forbidFunctionClassAndDoExpr
+ * @param {(leftmostNode: Node) => boolean} predicate
  * @returns {boolean}
  */
-function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
-  node = getLeftMost(node);
+function startsWithNoLookaheadToken(node, predicate) {
   switch (node.type) {
-    case "FunctionExpression":
-    case "ClassExpression":
-    case "DoExpression":
-      return forbidFunctionClassAndDoExpr;
-    case "ObjectExpression":
-      return true;
+    case "BinaryExpression":
+    case "LogicalExpression":
+    case "AssignmentExpression":
+    case "NGPipeExpression":
+      return startsWithNoLookaheadToken(node.left, predicate);
     case "MemberExpression":
     case "OptionalMemberExpression":
-      return startsWithNoLookaheadToken(
-        node.object,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.object, predicate);
     case "TaggedTemplateExpression":
       if (node.tag.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
+      return startsWithNoLookaheadToken(node.tag, predicate);
     case "CallExpression":
     case "OptionalCallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
       }
-      return startsWithNoLookaheadToken(
-        node.callee,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.callee, predicate);
     case "ConditionalExpression":
-      return startsWithNoLookaheadToken(
-        node.test,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.test, predicate);
     case "UpdateExpression":
       return (
-        !node.prefix &&
-        startsWithNoLookaheadToken(node.argument, forbidFunctionClassAndDoExpr)
+        !node.prefix && startsWithNoLookaheadToken(node.argument, predicate)
       );
     case "BindExpression":
-      return (
-        node.object &&
-        startsWithNoLookaheadToken(node.object, forbidFunctionClassAndDoExpr)
-      );
+      return node.object && startsWithNoLookaheadToken(node.object, predicate);
     case "SequenceExpression":
-      return startsWithNoLookaheadToken(
-        node.expressions[0],
-        forbidFunctionClassAndDoExpr
-      );
-    case "TSAsExpression":
+      return startsWithNoLookaheadToken(node.expressions[0], predicate);
     case "TSSatisfiesExpression":
+    case "TSAsExpression":
     case "TSNonNullExpression":
-      return startsWithNoLookaheadToken(
-        node.expression,
-        forbidFunctionClassAndDoExpr
-      );
+      return startsWithNoLookaheadToken(node.expression, predicate);
     default:
-      return false;
+      return predicate(node);
   }
 }
 
@@ -989,13 +978,6 @@ const PRECEDENCE = new Map(
 );
 function getPrecedence(operator) {
   return PRECEDENCE.get(operator);
-}
-
-function getLeftMost(node) {
-  while (node.left) {
-    node = node.left;
-  }
-  return node;
 }
 
 function isBitwiseOperator(operator) {
@@ -1219,11 +1201,10 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-function isTSTypeExpression(node) {
-  return (
-    node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
-  );
-}
+const isTSTypeExpression = createTypeCheckFunction([
+  "TSAsExpression",
+  "TSSatisfiesExpression",
+]);
 
 export {
   getFunctionParameters,
@@ -1234,7 +1215,6 @@ export {
   hasRestParameter,
   getLeftSide,
   getLeftSidePathName,
-  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasLeadingOwnLineComment,
   hasNakedLeftSide,
@@ -1287,4 +1267,7 @@ export {
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
   isTSTypeExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
+  createTypeCheckFunction,
 };

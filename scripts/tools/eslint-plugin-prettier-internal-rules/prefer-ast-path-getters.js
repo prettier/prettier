@@ -13,6 +13,7 @@ const selector = [
 ].join("");
 
 const messageId = "prefer-ast-path-getters";
+const messageIdSuggestion = "prefer-ast-path-getters/suggestion";
 
 function getReplacement(callExpression) {
   const method = callExpression.callee.property.name;
@@ -24,6 +25,8 @@ function getReplacement(callExpression) {
         return { getter: "node", description };
       }
       break;
+    case "getName":
+      return { getters: ["key", "index"], description };
 
     case "getParentNode": {
       // `path.getParentNode()`
@@ -57,9 +60,10 @@ module.exports = {
       url: "https://github.com/prettier/prettier/blob/main/scripts/tools/eslint-plugin-prettier-internal-rules/prefer-ast-path-getters.js",
     },
     fixable: "code",
+    hasSuggestions: true,
     messages: {
-      [messageId]:
-        "Prefer `AstPath#{{ getter }}` over `AstPath#{{ description }}`.",
+      [messageId]: "Prefer {{replacement}} over `AstPath#{{ description }}`.",
+      [messageIdSuggestion]: "Use `AstPath#{{getter}}`.",
     },
   },
   create(context) {
@@ -70,22 +74,35 @@ module.exports = {
           return;
         }
 
-        context.report({
+        const getters = replacement.getters ?? [replacement.getter];
+        const problem = {
           node: callExpression.callee,
           messageId,
           data: {
-            getter: replacement.getter,
+            replacement: new Intl.ListFormat("en-US", {
+              type: "disjunction",
+            }).format(getters.map((getter) => `\`AstPath#${getter}\``)),
             description: replacement.description,
           },
-          fix: (fixer) =>
-            fixer.replaceTextRange(
-              [
-                callExpression.callee.property.range[0],
-                callExpression.range[1],
-              ],
-              replacement.getter
-            ),
-        });
+        };
+
+        const useGetter = (getter) => (fixer) =>
+          fixer.replaceTextRange(
+            [callExpression.callee.property.range[0], callExpression.range[1]],
+            getter
+          );
+
+        if (replacement.getter) {
+          problem.fix = useGetter(replacement.getter);
+        } else {
+          problem.suggest = getters.map((getter) => ({
+            messageId: messageIdSuggestion,
+            data: { getter },
+            fix: useGetter(getter),
+          }));
+        }
+
+        context.report(problem);
       },
     };
   },

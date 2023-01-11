@@ -302,6 +302,23 @@ a {
     unicode-range: U+0025-00FF, U+4??; /* multiple values */
 }
 
+// no space after unary minus when followed by opening parenthesis, #13998
+.unary_minus_single {
+  margin: -(@a);
+}
+
+.unary_minus_multi_1 {
+  margin: 0 -(@a);
+}
+
+.unary_minus_multi_2 {
+  margin: 0  -( @a + @b );
+}
+
+.binary_minus {
+  margin: 0 - (@a);
+}
+
 =====================================output=====================================
 a {
   prop1: func(1px, 1px, 1px, func(1px, 1px, 1px, func(1px, 1px, 1px)));
@@ -365,7 +382,7 @@ a {
   background: element(#css-source);
   padding-top: var(--paddingC);
   margin: 1 * 1 (1) * 1 1 * (1) (1) * (1);
-  prop: -1 * -1 - (-1) * -1 -1 * -(-1) - (-1) * -(-1);
+  prop: -1 * -1 -(-1) * -1 -1 * -(-1) -(-1) * -(-1);
   prop4: +1;
   prop5: -1;
   prop6: word + 1; /* word1 */
@@ -396,7 +413,7 @@ a {
   prop41: --(1);
   prop42: 1px+1px+1px+1px;
   prop43: 1px + 1px + 1px + 1px;
-  prop44: -1+-1 - (-1)+-1 -1+-(-1) - (-1)+-(-1);
+  prop44: -1+-1 -(-1)+-1 -1+-(-1) -(-1)+-(-1);
   prop45: round(1.5) * 2 round(1.5) * 2 round(1.5) * 2 round(1.5) * 2;
   prop46: 2 * round(1.5) 2 * round(1.5) 2 * round(1.5) 2 * round(1.5);
   prop47: (round(1.5) * 2) (round(1.5) * 2) (round(1.5) * 2) (round(1.5) * 2);
@@ -470,6 +487,23 @@ a {
   unicode-range: U+0025-00FF; /* codepoint range */
   unicode-range: U+4??; /* wildcard range */
   unicode-range: U+0025-00FF, U+4??; /* multiple values */
+}
+
+// no space after unary minus when followed by opening parenthesis, #13998
+.unary_minus_single {
+  margin: -(@a);
+}
+
+.unary_minus_multi_1 {
+  margin: 0 -(@a);
+}
+
+.unary_minus_multi_2 {
+  margin: 0 -(@a + @b);
+}
+
+.binary_minus {
+  margin: 0 - (@a);
 }
 
 ================================================================================

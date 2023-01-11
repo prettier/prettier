@@ -14,7 +14,6 @@ import {
   shouldPreserveContent,
   isScriptLikeTag,
   isVueCustomBlock,
-  countParents,
   forceBreakContent,
 } from "../utils/index.js";
 import {
@@ -139,13 +138,7 @@ function printElement(path, options, print) {
           node.isWhitespaceSensitive &&
           node.isIndentationSensitive)) &&
       new RegExp(
-        `\\n[\\t ]{${
-          options.tabWidth *
-          countParents(
-            path,
-            (node) => node.parent && node.parent.type !== "root"
-          )
-        }}$`
+        `\\n[\\t ]{${options.tabWidth * (path.ancestors.length - 1)}}$`
       ).test(node.lastChild.value)
     ) {
       return "";

@@ -19,15 +19,13 @@ import {
   breakParent,
 } from "../document/builders.js";
 import { removeLines, getDocParts } from "../document/utils.js";
-import createGetVisitorKeys from "../utils/create-get-visitor-keys.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import clean from "./clean.js";
 import embed from "./embed.js";
 import { insertPragma } from "./pragma.js";
-import visitorKeys from "./visitor-keys.js";
+import getVisitorKeys from "./get-visitor-keys.js";
 
 import {
-  getAncestorNode,
   getPropOfDeclNode,
   maybeToLowerCase,
   insideValueFunctionNode,
@@ -77,8 +75,6 @@ import {
 import { locStart, locEnd } from "./loc.js";
 import printUnit from "./utils/print-unit.js";
 
-const getVisitorKeys = createGetVisitorKeys(visitorKeys);
-
 function shouldPrintComma(options) {
   return options.trailingComma === "es5" || options.trailingComma === "all";
 }
@@ -91,7 +87,10 @@ function genericPrint(path, options, print) {
       return [node.raw, hardline];
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
-      const after = node.raws.after.trim();
+      let after = node.raws.after.trim();
+      if (after.startsWith(";")) {
+        after = after.slice(1).trim();
+      }
 
       return [
         node.frontMatter ? [print("frontMatter"), hardline] : "",
@@ -148,7 +147,11 @@ function genericPrint(path, options, print) {
 
       return [
         node.raws.before.replaceAll(/[\s;]/g, ""),
-        insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
+        // Less variable
+        (parentNode.type === "css-atrule" && parentNode.variable) ||
+        insideICSSRuleNode(path)
+          ? node.prop
+          : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend || isValueAllSpace ? "" : " ",
@@ -308,8 +311,7 @@ function genericPrint(path, options, print) {
     // postcss-media-query-parser
     case "media-query-list": {
       const parts = [];
-      path.each((childPath) => {
-        const { node } = childPath;
+      path.each(({ node }) => {
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -360,7 +362,11 @@ function genericPrint(path, options, print) {
     case "selector-root":
       return group([
         insideAtRuleNode(path, "custom-selector")
-          ? [getAncestorNode(path, "css-atrule").customSelector, line]
+          ? [
+              path.findAncestor((node) => node.type === "css-atrule")
+                .customSelector,
+              line,
+            ]
           : "",
         join(
           [
@@ -468,7 +474,9 @@ function genericPrint(path, options, print) {
       return node.value;
 
     case "selector-unknown": {
-      const ruleAncestorNode = getAncestorNode(path, "css-rule");
+      const ruleAncestorNode = path.findAncestor(
+        (node) => node.type === "css-rule"
+      );
 
       // Nested SCSS property
       if (ruleAncestorNode?.isSCSSNesterProperty) {
@@ -520,7 +528,9 @@ function genericPrint(path, options, print) {
         parentNode.type === "value-value" &&
         (declAncestorProp === "grid" ||
           declAncestorProp.startsWith("grid-template"));
-      const atRuleAncestorNode = getAncestorNode(path, "css-atrule");
+      const atRuleAncestorNode = path.findAncestor(
+        (node) => node.type === "css-atrule"
+      );
       const isControlDirective =
         atRuleAncestorNode &&
         isSCSSControlDirectiveNode(atRuleAncestorNode, options);
@@ -534,6 +544,7 @@ function genericPrint(path, options, print) {
 
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
+
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
@@ -581,20 +592,20 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
-        const isStartSCSSInterpolationInString =
-          iNode.type === "value-string" && iNode.value.startsWith("#{");
-        const isEndingSCSSInterpolationInString =
-          insideSCSSInterpolationInString &&
-          iNextNode.type === "value-string" &&
-          iNextNode.value.endsWith("}");
-
-        if (
-          isStartSCSSInterpolationInString ||
-          isEndingSCSSInterpolationInString
-        ) {
-          insideSCSSInterpolationInString = !insideSCSSInterpolationInString;
-
-          continue;
+        if (iNode.type === "value-string" && iNode.quoted) {
+          const positionOfOpeningInterpolation = iNode.value.lastIndexOf("#{");
+          const positionOfClosingInterpolation = iNode.value.lastIndexOf("}");
+          if (
+            positionOfOpeningInterpolation !== -1 &&
+            positionOfClosingInterpolation !== -1
+          ) {
+            insideSCSSInterpolationInString =
+              positionOfOpeningInterpolation > positionOfClosingInterpolation;
+          } else if (positionOfOpeningInterpolation !== -1) {
+            insideSCSSInterpolationInString = true;
+          } else if (positionOfClosingInterpolation !== -1) {
+            insideSCSSInterpolationInString = false;
+          }
         }
 
         if (insideSCSSInterpolationInString) {
@@ -607,7 +618,26 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore `@` in Less (i.e. `@@var;`)
-        if (iNode.type === "value-atword" && iNode.value === "") {
+        if (
+          iNode.type === "value-atword" &&
+          (iNode.value === "" ||
+            /*
+            @var[ @notVarNested ][notVar]
+            ^^^^^
+            */
+            iNode.value.endsWith("["))
+        ) {
+          continue;
+        }
+
+        /*
+        @var[ @notVarNested ][notVar]
+                            ^^^^^^^^^
+        */
+        if (
+          iNextNode.type === "value-word" &&
+          iNextNode.value.startsWith("]")
+        ) {
           continue;
         }
 
@@ -734,6 +764,18 @@ function genericPrint(path, options, print) {
           (hasEmptyRawBefore(iNextNode) ||
             (isMathOperator &&
               (!iPrevNode || (iPrevNode && isMathOperatorNode(iPrevNode)))))
+        ) {
+          continue;
+        }
+
+        // No space before unary minus followed by an opening parenthesis `-(`
+        if (
+          (options.parser === "scss" || options.parser === "less") &&
+          isMathOperator &&
+          iNode.value === "-" &&
+          isParenGroupNode(iNextNode) &&
+          locEnd(iNode) === locStart(iNextNode.open) &&
+          iNextNode.open.value === "("
         ) {
           continue;
         }
@@ -904,9 +946,7 @@ function genericPrint(path, options, print) {
             softline,
             join(
               [line],
-              path.map((childPath, index) => {
-                const child = childPath.node;
-                const isLast = index === node.groups.length - 1;
+              path.map(({ node: child, isLast, index }) => {
                 const hasComma = () =>
                   Boolean(
                     child.source &&
@@ -917,7 +957,10 @@ function genericPrint(path, options, print) {
                   );
                 const shouldPrintComma =
                   !isLast || (isVarFunction && hasComma());
-                const printed = [print(), shouldPrintComma ? "," : ""];
+                let printed = [
+                  printedGroups[index],
+                  shouldPrintComma ? "," : "",
+                ];
 
                 // Key/Value pair in open paren already indented
                 if (
@@ -929,7 +972,7 @@ function genericPrint(path, options, print) {
                 ) {
                   const parts = getDocParts(printed[0].contents.contents);
                   parts[1] = group(parts[1]);
-                  return group(dedent(printed));
+                  printed = [group(dedent(printed))];
                 }
 
                 if (
@@ -937,9 +980,14 @@ function genericPrint(path, options, print) {
                   child.type === "value-comma_group" &&
                   isNonEmptyArray(child.groups)
                 ) {
-                  const last = child.groups.at(-1);
+                  let last = child.groups.at(-1);
+
+                  // `value-paren_group` does not have location info, but its closing parenthesis does.
+                  if (!last.source && last.close) {
+                    last = last.close;
+                  }
+
                   if (
-                    // `value-paren_group` missing location info
                     last.source &&
                     isNextLineEmpty(options.originalText, last, locEnd)
                   ) {
@@ -1031,40 +1079,40 @@ function genericPrint(path, options, print) {
 
 function printNodeSequence(path, options, print) {
   const parts = [];
-  path.each((pathChild, i, nodes) => {
-    const prevNode = nodes[i - 1];
+  path.each(() => {
+    const { node, previous } = path;
     if (
-      prevNode?.type === "css-comment" &&
-      prevNode.text.trim() === "prettier-ignore"
+      previous?.type === "css-comment" &&
+      previous.text.trim() === "prettier-ignore"
     ) {
-      const childNode = pathChild.getValue();
-      parts.push(
-        options.originalText.slice(locStart(childNode), locEnd(childNode))
-      );
+      parts.push(options.originalText.slice(locStart(node), locEnd(node)));
     } else {
       parts.push(print());
     }
 
-    if (i !== nodes.length - 1) {
+    if (path.isLast) {
+      return;
+    }
+
+    const { next } = path;
+    if (
+      (next.type === "css-comment" &&
+        !hasNewline(options.originalText, locStart(next), {
+          backwards: true,
+        }) &&
+        !isFrontMatterNode(node)) ||
+      (next.type === "css-atrule" &&
+        next.name === "else" &&
+        node.type !== "css-comment")
+    ) {
+      parts.push(" ");
+    } else {
+      parts.push(options.__isHTMLStyleAttribute ? line : hardline);
       if (
-        (nodes[i + 1].type === "css-comment" &&
-          !hasNewline(options.originalText, locStart(nodes[i + 1]), {
-            backwards: true,
-          }) &&
-          !isFrontMatterNode(nodes[i])) ||
-        (nodes[i + 1].type === "css-atrule" &&
-          nodes[i + 1].name === "else" &&
-          nodes[i].type !== "css-comment")
+        isNextLineEmpty(options.originalText, node, locEnd) &&
+        !isFrontMatterNode(node)
       ) {
-        parts.push(" ");
-      } else {
-        parts.push(options.__isHTMLStyleAttribute ? line : hardline);
-        if (
-          isNextLineEmpty(options.originalText, pathChild.getValue(), locEnd) &&
-          !isFrontMatterNode(nodes[i])
-        ) {
-          parts.push(hardline);
-        }
+        parts.push(hardline);
       }
     }
   }, "nodes");

@@ -33,8 +33,14 @@ function printObject(path, options, print) {
   const { node } = path;
 
   const isTypeAnnotation = node.type === "ObjectTypeAnnotation";
+  const isEnumBody =
+    node.type === "TSEnumDeclaration" ||
+    node.type === "EnumBooleanBody" ||
+    node.type === "EnumNumberBody" ||
+    node.type === "EnumStringBody" ||
+    node.type === "EnumSymbolBody";
   const fields = [
-    node.type === "TSTypeLiteral"
+    node.type === "TSTypeLiteral" || isEnumBody
       ? "members"
       : node.type === "TSInterfaceBody"
       ? "body"
@@ -48,30 +54,30 @@ function printObject(path, options, print) {
   // interleaved in the source code. So we need to reorder them before
   // printing them.
   const propsAndLoc = fields.flatMap((field) =>
-    path.map((childPath) => {
-      const { node } = childPath;
-      return {
+    path.map(
+      ({ node }) => ({
         node,
         printed: print(),
         loc: locStart(node),
-      };
-    }, field)
+      }),
+      field
+    )
   );
 
   if (fields.length > 1) {
     propsAndLoc.sort((a, b) => a.loc - b.loc);
   }
 
-  const { parent } = path;
+  const { parent, key } = path;
   const isFlowInterfaceLikeBody =
     isTypeAnnotation &&
-    parent &&
+    key === "body" &&
     (parent.type === "InterfaceDeclaration" ||
       parent.type === "DeclareInterface" ||
-      parent.type === "DeclareClass") &&
-    path.getName() === "body";
+      parent.type === "DeclareClass");
   const shouldBreak =
     node.type === "TSInterfaceBody" ||
+    isEnumBody ||
     isFlowInterfaceLikeBody ||
     (node.type === "ObjectPattern" &&
       parent.type !== "FunctionDeclaration" &&
@@ -124,7 +130,7 @@ function printObject(path, options, print) {
     return result;
   });
 
-  if (node.inexact) {
+  if (node.inexact || node.hasUnknownMembers) {
     let printed;
     if (hasComment(node, CommentCheckFlags.Dangling)) {
       const hasLineComments = hasComment(node, CommentCheckFlags.Line);
@@ -151,6 +157,7 @@ function printObject(path, options, print) {
 
   const canHaveTrailingSeparator = !(
     node.inexact ||
+    node.hasUnknownMembers ||
     (lastElem &&
       (lastElem.type === "RestElement" ||
         ((lastElem.type === "TSPropertySignature" ||

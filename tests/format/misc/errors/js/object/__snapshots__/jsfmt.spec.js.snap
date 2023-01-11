@@ -44,7 +44,7 @@ exports[`getter-with-parameter.js [acorn] format 1`] = `
 `;
 
 exports[`getter-with-parameter.js [babel] format 1`] = `
-"A 'get' accesor must not have any formal parameters. (1:4)
+"A 'get' accessor must not have any formal parameters. (1:4)
 > 1 | ({ get x(a){} });
     |    ^
   2 |"
@@ -108,7 +108,7 @@ exports[`setter-without-parameter.js [acorn] format 1`] = `
 `;
 
 exports[`setter-without-parameter.js [babel] format 1`] = `
-"A 'set' accesor must have exactly one formal parameter. (1:4)
+"A 'set' accessor must have exactly one formal parameter. (1:4)
 > 1 | ({ set x(){} });
     |    ^
   2 |"

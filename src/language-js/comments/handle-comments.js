@@ -19,6 +19,7 @@ import {
   isObjectProperty,
   isLineComment,
   markerForIfWithoutBlockAndSameLineComment,
+  createTypeCheckFunction,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
@@ -444,6 +445,9 @@ const propertyLikeNodeTypes = new Set([
   "TSAbstractMethodDefinition",
   "TSDeclareMethod",
   "MethodDefinition",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractAccessorProperty",
 ]);
 function handleMethodNameComments({
   comment,
@@ -790,7 +794,9 @@ const assignmentLikeNodeTypes = new Set([
 ]);
 const complexExprNodeTypes = new Set([
   "ObjectExpression",
+  "RecordExpression",
   "ArrayExpression",
+  "TupleExpression",
   "TemplateLiteral",
   "TaggedTemplateExpression",
   "ObjectTypeAnnotation",
@@ -875,7 +881,9 @@ function handleSwitchDefaultCaseComments({
   if (
     !enclosingNode ||
     enclosingNode.type !== "SwitchCase" ||
-    enclosingNode.test
+    enclosingNode.test ||
+    !followingNode ||
+    followingNode !== enclosingNode.consequent[0]
   ) {
     return false;
   }
@@ -893,22 +901,20 @@ function handleSwitchDefaultCaseComments({
  * @param {Node} node
  * @returns {boolean}
  */
-function isRealFunctionLikeNode(node) {
-  return (
-    node.type === "ArrowFunctionExpression" ||
-    node.type === "FunctionExpression" ||
-    node.type === "FunctionDeclaration" ||
-    node.type === "ObjectMethod" ||
-    node.type === "ClassMethod" ||
-    node.type === "TSDeclareFunction" ||
-    node.type === "TSCallSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
-    node.type === "TSMethodSignature" ||
-    node.type === "TSConstructorType" ||
-    node.type === "TSFunctionType" ||
-    node.type === "TSDeclareMethod"
-  );
-}
+const isRealFunctionLikeNode = createTypeCheckFunction([
+  "ArrowFunctionExpression",
+  "FunctionExpression",
+  "FunctionDeclaration",
+  "ObjectMethod",
+  "ClassMethod",
+  "TSDeclareFunction",
+  "TSCallSignatureDeclaration",
+  "TSConstructSignatureDeclaration",
+  "TSMethodSignature",
+  "TSConstructorType",
+  "TSFunctionType",
+  "TSDeclareMethod",
+]);
 
 // TODO: Make this default behavior
 const avoidAstMutation = true;

@@ -1,4 +1,4 @@
-const parsers = ["babel", "babel-ts", "babel-flow"];
+const parsers = ["babel", "typescript", "babel-flow"];
 const errors = {
   espree: [
     "basic.js",
@@ -9,6 +9,7 @@ const errors = {
     "static.js",
     "with-semicolon-1.js",
     "with-semicolon-2.js",
+    "comments.js",
   ],
   acorn: [
     "basic.js",
@@ -19,6 +20,7 @@ const errors = {
     "static.js",
     "with-semicolon-1.js",
     "with-semicolon-2.js",
+    "comments.js",
   ],
 };
 run_spec(import.meta, parsers, { errors });

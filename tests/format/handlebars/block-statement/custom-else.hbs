@@ -106,3 +106,23 @@
 {{~else when anotherCondition~}}
   Another thing
 {{~/when~}}
+
+{{#when a as |b|}}
+  {{b}}
+{{else when c as |d|}}
+  {{d}}
+{{else when e as |f|}}
+  {{f}}
+{{else when g as |h|}}
+  {{h}}
+{{else}}
+  j
+{{/when}}
+
+{{#when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrst as |b|}}
+  {{b}}
+{{else when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnop as |d|}}
+  {{d}}
+{{else when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz as |f|}}
+  {{f}}
+{{/when}}

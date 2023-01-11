@@ -21,11 +21,20 @@ import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
 
+/*
+- `ClassDeclaration`
+- `ClassExpression`
+- `DeclareClass`(flow)
+*/
 function printClass(path, options, print) {
   const { node } = path;
   const parts = [];
 
-  if (node.declare) {
+  if (
+    node.declare ||
+    (node.type === "DeclareClass" &&
+      path.parent.type !== "DeclareExportDeclaration")
+  ) {
     parts.push("declare ");
   }
 
@@ -69,12 +78,12 @@ function printClass(path, options, print) {
       extendsParts.push(" ", printedWithComments);
     }
   } else {
-    extendsParts.push(printList(path, options, print, "extends"));
+    extendsParts.push(printHeritageClauses(path, options, print, "extends"));
   }
 
   extendsParts.push(
-    printList(path, options, print, "mixins"),
-    printList(path, options, print, "implements")
+    printHeritageClauses(path, options, print, "mixins"),
+    printHeritageClauses(path, options, print, "implements")
   );
 
   if (groupMode) {
@@ -119,7 +128,7 @@ function shouldIndentOnlyHeritageClauses(node) {
   );
 }
 
-function printList(path, options, print, listName) {
+function printHeritageClauses(path, options, print, listName) {
   const { node } = path;
   if (!isNonEmptyArray(node[listName])) {
     return "";
@@ -198,7 +207,11 @@ function printClassProperty(path, options, print) {
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractPropertyDefinition" || node.abstract) {
+  if (
+    node.type === "TSAbstractPropertyDefinition" ||
+    node.type === "TSAbstractAccessorProperty" ||
+    node.abstract
+  ) {
     parts.push("abstract ");
   }
   if (node.override) {
@@ -210,7 +223,11 @@ function printClassProperty(path, options, print) {
   if (node.variance) {
     parts.push(print("variance"));
   }
-  if (node.type === "ClassAccessorProperty") {
+  if (
+    node.type === "ClassAccessorProperty" ||
+    node.type === "AccessorProperty" ||
+    node.type === "TSAbstractAccessorProperty"
+  ) {
     parts.push("accessor ");
   }
   parts.push(
@@ -220,6 +237,10 @@ function printClassProperty(path, options, print) {
     printTypeAnnotation(path, options, print)
   );
 
+  const isAbstractProperty =
+    node.type === "TSAbstractPropertyDefinition" ||
+    node.type === "TSAbstractAccessorProperty";
+
   return [
     printAssignment(
       path,
@@ -227,7 +248,7 @@ function printClassProperty(path, options, print) {
       print,
       parts,
       " =",
-      node.type === "TSAbstractPropertyDefinition" ? undefined : "value"
+      isAbstractProperty ? undefined : "value"
     ),
     semi,
   ];

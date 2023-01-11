@@ -2,11 +2,11 @@ import fs from "node:fs";
 import camelCase from "camelcase";
 import { outdent } from "outdent";
 
+const PLACEHOLDER = "__PLACEHOLDER__";
 function getUmdWrapper({ name, interopDefault = false }, build) {
   const path = name.split(".");
   const { minify } = build.initialOptions;
   const temporaryName = minify ? "m" : camelCase(name);
-  const placeholder = "/*! bundled code !*/";
 
   let globalObjectText = [];
   for (let index = 0; index < path.length; index++) {
@@ -46,7 +46,7 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
         ${globalObjectText.trimStart()} = interopModuleDefault(factory);
       }
     })(function() {
-      "use strict";${placeholder}
+      "use strict";${PLACEHOLDER}
     });
   `;
 
@@ -54,9 +54,12 @@ function getUmdWrapper({ name, interopDefault = false }, build) {
     wrapper = build.esbuild
       .transformSync(wrapper, { loader: "js", minify })
       .code.trim();
+    if (!wrapper.includes(PLACEHOLDER)) {
+      throw new Error("Unexpected code");
+    }
   }
 
-  const [intro, outro] = wrapper.split(placeholder);
+  const [intro, outro] = wrapper.split(PLACEHOLDER);
 
   return {
     name: temporaryName,

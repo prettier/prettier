@@ -2,8 +2,8 @@ name: Dev_Package_Test
 
 on:
   schedule:
-    # “At 00:00 on Sunday.” https://crontab.guru/#0%C2%A00%C2%A0*%C2%A0*%C2%A00
-    - cron: "0 0 * * 0"
+    # “At 00:00 on Sunday.” https://crontab.guru/#0_0_*_*_SUN
+    - cron: "0 0 * * SUN"
   pull_request:
     paths:
       - "package.json"
@@ -21,6 +21,7 @@ concurrency:
 
 jobs:
   test:
+    if: github.event_name != 'schedule' || github.repository == 'prettier/prettier'
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -42,10 +43,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"

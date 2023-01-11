@@ -27,15 +27,15 @@ import {
   shouldPrintComma,
   startsWithNoLookaheadToken,
   isBinaryish,
-  isLineComment,
   hasComment,
-  getComments,
   CommentCheckFlags,
   isCallLikeExpression,
   isCallExpression,
   getCallArguments,
   hasNakedLeftSide,
   getLeftSide,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import { locEnd } from "../loc.js";
 import {
@@ -244,13 +244,12 @@ function printArrowChain(
   bodyDoc,
   tailNode
 ) {
-  const name = path.getName();
-  const { parent } = path;
-  const isCallee = isCallLikeExpression(parent) && name === "callee";
+  const { parent, key } = path;
+  const isCallee = isCallLikeExpression(parent) && key === "callee";
   const isAssignmentRhs = Boolean(args?.assignmentLayout);
   const shouldPutBodyOnSeparateLine =
     tailNode.body.type !== "BlockStatement" &&
-    tailNode.body.type !== "ObjectExpression" &&
+    !isObjectOrRecordExpression(tailNode.body) &&
     tailNode.body.type !== "SequenceExpression";
   const shouldBreakBeforeChain =
     (isCallee && shouldPutBodyOnSeparateLine) ||
@@ -335,8 +334,8 @@ function printArrowFunction(path, options, print, args) {
   // as the arrow.
   if (
     !hasLeadingOwnLineComment(options.originalText, node.body) &&
-    (node.body.type === "ArrayExpression" ||
-      node.body.type === "ObjectExpression" ||
+    (isArrayOrTupleExpression(node.body) ||
+      isObjectOrRecordExpression(node.body) ||
       node.body.type === "BlockStatement" ||
       isJsxNode(node.body) ||
       (body[0].label?.hug !== false &&
@@ -373,7 +372,10 @@ function printArrowFunction(path, options, print, args) {
   // a <= a ? a : a
   const shouldAddParens =
     node.body.type === "ConditionalExpression" &&
-    !startsWithNoLookaheadToken(node.body, /* forbidFunctionAndClass */ false);
+    !startsWithNoLookaheadToken(
+      node.body,
+      (node) => node.type === "ObjectExpression"
+    );
 
   return group([
     ...parts,
@@ -449,41 +451,43 @@ function printReturnOrThrowArgument(path, options, print) {
   const parts = [];
 
   if (node.argument) {
+    let argumentDoc = print("argument");
+
     if (returnArgumentHasLeadingComment(options, node.argument)) {
-      parts.push([" (", indent([hardline, print("argument")]), hardline, ")"]);
+      argumentDoc = ["(", indent([hardline, argumentDoc]), hardline, ")"];
     } else if (
       isBinaryish(node.argument) ||
       node.argument.type === "SequenceExpression"
     ) {
-      parts.push(
-        group([
-          ifBreak(" (", " "),
-          indent([softline, print("argument")]),
-          softline,
-          ifBreak(")"),
-        ])
-      );
-    } else {
-      parts.push(" ", print("argument"));
+      argumentDoc = group([
+        ifBreak("("),
+        indent([softline, argumentDoc]),
+        softline,
+        ifBreak(")"),
+      ]);
     }
+
+    parts.push(" ", argumentDoc);
   }
 
-  const comments = getComments(node);
-  const lastComment = comments.at(-1);
-  const isLastCommentLine = lastComment && isLineComment(lastComment);
+  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
+  const shouldPrintSemiBeforeComments =
+    semi &&
+    hasDanglingComments &&
+    hasComment(node, CommentCheckFlags.Last | CommentCheckFlags.Line);
 
-  if (isLastCommentLine) {
+  if (shouldPrintSemiBeforeComments) {
     parts.push(semi);
   }
 
-  if (hasComment(node, CommentCheckFlags.Dangling)) {
+  if (hasDanglingComments) {
     parts.push(
       " ",
       printDanglingComments(path, options, /* sameIndent */ true)
     );
   }
 
-  if (!isLastCommentLine) {
+  if (!shouldPrintSemiBeforeComments) {
     parts.push(semi);
   }
 

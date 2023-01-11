@@ -2,6 +2,12 @@
 
 exports[`visitor keys estree 1`] = `
 {
+  "AccessorProperty": [
+    "decorators",
+    "key",
+    "typeAnnotation",
+    "value",
+  ],
   "AnyTypeAnnotation": [],
   "ArgumentPlaceholder": [],
   "ArrayExpression": [
@@ -148,6 +154,10 @@ exports[`visitor keys estree 1`] = `
     "extends",
     "mixins",
     "implements",
+    "body",
+  ],
+  "DeclareEnum": [
+    "id",
     "body",
   ],
   "DeclareExportAllDeclaration": [
@@ -653,6 +663,11 @@ exports[`visitor keys estree 1`] = `
     "cases",
   ],
   "SymbolTypeAnnotation": [],
+  "TSAbstractAccessorProperty": [
+    "decorators",
+    "key",
+    "typeAnnotation",
+  ],
   "TSAbstractKeyword": [],
   "TSAbstractMethodDefinition": [
     "key",
