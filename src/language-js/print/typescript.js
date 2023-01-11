@@ -402,22 +402,14 @@ function printTypescript(path, options, print) {
         }
         parts.push(printTypeScriptModifiers(path, options, print));
 
-        const textBetweenNodeAndItsId = options.originalText.slice(
-          locStart(node),
-          locStart(node.id)
-        );
-
         // Global declaration looks like this:
         // (declare)? global { ... }
-        const isGlobalDeclaration =
-          node.id.type === "Identifier" &&
-          node.id.name === "global" &&
-          !/namespace|module/.test(textBetweenNodeAndItsId);
-
-        if (!isGlobalDeclaration) {
+        if (!node.global) {
           parts.push(
             isExternalModule ||
-              /(?:^|\s)module(?:\s|$)/.test(textBetweenNodeAndItsId)
+              /(?:^|\s)module(?:\s|$)/.test(
+                options.originalText.slice(locStart(node), locStart(node.id))
+              )
               ? "module "
               : "namespace "
           );
