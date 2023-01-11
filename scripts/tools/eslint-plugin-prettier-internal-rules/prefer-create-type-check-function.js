@@ -17,30 +17,86 @@ const isTypeAccess = (node, parameterName) => {
   );
 };
 
-const isTypeCheck = (node, parameterName) =>
+const isEqualCheck = (node) =>
   node.type === "BinaryExpression" &&
   node.operator === "===" &&
-  isTypeAccess(node.left, parameterName) &&
   node.right.type === "Literal" &&
   typeof node.right.value === "string";
-function getTypes(node, parameterName) {
-  if (isTypeCheck(node, parameterName)) {
+
+const isTypeIdentifierCheck = (node) =>
+  isEqualCheck(node) &&
+  node.left.type === "Identifier" &&
+  node.left.name === "type";
+
+const isTypeAccessCheck = (node, parameterName) =>
+  isEqualCheck(node) && isTypeAccess(node.left, parameterName);
+
+function getTypesFromNodeParameter(node, parameterName) {
+  if (isTypeAccessCheck(node, parameterName)) {
     return [node.right.value];
   }
 
   if (node.type === "LogicalExpression" && node.operator === "||") {
-    const left = getTypes(node.left, parameterName);
+    const left = getTypesFromNodeParameter(node.left, parameterName);
 
     if (!left) {
       return;
     }
-    const right = getTypes(node.right, parameterName);
+    const right = getTypesFromNodeParameter(node.right, parameterName);
 
     if (!right) {
       return;
     }
 
     return [...left, ...right];
+  }
+}
+
+function getTypesFromTypeParameter(node) {
+  if (isTypeIdentifierCheck(node)) {
+    return [node.right.value];
+  }
+
+  if (node.type === "LogicalExpression" && node.operator === "||") {
+    const left = getTypesFromTypeParameter(node.left);
+
+    if (!left) {
+      return;
+    }
+    const right = getTypesFromTypeParameter(node.right);
+
+    if (!right) {
+      return;
+    }
+
+    return [...left, ...right];
+  }
+}
+
+function getTypes(node, parameter) {
+  // `function(node) {}`
+  if (parameter.type === "Identifier") {
+    return getTypesFromNodeParameter(node, parameter.name);
+  }
+
+  // `function({type}) {}`
+  if (
+    parameter.type === "ObjectPattern" &&
+    parameter.properties.length === 1 &&
+    parameter.properties[0].type === "Property"
+  ) {
+    const [{ shorthand, computed, key, value }] = parameter.properties;
+
+    if (
+      shorthand &&
+      !computed &&
+      key.type === "Identifier" &&
+      key.name === "type" &&
+      value.type === "Identifier" &&
+      value.name === "type"
+    ) {
+      return getTypesFromTypeParameter(node);
+    }
   }
 }
 
@@ -57,7 +113,6 @@ function isTopLevelFunction(node) {
 const selector = [
   ":function",
   "[params.length=1]",
-  '[params.0.type="Identifier"]',
   "[async!=true]",
   "[generator!=true]",
 ].join("");
@@ -116,8 +171,9 @@ module.exports = {
           returnStatementArgument = body.body[0].argument;
         }
 
-        const parameterName = functionNode.params[0].name;
-        const types = getTypes(returnStatementArgument, parameterName);
+        const [parameter] = functionNode.params;
+        const types = getTypes(returnStatementArgument, parameter);
+
         if (!types) {
           return;
         }
