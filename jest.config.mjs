@@ -42,7 +42,8 @@ if (isProduction) {
 
 if (SKIP_TESTS_WITH_NEW_SYNTAX) {
   testPathIgnorePatterns.push(
-    "<rootDir>/tests/integration/__tests__/help-options.js"
+    "<rootDir>/tests/integration/__tests__/help-options.js",
+    "<rootDir>/tests/integration/__tests__/plugin-parsers.js"
   );
 }
 
