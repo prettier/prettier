@@ -382,7 +382,7 @@ Error: Comment "comment" was not printed. Please report this error!
 <Same as input>
 ```
 
-#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) with by [@fisker](https://github.com/fisker))
+#### Fix formatting for comments inside JSX attribute ([#14082](https://github.com/prettier/prettier/pull/14082) by [@fisker](https://github.com/fisker))
 
 <!-- prettier-ignore -->
 ```jsx
