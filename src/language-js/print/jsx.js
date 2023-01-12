@@ -239,6 +239,7 @@ function printJsxElementInternal(path, options, print) {
 
   /*
   `printJsxChildren` won't call `print` when child "isLiteral" (Maybe only `JSXText`?)
+  When the cursorNode is inside `cursor` won't get print.
   */
   if (
     isLiteral(options.cursorNode) &&
