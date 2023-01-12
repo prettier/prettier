@@ -35,10 +35,12 @@
         event.clearSelection();
         copyButton.classList.add(COPY_BUTTON_COPIED_CLASS_NAME);
         copyButton.setAttribute("aria-label", ARIA_LABEL_COPIED);
+        copyButton.disabled = true;
 
         setTimeout(() => {
           copyButton.classList.remove(COPY_BUTTON_COPIED_CLASS_NAME);
           copyButton.setAttribute("aria-label", ARIA_LABEL);
+          copyButton.disabled = false;
         }, 2000);
       }
     );
