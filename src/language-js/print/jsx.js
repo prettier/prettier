@@ -44,6 +44,7 @@ const isEmptyStringOrAnyLine = (doc) =>
  * @typedef {import("../../common/ast-path")} AstPath
  * @typedef {import("../types/estree").Node} Node
  * @typedef {import("../types/estree").JSXElement} JSXElement
+ * @typedef {import("../../document").Doc} Doc
  */
 
 // JSX expands children from the inside-out, instead of the outside-in.
@@ -245,6 +246,7 @@ function printJsxElementInternal(path, options, print) {
     isLiteral(options.cursorNode) &&
     node.children.includes(options.cursorNode)
   ) {
+    // @ts-expect-error
     content = [cursor, content, cursor];
   }
 
