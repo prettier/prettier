@@ -17,6 +17,7 @@ const {
     ifBreak,
     lineSuffixBoundary,
     join,
+    cursor,
   },
   utils: { willBreak },
 } = require("../../document/index.js");
@@ -232,9 +233,19 @@ function printJsxElementInternal(path, options, print) {
   // If there is text we use `fill` to fit as much onto each line as possible.
   // When there is no text (just tags and expressions) we use `group`
   // to output each on a separate line.
-  const content = containsText
+  let content = containsText
     ? fill(multilineChildren)
     : group(multilineChildren, { shouldBreak: true });
+
+  /*
+  `printJsxChildren` won't call `print` when child "isLiteral" (Maybe only `JSXText`?)
+  */
+  if (
+    isLiteral(options.cursorNode) &&
+    node.children.includes(options.cursorNode)
+  ) {
+    content = [cursor, content, cursor];
+  }
 
   if (isMdxBlock) {
     return content;
