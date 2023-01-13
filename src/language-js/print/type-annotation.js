@@ -318,7 +318,14 @@ function printTypeAnnotation(path, options, print) {
           node.type === "TSJSDocNonNullableType" ||
           node.type === "TSTypePredicate")
     ) ||
-    // Flow
+    /*
+    Flow
+
+    ```js
+    declare function foo(): void;
+                        ^^^^^^^^ `TypeAnnotation`
+    ```
+    */
     path.match(
       (node) => node.type === "TypeAnnotation",
       (node, key) => key === "typeAnnotation" && node.type === "Identifier",
