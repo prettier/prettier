@@ -3,7 +3,7 @@
 exports[`array-pattern.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 6
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -18,7 +18,7 @@ let []<|>: T = [];
 exports[`arrow-function-type.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 14
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -33,7 +33,7 @@ type foo = ()<|> => boolean;
 exports[`class-property.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 15
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -52,7 +52,7 @@ class A {
 exports[`function-return-type.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 12
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -67,7 +67,7 @@ function a()<|>: boolean {}
 exports[`identifier-1.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 5
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -82,7 +82,7 @@ let i<|>: T;
 exports[`identifier-2.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 6
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -97,7 +97,7 @@ let i:<|> T;
 exports[`identifier-3.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 5
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -112,7 +112,7 @@ let i<|>: T;
 exports[`method-signature.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 20
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -131,7 +131,7 @@ interface A {
 exports[`property-signature.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 18
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -150,7 +150,7 @@ interface A {
 exports[`rest.ts format 1`] = `
 ====================================options=====================================
 cursorOffset: 20
-parsers: ["typescript", "babel", "flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
