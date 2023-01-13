@@ -131,6 +131,8 @@ function printFlow(path, options, print) {
       return [
         name,
         printOptionalToken(path),
+        // `flow` doesn't wrap the `typeAnnotation` with `TypeAnnotation`, so the colon
+        // needs to be added separately.
         name ? ": " : "",
         print("typeAnnotation"),
       ];

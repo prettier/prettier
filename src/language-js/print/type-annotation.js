@@ -249,7 +249,7 @@ function printFunctionType(path, options, print) {
   );
 
   const returnTypeDoc = [];
-  // `flow` doesn't wrap the returnType a `TypeAnnotation`, so the colon
+  // `flow` doesn't wrap the `returnType` with `TypeAnnotation`, so the colon
   // needs to be added separately.
   if (node.type === "FunctionTypeAnnotation") {
     returnTypeDoc.push(
