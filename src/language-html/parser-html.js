@@ -410,7 +410,7 @@ module.exports = {
       normalizeAttributeName: true,
       allowHtmComponentClosingTags: true,
     }),
-    angular: createParser({ name: "angular" }),
+    angular: createParser({ name: "angular", canSelfClose: true }),
     vue: createParser({
       name: "vue",
       canSelfClose: true,
