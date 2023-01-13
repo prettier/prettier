@@ -9,7 +9,7 @@ import {
   ifBreak,
 } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
-import { locStart } from "../loc.js";
+import { hasSameLocStart } from "../loc.js";
 import {
   isSimpleType,
   isObjectType,
@@ -215,12 +215,13 @@ function printUnionType(path, options, print) {
   return group(shouldIndent ? indent(code) : code);
 }
 
-// `FunctionTypeAnnotation` is ambiguous:
-// declare function foo(a: B): void; OR
-// var A: (a: B) => void;
+/*
+`FunctionTypeAnnotation` is ambiguous:
+- `declare function foo(a: B): void;`
+- `var A: (a: B) => void;`
+*/
 function isFlowArrowFunctionTypeAnnotation(path) {
   const { node, parent } = path;
-  const parentParentParent = path.getParentNode(2);
   return (
     node.type === "FunctionTypeAnnotation" &&
     (isObjectTypePropertyAFunction(parent) ||
@@ -229,9 +230,9 @@ function isFlowArrowFunctionTypeAnnotation(path) {
           parent.type === "ObjectTypeInternalSlot") &&
           !parent.variance &&
           !parent.optional &&
-          locStart(parent) === locStart(node)) ||
+          hasSameLocStart(parent, node)) ||
         parent.type === "ObjectTypeCallProperty" ||
-        parentParentParent?.type === "DeclareFunction"
+        path.getParentNode(2)?.type === "DeclareFunction"
       ))
   );
 }
@@ -295,14 +296,17 @@ function printJSDocType(path, print, token) {
 }
 
 function printTypeAnnotation(path, options, print) {
-  const { node, key, parent } = path;
+  const { node } = path;
   const parts = [];
 
   if (
     // TypeScript
-    node.type === "TSTypeAnnotation" &&
-    (key === "returnType" || key === "typeAnnotation") &&
-    (parent.type === "TSFunctionType" || parent.type === "TSConstructorType")
+    path.match(
+      (node) => node.type === "TSTypeAnnotation",
+      (node, key) =>
+        (key === "returnType" || key === "typeAnnotation") &&
+        (node.type === "TSFunctionType" || node.type === "TSConstructorType")
+    )
   ) {
     if (
       !hasComment(node, CommentCheckFlags.leading | CommentCheckFlags.block)
@@ -311,11 +315,16 @@ function printTypeAnnotation(path, options, print) {
     }
     parts.push("=> ");
   } else if (
-    (path.node.type === "TSTypeAnnotation" &&
-      path.key === "typeAnnotation" &&
-      (path.parent.type === "TSJSDocNullableType" ||
-        path.parent.type === "TSJSDocNonNullableType" ||
-        path.parent.type === "TSTypePredicate")) ||
+    // TypeScript
+    path.match(
+      (node) => node.type === "TSTypeAnnotation",
+      (node, key) =>
+        key === "typeAnnotation" &&
+        (node.type === "TSJSDocNullableType" ||
+          node.type === "TSJSDocNonNullableType" ||
+          node.type === "TSTypePredicate")
+    ) ||
+    // Flow
     path.match(
       (node) => node.type === "TypeAnnotation",
       (node, key) => key === "typeAnnotation" && node.type === "Identifier",
