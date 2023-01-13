@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow-function-type.js format 1`] = `
+====================================options=====================================
+cursorOffset: 14
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type foo = () <|>=> boolean;
+
+=====================================output=====================================
+type foo = () <|>=> boolean;
+
+================================================================================
+`;
+
 exports[`declare-module-exports.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
