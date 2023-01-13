@@ -8,18 +8,27 @@ printWidth: 80
 =====================================input======================================
 <app-test/>
 <app-test />
+<app-test
+/>
 <img>
 <img/>
 <img />
+<img
+/>
 <div/>
 <div />
+<div
+/>
 
 =====================================output=====================================
 <app-test />
 <app-test />
+<app-test />
 <img />
 <img />
 <img />
+<img />
+<div />
 <div />
 <div />
 
