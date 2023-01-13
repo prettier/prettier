@@ -1,3 +1,3 @@
 interface A {
-	foo()<|>: T;
+  foo()<|>: T;
 }

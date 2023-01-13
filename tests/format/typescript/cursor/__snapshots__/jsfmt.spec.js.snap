@@ -111,13 +111,13 @@ let i<|>: T;
 
 exports[`method-signature.ts format 1`] = `
 ====================================options=====================================
-cursorOffset: 20
+cursorOffset: 21
 parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 interface A {
-	foo()<|>: T;
+  foo()<|>: T;
 }
 
 =====================================output=====================================
@@ -130,13 +130,13 @@ interface A {
 
 exports[`property-signature.ts format 1`] = `
 ====================================options=====================================
-cursorOffset: 18
+cursorOffset: 19
 parsers: ["typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 interface A {
-	foo<|>: T;
+  foo<|>: T;
 }
 
 =====================================output=====================================
