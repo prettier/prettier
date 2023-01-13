@@ -567,13 +567,13 @@ interface foo6 {
   /* foo */ new (/* baz */)/* bar */ : /* bat */ string;
 }
 
-type foo7 = /* foo */ (/* bar */)/* baz */ => void;
+type foo7 = /* foo */ (/* bar */) /* baz */ => void;
 
-type foo8 = /* foo */ (a: /* bar */ string)/* baz */ => void;
+type foo8 = /* foo */ (a: /* bar */ string) /* baz */ => void;
 
-let foo9: new (/* bar */)/* foo */ /* baz */ => string;
+let foo9: new (/* bar */) /* foo */ /* baz */ => string;
 
-let foo10: new (/* foo */ a: /* bar */ string)/* baz */ => string;
+let foo10: new (/* foo */ a: /* bar */ string) /* baz */ => string;
 
 abstract class Test {
   abstract foo12 /* foo */(a: /* bar */ string): /* baz */ void;

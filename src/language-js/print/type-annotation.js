@@ -16,7 +16,6 @@ import {
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   hasComment,
-  CommentCheckFlags,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -259,6 +258,7 @@ function printFunctionType(path, options, print) {
     );
   } else {
     returnTypeDoc.push(
+      " ",
       print(node.returnType ? "returnType" : "typeAnnotation")
     );
   }
@@ -296,7 +296,6 @@ function printJSDocType(path, print, token) {
 }
 
 function printTypeAnnotation(path, options, print) {
-  const { node } = path;
   const parts = [];
 
   if (
@@ -308,11 +307,6 @@ function printTypeAnnotation(path, options, print) {
         (node.type === "TSFunctionType" || node.type === "TSConstructorType")
     )
   ) {
-    if (
-      !hasComment(node, CommentCheckFlags.leading | CommentCheckFlags.block)
-    ) {
-      parts.push(" ");
-    }
     parts.push("=> ");
   } else if (
     // TypeScript
