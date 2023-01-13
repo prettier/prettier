@@ -14,7 +14,6 @@ import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printMethod } from "./function.js";
 import {
   printOptionalToken,
-  printTypeAnnotation,
   printDefiniteToken,
   printDeclareToken,
 } from "./misc.js";
@@ -230,7 +229,7 @@ function printClassProperty(path, options, print) {
     printPropertyKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotation(path, options, print)
+    node.typeAnnotation ? print("typeAnnotation") : ""
   );
 
   const isAbstractProperty =

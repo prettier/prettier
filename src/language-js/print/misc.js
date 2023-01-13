@@ -68,18 +68,6 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printTypeAnnotation(path, options, print) {
-  const { node, parent, key } = path;
-  if (!node.typeAnnotation) {
-    return "";
-  }
-
-  const isFunctionDeclarationIdentifier =
-    parent.type === "DeclareFunction" && key === "id";
-
-  return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
-}
-
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
@@ -105,7 +93,11 @@ function adjustClause(node, clause, forceSpace) {
 }
 
 function printRestSpread(path, options, print) {
-  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+  return [
+    "...",
+    print("argument"),
+    path.node.typeAnnotation ? print("typeAnnotation") : "",
+  ];
 }
 
 function printDirective(rawText, options) {
@@ -133,7 +125,6 @@ export {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printTypeAnnotation,
   printRestSpread,
   adjustClause,
   printDirective,

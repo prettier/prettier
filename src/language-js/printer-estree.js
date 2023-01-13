@@ -45,7 +45,6 @@ import { printTypescript } from "./print/typescript.js";
 import {
   printOptionalToken,
   printBindExpressionCallee,
-  printTypeAnnotation,
   adjustClause,
   printRestSpread,
   printDefiniteToken,
@@ -287,7 +286,7 @@ function printPathNoParens(path, options, print, args) {
         node.name,
         printOptionalToken(path),
         printDefiniteToken(path),
-        printTypeAnnotation(path, options, print),
+        print("typeAnnotation"),
       ];
 
     case "V8IntrinsicIdentifier":

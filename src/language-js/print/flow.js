@@ -17,6 +17,7 @@ import {
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
+  printTypeAnnotation,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -32,7 +33,6 @@ import {
 import { printBigInt } from "./literal.js";
 import {
   printOptionalToken,
-  printTypeAnnotation,
   printRestSpread,
   printDeclareToken,
 } from "./misc.js";
@@ -56,7 +56,7 @@ function printFlow(path, options, print) {
     case "DeclareModule":
       return ["declare module ", print("id"), " ", print("body")];
     case "DeclareModuleExports":
-      return ["declare module.exports", ": ", print("typeAnnotation"), semi];
+      return ["declare module.exports", print("typeAnnotation"), semi];
     case "DeclareVariable":
       return [printDeclareToken(path), "var ", print("id"), semi];
     case "DeclareExportDeclaration":
@@ -90,7 +90,7 @@ function printFlow(path, options, print) {
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
-      return print("typeAnnotation");
+      return printTypeAnnotation(path, options, print);
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
@@ -212,7 +212,7 @@ function printFlow(path, options, print) {
       return [
         "(",
         print("expression"),
-        printTypeAnnotation(path, options, print),
+        node.typeAnnotation ? print("typeAnnotation") : "",
         ")",
       ];
 

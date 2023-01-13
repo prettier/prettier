@@ -16,6 +16,7 @@ import {
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   hasComment,
+  CommentCheckFlags,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -214,51 +215,32 @@ function printUnionType(path, options, print) {
   return group(shouldIndent ? indent(code) : code);
 }
 
+// `FunctionTypeAnnotation` is ambiguous:
+// declare function foo(a: B): void; OR
+// var A: (a: B) => void;
+function isFlowArrowFunctionTypeAnnotation(path) {
+  const { node, parent } = path;
+  const parentParentParent = path.getParentNode(2);
+  return (
+    node.type === "FunctionTypeAnnotation" &&
+    (isObjectTypePropertyAFunction(parent) ||
+      !(
+        ((parent.type === "ObjectTypeProperty" ||
+          parent.type === "ObjectTypeInternalSlot") &&
+          !parent.variance &&
+          !parent.optional &&
+          locStart(parent) === locStart(node)) ||
+        parent.type === "ObjectTypeCallProperty" ||
+        parentParentParent?.type === "DeclareFunction"
+      ))
+  );
+}
+
 // `TSFunctionType` and `FunctionTypeAnnotation`
 function printFunctionType(path, options, print) {
   const { node } = path;
-  const parts = [];
-  // FunctionTypeAnnotation is ambiguous:
-  // declare function foo(a: B): void; OR
-  // var A: (a: B) => void;
-  const { parent } = path;
-  const parentParent = path.grandparent;
-  const parentParentParent = path.getParentNode(2);
-  let isArrowFunctionTypeAnnotation =
-    node.type === "TSFunctionType" ||
-    !(
-      ((parent.type === "ObjectTypeProperty" ||
-        parent.type === "ObjectTypeInternalSlot") &&
-        !parent.variance &&
-        !parent.optional &&
-        locStart(parent) === locStart(node)) ||
-      parent.type === "ObjectTypeCallProperty" ||
-      parentParentParent?.type === "DeclareFunction"
-    );
 
-  let needsColon =
-    isArrowFunctionTypeAnnotation &&
-    (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation");
-
-  // Sadly we can't put it inside of AstPath::needsColon because we are
-  // printing ":" as part of the expression and it would put parenthesis
-  // around :(
-  const needsParens =
-    needsColon &&
-    isArrowFunctionTypeAnnotation &&
-    (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation") &&
-    parentParent.type === "ArrowFunctionExpression";
-
-  if (isObjectTypePropertyAFunction(parent)) {
-    isArrowFunctionTypeAnnotation = true;
-    needsColon = true;
-  }
-
-  if (needsParens) {
-    parts.push("(");
-  }
-
-  const parametersDoc = printFunctionParameters(
+  let parametersDoc = printFunctionParameters(
     path,
     print,
     options,
@@ -266,34 +248,25 @@ function printFunctionType(path, options, print) {
     /* printTypeParams */ true
   );
 
-  // The returnType is not wrapped in a TypeAnnotation, so the colon
+  const returnTypeDoc = [];
+  // `flow` doesn't wrap the returnType a `TypeAnnotation`, so the colon
   // needs to be added separately.
-  const returnTypeDoc =
-    node.returnType || node.predicate || node.typeAnnotation
-      ? [
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
-          node.returnType ? print("returnType") : "",
-          node.predicate ? print("predicate") : "",
-          node.typeAnnotation ? print("typeAnnotation") : "",
-        ]
-      : "";
-
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc
-  );
-
-  parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
-
-  if (returnTypeDoc) {
-    parts.push(returnTypeDoc);
+  if (node.type === "FunctionTypeAnnotation") {
+    returnTypeDoc.push(
+      isFlowArrowFunctionTypeAnnotation(path) ? " => " : ": ",
+      print("returnType")
+    );
+  } else {
+    returnTypeDoc.push(
+      print(node.returnType ? "returnType" : "typeAnnotation")
+    );
   }
 
-  if (needsParens) {
-    parts.push(")");
+  if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
+    parametersDoc = group(parametersDoc);
   }
 
-  return group(parts);
+  return group([parametersDoc, returnTypeDoc]);
 }
 
 /*
@@ -321,6 +294,43 @@ function printJSDocType(path, print, token) {
   ];
 }
 
+function printTypeAnnotation(path, options, print) {
+  const { node, key, parent } = path;
+  const parts = [];
+
+  if (
+    // TypeScript
+    node.type === "TSTypeAnnotation" &&
+    (key === "returnType" || key === "typeAnnotation") &&
+    (parent.type === "TSFunctionType" || parent.type === "TSConstructorType")
+  ) {
+    if (
+      !hasComment(node, CommentCheckFlags.leading | CommentCheckFlags.block)
+    ) {
+      parts.push(" ");
+    }
+    parts.push("=> ");
+  } else if (
+    (path.node.type === "TSTypeAnnotation" &&
+      path.key === "typeAnnotation" &&
+      (path.parent.type === "TSJSDocNullableType" ||
+        path.parent.type === "TSJSDocNonNullableType" ||
+        path.parent.type === "TSTypePredicate")) ||
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) => key === "typeAnnotation" && node.type === "Identifier",
+      (node, key) => key === "id" && node.type === "DeclareFunction"
+    )
+  ) {
+    // No op
+  } else {
+    parts.push(": ");
+  }
+
+  parts.push(print("typeAnnotation"));
+  return parts;
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -330,4 +340,5 @@ export {
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
+  printTypeAnnotation,
 };

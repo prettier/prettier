@@ -152,7 +152,7 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
-    parts.push(": ", print("bound"));
+    parts.push(print("bound"));
   }
 
   if (node.constraint) {

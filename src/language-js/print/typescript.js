@@ -44,6 +44,7 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printJSDocType,
+  printTypeAnnotation,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printDeclareToken } from "./misc.js";
@@ -167,12 +168,9 @@ function printTypescript(path, options, print) {
 
       parts.push(
         printPropertyKey(path, options, print),
-        printOptionalToken(path)
+        printOptionalToken(path),
+        print("typeAnnotation")
       );
-
-      if (node.typeAnnotation) {
-        parts.push(": ", print("typeAnnotation"));
-      }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
       if (node.initializer) {
@@ -232,8 +230,8 @@ function printTypescript(path, options, print) {
         printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
-        node.typeAnnotation ? "]: " : "]",
-        node.typeAnnotation ? print("typeAnnotation") : "",
+        "]",
+        print("typeAnnotation"),
         parent.type === "ClassBody" ? semi : "",
       ];
     }
@@ -281,12 +279,7 @@ function printTypescript(path, options, print) {
       );
 
       if (node.returnType || node.typeAnnotation) {
-        const isType = node.type === "TSConstructorType";
-        parts.push(
-          isType ? " => " : ": ",
-          print("returnType"),
-          print("typeAnnotation")
-        );
+        parts.push(print("returnType"), print("typeAnnotation"));
       }
       return parts;
 
@@ -350,7 +343,7 @@ function printTypescript(path, options, print) {
       parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 
       if (returnTypeNode) {
-        parts.push(": ", group(returnTypeDoc));
+        parts.push(group(returnTypeDoc));
       }
 
       return group(parts);
@@ -449,7 +442,7 @@ function printTypescript(path, options, print) {
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSTypeAnnotation":
-      return print("typeAnnotation");
+      return printTypeAnnotation(path, options, print);
     case "TSEmptyBodyFunctionExpression":
       return printMethodInternal(path, options, print);
 
