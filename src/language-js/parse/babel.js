@@ -7,6 +7,9 @@ import createParser from "./utils/create-parser.js";
 import createBabelParseError from "./utils/create-babel-parse-error.js";
 import postprocess from "./postprocess/index.js";
 import getSourceType from "./utils/get-source-type.js";
+import wrapBabelExpression from "./utils/wrap-babel-expression.js";
+
+const createBabelParser = (options) => createParser(createParse(options));
 
 /**
  * @typedef {import("@babel/parser").parse | import("@babel/parser").parseExpression} Parse
@@ -98,14 +101,14 @@ function parseWithOptions(parse, text, options) {
   return ast;
 }
 
-function createParse(parseMethod, ...optionsCombinations) {
+function createParse({ isExpression = false, optionsCombinations }) {
   return async (text, opts = {}) => {
     if (
       (opts.parser === "babel" || opts.parser === "__babel_estree") &&
       isFlowFile(text, opts)
     ) {
       opts.parser = "babel-flow";
-      return parseFlow(text, opts);
+      return babelFlow.parse(text, opts);
     }
 
     let combinations = optionsCombinations;
@@ -144,9 +147,8 @@ function createParse(parseMethod, ...optionsCombinations) {
       "@babel/parser"
     );
     /** @type {Parse} */
-    const parseFunction =
-      parseMethod === "parseExpression" ? parseExpression : babelParse;
-    const { result: ast, error } = tryCombinations(
+    const parseFunction = isExpression ? parseExpression : babelParse;
+    let { result: ast, error } = tryCombinations(
       combinations.map(
         (options) => () => parseWithOptions(parseFunction, text, options)
       )
@@ -157,30 +159,14 @@ function createParse(parseMethod, ...optionsCombinations) {
     }
 
     opts.originalText = text;
+
+    if (isExpression) {
+      ast = wrapBabelExpression(ast, opts);
+    }
+
     return postprocess(ast, opts);
   };
 }
-
-const parse = createParse("parse", appendPlugins(["jsx", "flow"]));
-const parseFlow = createParse(
-  "parse",
-  appendPlugins(["jsx", ["flow", { all: true, enums: true }], "flowComments"])
-);
-const parseTypeScript = createParse(
-  "parse",
-  appendPlugins(["jsx", "typescript"]),
-  appendPlugins(["typescript"])
-);
-const parseEstree = createParse(
-  "parse",
-  appendPlugins(["jsx", "flow", "estree"])
-);
-const parseExpression = createParse("parseExpression", appendPlugins(["jsx"]));
-
-const parseTSExpression = createParse(
-  "parseExpression",
-  appendPlugins(["typescript"])
-);
 
 // Error codes are defined in
 //  - https://github.com/babel/babel/blob/v7.14.0/packages/babel-parser/src/parser/error-message.js
@@ -234,16 +220,42 @@ const allowedMessageCodes = new Set([
   "DuplicateExport",
 ]);
 
-const babel = createParser(parse);
-const babelTs = createParser(parseTypeScript);
-const babelExpression = createParser(parseExpression);
-const babelTSExpression = createParser(parseTSExpression);
+const babel = createBabelParser({
+  optionsCombinations: [appendPlugins(["jsx", "flow"])],
+});
+const babelTs = createBabelParser({
+  optionsCombinations: [
+    appendPlugins(["jsx", "typescript"]),
+    appendPlugins(["typescript"]),
+  ],
+});
+const babelExpression = createBabelParser({
+  isExpression: true,
+  optionsCombinations: [appendPlugins(["jsx"])],
+});
+const babelTSExpression = createBabelParser({
+  isExpression: true,
+  optionsCombinations: [appendPlugins(["typescript"])],
+});
+
+const babelFlow = createBabelParser({
+  optionsCombinations: [
+    appendPlugins([
+      "jsx",
+      ["flow", { all: true, enums: true }],
+      "flowComments",
+    ]),
+  ],
+});
+const babelEstree = createBabelParser({
+  optionsCombinations: [appendPlugins(["jsx", "flow", "estree"])],
+});
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 const parser = {
   parsers: {
     babel,
-    "babel-flow": createParser(parseFlow),
+    "babel-flow": babelFlow,
     "babel-ts": babelTs,
     ...jsonParsers,
     /** @internal */
@@ -257,7 +269,7 @@ const parser = {
     /** for vue event binding written in TS to handle semicolon */
     __vue_ts_event_binding: babelTs,
     /** verify that we can print this AST */
-    __babel_estree: createParser(parseEstree),
+    __babel_estree: babelEstree,
   },
 };
 

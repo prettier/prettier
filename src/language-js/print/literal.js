@@ -1,5 +1,6 @@
 import { printString, printNumber } from "../../common/util.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import { printDirective } from "./misc.js";
 
 function printLiteral(path, options /*, print*/) {
   const { node } = path;
@@ -39,12 +40,22 @@ function printLiteral(path, options /*, print*/) {
       }
 
       if (typeof value === "string") {
-        return replaceEndOfLine(printString(node.raw, options));
+        return isDirective(path)
+          ? printDirective(node.raw, options)
+          : replaceEndOfLine(printString(node.raw, options));
       }
-
       return String(value);
     }
   }
+}
+
+function isDirective(path) {
+  if (path.key !== "expression") {
+    return;
+  }
+
+  const { parent } = path;
+  return parent.type === "ExpressionStatement" && parent.directive;
 }
 
 function printBigInt(raw) {

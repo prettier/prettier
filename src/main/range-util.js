@@ -132,6 +132,7 @@ function isJsSourceElement(type, parentType) {
 }
 
 const jsonSourceElements = new Set([
+  "JsonRoot",
   "ObjectExpression",
   "ArrayExpression",
   "StringLiteral",

@@ -340,6 +340,232 @@ test("prefer-ast-path-each", {
   ],
 });
 
+test("prefer-create-type-check-function", {
+  valid: [
+    'node.type === "Identifier"',
+    'node.type === "Identifier" || node.type === "FunctionExpression"',
+    "const isIdentifier = node => {}",
+    'const isIdentifier = async node => node.type === "Identifier"',
+    outdent`
+      function * isIdentifier(node){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      async function isIdentifier(node){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      async function * isIdentifier(node){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return;
+      }
+    `,
+    outdent`
+      function isIdentifier(node, extraParameter){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier({node}){
+        return node.type === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type === "Identifier" && node.type === "FunctionExpression";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type === Identifier;
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type !== "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node[type] === "Identifier";
+      }
+    `,
+    outdent`
+      function isIdentifier(node){
+        return node.type === "Identifier" || node.type === "FunctionExpression" || notTypeChecking();
+      }
+    `,
+    {
+      code: 'const isIdentifier = node => node.type === "Identifier";',
+      options: [{ ignoreSingleType: true }],
+    },
+    {
+      code: outdent`
+        function foo() {
+          use(node => node.type === "Identifier" || node.type === "FunctionExpression");
+        }
+      `,
+      options: [{ onlyTopLevelFunctions: true }],
+    },
+    outdent`
+      function isGetterOrSetter(node) {
+        return node.kind === "get" || node.kind === "set";
+      }
+    `,
+    outdent`
+      const isClassProperty = ({ notType }) =>
+        notType === "ClassProperty" ||
+        notType === "PropertyDefinition";
+    `,
+  ],
+  invalid: [
+    {
+      code: outdent`
+        function isIdentifier(node) {
+          return node.type === "Identifier";
+        }
+      `,
+      output: outdent`
+        const isIdentifier = createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        export default function isIdentifier(node) {
+          return node.type === "Identifier";
+        }
+      `,
+      output: outdent`
+        const isIdentifier = createTypeCheckFunction([
+          "Identifier"
+        ]);
+        export default isIdentifier;
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        export default function (node) {
+          return node.type === "Identifier";
+        }
+      `,
+      output: outdent`
+        const __please_name_this_function = createTypeCheckFunction([
+          "Identifier"
+        ]);
+        export default __please_name_this_function;
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        use(function isIdentifier(node) {
+          return node.type === "Identifier";
+        })
+      `,
+      output: outdent`
+        use(createTypeCheckFunction([
+          "Identifier"
+        ]))
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node => node.type === "Identifier";
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node => {
+          return node.type === "Identifier";
+        };
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node =>
+          node.type === "Identifier" || node.type === "FunctionExpression";
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier",
+          "FunctionExpression"
+        ]);
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const foo = node =>
+          node.type === "Identifier" || node?.type === "FunctionExpression";
+      `,
+      output: outdent`
+        const foo = createTypeCheckFunction([
+          "Identifier",
+          "FunctionExpression"
+        ]);
+      `,
+      errors: 1,
+    },
+    // Skip fix if comments inside
+    {
+      code: outdent`
+        const foo = node =>
+          node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
+      `,
+      output: outdent`
+        const foo = node =>
+          node.type === "Identifier" || /* comment */ node.type === "FunctionExpression";
+      `,
+      errors: 1,
+    },
+    {
+      code: outdent`
+        const isClassProperty = ({ type }) =>
+          type === "ClassProperty" ||
+          type === "PropertyDefinition";
+      `,
+      output: outdent`
+        const isClassProperty = createTypeCheckFunction([
+          "ClassProperty",
+          "PropertyDefinition"
+        ]);
+      `,
+      errors: 1,
+    },
+  ].map((testCase) => ({
+    ...testCase,
+    parserOptions: { sourceType: "module" },
+  })),
+});
+
 test("prefer-indent-if-break", {
   valid: [
     "ifBreak(indent(doc))",
@@ -712,6 +938,20 @@ test("prefer-ast-path-getters", {
         {
           message:
             "Prefer `AstPath#grandparent` over `AstPath#getParentNode(1)`.",
+        },
+      ],
+    },
+    {
+      code: "path.getName()",
+      output: "path.getName()",
+      errors: [
+        {
+          message:
+            "Prefer `AstPath#key` or `AstPath#index` over `AstPath#getName()`.",
+          suggestions: [
+            { desc: "Use `AstPath#key`.", output: "path.key" },
+            { desc: "Use `AstPath#index`.", output: "path.index" },
+          ],
         },
       ],
     },

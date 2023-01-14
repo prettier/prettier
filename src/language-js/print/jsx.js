@@ -11,7 +11,7 @@ import {
   lineSuffixBoundary,
   join,
 } from "../../document/builders.js";
-import { willBreak } from "../../document/utils.js";
+import { willBreak, replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
 import { getPreferredQuote } from "../../common/util.js";
@@ -25,6 +25,8 @@ import {
   hasComment,
   CommentCheckFlags,
   hasNodeIgnoreComment,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import pathNeedsParens from "../needs-parens.js";
 import { willPrintOwnComments } from "../comments/printer-methods.js";
@@ -408,26 +410,23 @@ function separatorWithWhitespace(
   return hardline;
 }
 
+const NO_WRAP_PARENTS = new Set([
+  "ArrayExpression",
+  "TupleExpression",
+  "JSXAttribute",
+  "JSXElement",
+  "JSXExpressionContainer",
+  "JSXFragment",
+  "ExpressionStatement",
+  "CallExpression",
+  "OptionalCallExpression",
+  "ConditionalExpression",
+  "JsExpressionRoot",
+]);
 function maybeWrapJsxElementInParens(path, elem, options) {
   const { parent } = path;
-  /* c8 ignore next 3 */
-  if (!parent) {
-    return elem;
-  }
 
-  const NO_WRAP_PARENTS = {
-    ArrayExpression: true,
-    JSXAttribute: true,
-    JSXElement: true,
-    JSXExpressionContainer: true,
-    JSXFragment: true,
-    ExpressionStatement: true,
-    CallExpression: true,
-    OptionalCallExpression: true,
-    ConditionalExpression: true,
-    JsExpressionRoot: true,
-  };
-  if (NO_WRAP_PARENTS[parent.type]) {
+  if (NO_WRAP_PARENTS.has(parent.type)) {
     return elem;
   }
 
@@ -471,7 +470,11 @@ function printJsxAttribute(path, options, print) {
         options.jsxSingleQuote ? "'" : '"'
       );
       final = final.replace(regex, escaped);
-      res = [quote, final, quote];
+      res = path.call(
+        () =>
+          printComments(path, replaceEndOfLine(quote + final + quote), options),
+        "value"
+      );
     } else {
       res = print("value");
     }
@@ -487,8 +490,8 @@ function printJsxExpressionContainer(path, options, print) {
   const shouldInline = (node, parent) =>
     node.type === "JSXEmptyExpression" ||
     (!hasComment(node) &&
-      (node.type === "ArrayExpression" ||
-        node.type === "ObjectExpression" ||
+      (isArrayOrTupleExpression(node) ||
+        isObjectOrRecordExpression(node) ||
         node.type === "ArrowFunctionExpression" ||
         (node.type === "AwaitExpression" &&
           (shouldInline(node.argument, node) ||
@@ -681,19 +684,18 @@ function printJsxEmptyExpression(path, options /*, print*/) {
 }
 
 // `JSXSpreadAttribute` and `JSXSpreadChild`
-function printJsxSpreadAttribute(path, options, print) {
+function printJsxSpreadAttributeOrChild(path, options, print) {
   const { node } = path;
   return [
     "{",
     path.call(
-      (p) => {
+      ({ node }) => {
         const printed = ["...", print()];
-        const node = p.getValue();
-        if (!hasComment(node) || !willPrintOwnComments(p)) {
+        if (!hasComment(node) || !willPrintOwnComments(path)) {
           return printed;
         }
         return [
-          indent([softline, printComments(p, printed, options)]),
+          indent([softline, printComments(path, printed, options)]),
           softline,
         ];
       },
@@ -715,18 +717,14 @@ function printJsx(path, options, print) {
     case "JSXAttribute":
       return printJsxAttribute(path, options, print);
     case "JSXIdentifier":
-      return String(node.name);
+      return node.name;
     case "JSXNamespacedName":
       return join(":", [print("namespace"), print("name")]);
     case "JSXMemberExpression":
       return join(".", [print("object"), print("property")]);
     case "JSXSpreadAttribute":
-      return printJsxSpreadAttribute(path, options, print);
-    case "JSXSpreadChild": {
-      // Same as `printJsxSpreadAttribute`
-      const printJsxSpreadChild = printJsxSpreadAttribute;
-      return printJsxSpreadChild(path, options, print);
-    }
+    case "JSXSpreadChild":
+      return printJsxSpreadAttributeOrChild(path, options, print);
     case "JSXExpressionContainer":
       return printJsxExpressionContainer(path, options, print);
     case "JSXFragment":
@@ -743,7 +741,7 @@ function printJsx(path, options, print) {
       return printJsxEmptyExpression(path, options /*, print*/);
     case "JSXText":
       /* c8 ignore next */
-      throw new Error("JSXTest should be handled by JSXElement");
+      throw new Error("JSXText should be handled by JSXElement");
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "JSX");
@@ -817,15 +815,16 @@ function isJsxWhitespaceExpression(node) {
  */
 function hasJsxIgnoreComment(path) {
   const { node, parent } = path;
-  if (!parent || !node || !isJsxNode(node) || !isJsxNode(parent)) {
+  if (!isJsxNode(node) || !isJsxNode(parent)) {
     return false;
   }
 
+  // TODO: Use `Array#findLast` when we drop support for Node.js<18
   // Lookup the previous sibling, ignoring any empty JSXText elements
-  const { index } = path;
-  let prevSibling = null;
+  const { index, siblings } = path;
+  let prevSibling;
   for (let i = index; i > 0; i--) {
-    const candidate = parent.children[i - 1];
+    const candidate = siblings[i - 1];
     if (candidate.type === "JSXText" && !isMeaningfulJsxText(candidate)) {
       continue;
     }

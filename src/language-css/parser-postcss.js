@@ -118,23 +118,6 @@ async function parseValueNode(valueNode, options) {
       parenGroupStack.pop();
       parenGroup = parenGroupStack.at(-1);
     } else if (node.type === "comma") {
-      if (commaGroup.groups.length > 1) {
-        for (const group of commaGroup.groups) {
-          // if css interpolation
-          if (
-            group.value &&
-            typeof group.value === "string" &&
-            group.value.includes("#{")
-          ) {
-            commaGroup.groups = [
-              stringifyNode({
-                groups: commaGroup.groups,
-              }).trim(),
-            ];
-            break;
-          }
-        }
-      }
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
@@ -544,13 +527,21 @@ async function parseNestedCSS(node, options) {
           node.params?.[0] === ":"
         ) {
           node.variable = true;
-          node.value = await parseValue(node.params.slice(1), options);
+          const text = node.params.slice(1);
+          if (text) {
+            node.value = await parseValue(text, options);
+          }
           node.raws.afterName += ":";
         }
 
         // Less variable
         if (node.variable) {
           delete node.params;
+
+          if (!node.value) {
+            delete node.value;
+          }
+
           return node;
         }
       }

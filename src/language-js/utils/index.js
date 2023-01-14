@@ -166,6 +166,24 @@ const isLiteral = createTypeCheckFunction([
  * @param {Node} node
  * @returns {boolean}
  */
+const isArrayOrTupleExpression = createTypeCheckFunction([
+  "ArrayExpression",
+  "TupleExpression",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isObjectOrRecordExpression = createTypeCheckFunction([
+  "ObjectExpression",
+  "RecordExpression",
+]);
+
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
 function isNumericLiteral(node) {
   return (
     node.type === "NumericLiteral" ||
@@ -406,8 +424,8 @@ function isUnitTestSetUp(node) {
   const unitTestSetUpRe = /^(?:before|after)(?:Each|All)$/;
   return (
     node.callee.type === "Identifier" &&
-    unitTestSetUpRe.test(node.callee.name) &&
-    node.arguments.length === 1
+    node.arguments.length === 1 &&
+    unitTestSetUpRe.test(node.callee.name)
   );
 }
 
@@ -702,14 +720,13 @@ function isFunctionCompositionArgs(args) {
  * @returns {boolean}
  */
 function isLongCurriedCallExpression(path) {
-  const { node } = path;
-  const { parent } = path;
+  const { node, parent, key } = path;
   return (
+    key === "callee" &&
     isCallExpression(node) &&
     isCallExpression(parent) &&
-    parent.callee === node &&
-    node.arguments.length > parent.arguments.length &&
-    parent.arguments.length > 0
+    parent.arguments.length > 0 &&
+    node.arguments.length > parent.arguments.length
   );
 }
 
@@ -757,13 +774,13 @@ function isSimpleCallArgument(node, depth = 2) {
     );
   }
 
-  if (node.type === "ObjectExpression") {
+  if (isObjectOrRecordExpression(node)) {
     return node.properties.every(
       (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
 
-  if (node.type === "ArrayExpression") {
+  if (isArrayOrTupleExpression(node)) {
     return node.elements.every((x) => x === null || isChildSimple(x));
   }
 
@@ -1184,11 +1201,10 @@ const markerForIfWithoutBlockAndSameLineComment = Symbol(
   "ifWithoutBlockAndSameLineComment"
 );
 
-function isTSTypeExpression(node) {
-  return (
-    node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
-  );
-}
+const isTSTypeExpression = createTypeCheckFunction([
+  "TSAsExpression",
+  "TSSatisfiesExpression",
+]);
 
 export {
   getFunctionParameters,
@@ -1251,4 +1267,7 @@ export {
   CommentCheckFlags,
   markerForIfWithoutBlockAndSameLineComment,
   isTSTypeExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
+  createTypeCheckFunction,
 };

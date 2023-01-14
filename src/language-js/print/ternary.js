@@ -1,10 +1,10 @@
 import { hasNewlineInRange } from "../../common/util.js";
 import {
   isJsxNode,
-  getComments,
   isCallExpression,
   isMemberExpression,
   isTSTypeExpression,
+  hasComment,
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 import isBlockComment from "../utils/is-block-comment.js";
@@ -300,21 +300,21 @@ function printTernary(path, options, print) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
-  const comments = [
-    ...testNodePropertyNames.map((propertyName) =>
-      getComments(node[propertyName])
-    ),
-    getComments(consequentNode),
-    getComments(alternateNode),
-  ].flat();
-  const shouldBreak = comments.some(
-    (comment) =>
-      isBlockComment(comment) &&
-      hasNewlineInRange(
-        options.originalText,
-        locStart(comment),
-        locEnd(comment)
-      )
+  const shouldBreak = [
+    consequentNodePropertyName,
+    alternateNodePropertyName,
+    ...testNodePropertyNames,
+  ].some((property) =>
+    hasComment(
+      node[property],
+      (comment) =>
+        isBlockComment(comment) &&
+        hasNewlineInRange(
+          options.originalText,
+          locStart(comment),
+          locEnd(comment)
+        )
+    )
   );
   const maybeGroup = (doc) =>
     parent === firstNonConditionalParent

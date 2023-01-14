@@ -22,7 +22,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printDeclareToken } from "./misc.js";
+import { printOptionalToken, printDeclareToken } from "./misc.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -302,10 +302,13 @@ function printFunctionType(path, options, print) {
 - `OptionalIndexedAccessType`(flow)
 */
 function printIndexedAccessType(path, options, print) {
-  const { node } = path;
-  const leftDelimiter =
-    node.type === "OptionalIndexedAccessType" && node.optional ? "?.[" : "[";
-  return [print("objectType"), leftDelimiter, print("indexType"), "]"];
+  return [
+    print("objectType"),
+    printOptionalToken(path),
+    "[",
+    print("indexType"),
+    "]",
+  ];
 }
 
 // `TSJSDocNullableType`, `TSJSDocNonNullableType`

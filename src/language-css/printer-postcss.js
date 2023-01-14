@@ -87,7 +87,10 @@ function genericPrint(path, options, print) {
       return [node.raw, hardline];
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
-      const after = node.raws.after.trim();
+      let after = node.raws.after.trim();
+      if (after.startsWith(";")) {
+        after = after.slice(1).trim();
+      }
 
       return [
         node.frontMatter ? [print("frontMatter"), hardline] : "",
@@ -144,7 +147,11 @@ function genericPrint(path, options, print) {
 
       return [
         node.raws.before.replaceAll(/[\s;]/g, ""),
-        insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
+        // Less variable
+        (parentNode.type === "css-atrule" && parentNode.variable) ||
+        insideICSSRuleNode(path)
+          ? node.prop
+          : maybeToLowerCase(node.prop),
         trimmedBetween.startsWith("//") ? " " : "",
         trimmedBetween,
         node.extend || isValueAllSpace ? "" : " ",
@@ -537,6 +544,7 @@ function genericPrint(path, options, print) {
 
       let insideSCSSInterpolationInString = false;
       let didBreak = false;
+
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
@@ -584,20 +592,20 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
-        const isStartSCSSInterpolationInString =
-          iNode.type === "value-string" && iNode.value.startsWith("#{");
-        const isEndingSCSSInterpolationInString =
-          insideSCSSInterpolationInString &&
-          iNextNode.type === "value-string" &&
-          iNextNode.value.endsWith("}");
-
-        if (
-          isStartSCSSInterpolationInString ||
-          isEndingSCSSInterpolationInString
-        ) {
-          insideSCSSInterpolationInString = !insideSCSSInterpolationInString;
-
-          continue;
+        if (iNode.type === "value-string" && iNode.quoted) {
+          const positionOfOpeningInterpolation = iNode.value.lastIndexOf("#{");
+          const positionOfClosingInterpolation = iNode.value.lastIndexOf("}");
+          if (
+            positionOfOpeningInterpolation !== -1 &&
+            positionOfClosingInterpolation !== -1
+          ) {
+            insideSCSSInterpolationInString =
+              positionOfOpeningInterpolation > positionOfClosingInterpolation;
+          } else if (positionOfOpeningInterpolation !== -1) {
+            insideSCSSInterpolationInString = true;
+          } else if (positionOfClosingInterpolation !== -1) {
+            insideSCSSInterpolationInString = false;
+          }
         }
 
         if (insideSCSSInterpolationInString) {
@@ -610,7 +618,26 @@ function genericPrint(path, options, print) {
         }
 
         // Ignore `@` in Less (i.e. `@@var;`)
-        if (iNode.type === "value-atword" && iNode.value === "") {
+        if (
+          iNode.type === "value-atword" &&
+          (iNode.value === "" ||
+            /*
+            @var[ @notVarNested ][notVar]
+            ^^^^^
+            */
+            iNode.value.endsWith("["))
+        ) {
+          continue;
+        }
+
+        /*
+        @var[ @notVarNested ][notVar]
+                            ^^^^^^^^^
+        */
+        if (
+          iNextNode.type === "value-word" &&
+          iNextNode.value.startsWith("]")
+        ) {
           continue;
         }
 
@@ -737,6 +764,18 @@ function genericPrint(path, options, print) {
           (hasEmptyRawBefore(iNextNode) ||
             (isMathOperator &&
               (!iPrevNode || (iPrevNode && isMathOperatorNode(iPrevNode)))))
+        ) {
+          continue;
+        }
+
+        // No space before unary minus followed by an opening parenthesis `-(`
+        if (
+          (options.parser === "scss" || options.parser === "less") &&
+          isMathOperator &&
+          iNode.value === "-" &&
+          isParenGroupNode(iNextNode) &&
+          locEnd(iNode) === locStart(iNextNode.open) &&
+          iNextNode.open.value === "("
         ) {
           continue;
         }

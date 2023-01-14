@@ -160,7 +160,7 @@ function foo() {
 
 function bar(f: () => void) {
   f(); // passing global object as \`this\`
-  ({ f }.f()); // passing container object as \`this\`
+  ({ f }).f(); // passing container object as \`this\`
 }
 
 bar(foo); // error, since \`this\` is used non-trivially in \`foo\`

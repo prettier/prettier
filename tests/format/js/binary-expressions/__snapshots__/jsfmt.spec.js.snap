@@ -993,6 +993,111 @@ foo(
 ================================================================================
 `;
 
+exports[`tuple-and-record.js [acorn] format 1`] = `
+"Unexpected character '[' (6:15)
+  4 | ]
+  5 |
+> 6 | foo = foo || #[
+    |               ^
+  7 |   // comment
+  8 |   a,
+  9 | ]"
+`;
+
+exports[`tuple-and-record.js [espree] format 1`] = `
+"Unexpected character '[' (6:15)
+  4 | ]
+  5 |
+> 6 | foo = foo || #[
+    |               ^
+  7 |   // comment
+  8 |   a,
+  9 | ]"
+`;
+
+exports[`tuple-and-record.js [flow] format 1`] = `
+"Unexpected token \`#\`, expected an identifier (6:14)
+  4 | ]
+  5 |
+> 6 | foo = foo || #[
+    |              ^
+  7 |   // comment
+  8 |   a,
+  9 | ]"
+`;
+
+exports[`tuple-and-record.js [meriyah] format 1`] = `
+"'#' not followed by identifier (6:14)
+  4 | ]
+  5 |
+> 6 | foo = foo || #[
+    |              ^
+  7 |   // comment
+  8 |   a,
+  9 | ]"
+`;
+
+exports[`tuple-and-record.js [typescript] format 1`] = `
+"Invalid character. (6:14)
+  4 | ]
+  5 |
+> 6 | foo = foo || #[
+    |              ^
+  7 |   // comment
+  8 |   a,
+  9 | ]"
+`;
+
+exports[`tuple-and-record.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = foo || [
+  // comment
+  a,
+]
+
+foo = foo || #[
+  // comment
+  a,
+]
+
+foo = foo || {
+  // comment
+  a,
+}
+
+foo = foo || #{
+  // comment
+  a,
+}
+
+=====================================output=====================================
+foo = foo || [
+  // comment
+  a,
+];
+
+foo = foo || #[
+  // comment
+  a,
+];
+
+foo = foo || {
+  // comment
+  a,
+};
+
+foo = foo || #{
+  // comment
+  a,
+};
+
+================================================================================
+`;
+
 exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

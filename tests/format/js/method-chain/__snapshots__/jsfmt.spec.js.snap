@@ -1522,8 +1522,8 @@ method()
   ["abc"]((x) => x)
   [abc]((x) => x);
 
-({}.a().b());
-({}.a().b());
+({}).a().b();
+({}).a().b();
 
 ================================================================================
 `;
@@ -1542,6 +1542,78 @@ const sel = this.connections
 const sel = this.connections
   .concat(this.activities.concat(this.operators))
   .filter((x) => x.selected);
+
+================================================================================
+`;
+
+exports[`tuple-and-record.js [acorn] format 1`] = `
+"Unexpected character '[' (2:16)
+  1 | foo.a().b().c([n, o])
+> 2 | foo.a().b().c(#[n, o])
+    |                ^
+  3 |
+  4 | foo.a().b().c({n, o})
+  5 | foo.a().b().c(#{n, o})"
+`;
+
+exports[`tuple-and-record.js [espree] format 1`] = `
+"Unexpected character '[' (2:16)
+  1 | foo.a().b().c([n, o])
+> 2 | foo.a().b().c(#[n, o])
+    |                ^
+  3 |
+  4 | foo.a().b().c({n, o})
+  5 | foo.a().b().c(#{n, o})"
+`;
+
+exports[`tuple-and-record.js [flow] format 1`] = `
+"Unexpected token \`#\`, expected an identifier (2:15)
+  1 | foo.a().b().c([n, o])
+> 2 | foo.a().b().c(#[n, o])
+    |               ^
+  3 |
+  4 | foo.a().b().c({n, o})
+  5 | foo.a().b().c(#{n, o})"
+`;
+
+exports[`tuple-and-record.js [meriyah] format 1`] = `
+"'#' not followed by identifier (2:15)
+  1 | foo.a().b().c([n, o])
+> 2 | foo.a().b().c(#[n, o])
+    |               ^
+  3 |
+  4 | foo.a().b().c({n, o})
+  5 | foo.a().b().c(#{n, o})"
+`;
+
+exports[`tuple-and-record.js [typescript] format 1`] = `
+"Invalid character. (2:15)
+  1 | foo.a().b().c([n, o])
+> 2 | foo.a().b().c(#[n, o])
+    |               ^
+  3 |
+  4 | foo.a().b().c({n, o})
+  5 | foo.a().b().c(#{n, o})"
+`;
+
+exports[`tuple-and-record.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo.a().b().c([n, o])
+foo.a().b().c(#[n, o])
+
+foo.a().b().c({n, o})
+foo.a().b().c(#{n, o})
+
+=====================================output=====================================
+foo.a().b().c([n, o]);
+foo.a().b().c(#[n, o]);
+
+foo.a().b().c({ n, o });
+foo.a().b().c(#{ n, o });
 
 ================================================================================
 `;

@@ -384,6 +384,14 @@ module.exports = {
           "src/language-js/parse/meriyah.js",
           "src/language-js/parse/json.js",
           "src/language-js/parse/acorn.js",
+          "src/language-js/parse/utils/wrap-babel-expression.js",
+        ],
+        "prettier-internal-rules/prefer-create-type-check-function": [
+          "error",
+          {
+            ignoreSingleType: true,
+            onlyTopLevelFunctions: true,
+          },
         ],
       },
     },

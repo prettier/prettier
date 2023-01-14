@@ -617,6 +617,72 @@ class Foo extends /** @type {string} */ (Bar) {}
 ================================================================================
 `;
 
+exports[`tuple-and-record.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = /** @type A */ ({
+  // comment
+  width,
+  height,
+  ...margins,
+});
+
+foo = /** @type A */ (#{
+  // comment
+  width,
+  height,
+  ...margins,
+});
+
+foo = /** @type A */ ([
+  // comment
+  width,
+  height,
+  ...margins,
+]);
+
+foo = /** @type A */ (#[
+  // comment
+  width,
+  height,
+  ...margins,
+]);
+
+=====================================output=====================================
+foo = /** @type A */ ({
+  // comment
+  width,
+  height,
+  ...margins,
+});
+
+foo = /** @type A */ (#{
+  // comment
+  width,
+  height,
+  ...margins,
+});
+
+foo = /** @type A */ ([
+  // comment
+  width,
+  height,
+  ...margins,
+]);
+
+foo = /** @type A */ (#[
+  // comment
+  width,
+  height,
+  ...margins,
+]);
+
+================================================================================
+`;
+
 exports[`ways-to-specify-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

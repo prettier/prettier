@@ -16,6 +16,8 @@ import {
   shouldPrintComma,
   isCallExpression,
   isMemberExpression,
+  isArrayOrTupleExpression,
+  isObjectOrRecordExpression,
 } from "../utils/index.js";
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
@@ -66,8 +68,8 @@ function printTypescript(path, options, print) {
       return "this";
     case "TSTypeAssertion": {
       const shouldBreakAfterCast = !(
-        node.expression.type === "ArrayExpression" ||
-        node.expression.type === "ObjectExpression"
+        isArrayOrTupleExpression(node.expression) ||
+        isObjectOrRecordExpression(node.expression)
       );
 
       const castGroup = group([
@@ -401,22 +403,14 @@ function printTypescript(path, options, print) {
           printTypeScriptModifiers(path, options, print)
         );
 
-        const textBetweenNodeAndItsId = options.originalText.slice(
-          locStart(node),
-          locStart(node.id)
-        );
-
         // Global declaration looks like this:
         // (declare)? global { ... }
-        const isGlobalDeclaration =
-          node.id.type === "Identifier" &&
-          node.id.name === "global" &&
-          !/namespace|module/.test(textBetweenNodeAndItsId);
-
-        if (!isGlobalDeclaration) {
+        if (!node.global) {
           parts.push(
             isExternalModule ||
-              /(?:^|\s)module(?:\s|$)/.test(textBetweenNodeAndItsId)
+              /(?:^|\s)module(?:\s|$)/.test(
+                options.originalText.slice(locStart(node), locStart(node.id))
+              )
               ? "module "
               : "namespace "
           );

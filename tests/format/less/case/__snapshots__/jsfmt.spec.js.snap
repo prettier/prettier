@@ -204,7 +204,7 @@ svg[viewBox] linearGradient,
 }
 
 @KeepDetachedRuleset: /*:*/ {
-  background: RED;
+  BACKGROUND: RED;
 };
 
 %KeepScssPlaceholderSelector {
@@ -317,6 +317,160 @@ TABLE {
   }
   &-100\\.200 {
   }
+}
+
+================================================================================
+`;
+
+exports[`variable.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Do not change case of property name if inside a variable declaration
+
+@var: {
+  notVar: 0;
+  @notVarNested: {
+    notVar: 1;
+    notVar2: 2;
+  };
+};
+
+@var    :    {
+  preserveCase: 5;
+};
+
+@var:    {
+  preserveCase: 5;
+};
+
+@var    :{
+  preserveCase: 5;
+};
+
+@var /* comment */ : /* comment */ {
+  preserveCase: 5;
+};
+
+@var: /* comment */ {
+  preserveCase: 5;
+};
+
+@var /* comment */ :{
+  preserveCase: 5;
+};
+
+@var // comment
+: // comment
+{
+  /* FIXME: should not change case */
+  preserveCase: 5;
+};
+
+@var: // comment
+{
+  preserveCase: 5;
+};
+
+@var // comment
+:{
+  /* FIXME: should not change case */
+  preserveCase: 5;
+};
+
+// Known css properties
+@var: {
+  COLoR: RED;
+};
+
+@not-var {
+  canChangeCase: @var[@notVarNested][notVar];
+  canChangeCase: @var[    @notVarNested][notVar];
+  canChangeCase: @var[@notVarNested    ][notVar];
+  canChangeCase: @var[    @notVarNested    ][notVar];
+  canChangeCase: @var[@notVarNested][notVar];
+  canChangeCase: @var[@notVarNested][    notVar];
+  canChangeCase: @var[@notVarNested][notVar    ];
+  canChangeCase: @var[@notVarNested][    notVar    ];
+  canChangeCase: @var[notVar];
+  canChangeCase: @var[    notVar];
+  canChangeCase: @var[notVar    ];
+  canChangeCase: @var[    notVar    ];
+}
+
+=====================================output=====================================
+// Do not change case of property name if inside a variable declaration
+
+@var: {
+  notVar: 0;
+  @notVarNested: {
+    notVar: 1;
+    notVar2: 2;
+  };
+};
+
+@var: {
+  preserveCase: 5;
+};
+
+@var: {
+  preserveCase: 5;
+};
+
+@var: {
+  preserveCase: 5;
+};
+
+@var: /* comment */ {
+  preserveCase: 5;
+};
+
+@var: /* comment */ {
+  preserveCase: 5;
+};
+
+@var: {
+  preserveCase: 5;
+};
+
+@var // comment
+: // comment
+{
+  /* FIXME: should not change case */
+  preservecase: 5;
+}
+
+@var: // comment
+{
+  preserveCase: 5;
+};
+
+@var // comment
+: {
+  /* FIXME: should not change case */
+  preservecase: 5;
+}
+
+// Known css properties
+@var: {
+  COLoR: RED;
+};
+
+@not-var {
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[@notVarNested][notVar];
+  canchangecase: @var[notVar];
+  canchangecase: @var[notVar];
+  canchangecase: @var[notVar];
+  canchangecase: @var[notVar];
 }
 
 ================================================================================
