@@ -24,7 +24,7 @@ const { locStart, locEnd } = require("./loc.js");
  * @typedef {import('angular-html-parser/lib/compiler/src/ml_parser/parser').ParseTreeResult} ParserTreeResult
  * @typedef {Omit<import('angular-html-parser').ParseOptions, 'canSelfClose'> & {
  *   name?: 'html' | 'angular' | 'vue' | 'lwc';
- *   recognizeSelfClosing?: boolean;
+ *   canSelfClose?: boolean;
  *   normalizeTagName?: boolean;
  *   normalizeAttributeName?: boolean;
  * }} ParserOptions
@@ -42,7 +42,7 @@ const { locStart, locEnd } = require("./loc.js");
 function ngHtmlParser(
   input,
   {
-    recognizeSelfClosing,
+    canSelfClose,
     normalizeTagName,
     normalizeAttributeName,
     allowHtmComponentClosingTags,
@@ -64,7 +64,7 @@ function ngHtmlParser(
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
   let { rootNodes, errors } = parser.parse(input, {
-    canSelfClose: recognizeSelfClosing,
+    canSelfClose,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
     getTagContentType,
@@ -97,7 +97,7 @@ function ngHtmlParser(
         let secondParseResult;
         const doSecondParse = () =>
           parser.parse(input, {
-            canSelfClose: recognizeSelfClosing,
+            canSelfClose,
             allowHtmComponentClosingTags,
             isTagNameCaseSensitive,
           });
@@ -135,13 +135,13 @@ function ngHtmlParser(
       }
     } else {
       // If not Vue SFC, treat as html
-      recognizeSelfClosing = true;
+      canSelfClose = true;
       normalizeTagName = true;
       normalizeAttributeName = true;
       allowHtmComponentClosingTags = true;
       isTagNameCaseSensitive = false;
       const htmlParseResult = parser.parse(input, {
-        canSelfClose: recognizeSelfClosing,
+        canSelfClose,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
       });
@@ -373,7 +373,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
  */
 function createParser({
   name,
-  recognizeSelfClosing = false,
+  canSelfClose = false,
   normalizeTagName = false,
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
@@ -386,7 +386,7 @@ function createParser({
         text,
         { parser: name, ...options },
         {
-          recognizeSelfClosing,
+          canSelfClose,
           normalizeTagName,
           normalizeAttributeName,
           allowHtmComponentClosingTags,
@@ -405,15 +405,15 @@ module.exports = {
   parsers: {
     html: createParser({
       name: "html",
-      recognizeSelfClosing: true,
+      canSelfClose: true,
       normalizeTagName: true,
       normalizeAttributeName: true,
       allowHtmComponentClosingTags: true,
     }),
-    angular: createParser({ name: "angular" }),
+    angular: createParser({ name: "angular", canSelfClose: true }),
     vue: createParser({
       name: "vue",
-      recognizeSelfClosing: true,
+      canSelfClose: true,
       isTagNameCaseSensitive: true,
       getTagContentType: (tagName, prefix, hasParent, attrs) => {
         if (

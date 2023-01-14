@@ -15,7 +15,7 @@ const {
   },
 } = require("../../document/index.js");
 const {
-  isLiteral,
+  isStringLiteral,
   getTypeScriptMappedTypeModifier,
   shouldPrintComma,
   isCallExpression,
@@ -449,7 +449,7 @@ function printTypescript(path, options, print) {
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
       const parent = path.getParentNode();
-      const isExternalModule = isLiteral(node.id);
+      const isExternalModule = isStringLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration =
         node.body && node.body.type === "TSModuleDeclaration";
