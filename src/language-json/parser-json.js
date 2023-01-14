@@ -2,11 +2,12 @@ import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import createError from "../common/parser-create-error.js";
 import createParser from "../language-js/parse/utils/create-parser.js";
 import createBabelParseError from "../language-js/parse/utils/create-babel-parse-error.js";
+import wrapBabelExpression from "../language-js/parse/utils/wrap-babel-expression.js";
 
 function createJsonParse(options = {}) {
   const { allowComments = true } = options;
 
-  return async function parse(text /*, options */) {
+  return async function parse(text, options = {}) {
     const { parseExpression } = await import("@babel/parser");
     let ast;
     try {
@@ -26,7 +27,8 @@ function createJsonParse(options = {}) {
 
     assertJsonNode(ast);
 
-    return ast;
+    options.originalText = text;
+    return wrapBabelExpression(ast, options, "JsonRoot");
   };
 }
 
