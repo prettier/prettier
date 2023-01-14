@@ -22,7 +22,7 @@ import {
   printFunctionParameters,
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
-import { printOptionalToken } from "./misc.js";
+import { printOptionalToken, printDeclareToken } from "./misc.js";
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -64,16 +64,12 @@ function shouldHugType(node) {
 function printOpaqueType(path, options, print) {
   const semi = options.semi ? ";" : "";
   const { node } = path;
-  const parts = [];
-
-  if (
-    node.type === "DeclareOpaqueType" &&
-    path.parent.type !== "DeclareExportDeclaration"
-  ) {
-    parts.push("declare ");
-  }
-
-  parts.push("opaque type ", print("id"), print("typeParameters"));
+  const parts = [
+    printDeclareToken(path),
+    "opaque type ",
+    print("id"),
+    print("typeParameters"),
+  ];
 
   if (node.supertype) {
     parts.push(": ", print("supertype"));
@@ -96,15 +92,8 @@ function printOpaqueType(path, options, print) {
 function printTypeAlias(path, options, print) {
   const semi = options.semi ? ";" : "";
   const { node } = path;
-  const parts = [];
+  const parts = [printDeclareToken(path)];
 
-  if (
-    node.declare ||
-    (node.type === "DeclareTypeAlias" &&
-      path.parent.type !== "DeclareExportDeclaration")
-  ) {
-    parts.push("declare ");
-  }
   parts.push("type ", print("id"), print("typeParameters"));
   const rightPropertyName =
     node.type === "TSTypeAliasDeclaration" ? "typeAnnotation" : "right";

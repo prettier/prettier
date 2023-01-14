@@ -1,4 +1,4 @@
-import { printTypeScriptModifiers } from "./misc.js";
+import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
 import { printObject } from "./object.js";
 
 function printEnumMembers(path, print, options) {
@@ -77,31 +77,17 @@ function printEnumBody(path, print, options) {
 */
 function printEnumDeclaration(path, print, options) {
   const { node } = path;
-  const parts = [];
-
-  if (
-    node.declare ||
-    (node.type === "DeclareEnum" &&
-      path.parent.type !== "DeclareExportDeclaration")
-  ) {
-    parts.push("declare ");
-  }
-
-  parts.push(printTypeScriptModifiers(path, options, print));
-
-  if (node.const) {
-    parts.push("const ");
-  }
-
-  parts.push("enum ", print("id"), " ");
-
-  if (node.type === "TSEnumDeclaration") {
-    parts.push(printEnumMembers(path, print, options));
-  } else {
-    parts.push(print("body"));
-  }
-
-  return parts;
+  return [
+    printDeclareToken(path),
+    printTypeScriptModifiers(path, options, print),
+    node.const ? "const " : "",
+    "enum ",
+    print("id"),
+    " ",
+    node.type === "TSEnumDeclaration"
+      ? printEnumMembers(path, print, options)
+      : print("body"),
+  ];
 }
 
 export { printEnumDeclaration, printEnumMember, printEnumBody };

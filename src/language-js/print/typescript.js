@@ -46,6 +46,7 @@ import {
   printJSDocType,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
+import { printDeclareToken } from "./misc.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -228,7 +229,7 @@ function printTypescript(path, options, print) {
         node.accessibility ? [node.accessibility, " "] : "",
         node.static ? "static " : "",
         node.readonly ? "readonly " : "",
-        node.declare ? "declare " : "",
+        printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
         node.typeAnnotation ? "]: " : "]",
@@ -397,10 +398,10 @@ function printTypescript(path, options, print) {
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
-        if (node.declare) {
-          parts.push("declare ");
-        }
-        parts.push(printTypeScriptModifiers(path, options, print));
+        parts.push(
+          printDeclareToken(path),
+          printTypeScriptModifiers(path, options, print)
+        );
 
         // Global declaration looks like this:
         // (declare)? global { ... }

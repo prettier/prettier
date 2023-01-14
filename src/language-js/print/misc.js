@@ -32,6 +32,31 @@ function printDefiniteToken(path) {
     : "";
 }
 
+const flowDeclareNodeTypes = new Set([
+  "DeclareClass",
+  "DeclareFunction",
+  "DeclareVariable",
+  "DeclareExportDeclaration",
+  "DeclareExportAllDeclaration",
+  "DeclareOpaqueType",
+  "DeclareTypeAlias",
+  "DeclareEnum",
+  "DeclareInterface",
+]);
+function printDeclareToken(path) {
+  const { node } = path;
+
+  return (
+    // TypeScript
+    node.declare ||
+      // Flow
+      (flowDeclareNodeTypes.has(node.type) &&
+        path.parent.type !== "DeclareExportDeclaration")
+      ? "declare "
+      : ""
+  );
+}
+
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.node;
   if (fun.typeArguments) {
@@ -104,6 +129,7 @@ function printDirective(rawText, options) {
 export {
   printOptionalToken,
   printDefiniteToken,
+  printDeclareToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,

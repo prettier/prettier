@@ -24,6 +24,7 @@ import {
   hasDecoratorsBeforeExport,
   printDecoratorsBeforeExport,
 } from "./decorators.js";
+import { printDeclareToken } from "./misc.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -75,11 +76,7 @@ function printExportDeclaration(path, options, print) {
 
   const { type, exportKind, declaration } = node;
 
-  if (type === "DeclareExportDeclaration") {
-    parts.push("declare ");
-  }
-
-  parts.push("export");
+  parts.push(printDeclareToken(path), "export");
 
   const isDefaultExport = node.default || type === "ExportDefaultDeclaration";
   if (isDefaultExport) {
@@ -123,15 +120,9 @@ function printExportAllDeclaration(path, options, print) {
   const { node } = path;
   const semi = options.semi ? ";" : "";
   /** @type{Doc[]} */
-  const parts = [];
+  const parts = [printDeclareToken(path), "export"];
 
-  const { exportKind, exported, type } = node;
-
-  if (type === "DeclareExportAllDeclaration") {
-    parts.push("declare ");
-  }
-
-  parts.push("export");
+  const { exportKind, exported } = node;
 
   if (exportKind === "type") {
     parts.push(" type");

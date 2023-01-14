@@ -43,8 +43,13 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printPropertyKey } from "./property.js";
-import { printFunctionTypeParameters } from "./misc.js";
+import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
 
+/*
+- "FunctionDeclaration"
+- "FunctionExpression"
+- `TSDeclareFunction`(TypeScript)
+*/
 function printFunction(path, print, options, args) {
   const { node } = path;
 
@@ -66,27 +71,12 @@ function printFunction(path, print, options, args) {
     }
   }
 
-  const parts = [];
-
-  // For TypeScript the TSDeclareFunction node shares the AST
-  // structure with FunctionDeclaration
-  if (node.type === "TSDeclareFunction" && node.declare) {
-    parts.push("declare ");
-  }
-
-  if (node.async) {
-    parts.push("async ");
-  }
-
-  if (node.generator) {
-    parts.push("function* ");
-  } else {
-    parts.push("function ");
-  }
-
-  if (node.id) {
-    parts.push(print("id"));
-  }
+  const parts = [
+    printDeclareToken(path),
+    node.async ? "async " : "",
+    `function${node.generator ? "*" : ""} `,
+    node.id ? print("id") : "",
+  ];
 
   const parametersDoc = printFunctionParameters(
     path,
