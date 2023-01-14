@@ -1,3 +1,26 @@
+# 2.8.3
+
+[diff](https://github.com/prettier/prettier/compare/2.8.2...2.8.3)
+
+#### Allow self-closing tags on custom elements ([#14170](https://github.com/prettier/prettier/pull/14170) by [@fisker](https://github.com/fisker))
+
+See [Angular v15.1.0 release note](https://github.com/angular/angular/releases/tag/15.1.0) for details.
+
+<!-- prettier-ignore -->
+```html
+// Input
+<app-test/>
+
+// Prettier 2.8.2
+SyntaxError: Only void and foreign elements can be self closed "app-test" (1:1)
+> 1 | <app-test/>
+    | ^^^^^^^^^
+  2 |
+
+// Prettier 2.8.3
+<app-test />
+```
+
 # 2.8.2
 
 [diff](https://github.com/prettier/prettier/compare/2.8.1...2.8.2)
