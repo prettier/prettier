@@ -46,7 +46,7 @@ import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
 
 /*
--"FunctionDeclaration"
+- "FunctionDeclaration"
 - "FunctionExpression"
 - `TSDeclareFunction`(TypeScript)
 */

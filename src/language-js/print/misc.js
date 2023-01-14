@@ -44,11 +44,13 @@ const flowDeclareNodeTypes = new Set([
   "DeclareInterface",
 ]);
 function printDeclareToken(path) {
+  const { node } = path;
+
   return (
     // TypeScript
-    path.node.declare ||
+    node.declare ||
       // Flow
-      (flowDeclareNodeTypes.has(path.node.type) &&
+      (flowDeclareNodeTypes.has(node.type) &&
         path.parent.type !== "DeclareExportDeclaration")
       ? "declare "
       : ""
