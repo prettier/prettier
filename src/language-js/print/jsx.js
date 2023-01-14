@@ -238,11 +238,11 @@ function printJsxElementInternal(path, options, print) {
     : group(multilineChildren, { shouldBreak: true });
 
   /*
-  `printJsxChildren` won't call `print` when child "isLiteral" (Maybe only `JSXText`?)
+  `printJsxChildren` won't call `print` on `JSXText`
   When the cursorNode is inside `cursor` won't get print.
   */
   if (
-    isLiteral(options.cursorNode) &&
+    options.cursorNode?.type === "JSXText" &&
     node.children.includes(options.cursorNode)
   ) {
     // @ts-expect-error
