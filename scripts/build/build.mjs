@@ -144,9 +144,7 @@ async function preparePackage() {
   packageJson.files = ["*.js", "esm/*.mjs"];
   await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
 
-  for (const file of ["README.md", "LICENSE"]) {
-    await copyFile(path.join(PROJECT_ROOT, file), path.join(DIST_DIR, file));
-  }
+  await Promise.all(["README.md", "LICENSE"].map((file) => copyFile(path.join(PROJECT_ROOT, file), path.join(DIST_DIR, file))))
 }
 
 async function run(params) {
@@ -221,9 +219,7 @@ async function run(params) {
 
   console.log(chalk.inverse(" Building packages "));
 
-  for (const bundleConfig of bundleConfigs) {
-    await createBundle(bundleConfig, params);
-  }
+  await Promise.all(bundleConfigs.map((bundleConfig) => createBundle(bundleConfig, params)))
 
   if (shouldPreparePackage) {
     await preparePackage();
