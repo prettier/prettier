@@ -6829,7 +6829,7 @@ __metadata:
     rollup-plugin-license: 3.0.1
     sdbm: 2.0.0
     semver: 7.3.8
-    serialize-javascript: 6.0.0
+    serialize-javascript: 6.0.1
     snapshot-diff: 0.10.0
     string-width: 5.0.1
     strip-ansi: 7.0.1
@@ -7398,12 +7398,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:6.0.0":
-  version: 6.0.0
-  resolution: "serialize-javascript@npm:6.0.0"
+"serialize-javascript@npm:6.0.1":
+  version: 6.0.1
+  resolution: "serialize-javascript@npm:6.0.1"
   dependencies:
     randombytes: ^2.1.0
-  checksum: 56f90b562a1bdc92e55afb3e657c6397c01a902c588c0fe3d4c490efdcc97dcd2a3074ba12df9e94630f33a5ce5b76a74784a7041294628a6f4306e0ec84bf93
+  checksum: 3c4f4cb61d0893b988415bdb67243637333f3f574e9e9cc9a006a2ced0b390b0b3b44aef8d51c951272a9002ec50885eefdc0298891bc27eb2fe7510ea87dc4f
   languageName: node
   linkType: hard
 
