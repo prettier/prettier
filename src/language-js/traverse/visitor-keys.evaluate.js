@@ -41,6 +41,7 @@ const additionalVisitorKeys = {
   ClassPrivateProperty: ["variance"],
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
   TupleTypeAnnotation: ["elementTypes"],
+  TupleTypeSpreadElement: ["label", "typeAnnotation"],
 
   // Unknown
   Property: ["decorators"],

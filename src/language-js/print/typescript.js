@@ -44,6 +44,7 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printJSDocType,
+  printRestType,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printDeclareToken } from "./misc.js";
@@ -133,7 +134,7 @@ function printTypescript(path, options, print) {
         print("elementType"),
       ];
     case "TSRestType":
-      return ["...", print("typeAnnotation")];
+      return printRestType(path, options, print);
     case "TSOptionalType":
       return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":

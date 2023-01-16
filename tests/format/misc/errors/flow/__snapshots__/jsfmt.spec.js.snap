@@ -66,3 +66,10 @@ exports[`number.js [flow] format 1`] = `
     |     ^^^^
   4 |"
 `;
+
+exports[`spread-with-optional.js [flow] format 1`] = `
+"Tuple spread elements cannot be optional. (1:17)
+> 1 | type T = [...foo?: S]; // ERROR
+    |                 ^
+  2 |"
+`;
