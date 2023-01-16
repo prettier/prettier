@@ -11,7 +11,7 @@ import {
 } from "../../document/builders.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
-  isLiteral,
+  isStringLiteral,
   getTypeScriptMappedTypeModifier,
   shouldPrintComma,
   isCallExpression,
@@ -391,7 +391,7 @@ function printTypescript(path, options, print) {
       return ["require(", print("expression"), ")"];
     case "TSModuleDeclaration": {
       const { parent } = path;
-      const isExternalModule = isLiteral(node.id);
+      const isExternalModule = isStringLiteral(node.id);
       const parentIsDeclaration = parent.type === "TSModuleDeclaration";
       const bodyIsDeclaration = node.body?.type === "TSModuleDeclaration";
 

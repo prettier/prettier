@@ -18,7 +18,6 @@ import { getPreferredQuote } from "../../common/util.js";
 import {
   isJsxNode,
   rawText,
-  isLiteral,
   isCallExpression,
   isStringLiteral,
   isBinaryish,
@@ -270,7 +269,7 @@ function printJsxChildren(
 ) {
   const parts = [];
   path.each(({ node, next }) => {
-    if (isLiteral(node)) {
+    if (node.type === "JSXText") {
       const text = rawText(node);
 
       // Contains a non-whitespace character
@@ -782,7 +781,7 @@ function isEmptyJsxElement(node) {
   // if there is one text child and does not contain any meaningful text
   // we can treat the element as empty.
   const child = node.children[0];
-  return isLiteral(child) && !isMeaningfulJsxText(child);
+  return child.type === "JSXText" && !isMeaningfulJsxText(child);
 }
 
 // Meaningful if it contains non-whitespace characters,
@@ -793,7 +792,7 @@ function isEmptyJsxElement(node) {
  */
 function isMeaningfulJsxText(node) {
   return (
-    isLiteral(node) &&
+    node.type === "JSXText" &&
     (containsNonJsxWhitespaceRegex.test(rawText(node)) ||
       !/\n/.test(rawText(node)))
   );
@@ -803,7 +802,7 @@ function isMeaningfulJsxText(node) {
 function isJsxWhitespaceExpression(node) {
   return (
     node.type === "JSXExpressionContainer" &&
-    isLiteral(node.expression) &&
+    isStringLiteral(node.expression) &&
     node.expression.value === " " &&
     !hasComment(node.expression)
   );
