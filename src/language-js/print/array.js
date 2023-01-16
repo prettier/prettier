@@ -53,7 +53,10 @@ function printArray(path, options, print) {
   const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   const elementsProperty =
-    node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
+    // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
+    node.type === "TupleTypeAnnotation" && node.types
+      ? "types"
+      : node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
       ? "elementTypes"
       : "elements";
   const elements = node[elementsProperty];

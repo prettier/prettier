@@ -200,15 +200,22 @@ function printUnionType(path, options, print) {
     return group([indent(code), softline]);
   }
 
-  if (
-    (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") &&
-    parent.elementTypes.length > 1
-  ) {
-    return group([
-      indent([ifBreak(["(", softline]), code]),
-      softline,
-      ifBreak(")"),
-    ]);
+  if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
+    const elementTypes =
+      parent[
+        // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
+        parent.type === "TupleTypeAnnotation" && parent.types
+          ? "types"
+          : "elementTypes"
+      ];
+
+    if (elementTypes.length > 1) {
+      return group([
+        indent([ifBreak(["(", softline]), code]),
+        softline,
+        ifBreak(")"),
+      ]);
+    }
   }
 
   return group(shouldIndent ? indent(code) : code);
