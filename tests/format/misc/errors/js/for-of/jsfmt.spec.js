@@ -9,8 +9,7 @@ run_spec(
   },
   [
     "babel",
-    // `espree` didn't throw https://github.com/acornjs/acorn/issues/1009
-    // "espree",
+    "espree",
     "meriyah",
     "flow",
     "typescript",
@@ -30,8 +29,7 @@ run_spec(
     "espree",
     // `meriyah` didn't throw https://github.com/meriyah/meriyah/issues/190
     // "meriyah",
-    // `flow` didn't throw https://github.com/facebook/flow/issues/8651
-    // "flow",
+    "flow",
     // `typescript` didn't throw
     // "typescript",
     "babel-flow",
