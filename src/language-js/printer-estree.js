@@ -88,6 +88,7 @@ import { printMemberExpression } from "./print/member.js";
 import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
+import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 
 function genericPrint(path, options, print, args) {
   const { node } = path;
@@ -286,7 +287,7 @@ function printPathNoParens(path, options, print, args) {
         node.name,
         printOptionalToken(path),
         printDefiniteToken(path),
-        print("typeAnnotation"),
+        printTypeAnnotationProperty(path, options, print),
       ];
 
     case "V8IntrinsicIdentifier":

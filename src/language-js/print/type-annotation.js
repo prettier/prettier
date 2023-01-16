@@ -16,6 +16,7 @@ import {
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   hasComment,
+  CommentCheckFlags,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -295,9 +296,31 @@ function printJSDocType(path, print, token) {
   ];
 }
 
-function printTypeAnnotation(path, options, print) {
-  const parts = [];
+function printTypeAnnotationProperty(path, options, print) {
+  const {
+    node: { typeAnnotation },
+  } = path;
+  if (!typeAnnotation) {
+    return "";
+  }
 
+  let shouldPrintLeadingSpace = false;
+
+  if (
+    (typeAnnotation.type === "TSTypeAnnotation" ||
+      typeAnnotation.type === "TypeAnnotation") &&
+    hasComment(typeAnnotation, CommentCheckFlags.leading) &&
+    path.call(getTypeAnnotationFirstToken, "typeAnnotation") === ":"
+  ) {
+    shouldPrintLeadingSpace = true;
+  }
+
+  return shouldPrintLeadingSpace
+    ? [" ", print("typeAnnotation")]
+    : print("typeAnnotation");
+}
+
+const getTypeAnnotationFirstToken = (path) => {
   if (
     // TypeScript
     path.match(
@@ -307,8 +330,10 @@ function printTypeAnnotation(path, options, print) {
         (node.type === "TSFunctionType" || node.type === "TSConstructorType")
     )
   ) {
-    parts.push("=> ");
-  } else if (
+    return "=>";
+  }
+
+  if (
     // TypeScript
     path.match(
       (node) => node.type === "TSTypeAnnotation",
@@ -332,13 +357,21 @@ function printTypeAnnotation(path, options, print) {
       (node, key) => key === "id" && node.type === "DeclareFunction"
     )
   ) {
-    // No op
-  } else {
-    parts.push(": ");
+    return "";
   }
 
-  parts.push(print("typeAnnotation"));
-  return parts;
+  return ":";
+};
+
+/*
+- `TSTypeAnnotation` (TypeScript)
+- `TypeAnnotation` (Flow)
+*/
+function printTypeAnnotation(path, options, print) {
+  const token = getTypeAnnotationFirstToken(path);
+  return token
+    ? [token, " ", print("typeAnnotation")]
+    : print("typeAnnotation");
 }
 
 export {
@@ -350,5 +383,6 @@ export {
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
+  printTypeAnnotationProperty,
   printTypeAnnotation,
 };

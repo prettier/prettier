@@ -20,6 +20,7 @@ import {
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -229,7 +230,7 @@ function printClassProperty(path, options, print) {
     printPropertyKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    node.typeAnnotation ? print("typeAnnotation") : ""
+    printTypeAnnotationProperty(path, options, print)
   );
 
   const isAbstractProperty =

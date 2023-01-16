@@ -1,5 +1,6 @@
 import { isNonEmptyArray } from "../../common/util.js";
 import { indent, join, line } from "../../document/builders.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printOptionalToken(path) {
   const { node } = path;
@@ -96,7 +97,7 @@ function printRestSpread(path, options, print) {
   return [
     "...",
     print("argument"),
-    path.node.typeAnnotation ? print("typeAnnotation") : "",
+    printTypeAnnotationProperty(path, options, print),
   ];
 }
 

@@ -25,6 +25,7 @@ import { locStart, locEnd } from "../loc.js";
 import { printOptionalToken } from "./misc.js";
 import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
 import { printHardlineAfterHeritage } from "./class.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
@@ -173,7 +174,7 @@ function printObject(path, options, print) {
       return [
         leftBrace,
         rightBrace,
-        node.typeAnnotation ? print("typeAnnotation") : "",
+        printTypeAnnotationProperty(path, options, print),
       ];
     }
 
@@ -183,7 +184,7 @@ function printObject(path, options, print) {
       softline,
       rightBrace,
       printOptionalToken(path),
-      node.typeAnnotation ? print("typeAnnotation") : "",
+      printTypeAnnotationProperty(path, options, print),
     ]);
   } else {
     content = [
@@ -201,7 +202,7 @@ function printObject(path, options, print) {
       options.bracketSpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
-      node.typeAnnotation ? print("typeAnnotation") : "",
+      printTypeAnnotationProperty(path, options, print),
     ];
   }
 

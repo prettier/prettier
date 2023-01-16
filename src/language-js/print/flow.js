@@ -18,6 +18,7 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printTypeAnnotation,
+  printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -56,7 +57,11 @@ function printFlow(path, options, print) {
     case "DeclareModule":
       return ["declare module ", print("id"), " ", print("body")];
     case "DeclareModuleExports":
-      return ["declare module.exports", print("typeAnnotation"), semi];
+      return [
+        "declare module.exports",
+        printTypeAnnotationProperty(path, options, print),
+        semi,
+      ];
     case "DeclareVariable":
       return [printDeclareToken(path), "var ", print("id"), semi];
     case "DeclareExportDeclaration":
@@ -134,7 +139,7 @@ function printFlow(path, options, print) {
         // `flow` doesn't wrap the `typeAnnotation` with `TypeAnnotation`, so the colon
         // needs to be added separately.
         name ? ": " : "",
-        print("typeAnnotation"),
+        printTypeAnnotationProperty(path, options, print),
       ];
     }
 
@@ -146,7 +151,7 @@ function printFlow(path, options, print) {
     case "InterfaceExtends":
       return [print("id"), print("typeParameters")];
     case "NullableTypeAnnotation":
-      return ["?", print("typeAnnotation")];
+      return ["?", printTypeAnnotationProperty(path, options, print)];
     case "Variance": {
       const { kind } = node;
       assert.ok(kind === "plus" || kind === "minus");
@@ -214,7 +219,7 @@ function printFlow(path, options, print) {
       return [
         "(",
         print("expression"),
-        node.typeAnnotation ? print("typeAnnotation") : "",
+        printTypeAnnotationProperty(path, options, print),
         ")",
       ];
 

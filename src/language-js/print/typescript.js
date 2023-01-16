@@ -45,6 +45,7 @@ import {
   printIndexedAccessType,
   printJSDocType,
   printTypeAnnotation,
+  printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printDeclareToken } from "./misc.js";
@@ -134,9 +135,9 @@ function printTypescript(path, options, print) {
         print("elementType"),
       ];
     case "TSRestType":
-      return ["...", print("typeAnnotation")];
+      return ["...", printTypeAnnotationProperty(path, options, print)];
     case "TSOptionalType":
-      return [print("typeAnnotation"), "?"];
+      return [printTypeAnnotationProperty(path, options, print), "?"];
     case "TSInterfaceDeclaration":
       return printInterface(path, options, print);
     case "TSClassImplements":
@@ -149,7 +150,11 @@ function printTypescript(path, options, print) {
     case "TSAsExpression":
     case "TSSatisfiesExpression": {
       const operator = node.type === "TSAsExpression" ? "as" : "satisfies";
-      parts.push(print("expression"), ` ${operator} `, print("typeAnnotation"));
+      parts.push(
+        print("expression"),
+        ` ${operator} `,
+        printTypeAnnotationProperty(path, options, print)
+      );
       const { parent } = path;
       if (
         (isCallExpression(parent) && parent.callee === node) ||
@@ -169,7 +174,7 @@ function printTypescript(path, options, print) {
       parts.push(
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        print("typeAnnotation")
+        printTypeAnnotationProperty(path, options, print)
       );
 
       // This isn't valid semantically, but it's in the AST so we can print it.
@@ -231,7 +236,7 @@ function printTypescript(path, options, print) {
         "[",
         node.parameters ? parametersGroup : "",
         "]",
-        print("typeAnnotation"),
+        printTypeAnnotationProperty(path, options, print),
         parent.type === "ClassBody" ? semi : "",
       ];
     }
@@ -239,7 +244,9 @@ function printTypescript(path, options, print) {
       return [
         node.asserts ? "asserts " : "",
         print("parameterName"),
-        node.typeAnnotation ? [" is ", print("typeAnnotation")] : "",
+        node.typeAnnotation
+          ? [" is ", printTypeAnnotationProperty(path, options, print)]
+          : "",
       ];
     case "TSNonNullExpression":
       return [print("expression"), "!"];
@@ -288,7 +295,11 @@ function printTypescript(path, options, print) {
       return parts;
 
     case "TSTypeOperator":
-      return [node.operator, " ", print("typeAnnotation")];
+      return [
+        node.operator,
+        " ",
+        printTypeAnnotationProperty(path, options, print),
+      ];
     case "TSMappedType": {
       const shouldBreak = hasNewlineInRange(
         options.originalText,
