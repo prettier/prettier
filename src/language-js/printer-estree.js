@@ -296,7 +296,6 @@ function printPathNoParens(path, options, print, args) {
       return ["%", node.name];
     case "SpreadElement":
     case "SpreadElementPattern":
-    case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
       return printRestSpread(path, options, print);

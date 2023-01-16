@@ -644,9 +644,6 @@ exports[`visitor keys estree 1`] = `
   "SpreadElement": [
     "argument",
   ],
-  "SpreadProperty": [
-    "argument",
-  ],
   "StaticBlock": [
     "body",
   ],

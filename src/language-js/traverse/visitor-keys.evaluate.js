@@ -24,9 +24,6 @@ const additionalVisitorKeys = {
   // Babel missing this
   Program: ["interpreter"],
 
-  // Legacy node type
-  SpreadProperty: ["argument"],
-
   // TypeScript
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],
