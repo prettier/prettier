@@ -258,37 +258,6 @@ function printTypescript(path, options, print) {
       return print("literal");
     case "TSIndexedAccessType":
       return printIndexedAccessType(path, options, print);
-    case "TSConstructSignatureDeclaration":
-    case "TSCallSignatureDeclaration":
-    case "TSConstructorType":
-      if (node.type === "TSConstructorType" && node.abstract) {
-        parts.push("abstract ");
-      }
-      if (node.type !== "TSCallSignatureDeclaration") {
-        parts.push("new ");
-      }
-
-      parts.push(
-        group(
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandArg */ false,
-            /* printTypeParams */ true
-          )
-        )
-      );
-
-      if (node.returnType || node.typeAnnotation) {
-        const isType = node.type === "TSConstructorType";
-        parts.push(
-          isType ? " => " : ": ",
-          print("returnType"),
-          print("typeAnnotation")
-        );
-      }
-      return parts;
 
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
@@ -440,6 +409,9 @@ function printTypescript(path, options, print) {
     case "TSUnionType":
       return printUnionType(path, options, print);
     case "TSFunctionType":
+    case "TSCallSignatureDeclaration":
+    case "TSConstructorType":
+    case "TSConstructSignatureDeclaration":
       return printFunctionType(path, options, print);
     case "TSTupleType":
       return printArray(path, options, print);
