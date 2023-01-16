@@ -8,7 +8,6 @@ import {
   hasComment,
   CommentCheckFlags,
   isNextLineEmpty,
-  createTypeCheckFunction,
 } from "../utils/index.js";
 import { shouldPrintParamsWithoutParens } from "./function.js";
 
@@ -17,13 +16,13 @@ import { shouldPrintParamsWithoutParens } from "./function.js";
  * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
-function printStatementSequence(path, options, print, property) {
+function printStatementSequence(path, options, print) {
   const { node } = path;
   const parts = [];
-  const isClassBody = node.type === "ClassBody";
+  const property = node.type === "SwitchCase" ? "consequent" : "body";
   const lastStatement = getLastStatement(node[property]);
 
-  path.each(({ node, next }) => {
+  path.each(({ node }) => {
     // Skip printing EmptyStatement nodes to avoid leaving stray
     // semicolons lying around.
     if (node.type === "EmptyStatement") {
@@ -36,7 +35,6 @@ function printStatementSequence(path, options, print, property) {
     // don't prepend the only JSX element in a program with semicolon
     if (
       !options.semi &&
-      !isClassBody &&
       !isTheOnlyJsxElementInMarkdown(options, path) &&
       statementNeedsASIProtection(path, options)
     ) {
@@ -47,17 +45,6 @@ function printStatementSequence(path, options, print, property) {
       }
     } else {
       parts.push(printed);
-    }
-
-    if (
-      !options.semi &&
-      isClassBody &&
-      isClassProperty(node) &&
-      // `ClassBody` don't allow `EmptyStatement`,
-      // so we can use `statements` to get next node
-      shouldPrintSemicolonAfterClassProperty(node, next)
-    ) {
-      parts.push(";");
     }
 
     if (node !== lastStatement) {
@@ -150,102 +137,4 @@ function expressionNeedsASIProtection(path, options) {
   );
 }
 
-function printBody(path, options, print) {
-  return printStatementSequence(path, options, print, "body");
-}
-
-function printSwitchCaseConsequent(path, options, print) {
-  return printStatementSequence(path, options, print, "consequent");
-}
-
-const isClassProperty = createTypeCheckFunction([
-  "ClassProperty",
-  "PropertyDefinition",
-  "ClassPrivateProperty",
-  "ClassAccessorProperty",
-  "AccessorProperty",
-  "TSAbstractPropertyDefinition",
-  "TSAbstractAccessorProperty",
-]);
-/**
- * @returns {boolean}
- */
-function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
-  const { type, name } = node.key;
-  if (
-    !node.computed &&
-    type === "Identifier" &&
-    (name === "static" ||
-      name === "get" ||
-      name === "set" ||
-      // TODO: Remove this https://github.com/microsoft/TypeScript/issues/51707 is fixed
-      name === "accessor") &&
-    !node.value &&
-    !node.typeAnnotation
-  ) {
-    return true;
-  }
-
-  if (!nextNode) {
-    return false;
-  }
-
-  if (
-    nextNode.static ||
-    nextNode.accessibility // TypeScript
-  ) {
-    return false;
-  }
-
-  if (!nextNode.computed) {
-    const name = nextNode.key?.name;
-    if (name === "in" || name === "instanceof") {
-      return true;
-    }
-  }
-
-  // Flow variance sigil +/- requires semi if there's no
-  // "declare" or "static" keyword before it.
-  if (
-    isClassProperty(nextNode) &&
-    nextNode.variance &&
-    !nextNode.static &&
-    !nextNode.declare
-  ) {
-    return true;
-  }
-
-  switch (nextNode.type) {
-    case "ClassProperty":
-    case "PropertyDefinition":
-    case "TSAbstractPropertyDefinition":
-      return nextNode.computed;
-    case "MethodDefinition": // Flow
-    case "TSAbstractMethodDefinition": // TypeScript
-    case "ClassMethod":
-    case "ClassPrivateMethod": {
-      // Babel
-      const isAsync = nextNode.value ? nextNode.value.async : nextNode.async;
-      if (isAsync || nextNode.kind === "get" || nextNode.kind === "set") {
-        return false;
-      }
-
-      const isGenerator = nextNode.value
-        ? nextNode.value.generator
-        : nextNode.generator;
-      if (nextNode.computed || isGenerator) {
-        return true;
-      }
-
-      return false;
-    }
-
-    case "TSIndexSignature":
-      return true;
-  }
-
-  /* c8 ignore next */
-  return false;
-}
-
-export { printBody, printSwitchCaseConsequent };
+export { printStatementSequence };
