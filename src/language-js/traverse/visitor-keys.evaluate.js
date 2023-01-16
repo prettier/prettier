@@ -40,6 +40,7 @@ const additionalVisitorKeys = {
   ClassProperty: ["variance"],
   ClassPrivateProperty: ["variance"],
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
+  TupleTypeAnnotation: ["elementTypes"],
 
   // Unknown
   Property: ["decorators"],
@@ -50,6 +51,8 @@ const excludeKeys = {
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],
   FunctionExpression: ["predicate"],
+  // Flow parser changed `.types` to `.elementTypes` https://github.com/facebook/flow/commit/5b60e6a81dc277dfab2e88fa3737a4dc9aafdcab
+  TupleTypeAnnotation: ["types"],
 };
 
 const visitorKeys = Object.fromEntries(

@@ -200,9 +200,8 @@ function printUnionType(path, options, print) {
     return group([indent(code), softline]);
   }
 
-  if (
-    (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
-    (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
+  if ((parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType")
+     &&( parent.elementTypes.length > 1)
   ) {
     return group([
       indent([ifBreak(["(", softline]), code]),

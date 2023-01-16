@@ -53,10 +53,8 @@ function printArray(path, options, print) {
   const openBracket = node.type === "TupleExpression" ? "#[" : "[";
   const closeBracket = "]";
   const elementsProperty =
-    node.type === "TSTupleType"
+    node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
       ? "elementTypes"
-      : node.type === "TupleTypeAnnotation"
-      ? "types"
       : "elements";
   const elements = node[elementsProperty];
   if (elements.length === 0) {

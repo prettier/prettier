@@ -967,7 +967,7 @@ exports[`visitor keys estree 1`] = `
     "elements",
   ],
   "TupleTypeAnnotation": [
-    "types",
+    "elementTypes",
   ],
   "TypeAlias": [
     "id",
