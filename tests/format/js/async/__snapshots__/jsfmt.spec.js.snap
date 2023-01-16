@@ -198,6 +198,28 @@ const getAccountCount = async () =>
 ================================================================================
 `;
 
+exports[`nested2.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+await Promise.all(
+  (await readdir("src")).map(async (path) => {
+    import(\`./\${path}\`);
+  })
+);
+
+=====================================output=====================================
+await Promise.all(
+  (await readdir("src")).map(async (path) => {
+    import(\`./\${path}\`);
+  }),
+);
+
+================================================================================
+`;
+
 exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
