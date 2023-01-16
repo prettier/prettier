@@ -29,6 +29,7 @@ import {
   markerForIfWithoutBlockAndSameLineComment,
   isArrayOrTupleExpression,
   isObjectOrRecordExpression,
+  startsWithNoLookaheadToken,
 } from "./utils/index.js";
 import { locStart, locEnd } from "./loc.js";
 import isBlockComment from "./utils/is-block-comment.js";
@@ -328,7 +329,13 @@ function printPathNoParens(path, options, print, args) {
             (node) =>
               node.type === "AwaitExpression" || node.type === "BlockStatement"
           );
-          if (parentAwaitOrBlock?.type !== "AwaitExpression") {
+          if (
+            parentAwaitOrBlock?.type !== "AwaitExpression" ||
+            !startsWithNoLookaheadToken(
+              parentAwaitOrBlock.argument,
+              (leftmostNode) => leftmostNode === node
+            )
+          ) {
             return group(parts);
           }
         }
