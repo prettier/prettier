@@ -84,7 +84,7 @@ function printFlow(path, options, print) {
     case "TupleTypeLabeledElement":
       return printNamedTupleMember(path, options, print);
     case "TupleTypeSpreadElement":
-      return printRestType(path, options, print)
+      return printRestType(path, options, print);
     case "GenericTypeAnnotation":
       return [
         print("id"),

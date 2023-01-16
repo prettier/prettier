@@ -7,15 +7,7 @@ run_spec(
       "for (let``.bar of []);",
     ],
   },
-  [
-    "babel",
-    "espree",
-    "meriyah",
-    "flow",
-    "typescript",
-    "babel-flow",
-    "babel-ts",
-  ]
+  ["babel", "espree", "meriyah", "flow", "typescript", "babel-flow", "babel-ts"]
 );
 
 run_spec(
