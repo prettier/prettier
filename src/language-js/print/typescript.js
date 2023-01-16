@@ -34,7 +34,7 @@ import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printPropertyKey } from "./property.js";
-import { printFunction, printMethodInternal } from "./function.js";
+import { printFunction, printMethodValue } from "./function.js";
 import { printInterface } from "./interface.js";
 import { printBlock } from "./block.js";
 import {
@@ -451,7 +451,7 @@ function printTypescript(path, options, print) {
     case "TSTypeAnnotation":
       return print("typeAnnotation");
     case "TSEmptyBodyFunctionExpression":
-      return printMethodInternal(path, options, print);
+      return printMethodValue(path, options, print);
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":
