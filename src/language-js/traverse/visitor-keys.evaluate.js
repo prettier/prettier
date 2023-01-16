@@ -42,6 +42,7 @@ const additionalVisitorKeys = {
   DeclareEnum: flowVisitorKeys.EnumDeclaration,
   TupleTypeAnnotation: ["elementTypes"],
   TupleTypeSpreadElement: ["label", "typeAnnotation"],
+  TupleTypeLabeledElement: ["label", "elementType", "variance"],
 
   // Unknown
   Property: ["decorators"],

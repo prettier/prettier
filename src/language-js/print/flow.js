@@ -18,6 +18,7 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printRestType,
+  printNamedTupleMember,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -80,6 +81,8 @@ function printFlow(path, options, print) {
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
       return printArray(path, options, print);
+    case "TupleTypeLabeledElement":
+      return printNamedTupleMember(path, options, print);
     case "TupleTypeSpreadElement":
       return printRestType(path, options, print)
     case "GenericTypeAnnotation":

@@ -344,6 +344,23 @@ function printRestType(path, options, print) {
   ];
 }
 
+/*
+- `TSNamedTupleMember`(TypeScript)
+- `TupleTypeLabeledElement`(flow)
+*/
+function printNamedTupleMember(path, options, print) {
+  const { node } = path;
+
+  return [
+    // `TupleTypeLabeledElement` only
+    node.variance ? print("variance") : "",
+    print("label"),
+    node.optional ? "?" : "",
+    ": ",
+    print("elementType"),
+  ];
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -354,4 +371,5 @@ export {
   shouldHugType,
   printJSDocType,
   printRestType,
+  printNamedTupleMember,
 };

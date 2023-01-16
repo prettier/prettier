@@ -45,6 +45,7 @@ import {
   printIndexedAccessType,
   printJSDocType,
   printRestType,
+  printNamedTupleMember,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printDeclareToken } from "./misc.js";
@@ -127,12 +128,7 @@ function printTypescript(path, options, print) {
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
-      return [
-        print("label"),
-        node.optional ? "?" : "",
-        ": ",
-        print("elementType"),
-      ];
+      return printNamedTupleMember(path, options, print);
     case "TSRestType":
       return printRestType(path, options, print);
     case "TSOptionalType":
