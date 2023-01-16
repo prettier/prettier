@@ -204,18 +204,21 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+async function f() {
 await Promise.all(
   (await readdir("src")).map(async (path) => {
     import(\`./\${path}\`);
   })
-);
+);}
 
 =====================================output=====================================
-await Promise.all(
-  (await readdir("src")).map(async (path) => {
-    import(\`./\${path}\`);
-  }),
-);
+async function f() {
+  await Promise.all(
+    (await readdir("src")).map(async (path) => {
+      import(\`./\${path}\`);
+    }),
+  );
+}
 
 ================================================================================
 `;
