@@ -564,7 +564,7 @@ interface foo5 {
 }
 
 interface foo6 {
-  /* foo */ new (/* baz */)/* bar */ : /* bat */ string;
+  /* foo */ new (/* baz */) /* bar */ : /* bat */ string;
 }
 
 type foo7 = /* foo */ (/* bar */) /* baz */ => void;

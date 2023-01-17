@@ -322,7 +322,7 @@ function printTypeAnnotationProperty(
   ) {
     if (
       hasComment(typeAnnotation, CommentCheckFlags.Leading) &&
-      path.call(getTypeAnnotationFirstToken, "typeAnnotation") === ":"
+      path.call(getTypeAnnotationFirstToken, propertyName) === ":"
     ) {
       shouldPrintLeadingSpace = true;
     }
