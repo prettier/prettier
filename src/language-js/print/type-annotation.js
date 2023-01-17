@@ -309,7 +309,7 @@ function printTypeAnnotationProperty(path, options, print) {
   if (
     (typeAnnotation.type === "TSTypeAnnotation" ||
       typeAnnotation.type === "TypeAnnotation") &&
-    hasComment(typeAnnotation, CommentCheckFlags.leading) &&
+    hasComment(typeAnnotation, CommentCheckFlags.Leading) &&
     path.call(getTypeAnnotationFirstToken, "typeAnnotation") === ":"
   ) {
     shouldPrintLeadingSpace = true;
