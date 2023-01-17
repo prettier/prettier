@@ -282,10 +282,6 @@ function printTypescript(path, options, print) {
       );
 
       if (node.returnType || node.typeAnnotation) {
-        // Print space between `=>`, but not before `:`
-        if (node.type === "TSConstructorType") {
-          parts.push(" ");
-        }
         parts.push(
           printTypeAnnotationProperty(
             path,

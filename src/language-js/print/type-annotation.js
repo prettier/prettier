@@ -259,7 +259,6 @@ function printFunctionType(path, options, print) {
     );
   } else {
     returnTypeDoc.push(
-      " ",
       printTypeAnnotationProperty(
         path,
         print,
@@ -320,9 +319,12 @@ function printTypeAnnotationProperty(
     typeAnnotation.type === "TSTypeAnnotation" ||
     typeAnnotation.type === "TypeAnnotation"
   ) {
+    const firstToken = path.call(getTypeAnnotationFirstToken, propertyName);
+
     if (
-      hasComment(typeAnnotation, CommentCheckFlags.Leading) &&
-      path.call(getTypeAnnotationFirstToken, propertyName) === ":"
+      firstToken === "=>" ||
+      (firstToken === ":" &&
+        hasComment(typeAnnotation, CommentCheckFlags.Leading))
     ) {
       shouldPrintLeadingSpace = true;
     }
