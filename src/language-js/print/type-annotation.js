@@ -295,7 +295,7 @@ function printJSDocType(path, print, token) {
   const { node } = path;
   return [
     node.postfix ? "" : token,
-    print("typeAnnotation"),
+    printTypeAnnotationProperty(path, print),
     node.postfix ? token : "",
   ];
 }

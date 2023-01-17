@@ -240,7 +240,9 @@ function printTypescript(path, options, print) {
       return [
         node.asserts ? "asserts " : "",
         print("parameterName"),
-        node.typeAnnotation ? [" is ", print("typeAnnotation")] : "",
+        node.typeAnnotation
+          ? [" is ", printTypeAnnotationProperty(path, print)]
+          : "",
       ];
     case "TSNonNullExpression":
       return [print("expression"), "!"];
