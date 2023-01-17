@@ -93,14 +93,12 @@ function getErrorMessage(error) {
   Expecting ...
   ```
   */
-  if (/Parse error on line \d+:/.test(lines[0])) {
-    const lineIndexOfCodeFrameEnd = lines.findIndex((line) =>
-      /^-*\^$/.test(line)
-    );
-
-    if (lineIndexOfCodeFrameEnd !== -1) {
-      return lines.slice(lineIndexOfCodeFrameEnd + 1).join("\n");
-    }
+  if (
+    lines.length >= 4 &&
+    /^Parse error on line \d+:$/.test(lines[0]) &&
+    /^-*\^$/.test(lines.at(-2))
+  ) {
+    return lines.at(-1);
   }
 
   /*
@@ -117,7 +115,7 @@ function getErrorMessage(error) {
   ```
   */
   if (
-    lines.length > 3 &&
+    lines.length >= 4 &&
     /:\s?$/.test(lines[0]) &&
     /^\(error occurred in '.*?' @ line \d+ : column \d+\)$/.test(
       lines.at(-1)
