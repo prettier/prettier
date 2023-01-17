@@ -341,12 +341,19 @@ function handleNestedConditionalExpressionComments({
   enclosingNode,
   followingNode,
 }) {
-  if (
-    (enclosingNode?.type === "ConditionalExpression" ||
-      enclosingNode?.type === "TSConditionalType") &&
-    (followingNode?.type === "ConditionalExpression" ||
-      followingNode?.type === "TSConditionalType")
-  ) {
+  const enclosingIsCond =
+    enclosingNode?.type === "ConditionalExpression" ||
+    enclosingNode?.type === "TSConditionalType";
+
+  if (!enclosingIsCond) {
+    return false;
+  }
+
+  const followingIsCond =
+    followingNode?.type === "ConditionalExpression" ||
+    followingNode?.type === "TSConditionalType";
+
+  if (followingIsCond) {
     addDanglingComment(followingNode, comment);
     return true;
   }

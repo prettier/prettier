@@ -154,3 +154,12 @@ const badComments =
     // If model is an array where the items schema is a referred model then we need to use that
   : schema.type === 'array' ? schema.items
   : schema;
+
+const anotherBadComment =
+  refModel ?
+    // If we're in a shared params file then reference the model name directly
+    inSharedParamsFile ? refModel
+      // If we're not in a shared params file then reference the in-file type
+    : classRef()
+    // We don't have a model name, use the in-file name
+  : classRef()

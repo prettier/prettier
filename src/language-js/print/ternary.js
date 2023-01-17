@@ -267,6 +267,19 @@ function printTernary(path, options, print, args) {
     isTSConditional ||
     tryToParenthesizeAlternate;
 
+  const consequentComments = [];
+  if (hasComment(consequentNode, CommentCheckFlags.Dangling)) {
+    path.call((childPath) => {
+      consequentComments.push(printDanglingComments(childPath, options));
+    }, "consequent");
+  }
+  const alternateComments = [];
+  if (hasComment(alternateNode, CommentCheckFlags.Dangling)) {
+    path.call((childPath) => {
+      alternateComments.push(printDanglingComments(childPath, options));
+    }, "alternate");
+  }
+
   const testId = Symbol("test");
   const consequentId = Symbol("consequent");
   const testAndConsequentId = Symbol("test-and-consequent");
@@ -306,7 +319,7 @@ function printTernary(path, options, print, args) {
         ],
         { id: testAndConsequentId }
       )
-    : [printedTestWithQuestionMark, consequent];
+    : [printedTestWithQuestionMark, consequentComments, consequent];
 
   const printedAlternate = print(alternateNodePropertyName);
   const printedAlternateWithParens = tryToParenthesizeAlternate
@@ -315,17 +328,10 @@ function printTernary(path, options, print, args) {
       })
     : printedAlternate;
 
-  const danglingComments = [];
-  if (hasComment(alternateNode, CommentCheckFlags.Dangling)) {
-    path.call((childPath) => {
-      danglingComments.push(printDanglingComments(childPath, options));
-    }, "alternate");
-  }
-
   const parts = [
     printedTestAndConsequent,
 
-    ...danglingComments,
+    ...alternateComments,
 
     isAlternateTernary
       ? hardline
