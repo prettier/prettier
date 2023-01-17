@@ -230,7 +230,7 @@ function printClassProperty(path, options, print) {
     printPropertyKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotationProperty(path, options, print)
+    printTypeAnnotationProperty(path, print)
   );
 
   const isAbstractProperty =

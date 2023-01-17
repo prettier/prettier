@@ -296,10 +296,16 @@ function printJSDocType(path, print, token) {
   ];
 }
 
-function printTypeAnnotationProperty(path, options, print) {
+const typeAnnotationNodesCheckedLeadingComments = new WeakSet();
+function printTypeAnnotationProperty(
+  path,
+  print,
+  propertyName = "typeAnnotation"
+) {
   const {
-    node: { typeAnnotation },
+    node: { [propertyName]: typeAnnotation },
   } = path;
+
   if (!typeAnnotation) {
     return "";
   }
@@ -307,17 +313,22 @@ function printTypeAnnotationProperty(path, options, print) {
   let shouldPrintLeadingSpace = false;
 
   if (
-    (typeAnnotation.type === "TSTypeAnnotation" ||
-      typeAnnotation.type === "TypeAnnotation") &&
-    hasComment(typeAnnotation, CommentCheckFlags.Leading) &&
-    path.call(getTypeAnnotationFirstToken, "typeAnnotation") === ":"
+    typeAnnotation.type === "TSTypeAnnotation" ||
+    typeAnnotation.type === "TypeAnnotation"
   ) {
-    shouldPrintLeadingSpace = true;
+    typeAnnotationNodesCheckedLeadingComments.add(typeAnnotation);
+
+    if (
+      hasComment(typeAnnotation, CommentCheckFlags.Leading) &&
+      path.call(getTypeAnnotationFirstToken, "typeAnnotation") === ":"
+    ) {
+      shouldPrintLeadingSpace = true;
+    }
   }
 
   return shouldPrintLeadingSpace
-    ? [" ", print("typeAnnotation")]
-    : print("typeAnnotation");
+    ? [" ", print(propertyName)]
+    : print(propertyName);
 }
 
 const getTypeAnnotationFirstToken = (path) => {
@@ -368,6 +379,16 @@ const getTypeAnnotationFirstToken = (path) => {
 - `TypeAnnotation` (Flow)
 */
 function printTypeAnnotation(path, options, print) {
+  if (process.env.NODE_ENV !== "production") {
+    const { node } = path;
+
+    if (!typeAnnotationNodesCheckedLeadingComments.has(node)) {
+      throw new Error(
+        `'${node.type}' node should be printed by '${printTypeAnnotationProperty.name}' function.`
+      );
+    }
+  }
+
   const token = getTypeAnnotationFirstToken(path);
   return token
     ? [token, " ", print("typeAnnotation")]

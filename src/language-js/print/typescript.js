@@ -135,9 +135,9 @@ function printTypescript(path, options, print) {
         print("elementType"),
       ];
     case "TSRestType":
-      return ["...", printTypeAnnotationProperty(path, options, print)];
+      return ["...", print("typeAnnotation")];
     case "TSOptionalType":
-      return [printTypeAnnotationProperty(path, options, print), "?"];
+      return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":
       return printInterface(path, options, print);
     case "TSClassImplements":
@@ -150,11 +150,7 @@ function printTypescript(path, options, print) {
     case "TSAsExpression":
     case "TSSatisfiesExpression": {
       const operator = node.type === "TSAsExpression" ? "as" : "satisfies";
-      parts.push(
-        print("expression"),
-        ` ${operator} `,
-        printTypeAnnotationProperty(path, options, print)
-      );
+      parts.push(print("expression"), ` ${operator} `, print("typeAnnotation"));
       const { parent } = path;
       if (
         (isCallExpression(parent) && parent.callee === node) ||
@@ -236,7 +232,7 @@ function printTypescript(path, options, print) {
         "[",
         node.parameters ? parametersGroup : "",
         "]",
-        printTypeAnnotationProperty(path, options, print),
+        printTypeAnnotationProperty(path, print),
         parent.type === "ClassBody" ? semi : "",
       ];
     }
@@ -244,9 +240,7 @@ function printTypescript(path, options, print) {
       return [
         node.asserts ? "asserts " : "",
         print("parameterName"),
-        node.typeAnnotation
-          ? [" is ", printTypeAnnotationProperty(path, options, print)]
-          : "",
+        node.typeAnnotation ? [" is ", print("typeAnnotation")] : "",
       ];
     case "TSNonNullExpression":
       return [print("expression"), "!"];
@@ -295,11 +289,7 @@ function printTypescript(path, options, print) {
       return parts;
 
     case "TSTypeOperator":
-      return [
-        node.operator,
-        " ",
-        printTypeAnnotationProperty(path, options, print),
-      ];
+      return [node.operator, " ", print("typeAnnotation")];
     case "TSMappedType": {
       const shouldBreak = hasNewlineInRange(
         options.originalText,

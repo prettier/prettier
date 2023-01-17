@@ -171,11 +171,7 @@ function printObject(path, options, print) {
   let content;
   if (props.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [
-        leftBrace,
-        rightBrace,
-        printTypeAnnotationProperty(path, options, print),
-      ];
+      return [leftBrace, rightBrace, printTypeAnnotationProperty(path, print)];
     }
 
     content = group([
@@ -184,7 +180,7 @@ function printObject(path, options, print) {
       softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotationProperty(path, options, print),
+      printTypeAnnotationProperty(path, print),
     ]);
   } else {
     content = [
@@ -202,7 +198,7 @@ function printObject(path, options, print) {
       options.bracketSpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotationProperty(path, options, print),
+      printTypeAnnotationProperty(path, print),
     ];
   }
 

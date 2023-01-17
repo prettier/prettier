@@ -93,12 +93,8 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, options, print) {
-  return [
-    "...",
-    print("argument"),
-    printTypeAnnotationProperty(path, options, print),
-  ];
+function printRestSpread(path, print) {
+  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
 }
 
 function printDirective(rawText, options) {

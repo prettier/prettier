@@ -287,7 +287,7 @@ function printPathNoParens(path, options, print, args) {
         node.name,
         printOptionalToken(path),
         printDefiniteToken(path),
-        printTypeAnnotationProperty(path, options, print),
+        printTypeAnnotationProperty(path, print),
       ];
 
     case "V8IntrinsicIdentifier":
@@ -297,7 +297,7 @@ function printPathNoParens(path, options, print, args) {
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
-      return printRestSpread(path, options, print);
+      return printRestSpread(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
       return printFunction(path, print, options, args);

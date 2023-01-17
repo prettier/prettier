@@ -59,7 +59,7 @@ function printFlow(path, options, print) {
     case "DeclareModuleExports":
       return [
         "declare module.exports",
-        printTypeAnnotationProperty(path, options, print),
+        printTypeAnnotationProperty(path, print),
         semi,
       ];
     case "DeclareVariable":
@@ -139,7 +139,7 @@ function printFlow(path, options, print) {
         // `flow` doesn't wrap the `typeAnnotation` with `TypeAnnotation`, so the colon
         // needs to be added separately.
         name ? ": " : "",
-        printTypeAnnotationProperty(path, options, print),
+        printTypeAnnotationProperty(path, print),
       ];
     }
 
@@ -151,7 +151,7 @@ function printFlow(path, options, print) {
     case "InterfaceExtends":
       return [print("id"), print("typeParameters")];
     case "NullableTypeAnnotation":
-      return ["?", printTypeAnnotationProperty(path, options, print)];
+      return ["?", print("typeAnnotation")];
     case "Variance": {
       const { kind } = node;
       assert.ok(kind === "plus" || kind === "minus");
@@ -205,7 +205,7 @@ function printFlow(path, options, print) {
       ];
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
-      return printRestSpread(path, options, print);
+      return printRestSpread(path, print);
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
@@ -219,7 +219,7 @@ function printFlow(path, options, print) {
       return [
         "(",
         print("expression"),
-        printTypeAnnotationProperty(path, options, print),
+        printTypeAnnotationProperty(path, print),
         ")",
       ];
 

@@ -145,7 +145,7 @@ function printArray(path, options, print) {
 
   parts.push(
     printOptionalToken(path),
-    printTypeAnnotationProperty(path, options, print)
+    printTypeAnnotationProperty(path, print)
   );
 
   return parts;
