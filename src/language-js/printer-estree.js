@@ -325,6 +325,7 @@ function printPathNoParens(path, options, print, args) {
           (isMemberExpression(parent) && parent.object === node)
         ) {
           parts = [indent([softline, ...parts]), softline];
+          // avoid printing `await (await` on one line
           const parentAwaitOrBlock = path.findAncestor(
             (node) =>
               node.type === "AwaitExpression" || node.type === "BlockStatement"
