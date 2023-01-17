@@ -401,14 +401,15 @@ this.doWriteConfiguration(target, value, options) // queue up writes to prevent 
   .then(
     () => null,
     (error) => {
-      return options.donotNotifyError
-        ? TPromise.wrapError(error)
+      return options.donotNotifyError ?
+          TPromise.wrapError(error)
         : this.onError(error, target, value);
     },
   );
 
-ret = __DEV__
-  ? // $FlowFixMe: this type differs according to the env
+ret =
+  __DEV__ ?
+    // $FlowFixMe: this type differs according to the env
     vm.runInContext(source, ctx)
   : a;
 
@@ -547,27 +548,27 @@ object[valid
 
 (a ? b : c).d().e().f();
 
-(valid
-  ? helper.responseBody(this.currentUser)
-  : helper.responseBody(this.defaultUser)
+(valid ?
+  helper.responseBody(this.currentUser)
+: helper.responseBody(this.defaultUser)
 ).map();
 
-(valid
-  ? helper.responseBody(this.currentUser)
-  : helper.responseBody(this.defaultUser)
+(valid ?
+  helper.responseBody(this.currentUser)
+: helper.responseBody(this.defaultUser)
 )
   .map()
   .filter();
 
-(valid
-  ? helper.responseBody(this.currentUser)
-  : helper.responseBody(defaultUser)
+(valid ?
+  helper.responseBody(this.currentUser)
+: helper.responseBody(defaultUser)
 ).map();
 
 object[
-  valid
-    ? helper.responseBody(this.currentUser)
-    : helper.responseBody(defaultUser)
+  valid ?
+    helper.responseBody(this.currentUser)
+  : helper.responseBody(defaultUser)
 ].map();
 
 ================================================================================

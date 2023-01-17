@@ -1033,9 +1033,11 @@ printWidth: 1
     -1
   "
   [target]="
-    a
-      ? 1
-      : 2
+    (
+      a
+    ) ?
+      1
+    : 2
   "
   [target]="
 
@@ -1193,9 +1195,11 @@ printWidth: 1
       $event)
   "
   *ngIf="
-    something
-      ? true
-      : false
+    (
+      something
+    ) ?
+      true
+    : false
   "
   *ngIf="
     a
@@ -3370,9 +3374,11 @@ printWidth: 1
 </div>
 <div>
   {{
-    a
-      ? 1
-      : 2
+    (
+      a
+    ) ?
+      1
+    : 2
   }}
 </div>
 <div>
@@ -3631,8 +3637,11 @@ printWidth: 1
 <p>
   {{
     {
-      a: a
-        ? b
+      a:
+        (
+          a
+        ) ?
+          b
         : {}
     }
   }}
@@ -8457,9 +8466,11 @@ can be found in the LICENSE file at http://angular.io/license
 
 <button
   [style.color]="
-    isSpecial
-      ? 'red'
-      : 'green'
+    (
+      isSpecial
+    ) ?
+      'red'
+    : 'green'
   "
 >
   button
@@ -8934,18 +8945,22 @@ can be found in the LICENSE file at http://angular.io/license
 
 <button
   [style.color]="
-    isSpecial
-      ? 'red'
-      : 'green'
+    (
+      isSpecial
+    ) ?
+      'red'
+    : 'green'
   "
 >
   Red
 </button>
 <button
   [style.background-color]="
-    canSave
-      ? 'cyan'
-      : 'grey'
+    (
+      canSave
+    ) ?
+      'cyan'
+    : 'grey'
   "
 >
   Save
@@ -8953,18 +8968,22 @@ can be found in the LICENSE file at http://angular.io/license
 
 <button
   [style.font-size.em]="
-    isSpecial
-      ? 3
-      : 1
+    (
+      isSpecial
+    ) ?
+      3
+    : 1
   "
 >
   Big
 </button>
 <button
   [style.font-size.%]="
-    !isSpecial
-      ? 150
-      : 50
+    (
+      !isSpecial
+    ) ?
+      150
+    : 50
   "
 >
   Small
@@ -9323,21 +9342,27 @@ bindon-ngModel
   should
   be
   {{
-    canSave
-      ? ""
-      : "not"
+    (
+      canSave
+    ) ?
+      ""
+    : "not"
   }}
   saveable,
   {{
-    isUnchanged
-      ? "unchanged"
-      : "modified"
+    (
+      isUnchanged
+    ) ?
+      "unchanged"
+    : "modified"
   }}
   and,
   {{
-    isSpecial
-      ? ""
-      : "not"
+    (
+      isSpecial
+    ) ?
+      ""
+    : "not"
   }}
   special
   after
@@ -9348,9 +9373,11 @@ bindon-ngModel
 
 <div
   [ngClass]="
-    isSpecial
-      ? 'special'
-      : ''
+    (
+      isSpecial
+    ) ?
+      'special'
+    : ''
   "
 >
   This
@@ -9394,9 +9421,11 @@ bindon-ngModel
 
 <div
   [style.font-size]="
-    isSpecial
-      ? 'x-large'
-      : 'smaller'
+    (
+      isSpecial
+    ) ?
+      'x-large'
+    : 'smaller'
   "
 >
   This
@@ -9490,20 +9519,26 @@ bindon-ngModel
   should
   be
   {{
-    canSave
-      ? "italic"
-      : "plain"
+    (
+      canSave
+    ) ?
+      "italic"
+    : "plain"
   }},
   {{
-    isUnchanged
-      ? "normal weight"
-      : "bold"
+    (
+      isUnchanged
+    ) ?
+      "normal weight"
+    : "bold"
   }}
   and,
   {{
-    isSpecial
-      ? "extra large"
-      : "normal size"
+    (
+      isSpecial
+    ) ?
+      "extra large"
+    : "normal size"
   }}
   after
   clicking
@@ -9617,9 +9652,11 @@ bindon-ngModel
 
 <div
   [style.display]="
-    isSpecial
-      ? 'block'
-      : 'none'
+    (
+      isSpecial
+    ) ?
+      'block'
+    : 'none'
   "
 >
   Show
@@ -9628,9 +9665,11 @@ bindon-ngModel
 </div>
 <div
   [style.display]="
-    isSpecial
-      ? 'none'
-      : 'block'
+    (
+      isSpecial
+    ) ?
+      'none'
+    : 'block'
   "
 >
   Hide
