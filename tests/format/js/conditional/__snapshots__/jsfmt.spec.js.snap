@@ -131,127 +131,133 @@ c */? foo : bar : bar;
 
 =====================================output=====================================
 var inspect =
-  4 === util.inspect.length
-    ? // node <= 0.8.x
-      function (v, colors) {
-        return util.inspect(v, void 0, void 0, colors);
-      }
-    : // node > 0.8.x
-      function (v, colors) {
-        return util.inspect(v, { colors: colors });
-      };
+  4 === util.inspect.length ?
+    // node <= 0.8.x
+    function (v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    }
+  : // node > 0.8.x
+    function (v, colors) {
+      return util.inspect(v, { colors: colors });
+    };
 
 var inspect =
-  4 === util.inspect.length
-    ? // node <= 0.8.x
-      function (v, colors) {
-        return util.inspect(v, void 0, void 0, colors);
-      }
-    : // node > 0.8.x
-      function (v, colors) {
-        return util.inspect(v, { colors: colors });
-      };
+  4 === util.inspect.length ?
+    // node <= 0.8.x
+    function (v, colors) {
+      return util.inspect(v, void 0, void 0, colors);
+    }
+  : // node > 0.8.x
+    function (v, colors) {
+      return util.inspect(v, { colors: colors });
+    };
 
-const extractTextPluginOptions = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
+const extractTextPluginOptions =
+  shouldUseRelativeAssetPaths ?
+    // Making sure that the publicPath goes back to to build folder.
     { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const extractTextPluginOptions2 = shouldUseRelativeAssetPaths
-  ? // Making sure that the publicPath goes back to to build folder.
+const extractTextPluginOptions2 =
+  shouldUseRelativeAssetPaths ?
+    // Making sure that the publicPath goes back to to build folder.
     { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
-const extractTextPluginOptions3 = shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
-  ? { publicPath: Array(cssFilename.split("/").length).join("../") }
+const extractTextPluginOptions3 =
+  (
+    shouldUseRelativeAssetPaths // Making sure that the publicPath goes back to to build folder.
+  ) ?
+    { publicPath: Array(cssFilename.split("/").length).join("../") }
   : {};
 
 const { configureStore } =
-  process.env.NODE_ENV === "production"
-    ? require("./configureProdStore") // a
-    : require("./configureDevStore"); // b
+  process.env.NODE_ENV === "production" ?
+    require("./configureProdStore") // a
+  : require("./configureDevStore"); // b
 
-test /* comment
+(
+  test /* comment
   comment
       comment
 */
-  ? foo
-  : bar;
+) ?
+  foo
+: bar;
 
-test
-  ? /* comment
+test ?
+  /* comment
           comment
     comment
           comment
   */
-    foo
-  : bar;
+  foo
+: bar;
 
-test
-  ? /* comment
+test ?
+  /* comment
        comment
        comment
        comment
     */
-    foo
-  : test
-    ? /* comment
+  foo
+: test ?
+  /* comment
   comment
     comment */
-      foo
-    : bar;
+  foo
+: bar;
 
 test ? /* comment */ foo : bar;
 
-test
-  ? foo
-  : /* comment
+test ? foo : (
+  /* comment
          comment
      comment
            comment
     */
-    bar;
+  bar
+);
 
-test
-  ? foo
-  : /* comment
+test ? foo
+: /* comment
          comment
      comment
            comment
       A newline will be added after this comment, unfortunately – but it can be removed manually, see next statement.
     */
-    test
-    ? foo
-    : /* comment
+test ? foo
+: /* comment
   comment
     comment
    */
-      bar;
+  bar;
 
 // It is at least possible to delete the extra newline that was
 // unfortunately added before the second condition above:
-test
-  ? foo /* comment
+test ?
+  foo /* comment
          comment
      comment
            comment
     */
-  : test
-    ? foo
-    : /* comment
+: test ? foo
+: /* comment
   comment
     comment
    */
-      bar;
+  bar;
 
 test ? foo : /* comment */ bar;
 
-test
-  ? test /* c
+test ?
+  (
+    test /* c
 c */
-    ? foo
-    : bar
-  : bar;
+  ) ?
+    foo
+  : bar
+: bar;
 
 ================================================================================
 `;
@@ -422,132 +428,113 @@ inJSXExpressionContainer.withNullConditional = (
 //  mostly taken from https://github.com/prettier/prettier/issues/9561
 
 const message =
-  i % 3 === 0 && i % 5 === 0
-    ? "fizzbuzz"
-    : i % 3 === 0
-      ? "fizz"
-      : i % 5 === 0
-        ? "buzz"
-        : String(i);
+  i % 3 === 0 && i % 5 === 0 ? "fizzbuzz"
+  : i % 3 === 0 ? "fizz"
+  : i % 5 === 0 ? "buzz"
+  : String(i);
 
 const paymentMessageShort =
-  state == "success"
-    ? "Payment completed successfully"
-    : state == "processing"
-      ? "Payment processing"
-      : state == "invalid_cvc"
-        ? "There was an issue with your CVC number"
-        : state == "invalid_expiry"
-          ? "Expiry must be sometime in the past."
-          : "There was an issue with the payment.  Please contact support.";
+  state == "success" ? "Payment completed successfully"
+  : state == "processing" ? "Payment processing"
+  : state == "invalid_cvc" ? "There was an issue with your CVC number"
+  : state == "invalid_expiry" ? "Expiry must be sometime in the past."
+  : "There was an issue with the payment.  Please contact support.";
 
 const paymentMessageWithABreak =
-  state == "success"
-    ? "Payment completed successfully"
-    : state == "processing"
-      ? "Payment processing"
-      : state == "invalid_cvc"
-        ? "There was an issue with your CVC number, and you need to take a prompt action on it."
-        : state == "invalid_expiry"
-          ? "Expiry must be sometime in the past."
-          : "There was an issue with the payment.  Please contact support.";
+  state == "success" ? "Payment completed successfully"
+  : state == "processing" ? "Payment processing"
+  : state == "invalid_cvc" ?
+    "There was an issue with your CVC number, and you need to take a prompt action on it."
+  : state == "invalid_expiry" ? "Expiry must be sometime in the past."
+  : "There was an issue with the payment.  Please contact support.";
 
-const typeofExample = definition.encode
-  ? definition.encode(
-      typeof row[field] !== "undefined"
-        ? row[field]
-        : typeof definition.default !== "undefined"
-          ? definition.default
-          : null,
+const typeofExample =
+  definition.encode ?
+    definition.encode(
+      typeof row[field] !== "undefined" ? row[field]
+      : typeof definition.default !== "undefined" ? definition.default
+      : null,
     )
-  : typeof row[field] !== "undefined"
-    ? row[field]
-    : typeof definition.default !== "undefined"
-      ? definition.default
-      : null;
+  : typeof row[field] !== "undefined" ? row[field]
+  : typeof definition.default !== "undefined" ? definition.default
+  : null;
 
 // (the following is semantically equivalent to the above, but written in a more-confusing style – it'd be hard to grok no matter the formatting)
-const typeofExampleFlipped = definition.encode
-  ? definition.encode(
-      typeof row[field] === "undefined"
-        ? typeof definition.default === "undefined"
-          ? null
-          : definition.default
-        : row[field],
+const typeofExampleFlipped =
+  definition.encode ?
+    definition.encode(
+      typeof row[field] === "undefined" ?
+        typeof definition.default === "undefined" ?
+          null
+        : definition.default
+      : row[field],
     )
-  : typeof row[field] === "undefined"
-    ? typeof definition.default === "undefined"
-      ? null
-      : definition.default
-    : row[field];
+  : typeof row[field] === "undefined" ?
+    typeof definition.default === "undefined" ?
+      null
+    : definition.default
+  : row[field];
 
 // JSX Examples:
 
 const typicalLongConsequentWithNullAlternate = (
   <div>
-    {children && !isEmptyChildren(children) ? (
+    {children && !isEmptyChildren(children) ?
       <FooComponent
         className="a bunch of css classes might go here, wow so many"
         foo={foo}
         bar={includeBar ? bar : null}
       />
-    ) : null}
+    : null}
   </div>
 );
 
 const reactRouterExampleJSX = (
   <div>
-    {children && !isEmptyChildren(children)
-      ? children
-      : props.match
-        ? component
-          ? React.createElement(component, props)
-          : render
-            ? render(props)
-            : null
-        : null}
+    {children && !isEmptyChildren(children) ?
+      children
+    : props.match ?
+      component ?
+        React.createElement(component, props)
+      : render ?
+        render(props)
+      : null
+    : null}
   </div>
 );
 
 const reactRouterExampleNonJSX =
-  children && !isEmptyChildren(children)
-    ? children
-    : props.match
-      ? component
-        ? React.createElement(component, props)
-        : render
-          ? render(props)
-          : null
-      : null;
+  children && !isEmptyChildren(children) ? children
+  : props.match ?
+    component ? React.createElement(component, props)
+    : render ? render(props)
+    : null
+  : null;
 
 inJSXExpressionContainer.withLongConditionals.example = (
   <div>
-    {isACat() && (someReallyLongCondition || moreInThisLongCondition)
-      ? someReallyLargeExpression.toMakeMeowNoise().willCauseParens()
-      : someReallyLongCondition || moreInThisLongCondition
-        ? bark()
-        : someReallyLargeExpression.toMakeMeowNoise().willCauseParens()}
+    {isACat() && (someReallyLongCondition || moreInThisLongCondition) ?
+      someReallyLargeExpression.toMakeMeowNoise().willCauseParens()
+    : someReallyLongCondition || moreInThisLongCondition ?
+      bark()
+    : someReallyLargeExpression.toMakeMeowNoise().willCauseParens()}
   </div>
 );
 
 inJSXExpressionContainer.withLoops.orBooleans.example = (
   <div>
-    {items
-      ? items.map((item) =>
-          item.display ? (
-            <Item item={item} attr="breaks ternary but not consequent" />
-          ) : (
-            <Blank />
-          ),
-        )
-      : null}
+    {items ?
+      items.map((item) =>
+        item.display ?
+          <Item item={item} attr="breaks ternary but not consequent" />
+        : <Blank />,
+      )
+    : null}
 
     {showTheStuff &&
-      (foo ? (
+      (foo ?
         <Thing thing={foooooooooooooooooooooooooo} bar="bazzzzzz" />
-      ) : (
-        <OtherThing />
-      ))}
+      : <OtherThing />)}
   </div>
 );
 
@@ -557,12 +544,14 @@ inJSXExpressionContainer.withNullConditional = (
     {isACat() && (someReallyLongCondition || moreInThisLongCondition) ? null : (
       <Foo />
     )}
-    {isACat() &&
-    (someReallyLongCondition ||
-      moreInThisLongCondition ||
-      evenMoreInThisExtraLongConditional) ? null : (
-      <Foo />
-    )}
+    {(
+      isACat() &&
+      (someReallyLongCondition ||
+        moreInThisLongCondition ||
+        evenMoreInThisExtraLongConditional)
+    ) ?
+      null
+    : <Foo />}
   </div>
 );
 
@@ -779,114 +768,120 @@ jsxExpressionContainer.inJSXAttribute.hasNoSpecialCasing = (
 const short = isLoud() ? makeNoise() : silent();
 
 // next, put everything after the =
-const lessShort = isLoudReallyLoud()
-  ? makeNoiseReallyLoudly.omgSoLoud()
-  : silent();
+const lessShort =
+  isLoudReallyLoud() ? makeNoiseReallyLoudly.omgSoLoud() : silent();
 
 // next, indent the consequent:
-const andIndented = isLoudReallyReallyReallyReallyLoud()
-  ? makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+const andIndented =
+  isLoudReallyReallyReallyReallyLoud() ?
+    makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
   : silent();
 
 // unless the consequent is short (less than ten characters long):
-const shortSoCase = isLoudReallyReallyReallyReallyLoud()
-  ? silent()
-  : makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud();
+const shortSoCase =
+  isLoudReallyReallyReallyReallyLoud() ? silent() : (
+    makeNoiseReallyReallyReallyReallyReallyLoudly.omgSoLoud()
+  );
 
 // if chained, always break and put after the =
-const chainedShort = isCat() ? meow() : isDog() ? bark() : silent();
+const chainedShort =
+  isCat() ? meow()
+  : isDog() ? bark()
+  : silent();
 
 // when a consequent breaks in a chain:
-const chainedWithLongConsequent = isCat()
-  ? someReallyLargeExpression
+const chainedWithLongConsequent =
+  isCat() ?
+    someReallyLargeExpression
       .thatWouldCauseALineBreak()
       .willCauseAnIndentButNotParens()
-  : isDog()
-    ? bark()
-    : silent();
+  : isDog() ? bark()
+  : silent();
 
 // nested ternary in consequent always breaks:
-const chainedWithTernaryConsequent = isCat()
-  ? aNestedCondition
-    ? theResult()
+const chainedWithTernaryConsequent =
+  isCat() ?
+    aNestedCondition ? theResult()
     : theAlternate()
-  : isDog()
-    ? bark()
-    : silent();
+  : isDog() ? bark()
+  : silent();
 
 // consequent and terminal alternate break:
-const consequentAndTerminalAlternateBreak = isCat()
-  ? someReallyLargeExpression
+const consequentAndTerminalAlternateBreak =
+  isCat() ?
+    someReallyLargeExpression
       .thatWouldCauseALineBreak()
       .willCauseAnIndentButNotParens()
-  : isDog()
-    ? bark()
-    : someReallyLargeExpression
-        .thatWouldCauseALineBreak()
-        .willCauseAnIndentButNotParens();
+  : isDog() ? bark()
+  : someReallyLargeExpression
+      .thatWouldCauseALineBreak()
+      .willCauseAnIndentButNotParens();
 
 // multiline conditions and consequents/alternates:
 const multilineConditionsConsequentsAndAlternates =
-  isAnAdorableKittyCat() && (someReallyLongCondition || moreInThisLongCondition)
-    ? someReallyLargeExpression
-        .thatWouldCauseALineBreak()
-        .willCauseAnIndentButNotParens()
-    : isNotAnAdorableKittyCat() &&
-        (someReallyLongCondition || moreInThisLongCondition)
-      ? bark()
-      : shortCondition()
-        ? shortConsequent()
-        : someReallyLargeExpression
-            .thatWouldCauseALineBreak()
-            .willCauseAnIndentButNotParens();
+  (
+    isAnAdorableKittyCat() &&
+    (someReallyLongCondition || moreInThisLongCondition)
+  ) ?
+    someReallyLargeExpression
+      .thatWouldCauseALineBreak()
+      .willCauseAnIndentButNotParens()
+  : (
+    isNotAnAdorableKittyCat() &&
+    (someReallyLongCondition || moreInThisLongCondition)
+  ) ?
+    bark()
+  : shortCondition() ? shortConsequent()
+  : someReallyLargeExpression
+      .thatWouldCauseALineBreak()
+      .willCauseAnIndentButNotParens();
 
 // illustrating case of mostly short conditionals
 const mostlyShort =
-  x === 1
-    ? "one"
-    : x === 2
-      ? "two"
-      : x === 3
-        ? "three"
-        : x === 5 &&
-            y === 7 &&
-            someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
-          ? "four"
-          : x === 6
-            ? "six"
-            : "idk";
+  x === 1 ? "one"
+  : x === 2 ? "two"
+  : x === 3 ? "three"
+  : (
+    x === 5 &&
+    y === 7 &&
+    someOtherThing.thatIsSoLong.thatItBreaksTheTestCondition()
+  ) ?
+    "four"
+  : x === 6 ? "six"
+  : "idk";
 
 // long conditional, short consequent/alternate, not chained - do indent after ?
 const longConditional =
-  bifornCringerMoshedPerplexSawder === 2 / askTrovenaBeenaDependsRowans &&
-  glimseGlyphsHazardNoopsTieTie >=
-    averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
-    ? "foo"
-    : "bar";
+  (
+    bifornCringerMoshedPerplexSawder === 2 / askTrovenaBeenaDependsRowans &&
+    glimseGlyphsHazardNoopsTieTie >=
+      averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+  ) ?
+    "foo"
+  : "bar";
 
 // long conditional, short consequent/alternate, chained
 // (break on short consequents iff in chained ternary and its conditional broke)
 const longConditionalChained =
-  bifornCringerMoshedPerplexSawder === 2 / askTrovenaBeenaDependsRowans &&
-  glimseGlyphsHazardNoopsTieTie >=
-    averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
-    ? "foo"
-    : anotherCondition
-      ? "bar"
-      : "baz";
+  (
+    bifornCringerMoshedPerplexSawder === 2 / askTrovenaBeenaDependsRowans &&
+    glimseGlyphsHazardNoopsTieTie >=
+      averredBathersBoxroomBuggyNurl().anodyneCondosMalateOverateRetinol()
+  ) ?
+    "foo"
+  : anotherCondition ? "bar"
+  : "baz";
 
 // As a function parameter, don't add an extra indent:
 definition.encode(
-  typeof row[field] !== "undefined"
-    ? row[field]
-    : typeof definition.default !== "undefined"
-      ? definition.default
-      : null,
-  typeof row[field] === "undefined"
-    ? typeof definition.default === "undefined"
-      ? null
-      : definition.default
-    : row[field],
+  typeof row[field] !== "undefined" ? row[field]
+  : typeof definition.default !== "undefined" ? definition.default
+  : null,
+  typeof row[field] === "undefined" ?
+    typeof definition.default === "undefined" ?
+      null
+    : definition.default
+  : row[field],
 );
 
 // In a return, break and over-indent:
@@ -894,8 +889,8 @@ const inReturn = () => {
   if (short) {
     return foo ? 1 : 2;
   }
-  return typeof row[aVeryLongFieldName] !== "undefined"
-    ? row[aVeryLongFieldName]
+  return typeof row[aVeryLongFieldName] !== "undefined" ?
+      row[aVeryLongFieldName]
     : null;
 };
 
@@ -911,27 +906,28 @@ const inReturn = () => {
 const someJSX = (
   <div>
     Typical jsx case:
-    {showFoo ? <Foo attribute="such and such stuff here" /> : <Bar short />}
-    Nested, and with a non-jsx consequent is the same:
-    {component ? (
-      React.createElement(component, props)
-    ) : render ? (
-      <div>{render(props)}</div>
-    ) : (
-      <div>Nothing is here</div>
-    )}
-    As is a non-jsx consequent:
-    {showTheJSXElement ? <div>the stuff</div> : renderOtherStuff()}
-    But if the alternate breaks, add a newline before the closing curly brace:
-    {showTheThing || pleaseShowTheThing ? (
+    {showFoo ?
       <Foo attribute="such and such stuff here" />
-    ) : (
-      <Bar
+    : <Bar short />}
+    Nested, and with a non-jsx consequent is the same:
+    {component ?
+      React.createElement(component, props)
+    : render ?
+      <div>{render(props)}</div>
+    : <div>Nothing is here</div>}
+    As is a non-jsx consequent:
+    {showTheJSXElement ?
+      <div>the stuff</div>
+    : renderOtherStuff()}
+    But if the alternate breaks, add a newline before the closing curly brace:
+    {showTheThing || pleaseShowTheThing ?
+      <Foo attribute="such and such stuff here" />
+    : <Bar
         attribute="such and such stuff here"
         another="more stuff here"
         third="and even more, hooray!"
       />
-    )}
+    }
     When the consequent is \`null\` and the alternate breaks, hug it with parens
     to match boolean behavior:
     {!thing ? null : (
@@ -943,23 +939,18 @@ const someJSX = (
   </div>
 );
 
-ternaryWithJSXElements.hasNoSpecialCasing = component ? (
-  <div>{React.createElement(component, props)}</div>
-) : render ? (
-  <div>{render(props)}</div>
-) : (
-  <div>Nothing is here</div>
-);
+ternaryWithJSXElements.hasNoSpecialCasing =
+  component ? <div>{React.createElement(component, props)}</div>
+  : render ? <div>{render(props)}</div>
+  : <div>Nothing is here</div>;
 
 jsxExpressionContainer.inJSXAttribute.hasNoSpecialCasing = (
   <Foo
     withJSX={isRed ? <RedColorThing /> : <GreenColorThing />}
     withJSXBroken={
-      isRed || isSomeOtherLongCondition.thatBreaksTheLine() ? (
+      isRed || isSomeOtherLongCondition.thatBreaksTheLine() ?
         <RedColorThing />
-      ) : (
-        <GreenColorThing />
-      )
+      : <GreenColorThing />
     }
   />
 );
@@ -1160,57 +1151,61 @@ const anotherBadComment =
 =====================================output=====================================
 // concatened string in consequent should be visually distinguishable from alternate
 // … or maybe this is okay, because the colon is enough?
-const avatar = has_ordered
-  ? "https://marmelab.com/posters/avatar/longer-word-that-breaks-consequent-" +
+const avatar =
+  has_ordered ?
+    "https://marmelab.com/posters/avatar/longer-word-that-breaks-consequent-" +
     numberOfCustomers +
     ".jpeg"
   : undefined;
 
 // Similarly, in the alternate:
-const redirectUrl = pathName
-  ? pathName
-  : nextPathName + nextSearch ||
-    defaultAuthParams.afterLoginUrl.makeThisLongerSoItBreaks;
+const redirectUrl =
+  pathName ? pathName : (
+    nextPathName + nextSearch ||
+    defaultAuthParams.afterLoginUrl.makeThisLongerSoItBreaks
+  );
 
 // And another, more pathological case of the above:
 const isEmpty = (obj) =>
-  obj instanceof Date
-    ? false
-    : obj === "" ||
-      obj === null ||
-      obj === undefined ||
-      obj === somethingThatIsLonger ||
-      shallowEqual(obj, {});
+  obj instanceof Date ? false : (
+    obj === "" ||
+    obj === null ||
+    obj === undefined ||
+    obj === somethingThatIsLonger ||
+    shallowEqual(obj, {})
+  );
 
 // Again, this case is a bit hard to distinguish the alternate.
 const eventsFromOrders =
-  orderIds && orders
-    ? orderIds.map((id) => ({
-        type: "order",
-        date: orders[id].date,
-        data: orders[id],
-      }))
-    : [];
+  orderIds && orders ?
+    orderIds.map((id) => ({
+      type: "order",
+      date: orders[id].date,
+      data: orders[id],
+    }))
+  : [];
 
 // Kinda weird to have dedents to the level of "return" in a function.
 function foo() {
-  return !linkTo
-    ? false
-    : typeof linkTo === "function"
-      ? linkTo(record, reference)
-      : linkToRecord(rootPath, sourceId, linkTo_as_string);
+  return (
+    !linkTo ? false
+    : typeof linkTo === "function" ? linkTo(record, reference)
+    : linkToRecord(rootPath, sourceId, linkTo_as_string)
+  );
 }
 function foo2() {
-  return React.isValidElement(emptyText)
-    ? React.cloneElement(emptyText)
-    : emptyText === ""
-      ? " " // em space, forces the display of an empty line of normal height
-      : translate(emptyText, { _: emptyText });
+  return (
+    React.isValidElement(emptyText) ? React.cloneElement(emptyText)
+    : emptyText === "" ?
+      " " // em space, forces the display of an empty line of normal height
+    : translate(emptyText, { _: emptyText })
+  );
 }
 
 // Function call ideally wouldnt break break
-const matchingReferencesError = isMatchingReferencesError(matchingReferences)
-  ? translate(matchingReferences.error, {
+const matchingReferencesError =
+  isMatchingReferencesError(matchingReferences) ?
+    translate(matchingReferences.error, {
       _: matchingReferences.error,
     })
   : null;
@@ -1218,95 +1213,96 @@ const matchingReferencesError = isMatchingReferencesError(matchingReferences)
 // This one is kinda confusing any way you slice it…
 const obj = {
   error:
-    matchingReferencesError &&
-    (!input.value ||
-      (input.value && selectedReferencesDataStatus === REFERENCES_STATUS_EMPTY))
-      ? translate("ra.input.references.all_missing", {
-          _: "ra.input.references.all_missing",
-        })
-      : null,
+    (
+      matchingReferencesError &&
+      (!input.value ||
+        (input.value &&
+          selectedReferencesDataStatus === REFERENCES_STATUS_EMPTY))
+    ) ?
+      translate("ra.input.references.all_missing", {
+        _: "ra.input.references.all_missing",
+      })
+    : null,
 };
 
 // I think we should indent after the inner || on this, and do better wtih the parens around the &&
 const obj2 = {
   warning:
-    matchingReferencesError ||
-    (input.value && selectedReferencesDataStatus !== REFERENCES_STATUS_READY)
-      ? matchingReferencesError ||
-        translate("ra.input.references.many_missing", {
-          _: "ra.input.references.many_missing",
-        })
-      : null,
+    (
+      matchingReferencesError ||
+      (input.value && selectedReferencesDataStatus !== REFERENCES_STATUS_READY)
+    ) ?
+      matchingReferencesError ||
+      translate("ra.input.references.many_missing", {
+        _: "ra.input.references.many_missing",
+      })
+    : null,
 };
 
 // The boolean conditions in the test should look cohesive.
 const selectedReferencesDataStatus =
-  !isEmpty(value) && typeof value === "string" && !pattern.test(value)
-    ? getMessage(message, { pattern }, value, values)
-    : undefined;
+  !isEmpty(value) && typeof value === "string" && !pattern.test(value) ?
+    getMessage(message, { pattern }, value, values)
+  : undefined;
 
 // Would be nice if these two nested ternaries didn't look like a single one.
 resolveRedirectTo(
   redirectTo,
   basePath,
-  payload
-    ? payload.id || (payload.data ? payload.data.id : null)
-    : requestPayload
-      ? requestPayload.id
-      : null,
-  payload && payload.data
-    ? payload.data
-    : requestPayload && requestPayload.data
-      ? requestPayload.data
-      : null,
+  payload ? payload.id || (payload.data ? payload.data.id : null)
+  : requestPayload ? requestPayload.id
+  : null,
+  payload && payload.data ? payload.data
+  : requestPayload && requestPayload.data ? requestPayload.data
+  : null,
 );
 
 const delayedDataProvider = new Proxy(restProvider, {
   get: (target, name, self) =>
-    name === "then" // as we await for the dataProvider, JS calls then on it. We must trap that call or else the dataProvider will be called with the then method
-      ? self
-      : (resource, params) =>
-          new Promise((resolve) =>
-            setTimeout(
-              () => resolve(restProvider[name](resource, params)),
-              500,
-            ),
-          ),
+    (
+      name === "then" // as we await for the dataProvider, JS calls then on it. We must trap that call or else the dataProvider will be called with the then method
+    ) ?
+      self
+    : (resource, params) =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve(restProvider[name](resource, params)), 500),
+        ),
 });
 
 function foo4() {
-  return !match || match.length < 5
-    ? line
+  return !match || match.length < 5 ?
+      line
     : match[1] + match[2] + match[3] + match[4];
 }
 
 function foo5() {
-  return !match || match.length < 5
-    ? foo(line)
+  return !match || match.length < 5 ?
+      foo(line)
     : match[1] + match[2] + match[3] + match[4];
 }
 
 function foo6() {
-  return !match || match.length < 5
-    ? linethatisverylongandbreaksthelinehooray
+  return !match || match.length < 5 ?
+      linethatisverylongandbreaksthelinehooray
     : match[1] + match[2] + match[3] + match[4];
 }
 
 function foo7() {
-  return !match || match.length < 5
-    ? linethatisverylongandbreaksthelinehoorayjustabitlonger
+  return !match || match.length < 5 ?
+      linethatisverylongandbreaksthelinehoorayjustabitlonger
     : match[1] + match[2] + match[3] + match[4];
 }
 
 const badComments =
-  schema.model ? schema
-    // If model is an array where the items schema is a referred model then we need to use that
+  schema.model ?
+    schema// If model is an array where the items schema is a referred model then we need to use that
   : schema.type === "array" ? schema.items
   : schema;
 
 const anotherBadComment =
-  refModel ?
-    // If we're in a shared params file then reference the model name directly
+  (
+    refModel
+  ) ?// If we're in a shared params file then reference the model name directly
     inSharedParamsFile ? refModel
     : // If we're not in a shared params file then reference the in-file type
       classRef()

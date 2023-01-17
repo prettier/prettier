@@ -4832,18 +4832,22 @@ function binaryInBinaryRight() {
 
 function conditional() {
   return (
-    // Reason for 42
-    42
-      ? 1
+    (
+        // Reason for 42
+        42
+      ) ?
+        1
       : 2
   )
 }
 
 function binaryInConditional() {
   return (
-    // Reason for 42
-    42 * 3
-      ? 1
+    (
+        // Reason for 42
+        42 * 3
+      ) ?
+        1
       : 2
   )
 }
@@ -4881,7 +4885,10 @@ function memberInAndOutWithCalls() {
 function excessiveEverything() {
   return (
     // Reason for stuff
-    a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
+    a.b() * 3 + 4 ?
+      (a\`hi\`, 1) ? 1
+      : 1
+    : 1
   )
 }
 
@@ -5186,18 +5193,22 @@ function binaryInBinaryRight() {
 
 function conditional() {
   return (
-    // Reason for 42
-    42
-      ? 1
+    (
+        // Reason for 42
+        42
+      ) ?
+        1
       : 2
   );
 }
 
 function binaryInConditional() {
   return (
-    // Reason for 42
-    42 * 3
-      ? 1
+    (
+        // Reason for 42
+        42 * 3
+      ) ?
+        1
       : 2
   );
 }
@@ -5235,7 +5246,10 @@ function memberInAndOutWithCalls() {
 function excessiveEverything() {
   return (
     // Reason for stuff
-    a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
+    a.b() * 3 + 4 ?
+      (a\`hi\`, 1) ? 1
+      : 1
+    : 1
   );
 }
 

@@ -79,20 +79,25 @@ type T = test extends B ? test extends B /* c
 c */? foo : bar : bar;
 
 =====================================output=====================================
-type A = B extends T
-  ? // comment
+type A =
+  B extends T ?
+    // comment
     foo
   : bar;
 
-type A = B extends test /* comment
+type A =
+  B extends (
+    test /* comment
   comment
       comment
 */
-  ? foo
+  ) ?
+    foo
   : bar;
 
-type T = test extends B
-  ? /* comment
+type T =
+  test extends B ?
+    /* comment
           comment
     comment
           comment
@@ -100,24 +105,25 @@ type T = test extends B
     foo
   : bar;
 
-type T = test extends B
-  ? /* comment
+type T =
+  test extends B ?
+    /* comment
        comment
        comment
        comment
     */
     foo
-  : test extends B
-    ? /* comment
+  : test extends B ?
+    /* comment
   comment
     comment */
-      foo
-    : bar;
+    foo
+  : bar;
 
 type T = test extends B ? /* comment */ foo : bar;
 
-type T = test extends B
-  ? foo
+type T =
+  test extends B ? foo
   : /* comment
          comment
      comment
@@ -125,27 +131,29 @@ type T = test extends B
     */
     bar;
 
-type T = test extends B
-  ? foo
+type T =
+  test extends B ? foo
   : /* comment
          comment
      comment
            comment
     */
-    test extends B
-    ? foo
-    : /* comment
+  test extends B ? foo
+  : /* comment
   comment
     comment
    */
-      bar;
+    bar;
 
 type T = test extends B ? foo : /* comment */ bar;
 
-type T = test extends B
-  ? test extends B /* c
+type T =
+  test extends B ?
+    test extends (
+      B /* c
 c */
-    ? foo
+    ) ?
+      foo
     : bar
   : bar;
 
@@ -196,11 +204,10 @@ type U1b = new () => (X) extends T ? U : V;
 type U2 = (new () => X) extends T ? U : V;
 
 =====================================output=====================================
-export type DeepReadonly<T> = T extends any[]
-  ? DeepReadonlyArray<T[number]>
-  : T extends object
-    ? DeepReadonlyObject<T>
-    : T;
+export type DeepReadonly<T> =
+  T extends any[] ? DeepReadonlyArray<T[number]>
+  : T extends object ? DeepReadonlyObject<T>
+  : T;
 
 type NonFunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K;
@@ -212,17 +219,13 @@ type DeepReadonlyObject<T> = {
   readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>;
 };
 
-type TypeName<T> = T extends string
-  ? "string"
-  : T extends number
-    ? "number"
-    : T extends boolean
-      ? "boolean"
-      : T extends undefined
-        ? "undefined"
-        : T extends Function
-          ? "function"
-          : "object";
+type TypeName<T> =
+  T extends string ? "string"
+  : T extends number ? "number"
+  : T extends boolean ? "boolean"
+  : T extends undefined ? "undefined"
+  : T extends Function ? "function"
+  : "object";
 
 type Type01 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
 type Type02 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
@@ -261,19 +264,14 @@ type Unpacked<T> =
   T;
 
 =====================================output=====================================
-type TestReturnType<T extends (...args: any[]) => any> = T extends (
-  ...args: any[]
-) => infer R
-  ? R
-  : any;
+type TestReturnType<T extends (...args: any[]) => any> =
+  T extends (...args: any[]) => infer R ? R : any;
 
-type Unpacked<T> = T extends (infer U)[]
-  ? U
-  : T extends (...args: any[]) => infer U
-    ? U
-    : T extends Promise<infer U>
-      ? U
-      : T;
+type Unpacked<T> =
+  T extends (infer U)[] ? U
+  : T extends (...args: any[]) => infer U ? U
+  : T extends Promise<infer U> ? U
+  : T;
 
 ================================================================================
 `;
@@ -303,32 +301,35 @@ type Foo3 =
     : CompositeZamazingoResolver;
 
 =====================================output=====================================
-type Foo = (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
+type Foo =
+  (
+    ThingamabobberFactory extends AbstractThingamabobberFactory ?
+      GobbledygookProvider
     : CompositeGobbledygookProvider
-) extends DoubleGobbledygookProvider
-  ? UniqueDalgametreService
+  ) extends DoubleGobbledygookProvider ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
-type Foo2 = DoubleGobbledygookProvider extends (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
+type Foo2 =
+  DoubleGobbledygookProvider extends (
+    ThingamabobberFactory extends AbstractThingamabobberFactory ?
+      GobbledygookProvider
     : CompositeGobbledygookProvider
-)
-  ? UniqueDalgametreService
+  ) ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
-type Foo3 = (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
+type Foo3 =
+  (
+    ThingamabobberFactory extends AbstractThingamabobberFactory ?
+      GobbledygookProvider
     : CompositeGobbledygookProvider
-) extends (
-  DoubleGobbledygookProvider extends MockGobbledygookProvider
-    ? MockThingamabobberFactory
+  ) extends (
+    DoubleGobbledygookProvider extends MockGobbledygookProvider ?
+      MockThingamabobberFactory
     : ThingamabobberFactory
-)
-  ? UniqueDalgametreService
+  ) ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
 ================================================================================
@@ -378,42 +379,43 @@ type Unpacked<T> =
   : T;
 =====================================output=====================================
 // TypeScript has the same behavior, including a line break after =, but no parens around "conditional":
-type KnownKeys<T> = {
-  [K in keyof T]: string extends K ? never : number extends K ? never : K;
-} extends { [_ in keyof T]: infer U }
-  ? {} extends U
-    ? never
+type KnownKeys<T> =
+  {
+    [K in keyof T]: string extends K ? never
+    : number extends K ? never
+    : K;
+  } extends { [_ in keyof T]: infer U } ?
+    {} extends U ?
+      never
     : U
   : never;
 
-type KnownKeysWithLongExtends<T> = {
-  [K in keyof T]: string extends K ? never : number extends K ? never : K;
-} extends {
-  [_ in keyof T]: SomeReallyLongThingThatBreaksTheLine<infer U>;
-}
-  ? U
+type KnownKeysWithLongExtends<T> =
+  {
+    [K in keyof T]: string extends K ? never
+    : number extends K ? never
+    : K;
+  } extends {
+    [_ in keyof T]: SomeReallyLongThingThatBreaksTheLine<infer U>;
+  } ?
+    U
   : never;
 
 // TypeScript examples:
-type TypeName<T> = T extends string
-  ? "string"
-  : T extends number
-    ? "number"
-    : T extends boolean
-      ? "boolean"
-      : T extends undefined
-        ? "undefined"
-        : T extends Function
-          ? "function"
-          : "object";
+type TypeName<T> =
+  T extends string ? "string"
+  : T extends number ? "number"
+  : T extends boolean ? "boolean"
+  : T extends undefined ? "undefined"
+  : T extends Function ? "function"
+  : "object";
 
-type Unpacked<T> = T extends (infer U)[]
-  ? U
-  : T extends (...args: any[]) => infer U
-    ? SomeReallyLongThingThatBreaksTheLine<U>
-    : T extends Promise<infer U>
-      ? U
-      : T;
+type Unpacked<T> =
+  T extends (infer U)[] ? U
+  : T extends (...args: any[]) => infer U ?
+    SomeReallyLongThingThatBreaksTheLine<U>
+  : T extends Promise<infer U> ? U
+  : T;
 
 ================================================================================
 `;
@@ -448,25 +450,27 @@ type Test<T> = T extends (new (
 =====================================output=====================================
 // #13275
 type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
-type Foo<T> = T extends (new (...a: any[]) => infer R extends string)
-  ? R
-  : never;
+type Foo<T> =
+  T extends (new (...a: any[]) => infer R extends string) ? R : never;
 
 // #14275
-type Test<T> = T extends ((
-  token: TSESTree.Token,
-) => token is infer U extends TSESTree.Token)
-  ? U
+type Test<T> =
+  T extends (
+    ((token: TSESTree.Token) => token is infer U extends TSESTree.Token)
+  ) ?
+    U
   : TSESTree.Token;
-type Test<T> = T extends ((
-  token: TSESTree.Token,
-) => asserts token is infer U extends TSESTree.Token)
-  ? U
+type Test<T> =
+  T extends (
+    ((token: TSESTree.Token) => asserts token is infer U extends TSESTree.Token)
+  ) ?
+    U
   : TSESTree.Token;
-type Test<T> = T extends (new (
-  token: TSESTree.Token,
-) => token is infer U extends TSESTree.Token)
-  ? U
+type Test<T> =
+  T extends (
+    (new (token: TSESTree.Token) => token is infer U extends TSESTree.Token)
+  ) ?
+    U
   : TSESTree.Token;
 
 ================================================================================

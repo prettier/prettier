@@ -69,25 +69,20 @@ type T2 = (() => void) extends T ? U : V;
 =====================================output=====================================
 // @flow
 
-export type DeepReadonly<T> = T extends any[]
-  ? DeepReadonlyArray<T[number]>
-  : T extends object
-    ? DeepReadonlyObject<T>
-    : T;
+export type DeepReadonly<T> =
+  T extends any[] ? DeepReadonlyArray<T[number]>
+  : T extends object ? DeepReadonlyObject<T>
+  : T;
 
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 
-type TypeName<T> = T extends string
-  ? "string"
-  : T extends number
-    ? "number"
-    : T extends boolean
-      ? "boolean"
-      : T extends undefined
-        ? "undefined"
-        : T extends Function
-          ? "function"
-          : "object";
+type TypeName<T> =
+  T extends string ? "string"
+  : T extends number ? "number"
+  : T extends boolean ? "boolean"
+  : T extends undefined ? "undefined"
+  : T extends Function ? "function"
+  : "object";
 
 type Type01 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
 type Type02 = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
@@ -158,19 +153,14 @@ type Unpacked<T> =
 =====================================output=====================================
 // @flow
 
-type TestReturnType<T extends (...args: any[]) => any> = T extends (
-  ...args: any[]
-) => infer R
-  ? R
-  : any;
+type TestReturnType<T extends (...args: any[]) => any> =
+  T extends (...args: any[]) => infer R ? R : any;
 
-type Unpacked<T> = T extends (infer U)[]
-  ? U
-  : T extends (...args: any[]) => infer U
-    ? U
-    : T extends Promise<infer U>
-      ? U
-      : T;
+type Unpacked<T> =
+  T extends (infer U)[] ? U
+  : T extends (...args: any[]) => infer U ? U
+  : T extends Promise<infer U> ? U
+  : T;
 
 ================================================================================
 `;
@@ -215,32 +205,35 @@ type Foo3 =
 =====================================output=====================================
 // @flow
 
-type Foo = (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
+type Foo =
+  (
+    ThingamabobberFactory extends AbstractThingamabobberFactory ?
+      GobbledygookProvider
     : CompositeGobbledygookProvider
-) extends DoubleGobbledygookProvider
-  ? UniqueDalgametreService
+  ) extends DoubleGobbledygookProvider ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
-type Foo2 = DoubleGobbledygookProvider extends (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
+type Foo2 =
+  DoubleGobbledygookProvider extends (
+    ThingamabobberFactory extends AbstractThingamabobberFactory ?
+      GobbledygookProvider
     : CompositeGobbledygookProvider
-)
-  ? UniqueDalgametreService
+  ) ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
-type Foo3 = (
-  ThingamabobberFactory extends AbstractThingamabobberFactory
-    ? GobbledygookProvider
+type Foo3 =
+  (
+    ThingamabobberFactory extends AbstractThingamabobberFactory ?
+      GobbledygookProvider
     : CompositeGobbledygookProvider
-) extends (
-  DoubleGobbledygookProvider extends MockGobbledygookProvider
-    ? MockThingamabobberFactory
+  ) extends (
+    DoubleGobbledygookProvider extends MockGobbledygookProvider ?
+      MockThingamabobberFactory
     : ThingamabobberFactory
-)
-  ? UniqueDalgametreService
+  ) ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
 ================================================================================
@@ -285,25 +278,20 @@ type Unpacked<T> =
 // @flow
 
 // TypeScript examples:
-type TypeName<T> = T extends string
-  ? "string"
-  : T extends number
-    ? "number"
-    : T extends boolean
-      ? "boolean"
-      : T extends undefined
-        ? "undefined"
-        : T extends Function
-          ? "function"
-          : "object";
+type TypeName<T> =
+  T extends string ? "string"
+  : T extends number ? "number"
+  : T extends boolean ? "boolean"
+  : T extends undefined ? "undefined"
+  : T extends Function ? "function"
+  : "object";
 
-type Unpacked<T> = T extends (infer U)[]
-  ? U
-  : T extends (...args: any[]) => infer U
-    ? SomeReallyLongThingThatBreaksTheLine<U>
-    : T extends Promise<infer U>
-      ? U
-      : T;
+type Unpacked<T> =
+  T extends (infer U)[] ? U
+  : T extends (...args: any[]) => infer U ?
+    SomeReallyLongThingThatBreaksTheLine<U>
+  : T extends Promise<infer U> ? U
+  : T;
 
 ================================================================================
 `;
