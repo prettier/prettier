@@ -67,7 +67,9 @@ async function parse(text /*, options */) {
     const location = getErrorLocation(error);
 
     if (location) {
-      throw createError(error.message, { loc: location, cause: error });
+      const message = getErrorMessage(error);
+
+      throw createError(message, { loc: location, cause: error });
     }
 
     /* c8 ignore next */
@@ -75,6 +77,59 @@ async function parse(text /*, options */) {
   }
 
   return ast;
+}
+
+function getErrorMessage(error) {
+  const { message } = error;
+  const lines = message.split("\n");
+
+  /*
+  This kind of errors are like:
+
+  ```
+  Parse error on line 2:
+  <A >x, {{@name}
+  --------------^
+  Expecting ...
+  ```
+  */
+  if (/Parse error on line \d+:/.test(lines[0])) {
+    const lineIndexOfCodeFrameEnd = lines.findIndex((line) =>
+      /^-*\^$/.test(line)
+    );
+
+    if (lineIndexOfCodeFrameEnd !== -1) {
+      return lines.slice(lineIndexOfCodeFrameEnd + 1).join("\n");
+    }
+  }
+
+  /*
+  This kind of errors are like:
+
+  ```
+  Unclosed element \`@name\`:
+
+  |
+  |  <{@name>
+  |
+
+  (error occurred in 'an unknown module' @ line 3 : column 0)
+  ```
+  */
+  if (
+    lines.length > 3 &&
+    /:\s?$/.test(lines[0]) &&
+    /^\(error occurred in '.*?' @ line \d+ : column \d+\)$/.test(
+      lines.at(-1)
+    ) &&
+    lines[1] === "" &&
+    lines.at(-2) === "" &&
+    lines.slice(2, -2).every((line) => line.startsWith("|"))
+  ) {
+    return lines[0].trim().slice(0, -1);
+  }
+
+  return message;
 }
 
 function getErrorLocation(error) {
