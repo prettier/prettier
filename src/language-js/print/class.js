@@ -275,8 +275,6 @@ function printClassBody(path, options, print) {
     if (
       !options.semi &&
       isClassProperty(node) &&
-      // `ClassBody` don't allow `EmptyStatement`,
-      // so we can use `statements` to get next node
       shouldPrintSemicolonAfterClassProperty(node, next)
     ) {
       parts.push(";");
@@ -356,8 +354,8 @@ function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
     case "PropertyDefinition":
     case "TSAbstractPropertyDefinition":
       return nextNode.computed;
-    case "MethodDefinition": // Flow
-    case "TSAbstractMethodDefinition": // TypeScript
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
     case "ClassMethod":
     case "ClassPrivateMethod": {
       // Babel
