@@ -320,14 +320,14 @@ function printTypeAnnotationProperty(
     typeAnnotation.type === "TSTypeAnnotation" ||
     typeAnnotation.type === "TypeAnnotation"
   ) {
-    typeAnnotationNodesCheckedLeadingComments.add(typeAnnotation);
-
     if (
       hasComment(typeAnnotation, CommentCheckFlags.Leading) &&
       path.call(getTypeAnnotationFirstToken, "typeAnnotation") === ":"
     ) {
       shouldPrintLeadingSpace = true;
     }
+
+    typeAnnotationNodesCheckedLeadingComments.add(typeAnnotation);
   }
 
   return shouldPrintLeadingSpace
@@ -383,17 +383,22 @@ const getTypeAnnotationFirstToken = (path) => {
 - `TypeAnnotation` (Flow)
 */
 function printTypeAnnotation(path, options, print) {
-  // When there are leading comments, we need print space before comments,
+  // We need print space before leading comments,
   // `printTypeAnnotationProperty` is responsible for it.
+  /* c8 ignore start */
   if (process.env.NODE_ENV !== "production") {
     const { node } = path;
 
     if (!typeAnnotationNodesCheckedLeadingComments.has(node)) {
-      throw new Error(
-        `'${node.type}' node should be printed by '${printTypeAnnotationProperty.name}' function.`
+      throw Object.assign(
+        new Error(
+          `'${node.type}' should be printed by '${printTypeAnnotationProperty.name}' function.`
+        ),
+        { parentNode: path.parent, propertyName: path.key }
       );
     }
   }
+  /* c8 ignore stop */
 
   const token = getTypeAnnotationFirstToken(path);
   return token

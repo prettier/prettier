@@ -170,7 +170,7 @@ function printTypescript(path, options, print) {
       parts.push(
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        printTypeAnnotationProperty(path, options, print)
+        printTypeAnnotationProperty(path, print)
       );
 
       // This isn't valid semantically, but it's in the AST so we can print it.
