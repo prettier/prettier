@@ -6,9 +6,7 @@ import {
   CommentCheckFlags,
   isNextLineEmpty,
 } from "../utils/index.js";
-import { printHardlineAfterHeritage } from "./class.js";
-
-import { printBody } from "./statement.js";
+import { printStatementSequence } from "./statement.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
@@ -18,11 +16,6 @@ function printBlock(path, options, print) {
 
   if (node.type === "StaticBlock") {
     parts.push("static ");
-  }
-
-  if (node.type === "ClassBody" && isNonEmptyArray(node.body)) {
-    const { parent } = path;
-    parts.push(printHardlineAfterHeritage(parent));
   }
 
   parts.push("{");
@@ -47,8 +40,7 @@ function printBlock(path, options, print) {
         (parent.type === "CatchClause" && !parentParent.finalizer) ||
         parent.type === "TSModuleDeclaration" ||
         parent.type === "TSDeclareFunction" ||
-        node.type === "StaticBlock" ||
-        node.type === "ClassBody"
+        node.type === "StaticBlock"
       )
     ) {
       parts.push(hardline);
@@ -86,7 +78,7 @@ function printBlockBody(path, options, print) {
   }
 
   if (nodeHasBody) {
-    parts.push(printBody(path, options, print));
+    parts.push(printStatementSequence(path, options, print));
   }
 
   if (nodeHasComment) {

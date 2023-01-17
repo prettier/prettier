@@ -68,6 +68,7 @@ import {
   printClass,
   printClassMethod,
   printClassProperty,
+  printClassBody,
 } from "./print/class.js";
 import { printProperty } from "./print/property.js";
 import {
@@ -83,7 +84,7 @@ import {
   printAssignmentExpression,
 } from "./print/assignment.js";
 import { printBinaryishExpression } from "./print/binaryish.js";
-import { printSwitchCaseConsequent } from "./print/statement.js";
+import { printStatementSequence } from "./print/statement.js";
 import { printMemberExpression } from "./print/member.js";
 import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
@@ -355,8 +356,9 @@ function printPathNoParens(path, options, print, args) {
       return "import";
     case "BlockStatement":
     case "StaticBlock":
-    case "ClassBody":
       return printBlock(path, options, print);
+    case "ClassBody":
+      return printClassBody(path, options, print);
     case "ThrowStatement":
       return printThrowStatement(path, options, print);
     case "ReturnStatement":
@@ -715,7 +717,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = printSwitchCaseConsequent(path, options, print);
+        const cons = printStatementSequence(path, options, print);
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"
