@@ -284,7 +284,13 @@ function printTypescript(path, options, print) {
         if (node.type === "TSConstructorType") {
           parts.push(" ");
         }
-        parts.push(print(node.returnType ? "returnType" : "typeAnnotation"));
+        parts.push(
+          printTypeAnnotationProperty(
+            path,
+            print,
+            node.returnType ? "returnType" : "typeAnnotation"
+          )
+        );
       }
       return parts;
 
@@ -339,7 +345,9 @@ function printTypescript(path, options, print) {
         ? "returnType"
         : "typeAnnotation";
       const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode ? print(returnTypePropertyName) : "";
+      const returnTypeDoc = returnTypeNode
+        ? printTypeAnnotationProperty(path, print, returnTypePropertyName)
+        : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc

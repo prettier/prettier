@@ -44,6 +44,7 @@ import {
 } from "./function-parameters.js";
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /*
 - "FunctionDeclaration"
@@ -416,7 +417,7 @@ function shouldPrintParamsWithoutParens(path, options) {
 /** @returns {Doc} */
 function printReturnType(path, print) {
   const { node } = path;
-  const returnType = print("returnType");
+  const returnType = printTypeAnnotationProperty(path, print, "returnType");
 
   const parts = [returnType];
 

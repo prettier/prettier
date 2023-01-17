@@ -19,7 +19,10 @@ import {
   getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
 import { createGroupIdMapper } from "../../common/util.js";
-import { shouldHugType } from "./type-annotation.js";
+import {
+  printTypeAnnotationProperty,
+  shouldHugType,
+} from "./type-annotation.js";
 import { isArrowFunctionVariableDeclarator } from "./assignment.js";
 
 const getTypeParametersGroupId = createGroupIdMapper("typeParameters");
@@ -152,7 +155,7 @@ function printTypeParameter(path, options, print) {
   parts.push(name);
 
   if (node.bound) {
-    parts.push(print("bound"));
+    parts.push(printTypeAnnotationProperty(path, print, "bound"));
   }
 
   if (node.constraint) {

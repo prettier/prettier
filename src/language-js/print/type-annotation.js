@@ -260,7 +260,11 @@ function printFunctionType(path, options, print) {
   } else {
     returnTypeDoc.push(
       " ",
-      print(node.returnType ? "returnType" : "typeAnnotation")
+      printTypeAnnotationProperty(
+        path,
+        print,
+        node.returnType ? "returnType" : "typeAnnotation"
+      )
     );
   }
 
@@ -379,6 +383,8 @@ const getTypeAnnotationFirstToken = (path) => {
 - `TypeAnnotation` (Flow)
 */
 function printTypeAnnotation(path, options, print) {
+  // When there are leading comments, we need print space before comments,
+  // `printTypeAnnotationProperty` is responsible for it.
   if (process.env.NODE_ENV !== "production") {
     const { node } = path;
 
