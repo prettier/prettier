@@ -9,7 +9,12 @@ import {
   indent,
   ifBreak,
 } from "../../document/builders.js";
-import { hasComment, CommentCheckFlags } from "../utils/index.js";
+import {
+  hasComment,
+  CommentCheckFlags,
+  createTypeCheckFunction,
+  isNextLineEmpty,
+} from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printMethod } from "./function.js";
 import {
@@ -25,6 +30,16 @@ import { printClassMemberDecorators } from "./decorators.js";
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
  */
+
+const isClassProperty = createTypeCheckFunction([
+  "ClassProperty",
+  "PropertyDefinition",
+  "ClassPrivateProperty",
+  "ClassAccessorProperty",
+  "AccessorProperty",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
 
 /*
 - `ClassDeclaration`
@@ -250,9 +265,127 @@ function printClassProperty(path, options, print) {
   ];
 }
 
+function printClassBody(path, options, print) {
+  const { node } = path;
+  const parts = [];
+
+  path.each(({ node, next, isLast }) => {
+    parts.push(print());
+
+    if (
+      !options.semi &&
+      isClassProperty(node) &&
+      shouldPrintSemicolonAfterClassProperty(node, next)
+    ) {
+      parts.push(";");
+    }
+
+    if (!isLast) {
+      parts.push(hardline);
+
+      if (isNextLineEmpty(node, options)) {
+        parts.push(hardline);
+      }
+    }
+  }, "body");
+
+  if (hasComment(node, CommentCheckFlags.Dangling)) {
+    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+  }
+
+  return [
+    isNonEmptyArray(node.body) ? printHardlineAfterHeritage(path.parent) : "",
+    "{",
+    parts.length > 0 ? [indent([hardline, parts]), hardline] : "",
+    "}",
+  ];
+}
+
+/**
+ * @returns {boolean}
+ */
+function shouldPrintSemicolonAfterClassProperty(node, nextNode) {
+  const { type, name } = node.key;
+  if (
+    !node.computed &&
+    type === "Identifier" &&
+    (name === "static" ||
+      name === "get" ||
+      name === "set" ||
+      // TODO: Remove this https://github.com/microsoft/TypeScript/issues/51707 is fixed
+      name === "accessor") &&
+    !node.value &&
+    !node.typeAnnotation
+  ) {
+    return true;
+  }
+
+  if (!nextNode) {
+    return false;
+  }
+
+  if (
+    nextNode.static ||
+    nextNode.accessibility // TypeScript
+  ) {
+    return false;
+  }
+
+  if (!nextNode.computed) {
+    const name = nextNode.key?.name;
+    if (name === "in" || name === "instanceof") {
+      return true;
+    }
+  }
+
+  // Flow variance sigil +/- requires semi if there's no
+  // "declare" or "static" keyword before it.
+  if (
+    isClassProperty(nextNode) &&
+    nextNode.variance &&
+    !nextNode.static &&
+    !nextNode.declare
+  ) {
+    return true;
+  }
+
+  switch (nextNode.type) {
+    case "ClassProperty":
+    case "PropertyDefinition":
+    case "TSAbstractPropertyDefinition":
+      return nextNode.computed;
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
+    case "ClassMethod":
+    case "ClassPrivateMethod": {
+      // Babel
+      const isAsync = nextNode.value ? nextNode.value.async : nextNode.async;
+      if (isAsync || nextNode.kind === "get" || nextNode.kind === "set") {
+        return false;
+      }
+
+      const isGenerator = nextNode.value
+        ? nextNode.value.generator
+        : nextNode.generator;
+      if (nextNode.computed || isGenerator) {
+        return true;
+      }
+
+      return false;
+    }
+
+    case "TSIndexSignature":
+      return true;
+  }
+
+  /* c8 ignore next */
+  return false;
+}
+
 export {
   printClass,
   printClassMethod,
   printClassProperty,
   printHardlineAfterHeritage,
+  printClassBody,
 };
