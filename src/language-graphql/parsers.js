@@ -1,7 +1,8 @@
-import createParsers from "../utils/create-parsers.js";
-
-const parsers = createParsers([
-  [() => import("./parser-graphql.js"), ["graphql"]],
-]);
+const parsers = [
+  {
+    importPlugin: () => import("./parser-graphql.js"),
+    parserNames: ["graphql"],
+  },
+];
 
 export default parsers;
