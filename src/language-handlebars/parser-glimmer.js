@@ -127,6 +127,7 @@ function getErrorMessage(error) {
     return lines[0].trim().slice(0, -1);
   }
 
+  /* c8 ignore next */
   return message;
 }
 
