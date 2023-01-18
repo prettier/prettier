@@ -11,13 +11,8 @@ function createParse(parseMethod) {
     let node = parse(text);
 
     if (parseMethod === "parseAction" && node.type !== "NGChainedExpression") {
-      node = {
-        type: "NGChainedExpression",
-        expressions: [node],
-        start: node.start,
-        end: node.start,
-        loc: node.loc,
-      };
+      // @ts-expect-error
+      node = { ...node, type: "NGChainedExpression", expressions: [node] };
     }
 
     return { type: "NGRoot", node };
