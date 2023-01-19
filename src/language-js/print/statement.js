@@ -132,8 +132,8 @@ function expressionNeedsASIProtection(path, options) {
   }
 
   return path.call(
-    (childPath) => expressionNeedsASIProtection(childPath, options),
-    ...getLeftSidePathName(path, node)
+    () => expressionNeedsASIProtection(path, options),
+    ...getLeftSidePathName(node)
   );
 }
 
