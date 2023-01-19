@@ -96,7 +96,7 @@ If the given `filePath` is ignored, the `inferredParser` is always `null`.
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
-When setting `options.resolveConfig` (`boolean`, default `true`) to `false`, Prettier will not search for configuration file. This is can be useful if this function is only used to check if file is ignored.
+When setting `options.resolveConfig` (`boolean`, default `true`) to `false`, Prettier will not search for configuration file. This can be useful if this function is only used to check if file is ignored.
 
 ## `prettier.getSupportInfo()`
 
