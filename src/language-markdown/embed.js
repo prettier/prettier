@@ -51,7 +51,9 @@ function embed(path, options) {
       return (textToDoc) =>
         textToDoc(`<$>${node.value}</$>`, {
           parser: "__js_expression",
-          rootMarker: "mdx",
+          onParsed(ast) {
+            ast.rootMarker = "mdx";
+          },
         });
   }
 

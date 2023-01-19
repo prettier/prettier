@@ -7,17 +7,12 @@ import {
 } from "../../document/builders.js";
 
 function printHtmlBinding(path, options, print) {
-  const { node, isRoot } = path;
+  const { node } = path;
 
-  if (isRoot) {
-    options.__onHtmlBindingRoot?.(node, options);
-  }
-
-  if (node.type !== "File") {
-    return;
-  }
-
-  if (options.__isVueBindings || options.__isVueForBindingLeft) {
+  if (
+    node.type === "File" &&
+    (options.__isVueBindings || options.__isVueForBindingLeft)
+  ) {
     const parameterDocs = path.map(print, "program", "body", 0, "params");
 
     if (parameterDocs.length === 1) {
