@@ -1,4 +1,4 @@
-import { Parser } from "./";
+import { Parser } from "../";
 
 declare const parser: {
   parsers: {
