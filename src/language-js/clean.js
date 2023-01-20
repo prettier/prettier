@@ -180,9 +180,7 @@ function clean(ast, newObj, parent) {
     const hasLanguageComment = ast.leadingComments?.some(
       (comment) =>
         isBlockComment(comment) &&
-        ["GraphQL", "HTML"].some(
-          (languageName) => comment.value === ` ${languageName} `
-        )
+        comment.value === " GraphQL " || ~["html", "css"].indexOf(comment.value.toLowerCase().trim())
     );
     if (
       hasLanguageComment ||

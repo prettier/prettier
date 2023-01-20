@@ -9,11 +9,15 @@ printWidth: 80
 =====================================input======================================
 css\`a { }\`
 
+const foo = /*css*/\`a{}\`;
+
 md\`\`
 
 graphql(\`{id}\`)
 
 html\`<a>\`
+
+const bar = /*html*/\`<a>\`;
 
 @Component({
   template: \`<a>\`,
@@ -24,11 +28,15 @@ class TestComponent {}
 =====================================output=====================================
 css\`a { }\`;
 
+const foo = /*css*/ \`a{}\`;
+
 md\`\`;
 
 graphql(\`{id}\`);
 
 html\`<a>\`;
+
+const bar = /*html*/ \`<a>\`;
 
 @Component({
   template: \`<a>\`,
@@ -47,11 +55,15 @@ printWidth: 80
 =====================================input======================================
 css\`a { }\`
 
+const foo = /*css*/\`a{}\`;
+
 md\`\`
 
 graphql(\`{id}\`)
 
 html\`<a>\`
+
+const bar = /*html*/\`<a>\`;
 
 @Component({
   template: \`<a>\`,
@@ -61,6 +73,11 @@ class TestComponent {}
 
 =====================================output=====================================
 css\`
+  a {
+  }
+\`;
+
+const foo = /*css*/ \`
   a {
   }
 \`;
@@ -78,6 +95,8 @@ graphql(
 );
 
 html\`<a></a>\`;
+
+const bar = /*html*/ \`<a></a>\`;
 
 @Component({
   template: \`<a></a>\`,
