@@ -99,7 +99,10 @@ printWidth: 80
 .root :global .text {
   color: brown;
   font-size: 24px;
-  font-family: helvetica, arial, sans-serif;
+  font-family:
+    helvetica,
+    arial,
+    sans-serif;
   font-weight: 600;
 }
 

@@ -1,5 +1,7 @@
 "use strict";
 
+/** @typedef {import("../document").Doc} Doc */
+
 const getLast = require("../utils/get-last.js");
 const {
   printNumber,
@@ -924,12 +926,19 @@ function genericPrint(path, options, print) {
       }
 
       if (!node.open) {
+        const parentParentParentNode = path.getParentNode(2);
+        const forceHardLine =
+          parentParentParentNode.type === "css-decl" ||
+          (parentParentParentNode.type === "css-atrule" &&
+            parentParentParentNode.variable);
+
         const printed = path.map(print, "groups");
-        const res = [];
+        /** @type{Doc[]} */
+        const res = forceHardLine ? [hardline] : [];
 
         for (let i = 0; i < printed.length; i++) {
           if (i !== 0) {
-            res.push([",", line]);
+            res.push([",", forceHardLine ? hardline : line]);
           }
           res.push(printed[i]);
         }
