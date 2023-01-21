@@ -10,7 +10,7 @@ describe("Unit tests for dts files", () => {
     .map((file) => path.join(testCasesDirPath, file));
 
   /** @type {import("typescript").CompilerOptions} */
-  const compilerOptions = { noEmit: true, strict: true };
+  const compilerOptions = { noEmit: true, strict: true, esModuleInterop: true };
 
   const program = ts.createProgram(testCaseFiles, compilerOptions);
 
@@ -18,12 +18,26 @@ describe("Unit tests for dts files", () => {
   const expected = [
     {
       fileName: "index.ts",
-      diagnosticMessages: [
-        "Argument of type 'number' is not assignable to parameter of type 'string'.",
-      ],
+      diagnosticMessages: [],
     },
     {
-      fileName: "foo.ts",
+      fileName: "standalone.ts",
+      diagnosticMessages: [],
+    },
+    {
+      fileName: "parsers.ts",
+      diagnosticMessages: [],
+    },
+    {
+      fileName: "plugins.ts",
+      diagnosticMessages: [],
+    },
+    {
+      fileName: "print.ts",
+      diagnosticMessages: [],
+    },
+    {
+      fileName: "doc.ts",
       diagnosticMessages: [],
     },
   ];
