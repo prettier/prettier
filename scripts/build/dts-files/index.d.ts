@@ -259,6 +259,7 @@ export type FastPath<T = any> = AstPath<T>;
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName =
+  | "acorn"
   | "angular"
   | "babel-flow"
   | "babel-ts"
@@ -319,7 +320,7 @@ export interface RequiredOptions extends doc.printer.Options {
   jsxSingleQuote: boolean;
   /**
    * Print trailing commas wherever possible.
-   * @default 'es5'
+   * @default 'all'
    */
   trailingComma: "none" | "es5" | "all";
   /**
