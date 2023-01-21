@@ -1,3 +1,5 @@
+import * as prettier from "./index";
+
 import { Doc } from "./";
 
 // https://github.com/prettier/prettier/blob/main/src/document/index.js
@@ -205,29 +207,27 @@ export namespace printer {
 }
 
 export namespace utils {
-  function cleanDoc(doc: Doc): Doc;
-  function findInDoc<T = Doc>(
-    doc: Doc,
-    callback: (doc: Doc) => T,
-    defaultValue: T
-  ): T;
   function getDocParts(doc: Doc): Doc;
-  function isConcat(doc: Doc): boolean;
-  function isEmpty(doc: Doc): boolean;
-  function isLineNext(doc: Doc): boolean;
-  function mapDoc<T = Doc>(doc: Doc, callback: (doc: Doc) => T): T;
-  function normalizeDoc(doc: Doc): Doc;
-  function normalizeParts(parts: Doc[]): Doc[];
-  function propagateBreaks(doc: Doc): void;
-  function removeLines(doc: Doc): Doc;
-  function replaceNewlinesWithLiterallines(doc: Doc): Doc;
-  function stripTrailingHardline(doc: Doc): Doc;
+  function willBreak(doc: Doc): boolean;
   function traverseDoc(
     doc: Doc,
     onEnter?: (doc: Doc) => void | boolean,
     onExit?: (doc: Doc) => void,
     shouldTraverseConditionalGroups?: boolean
   ): void;
-  function willBreak(doc: Doc): boolean;
+  function findInDoc<T = Doc>(
+    doc: Doc,
+    callback: (doc: Doc) => T,
+    defaultValue: T
+  ): T;
+  function mapDoc<T = Doc>(doc: Doc, callback: (doc: Doc) => T): T;
+  function propagateBreaks(doc: Doc): void;
+  function removeLines(doc: Doc): Doc;
+  function stripTrailingHardline(doc: Doc): Doc;
+  function normalizeParts(parts: Doc[]): Doc[];
+  function normalizeDoc(doc: Doc): Doc;
+  function cleanDoc(doc: Doc): Doc;
+  function replaceEndOfLine(doc: Doc, replacement?: Doc): Doc;
   function canBreak(doc: Doc): boolean;
+  function getDocType(doc: Doc): string;
 }
