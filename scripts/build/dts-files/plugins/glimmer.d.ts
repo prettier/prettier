@@ -1,8 +1,8 @@
-import { Parser } from "../";
+import { Parser } from "..";
 
 declare const parser: {
   parsers: {
-    meriyah: Parser;
+    glimmer: Parser;
   };
 };
 export = parser;

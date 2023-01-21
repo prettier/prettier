@@ -1,17 +1,17 @@
 import * as prettier from "../../../../scripts/build/dts-files/index";
 
 import acornEspreeParser from "../../../../scripts/build/dts-files/plugins/acorn-and-espree";
-import angularParser from "../../../../scripts/build/dts-files/plugins/parser-angular";
-import babelParser from "../../../../scripts/build/dts-files/plugins//parser-babel";
-import flowParser from "../../../../scripts/build/dts-files/plugins/parser-flow";
-import glimmerParser from "../../../../scripts/build/dts-files/plugins/parser-glimmer";
-import graphqlParser from "../../../../scripts/build/dts-files/plugins/parser-graphql";
-import htmlParser from "../../../../scripts/build/dts-files/plugins//parser-html";
-import markdownParser from "../../../../scripts/build/dts-files/plugins/parser-markdown";
-import meriyahParser from "../../../../scripts/build/dts-files/plugins/parser-meriyah";
-import postcssParser from "../../../../scripts/build/dts-files/plugins/parser-postcss";
-import typescriptParser from "../../../../scripts/build/dts-files/plugins/parser-typescript";
-import yamlParser from "../../../../scripts/build/dts-files/plugins/parser-yaml";
+import angularParser from "../../../../scripts/build/dts-files/plugins/angular";
+import babelParser from "../../../../scripts/build/dts-files/plugins/babel";
+import flowParser from "../../../../scripts/build/dts-files/plugins/flow";
+import glimmerParser from "../../../../scripts/build/dts-files/plugins/glimmer";
+import graphqlParser from "../../../../scripts/build/dts-files/plugins/graphql";
+import htmlParser from "../../../../scripts/build/dts-files/plugins/html";
+import markdownParser from "../../../../scripts/build/dts-files/plugins/markdown";
+import meriyahParser from "../../../../scripts/build/dts-files/plugins/meriyah";
+import postcssParser from "../../../../scripts/build/dts-files/plugins/postcss";
+import typescriptParser from "../../../../scripts/build/dts-files/plugins/typescript";
+import yamlParser from "../../../../scripts/build/dts-files/plugins/yaml";
 
 acornEspreeParser.parsers.acorn.parse;
 acornEspreeParser.parsers.espree.parse;

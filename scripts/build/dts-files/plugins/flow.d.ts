@@ -1,8 +1,8 @@
-import { Parser } from "../";
+import { Parser } from "..";
 
 declare const parser: {
   parsers: {
-    typescript: Parser;
+    flow: Parser;
   };
 };
 export = parser;

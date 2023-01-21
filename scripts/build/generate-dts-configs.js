@@ -19,15 +19,14 @@ async function generateDtsConfigs() {
   const dtsFiles = await fastGlob(dtsFilesPattern);
   for (const dtsFile of dtsFiles) {
     const relativeDtsFile = path.relative(dtsDir, dtsFile);
-    const distTypesDir = path.join(DIST_DIR, "types");
     configs.push({
       output: {
         format: "text",
-        file: path.join("types", relativeDtsFile),
+        file: relativeDtsFile,
       },
       isMetaFile: true,
       async build() {
-        await copyFile(dtsFile, path.join(distTypesDir, relativeDtsFile));
+        await copyFile(dtsFile, path.join(DIST_DIR, relativeDtsFile));
       },
     });
   }

@@ -1,8 +1,8 @@
-import { Parser } from "../";
+import { Parser } from "..";
 
 declare const parser: {
   parsers: {
-    yaml: Parser;
+    graphql: Parser;
   };
 };
 export = parser;

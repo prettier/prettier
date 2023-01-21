@@ -1,8 +1,8 @@
-import { Parser } from "../";
+import { Parser } from "..";
 
 declare const parser: {
   parsers: {
-    glimmer: Parser;
+    yaml: Parser;
   };
 };
 export = parser;
