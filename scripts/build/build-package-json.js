@@ -73,7 +73,7 @@ async function buildPackageJson({ files }) {
       "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
   packageJson.files = files.map(({ output: { file } }) => file).sort();
-  packageJson.types = "./types/index.d.ts";
+  packageJson.types = "./index.d.ts";
 
   await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
 }
