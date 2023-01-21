@@ -147,7 +147,8 @@
     "semver": "7.3.8",
     "serialize-javascript": "6.0.1",
     "snapshot-diff": "0.10.0",
-    "tempy": "3.0.0"
+    "tempy": "3.0.0",
+    "ts-expect": "1.3.0"
   },
   "resolutions": {
     "trim": "1.0.1"

@@ -1,4 +1,5 @@
 import * as prettier from "../../../../scripts/build/dts-files/index";
+import { expectType } from "ts-expect";
 
 type NestedAst = Nested1 | Nested2 | Nested3;
 interface Nested1 {
@@ -36,16 +37,16 @@ function print(
   print: (path: prettier.AstPath<NestedAst>) => prettier.doc.builders.Doc
 ): prettier.doc.builders.Doc {
   path.call((child) => {
-    child; // $ExpectType AstPath<Nested1>
+    expectType<prettier.AstPath<Nested1>>(child);
   });
 
   path.call((child) => {
-    child; // $ExpectType AstPath<Nested2>
+    expectType<prettier.AstPath<Nested2>>(child);
   }, "item2");
 
   path.call(
     (child) => {
-      child; // $ExpectType AstPath<Nested3>
+      expectType<prettier.AstPath<Nested3>>(child);
     },
     "item2",
     "item3"
@@ -53,7 +54,7 @@ function print(
 
   path.call(
     (child) => {
-      child; // $ExpectType AstPath<Nested1>
+      expectType<prettier.AstPath<Nested1>>(child);
     },
     "item2",
     "item3",
@@ -62,7 +63,7 @@ function print(
 
   path.call(
     (child) => {
-      child; // $ExpectType AstPath<Nested2>
+      expectType<prettier.AstPath<Nested2>>(child);
     },
     "item2",
     "item3",
@@ -72,7 +73,7 @@ function print(
 
   path.call(
     (child) => {
-      child; // $ExpectType AstPath<any>
+      expectType<prettier.AstPath<any>>(child);
     },
     "item2",
     "item3",
@@ -82,16 +83,16 @@ function print(
   );
 
   path.each((child) => {
-    child; // $ExpectType AstPath<Nested2>
+    expectType<prettier.AstPath<Nested2>>(child);
   }, "list2");
 
   path.each((child) => {
-    child; // $ExpectType AstPath<Nested2>
+    expectType<prettier.AstPath<Nested2>>(child);
   }, "list4");
 
   path.each(
     (child) => {
-      child; // $ExpectType AstPath<Nested3>
+      expectType<prettier.AstPath<Nested3>>(child);
     },
     "list2",
     0,
@@ -100,7 +101,7 @@ function print(
 
   path.each(
     (child) => {
-      child; // $ExpectType AstPath<any>
+      expectType<prettier.AstPath<any>>(child);
     },
     "list2",
     0,
@@ -110,16 +111,16 @@ function print(
   );
 
   path.map((child) => {
-    child; // $ExpectType AstPath<Nested2>
+    expectType<prettier.AstPath<Nested2>>(child);
   }, "list2");
 
   path.map((child) => {
-    child; // $ExpectType AstPath<Nested2>
+    expectType<prettier.AstPath<Nested2>>(child);
   }, "list4");
 
   path.map(
     (child) => {
-      child; // $ExpectType AstPath<Nested3>
+      expectType<prettier.AstPath<Nested3>>(child);
     },
     "list2",
     0,
@@ -128,7 +129,7 @@ function print(
 
   path.map(
     (child) => {
-      child; // $ExpectType AstPath<any>
+      expectType<prettier.AstPath<any>>(child);
     },
     "list2",
     0,

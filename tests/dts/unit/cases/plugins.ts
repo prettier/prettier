@@ -1,4 +1,5 @@
 import * as prettier from "../../../../scripts/build/dts-files/index";
+import { expectType } from "ts-expect";
 
 interface PluginAST {
   kind: "line";
@@ -20,11 +21,11 @@ const plugin: prettier.Plugin<PluginAST> = {
       },
       astFormat: "lines",
       locStart: (node) => {
-        node; // $ExpectType PluginAST
+        expectType<PluginAST>(node);
         return 0;
       },
       locEnd: (node) => {
-        node; // $ExpectType PluginAST
+        expectType<PluginAST>(node);
         return 0;
       },
     },
@@ -32,11 +33,11 @@ const plugin: prettier.Plugin<PluginAST> = {
   printers: {
     lines: {
       print(path, options, print) {
-        path; // $ExpectType AstPath<PluginAST>
-        print; // $ExpectType (path: AstPath<PluginAST>) => Doc
+        expectType<prettier.AstPath<PluginAST>>(path);
+        expectType<(path: prettier.AstPath<PluginAST>) => prettier.Doc>(print);
 
         const node = path.getValue();
-        node; // $ExpectType PluginAST
+        expectType<PluginAST>(node);
 
         return node.value;
       },
