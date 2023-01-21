@@ -74,9 +74,25 @@ type MapCallback<T, U> = (
   value: any
 ) => U;
 
-// https://github.com/prettier/prettier/blob/main/src/common/ast-path.js
+// https://github.com/prettier/prettier/blob/next/src/common/ast-path.js
 export class AstPath<T = any> {
   constructor(value: T);
+
+  get key(): string | null;
+  get index(): number | null;
+  get node(): T;
+  get parent(): T | null;
+  get grandparent(): T | null;
+  get isInArray(): boolean;
+  get siblings(): T[] | null;
+  get next(): T | null;
+  get previous(): T | null;
+  get isFirst(): boolean;
+  get isLast(): boolean;
+  get isRoot(): boolean;
+  get root(): T;
+  get ancestors(): T[];
+
   stack: T[];
   callParent<U>(callback: (path: this) => U, count?: number): U;
   getName(): PropertyKey | null;
@@ -842,7 +858,7 @@ export namespace util {
   ): number | false;
 }
 
-// https://github.com/prettier/prettier/blob/main/src/document/index.js
+// https://github.com/prettier/prettier/blob/next/src/document/index.js
 export namespace doc {
   namespace builders {
     type DocCommand =

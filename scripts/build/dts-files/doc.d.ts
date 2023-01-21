@@ -1,8 +1,6 @@
-import * as prettier from "./index";
-
 import { Doc } from "./";
 
-// https://github.com/prettier/prettier/blob/main/src/document/index.js
+// https://github.com/prettier/prettier/blob/next/src/document/index.js
 
 export namespace builders {
   type DocCommand =
