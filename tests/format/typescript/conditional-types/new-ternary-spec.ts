@@ -34,3 +34,26 @@ type Unpacked<T> =
     SomeReallyLongThingThatBreaksTheLine<U>
   : T extends Promise<infer U> ? U
   : T;
+
+type LinkFieldName<Entity extends object> =
+  keyof Entity extends infer ExpFieldName extends keyof Entity ?
+    ExpFieldName extends `${infer FieldName}__resolved` ?
+      Entity[ExpFieldName] extends | { title: string } | undefined ?
+        FieldName
+      : never
+    : never
+  : never;
+
+type LinkFieldNameWithLongerExtends<Entity extends object> =
+  keyof Entity extends infer ExpandedFieldName extends keyof Entity ?
+    ExpandedFieldName extends `${infer FieldName}__resolved` ?
+      Entity[ExpandedFieldName] extends (
+        | { title: string }
+        | { titleInAnotherWayThatIsLong: string }
+        | { titleInAThirdWayThatIsLong: string }
+        | undefined
+      ) ?
+        FieldName
+      : never
+    : never
+  : never;

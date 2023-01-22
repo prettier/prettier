@@ -147,7 +147,7 @@ const wrapInParens = (doc) => [
 function printTernary(path, options, print, args) {
   const { node } = path;
   const isConditionalExpression = node.type === "ConditionalExpression";
-  const isTSConditional = !isConditionalExpression;
+  const isTSConditional = node.type === "TSConditionalType";
   const consequentNodePropertyName = isConditionalExpression
     ? "consequent"
     : "trueType";
@@ -263,8 +263,11 @@ function printTernary(path, options, print, args) {
 
   const shouldGroupTestAndConsequent =
     isInChain ||
-    isParentTernary ||
-    isTSConditional ||
+    isInAlternate ||
+    (isTSConditional && !isParentTernary) ||
+    (isParentTernary &&
+      isConditionalExpression &&
+      isSimpleExpressionByNodeCount(node.test, 1)) ||
     tryToParenthesizeAlternate;
 
   const consequentComments = [];
@@ -289,7 +292,16 @@ function printTernary(path, options, print, args) {
         wrapInParens(print("test")),
         node.test.type === "ConditionalExpression" ? breakParent : "",
       ]
-    : [print("checkType"), " ", "extends", " ", print("extendsType")];
+    : [
+        print("checkType"),
+        " ",
+        "extends",
+        " ",
+        node.extendsType.type === "TSConditionalType" ||
+        node.extendsType.type === "TSMappedType"
+          ? print("extendsType")
+          : group(wrapInParens(print("extendsType"))),
+      ];
   const printedTestWithQuestionMark = group([printedTest, " ?"], {
     id: testId,
   });
@@ -310,8 +322,6 @@ function printTernary(path, options, print, args) {
           // Avoid indenting consequent if it isn't a chain, even if the test breaks.
           isInChain
             ? consequent
-            : isTSConditional
-            ? group(consequent, { id: consequentId })
             : // If the test breaks, also break the consequent
               ifBreak(consequent, group(consequent, { id: consequentId }), {
                 groupId: testId,

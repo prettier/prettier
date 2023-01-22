@@ -86,10 +86,13 @@ type A =
   : bar;
 
 type A =
-  B extends test /* comment
+  B extends (
+    test /* comment
   comment
       comment
-*/ ? foo
+*/
+  ) ?
+    foo
   : bar;
 
 type T =
@@ -146,8 +149,11 @@ type T = test extends B ? foo : /* comment */ bar;
 
 type T =
   test extends B ?
-    test extends B /* c
-c */ ? foo
+    test extends (
+      B /* c
+c */
+    ) ?
+      foo
     : bar
   : bar;
 
@@ -300,7 +306,8 @@ type Foo =
     ThingamabobberFactory extends AbstractThingamabobberFactory ?
       GobbledygookProvider
     : CompositeGobbledygookProvider
-  ) extends DoubleGobbledygookProvider ? UniqueDalgametreService
+  ) extends DoubleGobbledygookProvider ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
 type Foo2 =
@@ -308,7 +315,8 @@ type Foo2 =
     ThingamabobberFactory extends AbstractThingamabobberFactory ?
       GobbledygookProvider
     : CompositeGobbledygookProvider
-  ) ? UniqueDalgametreService
+  ) ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
 type Foo3 =
@@ -320,7 +328,8 @@ type Foo3 =
     DoubleGobbledygookProvider extends MockGobbledygookProvider ?
       MockThingamabobberFactory
     : ThingamabobberFactory
-  ) ? UniqueDalgametreService
+  ) ?
+    UniqueDalgametreService
   : CompositeZamazingoResolver;
 
 ================================================================================
@@ -368,6 +377,30 @@ type Unpacked<T> =
     SomeReallyLongThingThatBreaksTheLine<U>
   : T extends Promise<infer U> ? U
   : T;
+
+type LinkFieldName<Entity extends object> =
+  keyof Entity extends infer ExpFieldName extends keyof Entity ?
+    ExpFieldName extends \`\${infer FieldName}__resolved\` ?
+      Entity[ExpFieldName] extends | { title: string } | undefined ?
+        FieldName
+      : never
+    : never
+  : never;
+
+type LinkFieldNameWithLongerExtends<Entity extends object> =
+  keyof Entity extends infer ExpandedFieldName extends keyof Entity ?
+    ExpandedFieldName extends \`\${infer FieldName}__resolved\` ?
+      Entity[ExpandedFieldName] extends (
+        | { title: string }
+        | { titleInAnotherWayThatIsLong: string }
+        | { titleInAThirdWayThatIsLong: string }
+        | undefined
+      ) ?
+        FieldName
+      : never
+    : never
+  : never;
+
 =====================================output=====================================
 // TypeScript has the same behavior, including a line break after =, but no parens around "conditional":
 type KnownKeys<T> =
@@ -376,7 +409,8 @@ type KnownKeys<T> =
     : number extends K ? never
     : K;
   } extends { [_ in keyof T]: infer U } ?
-    {} extends U ? never
+    {} extends U ?
+      never
     : U
   : never;
 
@@ -387,7 +421,8 @@ type KnownKeysWithLongExtends<T> =
     : K;
   } extends {
     [_ in keyof T]: SomeReallyLongThingThatBreaksTheLine<infer U>;
-  } ? U
+  } ?
+    U
   : never;
 
 // TypeScript examples:
@@ -405,6 +440,29 @@ type Unpacked<T> =
     SomeReallyLongThingThatBreaksTheLine<U>
   : T extends Promise<infer U> ? U
   : T;
+
+type LinkFieldName<Entity extends object> =
+  keyof Entity extends infer ExpFieldName extends keyof Entity ?
+    ExpFieldName extends \`\${infer FieldName}__resolved\` ?
+      Entity[ExpFieldName] extends { title: string } | undefined ?
+        FieldName
+      : never
+    : never
+  : never;
+
+type LinkFieldNameWithLongerExtends<Entity extends object> =
+  keyof Entity extends infer ExpandedFieldName extends keyof Entity ?
+    ExpandedFieldName extends \`\${infer FieldName}__resolved\` ?
+      Entity[ExpandedFieldName] extends (
+        | { title: string }
+        | { titleInAnotherWayThatIsLong: string }
+        | { titleInAThirdWayThatIsLong: string }
+        | undefined
+      ) ?
+        FieldName
+      : never
+    : never
+  : never;
 
 ================================================================================
 `;
