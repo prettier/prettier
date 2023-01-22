@@ -118,6 +118,15 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
+        "ignorePatterns": {
+          "default": [],
+          "description": "Specify the patterns of files to ignore, in addition to those in the
+configuration.",
+          "items": {
+            "type": "string",
+          },
+          "type": "array",
+        },
         "insertPragma": {
           "default": false,
           "description": "Insert @format pragma into file's first docblock comment.",

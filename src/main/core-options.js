@@ -104,6 +104,21 @@ const options = {
     cliCategory: CATEGORY_OTHER,
     cliDescription: "Path to the file to pretend that stdin comes from.",
   },
+  ignorePatterns: {
+    since: "2.9.0",
+    type: "path",
+    array: true,
+    default: [{ value: [] }],
+    category: CATEGORY_GLOBAL,
+    description: outdent`
+      Specify the patterns of files to ignore, in addition to those in the
+      configuration.
+    `,
+    exception: (value) =>
+      typeof value === "string" || typeof value === "object",
+    cliName: "ignore-pattern",
+    cliCategory: CATEGORY_CONFIG,
+  },
   insertPragma: {
     since: "1.8.0",
     category: CATEGORY_SPECIAL,

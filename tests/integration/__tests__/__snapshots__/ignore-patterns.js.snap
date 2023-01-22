@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignore patterns (stderr) 1`] = `""`;
+
+exports[`ignore patterns (stdout) 1`] = `
+"regular-module.js
+"
+`;
+
+exports[`ignore patterns (write) 1`] = `[]`;
+
+exports[`ignore patterns with multiple arguments (stderr) 1`] = `""`;
+
+exports[`ignore patterns with multiple arguments (stdout) 1`] = `""`;
+
+exports[`ignore patterns with multiple arguments (write) 1`] = `[]`;
+
+exports[`outputs files as-is if no --write (stderr) 1`] = `""`;
+
+exports[`outputs files as-is if no --write (stdout) 1`] = `
+"'use strict';
+"
+`;
+
+exports[`outputs files as-is if no --write (write) 1`] = `[]`;

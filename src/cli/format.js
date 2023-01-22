@@ -233,7 +233,8 @@ async function createIgnorerFromContextOrDie(context) {
   try {
     return await createIgnorer(
       context.argv.ignorePath,
-      context.argv.withNodeModules
+      context.argv.withNodeModules,
+      context.argv.ignorePatterns
     );
   } catch (e) {
     context.logger.error(e.message);

@@ -274,6 +274,20 @@ Default: .prettierignore
 
 exports[`show detailed usage with --help ignore-path (write) 1`] = `[]`;
 
+exports[`show detailed usage with --help ignore-pattern (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ignore-pattern (stdout) 1`] = `
+"--ignore-pattern <path>
+
+  Specify the patterns of files to ignore, in addition to those in the
+  configuration.
+
+Default: []
+"
+`;
+
+exports[`show detailed usage with --help ignore-pattern (write) 1`] = `[]`;
+
 exports[`show detailed usage with --help ignore-unknown (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help ignore-unknown (stdout) 1`] = `

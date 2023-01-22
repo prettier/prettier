@@ -143,6 +143,10 @@ exports[`API getSupportInfo() 1`] = `
       "default": "css",
       "type": "choice",
     },
+    "ignorePatterns": {
+      "default": [],
+      "type": "path",
+    },
     "insertPragma": {
       "default": false,
       "type": "boolean",
@@ -911,6 +915,16 @@ exports[`CLI --support-info (stdout) 1`] = `
       "pluginDefaults": {},
       "since": "1.15.0",
       "type": "choice"
+    },
+    {
+      "array": true,
+      "category": "Global",
+      "default": [],
+      "description": "Specify the patterns of files to ignore, in addition to those in the\\nconfiguration.",
+      "name": "ignorePatterns",
+      "pluginDefaults": {},
+      "since": "2.9.0",
+      "type": "path"
     },
     {
       "category": "Special",
