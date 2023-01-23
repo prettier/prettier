@@ -30,26 +30,27 @@ const typeofExample =
     definition.encode(
       typeof row[field] !== "undefined" ? row[field]
       : typeof definition.default !== "undefined" ? definition.default
-      : null
+      : null,
     )
   : typeof row[field] !== "undefined" ? row[field]
   : typeof definition.default !== "undefined" ? definition.default
-  : null
+  : null;
 
 // (the following is semantically equivalent to the above, but written in a more-confusing style – it'd be hard to grok no matter the formatting)
 const typeofExampleFlipped =
   definition.encode ?
     definition.encode(
       typeof row[field] === "undefined" ?
-        typeof definition.default === "undefined" ? null
+        typeof definition.default === "undefined" ?
+          null
         : definition.default
-      : row[field]
+      : row[field],
     )
   : typeof row[field] === "undefined" ?
-    typeof definition.default === "undefined" ? null
+    typeof definition.default === "undefined" ?
+      null
     : definition.default
   : row[field];
-
 
 // JSX Examples:
 
@@ -70,8 +71,10 @@ const reactRouterExampleJSX = (
     {children && !isEmptyChildren(children) ?
       children
     : props.match ?
-      component ? React.createElement(component, props)
-      : render ? render(props)
+      component ?
+        React.createElement(component, props)
+      : render ?
+        render(props)
       : null
     : null}
   </div>
@@ -87,41 +90,28 @@ const reactRouterExampleNonJSX =
 
 inJSXExpressionContainer.withLongConditionals.example = (
   <div>
-    {(
-      isACat() &&
-      (someReallyLongCondition ||
-        moreInThisLongCondition)
-    ) ?
-      someReallyLargeExpression
-        .toMakeMeowNoise()
-        .willCauseParens()
-    : (
-      someReallyLongCondition ||
-        moreInThisLongCondition
-    ) ?
+    {isACat() && (someReallyLongCondition || moreInThisLongCondition) ?
+      someReallyLargeExpression.toMakeMeowNoise().willCauseParens()
+    : someReallyLongCondition || moreInThisLongCondition ?
       bark()
-    : someReallyLargeExpression
-        .toMakeMeowNoise()
-        .willCauseParens()
-    }
+    : someReallyLargeExpression.toMakeMeowNoise().willCauseParens()}
   </div>
 );
 
 inJSXExpressionContainer.withLoops.orBooleans.example = (
   <div>
     {items ?
-      items.map((item) => (
+      items.map((item) =>
         item.display ?
           <Item item={item} attr="breaks ternary but not consequent" />
-        : <Blank />
-      ))
+        : <Blank />,
+      )
     : null}
 
-    {showTheStuff && (
-      foo ?
+    {showTheStuff &&
+      (foo ?
         <Thing thing={foooooooooooooooooooooooooo} bar="bazzzzzz" />
-      : <OtherThing />
-    )}
+      : <OtherThing />)}
   </div>
 );
 
@@ -131,8 +121,13 @@ inJSXExpressionContainer.withNullConditional = (
     {isACat() && (someReallyLongCondition || moreInThisLongCondition) ? null : (
       <Foo />
     )}
-    {isACat() && (someReallyLongCondition || moreInThisLongCondition || evenMoreInThisExtraLongConditional) ? null : (
-      <Foo />
-    )}
+    {(
+      isACat() &&
+      (someReallyLongCondition ||
+        moreInThisLongCondition ||
+        evenMoreInThisExtraLongConditional)
+    ) ?
+      null
+    : <Foo />}
   </div>
 );
