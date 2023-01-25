@@ -1,8 +1,9 @@
-import createParsers from "../utils/create-parsers.js";
-
 // TODO: switch these to just `postcss` and use `language` instead.
-const parsers = createParsers([
-  [() => import("./parser-postcss.js"), ["css", "less", "scss"]],
-]);
+const parsers = [
+  {
+    importPlugin: () => import("./parser-postcss.js"),
+    parserNames: ["css", "less", "scss"],
+  },
+];
 
 export default parsers;

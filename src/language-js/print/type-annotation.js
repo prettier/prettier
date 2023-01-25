@@ -237,9 +237,27 @@ function isFlowArrowFunctionTypeAnnotation(path) {
   );
 }
 
-// `TSFunctionType` and `FunctionTypeAnnotation`
+/*
+- `TSFunctionType` (TypeScript)
+- `TSCallSignatureDeclaration` (TypeScript)
+- `TSConstructorType` (TypeScript)
+- `TSConstructSignatureDeclaration` (TypeScript)
+- `FunctionTypeAnnotation` (Flow)
+*/
 function printFunctionType(path, options, print) {
   const { node } = path;
+  const parts = [];
+
+  if (node.type === "TSConstructorType" && node.abstract) {
+    parts.push("abstract ");
+  }
+
+  if (
+    node.type === "TSConstructorType" ||
+    node.type === "TSConstructSignatureDeclaration"
+  ) {
+    parts.push("new ");
+  }
 
   let parametersDoc = printFunctionParameters(
     path,
@@ -271,7 +289,9 @@ function printFunctionType(path, options, print) {
     parametersDoc = group(parametersDoc);
   }
 
-  return group([parametersDoc, returnTypeDoc]);
+  parts.push(parametersDoc, returnTypeDoc);
+
+  return group(parts);
 }
 
 /*

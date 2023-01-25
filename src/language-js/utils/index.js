@@ -82,7 +82,7 @@ function getLeftSide(node) {
   );
 }
 
-function getLeftSidePathName(path, node) {
+function getLeftSidePathName(node) {
   if (node.expressions) {
     return ["expressions", 0];
   }

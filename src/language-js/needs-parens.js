@@ -1011,8 +1011,8 @@ function shouldWrapFunctionForExportDefault(path, options) {
   }
 
   return path.call(
-    (childPath) => shouldWrapFunctionForExportDefault(childPath, options),
-    ...getLeftSidePathName(path, node)
+    () => shouldWrapFunctionForExportDefault(path, options),
+    ...getLeftSidePathName(node)
   );
 }
 
