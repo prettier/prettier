@@ -48,7 +48,7 @@ function genericPrint(path, options, print) {
             ])
           : "",
         printDirectives(path, print, node),
-        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+        !hasOperation && !hasName ? "" : " ",
         print("selectionSet"),
       ];
     }
