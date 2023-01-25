@@ -43,6 +43,9 @@ const additionalVisitorKeys = {
   TupleTypeAnnotation: ["elementTypes"],
   TupleTypeSpreadElement: ["label", "typeAnnotation"],
   TupleTypeLabeledElement: ["label", "elementType", "variance"],
+  NeverTypeAnnotation: [],
+  UndefinedTypeAnnotation: [],
+  UnknownTypeAnnotation: [],
 
   // Unknown
   Property: ["decorators"],

@@ -248,6 +248,12 @@ function printFlow(path, options, print) {
       return "void";
     case "ThisTypeAnnotation":
       return "this";
+    case "NeverTypeAnnotation":
+      return "never";
+    case "UndefinedTypeAnnotation":
+      return "undefined";
+    case "UnknownTypeAnnotation":
+      return "unknown";
     // These types are unprintable because they serve as abstract
     // supertypes for other (printable) types.
     case "Node":

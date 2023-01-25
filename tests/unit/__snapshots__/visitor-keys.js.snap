@@ -500,6 +500,7 @@ exports[`visitor keys estree 1`] = `
   "NGRoot": [
     "node",
   ],
+  "NeverTypeAnnotation": [],
   "NewExpression": [
     "callee",
     "arguments",
@@ -1008,9 +1009,11 @@ exports[`visitor keys estree 1`] = `
   "UnaryExpression": [
     "argument",
   ],
+  "UndefinedTypeAnnotation": [],
   "UnionTypeAnnotation": [
     "types",
   ],
+  "UnknownTypeAnnotation": [],
   "UpdateExpression": [
     "argument",
   ],
