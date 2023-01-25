@@ -33,20 +33,7 @@ function genericPrint(path, options, print) {
         hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
           ? " "
           : "",
-        isNonEmptyArray(node.variableDefinitions)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  path.map(print, "variableDefinitions")
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printVariableDefinitions(path, print),
         printDirectives(path, print, node),
         !hasOperation && !hasName ? "" : " ",
         print("selectionSet"),
@@ -56,20 +43,7 @@ function genericPrint(path, options, print) {
       return [
         "fragment ",
         print("name"),
-        isNonEmptyArray(node.variableDefinitions)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  path.map(print, "variableDefinitions")
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printVariableDefinitions(path, print),
         " on ",
         print("typeCondition"),
         printDirectives(path, print, node),
@@ -504,6 +478,25 @@ function printInterfaces(path, options, print) {
   }
 
   return parts;
+}
+
+function printVariableDefinitions(path, print) {
+  const { node } = path;
+  if (!isNonEmptyArray(node.variableDefinitions)) {
+    return "";
+  }
+  return group([
+    "(",
+    indent([
+      softline,
+      join(
+        [ifBreak("", ", "), softline],
+        path.map(print, "variableDefinitions")
+      ),
+    ]),
+    softline,
+    ")",
+  ]);
 }
 
 function clean(node, newNode /* , parent */) {
