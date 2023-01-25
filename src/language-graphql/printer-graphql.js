@@ -158,21 +158,21 @@ function genericPrint(path, options, print) {
         "]",
       ]);
 
-    case "ObjectValue":
+    case "ObjectValue": {
+      const bracketSpace =
+        options.bracketSpacing && node.fields.length > 0 ? " " : "";
       return group([
         "{",
-        options.bracketSpacing && node.fields.length > 0 ? " " : "",
+        bracketSpace,
         indent([
           softline,
           join([ifBreak("", ", "), softline], path.map(print, "fields")),
         ]),
         softline,
-        ifBreak(
-          "",
-          options.bracketSpacing && node.fields.length > 0 ? " " : ""
-        ),
+        ifBreak("", bracketSpace),
         "}",
       ]);
+    }
 
     case "ObjectField":
     case "Argument":
