@@ -76,12 +76,6 @@ exports[`snippet: #1 [espree] format 1`] = `
     |            ^"
 `;
 
-exports[`snippet: #1 [flow] format 1`] = `
-"Unexpected number, expected the token \`,\` (1:18)
-> 1 | async (x = await 2) => {};
-    |                  ^"
-`;
-
 exports[`snippet: #1 [meriyah] format 1`] = `
 "Await expression not allowed in formal parameter (1:22)
 > 1 | async (x = await 2) => {};
