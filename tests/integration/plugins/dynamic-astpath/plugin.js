@@ -26,7 +26,7 @@ module.exports = {
       print: (path, options, print) => {
         const node = path.getNode();
 
-        // If we encounter a `baz` element, we want to reparse its content and
+        // If we encounter a `baz` element, we want to re-parse its content and
         // print it specially.
         if (node.type === "element" && node.name === "baz") {
           const newAst = {
