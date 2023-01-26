@@ -1,0 +1,16 @@
+{
+  "type": "element",
+  "name": "foo",
+  "children": [
+    {
+      "type": "element",
+      "name": "bar",
+      "children": [{ "type": "string", "value": "the,bar,string" }]
+    },
+    {
+      "type": "element",
+      "name": "baz",
+      "children": [{ "type": "string", "value": "the,baz,string" }]
+    }
+  ]
+}
