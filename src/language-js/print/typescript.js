@@ -34,7 +34,7 @@ import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printPropertyKey } from "./property.js";
-import { printFunction, printMethodInternal } from "./function.js";
+import { printFunction, printMethodValue } from "./function.js";
 import { printInterface } from "./interface.js";
 import { printBlock } from "./block.js";
 import {
@@ -258,37 +258,6 @@ function printTypescript(path, options, print) {
       return print("literal");
     case "TSIndexedAccessType":
       return printIndexedAccessType(path, options, print);
-    case "TSConstructSignatureDeclaration":
-    case "TSCallSignatureDeclaration":
-    case "TSConstructorType":
-      if (node.type === "TSConstructorType" && node.abstract) {
-        parts.push("abstract ");
-      }
-      if (node.type !== "TSCallSignatureDeclaration") {
-        parts.push("new ");
-      }
-
-      parts.push(
-        group(
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandArg */ false,
-            /* printTypeParams */ true
-          )
-        )
-      );
-
-      if (node.returnType || node.typeAnnotation) {
-        const isType = node.type === "TSConstructorType";
-        parts.push(
-          isType ? " => " : ": ",
-          print("returnType"),
-          print("typeAnnotation")
-        );
-      }
-      return parts;
 
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
@@ -440,6 +409,9 @@ function printTypescript(path, options, print) {
     case "TSUnionType":
       return printUnionType(path, options, print);
     case "TSFunctionType":
+    case "TSCallSignatureDeclaration":
+    case "TSConstructorType":
+    case "TSConstructSignatureDeclaration":
       return printFunctionType(path, options, print);
     case "TSTupleType":
       return printArray(path, options, print);
@@ -451,7 +423,7 @@ function printTypescript(path, options, print) {
     case "TSTypeAnnotation":
       return print("typeAnnotation");
     case "TSEmptyBodyFunctionExpression":
-      return printMethodInternal(path, options, print);
+      return printMethodValue(path, options, print);
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":

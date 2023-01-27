@@ -45,12 +45,31 @@ import {
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
 
+const isMethod = (node) =>
+  node.type === "ObjectMethod" ||
+  node.type === "ClassMethod" ||
+  node.type === "ClassPrivateMethod" ||
+  node.type === "MethodDefinition" ||
+  node.type === "TSAbstractMethodDefinition" ||
+  node.type === "TSDeclareMethod" ||
+  ((node.type === "Property" || node.type === "ObjectProperty") &&
+    (node.method || node.kind === "get" || node.kind === "set"));
+
+const isMethodValue = (path) =>
+  path.node.type === "FunctionExpression" &&
+  path.key === "value" &&
+  isMethod(path.parent);
+
 /*
 - "FunctionDeclaration"
 - "FunctionExpression"
 - `TSDeclareFunction`(TypeScript)
 */
 function printFunction(path, print, options, args) {
+  if (isMethodValue(path)) {
+    return printMethodValue(path, options, print);
+  }
+
   const { node } = path;
 
   let expandArg = false;
@@ -107,6 +126,16 @@ function printFunction(path, print, options, args) {
   return parts;
 }
 
+/*
+- `ObjectMethod`
+- `Property`
+- `ObjectProperty`
+- `ClassMethod`
+- `ClassPrivateMethod`
+- `MethodDefinition
+- `TSAbstractMethodDefinition` (TypeScript)
+- `TSDeclareMethod` (TypeScript)
+*/
 function printMethod(path, options, print) {
   const { node } = path;
   const { kind } = node;
@@ -130,23 +159,14 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
-    node.optional || node.key.optional ? "?" : ""
+    node.optional || node.key.optional ? "?" : "",
+    node === value ? printMethodValue(path, options, print) : print("value")
   );
-
-  if (node === value) {
-    parts.push(printMethodInternal(path, options, print));
-  } else if (value.type === "FunctionExpression") {
-    parts.push(
-      path.call((path) => printMethodInternal(path, options, print), "value")
-    );
-  } else {
-    parts.push(print("value"));
-  }
 
   return parts;
 }
 
-function printMethodInternal(path, options, print) {
+function printMethodValue(path, options, print) {
   const { node } = path;
   const parametersDoc = printFunctionParameters(path, print, options);
   const returnTypeDoc = printReturnType(path, print);
@@ -521,6 +541,6 @@ export {
   printMethod,
   printReturnStatement,
   printThrowStatement,
-  printMethodInternal,
+  printMethodValue,
   shouldPrintParamsWithoutParens,
 };

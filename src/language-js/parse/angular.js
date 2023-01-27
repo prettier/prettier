@@ -1,26 +1,31 @@
 import { locStart, locEnd } from "../loc.js";
 
-function createParser(_parse) {
-  const parse = async (text, options) => {
-    const ngEstreeParser = await import("angular-estree-parser");
-    const node = _parse(text, ngEstreeParser);
+/**
+ * @param {"parseAction" | "parseBinding" | "parseInterpolation" | "parseTemplateBindings"} parseMethod
+ */
+function createParser(parseMethod) {
+  const parse = async (text) => {
+    const { [parseMethod]: parse } = await import("angular-estree-parser");
+    const node = parse(text);
+
     return {
       type: "NGRoot",
       node:
-        options.parser === "__ng_action" && node.type !== "NGChainedExpression"
+        parseMethod === "parseAction" && node.type !== "NGChainedExpression"
           ? { ...node, type: "NGChainedExpression", expressions: [node] }
           : node,
     };
   };
+
   return { astFormat: "estree", parse, locStart, locEnd };
 }
 
 const parser = {
   parsers: {
-    __ng_action: createParser((text, ng) => ng.parseAction(text)),
-    __ng_binding: createParser((text, ng) => ng.parseBinding(text)),
-    __ng_interpolation: createParser((text, ng) => ng.parseInterpolation(text)),
-    __ng_directive: createParser((text, ng) => ng.parseTemplateBindings(text)),
+    __ng_action: createParser("parseAction"),
+    __ng_binding: createParser("parseBinding"),
+    __ng_interpolation: createParser("parseInterpolation"),
+    __ng_directive: createParser("parseTemplateBindings"),
   },
 };
 

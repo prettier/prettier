@@ -214,10 +214,28 @@ function printUnionType(path, options, print) {
   return group(shouldIndent ? indent(code) : code);
 }
 
-// `TSFunctionType` and `FunctionTypeAnnotation`
+/*
+- `TSFunctionType` (TypeScript)
+- `TSCallSignatureDeclaration` (TypeScript)
+- `TSConstructorType` (TypeScript)
+- `TSConstructSignatureDeclaration` (TypeScript)
+- `FunctionTypeAnnotation` (Flow)
+*/
 function printFunctionType(path, options, print) {
   const { node } = path;
   const parts = [];
+
+  if (node.type === "TSConstructorType" && node.abstract) {
+    parts.push("abstract ");
+  }
+
+  if (
+    node.type === "TSConstructorType" ||
+    node.type === "TSConstructSignatureDeclaration"
+  ) {
+    parts.push("new ");
+  }
+
   // FunctionTypeAnnotation is ambiguous:
   // declare function foo(a: B): void; OR
   // var A: (a: B) => void;
@@ -226,15 +244,17 @@ function printFunctionType(path, options, print) {
   const parentParentParent = path.getParentNode(2);
   let isArrowFunctionTypeAnnotation =
     node.type === "TSFunctionType" ||
-    !(
-      ((parent.type === "ObjectTypeProperty" ||
-        parent.type === "ObjectTypeInternalSlot") &&
-        !parent.variance &&
-        !parent.optional &&
-        locStart(parent) === locStart(node)) ||
-      parent.type === "ObjectTypeCallProperty" ||
-      parentParentParent?.type === "DeclareFunction"
-    );
+    node.type === "TSConstructorType" ||
+    (node.type === "FunctionTypeAnnotation" &&
+      !(
+        ((parent.type === "ObjectTypeProperty" ||
+          parent.type === "ObjectTypeInternalSlot") &&
+          !parent.variance &&
+          !parent.optional &&
+          locStart(parent) === locStart(node)) ||
+        parent.type === "ObjectTypeCallProperty" ||
+        parentParentParent?.type === "DeclareFunction"
+      ));
 
   let needsColon =
     isArrowFunctionTypeAnnotation &&

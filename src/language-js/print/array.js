@@ -109,12 +109,7 @@ function printArray(path, options, print) {
       ? ""
       : needsForcedTrailingComma
       ? ","
-      : !shouldPrintComma(
-          options,
-          node.type === "TSTupleType" || node.type === "TupleTypeAnnotation"
-            ? "all"
-            : "es5"
-        )
+      : !shouldPrintComma(options)
       ? ""
       : shouldUseConciseFormatting
       ? ifBreak(",", "", { groupId })
