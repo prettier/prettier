@@ -218,6 +218,20 @@ function needsParens(path, options) {
         return true;
       }
       break;
+
+    case "TypeAnnotation":
+      if (
+        path.match(
+          undefined,
+          undefined,
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression"
+        ) &&
+        includesFunctionTypeInObjectType(node)
+      ) {
+        return true;
+      }
+      break;
   }
 
   switch (node.type) {
@@ -452,6 +466,18 @@ function needsParens(path, options) {
       }
     // fallthrough
     case "TSFunctionType":
+      if (
+        path.match(
+          (node) => node.type === "TSFunctionType",
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TSTypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression"
+        )
+      ) {
+        return true;
+      }
+    // fallthrough
     case "TSConstructorType":
       if (key === "extendsType" && parent.type === "TSConditionalType") {
         const returnTypeAnnotation = (node.returnType || node.typeAnnotation)
@@ -522,6 +548,18 @@ function needsParens(path, options) {
       );
 
     case "FunctionTypeAnnotation": {
+      if (
+        path.match(
+          undefined,
+          (node, key) =>
+            key === "typeAnnotation" && node.type === "TypeAnnotation",
+          (node, key) =>
+            key === "returnType" && node.type === "ArrowFunctionExpression"
+        )
+      ) {
+        return true;
+      }
+
       const ancestor =
         parent.type === "NullableTypeAnnotation" ? path.grandparent : parent;
 
@@ -828,12 +866,6 @@ function needsParens(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator" &&
           parent.type !== "YieldExpression")
-      );
-    case "TypeAnnotation":
-      return (
-        key === "returnType" &&
-        parent.type === "ArrowFunctionExpression" &&
-        includesFunctionTypeInObjectType(node)
       );
   }
 

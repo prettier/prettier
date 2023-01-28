@@ -46,7 +46,6 @@ import { printTypescript } from "./print/typescript.js";
 import {
   printOptionalToken,
   printBindExpressionCallee,
-  printTypeAnnotation,
   adjustClause,
   printRestSpread,
   printDefiniteToken,
@@ -91,6 +90,7 @@ import { printMemberExpression } from "./print/member.js";
 import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
+import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 
 function genericPrint(path, options, print, args) {
   const { node } = path;
@@ -289,7 +289,7 @@ function printPathNoParens(path, options, print, args) {
         node.name,
         printOptionalToken(path),
         printDefiniteToken(path),
-        printTypeAnnotation(path, options, print),
+        printTypeAnnotationProperty(path, print),
       ];
 
     case "V8IntrinsicIdentifier":
@@ -298,7 +298,7 @@ function printPathNoParens(path, options, print, args) {
     case "SpreadElementPattern":
     case "SpreadPropertyPattern":
     case "RestElement":
-      return printRestSpread(path, options, print);
+      return printRestSpread(path, print);
     case "FunctionDeclaration":
     case "FunctionExpression":
       return printFunction(path, print, options, args);

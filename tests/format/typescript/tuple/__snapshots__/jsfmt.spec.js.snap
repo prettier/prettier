@@ -271,7 +271,7 @@ export interface ShopQueryResult {
     {
       from: string;
       to: string;
-    } // <== this one
+    }, // <== this one
   ];
   shop: string;
   distance: number;
@@ -439,7 +439,7 @@ type ValidateArgs = [
   },
   string,
   string,
-  ...string[]
+  ...string[],
 ];
 
 ================================================================================
@@ -528,7 +528,7 @@ export type SCMRawResource = [
   modes.Command /*command*/,
   string[] /*icons: light, dark*/,
   boolean /*strike through*/,
-  boolean /*faded*/
+  boolean /*faded*/,
 ];
 
 ================================================================================

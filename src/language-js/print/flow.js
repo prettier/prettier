@@ -19,6 +19,8 @@ import {
   printIndexedAccessType,
   printRestType,
   printNamedTupleMember,
+  printTypeAnnotation,
+  printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printInterface } from "./interface.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
@@ -34,7 +36,6 @@ import {
 import { printBigInt } from "./literal.js";
 import {
   printOptionalToken,
-  printTypeAnnotation,
   printRestSpread,
   printDeclareToken,
 } from "./misc.js";
@@ -58,7 +59,11 @@ function printFlow(path, options, print) {
     case "DeclareModule":
       return ["declare module ", print("id"), " ", print("body")];
     case "DeclareModuleExports":
-      return ["declare module.exports", ": ", print("typeAnnotation"), semi];
+      return [
+        "declare module.exports",
+        printTypeAnnotationProperty(path, print),
+        semi,
+      ];
     case "DeclareVariable":
       return [printDeclareToken(path), "var ", print("id"), semi];
     case "DeclareExportDeclaration":
@@ -96,7 +101,7 @@ function printFlow(path, options, print) {
     // Type Annotations for Facebook Flow, typically stripped out or
     // transformed away before printing.
     case "TypeAnnotation":
-      return print("typeAnnotation");
+      return printTypeAnnotation(path, options, print);
     case "TypeParameter":
       return printTypeParameter(path, options, print);
     case "TypeofTypeAnnotation":
@@ -137,6 +142,8 @@ function printFlow(path, options, print) {
       return [
         name,
         printOptionalToken(path),
+        // `flow` doesn't wrap the `typeAnnotation` with `TypeAnnotation`, so the colon
+        // needs to be added separately.
         name ? ": " : "",
         print("typeAnnotation"),
       ];
@@ -204,7 +211,7 @@ function printFlow(path, options, print) {
       ];
     // Same as `RestElement`
     case "ObjectTypeSpreadProperty":
-      return printRestSpread(path, options, print);
+      return printRestSpread(path, print);
     case "QualifiedTypeofIdentifier":
     case "QualifiedTypeIdentifier":
       return [print("qualification"), ".", print("id")];
@@ -218,7 +225,7 @@ function printFlow(path, options, print) {
       return [
         "(",
         print("expression"),
-        printTypeAnnotation(path, options, print),
+        printTypeAnnotationProperty(path, print),
         ")",
       ];
 

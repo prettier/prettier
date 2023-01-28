@@ -9,13 +9,14 @@ import {
   ifBreak,
 } from "../../document/builders.js";
 import pathNeedsParens from "../needs-parens.js";
-import { locStart } from "../loc.js";
+import { hasSameLocStart } from "../loc.js";
 import {
   isSimpleType,
   isObjectType,
   hasLeadingOwnLineComment,
   isObjectTypePropertyAFunction,
   hasComment,
+  CommentCheckFlags,
 } from "../utils/index.js";
 import { printAssignment } from "./assignment.js";
 import {
@@ -221,51 +222,51 @@ function printUnionType(path, options, print) {
   return group(shouldIndent ? indent(code) : code);
 }
 
-// `TSFunctionType` and `FunctionTypeAnnotation`
+/*
+`FunctionTypeAnnotation` is ambiguous:
+- `declare function foo(a: B): void;`
+- `var A: (a: B) => void;`
+*/
+function isFlowArrowFunctionTypeAnnotation(path) {
+  const { node, parent } = path;
+  return (
+    node.type === "FunctionTypeAnnotation" &&
+    (isObjectTypePropertyAFunction(parent) ||
+      !(
+        ((parent.type === "ObjectTypeProperty" ||
+          parent.type === "ObjectTypeInternalSlot") &&
+          !parent.variance &&
+          !parent.optional &&
+          hasSameLocStart(parent, node)) ||
+        parent.type === "ObjectTypeCallProperty" ||
+        path.getParentNode(2)?.type === "DeclareFunction"
+      ))
+  );
+}
+
+/*
+- `TSFunctionType` (TypeScript)
+- `TSCallSignatureDeclaration` (TypeScript)
+- `TSConstructorType` (TypeScript)
+- `TSConstructSignatureDeclaration` (TypeScript)
+- `FunctionTypeAnnotation` (Flow)
+*/
 function printFunctionType(path, options, print) {
   const { node } = path;
   const parts = [];
-  // FunctionTypeAnnotation is ambiguous:
-  // declare function foo(a: B): void; OR
-  // var A: (a: B) => void;
-  const { parent } = path;
-  const parentParent = path.grandparent;
-  const parentParentParent = path.getParentNode(2);
-  let isArrowFunctionTypeAnnotation =
-    node.type === "TSFunctionType" ||
-    !(
-      ((parent.type === "ObjectTypeProperty" ||
-        parent.type === "ObjectTypeInternalSlot") &&
-        !parent.variance &&
-        !parent.optional &&
-        locStart(parent) === locStart(node)) ||
-      parent.type === "ObjectTypeCallProperty" ||
-      parentParentParent?.type === "DeclareFunction"
-    );
 
-  let needsColon =
-    isArrowFunctionTypeAnnotation &&
-    (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation");
-
-  // Sadly we can't put it inside of AstPath::needsColon because we are
-  // printing ":" as part of the expression and it would put parenthesis
-  // around :(
-  const needsParens =
-    needsColon &&
-    isArrowFunctionTypeAnnotation &&
-    (parent.type === "TypeAnnotation" || parent.type === "TSTypeAnnotation") &&
-    parentParent.type === "ArrowFunctionExpression";
-
-  if (isObjectTypePropertyAFunction(parent)) {
-    isArrowFunctionTypeAnnotation = true;
-    needsColon = true;
+  if (node.type === "TSConstructorType" && node.abstract) {
+    parts.push("abstract ");
   }
 
-  if (needsParens) {
-    parts.push("(");
+  if (
+    node.type === "TSConstructorType" ||
+    node.type === "TSConstructSignatureDeclaration"
+  ) {
+    parts.push("new ");
   }
 
-  const parametersDoc = printFunctionParameters(
+  let parametersDoc = printFunctionParameters(
     path,
     print,
     options,
@@ -273,32 +274,29 @@ function printFunctionType(path, options, print) {
     /* printTypeParams */ true
   );
 
-  // The returnType is not wrapped in a TypeAnnotation, so the colon
+  const returnTypeDoc = [];
+  // `flow` doesn't wrap the `returnType` with `TypeAnnotation`, so the colon
   // needs to be added separately.
-  const returnTypeDoc =
-    node.returnType || node.predicate || node.typeAnnotation
-      ? [
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
-          node.returnType ? print("returnType") : "",
-          node.predicate ? print("predicate") : "",
-          node.typeAnnotation ? print("typeAnnotation") : "",
-        ]
-      : "";
-
-  const shouldGroupParameters = shouldGroupFunctionParameters(
-    node,
-    returnTypeDoc
-  );
-
-  parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
-
-  if (returnTypeDoc) {
-    parts.push(returnTypeDoc);
+  if (node.type === "FunctionTypeAnnotation") {
+    returnTypeDoc.push(
+      isFlowArrowFunctionTypeAnnotation(path) ? " => " : ": ",
+      print("returnType")
+    );
+  } else {
+    returnTypeDoc.push(
+      printTypeAnnotationProperty(
+        path,
+        print,
+        node.returnType ? "returnType" : "typeAnnotation"
+      )
+    );
   }
 
-  if (needsParens) {
-    parts.push(")");
+  if (shouldGroupFunctionParameters(node, returnTypeDoc)) {
+    parametersDoc = group(parametersDoc);
   }
+
+  parts.push(parametersDoc, returnTypeDoc);
 
   return group(parts);
 }
@@ -323,7 +321,7 @@ function printJSDocType(path, print, token) {
   const { node } = path;
   return [
     node.postfix ? "" : token,
-    print("typeAnnotation"),
+    printTypeAnnotationProperty(path, print),
     node.postfix ? token : "",
   ];
 }
@@ -361,6 +359,115 @@ function printNamedTupleMember(path, options, print) {
   ];
 }
 
+const typeAnnotationNodesCheckedLeadingComments = new WeakSet();
+function printTypeAnnotationProperty(
+  path,
+  print,
+  propertyName = "typeAnnotation"
+) {
+  const {
+    node: { [propertyName]: typeAnnotation },
+  } = path;
+
+  if (!typeAnnotation) {
+    return "";
+  }
+
+  let shouldPrintLeadingSpace = false;
+
+  if (
+    typeAnnotation.type === "TSTypeAnnotation" ||
+    typeAnnotation.type === "TypeAnnotation"
+  ) {
+    const firstToken = path.call(getTypeAnnotationFirstToken, propertyName);
+
+    if (
+      firstToken === "=>" ||
+      (firstToken === ":" &&
+        hasComment(typeAnnotation, CommentCheckFlags.Leading))
+    ) {
+      shouldPrintLeadingSpace = true;
+    }
+
+    typeAnnotationNodesCheckedLeadingComments.add(typeAnnotation);
+  }
+
+  return shouldPrintLeadingSpace
+    ? [" ", print(propertyName)]
+    : print(propertyName);
+}
+
+const getTypeAnnotationFirstToken = (path) => {
+  if (
+    // TypeScript
+    path.match(
+      (node) => node.type === "TSTypeAnnotation",
+      (node, key) =>
+        (key === "returnType" || key === "typeAnnotation") &&
+        (node.type === "TSFunctionType" || node.type === "TSConstructorType")
+    )
+  ) {
+    return "=>";
+  }
+
+  if (
+    // TypeScript
+    path.match(
+      (node) => node.type === "TSTypeAnnotation",
+      (node, key) =>
+        key === "typeAnnotation" &&
+        (node.type === "TSJSDocNullableType" ||
+          node.type === "TSJSDocNonNullableType" ||
+          node.type === "TSTypePredicate")
+    ) ||
+    /*
+    Flow
+
+    ```js
+    declare function foo(): void;
+                        ^^^^^^^^ `TypeAnnotation`
+    ```
+    */
+    path.match(
+      (node) => node.type === "TypeAnnotation",
+      (node, key) => key === "typeAnnotation" && node.type === "Identifier",
+      (node, key) => key === "id" && node.type === "DeclareFunction"
+    )
+  ) {
+    return "";
+  }
+
+  return ":";
+};
+
+/*
+- `TSTypeAnnotation` (TypeScript)
+- `TypeAnnotation` (Flow)
+*/
+function printTypeAnnotation(path, options, print) {
+  // We need print space before leading comments,
+  // `printTypeAnnotationProperty` is responsible for it.
+  /* c8 ignore start */
+  if (process.env.NODE_ENV !== "production") {
+    const { node } = path;
+
+    if (!typeAnnotationNodesCheckedLeadingComments.has(node)) {
+      throw Object.assign(
+        new Error(
+          `'${node.type}' should be printed by '${printTypeAnnotationProperty.name}' function.`
+        ),
+        { parentNode: path.parent, propertyName: path.key }
+      );
+    }
+  }
+  /* c8 ignore stop */
+
+  const token = getTypeAnnotationFirstToken(path);
+  return token
+    ? [token, " ", print("typeAnnotation")]
+    : print("typeAnnotation");
+}
+
 export {
   printOpaqueType,
   printTypeAlias,
@@ -370,6 +477,11 @@ export {
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
+<<<<<<< HEAD
   printRestType,
   printNamedTupleMember,
+=======
+  printTypeAnnotationProperty,
+  printTypeAnnotation,
+>>>>>>> next
 };

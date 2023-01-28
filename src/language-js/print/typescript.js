@@ -34,7 +34,7 @@ import { printObject } from "./object.js";
 import { printClassProperty, printClassMethod } from "./class.js";
 import { printTypeParameter, printTypeParameters } from "./type-parameters.js";
 import { printPropertyKey } from "./property.js";
-import { printFunction, printMethodInternal } from "./function.js";
+import { printFunction, printMethodValue } from "./function.js";
 import { printInterface } from "./interface.js";
 import { printBlock } from "./block.js";
 import {
@@ -46,6 +46,8 @@ import {
   printJSDocType,
   printRestType,
   printNamedTupleMember,
+  printTypeAnnotation,
+  printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printDeclareToken } from "./misc.js";
@@ -164,12 +166,9 @@ function printTypescript(path, options, print) {
 
       parts.push(
         printPropertyKey(path, options, print),
-        printOptionalToken(path)
+        printOptionalToken(path),
+        printTypeAnnotationProperty(path, print)
       );
-
-      if (node.typeAnnotation) {
-        parts.push(": ", print("typeAnnotation"));
-      }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
       if (node.initializer) {
@@ -229,8 +228,8 @@ function printTypescript(path, options, print) {
         printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
-        node.typeAnnotation ? "]: " : "]",
-        node.typeAnnotation ? print("typeAnnotation") : "",
+        "]",
+        printTypeAnnotationProperty(path, print),
         parent.type === "ClassBody" ? semi : "",
       ];
     }
@@ -238,7 +237,9 @@ function printTypescript(path, options, print) {
       return [
         node.asserts ? "asserts " : "",
         print("parameterName"),
-        node.typeAnnotation ? [" is ", print("typeAnnotation")] : "",
+        node.typeAnnotation
+          ? [" is ", printTypeAnnotationProperty(path, print)]
+          : "",
       ];
     case "TSNonNullExpression":
       return [print("expression"), "!"];
@@ -255,37 +256,6 @@ function printTypescript(path, options, print) {
       return print("literal");
     case "TSIndexedAccessType":
       return printIndexedAccessType(path, options, print);
-    case "TSConstructSignatureDeclaration":
-    case "TSCallSignatureDeclaration":
-    case "TSConstructorType":
-      if (node.type === "TSConstructorType" && node.abstract) {
-        parts.push("abstract ");
-      }
-      if (node.type !== "TSCallSignatureDeclaration") {
-        parts.push("new ");
-      }
-
-      parts.push(
-        group(
-          printFunctionParameters(
-            path,
-            print,
-            options,
-            /* expandArg */ false,
-            /* printTypeParams */ true
-          )
-        )
-      );
-
-      if (node.returnType || node.typeAnnotation) {
-        const isType = node.type === "TSConstructorType";
-        parts.push(
-          isType ? " => " : ": ",
-          print("returnType"),
-          print("typeAnnotation")
-        );
-      }
-      return parts;
 
     case "TSTypeOperator":
       return [node.operator, " ", print("typeAnnotation")];
@@ -338,7 +308,9 @@ function printTypescript(path, options, print) {
         ? "returnType"
         : "typeAnnotation";
       const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode ? print(returnTypePropertyName) : "";
+      const returnTypeDoc = returnTypeNode
+        ? printTypeAnnotationProperty(path, print, returnTypePropertyName)
+        : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc
@@ -347,7 +319,7 @@ function printTypescript(path, options, print) {
       parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 
       if (returnTypeNode) {
-        parts.push(": ", group(returnTypeDoc));
+        parts.push(group(returnTypeDoc));
       }
 
       return group(parts);
@@ -437,6 +409,9 @@ function printTypescript(path, options, print) {
     case "TSUnionType":
       return printUnionType(path, options, print);
     case "TSFunctionType":
+    case "TSCallSignatureDeclaration":
+    case "TSConstructorType":
+    case "TSConstructSignatureDeclaration":
       return printFunctionType(path, options, print);
     case "TSTupleType":
       return printArray(path, options, print);
@@ -446,9 +421,9 @@ function printTypescript(path, options, print) {
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSTypeAnnotation":
-      return print("typeAnnotation");
+      return printTypeAnnotation(path, options, print);
     case "TSEmptyBodyFunctionExpression":
-      return printMethodInternal(path, options, print);
+      return printMethodValue(path, options, print);
 
     // These are not valid TypeScript. Printing them just for the sake of error recovery.
     case "TSJSDocAllType":

@@ -19,13 +19,13 @@ import { getTypeParametersGroupId } from "./type-parameters.js";
 import { printMethod } from "./function.js";
 import {
   printOptionalToken,
-  printTypeAnnotation,
   printDefiniteToken,
   printDeclareToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
 import { printClassMemberDecorators } from "./decorators.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -245,7 +245,7 @@ function printClassProperty(path, options, print) {
     printPropertyKey(path, options, print),
     printOptionalToken(path),
     printDefiniteToken(path),
-    printTypeAnnotation(path, options, print)
+    printTypeAnnotationProperty(path, print)
   );
 
   const isAbstractProperty =

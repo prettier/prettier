@@ -1,5 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`consistent.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// TSFunctionType
+type A = (
+  tpl: TemplateStringsArray,
+  ...args: Array<unknown>
+) => (replacements?: PublicReplacements) => T;
+
+// TSConstructorType
+type B = new (
+  tpl: TemplateStringsArray,
+  ...args: Array<unknown>
+) => (replacements?: PublicReplacements) => T;
+
+type X = {
+  // TSCallSignatureDeclaration
+  (
+    tpl: TemplateStringsArray,
+    ...args: Array<unknown>
+  ): (replacements?: PublicReplacements) => T;
+
+  // TSConstructSignatureDeclaration
+  new (
+    tpl: TemplateStringsArray,
+    ...args: Array<unknown>
+  ): (replacements?: PublicReplacements) => T;
+};
+
+=====================================output=====================================
+// TSFunctionType
+type A = (
+  tpl: TemplateStringsArray,
+  ...args: Array<unknown>
+) => (replacements?: PublicReplacements) => T;
+
+// TSConstructorType
+type B = new (
+  tpl: TemplateStringsArray,
+  ...args: Array<unknown>
+) => (replacements?: PublicReplacements) => T;
+
+type X = {
+  // TSCallSignatureDeclaration
+  (
+    tpl: TemplateStringsArray,
+    ...args: Array<unknown>
+  ): (replacements?: PublicReplacements) => T;
+
+  // TSConstructSignatureDeclaration
+  new (
+    tpl: TemplateStringsArray,
+    ...args: Array<unknown>
+  ): (replacements?: PublicReplacements) => T;
+};
+
+================================================================================
+`;
+
 exports[`single-parameter.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
