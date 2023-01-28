@@ -180,10 +180,16 @@ function modifyTypescriptModule(text) {
 
     // This is a big module, most code except `scanner` is not used
     if (module.path === "src/services/utilities.ts") {
-      source.replaceModule(
-        module,
-        "var scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);"
-      );
+      // source.replaceModule(
+      //   module,
+      //   outdent`
+      //     var scanner;
+      //     var ${module.esmModuleInitFunctionName} = () => {
+      //       init_debug();
+      //       scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
+      //     };
+      //   `
+      // );
       continue;
     }
 
@@ -238,12 +244,6 @@ function modifyTypescriptModule(text) {
   source.replaceModule(
     "src/compiler/perfLogger.ts",
     "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
-  );
-
-  // Debug
-  source.replaceModule(
-    "src/compiler/debug.ts",
-    "var Debug = new Proxy({}, {get: () => () => {}});"
   );
 
   // performanceCore
