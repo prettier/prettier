@@ -927,10 +927,26 @@ function genericPrint(path, options, print) {
 
       if (!node.open) {
         const parentParentParentNode = path.getParentNode(2);
-        const forceHardLine =
+        let forceHardLine =
           parentParentParentNode.type === "css-decl" ||
           (parentParentParentNode.type === "css-atrule" &&
             parentParentParentNode.variable);
+        if (forceHardLine) {
+          forceHardLine = false;
+          for (let i = 0; i < node.groups.length; i++) {
+            if (node.groups[i].type === "value-comma_group") {
+              forceHardLine = true;
+            } else {
+              const text = options.originalText.slice(
+                locStart(node.groups[i]),
+                locEnd(node.groups[i])
+              );
+              if (/\s/.test(text)) {
+                forceHardLine = true;
+              }
+            }
+          }
+        }
 
         const printed = path.map(print, "groups");
         /** @type{Doc[]} */

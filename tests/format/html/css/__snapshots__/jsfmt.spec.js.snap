@@ -133,9 +133,7 @@ printWidth: 80
 
 =====================================output=====================================
 <style type="text/x-scss">
-  $font-stack:
-    Helvetica,
-    sans-serif;
+  $font-stack: Helvetica, sans-serif;
   $primary-color: #333;
 
   body {
@@ -145,9 +143,7 @@ printWidth: 80
 </style>
 
 <style lang="scss">
-  $font-stack:
-    Helvetica,
-    sans-serif;
+  $font-stack: Helvetica, sans-serif;
   $primary-color: #333;
 
   body {
@@ -243,11 +239,7 @@ printWidth: 80
 <style>
   h1 {
     font-size: 120%;
-    font-family:
-      Verdana,
-      Arial,
-      Helvetica,
-      sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     color: #333366;
   }
 </style>

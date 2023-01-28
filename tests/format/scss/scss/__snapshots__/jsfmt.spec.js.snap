@@ -69,10 +69,7 @@ body {
     }
   }
 }
-$form-selectors:
-  "input.name",
-  "input.address",
-  "input.zip" !default;
+$form-selectors: "input.name", "input.address", "input.zip" !default;
 @include order(150px, $form-selectors...);
 @mixin linear-gradient($direction, $gradients...) {
   background-color: nth($gradients, 1);
@@ -166,10 +163,7 @@ body {
     }
   }
 }
-$form-selectors:
-  "input.name",
-  "input.address",
-  "input.zip" !default;
+$form-selectors: "input.name", "input.address", "input.zip" !default;
 @include order(150px, $form-selectors...);
 @mixin linear-gradient($direction, $gradients...) {
   background-color: nth($gradients, 1);
@@ -1786,30 +1780,12 @@ $list-space: "item-1" "item-2" "item-3";
 $list-space: "item-1" "item-2" "item-3";
 $list-space: "item-1" "item-2" "item-3";
 $list-space: "item-1" "item-2" "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
 $list:
   "item-1.1" "item-1.2" "item-1.3",
   "item-2.1" "item-2.2" "item-2.3",
@@ -3968,30 +3944,12 @@ $list-space: "item-1" "item-2" "item-3";
 $list-space: "item-1" "item-2" "item-3";
 $list-space: "item-1" "item-2" "item-3";
 $list-space: "item-1" "item-2" "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
-$list-comma:
-  "item-1",
-  "item-2",
-  "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
+$list-comma: "item-1", "item-2", "item-3";
 $list:
   "item-1.1" "item-1.2" "item-1.3",
   "item-2.1" "item-2.2" "item-2.3",
