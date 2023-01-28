@@ -30,13 +30,6 @@ export * as ns from "mod";
 ================================================================================
 `;
 
-exports[`export-star-as-default.js [flow] format 1`] = `
-"Unexpected token \`default\` (1:13)
-> 1 | export * as default from 'foo'
-    |             ^^^^^^^
-  2 |"
-`;
-
 exports[`export-star-as-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -47,6 +40,26 @@ export * as default from 'foo'
 
 =====================================output=====================================
 export * as default from "foo";
+
+================================================================================
+`;
+
+exports[`export-star-as-reserved-word.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as function from 'foo'
+export * as const from 'foo'
+export * as as from 'foo'
+export * as from from 'foo'
+
+=====================================output=====================================
+export * as function from "foo";
+export * as const from "foo";
+export * as as from "foo";
+export * as from from "foo";
 
 ================================================================================
 `;

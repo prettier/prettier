@@ -7,16 +7,7 @@ run_spec(
       "for (let``.bar of []);",
     ],
   },
-  [
-    "babel",
-    // `espree` didn't throw https://github.com/acornjs/acorn/issues/1009
-    // "espree",
-    "meriyah",
-    "flow",
-    "typescript",
-    "babel-flow",
-    "babel-ts",
-  ]
+  ["babel", "espree", "meriyah", "flow", "typescript", "babel-flow", "babel-ts"]
 );
 
 run_spec(
@@ -30,8 +21,7 @@ run_spec(
     "espree",
     // `meriyah` didn't throw https://github.com/meriyah/meriyah/issues/190
     // "meriyah",
-    // `flow` didn't throw https://github.com/facebook/flow/issues/8651
-    // "flow",
+    "flow",
     // `typescript` didn't throw
     // "typescript",
     "babel-flow",

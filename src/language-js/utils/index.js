@@ -376,6 +376,15 @@ const simpleTypeAnnotations = new Set([
   // `string`
   "StringTypeAnnotation",
   "TSStringKeyword",
+  // `never`
+  "NeverTypeAnnotation",
+  "TSNeverKeyword",
+  // `undefined`
+  "UndefinedTypeAnnotation",
+  "TSUndefinedKeyword",
+  // `unknown`
+  "UnknownTypeAnnotation",
+  "TSUnknownKeyword",
   // literals
   "BooleanLiteralTypeAnnotation",
   "StringLiteralTypeAnnotation",
@@ -386,11 +395,8 @@ const simpleTypeAnnotations = new Set([
   // flow only, `empty`, `mixed`
   "EmptyTypeAnnotation",
   "MixedTypeAnnotation",
-  // typescript only, `never`, `object`, `undefined`, `unknown`
-  "TSNeverKeyword",
+  // typescript only `object`
   "TSObjectKeyword",
-  "TSUndefinedKeyword",
-  "TSUnknownKeyword",
 ]);
 /**
  * @param {Node} node

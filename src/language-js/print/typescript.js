@@ -44,6 +44,8 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printJSDocType,
+  printRestType,
+  printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
 } from "./type-annotation.js";
@@ -128,14 +130,9 @@ function printTypescript(path, options, print) {
     case "TSTemplateLiteralType":
       return printTemplateLiteral(path, print, options);
     case "TSNamedTupleMember":
-      return [
-        print("label"),
-        node.optional ? "?" : "",
-        ": ",
-        print("elementType"),
-      ];
+      return printNamedTupleMember(path, options, print);
     case "TSRestType":
-      return ["...", print("typeAnnotation")];
+      return printRestType(path, options, print);
     case "TSOptionalType":
       return [print("typeAnnotation"), "?"];
     case "TSInterfaceDeclaration":

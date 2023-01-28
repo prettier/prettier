@@ -325,26 +325,6 @@ class B {
 ================================================================================
 `;
 
-exports[`static.js [flow] format 1`] = `
-"Unexpected token \`;\`, expected an identifier (2:9)
-  1 | class A {
-> 2 |   static;
-    |         ^
-  3 |   foo() {};
-  4 | }
-  5 |"
-`;
-
-exports[`static.js - {"semi":false} [flow] format 1`] = `
-"Unexpected token \`;\`, expected an identifier (2:9)
-  1 | class A {
-> 2 |   static;
-    |         ^
-  3 |   foo() {};
-  4 | }
-  5 |"
-`;
-
 exports[`static.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

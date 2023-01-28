@@ -26,9 +26,9 @@ run_spec(
   {
     importMeta: import.meta,
     snippets: [
-      // `flow` and `meriyah` didn't throw
+      // `meriyah` didn't throw
       "async (x = await (2)) => {};",
     ],
   },
-  ["babel", "acorn", "espree"]
+  ["babel", "acorn", "espree", "flow"]
 );

@@ -201,15 +201,22 @@ function printUnionType(path, options, print) {
     return group([indent(code), softline]);
   }
 
-  if (
-    (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
-    (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
-  ) {
-    return group([
-      indent([ifBreak(["(", softline]), code]),
-      softline,
-      ifBreak(")"),
-    ]);
+  if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
+    const elementTypes =
+      parent[
+        // TODO: Remove `types` when babel changes AST of `TupleTypeAnnotation`
+        parent.type === "TupleTypeAnnotation" && parent.types
+          ? "types"
+          : "elementTypes"
+      ];
+
+    if (elementTypes.length > 1) {
+      return group([
+        indent([ifBreak(["(", softline]), code]),
+        softline,
+        ifBreak(")"),
+      ]);
+    }
   }
 
   return group(shouldIndent ? indent(code) : code);
@@ -316,6 +323,39 @@ function printJSDocType(path, print, token) {
     node.postfix ? "" : token,
     printTypeAnnotationProperty(path, print),
     node.postfix ? token : "",
+  ];
+}
+
+/*
+- `TSRestType`(TypeScript)
+- `TupleTypeSpreadElement`(flow)
+*/
+function printRestType(path, options, print) {
+  const { node } = path;
+
+  return [
+    "...",
+    ...(node.type === "TupleTypeSpreadElement" && node.label
+      ? [print("label"), ": "]
+      : []),
+    print("typeAnnotation"),
+  ];
+}
+
+/*
+- `TSNamedTupleMember`(TypeScript)
+- `TupleTypeLabeledElement`(flow)
+*/
+function printNamedTupleMember(path, options, print) {
+  const { node } = path;
+
+  return [
+    // `TupleTypeLabeledElement` only
+    node.variance ? print("variance") : "",
+    print("label"),
+    node.optional ? "?" : "",
+    ": ",
+    print("elementType"),
   ];
 }
 
@@ -437,6 +477,8 @@ export {
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
+  printRestType,
+  printNamedTupleMember,
   printTypeAnnotationProperty,
   printTypeAnnotation,
 };

@@ -500,6 +500,7 @@ exports[`visitor keys estree 1`] = `
   "NGRoot": [
     "node",
   ],
+  "NeverTypeAnnotation": [],
   "NewExpression": [
     "callee",
     "arguments",
@@ -642,9 +643,6 @@ exports[`visitor keys estree 1`] = `
     "expressions",
   ],
   "SpreadElement": [
-    "argument",
-  ],
-  "SpreadProperty": [
     "argument",
   ],
   "StaticBlock": [
@@ -971,6 +969,16 @@ exports[`visitor keys estree 1`] = `
   ],
   "TupleTypeAnnotation": [
     "types",
+    "elementTypes",
+  ],
+  "TupleTypeLabeledElement": [
+    "label",
+    "elementType",
+    "variance",
+  ],
+  "TupleTypeSpreadElement": [
+    "label",
+    "typeAnnotation",
   ],
   "TypeAlias": [
     "id",
@@ -1001,9 +1009,11 @@ exports[`visitor keys estree 1`] = `
   "UnaryExpression": [
     "argument",
   ],
+  "UndefinedTypeAnnotation": [],
   "UnionTypeAnnotation": [
     "types",
   ],
+  "UnknownTypeAnnotation": [],
   "UpdateExpression": [
     "argument",
   ],

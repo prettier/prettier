@@ -17,6 +17,8 @@ import {
   printUnionType,
   printFunctionType,
   printIndexedAccessType,
+  printRestType,
+  printNamedTupleMember,
   printTypeAnnotation,
   printTypeAnnotationProperty,
 } from "./type-annotation.js";
@@ -84,6 +86,10 @@ function printFlow(path, options, print) {
       return printFunctionType(path, options, print);
     case "TupleTypeAnnotation":
       return printArray(path, options, print);
+    case "TupleTypeLabeledElement":
+      return printNamedTupleMember(path, options, print);
+    case "TupleTypeSpreadElement":
+      return printRestType(path, options, print);
     case "GenericTypeAnnotation":
       return [
         print("id"),
@@ -249,6 +255,12 @@ function printFlow(path, options, print) {
       return "void";
     case "ThisTypeAnnotation":
       return "this";
+    case "NeverTypeAnnotation":
+      return "never";
+    case "UndefinedTypeAnnotation":
+      return "undefined";
+    case "UnknownTypeAnnotation":
+      return "unknown";
     // These types are unprintable because they serve as abstract
     // supertypes for other (printable) types.
     case "Node":

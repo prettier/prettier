@@ -8,13 +8,6 @@ exports[`async-arrow-invalid.js [flow] format 1`] = `
     | ^"
 `;
 
-exports[`default-escaped.js [flow] format 1`] = `
-"Unexpected token \`async\`, expected a declaration, statement or export specifiers (1:8)
-> 1 | export asyn\\u{63} from "async";
-    |        ^^^^^^^^^^
-  2 |"
-`;
-
 exports[`dynamic-import.js [flow] format 1`] = `
 "Unexpected token \`,\`, expected the token \`)\` (1:24)
 > 1 | import('./prettier.mjs', {})
@@ -27,6 +20,13 @@ exports[`function-async.js [flow] format 1`] = `
   1 | // Flow can't parse this since \`v0.128.0\`, #8661
 > 2 | async<T>();
     |           ^"
+`;
+
+exports[`invalid_keyword_symbol.js [flow] format 1`] = `
+"Unexpected reserved type (1:6)
+> 1 | type symbol = number;
+    |      ^^^^^^
+  2 |"
 `;
 
 exports[`module-attributes-dynamic.js [flow] format 1`] = `
@@ -58,4 +58,11 @@ exports[`number.js [flow] format 1`] = `
 > 3 | a = 09e1_1;
     |     ^^^^
   4 |"
+`;
+
+exports[`spread-with-optional.js [flow] format 1`] = `
+"Tuple spread elements cannot be optional. (1:17)
+> 1 | type T = [...foo?: S]; // ERROR
+    |                 ^
+  2 |"
 `;

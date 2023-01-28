@@ -329,7 +329,6 @@ function needsParens(path, options) {
         case "UnaryExpression":
         case "JSXSpreadAttribute":
         case "SpreadElement":
-        case "SpreadProperty":
         case "BindExpression":
         case "AwaitExpression":
         case "TSNonNullExpression":
@@ -432,7 +431,6 @@ function needsParens(path, options) {
         case "UnaryExpression":
         case "LogicalExpression":
         case "SpreadElement":
-        case "SpreadProperty":
         case "TSAsExpression":
         case "TSSatisfiesExpression":
         case "TSNonNullExpression":
@@ -681,7 +679,6 @@ function needsParens(path, options) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "SpreadElement":
-        case "SpreadProperty":
         case "BinaryExpression":
         case "LogicalExpression":
         case "NGPipeExpression":
