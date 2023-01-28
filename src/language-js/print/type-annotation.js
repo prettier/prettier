@@ -477,11 +477,8 @@ export {
   printIndexedAccessType,
   shouldHugType,
   printJSDocType,
-<<<<<<< HEAD
   printRestType,
   printNamedTupleMember,
-=======
   printTypeAnnotationProperty,
   printTypeAnnotation,
->>>>>>> next
 };
