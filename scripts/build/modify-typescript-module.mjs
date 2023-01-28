@@ -61,7 +61,16 @@ class TypeScriptModuleSource {
       throw Object.assign(new Error("Module not found"), { module });
     }
 
-    this.#source.overwrite(module.start, module.end, replacement);
+    const { esmModuleInitFunctionName } = module;
+    const moduleInitCode = esmModuleInitFunctionName
+      ? `var ${esmModuleInitFunctionName} = () => {};`
+      : "";
+
+    this.#source.overwrite(
+      module.start,
+      module.end,
+      moduleInitCode + replacement
+    );
     return this;
   }
 
@@ -70,12 +79,7 @@ class TypeScriptModuleSource {
       module = this.modules.find((searching) => searching.path === module);
     }
 
-    const { esmModuleInitFunctionName } = module;
-    const replacement = esmModuleInitFunctionName
-      ? `var ${esmModuleInitFunctionName} = () => {};`
-      : "";
-
-    return this.replaceModule(module, replacement);
+    return this.replaceModule(module, "");
   }
 
   replaceAlignedCode({ start, end, replacement = "" }) {
@@ -223,33 +227,33 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/visitorPublic.ts");
   source.removeModule("src/compiler/_namespaces/ts.performance.ts");
 
-  // // File system
-  // source.replaceModule("src/compiler/sys.ts", "var sys");
-  // source.replaceModule("src/compiler/tracing.ts", "var tracing");
-  // // perfLogger
-  // source.replaceModule(
-  //   "src/compiler/perfLogger.ts",
-  //   "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
-  // );
+  // File system
+  source.replaceModule("src/compiler/sys.ts", "var sys;");
+  source.replaceModule("src/compiler/tracing.ts", "var tracing;");
+  // perfLogger
+  source.replaceModule(
+    "src/compiler/perfLogger.ts",
+    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
+  );
 
-  // // performanceCore
-  // source.replaceModule(
-  //   "src/compiler/performanceCore.ts",
-  //   outdent`
-  //     var tryGetNativePerformanceHooks = () => {};
-  //     var timestamp = Date.now;
-  //   `
-  // );
+  // performanceCore
+  source.replaceModule(
+    "src/compiler/performanceCore.ts",
+    outdent`
+      var tryGetNativePerformanceHooks = () => {};
+      var timestamp = Date.now;
+    `
+  );
 
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
-  // source.replaceModule(
-  //   "src/compiler/factory/nodeConverters.ts",
-  //   outdent`
-  //     var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
-  //   `
-  // );
+  source.replaceModule(
+    "src/compiler/factory/nodeConverters.ts",
+    outdent`
+      var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
+    `
+  );
 
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
