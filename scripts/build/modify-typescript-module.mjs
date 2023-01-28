@@ -171,22 +171,25 @@ function modifyTypescriptModule(text) {
 
   // services
   for (const module of source.modules) {
-    if (module.path === "src/services/services.ts") {
+    if (
+      module.path === "src/services/services.ts" ||
+      module.path === "src/services/_namespaces/ts.ts"
+    ) {
       continue;
     }
 
-    // // This is a big module, most code except `scanner` is not used
-    // if (module.path === "src/services/utilities.ts") {
-    //   source.replaceModule(
-    //     module,
-    //     "var scanner = createScanner(99 /* Latest */, true);"
-    //   );
-    //   continue;
-    // }
+    // This is a big module, most code except `scanner` is not used
+    if (module.path === "src/services/utilities.ts") {
+      source.replaceModule(
+        module,
+        "var scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);"
+      );
+      continue;
+    }
 
-    // if (module.path.startsWith("src/services/")) {
-    //   source.removeModule(module);
-    // }
+    if (module.path.startsWith("src/services/")) {
+      source.removeModule(module);
+    }
   }
 
   // `transformers`
@@ -230,10 +233,17 @@ function modifyTypescriptModule(text) {
   // File system
   source.replaceModule("src/compiler/sys.ts", "var sys;");
   source.replaceModule("src/compiler/tracing.ts", "var tracing;");
+
   // perfLogger
   source.replaceModule(
     "src/compiler/perfLogger.ts",
     "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
+  );
+
+  // Debug
+  source.replaceModule(
+    "src/compiler/debug.ts",
+    "var Debug = new Proxy({}, {get: () => () => {}});"
   );
 
   // performanceCore
