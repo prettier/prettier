@@ -34,9 +34,3 @@ class Something2 {
     // comment
     abstract property: Array<string>
 }
-
-class Something3 {
-    @foo()
-    // comment
-    method(): Array<string>
-}
