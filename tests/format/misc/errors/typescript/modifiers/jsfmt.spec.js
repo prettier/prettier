@@ -64,7 +64,8 @@ run_spec(
 
       // Only `in`, `out` and `const` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
-        (modifier) => modifier !== "in" && modifier !== "out" && modifier !== "const"
+        (modifier) =>
+          modifier !== "in" && modifier !== "out" && modifier !== "const"
       ).map((modifier) => `interface Foo<${modifier} T> {}`),
 
       ...["declare", "readonly"].map(

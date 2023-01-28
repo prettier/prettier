@@ -180,16 +180,16 @@ function modifyTypescriptModule(text) {
 
     // This is a big module, most code except `scanner` is not used
     if (module.path === "src/services/utilities.ts") {
-      // source.replaceModule(
-      //   module,
-      //   outdent`
-      //     var scanner;
-      //     var ${module.esmModuleInitFunctionName} = () => {
-      //       init_debug();
-      //       scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
-      //     };
-      //   `
-      // );
+      source.replaceModule(
+        module,
+        outdent`
+          var scanner;
+          var ${module.esmModuleInitFunctionName} = () => {
+            init_debug();
+            scanner = createScanner(99 /* Latest */, /*skipTrivia*/ true);
+          };
+        `
+      );
       continue;
     }
 
@@ -199,7 +199,7 @@ function modifyTypescriptModule(text) {
   }
 
   // `transformers`
-  // source.removeModule("src/compiler/transformer.ts");
+  source.removeModule("src/compiler/transformer.ts");
   for (const module of source.modules) {
     if (module.path.startsWith("src/compiler/transformers/")) {
       source.removeModule(module);
@@ -225,6 +225,8 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/resolutionCache.ts");
   source.removeModule("src/compiler/tsbuild.ts");
   source.removeModule("src/compiler/tsbuildPublic.ts");
+  source.removeModule("src/compiler/builderState.ts");
+  source.removeModule("src/compiler/builderStatePublic.ts");
 
   // Misc
   source.removeModule("src/compiler/symbolWalker.ts");
@@ -258,6 +260,7 @@ function modifyTypescriptModule(text) {
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
+  source.removeModule("src/compiler/factory/utilities.ts");
   source.replaceModule(
     "src/compiler/factory/nodeConverters.ts",
     outdent`
