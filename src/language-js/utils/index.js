@@ -1098,6 +1098,7 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
+/** @enum {number} */
 const CommentCheckFlags = {
   /** Check comment is a leading comment */
   Leading: 1 << 1,

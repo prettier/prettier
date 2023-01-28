@@ -44,6 +44,7 @@ import {
 } from "./function-parameters.js";
 import { printPropertyKey } from "./property.js";
 import { printFunctionTypeParameters, printDeclareToken } from "./misc.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 const isMethod = (node) =>
   node.type === "ObjectMethod" ||
@@ -436,14 +437,9 @@ function shouldPrintParamsWithoutParens(path, options) {
 /** @returns {Doc} */
 function printReturnType(path, print) {
   const { node } = path;
-  const returnType = print("returnType");
+  const returnType = printTypeAnnotationProperty(path, print, "returnType");
 
   const parts = [returnType];
-
-  // prepend colon to TypeScript type annotation
-  if (node.returnType?.typeAnnotation) {
-    parts.unshift(": ");
-  }
 
   if (node.predicate) {
     // The return type will already add the colon, but otherwise we

@@ -44,6 +44,8 @@ import {
   printFunctionType,
   printIndexedAccessType,
   printJSDocType,
+  printTypeAnnotation,
+  printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
 import { printDeclareToken } from "./misc.js";
@@ -167,12 +169,9 @@ function printTypescript(path, options, print) {
 
       parts.push(
         printPropertyKey(path, options, print),
-        printOptionalToken(path)
+        printOptionalToken(path),
+        printTypeAnnotationProperty(path, print)
       );
-
-      if (node.typeAnnotation) {
-        parts.push(": ", print("typeAnnotation"));
-      }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
       if (node.initializer) {
@@ -232,8 +231,8 @@ function printTypescript(path, options, print) {
         printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
-        node.typeAnnotation ? "]: " : "]",
-        node.typeAnnotation ? print("typeAnnotation") : "",
+        "]",
+        printTypeAnnotationProperty(path, print),
         parent.type === "ClassBody" ? semi : "",
       ];
     }
@@ -241,7 +240,9 @@ function printTypescript(path, options, print) {
       return [
         node.asserts ? "asserts " : "",
         print("parameterName"),
-        node.typeAnnotation ? [" is ", print("typeAnnotation")] : "",
+        node.typeAnnotation
+          ? [" is ", printTypeAnnotationProperty(path, print)]
+          : "",
       ];
     case "TSNonNullExpression":
       return [print("expression"), "!"];
@@ -310,7 +311,9 @@ function printTypescript(path, options, print) {
         ? "returnType"
         : "typeAnnotation";
       const returnTypeNode = node[returnTypePropertyName];
-      const returnTypeDoc = returnTypeNode ? print(returnTypePropertyName) : "";
+      const returnTypeDoc = returnTypeNode
+        ? printTypeAnnotationProperty(path, print, returnTypePropertyName)
+        : "";
       const shouldGroupParameters = shouldGroupFunctionParameters(
         node,
         returnTypeDoc
@@ -319,7 +322,7 @@ function printTypescript(path, options, print) {
       parts.push(shouldGroupParameters ? group(parametersDoc) : parametersDoc);
 
       if (returnTypeNode) {
-        parts.push(": ", group(returnTypeDoc));
+        parts.push(group(returnTypeDoc));
       }
 
       return group(parts);
@@ -421,7 +424,7 @@ function printTypescript(path, options, print) {
         printTypeParameters(path, options, print, "typeParameters"),
       ];
     case "TSTypeAnnotation":
-      return print("typeAnnotation");
+      return printTypeAnnotation(path, options, print);
     case "TSEmptyBodyFunctionExpression":
       return printMethodValue(path, options, print);
 

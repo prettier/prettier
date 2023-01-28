@@ -21,7 +21,8 @@ import {
 } from "../utils/index.js";
 import { locStart } from "../loc.js";
 
-import { printOptionalToken, printTypeAnnotation } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
@@ -139,7 +140,7 @@ function printArray(path, options, print) {
 
   parts.push(
     printOptionalToken(path),
-    printTypeAnnotation(path, options, print)
+    printTypeAnnotationProperty(path, print)
   );
 
   return parts;

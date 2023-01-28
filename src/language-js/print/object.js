@@ -22,9 +22,10 @@ import {
 } from "../utils/index.js";
 import { locStart, locEnd } from "../loc.js";
 
-import { printOptionalToken, printTypeAnnotation } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 import { shouldHugTheOnlyFunctionParameter } from "./function-parameters.js";
 import { printHardlineAfterHeritage } from "./class.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
@@ -170,7 +171,7 @@ function printObject(path, options, print) {
   let content;
   if (props.length === 0) {
     if (!hasComment(node, CommentCheckFlags.Dangling)) {
-      return [leftBrace, rightBrace, printTypeAnnotation(path, options, print)];
+      return [leftBrace, rightBrace, printTypeAnnotationProperty(path, print)];
     }
 
     content = group([
@@ -179,7 +180,7 @@ function printObject(path, options, print) {
       softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotation(path, options, print),
+      printTypeAnnotationProperty(path, print),
     ]);
   } else {
     content = [
@@ -197,7 +198,7 @@ function printObject(path, options, print) {
       options.bracketSpacing ? line : softline,
       rightBrace,
       printOptionalToken(path),
-      printTypeAnnotation(path, options, print),
+      printTypeAnnotationProperty(path, print),
     ];
   }
 

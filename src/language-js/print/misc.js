@@ -1,5 +1,6 @@
 import { isNonEmptyArray } from "../../common/util.js";
 import { indent, join, line } from "../../document/builders.js";
+import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printOptionalToken(path) {
   const { node } = path;
@@ -68,18 +69,6 @@ function printFunctionTypeParameters(path, options, print) {
   return "";
 }
 
-function printTypeAnnotation(path, options, print) {
-  const { node, parent, key } = path;
-  if (!node.typeAnnotation) {
-    return "";
-  }
-
-  const isFunctionDeclarationIdentifier =
-    parent.type === "DeclareFunction" && key === "id";
-
-  return [isFunctionDeclarationIdentifier ? "" : ": ", print("typeAnnotation")];
-}
-
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
@@ -104,8 +93,8 @@ function adjustClause(node, clause, forceSpace) {
   return indent([line, clause]);
 }
 
-function printRestSpread(path, options, print) {
-  return ["...", print("argument"), printTypeAnnotation(path, options, print)];
+function printRestSpread(path, print) {
+  return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
 }
 
 function printDirective(rawText, options) {
@@ -133,7 +122,6 @@ export {
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printTypeScriptModifiers,
-  printTypeAnnotation,
   printRestSpread,
   adjustClause,
   printDirective,
