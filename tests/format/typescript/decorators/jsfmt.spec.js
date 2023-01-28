@@ -1,3 +1,6 @@
 run_spec(import.meta, ["typescript"], {
-  errors: { "babel-ts": ["issue-9102.ts"] },
+  errors: {
+    typescript: ["abstract-method.ts"],
+    "babel-ts": ["issue-9102.ts"],
+  },
 });

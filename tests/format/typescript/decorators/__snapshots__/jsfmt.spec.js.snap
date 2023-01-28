@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract-method.ts [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+    @decorator()
+    abstract method(): Array<string>
+}
+
+=====================================output=====================================
+class A {
+  @decorator()
+  abstract method(): Array<string>;
+}
+
+================================================================================
+`;
+
+exports[`abstract-method.ts [typescript] format 1`] = `
+"A decorator can only decorate a method implementation, not an overload. (2:5)
+  1 | class A {
+> 2 |     @decorator()
+    |     ^^^^^^^^^^^^
+  3 |     abstract method(): Array<string>
+  4 | }
+  5 |"
+`;
+
 exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
