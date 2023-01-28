@@ -1,1 +1,1 @@
-run_spec(import.meta, ["babel-flow", "flow"]);
+run_spec(import.meta, ["flow"]);

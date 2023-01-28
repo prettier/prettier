@@ -9,7 +9,7 @@ exports[`labeled.js [babel-flow] format 1`] = `
 
 exports[`labeled.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -32,7 +32,7 @@ exports[`optional.js [babel-flow] format 1`] = `
 
 exports[`optional.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -59,7 +59,7 @@ exports[`variance.js [babel-flow] format 1`] = `
 
 exports[`variance.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
