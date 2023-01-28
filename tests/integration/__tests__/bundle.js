@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import fastGlob from "fast-glob";
@@ -28,7 +28,7 @@ test("code", async () => {
   });
 
   for (const file of files) {
-    const text = await fs.promises.readFile(file, "utf8");
+    const text = await fs.readFile(file, "utf8");
     expect(text.includes("\ufffe")).toBe(false);
   }
 });

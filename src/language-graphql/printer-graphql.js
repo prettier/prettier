@@ -33,22 +33,9 @@ function genericPrint(path, options, print) {
         hasOperation && !hasName && isNonEmptyArray(node.variableDefinitions)
           ? " "
           : "",
-        isNonEmptyArray(node.variableDefinitions)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  path.map(print, "variableDefinitions")
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printVariableDefinitions(path, print),
         printDirectives(path, print, node),
-        node.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
+        !hasOperation && !hasName ? "" : " ",
         print("selectionSet"),
       ];
     }
@@ -56,20 +43,7 @@ function genericPrint(path, options, print) {
       return [
         "fragment ",
         print("name"),
-        isNonEmptyArray(node.variableDefinitions)
-          ? group([
-              "(",
-              indent([
-                softline,
-                join(
-                  [ifBreak("", ", "), softline],
-                  path.map(print, "variableDefinitions")
-                ),
-              ]),
-              softline,
-              ")",
-            ])
-          : "",
+        printVariableDefinitions(path, print),
         " on ",
         print("typeCondition"),
         printDirectives(path, print, node),
@@ -158,21 +132,21 @@ function genericPrint(path, options, print) {
         "]",
       ]);
 
-    case "ObjectValue":
+    case "ObjectValue": {
+      const bracketSpace =
+        options.bracketSpacing && node.fields.length > 0 ? " " : "";
       return group([
         "{",
-        options.bracketSpacing && node.fields.length > 0 ? " " : "",
+        bracketSpace,
         indent([
           softline,
           join([ifBreak("", ", "), softline], path.map(print, "fields")),
         ]),
         softline,
-        ifBreak(
-          "",
-          options.bracketSpacing && node.fields.length > 0 ? " " : ""
-        ),
+        ifBreak("", bracketSpace),
         "}",
       ]);
+    }
 
     case "ObjectField":
     case "Argument":
@@ -504,6 +478,25 @@ function printInterfaces(path, options, print) {
   }
 
   return parts;
+}
+
+function printVariableDefinitions(path, print) {
+  const { node } = path;
+  if (!isNonEmptyArray(node.variableDefinitions)) {
+    return "";
+  }
+  return group([
+    "(",
+    indent([
+      softline,
+      join(
+        [ifBreak("", ", "), softline],
+        path.map(print, "variableDefinitions")
+      ),
+    ]),
+    softline,
+    ")",
+  ]);
 }
 
 function clean(node, newNode /* , parent */) {
