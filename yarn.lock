@@ -6834,7 +6834,7 @@ __metadata:
     strip-ansi: 7.0.1
     tempy: 3.0.0
     to-fast-properties: 4.0.0
-    typescript: 4.9.4
+    typescript: 5.0.0-beta
     unicode-regex: 3.0.0
     unified: 9.2.2
     vnopts: 1.0.2
@@ -8122,23 +8122,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.4":
-  version: 4.9.4
-  resolution: "typescript@npm:4.9.4"
+"typescript@npm:5.0.0-beta":
+  version: 5.0.0-beta
+  resolution: "typescript@npm:5.0.0-beta"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e782fb9e0031cb258a80000f6c13530288c6d63f1177ed43f770533fdc15740d271554cdae86701c1dd2c83b082cea808b07e97fd68b38a172a83dbf9e0d0ef9
+  checksum: a6d625554e63caff6aa744ddb7f5b6672da75f54916a11ae6229b0fb82bc5ddbd47adc5f03cc6dcba2e0f7462dd9b4a076e7c7573bc76286e53d16bda2795836
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.4#~builtin<compat/typescript>":
-  version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"
+"typescript@patch:typescript@5.0.0-beta#~builtin<compat/typescript>":
+  version: 5.0.0-beta
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-beta#~builtin<compat/typescript>::version=5.0.0-beta&hash=ad5954"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1caaea6cb7f813e64345190fddc4e6c924d0b698ab81189b503763c4a18f7f5501c69362979d36e19c042d89d936443e768a78b0675690b35eb663d19e0eae71
+  checksum: 5acfa6a8fb8e371bf0664b8ae784a010d664f6cea7684582f2187d2449603baef1d35eb2205a1e3b8859c00989c4f03ef9b428b57cad9e0965a0f11358b59106
   languageName: node
   linkType: hard
 
