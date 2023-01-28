@@ -30,6 +30,43 @@ exports[`abstract-method.ts [typescript] format 1`] = `
   5 |"
 `;
 
+exports[`accessor.ts [babel-ts] format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class A {
+    @foo()
+    get a() {return 1}
+    @bar()
+    set a(v) {}
+}
+
+=====================================output=====================================
+class A {
+  @foo()
+  get a() {
+    return 1;
+  }
+  @bar()
+  set a(v) {}
+}
+
+================================================================================
+`;
+
+exports[`accessor.ts [typescript] format 1`] = `
+"Decorators cannot be applied to multiple get/set accessors of the same name. (4:5)
+  2 |     @foo()
+  3 |     get a() {return 1}
+> 4 |     @bar()
+    |     ^^^^^^
+  5 |     set a(v) {}
+  6 | }
+  7 |"
+`;
+
 exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
