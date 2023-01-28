@@ -261,7 +261,6 @@ function modifyTypescriptModule(text) {
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
-  source.removeModule("src/compiler/factory/utilities.ts");
   source.replaceModule(
     "src/compiler/factory/nodeConverters.ts",
     outdent`
