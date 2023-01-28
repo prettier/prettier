@@ -19,14 +19,7 @@ run_spec(
       "async({ foo33 = 1 });",
     ],
   },
-  [
-    "babel",
-    "acorn",
-    "espree",
-    "meriyah",
-    // https://github.com/facebook/flow/issues/8990
-    // "flow"
-  ]
+  ["babel", "acorn", "espree", "meriyah", "flow"]
 );
 
 run_spec(
@@ -37,5 +30,5 @@ run_spec(
       "async (x = await (2)) => {};",
     ],
   },
-  ["babel", "acorn", "espree"]
+  ["babel", "acorn", "espree", "flow"]
 );
