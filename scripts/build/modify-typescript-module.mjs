@@ -236,6 +236,7 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/moduleNameResolver.ts");
   source.removeModule("src/compiler/checker.ts");
   source.removeModule("src/compiler/visitorPublic.ts");
+  source.removeModule("src/compiler/emitter.ts");
   source.removeModule("src/compiler/_namespaces/ts.performance.ts");
 
   // File system
