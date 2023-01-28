@@ -38,5 +38,5 @@ class Something2 {
 class Something3 {
     @foo()
     // comment
-    abstract method(): Array<string>
+    method(): Array<string>
 }
