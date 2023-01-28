@@ -936,14 +936,6 @@ function genericPrint(path, options, print) {
           for (let i = 0; i < node.groups.length; i++) {
             if (node.groups[i].type === "value-comma_group") {
               forceHardLine = true;
-            } else {
-              const text = options.originalText.slice(
-                locStart(node.groups[i]),
-                locEnd(node.groups[i])
-              );
-              if (/\s/.test(text)) {
-                forceHardLine = true;
-              }
             }
           }
         }
