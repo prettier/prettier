@@ -71,6 +71,7 @@ export default function esbuildPluginThrowWarnings({
       };
 
       build.onEnd((result) => {
+return;
         if (result.errors.length > 0) {
           return;
         }

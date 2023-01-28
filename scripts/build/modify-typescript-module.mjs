@@ -17,12 +17,25 @@ function* getModules(text) {
     const end = start + comment.length + code.length;
 
     if (/\S/.test(code)) {
+      const esmRegExp = new RegExp(
+        [
+          "\\s*var (?<initFunctionName>\\w+) = __esm\\({",
+          `\\s*"${escapeStringRegexp(path)}"\\(\\) {`,
+          ".*",
+          "\\s*}",
+          "\\s*}\\);",
+        ].join("\\n"),
+        "s"
+      );
+      const match = code.match(esmRegExp);
+
       yield {
         isEntry: path === "src/typescript/typescript.ts",
         path,
         start: start + comment.length,
         end: end - 1,
         code,
+        esmModuleInitFunctionName: match?.groups.initFunctionName,
       };
     }
 
@@ -53,7 +66,16 @@ class TypeScriptModuleSource {
   }
 
   removeModule(module) {
-    return this.replaceModule(module, "");
+    if (typeof module === "string") {
+      module = this.modules.find((searching) => searching.path === module);
+    }
+
+    const { esmModuleInitFunctionName } = module;
+    const replacement = esmModuleInitFunctionName
+      ? `var ${esmModuleInitFunctionName} = () => {};`
+      : "";
+
+    return this.replaceModule(module, replacement);
   }
 
   replaceAlignedCode({ start, end, replacement = "" }) {
@@ -149,22 +171,22 @@ function modifyTypescriptModule(text) {
       continue;
     }
 
-    // This is a big module, most code except `scanner` is not used
-    if (module.path === "src/services/utilities.ts") {
-      source.replaceModule(
-        module,
-        "var scanner = createScanner(99 /* Latest */, true);"
-      );
-      continue;
-    }
+    // // This is a big module, most code except `scanner` is not used
+    // if (module.path === "src/services/utilities.ts") {
+    //   source.replaceModule(
+    //     module,
+    //     "var scanner = createScanner(99 /* Latest */, true);"
+    //   );
+    //   continue;
+    // }
 
-    if (module.path.startsWith("src/services/")) {
-      source.removeModule(module);
-    }
+    // if (module.path.startsWith("src/services/")) {
+    //   source.removeModule(module);
+    // }
   }
 
   // `transformers`
-  source.removeModule("src/compiler/transformer.ts");
+  // source.removeModule("src/compiler/transformer.ts");
   for (const module of source.modules) {
     if (module.path.startsWith("src/compiler/transformers/")) {
       source.removeModule(module);
@@ -201,33 +223,33 @@ function modifyTypescriptModule(text) {
   source.removeModule("src/compiler/visitorPublic.ts");
   source.removeModule("src/compiler/_namespaces/ts.performance.ts");
 
-  // File system
-  source.replaceModule("src/compiler/sys.ts", "var sys");
-  source.replaceModule("src/compiler/tracing.ts", "var tracing");
-  // perfLogger
-  source.replaceModule(
-    "src/compiler/perfLogger.ts",
-    "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
-  );
+  // // File system
+  // source.replaceModule("src/compiler/sys.ts", "var sys");
+  // source.replaceModule("src/compiler/tracing.ts", "var tracing");
+  // // perfLogger
+  // source.replaceModule(
+  //   "src/compiler/perfLogger.ts",
+  //   "var perfLogger = new Proxy(() => {}, {get: () => perfLogger});"
+  // );
 
-  // performanceCore
-  source.replaceModule(
-    "src/compiler/performanceCore.ts",
-    outdent`
-      var tryGetNativePerformanceHooks = () => {};
-      var timestamp = Date.now;
-    `
-  );
+  // // performanceCore
+  // source.replaceModule(
+  //   "src/compiler/performanceCore.ts",
+  //   outdent`
+  //     var tryGetNativePerformanceHooks = () => {};
+  //     var timestamp = Date.now;
+  //   `
+  // );
 
   // `factory`
   source.removeModule("src/compiler/factory/emitNode.ts");
   source.removeModule("src/compiler/factory/emitHelpers.ts");
-  source.replaceModule(
-    "src/compiler/factory/nodeConverters.ts",
-    outdent`
-      var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
-    `
-  );
+  // source.replaceModule(
+  //   "src/compiler/factory/nodeConverters.ts",
+  //   outdent`
+  //     var createNodeConverters = () => new Proxy({}, {get: () => () => {}});
+  //   `
+  // );
 
   /* spell-checker: disable */
   // `ts.createParenthesizerRules`
