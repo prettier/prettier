@@ -17,6 +17,10 @@ import clean from "./clean.js";
 import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
@@ -500,27 +504,24 @@ function printInverseBlockClosingMustache(node) {
 
 function printOpenBlock(path, print) {
   const { node } = path;
+  /** @type {Doc[]} */
+  const parts = [];
 
-  const openingMustache = printOpeningBlockOpeningMustache(node);
-  const closingMustache = printOpeningBlockClosingMustache(node);
-
-  const attributes = [printPath(path, print)];
-
-  const params = printParams(path, print);
-  if (params) {
-    attributes.push(line, params);
+  const paramsDoc = printParams(path, print);
+  if (paramsDoc) {
+    parts.push(group(paramsDoc));
   }
 
   if (isNonEmptyArray(node.program.blockParams)) {
-    const block = printBlockParams(node.program);
-    attributes.push(line, block);
+    parts.push(printBlockParams(node.program));
   }
 
   return group([
-    openingMustache,
-    indent(attributes),
+    printOpeningBlockOpeningMustache(node),
+    printPath(path, print),
+    parts.length > 0 ? indent([line, join(line, parts)]) : "",
     softline,
-    closingMustache,
+    printOpeningBlockClosingMustache(node),
   ]);
 }
 
@@ -544,22 +545,16 @@ function isElseIfLike(path) {
 
 function printElseIfLikeBlock(path, print) {
   const { node, grandparent } = path;
-  let blockParams = [];
-
-  if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [line, printBlockParams(node.program)];
-  }
-
   return group([
     printInverseBlockOpeningMustache(grandparent),
-    indent(
-      group([
-        group(["else", line, grandparent.inverse.body[0].path.parts[0]]),
-        line,
-        printParams(path, print),
-      ])
-    ),
-    indent(blockParams),
+    ["else", " ", grandparent.inverse.body[0].path.parts[0]],
+    indent([
+      line,
+      group(printParams(path, print)),
+      ...(isNonEmptyArray(node.program.blockParams)
+        ? [line, printBlockParams(node.program)]
+        : []),
+    ]),
     softline,
     printInverseBlockClosingMustache(grandparent),
   ]);
