@@ -190,7 +190,6 @@ const allowedMessageCodes = new Set([
   "UnexpectedParameterModifier",
 
   "MixedLabeledAndUnlabeledElements",
-  "InvalidTupleMemberLabel",
 
   "DuplicateAccessibilityModifier",
   "IndexSignatureHasDeclare",
