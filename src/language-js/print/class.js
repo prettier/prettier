@@ -77,7 +77,11 @@ function printClass(path, options, print) {
   } else {
     printedPartsGroup = indent([...partsGroup, extendsParts]);
   }
-  parts.push(group(printedPartsGroup, { id: getHeritageGroupId(node) })," ", print("body"));
+  parts.push(
+    group(printedPartsGroup, { id: getHeritageGroupId(node) }),
+    " ",
+    print("body")
+  );
 
   return parts;
 }
@@ -90,9 +94,10 @@ function printHardlineAfterHeritage(node) {
 
 function hasMultipleHeritage(node) {
   return (
-    ["superClass", "extends", "mixins", "implements"].filter((key) =>
-      Boolean(node[key])
-    ).length > 1
+    ["extends", "mixins", "implements"].reduce(
+      (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
+      node.superClass ? 1 : 0
+    ) > 1
   );
 }
 
