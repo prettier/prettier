@@ -300,26 +300,21 @@ class ExtendsAbstractClassAndImplementsInterfaces3
     Interface7,
     Interface8 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces4 extends AAAAAAAAAAAAAAbstractClass<
-  Type1,
-  Type2,
-  Type3,
-  Type4,
-  Type5,
-  Type6,
-  Type7
-> {}
+class ExtendsAbstractClassAndImplementsInterfaces4
+  extends
+    AAAAAAAAAAAAAAbstractClass<
+      Type1,
+      Type2,
+      Type3,
+      Type4,
+      Type5,
+      Type6,
+      Type7
+    > {}
 
 class ExtendsAbstractClassAndImplementsInterfaces5
-  extends AAAAAAAAAAAAAAbstractClass<
-    Type1,
-    Type2,
-    Type3,
-    Type4,
-    Type5,
-    Type6,
-    Type7
-  >
+  extends
+    AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7>
   implements
     Interface1,
     Interface2,

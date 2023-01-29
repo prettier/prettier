@@ -60,9 +60,9 @@ module.exports = class A extends B {
 };
 
 =====================================output=====================================
-aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
-  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
-) {
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class
+  extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg1
+{
   method() {
     console.log("foo");
   }
@@ -74,17 +74,17 @@ foo = class extends bar {
   }
 };
 
-aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class extends (
-  bar
-) {
+aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2 = class
+  extends bar
+{
   method() {
     console.log("foo");
   }
 };
 
-foo = class extends (
-  aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2
-) {
+foo = class
+  extends aaaaaaaa.bbbbbbbb.cccccccc.dddddddd.eeeeeeee.ffffffff.gggggggg2
+{
   method() {
     console.log("foo");
   }

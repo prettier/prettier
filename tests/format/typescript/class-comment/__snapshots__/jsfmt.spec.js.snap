@@ -82,7 +82,8 @@ b // comment-b2
 
 =====================================output=====================================
 class a1
-  extends b // comment
+  extends
+    b // comment
   implements z
 {
   constructor() {}
@@ -94,8 +95,9 @@ class a2 extends b implements z {
 }
 
 class a3
-  extends b
-  // comment
+  extends
+    b
+    // comment
   implements z, y
 {
   constructor() {}
@@ -121,8 +123,9 @@ class a5
 }
 
 class a6
-  extends b
-  // comment-z1
+  extends
+    b
+    // comment-z1
   implements
     z, // comment-z2
     // comment-y1
@@ -133,8 +136,9 @@ class a6
 }
 
 class a7
-  extends b
-  // comment-z1
+  extends
+    b
+    // comment-z1
   implements
     z, // comment-z2
     // comment-y1
@@ -147,8 +151,9 @@ class a7
 }
 
 class a8
-  extends b // comment-b
-  // comment-z1
+  extends
+    b // comment-b
+    // comment-z1
   implements
     z, // comment-z2
     // comment-y1
@@ -160,9 +165,10 @@ class a8
 
 class a9
   // comment-b1
-  extends b // comment-b2
-  // comment-b3
-  // comment-z1
+  extends
+    b // comment-b2
+    // comment-b3
+    // comment-z1
   implements
     z, // comment-z2
     // comment-y1

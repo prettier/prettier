@@ -342,10 +342,9 @@ printWidth: 80
   document.body.innerHTML = greeter(user);
 </script>
 <script lang="tsx">
-  class CommentBox extends React.Component<
-    { url: string; pollInterval: number },
-    CommentData
-  > {
+  class CommentBox
+    extends React.Component<{ url: string; pollInterval: number }, CommentData>
+  {
     constructor() {
       super();
       this.state = { data: [] };

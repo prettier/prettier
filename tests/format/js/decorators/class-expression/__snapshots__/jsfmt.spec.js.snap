@@ -505,15 +505,19 @@ class Foo extends (@deco class Foo {}){}
 class Foo extends (@deco class {}){}
 
 =====================================output=====================================
-class Foo extends (
-  @deco
-  class Foo {}
-) {}
+class Foo
+  extends
+    (
+      @deco
+      class Foo {}
+    ) {}
 
-class Foo extends (
-  @deco
-  class {}
-) {}
+class Foo
+  extends
+    (
+      @deco
+      class {}
+    ) {}
 
 ================================================================================
 `;
@@ -529,15 +533,19 @@ class Foo extends (@deco class Foo {}){}
 class Foo extends (@deco class {}){}
 
 =====================================output=====================================
-class Foo extends (
-  @deco
-  class Foo {}
-) {}
+class Foo
+  extends
+    (
+      @deco
+      class Foo {}
+    ) {}
 
-class Foo extends (
-  @deco
-  class {}
-) {}
+class Foo
+  extends
+    (
+      @deco
+      class {}
+    ) {}
 
 ================================================================================
 `;
