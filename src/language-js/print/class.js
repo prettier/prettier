@@ -55,21 +55,17 @@ function printClass(path, options, print) {
     "class",
   ];
 
-  const partsGroup = [];
-  const extendsParts = [];
+  const partsGroup = [
+    ...(node.id ? [" ", print("id")] : []),
+    print("typeParameters"),
+  ];
 
-  if (node.id) {
-    partsGroup.push(" ", print("id"));
-  }
-
-  partsGroup.push(print("typeParameters"));
-
-  extendsParts.push(
-    printHeritageClauses(path, options, print, "superClass"),
-    printHeritageClauses(path, options, print, "extends"),
-    printHeritageClauses(path, options, print, "mixins"),
-    printHeritageClauses(path, options, print, "implements")
-  );
+  const extendsParts = [
+    "superClass",
+    "extends",
+    "mixins",
+    "implements",
+  ].flatMap((property) => printHeritageClauses(path, options, print, property));
 
   let printedPartsGroup;
   if (shouldIndentOnlyHeritageClauses(node)) {
@@ -77,6 +73,7 @@ function printClass(path, options, print) {
   } else {
     printedPartsGroup = indent([...partsGroup, extendsParts]);
   }
+
   parts.push(
     group(printedPartsGroup, { id: getHeritageGroupId(node) }),
     " ",
