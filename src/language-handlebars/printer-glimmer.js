@@ -18,7 +18,7 @@ import { hasPrettierIgnore, isVoidElement, isWhitespaceNode } from "./utils.js";
 import getVisitorKeys from "./get-visitor-keys.js";
 
 /**
- * @typedef {import("../document").Doc} Doc
+ * @typedef {import("../document/builders.js").Doc} Doc
  */
 
 const NEWLINES_TO_PRESERVE_MAX = 2;
