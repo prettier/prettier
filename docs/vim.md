@@ -139,7 +139,7 @@ used to configure prettier formatting using the native LSP.
 
 This example uses homebrew but other methods exist.
 
-``` sh
+```sh
 brew install efm-langserver
 ```
 
@@ -148,7 +148,7 @@ brew install efm-langserver
 Configure with the help of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
 and your plugin manager of choice, this example using [vim-plug](https://github.com/junegunn/vim-plug).
 
-``` vim
+```vim
 Plug 'neovim/nvim-lspconfig'
 ```
 
@@ -163,7 +163,7 @@ in an `init.lua`, see the referenced docs directly above for more.
 
 Example `init.vim` setup:
 
-``` vim
+```vim
 lua << EOF
 local nvim_lsp = require('lspconfig')
 
@@ -217,7 +217,7 @@ implies prettier is globally installed. The prettier path is specified relative
 to the prettier config files in your local project, typically meaning
 `./node_modules/.bin/prettier` is the path for your project version.
 
-``` yaml
+```yaml
 version: 2
 log-file: /tmp/efm.log
 log-level: 1
