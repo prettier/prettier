@@ -127,7 +127,7 @@ Update your `coc-settings.json` for languages that you want format on save.
 
 [coc-prettier](https://github.com/neoclide/coc-prettier) have same configurations of [prettier-vscode](https://github.com/prettier/prettier-vscode), open `coc-settings.json` by `:CocConfig` to get autocompletion support.
 
-## [Neovim native LSP](https://neovim.io/doc/lsp/)
+## [Neovim native LSP](https://neovim.io/doc/user/lsp.html)
 
 Neovim provides built-in support for the Language Server Protocol starting with version `0.5`. For use with Prettier, a generic and extensible language server called [efm-langserver](https://github.com/mattn/efm-langserver) can be used to configure prettier formatting using the native LSP.
 
