@@ -2434,7 +2434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.2.0":
+"chalk@npm:5.2.0, chalk@npm:^5.2.0":
   version: 5.2.0
   resolution: "chalk@npm:5.2.0"
   checksum: 03d8060277de6cf2fd567dc25fcf770593eb5bb85f460ce443e49255a30ff1242edd0c90a06a03803b0466ff0687a939b41db1757bec987113e83de89a003caa
@@ -5345,12 +5345,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-watch-typeahead@npm:2.2.1":
-  version: 2.2.1
-  resolution: "jest-watch-typeahead@npm:2.2.1"
+"jest-watch-typeahead@npm:2.2.2":
+  version: 2.2.2
+  resolution: "jest-watch-typeahead@npm:2.2.2"
   dependencies:
     ansi-escapes: ^6.0.0
-    chalk: ^4.0.0
+    chalk: ^5.2.0
     jest-regex-util: ^29.0.0
     jest-watcher: ^29.0.0
     slash: ^5.0.0
@@ -5358,7 +5358,7 @@ __metadata:
     strip-ansi: ^7.0.1
   peerDependencies:
     jest: ^27.0.0 || ^28.0.0 || ^29.0.0
-  checksum: 5ba8068209da273187065b8900495ca9d0fce13b090d2e0193e1b862f7e920ca808f8a0c4c2ea504e1646d38519083276fbb304dba728e16b9126c0734f8f8ee
+  checksum: 8685277ce1b96ec775882111ec55ce90a862cc57acb21ce94f8ac44a25f6fb34c7a7ce119e07b2d8ff5353a8d9e4f981cf96fa35532f71ddba6ca8fedc05bd8e
   languageName: node
   linkType: hard
 
@@ -6790,7 +6790,7 @@ __metadata:
     jest-light-runner: 0.4.1
     jest-snapshot-serializer-ansi: 1.0.0
     jest-snapshot-serializer-raw: 1.2.0
-    jest-watch-typeahead: 2.2.1
+    jest-watch-typeahead: 2.2.2
     json5: 2.2.3
     leven: 4.0.0
     lines-and-columns: 2.0.3
