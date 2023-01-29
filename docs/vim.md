@@ -99,8 +99,7 @@ let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
 
 ## [coc-prettier](https://github.com/neoclide/coc-prettier)
 
-Prettier extension for [coc.nvim](https://github.com/neoclide/coc.nvim) which requires neovim or vim8.1.
-Install coc.nvim with your favorite plugin manager, such as [vim-plug](https://github.com/junegunn/vim-plug):
+Prettier extension for [coc.nvim](https://github.com/neoclide/coc.nvim) which requires neovim or vim8.1. Install coc.nvim with your favorite plugin manager, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -130,10 +129,7 @@ Update your `coc-settings.json` for languages that you want format on save.
 
 ## [Neovim native LSP](https://neovim.io/doc/lsp/)
 
-Neovim provides built-in support for the Language Server Protocol starting
-with version `0.5`. For use with Prettier, a generic and extensible language
-server called [efm-langserver](https://github.com/mattn/efm-langserver) can be
-used to configure prettier formatting using the native LSP.
+Neovim provides built-in support for the Language Server Protocol starting with version `0.5`. For use with Prettier, a generic and extensible language server called [efm-langserver](https://github.com/mattn/efm-langserver) can be used to configure prettier formatting using the native LSP.
 
 ### Install EFM
 
@@ -145,21 +141,15 @@ brew install efm-langserver
 
 ### Setup native LSP
 
-Configure with the help of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-and your plugin manager of choice, this example using [vim-plug](https://github.com/junegunn/vim-plug).
+Configure with the help of [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) and your plugin manager of choice, this example using [vim-plug](https://github.com/junegunn/vim-plug).
 
 ```vim
 Plug 'neovim/nvim-lspconfig'
 ```
 
-Below is the minimal setup required for EFM only. For more information
-regarding the Neovim native LSP see [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-and the official [Neovim LSP documentation](https://neovim.io/doc/user/lsp.html).
-The below configuration supports both manual formatting key bindings as well
-as auto-formatting on save.
+Below is the minimal setup required for EFM only. For more information regarding the Neovim native LSP see [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) and the official [Neovim LSP documentation](https://neovim.io/doc/user/lsp.html). The below configuration supports both manual formatting key bindings as well as auto-formatting on save.
 
-Setup is declared as part of the `init.vim` file but can also be referenced
-in an `init.lua`, see the referenced docs directly above for more.
+Setup is declared as part of the `init.vim` file but can also be referenced in an `init.lua`, see the referenced docs directly above for more.
 
 Example `init.vim` setup:
 
@@ -208,14 +198,9 @@ EOF
 
 ### Example `config.yaml` file
 
-See the expected location of [config.yaml](https://github.com/mattn/efm-langserver#example-for-configyaml)
-in the official docs but for UNIX systems the config should be placed at
-`$HOME/.config/efm-langserver/config.yaml`.
+See the expected location of [config.yaml](https://github.com/mattn/efm-langserver#example-for-configyaml) in the official docs but for UNIX systems the config should be placed at `$HOME/.config/efm-langserver/config.yaml`.
 
-The below example includes JavaScript/TypeScript with React JSX setup only and
-implies prettier is globally installed. The prettier path is specified relative
-to the prettier config files in your local project, typically meaning
-`./node_modules/.bin/prettier` is the path for your project version.
+The below example includes JavaScript/TypeScript with React JSX setup only and implies prettier is globally installed. The prettier path is specified relative to the prettier config files in your local project, typically meaning `./node_modules/.bin/prettier` is the path for your project version.
 
 ```yaml
 version: 2
@@ -226,7 +211,7 @@ root-markers:
 
 tools:
   prettier: &prettier
-    format-command: 'prettier --stdin-filepath ${INPUT}'
+    format-command: "prettier --stdin-filepath ${INPUT}"
     format-stdin: true
 
   javascript:
@@ -248,8 +233,7 @@ tools:
     - <<: *prettier
 ```
 
-The above `log-file` location (eg. `/tmp/efm.log`) can be monitored if
-anything fails to work as expected.
+The above `log-file` location (eg. `/tmp/efm.log`) can be monitored if anything fails to work as expected.
 
 ## Running manually
 
