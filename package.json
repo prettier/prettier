@@ -105,7 +105,7 @@
   },
   "devDependencies": {
     "@babel/generator": "7.20.14",
-    "@esbuild-plugins/node-modules-polyfill": "0.1.4",
+    "@esbuild-plugins/node-modules-polyfill": "0.2.2",
     "@glimmer/reference": "0.84.2",
     "@types/estree": "1.0.0",
     "@types/file-entry-cache": "5.0.2",
