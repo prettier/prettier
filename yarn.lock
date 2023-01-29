@@ -3619,9 +3619,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.32.0":
-  version: 8.32.0
-  resolution: "eslint@npm:8.32.0"
+"eslint@npm:8.33.0":
+  version: 8.33.0
+  resolution: "eslint@npm:8.33.0"
   dependencies:
     "@eslint/eslintrc": ^1.4.1
     "@humanwhocodes/config-array": ^0.11.8
@@ -3664,7 +3664,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 23c8fb3c57291eecd9c1448faf603226a8f885022a2cd96e303459bf72e39b7f54987c6fb948f0f9eecaf7085600e6eb0663482a35ea83da12e9f9141a22b91e
+  checksum: 727e63ab8b7acf281442323c5971f6afdd5b656fbcebc4476cf54e35af51b2f180617433fc5e1952f0449ca3f43a905527f9407ea4b8a7ea7562fc9c3f278d4c
   languageName: node
   linkType: hard
 
@@ -6757,7 +6757,7 @@ __metadata:
     esbuild: 0.17.4
     esbuild-visualizer: 0.4.0
     escape-string-regexp: 5.0.0
-    eslint: 8.32.0
+    eslint: 8.33.0
     eslint-config-prettier: 8.6.0
     eslint-formatter-friendly: 7.0.0
     eslint-plugin-compat: 4.0.2
