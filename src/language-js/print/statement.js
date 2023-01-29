@@ -16,10 +16,9 @@ import { shouldPrintParamsWithoutParens } from "./function.js";
  * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
-function printStatementSequence(path, options, print) {
+function printStatementSequence(path, options, print, property) {
   const { node } = path;
   const parts = [];
-  const property = node.type === "SwitchCase" ? "consequent" : "body";
   const lastStatement = getLastStatement(node[property]);
 
   path.each(({ node }) => {
