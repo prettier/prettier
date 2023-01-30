@@ -213,7 +213,7 @@ function clean(ast, newObj, parent) {
     ast.type === "ChainExpression" &&
     ast.expression.type === "TSNonNullExpression"
   ) {
-    // Ideally, we should swap these two nodes, but `type` is the only differently
+    // Ideally, we should swap these two nodes, but `type` is the only difference
     [newObj.type, newObj.expression.type] = [
       newObj.expression.type,
       newObj.type,
