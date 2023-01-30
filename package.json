@@ -42,7 +42,7 @@
     "acorn": "8.8.2",
     "acorn-jsx": "5.3.2",
     "angular-estree-parser": "5.0.2",
-    "angular-html-parser": "3.0.0",
+    "angular-html-parser": "4.0.1",
     "camelcase": "7.0.1",
     "chalk": "5.2.0",
     "ci-info": "3.7.1",
