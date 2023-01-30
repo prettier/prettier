@@ -28,11 +28,6 @@ function clean(ast, newObj, parent) {
     delete newObj.sourceType;
   }
 
-  // TODO: Fix this
-  if (ast.type === "ChainExpression") {
-    return newObj.expression;
-  }
-
   if (
     (ast.type === "BigIntLiteral" ||
       ast.type === "BigIntLiteralTypeAnnotation") &&
@@ -211,6 +206,18 @@ function clean(ast, newObj, parent) {
     ast.types.length === 1
   ) {
     return newObj.types[0];
+  }
+
+  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
+  if (
+    ast.type === "ChainExpression" &&
+    ast.expression.type === "TSNonNullExpression"
+  ) {
+    // Ideally, we should swap these two nodes, but `type` is the only differently
+    [newObj.type, newObj.expression.type] = [
+      newObj.expression.type,
+      newObj.type,
+    ];
   }
 }
 
