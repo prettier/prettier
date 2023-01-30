@@ -1070,12 +1070,10 @@ function shouldAddParenthesesToChainElement(path) {
   // Use this to align with babel
   if (
     path.match(
-      () =>
-        node.type === "CallExpression" || node.type === "MemberExpression",
+      () => node.type === "CallExpression" || node.type === "MemberExpression",
       (node, name) =>
         name === "expression" && node.type === "TSNonNullExpression",
-      (node, name) =>
-        name === "expression" && node.type === "ChainExpression",
+      (node, name) => name === "expression" && node.type === "ChainExpression",
       (node, name) => name === "object" && node.type === "MemberExpression"
     )
   ) {
