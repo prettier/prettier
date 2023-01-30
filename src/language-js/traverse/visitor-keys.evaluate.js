@@ -32,7 +32,8 @@ const additionalVisitorKeys = {
   // This one maybe invalid, need investigate
   TSAbstractMethodDefinition: ["decorators"],
   TSModuleDeclaration: ["modifiers"],
-  TSEnumDeclaration: ["modifiers"],
+  // Exists in `accessor enum Foo {}` (invalid)
+  TSAccessorKeyword: [],
 
   // Flow
   BigIntTypeAnnotation: [],

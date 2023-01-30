@@ -85,6 +85,14 @@ run_spec(
           declare set setter(v) {}
         }
       `,
+
+      // `EnumDeclaration`
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) =>
+          modifier !== "declare" &&
+          modifier !== "const" &&
+          modifier !== "export"
+      ).map((modifier) => `${modifier} enum Foo {}`),
     ],
   },
   ["babel-ts", "typescript"]
