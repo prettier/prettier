@@ -2,7 +2,7 @@ import { isNonEmptyArray } from "../../common/util.js";
 import { join, line, group, indent, ifBreak } from "../../document/builders.js";
 import { hasComment, identity, CommentCheckFlags } from "../utils/index.js";
 import { getTypeParametersGroupId } from "./type-parameters.js";
-import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
+import { printDeclareToken } from "./misc.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
@@ -17,16 +17,7 @@ import { printTypeScriptModifiers, printDeclareToken } from "./misc.js";
 function printInterface(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [printDeclareToken(path)];
-
-  if (node.type === "TSInterfaceDeclaration") {
-    parts.push(
-      node.abstract ? "abstract " : "",
-      printTypeScriptModifiers(path, options, print)
-    );
-  }
-
-  parts.push("interface");
+  const parts = [printDeclareToken(path), "interface"];
 
   const partsGroup = [];
   const extendsParts = [];
