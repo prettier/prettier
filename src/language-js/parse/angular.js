@@ -1,7 +1,7 @@
 import { locStart, locEnd } from "../loc.js";
 
 /**
- * @param {"parseAction" | "parseBinding" | "parseInterpolation" | "parseTemplateBindings"} parseMethod
+ * @param {"parseAction" | "parseBinding" | "parseInterpolationExpression" | "parseTemplateBindings"} parseMethod
  */
 function createParser(parseMethod) {
   const parse = async (text) => {
