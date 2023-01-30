@@ -86,7 +86,7 @@ run_spec(
         }
       `,
 
-      // `EnumDeclaration`
+      // `TSEnumDeclaration`
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) =>
           modifier !== "declare" &&
