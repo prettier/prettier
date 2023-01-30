@@ -1066,7 +1066,7 @@ function shouldAddParenthesesToChainElement(path) {
     return true;
   }
 
-  // Babel treat `(a?.b!).c` and `(a?.b)!.c` the same,
+  // Babel treat `(a?.b!).c` and `(a?.b)!.c` the same, https://github.com/babel/babel/discussions/15077
   // Use this to align with babel
   if (
     path.match(
