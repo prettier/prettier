@@ -159,11 +159,11 @@ describe("API getFileInfo resolveConfig", () => {
   test("{resolveConfig: undefined}", async () => {
     await expect(prettier.getFileInfo(files.foo)).resolves.toMatchObject({
       ignored: false,
-      inferredParser: null,
+      inferredParser: "foo-parser",
     });
     await expect(prettier.getFileInfo(files.js)).resolves.toMatchObject({
       ignored: false,
-      inferredParser: "babel",
+      inferredParser: "override-js-parser",
     });
     await expect(prettier.getFileInfo(files.bar)).resolves.toMatchObject({
       ignored: false,

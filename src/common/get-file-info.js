@@ -39,7 +39,7 @@ async function getFileInfo(filePath, options) {
 
 async function getParser(filePath, options) {
   let config;
-  if (options.resolveConfig) {
+  if (options.resolveConfig !== false) {
     config = await resolveConfig(filePath);
   }
 
