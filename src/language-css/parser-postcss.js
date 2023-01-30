@@ -203,6 +203,11 @@ async function parseNestedValue(node, options) {
 }
 
 async function parseValue(value, options) {
+  // Inline javascript in Less
+  if (options.parser === "less" && value.startsWith("~`")) {
+    return { type: "value-unknown", value };
+  }
+
   const Parser = await import("postcss-values-parser/lib/parser.js").then(
     (m) => m.default
   );
