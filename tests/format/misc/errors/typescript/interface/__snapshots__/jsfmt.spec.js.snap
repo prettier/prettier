@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snippet: #0 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:25)
+> 1 | interface I { x: number = 1;}
+    |                         ^"
+`;
+
+exports[`snippet: #0 [typescript] format 1`] = `
+"An interface property cannot have an initializer. (1:27)
+> 1 | interface I { x: number = 1;}
+    |                           ^"
+`;

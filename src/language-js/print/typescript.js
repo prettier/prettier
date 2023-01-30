@@ -160,22 +160,12 @@ function printTypescript(path, options, print) {
     case "TSArrayType":
       return [print("elementType"), "[]"];
     case "TSPropertySignature":
-      if (node.readonly) {
-        parts.push("readonly ");
-      }
-
-      parts.push(
+      return [
+        node.readonly ? "readonly " : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        printTypeAnnotationProperty(path, print)
-      );
-
-      // This isn't valid semantically, but it's in the AST so we can print it.
-      if (node.initializer) {
-        parts.push(" = ", print("initializer"));
-      }
-
-      return parts;
+        printTypeAnnotationProperty(path, print),
+      ];
 
     case "TSParameterProperty":
       if (node.accessibility) {
