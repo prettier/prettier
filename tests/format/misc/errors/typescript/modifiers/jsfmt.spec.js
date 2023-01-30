@@ -85,6 +85,14 @@ run_spec(
           declare set setter(v) {}
         }
       `,
+
+      // `TSModuleDeclaration`
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) => modifier !== "declare" && modifier !== "export"
+      ).flatMap((modifier) => [
+        `${modifier} module Foo {}`,
+        `${modifier} namespace Foo {}`,
+      ]),
     ],
   },
   ["babel-ts", "typescript"]

@@ -839,7 +839,6 @@ exports[`visitor keys estree 1`] = `
   "TSModuleDeclaration": [
     "id",
     "body",
-    "modifiers",
   ],
   "TSNamedTupleMember": [
     "label",
