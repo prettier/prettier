@@ -677,7 +677,6 @@ exports[`visitor keys estree 1`] = `
     "key",
     "typeAnnotation",
   ],
-  "TSAccessorKeyword": [],
   "TSAnyKeyword": [],
   "TSArrayType": [
     "elementType",
