@@ -24,7 +24,7 @@ const parser = {
   parsers: {
     __ng_action: createParser("parseAction"),
     __ng_binding: createParser("parseBinding"),
-    __ng_interpolation: createParser("parseInterpolation"),
+    __ng_interpolation: createParser("parseInterpolationExpression"),
     __ng_directive: createParser("parseTemplateBindings"),
   },
 };
