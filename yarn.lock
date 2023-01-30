@@ -1911,15 +1911,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"angular-estree-parser@npm:5.0.2":
-  version: 5.0.2
-  resolution: "angular-estree-parser@npm:5.0.2"
+"angular-estree-parser@npm:6.0.0":
+  version: 6.0.0
+  resolution: "angular-estree-parser@npm:6.0.0"
   dependencies:
     lines-and-columns: ^2.0.3
-    tslib: ^2.4.1
+    tslib: ^2.5.0
   peerDependencies:
     "@angular/compiler": ^15.0.0
-  checksum: 79d70ebe2e2fa08d2cafcb9f12e100af024b1bc53841778b4f246f11f1ab1ef3a93a214d6538b715d0f2289d8666bc0cb5e50ba78580ca974880d64a2e6e9351
+  checksum: a14e6fb369f68b98237b6ed134c5a4564ffe90a5fc089804c0295edb5ab09cb622503f80da3199af3c34bbf9bb6570b04e0a4de8e309c8727abadef03883940e
   languageName: node
   linkType: hard
 
@@ -6736,7 +6736,7 @@ __metadata:
     "@typescript-eslint/visitor-keys": 5.49.0
     acorn: 8.8.2
     acorn-jsx: 5.3.2
-    angular-estree-parser: 5.0.2
+    angular-estree-parser: 6.0.0
     angular-html-parser: 3.0.0
     benchmark: 2.1.4
     browserslist-to-esbuild: 1.2.0
@@ -8016,7 +8016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.1, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.4.1":
+"tslib@npm:2.4.1, tslib@npm:^2.3.0, tslib@npm:^2.4.0":
   version: 2.4.1
   resolution: "tslib@npm:2.4.1"
   checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
@@ -8027,6 +8027,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "tslib@npm:2.5.0"
+  checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
   languageName: node
   linkType: hard
 
