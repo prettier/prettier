@@ -466,13 +466,13 @@ function needsParens(path, options) {
       }
 
     case "TSConditionalType":
-      if (name === "extendsType" && parent.type === "TSConditionalType") {
-        return true;
-      }
-    // fallthrough
     case "TSFunctionType":
     case "TSConstructorType":
       if (name === "extendsType" && parent.type === "TSConditionalType") {
+        if (node.type === "TSConditionalType") {
+          return true;
+        }
+
         let { typeAnnotation } = node.returnType || node.typeAnnotation;
 
         if (
