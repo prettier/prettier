@@ -171,6 +171,7 @@ function printTypescript(path, options, print) {
       ];
 
     case "TSParameterProperty":
+console.log(options.originalText.slice(locStart(path.parent), locEnd(path.parent)))
       return [
         printTypeScriptAccessibilityToken(node),
         node.static ? "static " : "",

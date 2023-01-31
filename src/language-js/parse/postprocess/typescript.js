@@ -189,6 +189,22 @@ function throwErrorForInvalidModifier(node) {
     ) {
       throwErrorOnTsNode(modifier, "'async' modifier cannot be used here.");
     }
+
+    // `checkGrammarModifiers` function in `typescript`
+    if (
+      node.kind === SyntaxKind.Parameter &&
+      (modifier.kind === SyntaxKind.StaticKeyword ||
+        modifier.kind === SyntaxKind.ExportKeyword ||
+        modifier.kind === SyntaxKind.SyntaxKind.DeclareKeyword ||
+        modifier.kind === SyntaxKind.AsyncKeyword)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a parameter.`
+      );
+    }
   }
 }
 

@@ -86,6 +86,13 @@ run_spec(
           modifier !== "const" &&
           modifier !== "export"
       ).map((modifier) => `${modifier} enum Foo {}`),
+
+      // `TSParameterProperty`
+      ...POSSIBLE_MODIFIERS.flatMap((modifier) => [
+        `function foo(${modifier} parameter) {}`,
+        `class Foo { method(${modifier} parameter) {} }`,
+        `class Foo { constructor(${modifier} parameter) {} }`,
+      ]),
     ],
   },
   ["babel-ts", "typescript"]
