@@ -1,6 +1,7 @@
 import path from "node:path";
 import createEsmUtils from "esm-utils";
 import installPrettier from "./tests/config/install-prettier.js";
+import parseForeignTestIgnorePatterns from "./tests/config/parse-foreign-test-ignore-patterns.js";
 
 const { dirname: PROJECT_ROOT } = createEsmUtils(import.meta);
 const isProduction = process.env.NODE_ENV === "production";
@@ -27,9 +28,21 @@ process.env.PRETTIER_INSTALLED_DIR = PRETTIER_INSTALLED_DIR;
 process.env.PRETTIER_DIR = PRETTIER_DIR;
 
 const testPathIgnorePatterns = [];
+
+// For babel e2e test to ignore specific tests
+// See https://github.com/babel/babel/pull/15385#issuecomment-1409800413
+if (process.env.FOREIGN_TEST === "babel") {
+  testPathIgnorePatterns.push(
+    ...parseForeignTestIgnorePatterns(
+      path.join(PROJECT_ROOT, ".babel-e2e-test-ignore")
+    )
+  );
+}
+
 if (TEST_STANDALONE) {
   testPathIgnorePatterns.push("<rootDir>/tests/integration/");
 }
+
 if (isProduction) {
   // Only run unit test for development
   testPathIgnorePatterns.push("<rootDir>/tests/unit/");
