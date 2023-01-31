@@ -102,6 +102,11 @@ run_spec(
       ).map(
         (modifier) => `class Foo { constructor(${modifier} parameter) {} }`
       ),
+
+      // `TSPropertySignature`
+      ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "readonly").map(
+        (modifier) => `type Foo = {${modifier} bar};`
+      ),
     ],
   },
   ["babel-ts", "typescript"]

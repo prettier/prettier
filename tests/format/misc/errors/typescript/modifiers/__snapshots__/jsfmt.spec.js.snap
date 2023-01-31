@@ -2223,3 +2223,171 @@ exports[`snippet: #164 [typescript] format 1`] = `
 > 1 | class Foo { constructor(static parameter) {} }
     |                         ^^^^^^"
 `;
+
+exports[`snippet: #165 [babel-ts] format 1`] = `
+"'abstract' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {abstract bar}
+    |             ^"
+`;
+
+exports[`snippet: #165 [typescript] format 1`] = `
+"'abstract' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {abstract bar}
+    |             ^^^^^^^^"
+`;
+
+exports[`snippet: #166 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:22)
+> 1 | type Foo = {accessor bar}
+    |                      ^"
+`;
+
+exports[`snippet: #166 [typescript] format 1`] = `
+"'accessor' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {accessor bar}
+    |             ^^^^^^^^"
+`;
+
+exports[`snippet: #167 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:19)
+> 1 | type Foo = {async bar}
+    |                   ^"
+`;
+
+exports[`snippet: #167 [typescript] format 1`] = `
+"'async' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {async bar}
+    |             ^^^^^"
+`;
+
+exports[`snippet: #168 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:19)
+> 1 | type Foo = {const bar}
+    |                   ^"
+`;
+
+exports[`snippet: #168 [typescript] format 1`] = `
+"';' expected. (1:19)
+> 1 | type Foo = {const bar}
+    |                   ^"
+`;
+
+exports[`snippet: #169 [babel-ts] format 1`] = `
+"'declare' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {declare bar}
+    |             ^"
+`;
+
+exports[`snippet: #169 [typescript] format 1`] = `
+"'declare' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {declare bar}
+    |             ^^^^^^^"
+`;
+
+exports[`snippet: #170 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:21)
+> 1 | type Foo = {default bar}
+    |                     ^"
+`;
+
+exports[`snippet: #170 [typescript] format 1`] = `
+"';' expected. (1:21)
+> 1 | type Foo = {default bar}
+    |                     ^"
+`;
+
+exports[`snippet: #171 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:20)
+> 1 | type Foo = {export bar}
+    |                    ^"
+`;
+
+exports[`snippet: #171 [typescript] format 1`] = `
+"'export' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {export bar}
+    |             ^^^^^^"
+`;
+
+exports[`snippet: #172 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:16)
+> 1 | type Foo = {in bar}
+    |                ^"
+`;
+
+exports[`snippet: #172 [typescript] format 1`] = `
+"'in' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {in bar}
+    |             ^^"
+`;
+
+exports[`snippet: #173 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:17)
+> 1 | type Foo = {out bar}
+    |                 ^"
+`;
+
+exports[`snippet: #173 [typescript] format 1`] = `
+"'out' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {out bar}
+    |             ^^^"
+`;
+
+exports[`snippet: #174 [babel-ts] format 1`] = `
+"'override' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {override bar}
+    |             ^"
+`;
+
+exports[`snippet: #174 [typescript] format 1`] = `
+"'override' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {override bar}
+    |             ^^^^^^^^"
+`;
+
+exports[`snippet: #175 [babel-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {private bar}
+    |             ^"
+`;
+
+exports[`snippet: #175 [typescript] format 1`] = `
+"'private' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {private bar}
+    |             ^^^^^^^"
+`;
+
+exports[`snippet: #176 [babel-ts] format 1`] = `
+"'protected' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {protected bar}
+    |             ^"
+`;
+
+exports[`snippet: #176 [typescript] format 1`] = `
+"'protected' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {protected bar}
+    |             ^^^^^^^^^"
+`;
+
+exports[`snippet: #177 [babel-ts] format 1`] = `
+"'public' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {public bar}
+    |             ^"
+`;
+
+exports[`snippet: #177 [typescript] format 1`] = `
+"'public' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {public bar}
+    |             ^^^^^^"
+`;
+
+exports[`snippet: #178 [babel-ts] format 1`] = `
+"'static' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {static bar}
+    |             ^"
+`;
+
+exports[`snippet: #178 [typescript] format 1`] = `
+"'static' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {static bar}
+    |             ^^^^^^"
+`;
