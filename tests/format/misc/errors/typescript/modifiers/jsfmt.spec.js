@@ -91,8 +91,17 @@ run_spec(
       ...POSSIBLE_MODIFIERS.flatMap((modifier) => [
         `function foo(${modifier} parameter) {}`,
         `class Foo { method(${modifier} parameter) {} }`,
-        `class Foo { constructor(${modifier} parameter) {} }`,
       ]),
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) =>
+          modifier !== "override" &&
+          modifier !== "private" &&
+          modifier !== "protected" &&
+          modifier !== "public" &&
+          modifier !== "readonly"
+      ).map(
+        (modifier) => `class Foo { constructor(${modifier} parameter) {} }`
+      ),
     ],
   },
   ["babel-ts", "typescript"]
