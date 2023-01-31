@@ -31,7 +31,6 @@ const additionalVisitorKeys = {
   TSJSDocNonNullableType: ["typeAnnotation"],
   // This one maybe invalid, need investigate
   TSAbstractMethodDefinition: ["decorators"],
-  TSEnumDeclaration: ["modifiers"],
 
   // Flow
   BigIntTypeAnnotation: [],

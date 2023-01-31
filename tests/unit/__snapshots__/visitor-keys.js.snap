@@ -743,7 +743,6 @@ exports[`visitor keys estree 1`] = `
   "TSEnumDeclaration": [
     "id",
     "members",
-    "modifiers",
   ],
   "TSEnumMember": [
     "id",
