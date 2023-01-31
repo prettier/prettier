@@ -172,9 +172,6 @@ function printTypescript(path, options, print) {
 
     case "TSParameterProperty":
       parts.push(printTypeScriptAccessibilityToken(node));
-      if (node.export) {
-        parts.push("export ");
-      }
       if (node.static) {
         parts.push("static ");
       }
@@ -212,7 +209,6 @@ function printTypescript(path, options, print) {
       ]);
 
       return [
-        node.export ? "export " : "",
         printTypeScriptAccessibilityToken(node),
         node.static ? "static " : "",
         node.readonly ? "readonly " : "",
