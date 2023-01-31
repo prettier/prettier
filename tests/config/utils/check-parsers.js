@@ -26,7 +26,7 @@ const categoryParsers = new Map([
     "flow",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
       extensions: [".js", ".cjs", ".mjs"],
     },
   ],
@@ -34,7 +34,7 @@ const categoryParsers = new Map([
     "flow-repo",
     {
       parsers: ["flow", "babel-flow"],
-      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      verifyParsers: ["flow", "babel-flow", "typescript", "babel-ts"],
       extensions: [".js", ".cjs", ".mjs"],
     },
   ],

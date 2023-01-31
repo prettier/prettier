@@ -3,7 +3,7 @@
 exports[`issue-13817.ts - {"arrowParens":"avoid","trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
-parsers: ["typescript", "flow", "babel-flow"]
+parsers: ["typescript", "flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth

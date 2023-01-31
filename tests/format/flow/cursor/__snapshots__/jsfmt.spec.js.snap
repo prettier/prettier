@@ -3,7 +3,7 @@
 exports[`declare-module-exports.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 22
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -18,7 +18,7 @@ declare module.exports<|>: A;
 exports[`function-predicate.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 12
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -32,7 +32,7 @@ function a()<|>: %checks(a) {}
 
 exports[`function-return-type.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -47,7 +47,7 @@ function a(): boolean {}
 exports[`function-return-type-and-predicate.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 12
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -62,7 +62,7 @@ function a()<|>: boolean %checks(a) {}
 exports[`function-type-parameter-bound.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 12
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -77,7 +77,7 @@ function a<T<|>: X>() {}
 exports[`type-cast-expression.js format 1`] = `
 ====================================options=====================================
 cursorOffset: 2
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

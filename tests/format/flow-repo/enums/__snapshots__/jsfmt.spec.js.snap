@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`declared.js [babel-flow] format 1`] = `
+"Unexpected token (3:9)
+  1 | // @flow
+  2 |
+> 3 | declare enum E {
+    |         ^
+  4 |   A,
+  5 |   B,
+  6 | }"
+`;
+
 exports[`declared.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -44,6 +55,17 @@ declare export enum F {
 (F.N: empty); // ERROR
 
 ================================================================================
+`;
+
+exports[`lib.js [babel-flow] format 1`] = `
+"Unexpected token (4:11)
+  2 |
+  3 | declare module 'declared-module' {
+> 4 |   declare enum G {
+    |           ^
+  5 |     J,
+  6 |     K,
+  7 |   }"
 `;
 
 exports[`lib.js format 1`] = `
