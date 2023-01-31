@@ -171,20 +171,14 @@ function printTypescript(path, options, print) {
       ];
 
     case "TSParameterProperty":
-      parts.push(printTypeScriptAccessibilityToken(node));
-      if (node.static) {
-        parts.push("static ");
-      }
-      if (node.override) {
-        parts.push("override ");
-      }
-      if (node.readonly) {
-        parts.push("readonly ");
-      }
+      return [
+        printTypeScriptAccessibilityToken(node),
+        node.static ? "static " : "",
+        node.override ? "override " : "",
+        node.readonly ? "readonly " : "",
+        print("parameter")
+      ];
 
-      parts.push(print("parameter"));
-
-      return parts;
     case "TSTypeQuery":
       return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
