@@ -86,6 +86,14 @@ run_spec(
         }
       `,
 
+      // `TSModuleDeclaration`
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) => modifier !== "declare" && modifier !== "export"
+      ).flatMap((modifier) => [
+        `${modifier} module Foo {}`,
+        `${modifier} namespace Foo {}`,
+      ]),
+
       // `TSEnumDeclaration`
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) =>

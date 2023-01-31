@@ -22,7 +22,7 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
 
-import { printOptionalToken, printTypeScriptModifiers } from "./misc.js";
+import { printOptionalToken } from "./misc.js";
 import { printTernary } from "./ternary.js";
 import {
   printFunctionParameters,
@@ -367,10 +367,7 @@ function printTypescript(path, options, print) {
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
-        parts.push(
-          printDeclareToken(path),
-          printTypeScriptModifiers(path, options, print)
-        );
+        parts.push(printDeclareToken(path));
 
         // Global declaration looks like this:
         // (declare)? global { ... }
