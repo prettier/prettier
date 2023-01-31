@@ -51,6 +51,7 @@ function shouldHugType(node) {
       (node) =>
         node.type === "ObjectTypeAnnotation" ||
         node.type === "TSTypeLiteral" ||
+        node.type === "TSUnionType" ||
         // This is a bit aggressive but captures Array<{x}>
         node.type === "GenericTypeAnnotation" ||
         node.type === "TSTypeReference"
