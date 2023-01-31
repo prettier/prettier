@@ -2,6 +2,13 @@
 type Foo<T> = T extends ((...a: any[]) => infer R extends string) ? R : never;
 type Foo<T> = T extends (new (...a: any[]) => infer R extends string) ? R : never;
 
+// Nest
+type Foo<T> = T extends (
+  (...a: any[]) => infer R extends (
+    T extends ((...a: any[]) => infer R extends string) ? R : never
+  )
+) ? R : never;
+
 // #14275
 type Test<T> = T extends ((
   token: TSESTree.Token
