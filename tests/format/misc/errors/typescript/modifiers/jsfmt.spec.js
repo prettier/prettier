@@ -37,7 +37,7 @@ run_spec(
         }
       `,
 
-      // Only `declare` and `export` allowed in interface
+      // `TSInterfaceDeclaration`, only `declare` and `export` allowed
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) => modifier !== "declare" && modifier !== "export"
       ).map(
@@ -47,7 +47,7 @@ run_spec(
           `
       ),
 
-      // Only `in` and `out` allowed in type parameter
+      // `TSTypeParameter`, only `in` and `out` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) => modifier !== "in" && modifier !== "out"
       ).map((modifier) => `interface Foo<${modifier} T> {}`),

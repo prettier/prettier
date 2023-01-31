@@ -176,7 +176,7 @@ function printTypescript(path, options, print) {
         node.static ? "static " : "",
         node.override ? "override " : "",
         node.readonly ? "readonly " : "",
-        print("parameter")
+        print("parameter"),
       ];
 
     case "TSTypeQuery":
