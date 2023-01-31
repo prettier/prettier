@@ -1966,10 +1966,22 @@ exports[`snippet: #143 [babel-ts] format 1`] = `
     |              ^"
 `;
 
+exports[`snippet: #143 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(override parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #144 [babel-ts] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:20)
 > 1 | class Foo { method(override parameter) {} }
     |                    ^"
+`;
+
+exports[`snippet: #144 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(override parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #145 [babel-ts] format 1`] = `
@@ -1978,10 +1990,22 @@ exports[`snippet: #145 [babel-ts] format 1`] = `
     |              ^"
 `;
 
+exports[`snippet: #145 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(private parameter) {}
+    |              ^^^^^^^"
+`;
+
 exports[`snippet: #146 [babel-ts] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:20)
 > 1 | class Foo { method(private parameter) {} }
     |                    ^"
+`;
+
+exports[`snippet: #146 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(private parameter) {} }
+    |                    ^^^^^^^"
 `;
 
 exports[`snippet: #147 [babel-ts] format 1`] = `
@@ -1990,10 +2014,22 @@ exports[`snippet: #147 [babel-ts] format 1`] = `
     |              ^"
 `;
 
+exports[`snippet: #147 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(protected parameter) {}
+    |              ^^^^^^^^^"
+`;
+
 exports[`snippet: #148 [babel-ts] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:20)
 > 1 | class Foo { method(protected parameter) {} }
     |                    ^"
+`;
+
+exports[`snippet: #148 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(protected parameter) {} }
+    |                    ^^^^^^^^^"
 `;
 
 exports[`snippet: #149 [babel-ts] format 1`] = `
@@ -2002,10 +2038,22 @@ exports[`snippet: #149 [babel-ts] format 1`] = `
     |              ^"
 `;
 
+exports[`snippet: #149 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(public parameter) {}
+    |              ^^^^^^"
+`;
+
 exports[`snippet: #150 [babel-ts] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:20)
 > 1 | class Foo { method(public parameter) {} }
     |                    ^"
+`;
+
+exports[`snippet: #150 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(public parameter) {} }
+    |                    ^^^^^^"
 `;
 
 exports[`snippet: #151 [babel-ts] format 1`] = `
@@ -2014,10 +2062,22 @@ exports[`snippet: #151 [babel-ts] format 1`] = `
     |              ^"
 `;
 
+exports[`snippet: #151 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(readonly parameter) {}
+    |              ^^^^^^^^"
+`;
+
 exports[`snippet: #152 [babel-ts] format 1`] = `
 "A parameter property is only allowed in a constructor implementation. (1:20)
 > 1 | class Foo { method(readonly parameter) {} }
     |                    ^"
+`;
+
+exports[`snippet: #152 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                    ^^^^^^^^"
 `;
 
 exports[`snippet: #153 [babel-ts] format 1`] = `

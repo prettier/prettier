@@ -223,6 +223,21 @@ function throwErrorForInvalidModifier(node) {
         )}' modifier cannot appear on a parameter.`
       );
     }
+
+    // `checkParameter` function in `typescript`
+    if (
+      ts.hasSyntacticModifier(node, ts.ModifierFlags.ParameterPropertyModifier)
+    ) {
+      const func = ts.getContainingFunction(node);
+      if (
+        !(func.kind === SyntaxKind.Constructor && ts.nodeIsPresent(func.body))
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          "A parameter property is only allowed in a constructor implementation."
+        );
+      }
+    }
   }
 }
 
