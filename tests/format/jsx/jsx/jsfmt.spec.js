@@ -2,7 +2,7 @@ const errors = {
   acorn: ["expression.js"],
   espree: ["expression.js"],
   meriyah: ["expression.js"],
-}
+};
 
 run_spec(import.meta, ["flow", "babel", "typescript"], {
   singleQuote: false,
