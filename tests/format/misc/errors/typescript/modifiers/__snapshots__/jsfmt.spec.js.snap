@@ -2032,31 +2032,91 @@ exports[`snippet: #151 [babel-ts] format 1`] = `
 
 exports[`snippet: #151 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
+exports[`snippet: #152 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(override parameter) {}
+    |              ^"
+`;
+
 exports[`snippet: #152 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
+
+exports[`snippet: #153 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(override parameter) {} }
+    |                    ^"
+`;
 
 exports[`snippet: #153 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
 exports[`snippet: #154 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
+exports[`snippet: #155 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(private parameter) {}
+    |              ^"
+`;
+
 exports[`snippet: #155 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
+
+exports[`snippet: #156 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(private parameter) {} }
+    |                    ^"
+`;
 
 exports[`snippet: #156 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
 exports[`snippet: #157 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
+exports[`snippet: #158 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(protected parameter) {}
+    |              ^"
+`;
+
 exports[`snippet: #158 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
+
+exports[`snippet: #159 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(protected parameter) {} }
+    |                    ^"
+`;
 
 exports[`snippet: #159 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
 exports[`snippet: #160 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
+exports[`snippet: #161 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(public parameter) {}
+    |              ^"
+`;
+
 exports[`snippet: #161 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
+
+exports[`snippet: #162 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(public parameter) {} }
+    |                    ^"
+`;
 
 exports[`snippet: #162 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
 exports[`snippet: #163 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 
+exports[`snippet: #164 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(readonly parameter) {}
+    |              ^"
+`;
+
 exports[`snippet: #164 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
+
+exports[`snippet: #165 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                    ^"
+`;
 
 exports[`snippet: #165 [typescript] format 1`] = `"Cannot read properties of undefined (reading 'DeclareKeyword')"`;
 

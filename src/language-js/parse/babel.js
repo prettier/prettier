@@ -187,7 +187,6 @@ const allowedMessageCodes = new Set([
   "ConstructorHasTypeParameters",
 
   "UnsupportedParameterPropertyKind",
-  "UnexpectedParameterModifier",
 
   "MixedLabeledAndUnlabeledElements",
   "InvalidTupleMemberLabel",
