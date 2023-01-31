@@ -104,6 +104,14 @@ function postprocess(ast, options) {
           }
         }
         break;
+      case "TSPropertySignature":
+        if (node.initializer) {
+          throwSyntaxError(
+            node.initializer,
+            "An interface property cannot have an initializer."
+          );
+        }
+        break;
 
       // For hack-style pipeline
       case "TopicReference":

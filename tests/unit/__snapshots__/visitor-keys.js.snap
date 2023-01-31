@@ -867,7 +867,6 @@ exports[`visitor keys estree 1`] = `
   "TSPropertySignature": [
     "key",
     "typeAnnotation",
-    "initializer",
   ],
   "TSProtectedKeyword": [],
   "TSPublicKeyword": [],
