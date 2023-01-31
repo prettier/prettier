@@ -22,7 +22,10 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
 
-import { printOptionalToken } from "./misc.js";
+import {
+  printOptionalToken,
+  printTypeScriptAccessibilityToken,
+} from "./misc.js";
 import { printTernary } from "./ternary.js";
 import {
   printFunctionParameters,
@@ -178,9 +181,7 @@ function printTypescript(path, options, print) {
       return parts;
 
     case "TSParameterProperty":
-      if (node.accessibility) {
-        parts.push(node.accessibility + " ");
-      }
+      parts.push(printTypeScriptAccessibilityToken(node));
       if (node.export) {
         parts.push("export ");
       }
@@ -222,7 +223,7 @@ function printTypescript(path, options, print) {
 
       return [
         node.export ? "export " : "",
-        node.accessibility ? [node.accessibility, " "] : "",
+        printTypeScriptAccessibilityToken(node),
         node.static ? "static " : "",
         node.readonly ? "readonly " : "",
         printDeclareToken(path),
@@ -288,7 +289,7 @@ function printTypescript(path, options, print) {
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
-        node.accessibility ? [node.accessibility, " "] : "",
+        printTypeScriptAccessibilityToken(node),
         kind,
         node.computed ? "[" : "",
         print("key"),
