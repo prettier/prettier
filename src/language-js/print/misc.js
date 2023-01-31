@@ -106,6 +106,10 @@ function printDirective(rawText, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
+function printTypeScriptAccessibilityToken(node) {
+  return node.accessibility ? node.accessibility + " " : "";
+}
+
 export {
   printOptionalToken,
   printDefiniteToken,
@@ -115,4 +119,5 @@ export {
   printRestSpread,
   adjustClause,
   printDirective,
+  printTypeScriptAccessibilityToken,
 };

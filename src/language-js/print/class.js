@@ -21,6 +21,7 @@ import {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
@@ -182,9 +183,8 @@ function printClassMethod(path, options, print) {
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
+
+  parts.push(printTypeScriptAccessibilityToken(node));
 
   if (node.static) {
     parts.push("static ");
@@ -209,11 +209,8 @@ function printClassProperty(path, options, print) {
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
 
-  parts.push(printDeclareToken(path));
+  parts.push(printTypeScriptAccessibilityToken(node), printDeclareToken(path));
 
   if (node.static) {
     parts.push("static ");
