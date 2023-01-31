@@ -195,7 +195,7 @@ function throwErrorForInvalidModifier(node) {
       node.kind === SyntaxKind.Parameter &&
       (modifier.kind === SyntaxKind.StaticKeyword ||
         modifier.kind === SyntaxKind.ExportKeyword ||
-        modifier.kind === SyntaxKind.SyntaxKind.DeclareKeyword ||
+        modifier.kind === SyntaxKind.DeclareKeyword ||
         modifier.kind === SyntaxKind.AsyncKeyword)
     ) {
       throwErrorOnTsNode(
