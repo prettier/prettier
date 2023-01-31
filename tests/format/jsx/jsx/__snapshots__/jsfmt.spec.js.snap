@@ -2276,6 +2276,39 @@ foo ? (
 ================================================================================
 `;
 
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} [acorn] format 1`] = `
+"Unexpected token (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} [espree] format 1`] = `
+"Unexpected token : (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} [meriyah] format 1`] = `
+"Expected ')' (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
 exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
@@ -2562,6 +2595,39 @@ singleQuote: false
 </SuspendyTree>;
 
 ================================================================================
+`;
+
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} [acorn] format 1`] = `
+"Unexpected token (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} [espree] format 1`] = `
+"Unexpected token : (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} [meriyah] format 1`] = `
+"Expected ')' (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
 `;
 
 exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
@@ -2852,6 +2918,39 @@ singleQuote: false
 ================================================================================
 `;
 
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} [acorn] format 1`] = `
+"Unexpected token (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} [espree] format 1`] = `
+"Unexpected token : (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} [meriyah] format 1`] = `
+"Expected ')' (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
 exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
@@ -3138,6 +3237,39 @@ singleQuote: true
 </SuspendyTree>;
 
 ================================================================================
+`;
+
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} [acorn] format 1`] = `
+"Unexpected token (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} [espree] format 1`] = `
+"Unexpected token : (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
+`;
+
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} [meriyah] format 1`] = `
+"Expected ')' (87:8)
+  85 | <Component
+  86 |   onChange={(
+> 87 |     key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+     |        ^
+  88 |     value: string | Immutable.List<string>,
+  89 |   ) => {
+  90 |     this.setState({"
 `;
 
 exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `

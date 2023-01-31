@@ -235,14 +235,14 @@ function runSpec(fixtures, parsers, options) {
       parsers.includes("babel") &&
       (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
     ) {
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
+      }
       if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
         allParsers.push("espree");
       }
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
-      }
-      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
-        allParsers.push("acorn");
       }
     }
 
