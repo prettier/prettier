@@ -2,6 +2,7 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
+/** @type {import("typescript")} */
 let ts;
 
 function getTsNodeLocation(nodeOrToken) {
@@ -226,6 +227,7 @@ function throwErrorForInvalidModifier(node) {
 
     // `checkParameter` function in `typescript`
     if (
+      node.kind === SyntaxKind.Parameter &&
       ts.hasSyntacticModifier(node, ts.ModifierFlags.ParameterPropertyModifier)
     ) {
       const func = ts.getContainingFunction(node);
