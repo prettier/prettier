@@ -743,7 +743,6 @@ exports[`visitor keys estree 1`] = `
   "TSEnumDeclaration": [
     "id",
     "members",
-    "modifiers",
   ],
   "TSEnumMember": [
     "id",
@@ -839,7 +838,6 @@ exports[`visitor keys estree 1`] = `
   "TSModuleDeclaration": [
     "id",
     "body",
-    "modifiers",
   ],
   "TSNamedTupleMember": [
     "label",
@@ -869,7 +867,6 @@ exports[`visitor keys estree 1`] = `
   "TSPropertySignature": [
     "key",
     "typeAnnotation",
-    "initializer",
   ],
   "TSProtectedKeyword": [],
   "TSPublicKeyword": [],

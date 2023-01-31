@@ -175,9 +175,7 @@ function throwErrorForInvalidModifier(node) {
     ) {
       throwErrorOnTsNode(
         modifier,
-        `'${ts.tokenToString(
-          modifier.kind
-        )}' modifier cannot appear on a module or namespace element.`
+        "'accessor' modifier can only appear on a property declaration."
       );
     }
 

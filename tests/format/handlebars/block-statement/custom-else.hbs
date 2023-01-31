@@ -126,3 +126,21 @@
 {{else when abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz as |f|}}
   {{f}}
 {{/when}}
+
+{{#when abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy as |b|}}
+  {{b}}
+{{else when abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy abcdefghijklmnopqrstuvwxy as |d|}}
+  {{d}}
+{{/when}}
+
+{{#when abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz as |b|}}
+  {{b}}
+{{else when abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz abcdefghijklmnopqrstuvwxyz as |d|}}
+  {{d}}
+{{/when}}
+
+{{#abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst param param param as |foo|}}
+  1
+{{else abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst param param param as |bar|}}
+  2
+{{/abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrst}}

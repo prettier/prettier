@@ -913,478 +913,318 @@ exports[`snippet: #56 [typescript] format 1`] = `
 `;
 
 exports[`snippet: #57 [babel-ts] format 1`] = `
-"Unexpected token, expected "class" (2:12)
-  1 | module Foo {
-> 2 |   abstract module Bar {}
-    |            ^
-  3 | }"
-`;
-
-exports[`snippet: #57 [typescript] format 1`] = `
-"'abstract' modifier can only appear on a class, method, or property declaration. (2:3)
-  1 | module Foo {
-> 2 |   abstract module Bar {}
-    |   ^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #58 [babel-ts] format 1`] = `
-"Unexpected token, expected "class" (2:12)
-  1 | module Foo {
-> 2 |   abstract enum Bar {}
-    |            ^
-  3 | }"
-`;
-
-exports[`snippet: #58 [typescript] format 1`] = `
-"'abstract' modifier can only appear on a class, method, or property declaration. (2:3)
-  1 | module Foo {
-> 2 |   abstract enum Bar {}
-    |   ^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #59 [babel-ts] format 1`] = `
-"Missing semicolon. (2:9)
-  1 | module Foo {
-> 2 |   static module Bar {}
-    |         ^
-  3 | }"
-`;
-
-exports[`snippet: #59 [typescript] format 1`] = `
-"'static' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   static module Bar {}
-    |   ^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #60 [babel-ts] format 1`] = `
-"Missing semicolon. (2:9)
-  1 | module Foo {
-> 2 |   static enum Bar {}
-    |         ^
-  3 | }"
-`;
-
-exports[`snippet: #60 [typescript] format 1`] = `
-"'static' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   static enum Bar {}
-    |   ^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #61 [babel-ts] format 1`] = `
-"Missing semicolon. (2:10)
-  1 | module Foo {
-> 2 |   private module Bar {}
-    |          ^
-  3 | }"
-`;
-
-exports[`snippet: #61 [typescript] format 1`] = `
-"'private' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   private module Bar {}
-    |   ^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #62 [babel-ts] format 1`] = `
-"Missing semicolon. (2:10)
-  1 | module Foo {
-> 2 |   private enum Bar {}
-    |          ^
-  3 | }"
-`;
-
-exports[`snippet: #62 [typescript] format 1`] = `
-"'private' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   private enum Bar {}
-    |   ^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #63 [babel-ts] format 1`] = `
-"Missing semicolon. (2:12)
-  1 | module Foo {
-> 2 |   protected module Bar {}
-    |            ^
-  3 | }"
-`;
-
-exports[`snippet: #63 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   protected module Bar {}
-    |   ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #64 [babel-ts] format 1`] = `
-"Missing semicolon. (2:12)
-  1 | module Foo {
-> 2 |   protected enum Bar {}
-    |            ^
-  3 | }"
-`;
-
-exports[`snippet: #64 [typescript] format 1`] = `
-"'protected' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   protected enum Bar {}
-    |   ^^^^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #65 [babel-ts] format 1`] = `
-"Missing semicolon. (2:9)
-  1 | module Foo {
-> 2 |   public module Bar {}
-    |         ^
-  3 | }"
-`;
-
-exports[`snippet: #65 [typescript] format 1`] = `
-"'public' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   public module Bar {}
-    |   ^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #66 [babel-ts] format 1`] = `
-"Missing semicolon. (2:9)
-  1 | module Foo {
-> 2 |   public enum Bar {}
-    |         ^
-  3 | }"
-`;
-
-exports[`snippet: #66 [typescript] format 1`] = `
-"'public' modifier cannot appear on a module or namespace element. (2:3)
-  1 | module Foo {
-> 2 |   public enum Bar {}
-    |   ^^^^^^
-  3 | }"
-`;
-
-exports[`snippet: #67 [babel-ts] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #67 [typescript] format 1`] = `
+exports[`snippet: #57 [typescript] format 1`] = `
 "'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
 > 1 | abstract interface Foo {}
     | ^^^^^^^^"
 `;
 
-exports[`snippet: #68 [babel-ts] format 1`] = `
+exports[`snippet: #58 [babel-ts] format 1`] = `
 "Missing semicolon. (1:9)
 > 1 | accessor interface Foo {}
     |         ^"
 `;
 
-exports[`snippet: #68 [typescript] format 1`] = `
-"'accessor' modifier cannot appear on a module or namespace element. (1:1)
+exports[`snippet: #58 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:1)
 > 1 | accessor interface Foo {}
     | ^^^^^^^^"
 `;
 
-exports[`snippet: #69 [babel-ts] format 1`] = `
+exports[`snippet: #59 [babel-ts] format 1`] = `
 "Missing semicolon. (1:6)
 > 1 | async interface Foo {}
     |      ^"
 `;
 
-exports[`snippet: #69 [typescript] format 1`] = `
+exports[`snippet: #59 [typescript] format 1`] = `
 "'async' modifier cannot be used here. (1:1)
 > 1 | async interface Foo {}
     | ^^^^^"
 `;
 
-exports[`snippet: #70 [babel-ts] format 1`] = `
+exports[`snippet: #60 [babel-ts] format 1`] = `
 "Missing initializer in const declaration. (1:16)
 > 1 | const interface Foo {}
     |                ^"
 `;
 
-exports[`snippet: #70 [typescript] format 1`] = `
+exports[`snippet: #60 [typescript] format 1`] = `
 "',' expected. (1:17)
 > 1 | const interface Foo {}
     |                 ^"
 `;
 
-exports[`snippet: #71 [babel-ts] format 1`] = `
+exports[`snippet: #61 [babel-ts] format 1`] = `
 "Unexpected token (1:1)
 > 1 | default interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #71 [typescript] format 1`] = `
+exports[`snippet: #61 [typescript] format 1`] = `
 "'export' expected. (1:1)
 > 1 | default interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #72 [babel-ts] format 1`] = `
+exports[`snippet: #62 [babel-ts] format 1`] = `
 "Unexpected token (1:1)
 > 1 | in interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #72 [typescript] format 1`] = `
+exports[`snippet: #62 [typescript] format 1`] = `
 "Expression expected. (1:1)
 > 1 | in interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #73 [babel-ts] format 1`] = `
+exports[`snippet: #63 [babel-ts] format 1`] = `
 "Missing semicolon. (1:4)
 > 1 | out interface Foo {}
     |    ^"
 `;
 
-exports[`snippet: #73 [typescript] format 1`] = `
+exports[`snippet: #63 [typescript] format 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | out interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #74 [babel-ts] format 1`] = `
+exports[`snippet: #64 [babel-ts] format 1`] = `
 "Missing semicolon. (1:9)
 > 1 | override interface Foo {}
     |         ^"
 `;
 
-exports[`snippet: #74 [typescript] format 1`] = `
+exports[`snippet: #64 [typescript] format 1`] = `
 "Unexpected keyword or identifier. (1:1)
 > 1 | override interface Foo {}
     | ^"
 `;
 
-exports[`snippet: #75 [babel-ts] format 1`] = `
+exports[`snippet: #65 [babel-ts] format 1`] = `
 "Missing semicolon. (1:8)
 > 1 | private interface Foo {}
     |        ^"
 `;
 
-exports[`snippet: #75 [typescript] format 1`] = `
+exports[`snippet: #65 [typescript] format 1`] = `
 "'private' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | private interface Foo {}
     | ^^^^^^^"
 `;
 
-exports[`snippet: #76 [babel-ts] format 1`] = `
+exports[`snippet: #66 [babel-ts] format 1`] = `
 "Missing semicolon. (1:10)
 > 1 | protected interface Foo {}
     |          ^"
 `;
 
-exports[`snippet: #76 [typescript] format 1`] = `
+exports[`snippet: #66 [typescript] format 1`] = `
 "'protected' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | protected interface Foo {}
     | ^^^^^^^^^"
 `;
 
-exports[`snippet: #77 [babel-ts] format 1`] = `
+exports[`snippet: #67 [babel-ts] format 1`] = `
 "Missing semicolon. (1:7)
 > 1 | public interface Foo {}
     |       ^"
 `;
 
-exports[`snippet: #77 [typescript] format 1`] = `
+exports[`snippet: #67 [typescript] format 1`] = `
 "'public' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | public interface Foo {}
     | ^^^^^^"
 `;
 
-exports[`snippet: #78 [babel-ts] format 1`] = `
+exports[`snippet: #68 [babel-ts] format 1`] = `
 "Missing semicolon. (1:9)
 > 1 | readonly interface Foo {}
     |         ^"
 `;
 
-exports[`snippet: #78 [typescript] format 1`] = `
+exports[`snippet: #68 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (1:1)
 > 1 | readonly interface Foo {}
     | ^^^^^^^^"
 `;
 
-exports[`snippet: #79 [babel-ts] format 1`] = `
+exports[`snippet: #69 [babel-ts] format 1`] = `
 "Missing semicolon. (1:7)
 > 1 | static interface Foo {}
     |       ^"
 `;
 
-exports[`snippet: #79 [typescript] format 1`] = `
+exports[`snippet: #69 [typescript] format 1`] = `
 "'static' modifier cannot appear on a module or namespace element. (1:1)
 > 1 | static interface Foo {}
     | ^^^^^^"
 `;
 
-exports[`snippet: #80 [babel-ts] format 1`] = `
+exports[`snippet: #70 [babel-ts] format 1`] = `
 "'abstract' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<abstract T> {}
     |               ^"
 `;
 
-exports[`snippet: #80 [typescript] format 1`] = `
+exports[`snippet: #70 [typescript] format 1`] = `
 "'abstract' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<abstract T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #81 [babel-ts] format 1`] = `
+exports[`snippet: #71 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:24)
 > 1 | interface Foo<accessor T> {}
     |                        ^"
 `;
 
-exports[`snippet: #81 [typescript] format 1`] = `
+exports[`snippet: #71 [typescript] format 1`] = `
 "'accessor' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<accessor T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #82 [babel-ts] format 1`] = `
+exports[`snippet: #72 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:21)
 > 1 | interface Foo<async T> {}
     |                     ^"
 `;
 
-exports[`snippet: #82 [typescript] format 1`] = `
+exports[`snippet: #72 [typescript] format 1`] = `
 "'async' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<async T> {}
     |               ^^^^^"
 `;
 
-exports[`snippet: #83 [babel-ts] format 1`] = `
+exports[`snippet: #73 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:21)
 > 1 | interface Foo<const T> {}
     |                     ^"
 `;
 
-exports[`snippet: #83 [typescript] format 1`] = `
+exports[`snippet: #73 [typescript] format 1`] = `
 "Type parameter declaration expected. (1:15)
 > 1 | interface Foo<const T> {}
     |               ^"
 `;
 
-exports[`snippet: #84 [babel-ts] format 1`] = `
+exports[`snippet: #74 [babel-ts] format 1`] = `
 "'declare' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<declare T> {}
     |               ^"
 `;
 
-exports[`snippet: #84 [typescript] format 1`] = `
+exports[`snippet: #74 [typescript] format 1`] = `
 "'declare' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<declare T> {}
     |               ^^^^^^^"
 `;
 
-exports[`snippet: #85 [babel-ts] format 1`] = `
+exports[`snippet: #75 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:23)
 > 1 | interface Foo<default T> {}
     |                       ^"
 `;
 
-exports[`snippet: #85 [typescript] format 1`] = `
+exports[`snippet: #75 [typescript] format 1`] = `
 "Type parameter declaration expected. (1:15)
 > 1 | interface Foo<default T> {}
     |               ^"
 `;
 
-exports[`snippet: #86 [babel-ts] format 1`] = `
+exports[`snippet: #76 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | interface Foo<export T> {}
     |                      ^"
 `;
 
-exports[`snippet: #86 [typescript] format 1`] = `
+exports[`snippet: #76 [typescript] format 1`] = `
 "Type parameter declaration expected. (1:15)
 > 1 | interface Foo<export T> {}
     |               ^"
 `;
 
-exports[`snippet: #87 [babel-ts] format 1`] = `
+exports[`snippet: #77 [babel-ts] format 1`] = `
 "'override' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<override T> {}
     |               ^"
 `;
 
-exports[`snippet: #87 [typescript] format 1`] = `
+exports[`snippet: #77 [typescript] format 1`] = `
 "'override' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<override T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #88 [babel-ts] format 1`] = `
+exports[`snippet: #78 [babel-ts] format 1`] = `
 "'private' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<private T> {}
     |               ^"
 `;
 
-exports[`snippet: #88 [typescript] format 1`] = `
+exports[`snippet: #78 [typescript] format 1`] = `
 "'private' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<private T> {}
     |               ^^^^^^^"
 `;
 
-exports[`snippet: #89 [babel-ts] format 1`] = `
+exports[`snippet: #79 [babel-ts] format 1`] = `
 "'protected' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<protected T> {}
     |               ^"
 `;
 
-exports[`snippet: #89 [typescript] format 1`] = `
+exports[`snippet: #79 [typescript] format 1`] = `
 "'protected' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<protected T> {}
     |               ^^^^^^^^^"
 `;
 
-exports[`snippet: #90 [babel-ts] format 1`] = `
+exports[`snippet: #80 [babel-ts] format 1`] = `
 "'public' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<public T> {}
     |               ^"
 `;
 
-exports[`snippet: #90 [typescript] format 1`] = `
+exports[`snippet: #80 [typescript] format 1`] = `
 "'public' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<public T> {}
     |               ^^^^^^"
 `;
 
-exports[`snippet: #91 [babel-ts] format 1`] = `
+exports[`snippet: #81 [babel-ts] format 1`] = `
 "'readonly' modifier cannot appear on a type parameter. (1:15)
 > 1 | interface Foo<readonly T> {}
     |               ^"
 `;
 
-exports[`snippet: #91 [typescript] format 1`] = `
+exports[`snippet: #81 [typescript] format 1`] = `
 "'readonly' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<readonly T> {}
     |               ^^^^^^^^"
 `;
 
-exports[`snippet: #92 [babel-ts] format 1`] = `
+exports[`snippet: #82 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:22)
 > 1 | interface Foo<static T> {}
     |                      ^"
 `;
 
-exports[`snippet: #92 [typescript] format 1`] = `
+exports[`snippet: #82 [typescript] format 1`] = `
 "'static' modifier cannot appear on a type parameter (1:15)
 > 1 | interface Foo<static T> {}
     |               ^^^^^^"
 `;
 
-exports[`snippet: #93 [babel-ts] format 1`] = `
+exports[`snippet: #83 [babel-ts] format 1`] = `
 "Class methods cannot have the 'declare' modifier. (2:3)
   1 | class Foo {
 > 2 |   declare method() {}
@@ -1392,7 +1232,7 @@ exports[`snippet: #93 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #93 [typescript] format 1`] = `
+exports[`snippet: #83 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (2:3)
   1 | class Foo {
 > 2 |   declare method() {}
@@ -1400,7 +1240,7 @@ exports[`snippet: #93 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #94 [babel-ts] format 1`] = `
+exports[`snippet: #84 [babel-ts] format 1`] = `
 "Class methods cannot have the 'readonly' modifier. (2:3)
   1 | class Foo {
 > 2 |   readonly method() {}
@@ -1408,7 +1248,7 @@ exports[`snippet: #94 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #94 [typescript] format 1`] = `
+exports[`snippet: #84 [typescript] format 1`] = `
 "'readonly' modifier can only appear on a property declaration or index signature. (2:3)
   1 | class Foo {
 > 2 |   readonly method() {}
@@ -1416,7 +1256,7 @@ exports[`snippet: #94 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #95 [babel-ts] format 1`] = `
+exports[`snippet: #85 [babel-ts] format 1`] = `
 "'declare' is not allowed in getters. (2:3)
   1 | class Foo {
 > 2 |   declare get getter() {}
@@ -1424,7 +1264,7 @@ exports[`snippet: #95 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #95 [typescript] format 1`] = `
+exports[`snippet: #85 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (2:3)
   1 | class Foo {
 > 2 |   declare get getter() {}
@@ -1432,7 +1272,7 @@ exports[`snippet: #95 [typescript] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #96 [babel-ts] format 1`] = `
+exports[`snippet: #86 [babel-ts] format 1`] = `
 "'declare' is not allowed in setters. (2:3)
   1 | class Foo {
 > 2 |   declare set setter(v) {}
@@ -1440,10 +1280,466 @@ exports[`snippet: #96 [babel-ts] format 1`] = `
   3 | }"
 `;
 
-exports[`snippet: #96 [typescript] format 1`] = `
+exports[`snippet: #86 [typescript] format 1`] = `
 "'declare' modifier cannot appear on class elements of this kind. (2:3)
   1 | class Foo {
 > 2 |   declare set setter(v) {}
     |   ^^^^^^^
   3 | }"
+`;
+
+exports[`snippet: #87 [babel-ts] format 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract module Foo {}
+    |          ^"
+`;
+
+exports[`snippet: #87 [typescript] format 1`] = `
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
+> 1 | abstract module Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #88 [babel-ts] format 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract namespace Foo {}
+    |          ^"
+`;
+
+exports[`snippet: #88 [typescript] format 1`] = `
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
+> 1 | abstract namespace Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #89 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | accessor module Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #89 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:1)
+> 1 | accessor module Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #90 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | accessor namespace Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #90 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:1)
+> 1 | accessor namespace Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #91 [babel-ts] format 1`] = `
+"Missing semicolon. (1:6)
+> 1 | async module Foo {}
+    |      ^"
+`;
+
+exports[`snippet: #91 [typescript] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async module Foo {}
+    | ^^^^^"
+`;
+
+exports[`snippet: #92 [babel-ts] format 1`] = `
+"Missing semicolon. (1:6)
+> 1 | async namespace Foo {}
+    |      ^"
+`;
+
+exports[`snippet: #92 [typescript] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async namespace Foo {}
+    | ^^^^^"
+`;
+
+exports[`snippet: #93 [babel-ts] format 1`] = `
+"Missing initializer in const declaration. (1:13)
+> 1 | const module Foo {}
+    |             ^"
+`;
+
+exports[`snippet: #93 [typescript] format 1`] = `
+"',' expected. (1:14)
+> 1 | const module Foo {}
+    |              ^"
+`;
+
+exports[`snippet: #94 [babel-ts] format 1`] = `
+"Missing initializer in const declaration. (1:16)
+> 1 | const namespace Foo {}
+    |                ^"
+`;
+
+exports[`snippet: #94 [typescript] format 1`] = `
+"',' expected. (1:17)
+> 1 | const namespace Foo {}
+    |                 ^"
+`;
+
+exports[`snippet: #95 [babel-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default module Foo {}
+    | ^"
+`;
+
+exports[`snippet: #95 [typescript] format 1`] = `
+"'export' expected. (1:1)
+> 1 | default module Foo {}
+    | ^"
+`;
+
+exports[`snippet: #96 [babel-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default namespace Foo {}
+    | ^"
+`;
+
+exports[`snippet: #96 [typescript] format 1`] = `
+"'export' expected. (1:1)
+> 1 | default namespace Foo {}
+    | ^"
+`;
+
+exports[`snippet: #97 [babel-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in module Foo {}
+    | ^"
+`;
+
+exports[`snippet: #97 [typescript] format 1`] = `
+"Expression expected. (1:1)
+> 1 | in module Foo {}
+    | ^"
+`;
+
+exports[`snippet: #98 [babel-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in namespace Foo {}
+    | ^"
+`;
+
+exports[`snippet: #98 [typescript] format 1`] = `
+"Expression expected. (1:1)
+> 1 | in namespace Foo {}
+    | ^"
+`;
+
+exports[`snippet: #99 [babel-ts] format 1`] = `
+"Missing semicolon. (1:4)
+> 1 | out module Foo {}
+    |    ^"
+`;
+
+exports[`snippet: #99 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | out module Foo {}
+    | ^"
+`;
+
+exports[`snippet: #100 [babel-ts] format 1`] = `
+"Missing semicolon. (1:4)
+> 1 | out namespace Foo {}
+    |    ^"
+`;
+
+exports[`snippet: #100 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | out namespace Foo {}
+    | ^"
+`;
+
+exports[`snippet: #101 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | override module Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #101 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | override module Foo {}
+    | ^"
+`;
+
+exports[`snippet: #102 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | override namespace Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #102 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | override namespace Foo {}
+    | ^"
+`;
+
+exports[`snippet: #103 [babel-ts] format 1`] = `
+"Missing semicolon. (1:8)
+> 1 | private module Foo {}
+    |        ^"
+`;
+
+exports[`snippet: #103 [typescript] format 1`] = `
+"'private' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | private module Foo {}
+    | ^^^^^^^"
+`;
+
+exports[`snippet: #104 [babel-ts] format 1`] = `
+"Missing semicolon. (1:8)
+> 1 | private namespace Foo {}
+    |        ^"
+`;
+
+exports[`snippet: #104 [typescript] format 1`] = `
+"'private' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | private namespace Foo {}
+    | ^^^^^^^"
+`;
+
+exports[`snippet: #105 [babel-ts] format 1`] = `
+"Missing semicolon. (1:10)
+> 1 | protected module Foo {}
+    |          ^"
+`;
+
+exports[`snippet: #105 [typescript] format 1`] = `
+"'protected' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | protected module Foo {}
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: #106 [babel-ts] format 1`] = `
+"Missing semicolon. (1:10)
+> 1 | protected namespace Foo {}
+    |          ^"
+`;
+
+exports[`snippet: #106 [typescript] format 1`] = `
+"'protected' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | protected namespace Foo {}
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: #107 [babel-ts] format 1`] = `
+"Missing semicolon. (1:7)
+> 1 | public module Foo {}
+    |       ^"
+`;
+
+exports[`snippet: #107 [typescript] format 1`] = `
+"'public' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | public module Foo {}
+    | ^^^^^^"
+`;
+
+exports[`snippet: #108 [babel-ts] format 1`] = `
+"Missing semicolon. (1:7)
+> 1 | public namespace Foo {}
+    |       ^"
+`;
+
+exports[`snippet: #108 [typescript] format 1`] = `
+"'public' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | public namespace Foo {}
+    | ^^^^^^"
+`;
+
+exports[`snippet: #109 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | readonly module Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #109 [typescript] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (1:1)
+> 1 | readonly module Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #110 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | readonly namespace Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #110 [typescript] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (1:1)
+> 1 | readonly namespace Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #111 [babel-ts] format 1`] = `
+"Missing semicolon. (1:7)
+> 1 | static module Foo {}
+    |       ^"
+`;
+
+exports[`snippet: #111 [typescript] format 1`] = `
+"'static' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | static module Foo {}
+    | ^^^^^^"
+`;
+
+exports[`snippet: #112 [babel-ts] format 1`] = `
+"Missing semicolon. (1:7)
+> 1 | static namespace Foo {}
+    |       ^"
+`;
+
+exports[`snippet: #112 [typescript] format 1`] = `
+"'static' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | static namespace Foo {}
+    | ^^^^^^"
+`;
+
+exports[`snippet: #113 [babel-ts] format 1`] = `
+"Unexpected token, expected "class" (1:10)
+> 1 | abstract enum Foo {}
+    |          ^"
+`;
+
+exports[`snippet: #113 [typescript] format 1`] = `
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:1)
+> 1 | abstract enum Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #114 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | accessor enum Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #114 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:1)
+> 1 | accessor enum Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #115 [babel-ts] format 1`] = `
+"Missing semicolon. (1:6)
+> 1 | async enum Foo {}
+    |      ^"
+`;
+
+exports[`snippet: #115 [typescript] format 1`] = `
+"'async' modifier cannot be used here. (1:1)
+> 1 | async enum Foo {}
+    | ^^^^^"
+`;
+
+exports[`snippet: #116 [babel-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | default enum Foo {}
+    | ^"
+`;
+
+exports[`snippet: #116 [typescript] format 1`] = `
+"'export' expected. (1:1)
+> 1 | default enum Foo {}
+    | ^"
+`;
+
+exports[`snippet: #117 [babel-ts] format 1`] = `
+"Unexpected token (1:1)
+> 1 | in enum Foo {}
+    | ^"
+`;
+
+exports[`snippet: #117 [typescript] format 1`] = `
+"Expression expected. (1:1)
+> 1 | in enum Foo {}
+    | ^"
+`;
+
+exports[`snippet: #118 [babel-ts] format 1`] = `
+"Missing semicolon. (1:4)
+> 1 | out enum Foo {}
+    |    ^"
+`;
+
+exports[`snippet: #118 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | out enum Foo {}
+    | ^"
+`;
+
+exports[`snippet: #119 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | override enum Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #119 [typescript] format 1`] = `
+"Unexpected keyword or identifier. (1:1)
+> 1 | override enum Foo {}
+    | ^"
+`;
+
+exports[`snippet: #120 [babel-ts] format 1`] = `
+"Missing semicolon. (1:8)
+> 1 | private enum Foo {}
+    |        ^"
+`;
+
+exports[`snippet: #120 [typescript] format 1`] = `
+"'private' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | private enum Foo {}
+    | ^^^^^^^"
+`;
+
+exports[`snippet: #121 [babel-ts] format 1`] = `
+"Missing semicolon. (1:10)
+> 1 | protected enum Foo {}
+    |          ^"
+`;
+
+exports[`snippet: #121 [typescript] format 1`] = `
+"'protected' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | protected enum Foo {}
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: #122 [babel-ts] format 1`] = `
+"Missing semicolon. (1:7)
+> 1 | public enum Foo {}
+    |       ^"
+`;
+
+exports[`snippet: #122 [typescript] format 1`] = `
+"'public' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | public enum Foo {}
+    | ^^^^^^"
+`;
+
+exports[`snippet: #123 [babel-ts] format 1`] = `
+"Missing semicolon. (1:9)
+> 1 | readonly enum Foo {}
+    |         ^"
+`;
+
+exports[`snippet: #123 [typescript] format 1`] = `
+"'readonly' modifier can only appear on a property declaration or index signature. (1:1)
+> 1 | readonly enum Foo {}
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: #124 [babel-ts] format 1`] = `
+"Missing semicolon. (1:7)
+> 1 | static enum Foo {}
+    |       ^"
+`;
+
+exports[`snippet: #124 [typescript] format 1`] = `
+"'static' modifier cannot appear on a module or namespace element. (1:1)
+> 1 | static enum Foo {}
+    | ^^^^^^"
 `;

@@ -1,5 +1,4 @@
-import { isNonEmptyArray } from "../../common/util.js";
-import { indent, join, line } from "../../document/builders.js";
+import { indent, line } from "../../document/builders.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 function printOptionalToken(path) {
@@ -73,14 +72,6 @@ function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
 }
 
-function printTypeScriptModifiers(path, options, print) {
-  const { node } = path;
-  if (!isNonEmptyArray(node.modifiers)) {
-    return "";
-  }
-  return [join(" ", path.map(print, "modifiers")), " "];
-}
-
 function adjustClause(node, clause, forceSpace) {
   if (node.type === "EmptyStatement") {
     return ";";
@@ -115,14 +106,18 @@ function printDirective(rawText, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
+function printTypeScriptAccessibilityToken(node) {
+  return node.accessibility ? node.accessibility + " " : "";
+}
+
 export {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
-  printTypeScriptModifiers,
   printRestSpread,
   adjustClause,
   printDirective,
+  printTypeScriptAccessibilityToken,
 };

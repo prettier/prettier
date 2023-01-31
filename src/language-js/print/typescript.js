@@ -22,7 +22,10 @@ import {
 import isTsKeywordType from "../utils/is-ts-keyword-type.js";
 import { locStart, locEnd } from "../loc.js";
 
-import { printOptionalToken, printTypeScriptModifiers } from "./misc.js";
+import {
+  printOptionalToken,
+  printTypeScriptAccessibilityToken,
+} from "./misc.js";
 import { printTernary } from "./ternary.js";
 import {
   printFunctionParameters,
@@ -160,27 +163,15 @@ function printTypescript(path, options, print) {
     case "TSArrayType":
       return [print("elementType"), "[]"];
     case "TSPropertySignature":
-      if (node.readonly) {
-        parts.push("readonly ");
-      }
-
-      parts.push(
+      return [
+        node.readonly ? "readonly " : "",
         printPropertyKey(path, options, print),
         printOptionalToken(path),
-        printTypeAnnotationProperty(path, print)
-      );
-
-      // This isn't valid semantically, but it's in the AST so we can print it.
-      if (node.initializer) {
-        parts.push(" = ", print("initializer"));
-      }
-
-      return parts;
+        printTypeAnnotationProperty(path, print),
+      ];
 
     case "TSParameterProperty":
-      if (node.accessibility) {
-        parts.push(node.accessibility + " ");
-      }
+      parts.push(printTypeScriptAccessibilityToken(node));
       if (node.export) {
         parts.push("export ");
       }
@@ -222,7 +213,7 @@ function printTypescript(path, options, print) {
 
       return [
         node.export ? "export " : "",
-        node.accessibility ? [node.accessibility, " "] : "",
+        printTypeScriptAccessibilityToken(node),
         node.static ? "static " : "",
         node.readonly ? "readonly " : "",
         printDeclareToken(path),
@@ -288,7 +279,7 @@ function printTypescript(path, options, print) {
     case "TSMethodSignature": {
       const kind = node.kind && node.kind !== "method" ? `${node.kind} ` : "";
       parts.push(
-        node.accessibility ? [node.accessibility, " "] : "",
+        printTypeScriptAccessibilityToken(node),
         kind,
         node.computed ? "[" : "",
         print("key"),
@@ -367,10 +358,7 @@ function printTypescript(path, options, print) {
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
-        parts.push(
-          printDeclareToken(path),
-          printTypeScriptModifiers(path, options, print)
-        );
+        parts.push(printDeclareToken(path));
 
         // Global declaration looks like this:
         // (declare)? global { ... }
