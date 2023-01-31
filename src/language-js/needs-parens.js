@@ -473,15 +473,23 @@ function needsParens(path, options) {
     case "TSFunctionType":
     case "TSConstructorType":
       if (name === "extendsType" && parent.type === "TSConditionalType") {
-        const returnTypeAnnotation = (node.returnType || node.typeAnnotation)
-          .typeAnnotation;
+        let { typeAnnotation } = node.returnType || node.typeAnnotation;
+
         if (
-          returnTypeAnnotation.type === "TSInferType" &&
-          returnTypeAnnotation.typeParameter.constraint
+          typeAnnotation.type === "TSTypePredicate" &&
+          typeAnnotation.typeAnnotation
+        ) {
+          typeAnnotation = typeAnnotation.typeAnnotation.typeAnnotation;
+        }
+
+        if (
+          typeAnnotation.type === "TSInferType" &&
+          typeAnnotation.typeParameter.constraint
         ) {
           return true;
         }
       }
+
       if (name === "checkType" && parent.type === "TSConditionalType") {
         return true;
       }
