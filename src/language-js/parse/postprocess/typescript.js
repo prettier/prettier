@@ -111,6 +111,24 @@ function throwErrorForInvalidModifier(node) {
     }
 
     if (
+      (modifier.kind === SyntaxKind.InKeyword ||
+        modifier.kind === SyntaxKind.OutKeyword) &&
+      (node.kind !== SyntaxKind.TypeParameter ||
+        !(
+          ts.isInterfaceDeclaration(node.parent) ||
+          ts.isClassLike(node.parent) ||
+          ts.isTypeAliasDeclaration(node.parent)
+        ))
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier can only appear on a type parameter of a class, interface or type alias`
+      );
+    }
+
+    if (
       modifier.kind === SyntaxKind.ReadonlyKeyword &&
       node.kind !== SyntaxKind.PropertyDeclaration &&
       node.kind !== SyntaxKind.PropertySignature &&

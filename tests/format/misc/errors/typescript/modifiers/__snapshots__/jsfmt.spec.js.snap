@@ -1918,10 +1918,22 @@ exports[`snippet: #139 [babel-ts] format 1`] = `
     |                 ^"
 `;
 
+exports[`snippet: #139 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:14)
+> 1 | function foo(in parameter) {}
+    |              ^^"
+`;
+
 exports[`snippet: #140 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:23)
 > 1 | class Foo { method(in parameter) {} }
     |                       ^"
+`;
+
+exports[`snippet: #140 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:20)
+> 1 | class Foo { method(in parameter) {} }
+    |                    ^^"
 `;
 
 exports[`snippet: #141 [babel-ts] format 1`] = `
@@ -1930,10 +1942,22 @@ exports[`snippet: #141 [babel-ts] format 1`] = `
     |                  ^"
 `;
 
+exports[`snippet: #141 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:14)
+> 1 | function foo(out parameter) {}
+    |              ^^^"
+`;
+
 exports[`snippet: #142 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:24)
 > 1 | class Foo { method(out parameter) {} }
     |                        ^"
+`;
+
+exports[`snippet: #142 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:20)
+> 1 | class Foo { method(out parameter) {} }
+    |                    ^^^"
 `;
 
 exports[`snippet: #143 [babel-ts] format 1`] = `
@@ -2110,10 +2134,22 @@ exports[`snippet: #162 [babel-ts] format 1`] = `
     |                            ^"
 `;
 
+exports[`snippet: #162 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:25)
+> 1 | class Foo { constructor(in parameter) {} }
+    |                         ^^"
+`;
+
 exports[`snippet: #163 [babel-ts] format 1`] = `
 "Unexpected token, expected "," (1:29)
 > 1 | class Foo { constructor(out parameter) {} }
     |                             ^"
+`;
+
+exports[`snippet: #163 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:25)
+> 1 | class Foo { constructor(out parameter) {} }
+    |                         ^^^"
 `;
 
 exports[`snippet: #164 [babel-ts] format 1`] = `
