@@ -6,8 +6,12 @@ import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 let ts;
 
 function getTsNodeLocation(nodeOrToken) {
-  const sourceFile = ts.getSourceFileOfNode(nodeOrToken);
-  const position = ts.rangeOfNode(nodeOrToken);
+  const sourceFile =
+    // @ts-expect-error -- internal?
+    ts.getSourceFileOfNode(nodeOrToken);
+  const position =
+    // @ts-expect-error -- internal?
+    ts.rangeOfNode(nodeOrToken);
   const [start, end] = [position.pos, position.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
@@ -228,11 +232,18 @@ function throwErrorForInvalidModifier(node) {
     // `checkParameter` function in `typescript`
     if (
       node.kind === SyntaxKind.Parameter &&
+      // @ts-expect-error -- internal?
       ts.hasSyntacticModifier(node, ts.ModifierFlags.ParameterPropertyModifier)
     ) {
-      const func = ts.getContainingFunction(node);
+      const func =
+        // @ts-expect-error -- internal?
+        ts.getContainingFunction(node);
       if (
-        !(func.kind === SyntaxKind.Constructor && ts.nodeIsPresent(func.body))
+        !(
+          func.kind === SyntaxKind.Constructor &&
+          // @ts-expect-error -- internal?
+          ts.nodeIsPresent(func.body)
+        )
       ) {
         throwErrorOnTsNode(
           modifier,
