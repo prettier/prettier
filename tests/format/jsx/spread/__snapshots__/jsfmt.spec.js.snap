@@ -73,6 +73,24 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`child.js [acorn] format 1`] = `
+"Unexpected token (1:7)
+> 1 | <div>{...a}</div>;
+    |       ^
+  2 |
+  3 | <div>{...a /* comment */}</div>;
+  4 |"
+`;
+
+exports[`child.js [espree] format 1`] = `
+"Unexpected token ... (1:7)
+> 1 | <div>{...a}</div>;
+    |       ^
+  2 |
+  3 | <div>{...a /* comment */}</div>;
+  4 |"
+`;
+
 exports[`child.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
