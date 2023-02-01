@@ -1,8 +1,8 @@
 import {observable} from "mobx";
 
 @observer class OrderLine {
-  @observable price = 0;
-  @observable amount = 1;
+  @observable price:number = 0;
+  @observable amount:number = 1;
 
   constructor(price) {
     this.price = price;
@@ -30,7 +30,7 @@ import {observable} from "mobx";
     return this.price * this.amount;
   }
 
-  @action handleDecrease = (event) => this.count--;
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
 
-  @action handleSomething = (event) => doSomething();
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) => doSomething();
 }

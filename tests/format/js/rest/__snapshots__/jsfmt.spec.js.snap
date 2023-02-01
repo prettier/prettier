@@ -1,44 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing-commas.js - {"trailingComma":"all"} [acorn] format 1`] = `
-"Unexpected token (1:9)
-> 1 | declare class C {
-    |         ^
-  2 |   f(
-  3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-  4 |     ...args"
-`;
-
-exports[`trailing-commas.js - {"trailingComma":"all"} [espree] format 1`] = `
-"Unexpected token class (1:9)
-> 1 | declare class C {
-    |         ^
-  2 |   f(
-  3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-  4 |     ...args"
-`;
-
-exports[`trailing-commas.js - {"trailingComma":"all"} [meriyah] format 1`] = `
-"Unexpected token: 'class' (1:13)
-> 1 | declare class C {
-    |             ^
-  2 |   f(
-  3 |     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-  4 |     ...args"
-`;
-
 exports[`trailing-commas.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-declare class C {
+class C {
   f(
     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
     ...args
-  ): void,
+  ) {}
 }
 
 function f(
@@ -46,7 +19,7 @@ function f(
   ...args
 ) {}
 
-declare class C { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong): void; }
+class D { f(...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong) {}; }
 
 [superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,,];
 
@@ -55,11 +28,11 @@ var {veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLon
 
 
 =====================================output=====================================
-declare class C {
+class C {
   f(
     superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
     ...args
-  ): void;
+  ) {}
 }
 
 function f(
@@ -67,10 +40,10 @@ function f(
   ...args
 ) {}
 
-declare class C {
+class D {
   f(
     ...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong
-  ): void;
+  ) {}
 }
 
 [

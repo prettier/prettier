@@ -219,19 +219,6 @@ function runSpec(fixtures, parsers, options) {
 
   if (!IS_ERROR_TESTS) {
     if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !IS_TYPESCRIPT_ONLY_TEST &&
-      !babelTsDisabledTest.has(dirname)
-    ) {
-      allParsers.push("babel-ts");
-    }
-
-    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
-      allParsers.push("babel-flow");
-    }
-
-    if (
       parsers.includes("babel") &&
       (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
     ) {
@@ -244,6 +231,19 @@ function runSpec(fixtures, parsers, options) {
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
       }
+    }
+
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !IS_TYPESCRIPT_ONLY_TEST &&
+      !babelTsDisabledTest.has(dirname)
+    ) {
+      allParsers.push("babel-ts");
+    }
+
+    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
+      allParsers.push("babel-flow");
     }
 
     if (parsers.includes("babel") && !parsers.includes("__babel_estree")) {

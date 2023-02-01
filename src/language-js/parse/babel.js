@@ -218,8 +218,9 @@ const allowedMessageCodes = new Set([
   "DuplicateExport",
 ]);
 
+const babelParserOptionsCombinations = [appendPlugins(["jsx"])];
 const babel = createBabelParser({
-  optionsCombinations: [appendPlugins(["jsx", "flow"])],
+  optionsCombinations: babelParserOptionsCombinations,
 });
 const babelTs = createBabelParser({
   optionsCombinations: [
@@ -235,7 +236,6 @@ const babelTSExpression = createBabelParser({
   isExpression: true,
   optionsCombinations: [appendPlugins(["typescript"])],
 });
-
 const babelFlow = createBabelParser({
   optionsCombinations: [
     appendPlugins([
@@ -246,7 +246,9 @@ const babelFlow = createBabelParser({
   ],
 });
 const babelEstree = createBabelParser({
-  optionsCombinations: [appendPlugins(["jsx", "flow", "estree"])],
+  optionsCombinations: babelParserOptionsCombinations.map((options) =>
+    appendPlugins(["estree"], options)
+  ),
 });
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
