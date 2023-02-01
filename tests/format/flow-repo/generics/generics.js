@@ -40,4 +40,5 @@ var h2:F<Array<Array<Array<number>>>> = h1;
 
 var obj : Object<string, string> = {} // error, arity 0
 var fn : Function<string> = function() { return 'foo'; } // error, arity 0
-var fn : function<string> = function() { return 'foo'; } // error, arity 0
+// The next line is commentted out because it's not expected to work https://github.com/facebook/flow/issues/9000#issuecomment-1410862602
+// var fn : function<string> = function() { return 'foo'; } // error, arity 0
