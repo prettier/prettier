@@ -118,7 +118,6 @@ type N1 =
         }
     )
   );
-
 type N2 =
   | (
     | {
@@ -128,17 +127,14 @@ type N2 =
         key: number;
       }
   );
-
 type N3 =
   | ( | {
   	key: string;
   } );
-
 type N4 =
   | ( | ( | {
   	key: string;
   } ) );
-
 type N5 =
   | (
     | (
@@ -150,11 +146,31 @@ type N5 =
     | { key: string }
     | { key: string }
   );
-
 type N6 = | (
   /*1*/ | (
     | {
-      key: string
+      key: string;
     }
   )
-)
+);
+
+type M1 =
+  | (
+    & (
+      {
+        value: string;
+      }
+    )
+  );
+type M2 =
+  | (
+  	& (
+      | (
+        & (
+          {
+            value: string;
+          }
+        )
+      )
+    )
+  );
