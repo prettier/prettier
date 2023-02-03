@@ -172,13 +172,17 @@ function postprocess(ast, options) {
           });
         }
         break;
+      // This is a workaround to strip complex nested typescript unions
+      // See https://github.com/prettier/prettier/pull/14280
       case "TSUnionType":
-        if (node.types.length === 1 && (node.types[0].type === "TSUnionType" || node.types[0].type === "TSIntersectionType")) {
-          node.types[0].loc = node.loc
-          node.types[0].range = node.range
-          return node.types[0]
+        if (
+          node.types.length === 1 &&
+          (node.types[0].type === "TSUnionType" ||
+            node.types[0].type === "TSIntersectionType")
+        ) {
+          return node.types[0];
         }
-        break
+        break;
     }
   });
 
