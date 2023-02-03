@@ -50,6 +50,9 @@ const additionalVisitorKeys = {
 };
 
 const excludeKeys = {
+  // From `tsVisitorKeys`
+  MethodDefinition: ["typeParameters"],
+
   // From `flowVisitorKeys`
   ArrowFunctionExpression: ["id"],
   DeclareOpaqueType: ["impltype"],

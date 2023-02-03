@@ -462,7 +462,6 @@ exports[`visitor keys estree 1`] = `
     "decorators",
     "key",
     "value",
-    "typeParameters",
   ],
   "MixedTypeAnnotation": [],
   "ModuleExpression": [

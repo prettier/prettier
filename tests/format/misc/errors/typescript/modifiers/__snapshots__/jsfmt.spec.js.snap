@@ -1743,3 +1743,651 @@ exports[`snippet: #124 [typescript] format 1`] = `
 > 1 | static enum Foo {}
     | ^^^^^^"
 `;
+
+exports[`snippet: #125 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:23)
+> 1 | function foo(abstract parameter) {}
+    |                       ^"
+`;
+
+exports[`snippet: #125 [typescript] format 1`] = `
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:14)
+> 1 | function foo(abstract parameter) {}
+    |              ^^^^^^^^"
+`;
+
+exports[`snippet: #126 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:29)
+> 1 | class Foo { method(abstract parameter) {} }
+    |                             ^"
+`;
+
+exports[`snippet: #126 [typescript] format 1`] = `
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:20)
+> 1 | class Foo { method(abstract parameter) {} }
+    |                    ^^^^^^^^"
+`;
+
+exports[`snippet: #127 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:23)
+> 1 | function foo(accessor parameter) {}
+    |                       ^"
+`;
+
+exports[`snippet: #127 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:14)
+> 1 | function foo(accessor parameter) {}
+    |              ^^^^^^^^"
+`;
+
+exports[`snippet: #128 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:29)
+> 1 | class Foo { method(accessor parameter) {} }
+    |                             ^"
+`;
+
+exports[`snippet: #128 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:20)
+> 1 | class Foo { method(accessor parameter) {} }
+    |                    ^^^^^^^^"
+`;
+
+exports[`snippet: #129 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:20)
+> 1 | function foo(async parameter) {}
+    |                    ^"
+`;
+
+exports[`snippet: #129 [typescript] format 1`] = `
+"'async' modifier cannot be used here. (1:14)
+> 1 | function foo(async parameter) {}
+    |              ^^^^^"
+`;
+
+exports[`snippet: #130 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:26)
+> 1 | class Foo { method(async parameter) {} }
+    |                          ^"
+`;
+
+exports[`snippet: #130 [typescript] format 1`] = `
+"'async' modifier cannot be used here. (1:20)
+> 1 | class Foo { method(async parameter) {} }
+    |                    ^^^^^"
+`;
+
+exports[`snippet: #131 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:20)
+> 1 | function foo(const parameter) {}
+    |                    ^"
+`;
+
+exports[`snippet: #131 [typescript] format 1`] = `
+"Identifier expected. 'const' is a reserved word that cannot be used here. (1:14)
+> 1 | function foo(const parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #132 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:26)
+> 1 | class Foo { method(const parameter) {} }
+    |                          ^"
+`;
+
+exports[`snippet: #132 [typescript] format 1`] = `
+"Identifier expected. 'const' is a reserved word that cannot be used here. (1:20)
+> 1 | class Foo { method(const parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #133 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:22)
+> 1 | function foo(declare parameter) {}
+    |                      ^"
+`;
+
+exports[`snippet: #133 [typescript] format 1`] = `
+"'declare' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(declare parameter) {}
+    |              ^^^^^^^"
+`;
+
+exports[`snippet: #134 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:28)
+> 1 | class Foo { method(declare parameter) {} }
+    |                            ^"
+`;
+
+exports[`snippet: #134 [typescript] format 1`] = `
+"'declare' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(declare parameter) {} }
+    |                    ^^^^^^^"
+`;
+
+exports[`snippet: #135 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:22)
+> 1 | function foo(default parameter) {}
+    |                      ^"
+`;
+
+exports[`snippet: #135 [typescript] format 1`] = `
+"Identifier expected. 'default' is a reserved word that cannot be used here. (1:14)
+> 1 | function foo(default parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #136 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:28)
+> 1 | class Foo { method(default parameter) {} }
+    |                            ^"
+`;
+
+exports[`snippet: #136 [typescript] format 1`] = `
+"Identifier expected. 'default' is a reserved word that cannot be used here. (1:20)
+> 1 | class Foo { method(default parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #137 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:21)
+> 1 | function foo(export parameter) {}
+    |                     ^"
+`;
+
+exports[`snippet: #137 [typescript] format 1`] = `
+"'export' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(export parameter) {}
+    |              ^^^^^^"
+`;
+
+exports[`snippet: #138 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:27)
+> 1 | class Foo { method(export parameter) {} }
+    |                           ^"
+`;
+
+exports[`snippet: #138 [typescript] format 1`] = `
+"'export' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(export parameter) {} }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: #139 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:17)
+> 1 | function foo(in parameter) {}
+    |                 ^"
+`;
+
+exports[`snippet: #139 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:14)
+> 1 | function foo(in parameter) {}
+    |              ^^"
+`;
+
+exports[`snippet: #140 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:23)
+> 1 | class Foo { method(in parameter) {} }
+    |                       ^"
+`;
+
+exports[`snippet: #140 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:20)
+> 1 | class Foo { method(in parameter) {} }
+    |                    ^^"
+`;
+
+exports[`snippet: #141 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:18)
+> 1 | function foo(out parameter) {}
+    |                  ^"
+`;
+
+exports[`snippet: #141 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:14)
+> 1 | function foo(out parameter) {}
+    |              ^^^"
+`;
+
+exports[`snippet: #142 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:24)
+> 1 | class Foo { method(out parameter) {} }
+    |                        ^"
+`;
+
+exports[`snippet: #142 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:20)
+> 1 | class Foo { method(out parameter) {} }
+    |                    ^^^"
+`;
+
+exports[`snippet: #143 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(override parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #143 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(override parameter) {}
+    |              ^^^^^^^^"
+`;
+
+exports[`snippet: #144 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(override parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #144 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(override parameter) {} }
+    |                    ^^^^^^^^"
+`;
+
+exports[`snippet: #145 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(private parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #145 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(private parameter) {}
+    |              ^^^^^^^"
+`;
+
+exports[`snippet: #146 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(private parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #146 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(private parameter) {} }
+    |                    ^^^^^^^"
+`;
+
+exports[`snippet: #147 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(protected parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #147 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(protected parameter) {}
+    |              ^^^^^^^^^"
+`;
+
+exports[`snippet: #148 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(protected parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #148 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(protected parameter) {} }
+    |                    ^^^^^^^^^"
+`;
+
+exports[`snippet: #149 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(public parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #149 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(public parameter) {}
+    |              ^^^^^^"
+`;
+
+exports[`snippet: #150 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(public parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #150 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(public parameter) {} }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: #151 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(readonly parameter) {}
+    |              ^"
+`;
+
+exports[`snippet: #151 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:14)
+> 1 | function foo(readonly parameter) {}
+    |              ^^^^^^^^"
+`;
+
+exports[`snippet: #152 [babel-ts] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                    ^"
+`;
+
+exports[`snippet: #152 [typescript] format 1`] = `
+"A parameter property is only allowed in a constructor implementation. (1:20)
+> 1 | class Foo { method(readonly parameter) {} }
+    |                    ^^^^^^^^"
+`;
+
+exports[`snippet: #153 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:21)
+> 1 | function foo(static parameter) {}
+    |                     ^"
+`;
+
+exports[`snippet: #153 [typescript] format 1`] = `
+"'static' modifier cannot appear on a parameter. (1:14)
+> 1 | function foo(static parameter) {}
+    |              ^^^^^^"
+`;
+
+exports[`snippet: #154 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:27)
+> 1 | class Foo { method(static parameter) {} }
+    |                           ^"
+`;
+
+exports[`snippet: #154 [typescript] format 1`] = `
+"'static' modifier cannot appear on a parameter. (1:20)
+> 1 | class Foo { method(static parameter) {} }
+    |                    ^^^^^^"
+`;
+
+exports[`snippet: #155 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:34)
+> 1 | class Foo { constructor(abstract parameter) {} }
+    |                                  ^"
+`;
+
+exports[`snippet: #155 [typescript] format 1`] = `
+"'abstract' modifier can only appear on a class, method, or property declaration. (1:25)
+> 1 | class Foo { constructor(abstract parameter) {} }
+    |                         ^^^^^^^^"
+`;
+
+exports[`snippet: #156 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:34)
+> 1 | class Foo { constructor(accessor parameter) {} }
+    |                                  ^"
+`;
+
+exports[`snippet: #156 [typescript] format 1`] = `
+"'accessor' modifier can only appear on a property declaration. (1:25)
+> 1 | class Foo { constructor(accessor parameter) {} }
+    |                         ^^^^^^^^"
+`;
+
+exports[`snippet: #157 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:31)
+> 1 | class Foo { constructor(async parameter) {} }
+    |                               ^"
+`;
+
+exports[`snippet: #157 [typescript] format 1`] = `
+"'async' modifier cannot be used here. (1:25)
+> 1 | class Foo { constructor(async parameter) {} }
+    |                         ^^^^^"
+`;
+
+exports[`snippet: #158 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:31)
+> 1 | class Foo { constructor(const parameter) {} }
+    |                               ^"
+`;
+
+exports[`snippet: #158 [typescript] format 1`] = `
+"Identifier expected. 'const' is a reserved word that cannot be used here. (1:25)
+> 1 | class Foo { constructor(const parameter) {} }
+    |                         ^"
+`;
+
+exports[`snippet: #159 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:33)
+> 1 | class Foo { constructor(declare parameter) {} }
+    |                                 ^"
+`;
+
+exports[`snippet: #159 [typescript] format 1`] = `
+"'declare' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(declare parameter) {} }
+    |                         ^^^^^^^"
+`;
+
+exports[`snippet: #160 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:33)
+> 1 | class Foo { constructor(default parameter) {} }
+    |                                 ^"
+`;
+
+exports[`snippet: #160 [typescript] format 1`] = `
+"Identifier expected. 'default' is a reserved word that cannot be used here. (1:25)
+> 1 | class Foo { constructor(default parameter) {} }
+    |                         ^"
+`;
+
+exports[`snippet: #161 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:32)
+> 1 | class Foo { constructor(export parameter) {} }
+    |                                ^"
+`;
+
+exports[`snippet: #161 [typescript] format 1`] = `
+"'export' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(export parameter) {} }
+    |                         ^^^^^^"
+`;
+
+exports[`snippet: #162 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:28)
+> 1 | class Foo { constructor(in parameter) {} }
+    |                            ^"
+`;
+
+exports[`snippet: #162 [typescript] format 1`] = `
+"'in' modifier can only appear on a type parameter of a class, interface or type alias (1:25)
+> 1 | class Foo { constructor(in parameter) {} }
+    |                         ^^"
+`;
+
+exports[`snippet: #163 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:29)
+> 1 | class Foo { constructor(out parameter) {} }
+    |                             ^"
+`;
+
+exports[`snippet: #163 [typescript] format 1`] = `
+"'out' modifier can only appear on a type parameter of a class, interface or type alias (1:25)
+> 1 | class Foo { constructor(out parameter) {} }
+    |                         ^^^"
+`;
+
+exports[`snippet: #164 [babel-ts] format 1`] = `
+"Unexpected token, expected "," (1:32)
+> 1 | class Foo { constructor(static parameter) {} }
+    |                                ^"
+`;
+
+exports[`snippet: #164 [typescript] format 1`] = `
+"'static' modifier cannot appear on a parameter. (1:25)
+> 1 | class Foo { constructor(static parameter) {} }
+    |                         ^^^^^^"
+`;
+
+exports[`snippet: #165 [babel-ts] format 1`] = `
+"'abstract' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {abstract bar};
+    |             ^"
+`;
+
+exports[`snippet: #165 [typescript] format 1`] = `
+"'abstract' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {abstract bar};
+    |             ^^^^^^^^"
+`;
+
+exports[`snippet: #166 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:22)
+> 1 | type Foo = {accessor bar};
+    |                      ^"
+`;
+
+exports[`snippet: #166 [typescript] format 1`] = `
+"'accessor' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {accessor bar};
+    |             ^^^^^^^^"
+`;
+
+exports[`snippet: #167 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:19)
+> 1 | type Foo = {async bar};
+    |                   ^"
+`;
+
+exports[`snippet: #167 [typescript] format 1`] = `
+"'async' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {async bar};
+    |             ^^^^^"
+`;
+
+exports[`snippet: #168 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:19)
+> 1 | type Foo = {const bar};
+    |                   ^"
+`;
+
+exports[`snippet: #168 [typescript] format 1`] = `
+"';' expected. (1:19)
+> 1 | type Foo = {const bar};
+    |                   ^"
+`;
+
+exports[`snippet: #169 [babel-ts] format 1`] = `
+"'declare' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {declare bar};
+    |             ^"
+`;
+
+exports[`snippet: #169 [typescript] format 1`] = `
+"'declare' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {declare bar};
+    |             ^^^^^^^"
+`;
+
+exports[`snippet: #170 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:21)
+> 1 | type Foo = {default bar};
+    |                     ^"
+`;
+
+exports[`snippet: #170 [typescript] format 1`] = `
+"';' expected. (1:21)
+> 1 | type Foo = {default bar};
+    |                     ^"
+`;
+
+exports[`snippet: #171 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:20)
+> 1 | type Foo = {export bar};
+    |                    ^"
+`;
+
+exports[`snippet: #171 [typescript] format 1`] = `
+"'export' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {export bar};
+    |             ^^^^^^"
+`;
+
+exports[`snippet: #172 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:16)
+> 1 | type Foo = {in bar};
+    |                ^"
+`;
+
+exports[`snippet: #172 [typescript] format 1`] = `
+"'in' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {in bar};
+    |             ^^"
+`;
+
+exports[`snippet: #173 [babel-ts] format 1`] = `
+"Unexpected token, expected ";" (1:17)
+> 1 | type Foo = {out bar};
+    |                 ^"
+`;
+
+exports[`snippet: #173 [typescript] format 1`] = `
+"'out' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {out bar};
+    |             ^^^"
+`;
+
+exports[`snippet: #174 [babel-ts] format 1`] = `
+"'override' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {override bar};
+    |             ^"
+`;
+
+exports[`snippet: #174 [typescript] format 1`] = `
+"'override' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {override bar};
+    |             ^^^^^^^^"
+`;
+
+exports[`snippet: #175 [babel-ts] format 1`] = `
+"'private' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {private bar};
+    |             ^"
+`;
+
+exports[`snippet: #175 [typescript] format 1`] = `
+"'private' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {private bar};
+    |             ^^^^^^^"
+`;
+
+exports[`snippet: #176 [babel-ts] format 1`] = `
+"'protected' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {protected bar};
+    |             ^"
+`;
+
+exports[`snippet: #176 [typescript] format 1`] = `
+"'protected' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {protected bar};
+    |             ^^^^^^^^^"
+`;
+
+exports[`snippet: #177 [babel-ts] format 1`] = `
+"'public' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {public bar};
+    |             ^"
+`;
+
+exports[`snippet: #177 [typescript] format 1`] = `
+"'public' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {public bar};
+    |             ^^^^^^"
+`;
+
+exports[`snippet: #178 [babel-ts] format 1`] = `
+"'static' modifier cannot appear on a type member. (1:13)
+> 1 | type Foo = {static bar};
+    |             ^"
+`;
+
+exports[`snippet: #178 [typescript] format 1`] = `
+"'static' modifier cannot appear on a type member (1:13)
+> 1 | type Foo = {static bar};
+    |             ^^^^^^"
+`;

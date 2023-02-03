@@ -2,11 +2,16 @@ import isNonEmptyArray from "../../../utils/is-non-empty-array.js";
 import visitNode from "./visit-node.js";
 import throwTsSyntaxError from "./throw-ts-syntax-error.js";
 
+/** @type {import("typescript")} */
 let ts;
 
 function getTsNodeLocation(nodeOrToken) {
-  const sourceFile = ts.getSourceFileOfNode(nodeOrToken);
-  const position = ts.rangeOfNode(nodeOrToken);
+  const sourceFile =
+    // @ts-expect-error -- internal?
+    ts.getSourceFileOfNode(nodeOrToken);
+  const position =
+    // @ts-expect-error -- internal?
+    ts.rangeOfNode(nodeOrToken);
   const [start, end] = [position.pos, position.end].map((position) => {
     const { line, character: column } =
       sourceFile.getLineAndCharacterOfPosition(position);
@@ -111,6 +116,24 @@ function throwErrorForInvalidModifier(node) {
     }
 
     if (
+      (modifier.kind === SyntaxKind.InKeyword ||
+        modifier.kind === SyntaxKind.OutKeyword) &&
+      (node.kind !== SyntaxKind.TypeParameter ||
+        !(
+          ts.isInterfaceDeclaration(node.parent) ||
+          ts.isClassLike(node.parent) ||
+          ts.isTypeAliasDeclaration(node.parent)
+        ))
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier can only appear on a type parameter of a class, interface or type alias`
+      );
+    }
+
+    if (
       modifier.kind === SyntaxKind.ReadonlyKeyword &&
       node.kind !== SyntaxKind.PropertyDeclaration &&
       node.kind !== SyntaxKind.PropertySignature &&
@@ -188,6 +211,45 @@ function throwErrorForInvalidModifier(node) {
       node.kind !== SyntaxKind.ArrowFunction
     ) {
       throwErrorOnTsNode(modifier, "'async' modifier cannot be used here.");
+    }
+
+    // `checkGrammarModifiers` function in `typescript`
+    if (
+      node.kind === SyntaxKind.Parameter &&
+      (modifier.kind === SyntaxKind.StaticKeyword ||
+        modifier.kind === SyntaxKind.ExportKeyword ||
+        modifier.kind === SyntaxKind.DeclareKeyword ||
+        modifier.kind === SyntaxKind.AsyncKeyword)
+    ) {
+      throwErrorOnTsNode(
+        modifier,
+        `'${ts.tokenToString(
+          modifier.kind
+        )}' modifier cannot appear on a parameter.`
+      );
+    }
+
+    // `checkParameter` function in `typescript`
+    if (
+      node.kind === SyntaxKind.Parameter &&
+      // @ts-expect-error -- internal?
+      ts.hasSyntacticModifier(node, ts.ModifierFlags.ParameterPropertyModifier)
+    ) {
+      const func =
+        // @ts-expect-error -- internal?
+        ts.getContainingFunction(node);
+      if (
+        !(
+          func.kind === SyntaxKind.Constructor &&
+          // @ts-expect-error -- internal?
+          ts.nodeIsPresent(func.body)
+        )
+      ) {
+        throwErrorOnTsNode(
+          modifier,
+          "A parameter property is only allowed in a constructor implementation."
+        );
+      }
     }
   }
 }
