@@ -172,7 +172,7 @@ function printObject(path, options, print) {
 
     content = group([
       leftBrace,
-      printDanglingComments(path, options, {indent: true}),
+      printDanglingComments(path, options, { indent: true }),
       softline,
       rightBrace,
       printOptionalToken(path),
