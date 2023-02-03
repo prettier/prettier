@@ -515,7 +515,7 @@ function printTrailingComment(path, options, previousComment) {
  *  indent?: boolean,
  *  marker?: symbol,
  *  filter?: (comment) => boolean,
- *  }} [danglingCommentsPrintOptions]
+ * }} [danglingCommentsPrintOptions]
  * @returns {Doc}
  */
 function printDanglingComments(
