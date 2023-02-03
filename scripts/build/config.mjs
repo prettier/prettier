@@ -1,4 +1,5 @@
 import path from "node:path";
+import url from "node:url";
 import { createRequire } from "node:module";
 import createEsmUtils from "esm-utils";
 import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
@@ -8,7 +9,13 @@ import buildLicense from "./build-license.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
 import reuseDocumentModule from "./reuse-document-module.js";
 
-const { require, dirname } = createEsmUtils(import.meta);
+const {
+  require,
+  dirname,
+  resolve: importMetaResolve,
+} = createEsmUtils(import.meta);
+const resolveEsmModulePath = async (specifier) =>
+  url.fileURLToPath(await importMetaResolve(specifier));
 
 /**
  * @typedef {Object} BuildOptions
@@ -167,7 +174,17 @@ const pluginFiles = [
       },
     ],
   },
-  "src/language-js/parse/meriyah.js",
+  {
+    input: "src/language-js/parse/meriyah.js",
+    replaceModule: [
+      {
+        // We don't use value of JSXText
+        module: await resolveEsmModulePath("meriyah"),
+        find: "parser.tokenValue = decodeHTMLStrict(raw);",
+        replacement: "parser.tokenValue = raw;",
+      },
+    ],
+  },
   {
     input: "src/language-js/parse/angular.js",
     replaceModule: [
