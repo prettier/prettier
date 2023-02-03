@@ -20,6 +20,11 @@ import {
 } from "../common/util.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
+/**
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options) {
   if (childNodesCache.has(node)) {
@@ -504,6 +509,15 @@ function printTrailingComment(path, options, previousComment) {
   return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
+/**
+ * @param {AstPath} path
+ * @param {{
+ *  indent?: boolean,
+ *  marker?: symbol,
+ *  filter?: (comment) => boolean,
+ *  }} [danglingCommentsPrintOptions]
+ * @returns {Doc}
+ */
 function printDanglingComments(
   path,
   options,
@@ -540,7 +554,7 @@ function printDanglingComments(
   }
 
   const doc = join(hardline, parts);
-  return shouldIndent?  indent([hardline, doc]) : doc;
+  return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
 function printCommentsSeparately(path, options, ignored) {
