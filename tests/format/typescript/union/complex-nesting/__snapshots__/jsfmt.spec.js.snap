@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`single-child.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+type A1 =
+  | (
+    | (
+      | {
+          key: string;
+        }
+    )
+  );
+type A2 =
+  | (
+    | {
+        key: string;
+      }
+    | {
+        key: number;
+      }
+  );
+type A3 =
+  | ( | {
+    key: string;
+  } );
+type A4 =
+  | ( | ( | {
+    key: string;
+  } ) );
+type A5 =
+  | (
+    | (
+      | { key: string }
+      | { key: string }
+      | { key: string }
+      | { key: string }
+    )
+    | { key: string }
+    | { key: string }
+  );
+type A6 = | (
+  /*1*/ | (
+    | {
+      key: string;
+    }
+  )
+  );
+
+type B1 =
+  | (
+    & (
+      {
+        value: string;
+      }
+    )
+  );
+type B2 =
+  | (
+    & (
+      | (
+        & (
+          {
+            value: string;
+          }
+        )
+      )
+    )
+  );
+
+=====================================output=====================================
+type A1 = {
+  key: string;
+};
+type A2 =
+  | {
+      key: string;
+    }
+  | {
+      key: number;
+    };
+type A3 = {
+  key: string;
+};
+type A4 = {
+  key: string;
+};
+type A5 =
+  | ({ key: string } | { key: string } | { key: string } | { key: string })
+  | { key: string }
+  | { key: string };
+type A6 = /*1*/ {
+  key: string;
+};
+
+type B1 = {
+  value: string;
+};
+type B2 = {
+  value: string;
+};
+
+================================================================================
+`;
+
+exports[`single-child.ts format 2`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+type A1 =
+  | (
+    | (
+      | {
+          key: string;
+        }
+    )
+  );
+type A2 =
+  | (
+    | {
+        key: string;
+      }
+    | {
+        key: number;
+      }
+  );
+type A3 =
+  | ( | {
+    key: string;
+  } );
+type A4 =
+  | ( | ( | {
+    key: string;
+  } ) );
+type A5 =
+  | (
+    | (
+      | { key: string }
+      | { key: string }
+      | { key: string }
+      | { key: string }
+    )
+    | { key: string }
+    | { key: string }
+  );
+type A6 = | (
+  /*1*/ | (
+    | {
+      key: string;
+    }
+  )
+  );
+
+type B1 =
+  | (
+    & (
+      {
+        value: string;
+      }
+    )
+  );
+type B2 =
+  | (
+    & (
+      | (
+        & (
+          {
+            value: string;
+          }
+        )
+      )
+    )
+  );
+
+=====================================output=====================================
+type A1 = {
+  key: string,
+};
+type A2 =
+  | {
+      key: string,
+    }
+  | {
+      key: number,
+    };
+type A3 = {
+  key: string,
+};
+type A4 = {
+  key: string,
+};
+type A5 =
+  | ({ key: string } | { key: string } | { key: string } | { key: string })
+  | { key: string }
+  | { key: string };
+type A6 = /*1*/ {
+  key: string,
+};
+
+type B1 = {
+  value: string,
+};
+type B2 = {
+  value: string,
+};
+
+================================================================================
+`;
