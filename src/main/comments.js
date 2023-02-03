@@ -145,6 +145,7 @@ function decorateComment(node, comment, options, enclosingNode) {
 }
 
 const returnFalse = () => false;
+const returnTrue = () => true;
 function attach(comments, ast, text, options) {
   if (!isNonEmptyArray(comments) || !options.printer.canAttachComment) {
     return;
@@ -503,29 +504,47 @@ function printTrailingComment(path, options, previousComment) {
   return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
-function printDanglingComments(path, options, sameIndent, filter) {
-  const parts = [];
+function printDanglingComments(
+  path,
+  options,
+  danglingCommentsPrintOptions = {}
+) {
   const { node } = path;
 
-  if (!node || !node.comments) {
+  if (!isNonEmptyArray(node?.comments)) {
     return "";
   }
 
-  path.each(() => {
-    const comment = path.node;
-    if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
-      parts.push(printComment(path, options));
+  const {
+    indent: shouldIndent = false,
+    marker,
+    filter = returnTrue,
+  } = danglingCommentsPrintOptions;
+
+  const parts = [];
+  path.each(({ node: comment }) => {
+    if (
+      comment.leading ||
+      comment.trailing ||
+      comment.marker !== marker ||
+      !filter(comment)
+    ) {
+      return;
     }
+
+    parts.push(printComment(path, options));
   }, "comments");
 
   if (parts.length === 0) {
     return "";
   }
 
-  if (sameIndent) {
-    return join(hardline, parts);
+  let doc = join(hardline, parts);
+  if (shouldIndent) {
+    doc = indent([hardline, join(hardline, parts)]);
   }
-  return indent([hardline, join(hardline, parts)]);
+
+  return doc;
 }
 
 function printCommentsSeparately(path, options, ignored) {

@@ -227,12 +227,9 @@ function printPathNoParens(path, options, print, args) {
         }
       }
 
-      const danglingComment = printDanglingComments(
-        path,
-        options,
-        /** sameIndent */ true,
-        ({ marker }) => marker === markerForIfWithoutBlockAndSameLineComment
-      );
+      const danglingComment = printDanglingComments(path, options, {
+        marker: markerForIfWithoutBlockAndSameLineComment,
+      });
 
       // Do not append semicolon after the only JSX element in a program
       return [
@@ -523,7 +520,7 @@ function printPathNoParens(path, options, print, args) {
 
         if (hasComment(node, CommentCheckFlags.Dangling)) {
           parts.push(
-            printDanglingComments(path, options, true),
+            printDanglingComments(path, options),
             commentOnOwnLine ? hardline : " "
           );
         }
@@ -548,11 +545,7 @@ function printPathNoParens(path, options, print, args) {
       // We want to keep dangling comments above the loop to stay consistent.
       // Any comment positioned between the for statement and the parentheses
       // is going to be printed before the statement.
-      const dangling = printDanglingComments(
-        path,
-        options,
-        /* sameLine */ true
-      );
+      const dangling = printDanglingComments(path, options);
       const printedComments = dangling ? [dangling, softline] : "";
 
       if (!node.init && !node.test && !node.update) {
@@ -716,7 +709,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (hasComment(node, CommentCheckFlags.Dangling)) {
-        parts.push(" ", printDanglingComments(path, options, true));
+        parts.push(" ", printDanglingComments(path, options));
       }
 
       const consequent = node.consequent.filter(

@@ -84,10 +84,7 @@ function printExportDeclaration(path, options, print) {
   }
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(
-      " ",
-      printDanglingComments(path, options, /* sameIndent */ true)
-    );
+    parts.push(" ", printDanglingComments(path, options));
 
     if (needsHardlineAfterDanglingComment(node)) {
       parts.push(hardline);
