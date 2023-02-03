@@ -539,12 +539,8 @@ function printDanglingComments(
     return "";
   }
 
-  let doc = join(hardline, parts);
-  if (shouldIndent) {
-    doc = indent([hardline, join(hardline, parts)]);
-  }
-
-  return doc;
+  const doc = join(hardline, parts);
+  return shouldIndent?  indent([hardline, doc]) : doc;
 }
 
 function printCommentsSeparately(path, options, ignored) {
