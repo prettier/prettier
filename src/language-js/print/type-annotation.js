@@ -8,8 +8,9 @@ import {
   align,
   ifBreak,
 } from "../../document/builders.js";
+import { hasPrettierIgnore } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
-import { hasSameLocStart } from "../loc.js";
+import { locStart, hasSameLocStart } from "../loc.js";
 import {
   isSimpleType,
   isObjectType,
@@ -172,33 +173,46 @@ function printUnionType(path, options, print) {
   // } | null | void
   // should be inlined and not be printed in the multi-line variant
   const shouldHug = shouldHugType(node);
+  const shouldAddStartLine =
+    shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
+
+  const parts = [
+    shouldHug ? "" : ifBreak([shouldAddStartLine ? line : "", "| "]),
+  ];
+  const separator = shouldHug ? " | " : [line, "| "];
 
   // We want to align the children but without its comment, so it looks like
   // | child1
   // // comment
   // | child2
-  const printed = path.map((typePath) => {
-    let printedType = print();
+  path.each(({ node, isFirst }) => {
+    let doc = print();
     if (!shouldHug) {
-      printedType = align(2, printedType);
+      doc = align(2, doc);
     }
-    return printComments(typePath, printedType, options);
+    doc = printComments(path, doc, options);
+
+    if (
+      !isFirst &&
+      // If child is union type and starts with `|`, it will be kept
+      !(
+        (node.type === "TSUnionType" || node.type === "UnionTypeAnnotation") &&
+        hasPrettierIgnore(path) &&
+        options.originalText.charAt(locStart(node)) === "|"
+      )
+    ) {
+      parts.push(separator);
+    }
+
+    parts.push(doc);
   }, "types");
 
   if (shouldHug) {
-    return join(" | ", printed);
+    return parts;
   }
 
-  const shouldAddStartLine =
-    shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
-
-  const code = [
-    ifBreak([shouldAddStartLine ? line : "", "| "]),
-    join([line, "| "], printed),
-  ];
-
   if (pathNeedsParens(path, options)) {
-    return group([indent(code), softline]);
+    return group([indent(parts), softline]);
   }
 
   if (parent.type === "TupleTypeAnnotation" || parent.type === "TSTupleType") {
@@ -212,14 +226,14 @@ function printUnionType(path, options, print) {
 
     if (elementTypes.length > 1) {
       return group([
-        indent([ifBreak(["(", softline]), code]),
+        indent([ifBreak(["(", softline]), parts]),
         softline,
         ifBreak(")"),
       ]);
     }
   }
 
-  return group(shouldIndent ? indent(code) : code);
+  return group(shouldIndent ? indent(parts) : parts);
 }
 
 /*
