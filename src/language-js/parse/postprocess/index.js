@@ -70,14 +70,6 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType":
-        if (
-          !(
-            isTsKeywordType(node.typeAnnotation) ||
-            node.typeAnnotation.type === "TSThisType"
-          )
-        ) {
-          node.typeAnnotation.range = [locStart(node), locEnd(node)];
-        }
         return node.typeAnnotation;
 
       case "TSTypeParameter":
