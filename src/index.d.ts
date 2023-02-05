@@ -290,7 +290,7 @@ export type CustomParser = (
 ) => AST | Promise<AST>;
 
 /**
- * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettier.config.js` or `prettier.config.cjs`.
+ * For use in `.prettierrc.js`, `.prettierrc.cjs`, `prettierrc.mjs`, `prettier.config.js`, `prettier.config.cjs`, `prettier.config.mjs`
  */
 export interface Config extends Options {
   overrides?: Array<{
@@ -865,7 +865,6 @@ export namespace doc {
     type DocCommand =
       | Align
       | BreakParent
-      | Concat
       | Cursor
       | Fill
       | Group
@@ -887,11 +886,6 @@ export namespace doc {
 
     interface BreakParent {
       type: "break-parent";
-    }
-
-    interface Concat {
-      type: "concat";
-      parts: Doc[];
     }
 
     interface Cursor {
@@ -955,9 +949,13 @@ export namespace doc {
       literal: true;
     }
 
+    type LiteralLine = [LiterallineWithoutBreakParent, BreakParent];
+
     interface Softline extends Line {
       soft: true;
     }
+
+    type Hardline = [HardlineWithoutBreakParent, BreakParent];
 
     interface Trim {
       type: "trim";
@@ -975,12 +973,6 @@ export namespace doc {
 
     /** @see [breakParent](https://github.com/prettier/prettier/blob/main/commands.md#breakparent) */
     const breakParent: BreakParent;
-
-    /**
-     * @see [concat](https://github.com/prettier/prettier/blob/main/commands.md#deprecated-concat)
-     * @deprecated use `Doc[]` instead
-     */
-    function concat(docs: Doc[]): Concat;
 
     /** @see [conditionalGroup](https://github.com/prettier/prettier/blob/main/commands.md#conditionalgroup) */
     function conditionalGroup(
@@ -1001,7 +993,7 @@ export namespace doc {
     function group(doc: Doc, opts?: GroupOptions): Group;
 
     /** @see [hardline](https://github.com/prettier/prettier/blob/main/commands.md#hardline) */
-    const hardline: Concat;
+    const hardline: Hardline;
 
     /** @see [hardlineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
     const hardlineWithoutBreakParent: HardlineWithoutBreakParent;
@@ -1023,7 +1015,7 @@ export namespace doc {
     ): IndentIfBreak;
 
     /** @see [join](https://github.com/prettier/prettier/blob/main/commands.md#join) */
-    function join(sep: Doc, docs: Doc[]): Concat;
+    function join(sep: Doc, docs: Doc[]): Doc[];
 
     /** @see [label](https://github.com/prettier/prettier/blob/main/commands.md#label) */
     function label(label: string, doc: Doc): Label;
@@ -1038,7 +1030,7 @@ export namespace doc {
     const lineSuffixBoundary: LineSuffixBoundary;
 
     /** @see [literalline](https://github.com/prettier/prettier/blob/main/commands.md#literalline) */
-    const literalline: Concat;
+    const literalline: LiteralLine;
 
     /** @see [literallineWithoutBreakParent](https://github.com/prettier/prettier/blob/main/commands.md#hardlinewithoutbreakparent-and-literallinewithoutbreakparent) */
     const literallineWithoutBreakParent: LiterallineWithoutBreakParent;
