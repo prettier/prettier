@@ -4,7 +4,7 @@ import createEsmUtils from "esm-utils";
 import esbuild from "esbuild";
 import { NodeModulesPolyfillPlugin as esbuildPluginNodeModulePolyfills } from "@esbuild-plugins/node-modules-polyfill";
 import browserslistToEsbuild from "browserslist-to-esbuild";
-import { PROJECT_ROOT, DIST_DIR } from "../utils/index.mjs";
+import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
 import esbuildPluginEvaluate from "./esbuild-plugins/evaluate.mjs";
 import esbuildPluginReplaceModule from "./esbuild-plugins/replace-module.mjs";
 import esbuildPluginLicense from "./esbuild-plugins/license.mjs";
@@ -274,4 +274,19 @@ async function runEsbuild(options) {
   await esbuild.build(esbuildOptions);
 }
 
-export default runEsbuild;
+async function copyDtsFile(options) {
+  const replaceExt = (file) => file.replace(/\.[^.]+$/, ".d.ts");
+  const dtsInput = replaceExt(options.file.input);
+  const dtsOutput = replaceExt(options.file.output.file);
+  await copyFile(
+    path.join(PROJECT_ROOT, dtsInput),
+    path.join(DIST_DIR, dtsOutput)
+  );
+}
+
+export default async function buildJavascriptModule(options) {
+  if (options.file.withDts) {
+    await copyDtsFile(options);
+  }
+  await runEsbuild(options);
+}
