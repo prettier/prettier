@@ -1,6 +1,12 @@
-const closePortal = useCallback(() => {
-  if (isServer) return;
-  const event = createCustomEvent(e);
-  if (isOpenRef.current && typeof onClose === "function") onClose(event);
-  if (isOpenRef.current) open(false);
-}, [createCustomEvent, isServer, onClose, open]);
+const foo1 = useCallback(() => {
+  // do something
+}, []);
+const foo2 = useCallback((param) => {
+  // do something
+}, []);
+const foo3 = useCallback(() => {
+  // do something
+}, [dep]);
+const foo4 = useCallback((param) => {
+  // do something
+}, [dep]);
