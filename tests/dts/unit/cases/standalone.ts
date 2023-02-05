@@ -1,4 +1,4 @@
-import * as prettierStandalone from "../../../../scripts/build/dts-files/standalone";
+import * as prettierStandalone from "../../../../src/standalone";
 
 prettierStandalone.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 prettierStandalone.formatWithCursor(" 1", {

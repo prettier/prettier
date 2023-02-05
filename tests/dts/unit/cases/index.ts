@@ -1,4 +1,4 @@
-import * as prettier from "../../../../scripts/build/dts-files/index";
+import * as prettier from "../../../../src/index";
 
 prettier.format("foo ( );", { semi: false });
 prettier.check("foo ( );", { semi: false });

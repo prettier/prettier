@@ -1,4 +1,4 @@
-import * as doc from "../../../../scripts/build/dts-files/doc";
+import * as doc from "../../../../src/document";
 
 doc.builders.dedent;
 doc.printer.printDocToString;

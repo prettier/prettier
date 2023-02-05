@@ -1,4 +1,4 @@
-import * as prettier from "../../../../scripts/build/dts-files/index";
+import * as prettier from "../../../../src/index";
 import { expectType } from "ts-expect";
 
 type NestedAst = Nested1 | Nested2 | Nested3;
