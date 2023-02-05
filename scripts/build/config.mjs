@@ -6,7 +6,6 @@ import { PROJECT_ROOT, DIST_DIR, copyFile } from "../utils/index.mjs";
 import buildJavascriptModule from "./build-javascript-module.js";
 import buildPackageJson from "./build-package-json.js";
 import buildLicense from "./build-license.js";
-import generateDtsConfigs from "./generate-dts-configs.js";
 import modifyTypescriptModule from "./modify-typescript-module.mjs";
 import reuseDocumentModule from "./reuse-document-module.js";
 
@@ -498,15 +497,12 @@ const metaFiles = [
   },
 ].map((file) => ({ ...file, isMetaFile: true }));
 
-const dtsConfigs = await generateDtsConfigs();
-
 /** @type {Files[]} */
 const files = [
   ...[...nodejsFiles, ...universalFiles].map((file) => ({
     ...file,
     build: buildJavascriptModule,
   })),
-  ...dtsConfigs,
   ...metaFiles,
 ];
 export default files;
