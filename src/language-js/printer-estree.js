@@ -194,15 +194,7 @@ function printPathNoParens(path, options, print, args) {
     case "JsonRoot":
       return [print("node"), hardline];
     case "File":
-      // Print @babel/parser's InterpreterDirective here so that
-      // leading comments on the `Program` node get printed after the hashbang.
-      if (node.program.interpreter) {
-        parts.push(print(["program", "interpreter"]));
-      }
-
-      parts.push(print("program"));
-
-      return parts;
+      return print("program");
 
     case "Program":
       return printBlockBody(path, options, print);
@@ -763,15 +755,6 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return ["#", print("id")];
 
-    case "InterpreterDirective":
-      parts.push("#!", node.value, hardline);
-
-      if (isNextLineEmpty(node, options)) {
-        parts.push(hardline);
-      }
-
-      return parts;
-
     // For hack-style pipeline
     case "TopicReference":
       return "%";
@@ -789,6 +772,7 @@ function printPathNoParens(path, options, print, args) {
       return parts;
     }
 
+    case "InterpreterDirective": // Printed as comment
     default:
       /* c8 ignore next */
       throw new UnexpectedNodeError(node, "ESTree");

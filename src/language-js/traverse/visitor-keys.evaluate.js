@@ -21,9 +21,6 @@ const additionalVisitorKeys = {
   JsExpressionRoot: ["node"],
   JsonRoot: ["node"],
 
-  // Babel missing this
-  Program: ["interpreter"],
-
   // TypeScript
   TSJSDocAllType: [],
   TSJSDocUnknownType: [],

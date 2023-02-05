@@ -604,7 +604,6 @@ exports[`visitor keys estree 1`] = `
   "Program": [
     "directives",
     "body",
-    "interpreter",
   ],
   "Property": [
     "key",
