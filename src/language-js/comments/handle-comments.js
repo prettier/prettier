@@ -664,24 +664,11 @@ function handleUnionTypeComments({
     enclosingNode?.type === "UnionTypeAnnotation" ||
     enclosingNode?.type === "TSUnionType"
   ) {
-    if (isPrettierIgnoreComment(comment)) {
-      followingNode.prettierIgnore = true;
-      comment.unignore = true;
-    }
     if (precedingNode) {
       addTrailingComment(precedingNode, comment);
       return true;
     }
     return false;
-  }
-
-  if (
-    (followingNode?.type === "UnionTypeAnnotation" ||
-      followingNode?.type === "TSUnionType") &&
-    isPrettierIgnoreComment(comment)
-  ) {
-    followingNode.types[0].prettierIgnore = true;
-    comment.unignore = true;
   }
 
   return false;
