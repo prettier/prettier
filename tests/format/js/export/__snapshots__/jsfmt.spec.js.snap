@@ -287,3 +287,117 @@ export { c as /* comment */ c } from "c";
 
 ================================================================================
 `;
+
+exports[`test.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
+
+export * as ns from "mod";
+
+export * as foo from "./baz";
+
+=====================================output=====================================
+export {
+  value1,
+  value2 as value2_renamed,
+  value3,
+  value4 as value4_renamed,
+  value5,
+} from "exports";
+
+export * as ns from "mod";
+
+export * as foo from "./baz";
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { value1, value2 as value2_renamed, value3, value4 as value4_renamed, value5 } from "exports";
+
+export * as ns from "mod";
+
+export * as foo from "./baz";
+
+=====================================output=====================================
+export {
+  value1,
+  value2 as value2_renamed,
+  value3,
+  value4 as value4_renamed,
+  value5,
+} from "exports";
+
+export * as ns from "mod";
+
+export * as foo from "./baz";
+
+================================================================================
+`;
+
+exports[`undefined.js [acorn] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |"
+`;
+
+exports[`undefined.js [espree] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |"
+`;
+
+exports[`undefined.js - {"bracketSpacing":false} [acorn] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |"
+`;
+
+exports[`undefined.js - {"bracketSpacing":false} [espree] format 1`] = `
+"Export 'undefinedExport' is not defined (1:10)
+> 1 | export { undefinedExport };
+    |          ^
+  2 |"
+`;
+
+exports[`undefined.js - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { undefinedExport };
+
+=====================================output=====================================
+export {undefinedExport};
+
+================================================================================
+`;
+
+exports[`undefined.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export { undefinedExport };
+
+=====================================output=====================================
+export { undefinedExport };
+
+================================================================================
+`;
