@@ -318,7 +318,6 @@ const pluginFiles = [
     umdVariableName,
     buildOptions,
     isPlugin: true,
-    withDts: true,
   };
 });
 
@@ -329,13 +328,11 @@ const nonPluginUniversalFiles = [
     umdVariableName: "doc",
     interopDefault: false,
     minify: false,
-    withDts: true,
   },
   {
     input: "src/standalone.js",
     umdVariableName: "prettier",
     interopDefault: false,
-    withDts: true,
     replaceModule: [
       {
         module: require.resolve("@babel/highlight"),
@@ -353,7 +350,6 @@ const nonPluginUniversalFiles = [
     input,
     outputBaseName = path.basename(input, ".js"),
     umdVariableName,
-    withDts,
     ...buildOptions
   } = file;
 
@@ -361,21 +357,14 @@ const nonPluginUniversalFiles = [
     input,
     outputBaseName,
     umdVariableName,
-    withDts,
     buildOptions,
   };
 });
 
 const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
   (file) => {
-    let {
-      input,
-      outputBaseName,
-      umdVariableName,
-      buildOptions,
-      isPlugin,
-      withDts,
-    } = file;
+    let { input, outputBaseName, umdVariableName, buildOptions, isPlugin } =
+      file;
 
     outputBaseName ??= path.basename(input);
 
@@ -395,7 +384,6 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
       platform: "universal",
       buildOptions,
       isPlugin,
-      withDts,
     }));
   }
 );
@@ -429,7 +417,6 @@ const nodejsFiles = [
       replaceDiffPackageEntry("lib/diff/array.js"),
       ...reuseDocumentModule(),
     ],
-    withDts: true,
   },
   {
     input: "src/index.cjs",
@@ -464,7 +451,7 @@ const nodejsFiles = [
     ],
   },
 ].map((file) => {
-  let { input, output, outputBaseName, withDts, ...buildOptions } = file;
+  let { input, output, outputBaseName, ...buildOptions } = file;
 
   const format = input.endsWith(".cjs") ? "cjs" : "esm";
   outputBaseName ??= path.basename(input, path.extname(input));
@@ -476,7 +463,6 @@ const nodejsFiles = [
       file: `${outputBaseName}${extensions[format]}`,
     },
     platform: "node",
-    withDts,
     buildOptions,
   };
 });
