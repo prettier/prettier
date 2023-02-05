@@ -1,4 +1,4 @@
-import { Doc } from "./";
+import { Doc } from "../index.js";
 
 // https://github.com/prettier/prettier/blob/next/src/document/index.js
 
