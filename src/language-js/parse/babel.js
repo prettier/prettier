@@ -172,6 +172,7 @@ function createParse({ isExpression = false, optionsCombinations }) {
       } = ast;
 
       if (interpreter) {
+        delete ast.program.interpreter;
         comments.unshift(interpreter);
       }
     }
