@@ -146,12 +146,9 @@ function printHeritageClauses(path, options, print, listName) {
     return "";
   }
 
-  const printedLeadingComments = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ true,
-    ({ marker }) => marker === listName
-  );
+  const printedLeadingComments = printDanglingComments(path, options, {
+    marker: listName,
+  });
   return [
     shouldIndentOnlyHeritageClauses(node)
       ? ifBreak(" ", line, {
@@ -287,7 +284,7 @@ function printClassBody(path, options, print) {
   }, "body");
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+    parts.push(printDanglingComments(path, options));
   }
 
   return [

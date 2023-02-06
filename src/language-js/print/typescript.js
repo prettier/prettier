@@ -259,7 +259,7 @@ function printTypescript(path, options, print) {
             print("typeAnnotation"),
             ifBreak(semi),
           ]),
-          printDanglingComments(path, options, /* sameIndent */ true),
+          printDanglingComments(path, options),
           options.bracketSpacing ? line : softline,
           "}",
         ],

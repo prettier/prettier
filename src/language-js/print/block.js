@@ -82,7 +82,7 @@ function printBlockBody(path, options, print) {
   }
 
   if (nodeHasComment) {
-    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+    parts.push(printDanglingComments(path, options));
   }
 
   if (node.type === "Program") {

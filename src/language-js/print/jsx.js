@@ -656,7 +656,7 @@ function printJsxOpeningClosingFragment(path, options /*, print*/) {
         : nodeHasComment && !isOpeningFragment
         ? " "
         : "",
-      printDanglingComments(path, options, true),
+      printDanglingComments(path, options),
     ]),
     hasOwnLineComment ? hardline : "",
     ">",
@@ -677,7 +677,7 @@ function printJsxEmptyExpression(path, options /*, print*/) {
   const requiresHardline = hasComment(node, CommentCheckFlags.Line);
 
   return [
-    printDanglingComments(path, options, /* sameIndent */ !requiresHardline),
+    printDanglingComments(path, options, { indent: requiresHardline }),
     requiresHardline ? hardline : "",
   ];
 }
