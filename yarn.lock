@@ -4230,10 +4230,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-parser@npm:0.198.2":
-  version: 0.198.2
-  resolution: "flow-parser@npm:0.198.2"
-  checksum: 1c623e939a2dbddcbe9c62984641b9b9fec86adfc93b34832201c2aded24db292adb8d57a3052a438f0013588f2e58a86a71f91e2c2c515f49f4cb1ce1376a51
+"flow-parser@npm:0.199.1":
+  version: 0.199.1
+  resolution: "flow-parser@npm:0.199.1"
+  checksum: c0c16aa4510af17dc8644eb9e6108bb223f23971569529389c56502fd4521ac9f04384277165b2adccabedf5d577fdf49e34323ac9a44cdd092d6dc139c987df
   languageName: node
   linkType: hard
 
@@ -7177,7 +7177,7 @@ __metadata:
     file-entry-cache: 6.0.1
     find-cache-dir: 4.0.0
     find-parent-dir: 0.3.1
-    flow-parser: 0.198.2
+    flow-parser: 0.199.1
     get-stdin: 9.0.0
     graphql: 16.6.0
     hermes-eslint: 0.9.0
