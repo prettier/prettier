@@ -3,7 +3,7 @@ import { hasJsxIgnoreComment } from "../print/jsx.js";
 import {
   getFunctionParameters,
   hasNodeIgnoreComment,
-  isJsxNode,
+  isJsxElement,
   isLineComment,
 } from "../utils/index.js";
 import isBlockComment from "../utils/is-block-comment.js";
@@ -66,7 +66,7 @@ function hasPrettierIgnore(path) {
  */
 function willPrintOwnComments({ node, parent }) {
   return (
-    (isJsxNode(node) ||
+    (isJsxElement(node) ||
       (parent &&
         (parent.type === "JSXSpreadAttribute" ||
           parent.type === "JSXSpreadChild" ||

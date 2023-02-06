@@ -16,7 +16,7 @@ import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 
 import { getPreferredQuote } from "../../common/util.js";
 import {
-  isJsxNode,
+  isJsxElement,
   rawText,
   isCallExpression,
   isStringLiteral,
@@ -93,7 +93,7 @@ function printJsxElementInternal(path, options, print) {
     return child;
   });
 
-  const containsTag = node.children.some(isJsxNode);
+  const containsTag = node.children.some(isJsxElement);
   const containsMultipleExpressions =
     node.children.filter((child) => child.type === "JSXExpressionContainer")
       .length > 1;
@@ -500,7 +500,7 @@ function printJsxExpressionContainer(path, options, print) {
         node.type === "TemplateLiteral" ||
         node.type === "TaggedTemplateExpression" ||
         node.type === "DoExpression" ||
-        (isJsxNode(parent) &&
+        (isJsxElement(parent) &&
           (node.type === "ConditionalExpression" || isBinaryish(node)))));
 
   if (shouldInline(node.expression, path.parent)) {
@@ -814,7 +814,7 @@ function isJsxWhitespaceExpression(node) {
  */
 function hasJsxIgnoreComment(path) {
   const { node, parent } = path;
-  if (!isJsxNode(node) || !isJsxNode(parent)) {
+  if (!isJsxElement(node) || !isJsxElement(parent)) {
     return false;
   }
 

@@ -4,7 +4,7 @@ import {
   hasComment,
   CommentCheckFlags,
   isFunctionCompositionArgs,
-  isJsxNode,
+  isJsxElement,
   isLongCurriedCallExpression,
   shouldPrintComma,
   getCallArguments,
@@ -212,7 +212,7 @@ function couldExpandArg(arg, arrowChainRecursion = false) {
         (!arrowChainRecursion &&
           (isCallExpression(arg.body) ||
             arg.body.type === "ConditionalExpression")) ||
-        isJsxNode(arg.body))) ||
+        isJsxElement(arg.body))) ||
     arg.type === "DoExpression" ||
     arg.type === "ModuleExpression"
   );

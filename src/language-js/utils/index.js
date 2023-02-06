@@ -270,7 +270,7 @@ function isAngularTestWrapper(node) {
  * @param {Node} node
  * @returns {boolean}
  */
-const isJsxNode = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
+const isJsxElement = createTypeCheckFunction(["JSXElement", "JSXFragment"]);
 
 function isTheOnlyJsxElementInMarkdown(options, path) {
   if (options.parentParser !== "markdown" && options.parentParser !== "mdx") {
@@ -279,7 +279,7 @@ function isTheOnlyJsxElementInMarkdown(options, path) {
 
   const { node } = path;
 
-  if (!node.expression || !isJsxNode(node.expression)) {
+  if (!node.expression || !isJsxElement(node.expression)) {
     return false;
   }
 
@@ -592,7 +592,7 @@ function getTypeScriptMappedTypeModifier(tokenNode, keyword) {
  * @returns {boolean}
  */
 function hasLeadingOwnLineComment(text, node) {
-  if (isJsxNode(node)) {
+  if (isJsxElement(node)) {
     return hasNodeIgnoreComment(node);
   }
 
@@ -1240,7 +1240,7 @@ export {
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
-  isJsxNode,
+  isJsxElement,
   isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
