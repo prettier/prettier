@@ -7,9 +7,8 @@ import {
   align,
   ifBreak,
 } from "../../document/builders.js";
-import { hasPrettierIgnore } from "../comments/printer-methods.js";
 import pathNeedsParens from "../needs-parens.js";
-import { locStart, hasSameLocStart } from "../loc.js";
+import { hasSameLocStart } from "../loc.js";
 import {
   isSimpleType,
   isObjectType,
@@ -189,25 +188,16 @@ function printUnionType(path, options, print) {
   // | child1
   // // comment
   // | child2
-  path.each(({ node, isFirst }) => {
+  path.each(({ isFirst }) => {
     let doc = print();
     if (!shouldHug) {
       doc = align(2, doc);
     }
     doc = printComments(path, doc, options);
 
-    if (
-      !isFirst &&
-      // If child is union type and starts with `|`, it will be kept
-      !(
-        (node.type === "TSUnionType" || node.type === "UnionTypeAnnotation") &&
-        hasPrettierIgnore(path) &&
-        options.originalText.charAt(locStart(node)) === "|"
-      )
-    ) {
+    if (!isFirst) {
       parts.push(separator);
     }
-
     parts.push(doc);
   }, "types");
 
