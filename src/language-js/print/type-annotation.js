@@ -1,7 +1,6 @@
 import { printComments } from "../../main/comments.js";
 import {
   group,
-  join,
   line,
   softline,
   indent,
@@ -25,6 +24,10 @@ import {
   shouldGroupFunctionParameters,
 } from "./function-parameters.js";
 import { printOptionalToken, printDeclareToken } from "./misc.js";
+
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
 
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
@@ -176,6 +179,7 @@ function printUnionType(path, options, print) {
   const shouldAddStartLine =
     shouldIndent && !hasLeadingOwnLineComment(options.originalText, node);
 
+  /** @type {Doc[]} */
   const parts = [
     shouldHug ? "" : ifBreak([shouldAddStartLine ? line : "", "| "]),
   ];
