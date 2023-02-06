@@ -29,22 +29,20 @@ function printStatementSequence(path, options, print) {
       return;
     }
 
-    const printed = print();
+    const needsSemi =
+      !options.semi &&
+      !isTheOnlyJsxElementInMarkdown(options, path) &&
+      statementNeedsASIProtection(path, options);
 
     // in no-semi mode, prepend statement with semicolon if it might break ASI
     // don't prepend the only JSX element in a program with semicolon
-    if (
-      !options.semi &&
-      !isTheOnlyJsxElementInMarkdown(options, path) &&
-      statementNeedsASIProtection(path, options)
-    ) {
-      if (hasComment(node, CommentCheckFlags.Leading)) {
-        parts.push(print([], { needsSemi: true }));
-      } else {
-        parts.push(";", printed);
-      }
+    if (needsSemi && hasComment(node, CommentCheckFlags.Leading)) {
+      parts.push(print([], { needsSemi: true }));
     } else {
-      parts.push(printed);
+      if (needsSemi) {
+        parts.push(";");
+      }
+      parts.push(print());
     }
 
     if (node !== lastStatement) {
