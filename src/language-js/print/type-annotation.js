@@ -29,6 +29,10 @@ import {
   printAbstractToken,
 } from "./misc.js";
 
+/**
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
 function shouldHugType(node) {
   if (isSimpleType(node) || isObjectType(node)) {
     return true;
@@ -257,6 +261,7 @@ function isFlowArrowFunctionTypeAnnotation(path) {
 */
 function printFunctionType(path, options, print) {
   const { node } = path;
+  /** @type {Doc[]} */
   const parts = [
     // `TSConstructorType` only
     printAbstractToken(path),
