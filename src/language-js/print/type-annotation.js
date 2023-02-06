@@ -26,7 +26,7 @@ import {
 import { printOptionalToken, printDeclareToken } from "./misc.js";
 
 /**
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @typedef {import("../../document/builders.js").Doc} Doc
  */
 
 function shouldHugType(node) {
