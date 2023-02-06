@@ -57,6 +57,15 @@ function printDeclareToken(path) {
   );
 }
 
+const tsAbstractNodeTypes = new Set([
+  "TSAbstractMethodDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+function printAbstractToken({ node }) {
+  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
+}
+
 function printFunctionTypeParameters(path, options, print) {
   const fun = path.node;
   if (fun.typeArguments) {
@@ -114,6 +123,7 @@ export {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printAbstractToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printRestSpread,

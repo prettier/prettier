@@ -21,6 +21,7 @@ import {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printAbstractToken,
   printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
@@ -50,11 +51,7 @@ const isClassProperty = createTypeCheckFunction([
 function printClass(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [
-    printDeclareToken(path),
-    node.abstract ? "abstract " : "",
-    "class",
-  ];
+  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -187,9 +184,9 @@ function printClassMethod(path, options, print) {
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractMethodDefinition" || node.abstract) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -213,13 +210,9 @@ function printClassProperty(path, options, print) {
   if (node.static) {
     parts.push("static ");
   }
-  if (
-    node.type === "TSAbstractPropertyDefinition" ||
-    node.type === "TSAbstractAccessorProperty" ||
-    node.abstract
-  ) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
