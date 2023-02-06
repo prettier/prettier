@@ -717,7 +717,7 @@ function printPathNoParens(path, options, print, args) {
       );
 
       if (consequent.length > 0) {
-        const cons = printStatementSequence(path, options, print);
+        const cons = printStatementSequence(path, options, print, "consequent");
 
         parts.push(
           consequent.length === 1 && consequent[0].type === "BlockStatement"

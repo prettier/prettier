@@ -10,6 +10,11 @@ import { printStatementSequence } from "./statement.js";
 
 /** @typedef {import("../../document/builders.js").Doc} Doc */
 
+/*
+- `BlockStatement`
+- `StaticBlock`
+- `TSModuleBlock` (TypeScript)
+*/
 function printBlock(path, options, print) {
   const { node } = path;
   const parts = [];
@@ -52,44 +57,46 @@ function printBlock(path, options, print) {
   return parts;
 }
 
+/*
+- `Program`
+- `BlockStatement`
+- `StaticBlock`
+- `TSModuleBlock` (TypeScript)
+*/
 function printBlockBody(path, options, print) {
   const { node } = path;
 
-  const nodeHasDirectives = isNonEmptyArray(node.directives);
-  const nodeHasBody = node.body.some((node) => node.type !== "EmptyStatement");
-  const nodeHasComment = hasComment(node, CommentCheckFlags.Dangling);
+  const hasDirectives = isNonEmptyArray(node.directives);
+  const hasBody = node.body.some((node) => node.type !== "EmptyStatement");
+  const hasDanglingComments = hasComment(node, CommentCheckFlags.Dangling);
 
-  if (!nodeHasDirectives && !nodeHasBody && !nodeHasComment) {
+  if (!hasDirectives && !hasBody && !hasDanglingComments) {
     return "";
   }
 
   const parts = [];
-  // Babel 6
-  if (nodeHasDirectives) {
-    path.each(({ node, isLast }) => {
-      parts.push(print());
-      if (!isLast || nodeHasBody || nodeHasComment) {
+  // Babel
+  if (hasDirectives) {
+    parts.push(printStatementSequence(path, options, print, "directives"));
+
+    if (hasBody || hasDanglingComments) {
+      parts.push(hardline);
+      if (isNextLineEmpty(node.directives.at(-1), options)) {
         parts.push(hardline);
-        if (isNextLineEmpty(node, options)) {
-          parts.push(hardline);
-        }
       }
-    }, "directives");
+    }
   }
 
-  if (nodeHasBody) {
-    parts.push(printStatementSequence(path, options, print));
+  if (hasBody) {
+    parts.push(printStatementSequence(path, options, print, "body"));
   }
 
-  if (nodeHasComment) {
+  if (hasDanglingComments) {
     parts.push(printDanglingComments(path, options));
   }
 
-  if (node.type === "Program") {
-    const { parent } = path;
-    if (!parent || parent.type !== "ModuleExpression") {
-      parts.push(hardline);
-    }
+  if (node.type === "Program" && path.parent?.type !== "ModuleExpression") {
+    parts.push(hardline);
   }
 
   return parts;
