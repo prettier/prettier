@@ -65,7 +65,14 @@ function printFlow(path, options, print) {
         semi,
       ];
     case "DeclareVariable":
-      return [printDeclareToken(path), "var ", print("id"), semi];
+      return [
+        printDeclareToken(path),
+        // TODO: Only use `node.kind` when babel update AST
+        node.kind ?? "var",
+        " ",
+        print("id"),
+        semi,
+      ];
     case "DeclareExportDeclaration":
       return printExportDeclaration(path, options, print);
     case "DeclareExportAllDeclaration":
