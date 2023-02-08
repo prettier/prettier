@@ -163,17 +163,6 @@ function createParse({ isExpression = false, optionsCombinations }) {
     if (isExpression) {
       ast = wrapBabelExpression(ast, opts);
     }
-    // `InterpreterDirective` (hashbang)
-    // Other parsers parse it as comment, babel treat it as comment too
-    // https://github.com/babel/babel/issues/15116
-    else if (ast.program.interpreter) {
-      const {
-        program: { interpreter },
-        comments,
-      } = ast;
-      delete ast.program.interpreter;
-      comments.unshift(interpreter);
-    }
 
     return postprocess(ast, opts);
   };
