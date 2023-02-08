@@ -89,7 +89,7 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
-import { shouldPrintLeadingSemicolon } from "./print/print-semicolon.js";
+import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath

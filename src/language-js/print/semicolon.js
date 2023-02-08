@@ -12,18 +12,16 @@ function shouldPrintLeadingSemicolon(path, options) {
     return false;
   }
 
-  const { node } = path;
+  const { node, key, parent } = path;
   if (
     node.type === "ExpressionStatement" &&
-    [
-      (node, key) =>
-        key === "body" &&
-        (node.type === "Program" ||
-          node.type === "BlockStatement" ||
-          node.type === "StaticBlock" ||
-          node.type === "TSModuleBlock"),
-      (node, key) => key === "consequent" && node.type === "SwitchCase",
-    ].some((predicate) => path.match(undefined, predicate)) &&
+    // `Program.directives` don't need leading semicolon
+    ((key === "body" &&
+      (parent.type === "Program" ||
+        parent.type === "BlockStatement" ||
+        parent.type === "StaticBlock" ||
+        parent.type === "TSModuleBlock")) ||
+      (key === "consequent" && parent.type === "SwitchCase")) &&
     path.call(() => expressionNeedsASIProtection(path, options), "expression")
   ) {
     return true;
