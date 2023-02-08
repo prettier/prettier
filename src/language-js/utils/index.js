@@ -149,25 +149,6 @@ const isExportDeclaration = createTypeCheckFunction([
  * @param {Node} node
  * @returns {boolean}
  */
-const isLiteral = createTypeCheckFunction([
-  "BooleanLiteral",
-  "DirectiveLiteral",
-  "Literal",
-  "NullLiteral",
-  "NumericLiteral",
-  "BigIntLiteral",
-  "DecimalLiteral",
-  "RegExpLiteral",
-  "StringLiteral",
-  "TemplateLiteral",
-  "TSTypeLiteral",
-  "JSXText",
-]);
-
-/**
- * @param {Node} node
- * @returns {boolean}
- */
 const isArrayOrTupleExpression = createTypeCheckFunction([
   "ArrayExpression",
   "TupleExpression",
@@ -1243,7 +1224,6 @@ export {
   isFunctionOrArrowExpression,
   isGetterOrSetter,
   isJsxElement,
-  isLiteral,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
   isMemberish,

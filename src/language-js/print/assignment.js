@@ -11,7 +11,6 @@ import {
   hasLeadingOwnLineComment,
   isBinaryish,
   isStringLiteral,
-  isLiteral,
   isNumericLiteral,
   isCallExpression,
   isMemberExpression,
@@ -24,6 +23,7 @@ import {
 } from "../utils/index.js";
 import { shouldInlineLogicalExpression } from "./binaryish.js";
 import { printCallExpression } from "./call-expression.js";
+import { isLiteral } from "./literal.js";
 
 function printAssignment(
   path,

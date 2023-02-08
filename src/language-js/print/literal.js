@@ -1,6 +1,11 @@
 import { printString, printNumber } from "../../common/util.js";
 import { replaceEndOfLine } from "../../document/utils.js";
+import { createTypeCheckFunction } from "../utils/index.js";
 import { printDirective } from "./misc.js";
+
+/**
+ * @typedef {import("../types/estree.js").Node} Node
+ */
 
 function printLiteral(path, options /*, print*/) {
   const { node } = path;
@@ -67,4 +72,19 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
-export { printLiteral, printBigInt };
+/**
+ * @param {Node} node
+ * @returns {boolean}
+ */
+const isLiteral = createTypeCheckFunction([
+  "Literal",
+  "BooleanLiteral",
+  "BigIntLiteral",
+  "NullLiteral",
+  "NumericLiteral",
+  "DecimalLiteral",
+  "RegExpLiteral",
+  "StringLiteral",
+]);
+
+export { printLiteral, printBigInt, isLiteral };
