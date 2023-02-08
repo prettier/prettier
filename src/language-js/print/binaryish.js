@@ -13,7 +13,7 @@ import { cleanDoc, getDocParts } from "../../document/utils.js";
 import {
   hasLeadingOwnLineComment,
   isBinaryish,
-  isJsxNode,
+  isJsxElement,
   shouldFlatten,
   hasComment,
   CommentCheckFlags,
@@ -135,7 +135,7 @@ function printBinaryishExpression(path, options, print) {
   //     </Foo>
   //   )
 
-  const hasJsx = isJsxNode(node.right);
+  const hasJsx = isJsxElement(node.right);
 
   const firstGroupIndex = parts.findIndex(
     (part) =>
@@ -327,7 +327,7 @@ function shouldInlineLogicalExpression(node) {
     return true;
   }
 
-  if (isJsxNode(node.right)) {
+  if (isJsxElement(node.right)) {
     return true;
   }
 

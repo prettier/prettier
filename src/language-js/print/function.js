@@ -22,7 +22,7 @@ import { ArgExpansionBailout } from "../../common/errors.js";
 import {
   getFunctionParameters,
   hasLeadingOwnLineComment,
-  isJsxNode,
+  isJsxElement,
   isTemplateOnItsOwnLine,
   shouldPrintComma,
   startsWithNoLookaheadToken,
@@ -345,7 +345,7 @@ function printArrowFunction(path, options, print, args) {
     (isArrayOrTupleExpression(node.body) ||
       isObjectOrRecordExpression(node.body) ||
       node.body.type === "BlockStatement" ||
-      isJsxNode(node.body) ||
+      isJsxElement(node.body) ||
       (body[0].label?.hug !== false &&
         (body[0].label?.embed ||
           isTemplateOnItsOwnLine(node.body, options.originalText))) ||

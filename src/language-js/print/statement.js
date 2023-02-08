@@ -3,7 +3,7 @@ import pathNeedsParens from "../needs-parens.js";
 import {
   getLeftSidePathName,
   hasNakedLeftSide,
-  isJsxNode,
+  isJsxElement,
   isTheOnlyJsxElementInMarkdown,
   hasComment,
   CommentCheckFlags,
@@ -115,7 +115,7 @@ function expressionNeedsASIProtection(path, options) {
       break;
 
     default:
-      if (isJsxNode(node)) {
+      if (isJsxElement(node)) {
         return true;
       }
   }
