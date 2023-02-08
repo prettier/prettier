@@ -97,14 +97,15 @@ function printDirective(rawText, options) {
  */
 const isLiteral = createTypeCheckFunction([
   "Literal",
-  "BooleanLiteral",
+  // Babel, flow uses `BigIntLiteral` too
   "BigIntLiteral",
+  "BooleanLiteral",
+  "DecimalLiteral",
+  "DirectiveLiteral",
   "NullLiteral",
   "NumericLiteral",
-  "DecimalLiteral",
   "RegExpLiteral",
   "StringLiteral",
-  "DirectiveLiteral",
 ]);
 
 export { printLiteral, printBigInt, isLiteral };
