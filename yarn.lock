@@ -7103,7 +7103,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.3, prettier@npm:^2.8.3":
+"prettier@npm:2.8.4":
+  version: 2.8.4
+  resolution: "prettier@npm:2.8.4"
+  bin:
+    prettier: bin-prettier.js
+  checksum: c173064bf3df57b6d93d19aa98753b9b9dd7657212e33b41ada8e2e9f9884066bb9ca0b4005b89b3ab137efffdf8fbe0b462785aba20364798ff4303aadda57e
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.8.3":
   version: 2.8.3
   resolution: "prettier@npm:2.8.3"
   bin:
@@ -7212,7 +7221,7 @@ __metadata:
     postcss-scss: 4.0.6
     postcss-selector-parser: 2.2.3
     postcss-values-parser: 2.0.1
-    prettier: 2.8.3
+    prettier: 2.8.4
     pretty-bytes: 6.1.0
     regexp-util: 1.2.2
     remark-footnotes: 2.0.0
