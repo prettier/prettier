@@ -1,7 +1,6 @@
 import { printString, printNumber } from "../../common/util.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import { createTypeCheckFunction } from "../utils/index.js";
-import { printDirective } from "./misc.js";
 
 /**
  * @typedef {import("../types/estree.js").Node} Node
@@ -25,6 +24,8 @@ function printLiteral(path, options /*, print*/) {
       return String(node.value);
     case "DecimalLiteral":
       return printNumber(node.value) + "m";
+    case "DirectiveLiteral":
+      return printDirective(node.extra.raw, options);
     case "Literal": {
       if (node.regex) {
         return printRegex(node.regex);
@@ -72,6 +73,24 @@ function printRegex({ pattern, flags }) {
   return `/${pattern}/${flags}`;
 }
 
+function printDirective(rawText, options) {
+  const rawContent = rawText.slice(1, -1);
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  if (rawContent.includes('"') || rawContent.includes("'")) {
+    return rawText;
+  }
+
+  const enclosingQuote = options.singleQuote ? "'" : '"';
+
+  // Directives are exact code unit sequences, which means that you can't
+  // change the escape sequences they use.
+  // See https://github.com/prettier/prettier/issues/1555
+  // and https://tc39.github.io/ecma262/#directive-prologue
+  return enclosingQuote + rawContent + enclosingQuote;
+}
+
 /**
  * @param {Node} node
  * @returns {boolean}
@@ -85,6 +104,7 @@ const isLiteral = createTypeCheckFunction([
   "DecimalLiteral",
   "RegExpLiteral",
   "StringLiteral",
+  "DirectiveLiteral",
 ]);
 
 export { printLiteral, printBigInt, isLiteral };

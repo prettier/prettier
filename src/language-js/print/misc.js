@@ -118,24 +118,6 @@ function printRestSpread(path, print) {
   return ["...", print("argument"), printTypeAnnotationProperty(path, print)];
 }
 
-function printDirective(rawText, options) {
-  const rawContent = rawText.slice(1, -1);
-
-  // Check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
-  if (rawContent.includes('"') || rawContent.includes("'")) {
-    return rawText;
-  }
-
-  const enclosingQuote = options.singleQuote ? "'" : '"';
-
-  // Directives are exact code unit sequences, which means that you can't
-  // change the escape sequences they use.
-  // See https://github.com/prettier/prettier/issues/1555
-  // and https://tc39.github.io/ecma262/#directive-prologue
-  return enclosingQuote + rawContent + enclosingQuote;
-}
-
 function printTypeScriptAccessibilityToken(node) {
   return node.accessibility ? node.accessibility + " " : "";
 }
@@ -149,6 +131,5 @@ export {
   printBindExpressionCallee,
   printRestSpread,
   adjustClause,
-  printDirective,
   printTypeScriptAccessibilityToken,
 };
