@@ -3,7 +3,7 @@ class AstPath {
     this.stack = [value];
   }
 
-  /** @type {string} */
+  /** @type {string | null} */
   get key() {
     const { stack, siblings } = this;
     return stack.at(siblings === null ? -2 : -4) ?? null;
