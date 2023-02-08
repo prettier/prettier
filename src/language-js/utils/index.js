@@ -129,6 +129,8 @@ const isLineComment = createTypeCheckFunction([
   "HTMLClose",
   // `espree`
   "Hashbang",
+  // Babel hashbang
+  "InterpreterDirective",
 ]);
 
 /**
