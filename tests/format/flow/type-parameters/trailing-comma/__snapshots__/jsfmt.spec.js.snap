@@ -2,7 +2,7 @@
 
 exports[`type-paramters.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -22,7 +22,7 @@ type ShortName = Something<FirstParam, SecondParam>;
 
 exports[`type-paramters.js - {"trailingComma":"es5"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "es5"
                                                                                 | printWidth
@@ -42,7 +42,7 @@ type ShortName = Something<FirstParam, SecondParam>;
 
 exports[`type-paramters.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel-flow"]
+parsers: ["flow"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
