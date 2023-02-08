@@ -1,6 +1,15 @@
 import { indent, line } from "../../document/builders.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printOptionalToken(path) {
   const { node } = path;
   if (
@@ -21,6 +30,10 @@ function printOptionalToken(path) {
   return "?";
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printDefiniteToken(path) {
   return path.node.definite ||
     path.match(
@@ -43,6 +56,10 @@ const flowDeclareNodeTypes = new Set([
   "DeclareEnum",
   "DeclareInterface",
 ]);
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printDeclareToken(path) {
   const { node } = path;
 
@@ -55,6 +72,19 @@ function printDeclareToken(path) {
       ? "declare "
       : ""
   );
+}
+
+const tsAbstractNodeTypes = new Set([
+  "TSAbstractMethodDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+/**
+ * @param {AstPath} param0
+ * @returns {Doc}
+ */
+function printAbstractToken({ node }) {
+  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
 }
 
 function printFunctionTypeParameters(path, options, print) {
@@ -114,6 +144,7 @@ export {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printAbstractToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
   printRestSpread,

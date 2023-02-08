@@ -1,5 +1,3 @@
-/** @typedef {import("../document/builders.js").Doc} Doc */
-
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 import { printDanglingComments } from "../main/comments.js";
 import { hasNewline } from "../common/util.js";
@@ -92,6 +90,18 @@ import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
 
+/**
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {*} [args]
+ * @returns {Doc}
+ */
 function genericPrint(path, options, print, args) {
   const { node } = path;
 
@@ -168,6 +178,13 @@ function genericPrint(path, options, print, args) {
   return parts;
 }
 
+/**
+ * @param {AstPath} path
+ * @param {*} options
+ * @param {*} print
+ * @param {*} [args]
+ * @returns {Doc}
+ */
 function printPathNoParens(path, options, print, args) {
   for (const printer of [
     printLiteral,
