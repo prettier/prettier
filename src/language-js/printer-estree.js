@@ -47,7 +47,6 @@ import {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
-  printDirective,
   printDeclareToken,
 } from "./print/misc.js";
 import {
