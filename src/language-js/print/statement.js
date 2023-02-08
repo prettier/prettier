@@ -1,21 +1,18 @@
 import { hardline } from "../../document/builders.js";
-import pathNeedsParens from "../needs-parens.js";
-import {
-  getLeftSidePathName,
-  hasNakedLeftSide,
-  isJsxElement,
-  isTheOnlyJsxElementInMarkdown,
-  hasComment,
-  CommentCheckFlags,
-  isNextLineEmpty,
-} from "../utils/index.js";
-import { shouldPrintParamsWithoutParens } from "./function.js";
+import { isNextLineEmpty } from "../utils/index.js";
 
 /**
  * @typedef {import("../../document/builders.js").Doc} Doc
  * @typedef {import("../../common/ast-path.js")} AstPath
  */
 
+/*
+- `Program` ("directives" and "body")
+- `BlockStatement`
+- `StaticBlock`
+- `SwitchCase` ("consequent")
+- `TSModuleBlock` (TypeScript)
+*/
 function printStatementSequence(path, options, print, property) {
   const { node } = path;
   const parts = [];
@@ -28,21 +25,7 @@ function printStatementSequence(path, options, print, property) {
       return;
     }
 
-    const needsSemi =
-      !options.semi &&
-      !isTheOnlyJsxElementInMarkdown(options, path) &&
-      statementNeedsASIProtection(path, options);
-
-    // in no-semi mode, prepend statement with semicolon if it might break ASI
-    // don't prepend the only JSX element in a program with semicolon
-    if (needsSemi && hasComment(node, CommentCheckFlags.Leading)) {
-      parts.push(print([], { needsSemi: true }));
-    } else {
-      if (needsSemi) {
-        parts.push(";");
-      }
-      parts.push(print());
-    }
+    parts.push(print());
 
     if (node !== lastStatement) {
       parts.push(hardline);
@@ -63,75 +46,6 @@ function getLastStatement(statements) {
       return statement;
     }
   }
-}
-
-function statementNeedsASIProtection(path, options) {
-  const { node } = path;
-
-  if (node.type !== "ExpressionStatement") {
-    return false;
-  }
-
-  return path.call(
-    (childPath) => expressionNeedsASIProtection(childPath, options),
-    "expression"
-  );
-}
-
-function expressionNeedsASIProtection(path, options) {
-  const { node } = path;
-  switch (node.type) {
-    case "ParenthesizedExpression":
-    case "TypeCastExpression":
-    case "ArrayExpression":
-    case "ArrayPattern":
-    case "TemplateLiteral":
-    case "TemplateElement":
-    case "RegExpLiteral":
-      return true;
-    case "ArrowFunctionExpression":
-      if (!shouldPrintParamsWithoutParens(path, options)) {
-        return true;
-      }
-      break;
-
-    case "UnaryExpression": {
-      const { prefix, operator } = node;
-      if (prefix && (operator === "+" || operator === "-")) {
-        return true;
-      }
-      break;
-    }
-    case "BindExpression":
-      if (!node.object) {
-        return true;
-      }
-      break;
-
-    case "Literal":
-      if (node.regex) {
-        return true;
-      }
-      break;
-
-    default:
-      if (isJsxElement(node)) {
-        return true;
-      }
-  }
-
-  if (pathNeedsParens(path, options)) {
-    return true;
-  }
-
-  if (!hasNakedLeftSide(node)) {
-    return false;
-  }
-
-  return path.call(
-    () => expressionNeedsASIProtection(path, options),
-    ...getLeftSidePathName(node)
-  );
 }
 
 export { printStatementSequence };
