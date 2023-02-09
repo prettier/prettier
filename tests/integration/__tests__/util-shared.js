@@ -151,6 +151,29 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
   }
 });
 
+test("sharedUtil.isPreviousLineEmpty", () => {
+  const { isPreviousLineEmpty } = sharedUtil;
+  const FAKE_NODE = { type: "Identifier", name: "a" };
+
+  {
+    const text = "   \t \na";
+    const startIndex = text.indexOf("a");
+    const locStart = () => startIndex;
+
+    expect(isPreviousLineEmpty(text, startIndex)).toBe(true);
+    expect(isPreviousLineEmpty(text, FAKE_NODE, locStart)).toBe(true);
+  }
+
+  {
+    const text = " _  \t \na";
+    const startIndex = text.indexOf("a");
+    const locStart = () => startIndex;
+
+    expect(isPreviousLineEmpty(text, startIndex)).toBe(false);
+    expect(isPreviousLineEmpty(text, FAKE_NODE, locStart)).toBe(false);
+  }
+});
+
 test("sharedUtil.makeString", () => {
   const { makeString } = sharedUtil;
   const DOUBLE_QUOTE = '"';

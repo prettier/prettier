@@ -19,7 +19,6 @@ function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 }
 
 // Legacy version of `isPreviousLineEmpty`
-
 /**
  * @template N
  * @param {string} text
