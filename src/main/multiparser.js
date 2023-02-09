@@ -112,6 +112,7 @@ async function textToDoc(
   const nextOptions = await normalize(
     {
       ...parentOptions,
+      onParsed: undefined,
       ...partialNextOptions,
       parentParser: parentOptions.parser,
       originalText: text,
@@ -131,6 +132,8 @@ async function textToDoc(
   nextOptions[Symbol.for("comments")] = astComments || [];
   // @ts-expect-error -- Casting to `unique symbol` isn't allowed in JSDoc comment
   nextOptions[Symbol.for("tokens")] = ast.tokens || [];
+
+  nextOptions.onParsed?.(ast, nextOptions);
 
   const doc = await printAstToDoc(ast, nextOptions);
   ensureAllCommentsPrinted(astComments);

@@ -9,7 +9,6 @@ function wrapBabelExpression(node, options, type = "JsExpressionRoot") {
     type,
     node,
     range: [0, options.originalText.length],
-    rootMarker: options.rootMarker,
   };
 }
 
