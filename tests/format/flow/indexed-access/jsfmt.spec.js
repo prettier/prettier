@@ -1,1 +1,1 @@
-run_spec(import.meta, ["flow", "babel"], { trailingComma: "all" });
+run_spec(import.meta, ["flow"], { trailingComma: "all" });

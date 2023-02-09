@@ -20,6 +20,11 @@ import {
 } from "../common/util.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 
+/**
+ * @typedef {import("../common/ast-path.js").default} AstPath
+ * @typedef {import("../document/builders.js").Doc} Doc
+ */
+
 const childNodesCache = new WeakMap();
 function getSortedChildNodes(node, options) {
   if (childNodesCache.has(node)) {
@@ -145,6 +150,7 @@ function decorateComment(node, comment, options, enclosingNode) {
 }
 
 const returnFalse = () => false;
+const returnTrue = () => true;
 function attach(comments, ast, text, options) {
   if (!isNonEmptyArray(comments) || !options.printer.canAttachComment) {
     return;
@@ -503,29 +509,52 @@ function printTrailingComment(path, options, previousComment) {
   return { doc: [" ", printed], isBlock, hasLineSuffix: false };
 }
 
-function printDanglingComments(path, options, sameIndent, filter) {
-  const parts = [];
+/**
+ * @param {AstPath} path
+ * @param {{
+ *  indent?: boolean,
+ *  marker?: symbol,
+ *  filter?: (comment) => boolean,
+ * }} [danglingCommentsPrintOptions]
+ * @returns {Doc}
+ */
+function printDanglingComments(
+  path,
+  options,
+  danglingCommentsPrintOptions = {}
+) {
   const { node } = path;
 
-  if (!node || !node.comments) {
+  if (!isNonEmptyArray(node?.comments)) {
     return "";
   }
 
-  path.each(() => {
-    const comment = path.node;
-    if (!comment.leading && !comment.trailing && (!filter || filter(comment))) {
-      parts.push(printComment(path, options));
+  const {
+    indent: shouldIndent = false,
+    marker,
+    filter = returnTrue,
+  } = danglingCommentsPrintOptions;
+
+  const parts = [];
+  path.each(({ node: comment }) => {
+    if (
+      comment.leading ||
+      comment.trailing ||
+      comment.marker !== marker ||
+      !filter(comment)
+    ) {
+      return;
     }
+
+    parts.push(printComment(path, options));
   }, "comments");
 
   if (parts.length === 0) {
     return "";
   }
 
-  if (sameIndent) {
-    return join(hardline, parts);
-  }
-  return indent([hardline, join(hardline, parts)]);
+  const doc = join(hardline, parts);
+  return shouldIndent ? indent([hardline, doc]) : doc;
 }
 
 function printCommentsSeparately(path, options, ignored) {

@@ -462,7 +462,6 @@ exports[`visitor keys estree 1`] = `
     "decorators",
     "key",
     "value",
-    "typeParameters",
   ],
   "MixedTypeAnnotation": [],
   "ModuleExpression": [
@@ -605,7 +604,6 @@ exports[`visitor keys estree 1`] = `
   "Program": [
     "directives",
     "body",
-    "interpreter",
   ],
   "Property": [
     "key",
@@ -743,7 +741,6 @@ exports[`visitor keys estree 1`] = `
   "TSEnumDeclaration": [
     "id",
     "members",
-    "modifiers",
   ],
   "TSEnumMember": [
     "id",
@@ -839,7 +836,6 @@ exports[`visitor keys estree 1`] = `
   "TSModuleDeclaration": [
     "id",
     "body",
-    "modifiers",
   ],
   "TSNamedTupleMember": [
     "label",
@@ -869,7 +865,6 @@ exports[`visitor keys estree 1`] = `
   "TSPropertySignature": [
     "key",
     "typeAnnotation",
-    "initializer",
   ],
   "TSProtectedKeyword": [],
   "TSPublicKeyword": [],

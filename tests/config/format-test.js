@@ -60,26 +60,26 @@ const espreeDisabledTests = new Set(
 const acornDisabledTests = espreeDisabledTests;
 const meriyahDisabledTests = new Set([
   ...espreeDisabledTests,
-  // Meriyah does not support decorator auto accessors syntax.
-  // But meriyah can parse it as an ordinary class property.
-  // So meriyah does not throw parsing error for it.
   ...[
-    "basic.js",
-    "computed.js",
-    "private.js",
-    "static-computed.js",
-    "static-private.js",
-    "static.js",
-    "with-semicolon-1.js",
-    "with-semicolon-2.js",
-    "comments.js",
-  ].map((filename) =>
-    path.join(__dirname, "../format/js/decorator-auto-accessors", filename)
-  ),
-  path.join(
-    __dirname,
-    "../format/js/babel-plugins/decorator-auto-accessors.js"
-  ),
+    // Meriyah does not support decorator auto accessors syntax.
+    // But meriyah can parse it as an ordinary class property.
+    // So meriyah does not throw parsing error for it.
+    ...[
+      "basic.js",
+      "computed.js",
+      "private.js",
+      "static-computed.js",
+      "static-private.js",
+      "static.js",
+      "with-semicolon-1.js",
+      "with-semicolon-2.js",
+      "comments.js",
+    ].map((filename) => `js/decorator-auto-accessors/${filename}`),
+    // https://github.com/meriyah/meriyah/issues/233
+    "js/babel-plugins/decorator-auto-accessors.js",
+    // https://github.com/meriyah/meriyah/issues/235
+    "jsx/spread/child.js",
+  ].map((file) => path.join(__dirname, "../format", file)),
 ]);
 const babelTsDisabledTest = new Set(
   [].map((directory) => path.join(__dirname, "../format/typescript", directory))
@@ -227,15 +227,22 @@ function runSpec(fixtures, parsers, options) {
       allParsers.push("babel-ts");
     }
 
-    if (parsers.includes("babel") && isTestDirectory(dirname, "js")) {
+    if (parsers.includes("flow") && !parsers.includes("babel-flow")) {
+      allParsers.push("babel-flow");
+    }
+
+    if (
+      parsers.includes("babel") &&
+      (isTestDirectory(dirname, "js") || isTestDirectory(dirname, "jsx"))
+    ) {
+      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
+        allParsers.push("acorn");
+      }
       if (!parsers.includes("espree") && !espreeDisabledTests.has(dirname)) {
         allParsers.push("espree");
       }
       if (!parsers.includes("meriyah") && !meriyahDisabledTests.has(dirname)) {
         allParsers.push("meriyah");
-      }
-      if (!parsers.includes("acorn") && !acornDisabledTests.has(dirname)) {
-        allParsers.push("acorn");
       }
     }
 

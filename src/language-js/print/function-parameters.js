@@ -47,17 +47,14 @@ function printFunctionParameters(
     return [
       typeParams,
       "(",
-      printDanglingComments(
-        path,
-        options,
-        /* sameIndent */ true,
-        (comment) =>
+      printDanglingComments(path, options, {
+        filter: (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
             comment,
             locEnd
-          ) === ")"
-      ),
+          ) === ")",
+      }),
       ")",
     ];
   }

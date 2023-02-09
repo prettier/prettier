@@ -34,29 +34,17 @@ abstract class Bar {
 ================================================================================
 `;
 
-exports[`constructor.ts [babel-ts] format 1`] = `
-"Unexpected token, expected "," (2:22)
-  1 | class foo {
-> 2 |   constructor(static a: number) {}
-    |                      ^
-  3 | }
-  4 |
-  5 | class foo {"
-`;
-
 exports[`constructor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class foo {
-  constructor(static a: number) {}
-}
-
-class foo {
-  constructor(export a: number) {}
-}
+class C {constructor(override a: number) {}}
+class D {constructor(private a: number) {}}
+class E {constructor(protected a: number) {}}
+class F {constructor(public a: number) {}}
+class G {constructor(readonly a: number) {}}
 
 class A {
     'constructor': typeof A
@@ -70,12 +58,20 @@ class B {
 }
 
 =====================================output=====================================
-class foo {
-  constructor(static a: number) {}
+class C {
+  constructor(override a: number) {}
 }
-
-class foo {
-  constructor(export a: number) {}
+class D {
+  constructor(private a: number) {}
+}
+class E {
+  constructor(protected a: number) {}
+}
+class F {
+  constructor(public a: number) {}
+}
+class G {
+  constructor(readonly a: number) {}
 }
 
 class A {

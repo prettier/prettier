@@ -21,6 +21,8 @@ import {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printAbstractToken,
+  printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printPropertyKey } from "./property.js";
 import { printAssignment } from "./assignment.js";
@@ -49,11 +51,7 @@ const isClassProperty = createTypeCheckFunction([
 function printClass(path, options, print) {
   const { node } = path;
   /** @type {Doc[]} */
-  const parts = [
-    printDeclareToken(path),
-    node.abstract ? "abstract " : "",
-    "class",
-  ];
+  const parts = [printDeclareToken(path), printAbstractToken(path), "class"];
 
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
@@ -122,9 +120,10 @@ function printHardlineAfterHeritage(node) {
 
 function hasMultipleHeritage(node) {
   return (
-    ["superClass", "extends", "mixins", "implements"].filter((key) =>
-      Boolean(node[key])
-    ).length > 1
+    ["extends", "mixins", "implements"].reduce(
+      (count, key) => count + (Array.isArray(node[key]) ? node[key].length : 0),
+      node.superClass ? 1 : 0
+    ) > 1
   );
 }
 
@@ -145,12 +144,9 @@ function printHeritageClauses(path, options, print, listName) {
     return "";
   }
 
-  const printedLeadingComments = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ true,
-    ({ marker }) => marker === listName
-  );
+  const printedLeadingComments = printDanglingComments(path, options, {
+    marker: listName,
+  });
   return [
     shouldIndentOnlyHeritageClauses(node)
       ? ifBreak(" ", line, {
@@ -182,16 +178,15 @@ function printClassMethod(path, options, print) {
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
+
+  parts.push(printTypeScriptAccessibilityToken(node));
 
   if (node.static) {
     parts.push("static ");
   }
-  if (node.type === "TSAbstractMethodDefinition" || node.abstract) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -209,22 +204,15 @@ function printClassProperty(path, options, print) {
   if (isNonEmptyArray(node.decorators)) {
     parts.push(printClassMemberDecorators(path, options, print));
   }
-  if (node.accessibility) {
-    parts.push(node.accessibility + " ");
-  }
 
-  parts.push(printDeclareToken(path));
+  parts.push(printTypeScriptAccessibilityToken(node), printDeclareToken(path));
 
   if (node.static) {
     parts.push("static ");
   }
-  if (
-    node.type === "TSAbstractPropertyDefinition" ||
-    node.type === "TSAbstractAccessorProperty" ||
-    node.abstract
-  ) {
-    parts.push("abstract ");
-  }
+
+  parts.push(printAbstractToken(path));
+
   if (node.override) {
     parts.push("override ");
   }
@@ -290,7 +278,7 @@ function printClassBody(path, options, print) {
   }, "body");
 
   if (hasComment(node, CommentCheckFlags.Dangling)) {
-    parts.push(printDanglingComments(path, options, /* sameIndent */ true));
+    parts.push(printDanglingComments(path, options));
   }
 
   return [

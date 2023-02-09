@@ -1,8 +1,16 @@
-import { isNonEmptyArray } from "../../common/util.js";
-import { indent, join, line } from "../../document/builders.js";
+import { indent, line } from "../../document/builders.js";
 import { isCallExpression, isMemberExpression } from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
+/**
+ * @typedef {import("../../common/ast-path.js").default} AstPath
+ * @typedef {import("../../document/builders.js").Doc} Doc
+ */
+
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printOptionalToken(path) {
   const { node } = path;
   if (
@@ -23,6 +31,10 @@ function printOptionalToken(path) {
   return "?";
 }
 
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printDefiniteToken(path) {
   return path.node.definite ||
     path.match(
@@ -45,6 +57,10 @@ const flowDeclareNodeTypes = new Set([
   "DeclareEnum",
   "DeclareInterface",
 ]);
+/**
+ * @param {AstPath} path
+ * @returns {Doc}
+ */
 function printDeclareToken(path) {
   const { node } = path;
 
@@ -57,6 +73,19 @@ function printDeclareToken(path) {
       ? "declare "
       : ""
   );
+}
+
+const tsAbstractNodeTypes = new Set([
+  "TSAbstractMethodDefinition",
+  "TSAbstractPropertyDefinition",
+  "TSAbstractAccessorProperty",
+]);
+/**
+ * @param {AstPath} param0
+ * @returns {Doc}
+ */
+function printAbstractToken({ node }) {
+  return node.abstract || tsAbstractNodeTypes.has(node.type) ? "abstract " : "";
 }
 
 function printFunctionTypeParameters(path, options, print) {
@@ -72,14 +101,6 @@ function printFunctionTypeParameters(path, options, print) {
 
 function printBindExpressionCallee(path, options, print) {
   return ["::", print("callee")];
-}
-
-function printTypeScriptModifiers(path, options, print) {
-  const { node } = path;
-  if (!isNonEmptyArray(node.modifiers)) {
-    return "";
-  }
-  return [join(" ", path.map(print, "modifiers")), " "];
 }
 
 function adjustClause(node, clause, forceSpace) {
@@ -116,14 +137,19 @@ function printDirective(rawText, options) {
   return enclosingQuote + rawContent + enclosingQuote;
 }
 
+function printTypeScriptAccessibilityToken(node) {
+  return node.accessibility ? node.accessibility + " " : "";
+}
+
 export {
   printOptionalToken,
   printDefiniteToken,
   printDeclareToken,
+  printAbstractToken,
   printFunctionTypeParameters,
   printBindExpressionCallee,
-  printTypeScriptModifiers,
   printRestSpread,
   adjustClause,
   printDirective,
+  printTypeScriptAccessibilityToken,
 };

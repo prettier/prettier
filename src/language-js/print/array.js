@@ -33,7 +33,7 @@ function printEmptyArray(path, options, openBracket, closeBracket) {
   }
   return group([
     openBracket,
-    printDanglingComments(path, options),
+    printDanglingComments(path, options, { indent: true }),
     softline,
     closeBracket,
   ]);
@@ -129,7 +129,7 @@ function printArray(path, options, print) {
                   printArrayItems(path, options, elementsProperty, print),
                   trailingComma,
                 ],
-            printDanglingComments(path, options, /* sameIndent */ true),
+            printDanglingComments(path, options),
           ]),
           softline,
           closeBracket,

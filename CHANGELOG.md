@@ -1,3 +1,126 @@
+# 2.8.4
+
+[diff](https://github.com/prettier/prettier/compare/2.8.3...2.8.4)
+
+#### Fix leading comments in mapped types with `readonly` ([#13427](https://github.com/prettier/prettier/pull/13427) by [@thorn0](https://github.com/thorn0), [@sosukesuzuki](https://github.com/sosukesuzuki))
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+type Type = {
+  // comment
+  readonly [key in Foo];
+};
+
+// Prettier 2.8.3
+type Type = {
+  readonly // comment
+  [key in Foo];
+};
+
+// Prettier 2.8.4
+type Type = {
+  // comment
+  readonly [key in Foo];
+};
+```
+
+#### Group params in opening block statements ([#14067](https://github.com/prettier/prettier/pull/14067) by [@jamescdavis](https://github.com/jamescdavis))
+
+This is a follow-up to #13930 to establish wrapping consistency between opening block statements and else blocks by
+grouping params in opening blocks. This causes params to break to a new line together and not be split across lines
+unless the length of params exceeds the print width. This also updates the else block wrapping to behave exactly the
+same as opening blocks.
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+{{#block param param param param param param param param param param as |blockParam|}}
+  Hello
+{{else block param param param param param param param param param param as |blockParam|}}
+  There
+{{/block}}
+
+{{! Prettier 2.8.3 }}
+{{#block
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  param
+  as |blockParam|
+}}
+  Hello
+{{else block param
+param
+param
+param
+param
+param
+param
+param
+param
+param}}
+  There
+{{/block}}
+
+{{! Prettier 2.8.4 }}
+{{#block
+  param param param param param param param param param param
+  as |blockParam|
+}}
+  Hello
+{{else block
+  param param param param param param param param param param
+  as |blockParam|
+}}
+  There
+{{/block}}
+```
+
+#### Ignore files in `.sl/` ([#14206](https://github.com/prettier/prettier/pull/14206) by [@bolinfest](https://github.com/bolinfest))
+
+In [Sapling SCM](https://sapling-scm.com/), `.sl/` is the folder where it stores its state, analogous to `.git/` in Git. It should be ignored in Prettier like the other SCM folders.
+
+#### Recognize `@satisfies` in Closure-style type casts ([#14262](https://github.com/prettier/prettier/pull/14262) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const a = /** @satisfies {Record<string, string>} */ ({hello: 1337});
+const b = /** @type {Record<string, string>} */ ({hello: 1337});
+
+// Prettier 2.8.3
+const a = /** @satisfies {Record<string, string>} */ { hello: 1337 };
+const b = /** @type {Record<string, string>} */ ({ hello: 1337 });
+
+// Prettier 2.8.4
+const a = /** @satisfies {Record<string, string>} */ ({hello: 1337});
+const b = /** @type {Record<string, string>} */ ({hello: 1337});
+```
+
+#### Fix parens in inferred function return types with `extends` ([#14279](https://github.com/prettier/prettier/pull/14279) by [@fisker](https://github.com/fisker))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type Foo<T> = T extends ((a) => a is infer R extends string) ? R : never;
+
+// Prettier 2.8.3 (First format)
+type Foo<T> = T extends (a) => a is infer R extends string ? R : never;
+
+// Prettier 2.8.3 (Second format)
+SyntaxError: '?' expected. 
+
+// Prettier 2.8.4
+type Foo<T> = T extends ((a) => a is infer R extends string) ? R : never;
+```
+
 # 2.8.3
 
 [diff](https://github.com/prettier/prettier/compare/2.8.2...2.8.3)

@@ -8,6 +8,18 @@ import visitNode from "./visit-node.js";
 import throwSyntaxError from "./throw-ts-syntax-error.js";
 
 function postprocess(ast, options) {
+  // `InterpreterDirective` from babel parser
+  // Other parsers parse it as comment, babel treat it as comment too
+  // https://github.com/babel/babel/issues/15116
+  if (ast.type === "File" && ast.program.interpreter) {
+    const {
+      program: { interpreter },
+      comments,
+    } = ast;
+    delete ast.program.interpreter;
+    comments.unshift(interpreter);
+  }
+
   // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
   if (
     options.parser !== "typescript" &&
@@ -98,6 +110,14 @@ function postprocess(ast, options) {
           if (invalidProperty) {
             throwSyntaxError(invalidProperty.value, "Unexpected token.");
           }
+        }
+        break;
+      case "TSPropertySignature":
+        if (node.initializer) {
+          throwSyntaxError(
+            node.initializer,
+            "An interface property cannot have an initializer."
+          );
         }
         break;
 

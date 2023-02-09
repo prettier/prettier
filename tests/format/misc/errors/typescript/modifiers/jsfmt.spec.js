@@ -37,22 +37,7 @@ run_spec(
         }
       `,
 
-      ...["abstract", "static", "private", "protected", "public"].flatMap(
-        (modifier) => [
-          outdent`
-            module Foo {
-              ${modifier} module Bar {}
-            }
-          `,
-          outdent`
-            module Foo {
-              ${modifier} enum Bar {}
-            }
-          `,
-        ]
-      ),
-
-      // Only `declare` and `export` allowed in interface
+      // `TSInterfaceDeclaration`, only `declare` and `export` allowed
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) => modifier !== "declare" && modifier !== "export"
       ).map(
@@ -62,7 +47,7 @@ run_spec(
           `
       ),
 
-      // Only `in` and `out` allowed in type parameter
+      // `TSTypeParameter`, only `in` and `out` allowed in type parameter
       ...POSSIBLE_MODIFIERS.filter(
         (modifier) => modifier !== "in" && modifier !== "out"
       ).map((modifier) => `interface Foo<${modifier} T> {}`),
@@ -85,6 +70,43 @@ run_spec(
           declare set setter(v) {}
         }
       `,
+
+      // `TSModuleDeclaration`
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) => modifier !== "declare" && modifier !== "export"
+      ).flatMap((modifier) => [
+        `${modifier} module Foo {}`,
+        `${modifier} namespace Foo {}`,
+      ]),
+
+      // `TSEnumDeclaration`
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) =>
+          modifier !== "declare" &&
+          modifier !== "const" &&
+          modifier !== "export"
+      ).map((modifier) => `${modifier} enum Foo {}`),
+
+      // `TSParameterProperty`
+      ...POSSIBLE_MODIFIERS.flatMap((modifier) => [
+        `function foo(${modifier} parameter) {}`,
+        `class Foo { method(${modifier} parameter) {} }`,
+      ]),
+      ...POSSIBLE_MODIFIERS.filter(
+        (modifier) =>
+          modifier !== "override" &&
+          modifier !== "private" &&
+          modifier !== "protected" &&
+          modifier !== "public" &&
+          modifier !== "readonly"
+      ).map(
+        (modifier) => `class Foo { constructor(${modifier} parameter) {} }`
+      ),
+
+      // `TSPropertySignature`
+      ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "readonly").map(
+        (modifier) => `type Foo = {${modifier} bar};`
+      ),
     ],
   },
   ["babel-ts", "typescript"]

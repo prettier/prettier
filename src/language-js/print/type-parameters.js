@@ -79,7 +79,7 @@ function printTypeParameters(path, options, print, paramsKey) {
         !node[paramsKey][0].constraint &&
         path.parent.type === "ArrowFunctionExpression"
       ? ","
-      : shouldPrintComma(options, "all")
+      : shouldPrintComma(options)
       ? ifBreak(",")
       : "";
 
@@ -101,11 +101,9 @@ function printDanglingCommentsForInline(path, options) {
     return "";
   }
   const hasOnlyBlockComments = !hasComment(node, CommentCheckFlags.Line);
-  const printed = printDanglingComments(
-    path,
-    options,
-    /* sameIndent */ hasOnlyBlockComments
-  );
+  const printed = printDanglingComments(path, options, {
+    indent: !hasOnlyBlockComments,
+  });
   if (hasOnlyBlockComments) {
     return printed;
   }
