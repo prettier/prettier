@@ -69,7 +69,7 @@ const selectorByPath:
 const selectorByPath: (Path) => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
-  SomethingBulkValue<string>
+  SomethingBulkValue<string>,
 > = memoizeWithArgs(/* ... */);
 
 ================================================================================
