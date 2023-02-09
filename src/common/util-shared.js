@@ -24,9 +24,9 @@ function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
   return arguments.length === 2 || typeof startIndex === "number"
     ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, startIndex)
-    // @ts-expect-error -- expected
-    // eslint-disable-next-line prefer-rest-params
-    : legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
+    : // @ts-expect-error -- expected
+      // eslint-disable-next-line prefer-rest-params
+      legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
 }
 
 export {
