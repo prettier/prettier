@@ -5,7 +5,7 @@ import {
   printDanglingComments,
   printCommentsSeparately,
 } from "../../main/comments.js";
-import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
+import { getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "../../common/util.js";
 import {
   line,
   softline,
@@ -227,11 +227,11 @@ function printArrowFunctionSignature(path, options, print, args) {
 
   const dangling = printDanglingComments(path, options, {
     filter(comment) {
-      const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
-        options.originalText,
-        comment,
-        locEnd
-      );
+      const nextCharacter =
+        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+          options.originalText,
+          locEnd(comment)
+        );
       return (
         nextCharacter !== false &&
         options.originalText.slice(nextCharacter, nextCharacter + 2) === "=>"

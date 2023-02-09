@@ -1,4 +1,4 @@
-import {getNextNonSpaceNonCommentCharacterIndexWithStartIndex} from "./util.js"
+import { getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
 
 // Legacy way of `getNextNonSpaceNonCommentCharacterIndex`
 /**

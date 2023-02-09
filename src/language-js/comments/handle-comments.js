@@ -6,7 +6,6 @@ import {
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
-  getNextNonSpaceNonCommentCharacterIndex,
   isNonEmptyArray,
 } from "../../common/util.js";
 import {
@@ -515,7 +514,10 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
     return false;
   }
 
-  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment, locEnd);
+  const index = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    locEnd(comment)
+  );
   if (index !== false && text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;

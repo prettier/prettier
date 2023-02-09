@@ -93,20 +93,6 @@ function isNextLineEmpty(text, node, locEnd) {
 }
 
 /**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
- * @returns {number | false}
- */
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
-  return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-    text,
-    locEnd(node)
-  );
-}
-
-/**
  * @param {string} text
  * @param {number} startIndex
  * @returns {string}
@@ -423,7 +409,6 @@ export {
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
-  getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skip,
   skipWhitespace,
