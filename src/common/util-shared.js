@@ -16,10 +16,17 @@ function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 }
 
 // TODO: export `getNextNonSpaceNonCommentCharacterIndex` directly in v4
-export function getNextNonSpaceNonCommentCharacterIndex(...args) {
-  return args.length === 3
-    ? legacyGetNextNonSpaceNonCommentCharacterIndex(...args)
-    : getNextNonSpaceNonCommentCharacterIndexWithStartIndex(...args);
+/**
+ * @param {string} text
+ * @param {number} startIndex
+ * @returns {number | false}
+ */
+export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
+  return arguments.length === 2 || typeof startIndex === "number"
+    ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, startIndex)
+    // @ts-expect-error -- expected
+    // eslint-disable-next-line prefer-rest-params
+    : legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
 }
 
 export {
