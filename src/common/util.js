@@ -109,15 +109,16 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 /**
  * @template N
  * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
+ * @param {number} startIndex
  * @returns {string}
  */
-function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
-  return text.charAt(
-    // @ts-expect-error => TBD: can return false, should we define a fallback?
-    getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
+function getNextNonSpaceNonCommentCharacter(text, startIndex) {
+  const index = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    startIndex
   );
+
+  return index === false ? "" : text.charAt(index);
 }
 
 // Not using, but it's public utils

@@ -179,8 +179,7 @@ function handleIfStatementComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    locEnd
+    locEnd(comment)
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -260,8 +259,7 @@ function handleWhileComments({
   // it is a ).
   const nextCharacter = getNextNonSpaceNonCommentCharacter(
     text,
-    comment,
-    locEnd
+    locEnd(comment)
   );
   if (nextCharacter === ")") {
     addTrailingComment(precedingNode, comment);
@@ -461,7 +459,7 @@ function handleMethodNameComments({
   if (
     enclosingNode &&
     precedingNode &&
-    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "(" &&
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === "(" &&
     // "MethodDefinition" is handled in getCommentChildNodes
     (enclosingNode.type === "Property" ||
       enclosingNode.type === "TSDeclareMethod" ||
@@ -470,7 +468,7 @@ function handleMethodNameComments({
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
     // comment should be attached to value instead of key
-    getNextNonSpaceNonCommentCharacter(text, precedingNode, locEnd) !== ":"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(precedingNode)) !== ":"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -502,7 +500,7 @@ function handleFunctionNameComments({
   enclosingNode,
   text,
 }) {
-  if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== "(") {
+  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== "(") {
     return false;
   }
   if (precedingNode && functionLikeNodeTypes.has(enclosingNode?.type)) {
@@ -527,7 +525,7 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
 }
 
 function handleCommentInEmptyParens({ comment, enclosingNode, text }) {
-  if (getNextNonSpaceNonCommentCharacter(text, comment, locEnd) !== ")") {
+  if (getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) !== ")") {
     return false;
   }
 
@@ -577,7 +575,7 @@ function handleLastFunctionArgComments({
       precedingNode?.type === "AssignmentPattern") &&
     enclosingNode &&
     isRealFunctionLikeNode(enclosingNode) &&
-    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === ")"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ")"
   ) {
     addTrailingComment(precedingNode, comment);
     return true;
@@ -829,7 +827,7 @@ function handleTSFunctionTrailingComments({
     (enclosingNode?.type === "TSMethodSignature" ||
       enclosingNode?.type === "TSDeclareFunction" ||
       enclosingNode?.type === "TSAbstractMethodDefinition") &&
-    getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === ";"
+    getNextNonSpaceNonCommentCharacter(text, locEnd(comment)) === ";"
   ) {
     addTrailingComment(enclosingNode, comment);
     return true;

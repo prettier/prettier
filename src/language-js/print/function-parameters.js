@@ -51,8 +51,7 @@ function printFunctionParameters(
         filter: (comment) =>
           getNextNonSpaceNonCommentCharacter(
             options.originalText,
-            comment,
-            locEnd
+            locEnd(comment)
           ) === ")",
       }),
       ")",
