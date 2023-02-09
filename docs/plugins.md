@@ -585,10 +585,14 @@ function makeString(
   unescapeUnnecessaryEscapes?: boolean
 ): string;
 
-function getNextNonSpaceNonCommentCharacterIndex<N>(
+function getNextNonSpaceNonCommentCharacter(
   text: string,
-  node: N,
-  locEnd: (node: N) => number
+  startIndex: number
+): string;
+
+function getNextNonSpaceNonCommentCharacterIndex(
+  text: string,
+  startIndex: number
 ): number | false;
 
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;

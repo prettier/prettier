@@ -1,6 +1,6 @@
 import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
 
-// Legacy way of `getNextNonSpaceNonCommentCharacterIndex`
+// Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
 /**
  * @template N
  * @param {string} text
@@ -8,11 +8,25 @@ import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCha
  * @param {(node: N) => number} locEnd
  * @returns {number | false}
  */
-export function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
     locEnd(node)
   );
+}
+
+// TODO: export `getNextNonSpaceNonCommentCharacterIndex` directly in v4
+/**
+ * @param {string} text
+ * @param {number} startIndex
+ * @returns {number | false}
+ */
+export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
+  return arguments.length === 2 || typeof startIndex === "number"
+    ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, startIndex)
+    : // @ts-expect-error -- expected
+      // eslint-disable-next-line prefer-rest-params
+      legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
 }
 
 export {
@@ -34,6 +48,7 @@ export {
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   isPreviousLineEmpty,
+  getNextNonSpaceNonCommentCharacter,
   makeString,
   addLeadingComment,
   addDanglingComment,
