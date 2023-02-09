@@ -200,7 +200,8 @@ function printTypescript(path, options, print) {
         softline,
       ]);
 
-      const isClassMember = path.parent.type === "ClassBody" && path.key === "body";
+      const isClassMember =
+        path.parent.type === "ClassBody" && path.key === "body";
 
       return [
         // `static` only allowed in class member
