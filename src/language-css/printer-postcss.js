@@ -3,7 +3,7 @@ import {
   printString,
   hasNewline,
   isFrontMatterNode,
-  isNextLineEmpty,
+  isNextLineEmptyAfterIndex,
   isNonEmptyArray,
 } from "../common/util.js";
 import {
@@ -989,7 +989,10 @@ function genericPrint(path, options, print) {
 
                   if (
                     last.source &&
-                    isNextLineEmpty(options.originalText, last, locEnd)
+                    isNextLineEmptyAfterIndex(
+                      options.originalText,
+                      locEnd(last)
+                    )
                   ) {
                     printed.push(hardline);
                   }
@@ -1109,7 +1112,7 @@ function printNodeSequence(path, options, print) {
     } else {
       parts.push(options.__isHTMLStyleAttribute ? line : hardline);
       if (
-        isNextLineEmpty(options.originalText, node, locEnd) &&
+        isNextLineEmptyAfterIndex(options.originalText, locEnd(node)) &&
         !isFrontMatterNode(node)
       ) {
         parts.push(hardline);
