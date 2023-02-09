@@ -100,12 +100,11 @@ export {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  isNextLineEmpty,
   getNextNonSpaceNonCommentCharacter,
   makeString,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
   // Remove this in v4
-  isNextLineEmptyAfterIndex,
+  isNextLineEmpty as isNextLineEmptyAfterIndex,
 } from "./util.js";

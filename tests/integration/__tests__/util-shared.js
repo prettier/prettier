@@ -188,6 +188,12 @@ test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.
       false
     );
   }
+
+  let called = false;
+  isNextLineEmptyAfterIndex("text", {}, () => {
+    called = true;
+  });
+  expect(called).toBe(false);
 });
 
 test("sharedUtil.makeString", () => {
