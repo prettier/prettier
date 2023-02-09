@@ -151,26 +151,42 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
   }
 });
 
-test("sharedUtil.isPreviousLineEmpty", () => {
-  const { isPreviousLineEmpty } = sharedUtil;
-  const FAKE_NODE = { type: "Identifier", name: "a" };
+test("sharedUtil.isPreviousLineEmpty, sharedUtil.isNextLineEmpty and sharedUtil.isNextLineEmptyAfterIndex", () => {
+  const { isPreviousLineEmpty, isNextLineEmpty, isNextLineEmptyAfterIndex } =
+    sharedUtil;
+  const FAKE_NODE_A = { type: "Identifier", name: "a" };
+  const FAKE_NODE_B = { type: "Identifier", name: "b" };
 
   {
-    const text = "   \t \na";
-    const startIndex = text.indexOf("a");
-    const locStart = () => startIndex;
+    const text = "a\n  \t  \t  \nb";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const startOfIdentifierB = text.indexOf("b");
 
-    expect(isPreviousLineEmpty(text, startIndex)).toBe(true);
-    expect(isPreviousLineEmpty(text, FAKE_NODE, locStart)).toBe(true);
+    expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(true);
+    expect(
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+    ).toBe(true);
+    expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(true);
+    expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(true);
+    expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
+      true
+    );
   }
 
   {
-    const text = " _  \t \na";
-    const startIndex = text.indexOf("a");
-    const locStart = () => startIndex;
+    const text = "a\n  \t NON_SPACE \t  \nb";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const startOfIdentifierB = text.indexOf("b");
 
-    expect(isPreviousLineEmpty(text, startIndex)).toBe(false);
-    expect(isPreviousLineEmpty(text, FAKE_NODE, locStart)).toBe(false);
+    expect(isPreviousLineEmpty(text, startOfIdentifierB)).toBe(false);
+    expect(
+      isPreviousLineEmpty(text, FAKE_NODE_B, () => startOfIdentifierB)
+    ).toBe(false);
+    expect(isNextLineEmpty(text, endOfIdentifierA)).toBe(false);
+    expect(isNextLineEmptyAfterIndex(text, endOfIdentifierA)).toBe(false);
+    expect(isNextLineEmpty(text, FAKE_NODE_A, () => endOfIdentifierA)).toBe(
+      false
+    );
   }
 });
 
