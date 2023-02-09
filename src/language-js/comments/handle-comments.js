@@ -1,6 +1,6 @@
 import {
   hasNewline,
-  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   hasNewlineInRange,
   addLeadingComment,
@@ -514,10 +514,7 @@ function handleCommentAfterArrowParams({ comment, enclosingNode, text }) {
     return false;
   }
 
-  const index = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-    text,
-    locEnd(comment)
-  );
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, locEnd(comment));
   if (index !== false && text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
@@ -590,19 +587,16 @@ function handleLastFunctionArgComments({
     const functionParamRightParenIndex = (() => {
       const parameters = getFunctionParameters(enclosingNode);
       if (parameters.length > 0) {
-        return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        return getNextNonSpaceNonCommentCharacterIndex(
           text,
           locEnd(parameters.at(-1))
         );
       }
       const functionParamLeftParenIndex =
-        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-          text,
-          locEnd(enclosingNode.id)
-        );
+        getNextNonSpaceNonCommentCharacterIndex(text, locEnd(enclosingNode.id));
       return (
         functionParamLeftParenIndex !== false &&
-        getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        getNextNonSpaceNonCommentCharacterIndex(
           text,
           functionParamLeftParenIndex + 1
         )

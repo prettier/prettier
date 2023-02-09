@@ -1,6 +1,6 @@
 import tryCombinations from "../../utils/try-combinations.js";
 import getShebang from "../utils/get-shebang.js";
-import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
 // JSON parsers are bundled here so we can reduce package size
 import jsonParsers from "../../language-json/parser-json.js";
 import createParser from "./utils/create-parser.js";
@@ -81,7 +81,7 @@ function isFlowFile(text, options) {
   }
 
   const firstNonSpaceNonCommentCharacterIndex =
-    getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, 0);
+    getNextNonSpaceNonCommentCharacterIndex(text, 0);
 
   if (firstNonSpaceNonCommentCharacterIndex !== false) {
     text = text.slice(0, firstNonSpaceNonCommentCharacterIndex);

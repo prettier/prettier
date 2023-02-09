@@ -1,4 +1,4 @@
-import { getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
+import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
 
 // Legacy way of `getNextNonSpaceNonCommentCharacterIndex`
 /**
@@ -34,7 +34,6 @@ export {
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   isPreviousLineEmpty,
-  getNextNonSpaceNonCommentCharacterIndex,
   makeString,
   addLeadingComment,
   addDanglingComment,

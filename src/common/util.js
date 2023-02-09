@@ -9,7 +9,7 @@ import {
 import skipInlineComment from "../utils/text/skip-inline-comment.js";
 import skipTrailingComment from "../utils/text/skip-trailing-comment.js";
 import skipNewline from "../utils/text/skip-newline.js";
-import getNextNonSpaceNonCommentCharacterIndexWithStartIndex from "../utils/text/get-next-non-space-non-comment-character-index-with-start-index.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../utils/text/get-next-non-space-non-comment-character-index.js";
 
 /**
  * @typedef {{backwards?: boolean}} SkipOptions
@@ -98,10 +98,7 @@ function isNextLineEmpty(text, node, locEnd) {
  * @returns {string}
  */
 function getNextNonSpaceNonCommentCharacter(text, startIndex) {
-  const index = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
-    text,
-    startIndex
-  );
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, startIndex);
 
   return index === false ? "" : text.charAt(index);
 }
@@ -408,7 +405,7 @@ function describeNodeForDebugging(node) {
 export {
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
-  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   skip,
   skipWhitespace,

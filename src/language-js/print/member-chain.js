@@ -1,7 +1,7 @@
 import { printComments } from "../../main/comments.js";
 import {
   isNextLineEmptyAfterIndex,
-  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  getNextNonSpaceNonCommentCharacterIndex,
 } from "../../common/util.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
@@ -65,7 +65,7 @@ function printMemberChain(path, options, print) {
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
     const { originalText } = options;
-    const nextCharIndex = getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       locEnd(node)
     );
