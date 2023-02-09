@@ -103,41 +103,51 @@ test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpa
     getNextNonSpaceNonCommentCharacter,
     getNextNonSpaceNonCommentCharacterIndex,
   } = sharedUtil;
+  const FAKE_NODE = { type: "Identifier", name: "a" };
 
   {
-    const text = "/* comment 1 */ a /* comment 1 */ b";
-    const indexOfIdentifierA = text.indexOf("a");
+    const text = "/* comment 1 */ a /* comment 2 */ b";
+    const endOfIdentifierA = text.indexOf("a") + 1;
     const indexOfIdentifierB = text.indexOf("b");
-    const node = {};
-    const locEnd = () => indexOfIdentifierA + 1;
+    const locEnd = () => endOfIdentifierA;
 
-    expect(getNextNonSpaceNonCommentCharacter(text, node, locEnd)).toBe("b");
-    expect(getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)).toBe(
-      indexOfIdentifierB
+    expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe(
+      "b"
     );
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+    ).toBe(indexOfIdentifierB);
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+    ).toBe(indexOfIdentifierB);
   }
 
   {
-    const text = "/* comment 1 */ a /* comment 1 */";
-    const indexOfIdentifierA = text.indexOf("a");
-    const node = {};
-    const locEnd = () => indexOfIdentifierA + 1;
+    const text = "/* comment 1 */ a /* comment 2 */";
+    const endOfIdentifierA = text.indexOf("a") + 1;
+    const locEnd = () => endOfIdentifierA;
 
-    expect(getNextNonSpaceNonCommentCharacter(text, node, locEnd)).toBe("");
-    expect(getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)).toBe(
-      text.length
-    );
+    expect(getNextNonSpaceNonCommentCharacter(text, endOfIdentifierA)).toBe("");
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, endOfIdentifierA)
+    ).toBe(text.length);
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+    ).toBe(text.length);
   }
 
   {
-    const text = "/* comment 1 */ a /* comment 1 */";
-    const node = {};
-    const locEnd = () => false;
+    const text = "/* comment 1 */ a /* comment 2 */";
+    const startIndex = false;
+    const locEnd = () => startIndex;
 
-    expect(getNextNonSpaceNonCommentCharacter(text, node, locEnd)).toBe("");
-    expect(getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)).toBe(
+    expect(getNextNonSpaceNonCommentCharacter(text, startIndex)).toBe("");
+    expect(getNextNonSpaceNonCommentCharacterIndex(text, startIndex)).toBe(
       false
     );
+    expect(
+      getNextNonSpaceNonCommentCharacterIndex(text, FAKE_NODE, locEnd)
+    ).toBe(false);
   }
 });
 

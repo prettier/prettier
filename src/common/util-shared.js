@@ -1,6 +1,6 @@
 import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
 
-// Legacy way of `getNextNonSpaceNonCommentCharacterIndex`
+// Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
 /**
  * @template N
  * @param {string} text
@@ -8,11 +8,18 @@ import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCha
  * @param {(node: N) => number} locEnd
  * @returns {number | false}
  */
-export function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
     locEnd(node)
   );
+}
+
+// TODO: export `getNextNonSpaceNonCommentCharacterIndex` directly in v4
+export function getNextNonSpaceNonCommentCharacterIndex(...args) {
+  return args.length === 3
+    ? legacyGetNextNonSpaceNonCommentCharacterIndex(...args)
+    : getNextNonSpaceNonCommentCharacterIndexWithStartIndex(...args);
 }
 
 export {
