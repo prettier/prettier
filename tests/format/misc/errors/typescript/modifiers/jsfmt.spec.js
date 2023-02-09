@@ -107,6 +107,13 @@ run_spec(
       ...POSSIBLE_MODIFIERS.filter((modifier) => modifier !== "readonly").map(
         (modifier) => `type Foo = {${modifier} bar};`
       ),
+
+      // `TSIndexSignature`
+      outdent`
+        class Foo {
+          declare [index: string]: number
+        }
+      `,
     ],
   },
   ["babel-ts", "typescript"]

@@ -1,25 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare-index-signature.ts format 1`] = `
-====================================options=====================================
-parsers: ["babel-ts"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-// Invalid, but recoverable
-class C {
-  declare [key: string]: string;
-}
-
-=====================================output=====================================
-// Invalid, but recoverable
-class C {
-  declare [key: string]: string;
-}
-
-================================================================================
-`;
-
 exports[`decorator-auto-accessors-new-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["babel-ts"]

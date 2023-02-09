@@ -206,7 +206,6 @@ function printTypescript(path, options, print) {
         printTypeScriptAccessibilityToken(node),
         node.static ? "static " : "",
         node.readonly ? "readonly " : "",
-        printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
         "]",

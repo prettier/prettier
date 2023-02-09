@@ -191,7 +191,6 @@ const allowedMessageCodes = new Set([
   "MixedLabeledAndUnlabeledElements",
 
   "DuplicateAccessibilityModifier",
-  "IndexSignatureHasDeclare",
 
   "DecoratorExportClass",
   "ParamDupe",

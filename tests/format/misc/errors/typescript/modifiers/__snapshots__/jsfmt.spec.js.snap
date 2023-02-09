@@ -2391,3 +2391,19 @@ exports[`snippet: #178 [typescript] format 1`] = `
 > 1 | type Foo = {static bar};
     |             ^^^^^^"
 `;
+
+exports[`snippet: #179 [babel-ts] format 1`] = `
+"Index signatures cannot have the 'declare' modifier. (2:3)
+  1 | class Foo {
+> 2 |   declare [index: string]: number
+    |   ^
+  3 | }"
+`;
+
+exports[`snippet: #179 [typescript] format 1`] = `
+"'declare' modifier cannot appear on an index signature (2:3)
+  1 | class Foo {
+> 2 |   declare [index: string]: number
+    |   ^^^^^^^
+  3 | }"
+`;
