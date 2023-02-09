@@ -107,7 +107,6 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 }
 
 /**
- * @template N
  * @param {string} text
  * @param {number} startIndex
  * @returns {string}
