@@ -595,19 +595,9 @@ function getNextNonSpaceNonCommentCharacterIndex(
   startIndex: number
 ): number | false;
 
-function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+function isNextLineEmpty(text: string, startIndex: number): boolean;
 
-function isNextLineEmpty<N>(
-  text: string,
-  node: N,
-  locEnd: (node: N) => number
-): boolean;
-
-function isPreviousLineEmpty<N>(
-  text: string,
-  node: N,
-  locStart: (node: N) => number
-): boolean;
+function isPreviousLineEmpty(text: string, startIndex: number): boolean;
 ```
 
 ### Tutorials

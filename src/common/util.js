@@ -67,7 +67,7 @@ function isNextLineEmpty(text, startIndex) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */
-  let idx = index;
+  let idx = startIndex;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
