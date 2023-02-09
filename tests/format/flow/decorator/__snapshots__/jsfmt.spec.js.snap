@@ -2,7 +2,7 @@
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -14,8 +14,9 @@ class Something {
 
 =====================================output=====================================
 class Something {
-  static // comment
-  property: Array<string>;
+  @Annotateme()
+  // comment
+  static property: Array<string>;
 }
 
 ================================================================================
@@ -23,7 +24,7 @@ class Something {
 
 exports[`mobx.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel-flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -69,8 +70,8 @@ import { observable } from "mobx";
 
 @observer
 class OrderLine {
-  price: number = 0;
-  amount: number = 1;
+  @observable price: number = 0;
+  @observable amount: number = 1;
 
   constructor(price) {
     this.price = price;
@@ -105,9 +106,10 @@ class OrderLine {
     return this.price * this.amount;
   }
 
-  handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) => this.count--;
+  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.count--;
 
-  handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
+  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
     doSomething();
 }
 
