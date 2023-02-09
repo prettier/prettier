@@ -2,7 +2,7 @@ import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
 import {
   hasNewline,
   isNonEmptyArray,
-  isNextLineEmptyAfterIndex,
+  isNextLineEmpty as isNextLineEmptyAfterIndex,
   getStringWidth,
 } from "../../common/util.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";

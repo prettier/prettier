@@ -60,10 +60,10 @@ function isPreviousLineEmpty(text, startIndex) {
 
 /**
  * @param {string} text
- * @param {number} index
+ * @param {number} startIndex
  * @returns {boolean}
  */
-function isNextLineEmptyAfterIndex(text, index) {
+function isNextLineEmpty(text, startIndex) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */
@@ -78,17 +78,6 @@ function isNextLineEmptyAfterIndex(text, index) {
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return idx !== false && hasNewline(text, idx);
-}
-
-/**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
- * @returns {boolean}
- */
-function isNextLineEmpty(text, node, locEnd) {
-  return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
 /**
@@ -413,7 +402,6 @@ export {
   skipInlineComment,
   skipTrailingComment,
   skipNewline,
-  isNextLineEmptyAfterIndex,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,

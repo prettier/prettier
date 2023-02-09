@@ -1,7 +1,7 @@
 import {
   getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   isPreviousLineEmpty as isPreviousLineEmptyWithStartIndex,
-  isNextLineEmptyAfterIndex,
+  isNextLineEmpty as isNextLineEmptyAfterIndex,
 } from "./util.js";
 
 // Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
@@ -70,7 +70,7 @@ function legacyIsNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-// TODO: export `isNextLineEmptyAfterIndex` as `isNextLineEmpty` in v4
+// TODO: export `isNextLineEmpty` directly in v4
 /**
  * @param {string} text
  * @param {number} startIndex
