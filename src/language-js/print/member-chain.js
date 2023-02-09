@@ -67,8 +67,7 @@ function printMemberChain(path, options, print) {
     const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
-      node,
-      locEnd
+      locEnd(node)
     );
     const nextChar = originalText.charAt(nextCharIndex);
 

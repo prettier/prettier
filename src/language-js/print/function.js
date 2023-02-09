@@ -229,8 +229,7 @@ function printArrowFunctionSignature(path, options, print, args) {
     filter(comment) {
       const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
         options.originalText,
-        comment,
-        locEnd
+        locEnd(comment)
       );
       return (
         nextCharacter !== false &&

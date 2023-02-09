@@ -5,14 +5,14 @@ import { skipSpaces } from "./skip.js";
 
 /**
  * @param {string} text
- * @param {number} idx
+ * @param {number} startIndex
  * @returns {number | false}
  */
-function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
+function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */
-  let nextIdx = idx;
+  let nextIdx = startIndex;
   while (nextIdx !== oldIdx) {
     oldIdx = nextIdx;
     nextIdx = skipSpaces(text, nextIdx);
@@ -23,4 +23,4 @@ function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   return nextIdx;
 }
 
-export default getNextNonSpaceNonCommentCharacterIndexWithStartIndex;
+export default getNextNonSpaceNonCommentCharacterIndex;
