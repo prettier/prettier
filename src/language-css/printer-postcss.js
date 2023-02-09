@@ -989,10 +989,7 @@ function genericPrint(path, options, print) {
 
                   if (
                     last.source &&
-                    isNextLineEmpty(
-                      options.originalText,
-                      locEnd(last)
-                    )
+                    isNextLineEmpty(options.originalText, locEnd(last))
                   ) {
                     printed.push(hardline);
                   }

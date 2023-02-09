@@ -33,7 +33,6 @@ export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
       legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
 }
 
-
 // Legacy version of `isPreviousLineEmpty`
 /**
  * @template N
