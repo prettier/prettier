@@ -99,7 +99,6 @@ function isNextLineEmpty(text, node, locEnd) {
  */
 function getNextNonSpaceNonCommentCharacter(text, startIndex) {
   const index = getNextNonSpaceNonCommentCharacterIndex(text, startIndex);
-
   return index === false ? "" : text.charAt(index);
 }
 

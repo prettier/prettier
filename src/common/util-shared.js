@@ -34,6 +34,7 @@ export {
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   isPreviousLineEmpty,
+  getNextNonSpaceNonCommentCharacter,
   makeString,
   addLeadingComment,
   addDanglingComment,

@@ -21,6 +21,7 @@ test("shared util has correct structure", () => {
   expect(typeof sharedUtil.isNextLineEmpty).toBe("function");
   expect(typeof sharedUtil.isNextLineEmptyAfterIndex).toBe("function");
   expect(typeof sharedUtil.isPreviousLineEmpty).toBe("function");
+  expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacter).toBe("function");
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacterIndex).toBe(
     "function"
   );
@@ -95,6 +96,49 @@ test("sharedUtil.getIndentSize", () => {
   expect(getIndentSize("\n\t\n\t\t", /* tabWidth */ 2)).toBe(4);
   expect(getIndentSize("\n \n  ", /* tabWidth */ 2)).toBe(2);
   expect(getIndentSize("   \n\t\t\n", /* tabWidth */ 2)).toBe(0);
+});
+
+test("sharedUtil.getNextNonSpaceNonCommentCharacter and sharedUtil.getNextNonSpaceNonCommentCharacterIndex", () => {
+  const {
+    getNextNonSpaceNonCommentCharacter,
+    getNextNonSpaceNonCommentCharacterIndex,
+  } = sharedUtil;
+
+  {
+    const text = "/* comment 1 */ a /* comment 1 */ b";
+    const indexOfIdentifierA = text.indexOf("a");
+    const indexOfIdentifierB = text.indexOf("b");
+    const node = {};
+    const locEnd = () => indexOfIdentifierA + 1;
+
+    expect(getNextNonSpaceNonCommentCharacter(text, node, locEnd)).toBe("b");
+    expect(getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)).toBe(
+      indexOfIdentifierB
+    );
+  }
+
+  {
+    const text = "/* comment 1 */ a /* comment 1 */";
+    const indexOfIdentifierA = text.indexOf("a");
+    const node = {};
+    const locEnd = () => indexOfIdentifierA + 1;
+
+    expect(getNextNonSpaceNonCommentCharacter(text, node, locEnd)).toBe("");
+    expect(getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)).toBe(
+      text.length
+    );
+  }
+
+  {
+    const text = "/* comment 1 */ a /* comment 1 */";
+    const node = {};
+    const locEnd = () => false;
+
+    expect(getNextNonSpaceNonCommentCharacter(text, node, locEnd)).toBe("");
+    expect(getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)).toBe(
+      false
+    );
+  }
 });
 
 test("sharedUtil.makeString", () => {
