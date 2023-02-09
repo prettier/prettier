@@ -1,4 +1,7 @@
-import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
+import {
+  getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  isPreviousLineEmpty as isPreviousLineEmptyWithStartIndex,
+} from "./util.js";
 
 // Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
 /**
@@ -15,6 +18,18 @@ function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   );
 }
 
+// Legacy version of `isPreviousLineEmpty`
+
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locStart
+ */
+function legacyIsPreviousLineEmpty(text, node, locStart) {
+  return isPreviousLineEmptyWithStartIndex(text, locStart(node));
+}
+
 // TODO: export `getNextNonSpaceNonCommentCharacterIndex` directly in v4
 /**
  * @param {string} text
@@ -23,10 +38,24 @@ function legacyGetNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
  */
 export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
   return arguments.length === 2 || typeof startIndex === "number"
-    ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, startIndex)
+    ? isPreviousLineEmptyWithStartIndex(text, startIndex)
     : // @ts-expect-error -- expected
       // eslint-disable-next-line prefer-rest-params
       legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
+}
+
+// TODO: export `isPreviousLineEmpty` directly in v4
+/**
+ * @param {string} text
+ * @param {number} startIndex
+ * @returns {boolean}
+ */
+export function isPreviousLineEmpty(text, startIndex) {
+  return arguments.length === 2 || typeof startIndex === "number"
+    ? getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, startIndex)
+    : // @ts-expect-error -- expected
+      // eslint-disable-next-line prefer-rest-params
+      legacyIsPreviousLineEmpty(...arguments);
 }
 
 export {
@@ -47,7 +76,6 @@ export {
   hasSpaces,
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
-  isPreviousLineEmpty,
   getNextNonSpaceNonCommentCharacter,
   makeString,
   addLeadingComment,

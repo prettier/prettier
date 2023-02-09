@@ -44,14 +44,13 @@ function hasNewlineInRange(text, start, end) {
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
 /**
- * @template N
  * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locStart
+ * @param {number} startIndex
+ * @returns {boolean}
  */
-function isPreviousLineEmpty(text, node, locStart) {
+function isPreviousLineEmpty(text, startIndex) {
   /** @type {number | false} */
-  let idx = locStart(node) - 1;
+  let idx = startIndex - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
   idx = skipSpaces(text, idx, { backwards: true });
