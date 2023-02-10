@@ -44,14 +44,13 @@ function hasNewlineInRange(text, start, end) {
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
 /**
- * @template N
  * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locStart
+ * @param {number} startIndex
+ * @returns {boolean}
  */
-function isPreviousLineEmpty(text, node, locStart) {
+function isPreviousLineEmpty(text, startIndex) {
   /** @type {number | false} */
-  let idx = locStart(node) - 1;
+  let idx = startIndex - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
   idx = skipSpaces(text, idx, { backwards: true });
@@ -61,14 +60,14 @@ function isPreviousLineEmpty(text, node, locStart) {
 
 /**
  * @param {string} text
- * @param {number} index
+ * @param {number} startIndex
  * @returns {boolean}
  */
-function isNextLineEmptyAfterIndex(text, index) {
+function isNextLineEmpty(text, startIndex) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */
-  let idx = index;
+  let idx = startIndex;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
@@ -79,17 +78,6 @@ function isNextLineEmptyAfterIndex(text, index) {
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return idx !== false && hasNewline(text, idx);
-}
-
-/**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
- * @returns {boolean}
- */
-function isNextLineEmpty(text, node, locEnd) {
-  return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
 /**
@@ -414,7 +402,6 @@ export {
   skipInlineComment,
   skipTrailingComment,
   skipNewline,
-  isNextLineEmptyAfterIndex,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,

@@ -487,8 +487,7 @@ function printTrailingComment(path, options, previousComment) {
 
     const isLineBeforeEmpty = isPreviousLineEmpty(
       originalText,
-      comment,
-      locStart
+      locStart(comment)
     );
 
     return {

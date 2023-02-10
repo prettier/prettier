@@ -989,7 +989,7 @@ function genericPrint(path, options, print) {
 
                   if (
                     last.source &&
-                    isNextLineEmpty(options.originalText, last, locEnd)
+                    isNextLineEmpty(options.originalText, locEnd(last))
                   ) {
                     printed.push(hardline);
                   }
@@ -1109,7 +1109,7 @@ function printNodeSequence(path, options, print) {
     } else {
       parts.push(options.__isHTMLStyleAttribute ? line : hardline);
       if (
-        isNextLineEmpty(options.originalText, node, locEnd) &&
+        isNextLineEmpty(options.originalText, locEnd(node)) &&
         !isFrontMatterNode(node)
       ) {
         parts.push(hardline);
