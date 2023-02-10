@@ -82,17 +82,6 @@
   }}
 />;
 
-<Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-/>;
-
 <BookingIntroPanel>
   {data => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
@@ -108,17 +97,6 @@
     doLogClick("long_name_long_name_long_name", "long_name_long_name_long_name", data)
   }}
 </BookingIntroPanel>;
-
-<Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>,
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
-    });
-  }}
-</Component>;
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>

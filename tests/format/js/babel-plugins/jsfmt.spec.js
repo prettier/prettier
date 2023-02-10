@@ -85,5 +85,7 @@ run_spec(import.meta, ["babel", "babel-ts", "babel-flow"], {
       "import-reflection.js",
       "explicit-resource-management.js",
     ],
+    babel: ["flow.js", "typescript.js"],
+    __babel_estree: ["flow.js", "typescript.js"],
   },
 });
