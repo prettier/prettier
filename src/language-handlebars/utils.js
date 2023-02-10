@@ -1,7 +1,7 @@
 "use strict";
 
-const { htmlVoidElements } = require("../../vendors/html-void-elements.json");
 const getLast = require("../utils/get-last.js");
+const htmlVoidElements = require("./html-void-elements.evaluate.js");
 
 function isLastNodeOfSiblings(path) {
   const node = path.getValue();
@@ -38,10 +38,15 @@ function isGlimmerComponent(node) {
 }
 
 const voidTags = new Set(htmlVoidElements);
+// https://github.com/glimmerjs/glimmer-vm/blob/ec5648f3895b9ab8d085523be001553746221449/packages/%40glimmer/syntax/lib/generation/printer.ts#L44-L46
+function isVoidTag(tag) {
+  return voidTags.has(tag.toLowerCase()) && !isUppercase(tag[0]);
+}
+
 function isVoid(node) {
   return (
-    voidTags.has(node.tag) ||
     node.selfClosing === true ||
+    isVoidTag(node.tag) ||
     (isGlimmerComponent(node) &&
       node.children.every((node) => isWhitespaceNode(node)))
   );

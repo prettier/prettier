@@ -38,6 +38,342 @@ Expecting 'OPEN_SEXPR', 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL'
   4 |"
 `;
 
+exports[`snippet: IMG [glimmer] format 1`] = `
+"Unclosed element \`IMG\`: 
+
+|
+|  <IMG>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <IMG>
+    | ^^^^^"
+`;
+
+exports[`snippet: INPUT [glimmer] format 1`] = `
+"Unclosed element \`INPUT\`: 
+
+|
+|  <INPUT>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <INPUT>
+    | ^^^^^^^"
+`;
+
+exports[`snippet: area [glimmer] format 1`] = `
+"<area> elements do not need end tags. You should remove it: 
+
+|
+|  </area>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 6) (1:6)
+> 1 | <area></area>
+    |      ^^^^^^^"
+`;
+
+exports[`snippet: base [glimmer] format 1`] = `
+"<base> elements do not need end tags. You should remove it: 
+
+|
+|  </base>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 6) (1:6)
+> 1 | <base></base>
+    |      ^^^^^^^"
+`;
+
+exports[`snippet: basefont [glimmer] format 1`] = `
+"Unclosed element \`basefont\`: 
+
+|
+|  <basefont>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <basefont>
+    | ^^^^^^^^^^"
+`;
+
+exports[`snippet: bgsound [glimmer] format 1`] = `
+"Unclosed element \`bgsound\`: 
+
+|
+|  <bgsound>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <bgsound>
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: br [glimmer] format 1`] = `
+"<br> elements do not need end tags. You should remove it: 
+
+|
+|  </br>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 4) (1:4)
+> 1 | <br></br>
+    |    ^^^^^"
+`;
+
+exports[`snippet: col [glimmer] format 1`] = `
+"<col> elements do not need end tags. You should remove it: 
+
+|
+|  </col>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 5) (1:5)
+> 1 | <col></col>
+    |     ^^^^^^"
+`;
+
+exports[`snippet: command [glimmer] format 1`] = `
+"<command> elements do not need end tags. You should remove it: 
+
+|
+|  </command>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 9) (1:9)
+> 1 | <command></command>
+    |         ^^^^^^^^^^"
+`;
+
+exports[`snippet: div [glimmer] format 1`] = `
+"Unclosed element \`div\`: 
+
+|
+|  <div>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <div>
+    | ^^^^^"
+`;
+
+exports[`snippet: embed [glimmer] format 1`] = `
+"<embed> elements do not need end tags. You should remove it: 
+
+|
+|  </embed>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 7) (1:7)
+> 1 | <embed></embed>
+    |       ^^^^^^^^"
+`;
+
+exports[`snippet: frame [glimmer] format 1`] = `
+"Unclosed element \`frame\`: 
+
+|
+|  <frame>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <frame>
+    | ^^^^^^^"
+`;
+
+exports[`snippet: hr [glimmer] format 1`] = `
+"<hr> elements do not need end tags. You should remove it: 
+
+|
+|  </hr>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 4) (1:4)
+> 1 | <hr></hr>
+    |    ^^^^^"
+`;
+
+exports[`snippet: imG [glimmer] format 1`] = `
+"Unclosed element \`imG\`: 
+
+|
+|  <imG>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <imG>
+    | ^^^^^"
+`;
+
+exports[`snippet: image [glimmer] format 1`] = `
+"Unclosed element \`image\`: 
+
+|
+|  <image>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <image>
+    | ^^^^^^^"
+`;
+
+exports[`snippet: img [glimmer] format 1`] = `
+"<img> elements do not need end tags. You should remove it: 
+
+|
+|  </img>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 5) (1:5)
+> 1 | <img></img>
+    |     ^^^^^^"
+`;
+
+exports[`snippet: input [glimmer] format 1`] = `
+"<input> elements do not need end tags. You should remove it: 
+
+|
+|  </input>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 7) (1:7)
+> 1 | <input></input>
+    |       ^^^^^^^^"
+`;
+
+exports[`snippet: isindex [glimmer] format 1`] = `
+"Unclosed element \`isindex\`: 
+
+|
+|  <isindex>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <isindex>
+    | ^^^^^^^^^"
+`;
+
+exports[`snippet: keygen [glimmer] format 1`] = `
+"<keygen> elements do not need end tags. You should remove it: 
+
+|
+|  </keygen>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 8) (1:8)
+> 1 | <keygen></keygen>
+    |        ^^^^^^^^^"
+`;
+
+exports[`snippet: lINk [glimmer] format 1`] = `
+"Unclosed element \`lINk\`: 
+
+|
+|  <lINk>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <lINk>
+    | ^^^^^^"
+`;
+
+exports[`snippet: link [glimmer] format 1`] = `
+"<link> elements do not need end tags. You should remove it: 
+
+|
+|  </link>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 6) (1:6)
+> 1 | <link></link>
+    |      ^^^^^^^"
+`;
+
+exports[`snippet: menuitem [glimmer] format 1`] = `
+"Unclosed element \`menuitem\`: 
+
+|
+|  <menuitem>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <menuitem>
+    | ^^^^^^^^^^"
+`;
+
+exports[`snippet: meta [glimmer] format 1`] = `
+"<meta> elements do not need end tags. You should remove it: 
+
+|
+|  </meta>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 6) (1:6)
+> 1 | <meta></meta>
+    |      ^^^^^^^"
+`;
+
+exports[`snippet: nextid [glimmer] format 1`] = `
+"Unclosed element \`nextid\`: 
+
+|
+|  <nextid>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 0) (1:0)
+> 1 | <nextid>
+    | ^^^^^^^^"
+`;
+
+exports[`snippet: param [glimmer] format 1`] = `
+"<param> elements do not need end tags. You should remove it: 
+
+|
+|  </param>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 7) (1:7)
+> 1 | <param></param>
+    |       ^^^^^^^^"
+`;
+
+exports[`snippet: source [glimmer] format 1`] = `
+"<source> elements do not need end tags. You should remove it: 
+
+|
+|  </source>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 8) (1:8)
+> 1 | <source></source>
+    |        ^^^^^^^^^"
+`;
+
+exports[`snippet: track [glimmer] format 1`] = `
+"<track> elements do not need end tags. You should remove it: 
+
+|
+|  </track>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 7) (1:7)
+> 1 | <track></track>
+    |       ^^^^^^^^"
+`;
+
+exports[`snippet: wbr [glimmer] format 1`] = `
+"<wbr> elements do not need end tags. You should remove it: 
+
+|
+|  </wbr>
+|
+
+(error occurred in 'an unknown module' @ line 1 : column 5) (1:5)
+> 1 | <wbr></wbr>
+    |     ^^^^^^"
+`;
+
 exports[`tilde-comments-1.hbs [glimmer] format 1`] = `
 "Parse error on line 1:
 {{~}}

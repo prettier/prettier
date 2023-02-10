@@ -30,6 +30,10 @@ const {
   isWhitespaceNode,
 } = require("./utils.js");
 
+/**
+ * @typedef {import("../document").Doc} Doc
+ */
+
 const NEWLINES_TO_PRESERVE_MAX = 2;
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
@@ -529,27 +533,24 @@ function printInverseBlockClosingMustache(node) {
 
 function printOpenBlock(path, print) {
   const node = path.getValue();
+  /** @type {Doc[]} */
+  const parts = [];
 
-  const openingMustache = printOpeningBlockOpeningMustache(node);
-  const closingMustache = printOpeningBlockClosingMustache(node);
-
-  const attributes = [printPath(path, print)];
-
-  const params = printParams(path, print);
-  if (params) {
-    attributes.push(line, params);
+  const paramsDoc = printParams(path, print);
+  if (paramsDoc) {
+    parts.push(group(paramsDoc));
   }
 
   if (isNonEmptyArray(node.program.blockParams)) {
-    const block = printBlockParams(node.program);
-    attributes.push(line, block);
+    parts.push(printBlockParams(node.program));
   }
 
   return group([
-    openingMustache,
-    indent(attributes),
+    printOpeningBlockOpeningMustache(node),
+    printPath(path, print),
+    parts.length > 0 ? indent([line, join(line, parts)]) : "",
     softline,
-    closingMustache,
+    printOpeningBlockClosingMustache(node),
   ]);
 }
 
@@ -564,24 +565,18 @@ function printElseBlock(node, options) {
 
 function printElseIfLikeBlock(path, print, ifLikeKeyword) {
   const node = path.getValue();
-  let blockParams = [];
-
-  if (isNonEmptyArray(node.program.blockParams)) {
-    blockParams = [line, printBlockParams(node.program)];
-  }
-
   const parentNode = path.getParentNode(1);
 
   return group([
     printInverseBlockOpeningMustache(parentNode),
-    indent(
-      group([
-        group(["else", line, ifLikeKeyword]),
-        line,
-        printParams(path, print),
-      ])
-    ),
-    indent(blockParams),
+    ["else", " ", ifLikeKeyword],
+    indent([
+      line,
+      group(printParams(path, print)),
+      ...(isNonEmptyArray(node.program.blockParams)
+        ? [line, printBlockParams(node.program)]
+        : []),
+    ]),
     softline,
     printInverseBlockClosingMustache(parentNode),
   ]);
