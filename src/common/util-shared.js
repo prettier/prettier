@@ -58,6 +58,7 @@ export function isPreviousLineEmpty(text, startIndex) {
       legacyIsPreviousLineEmpty(...arguments);
 }
 
+// Legacy version of `isNextLineEmpty`
 /**
  * @template N
  * @param {string} text
