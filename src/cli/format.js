@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 import chalk from "chalk";
 import * as prettier from "../index.js";
 import thirdParty from "../common/third-party.js";
@@ -263,7 +264,10 @@ async function formatStdin(context) {
       return;
     }
 
-    const options = await getOptionsForFile(context, filepath);
+    const options = await getOptionsForFile(
+      context,
+      filepath ? path.resolve(process.cwd(), filepath) : process.cwd()
+    );
 
     if (await listDifferent(context, input, options, "(stdin)")) {
       return;
