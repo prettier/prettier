@@ -1,7 +1,8 @@
 import path from "node:path";
-import createIgnore from "ignore";
+import ignoreModule from "ignore";
 import readFile from "../utils/read-file.js";
 
+const createIgnore = ignoreModule.default;
 const slash =
   path.sep === "\\"
     ? (filepath) => filepath.replaceAll("\\", "/")
