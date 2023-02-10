@@ -1,4 +1,4 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import { DOC_TYPE_FILL, DOC_TYPE_GROUP } from "../../document/constants.js";
 import {
   join,

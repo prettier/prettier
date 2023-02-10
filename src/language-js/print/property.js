@@ -1,4 +1,4 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import { printString, printNumber } from "../../common/util.js";
 import {
   isNumericLiteral,

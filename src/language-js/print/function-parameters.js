@@ -1,5 +1,5 @@
 import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import {
   line,
   hardline,
