@@ -1,28 +1,9 @@
 import assert from "node:assert";
-import {
-  line,
-  hardline,
-  breakParent,
-  indent,
-  lineSuffix,
-  join,
-  label,
-} from "../document/builders.js";
-import {
-  hasNewline,
-  skipNewline,
-  skipSpaces,
-  isPreviousLineEmpty,
-  addLeadingComment,
-  addDanglingComment,
-  addTrailingComment,
-  isNonEmptyArray,
-} from "../common/util.js";
-import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
+import { hasNewline, isNonEmptyArray } from "../../common/util.js";
+import createGetVisitorKeysFunction from "../create-get-visitor-keys-function.js";
 
 /**
- * @typedef {import("../common/ast-path.js").default} AstPath
- * @typedef {import("../document/builders.js").Doc} Doc
+ * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
 const childNodesCache = new WeakMap();
@@ -150,7 +131,6 @@ function decorateComment(node, comment, options, enclosingNode) {
 }
 
 const returnFalse = () => false;
-const returnTrue = () => true;
 function attach(comments, ast, text, options) {
   if (!isNonEmptyArray(comments) || !options.printer.canAttachComment) {
     return;
@@ -406,12 +386,6 @@ function breakTies(tiesToBreak, text, options) {
   tiesToBreak.length = 0;
 }
 
-function printComment(path, options) {
-  const comment = path.node;
-  comment.printed = true;
-  return options.printer.printComment(path, options);
-}
-
 function findExpressionIndexForComment(quasis, comment, options) {
   const startPos = options.locStart(comment) - 1;
 
@@ -427,210 +401,55 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
-function printLeadingComment(path, options) {
-  const comment = path.node;
-  const parts = [printComment(path, options)];
-
-  const { printer, originalText, locStart, locEnd } = options;
-  const isBlock = printer.isBlockComment?.(comment);
-
-  // Leading block comments should see if they need to stay on the
-  // same line or not.
-  if (isBlock) {
-    const lineBreak = hasNewline(originalText, locEnd(comment))
-      ? hasNewline(originalText, locStart(comment), {
-          backwards: true,
-        })
-        ? hardline
-        : line
-      : " ";
-
-    parts.push(lineBreak);
-  } else {
-    parts.push(hardline);
-  }
-
-  const index = skipNewline(
-    originalText,
-    skipSpaces(originalText, locEnd(comment))
+function describeNodeForDebugging(node) {
+  const nodeType = node.type || node.kind || "(unknown type)";
+  let nodeName = String(
+    node.name ||
+      (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
+      (node.key && (typeof node.key === "object" ? node.key.name : node.key)) ||
+      (node.value &&
+        (typeof node.value === "object" ? "" : String(node.value))) ||
+      node.operator ||
+      ""
   );
-
-  if (index !== false && hasNewline(originalText, index)) {
-    parts.push(hardline);
+  if (nodeName.length > 20) {
+    nodeName = nodeName.slice(0, 19) + "…";
   }
-
-  return parts;
+  return nodeType + (nodeName ? " " + nodeName : "");
 }
 
-function printTrailingComment(path, options, previousComment) {
-  const comment = path.node;
-  const printed = printComment(path, options);
-
-  const { printer, originalText, locStart } = options;
-  const isBlock = printer.isBlockComment?.(comment);
-
-  if (
-    (previousComment?.hasLineSuffix && !previousComment?.isBlock) ||
-    hasNewline(originalText, locStart(comment), { backwards: true })
-  ) {
-    // This allows comments at the end of nested structures:
-    // {
-    //   x: 1,
-    //   y: 2
-    //   // A comment
-    // }
-    // Those kinds of comments are almost always leading comments, but
-    // here it doesn't go "outside" the block and turns it into a
-    // trailing comment for `2`. We can simulate the above by checking
-    // if this a comment on its own line; normal trailing comments are
-    // always at the end of another expression.
-
-    const isLineBeforeEmpty = isPreviousLineEmpty(
-      originalText,
-      locStart(comment)
-    );
-
-    return {
-      doc: lineSuffix([hardline, isLineBeforeEmpty ? hardline : "", printed]),
-      isBlock,
-      hasLineSuffix: true,
-    };
-  }
-
-  if (!isBlock || previousComment?.hasLineSuffix) {
-    return {
-      doc: [lineSuffix([" ", printed]), breakParent],
-      isBlock,
-      hasLineSuffix: true,
-    };
-  }
-
-  return { doc: [" ", printed], isBlock, hasLineSuffix: false };
+function addCommentHelper(node, comment) {
+  const comments = (node.comments ??= []);
+  comments.push(comment);
+  comment.printed = false;
+  comment.nodeDescription = describeNodeForDebugging(node);
 }
 
-/**
- * @param {AstPath} path
- * @param {{
- *  indent?: boolean,
- *  marker?: symbol,
- *  filter?: (comment) => boolean,
- * }} [danglingCommentsPrintOptions]
- * @returns {Doc}
- */
-function printDanglingComments(
-  path,
-  options,
-  danglingCommentsPrintOptions = {}
-) {
-  const { node } = path;
-
-  if (!isNonEmptyArray(node?.comments)) {
-    return "";
-  }
-
-  const {
-    indent: shouldIndent = false,
-    marker,
-    filter = returnTrue,
-  } = danglingCommentsPrintOptions;
-
-  const parts = [];
-  path.each(({ node: comment }) => {
-    if (
-      comment.leading ||
-      comment.trailing ||
-      comment.marker !== marker ||
-      !filter(comment)
-    ) {
-      return;
-    }
-
-    parts.push(printComment(path, options));
-  }, "comments");
-
-  if (parts.length === 0) {
-    return "";
-  }
-
-  const doc = join(hardline, parts);
-  return shouldIndent ? indent([hardline, doc]) : doc;
+function addLeadingComment(node, comment) {
+  comment.leading = true;
+  comment.trailing = false;
+  addCommentHelper(node, comment);
 }
 
-function printCommentsSeparately(path, options, ignored) {
-  const value = path.node;
-  if (!value) {
-    return {};
+function addDanglingComment(node, comment, marker) {
+  comment.leading = false;
+  comment.trailing = false;
+  if (marker) {
+    comment.marker = marker;
   }
-
-  let comments = value.comments || [];
-  if (ignored) {
-    comments = comments.filter((comment) => !ignored.has(comment));
-  }
-
-  if (comments.length === 0) {
-    return { leading: "", trailing: "" };
-  }
-
-  const leadingParts = [];
-  const trailingParts = [];
-  let printedTrailingComment;
-  path.each(() => {
-    const comment = path.node;
-    if (ignored?.has(comment)) {
-      return;
-    }
-
-    const { leading, trailing } = comment;
-    if (leading) {
-      leadingParts.push(printLeadingComment(path, options));
-    } else if (trailing) {
-      printedTrailingComment = printTrailingComment(
-        path,
-        options,
-        printedTrailingComment
-      );
-      trailingParts.push(printedTrailingComment.doc);
-    }
-  }, "comments");
-
-  return { leading: leadingParts, trailing: trailingParts };
+  addCommentHelper(node, comment);
 }
 
-function printComments(path, doc, options, ignored) {
-  const { leading, trailing } = printCommentsSeparately(path, options, ignored);
-  if (!leading && !trailing) {
-    return doc;
-  }
-  return label(
-    // Propagate object labels so that the printing logic for ancestor nodes
-    // could easily check them.
-    typeof doc.label === "object" && { commented: true, ...doc.label },
-    [leading, doc, trailing]
-  );
-}
-
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
-
-  for (const comment of astComments) {
-    if (!comment.printed) {
-      throw new Error(
-        'Comment "' +
-          comment.value.trim() +
-          '" was not printed. Please report this error!'
-      );
-    }
-    delete comment.printed;
-  }
+function addTrailingComment(node, comment) {
+  comment.leading = false;
+  comment.trailing = true;
+  addCommentHelper(node, comment);
 }
 
 export {
   attach,
-  printComments,
-  printCommentsSeparately,
-  printDanglingComments,
   getSortedChildNodes,
-  ensureAllCommentsPrinted,
+  addLeadingComment,
+  addDanglingComment,
+  addTrailingComment,
 };

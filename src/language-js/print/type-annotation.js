@@ -1,4 +1,4 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import {
   group,
   join,

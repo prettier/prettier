@@ -1,5 +1,8 @@
 import { isNonEmptyArray, createGroupIdMapper } from "../../common/util.js";
-import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  printComments,
+  printDanglingComments,
+} from "../../main/comments/print.js";
 import {
   join,
   line,

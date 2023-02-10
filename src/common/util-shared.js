@@ -102,9 +102,11 @@ export {
   hasSpaces,
   getNextNonSpaceNonCommentCharacter,
   makeString,
-  addLeadingComment,
-  addDanglingComment,
-  addTrailingComment,
   // Remove this in v4
   isNextLineEmpty as isNextLineEmptyAfterIndex,
 } from "./util.js";
+export {
+  addLeadingComment,
+  addDanglingComment,
+  addTrailingComment,
+} from "../main/comments/attach.js";

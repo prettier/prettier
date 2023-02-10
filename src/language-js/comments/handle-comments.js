@@ -3,11 +3,13 @@ import {
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
   hasNewlineInRange,
+  isNonEmptyArray,
+} from "../../common/util.js";
+import {
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
-  isNonEmptyArray,
-} from "../../common/util.js";
+} from "../../main/comments/attach.js";
 import {
   getFunctionParameters,
   isPrettierIgnoreComment,

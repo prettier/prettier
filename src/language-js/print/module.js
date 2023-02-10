@@ -9,7 +9,7 @@ import {
   ifBreak,
   hardline,
 } from "../../document/builders.js";
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 
 import {
   hasComment,

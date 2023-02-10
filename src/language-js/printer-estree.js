@@ -1,5 +1,5 @@
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
-import { printDanglingComments } from "../main/comments.js";
+import { printDanglingComments } from "../main/comments/print.js";
 import { hasNewline } from "../common/util.js";
 import {
   join,

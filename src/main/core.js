@@ -11,7 +11,8 @@ import {
 } from "../common/end-of-line.js";
 import { normalize as normalizeOptions } from "./options.js";
 import massageAst from "./massage-ast.js";
-import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { attach } from "./comments/attach.js";
+import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
 import { calculateRange, findNodeAtOffset } from "./range-util.js";

@@ -1,4 +1,4 @@
-import { printDanglingComments } from "../../main/comments.js";
+import { printDanglingComments } from "../../main/comments/print.js";
 import { hasNewlineInRange } from "../../common/util.js";
 import {
   join,
