@@ -5,48 +5,48 @@
 // want to skip one newline. It's simple to implement.
 /**
  * @param {string} text
- * @param {number | false} index
- * @param {SkipOptions=} opts
+ * @param {number | false} startIndex
+ * @param {SkipOptions=} options
  * @returns {number | false}
  */
-function skipNewline(text, index, opts) {
-  const backwards = Boolean(opts?.backwards);
-  if (index === false) {
+function skipNewline(text, startIndex, options) {
+  const backwards = Boolean(options?.backwards);
+  if (startIndex === false) {
     return false;
   }
 
-  const atIndex = text.charAt(index);
+  const character = text.charAt(startIndex);
   if (backwards) {
     // We already replace `\r\n` with `\n` before parsing
     /* c8 ignore next 3 */
-    if (text.charAt(index - 1) === "\r" && atIndex === "\n") {
-      return index - 2;
+    if (text.charAt(startIndex - 1) === "\r" && character === "\n") {
+      return startIndex - 2;
     }
     if (
-      atIndex === "\n" ||
-      atIndex === "\r" ||
-      atIndex === "\u2028" ||
-      atIndex === "\u2029"
+      character === "\n" ||
+      character === "\r" ||
+      character === "\u2028" ||
+      character === "\u2029"
     ) {
-      return index - 1;
+      return startIndex - 1;
     }
   } else {
     // We already replace `\r\n` with `\n` before parsing
     /* c8 ignore next 3 */
-    if (atIndex === "\r" && text.charAt(index + 1) === "\n") {
-      return index + 2;
+    if (character === "\r" && text.charAt(startIndex + 1) === "\n") {
+      return startIndex + 2;
     }
     if (
-      atIndex === "\n" ||
-      atIndex === "\r" ||
-      atIndex === "\u2028" ||
-      atIndex === "\u2029"
+      character === "\n" ||
+      character === "\r" ||
+      character === "\u2028" ||
+      character === "\u2029"
     ) {
-      return index + 1;
+      return startIndex + 1;
     }
   }
 
-  return index;
+  return startIndex;
 }
 
 export default skipNewline;
