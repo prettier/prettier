@@ -13,7 +13,7 @@ const slash =
  * @param {boolean?} withNodeModules
  * @returns {Promise<(string) => boolean>}
  */
-async function createIsIgnoredFunction(ignoreFilePath, withNodeModules) {
+async function createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   let content = "";
 
   if (ignoreFilePath) {
@@ -41,6 +41,27 @@ async function createIsIgnoredFunction(ignoreFilePath, withNodeModules) {
 
     return ignore.ignores(slash(relativePath));
   };
+}
+
+/**
+ * @param {string[]} ignoreFilePaths
+ * @param {boolean?} withNodeModules
+ * @returns {Promise<(string) => boolean>}
+ */
+async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
+  // If `ignoreFilePaths` is empty, we still want `withNodeModules` to work
+  if (ignoreFilePaths.length === 0) {
+    ignoreFilePaths = [undefined];
+  }
+
+  const isIgnoredFunctions = await Promise.all(
+    ignoreFilePaths.map((ignoreFilePath) =>
+      createSingleIsIgnoredFunction(ignoreFilePath, withNodeModules)
+    )
+  );
+
+  return (filepath) =>
+    isIgnoredFunctions.some((isIgnored) => isIgnored(filepath));
 }
 
 /**

@@ -18,7 +18,21 @@ export default function createMinimistOptions(detailedOptions) {
         name === "plugin-search-dir") &&
       option.default !== undefined
     ) {
-      defaultValues[option.name] = option.default;
+      let defaultValue = option.default;
+      /*
+      FIXME:
+      This part is not right for "plugin-search-dir" we got `[]`,
+      but for "ignore-path" we got `[{value: []}]`.
+      Probably because "plugin-search-dir" is an api option
+      */
+      if (
+        Array.isArray(defaultValue) &&
+        defaultValue.length === 1 &&
+        defaultValue[0].value
+      ) {
+        defaultValue = defaultValue[0].value;
+      }
+      defaultValues[option.name] = defaultValue;
     }
   }
 
