@@ -199,4 +199,4 @@ function fixWindowsSlashes(pattern) {
   return isWindows ? pattern.replaceAll("\\", "/") : pattern;
 }
 
-export { expandPatterns, fixWindowsSlashes };
+export { expandPatterns };
