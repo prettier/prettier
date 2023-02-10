@@ -1,3 +1,5 @@
+/** @typedef {import("./get-preferred-quote.js").Quote} Quote */
+
 /**
  * @param {string} rawText
  * @param {Quote} enclosingQuote
