@@ -50,9 +50,9 @@ async function createIsIgnoredFunction(ignoreFilePath, withNodeModules) {
  * @returns {Promise<boolean>}
  */
 async function isIgnored(filePath, options) {
-  const {ignorePath, withNodeModules} = options;
+  const { ignorePath, withNodeModules } = options;
   const isIgnored = await createIsIgnoredFunction(ignorePath, withNodeModules);
-  return isIgnored(filePath)
+  return isIgnored(filePath);
 }
 
 export { createIsIgnoredFunction, isIgnored };
