@@ -9,8 +9,8 @@
  * @param {SkipOptions=} options
  * @returns {number | false}
  */
-function skipNewline(text, startIndex, opts) {
-  const backwards = Boolean(opts?.backwards);
+function skipNewline(text, startIndex, options) {
+  const backwards = Boolean(options?.backwards);
   if (startIndex === false) {
     return false;
   }
