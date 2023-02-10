@@ -2,19 +2,19 @@ import { skipEverythingButNewLine } from "./skip.js";
 
 /**
  * @param {string} text
- * @param {number | false} index
+ * @param {number | false} startIndex
  * @returns {number | false}
  */
-function skipTrailingComment(text, index) {
+function skipTrailingComment(text, startIndex) {
   /* c8 ignore next 3 */
-  if (index === false) {
+  if (startIndex === false) {
     return false;
   }
 
-  if (text.charAt(index) === "/" && text.charAt(index + 1) === "/") {
-    return skipEverythingButNewLine(text, index);
+  if (text.charAt(startIndex) === "/" && text.charAt(startIndex + 1) === "/") {
+    return skipEverythingButNewLine(text, startIndex);
   }
-  return index;
+  return startIndex;
 }
 
 export default skipTrailingComment;
