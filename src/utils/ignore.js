@@ -32,7 +32,7 @@ async function createIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   const ignore = createIgnore({ allowRelativePaths: true }).add(content);
 
   return (filepath) => {
-    filepath = path.isAbsolute(filepath) ? filepath : path.resolve(filepath);
+    filepath = path.resolve(filepath);
 
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
