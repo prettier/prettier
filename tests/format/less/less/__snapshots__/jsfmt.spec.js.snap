@@ -3530,3 +3530,35 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`selector-interpolation.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * deail -> https://github.com/shellscape/postcss-less/pull/159
+ * postcss-less v5 fix the bug
+ */
+
+@prefix: foo;
+
+.@{prefix}-bar{
+  color: red;
+}
+
+=====================================output=====================================
+/*
+ * deail -> https://github.com/shellscape/postcss-less/pull/159
+ * postcss-less v5 fix the bug
+ */
+
+@prefix: foo;
+
+.@{prefix}-bar {
+  color: red;
+}
+
+================================================================================
+`;
