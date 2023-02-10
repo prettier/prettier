@@ -23,7 +23,13 @@ async function getFileInfo(filePath, options) {
     );
   }
 
-  const ignored = await isIgnored(filePath, options);
+  let { ignorePath, withNodeModules } = options;
+  // In API we allow single `ignorePath`
+  if (!Array.isArray(ignorePath)) {
+    ignorePath = [ignorePath]
+  }
+
+  const ignored = await isIgnored(filePath, {ignorePath, withNodeModules});
 
   let inferredParser;
   if (!ignored) {

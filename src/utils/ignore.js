@@ -65,8 +65,8 @@ async function createIsIgnoredFunction(ignoreFilePaths, withNodeModules) {
 }
 
 /**
- * @param {string} filepath
- * @param {{ignorePath?: string, withNodeModules?: boolean}} options
+ * @param {string[]} filepath
+ * @param {{ignorePath: string[], withNodeModules?: boolean}} options
  * @returns {Promise<boolean>}
  */
 async function isIgnored(filepath, options) {
