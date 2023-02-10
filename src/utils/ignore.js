@@ -17,8 +17,7 @@ async function createIsIgnoredFunction(ignoreFilePath, withNodeModules) {
   let content = "";
 
   if (ignoreFilePath) {
-    ignoreFilePath = path.resolve(ignoreFilePath);
-    content += await readFile(ignoreFilePath);
+    content += (await readFile(ignoreFilePath)) ?? "";
   }
 
   if (!withNodeModules) {
