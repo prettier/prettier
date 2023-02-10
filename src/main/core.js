@@ -326,7 +326,7 @@ async function parse(originalText, originalOptions, devOptions) {
     originalText,
     await normalizeOptions(originalOptions)
   );
-  const parsed = await parse(text, options);
+  const parsed = await parseText(text, options);
   if (devOptions) {
     if (devOptions.massage) {
       parsed.ast = massageAst(parsed.ast, options);
@@ -360,7 +360,7 @@ async function formatDoc(doc, options) {
 
 async function printToDoc(originalText, options) {
   options = await normalizeOptions(options);
-  const { ast, text } = await parse(originalText, options);
+  const { ast, text } = await parseText(originalText, options);
   attachComments(text, ast, options);
   return printAstToDoc(ast, options);
 }
