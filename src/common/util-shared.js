@@ -109,4 +109,4 @@ export {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} from "../main/comments/attach.js";
+} from "../main/comments/utils.js";

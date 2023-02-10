@@ -9,7 +9,7 @@ import {
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
-} from "../../main/comments/attach.js";
+} from "../../main/comments/utils.js";
 import {
   getFunctionParameters,
   isPrettierIgnoreComment,
