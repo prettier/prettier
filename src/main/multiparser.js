@@ -1,6 +1,7 @@
 import { stripTrailingHardline } from "../document/utils.js";
 import { normalize } from "./options.js";
-import { ensureAllCommentsPrinted, attach } from "./comments.js";
+import { attach } from "./comments/attach.js";
+import { ensureAllCommentsPrinted } from "./comments/print.js";
 import { parse } from "./parser.js";
 import createGetVisitorKeysFunction from "./create-get-visitor-keys-function.js";
 

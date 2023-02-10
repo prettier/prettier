@@ -1,6 +1,6 @@
-import { printComments } from "../../main/comments.js";
+import { printComments } from "../../main/comments/print.js";
 import {
-  isNextLineEmptyAfterIndex,
+  isNextLineEmpty as isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
 } from "../../common/util.js";
 import pathNeedsParens from "../needs-parens.js";

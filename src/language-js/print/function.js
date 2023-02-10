@@ -4,7 +4,7 @@ import assert from "node:assert";
 import {
   printDanglingComments,
   printCommentsSeparately,
-} from "../../main/comments.js";
+} from "../../main/comments/print.js";
 import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
 import {
   line,

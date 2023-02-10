@@ -17,24 +17,28 @@ import getNextNonSpaceNonCommentCharacterIndex from "../utils/text/get-next-non-
 
 /**
  * @param {string} text
- * @param {number} index
- * @param {SkipOptions=} opts
+ * @param {number} startIndex
+ * @param {SkipOptions=} options
  * @returns {boolean}
  */
-function hasNewline(text, index, opts = {}) {
-  const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
-  const idx2 = skipNewline(text, idx, opts);
+function hasNewline(text, startIndex, options = {}) {
+  const idx = skipSpaces(
+    text,
+    options.backwards ? startIndex - 1 : startIndex,
+    options
+  );
+  const idx2 = skipNewline(text, idx, options);
   return idx !== idx2;
 }
 
 /**
  * @param {string} text
- * @param {number} start
- * @param {number} end
+ * @param {number} startIndex
+ * @param {number} endIndex
  * @returns {boolean}
  */
-function hasNewlineInRange(text, start, end) {
-  for (let i = start; i < end; ++i) {
+function hasNewlineInRange(text, startIndex, endIndex) {
+  for (let i = startIndex; i < endIndex; ++i) {
     if (text.charAt(i) === "\n") {
       return true;
     }
@@ -44,14 +48,13 @@ function hasNewlineInRange(text, start, end) {
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
 /**
- * @template N
  * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locStart
+ * @param {number} startIndex
+ * @returns {boolean}
  */
-function isPreviousLineEmpty(text, node, locStart) {
+function isPreviousLineEmpty(text, startIndex) {
   /** @type {number | false} */
-  let idx = locStart(node) - 1;
+  let idx = startIndex - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
   idx = skipSpaces(text, idx, { backwards: true });
@@ -61,14 +64,14 @@ function isPreviousLineEmpty(text, node, locStart) {
 
 /**
  * @param {string} text
- * @param {number} index
+ * @param {number} startIndex
  * @returns {boolean}
  */
-function isNextLineEmptyAfterIndex(text, index) {
+function isNextLineEmpty(text, startIndex) {
   /** @type {number | false} */
   let oldIdx = null;
   /** @type {number | false} */
-  let idx = index;
+  let idx = startIndex;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
     oldIdx = idx;
@@ -79,17 +82,6 @@ function isNextLineEmptyAfterIndex(text, index) {
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
   return idx !== false && hasNewline(text, idx);
-}
-
-/**
- * @template N
- * @param {string} text
- * @param {N} node
- * @param {(node: N) => number} locEnd
- * @returns {boolean}
- */
-function isNextLineEmpty(text, node, locEnd) {
-  return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
 /**
@@ -106,26 +98,30 @@ function getNextNonSpaceNonCommentCharacter(text, startIndex) {
 /* c8 ignore start */
 /**
  * @param {string} text
- * @param {number} index
- * @param {SkipOptions=} opts
+ * @param {number} startIndex
+ * @param {SkipOptions=} options
  * @returns {boolean}
  */
-function hasSpaces(text, index, opts = {}) {
-  const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
-  return idx !== index;
+function hasSpaces(text, startIndex, options = {}) {
+  const idx = skipSpaces(
+    text,
+    options.backwards ? startIndex - 1 : startIndex,
+    options
+  );
+  return idx !== startIndex;
 }
 /* c8 ignore stop */
 
 /**
- * @param {string} value
+ * @param {string} text
  * @param {number} tabWidth
  * @param {number=} startIndex
  * @returns {number}
  */
-function getAlignmentSize(value, tabWidth, startIndex = 0) {
+function getAlignmentSize(text, tabWidth, startIndex = 0) {
   let size = 0;
-  for (let i = startIndex; i < value.length; ++i) {
-    if (value[i] === "\t") {
+  for (let i = startIndex; i < text.length; ++i) {
+    if (text[i] === "\t") {
       // Tabs behave in a way that they are aligned to the nearest
       // multiple of tabWidth:
       // 0 -> 4, 1 -> 4, 2 -> 4, 3 -> 4
@@ -229,20 +225,20 @@ function printString(raw, options) {
 }
 
 /**
- * @param {string} rawContent
+ * @param {string} rawText
  * @param {Quote} enclosingQuote
  * @param {boolean=} unescapeUnnecessaryEscapes
  * @returns {string}
  */
-function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
+function makeString(rawText, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
   const regex = /\\(.)|(["'])/gs;
 
   // Escape and unescape single and double quotes as needed to be able to
-  // enclose `rawContent` with `enclosingQuote`.
-  const newContent = rawContent.replaceAll(regex, (match, escaped, quote) => {
+  // enclose `rawText` with `enclosingQuote`.
+  const raw = rawText.replaceAll(regex, (match, escaped, quote) => {
     // If we matched an escape, and the escaped character is a quote of the
     // other type than we intend to enclose the string with, there's no need for
     // it to be escaped, so return it _without_ the backslash.
@@ -269,7 +265,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
       : "\\" + escaped;
   });
 
-  return enclosingQuote + newContent + enclosingQuote;
+  return enclosingQuote + raw + enclosingQuote;
 }
 
 function printNumber(rawNumber) {
@@ -290,13 +286,13 @@ function printNumber(rawNumber) {
 }
 
 /**
- * @param {string} str
- * @param {string} target
+ * @param {string} text
+ * @param {string} searchString
  * @returns {number}
  */
-function getMaxContinuousCount(str, target) {
-  const results = str.match(
-    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+function getMaxContinuousCount(text, searchString) {
+  const results = text.match(
+    new RegExp(`(${escapeStringRegexp(searchString)})+`, "g")
   );
 
   if (results === null) {
@@ -304,14 +300,20 @@ function getMaxContinuousCount(str, target) {
   }
 
   return results.reduce(
-    (maxCount, result) => Math.max(maxCount, result.length / target.length),
+    (maxCount, result) =>
+      Math.max(maxCount, result.length / searchString.length),
     0
   );
 }
 
-function getMinNotPresentContinuousCount(str, target) {
-  const matches = str.match(
-    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+/**
+ * @param {string} text
+ * @param {string} searchString
+ * @returns {number}
+ */
+function getMinNotPresentContinuousCount(text, searchString) {
+  const matches = text.match(
+    new RegExp(`(${escapeStringRegexp(searchString)})+`, "g")
   );
 
   if (matches === null) {
@@ -322,7 +324,7 @@ function getMinNotPresentContinuousCount(str, target) {
   let max = 0;
 
   for (const match of matches) {
-    const count = match.length / target.length;
+    const count = match.length / searchString.length;
     countPresent.set(count, true);
     if (count > max) {
       max = count;
@@ -336,34 +338,6 @@ function getMinNotPresentContinuousCount(str, target) {
   }
 
   return max + 1;
-}
-
-function addCommentHelper(node, comment) {
-  const comments = (node.comments ??= []);
-  comments.push(comment);
-  comment.printed = false;
-  comment.nodeDescription = describeNodeForDebugging(node);
-}
-
-function addLeadingComment(node, comment) {
-  comment.leading = true;
-  comment.trailing = false;
-  addCommentHelper(node, comment);
-}
-
-function addDanglingComment(node, comment, marker) {
-  comment.leading = false;
-  comment.trailing = false;
-  if (marker) {
-    comment.marker = marker;
-  }
-  addCommentHelper(node, comment);
-}
-
-function addTrailingComment(node, comment) {
-  comment.leading = false;
-  comment.trailing = true;
-  addCommentHelper(node, comment);
 }
 
 function isFrontMatterNode(node) {
@@ -384,23 +358,6 @@ function createGroupIdMapper(description) {
   };
 }
 
-function describeNodeForDebugging(node) {
-  const nodeType = node.type || node.kind || "(unknown type)";
-  let nodeName = String(
-    node.name ||
-      (node.id && (typeof node.id === "object" ? node.id.name : node.id)) ||
-      (node.key && (typeof node.key === "object" ? node.key.name : node.key)) ||
-      (node.value &&
-        (typeof node.value === "object" ? "" : String(node.value))) ||
-      node.operator ||
-      ""
-  );
-  if (nodeName.length > 20) {
-    nodeName = nodeName.slice(0, 19) + "…";
-  }
-  return nodeType + (nodeName ? " " + nodeName : "");
-}
-
 export {
   getMaxContinuousCount,
   getMinNotPresentContinuousCount,
@@ -414,7 +371,6 @@ export {
   skipInlineComment,
   skipTrailingComment,
   skipNewline,
-  isNextLineEmptyAfterIndex,
   isNextLineEmpty,
   isPreviousLineEmpty,
   hasNewline,
@@ -426,9 +382,6 @@ export {
   printString,
   printNumber,
   makeString,
-  addLeadingComment,
-  addDanglingComment,
-  addTrailingComment,
   isFrontMatterNode,
   createGroupIdMapper,
 };

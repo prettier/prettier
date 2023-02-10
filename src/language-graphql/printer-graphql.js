@@ -434,7 +434,7 @@ function printSequence(path, options, print, property) {
   return path.map(({ isLast, node }) => {
     const printed = print();
 
-    if (!isLast && isNextLineEmpty(options.originalText, node, locEnd)) {
+    if (!isLast && isNextLineEmpty(options.originalText, locEnd(node))) {
       return [printed, hardline];
     }
 

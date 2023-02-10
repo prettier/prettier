@@ -3,29 +3,29 @@
  */
 
 /**
- * @param {string | RegExp} chars
- * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @param {string | RegExp} characters
+ * @returns {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
  */
-function skip(chars) {
-  return (text, index, opts) => {
-    const backwards = Boolean(opts?.backwards);
+function skip(characters) {
+  return (text, startIndex, options) => {
+    const backwards = Boolean(options?.backwards);
 
     // Allow `skip` functions to be threaded together without having
     // to check for failures (did someone say monads?).
     /* c8 ignore next 3 */
-    if (index === false) {
+    if (startIndex === false) {
       return false;
     }
 
     const { length } = text;
-    let cursor = index;
+    let cursor = startIndex;
     while (cursor >= 0 && cursor < length) {
-      const c = text.charAt(cursor);
-      if (chars instanceof RegExp) {
-        if (!chars.test(c)) {
+      const character = text.charAt(cursor);
+      if (characters instanceof RegExp) {
+        if (!characters.test(character)) {
           return cursor;
         }
-      } else if (!chars.includes(c)) {
+      } else if (!characters.includes(character)) {
         return cursor;
       }
 
@@ -44,19 +44,19 @@ function skip(chars) {
 }
 
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
  */
 const skipWhitespace = skip(/\s/);
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
  */
 const skipSpaces = skip(" \t");
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
  */
 const skipToLineEnd = skip(",; \t");
 /**
- * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ * @type {(text: string, startIndex: number | false, options?: SkipOptions) => number | false}
  */
 const skipEverythingButNewLine = skip(/[^\n\r]/);
 

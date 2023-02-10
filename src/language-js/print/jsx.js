@@ -1,4 +1,7 @@
-import { printComments, printDanglingComments } from "../../main/comments.js";
+import {
+  printComments,
+  printDanglingComments,
+} from "../../main/comments/print.js";
 import {
   line,
   hardline,

@@ -1,4 +1,8 @@
-import { getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex } from "./util.js";
+import {
+  getNextNonSpaceNonCommentCharacterIndex as getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
+  isPreviousLineEmpty as isPreviousLineEmptyWithStartIndex,
+  isNextLineEmpty as isNextLineEmptyAfterIndex,
+} from "./util.js";
 
 // Legacy version of `getNextNonSpaceNonCommentCharacterIndex`
 /**
@@ -29,6 +33,57 @@ export function getNextNonSpaceNonCommentCharacterIndex(text, startIndex) {
       legacyGetNextNonSpaceNonCommentCharacterIndex(...arguments);
 }
 
+// Legacy version of `isPreviousLineEmpty`
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locStart
+ */
+function legacyIsPreviousLineEmpty(text, node, locStart) {
+  return isPreviousLineEmptyWithStartIndex(text, locStart(node));
+}
+
+// TODO: export `isPreviousLineEmpty` directly in v4
+/**
+ * @param {string} text
+ * @param {number} startIndex
+ * @returns {boolean}
+ */
+export function isPreviousLineEmpty(text, startIndex) {
+  return arguments.length === 2 || typeof startIndex === "number"
+    ? isPreviousLineEmptyWithStartIndex(text, startIndex)
+    : // @ts-expect-error -- expected
+      // eslint-disable-next-line prefer-rest-params
+      legacyIsPreviousLineEmpty(...arguments);
+}
+
+// Legacy version of `isNextLineEmpty`
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {boolean}
+ */
+function legacyIsNextLineEmpty(text, node, locEnd) {
+  return isNextLineEmptyAfterIndex(text, locEnd(node));
+}
+
+// TODO: export `isNextLineEmpty` directly in v4
+/**
+ * @param {string} text
+ * @param {number} startIndex
+ * @returns {boolean}
+ */
+export function isNextLineEmpty(text, startIndex) {
+  return arguments.length === 2 || typeof startIndex === "number"
+    ? isNextLineEmptyAfterIndex(text, startIndex)
+    : // @ts-expect-error -- expected
+      // eslint-disable-next-line prefer-rest-params
+      legacyIsNextLineEmpty(...arguments);
+}
+
 export {
   getMaxContinuousCount,
   getStringWidth,
@@ -45,12 +100,13 @@ export {
   hasNewline,
   hasNewlineInRange,
   hasSpaces,
-  isNextLineEmpty,
-  isNextLineEmptyAfterIndex,
-  isPreviousLineEmpty,
   getNextNonSpaceNonCommentCharacter,
   makeString,
+  // Remove this in v4
+  isNextLineEmpty as isNextLineEmptyAfterIndex,
+} from "./util.js";
+export {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-} from "./util.js";
+} from "../main/comments/utils.js";
