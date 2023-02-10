@@ -24,6 +24,7 @@ import { locStart, locEnd } from "../loc.js";
 
 import {
   printOptionalToken,
+  printDeclareToken,
   printTypeScriptAccessibilityToken,
 } from "./misc.js";
 import { printTernary } from "./ternary.js";
@@ -53,7 +54,6 @@ import {
   printTypeAnnotationProperty,
 } from "./type-annotation.js";
 import { printEnumDeclaration, printEnumMember } from "./enum.js";
-import { printDeclareToken } from "./misc.js";
 
 function printTypescript(path, options, print) {
   const { node } = path;
@@ -182,8 +182,6 @@ function printTypescript(path, options, print) {
     case "TSTypeQuery":
       return ["typeof ", print("exprName"), print("typeParameters")];
     case "TSIndexSignature": {
-      const { parent } = path;
-
       // The typescript parser accepts multiple parameters here. If you're
       // using them, it makes sense to have a trailing comma. But if you
       // aren't, this is more like a computed property name than an array.
@@ -202,16 +200,18 @@ function printTypescript(path, options, print) {
         softline,
       ]);
 
+      const isClassMember =
+        path.parent.type === "ClassBody" && path.key === "body";
+
       return [
-        printTypeScriptAccessibilityToken(node),
-        node.static ? "static " : "",
+        // `static` only allowed in class member
+        isClassMember && node.static ? "static " : "",
         node.readonly ? "readonly " : "",
-        printDeclareToken(path),
         "[",
         node.parameters ? parametersGroup : "",
         "]",
         printTypeAnnotationProperty(path, print),
-        parent.type === "ClassBody" ? semi : "",
+        isClassMember ? semi : "",
       ];
     }
     case "TSTypePredicate":
