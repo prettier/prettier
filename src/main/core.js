@@ -366,7 +366,10 @@ async function printToDoc(originalText, options) {
 }
 
 async function printDocToString(doc, options) {
-  return printDocToString(doc, await normalizeOptions(options));
+  return printDocToStringWithoutNormalizeOptions(
+    doc,
+    await normalizeOptions(options)
+  );
 }
 
 export {
