@@ -15,7 +15,7 @@ import {
 import * as languages from "./languages.js";
 import * as errors from "./common/errors.js";
 import * as coreOptions from "./main/core-options.evaluate.js";
-import createIgnorer from "./common/create-ignorer.js";
+import { createIsIgnoredFunction } from "./utils/ignore.js";
 import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
 import normalizeOptions from "./main/options-normalizer.js";
 import arrayify from "./utils/arrayify.js";
@@ -77,7 +77,7 @@ const getSupportInfo = withPlugins(getSupportInfoWithoutPlugins, 0);
 const sharedWithCli = {
   errors,
   coreOptions,
-  createIgnorer,
+  createIsIgnoredFunction,
   optionsHiddenDefaults,
   normalizeOptions,
   getSupportInfoWithoutPlugins,

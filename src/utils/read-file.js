@@ -12,7 +12,7 @@ async function readFile(filename) {
       return;
     }
 
-    throw new Error(`Unable to read ${filename}: ${error.message}`);
+    throw new Error(`Unable to read '${filename}': ${error.message}`);
   }
 }
 
