@@ -1,6 +1,6 @@
 import vnopts from "vnopts";
 import fastGlob from "fast-glob";
-import core from "./main/core.js";
+import * as core from "./main/core.js";
 import { getSupportInfo as getSupportInfoWithoutPlugins } from "./main/support.js";
 import getFileInfoWithoutPlugins from "./common/get-file-info.js";
 import {
@@ -92,7 +92,7 @@ const sharedWithCli = {
 
 const debugApis = {
   parse: withPlugins(core.parse),
-  formatAST: withPlugins(core.formatAST),
+  formatAST: withPlugins(core.formatAst),
   formatDoc: withPlugins(core.formatDoc),
   printToDoc: withPlugins(core.printToDoc),
   printDocToString: withPlugins(core.printDocToString),
