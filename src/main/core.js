@@ -1,6 +1,6 @@
 import { diffArrays } from "diff";
 
-import { printDocToString } from "../document/printer.js";
+import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import { printDocToDebug } from "../document/debug.js";
 import { getAlignmentSize } from "../common/util.js";
 import {
@@ -12,7 +12,7 @@ import {
 import { normalize as normalizeOptions } from "./options.js";
 import massageAst from "./massage-ast.js";
 import { ensureAllCommentsPrinted, attach } from "./comments.js";
-import { parse, resolveParser } from "./parser.js";
+import { parse as parseText, resolveParser } from "./parser.js";
 import printAstToDoc from "./ast-to-doc.js";
 import { calculateRange, findNodeAtOffset } from "./range-util.js";
 
@@ -37,7 +37,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
     return { formatted: "", cursorOffset: -1, comments: [] };
   }
 
-  const { ast, text } = await parse(originalText, opts);
+  const { ast, text } = await parseText(originalText, opts);
 
   if (opts.cursorOffset >= 0) {
     const nodeResult = findNodeAtOffset(ast, opts.cursorOffset, opts);
@@ -49,7 +49,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
   const astComments = attachComments(text, ast, opts);
   const doc = await printAstToDoc(ast, opts, addAlignmentSize);
 
-  const result = printDocToString(doc, opts);
+  const result = printDocToStringWithoutNormalizeOptions(doc, opts);
 
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
@@ -143,7 +143,7 @@ async function coreFormat(originalText, opts, addAlignmentSize = 0) {
 }
 
 async function formatRange(originalText, opts) {
-  const { ast, text } = await parse(originalText, opts);
+  const { ast, text } = await parseText(originalText, opts);
   const { rangeStart, rangeEnd } = calculateRange(text, opts, ast);
   const rangeString = text.slice(rangeStart, rangeEnd);
 
@@ -321,56 +321,59 @@ async function formatWithCursor(originalText, originalOptions) {
   return result;
 }
 
-const prettier = {
-  formatWithCursor,
-
-  async parse(originalText, originalOptions, devOptions) {
-    const { text, options } = normalizeInputAndOptions(
-      originalText,
-      await normalizeOptions(originalOptions)
-    );
-    const parsed = await parse(text, options);
-    if (devOptions) {
-      if (devOptions.massage) {
-        parsed.ast = massageAst(parsed.ast, options);
-      }
-      if (devOptions.preprocessForPrint) {
-        attachComments(parsed.text, parsed.ast, options);
-        if (options.printer.preprocess) {
-          parsed.ast = await options.printer.preprocess(parsed.ast, options);
-        }
+async function parse(originalText, originalOptions, devOptions) {
+  const { text, options } = normalizeInputAndOptions(
+    originalText,
+    await normalizeOptions(originalOptions)
+  );
+  const parsed = await parse(text, options);
+  if (devOptions) {
+    if (devOptions.massage) {
+      parsed.ast = massageAst(parsed.ast, options);
+    }
+    if (devOptions.preprocessForPrint) {
+      attachComments(parsed.text, parsed.ast, options);
+      if (options.printer.preprocess) {
+        parsed.ast = await options.printer.preprocess(parsed.ast, options);
       }
     }
-    return parsed;
-  },
+  }
+  return parsed;
+}
 
-  async formatAST(ast, options) {
-    options = await normalizeOptions(options);
-    const doc = await printAstToDoc(ast, options);
-    return printDocToString(doc, options);
-  },
+async function formatAst(ast, options) {
+  options = await normalizeOptions(options);
+  const doc = await printAstToDoc(ast, options);
+  return printDocToStringWithoutNormalizeOptions(doc, options);
+}
 
-  // Doesn't handle shebang for now
-  async formatDoc(doc, options) {
-    const text = printDocToDebug(doc);
-    const { formatted } = await formatWithCursor(text, {
-      ...options,
-      parser: "__js_expression",
-    });
+// Doesn't handle shebang for now
+async function formatDoc(doc, options) {
+  const text = printDocToDebug(doc);
+  const { formatted } = await formatWithCursor(text, {
+    ...options,
+    parser: "__js_expression",
+  });
 
-    return formatted;
-  },
+  return formatted;
+}
 
-  async printToDoc(originalText, options) {
-    options = await normalizeOptions(options);
-    const { ast, text } = await parse(originalText, options);
-    attachComments(text, ast, options);
-    return printAstToDoc(ast, options);
-  },
+async function printToDoc(originalText, options) {
+  options = await normalizeOptions(options);
+  const { ast, text } = await parse(originalText, options);
+  attachComments(text, ast, options);
+  return printAstToDoc(ast, options);
+}
 
-  async printDocToString(doc, options) {
-    return printDocToString(doc, await normalizeOptions(options));
-  },
+async function printDocToString(doc, options) {
+  return printDocToString(doc, await normalizeOptions(options));
+}
+
+export {
+  formatWithCursor,
+  parse,
+  formatAst,
+  formatDoc,
+  printToDoc,
+  printDocToString,
 };
-
-export default prettier;
