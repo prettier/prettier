@@ -1,4 +1,5 @@
-import { isNonEmptyArray, createGroupIdMapper } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   printComments,
   printDanglingComments,

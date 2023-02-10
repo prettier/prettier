@@ -1,10 +1,8 @@
-import {
-  hasNewline,
-  getNextNonSpaceNonCommentCharacterIndex,
-  getNextNonSpaceNonCommentCharacter,
-  hasNewlineInRange,
-  isNonEmptyArray,
-} from "../../common/util.js";
+import hasNewline from "../../utils/has-newline.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
   addLeadingComment,
   addTrailingComment,

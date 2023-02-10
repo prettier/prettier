@@ -20,7 +20,7 @@ import { hiddenDefaults as optionsHiddenDefaults } from "./main/options.js";
 import normalizeOptions from "./main/options-normalizer.js";
 import arrayify from "./utils/arrayify.js";
 import partition from "./utils/partition.js";
-import { isNonEmptyArray } from "./common/util.js";
+import isNonEmptyArray from "./utils/is-non-empty-array.js";
 
 const builtinPlugins = Object.values(languages);
 
@@ -110,6 +110,6 @@ export {
   sharedWithCli as __internal,
   debugApis as __debug,
 };
-export * as util from "./common/util-shared.js";
+export * as util from "./utils/public.js";
 export * as doc from "./document/index.js";
 export { default as version } from "./main/version.evaluate.cjs";

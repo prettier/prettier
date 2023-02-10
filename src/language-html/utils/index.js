@@ -2,7 +2,7 @@
  * @typedef {import("../../common/ast-path.js").default} AstPath
  */
 
-import { isFrontMatterNode } from "../../common/util.js";
+import isFrontMatter from "../../utils/front-matter/is-front-matter.js";
 import inferParserByLanguage from "../../utils/infer-parser-by-language.js";
 import { line, hardline, join } from "../../document/builders.js";
 import { replaceEndOfLine } from "../../document/utils.js";
@@ -144,7 +144,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
   return isLeadingSpaceSensitive;
 
   function _isLeadingSpaceSensitiveNode() {
-    if (isFrontMatterNode(node)) {
+    if (isFrontMatter(node)) {
       return false;
     }
 
@@ -187,7 +187,7 @@ function isLeadingSpaceSensitiveNode(node, options) {
 }
 
 function isTrailingSpaceSensitiveNode(node, options) {
-  if (isFrontMatterNode(node)) {
+  if (isFrontMatter(node)) {
     return false;
   }
 
@@ -237,7 +237,7 @@ function isDanglingSpaceSensitiveNode(node) {
 
 function forceNextEmptyLine(node) {
   return (
-    isFrontMatterNode(node) ||
+    isFrontMatter(node) ||
     (node.next &&
       node.sourceSpan.end &&
       node.sourceSpan.end.line + 1 < node.next.sourceSpan.start.line)

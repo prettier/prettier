@@ -1,10 +1,8 @@
 import isEs5IdentifierName from "@prettier/is-es5-identifier-name";
-import {
-  hasNewline,
-  isNonEmptyArray,
-  isNextLineEmpty as isNextLineEmptyAfterIndex,
-  getStringWidth,
-} from "../../common/util.js";
+import hasNewline from "../../utils/has-newline.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getStringWidth from "../../utils/get-string-width.js";
 import { locStart, locEnd, hasSameLocStart } from "../loc.js";
 import getVisitorKeys from "../traverse/get-visitor-keys.js";
 import isBlockComment from "./is-block-comment.js";

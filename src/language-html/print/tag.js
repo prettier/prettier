@@ -3,7 +3,7 @@
  */
 
 import assert from "node:assert";
-import { isNonEmptyArray } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
   indent,
   join,

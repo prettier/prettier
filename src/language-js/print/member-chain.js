@@ -1,8 +1,6 @@
 import { printComments } from "../../main/comments/print.js";
-import {
-  isNextLineEmpty as isNextLineEmptyAfterIndex,
-  getNextNonSpaceNonCommentCharacterIndex,
-} from "../../common/util.js";
+import isNextLineEmptyAfterIndex from "../../utils/is-next-line-empty.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import pathNeedsParens from "../needs-parens.js";
 import {
   isCallExpression,

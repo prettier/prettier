@@ -8,7 +8,7 @@ import {
   ifBreak,
   fill,
 } from "../../document/builders.js";
-import { hasNewline } from "../../common/util.js";
+import hasNewline from "../../utils/has-newline.js";
 import {
   shouldPrintComma,
   hasComment,

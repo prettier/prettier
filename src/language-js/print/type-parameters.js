@@ -18,7 +18,7 @@ import {
   isObjectType,
   getTypeScriptMappedTypeModifier,
 } from "../utils/index.js";
-import { createGroupIdMapper } from "../../common/util.js";
+import createGroupIdMapper from "../../utils/create-group-id-mapper.js";
 import {
   printTypeAnnotationProperty,
   shouldHugType,

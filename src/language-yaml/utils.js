@@ -1,4 +1,4 @@
-import { isNonEmptyArray } from "../common/util.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 
 /**
  * @param {any} value

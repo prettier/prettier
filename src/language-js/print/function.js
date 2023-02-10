@@ -5,7 +5,7 @@ import {
   printDanglingComments,
   printCommentsSeparately,
 } from "../../main/comments/print.js";
-import { getNextNonSpaceNonCommentCharacterIndex } from "../../common/util.js";
+import getNextNonSpaceNonCommentCharacterIndex from "../../utils/get-next-non-space-non-comment-character-index.js";
 import {
   line,
   softline,
