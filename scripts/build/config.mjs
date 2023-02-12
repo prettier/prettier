@@ -110,7 +110,8 @@ const pluginFiles = [
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = [] || "
-            );
+            )
+            .replace('require("./resolveProjectList")', "{}");
         },
       },
       {
@@ -134,15 +135,6 @@ const pluginFiles = [
             'require("path")',
             "{extname: file => file.split('.').pop()}"
           ),
-      },
-      {
-        module: require.resolve(
-          "@typescript-eslint/typescript-estree/dist/create-program/shared.js"
-        ),
-        process: (text) =>
-          text
-            .replace('require("path")', "{}")
-            .replace("moduleResolver = require(moduleResolverPath);", ""),
       },
       {
         module: require.resolve(
