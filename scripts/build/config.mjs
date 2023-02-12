@@ -99,6 +99,7 @@ const pluginFiles = [
         ),
         process(text) {
           return text
+            .replace('require("./resolveProjectList")', "{}")
             .replace(
               'require("../create-program/shared")',
               "{ensureAbsolutePath: path => path}"
@@ -110,8 +111,7 @@ const pluginFiles = [
             .replace(
               "parseSettings.projects = ",
               "parseSettings.projects = [] || "
-            )
-            .replace('require("./resolveProjectList")', "{}");
+            );
         },
       },
       {
