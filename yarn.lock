@@ -6272,10 +6272,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:1.2.7, minimist@npm:^1.2.0, minimist@npm:^1.2.6":
-  version: 1.2.7
-  resolution: "minimist@npm:1.2.7"
-  checksum: 7346574a1038ca23c32e02252f603801f09384dd1d78b69a943a4e8c2c28730b80e96193882d3d3b22a063445f460e48316b29b8a25addca2d7e5e8f75478bec
+"minimist@npm:1.2.8, minimist@npm:^1.2.0, minimist@npm:^1.2.6":
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 75a6d645fb122dad29c06a7597bddea977258957ed88d7a6df59b5cd3fe4a527e253e9bbf2e783e4b73657f9098b96a5fe96ab8a113655d4109108577ecf85b0
   languageName: node
   linkType: hard
 
@@ -7209,7 +7209,7 @@ __metadata:
     mem: 9.0.2
     meriyah: 4.3.3
     micromatch: 4.0.5
-    minimist: 1.2.7
+    minimist: 1.2.8
     n-readlines: 1.0.1
     npm-run-all: 4.1.5
     outdent: 0.8.0
