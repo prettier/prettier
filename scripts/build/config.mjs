@@ -86,8 +86,6 @@ const pluginFiles = [
         ),
         process(text) {
           text = text
-            .replace('require("semver")', "{}")
-            .replace('require("path")', "{}")
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
@@ -101,8 +99,6 @@ const pluginFiles = [
         ),
         process(text) {
           return text
-            .replace('require("globby")', "{}")
-            .replace('require("is-glob")', "{}")
             .replace(
               'require("../create-program/shared")',
               "{ensureAbsolutePath: path => path}"
@@ -138,6 +134,15 @@ const pluginFiles = [
             'require("path")',
             "{extname: file => file.split('.').pop()}"
           ),
+      },
+      {
+        module: require.resolve(
+          "@typescript-eslint/typescript-estree/dist/create-program/shared.js"
+        ),
+        process: (text) =>
+          text
+            .replace('require("path")', "{}")
+            .replace("moduleResolver = require(moduleResolverPath);", ""),
       },
       {
         module: require.resolve(
