@@ -86,8 +86,6 @@ const pluginFiles = [
         ),
         process(text) {
           text = text
-            .replace('require("semver")', "{}")
-            .replace('require("path")', "{}")
             .replace('require("./create-program/createDefaultProgram")', "{}")
             .replace('require("./create-program/createIsolatedProgram")', "{}")
             .replace('require("./create-program/createProjectProgram")', "{}")
@@ -101,8 +99,7 @@ const pluginFiles = [
         ),
         process(text) {
           return text
-            .replace('require("globby")', "{}")
-            .replace('require("is-glob")', "{}")
+            .replace('require("./resolveProjectList")', "{}")
             .replace(
               'require("../create-program/shared")',
               "{ensureAbsolutePath: path => path}"
