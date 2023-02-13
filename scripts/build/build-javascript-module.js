@@ -178,7 +178,6 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
     // Replace parser getters with `undefined`
     for (const file of [
       "src/language-css/parsers.js",
-      "src/language-graphql/parsers.js",
       "src/language-html/parsers.js",
       "src/language-handlebars/parsers.js",
       "src/language-js/parse/parsers.js",
@@ -192,6 +191,13 @@ function getEsbuildOptions({ file, files, shouldCollectLicenses, cliOptions }) {
         text: "export default undefined;",
       });
     }
+
+    // TODO: We should not include any plugins in standalone version
+    replaceModule.push({
+      module: path.join(PROJECT_ROOT, "src/languages.js"),
+      find: 'export * as graphql from "./language-graphql/index.js";',
+      replacement: "",
+    });
   }
 
   const { buildOptions } = file;
