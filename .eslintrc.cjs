@@ -29,6 +29,7 @@ module.exports = {
     "logical-assignment-operators": "error",
     "no-console": isCI ? "error" : "warn",
     "no-constant-binary-expression": "error",
+    "no-duplicate-imports": "error",
     "no-else-return": [
       "error",
       {

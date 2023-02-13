@@ -1,8 +1,12 @@
 import createError from "../common/parser-create-error.js";
 import parseFrontMatter from "../utils/front-matter/parse.js";
 import { hasPragma } from "./pragma.js";
-import { locStart, locEnd } from "./loc.js";
-import { calculateLoc, replaceQuotesInInlineComments } from "./loc.js";
+import {
+  locStart,
+  locEnd,
+  calculateLoc,
+  replaceQuotesInInlineComments,
+} from "./loc.js";
 import hasSCSSInterpolation from "./utils/has-scss-interpolation.js";
 import hasStringOrFunction from "./utils/has-string-or-function.js";
 import isSCSSNestedPropertyNode from "./utils/is-scss-nested-property-node.js";
