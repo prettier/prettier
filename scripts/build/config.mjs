@@ -252,7 +252,11 @@ const pluginFiles = [
       },
     ],
   },
-  { input: "src/language-graphql/index.js", outputBaseName: "graphql" },
+  {
+    input: "src/language-graphql/index.js",
+    outputBaseName: "graphql",
+    interopDefault: false,
+  },
   {
     input: "src/language-markdown/parser-markdown.js",
     replaceModule: [
