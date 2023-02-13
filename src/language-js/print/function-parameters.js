@@ -1,4 +1,4 @@
-import { getNextNonSpaceNonCommentCharacter } from "../../common/util.js";
+import getNextNonSpaceNonCommentCharacter from "../../utils/get-next-non-space-non-comment-character.js";
 import { printDanglingComments } from "../../main/comments/print.js";
 import {
   line,

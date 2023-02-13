@@ -10,7 +10,8 @@ import {
   softline,
 } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
-import { getPreferredQuote, isNonEmptyArray } from "../common/util.js";
+import getPreferredQuote from "../utils/get-preferred-quote.js";
+import isNonEmptyArray from "../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../utils/unexpected-node-error.js";
 import { locStart, locEnd } from "./loc.js";
 import clean from "./clean.js";
@@ -686,7 +687,7 @@ function generateHardlines(number = 0) {
 
 /* StringLiteral print helpers */
 
-/** @typedef {import("../common/util.js").Quote} Quote */
+/** @typedef {import("../utils/get-preferred-quote.js").Quote} Quote */
 
 /**
  * Prints a string literal with the correct surrounding quotes based on

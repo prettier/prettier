@@ -1,4 +1,4 @@
-import { isFrontMatterNode } from "../common/util.js";
+import isFrontMatter from "../utils/front-matter/is-front-matter.js";
 
 const ignoredProperties = new Set([
   "raw", // front-matter
@@ -12,7 +12,7 @@ const ignoredProperties = new Set([
 ]);
 
 function clean(ast, newObj, parent) {
-  if (isFrontMatterNode(ast) && ast.lang === "yaml") {
+  if (isFrontMatter(ast) && ast.lang === "yaml") {
     delete newObj.value;
   }
 
@@ -25,7 +25,7 @@ function clean(ast, newObj, parent) {
     // first non-front-matter comment
     if (
       parent.nodes[0] === ast ||
-      (isFrontMatterNode(parent.nodes[0]) && parent.nodes[1] === ast)
+      (isFrontMatter(parent.nodes[0]) && parent.nodes[1] === ast)
     ) {
       /**
        * something

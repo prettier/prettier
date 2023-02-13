@@ -1,5 +1,6 @@
 import { printComments } from "../../main/comments/print.js";
-import { printString, printNumber } from "../../common/util.js";
+import printString from "../../utils/print-string.js";
+import printNumber from "../../utils/print-number.js";
 import {
   isNumericLiteral,
   isSimpleNumber,

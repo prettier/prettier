@@ -16,8 +16,7 @@ import {
 } from "../../document/builders.js";
 import { willBreak, replaceEndOfLine } from "../../document/utils.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
-
-import { getPreferredQuote } from "../../common/util.js";
+import getPreferredQuote from "../../utils/get-preferred-quote.js";
 import {
   isJsxElement,
   rawText,

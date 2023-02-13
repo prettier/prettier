@@ -1,4 +1,4 @@
-import { isNonEmptyArray } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import UnexpectedNodeError from "../../utils/unexpected-node-error.js";
 import {
   softline,

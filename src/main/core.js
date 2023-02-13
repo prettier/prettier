@@ -2,7 +2,7 @@ import { diffArrays } from "diff";
 
 import { printDocToString as printDocToStringWithoutNormalizeOptions } from "../document/printer.js";
 import { printDocToDebug } from "../document/debug.js";
-import { getAlignmentSize } from "../common/util.js";
+import getAlignmentSize from "../utils/get-alignment-size.js";
 import {
   guessEndOfLine,
   convertEndOfLineToChars,

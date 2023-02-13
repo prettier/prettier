@@ -1,4 +1,5 @@
-import { isNonEmptyArray, getStringWidth } from "../../common/util.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
+import getStringWidth from "../../utils/get-string-width.js";
 import {
   line,
   group,

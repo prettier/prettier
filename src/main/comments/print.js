@@ -7,13 +7,11 @@ import {
   join,
   label,
 } from "../../document/builders.js";
-import {
-  hasNewline,
-  skipNewline,
-  skipSpaces,
-  isPreviousLineEmpty,
-  isNonEmptyArray,
-} from "../../common/util.js";
+import hasNewline from "../../utils/has-newline.js";
+import skipNewline from "../../utils/skip-newline.js";
+import { skipSpaces } from "../../utils/skip.js";
+import isPreviousLineEmpty from "../../utils/is-previous-line-empty.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 
 /**
  * @typedef {import("../../common/ast-path.js").default} AstPath

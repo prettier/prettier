@@ -1,4 +1,5 @@
-import { printString, printNumber } from "../../common/util.js";
+import printString from "../../utils/print-string.js";
+import printNumber from "../../utils/print-number.js";
 import { replaceEndOfLine } from "../../document/utils.js";
 import { printDirective } from "./misc.js";
 

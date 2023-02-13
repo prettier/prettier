@@ -7,11 +7,9 @@ import {
   ifBreak,
   hardline,
 } from "../../document/builders.js";
-import {
-  hasNewlineInRange,
-  hasNewline,
-  isNonEmptyArray,
-} from "../../common/util.js";
+import hasNewlineInRange from "../../utils/has-newline-in-range.js";
+import hasNewline from "../../utils/has-newline.js";
+import isNonEmptyArray from "../../utils/is-non-empty-array.js";
 import {
   shouldPrintComma,
   hasComment,

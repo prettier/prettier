@@ -39,7 +39,7 @@ for (const name of debugApiFunctionNames) {
 prettier.__debug = debugApis;
 
 if (process.env.NODE_ENV === "production") {
-  prettier.util = require("./common/util-shared.js");
+  prettier.util = require("./utils/public.js");
   prettier.doc = require("./document/index.js");
 } else {
   Object.defineProperties(prettier, {

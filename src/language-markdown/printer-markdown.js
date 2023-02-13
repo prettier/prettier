@@ -1,9 +1,7 @@
 import collapseWhiteSpace from "collapse-white-space";
-import {
-  getMinNotPresentContinuousCount,
-  getMaxContinuousCount,
-  getStringWidth,
-} from "../common/util.js";
+import getMinNotPresentContinuousCount from "../utils/get-min-not-present-continuous-count.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
+import getStringWidth from "../utils/get-string-width.js";
 import {
   breakParent,
   join,

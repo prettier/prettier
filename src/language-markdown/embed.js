@@ -1,4 +1,4 @@
-import { getMaxContinuousCount } from "../common/util.js";
+import getMaxContinuousCount from "../utils/get-max-continuous-count.js";
 import { hardline, markAsRoot } from "../document/builders.js";
 import { replaceEndOfLine } from "../document/utils.js";
 import printFrontMatter from "../utils/front-matter/print.js";

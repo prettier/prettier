@@ -57,6 +57,6 @@ export {
   getSupportInfo,
   debugApis as __debug,
 };
-export * as util from "./common/util-shared.js";
+export * as util from "./utils/public.js";
 export * as doc from "./document/index.js";
 export { default as version } from "./main/version.evaluate.cjs";
