@@ -252,11 +252,7 @@ const pluginFiles = [
       },
     ],
   },
-  {
-    input: "src/language-graphql/index.js",
-    outputBaseName: "graphql",
-    interopDefault: false,
-  },
+  { input: "src/language-graphql/index.js", interopDefault: false },
   {
     input: "src/language-markdown/parser-markdown.js",
     replaceModule: [
@@ -307,8 +303,9 @@ const pluginFiles = [
 
   let { input, umdPropertyName, outputBaseName, ...buildOptions } = file;
 
-  outputBaseName ??= input.match(
-    /(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/
+  outputBaseName ??= (
+    input.match(/\/(?:parser-|parse\/)(?<outputBaseName>.*?)\.js$/) ??
+    input.match(/\/language-(?<outputBaseName>.*?)\/index\.js$/)
   ).groups.outputBaseName;
 
   const umdVariableName = `prettierPlugins.${
