@@ -88,6 +88,7 @@ import { printBlock, printBlockBody } from "./print/block.js";
 import { printLiteral } from "./print/literal.js";
 import { printDecorators } from "./print/decorators.js";
 import { printTypeAnnotationProperty } from "./print/type-annotation.js";
+import { shouldPrintLeadingSemicolon } from "./print/semicolon.js";
 
 /**
  * @typedef {import("../common/ast-path.js").default} AstPath
@@ -143,7 +144,7 @@ function genericPrint(path, options, print, args) {
   }
 
   const needsParens = pathNeedsParens(path, options);
-  const needsSemi = args?.needsSemi;
+  const needsSemi = shouldPrintLeadingSemicolon(path, options);
 
   if (!needsParens) {
     if (needsSemi) {
