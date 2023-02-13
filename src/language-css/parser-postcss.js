@@ -673,7 +673,6 @@ async function parseWithParser(parse, text, options) {
     });
   }
 
-  options.originalText = text;
   result = await parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   calculateLoc(result, text);

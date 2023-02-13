@@ -29,7 +29,6 @@ function attachComments(text, ast, opts) {
   }
   opts[Symbol.for("comments")] = astComments || [];
   opts[Symbol.for("tokens")] = ast.tokens || [];
-  opts.originalText = text;
   return astComments;
 }
 

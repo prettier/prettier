@@ -158,8 +158,6 @@ function createParse({ isExpression = false, optionsCombinations }) {
       throw createBabelParseError(error);
     }
 
-    opts.originalText = text;
-
     if (isExpression) {
       ast = wrapBabelExpression(ast, opts);
     }
