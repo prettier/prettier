@@ -47,7 +47,6 @@ import {
   adjustClause,
   printRestSpread,
   printDefiniteToken,
-  printDirective,
   printDeclareToken,
 } from "./print/misc.js";
 import {
@@ -432,8 +431,6 @@ function printPathNoParens(path, options, print, args) {
       return "super";
     case "Directive":
       return [print("value"), semi]; // Babel 6
-    case "DirectiveLiteral":
-      return printDirective(node.extra.raw, options);
     case "UnaryExpression":
       parts.push(node.operator);
 
