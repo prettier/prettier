@@ -22,7 +22,9 @@ function canAttachComment(node) {
     node.type !== "TemplateElement" &&
     node.type !== "Import" &&
     // `babel-ts` doesn't have similar node for `class Foo { bar() /* bat */; }`
-    node.type !== "TSEmptyBodyFunctionExpression"
+    node.type !== "TSEmptyBodyFunctionExpression" &&
+    // `babel` doesn't have similar node to attach comments
+    node.type !== "ChainExpression"
   );
 }
 

@@ -63,7 +63,8 @@ function hasNakedLeftSide(node) {
     node.type === "BindExpression" ||
     (node.type === "UpdateExpression" && !node.prefix) ||
     isTSTypeExpression(node) ||
-    node.type === "TSNonNullExpression"
+    node.type === "TSNonNullExpression" ||
+    node.type === "ChainExpression"
   );
 }
 
@@ -546,6 +547,10 @@ function isSimpleTemplateLiteral(node) {
       return true;
     }
 
+    if (expr.type === "ChainExpression") {
+      expr = expr.expression;
+    }
+
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
     if (isMemberExpression(expr)) {
       let head = expr;
@@ -897,6 +902,7 @@ function startsWithNoLookaheadToken(node, predicate) {
       return node.object && startsWithNoLookaheadToken(node.object, predicate);
     case "SequenceExpression":
       return startsWithNoLookaheadToken(node.expressions[0], predicate);
+    case "ChainExpression":
     case "TSSatisfiesExpression":
     case "TSAsExpression":
     case "TSNonNullExpression":

@@ -203,6 +203,18 @@ function clean(ast, newObj, parent) {
   ) {
     return newObj.types[0];
   }
+
+  // We print `(a?.b!).c` as `(a?.b)!.c`, but `typescript` parse them differently
+  if (
+    ast.type === "ChainExpression" &&
+    ast.expression.type === "TSNonNullExpression"
+  ) {
+    // Ideally, we should swap these two nodes, but `type` is the only difference
+    [newObj.type, newObj.expression.type] = [
+      newObj.expression.type,
+      newObj.type,
+    ];
+  }
 }
 
 clean.ignoredProperties = ignoredProperties;

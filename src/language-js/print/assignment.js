@@ -331,7 +331,7 @@ function isPoorlyBreakableMemberOrCallChain(
   const goDeeper = () =>
     isPoorlyBreakableMemberOrCallChain(path, options, print, true);
 
-  if (node.type === "TSNonNullExpression") {
+  if (node.type === "ChainExpression" || node.type === "TSNonNullExpression") {
     return path.call(goDeeper, "expression");
   }
 

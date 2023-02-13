@@ -1,4 +1,5 @@
 import { indent, line } from "../../document/builders.js";
+import { isCallExpression, isMemberExpression } from "../utils/index.js";
 import { printTypeAnnotationProperty } from "./type-annotation.js";
 
 /**
@@ -21,8 +22,8 @@ function printOptionalToken(path) {
     return "";
   }
   if (
-    node.type === "OptionalCallExpression" ||
-    (node.type === "OptionalMemberExpression" && node.computed) ||
+    isCallExpression(node) ||
+    (isMemberExpression(node) && node.computed) ||
     node.type === "OptionalIndexedAccessType"
   ) {
     return "?.";

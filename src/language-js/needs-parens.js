@@ -772,25 +772,15 @@ function needsParens(path, options) {
         default:
           return false;
       }
-
     case "OptionalMemberExpression":
-    case "OptionalCallExpression": {
-      const parentParent = path.grandparent;
-      if (
-        (key === "object" && parent.type === "MemberExpression") ||
-        (key === "callee" &&
-          (parent.type === "CallExpression" ||
-            parent.type === "NewExpression")) ||
-        (parent.type === "TSNonNullExpression" &&
-          parentParent.type === "MemberExpression" &&
-          parentParent.object === parent)
-      ) {
-        return true;
-      }
-    }
-    // fallthrough
+    case "OptionalCallExpression":
     case "CallExpression":
     case "MemberExpression":
+      if (shouldAddParenthesesToChainElement(path)) {
+        return true;
+      }
+
+    // fallthrough
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
       if (
@@ -1019,6 +1009,87 @@ function shouldWrapFunctionForExportDefault(path, options) {
     () => shouldWrapFunctionForExportDefault(path, options),
     ...getLeftSidePathName(node)
   );
+}
+
+/*
+Matches following cases:
+
+```js
+(a?.b).c;
+(a?.()).b;
+(a?.b!).c;
+(a?.()!).b;
+(a?.b)!.c;
+(a?.())!.b;
+
+(a?.b)();
+(a?.())();
+
+new (a?.b)();
+new (a?.())();
+```
+*/
+function shouldAddParenthesesToChainElement(path) {
+  // Babel, this was implemented before #13735, can use `path.match` as estree does
+  const { node, parent, grandparent, key } = path;
+  if (
+    (node.type === "OptionalMemberExpression" ||
+      node.type === "OptionalCallExpression") &&
+    ((key === "object" && parent.type === "MemberExpression") ||
+      (key === "callee" &&
+        (parent.type === "CallExpression" ||
+          parent.type === "NewExpression")) ||
+      (parent.type === "TSNonNullExpression" &&
+        grandparent.type === "MemberExpression" &&
+        grandparent.object === parent))
+  ) {
+    return true;
+  }
+
+  // ESTree, same logic as babel
+  if (
+    path.match(
+      () => node.type === "CallExpression" || node.type === "MemberExpression",
+      (node, name) => name === "expression" && node.type === "ChainExpression"
+    ) &&
+    (path.match(
+      undefined,
+      undefined,
+      (node, name) =>
+        (name === "callee" &&
+          ((node.type === "CallExpression" && !node.optional) ||
+            node.type === "NewExpression")) ||
+        (name === "object" &&
+          node.type === "MemberExpression" &&
+          !node.optional)
+    ) ||
+      path.match(
+        undefined,
+        undefined,
+        (node, name) =>
+          name === "expression" && node.type === "TSNonNullExpression",
+        (node, name) => name === "object" && node.type === "MemberExpression"
+      ))
+  ) {
+    return true;
+  }
+
+  // Babel treat `(a?.b!).c` and `(a?.b)!.c` the same, https://github.com/babel/babel/discussions/15077
+  // Use this to align with babel
+  if (
+    path.match(
+      () => node.type === "CallExpression" || node.type === "MemberExpression",
+      (node, name) =>
+        name === "expression" && node.type === "TSNonNullExpression",
+      (node, name) => name === "expression" && node.type === "ChainExpression",
+      (node, name) => name === "object" && node.type === "MemberExpression"
+    )
+  ) {
+    return true;
+  }
+
+  // This function only handle cases above
+  return false;
 }
 
 export default needsParens;

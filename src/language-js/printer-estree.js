@@ -247,6 +247,10 @@ function printPathNoParens(path, options, print, args) {
         danglingComment ? [" ", danglingComment] : "",
       ];
     }
+
+    case "ChainExpression":
+      return print("expression");
+
     // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression": {
       const shouldHug =
