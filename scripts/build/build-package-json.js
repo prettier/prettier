@@ -6,8 +6,8 @@ import {
   writeJson,
 } from "../utils/index.mjs";
 
-async function buildPackageJson({ files }) {
-  const packageJson = await readJson(path.join(PROJECT_ROOT, "package.json"));
+async function buildPackageJson({ file, files }) {
+  const packageJson = await readJson(path.join(PROJECT_ROOT, file.input));
 
   const bin = files.find(
     (file) =>
@@ -75,7 +75,7 @@ async function buildPackageJson({ files }) {
   packageJson.files = files.map(({ output: { file } }) => file).sort();
   packageJson.types = "./index.d.ts";
 
-  await writeJson(path.join(DIST_DIR, "package.json"), packageJson);
+  await writeJson(path.join(DIST_DIR, file.output.file), packageJson);
 }
 
 export default buildPackageJson;
