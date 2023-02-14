@@ -354,6 +354,7 @@ function printTypescript(path, options, print) {
         const isGlobal =
           node.kind === "global" ||
           // TODO: Use `node.kind` when babel update AST
+          // https://github.com/typescript-eslint/typescript-eslint/pull/6443
           node.global;
 
         if (!isGlobal) {
