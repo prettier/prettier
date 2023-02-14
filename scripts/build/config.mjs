@@ -35,7 +35,7 @@ function getDtsFileConfig({ input: jsFileInput, outputBaseName }) {
     output: {
       file: outputBaseName + ".d.ts",
     },
-    kind: "typing",
+    kind: "types",
     build: copyFileBuilder,
   };
 }
@@ -62,7 +62,7 @@ const copyFileBuilder = ({ file }) =>
  * @typedef {Object} File
  * @property {string} input - input of the file
  * @property {Output} output - output of the file
- * @property {"javascript" | "typing" | "meta"} kind - file kind
+ * @property {"javascript" | "types" | "meta"} kind - file kind
  * @property {function} build - file generate function
  * @property {"node" | "universal"} platform - ESBuild platform
  * @property {BuildOptions} buildOptions - ESBuild options

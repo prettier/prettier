@@ -49,7 +49,7 @@ async function buildFile({ file, files, shouldCollectLicenses, cliOptions }) {
   if (
     (file.platform === "universal" && file.output.format !== "esm") ||
     (file.output.file.startsWith("index.") && file.output.format !== "esm") ||
-    file.kind === "typing"
+    file.kind === "types"
   ) {
     displayName = ` ${displayName}`;
   }
