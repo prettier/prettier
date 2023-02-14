@@ -17,8 +17,12 @@ const {
 } = createEsmUtils(import.meta);
 const resolveEsmModulePath = async (specifier) =>
   url.fileURLToPath(await importMetaResolve(specifier));
-
-function getDtsFileConfig({ input: jsFileInput, outputBaseName }) {
+const copyFileBuilder = ({ file }) =>
+  copyFile(
+    path.join(PROJECT_ROOT, file.input),
+    path.join(DIST_DIR, file.output.file)
+  );
+function getTypesFileConfig({ input: jsFileInput, outputBaseName }) {
   const input = jsFileInput.replace(/\.[cm]?js$/, ".d.ts");
   if (!fs.existsSync(path.join(PROJECT_ROOT, input))) {
     return;
@@ -33,12 +37,6 @@ function getDtsFileConfig({ input: jsFileInput, outputBaseName }) {
     build: copyFileBuilder,
   };
 }
-
-const copyFileBuilder = ({ file }) =>
-  copyFile(
-    path.join(PROJECT_ROOT, file.input),
-    path.join(DIST_DIR, file.output.file)
-  );
 
 /**
  * @typedef {Object} BuildOptions
@@ -411,7 +409,7 @@ const universalFiles = [...nonPluginUniversalFiles, ...pluginFiles].flatMap(
         build: buildJavascriptModule,
         kind: "javascript",
       })),
-      getDtsFileConfig({ input, outputBaseName }),
+      getTypesFileConfig({ input, outputBaseName }),
     ];
   }
 );
@@ -496,7 +494,7 @@ const nodejsFiles = [
       build: buildJavascriptModule,
       kind: "javascript",
     },
-    getDtsFileConfig({ input, outputBaseName }),
+    getTypesFileConfig({ input, outputBaseName }),
   ];
 });
 
